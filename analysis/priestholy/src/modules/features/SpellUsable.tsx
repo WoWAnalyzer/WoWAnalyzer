@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, { AnyEvent, DispelEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AnyEvent, DispelEvent } from 'parser/core/Events';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {

@@ -1,16 +1,15 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { formatNumber } from 'common/format';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import React from 'react';
 
 import { WALK_WITH_THE_OX_DAMAGE_INCREASE } from '../../../constants';
 
@@ -34,27 +33,45 @@ export default class WalkWithTheOx extends Analyzer {
     super(options);
 
     this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.WALK_WITH_THE_OX.id);
-    if(!this.rank) {
+    if (!this.rank) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(Events.cast.spell(SPELLS.BLACKOUT_KICK_BRM).by(SELECTED_PLAYER), this.reduceCooldown);
-    this.addEventListener(Events.cast.spell(SPELLS.KEG_SMASH).by(SELECTED_PLAYER), this.reduceCooldown);
+    this.addEventListener(
+      Events.cast.spell(SPELLS.BLACKOUT_KICK_BRM).by(SELECTED_PLAYER),
+      this.reduceCooldown,
+    );
+    this.addEventListener(
+      Events.cast.spell(SPELLS.KEG_SMASH).by(SELECTED_PLAYER),
+      this.reduceCooldown,
+    );
     // SCK generates 1 shuffle application per tick of the channel that hits at
     // least one enemy. this concoction is equal to that in 99% of cases. we
     // could try to determine whether two damage events are for the same tick,
     // but that is way more error-prone with haste shenanigans allowing some
     // VERY short SCKs
-    this.addEventListener(Events.cast.spell(SPELLS.SPINNING_CRANE_KICK_BRM).by(SELECTED_PLAYER), this.startSCK);
-    this.addEventListener(Events.damage.spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE).by(SELECTED_PLAYER), this.reduceCooldownSCK);
+    this.addEventListener(
+      Events.cast.spell(SPELLS.SPINNING_CRANE_KICK_BRM).by(SELECTED_PLAYER),
+      this.startSCK,
+    );
+    this.addEventListener(
+      Events.damage.spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE).by(SELECTED_PLAYER),
+      this.reduceCooldownSCK,
+    );
     // Calculating additional damages on Niuzao
-    this.addEventListener(Events.damage.spell(SPELLS.NIUZAO_STOMP_DAMAGE).by(SELECTED_PLAYER_PET), this.onPetStompDamage);
+    this.addEventListener(
+      Events.damage.spell(SPELLS.NIUZAO_STOMP_DAMAGE).by(SELECTED_PLAYER_PET),
+      this.onPetStompDamage,
+    );
   }
 
   private reduceCooldown() {
-    if(this.spellUsable.isOnCooldown(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id)) {
-      const cdr = this.spellUsable.reduceCooldown(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id, COOLDOWN_REDUCTION);
+    if (this.spellUsable.isOnCooldown(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id)) {
+      const cdr = this.spellUsable.reduceCooldown(
+        SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id,
+        COOLDOWN_REDUCTION,
+      );
       this.effCdr += cdr;
       this.wastedCdr += COOLDOWN_REDUCTION - cdr;
     }
@@ -65,11 +82,11 @@ export default class WalkWithTheOx extends Analyzer {
   }
 
   private reduceCooldownSCK(event: DamageEvent) {
-    if(!this.sckTarget) {
+    if (!this.sckTarget) {
       this.sckTarget = event.targetID;
     }
 
-    if(this.sckTarget !== event.targetID) {
+    if (this.sckTarget !== event.targetID) {
       return;
     }
 
@@ -77,7 +94,10 @@ export default class WalkWithTheOx extends Analyzer {
   }
 
   private onPetStompDamage(event: DamageEvent) {
-    this.additionalDamage += calculateEffectiveDamage(event, WALK_WITH_THE_OX_DAMAGE_INCREASE[this.rank]);
+    this.additionalDamage += calculateEffectiveDamage(
+      event,
+      WALK_WITH_THE_OX_DAMAGE_INCREASE[this.rank],
+    );
   }
 
   statistic() {

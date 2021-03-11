@@ -1,15 +1,12 @@
-import React from 'react';
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
 import { t } from '@lingui/macro';
-
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-
+import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
+import React from 'react';
 
 const DEBUG_ABILITIES = false;
 
@@ -66,14 +63,22 @@ class BreathOfFire extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
+    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated
+          debuff is a key part of our damage mitigation.
+        </>,
+      )
         .icon(SPELLS.BREATH_OF_FIRE.icon)
-        .actual(t({
-      id: "monk.brewmaster.suggestions.breathOfFire.hitsMitigated",
-      message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`
-    }))
-        .recommended(`> ${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'monk.brewmaster.suggestions.breathOfFire.hitsMitigated',
+            message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`,
+          }),
+        )
+        .recommended(`> ${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

@@ -1,17 +1,27 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, { AnyEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  AnyEvent,
+  CastEvent,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 const debug = false;
 
 class Channeling extends CoreChanneling {
-
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onRemoveBarrageBuff);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.removeRapidFire);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT),
+      this.onRemoveBarrageBuff,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE),
+      this.removeRapidFire,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -24,9 +34,17 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event: AnyEvent, ability: Ability) {
-    if (this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id) || this.isChannelingSpell(SPELLS.RAPID_FIRE.id)) {
+    if (
+      this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id) ||
+      this.isChannelingSpell(SPELLS.RAPID_FIRE.id)
+    ) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      debug && this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
+      debug &&
+        this.log(
+          'Marking',
+          this._currentChannel.ability.name,
+          'as ended since we started casting something else',
+        );
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);

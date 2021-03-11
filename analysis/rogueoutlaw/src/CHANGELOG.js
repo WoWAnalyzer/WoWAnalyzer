@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 3, 4), <>Fixed error where <SpellLink id={SPELLS.DREADBLADES_TALENT.id} /> was being suggested even when not talented</>, Akai),

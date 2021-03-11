@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import ROLES from 'game/ROLES';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 interface Props {
   id: number;
@@ -11,18 +10,19 @@ interface Props {
 const RoleIcon = ({ id, className, ...others }: Props) => {
   let iconName: string;
   switch (id) {
-    case ROLES.TANK: iconName = 'shield'; break;
-    case ROLES.HEALER: iconName = 'healing'; break;
-    default: iconName = 'sword'; break;
+    case ROLES.TANK:
+      iconName = 'shield';
+      break;
+    case ROLES.HEALER:
+      iconName = 'healing';
+      break;
+    default:
+      iconName = 'sword';
+      break;
   }
 
   return (
-    <img
-      src={`/img/${iconName}.png`}
-      alt=""
-      className={`icon ${className || ''}`}
-      {...others}
-    />
+    <img src={`/img/${iconName}.png`} alt="" className={`icon ${className || ''}`} {...others} />
   );
 };
 RoleIcon.propTypes = {

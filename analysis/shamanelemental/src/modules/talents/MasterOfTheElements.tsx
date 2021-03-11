@@ -1,15 +1,14 @@
-import React from 'react';
-
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SpellLink } from 'interface';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -36,10 +35,7 @@ const MASTER_OF_THE_ELEMENTS = {
     SPELLS.EARTH_SHOCK,
     SPELLS.LIGHTNING_BOLT,
   ],
-  TALENTS: [
-    SPELLS.ICEFURY_TALENT.id,
-    SPELLS.ELEMENTAL_BLAST_TALENT.id,
-  ],
+  TALENTS: [SPELLS.ICEFURY_TALENT.id, SPELLS.ELEMENTAL_BLAST_TALENT.id],
 };
 
 class MasterOfTheElements extends Analyzer {
@@ -54,18 +50,31 @@ class MasterOfTheElements extends Analyzer {
 
     for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
       const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
-      if (this.selectedCombatant.hasTalent(spellid) || !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)) {
+      if (
+        this.selectedCombatant.hasTalent(spellid) ||
+        !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)
+      ) {
         this.moteBuffedAbilities[spellid] = 0;
       }
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS), this._onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST), this._onLvBCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE), this._onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS),
+      this._onCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST),
+      this._onLvBCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE),
+      this._onDamage,
+    );
   }
 
   _onCast(event: CastEvent) {
-    if (this.moteActivationTimestamp === null) { //the buff is a clusterfuck so we just track it manually
+    if (this.moteActivationTimestamp === null) {
+      //the buff is a clusterfuck so we just track it manually
       return;
     }
     this.moteConsumptionTimestamp = event.timestamp;
@@ -73,7 +82,6 @@ class MasterOfTheElements extends Analyzer {
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
     this.moteBuffedAbilities[event.ability.guid] += 1;
-
   }
 
   _onLvBCast(event: CastEvent) {
@@ -84,7 +92,10 @@ class MasterOfTheElements extends Analyzer {
     if (event.timestamp < (this.moteConsumptionTimestamp || 0)) {
       return;
     }
-    if (event.timestamp > (this.moteConsumptionTimestamp || Infinity) + MASTER_OF_THE_ELEMENTS.WINDOW_DURATION) {
+    if (
+      event.timestamp >
+      (this.moteConsumptionTimestamp || Infinity) + MASTER_OF_THE_ELEMENTS.WINDOW_DURATION
+    ) {
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
@@ -95,7 +106,7 @@ class MasterOfTheElements extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -107,14 +118,16 @@ class MasterOfTheElements extends Analyzer {
               <tbody>
                 {Object.keys(this.moteBuffedAbilities).map((e) => (
                   <tr key={e}>
-                    <th><SpellLink id={Number(e)} /></th>
+                    <th>
+                      <SpellLink id={Number(e)} />
+                    </th>
                     <td>{this.moteBuffedAbilities[Number(e)]}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT}>
           <>

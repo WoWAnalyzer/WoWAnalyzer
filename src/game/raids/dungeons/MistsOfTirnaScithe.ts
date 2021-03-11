@@ -3,7 +3,6 @@ import { Dungeon } from 'game/raids';
 import Background from './backgrounds/MistsOfTirnaScithe.jpg';
 import Headshot from './headshots/MistsOfTirnaScithe.jpg';
 
-
 const MistsOfTirnaScithe: Dungeon = {
   id: 12290,
   name: 'Mists of Tirna Scithe',

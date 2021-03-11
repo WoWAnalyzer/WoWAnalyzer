@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { emallson } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

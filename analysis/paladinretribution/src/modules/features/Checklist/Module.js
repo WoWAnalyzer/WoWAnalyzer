@@ -1,18 +1,16 @@
-import React from 'react';
-
-import { Judgment, HolyPowerDetails } from '@wowanalyzer/paladin'
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import AlwaysBeCasting from '../AlwaysBeCasting';
+import { Judgment, HolyPowerDetails } from '@wowanalyzer/paladin';
+
 import ArtOfWar from '../../core/ArtOfWar';
+import ShieldOfVengeance from '../../core/ShieldOfVengeance';
 import Crusade from '../../talents/Crusade';
 import RighteousVerdict from '../../talents/RighteousVerdict';
-import ShieldOfVengeance from '../../core/ShieldOfVengeance';
-
+import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

@@ -21,8 +21,9 @@ class Berserking extends Analyzer {
       return;
     }
 
-    this.gcd = (options.gcd === undefined) ? this.gcd : options.gcd;
-    this.castEfficiency = (options.castEfficiency === undefined) ? this.castEfficiency : options.castEfficiency;
+    this.gcd = options.gcd === undefined ? this.gcd : options.gcd;
+    this.castEfficiency =
+      options.castEfficiency === undefined ? this.castEfficiency : options.castEfficiency;
 
     this.abilities.add({
       spell: SPELLS.BERSERKING,

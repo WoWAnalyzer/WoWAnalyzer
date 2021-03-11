@@ -1,21 +1,19 @@
-import { ArcaneIntellect, CancelledCasts, RuneOfPower } from '@wowanalyzer/mage';
-
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import IcyVeins from '../features/IcyVeins';
-import BrainFreeze from '../features/BrainFreeze';
-import GlacialSpike from '../talents/GlacialSpike';
-import IceLance from '../features/IceLance';
-import ThermalVoid from '../talents/ThermalVoid';
-import WintersChill from '../features/WintersChill';
+import { ArcaneIntellect, CancelledCasts, RuneOfPower } from '@wowanalyzer/mage';
+
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import BrainFreeze from '../features/BrainFreeze';
+import IceLance from '../features/IceLance';
+import IcyVeins from '../features/IcyVeins';
 import WaterElemental from '../features/WaterElemental';
-
+import WintersChill from '../features/WintersChill';
+import GlacialSpike from '../talents/GlacialSpike';
+import ThermalVoid from '../talents/ThermalVoid';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

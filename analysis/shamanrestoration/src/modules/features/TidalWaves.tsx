@@ -1,15 +1,11 @@
-import React from 'react';
-
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
-
 import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -24,12 +20,23 @@ class TidalWaves extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE), this._onHealingSurge);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this._onHealingWave);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE),
+      this._onHealingSurge,
+    );
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      this._onHealingWave,
+    );
   }
 
   _onHealingSurge(event: CastEvent) {
-    const hasTw = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, 0, TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasTw = this.selectedCombatant.hasBuff(
+      SPELLS.TIDAL_WAVES_BUFF.id,
+      event.timestamp,
+      0,
+      TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME,
+    );
     if (hasTw) {
       const cast = this.abilityTracker.getAbility(event.ability.guid, event.ability);
       cast.healingTwHits = (cast.healingTwHits || 0) + 1;
@@ -41,7 +48,12 @@ class TidalWaves extends Analyzer {
       return;
     }
 
-    const hasTw = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, 0, TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasTw = this.selectedCombatant.hasBuff(
+      SPELLS.TIDAL_WAVES_BUFF.id,
+      event.timestamp,
+      0,
+      TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME,
+    );
     if (hasTw) {
       const cast = this.abilityTracker.getAbility(event.ability.guid, event.ability);
       cast.healingTwHits = (cast.healingTwHits || 0) + 1;
@@ -50,12 +62,32 @@ class TidalWaves extends Analyzer {
 
   suggestions(when: When) {
     const suggestedThresholds = this.suggestionThresholds;
-    when(suggestedThresholds.actual).isGreaterThan(suggestedThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest) => suggest(<Trans id="shaman.restoration.suggestions.tidalWaves.label"><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them if you are running into mana issues ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</Trans>)
-        .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-        .actual(<Trans id="shaman.restoration.suggestions.tidalWaves.actual">{formatPercentage(suggestedThresholds.actual)}% unused Tidal waves</Trans>)
-        .recommended(<Trans id="shaman.restoration.suggestions.tidalWaves.recommended">Less than {formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused is recommended</Trans>)
-        .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major));
+    when(suggestedThresholds.actual)
+      .isGreaterThan(suggestedThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest) =>
+        suggest(
+          <Trans id="shaman.restoration.suggestions.tidalWaves.label">
+            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed{' '}
+            <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing,
+            consider casting more of them if you are running into mana issues (
+            {formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).
+          </Trans>,
+        )
+          .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
+          .actual(
+            <Trans id="shaman.restoration.suggestions.tidalWaves.actual">
+              {formatPercentage(suggestedThresholds.actual)}% unused Tidal waves
+            </Trans>,
+          )
+          .recommended(
+            <Trans id="shaman.restoration.suggestions.tidalWaves.recommended">
+              Less than {formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused is
+              recommended
+            </Trans>,
+          )
+          .regular(suggestedThresholds.isGreaterThan.average)
+          .major(suggestedThresholds.isGreaterThan.major),
+      );
   }
 
   get suggestionThresholds() {

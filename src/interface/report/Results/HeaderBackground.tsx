@@ -4,7 +4,7 @@ interface Props {
   boss: {
     background?: string;
     backgroundPosition?: string;
-  }|null;
+  } | null;
 }
 
 const HeaderBackground = ({ boss }: Props) => {

@@ -1,6 +1,6 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, ApplyBuffEvent, EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
   // Grimoire of Sacrifice is an ability that you can cast before combat, and it sacrifices your pet

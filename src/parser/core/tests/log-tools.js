@@ -1,5 +1,4 @@
 import decompress from 'decompress';
-
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import getConfig from 'parser/getConfig';
 
@@ -61,7 +60,7 @@ export function parseLog(
   const friendlies = log.report.friendlies.find(({ id }) => id === log.meta.player.id);
   const fight = {
     ...log.report.fights.find(({ id }) => id === log.meta.fight.id),
-    // eslint-disable-next-line @typescript-eslint/camelcase
+
     offset_time: 0,
   };
   const builds = getConfig(log.meta.player.specID).builds;

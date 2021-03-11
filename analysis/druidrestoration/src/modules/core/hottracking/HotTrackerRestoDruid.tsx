@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS';
 import HotTracker from 'parser/shared/modules/HotTracker';
 
 class HotTrackerRestoDruid extends HotTracker {
-
-  _generateHotInfo() { // must be generated dynamically because it reads from traits
+  _generateHotInfo() {
+    // must be generated dynamically because it reads from traits
     return {
       [SPELLS.REJUVENATION.id]: {
         duration: 15000,
@@ -49,7 +49,18 @@ class HotTrackerRestoDruid extends HotTracker {
   }
 
   _generateHotList() {
-    return [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION, SPELLS.REGROWTH, SPELLS.WILD_GROWTH, SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL, SPELLS.CENARION_WARD_HEAL, SPELLS.CULTIVATION, SPELLS.SPRING_BLOSSOMS, SPELLS.TRANQUILITY_HEAL];
+    return [
+      SPELLS.REJUVENATION,
+      SPELLS.REJUVENATION_GERMINATION,
+      SPELLS.REGROWTH,
+      SPELLS.WILD_GROWTH,
+      SPELLS.LIFEBLOOM_HOT_HEAL,
+      SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
+      SPELLS.CENARION_WARD_HEAL,
+      SPELLS.CULTIVATION,
+      SPELLS.SPRING_BLOSSOMS,
+      SPELLS.TRANQUILITY_HEAL,
+    ];
   }
 }
 

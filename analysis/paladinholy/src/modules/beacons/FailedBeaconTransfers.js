@@ -1,13 +1,12 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
-import BeaconTransferFactor from './BeaconTransferFactor';
 import BeaconHealSource from './BeaconHealSource';
+import BeaconTransferFactor from './BeaconTransferFactor';
 
 /**
  * @property {BeaconTransferFactor} beaconTransferFactor
@@ -46,10 +45,16 @@ class FailedBeaconTransfers extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={
           <span style={{ fontSize: '75%' }}>
-            <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealing">Up to {lostBeaconHealing}</Trans>
+            <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealing">
+              Up to {lostBeaconHealing}
+            </Trans>
           </span>
         }
-        label={<Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealingLabel">Beacon healing lost (line of sight)</Trans>}
+        label={
+          <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealingLabel">
+            Beacon healing lost (line of sight)
+          </Trans>
+        }
         tooltip={
           <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealingTooltip">
             The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon

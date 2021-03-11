@@ -1,17 +1,15 @@
+import isLatestPatch from 'game/isLatestPatch';
+import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
+import { RootState } from 'interface/reducers';
+import SupportCheckerSpecOutOfDate from 'interface/report/SupportCheckerSpecOutOfDate';
+import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
+import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
+import Config from 'parser/Config';
+import { WCLFight } from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
+import Report from 'parser/core/Report';
 import React from 'react';
 import { connect } from 'react-redux';
-
-import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
-import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
-import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
-import isLatestPatch from 'game/isLatestPatch';
-
-import SupportCheckerSpecOutOfDate from 'interface/report/SupportCheckerSpecOutOfDate';
-import Config from 'parser/Config';
-import Report from 'parser/core/Report';
-import { WCLFight } from 'parser/core/Fight';
-import { RootState } from 'interface/reducers';
-import { PlayerInfo } from 'parser/core/Player';
 
 interface Props {
   children: React.ReactNode;

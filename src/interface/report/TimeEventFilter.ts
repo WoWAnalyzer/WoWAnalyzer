@@ -1,8 +1,4 @@
-import React, { ReactNode } from 'react';
-
 import { captureException } from 'common/errorLogger';
-import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
-import Fight, { WCLFight } from 'parser/core/Fight';
 import {
   EventType,
   PhaseEvent,
@@ -18,6 +14,9 @@ import {
   FilterCooldownInfoEvent,
   AnyEvent,
 } from 'parser/core/Events';
+import Fight, { WCLFight } from 'parser/core/Fight';
+import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
+import React, { ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';
@@ -120,18 +119,14 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
       const eventFilter = this.makeEvents();
       benchEnd('time filter');
       this.setState({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         events: eventFilter.events,
         fight: {
           ...this.props.fight,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           start_time: eventFilter.start,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           end_time: eventFilter.end,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
-          // eslint-disable-next-line @typescript-eslint/camelcase
           original_end_time: this.props.fight.end_time,
           filtered:
             eventFilter.start !== this.props.fight.start_time ||

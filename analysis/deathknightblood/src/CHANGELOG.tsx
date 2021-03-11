@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 2, 17), <>Fixed issues in modules where <SpellLink id={SPELLS.DEATHS_DUE.id}/> did not correctly replace <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> </>, Pendragon),

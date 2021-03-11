@@ -105,7 +105,8 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "minor",
     "issue": <React.Fragment>
-      Your downtime can be improved. If you need to move use 
+      Your downtime can be improved. If you need to move use
+       
       <ForwardRef
         id={188389}
       />
@@ -113,7 +114,8 @@ Array [
       <ForwardRef
         id={8042}
       />
-       or 
+       or
+       
       <ForwardRef
         id={196840}
       />
@@ -423,8 +425,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               44
               /45
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -521,8 +522,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               14
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -607,8 +607,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               11
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -705,8 +704,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               5
               /28
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -803,8 +801,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               12
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -889,8 +886,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               21
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1033,8 +1029,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1119,8 +1114,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1205,8 +1199,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1349,8 +1342,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1452,8 +1444,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1550,8 +1541,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               5
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1648,8 +1638,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1734,8 +1723,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1878,8 +1866,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2034,8 +2021,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2178,8 +2164,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2276,8 +2261,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2374,8 +2358,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2460,8 +2443,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2616,8 +2598,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2714,8 +2695,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3085,7 +3065,8 @@ Array [
       <ForwardRef
         id={196840}
       />
-      s before the 
+      s before the
+       
       <ForwardRef
         id={210714}
       />
@@ -3103,7 +3084,8 @@ Array [
         <ForwardRef
           id={196840}
         />
-         casts before 
+         casts before
+         
         <ForwardRef
           id={210714}
         />
@@ -5023,7 +5005,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                
               Earth Shock
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=77762"
@@ -5038,7 +5021,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                
               Lava Surge
             </a>
-             empowered 
+             empowered
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=51505"
@@ -5281,7 +5265,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
           <div
             className="col-md-12"
           >
-            It's important to maintain flame shock on your target to guarantee 
+            It's important to maintain flame shock on your target to guarantee
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=51505"
@@ -5296,7 +5281,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                
               Lava Burst
             </a>
-             will crit and to allow for 
+             will crit and to allow for
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=77762"
@@ -5311,7 +5297,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                
               Lava Surge
             </a>
-             procs. Applying 
+             procs. Applying
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=188389"
@@ -5415,7 +5402,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
               <div
                 className="flex-main"
               >
-                 Bad 
+                 
+                Bad 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=188389"
@@ -5430,7 +5418,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                    
                   Flame Shock
                 </a>
-                 refreshes 
+                 refreshes
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5613,7 +5602,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
               Frost Shock
             </a>
              casts during the buff's duration.
-             While you should try to buff as many 
+             
+            While you should try to buff as many 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=210714"
@@ -5628,7 +5618,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                
               Icefury
             </a>
-             empowered 
+             
+            empowered 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=196840"
@@ -5643,7 +5634,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                
               Frost Shock
             </a>
-             as you can with 
+             as you can with
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=16166"
@@ -5688,7 +5680,8 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                    
                   Frost Shock
                 </a>
-                 Casts within 
+                 Casts within
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=210714"
@@ -6677,7 +6670,8 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "minor",
     "issue": <React.Fragment>
-      Your downtime can be improved. If you need to move use 
+      Your downtime can be improved. If you need to move use
+       
       <ForwardRef
         id={188389}
       />
@@ -6685,7 +6679,8 @@ Array [
       <ForwardRef
         id={8042}
       />
-       or 
+       or
+       
       <ForwardRef
         id={196840}
       />
@@ -6995,8 +6990,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               65
               /67
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7093,8 +7087,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               21
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7179,8 +7172,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               13
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7277,8 +7269,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               14
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7375,8 +7366,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7461,8 +7451,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7605,8 +7594,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7691,8 +7679,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7777,8 +7764,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7921,8 +7907,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8019,8 +8004,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8117,8 +8101,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8203,8 +8186,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8347,8 +8329,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8503,8 +8484,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8647,8 +8627,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8745,8 +8724,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8843,8 +8821,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8929,8 +8906,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9085,8 +9061,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9183,8 +9158,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11212,7 +11186,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                
               Earth Shock
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=77762"
@@ -11227,7 +11202,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                
               Lava Surge
             </a>
-             empowered 
+             empowered
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=51505"
@@ -11470,7 +11446,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
           <div
             className="col-md-12"
           >
-            It's important to maintain flame shock on your target to guarantee 
+            It's important to maintain flame shock on your target to guarantee
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=51505"
@@ -11485,7 +11462,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                
               Lava Burst
             </a>
-             will crit and to allow for 
+             will crit and to allow for
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=77762"
@@ -11500,7 +11478,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                
               Lava Surge
             </a>
-             procs. Applying 
+             procs. Applying
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=188389"
@@ -11604,7 +11583,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
               <div
                 className="flex-main"
               >
-                 Bad 
+                 
+                Bad 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=188389"
@@ -11619,7 +11599,8 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                    
                   Flame Shock
                 </a>
-                 refreshes 
+                 refreshes
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"

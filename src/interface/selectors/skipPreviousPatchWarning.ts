@@ -1,3 +1,4 @@
 import { RootState } from 'interface/reducers';
 
-export const getReportCodesIgnoredPreviousPatchWarning = (state: RootState) => state.reportCodesIgnoredPreviousPatchWarning;
+export const getReportCodesIgnoredPreviousPatchWarning = (state: RootState) =>
+  state.reportCodesIgnoredPreviousPatchWarning;

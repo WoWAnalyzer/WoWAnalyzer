@@ -1,6 +1,5 @@
-import React from 'react';
-
 import { Issue } from 'parser/core/ParseResults';
+import React from 'react';
 
 import Checklist from './Checklist';
 import Suggestions from './Suggestions';
@@ -14,13 +13,9 @@ const Overview = (props: Props) => {
   const { checklist, issues } = props;
   return (
     <div className="container">
-      <Checklist>
-        {checklist}
-      </Checklist>
+      <Checklist>{checklist}</Checklist>
 
-      <Suggestions style={{ marginBottom: 0 }}>
-        {issues}
-      </Suggestions>
+      <Suggestions style={{ marginBottom: 0 }}>{issues}</Suggestions>
     </div>
   );
 };

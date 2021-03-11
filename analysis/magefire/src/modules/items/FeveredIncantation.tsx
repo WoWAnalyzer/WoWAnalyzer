@@ -1,21 +1,20 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import UptimeIcon from 'interface/icons/Uptime';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const DAMAGE_BONUS_PER_STACK = 0.03;
 
 class FeveredIncantation extends Analyzer {
-
   bonusDamage = 0;
 
   constructor(options: Options) {
@@ -35,17 +34,18 @@ class FeveredIncantation extends Analyzer {
   }
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FEVERED_INCANTATION_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.FEVERED_INCANTATION_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spell={SPELLS.FEVERED_INCANTATION}>
-          <ItemDamageDone amount={this.bonusDamage} /><br />
+          <ItemDamageDone amount={this.bonusDamage} />
+          <br />
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
         </BoringSpellValueText>
       </Statistic>

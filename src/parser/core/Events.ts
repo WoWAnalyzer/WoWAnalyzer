@@ -1,7 +1,5 @@
-import { PhaseConfig } from 'game/raids';
-
 import Spell from 'common/SPELLS/Spell';
-
+import { PhaseConfig } from 'game/raids';
 import React from 'react';
 
 import EventFilter from './EventFilter';
@@ -85,50 +83,52 @@ export enum EventType {
 }
 
 type MappedEventTypes = {
-  [EventType.Event]: Event<EventType.Event>,
-  [EventType.Heal]: HealEvent,
-  [EventType.Absorbed]: AbsorbedEvent,
-  [EventType.Damage]: DamageEvent,
-  [EventType.BeginCast]: BeginCastEvent,
-  [EventType.Cast]: CastEvent,
-  [EventType.ApplyBuff]: ApplyBuffEvent,
-  [EventType.ApplyDebuff]: ApplyDebuffEvent,
-  [EventType.ApplyBuffStack]: ApplyBuffStackEvent,
-  [EventType.ApplyDebuffStack]: ApplyDebuffStackEvent,
-  [EventType.RemoveBuffStack]: RemoveBuffStackEvent,
-  [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent,
-  [EventType.ChangeBuffStack]: ChangeBuffStackEvent,
-  [EventType.ChangeDebuffStack]: ChangeDebuffStackEvent,
-  [EventType.RefreshBuff]: RefreshBuffEvent,
-  [EventType.RefreshDebuff]: RefreshDebuffEvent,
-  [EventType.RemoveBuff]: RemoveBuffEvent,
-  [EventType.RemoveDebuff]: RemoveDebuffEvent,
-  [EventType.Summon]: SummonEvent,
-  [EventType.Energize]: EnergizeEvent,
-  [EventType.Death]: DeathEvent,
-  [EventType.CombatantInfo]: CombatantInfoEvent,
-  [EventType.Dispel]: DispelEvent,
-  [EventType.AuraBroken]: AuraBrokenEvent,
+  [EventType.Event]: Event<EventType.Event>;
+  [EventType.Heal]: HealEvent;
+  [EventType.Absorbed]: AbsorbedEvent;
+  [EventType.Damage]: DamageEvent;
+  [EventType.BeginCast]: BeginCastEvent;
+  [EventType.Cast]: CastEvent;
+  [EventType.ApplyBuff]: ApplyBuffEvent;
+  [EventType.ApplyDebuff]: ApplyDebuffEvent;
+  [EventType.ApplyBuffStack]: ApplyBuffStackEvent;
+  [EventType.ApplyDebuffStack]: ApplyDebuffStackEvent;
+  [EventType.RemoveBuffStack]: RemoveBuffStackEvent;
+  [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent;
+  [EventType.ChangeBuffStack]: ChangeBuffStackEvent;
+  [EventType.ChangeDebuffStack]: ChangeDebuffStackEvent;
+  [EventType.RefreshBuff]: RefreshBuffEvent;
+  [EventType.RefreshDebuff]: RefreshDebuffEvent;
+  [EventType.RemoveBuff]: RemoveBuffEvent;
+  [EventType.RemoveDebuff]: RemoveDebuffEvent;
+  [EventType.Summon]: SummonEvent;
+  [EventType.Energize]: EnergizeEvent;
+  [EventType.Death]: DeathEvent;
+  [EventType.CombatantInfo]: CombatantInfoEvent;
+  [EventType.Dispel]: DispelEvent;
+  [EventType.AuraBroken]: AuraBrokenEvent;
 
   // Fabricated:
-  [EventType.FightEnd]: FightEndEvent,
-  [EventType.GlobalCooldown]: GlobalCooldownEvent,
-  [EventType.BeginChannel]: BeginChannelEvent,
-  [EventType.EndChannel]: EndChannelEvent,
-  [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent,
-  [EventType.ChangeStats]: ChangeStatsEvent,
-  [EventType.SpendResource]: SpendResourceEvent,
-  [EventType.FeedHeal]: FeedHealEvent,
+  [EventType.FightEnd]: FightEndEvent;
+  [EventType.GlobalCooldown]: GlobalCooldownEvent;
+  [EventType.BeginChannel]: BeginChannelEvent;
+  [EventType.EndChannel]: EndChannelEvent;
+  [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
+  [EventType.ChangeStats]: ChangeStatsEvent;
+  [EventType.SpendResource]: SpendResourceEvent;
+  [EventType.FeedHeal]: FeedHealEvent;
   // Phases:
-  [EventType.PhaseStart]: PhaseStartEvent,
-  [EventType.PhaseEnd]: PhaseEndEvent,
+  [EventType.PhaseStart]: PhaseStartEvent;
+  [EventType.PhaseEnd]: PhaseEndEvent;
 
   // Time Filtering:
-  [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
-  [EventType.FilterBuffInfo]: FilterBuffInfoEvent,
-}
+  [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent;
+  [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
+};
 
-export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> = MappedEventTypes[ET];
+export type AnyEvent<
+  ET extends keyof MappedEventTypes = keyof MappedEventTypes
+> = MappedEventTypes[ET];
 
 export interface Ability {
   name: string;
@@ -161,8 +161,14 @@ export enum Class {
 }
 
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
-export type SourcedEvent<T extends string> = Event<T> & { sourceID: number, sourceIsFriendly: boolean };
-export type TargettedEvent<T extends string> = Event<T> & { targetID: number, targetIsFriendly: boolean };
+export type SourcedEvent<T extends string> = Event<T> & {
+  sourceID: number;
+  sourceIsFriendly: boolean;
+};
+export type TargettedEvent<T extends string> = Event<T> & {
+  targetID: number;
+  targetIsFriendly: boolean;
+};
 
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
@@ -176,8 +182,9 @@ export function HasTarget<T extends EventType>(event: Event<T>): event is Target
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
 
-export type MappedEvent<T extends EventType> =
-  T extends keyof MappedEventTypes ? MappedEventTypes[T] : Event<T>;
+export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
+  ? MappedEventTypes[T]
+  : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
 export interface Event<T extends string> {
@@ -276,7 +283,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   };
 }
 
-export type CastEvent = BaseCastEvent<EventType.Cast>
+export type CastEvent = BaseCastEvent<EventType.Cast>;
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -316,13 +323,13 @@ export interface HealEvent extends Event<EventType.Heal> {
 }
 
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
-  type: EventType.BeaconTransfer,
-  originalHeal: HealEvent,
+  type: EventType.BeaconTransfer;
+  originalHeal: HealEvent;
 }
 
 export interface FeedHealEvent extends Omit<HealEvent, 'type'> {
-  type: EventType.FeedHeal,
-  feed: number,
+  type: EventType.FeedHeal;
+  feed: number;
 }
 
 export interface AbsorbedEvent extends Event<EventType.Absorbed> {
@@ -546,8 +553,8 @@ export interface AuraBrokenEvent extends Event<EventType.AuraBroken> {
 }
 
 export interface ResurrectEvent extends Event<EventType.Resurrect> {
-  ability?: Ability,
-  sourceID: number,
+  ability?: Ability;
+  sourceID: number;
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
@@ -581,15 +588,20 @@ export interface FightEndEvent extends Event<EventType.FightEnd> {
 
 export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsable> {
   ability: Omit<Ability, 'type'>;
-  name?: string
-  trigger: EventType.BeginCooldown | EventType.EndCooldown | EventType.RefreshCooldown | EventType.AddCooldownCharge | EventType.RestoreCharge;
-  isOnCooldown: boolean
-  isAvailable: boolean
-  chargesAvailable: number
-  maxCharges: number
-  timePassed?: number
-  sourceID: number
-  targetID: number
+  name?: string;
+  trigger:
+    | EventType.BeginCooldown
+    | EventType.EndCooldown
+    | EventType.RefreshCooldown
+    | EventType.AddCooldownCharge
+    | EventType.RestoreCharge;
+  isOnCooldown: boolean;
+  isAvailable: boolean;
+  chargesAvailable: number;
+  maxCharges: number;
+  timePassed?: number;
+  sourceID: number;
+  targetID: number;
   targetIsFriendly: boolean;
   start: number;
   end?: number;
@@ -603,18 +615,18 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
 }
 
 export interface Stats {
-  agility: number
-  armor: number
-  avoidance: number
-  crit: number
-  haste: number
-  intellect: number
-  leech: number
-  mastery: number
-  speed: number
-  stamina: number
-  strength: number
-  versatility: number
+  agility: number;
+  armor: number;
+  avoidance: number;
+  crit: number;
+  haste: number;
+  intellect: number;
+  leech: number;
+  mastery: number;
+  speed: number;
+  stamina: number;
+  strength: number;
+  versatility: number;
 }
 
 export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
@@ -657,11 +669,11 @@ export interface SpendResourceEvent extends Event<EventType.SpendResource> {
   __fabricated: true;
 }
 
-export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>
+export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>;
 
-export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>
+export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
 
-export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>
+export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>;
 
 export interface Item {
   id: number;
@@ -704,10 +716,10 @@ export interface Soulbind {
 }
 
 export interface SoulbindTrait {
-  traitID: number,
-  rank: number,
-  spellID: number,
-  icon: string,
+  traitID: number;
+  rank: number;
+  spellID: number;
+  icon: string;
 }
 
 export interface Conduit {
@@ -746,23 +758,15 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   versatilityDamageDone: number;
   versatilityHealingDone: number;
   versatilityDamageReduction: number;
-  talents: [
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-  ];
+  talents: [Spell, Spell, Spell, Spell, Spell, Spell, Spell];
   pvpTalents: Spell[];
-  covenantID: number,
-  soulbindID: number,
+  covenantID: number;
+  soulbindID: number;
   artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
   soulbindTraits?: SoulbindTrait[];
   heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
   conduits?: Conduit[];
-  error?: any, //TODO: Verify, is this a bool? string?
+  error?: any; //TODO: Verify, is this a bool? string?
 }
 
 const Events = {

@@ -67,12 +67,7 @@ const Panel = ({
   bodyStyle,
 }: PanelProps) => (
   <div className={`panel ${className}`} style={style}>
-    <Heading
-      title={title}
-      explanation={explanation}
-      actions={actions}
-      backButton={backButton}
-    />
+    <Heading title={title} explanation={explanation} actions={actions} backButton={backButton} />
     <div className={`panel-body ${pad ? 'pad' : ''}`} style={bodyStyle}>
       {children}
     </div>

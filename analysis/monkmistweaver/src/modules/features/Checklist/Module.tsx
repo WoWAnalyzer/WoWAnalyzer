@@ -1,28 +1,27 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import ManaValues from 'parser/shared/modules/ManaValues';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import ManaValues from 'parser/shared/modules/ManaValues';
+import React from 'react';
 
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import EssenceFont from '../../spells/EssenceFont';
-import RefreshingJadeWind from '../../talents/RefreshingJadeWind';
-import ChiBurst from '../../talents/ChiBurst';
-import SpiritOfTheCrane from '../../talents/SpiritOfTheCrane';
-import ManaTea from '../../talents/ManaTea';
-import Lifecycles from '../../talents/Lifecycles';
-import ThunderFocusTea from '../../spells/ThunderFocusTea';
-import EssenceFontMastery from '../EssenceFontMastery';
-import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
-import SpinningCraneKick from '../../spells/SpinningCraneKick';
-import Vivify from '../../spells/Vivify';
-import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
-import Tier30Comparison from '../../talents/Tier30Comparison';
-import Component from './Component';
-import SoothingMist from '../../spells/SoothingMist';
 import EnvelopingBreath from '../../spells/EnvelopingBreath';
+import EssenceFont from '../../spells/EssenceFont';
+import SoothingMist from '../../spells/SoothingMist';
+import SpinningCraneKick from '../../spells/SpinningCraneKick';
+import ThunderFocusTea from '../../spells/ThunderFocusTea';
+import Vivify from '../../spells/Vivify';
+import ChiBurst from '../../talents/ChiBurst';
+import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
+import Lifecycles from '../../talents/Lifecycles';
+import ManaTea from '../../talents/ManaTea';
+import RefreshingJadeWind from '../../talents/RefreshingJadeWind';
+import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
+import SpiritOfTheCrane from '../../talents/SpiritOfTheCrane';
+import Tier30Comparison from '../../talents/Tier30Comparison';
+import AlwaysBeCasting from '../AlwaysBeCasting';
+import EssenceFontMastery from '../EssenceFontMastery';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -77,7 +76,8 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
+            .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
           essenceFont: this.essenceFont.suggestionThresholds,

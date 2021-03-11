@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
 
-import { joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
+import { joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),

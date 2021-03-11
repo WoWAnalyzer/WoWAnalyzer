@@ -1,16 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import React from 'react';
 
 import { LIFE_COCOON_HEALING_BOOST } from '../../constants';
 
@@ -51,12 +48,12 @@ class LifeCocoon extends Analyzer {
         tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}
       >
         <BoringSpellValueText spell={SPELLS.LIFE_COCOON}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default LifeCocoon;

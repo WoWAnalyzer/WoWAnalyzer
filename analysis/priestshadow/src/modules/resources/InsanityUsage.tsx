@@ -1,15 +1,14 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import Statistic from 'parser/ui/Statistic';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import { ResourceLink } from 'interface';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
+import Statistic from 'parser/ui/Statistic';
+import React from 'react';
 
 import InsanityTracker from './InsanityTracker';
 
@@ -44,16 +43,24 @@ class InsanityUsage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {this.wasted} <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> by overcapping at max insanity. Since <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> is your main source of damage and the damage stacks from early refreshing, you should always use <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> when at risk of overcapping.</>)
-    .icon(SPELLS.DEVOURING_PLAGUE.icon)
-    .actual(
-      t({
-        id:'priest.shadow.suggestions.insanity.usage',
-        message: `You wasted ${formatPercentage(actual)}% of your Insanity due to overcapping.`
-      })
-    )
-    .recommended(`${recommended}% is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You wasted {this.wasted} <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> by overcapping
+          at max insanity. Since <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> is your main source
+          of damage and the damage stacks from early refreshing, you should always use{' '}
+          <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> when at risk of overcapping.
+        </>,
+      )
+        .icon(SPELLS.DEVOURING_PLAGUE.icon)
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.insanity.usage',
+            message: `You wasted ${formatPercentage(actual)}% of your Insanity due to overcapping.`,
+          }),
+        )
+        .recommended(`${recommended}% is recommended.`),
+    );
   }
 
   statistic() {

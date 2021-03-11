@@ -1,9 +1,8 @@
-import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import { Yajinni, joshinator } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

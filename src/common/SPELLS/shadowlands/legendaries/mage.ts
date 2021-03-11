@@ -81,7 +81,7 @@ const legendaries = {
   },
   SUN_KINGS_BLESSING: {
     id: 333313,
-    name: 'Sun King\'s Blessing',
+    name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
     bonusID: 6934,
   },
@@ -104,7 +104,7 @@ const legendaries = {
     bonusID: 6830,
   },
   GLACIAL_FRAGMENTS_DAMAGE: {
-    id : 327498, 
+    id: 327498,
     name: 'Glacial Fragments',
     icon: 'artifactability_frostmage_blackicicles',
   },

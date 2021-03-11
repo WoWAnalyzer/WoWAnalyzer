@@ -1,10 +1,10 @@
-import React from 'react';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import GuardianOfElune from './GuardianOfElune';
 
@@ -26,14 +26,19 @@ class IronFurGoEProcs extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         size="flexible"
-        tooltip={<>You cast <strong>{nonGoEIronFur + GoEIronFur}</strong> total {SPELLS.IRONFUR.name} and <strong>{GoEIronFur}</strong> were buffed by 2s.</>}
-      > 
-        <BoringSpellValue 
-          spell={SPELLS.IRONFUR}          
+        tooltip={
+          <>
+            You cast <strong>{nonGoEIronFur + GoEIronFur}</strong> total {SPELLS.IRONFUR.name} and{' '}
+            <strong>{GoEIronFur}</strong> were buffed by 2s.
+          </>
+        }
+      >
+        <BoringSpellValue
+          spell={SPELLS.IRONFUR}
           value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
           label="Unbuffed Ironfur"
         />
-      </Statistic>       
+      </Statistic>
     );
   }
 }

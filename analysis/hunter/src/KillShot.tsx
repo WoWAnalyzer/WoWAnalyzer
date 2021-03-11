@@ -1,20 +1,18 @@
-import React from 'react';
-
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import SPECS from 'game/SPECS';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Abilities from 'parser/core/modules/Abilities';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import SPECS from 'game/SPECS';
-import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-
-import FlayedShot from './covenants/venthyr/FlayedShot';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { KILL_SHOT_EXECUTE_RANGE } from './constants';
+import FlayedShot from './covenants/venthyr/FlayedShot';
 
 class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
@@ -29,7 +27,10 @@ class KillShot extends ExecuteHelper {
   };
 
   maxCasts: number = 0;
-  activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
+  activeKillShotSpell =
+    this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER
+      ? SPELLS.KILL_SHOT_SV
+      : SPELLS.KILL_SHOT_MM_BM;
 
   protected abilities!: Abilities;
   protected flayedShot!: FlayedShot;

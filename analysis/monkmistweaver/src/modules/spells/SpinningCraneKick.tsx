@@ -1,35 +1,39 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
-import { formatMilliseconds } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 class SpinningCraneKick extends Analyzer {
   goodSCKcount: number = 0;
   goodSCKTimeList: string[] = [];
   badSCKcount: number = 0;
   badSCKTimeList: string[] = [];
-  canceledSCKcount: number = 0;//figure out if this is possible
+  canceledSCKcount: number = 0; //figure out if this is possible
   enemiesHitSCK: string[] = [];
   currentTime: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.handleSpinningCraneKick);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.castSpinningCraneKick,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.handleSpinningCraneKick,
+    );
     this.addEventListener(Events.fightend, this.fightEnd);
   }
 
   get suggestionThresholds() {
     return {
       actual: this.badSCKcount,
-      isGreaterThan: {//following the tft logic of one is okay anymore is bad
+      isGreaterThan: {
+        //following the tft logic of one is okay anymore is bad
         minor: 1,
         average: 1.5,
         major: 2,
@@ -39,7 +43,8 @@ class SpinningCraneKick extends Analyzer {
   }
 
   castSpinningCraneKick(event: CastEvent) {
-    if (this.enemiesHitSCK.length > 0) { //this nested is needed due to weird logs
+    if (this.enemiesHitSCK.length > 0) {
+      //this nested is needed due to weird logs
       this.checkSCK();
     }
     this.currentTime = this.owner.currentTimestamp - this.owner.fight.start_time;
@@ -71,19 +76,26 @@ class SpinningCraneKick extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as effectively as you should. You should work on both your positioning spell. Always aim for the highest concentration of enemies, which is normally melee.
-      </>,
-    )
-      .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-      .actual(`${this.badSCKcount}${t({
-      id: "monk.mistweaver.suggestions.spinningCraneKick.efficiency",
-      message: ` Spinning Crane Kicks that hit fewer than 3 enemies`
-    })}`)
-      .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm'));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as
+          effectively as you should. You should work on both your positioning spell. Always aim for
+          the highest concentration of enemies, which is normally melee.
+        </>,
+      )
+        .icon(SPELLS.SPINNING_CRANE_KICK.icon)
+        .actual(
+          `${this.badSCKcount}${t({
+            id: 'monk.mistweaver.suggestions.spinningCraneKick.efficiency',
+            message: ` Spinning Crane Kicks that hit fewer than 3 enemies`,
+          })}`,
+        )
+        .recommended(
+          "Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger's palm",
+        ),
+    );
   }
-
 }
 
 export default SpinningCraneKick;

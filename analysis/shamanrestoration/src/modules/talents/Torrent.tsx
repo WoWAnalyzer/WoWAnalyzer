@@ -1,13 +1,11 @@
-import React from 'react';
-
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import Events, { HealEvent } from 'parser/core/Events';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 const TORRENT_HEALING_INCREASE = 0.2;
 
@@ -37,8 +35,6 @@ class Torrent extends Analyzer {
       />
     );
   }
-
 }
 
 export default Torrent;
-

@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import getConfig from 'parser/getConfig';
 import Config from 'parser/Config';
+import getConfig from 'parser/getConfig';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 interface Props {
   specId: number;
@@ -10,7 +9,7 @@ interface Props {
 }
 
 interface State {
-  config: Config|null;
+  config: Config | null;
 }
 
 class ConfigLoader extends React.PureComponent<Props, State> {

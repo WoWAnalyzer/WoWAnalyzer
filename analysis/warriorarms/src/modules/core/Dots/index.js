@@ -1,6 +1,6 @@
-import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import React from 'react';
 
 import DeepWoundsUptime from './DeepWoundsUptime';
 import RendUptime from './RendUptime';
@@ -14,26 +14,19 @@ class DotUptimeStatisticBox extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = Object.keys(this.constructor.dependencies)
-      .map(name => this[name].active)
+      .map((name) => this[name].active)
       .includes(true);
   }
 
   statistic() {
     return (
-      <StatisticsListBox
-        position={STATISTIC_ORDER.CORE(3)}
-        title="DoT uptimes"
-      >
-        {Object.keys(this.constructor.dependencies).map(name => {
+      <StatisticsListBox position={STATISTIC_ORDER.CORE(3)} title="DoT uptimes">
+        {Object.keys(this.constructor.dependencies).map((name) => {
           const module = this[name];
           if (!module.active) {
             return null;
           }
-          return (
-            <React.Fragment key={name}>
-              {module.subStatistic()}
-            </React.Fragment>
-          );
+          return <React.Fragment key={name}>{module.subStatistic()}</React.Fragment>;
         })}
       </StatisticsListBox>
     );

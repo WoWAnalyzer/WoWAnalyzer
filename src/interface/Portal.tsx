@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, memo } from 'react';
 import ReactDOM from 'react-dom';
 
-import {newElement, removeElement} from './PortalTarget';
+import { newElement, removeElement } from './PortalTarget';
 
 const Portal = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLElement>();

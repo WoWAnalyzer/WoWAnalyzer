@@ -1,15 +1,14 @@
-import React from 'react';
-
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox from 'parser/ui/StatisticBox';
-import { SpellIcon } from 'interface';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { formatNumber, formatPercentage } from 'common/format';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 class HolyNova extends Analyzer {
   static dependencies = {
@@ -27,7 +26,10 @@ class HolyNova extends Analyzer {
   }
 
   get effectiveHealing() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingEffective + this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingAbsorbed;
+    return (
+      this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingEffective +
+      this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingAbsorbed
+    );
   }
 
   get overHealing() {
@@ -88,39 +90,54 @@ class HolyNova extends Analyzer {
 
   statistic() {
     if (this.casts === 0) {
-      return (<></>);
+      return <></>;
     }
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}
-        value={(
+        value={
           <>
             Average Hits:&nbsp;
-            <div style={{ 'color': 'green', display: 'inline-block' }}> {Math.floor(this.averageFriendlyTargetsHit)}</div>
+            <div style={{ color: 'green', display: 'inline-block' }}>
+              {' '}
+              {Math.floor(this.averageFriendlyTargetsHit)}
+            </div>
             |
-            <div style={{ 'color': 'red', display: 'inline-block' }}> {Math.floor(this.averageEnemyTargetsHit)}</div><br />
-            <ItemHealingDone amount={this.effectiveHealing} /><br />
+            <div style={{ color: 'red', display: 'inline-block' }}>
+              {' '}
+              {Math.floor(this.averageEnemyTargetsHit)}
+            </div>
+            <br />
+            <ItemHealingDone amount={this.effectiveHealing} />
+            <br />
             <ItemDamageDone amount={this.damageDone} />
           </>
-        )}
+        }
         label="Holy Nova"
-        tooltip={(
+        tooltip={
           <>
-            Healing done: {formatNumber(this.effectiveHealing)} ({formatPercentage(this.overhealPercent)}% OH)<br />
+            Healing done: {formatNumber(this.effectiveHealing)} (
+            {formatPercentage(this.overhealPercent)}% OH)
+            <br />
             Damage done: {formatNumber(this.damageDone)}
           </>
-        )}
+        }
       />
     );
   }
 
   suggestions(when: When) {
-    when(this.holyNovaThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more targets.</>)
+    when(this.holyNovaThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more
+          targets.
+        </>,
+      )
         .icon(SPELLS.HOLY_NOVA.icon)
         .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)
         .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`),
-      );
+    );
   }
 }
 

@@ -1,14 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { DamageEvent } from 'parser/core/Events';
+import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Erupt a burst of fiery damage from all targets affected by your Flame Shock,
@@ -28,14 +27,12 @@ class FireNova extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_NOVA_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FIRE_NOVA_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_NOVA_TALENT),
       this.onFireNovaCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.FIRE_NOVA_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_NOVA_DAMAGE),
       this.onFireNovaDamage,
     );
   }
@@ -58,7 +55,8 @@ class FireNova extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FIRE_NOVA_TALENT}>
           <>
-            <ItemDamageDone amount={this.fireNovaDamage} /><br />
+            <ItemDamageDone amount={this.fireNovaDamage} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>

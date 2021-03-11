@@ -1,9 +1,8 @@
-import { ReactNode } from 'react';
-
 import { ChangelogEntry } from 'common/changelog';
 import { Contributor } from 'common/contributor';
 import { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import { ReactNode } from 'react';
 
 export type Build = {
   url: string;

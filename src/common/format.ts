@@ -3,7 +3,7 @@
  * Ex: 5842923.7 => 5,842,924
  */
 export function formatThousands(number: number) {
-  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  return `${Math.round(number || 0)}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 /**
@@ -40,7 +40,7 @@ export function formatDuration(duration: number, precision: number = 0) {
   duration = Math.abs(duration);
   const minutes = Math.floor(duration / 60);
   const mult = Math.pow(10, precision);
-  const rest = (Math.floor(duration % 60 * mult) / mult).toFixed(precision);
+  const rest = (Math.floor((duration % 60) * mult) / mult).toFixed(precision);
   const seconds = Number(rest) < 10 ? `0${rest}` : rest;
 
   return `${neg}${minutes}:${seconds}`;
@@ -75,5 +75,5 @@ export function formatMilliseconds(duration: number) {
  * Ex: 2nd, 7th, 20th, 23rd, 52nd, 135th, 301st
  */
 export function formatNth(number: number) {
-  return number.toString() + (["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th");
+  return number.toString() + (['st', 'nd', 'rd'][((((number + 90) % 100) - 10) % 10) - 1] || 'th');
 }

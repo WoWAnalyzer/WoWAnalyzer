@@ -1,17 +1,13 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const TimelineItem = ({ title, date, children }) => (
   <div className="panel">
-    <div className="date">
-      {date}
-    </div>
+    <div className="date">{date}</div>
     <div className="panel-heading">
       <h2>{title}</h2>
     </div>
-    <div className="panel-body">
-      {children}
-    </div>
+    <div className="panel-body">{children}</div>
   </div>
 );
 TimelineItem.propTypes = {

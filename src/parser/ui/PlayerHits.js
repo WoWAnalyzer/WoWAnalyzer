@@ -1,20 +1,20 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import char1 from './images/char1.png';
-import char2 from './images/char2.png';
-import char3 from './images/char3.png';
-import char4 from './images/char4.png';
-import char5 from './images/char5.png';
 import char1Active from './images/char1-active.png';
+import char1 from './images/char1.png';
 import char2Active from './images/char2-active.png';
+import char2 from './images/char2.png';
 import char3Active from './images/char3-active.png';
+import char3 from './images/char3.png';
 import char4Active from './images/char4-active.png';
+import char4 from './images/char4.png';
 import char5Active from './images/char5-active.png';
+import char5 from './images/char5.png';
 
 import './PlayerHits.scss';
 
-const CharacterHitPerCast = props => {
+const CharacterHitPerCast = (props) => {
   const { performance } = props;
 
   return (

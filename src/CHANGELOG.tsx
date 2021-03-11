@@ -1,11 +1,11 @@
+import { change, date } from 'common/changelog';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { ItemLink } from 'interface';
+import SpellLink from 'interface/SpellLink';
 import React from 'react';
 // prettier-ignore
-import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import SpellLink from 'interface/SpellLink';
-import { ItemLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [

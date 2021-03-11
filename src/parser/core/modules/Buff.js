@@ -5,10 +5,8 @@ class Buff {
     /**
      * REQUIRED The spell id. If an array of spell ids is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
      */
-    spellId: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(PropTypes.number),
-    ]).isRequired,
+    spellId: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
+      .isRequired,
     /**
      * Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. Defaults to true.
      */
@@ -44,14 +42,19 @@ class Buff {
        * We verify the sanity of the abilities props to avoid mistakes. First we check the types by reusing React's PropTypes which prints to your console, and next we verify if all the props of the abilities exist in the possible proptypes. If not they're likely mislocated.
        */
       PropTypes.checkPropTypes(this.constructor.propTypes, props, 'prop', 'Ability'); // eslint-disable-line react/forbid-foreign-prop-types
-      Object.keys(props).forEach(prop => {
-        if (this.constructor.propTypes[prop] === undefined) { // eslint-disable-line react/forbid-foreign-prop-types
+      Object.keys(props).forEach((prop) => {
+        // eslint-disable-next-line react/forbid-foreign-prop-types
+        if (this.constructor.propTypes[prop] === undefined) {
           console.log(prop);
-          throw new Error(`Property not recognized in Buffs: ${prop} seems misplaced in ${JSON.stringify(props.spell)}`);
+          throw new Error(
+            `Property not recognized in Buffs: ${prop} seems misplaced in ${JSON.stringify(
+              props.spell,
+            )}`,
+          );
         }
       });
     }
-    Object.keys(props).forEach(prop => {
+    Object.keys(props).forEach((prop) => {
       this._setProp(prop, props[prop]);
     });
   }

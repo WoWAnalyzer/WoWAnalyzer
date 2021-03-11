@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
-
-import CoreAbilities from 'parser/core/modules/Abilities';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {

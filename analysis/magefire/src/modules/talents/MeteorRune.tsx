@@ -1,14 +1,15 @@
-import React from 'react';
+import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import React from 'react';
+
 import { MS_BUFFER_100 } from '@wowanalyzer/mage';
-import { Trans } from '@lingui/macro';
 
 class MeteorRune extends Analyzer {
   static dependencies = {
@@ -18,8 +19,8 @@ class MeteorRune extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
 
-  lastRuneCast = 0
-  badMeteor = 0
+  lastRuneCast = 0;
+  badMeteor = 0;
 
   constructor(options: Options) {
     super(options);
@@ -29,8 +30,14 @@ class MeteorRune extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METEOR_TALENT), this.onMeteor);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT), this.onRune);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METEOR_TALENT),
+      this.onMeteor,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT),
+      this.onRune,
+    );
   }
 
   onRune(event: CastEvent) {
@@ -38,7 +45,10 @@ class MeteorRune extends Analyzer {
   }
 
   onMeteor(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > MS_BUFFER_100) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) &&
+      event.timestamp - this.lastRuneCast > MS_BUFFER_100
+    ) {
       this.badMeteor += 1;
     }
   }
@@ -48,7 +58,7 @@ class MeteorRune extends Analyzer {
   }
 
   get meteorUtilization() {
-    return 1 - (this.badMeteor / this.totalMeteorCasts);
+    return 1 - this.badMeteor / this.totalMeteorCasts;
   }
 
   get meteorUtilSuggestionThresholds() {
@@ -56,7 +66,7 @@ class MeteorRune extends Analyzer {
       actual: this.meteorUtilization,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
+        average: 0.9,
         major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -64,12 +74,24 @@ class MeteorRune extends Analyzer {
   }
 
   suggestions(when: When) {
-		when(this.meteorUtilSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> without <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get the most out of <SpellLink id={SPELLS.METEOR_TALENT.id} /> you should always cast it while being buffed by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>)
-					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(<Trans id="mage.fire.suggestions.meteor.runeOfPower.utilization">{formatPercentage(this.meteorUtilization)}% Utilization`</Trans>)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`));
-	}
+    when(this.meteorUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> without{' '}
+          <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get
+          the most out of <SpellLink id={SPELLS.METEOR_TALENT.id} /> you should always cast it while
+          being buffed by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.
+        </>,
+      )
+        .icon(SPELLS.METEOR_TALENT.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.meteor.runeOfPower.utilization">
+            {formatPercentage(this.meteorUtilization)}% Utilization`
+          </Trans>,
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
+  }
 }
 
 export default MeteorRune;

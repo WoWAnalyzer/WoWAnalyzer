@@ -1,14 +1,13 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import { Panel } from 'interface';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { t } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Panel } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import { t } from '@lingui/macro';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import FuryTracker from './FuryTracker';
 
@@ -36,13 +35,17 @@ class FuryDetails extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
-      .icon(furyIcon)
-      .actual(t({
-      id: "demonhunter.havoc.suggestions.fury.wasted",
-      message: `${formatPercentage(actual)}% Fury wasted`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
+        .icon(furyIcon)
+        .actual(
+          t({
+            id: 'demonhunter.havoc.suggestions.fury.wasted',
+            message: `${formatPercentage(actual)}% Fury wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
@@ -67,10 +70,7 @@ class FuryDetails extends Analyzer {
       url: 'fury-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.furyTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.furyTracker} showSpenders />
         </Panel>
       ),
     };

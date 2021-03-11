@@ -1,14 +1,13 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticGroup from 'parser/ui/StatisticGroup';
-import Statistic from 'parser/ui/Statistic';
-import DonutChart from 'parser/ui/DonutChart';
+import React from 'react';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
 
@@ -23,7 +22,7 @@ class CastBehavior extends Analyzer {
 
   iolCastRatioChart() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
@@ -75,7 +74,7 @@ class CastBehavior extends Analyzer {
 
   fillerCastRatioChart() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);

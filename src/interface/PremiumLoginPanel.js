@@ -1,17 +1,15 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { CSSTransitionGroup } from 'react-transition-group';
-import Textfit from 'react-textfit';
-
-import PatreonIcon from 'interface/icons/PatreonTiny';
+import { logout } from 'interface/actions/user';
+import CyclingVideo from 'interface/CyclingVideo';
 import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
 import LogoutIcon from 'interface/icons/Logout';
-import CyclingVideo from 'interface/CyclingVideo';
-
-import { logout } from 'interface/actions/user';
+import PatreonIcon from 'interface/icons/PatreonTiny';
 import { getUser } from 'interface/selectors/user';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import Textfit from 'react-textfit';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import './PremiumLoginPanel.scss';
 

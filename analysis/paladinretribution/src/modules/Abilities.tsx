@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  spellbook(){
+  spellbook() {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -16,7 +16,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: 'It has a high damage per execute time and generates a lot of Holy Power. Only hold the ability if adds are coming out in 15 seconds or less.',
+          extraSuggestion:
+            'It has a high damage per execute time and generates a lot of Holy Power. Only hold the ability if adds are coming out in 15 seconds or less.',
         },
       },
       {
@@ -29,7 +30,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
           importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion: 'This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.',
+          extraSuggestion:
+            'This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.',
         },
       },
       {
@@ -42,14 +44,17 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
           importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion: 'This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.',
+          extraSuggestion:
+            'This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.',
         },
       },
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: (haste: number) => (6/(1+haste)) * (1 - (combatant.hasTalent(SPELLS.FIRES_OF_JUSTICE_TALENT.id) ? .85 : 0)),
+        cooldown: (haste: number) =>
+          (6 / (1 + haste)) *
+          (1 - (combatant.hasTalent(SPELLS.FIRES_OF_JUSTICE_TALENT.id) ? 0.85 : 0)),
         gcd: {
           base: 1500,
         },
@@ -60,7 +65,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAMMER_OF_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => (7.5 / (1 + haste)),
+        cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -71,7 +76,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => (12 / (1 + haste)),
+        cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -82,7 +87,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLADE_OF_JUSTICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => (12 / (1 + haste)),
+        cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -262,7 +267,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLASH_OF_LIGHT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        channel: (haste: number) => (1.5 / (1 + haste)),
+        channel: (haste: number) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -312,7 +317,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TURN_EVIL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        channel: (haste: number) => (1.5 / (1 + haste)),
+        channel: (haste: number) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
         },

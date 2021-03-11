@@ -1,9 +1,9 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { formatDuration } from 'common/format';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import ExecuteRange from './ExecuteRange';
 
@@ -38,7 +38,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.constructor.dots.forEach(dot => {
+    this.constructor.dots.forEach((dot) => {
       this.targets[dot.debuffId] = {};
       this.casts[dot.castId] = {
         badCasts: 0,
@@ -67,7 +67,7 @@ class EarlyDotRefreshes extends Analyzer {
     }
     const targetID = encodeTargetString(event.targetID, event.targetInstance);
     const extensionInfo = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
-    if(this.lastCastGoodExtension){
+    if (this.lastCastGoodExtension) {
       return;
     }
     this.lastCastGoodExtension = extensionInfo.wasted === 0;
@@ -80,7 +80,8 @@ class EarlyDotRefreshes extends Analyzer {
     if (!dot) {
       return;
     }
-    this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + dot.duration;
+    this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] =
+      event.timestamp + dot.duration;
     this.lastCastGoodExtension = true;
     this.lastCastMinWaste = 0;
     this.lastCastMaxEffect = dot.duration;
@@ -116,13 +117,13 @@ class EarlyDotRefreshes extends Analyzer {
     if (!this.lastGCD || !this.lastCast) {
       return;
     }
-	// We only check if Mortal Strike has been cast during the execution phase
-	if (!this.executeRange.isTargetInExecuteRange(event)) {
-	  return;
-	}
+    // We only check if Mortal Strike has been cast during the execution phase
+    if (!this.executeRange.isTargetInExecuteRange(event)) {
+      return;
+    }
     // We wait roughly a GCD to check, to account for minor travel times.
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
-    if (timeSinceCast < this.lastCastBuffer){
+    if (timeSinceCast < this.lastCastBuffer) {
       return;
     }
     this.casts[this.lastCast.ability.guid].addedDuration += this.lastCastMaxEffect;
@@ -149,18 +150,22 @@ class EarlyDotRefreshes extends Analyzer {
 
   // Get the suggestion for last bad cast. If empty, cast will be considered good.
   getLastBadCastText(event, dot) {
-    return `${dot.name} was refreshed ${formatDuration(this.lastCastMinWaste/1000)} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(PANDEMIC_WINDOW * dot.duration/1000)} left or part of the dot will be wasted.`;
+    return `${dot.name} was refreshed ${formatDuration(
+      this.lastCastMinWaste / 1000,
+    )} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(
+      (PANDEMIC_WINDOW * dot.duration) / 1000,
+    )} left or part of the dot will be wasted.`;
   }
 
   //Returns the dot object
   getDot(spellId) {
-    const dot = this.constructor.dots.find(element => element.debuffId === spellId);
+    const dot = this.constructor.dots.find((element) => element.debuffId === spellId);
     return dot;
   }
 
   //Returns the dot object
   getDotByCast(spellId) {
-    const dot = this.constructor.dots.find(element => element.castId === spellId);
+    const dot = this.constructor.dots.find((element) => element.castId === spellId);
     return dot;
   }
 
@@ -174,12 +179,13 @@ class EarlyDotRefreshes extends Analyzer {
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
     const lostDuration = newDuration - maxDuration;
-    if (lostDuration <= 0) { //full extension
+    if (lostDuration <= 0) {
+      //full extension
       this.targets[dot.debuffId][targetID] = timestamp + newDuration;
-      return {wasted: 0, effective: extension};
+      return { wasted: 0, effective: extension };
     } // Else not full extension
     this.targets[dot.debuffId][targetID] = timestamp + maxDuration;
-    return {wasted: lostDuration, effective: extension - lostDuration};
+    return { wasted: lostDuration, effective: extension - lostDuration };
   }
 
   badCastsPercent(spellId) {
@@ -188,8 +194,13 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   badCastsEffectivePercent(spellId) {
-    if(!this.casts[spellId].addedDuration) {return 1;}
-    return this.casts[spellId].addedDuration / (this.casts[spellId].addedDuration+this.casts[spellId].wastedDuration);
+    if (!this.casts[spellId].addedDuration) {
+      return 1;
+    }
+    return (
+      this.casts[spellId].addedDuration /
+      (this.casts[spellId].addedDuration + this.casts[spellId].wastedDuration)
+    );
   }
 
   makeSuggestionThresholds(spell, minor, avg, major) {

@@ -1,12 +1,21 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  Ability,
+  AbsorbedEvent,
+  AnyEvent,
+  CastEvent,
+  DamageEvent,
+  DeathEvent,
+  Event,
+  EventType,
+} from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { Ability, AbsorbedEvent, AnyEvent, CastEvent, DamageEvent, DeathEvent, Event, EventType } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
-type StaggerEventType = EventType.AddStagger | EventType.RemoveStagger
+type StaggerEventType = EventType.AddStagger | EventType.RemoveStagger;
 
 const PURIFY_BASE = 0.5;
 
@@ -31,7 +40,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
   trigger?: CastEvent | DeathEvent;
 }
 
-export type MaxHPEvent = AnyEvent & { maxHitPoints?: number; }
+export type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -83,7 +92,7 @@ class StaggerFabricator extends Analyzer {
 
   removeStagger(event: MaxHPEvent, amount: number) {
     this._staggerPool -= amount;
-    const overage = (this._staggerPool < 0) ? this._staggerPool : 0;
+    const overage = this._staggerPool < 0 ? this._staggerPool : 0;
     // sometimes a stagger tick is recorded immediately after death.
     // this ensures we don't go into negative stagger
     //
@@ -109,7 +118,9 @@ class StaggerFabricator extends Analyzer {
 
   _updateHaste(sourceEvent: MaxHPEvent, staggerEvent: AddStaggerEvent | RemoveStaggerEvent) {
     let currentBuff;
-    const staggerRatio = staggerEvent.newPooledDamage / (sourceEvent.maxHitPoints ? sourceEvent.maxHitPoints : this._lastKnownMaxHp);
+    const staggerRatio =
+      staggerEvent.newPooledDamage /
+      (sourceEvent.maxHitPoints ? sourceEvent.maxHitPoints : this._lastKnownMaxHp);
     if (staggerRatio === 0) {
       currentBuff = null;
     } else if (staggerRatio < STAGGER_THRESHOLDS.MODERATE) {
@@ -121,7 +132,8 @@ class StaggerFabricator extends Analyzer {
     }
 
     if (currentBuff !== this._previousBuff) {
-      this._previousBuff && this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
+      this._previousBuff &&
+        this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
       currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
       this._previousBuff = currentBuff;
     }
@@ -131,7 +143,10 @@ class StaggerFabricator extends Analyzer {
     if (event.ability.guid !== SPELLS.STAGGER.id) {
       return;
     }
-    if (event.extraAbility && event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
+    if (
+      event.extraAbility &&
+      event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id
+    ) {
       return;
     }
     this.addStagger(event, event.amount);
@@ -147,18 +162,22 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = event.amount + (event.absorbed || 0);
-    if (!this._initialized) { //if stagger hasn't been initialized (aka new phase), send a fake add stagger event
+    if (!this._initialized) {
+      //if stagger hasn't been initialized (aka new phase), send a fake add stagger event
       this._staggerPool = amount * 19; //stagger lasts for 10 seconds at 0.5s per tick, we can calculate the total stagger remaining in the pool to be 19*tick (1 out of 20 total stacks being removed this tick)
-      this.addStagger({
-        ...event,
-        __fabricated: true,
-        prepull: true,
-      }, 0); //send empty stagger event to initialized purify etc without tainting the damage staggered statistic
+      this.addStagger(
+        {
+          ...event,
+          __fabricated: true,
+          prepull: true,
+        },
+        0,
+      ); //send empty stagger event to initialized purify etc without tainting the damage staggered statistic
       this._initialized = true;
-    } else { //skip this tick's remove event as we only added 19 ticks to the pool
+    } else {
+      //skip this tick's remove event as we only added 19 ticks to the pool
       this.removeStagger(event, amount);
     }
-
   }
 
   private _pbCast(event: CastEvent) {

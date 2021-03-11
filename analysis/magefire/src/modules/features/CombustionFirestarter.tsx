@@ -1,17 +1,16 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import React from 'react';
+
 import { FIRESTARTER_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from '@wowanalyzer/mage';
 
 const debug = false;
 
 class CombustionFirestarter extends Analyzer {
-
   combustionCast = false;
   combustionDuringFirestarter = false;
   healthPercent = 1;
@@ -19,8 +18,14 @@ class CombustionFirestarter extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onDamage);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      this.onCombustion,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
+      this.onDamage,
+    );
   }
 
   //Checks to see if a new Combustion was cast. This variable is marked false once a damage event is triggered since we only want the first damage event in the Combustion (to get the health percentage)
@@ -41,7 +46,7 @@ class CombustionFirestarter extends Analyzer {
     }
     if (this.healthPercent > FIRESTARTER_THRESHOLD) {
       this.combustionDuringFirestarter = true;
-      debug && this.log("Combustion Used During Firestarter");
+      debug && this.log('Combustion Used During Firestarter');
     }
   }
 
@@ -54,10 +59,18 @@ class CombustionFirestarter extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.SuggestionThresholds)
-      .addSuggestion((suggest) => suggest(<>You used <SpellLink id={SPELLS.COMBUSTION.id} /> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</>)
-          .icon(SPELLS.COMBUSTION.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
+    when(this.SuggestionThresholds).addSuggestion((suggest) =>
+      suggest(
+        <>
+          You used <SpellLink id={SPELLS.COMBUSTION.id} /> while{' '}
+          <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90%
+          health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you
+          should wait until the boss is at 89% to use your Combustion.
+        </>,
+      )
+        .icon(SPELLS.COMBUSTION.icon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
+    );
   }
 }
 export default CombustionFirestarter;

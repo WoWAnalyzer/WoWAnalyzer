@@ -1,13 +1,11 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
-
+import { HealEvent } from 'parser/core/Events';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
-
-import { HealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';
+import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import React from 'react';
 
 import SPELL_INFO from './StatValuesSpellInfo';
 
@@ -19,7 +17,7 @@ class StatValues extends BaseHealerStatValues {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
   };
-  spellInfo: {} = SPELL_INFO;
+  spellInfo = SPELL_INFO;
   qeLive: boolean = true;
   protected statTracker!: StatTracker;
   protected critEffectBonus!: CritEffectBonus;
@@ -33,7 +31,12 @@ class StatValues extends BaseHealerStatValues {
     // assuming gust heal vs. mastery % are linear and start at 0 ( gust_heal = K * mast_pct )
     // h2 / h1 = mast_pct(rat + 1) / mast_pct(rat)
     // solving that for h2 - h1 brings...
-    return healVal.effective * ((this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating + 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)) - 1);
+    return (
+      healVal.effective *
+      (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating + 1, true) /
+        this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true) -
+        1)
+    );
   }
 
   _prepareResults() {
@@ -44,11 +47,22 @@ class StatValues extends BaseHealerStatValues {
         stat: STAT.HASTE_HPCT,
         tooltip: (
           <Trans id="monk.mistweaver.modules.features.statValues.hpct">
-            HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth if you would cast everything you are already casting (that scales with Haste) faster. Mana and overhealing are not accounted for in any way.<br /><br />
-
-            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on various things, such as if you have the mana left to spend, if the gained casts would overheal, and how well you are at casting spells end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast fewer bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
-
-            Haste can also help you safe lives during intense damage phases. If you notice you're GCD capped when people are dying, Haste might help you land more heals. This may contribute more towards actually getting the kill.
+            HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth
+            if you would cast everything you are already casting (that scales with Haste) faster.
+            Mana and overhealing are not accounted for in any way.
+            <br />
+            <br />
+            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on
+            various things, such as if you have the mana left to spend, if the gained casts would
+            overheal, and how well you are at casting spells end-to-end. If you are going OOM before
+            the end of the fight you might instead want to drop some Haste or cast fewer bad heals.
+            If you had mana left-over, Haste could help you convert that into healing. If your Haste
+            usage is optimal Haste will then be worth the shown max value.
+            <br />
+            <br />
+            Haste can also help you safe lives during intense damage phases. If you notice you're
+            GCD capped when people are dying, Haste might help you land more heals. This may
+            contribute more towards actually getting the kill.
           </Trans>
         ),
       },

@@ -1,11 +1,9 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
-
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import React from 'react';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -18,8 +16,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -31,8 +30,9 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOOD_BOIL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
+        cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
           extraSuggestion: 'Should be used as an opener and used on CD for the dps boost.',
         },
         timelineSortIndex: 9,
@@ -87,8 +87,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Mostly used as a dps CD. Should be almost casted on CD. Good to use when you\'re running to the boss or can\'t melee them.',
+          recommendedEfficiency: 0.9,
+          extraSuggestion:
+            "Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.",
         },
         timelineSortIndex: 6,
       },
@@ -114,11 +115,13 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled:
+          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+          combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80, //reduced because of proc resets
+          recommendedEfficiency: 0.8, //reduced because of proc resets
         },
         timelineSortIndex: 5,
       },
@@ -129,7 +132,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled:
+          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+          !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         timelineSortIndex: 5,
       },
@@ -157,8 +162,9 @@ class Abilities extends CoreAbilities {
         cooldown: combatant.hasTalent(SPELLS.ANTI_MAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -262,8 +268,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -276,8 +283,9 @@ class Abilities extends CoreAbilities {
         charges: 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -290,7 +298,7 @@ class Abilities extends CoreAbilities {
         charges: 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
+          recommendedEfficiency: 0.5,
           extraSuggestion: 'Use to generate extra runes at opportune times.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
@@ -309,19 +317,19 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_2,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_3,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
 
@@ -335,7 +343,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
@@ -357,7 +365,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
@@ -376,7 +384,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
@@ -389,8 +397,13 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
-          extraSuggestion: <span>Should be hard-cast without a <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> proc in order to maintain the <SpellLink id={SPELLS.DEATHS_DUE_BUFF.id} /> buff</span>
+          recommendedEfficiency: 0.8,
+          extraSuggestion: (
+            <span>
+              Should be hard-cast without a <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> proc in
+              order to maintain the <SpellLink id={SPELLS.DEATHS_DUE_BUFF.id} /> buff
+            </span>
+          ),
         },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },

@@ -1,14 +1,12 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Analyzer from 'parser/core/Analyzer';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import { formatNumber } from 'common/format';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import AbilityTracker from '../core/AbilityTracker';
 

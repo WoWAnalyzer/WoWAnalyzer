@@ -1,11 +1,10 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import React from 'react';
 
 import { TrackedPaladinAbility } from '../core/PaladinAbilityTracker';
 
@@ -17,7 +16,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.HOLY_SHOCK_CAST, SPELLS.HOLY_SHOCK_HEAL],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
           return (7.5 / (1 + haste)) * (1 - swCdr);
         },
@@ -27,7 +26,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Trans id="paladin.holy.modules.abilities.castHolyShockRegularly">Casting Holy Shock regularly is very important for performing well.</Trans>
+            <Trans id="paladin.holy.modules.abilities.castHolyShockRegularly">
+              Casting Holy Shock regularly is very important for performing well.
+            </Trans>
           ),
         },
         timelineSortIndex: 0,
@@ -44,7 +45,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
           return (12 / (1 + haste)) * (1 - cdr);
         },
@@ -109,7 +110,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
           return (6 / (1 + haste)) * (1 - cdr);
         },
@@ -248,26 +249,26 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLASH_OF_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        channel: haste => 1.5 / (1 + haste),
+        channel: (haste) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
-          casts: castCount => castCount.casts - (castCount.healingIolHits || 0),
+          casts: (castCount) => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        channel: haste => 1.5 / (1 + haste),
+        channel: (haste) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.FLASH_OF_LIGHT.name}`,
-          casts: castCount => castCount.healingIolHits || 0,
+          casts: (castCount) => castCount.healingIolHits || 0,
         },
         timelineSortIndex: 10,
       },
@@ -279,7 +280,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
-          casts: castCount => castCount.casts - (castCount.healingIolHits || 0),
+          casts: (castCount) => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 2,
       },
@@ -291,7 +292,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.HOLY_LIGHT.name}`,
-          casts: castCount => castCount.healingIolHits || 0,
+          casts: (castCount) => castCount.healingIolHits || 0,
         },
         timelineSortIndex: 2,
       },
@@ -366,7 +367,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
           return (6 / (1 + haste)) * (1 - cdr);
         },
@@ -380,7 +381,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONSECRATION_CAST,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: (haste) => 4.5 / (1 + haste),
         timelineSortIndex: 51,
         gcd: {
           base: 1500,

@@ -1,13 +1,11 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-
-import Analyzer from 'parser/core/Analyzer';
-import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 class EnvenomUptime extends Analyzer {
   get percentUptime() {
@@ -16,17 +14,19 @@ class EnvenomUptime extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText label={<><SpellIcon id={SPELLS.ENVENOM.id} /> Envenom Uptime</>}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.ENVENOM.id} /> Envenom Uptime
+            </>
+          }
+        >
           {formatPercentage(this.percentUptime)}%
         </BoringValueText>
       </Statistic>
     );
   }
-
 }
 
 export default EnvenomUptime;

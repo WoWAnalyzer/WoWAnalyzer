@@ -1,5 +1,5 @@
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 // Primal Fury may be slightly delayed.
@@ -23,9 +23,9 @@ class ComboPointTracker extends ResourceTracker {
   }
 
   _applyBuilder(spellId, resource, gain, waste) {
-    const isMaxBefore = (this.current === this.maxResource);
+    const isMaxBefore = this.current === this.maxResource;
     super._applyBuilder(spellId, resource, gain, waste);
-    const isMaxAfter = (this.current === this.maxResource);
+    const isMaxAfter = this.current === this.maxResource;
 
     if (!isMaxBefore && isMaxAfter) {
       this.castToMaxCpTimestamp = this.owner.currentTimestamp;
@@ -33,8 +33,10 @@ class ComboPointTracker extends ResourceTracker {
     }
 
     // primal fury procs that happen right after a cast that brought us to max CP shouldn't count as waste because it was out of the player's control
-    if ((spellId === SPELLS.PRIMAL_FURY.id) &&
-      ((this.owner.currentTimestamp - this.castToMaxCpTimestamp) < PRIMAL_FURY_WINDOW)) {
+    if (
+      spellId === SPELLS.PRIMAL_FURY.id &&
+      this.owner.currentTimestamp - this.castToMaxCpTimestamp < PRIMAL_FURY_WINDOW
+    ) {
       this.unavoidableWaste += 1;
     }
   }

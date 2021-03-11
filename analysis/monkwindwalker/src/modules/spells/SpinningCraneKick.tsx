@@ -1,13 +1,12 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { ApplyDebuffEvent, CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Events, { ApplyDebuffEvent, CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
+import React from 'react';
 
 interface MarkOfTheCrane {
   target: MarkOfTheCraneTarget;
@@ -19,7 +18,8 @@ interface MarkOfTheCraneTarget {
   instance: number;
 }
 
-const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) => a.id === b.id && a.instance === b.instance;
+const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) =>
+  a.id === b.id && a.instance === b.instance;
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {

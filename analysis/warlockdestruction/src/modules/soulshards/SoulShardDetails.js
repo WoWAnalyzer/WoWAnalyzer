@@ -1,17 +1,13 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-
 import { Panel } from 'interface';
 import { AlertWarning } from 'interface';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import Analyzer from 'parser/core/Analyzer';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-
-import { t } from '@lingui/macro';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import '@wowanalyzer/warlock/src/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
@@ -39,14 +35,21 @@ class SoulShardDetails extends Analyzer {
 
   suggestions(when) {
     const fragmentsWasted = this.soulShardTracker.wasted;
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
+      )
         .icon(SPELLS.SOUL_SHARDS.icon)
-        .actual(t({
-      id: "warlock.destruction.suggestions.soulShard.wastedPerMinute",
-      message: `${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`
-    }))
-        .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`));
+        .actual(
+          t({
+            id: 'warlock.destruction.suggestions.soulShard.wastedPerMinute',
+            message: `${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(
+              2,
+            )} per minute)`,
+          }),
+        )
+        .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`),
+    );
   }
 
   statistic() {
@@ -55,7 +58,16 @@ class SoulShardDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={(<>In order for Focus Magic to compete with the other talents on that row, you need to ensure you are getting as much uptime out of the buff as possible. Therefore, if you forget to put the buff on another player or if they player you gave it to is not getting crits very often, then you might need to consider giving the buff to someone else. Ideally, you should aim to trade buffs with another mage who has also taken Focus Magic so you both get the full benefit.</>)}
+        tooltip={
+          <>
+            In order for Focus Magic to compete with the other talents on that row, you need to
+            ensure you are getting as much uptime out of the buff as possible. Therefore, if you
+            forget to put the buff on another player or if they player you gave it to is not getting
+            crits very often, then you might need to consider giving the buff to someone else.
+            Ideally, you should aim to trade buffs with another mage who has also taken Focus Magic
+            so you both get the full benefit.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_SHARDS}>
           {shardsWasted} <small>Wasted Soul Shards</small>
@@ -71,13 +83,16 @@ class SoulShardDetails extends Analyzer {
       render: () => (
         <Panel>
           <AlertWarning style={{ marginLeft: 0, marginRight: 0 }}>
-            Due to the technical limitations and randomness of Immolate{(this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)) ? ' and Rain of Fire with Inferno talent' : ''}, we can't accurately determine the amount of generated Soul Shard Fragments, but we tried to estimate the amount of random fragments and count them in. <br />
-            Summon Infernal also has a very inconsistent shard generation which might mess up the tracking as well. Take this tab with a grain of salt.
+            Due to the technical limitations and randomness of Immolate
+            {this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)
+              ? ' and Rain of Fire with Inferno talent'
+              : ''}
+            , we can't accurately determine the amount of generated Soul Shard Fragments, but we
+            tried to estimate the amount of random fragments and count them in. <br />
+            Summon Infernal also has a very inconsistent shard generation which might mess up the
+            tracking as well. Take this tab with a grain of salt.
           </AlertWarning>
-          <ResourceBreakdown
-            tracker={this.soulShardTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.soulShardTracker} showSpenders />
         </Panel>
       ),
     };

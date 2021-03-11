@@ -1,11 +1,10 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import { Panel } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { Icon } from 'interface';
 import { formatPercentage } from 'common/format';
+import { Panel } from 'interface';
+import { Icon } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import EnergyTracker from './EnergyTracker';
 
@@ -60,15 +59,11 @@ class EnergyDetails extends Analyzer {
       url: 'energy-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.energyTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.energyTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default EnergyDetails;

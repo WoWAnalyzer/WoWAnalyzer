@@ -1,7 +1,7 @@
-import React from 'react';
 import { Tyndi } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -17,15 +17,19 @@ export default {
     <>
       Hey Outlaw Rogues! <br /> <br />
       <AlertWarning>
-        The Outlaw Rogue module is still being worked on.
-        Currently, it gives a good analysis of the single target rotation, and highlights major mistakes.
+        The Outlaw Rogue module is still being worked on. Currently, it gives a good analysis of the
+        single target rotation, and highlights major mistakes.
       </AlertWarning>
       <br /> <br />
-      If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
+      If there is something missing, incorrect, or inaccurate, please report it on{' '}
+      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact{' '}
+      <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br />
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/wptPT3mfWavbj9KY/33-Heroic+Conclave+of+the+Chosen+-+Kill+(6:22)/13-Kuracz',
+  exampleReport:
+    '/report/wptPT3mfWavbj9KY/33-Heroic+Conclave+of+the+Chosen+-+Kill+(6:22)/13-Kuracz',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -33,7 +37,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "OutlawRogue" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "OutlawRogue" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

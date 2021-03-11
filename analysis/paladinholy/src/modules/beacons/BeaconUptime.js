@@ -1,12 +1,11 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 /* ---------------------------- Log URLs for testing --------------------------
 
@@ -354,7 +353,7 @@ class BeaconUptime extends Analyzer {
 
   _handleBoVEvents() {
     const historyBoV = this.selectedCombatant.getBuffHistory(this.idBoV);
-    historyBoV.forEach(event => {
+    historyBoV.forEach((event) => {
       this.uptimeBoV += event.end - event.start;
     });
     return;
@@ -473,7 +472,9 @@ class BeaconUptime extends Analyzer {
             <BoringSpellValue
               spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
               value={`${this.uptimeBoLPerc}%`}
-              label={<Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>}
+              label={
+                <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>
+              }
             />
             {this.missingBoLPrepull && missingPrepullContainer}
           </div>
@@ -485,7 +486,9 @@ class BeaconUptime extends Analyzer {
             <BoringSpellValue
               spell={SPELLS.BEACON_OF_FAITH_TALENT}
               value={`${this.uptimeBoFPerc}%`}
-              label={<Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>}
+              label={
+                <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>
+              }
             />
 
             {this.missingBoFPrepull && missingPrepullContainer}
@@ -498,7 +501,9 @@ class BeaconUptime extends Analyzer {
             <BoringSpellValue
               spell={SPELLS.BEACON_OF_VIRTUE_TALENT}
               value={`${this.uptimeBoVPerc}%`}
-              label={<Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>}
+              label={
+                <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>
+              }
             />
           </div>
         )}

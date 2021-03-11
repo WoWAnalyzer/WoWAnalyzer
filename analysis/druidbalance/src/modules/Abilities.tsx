@@ -1,8 +1,8 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import CoreAbilities from 'parser/core/modules/Abilities';
+import React from 'react';
 
 class Abilities extends CoreAbilities {
   spellbook() {

@@ -1,13 +1,12 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { formatNumber, formatPercentage } from 'common/format';
-import { DamageEvent, EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
+import { DamageEvent, EventType } from 'parser/core/Events';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 

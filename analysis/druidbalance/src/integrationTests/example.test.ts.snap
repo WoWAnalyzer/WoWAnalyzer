@@ -236,7 +236,8 @@ Array [
       />
        buff for 
       5
-       times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
+       
+      times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
     </React.Fragment>,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.boat.efficiency","message":"{0} of your Balance of All Things openers were wrong","values":{"0":5}}
@@ -494,8 +495,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               37
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -580,8 +580,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -666,8 +665,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               45
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -752,8 +750,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               45
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -838,8 +835,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -924,8 +920,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               17
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1068,8 +1063,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1166,8 +1160,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1322,8 +1315,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               3
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1425,8 +1417,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1511,8 +1502,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1655,8 +1645,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1758,8 +1747,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1856,8 +1844,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /11
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1954,8 +1941,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2040,8 +2026,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2138,8 +2123,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2236,8 +2220,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /39
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2334,8 +2317,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2420,8 +2402,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /39
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2518,8 +2499,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2604,8 +2584,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2690,8 +2669,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2776,8 +2754,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2862,8 +2839,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2948,8 +2924,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3034,8 +3009,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3120,8 +3094,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /31
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3276,8 +3249,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3374,8 +3346,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3563,7 +3534,9 @@ exports[`Balance Druid integration test: example log ConvokeSpirits matches the 
         </label>
         <div
           className="value"
-        />
+        >
+          -
+        </div>
       </div>
       <div
         className="row"

@@ -1,7 +1,6 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import { formatNumber } from 'common/format';
@@ -106,14 +105,17 @@ class HymnBuffBenefit extends Analyzer {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
-        value={`≈${formatNumber(this.totalHealingFromHymnBuff / fightDuration * 1000)} HPS`}
+        value={`≈${formatNumber((this.totalHealingFromHymnBuff / fightDuration) * 1000)} HPS`}
         label="Hymn Buff Contribution"
-        tooltip={(
+        tooltip={
           <>
-            The Divine Hymn buff contributed {formatNumber(this.totalHealingFromHymnBuff)} healing. This includes healing from other healers.<br />
-            NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.
+            The Divine Hymn buff contributed {formatNumber(this.totalHealingFromHymnBuff)} healing.
+            This includes healing from other healers.
+            <br />
+            NOTE: This metric uses an approximation to calculate contribution from the buff due to
+            technical limitations.
           </>
-        )}
+        }
       />
     );
   }

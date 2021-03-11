@@ -9,12 +9,16 @@
  * `calculateEffectiveHealing`.
  */
 
-export default function calculateEffectiveHealingStacked(event, relativeHealIncreasePerStack, stacks) {
+export default function calculateEffectiveHealingStacked(
+  event,
+  relativeHealIncreasePerStack,
+  stacks,
+) {
   const amount = event.amount;
   const absorbed = event.absorbed || 0;
   const overheal = event.overheal || 0;
   const raw = amount + absorbed + overheal;
-  const relativeHealingIncreaseFactor = 1 + (relativeHealIncreasePerStack * stacks);
+  const relativeHealingIncreaseFactor = 1 + relativeHealIncreasePerStack * stacks;
   const totalHealingIncrease = raw - raw / relativeHealingIncreaseFactor;
   const oneStackHealingIncrease = totalHealingIncrease / stacks;
   const effectiveHealing = oneStackHealingIncrease - overheal;

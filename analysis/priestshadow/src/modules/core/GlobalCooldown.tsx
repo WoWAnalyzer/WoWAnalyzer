@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { CastEvent } from 'parser/core/Events';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * Mind Flay has ticks marked as "cast", and we fix its channel in Channeling. This also fixes its GCD.

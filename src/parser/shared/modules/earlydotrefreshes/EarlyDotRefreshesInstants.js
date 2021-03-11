@@ -29,15 +29,18 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
   // Checks the status of the last cast and marks it accordingly.
   getLastBadCastText(event, dot) {
     let text = '';
-    if (!this.movedSinceCast(event)) { // Dot was refreshed early while standing still.
+    if (!this.movedSinceCast(event)) {
+      // Dot was refreshed early while standing still.
       text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit and you were standing still.`;
     }
     const castWhileMovingBuffName = this.couldCastWhileMoving(this.lastCast, event);
-    if (castWhileMovingBuffName) { // Dot was refreshed early and player was able to cast on the move.
+    if (castWhileMovingBuffName) {
+      // Dot was refreshed early and player was able to cast on the move.
       text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit and you had ${castWhileMovingBuffName} active, allowing you to cast better spells while moving.`;
     }
     const betterFillers = this.betterFillersAvailable(this.lastCast);
-    if (betterFillers && betterFillers.length > 0) { // A better movement filler was available.
+    if (betterFillers && betterFillers.length > 0) {
+      // A better movement filler was available.
       let fillers = '';
       for (let i = 0; i < betterFillers.length; i += 1) {
         fillers += betterFillers[i];
@@ -72,9 +75,10 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     // If another movement filler had <30% duration remaining on the target, it would have been a better filler.
     // We only check the primary target since the player might not be interested in refreshing the dot on secondary targets.
     this.constructor.dots
-      .filter(dot => dot.castId !== event.ability.guid)
-      .forEach(dot => {
-        const expirationTimestamp = this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] || 0;
+      .filter((dot) => dot.castId !== event.ability.guid)
+      .forEach((dot) => {
+        const expirationTimestamp =
+          this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] || 0;
         const remainingDuration = expirationTimestamp - event.timestamp;
         if (remainingDuration < dot.duration * PANDEMIC_WINDOW) {
           betterFillers.push(dot.name);

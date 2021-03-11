@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { emallson, Hordehobbs, Zeboot, HolySchmidt } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { emallson, Hordehobbs, Zeboot, HolySchmidt } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 2, 20), <>Fixed overlapping GCDs caused by <SpellLink id={SPELLS.FINAL_STAND_TALENT.id} />.  Added GCD tracking for <SpellLink id={SPELLS.DIVINE_PROTECTION.id} /> and removed GDC tracking from <SpellLink id={SPELLS.FINAL_STAND_TALENT.id} /> taunt cast.</>, HolySchmidt),

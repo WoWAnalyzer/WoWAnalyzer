@@ -1,7 +1,7 @@
+import { change, date } from 'common/changelog';
+import { Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn } from 'CONTRIBUTORS';
 import React from 'react';
 
-import { Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn } from 'CONTRIBUTORS';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),

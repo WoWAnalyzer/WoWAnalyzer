@@ -1,23 +1,29 @@
-import React from 'react';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  DamageEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { formatPercentage } from 'common/format';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import React from 'react';
 
-import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
+import BlackoutCombo from './BlackoutCombo';
 
 const TIGER_PALM_REDUCTION = 1000;
 
 interface ConditionalSpell {
-  spell: SpellInfo,
-  when: (c: Combatant) => boolean,
+  spell: SpellInfo;
+  when: (c: Combatant) => boolean;
 }
 
 function isConditional(spell: ConditionalSpell | SpellInfo): spell is ConditionalSpell {
@@ -30,7 +36,9 @@ const BETTER_SPELLS: Array<SpellInfo | ConditionalSpell> = [
   SPELLS.BREATH_OF_FIRE,
   {
     spell: SPELLS.RUSHING_JADE_WIND,
-    when: (combatant: Combatant) => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) && !combatant.hasBuff(SPELLS.RUSHING_JADE_WIND.id),
+    when: (combatant: Combatant) =>
+      combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) &&
+      !combatant.hasBuff(SPELLS.RUSHING_JADE_WIND.id),
   },
   {
     spell: SPELLS.CHI_BURST_TALENT,
@@ -64,12 +72,27 @@ class TigerPalm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onLoseBOC);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onGainBOC,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onGainBOC,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onLoseBOC,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.checkBadTP);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM),
+      this.checkBadTP,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM),
+      this.onDamage,
+    );
   }
 
   get totalBocHits() {
@@ -135,13 +158,13 @@ class TigerPalm extends Analyzer {
       return; // TP+BoC is highest prio
     }
 
-    const availableSpells: SpellInfo[] = BETTER_SPELLS.filter(entry => {
+    const availableSpells: SpellInfo[] = BETTER_SPELLS.filter((entry) => {
       if (isConditional(entry)) {
         return entry.when(this.selectedCombatant) && this.spellUsable.isAvailable(entry.spell.id);
       } else {
         return this.spellUsable.isAvailable(entry.id);
       }
-    }).map(entry => isConditional(entry) ? entry.spell : entry);
+    }).map((entry) => (isConditional(entry) ? entry.spell : entry));
 
     if (availableSpells.length === 0) {
       return; // nothing better to cast, so this is OK
@@ -155,7 +178,11 @@ class TigerPalm extends Analyzer {
         <>
           The following better spells were available during this GCD:
           <ul>
-            {availableSpells.map(({ id }) => <li key={id}><SpellLink id={id} /></li>)}
+            {availableSpells.map(({ id }) => (
+              <li key={id}>
+                <SpellLink id={id} />
+              </li>
+            ))}
           </ul>
         </>
       ),
@@ -165,11 +192,19 @@ class TigerPalm extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.badCastSuggestion)
-      .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid casting it when you have other damaging abilities like <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} /> available.</>)
+    when(this.badCastSuggestion).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          <SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid
+          casting it when you have other damaging abilities like{' '}
+          <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} />{' '}
+          available.
+        </>,
+      )
         .icon(SPELLS.TIGER_PALM.icon)
         .actual(`${formatPercentage(actual)}% of casts while better spells were available`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

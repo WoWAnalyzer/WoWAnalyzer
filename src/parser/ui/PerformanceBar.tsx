@@ -1,6 +1,5 @@
-import React from 'react';
-
 import colorForPerformance from 'common/colorForPerformance';
+import React from 'react';
 
 interface Props {
   percent: number;

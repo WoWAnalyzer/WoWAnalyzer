@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { CastEvent } from 'parser/core/Events';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 

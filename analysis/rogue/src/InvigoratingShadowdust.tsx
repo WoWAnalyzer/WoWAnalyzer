@@ -1,11 +1,15 @@
+import SPELLS from 'common/SPELLS';
+import { SpellList } from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SPELLS from 'common/SPELLS';
-import Events, { CastEvent } from 'parser/core/Events';
-import { SpellList } from 'common/SPELLS/Spell';
 
-import { ASSASSINATION_ABILITY_COOLDOWNS, OUTLAW_ABILITY_COOLDOWNS, SUBTLETY_ABILITY_COOLDOWNS } from './constants';
+import {
+  ASSASSINATION_ABILITY_COOLDOWNS,
+  OUTLAW_ABILITY_COOLDOWNS,
+  SUBTLETY_ABILITY_COOLDOWNS,
+} from './constants';
 
 /**
  * The Inigorating Shadowdust legendary reduces the cooldown of ALL abilities by 15 seconds after using Vanish. This is usable by all 3 Rogue specs.
@@ -39,7 +43,9 @@ class InvigoratingShadowdust extends Analyzer {
       default:
         break;
     }
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.INVIGORATING_SHADOWDUST.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.INVIGORATING_SHADOWDUST.bonusID,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 

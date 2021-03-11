@@ -1,4 +1,3 @@
-
 import { AnyEvent, DamageEvent, EventType, ApplyDebuffEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -21,7 +20,6 @@ export interface DotStatus {
  * The uptime calculations look for the time between the apply debuff and remove debuff events, and without the apply debuff event, it was doing crazy things!
  */
 class MissingDotApplyDebuffPrePull extends EventsNormalizer {
-
   static dots: Dot[] = [];
 
   normalize(events: AnyEvent[]): AnyEvent[] {
@@ -31,7 +29,11 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
     const cutoff = fightStartTimestamp + CUTOFF;
 
     const dotStatusesMap: { [index: number]: DotStatus } = ctor.dots.reduce((map, debuff) => {
-      map[debuff.debuffId] = { debuffId: debuff.debuffId, handled: false, missingApplyDebuff: null };
+      map[debuff.debuffId] = {
+        debuffId: debuff.debuffId,
+        handled: false,
+        missingApplyDebuff: null,
+      };
       return map;
     }, {} as any);
 
@@ -57,12 +59,10 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
           dotStatus.missingApplyDebuff = false;
         }
       } else if (event.type === EventType.Damage) {
-
         const dotStatus = dotStatusesMap[event.ability.guid];
         if (dotStatus == null) {
           continue;
         }
-
 
         if (dotStatus.missingApplyDebuff == null) {
           // So we got a damage event but we didn't see an apply debuff event for it beforehand. Mark it and we'll fabricate one.
@@ -72,7 +72,7 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
           // 00:00:02.084	Swaggar Haunt Shriekwing 1329
           // 00:00:02.084	Shriekwing is afflicted by Haunt from Swaggar
 
-          for (let j = i + 1; j < events.length; j++) {
+          for (let j = i + 1; j < events.length; j += 1) {
             const futureEvent = events[j];
 
             if (!this.owner.byPlayer(futureEvent)) {
@@ -84,8 +84,10 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
               break;
             }
 
-            if (futureEvent.type === EventType.ApplyDebuff
-               && futureEvent.ability.guid === dotStatus.debuffId) {
+            if (
+              futureEvent.type === EventType.ApplyDebuff &&
+              futureEvent.ability.guid === dotStatus.debuffId
+            ) {
               // There is an out-of-order apply debuff, so won't need to fabricate one after all
               dotStatus.missingApplyDebuff = false;
               break;
@@ -102,8 +104,11 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
 
     // Fabricate the missing Apply Debuff events, with timestamp at the very beginning of the fight.
 
-    const missingApplyDebuffsEvents = Object.values(dotStatusesMap).filter(ds => ds.missingApplyDebuff)
-      .map(dotStatus => ctor._fabricateApplyDebuffEvent(dotStatus.damageEvent!, fightStartTimestamp));
+    const missingApplyDebuffsEvents = Object.values(dotStatusesMap)
+      .filter((ds) => ds.missingApplyDebuff)
+      .map((dotStatus) =>
+        ctor._fabricateApplyDebuffEvent(dotStatus.damageEvent!, fightStartTimestamp),
+      );
 
     return [...missingApplyDebuffsEvents, ...events];
   }

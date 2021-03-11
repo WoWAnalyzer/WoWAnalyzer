@@ -1,14 +1,12 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import Haste from 'parser/shared/modules/Haste';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import Haste from 'parser/shared/modules/Haste';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const ONE_FILLER_GCD_HASTE_THRESHOLD = 1.4;
 
@@ -48,7 +46,8 @@ class SkippableCasts extends Analyzer {
 
   statistic() {
     const skippableCasts = this.skippableCastsBetweenVoidbolts;
-    if (!skippableCasts) { // If there were no skippable casts there's no point to display the module. It'll probably be 1-2 patches before this displays anything of value.
+    if (!skippableCasts) {
+      // If there were no skippable casts there's no point to display the module. It'll probably be 1-2 patches before this displays anything of value.
       this.active = false;
       return;
     }

@@ -1,13 +1,12 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-import { t } from '@lingui/macro';
 import UptimeBar from 'parser/ui/UptimeBar';
+import React from 'react';
 
 /*
   Shadow word pain can be created by:
@@ -42,7 +41,7 @@ class ShadowWordPain extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
+        average: 0.9,
         major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -50,16 +49,23 @@ class ShadowWordPain extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.
+        </span>,
+      )
         .icon(SPELLS.SHADOW_WORD_PAIN.icon)
-        .actual(t({
-      id: "priest.shadow.suggestions.shadowWordPain.uptime",
-      message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.shadowWordPain.uptime',
+            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
-
 
   subStatistic() {
     const history = this.enemies.getDebuffHistory(SPELLS.SHADOW_WORD_PAIN.id);

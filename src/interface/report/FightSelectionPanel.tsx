@@ -1,7 +1,6 @@
-import React from 'react';
-
 import Panel from 'interface/Panel';
 import Report from 'parser/core/Report';
+import React from 'react';
 
 import './FightSelection.scss';
 import FightSelectionPanelList from './FightSelectionPanelList';
@@ -17,11 +16,7 @@ const FightSelectionPanel = (props: Props) => {
   return (
     <>
       <Panel pad={false}>
-        <FightSelectionPanelList
-          report={report}
-          fights={report.fights}
-          killsOnly={killsOnly}
-        />
+        <FightSelectionPanelList report={report} fights={report.fights} killsOnly={killsOnly} />
       </Panel>
     </>
   );

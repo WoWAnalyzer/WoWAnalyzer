@@ -10,7 +10,6 @@ function getCombatant(parser = null, combatantInfo = null) {
       },
     ],
     fight: {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: 0,
     },
   };

@@ -1,11 +1,11 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 // Example Log: https://www.warcraftlogs.com/reports/NcRzTFqvyxaYDMBb#fight=8&type=healing&source=7
 class ImpendingVicory extends Analyzer {
@@ -20,8 +20,14 @@ class ImpendingVicory extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL), this.onImpendingVictoryHeal);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT), this.onImpendingVictoryDamage);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL),
+      this.onImpendingVictoryHeal,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT),
+      this.onImpendingVictoryDamage,
+    );
   }
 
   get percentageDamage() {
@@ -41,12 +47,17 @@ class ImpendingVicory extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<><strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong> damage was done by Impending Victory.</>}
+        tooltip={
+          <>
+            <strong>
+              {formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)
+            </strong>{' '}
+            damage was done by Impending Victory.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.IMPENDING_VICTORY_TALENT}>
-          <>
-            {formatNumber(this.totalHeal)} Healing
-          </>
+          <>{formatNumber(this.totalHeal)} Healing</>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,11 +1,11 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import React from 'react';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 /**
  * Wildfire Bomb drops an additional cluster of bombs around the target, each exploding for (33% of Attack power) Fire damage.
@@ -15,13 +15,17 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
  */
 
 class WildfireCluster extends Analyzer {
-
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE), this.onDamage);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -30,10 +34,7 @@ class WildfireCluster extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.WILDFIRE_CLUSTER_EFFECT}>
           <>
             <ItemDamageDone amount={this.damage} />

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_SOLACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -293,12 +293,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-		cooldown: 120,
+        cooldown: 120,
         gcd: null,
-		castEfficiency: {
-			suggestion: true,
-			recommendedEfficiency: 0.8,
-		},
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
       },
       {
         spell: SPELLS.SPIRIT_SHELL_TALENT,
@@ -325,7 +325,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
-
     ];
   }
 }

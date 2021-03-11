@@ -1,23 +1,19 @@
-import React from 'react';
-
+import { Trans } from '@lingui/macro';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { Trans } from '@lingui/macro';
-
-import Statistic from 'parser/ui/Statistic';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 import { HAUNTING_APPARITIONS_DAMAGE_INCREASE } from '@wowanalyzer/priest-shadow/src/constants';
-import { formatNumber } from 'common/format';
 
 class HauntingApparitions extends Analyzer {
-
   conduitRank = 0;
   damage = 0;
 
@@ -30,11 +26,17 @@ class HauntingApparitions extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, HAUNTING_APPARITIONS_DAMAGE_INCREASE[this.conduitRank]);
+    this.damage += calculateEffectiveDamage(
+      event,
+      HAUNTING_APPARITIONS_DAMAGE_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {
@@ -42,12 +44,14 @@ class HauntingApparitions extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <Trans id="priest.shadow.conduits.hauntingApparitions.tooltip">
-            This is the bonus damage gained from the conduit.<br/><br/>
+            This is the bonus damage gained from the conduit.
+            <br />
+            <br />
             Total damage: {formatNumber(this.damage)}
           </Trans>
-        )}
+        }
       >
         <ConduitSpellText spell={SPELLS.HAUNTING_APPARITIONS} rank={this.conduitRank}>
           <>
@@ -57,7 +61,6 @@ class HauntingApparitions extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default HauntingApparitions;

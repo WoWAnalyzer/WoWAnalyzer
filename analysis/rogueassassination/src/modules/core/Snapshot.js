@@ -1,12 +1,12 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
-import { t } from '@lingui/macro';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import React from 'react';
 
 const debug = false;
 
@@ -50,7 +50,7 @@ const DAMAGE_AFTER_EXPIRE_WINDOW = 200;
  */
 class Snapshot extends Analyzer {
   get lostSnapshotTimePercent() {
-    return (this.lostSnapshotTime / this.snapshotTime) || 0;
+    return this.lostSnapshotTime / this.snapshotTime || 0;
   }
 
   get suggestionThresholds() {
@@ -81,7 +81,9 @@ class Snapshot extends Analyzer {
     super(...args);
     if (!this.constructor.spellCastId || !this.constructor.debuffId) {
       this.active = false;
-      throw new Error('Snapshot should be extended and provided with spellCastId, debuffId and spellIcon.');
+      throw new Error(
+        'Snapshot should be extended and provided with spellCastId, debuffId and spellIcon.',
+      );
     }
     if (this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) {
       this.talentName = 'Nightstalker';
@@ -100,11 +102,18 @@ class Snapshot extends Analyzer {
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER), this.onRefreshDebuff);
 
     this.addEventListener(Events.fightend, this.onFightend);
-
   }
 
   onFightend() {
-    debug && console.log('lost: ' + this.lostSnapshotTime / 1000 + ', total: ' + this.snapshotTime / 1000 + ', bonus damage: ' + this.bonusDamage.toFixed(0));
+    debug &&
+      console.log(
+        'lost: ' +
+          this.lostSnapshotTime / 1000 +
+          ', total: ' +
+          this.snapshotTime / 1000 +
+          ', bonus damage: ' +
+          this.bonusDamage.toFixed(0),
+      );
   }
 
   onCast(event) {
@@ -124,7 +133,14 @@ class Snapshot extends Analyzer {
     }
     const state = this.stateByTarget[encodeTargetString(event.targetID, event.targetInstance)];
     if (!state || event.timestamp > state.expireTime + DAMAGE_AFTER_EXPIRE_WINDOW) {
-      debug && console.warn(`At ${this.owner.formatTimestamp(event.timestamp, 3)} damage detected from DoT ${this.constructor.debuffId} but no active state recorded for the target. Previous state expired: ${state ? this.owner.formatTimestamp(state.expireTime, 3) : 'n/a'}`);
+      debug &&
+        console.warn(
+          `At ${this.owner.formatTimestamp(event.timestamp, 3)} damage detected from DoT ${
+            this.constructor.debuffId
+          } but no active state recorded for the target. Previous state expired: ${
+            state ? this.owner.formatTimestamp(state.expireTime, 3) : 'n/a'
+          }`,
+        );
       return;
     }
 
@@ -165,13 +181,22 @@ class Snapshot extends Analyzer {
     const stateNew = this.makeNewState(event, stateOld);
     this.stateByTarget[targetString] = stateNew;
 
-    debug && console.log(`DoT ${this.constructor.debuffId} applied at ${this.owner.formatTimestamp(event.timestamp, 3)} Buffed:${stateNew.buffed}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`);
+    debug &&
+      console.log(
+        `DoT ${this.constructor.debuffId} applied at ${this.owner.formatTimestamp(
+          event.timestamp,
+          3,
+        )} Buffed:${stateNew.buffed}. Expires at ${this.owner.formatTimestamp(
+          stateNew.expireTime,
+          3,
+        )}`,
+      );
 
     this.checkRefreshRule(stateNew);
   }
 
   makeNewState(debuffEvent, stateOld) {
-    const timeRemainOnOld = stateOld ? (stateOld.expireTime - debuffEvent.timestamp) : 0;
+    const timeRemainOnOld = stateOld ? stateOld.expireTime - debuffEvent.timestamp : 0;
     let expireNew = debuffEvent.timestamp + this.durationOfFresh;
     if (timeRemainOnOld > 0) {
       expireNew += Math.min(this.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
@@ -181,7 +206,8 @@ class Snapshot extends Analyzer {
     const stateNew = {
       expireTime: expireNew,
       pandemicTime: expireNew - this.durationOfFresh * PANDEMIC_FRACTION,
-      buffed: combatant.hasBuff(SPELLS.STEALTH.id, null, BUFF_WINDOW_TIME) ||
+      buffed:
+        combatant.hasBuff(SPELLS.STEALTH.id, null, BUFF_WINDOW_TIME) ||
         combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id, null, BUFF_WINDOW_TIME) ||
         combatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, BUFF_WINDOW_TIME) ||
         combatant.hasBuff(SPELLS.VANISH_BUFF.id, null, BUFF_WINDOW_TIME),
@@ -192,9 +218,17 @@ class Snapshot extends Analyzer {
       prev: stateOld,
     };
 
-    if (!stateNew.castEvent ||
-      stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME) {
-      debug && console.warn(`DoT ${this.constructor.debuffId} applied debuff at ${this.owner.formatTimestamp(debuffEvent.timestamp, 3)} doesn't have a recent matching cast event.`);
+    if (
+      !stateNew.castEvent ||
+      stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME
+    ) {
+      debug &&
+        console.warn(
+          `DoT ${this.constructor.debuffId} applied debuff at ${this.owner.formatTimestamp(
+            debuffEvent.timestamp,
+            3,
+          )} doesn't have a recent matching cast event.`,
+        );
     }
 
     return stateNew;
@@ -228,20 +262,31 @@ class Snapshot extends Analyzer {
     if (timeLost > FORGIVE_LOST_TIME) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You lost ${(timeLost / 1000).toFixed(1)} seconds of a snapshotted DoT by refreshing early without a buff.`;
+      event.meta.inefficientCastReason = `You lost ${(timeLost / 1000).toFixed(
+        1,
+      )} seconds of a snapshotted DoT by refreshing early without a buff.`;
     }
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
-      .icon(this.constructor.spellIcon)
-      .actual(t({
-      id: "rogue.assassination.suggestions.snapshot.timeLost",
-      message: `${formatPercentage(actual)}% snapshot time lost`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to
+          always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before
+          applying a non buffed one.
+        </>,
+      )
+        .icon(this.constructor.spellIcon)
+        .actual(
+          t({
+            id: 'rogue.assassination.suggestions.snapshot.timeLost',
+            message: `${formatPercentage(actual)}% snapshot time lost`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
-
 }
 
 export default Snapshot;

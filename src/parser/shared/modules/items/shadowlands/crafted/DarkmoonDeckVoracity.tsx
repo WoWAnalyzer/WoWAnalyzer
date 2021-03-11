@@ -1,19 +1,19 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringItemValueText from 'parser/ui/BoringItemValueText';
-import Haste from 'interface/icons/Haste';
 import { formatDuration, formatPercentage } from 'common/format';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import Haste from 'interface/icons/Haste';
+import Uptime from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import Buffs from 'parser/core/modules/Buffs';
 import STAT from 'parser/shared/modules/features/STAT';
-import Uptime from 'interface/icons/Uptime';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringItemValueText from 'parser/ui/BoringItemValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const DARKMOON_DECK_VORACITY_CARDS_INFO = {
   [SPELLS.ACE_OF_VORACITY.id]: {
@@ -66,7 +66,16 @@ const DARKMOON_DECK_VORACITY_CARDS_INFO = {
   },
 };
 
-const DARKMOON_DECK_VORACITY_CARDS = [SPELLS.ACE_OF_VORACITY, SPELLS.TWO_OF_VORACITY, SPELLS.THREE_OF_VORACITY, SPELLS.FOUR_OF_VORACITY, SPELLS.FIVE_OF_VORACITY, SPELLS.SIX_OF_VORACITY, SPELLS.SEVEN_OF_VORACITY, SPELLS.EIGHT_OF_VORACITY];
+const DARKMOON_DECK_VORACITY_CARDS = [
+  SPELLS.ACE_OF_VORACITY,
+  SPELLS.TWO_OF_VORACITY,
+  SPELLS.THREE_OF_VORACITY,
+  SPELLS.FOUR_OF_VORACITY,
+  SPELLS.FIVE_OF_VORACITY,
+  SPELLS.SIX_OF_VORACITY,
+  SPELLS.SEVEN_OF_VORACITY,
+  SPELLS.EIGHT_OF_VORACITY,
+];
 
 /**
  * Darkmoon Deck: Voracity
@@ -77,14 +86,13 @@ const DARKMOON_DECK_VORACITY_CARDS = [SPELLS.ACE_OF_VORACITY, SPELLS.TWO_OF_VORA
  * Example: https://www.warcraftlogs.com/reports/GFnfc92YT7xj6dkN/#fight=35&source=27&type=summary
  */
 class DarkmoonDeckVoracity extends Analyzer {
-
   static dependencies = {
     abilities: Abilities,
     statTracker: StatTracker,
     buffs: Buffs,
   };
 
-  lastCard: { name: string; hasteDrain: number; } = { name: 'null', hasteDrain: 0 };
+  lastCard: { name: string; hasteDrain: number } = { name: 'null', hasteDrain: 0 };
   lastCardId = 0;
   lastUseTimestamp = 0;
 
@@ -119,9 +127,18 @@ class DarkmoonDeckVoracity extends Analyzer {
       haste: this.lastCard.hasteDrain,
     });
 
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(DARKMOON_DECK_VORACITY_CARDS), this.removeCardBuff);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VORACIOUS_HASTE), this.applyHasteBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VORACIOUS_HASTE), this.removeHasteBuff);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(DARKMOON_DECK_VORACITY_CARDS),
+      this.removeCardBuff,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VORACIOUS_HASTE),
+      this.applyHasteBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VORACIOUS_HASTE),
+      this.removeHasteBuff,
+    );
   }
 
   removeCardBuff(event: RemoveBuffEvent) {
@@ -136,7 +153,12 @@ class DarkmoonDeckVoracity extends Analyzer {
     if (!this.lastCardId || !DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId]) {
       return;
     }
-    DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId].hastePercent += DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId].hasteDrain / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
+    DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId].hastePercent +=
+      DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId].hasteDrain /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
+      );
     this.lastUseTimestamp = event.timestamp;
   }
 
@@ -144,10 +166,13 @@ class DarkmoonDeckVoracity extends Analyzer {
     if (!this.lastCardId || !DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId]) {
       return;
     }
-    DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId].uptime = event.timestamp - this.lastUseTimestamp;
+    DARKMOON_DECK_VORACITY_CARDS_INFO[this.lastCardId].uptime =
+      event.timestamp - this.lastUseTimestamp;
   }
 
-  getTotals(deck: Array<{ name: string; hasteDrain: number; hastePercent: number; uptime: number; }>) {
+  getTotals(
+    deck: Array<{ name: string; hasteDrain: number; hastePercent: number; uptime: number }>,
+  ) {
     let totalUptime = 0;
     let totalPercent = 0;
     Object.values(deck).forEach((card) => {
@@ -161,11 +186,14 @@ class DarkmoonDeckVoracity extends Analyzer {
   }
 
   getAverageHastePercentage(hastePercentage: number) {
-    return hastePercentage * this.selectedCombatant.getBuffUptime(SPELLS.VORACIOUS_HASTE.id) / this.owner.fightDuration;
+    return (
+      (hastePercentage * this.selectedCombatant.getBuffUptime(SPELLS.VORACIOUS_HASTE.id)) /
+      this.owner.fightDuration
+    );
   }
 
   statistic() {
-    const filtered = Object.values(DARKMOON_DECK_VORACITY_CARDS_INFO).filter(function(card) {
+    const filtered = Object.values(DARKMOON_DECK_VORACITY_CARDS_INFO).filter(function (card) {
       if (card.uptime > 0) {
         return true;
       } else {
@@ -202,14 +230,15 @@ class DarkmoonDeckVoracity extends Analyzer {
         }
       >
         <BoringItemValueText item={ITEMS.DARKMOON_DECK_VORACITY}>
-          <Haste /> {formatPercentage(this.getAverageHastePercentage(totals.totalPercent))}% <small>Haste</small>
+          <Haste /> {formatPercentage(this.getAverageHastePercentage(totals.totalPercent))}%{' '}
+          <small>Haste</small>
           <br />
-          <Uptime /> {formatPercentage(totals.totalUptime / this.owner.fightDuration)}% <small>Uptime</small>
+          <Uptime /> {formatPercentage(totals.totalUptime / this.owner.fightDuration)}%{' '}
+          <small>Uptime</small>
         </BoringItemValueText>
       </Statistic>
     );
   }
-
 }
 
 export default DarkmoonDeckVoracity;

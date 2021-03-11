@@ -1,7 +1,7 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { AnyEvent, BeginCastEvent, EventType, CastEvent } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MS_BUFFER = 100;
 
@@ -29,7 +29,10 @@ class CancelledCasts extends EventsNormalizer {
     if (this.lastBeginCast === null) {
       return;
     }
-    if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) || CASTABLE_WHILE_CASTING_SPELLS.includes(event.ability.guid)) {
+    if (
+      CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) ||
+      CASTABLE_WHILE_CASTING_SPELLS.includes(event.ability.guid)
+    ) {
       return;
     }
     if (this.lastBeginCast.ability.guid !== event.ability.guid) {
@@ -44,7 +47,7 @@ class CancelledCasts extends EventsNormalizer {
   }
 
   normalize(events: AnyEvent[]) {
-    events.forEach(event => {
+    events.forEach((event) => {
       if (!this.owner.byPlayer(event)) {
         // We don't get `begincast` events from other players, but we do get `cast` events. This might confuse this method so just ignore all events from other players.
         return;

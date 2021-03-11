@@ -1,21 +1,20 @@
-import React from 'react';
-
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
-import Report from 'parser/core/Report';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import { PlayerInfo } from 'parser/core/Player';
+import Report from 'parser/core/Report';
+import React from 'react';
 
 const CHINESE_REGION = 'cn';
 
 interface Props {
   report: Report;
   player: PlayerInfo;
-  children: (isLoading: boolean, characterProfile: CharacterProfile|null) => React.ReactNode;
+  children: (isLoading: boolean, characterProfile: CharacterProfile | null) => React.ReactNode;
 }
 
 interface State {
   isLoading: boolean;
-  characterProfile: CharacterProfile|null;
+  characterProfile: CharacterProfile | null;
 }
 
 class CharacterProfileLoader extends React.PureComponent<Props, State> {
@@ -65,7 +64,7 @@ class CharacterProfileLoader extends React.PureComponent<Props, State> {
     let realm;
     let name;
     const exportedCharacter = report.exportedCharacters
-      ? report.exportedCharacters.find(char => char.name === player.name)
+      ? report.exportedCharacters.find((char) => char.name === player.name)
       : null;
     if (exportedCharacter) {
       region = exportedCharacter.region.toLowerCase();
@@ -78,13 +77,13 @@ class CharacterProfileLoader extends React.PureComponent<Props, State> {
     }
 
     return fetch(makeCharacterApiUrl(id, region, realm, name))
-      .then(result => {
+      .then((result) => {
         if (!result.ok) {
           throw new Error('Request failed');
         }
         return result;
       })
-      .then(data => data.json());
+      .then((data) => data.json());
   }
 
   render() {

@@ -1,26 +1,24 @@
-import React, { useState, useCallback } from 'react';
-
 import articles from 'articles';
-import mergeAllChangelogs, { ChangeLogItem } from 'mergeAllChangelogs';
-import SpecIcon from 'interface/SpecIcon';
-import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-
 import NewsArticleLoader from 'interface/NewsArticleLoader';
+import ReadableListing from 'interface/ReadableListing';
+import SpecIcon from 'interface/SpecIcon';
+import mergeAllChangelogs, { ChangeLogItem } from 'mergeAllChangelogs';
+import React, { useState, useCallback } from 'react';
 import 'interface/NewsPage.scss';
 
-type ArticleItem = { article: string, date: Date }
+type ArticleItem = { article: string; date: Date };
 
 interface Props {
-  topAnchor: string
+  topAnchor: string;
 }
 
 const CHANGE_LOG_ENTRIES = mergeAllChangelogs();
 
 const ARTICLE_ITEMS: ArticleItem[] = Object.values(articles)
   .sort((a, b) => b.localeCompare(a))
-  .map(articleName => {
+  .map((articleName) => {
     const uglyDateExtracter = articleName.split('-');
     return {
       article: articleName,
@@ -33,12 +31,15 @@ const ARTICLE_ITEMS: ArticleItem[] = Object.values(articles)
   });
 
 const ENTRIES_PER_PAGE = 50;
-const NUM_PAGES =
-  Math.ceil((Object.keys(articles).length + CHANGE_LOG_ENTRIES.length) / ENTRIES_PER_PAGE);
-const ALL_ENTRIES: Array<ArticleItem | ChangeLogItem> =
-  [...CHANGE_LOG_ENTRIES, ...ARTICLE_ITEMS].sort((a, b) => Number(b.date) - Number(a.date));
+const NUM_PAGES = Math.ceil(
+  (Object.keys(articles).length + CHANGE_LOG_ENTRIES.length) / ENTRIES_PER_PAGE,
+);
+const ALL_ENTRIES: Array<ArticleItem | ChangeLogItem> = [
+  ...CHANGE_LOG_ENTRIES,
+  ...ARTICLE_ITEMS,
+].sort((a, b) => Number(b.date) - Number(a.date));
 
-const hasOlder = (page: number) => page < (NUM_PAGES - 1);
+const hasOlder = (page: number) => page < NUM_PAGES - 1;
 const hasNewer = (page: number) => page > 0;
 
 const NewsList = ({ topAnchor }: Props) => {
@@ -93,14 +94,16 @@ const NewsList = ({ topAnchor }: Props) => {
                     <>
                       <SpecIcon id={item.spec.id} /> {item.spec.specName} {item.spec.className}
                     </>
-                  )} updated at {item.date.toLocaleDateString()} by <ReadableListing>
-                  {item.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
-                </ReadableListing>
+                  )}{' '}
+                  updated at {item.date.toLocaleDateString()} by{' '}
+                  <ReadableListing>
+                    {item.contributors.map((contributor) => (
+                      <Contributor key={contributor.nickname} {...contributor} />
+                    ))}
+                  </ReadableListing>
                 </small>
               </div>
-              <div className="panel-body pad">
-                {item.changes}
-              </div>
+              <div className="panel-body pad">{item.changes}</div>
             </div>
           );
         }
@@ -109,14 +112,16 @@ const NewsList = ({ topAnchor }: Props) => {
       <div className="row">
         <div className="col-xs-6">
           {hasOlder(page) && (
-            <a role="button" onClick={handleOlderClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            <a role="button" onClick={handleOlderClick} style={{ fontSize: '1.3em' }}>
               &lt; Older
             </a>
           )}
         </div>
         <div className="col-xs-6 text-right">
           {hasNewer(page) && (
-            <a role="button" onClick={handleNewerClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            <a role="button" onClick={handleNewerClick} style={{ fontSize: '1.3em' }}>
               Newer &gt;
             </a>
           )}

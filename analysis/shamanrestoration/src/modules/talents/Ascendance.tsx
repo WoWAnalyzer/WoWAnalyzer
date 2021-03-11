@@ -1,13 +1,10 @@
-import React from 'react';
-
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
@@ -23,7 +20,12 @@ class Ascendance extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDANCE_HEAL, SPELLS.ASCENDANCE_INITIAL_HEAL]), this._onHeal);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ASCENDANCE_HEAL, SPELLS.ASCENDANCE_INITIAL_HEAL]),
+      this._onHeal,
+    );
   }
 
   _onHeal(event: HealEvent) {
@@ -31,19 +33,22 @@ class Ascendance extends Analyzer {
   }
 
   get feeding() {
-    return this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_HEAL.id) + this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_INITIAL_HEAL.id);
+    return (
+      this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_HEAL.id) +
+      this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_INITIAL_HEAL.id)
+    );
   }
 
   subStatistic() {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding))} %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding),
+        )} %`}
       />
     );
   }
-
 }
 
 export default Ascendance;
-

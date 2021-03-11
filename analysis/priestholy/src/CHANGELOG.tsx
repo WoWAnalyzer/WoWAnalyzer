@@ -1,9 +1,9 @@
-import React from 'react';
-
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import { Adoraci, acornellier, Khadaj, niseko, Zeboot } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { change, date } from 'common/changelog';
+import React from 'react';
+
 
 export default [
   change(date(2021, 3, 10), <>Updated <SpellLink id={SPELLS.DIVINE_HYMN_HEAL.id} /> appproxmiation</>, Khadaj),

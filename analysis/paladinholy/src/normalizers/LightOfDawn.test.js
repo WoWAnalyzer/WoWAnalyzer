@@ -484,12 +484,14 @@ describe('Paladin/Holy/Normalizers/LightOfDawn', () => {
     },
   ];
 
-  reorderScenarios.forEach(scenario => {
+  reorderScenarios.forEach((scenario) => {
     it(scenario.it, () => {
       const parser = new LightOfDawn({
         playerId: scenario.playerId,
       });
-      expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
+      expect(parser.normalize(scenario.events).map((event) => event.testid)).toEqual(
+        scenario.result,
+      );
     });
   });
 });

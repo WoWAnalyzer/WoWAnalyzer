@@ -1,18 +1,14 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
+import { SpellIcon } from 'interface';
+import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { SpellIcon } from 'interface';
-import { formatNumber } from 'common/format';
-import { TooltipElement } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { t } from '@lingui/macro';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 class EssenceFont extends Analyzer {
   totalHealing: number = 0;
@@ -28,15 +24,30 @@ class EssenceFont extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.castEssenceFont);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFont);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.handleEssenceFontBuff);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.applyEssenceFontBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.refreshEssenceFontBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      this.castEssenceFont,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      this.handleEssenceFont,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.handleEssenceFontBuff,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.applyEssenceFontBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.refreshEssenceFontBuff,
+    );
   }
 
   get efHotHealing() {
-    return (this.efHotHeal);
+    return this.efHotHeal;
   }
 
   get efHotOverhealing() {
@@ -44,11 +55,11 @@ class EssenceFont extends Analyzer {
   }
 
   get avgTargetsHitPerEF() {
-    return (this.targetsEF / this.castEF) || 0;
+    return this.targetsEF / this.castEF || 0;
   }
 
   get efHotOverlap() {
-    return ((this.targetOverlap / this.targetsEF) || 0).toFixed(2);
+    return (this.targetOverlap / this.targetsEF || 0).toFixed(2);
   }
 
   get suggestionThresholds() {
@@ -97,17 +108,24 @@ class EssenceFont extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.
-      </>,
-    )
-      .icon(SPELLS.ESSENCE_FONT.icon)
-      .actual(`${this.avgTargetsHitPerEF.toFixed(2)}${t({
-      id: "monk.mistweaver.suggestions.essenceFont.averageTargetsHit",
-      message: `average targets hit per cast`
-    })}`)
-      .recommended(`${recommended} targets hit is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} />{' '}
+          effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18
+          targets. Either hold the cast til 6 or more targets are injured or move while casting to
+          increase the effective range of the spell.
+        </>,
+      )
+        .icon(SPELLS.ESSENCE_FONT.icon)
+        .actual(
+          `${this.avgTargetsHitPerEF.toFixed(2)}${t({
+            id: 'monk.mistweaver.suggestions.essenceFont.averageTargetsHit',
+            message: `average targets hit per cast`,
+          })}`,
+        )
+        .recommended(`${recommended} targets hit is recommended`),
+    );
   }
 
   statistic() {
@@ -117,11 +135,11 @@ class EssenceFont extends Analyzer {
         postion={STATISTIC_ORDER.OPTIONAL(50)}
         icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
         value={`${formatNumber(averageHits)}`}
-        label={(
+        label={
           <TooltipElement content="This is the average unique targets hit per essences font cast.">
             Average Unique Targets Hit
           </TooltipElement>
-        )}
+        }
       />
     );
   }

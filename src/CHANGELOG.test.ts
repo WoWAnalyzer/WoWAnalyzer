@@ -1,5 +1,5 @@
-import AVAILABLE_CONFIGS from 'parser';
 import { ChangelogEntry } from 'common/changelog';
+import AVAILABLE_CONFIGS from 'parser';
 
 import CORE_CHANGELOG from './CHANGELOG';
 
@@ -15,7 +15,7 @@ describe('CHANGELOG', () => {
     },
   );
   const testEntries = (test: (entry: ChangelogEntry) => void) => {
-    Object.keys(allChangelogs).forEach(name => {
+    Object.keys(allChangelogs).forEach((name) => {
       const changelog = allChangelogs[name];
 
       changelog.forEach((entry, index) => {
@@ -33,25 +33,25 @@ describe('CHANGELOG', () => {
   };
 
   it('has a date for every entry', () => {
-    testEntries(entry => expect(entry.date).toBeDefined());
+    testEntries((entry) => expect(entry.date).toBeDefined());
   });
   it('dates must be an instance of Date', () => {
-    testEntries(entry => expect(entry.date).toBeInstanceOf(Date));
+    testEntries((entry) => expect(entry.date).toBeInstanceOf(Date));
   });
   it('dates must be properly formatted (YYYY-MM-DD)', () => {
     const reasonableDate = new Date('2017-01-01');
-    testEntries(entry => expect(entry.date > reasonableDate).toBeTruthy());
+    testEntries((entry) => expect(entry.date > reasonableDate).toBeTruthy());
   });
   it('has changes listed in every entry', () => {
-    testEntries(entry => expect(entry.changes).toBeDefined());
+    testEntries((entry) => expect(entry.changes).toBeDefined());
   });
   it('has contributors listed in every entry', () => {
-    testEntries(entry => expect(entry.contributors).toBeDefined());
+    testEntries((entry) => expect(entry.contributors).toBeDefined());
   });
   it('only has entries where contributors is an array', () => {
-    testEntries(entry => expect(entry.contributors).toBeInstanceOf(Array));
+    testEntries((entry) => expect(entry.contributors).toBeInstanceOf(Array));
   });
   it('each entry has at least one contributor', () => {
-    testEntries(entry => expect(entry.contributors.length).toBeGreaterThan(0));
+    testEntries((entry) => expect(entry.contributors.length).toBeGreaterThan(0));
   });
 });

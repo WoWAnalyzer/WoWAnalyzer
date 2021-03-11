@@ -1,8 +1,8 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import React from 'react';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -12,24 +12,32 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IMMOLATION_AURA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: <>This is a great Fury filler spell. Try to always cast it on cooldown, specially when using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.</>,
+          extraSuggestion: (
+            <>
+              This is a great Fury filler spell. Try to always cast it on cooldown, specially when
+              using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your{' '}
+              <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.
+            </>
+          ),
         },
       },
       {
-        spell: [combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? SPELLS.FRACTURE_TALENT : SPELLS.SHEAR],
+        spell: [
+          combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? SPELLS.FRACTURE_TALENT : SPELLS.SHEAR,
+        ],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? haste => 4.5 / (1 + haste) : 0,
+        cooldown: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? (haste) => 4.5 / (1 + haste) : 0,
         charges: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? 2 : 0,
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         gcd: {
           base: 1500,
@@ -52,7 +60,7 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
+          recommendedEfficiency: 0.5,
         },
         isDefensive: true,
       },
@@ -66,7 +74,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
+          recommendedEfficiency: 0.5,
           extraSuggestion: <>Powerful CD. Use it during high damage moments.</>,
         },
         isDefensive: true,
@@ -74,7 +82,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMON_SPIKES,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 20 / (1 + haste),
+        cooldown: (haste) => 20 / (1 + haste),
         charges: 2,
         isDefensive: true,
       },
@@ -108,7 +116,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
+          recommendedEfficiency: 0.8,
         },
         isDefensive: true,
       },
@@ -116,13 +124,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
           extraSuggestion: <>This is a great Fury generator spell. </>,
         },
       },
@@ -135,7 +143,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
+          recommendedEfficiency: 0.8,
           extraSuggestion: <>This is a great healing and AoE damage burst spell.</>,
         },
         isDefensive: true,
@@ -166,11 +174,25 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)),
+        enabled: !(
+          combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
+          combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)
+        ),
         castEfficiency: {
-          suggestion: !(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)),
-          recommendedEfficiency: 0.90,
-          extraSuggestion: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? <>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> because of the <SpellLink id={SPELLS.ABYSSAL_STRIKE_TALENT.id} /> talent.</> : `Cast on cooldown for a dps increase.`,
+          suggestion: !(
+            combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
+            combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)
+          ),
+          recommendedEfficiency: 0.9,
+          extraSuggestion: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? (
+            <>
+              Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack{' '}
+              <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> because of the{' '}
+              <SpellLink id={SPELLS.ABYSSAL_STRIKE_TALENT.id} /> talent.
+            </>
+          ) : (
+            `Cast on cooldown for a dps increase.`
+          ),
         },
       },
 
@@ -212,7 +234,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: haste => 3 / (1 + haste),
+        cooldown: (haste) => 3 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -230,7 +252,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
 
-	    // Covenant (move these if needed)
+      // Covenant (move these if needed)
       {
         spell: [SPELLS.ELYSIAN_DECREE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -241,7 +263,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -251,7 +273,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		    enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.FODDER_TO_THE_FLAME,
@@ -260,7 +282,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		    enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.THE_HUNT,
@@ -269,7 +291,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		    enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
     ];
   }

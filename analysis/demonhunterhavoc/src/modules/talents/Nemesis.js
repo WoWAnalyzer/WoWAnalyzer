@@ -1,15 +1,12 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const NEMESIS_BUFF_IDS = [
   SPELLS.NEMESIS_DEMON.id,
@@ -30,12 +27,15 @@ const NEMESIS_DAMAGE_MODIFIER = 0.25;
 class Nemesis extends Analyzer {
   get hasNemesisBuff() {
     const buffs = this.selectedCombatant.activeBuffs();
-    return buffs.some(buff => NEMESIS_BUFF_IDS.includes(buff.ability.guid));
+    return buffs.some((buff) => NEMESIS_BUFF_IDS.includes(buff.ability.guid));
   }
 
   get nemesisUptimePercent() {
     const enemyUptime = this.enemies.getBuffUptime(SPELLS.NEMESIS_TALENT.id);
-    const playerUptime = NEMESIS_BUFF_IDS.reduce((uptime, spellId) => uptime + this.selectedCombatant.getBuffUptime(spellId), 0);
+    const playerUptime = NEMESIS_BUFF_IDS.reduce(
+      (uptime, spellId) => uptime + this.selectedCombatant.getBuffUptime(spellId),
+      0,
+    );
     return (enemyUptime + playerUptime) / this.owner.fightDuration;
   }
 
@@ -71,13 +71,22 @@ class Nemesis extends Analyzer {
         icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%`}
         label="Damage Contributed"
-        tooltip={(
+        tooltip={
           <>
-            Nemesis Contributed {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / {formatNumber(this.bonusDmg)} total damage.<br />
+            Nemesis Contributed {formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)}{' '}
+            DPS / {formatNumber(this.bonusDmg)} total damage.
+            <br />
             You had {formatPercentage(this.nemesisUptimePercent)}% uptime.
-            {this.everHadNemesisBuff && <><br /><br /> Due to technical limitations it is not currently possible to tell if your Nemesis buff type is the same as the boss type. This limitation may cause the damage contributed by Nemesis to appear higher than it otherwise would.</>}
+            {this.everHadNemesisBuff && (
+              <>
+                <br />
+                <br /> Due to technical limitations it is not currently possible to tell if your
+                Nemesis buff type is the same as the boss type. This limitation may cause the damage
+                contributed by Nemesis to appear higher than it otherwise would.
+              </>
+            )}
           </>
-        )}
+        }
       />
     );
   }

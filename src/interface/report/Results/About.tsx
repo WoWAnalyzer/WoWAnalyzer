@@ -1,13 +1,12 @@
-import React from 'react';
 import { Trans, Plural } from '@lingui/macro';
-import { Link } from 'react-router-dom';
-
 import isLatestPatch from 'game/isLatestPatch';
-import ReadableListing from 'interface/ReadableListing';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
 import Panel from 'interface/Panel';
+import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   config: Config;

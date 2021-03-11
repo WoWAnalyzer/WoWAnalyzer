@@ -1,10 +1,14 @@
-import { EarlyFinish, incomingDamage, SimpleFight } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
-import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
+import {
+  EarlyFinish,
+  incomingDamage,
+  SimpleFight,
+} from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 import FightEnd from 'parser/shared/normalizers/FightEnd';
 
-import StaggerFabricator from './StaggerFabricator';
 import Stagger from './Stagger';
+import StaggerFabricator from './StaggerFabricator';
 
 describe('Brewmaster.Stagger', () => {
   let parser;
