@@ -12,7 +12,6 @@ import { EventsParseError } from 'interface/report/EventParser';
 import React from 'react';
 
 export default function handleApiError(error: Error, onBack: () => void) {
-  console.error(error);
   if (error instanceof LogNotFoundError) {
     return (
       <FullscreenError

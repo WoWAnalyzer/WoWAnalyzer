@@ -2,5 +2,5 @@ import getMatch from './getMatch';
 
 export default (pathname: string) => {
   const match = getMatch(pathname);
-  return match ? match.params.reportCode : null;
+  return match?.params.reportCode || null;
 };

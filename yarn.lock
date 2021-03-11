@@ -14241,6 +14241,11 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+swr@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.1.tgz#47173f120340cb44937ad70366b01d1b3d2de1e7"
+  integrity sha512-hDGCe4h6ZOtloyJNpSu6NhvG+8pfWzNSVhXznNCSe23zkeeTVtiItqWitxeUISFVHbSyzADkm7bulAe6mbTqwA==
+
 symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"

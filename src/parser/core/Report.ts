@@ -28,9 +28,9 @@ export interface WCLReport {
   exportedCharacters: ExportedCharacter[];
 }
 
+// TODO: refactor code away
 export interface Report extends WCLReport {
   code: string;
-  isAnonymous: boolean;
 }
 
 export default Report;
