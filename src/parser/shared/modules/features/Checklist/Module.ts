@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import Module from 'parser/core/Module';
+import { ReactNode } from 'react';
 
 class ChecklistModule extends Module {
   static dependencies = {};

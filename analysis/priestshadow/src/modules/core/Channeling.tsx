@@ -1,15 +1,16 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 /**
  * Mind Flay, Mind Sear and Void Torrent don't reveal in the combatlog when channeling begins and ends, this fabricates the required events so that ABC can handle it properly.
  * It also accounts for Dark Thought procs which allow Mind Blast to be cast instantly while channeling Mind Flay or Mind Sear
  */
-const CHANNEL_ABILITIES = [ // This used where checks are done for all channeled spriest abilities
+const CHANNEL_ABILITIES = [
+  // This used where checks are done for all channeled spriest abilities
   SPELLS.MIND_FLAY,
   SPELLS.MIND_SEAR,
   SPELLS.VOID_TORRENT_TALENT,
@@ -24,7 +25,10 @@ class Channeling extends CoreChanneling {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(CHANNEL_ABILITIES), this.onApplyDebuff);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(CHANNEL_ABILITIES),
+      this.onApplyDebuff,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CHANNEL_ABILITIES), this.onCast);
   }
 
@@ -48,13 +52,24 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event: CastEvent, ability: Ability) {
-    if (CHANNEL_ABILITIES.some(ability => this.isChannelingSpell(ability.id))) {
-      if (event.ability.guid === SPELLS.MIND_BLAST.id && this.eventHistory.last(1, 100, Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))) { // Check if they're casting mind blast and it was instant
+    if (CHANNEL_ABILITIES.some((ability) => this.isChannelingSpell(ability.id))) {
+      if (
+        event.ability.guid === SPELLS.MIND_BLAST.id &&
+        this.eventHistory.last(
+          1,
+          100,
+          Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
+        )
+      ) {
+        // Check if they're casting mind blast and it was instant
         // Dark thought proc used
         return;
       }
 
-      if (event.ability.guid === SPELLS.SEARING_NIGHTMARE_TALENT.id && this.isChannelingSpell(SPELLS.MIND_SEAR.id)) {
+      if (
+        event.ability.guid === SPELLS.SEARING_NIGHTMARE_TALENT.id &&
+        this.isChannelingSpell(SPELLS.MIND_SEAR.id)
+      ) {
         // Searing nightmare used during mind sear
         return;
       }

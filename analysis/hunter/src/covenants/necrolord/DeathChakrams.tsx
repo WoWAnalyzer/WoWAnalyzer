@@ -1,17 +1,16 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import { ResourceIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceIcon } from 'interface';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class DeathChakrams extends Analyzer {
   static dependencies = {
@@ -46,8 +45,16 @@ class DeathChakrams extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -70,7 +77,8 @@ class DeathChakrams extends Analyzer {
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
-            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>Focus gained</small>
+            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
+            {this.focusWasted + this.focusGained} <small>Focus gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

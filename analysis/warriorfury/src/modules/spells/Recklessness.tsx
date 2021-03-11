@@ -1,14 +1,12 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
-
+import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { formatPercentage, formatThousands } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
-import Statistic from 'parser/ui/Statistic';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import React from 'react';
 
 class Recklessness extends Analyzer {
   reckRageGen: number = 0;
@@ -18,7 +16,10 @@ class Recklessness extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).to(SELECTED_PLAYER), this.onPlayerEnergize);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).to(SELECTED_PLAYER),
+      this.onPlayerEnergize,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
@@ -35,7 +36,9 @@ class Recklessness extends Analyzer {
   }
 
   onPlayerEnergize(event: EnergizeEvent) {
-    const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id);
+    const resource =
+      event.classResources &&
+      event.classResources.find((classResources) => classResources.type === RESOURCE_TYPES.RAGE.id);
 
     if (!resource) {
       return;
@@ -58,13 +61,16 @@ class Recklessness extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            <strong>Extra Rage Generated:</strong> {this.reckRageGen}<br />
-            <strong>Percent of total rage generated during recklessness:</strong> {formatPercentage(this.ratioReckRageGen)}%<br />
-            <strong>Percent of total damage done during recklessness:</strong> {formatPercentage(this.reckDPS)}% ({formatThousands(this.reckDamage)})
+            <strong>Extra Rage Generated:</strong> {this.reckRageGen}
+            <br />
+            <strong>Percent of total rage generated during recklessness:</strong>{' '}
+            {formatPercentage(this.ratioReckRageGen)}%<br />
+            <strong>Percent of total damage done during recklessness:</strong>{' '}
+            {formatPercentage(this.reckDPS)}% ({formatThousands(this.reckDamage)})
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.RECKLESSNESS}>
           <>

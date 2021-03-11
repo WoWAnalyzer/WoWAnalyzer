@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
-import PropTypes from 'prop-types';
 
 import BaseChart, { formatTime } from './BaseChart';
 

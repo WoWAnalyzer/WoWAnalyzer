@@ -105,7 +105,8 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics. If you do have to move, try casting filler spells, such as
+       
       <ForwardRef
         id={47541}
       />
@@ -248,9 +249,10 @@ exports[`Unholy Death Knight integration test: example log ArmyOfTheDamned match
           </svg>
            
           59
-          s 
+          s
+           
           <small>
-              of Apocalypse CDR
+             of Apocalypse CDR
           </small>
           <br />
           <svg
@@ -267,9 +269,10 @@ exports[`Unholy Death Knight integration test: example log ArmyOfTheDamned match
           </svg>
            
           80
-          s 
+          s
+           
           <small>
-              of Army of the Dead CDR
+             of Army of the Dead CDR
           </small>
         </div>
       </div>
@@ -441,8 +444,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               33
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -527,8 +529,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               70
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -613,8 +614,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               62
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -699,8 +699,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               5
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -785,8 +784,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               7
               /25
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -946,8 +944,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1032,8 +1029,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1188,8 +1184,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               7
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1286,8 +1281,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               5
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1389,8 +1383,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1487,8 +1480,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               7
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1590,8 +1582,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               5
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1751,8 +1742,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1849,8 +1839,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1947,8 +1936,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2045,8 +2033,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               1
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2143,8 +2130,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2241,8 +2227,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2339,8 +2324,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2483,8 +2467,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2581,8 +2564,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2679,8 +2661,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2765,8 +2746,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2863,8 +2843,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2949,8 +2928,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3047,8 +3025,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3133,8 +3110,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3219,8 +3195,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /46
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3317,8 +3292,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3473,8 +3447,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3571,8 +3544,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3820,13 +3792,15 @@ Array [
       7.79
       % of the fight duration (
       29
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/GHC3ZkAbV1xRqJFK/2-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.wipe%5C%22,%5C%22message%5C%22:%5C%22Wipe+%7Bwipes%7D%5C%22,%5C%22values%5C%22:%7B%5C%22wipes%5C%22:1%7D%7D%22,%22duration%22:%226:07%22%7D%7D/Khaalidaa/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -4643,7 +4617,8 @@ Array [
       <ForwardRef
         id={47541}
       />
-       as soon as possible after getting a proc to ensure you are not losing potential cooldown reduction on 
+       as soon as possible after getting a proc to ensure you are not losing potential cooldown reduction on
+       
       <ForwardRef
         id={63560}
       />
@@ -5902,7 +5877,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
           <div
             className="col-md-12"
           >
-            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast 
+            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=47541"

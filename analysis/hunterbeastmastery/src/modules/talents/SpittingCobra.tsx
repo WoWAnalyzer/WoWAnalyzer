@@ -1,12 +1,12 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import React from 'react';
 
 import { SPITTING_COBRA_DAMAGE_INCREASE } from '../../constants';
 
@@ -20,7 +20,6 @@ import { SPITTING_COBRA_DAMAGE_INCREASE } from '../../constants';
  */
 
 class SpittingCobra extends Analyzer {
-
   damage = 0;
   casts = 0;
   totalIncrease = 0;
@@ -28,8 +27,14 @@ class SpittingCobra extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BESTIAL_WRATH, SPELLS.COBRA_SHOT]), this.bestialWrathCobraShotCasts);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPITTING_COBRA_DAMAGE), this.spittingCobraDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BESTIAL_WRATH, SPELLS.COBRA_SHOT]),
+      this.bestialWrathCobraShotCasts,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPITTING_COBRA_DAMAGE),
+      this.spittingCobraDamage,
+    );
   }
 
   get averageIncrease() {

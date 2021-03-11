@@ -1,10 +1,10 @@
+import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Spell from 'common/SPELLS/Spell';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Abstract class for potions and healthstone.
@@ -32,7 +32,7 @@ class Potion extends Analyzer {
 
   static spells: Spell[];
   static recommendedEfficiency: number;
-  static extraAbilityInfo: { name?: string, buffSpellId?: number[], isDefensive?: boolean, };
+  static extraAbilityInfo: { name?: string; buffSpellId?: number[]; isDefensive?: boolean };
   static cooldown = 300;
 
   maxCasts = 1;
@@ -62,7 +62,8 @@ class Potion extends Analyzer {
       this.static.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
         (options.buffs as Buffs).add({
           spellId: buff,
-          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!.id,
+          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!
+            .id,
         });
       });
     }

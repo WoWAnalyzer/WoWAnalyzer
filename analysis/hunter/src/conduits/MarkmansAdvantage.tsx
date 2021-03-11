@@ -1,14 +1,14 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import React from 'react';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import { notableEnemy } from 'parser/shared/modules/hit-tracking/utilities';
-import { formatNumber, formatPercentage } from 'common/format';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { MARKMANS_ADVANTAGE_EFFECT_BY_RANK } from '../constants';
 

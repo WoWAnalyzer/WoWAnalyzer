@@ -1,17 +1,16 @@
-import React from 'react';
-
-import { SpellLink } from 'interface';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Statistic from 'parser/ui/Statistic';
-import { t } from '@lingui/macro';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
-import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 import RipSnapshot from '../bleeds/RipSnapshot';
+import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 
 const debug = false;
 
@@ -49,7 +48,7 @@ class FinisherUse extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.05,
-        major: 0.10,
+        major: 0.1,
       },
       style: 'percentage',
     };
@@ -72,7 +71,7 @@ class FinisherUse extends Analyzer {
   }
 
   _castSpell(event) {
-    const finisher = FINISHERS.find(element => element.id === event.ability.guid);
+    const finisher = FINISHERS.find((element) => element.id === event.ability.guid);
     if (!finisher) {
       return;
     }
@@ -97,16 +96,22 @@ class FinisherUse extends Analyzer {
     if (!event.feralSnapshotState) {
       // ..but when it comes to null references it's worth checking.
       // If for some reason the property doesn't exist just skip checking this cast
-      debug && this.warn('Rip cast event doesn\'t have the expected feralSnapshotState property.');
+      debug && this.warn("Rip cast event doesn't have the expected feralSnapshotState property.");
       return;
     }
     if (RipSnapshot.wasStateFreshlyApplied(event.feralSnapshotState)) {
-      debug && this.log(`cast ${finisher.name} with ${combo} combo points but it was a fresh application, so is good`);
+      debug &&
+        this.log(
+          `cast ${finisher.name} with ${combo} combo points but it was a fresh application, so is good`,
+        );
       this.freshRips += 1;
       return;
     }
     if (this.hasSabertooth && RipSnapshot.wasStatePowerUpgrade(event.feralSnapshotState)) {
-      debug && this.log(`cast ${finisher.name} with ${combo} combo points but it was upgrading ready to be extended with sabertooth, so is good`);
+      debug &&
+        this.log(
+          `cast ${finisher.name} with ${combo} combo points but it was upgrading ready to be extended with sabertooth, so is good`,
+        );
       this.upgradingRips += 1;
       return;
     }
@@ -115,17 +120,25 @@ class FinisherUse extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are unnecessarily using finishers at less than full combo points. Generally the only finisher you should use without full combo points is <SpellLink id={SPELLS.RIP.id} /> when applying it to a target that doesn't have it active yet.
-      </>,
-    )
-      .icon('creatureportrait_bubble')
-      .actual(t({
-      id: "druid.feral.suggestions.finishers.efficiency",
-      message: `${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`
-    }))
-      .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
+    when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are unnecessarily using finishers at less than full combo points. Generally the only
+          finisher you should use without full combo points is <SpellLink id={SPELLS.RIP.id} /> when
+          applying it to a target that doesn't have it active yet.
+        </>,
+      )
+        .icon('creatureportrait_bubble')
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.finishers.efficiency',
+            message: `${(actual * 100).toFixed(
+              0,
+            )}% of finishers were incorrectly used without full combo points`,
+          }),
+        )
+        .recommended(`${(recommended * 100).toFixed(0)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -133,15 +146,31 @@ class FinisherUse extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="small"
-        tooltip={(
+        tooltip={
           <>
-            All finisher abilities are most efficient when used at full combo points, but there are situations where that rule doesn't apply. Of the <b>{this.totalFinishers}</b> finishers you used, <b>{this.notFullComboFinishers}</b> {this.notFullComboFinishers === 1 ? 'was' : 'were'} used without full combo points, and <b>{this.badFinishers}</b> appear not to have had a good reason for their low combo use.<br />
+            All finisher abilities are most efficient when used at full combo points, but there are
+            situations where that rule doesn't apply. Of the <b>{this.totalFinishers}</b> finishers
+            you used, <b>{this.notFullComboFinishers}</b>{' '}
+            {this.notFullComboFinishers === 1 ? 'was' : 'were'} used without full combo points, and{' '}
+            <b>{this.badFinishers}</b> appear not to have had a good reason for their low combo use.
+            <br />
             <ul>
-              <li><b>{this.freshRips}</b> {this.freshRips === 1 ? 'was a fresh Rip' : 'were fresh Rips'} applied to a target which didn't already have the DoT, where low combo point use is typically the right thing to do.</li>
-              <li><b>{this.upgradingRips}</b> {this.upgradingRips === 1 ? 'was an upgrading Rip' : 'were upgrading Rips'} where thanks to snapshotting the new DoT would do more damage than the existing. When combined with Sabertooth to extend the improved DoT this is a situation where low combo finisher use is of benefit.</li>
+              <li>
+                <b>{this.freshRips}</b>{' '}
+                {this.freshRips === 1 ? 'was a fresh Rip' : 'were fresh Rips'} applied to a target
+                which didn't already have the DoT, where low combo point use is typically the right
+                thing to do.
+              </li>
+              <li>
+                <b>{this.upgradingRips}</b>{' '}
+                {this.upgradingRips === 1 ? 'was an upgrading Rip' : 'were upgrading Rips'} where
+                thanks to snapshotting the new DoT would do more damage than the existing. When
+                combined with Sabertooth to extend the improved DoT this is a situation where low
+                combo finisher use is of benefit.
+              </li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.COMBO_POINTS}

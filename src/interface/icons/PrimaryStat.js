@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { getIcon } from 'parser/shared/modules/features/STAT';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const PrimaryStat = ({ stat }) => {
   const Icon = getIcon(stat.toLowerCase());

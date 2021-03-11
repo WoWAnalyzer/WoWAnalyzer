@@ -1,27 +1,26 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import Component from './Component';
-import RakeUptime from '../../bleeds/RakeUptime';
-import MoonfireUptime from '../../talents/MoonfireUptime';
-import SwipeHitCount from '../../spells/SwipeHitCount';
-import ComboPointDetails from '../../combopoints/ComboPointDetails';
-import RipUptime from '../../bleeds/RipUptime';
-import FerociousBiteEnergy from '../../spells/FerociousBiteEnergy';
-import EnergyCapTracker from '../EnergyCapTracker';
-import RipSnapshot from '../../bleeds/RipSnapshot';
 import RakeSnapshot from '../../bleeds/RakeSnapshot';
-import MoonfireSnapshot from '../../talents/MoonfireSnapshot';
+import RakeUptime from '../../bleeds/RakeUptime';
+import RipSnapshot from '../../bleeds/RipSnapshot';
+import RipUptime from '../../bleeds/RipUptime';
+import ComboPointDetails from '../../combopoints/ComboPointDetails';
+import FinisherUse from '../../combopoints/FinisherUse';
+import Shadowmeld from '../../racials/Shadowmeld';
+import FerociousBiteEnergy from '../../spells/FerociousBiteEnergy';
+import SwipeHitCount from '../../spells/SwipeHitCount';
+import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Bloodtalons from '../../talents/Bloodtalons';
+import MoonfireSnapshot from '../../talents/MoonfireSnapshot';
+import MoonfireUptime from '../../talents/MoonfireUptime';
 import Predator from '../../talents/Predator';
 import SavageRoar from '../../talents/SavageRoar';
-import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
-import Shadowmeld from '../../racials/Shadowmeld';
-import FinisherUse from '../../combopoints/FinisherUse';
+import EnergyCapTracker from '../EnergyCapTracker';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

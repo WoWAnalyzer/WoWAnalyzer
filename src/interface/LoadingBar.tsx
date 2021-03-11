@@ -3,12 +3,12 @@ import React, { CSSProperties } from 'react';
 import './LoadingBar.scss';
 
 interface Props {
-  progress?: number
-  chunks?: number
+  progress?: number;
+  chunks?: number;
   style?: CSSProperties;
 }
 
-const LoadingBar = ({progress = 0, chunks = 12, ...others}: Props) => {
+const LoadingBar = ({ progress = 0, chunks = 12, ...others }: Props) => {
   const progressPerChunk = 1 / chunks;
 
   const chunkProgress = (startProgress: number, endProgress: number) => {
@@ -19,14 +19,10 @@ const LoadingBar = ({progress = 0, chunks = 12, ...others}: Props) => {
     } else {
       return (progress - startProgress) / progressPerChunk;
     }
-  }
+  };
 
   return (
-    <div
-      className="LoadingBar"
-      data-progress={progress}
-      {...others}
-    >
+    <div className="LoadingBar" data-progress={progress} {...others}>
       {[...Array(chunks)].map((_, chunk) => {
         const startProgress = chunk * progressPerChunk;
         const endProgress = startProgress + progressPerChunk;
@@ -39,6 +35,6 @@ const LoadingBar = ({progress = 0, chunks = 12, ...others}: Props) => {
       })}
     </div>
   );
-}
+};
 
 export default LoadingBar;

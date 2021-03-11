@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-
-import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import { ComboPointTracker } from '@wowanalyzer/rogue';
 
 class OutlawComboPointTracker extends ComboPointTracker {

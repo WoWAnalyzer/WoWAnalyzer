@@ -1,13 +1,12 @@
-import React from 'react';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { formatPercentage } from 'common/format';
-
+import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
+import React from 'react';
 
 export default class Shuffle extends Analyzer {
   static dependencies = {
@@ -52,11 +51,15 @@ export default class Shuffle extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeSuggestionThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(
-        <>You should maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while actively tanking.</>,
-      ).icon(SPELLS.SHUFFLE.icon)
+    when(this.uptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while actively tanking.
+        </>,
+      )
+        .icon(SPELLS.SHUFFLE.icon)
         .actual(`${formatPercentage(actual)}% of hits mitigated by Shuffle.`)
-        .recommended(`at least ${formatPercentage(recommended)}% is recommended`));
+        .recommended(`at least ${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }

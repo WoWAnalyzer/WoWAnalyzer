@@ -1,3 +1,8 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+
 import {
   BoonOfTheAscended,
   DesperatePrayer,
@@ -8,47 +13,37 @@ import {
   UnholyNova,
 } from '@wowanalyzer/priest';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
-import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-
-import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
-import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
-
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
-import SpellUsable from './modules/core/SpellUsable';
-import SpellManaCost from './modules/core/SpellManaCost';
 import AbilityTracker from './modules/core/AbilityTracker';
+import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
-
+import SpellManaCost from './modules/core/SpellManaCost';
+import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import AtonementApplicationSource from './modules/features/AtonementApplicationSource';
+import AtonementApplicatorBreakdown from './modules/features/AtonementApplicatorBreakdown';
 import AtonementDamageSource from './modules/features/AtonementDamageSource';
 import AtonementHealingDone from './modules/features/AtonementHealingDone';
+import Checklist from './modules/features/Checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
-import Lenience from './modules/spells/Lenience';
+import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
-import AtonementApplicatorBreakdown from './modules/features/AtonementApplicatorBreakdown';
-
-import TwistOfFate from './modules/spells/TwistOfFate';
-import Castigation from './modules/spells/Castigation';
+import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 import Atonement from './modules/spells/Atonement';
-import Evangelism from './modules/spells/Evangelism';
-import Penance from './modules/spells/Penance';
+import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
+import Evangelism from './modules/spells/Evangelism';
 import Grace from './modules/spells/Grace';
+import Lenience from './modules/spells/Lenience';
+import Penance from './modules/spells/Penance';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-
-import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
-
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import TwistOfFate from './modules/spells/TwistOfFate';
+import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
+import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

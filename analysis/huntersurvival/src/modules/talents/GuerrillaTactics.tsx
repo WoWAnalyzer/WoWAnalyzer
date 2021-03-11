@@ -1,14 +1,18 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { AFFECTED_BY_GUERRILLA_TACTICS, GUERRILLA_TACTICS_INIT_HIT_MODIFIER } from '@wowanalyzer/hunter-survival/src/constants';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import React from 'react';
+
+import {
+  AFFECTED_BY_GUERRILLA_TACTICS,
+  GUERRILLA_TACTICS_INIT_HIT_MODIFIER,
+} from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Wildfire Bomb now has 2 charges, and the initial explosion deals 100% increased damage.
@@ -17,7 +21,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * https://www.warcraftlogs.com/reports/Kk4nL12CDJVQ6Yyf#fight=34&type=damage-done&source=799
  */
 class GuerrillaTactics extends Analyzer {
-
   damage = 0;
 
   constructor(options: Options) {
@@ -25,7 +28,10 @@ class GuerrillaTactics extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -47,7 +53,6 @@ class GuerrillaTactics extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default GuerrillaTactics;

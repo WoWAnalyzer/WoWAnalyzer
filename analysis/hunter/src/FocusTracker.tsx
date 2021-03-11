@@ -1,9 +1,16 @@
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
-import { CastEvent, EnergizeEvent } from 'parser/core/Events';
-import { AOTW_REGEN, BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS, BARBED_SHOT_REGEN, BEAST_MASTERY_SPELLS_WITHOUT_WASTE, CHIM_REGEN } from '@wowanalyzer/hunter-beastmastery/src/constants';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
+import { CastEvent, EnergizeEvent } from 'parser/core/Events';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
+
+import {
+  AOTW_REGEN,
+  BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS,
+  BARBED_SHOT_REGEN,
+  BEAST_MASTERY_SPELLS_WITHOUT_WASTE,
+  CHIM_REGEN,
+} from '@wowanalyzer/hunter-beastmastery/src/constants';
 
 class FocusTracker extends ResourceTracker {
   constructor(options: Options) {
@@ -22,13 +29,28 @@ class FocusTracker extends ResourceTracker {
     if (BEAST_MASTERY_SPELLS_WITHOUT_WASTE.includes(spellId)) {
       gain = event.resourceChange;
       if (BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS.includes(spellId)) {
-        waste = BARBED_SHOT_REGEN * (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id) ? 2 : 1) - gain;
+        waste =
+          BARBED_SHOT_REGEN *
+            (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)
+              ? 2
+              : 1) -
+          gain;
         gain = gain - waste;
       } else if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
-        waste = AOTW_REGEN * (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id) ? 2 : 1) - gain;
+        waste =
+          AOTW_REGEN *
+            (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)
+              ? 2
+              : 1) -
+          gain;
         gain = gain - waste;
       } else if (spellId === SPELLS.CHIMAERA_SHOT_FOCUS.id) {
-        waste = CHIM_REGEN * (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id) ? 2 : 1) - gain;
+        waste =
+          CHIM_REGEN *
+            (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)
+              ? 2
+              : 1) -
+          gain;
         gain = gain - waste;
       }
     } else {

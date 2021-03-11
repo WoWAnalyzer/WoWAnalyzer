@@ -1,14 +1,14 @@
-import React from 'react';
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
 import SweepingStrikes from '../core/SweepingStrikes';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

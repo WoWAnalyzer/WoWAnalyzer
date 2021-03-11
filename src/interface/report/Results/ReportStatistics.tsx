@@ -1,13 +1,12 @@
-import React, { ReactElement } from 'react';
-import Masonry from 'react-masonry-component';
 import { t, Trans } from '@lingui/macro';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React, { ReactElement } from 'react';
+import Masonry from 'react-masonry-component';
 
-import StatisticsSectionTitle from './StatisticsSectionTitle';
 import FightDowntimeToggle from './FightDowntimeToggle';
+import StatisticsSectionTitle from './StatisticsSectionTitle';
 
 function sizeToInt(size: StatisticSize) {
   switch (size) {

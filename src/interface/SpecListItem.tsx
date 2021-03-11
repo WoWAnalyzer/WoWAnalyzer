@@ -1,9 +1,8 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
-
 import Contributor from 'interface/ContributorButton';
-import Config from 'parser/Config';
 import ReadableListing from 'interface/ReadableListing';
+import Config from 'parser/Config';
+import React from 'react';
 
 const SpecListItem = ({
   spec,
@@ -55,9 +54,7 @@ const SpecListItem = ({
         )}
         <br />
         {contributors.length !== 0 ? (
-          <Trans id="interface.specListItem.maintainer">
-            Maintained by: {maintainers}
-          </Trans>
+          <Trans id="interface.specListItem.maintainer">Maintained by: {maintainers}</Trans>
         ) : (
           <small>
             <em>

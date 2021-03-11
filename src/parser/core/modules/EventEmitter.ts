@@ -1,10 +1,10 @@
 import ModuleError from 'parser/core/ModuleError';
 
-import Events, { EventType, HasAbility, MappedEvent } from '../Events';
-import Module, { Options } from '../Module';
-import { EventListener } from '../EventSubscriber';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
 import EventFilter, { SpellFilter } from '../EventFilter';
+import Events, { EventType, HasAbility, MappedEvent } from '../Events';
+import { EventListener } from '../EventSubscriber';
+import Module, { Options } from '../Module';
 
 const CATCH_ALL_EVENT = EventType.Event;
 
@@ -14,7 +14,7 @@ type BoundListener<ET extends EventType, E extends MappedEvent<ET>> = {
   eventFilter: ET | EventFilter<ET>;
   module: Module;
   listener: EventListener<ET, E>;
-}
+};
 
 /**
  * This (core) module takes care of:
@@ -42,7 +42,11 @@ class EventEmitter extends Module {
    * @param {function} listener
    * @param {Module} module
    */
-  addEventListener<ET extends EventType, T extends MappedEvent<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, T>, module: Module) {
+  addEventListener<ET extends EventType, T extends MappedEvent<ET>>(
+    eventFilter: ET | EventFilter<ET>,
+    listener: EventListener<ET, T>,
+    module: Module,
+  ) {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
     this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
     this._eventListenersByEventType[eventType].push({
@@ -52,7 +56,11 @@ class EventEmitter extends Module {
     });
     this.numEventListeners += 1;
   }
-  _compileListener<ET extends EventType, E extends MappedEvent<ET>>(eventFilter: ET | EventFilter<ET>, listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
+  _compileListener<ET extends EventType, E extends MappedEvent<ET>>(
+    eventFilter: ET | EventFilter<ET>,
+    listener: EventListener<ET, E>,
+    module: Module,
+  ): EventListener<ET, E> {
     listener = this._prependCounter(listener);
     if (eventFilter instanceof EventFilter) {
       listener = this._prependFilters(eventFilter, listener);
@@ -63,20 +71,28 @@ class EventEmitter extends Module {
   }
 
   numActualExecutions = 0;
-  _prependCounter<ET extends EventType, E extends MappedEvent<ET>>(listener: EventListener<ET, E>): EventListener<ET, E> {
-    return event => {
+  _prependCounter<ET extends EventType, E extends MappedEvent<ET>>(
+    listener: EventListener<ET, E>,
+  ): EventListener<ET, E> {
+    return (event) => {
       this.numActualExecutions += 1;
       listener(event);
     };
   }
-  _prependActiveCheck<ET extends EventType, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, module: Module): EventListener<ET, E> {
-    return function(event: E) {
+  _prependActiveCheck<ET extends EventType, E extends MappedEvent<ET>>(
+    listener: EventListener<ET, E>,
+    module: Module,
+  ): EventListener<ET, E> {
+    return function (event: E) {
       if (module.active) {
         listener(event);
       }
     };
   }
-  _prependFilters<ET extends EventType, E extends MappedEvent<ET>>(eventFilter: EventFilter<ET>, listener: EventListener<ET, E>): EventListener<ET, E> {
+  _prependFilters<ET extends EventType, E extends MappedEvent<ET>>(
+    eventFilter: EventFilter<ET>,
+    listener: EventListener<ET, E>,
+  ): EventListener<ET, E> {
     const by = eventFilter.getBy();
     if (by) {
       listener = this._prependByCheck(listener, by);
@@ -92,27 +108,32 @@ class EventEmitter extends Module {
     return listener;
   }
 
-  createByCheck<ET extends EventType, E extends MappedEvent<ET>>(by: number): ((event: E) => boolean) | null {
+  createByCheck<ET extends EventType, E extends MappedEvent<ET>>(
+    by: number,
+  ): ((event: E) => boolean) | null {
     const requiresSelectedPlayer = by & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = by & SELECTED_PLAYER_PET;
 
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
-      return event => this.owner.byPlayer(event) || this.owner.byPlayerPet(event);
+      return (event) => this.owner.byPlayer(event) || this.owner.byPlayerPet(event);
     } else if (requiresSelectedPlayer) {
-      return event => this.owner.byPlayer(event);
+      return (event) => this.owner.byPlayer(event);
     } else if (requiresSelectedPlayerPet) {
-      return event => this.owner.byPlayerPet(event);
+      return (event) => this.owner.byPlayerPet(event);
     } else {
       return null;
     }
   }
-  _prependByCheck<ET extends EventType, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, by: number): EventListener<ET, E> {
+  _prependByCheck<ET extends EventType, E extends MappedEvent<ET>>(
+    listener: EventListener<ET, E>,
+    by: number,
+  ): EventListener<ET, E> {
     const check = this.createByCheck(by);
     if (!check) {
       return listener;
     }
 
-    return function(event) {
+    return function (event) {
       if (check(event)) {
         listener(event);
       }
@@ -123,38 +144,46 @@ class EventEmitter extends Module {
     const requiresSelectedPlayer = to & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = to & SELECTED_PLAYER_PET;
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
-      return event => this.owner.toPlayer(event) || this.owner.toPlayerPet(event);
+      return (event) => this.owner.toPlayer(event) || this.owner.toPlayerPet(event);
     } else if (requiresSelectedPlayer) {
-      return event => this.owner.toPlayer(event);
+      return (event) => this.owner.toPlayer(event);
     } else if (requiresSelectedPlayerPet) {
-      return event => this.owner.toPlayerPet(event);
+      return (event) => this.owner.toPlayerPet(event);
     } else {
       return null;
     }
   }
-  _prependToCheck<ET extends EventType, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, to: number): EventListener<ET, E> {
+  _prependToCheck<ET extends EventType, E extends MappedEvent<ET>>(
+    listener: EventListener<ET, E>,
+    to: number,
+  ): EventListener<ET, E> {
     const check = this.createToCheck(to);
     if (!check) {
       return listener;
     }
-    return function(event: E) {
+    return function (event: E) {
       if (check(event)) {
         listener(event);
       }
     };
   }
 
-  createSpellCheck<ET extends EventType, E extends MappedEvent<ET>>(spell: SpellFilter): ((event: E) => boolean) {
+  createSpellCheck<ET extends EventType, E extends MappedEvent<ET>>(
+    spell: SpellFilter,
+  ): (event: E) => boolean {
     if (spell instanceof Array) {
-      return event => HasAbility(event) && spell.some(s => s.id === event.ability.guid);
+      return (event) => HasAbility(event) && spell.some((s) => s.id === event.ability.guid);
     }
     const spellId = spell.id;
-    return event => HasAbility(event) && event.ability.guid === spellId;
+    return (event) => HasAbility(event) && event.ability.guid === spellId;
   }
 
-  _prependSpellCheck<ET extends EventType, E extends MappedEvent<ET>>(listener: EventListener<ET, E>, spell: SpellFilter): EventListener<ET, E> {
+  _prependSpellCheck<ET extends EventType, E extends MappedEvent<ET>>(
+    listener: EventListener<ET, E>,
+    spell: SpellFilter,
+  ): EventListener<ET, E> {
     const check = this.createSpellCheck(spell);
-    return function(event: E) {
+    return function (event: E) {
       if (check(event)) {
         listener(event);
       }
@@ -207,7 +236,7 @@ class EventEmitter extends Module {
     this._isHandlingEvent = false;
 
     // TODO fix
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.owner.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
@@ -220,7 +249,9 @@ class EventEmitter extends Module {
   }
 
   timePerModule!: Map<Module, number>;
-  profile<ET extends EventType, E extends MappedEvent<ET>>(run: (options: BoundListener<ET, E>) => void) {
+  profile<ET extends EventType, E extends MappedEvent<ET>>(
+    run: (options: BoundListener<ET, E>) => void,
+  ) {
     return (options: BoundListener<ET, E>) => {
       const start = performance.now();
       run(options);
@@ -230,13 +261,13 @@ class EventEmitter extends Module {
     };
   }
   reportModuleTimes() {
-    const table: Array<{ module: Module, duration: number, ofTotal: string }> = [];
+    const table: Array<{ module: Module; duration: number; ofTotal: string }> = [];
     const totalDuration = Array.from(this.timePerModule).reduce((sum, [, value]) => sum + value, 0);
     this.timePerModule.forEach((value, key) => {
       table.push({
         module: key,
         duration: Math.ceil(value),
-        ofTotal: `${(value / totalDuration * 100).toFixed(2)}%`,
+        ofTotal: `${((value / totalDuration) * 100).toFixed(2)}%`,
       });
     });
     console.groupCollapsed('Module time consumption');
@@ -244,8 +275,8 @@ class EventEmitter extends Module {
     console.log('Total module time:', totalDuration, 'ms');
     console.groupEnd();
   }
-  _finally: Function[] | null = null;
-  finally(func: Function) {
+  _finally: Array<() => void> | null = null;
+  finally(func: () => void) {
     this._finally = this._finally || [];
     this._finally.push(func);
   }
@@ -254,7 +285,7 @@ class EventEmitter extends Module {
       const currentBatch = this._finally;
       // Reset before running so if an item calls another event, it doesn't do the same finally multiple times
       this._finally = null;
-      currentBatch.forEach(item => item());
+      currentBatch.forEach((item) => item());
     }
   }
   // todo double check this 'event' shape... seems wrong
@@ -280,7 +311,9 @@ class EventEmitter extends Module {
   _validateEvent(event: any) {
     if (!event.type) {
       console.log(event);
-      throw new Error('Events should have a type. No type received. See the console for the event.');
+      throw new Error(
+        'Events should have a type. No type received. See the console for the event.',
+      );
     }
   }
   _handleError(err: Error, module: Module) {
@@ -291,11 +324,14 @@ class EventEmitter extends Module {
     console.error('Disabling', name, 'and child dependencies because an error occured:', err);
     // Disable this module and all active modules that have this as a dependency
     this.owner.deepDisable(module, ModuleError.EVENTS, err);
-    window.Sentry && window.Sentry.withScope(scope => {
+    window.Sentry?.withScope((scope) => {
       scope.setTag('type', 'module_error');
-      scope.setTag('spec', `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`);
+      scope.setTag(
+        'spec',
+        `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`,
+      );
       scope.setExtra('module', name);
-      window.Sentry && window.Sentry.captureException(err);
+      window.Sentry?.captureException(err);
     });
   }
 }

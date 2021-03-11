@@ -1,12 +1,19 @@
-import SPECS from 'game/SPECS';
-import RACES from 'game/RACES';
-import TALENT_ROWS from 'game/TALENT_ROWS';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
-import CombatLogParser  from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
+import SPECS from 'game/SPECS';
+import TALENT_ROWS from 'game/TALENT_ROWS';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import {
+  Buff,
+  CombatantInfoEvent,
+  Conduit,
+  EventType,
+  Item,
+  SoulbindTrait,
+} from 'parser/core/Events';
 
 import Entity from './Entity';
 import { PlayerInfo } from './Player';

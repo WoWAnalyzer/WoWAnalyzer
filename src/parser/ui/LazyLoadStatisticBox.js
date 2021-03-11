@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import StatisticBox from './StatisticBox';
 
@@ -53,7 +53,7 @@ class LazyLoadStatisticBox extends React.PureComponent {
     return (
       <StatisticBox
         onClick={this.handleClick}
-        value={this.state.loaded ? value : (this.state.loading ? 'Loading...' : 'Click to load')}
+        value={this.state.loaded ? value : this.state.loading ? 'Loading...' : 'Click to load'}
         style={{ cursor: this.state.loaded ? undefined : 'pointer' }}
         {...others}
       >

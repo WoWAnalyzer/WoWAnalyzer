@@ -1,3 +1,5 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import {
   ArcaneIntellect,
   CancelledCasts,
@@ -12,41 +14,30 @@ import {
   TempestBarrier,
 } from '@wowanalyzer/mage';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-//Normalizers
-import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
-import ArcanePowerNormalizer from './normalizers/ArcanePower';
-
-//Features
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Abilities from './modules/features/Abilities';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Channeling from './modules/features/Channeling';
 import Checklist from './modules/Checklist/Module';
-import Buffs from './modules/features/Buffs';
-import Mana from './modules/ManaChart/Mana';
-import ManaValues from './modules/ManaChart/ManaValues';
+import Abilities from './modules/features/Abilities';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
+import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import ArcanePower from './modules/features/ArcanePower';
 import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
-import ArcaneMissiles from './modules/features/ArcaneMissiles';
-
-//Talents
-import ArcaneOrb from './modules/talents/ArcaneOrb';
-import RuleOfThrees from './modules/talents/RuleOfThrees';
-import TimeAnomaly from './modules/talents/TimeAnomaly';
-import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
-import MasterOfTime from './modules/talents/MasterOfTime';
-import ArcaneEcho from './modules/talents/ArcaneEcho';
-
-//Legendaries
-import ArcaneHarmony from './modules/items/ArcaneHarmony';
+import Buffs from './modules/features/Buffs';
+import Channeling from './modules/features/Channeling';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ArcaneBombardment from './modules/items/ArcaneBombardment';
-
-//Conduits
+import ArcaneHarmony from './modules/items/ArcaneHarmony';
 import ArcaneProdigy from './modules/items/ArcaneProdigy';
 import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
+import Mana from './modules/ManaChart/Mana';
+import ManaValues from './modules/ManaChart/ManaValues';
+import ArcaneEcho from './modules/talents/ArcaneEcho';
+import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
+import ArcaneOrb from './modules/talents/ArcaneOrb';
+import MasterOfTime from './modules/talents/MasterOfTime';
+import RuleOfThrees from './modules/talents/RuleOfThrees';
+import TimeAnomaly from './modules/talents/TimeAnomaly';
+import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
+import ArcanePowerNormalizer from './normalizers/ArcanePower';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

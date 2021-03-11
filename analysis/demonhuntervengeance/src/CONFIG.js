@@ -1,8 +1,8 @@
-import React from 'react';
+import SPELLS from 'common/SPELLS';
 import { Yajinni, TurianSniper, Geeii } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

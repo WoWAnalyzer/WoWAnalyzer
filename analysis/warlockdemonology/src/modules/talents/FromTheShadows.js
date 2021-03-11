@@ -1,16 +1,14 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import Events from 'parser/core/Events';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-
-import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const DAMAGE_BONUS = 0.2;
 
@@ -28,7 +26,12 @@ class FromTheShadows extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_SHADOWS_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEMONBOLT, SPELLS.HAND_OF_GULDAN_DAMAGE, SPELLS.IMPLOSION_DAMAGE]), this.handleDamage);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DEMONBOLT, SPELLS.HAND_OF_GULDAN_DAMAGE, SPELLS.IMPLOSION_DAMAGE]),
+      this.handleDamage,
+    );
   }
 
   handleDamage(event) {

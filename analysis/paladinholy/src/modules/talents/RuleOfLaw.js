@@ -1,14 +1,13 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import StatisticBar from 'parser/ui/StatisticBar';
-import UptimeBar from 'parser/ui/UptimeBar';
 import { SpellIcon } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import StatisticBar from 'parser/ui/StatisticBar';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import UptimeBar from 'parser/ui/UptimeBar';
+import React from 'react';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -34,15 +33,25 @@ class RuleOfLaw extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <Trans id="paladin.holy.modules.talents.ruleOfLaw.suggestion">
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping
           at least 1 charge on cooldown; you should (almost) never be at max charges.
         </Trans>,
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
-        .actual(<Trans id="paladin.holy.modules.talents.ruleOfLaw.actual">{formatPercentage(actual)}% uptime</Trans>)
-        .recommended(<Trans id="paladin.holy.modules.talents.ruleOfLaw.recommended">&gt;{formatPercentage(recommended)}% is recommended</Trans>));
+        .actual(
+          <Trans id="paladin.holy.modules.talents.ruleOfLaw.actual">
+            {formatPercentage(actual)}% uptime
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="paladin.holy.modules.talents.ruleOfLaw.recommended">
+            &gt;{formatPercentage(recommended)}% is recommended
+          </Trans>,
+        ),
+    );
   }
   statistic() {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);

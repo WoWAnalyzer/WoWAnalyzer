@@ -1,15 +1,13 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
-import Events from 'parser/core/Events';
-
-import DemoPets from './index';
-import { isWildImp } from '../helpers';
-import { TimelinePet, META_CLASSES } from '../TimelinePet';
-import PETS from '../PETS';
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';
+import { isWildImp } from '../helpers';
+import PETS from '../PETS';
+import { TimelinePet, META_CLASSES } from '../TimelinePet';
+import DemoPets from './index';
 
 const debug = false;
 const test = false;
@@ -50,23 +48,31 @@ class PetSummonHandler extends Analyzer {
       test && this.log('Permanent pet summon');
       this.demoPets.timeline.tryDespawnLastPermanentPet(event.timestamp);
     }
-    const pet = new TimelinePet(petInfo,
+    const pet = new TimelinePet(
+      petInfo,
       event.targetID,
       event.targetInstance,
       event.timestamp,
       this._getPetDuration(event.targetID),
       this._getSummonSpell(event),
-      event.ability.guid);
+      event.ability.guid,
+    );
     if (isWildImp(pet.guid)) {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
     }
-    if (petInfo.name === 'Demonic Tyrant' && this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)) {
+    if (
+      petInfo.name === 'Demonic Tyrant' &&
+      this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)
+    ) {
       const power = this.demoPets.currentPets
-        .filter(pet => isWildImp(pet.guid))
-        .map(pet => pet.currentEnergy)
-        .reduce((acc, val) => (acc + val), 0);
-      pet.setMeta(META_CLASSES.EMPOWERED, `Empowered by ${(power / 2).toFixed(2)} % from consuming imps`);
+        .filter((pet) => isWildImp(pet.guid))
+        .map((pet) => pet.currentEnergy)
+        .reduce((acc, val) => acc + val, 0);
+      pet.setMeta(
+        META_CLASSES.EMPOWERED,
+        `Empowered by ${(power / 2).toFixed(2)} % from consuming imps`,
+      );
     }
     test && this.log('Pet summoned', pet);
     this.demoPets.timeline.addPet(pet);
@@ -111,7 +117,10 @@ class PetSummonHandler extends Analyzer {
   _getPetDuration(id, isGuid = false) {
     const pet = this.demoPets._getPetInfo(id, isGuid);
     if (!pet) {
-      debug && this.error(`NewPets._getPetDuration() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`);
+      debug &&
+        this.error(
+          `NewPets._getPetDuration() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`,
+        );
       return -1;
     }
     if (isPermanentPet(pet.guid)) {
@@ -126,7 +135,8 @@ class PetSummonHandler extends Analyzer {
     // if player doesn't have the buff, it's 15 seconds
     if (isWildImp(pet.guid) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id)) {
       // if player has the buff, it takes the remaining buff time + 15 seconds
-      const remainingBuffTime = (this._lastDemonicTyrantCast + DEMONIC_POWER_DURATION) - this.owner.currentTimestamp;
+      const remainingBuffTime =
+        this._lastDemonicTyrantCast + DEMONIC_POWER_DURATION - this.owner.currentTimestamp;
       return PETS[pet.guid].duration + remainingBuffTime;
     }
     return PETS[pet.guid].duration;
@@ -137,7 +147,10 @@ class PetSummonHandler extends Analyzer {
       if (event.timestamp <= this._lastIDtick + BUFFER) {
         return SPELLS.INNER_DEMONS_TALENT.id;
       }
-      if (this.selectedCombatant.hasBuff(SPELLS.NETHER_PORTAL_BUFF.id) && event.timestamp <= this._lastSpendResource + BUFFER) {
+      if (
+        this.selectedCombatant.hasBuff(SPELLS.NETHER_PORTAL_BUFF.id) &&
+        event.timestamp <= this._lastSpendResource + BUFFER
+      ) {
         return SPELLS.NETHER_PORTAL_TALENT.id;
       }
       debug && this.error('Unknown source of summon event', event);

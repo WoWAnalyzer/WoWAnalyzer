@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-
 import { getLabel } from 'game/DIFFICULTIES';
 import { WCLFight } from 'parser/core/Fight';
 

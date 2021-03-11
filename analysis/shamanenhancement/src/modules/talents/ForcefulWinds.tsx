@@ -1,17 +1,16 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const FORCEFUL_WINDS = {
-  INCREASE_PER_STACK: .5,
+  INCREASE_PER_STACK: 0.5,
 };
 
 /**
@@ -27,8 +26,7 @@ class ForcefulWinds extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.WINDFURY_ATTACK),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WINDFURY_ATTACK),
       this.onDamage,
     );
   }
@@ -54,7 +52,8 @@ class ForcefulWinds extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FORCEFUL_WINDS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} /><br />
+            <ItemDamageDone amount={this.damageGained} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

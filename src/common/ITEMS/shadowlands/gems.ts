@@ -5,9 +5,7 @@
  *   icon: string,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
-const gems: ItemList = {
-
-};
+const gems: ItemList = {};
 export default gems;

@@ -10,10 +10,7 @@ export class Interval {
 
   get duration(): number {
     if (this.endTime === undefined) {
-      debug &&
-      console.error(
-        'Cannot calculate duration of an Interval with no endTime.',
-      );
+      debug && console.error('Cannot calculate duration of an Interval with no endTime.');
       return 0;
     }
     return this.endTime - this.startTime;

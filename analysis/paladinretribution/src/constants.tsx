@@ -15,7 +15,7 @@ export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
   SPELLS.WAKE_OF_ASHES,
   SPELLS.JUSTICARS_VENGEANCE_TALENT,
   SPELLS.EYE_FOR_AN_EYE_TALENT,
-  SPELLS.SANCTIFIED_WRATH_DAMAGE
+  SPELLS.SANCTIFIED_WRATH_DAMAGE,
 ];
 
 // Stuff like Retribution mastery and Execution sentence increases damage done by these sources of holy damage
@@ -31,4 +31,4 @@ export const ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES = [
   SPELLS.SANCTIFIED_WRATH_DAMAGE,
 ];
 
-export const EMPYREAN_POWER_CHANCE = .15;
+export const EMPYREAN_POWER_CHANCE = 0.15;

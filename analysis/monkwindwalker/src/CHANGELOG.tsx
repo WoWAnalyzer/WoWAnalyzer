@@ -1,9 +1,8 @@
-import { Juko8, Abelito75 } from 'CONTRIBUTORS';
-
-import React from 'react';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Juko8, Abelito75 } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2020, 12, 22), <>Added <SpellLink id={SPELLS.INVOKERS_DELIGHT.id} /> haste buff.</>, Abelito75),

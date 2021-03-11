@@ -1,15 +1,12 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EnergizeEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const SOTF_WRATH_BONUS_AP = 0.5;
 

@@ -1,13 +1,11 @@
+import Analyzer from 'parser/core/Analyzer';
+import StatisticBar from 'parser/ui/StatisticBar';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import StatisticBar from 'parser/ui/StatisticBar';
-
-import VampiricTouch from '../spells/VampiricTouch';
-import ShadowWordPain from '../spells/ShadowWordPain';
 import DevouringPlague from '../spells/DevouringPlague';
+import ShadowWordPain from '../spells/ShadowWordPain';
+import VampiricTouch from '../spells/VampiricTouch';
 
 class DotUptimeStatisticBox extends Analyzer {
   static dependencies = {

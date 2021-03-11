@@ -1,26 +1,25 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Enemy from 'parser/core/Enemy';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { t } from '@lingui/macro';
+import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
+import React from 'react';
 
-import isAtonement from '../core/isAtonement';
-import Penance from './Penance';
-import AtonementDamageSource from '../features/AtonementDamageSource';
 import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
+import isAtonement from '../core/isAtonement';
+import AtonementDamageSource from '../features/AtonementDamageSource';
 import Atonement from './Atonement';
+import Penance from './Penance';
 import SinsOfTheMany from './SinsOfTheMany';
 
 class Schism extends Analyzer {
@@ -60,9 +59,7 @@ class Schism extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      SPELLS.SCHISM_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SCHISM_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
@@ -142,7 +139,10 @@ class Schism extends Analyzer {
     }
 
     // Schism doesn't buff pet damage - yet
-    if (this.atonementDamageSource.event && this.owner.byPlayerPet(this.atonementDamageSource.event)) {
+    if (
+      this.atonementDamageSource.event &&
+      this.owner.byPlayerPet(this.atonementDamageSource.event)
+    ) {
       return;
     }
 
@@ -177,8 +177,7 @@ class Schism extends Analyzer {
       event.overheal,
     );
 
-    const estimatedSmiteHealing =
-      estimatedSmiteRawHealing - estimatedOverhealing;
+    const estimatedSmiteHealing = estimatedSmiteRawHealing - estimatedOverhealing;
 
     this.healing += event.amount - estimatedSmiteHealing;
   }
@@ -198,40 +197,53 @@ class Schism extends Analyzer {
         icon={<SpellIcon id={SPELLS.SCHISM_TALENT.id} />}
         values={[
           `${formatNumber((this.healing / this.owner.fightDuration) * 1000)} HPS`,
-          `${formatNumber(((this.directDamage + this.damageFromBuff) / this.owner.fightDuration) * 1000)} DPS`,
+          `${formatNumber(
+            ((this.directDamage + this.damageFromBuff) / this.owner.fightDuration) * 1000,
+          )} DPS`,
         ]}
-        footer={(
+        footer={
           <>
             <SpellLink id={SPELLS.SCHISM_TALENT.id} /> throughput
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            The effective healing contributed by Schism was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total healing done.<br />
-            The direct damage contributed by the Schism talent was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of total damage done.<br />
-            The effective damage contributed by the Schism bonus was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of total damage done. <br />
+            The effective healing contributed by Schism was{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total
+            healing done.
+            <br />
+            The direct damage contributed by the Schism talent was{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of
+            total damage done.
+            <br />
+            The effective damage contributed by the Schism bonus was{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of
+            total damage done. <br />
           </>
-        )}
+        }
         alignIcon="center"
       />
     );
   }
 
   suggestions(when: When) {
-    when(this.badSchismThresholds).addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(
-      <>
-        Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
-        casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
-        <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
-        <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
-      </>,
-      )
-        .icon(SPELLS.SCHISM_TALENT.icon)
-        .actual(t({
-      id: "priest.discipline.suggestions.schism.efficiency",
-      message: `You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`
-    }))
-        .recommended(`${recommended} is recommended`),
+    when(this.badSchismThresholds).addSuggestion(
+      (suggest: SuggestionFactory, actual: number, recommended: number) =>
+        suggest(
+          <>
+            Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also casting{' '}
+            <SpellLink id={SPELLS.PENANCE.id} />, <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
+            <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
+          </>,
+        )
+          .icon(SPELLS.SCHISM_TALENT.icon)
+          .actual(
+            t({
+              id: 'priest.discipline.suggestions.schism.efficiency',
+              message: `You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`,
+            }),
+          )
+          .recommended(`${recommended} is recommended`),
     );
   }
 }

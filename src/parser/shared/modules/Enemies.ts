@@ -7,9 +7,9 @@ import Entities from './Entities';
 const debug = false;
 
 type EnemyBuffHistory = {
-  start: number,
-  end: number,
-}
+  start: number;
+  end: number;
+};
 class Enemies extends Entities<Enemy> {
   enemies: { [enemyId: number]: Enemy } = {};
 
@@ -31,7 +31,9 @@ class Enemies extends Entities<Enemy> {
     const targetId = event.targetID;
     let enemy = this.enemies[targetId];
     if (!enemy) {
-      const baseInfo = this.owner.report.enemies.find((enemy: { id: number }) => enemy.id === targetId);
+      const baseInfo = this.owner.report.enemies.find(
+        (enemy: { id: number }) => enemy.id === targetId,
+      );
       if (!baseInfo) {
         debug && console.warn('Enemy not noteworthy enough:', targetId, event);
         return null;
@@ -49,14 +51,15 @@ class Enemies extends Entities<Enemy> {
    */
   getCombinedDebuffHistory(spellIds: number[]) {
     const events: EnemyBuffHistory[] = [];
-    spellIds.forEach(spellId => {
+    spellIds.forEach((spellId) => {
       events.push(...this.getDebuffHistory(spellId));
     });
 
     const history = [];
     let current: EnemyBuffHistory | null = null;
-    events.sort((a, b) => a.start - b.start)
-      .forEach(event => {
+    events
+      .sort((a, b) => a.start - b.start)
+      .forEach((event) => {
         if (current === null) {
           current = event;
         } else {
@@ -98,34 +101,33 @@ class Enemies extends Entities<Enemy> {
    */
   getDebuffHistory(spellId: number): EnemyBuffHistory[] {
     type TempBuffInfo = {
-      timestamp: number,
-      type: 'apply' | 'remove',
-      buff: TrackedBuffEvent,
+      timestamp: number;
+      type: 'apply' | 'remove';
+      buff: TrackedBuffEvent;
     };
     const events: TempBuffInfo[] = [];
     const enemies = this.getEntities();
-    Object.values(enemies)
-      .forEach(enemy => {
-        enemy.getBuffHistory(spellId, this.owner.playerId)
-          .forEach(buff => {
-            events.push({
-              timestamp: buff.start,
-              type: 'apply',
-              buff,
-            });
-            events.push({
-              timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
-              type: 'remove',
-              buff,
-            });
-          });
+    Object.values(enemies).forEach((enemy) => {
+      enemy.getBuffHistory(spellId, this.owner.playerId).forEach((buff) => {
+        events.push({
+          timestamp: buff.start,
+          type: 'apply',
+          buff,
+        });
+        events.push({
+          timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
+          type: 'remove',
+          buff,
+        });
       });
+    });
 
     const history: EnemyBuffHistory[] = [];
     let current: EnemyBuffHistory | null = null;
     let active = 0;
-    events.sort((a, b) => a.timestamp - b.timestamp)
-      .forEach(event => {
+    events
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .forEach((event) => {
         if (event.type === 'apply') {
           if (current === null) {
             current = { start: event.timestamp, end: this.owner.currentTimestamp };

@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { formatThousands } from 'common/format';
 import ManaIcon from 'interface/icons/Mana';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 interface Props {
   amount: number;
@@ -13,10 +12,7 @@ interface Context {
   parser: CombatLogParser;
 }
 
-const ItemManaGained = (
-  { amount, approximate }: Props,
-  { parser }: Context,
-) => (
+const ItemManaGained = ({ amount, approximate }: Props, { parser }: Context) => (
   <>
     <ManaIcon /> {approximate && '≈'}
     {formatThousands((amount / parser.fightDuration) * 1000 * 5)} MP5{' '}

@@ -1,9 +1,9 @@
-import React from 'react';
 
-import { Abelito75, acornellier, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
+import { Abelito75, acornellier, Putro, Zeboot } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 3, 10), <>Update <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> mana cost</>, acornellier),

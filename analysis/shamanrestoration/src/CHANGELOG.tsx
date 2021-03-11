@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { niseko, Abelito75 } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { niseko, Abelito75 } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2020, 12, 15), <>Fixed mana costs of a few spells being vastly off.</>, niseko),

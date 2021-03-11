@@ -1,16 +1,21 @@
-import React from 'react';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticsListBox from 'parser/ui/StatisticsListBox';
+import React from 'react';
 
-import { PANDEMIC_FRACTION, PROWL_RAKE_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS } from '../../constants';
+import {
+  PANDEMIC_FRACTION,
+  PROWL_RAKE_DAMAGE_BONUS,
+  TIGERS_FURY_DAMAGE_BONUS,
+  BLOODTALONS_DAMAGE_BONUS,
+} from '../../constants';
 
 const debug = false;
 
@@ -70,8 +75,14 @@ class Snapshot extends Analyzer {
       throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell), this._castSnapshotSpell);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.debuff), this._damageFromDebuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell),
+      this._castSnapshotSpell,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(this.constructor.debuff),
+      this._damageFromDebuff,
+    );
   }
 
   static wasStateFreshlyApplied(state) {
@@ -107,7 +118,7 @@ class Snapshot extends Analyzer {
   _castSnapshotSpell(event) {
     this.castCount += 1;
     this.lastDoTCastEvent = event;
-    event.debuffEvents.forEach(event => this._debuffApplied(event));
+    event.debuffEvents.forEach((event) => this._debuffApplied(event));
   }
 
   _damageFromDebuff(event) {
@@ -121,7 +132,14 @@ class Snapshot extends Analyzer {
     }
     const state = this.stateByTarget[encodeTargetString(event.targetID, event.targetInstance)];
     if (!state || event.timestamp > state.expireTime + DAMAGE_AFTER_EXPIRE_WINDOW) {
-      debug && this.warn(`Damage detected from DoT ${this.constructor.debuff.name} but no active state recorded for the target. Previous state expired: ${state ? this.owner.formatTimestamp(state.expireTime, 3) : 'n/a'}`);
+      debug &&
+        this.warn(
+          `Damage detected from DoT ${
+            this.constructor.debuff.name
+          } but no active state recorded for the target. Previous state expired: ${
+            state ? this.owner.formatTimestamp(state.expireTime, 3) : 'n/a'
+          }`,
+        );
       return;
     }
 
@@ -153,13 +171,21 @@ class Snapshot extends Analyzer {
     const stateNew = this.makeNewState(event, stateOld);
     this.stateByTarget[targetString] = stateNew;
 
-    debug && this.log(`DoT ${this.constructor.debuff.name} applied at ${this.owner.formatTimestamp(event.timestamp, 3)} on ${targetString} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`);
+    debug &&
+      this.log(
+        `DoT ${this.constructor.debuff.name} applied at ${this.owner.formatTimestamp(
+          event.timestamp,
+          3,
+        )} on ${targetString} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${
+          stateNew.bloodtalons
+        }. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`,
+      );
 
     this.checkRefreshRule(stateNew);
   }
 
   makeNewState(debuffEvent, stateOld) {
-    const timeRemainOnOld = stateOld ? (stateOld.expireTime - debuffEvent.timestamp) : 0;
+    const timeRemainOnOld = stateOld ? stateOld.expireTime - debuffEvent.timestamp : 0;
     const durationNew = this.getDurationOfFresh(debuffEvent);
     let expireNew = debuffEvent.timestamp + durationNew;
     if (timeRemainOnOld > 0) {
@@ -170,15 +196,15 @@ class Snapshot extends Analyzer {
     const stateNew = {
       expireTime: expireNew,
       pandemicTime: expireNew - durationNew * PANDEMIC_FRACTION,
-      tigersFury: this.constructor.isTigersFuryAffected &&
-        combatant.hasBuff(SPELLS.TIGERS_FURY.id),
-      prowl: this.constructor.isProwlAffected && (
-        combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
-        combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
-        combatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME) ||
-        combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)
-      ),
-      bloodtalons: this.constructor.isBloodtalonsAffected &&
+      tigersFury: this.constructor.isTigersFuryAffected && combatant.hasBuff(SPELLS.TIGERS_FURY.id),
+      prowl:
+        this.constructor.isProwlAffected &&
+        (combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
+          combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
+          combatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME) ||
+          combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)),
+      bloodtalons:
+        this.constructor.isBloodtalonsAffected &&
         combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
       power: 1,
       startTime: debuffEvent.timestamp,
@@ -189,9 +215,14 @@ class Snapshot extends Analyzer {
     };
     stateNew.power = this.calcPower(stateNew);
 
-    if (!stateNew.castEvent ||
-      stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME) {
-      debug && this.warn(`DoT ${this.constructor.debuff.name} applied debuff doesn't have a recent matching cast event.`);
+    if (
+      !stateNew.castEvent ||
+      stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME
+    ) {
+      debug &&
+        this.warn(
+          `DoT ${this.constructor.debuff.name} applied debuff doesn't have a recent matching cast event.`,
+        );
     } else {
       // store a reference to this state on the cast event which we'll be able to display on the timeline (or use elsewhere)
       stateNew.castEvent.feralSnapshotState = stateNew;
@@ -207,13 +238,13 @@ class Snapshot extends Analyzer {
   calcPowerFromSnapshot(stateNew) {
     let power = 1.0;
     if (stateNew.prowl) {
-      power *= (PROWL_RAKE_DAMAGE_BONUS + 1);
+      power *= PROWL_RAKE_DAMAGE_BONUS + 1;
     }
     if (stateNew.tigersFury) {
-      power *= (TIGERS_FURY_DAMAGE_BONUS + 1);
+      power *= TIGERS_FURY_DAMAGE_BONUS + 1;
     }
     if (stateNew.bloodtalons) {
-      power *= (BLOODTALONS_DAMAGE_BONUS + 1);
+      power *= BLOODTALONS_DAMAGE_BONUS + 1;
     }
     return power;
   }
@@ -249,7 +280,11 @@ class Snapshot extends Analyzer {
           <SpellLink id={buffId} />
         </div>
         <div className="flex-sub text-right">
-          <TooltipElement content={`${formatNumber(damageIncrease / this.owner.fightDuration * 1000)} DPS contributed by ${buffName} on your ${spellName} DoT`}>
+          <TooltipElement
+            content={`${formatNumber(
+              (damageIncrease / this.owner.fightDuration) * 1000,
+            )} DPS contributed by ${buffName} on your ${spellName} DoT`}
+          >
             {formatPercentage(this.ticks === 0 ? 0 : ticksWithBuff / this.ticks)}%
           </TooltipElement>
         </div>
@@ -264,33 +299,68 @@ class Snapshot extends Analyzer {
     if (this.constructor.isProwlAffected) {
       const buffName = 'Prowl';
       buffNames.push(buffName);
-      subStats.push(this.subStatistic(this.ticksWithProwl, this.damageFromProwl, SPELLS.PROWL.id, buffName, spellName));
+      subStats.push(
+        this.subStatistic(
+          this.ticksWithProwl,
+          this.damageFromProwl,
+          SPELLS.PROWL.id,
+          buffName,
+          spellName,
+        ),
+      );
     }
     if (this.constructor.isTigersFuryAffected) {
-      const buffName = 'Tiger\'s Fury';
+      const buffName = "Tiger's Fury";
       buffNames.push(buffName);
-      subStats.push(this.subStatistic(this.ticksWithTigersFury, this.damageFromTigersFury, SPELLS.TIGERS_FURY.id, buffName, spellName));
+      subStats.push(
+        this.subStatistic(
+          this.ticksWithTigersFury,
+          this.damageFromTigersFury,
+          SPELLS.TIGERS_FURY.id,
+          buffName,
+          spellName,
+        ),
+      );
     }
-    if (this.constructor.isBloodtalonsAffected && this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
+    if (
+      this.constructor.isBloodtalonsAffected &&
+      this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id)
+    ) {
       const buffName = 'Bloodtalons';
       buffNames.push(buffName);
-      subStats.push(this.subStatistic(this.ticksWithBloodtalons, this.damageFromBloodtalons, SPELLS.BLOODTALONS_TALENT.id, buffName, spellName));
+      subStats.push(
+        this.subStatistic(
+          this.ticksWithBloodtalons,
+          this.damageFromBloodtalons,
+          SPELLS.BLOODTALONS_TALENT.id,
+          buffName,
+          spellName,
+        ),
+      );
     }
     let buffsComment = '';
     buffNames.forEach((name, index) => {
-      const hasComma = (buffNames.length > 2 && index < buffNames.length - 1);
-      const hasAnd = (index === buffNames.length - 2);
+      const hasComma = buffNames.length > 2 && index < buffNames.length - 1;
+      const hasAnd = index === buffNames.length - 2;
       buffsComment = `${buffsComment}${name}${hasComma ? ', ' : ''}${hasAnd ? ' and ' : ''}`;
     });
     const isPlural = buffNames.length > 1;
     return (
       <StatisticsListBox
-        title={(
+        title={
           <>
             <SpellIcon id={this.constructor.spell.id} noLink /> {spellName} Snapshot
           </>
-        )}
-        tooltip={`${spellName} maintains the damage bonus from ${buffsComment} if ${isPlural ? 'they were' : 'it was'} present when the DoT was applied. This lists how many of your ${spellName} ticks benefited from ${isPlural ? 'each' : 'the'} buff. ${isPlural ? 'As a tick can benefit from multiple buffs at once these percentages can add up to more than 100%.' : ''}`}
+        }
+        tooltip={`${spellName} maintains the damage bonus from ${buffsComment} if ${
+          isPlural ? 'they were' : 'it was'
+        } present when the DoT was applied. This lists how many of your ${spellName} ticks benefited from ${
+          isPlural ? 'each' : 'the'
+        } buff. ${
+          isPlural
+            ? 'As a tick can benefit from multiple buffs at once these percentages can add up to more than 100%.'
+            : ''
+        }`}
         position={statisticPosition}
       >
         {subStats}

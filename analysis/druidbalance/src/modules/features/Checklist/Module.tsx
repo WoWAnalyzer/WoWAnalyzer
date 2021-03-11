@@ -1,20 +1,17 @@
-import React from 'react';
-
-import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
-
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import CancelledCasts from '../CancelledCasts';
-import MoonfireUptime from '../MoonfireUptime';
-import SunfireUptime from '../SunfireUptime';
-import StellarFlareUptime from '../../talents/StellarFlareUptime';
-import EarlyDotRefreshes from '../EarlyDotRefreshes';
-import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
+import React from 'react';
 
 import AstralPowerDetails from '../../resourcetracker/AstralPowerDetails';
-
+import StellarFlareUptime from '../../talents/StellarFlareUptime';
+import AlwaysBeCasting from '../AlwaysBeCasting';
+import CancelledCasts from '../CancelledCasts';
+import EarlyDotRefreshes from '../EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
+import MoonfireUptime from '../MoonfireUptime';
+import SunfireUptime from '../SunfireUptime';
 import Component from './Component';
 
 class Checklist extends BaseModule {

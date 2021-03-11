@@ -1,18 +1,17 @@
-import React from 'react';
-
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'parser/ui/Statistic';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import { SpellLink } from 'interface';
-import ItemDamageDone from 'parser/ui/ItemDamageDone'
-import STATISTIC_ORDER  from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Combatants from 'parser/shared/modules/Combatants';
 import Entity from 'parser/core/Entity';
+import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import Enemies from 'parser/shared/modules/Enemies';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const DAMAGE_AMP_PER_RANK = 0.0075;
 const BASE_DAMAGE_AMP = 0.075;
@@ -40,7 +39,7 @@ export default class ScaldingBrew extends Analyzer {
     super(options);
 
     this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SCALDING_BREW.id);
-    if(!this.rank) {
+    if (!this.rank) {
       this.active = false;
       return;
     }
@@ -56,19 +55,25 @@ export default class ScaldingBrew extends Analyzer {
   }
 
   private damage(event: DamageEvent) {
-    const target: Entity = this.enemies.enemies[event.targetID] || this.combatants.players[event.targetID];
+    const target: Entity =
+      this.enemies.enemies[event.targetID] || this.combatants.players[event.targetID];
     if (!target) {
       return;
     }
-    if(target.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
+    if (target.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.bonusDamage += calculateEffectiveDamage(event, this.mult);
-    } else if(target.hasBuff(SPELLS.KEG_SMASH.id, event.timestamp - 100)) {
+    } else if (target.hasBuff(SPELLS.KEG_SMASH.id, event.timestamp - 100)) {
       this.missedHits += 1;
 
-      if(this.lastCast) {
+      if (this.lastCast) {
         this.lastCast.meta = {
           isInefficientCast: true,
-          inefficientCastReason: <>This cast did not benefit from <SpellLink id={SPELLS.SCALDING_BREW.id} /> or freshly apply the <SpellLink id={SPELLS.KEG_SMASH.id} /> debuff.</>,
+          inefficientCastReason: (
+            <>
+              This cast did not benefit from <SpellLink id={SPELLS.SCALDING_BREW.id} /> or freshly
+              apply the <SpellLink id={SPELLS.KEG_SMASH.id} /> debuff.
+            </>
+          ),
         };
       }
     }
@@ -82,11 +87,11 @@ export default class ScaldingBrew extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={`${this.missedHits} of your Keg Smash hits (besides the initial debuff application) were without the Breath of Fire debuff.`}
       >
-      <ConduitSpellText spell={SPELLS.SCALDING_BREW} rank={this.rank!}>
-        <>
-          <ItemDamageDone amount={this.bonusDamage} />
-        </>
-      </ConduitSpellText>
+        <ConduitSpellText spell={SPELLS.SCALDING_BREW} rank={this.rank!}>
+          <>
+            <ItemDamageDone amount={this.bonusDamage} />
+          </>
+        </ConduitSpellText>
       </Statistic>
     );
   }

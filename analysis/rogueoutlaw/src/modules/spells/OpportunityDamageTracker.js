@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import { FilteredDamageTracker } from '@wowanalyzer/rogue';
 
 class OpportunityDamageTracker extends FilteredDamageTracker {

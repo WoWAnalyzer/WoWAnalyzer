@@ -7,11 +7,13 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving
+       
       <ForwardRef
         id={205025}
       />
-       to make your next 2 
+       to make your next 2
+       
       <ForwardRef
         id={30451}
       />
@@ -147,25 +149,30 @@ Array [
       <ForwardRef
         id={5143}
       />
-       into 
+       into
+       
       <ForwardRef
         id={321507}
       />
        
       5
-       times. When using 
+       times. When using
+       
       <ForwardRef
         id={342231}
       />
-       you should be casting 
+       you should be casting
+       
       <ForwardRef
         id={5143}
       />
-       non-stop (Whether you have 
+       non-stop (Whether you have
+       
       <ForwardRef
         id={263725}
       />
-       procs or not) until the 
+       procs or not) until the
+       
       <ForwardRef
         id={321507}
       />
@@ -232,21 +239,26 @@ Array [
       <ForwardRef
         id={5143}
       />
-       improperly 
+       improperly
+       
       2
-       times. In order to get the most out of 
+       times. In order to get the most out of
+       
       <ForwardRef
         id={5143}
       />
-       you should only cast it if you have 
+       you should only cast it if you have
+       
       <ForwardRef
         id={263725}
       />
-       or if you are using 
+       or if you are using
+       
       <ForwardRef
         id={342231}
       />
-       and the target has 
+       and the target has
+       
       <ForwardRef
         id={321507}
       />
@@ -838,8 +850,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               65
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -924,8 +935,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1010,8 +1020,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /31
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1108,8 +1117,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               19
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1194,8 +1202,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               6
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1280,8 +1287,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1366,8 +1372,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               5
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1522,8 +1527,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               4
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1683,8 +1687,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1781,8 +1784,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1884,8 +1886,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1987,8 +1988,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               3
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2085,8 +2085,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2188,8 +2187,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2349,8 +2347,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               4
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2447,8 +2444,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2545,8 +2541,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2701,8 +2696,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2787,8 +2781,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2885,8 +2878,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2971,8 +2963,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               9
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3069,8 +3060,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3167,8 +3157,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /43
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3265,8 +3254,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3351,8 +3339,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3437,8 +3424,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3523,8 +3509,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3609,8 +3594,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3707,8 +3691,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3851,8 +3834,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3949,8 +3931,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4236,13 +4217,15 @@ Array [
       15.60
       % of the fight duration (
       54
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/HmYxBnZPgV3Rk8hL/12-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%225:43%22%7D%7D/Mattyblasts/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -4626,13 +4609,15 @@ exports[`Arcane Mage integration test: example log RuneOfPower matches the stati
           className="value"
         >
           16
-          % 
+          %
+           
           <small>
             Damage added by Rune of Power
           </small>
           <br />
           11
-          s 
+          s
+           
           <small>
             Average time in Rune per cast
           </small>
@@ -4671,7 +4656,8 @@ Array [
       <ForwardRef
         id={116011}
       />
-       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
+       
+      for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -6672,7 +6658,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                
               Arcane Intellect
             </a>
-             for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as 
+             for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=205022"
@@ -6840,7 +6827,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           <div
             className="col-md-12"
           >
-            The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during 
+            The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=12042"

@@ -1,14 +1,14 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { NECROTIC_BARRAGE_DAMAGE_INCREASE } from '../../constants';
 
@@ -19,7 +19,6 @@ import { NECROTIC_BARRAGE_DAMAGE_INCREASE } from '../../constants';
  *
  */
 class NecroticBarrage extends Analyzer {
-
   conduitRank: number = 0;
   gainedFocus: number = 0;
   wastedFocus: number = 0;
@@ -27,19 +26,34 @@ class NecroticBarrage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.NECROTIC_BARRAGE_CONDUIT.id);
+    this.active =
+      this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id) &&
+      this.selectedCombatant.hasConduitBySpellID(SPELLS.NECROTIC_BARRAGE_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.NECROTIC_BARRAGE_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.NECROTIC_BARRAGE_CONDUIT.id,
+    );
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDeathChakramDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]),
+      this.onDeathChakramDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onDeathChakramDamage(event: DamageEvent) {
-    this.addedDamage += calculateEffectiveDamage(event, NECROTIC_BARRAGE_DAMAGE_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      NECROTIC_BARRAGE_DAMAGE_INCREASE[this.conduitRank],
+    );
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -64,7 +78,6 @@ class NecroticBarrage extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default NecroticBarrage;

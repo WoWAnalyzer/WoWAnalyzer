@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, { CastEvent, EndChannelEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, EndChannelEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 /**
  * Drain Soul don't reveal in the combatlog when channeling begins and ends, this fabricates the required events so that ABC can handle it properly.

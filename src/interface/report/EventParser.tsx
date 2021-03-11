@@ -1,21 +1,20 @@
-import React from 'react';
-import ExtendableError from 'es6-error';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-
-import { getBuild } from 'interface/selectors/url/report';
-import sleep from 'common/sleep';
 import { captureException } from 'common/errorLogger';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
-import Report from 'parser/core/Report';
-import Fight from 'parser/core/Fight';
+import sleep from 'common/sleep';
+import ExtendableError from 'es6-error';
+import { RootState } from 'interface/reducers';
+import { getBuild } from 'interface/selectors/url/report';
+import { Builds } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { RootState } from 'interface/reducers';
-import { Builds } from 'parser/Config';
+import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
+import Fight from 'parser/core/Fight';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
+import Report from 'parser/core/Report';
+import React from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -45,13 +44,17 @@ interface Props {
   builds?: Builds;
   characterProfile: CharacterProfile;
   events: AnyEvent[];
-  children: (isLoading: boolean, progress: number, parser: CombatLogParser|null) => React.ReactNode;
+  children: (
+    isLoading: boolean,
+    progress: number,
+    parser: CombatLogParser | null,
+  ) => React.ReactNode;
 }
 
 interface State {
   isLoading: boolean;
   progress: number;
-  parser: CombatLogParser|null;
+  parser: CombatLogParser | null;
 }
 
 class EventParser extends React.PureComponent<Props, State> {
@@ -98,9 +101,9 @@ class EventParser extends React.PureComponent<Props, State> {
       builds,
       parserClass,
     } = this.props;
-    const buildKey = builds && Object.keys(builds).find(b => builds[b].url === build);
+    const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
     builds &&
-      Object.keys(builds).forEach(key => {
+      Object.keys(builds).forEach((key) => {
         builds[key].active = key === buildKey;
       });
     //set current build to undefined if default build or non-existing build selected
@@ -124,7 +127,7 @@ class EventParser extends React.PureComponent<Props, State> {
   makeEvents(parser: CombatLogParser) {
     let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    events = events.filter(event => event.type !== EventType.CombatantInfo);
+    events = events.filter((event) => event.type !== EventType.CombatantInfo);
     //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
     events = parser.normalize(events).sort((a, b) => a.timestamp - b.timestamp);
     return events;

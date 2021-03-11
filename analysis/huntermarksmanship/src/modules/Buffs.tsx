@@ -31,7 +31,7 @@ class Buffs extends CoreBuffs {
         triggeredBySpellId: SPELLS.DOUBLE_TAP_TALENT.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

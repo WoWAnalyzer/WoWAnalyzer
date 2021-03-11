@@ -1,8 +1,8 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-import isAtonement from '../modules/core/isAtonement';
 import { ATONEMENT_DAMAGE_SOURCES } from '../constants';
+import isAtonement from '../modules/core/isAtonement';
 
 class AtonementSuccessiveDamage extends EventsNormalizer {
   normalize(events: AnyEvent[]) {

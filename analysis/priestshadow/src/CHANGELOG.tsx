@@ -1,12 +1,11 @@
-import React from 'react';
 
-import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
+import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot } from 'CONTRIBUTORS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
-
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import React from 'react';
 
 export default [
   change(date(2021, 1, 29), <>Added <SpellLink id={SPELLS.HAUNTING_APPARITIONS.id} /> conduit module.</>, Adoraci),

@@ -1,11 +1,10 @@
-import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import { emallson, Hordehobbs } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { AlertWarning } from 'interface';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

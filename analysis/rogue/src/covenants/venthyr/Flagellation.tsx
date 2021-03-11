@@ -1,13 +1,13 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 class Flagellation extends Analyzer {
   static dependencies = {
@@ -20,8 +20,14 @@ class Flagellation extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH), this.onLashDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH),
+      this.onLashDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -35,10 +41,7 @@ class Flagellation extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
         <BoringSpellValueText spell={SPELLS.FLAGELLATION}>
           <>
             <ItemDamageDone amount={this.damage} />

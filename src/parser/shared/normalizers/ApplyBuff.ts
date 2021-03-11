@@ -1,6 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import {
   AnyEvent,
   ApplyBuffEvent,
@@ -10,6 +8,7 @@ import {
   HasTarget,
   HasSource,
 } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
 
 import { PlayerInfo } from '../../core/Player';

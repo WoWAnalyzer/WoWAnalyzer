@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 1, 16), <>Re-enabling module support, as it is currently still going to be updated and supported moving forward.</>, Anomoly),

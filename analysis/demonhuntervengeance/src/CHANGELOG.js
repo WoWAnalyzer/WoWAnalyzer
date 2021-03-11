@@ -1,9 +1,9 @@
-import React from 'react';
 
-import { Yajinni, Zeboot, LeoZhekov, TurianSniper, Geeii, Makhai } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { Yajinni, Zeboot, LeoZhekov, TurianSniper, Geeii, Makhai } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 1, 20), <> Added <SpellLink id={SPELLS.ELYSIAN_DECREE.id} />  <SpellLink id={SPELLS.SINFUL_BRAND.id} /> and <SpellLink id={SPELLS.THE_HUNT.id}/> to Statistics</>, Makhai),

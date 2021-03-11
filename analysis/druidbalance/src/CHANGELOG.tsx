@@ -1,8 +1,8 @@
-import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import React from 'react';
 import SPELLS from 'common/SPELLS';
+import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 3, 10), 'Updated Starlord, Stellar Drift and Twin Moons talents for Shadowlands.', Kartarn),

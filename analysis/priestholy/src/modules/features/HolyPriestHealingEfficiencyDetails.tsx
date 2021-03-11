@@ -1,10 +1,9 @@
+import { Panel } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-import { Panel } from 'interface';
-
-import HealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from './HolyPriestHealingEfficiencyBreakdown';
+import HealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
 
 class HolyPriestHealingEfficiencyDetails extends Analyzer {
   static dependencies = {

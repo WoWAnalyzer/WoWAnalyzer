@@ -1,8 +1,8 @@
+import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventFilter from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import EventFilter from 'parser/core/EventFilter';
-import HIT_TYPES from 'game/HIT_TYPES';
 
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import isAtonement from './isAtonement';

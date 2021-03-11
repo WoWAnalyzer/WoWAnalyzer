@@ -1,14 +1,18 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
-import Events, { DamageEvent } from 'parser/core/Events';
-import { RAPTOR_MONGOOSE_VARIANTS, STINGING_STRIKE_RS_MB_DMG_INCREASE } from '@wowanalyzer/hunter-survival/src/constants';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import {
+  RAPTOR_MONGOOSE_VARIANTS,
+  STINGING_STRIKE_RS_MB_DMG_INCREASE,
+} from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Raptor Strike and Mongoose Bite damage increased by 14.0%.
@@ -17,25 +21,32 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
  *
  */
 class StingingStrike extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.STINGING_STRIKE_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.STINGING_STRIKE_CONDUIT.id,
+    );
 
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onRaptorMongooseDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS),
+      this.onRaptorMongooseDamage,
+    );
   }
 
   onRaptorMongooseDamage(event: DamageEvent) {
-    this.addedDamage += calculateEffectiveDamage(event, STINGING_STRIKE_RS_MB_DMG_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      STINGING_STRIKE_RS_MB_DMG_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {

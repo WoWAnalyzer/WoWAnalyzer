@@ -678,8 +678,8 @@ const spells = {
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
     id: 114908,
-    name: "Spirit Shell",
-    icon: "ability_shaman_astralshift.jpg"
+    name: 'Spirit Shell',
+    icon: 'ability_shaman_astralshift.jpg',
   },
 } as const;
 

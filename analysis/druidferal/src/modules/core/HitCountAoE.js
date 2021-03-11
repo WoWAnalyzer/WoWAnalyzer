@@ -1,8 +1,8 @@
-import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import Events from 'parser/core/Events';
+import React from 'react';
 
 // time after a cast in which direct damage from the spellId will be associated with the cast
 const DAMAGE_WINDOW = 250; //ms
@@ -16,14 +16,14 @@ class HitCountAoE extends Analyzer {
     if (this.casts === 0) {
       return 0;
     }
-    return (this.totalHits / this.casts);
+    return this.totalHits / this.casts;
   }
 
   get averageTargetsHitNotIncludingZeroCasts() {
     if (this.casts === 0) {
       return 0;
     }
-    return (this.totalHits / (this.casts - this.castsWithZeroHits));
+    return this.totalHits / (this.casts - this.castsWithZeroHits);
   }
 
   get hitZeroPerMinute() {
@@ -45,8 +45,14 @@ class HitCountAoE extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.spell), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(this.constructor.spell),
+      this.onDamage,
+    );
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
@@ -58,8 +64,11 @@ class HitCountAoE extends Analyzer {
   }
 
   onDamage(event) {
-    if (event.tick ||
-      !this.lastCastEvent || ((event.timestamp - this.lastCastEvent.timestamp) > DAMAGE_WINDOW)) {
+    if (
+      event.tick ||
+      !this.lastCastEvent ||
+      event.timestamp - this.lastCastEvent.timestamp > DAMAGE_WINDOW
+    ) {
       // only interested in direct damage from the spellId shortly after cast
       return;
     }
@@ -91,15 +100,20 @@ class HitCountAoE extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You used {this.constructor.spell.name} <strong>{this.casts}</strong> time{(this.casts === 1) ? '' : 's'}.<br />
+            You used {this.constructor.spell.name} <strong>{this.casts}</strong> time
+            {this.casts === 1 ? '' : 's'}.<br />
             <ul>
-              <li><strong>{this.castsWithOneHit}</strong> hit just 1 target.</li>
-              <li><strong>{this.castsWithZeroHits}</strong> hit nothing at all</li>
+              <li>
+                <strong>{this.castsWithOneHit}</strong> hit just 1 target.
+              </li>
+              <li>
+                <strong>{this.castsWithZeroHits}</strong> hit nothing at all
+              </li>
             </ul>
           </>
-        )}
+        }
         position={statisticPosition}
       >
         <BoringSpellValueText spell={this.constructor.spell}>

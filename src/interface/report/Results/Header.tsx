@@ -1,21 +1,20 @@
 /* eslint-disable react/prop-types */
+import getBossName from 'common/getBossName';
+import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import { Boss, Phase } from 'game/raids';
+import { TooltipElement } from 'interface/Tooltip';
+import Config, { Build } from 'parser/Config';
+import { ParseResultsTab } from 'parser/core/Analyzer';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import Fight from 'parser/core/Fight';
+import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Boss, Phase } from 'game/raids';
-import Fight from 'parser/core/Fight';
-import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
-import Config, { Build } from 'parser/Config';
-import { TooltipElement } from 'interface/Tooltip';
-import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import getBossName from 'common/getBossName';
-import CharacterProfile from 'parser/core/CharacterProfile';
-import { ParseResultsTab } from 'parser/core/Analyzer';
-
-import PhaseSelector from './PhaseSelector';
-import TimeFilter from './TimeFilter';
 import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
+import PhaseSelector from './PhaseSelector';
+import TimeFilter from './TimeFilter';
 
 import './Header.scss';
 
@@ -23,10 +22,10 @@ interface Props {
   config: Config;
   name: string;
   characterProfile: CharacterProfile;
-  boss: Boss|null;
+  boss: Boss | null;
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
-  phases: { [key: string]: Phase }|null;
+  phases: { [key: string]: Phase } | null;
   makeBuildUrl: (selectedTab: string, buildName: string) => string;
   build?: string;
   selectedPhase: string;

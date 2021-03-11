@@ -1,5 +1,5 @@
-import { Kettlepaw, Zeboot, g3neral, Tiboonn, Buudha } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { Kettlepaw, Zeboot, g3neral, Tiboonn, Buudha } from 'CONTRIBUTORS';
 
 export default [
   change(date(2021, 2, 20), 'Updated the Stats page to use the new Statistics modules', Buudha),

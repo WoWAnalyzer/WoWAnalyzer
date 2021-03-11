@@ -1,13 +1,13 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
-import ItemManaGained from 'parser/ui/ItemManaGained';
 import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 // Example Log: /report/da4AL7QPr36btCmV/8-Heroic+Huntsman+Altimor+-+Kill+(5:13)/Daemonlight/standard/statistics
 class SurgeOfLight extends Analyzer {
@@ -30,7 +30,10 @@ class SurgeOfLight extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF), this.onChangeBuffStack);
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF),
+      this.onChangeBuffStack,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
   }
@@ -71,7 +74,8 @@ class SurgeOfLight extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SURGE_OF_LIGHT_TALENT}>
           <>
-            {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
+            {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts
+            <br />
             <ItemManaGained amount={this.solManaSaved} />
           </>
         </BoringSpellValueText>

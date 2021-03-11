@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 class Channeling extends CoreChanneling {
   static dependencies = {
@@ -10,8 +10,14 @@ class Channeling extends CoreChanneling {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM),
+      this.onRemoveBuff,
+    );
   }
 
   onApplyBuff(event) {

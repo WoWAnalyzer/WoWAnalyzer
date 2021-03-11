@@ -1,8 +1,7 @@
-import React from 'react';
-
+import { Trans } from '@lingui/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import AVAILABLE_CONFIGS from 'parser';
-import { Trans } from '@lingui/macro';
+import React from 'react';
 
 import './SpecList.css';
 

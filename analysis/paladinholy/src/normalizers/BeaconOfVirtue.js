@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 // the max delay between the cast and buff events never looks to be more than this, nor should it be possible to cast twice within this time. Actually it seems to always be the same frame, but accounting for a delay nonetheless.
 const MAX_DELAY = 100;

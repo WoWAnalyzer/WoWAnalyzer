@@ -1,14 +1,19 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import UptimeIcon from 'interface/icons/Uptime';
 import Spell from 'common/SPELLS/Spell';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { formatPercentage } from 'common/format';
+import React from 'react';
 
 import { Intervals } from './Intervals';
 
@@ -77,10 +82,7 @@ class MaelstromWeapon extends Analyzer {
 
   // this method is a helper for determining if removebuff event corresponds to stack expiration or spending
   castMaelstromWeaponSpender(event: CastEvent) {
-    const stacksUsed = Math.min(
-      this.currentStacks,
-      MAX_STACKS_SPENT_PER_CAST,
-    );
+    const stacksUsed = Math.min(this.currentStacks, MAX_STACKS_SPENT_PER_CAST);
 
     if (stacksUsed === 0) {
       return;
@@ -140,18 +142,24 @@ class MaelstromWeapon extends Analyzer {
   }
 
   statistic() {
-    return <Statistic
-      position={STATISTIC_ORDER.CORE()}
-      size="flexible"
-      tooltip={<>
-        You gained {this.stacksGained} Maelstrom Weapon stacks and used {this.stacksUsed}
-      </>}
-    >
-      <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
-        <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}% <small>of fight with max stacks</small><br />
-        {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
-      </BoringSpellValueText>
-    </Statistic>;
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        size="flexible"
+        tooltip={
+          <>
+            You gained {this.stacksGained} Maelstrom Weapon stacks and used {this.stacksUsed}
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
+          <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}%{' '}
+          <small>of fight with max stacks</small>
+          <br />
+          {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

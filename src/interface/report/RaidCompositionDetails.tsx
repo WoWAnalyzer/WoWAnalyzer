@@ -1,6 +1,5 @@
-import React from 'react';
-
 import Icon from 'interface/Icon';
+import React from 'react';
 
 interface Props {
   tanks: number;
@@ -26,41 +25,21 @@ const RaidCompositionDetails = (props: Props) => {
               </div>
             </div>
             <div className="flex-sub icon">
-              <img
-                src="/roles/tank.jpg"
-                alt="Tanks"
-              />
-              <div className="role-count">
-                {tanks}
-              </div>
+              <img src="/roles/tank.jpg" alt="Tanks" />
+              <div className="role-count">{tanks}</div>
             </div>
             <div className="flex-sub icon">
-              <img
-                src="/roles/healer.jpg"
-                alt="Healers"
-              />
-              <div className="role-count">
-                {healers}
-              </div>
+              <img src="/roles/healer.jpg" alt="Healers" />
+              <div className="role-count">{healers}</div>
             </div>
             <div className="flex-sub icon">
-              <img
-                src="/roles/dps.jpg"
-                alt="DPS"
-              />
-              <div className="role-count">
-                {dps}
-              </div>
+              <img src="/roles/dps.jpg" alt="DPS" />
+              <div className="role-count">{dps}</div>
             </div>
             <div className="flex-sub icon">
-              <img
-                src="/roles/dps.ranged.jpg"
-                alt="Ranged DPS"
-              />
+              <img src="/roles/dps.ranged.jpg" alt="Ranged DPS" />
               <br />
-              <div className="role-count">
-                {ranged}
-              </div>
+              <div className="role-count">{ranged}</div>
             </div>
           </div>
         </div>

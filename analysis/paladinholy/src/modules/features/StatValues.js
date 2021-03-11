@@ -1,19 +1,17 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Events from 'parser/core/Events';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import React from 'react';
 
-import Events from 'parser/core/Events';
-
-import SPELL_INFO from './StatValuesSpellInfo';
-import MasteryEffectiveness from './MasteryEffectiveness';
 import BeaconHealSource from '../beacons/BeaconHealSource';
+import MasteryEffectiveness from './MasteryEffectiveness';
+import SPELL_INFO from './StatValuesSpellInfo';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
@@ -38,7 +36,7 @@ class StatValues extends BaseHealerStatValues {
   qeLive = true;
   active = true;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
   }
@@ -110,7 +108,15 @@ class StatValues extends BaseHealerStatValues {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > 1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])) {
+      if (
+        totalCritChance >
+        1 +
+          1 /
+            this.statTracker.ratingNeededForNextPercentage(
+              this.statTracker.currentHasteRating,
+              this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE],
+            )
+      ) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
@@ -142,7 +148,12 @@ class StatValues extends BaseHealerStatValues {
 
     const masteryEffectiveness = event.masteryEffectiveness;
     const healIncreaseFromOneMastery =
-      (this.statTracker.statMultiplier.mastery / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient)) *
+      (this.statTracker.statMultiplier.mastery /
+        this.statTracker.ratingNeededForNextPercentage(
+          this.statTracker.currentMasteryRating,
+          this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
+          this.selectedCombatant.spec.masteryCoefficient,
+        )) *
       masteryEffectiveness;
     const baseHeal =
       healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);

@@ -1,13 +1,13 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {
@@ -19,9 +19,18 @@ class DivineStar extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_HEAL), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_TALENT), this.onCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_HEAL),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_TALENT),
+      this.onCast,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -48,7 +57,8 @@ class DivineStar extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIVINE_STAR_TALENT}>
           <>
-            <ItemHealingDone amount={this.divineStarHealing} /><br />
+            <ItemHealingDone amount={this.divineStarHealing} />
+            <br />
             <ItemDamageDone amount={this.divineStarDamage} />
           </>
         </BoringSpellValueText>

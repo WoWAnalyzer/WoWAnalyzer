@@ -1,13 +1,13 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { formatPercentage, formatNumber } from 'common/format';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { t } from '@lingui/macro';
+import { formatPercentage, formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import React from 'react';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
@@ -18,12 +18,20 @@ class Bonestorm extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_HIT), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_HIT),
+      this.onDamage,
+    );
   }
 
   onCast(event) {
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.RUNIC_POWER.id,
+    );
     if (!resource) {
       return;
     }
@@ -49,7 +57,9 @@ class Bonestorm extends Analyzer {
   }
 
   get goodBonestormCasts() {
-    const goodCasts = this.bsCasts.filter((val) => val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM);
+    const goodCasts = this.bsCasts.filter(
+      (val) => val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM,
+    );
     return goodCasts.length;
   }
 
@@ -70,25 +80,44 @@ class Bonestorm extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</>)
-          .icon(SPELLS.BONESTORM_TALENT.icon)
-          .actual(t({
-      id: "deathknight.blood.suggestions.boneStorm.notEnoughTargets",
-      message: `${ formatPercentage(actual) }% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`
-    }))
-          .recommended(`${ formatPercentage(recommended) }%is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2
+          or more targets to maximize the damage and healing. Casting{' '}
+          <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a
+          minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
+          <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.
+        </>,
+      )
+        .icon(SPELLS.BONESTORM_TALENT.icon)
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.boneStorm.notEnoughTargets',
+            message: `${formatPercentage(
+              actual,
+            )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}%is recommended`),
+    );
   }
 
   get bonestormTooltip() {
     const tooltipRows = [];
     this.bsCasts.forEach((cast, index) => {
-      const avgDamage = formatNumber((cast.hits.reduce((a, b) => a + b, 0) / cast.hits.length) || 0);
+      const avgDamage = formatNumber(cast.hits.reduce((a, b) => a + b, 0) / cast.hits.length || 0);
       const totalDamage = formatNumber(cast.hits.reduce((a, b) => a + b, 0));
-      const avgHits = formatNumber((cast.hits.length / cast.cost * 100) || 0, 1);
+      const avgHits = formatNumber((cast.hits.length / cast.cost) * 100 || 0, 1);
       const rpCost = formatNumber(cast.cost / 10);
 
-      tooltipRows.push(<>Cast #{ index + 1 } (for {rpCost} RP) hit an average of {avgHits} target{ avgHits <= 1 ? '' : 's' } for {avgDamage} per hit. ({ totalDamage} total)<br /></>);
+      tooltipRows.push(
+        <>
+          Cast #{index + 1} (for {rpCost} RP) hit an average of {avgHits} target
+          {avgHits <= 1 ? '' : 's'} for {avgDamage} per hit. ({totalDamage} total)
+          <br />
+        </>,
+      );
     });
     return tooltipRows;
   }
@@ -98,7 +127,9 @@ class Bonestorm extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.BONESTORM_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
-        value={`${ formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage)) } %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage),
+        )} %`}
         label="of your total damage"
         tooltip={this.bonestormTooltip}
       />

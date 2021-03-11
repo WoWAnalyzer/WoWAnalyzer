@@ -1,12 +1,12 @@
-import { Boss } from "game/raids";
-import DIFFICULTIES from 'game/DIFFICULTIES';
 import SPELLS from 'common/SPELLS';
+import DIFFICULTIES from 'game/DIFFICULTIES';
+import { Boss } from 'game/raids';
 import { EventType } from 'parser/core/Events';
 
 import Background from './images/backgrounds/Shriekwing.jpg';
 import Headshot from './images/headshots/Shriekwing.jpg';
 
-const Shriekwing: Boss  = {
+const Shriekwing: Boss = {
   id: 2398,
   name: 'Shriekwing',
   background: Background,
@@ -22,8 +22,12 @@ const Shriekwing: Boss  = {
       P1: {
         name: 'Stage 1: Thirst for Blood',
         multiple: true,
-        key: "P1",
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        key: 'P1',
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.RemoveBuff,
           ability: {
@@ -32,10 +36,14 @@ const Shriekwing: Boss  = {
         },
       },
       P2: {
-        key: "P2",
+        key: 'P2',
         name: 'Stage 2: Terror of Castle Nathria',
         multiple: true,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.ApplyBuff,
           ability: {

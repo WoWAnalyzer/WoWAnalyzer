@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import Events from 'parser/core/Events';
 
-import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../core/SharedBrews';
+import BlackoutCombo from './BlackoutCombo';
 
 const KEG_SMASH_REDUCTION = 3000;
 const BOC_KEG_SMASH_REDUCTION = 2000;
@@ -27,9 +26,18 @@ class KegSmash extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onLoseBOC);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onGainBOC,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onGainBOC,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onLoseBOC,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH), this.onCast);
   }
 
@@ -59,7 +67,6 @@ class KegSmash extends Analyzer {
       this.wastedBocCDR += BOC_KEG_SMASH_REDUCTION - actualBocReduction;
     }
   }
-
 }
 
 export default KegSmash;

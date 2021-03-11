@@ -1,17 +1,23 @@
-import React from 'react';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import { TooltipElement } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { t } from '@lingui/macro';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import React from 'react';
 
+import {
+  PANDEMIC_FRACTION,
+  RIP_DURATION_1_CP,
+  RIP_DURATION_PER_CP,
+  RIP_MAXIMUM_EXTENDED_DURATION,
+  SABERTOOTH_EXTEND_PER_CP,
+} from '../../constants';
+import ComboPointTracker from '../combopoints/ComboPointTracker';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 import Snapshot from '../core/Snapshot';
-import ComboPointTracker from '../combopoints/ComboPointTracker';
-import { PANDEMIC_FRACTION, RIP_DURATION_1_CP, RIP_DURATION_PER_CP, RIP_MAXIMUM_EXTENDED_DURATION, SABERTOOTH_EXTEND_PER_CP } from '../../constants';
 
 const debug = false;
 
@@ -39,8 +45,8 @@ class RipSnapshot extends Snapshot {
       actual: this.shouldBeBiteProportion,
       isGreaterThan: {
         minor: 0,
-        average: 0.10,
-        major: 0.20,
+        average: 0.1,
+        major: 0.2,
       },
       style: 'percentage',
     };
@@ -51,8 +57,8 @@ class RipSnapshot extends Snapshot {
       actual: this.durationReductionCount / this.castCount,
       isGreaterThan: {
         minor: 0,
-        average: 0.10,
-        major: 0.20,
+        average: 0.1,
+        major: 0.2,
       },
       style: 'percentage',
     };
@@ -68,7 +74,7 @@ class RipSnapshot extends Snapshot {
       isGreaterThan: {
         minor: 0,
         average: 0.15,
-        major: 0.60,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -101,7 +107,10 @@ class RipSnapshot extends Snapshot {
       this.constructor.hasSabertooth = true;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIP), this._castRip);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE), this._castFerociousBite);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
+      this._castFerociousBite,
+    );
   }
 
   _castRip(event) {
@@ -126,10 +135,18 @@ class RipSnapshot extends Snapshot {
     // Sabertooth extends duration depending on combo points used on Bite, but there's a limit to how far into the future Rip can be extended
     const comboPoints = getComboPointsFromEvent(event);
     const remainingTime = existing.expireTime - event.timestamp;
-    const newDuration = Math.min(RIP_MAXIMUM_EXTENDED_DURATION, remainingTime + comboPoints * SABERTOOTH_EXTEND_PER_CP);
+    const newDuration = Math.min(
+      RIP_MAXIMUM_EXTENDED_DURATION,
+      remainingTime + comboPoints * SABERTOOTH_EXTEND_PER_CP,
+    );
     existing.expireTime = event.timestamp + newDuration;
     existing.pandemicTime = event.timestamp + newDuration * (1.0 - PANDEMIC_FRACTION);
-    debug && this.log(`${comboPoints} combo bite extended rip to ${this.owner.formatTimestamp(existing.expireTime)}`);
+    debug &&
+      this.log(
+        `${comboPoints} combo bite extended rip to ${this.owner.formatTimestamp(
+          existing.expireTime,
+        )}`,
+      );
   }
 
   checkRefreshRule(stateNew) {
@@ -139,7 +156,10 @@ class RipSnapshot extends Snapshot {
     }
     const event = stateNew.castEvent;
     if (!event) {
-      debug && this.warn('RipSnapshot checking refresh rule with a state that was never assigned a cast event.');
+      debug &&
+        this.warn(
+          'RipSnapshot checking refresh rule with a state that was never assigned a cast event.',
+        );
       return;
     }
 
@@ -148,11 +168,11 @@ class RipSnapshot extends Snapshot {
       this.shouldBeBiteCount += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      const strengthComment = (stateOld.power > stateNew.power) ? 'a stronger' : 'the same strength';
+      const strengthComment = stateOld.power > stateNew.power ? 'a stronger' : 'the same strength';
       event.meta.inefficientCastReason = `Used Rip when you could have extended using Ferocious Bite and kept ${strengthComment} snapshot.`;
     }
 
-    if (stateOld.expireTime > (stateNew.expireTime - MAX_ALLOWED_DURATION_REDUCTION)) {
+    if (stateOld.expireTime > stateNew.expireTime - MAX_ALLOWED_DURATION_REDUCTION) {
       // existing DoT would have lasted longer than the new one will, so would have been better off doing nothing at all
       const remainingOld = ((stateOld.expireTime - stateNew.startTime) / 1000).toFixed(1);
       const remainingNew = ((stateNew.expireTime - stateNew.startTime) / 1000).toFixed(1);
@@ -162,8 +182,7 @@ class RipSnapshot extends Snapshot {
       event.meta.inefficientCastReason = `There was already a Rip with ${remainingOld} seconds remaining, but this cast replaced it with one lasting ${remainingNew} seconds.`;
     }
 
-    if (stateOld.pandemicTime <= stateNew.startTime ||
-      stateOld.power <= stateNew.power) {
+    if (stateOld.pandemicTime <= stateNew.startTime || stateOld.power <= stateNew.power) {
       return;
     }
     this.downgradeCount += 1;
@@ -174,7 +193,8 @@ class RipSnapshot extends Snapshot {
     }
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = 'You refreshed with a weaker version of Rip before the pandemic window.';
+    event.meta.inefficientCastReason =
+      'You refreshed with a weaker version of Rip before the pandemic window.';
   }
 
   getDurationOfFresh(debuffEvent) {
@@ -182,41 +202,82 @@ class RipSnapshot extends Snapshot {
   }
 
   suggestions(when) {
-    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> unless you have more powerful <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
-      </>,
-    )
-      .icon(SPELLS.RIP.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.ripSnapshot.earlyRefresh",
-      message: `${this.downgradeCount} Rip refresh${this.downgradeCount === 1 ? '' : 'es'} were early downgrades.`
-    }))
-      .recommended('None is recommended'));
+    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the{' '}
+          <TooltipElement
+            content={`The last ${(
+              (this.constructor.durationOfFresh * PANDEMIC_FRACTION) /
+              1000
+            ).toFixed(
+              1,
+            )} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}
+          >
+            pandemic window
+          </TooltipElement>{' '}
+          unless you have more powerful{' '}
+          <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">
+            snapshot buffs
+          </TooltipElement>{' '}
+          than were present when it was first cast.
+        </>,
+      )
+        .icon(SPELLS.RIP.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.ripSnapshot.earlyRefresh',
+            message: `${this.downgradeCount} Rip refresh${
+              this.downgradeCount === 1 ? '' : 'es'
+            } were early downgrades.`,
+          }),
+        )
+        .recommended('None is recommended'),
+    );
 
-    when(this.shouldBeBiteSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed.">snapshot.</TooltipElement>
-      </>,
-    )
-      .icon(SPELLS.RIP.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.ripSnapshot.shouldBeBite",
-      message: `${this.shouldBeBiteCount} Rip cast${this.shouldBeBiteCount === 1 ? '' : 's'} could have been replaced with Bite.`
-    }))
-      .recommended('None is recommended'));
+    when(this.shouldBeBiteSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use{' '}
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of{' '}
+          <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed
+          is missing or when you can improve the{' '}
+          <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed.">
+            snapshot.
+          </TooltipElement>
+        </>,
+      )
+        .icon(SPELLS.RIP.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.ripSnapshot.shouldBeBite',
+            message: `${this.shouldBeBiteCount} Rip cast${
+              this.shouldBeBiteCount === 1 ? '' : 's'
+            } could have been replaced with Bite.`,
+          }),
+        )
+        .recommended('None is recommended'),
+    );
 
-    when(this.durationReductionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You sometimes replaced your <SpellLink id={SPELLS.RIP.id} /> DoT with a shorter duration version. Avoid using <SpellLink id={SPELLS.RIP.id} /> at low combo points, and especially not when there's already a <SpellLink id={SPELLS.RIP.id} /> active on the target.
-      </>,
-    )
-      .icon(SPELLS.RIP.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.ripSnapshot.reducedDuration",
-      message: `Rip's duration reduced ${this.durationReductionCount} time${this.durationReductionCount === 1 ? '' : 's'}.`
-    }))
-      .recommended('None is recommended'));
+    when(this.durationReductionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You sometimes replaced your <SpellLink id={SPELLS.RIP.id} /> DoT with a shorter duration
+          version. Avoid using <SpellLink id={SPELLS.RIP.id} /> at low combo points, and especially
+          not when there's already a <SpellLink id={SPELLS.RIP.id} /> active on the target.
+        </>,
+      )
+        .icon(SPELLS.RIP.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.ripSnapshot.reducedDuration',
+            message: `Rip's duration reduced ${this.durationReductionCount} time${
+              this.durationReductionCount === 1 ? '' : 's'
+            }.`,
+          }),
+        )
+        .recommended('None is recommended'),
+    );
   }
 
   statistic() {

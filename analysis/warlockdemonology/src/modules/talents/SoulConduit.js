@@ -1,13 +1,11 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import SPELLS from 'common/SPELLS';
+import Analyzer from 'parser/core/Analyzer';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -34,14 +32,21 @@ class SoulConduit extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             You gained {generated} Shards from this talent
-            {max > 0 ? <>, which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : ', while you were most likely to not get any Shards.'}
+            {max > 0 ? (
+              <>
+                , which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were
+                most likely to get in this fight ({max} Shards).
+              </>
+            ) : (
+              ', while you were most likely to not get any Shards.'
+            )}
             <br />
             You would get {extraHogs} extra 3 shard Hands of Gul'dan with shards from this talent.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_CONDUIT_TALENT}>
           {generated} <small>Shards generated</small>

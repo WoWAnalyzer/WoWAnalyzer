@@ -1,15 +1,13 @@
-import React from 'react';
-
-import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-
-import SPELLS from 'common/SPELLS';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
-import Gauge from 'parser/ui/Gauge';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { t, Trans } from '@lingui/macro';
+import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import Gauge from 'parser/ui/Gauge';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get deadTimePercentage() {
@@ -31,14 +29,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
     const boss = this.owner.boss;
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
-      when(this.overrideDowntimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} /> (if there are 2+ targets); even unbuffed <SpellLink id={SPELLS.ICE_LANCE.id} /> spam is better than nothing. Additionally, if you are standing still while waiting for a boss damage reduction or immunity phase to end, you should still be casting <SpellLink id={SPELLS.FROSTBOLT.id} /> to generate procs or build <SpellLink id={SPELLS.ICICLES_BUFF.id} />.</>)
+      when(this.overrideDowntimeSuggestionThresholds).addSuggestion(
+        (suggest, actual, recommended) =>
+          suggest(
+            <>
+              Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the
+              delay between casting spells. If you have to move, try casting instants like{' '}
+              <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
+              <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} /> (if there are 2+ targets); even unbuffed{' '}
+              <SpellLink id={SPELLS.ICE_LANCE.id} /> spam is better than nothing. Additionally, if
+              you are standing still while waiting for a boss damage reduction or immunity phase to
+              end, you should still be casting <SpellLink id={SPELLS.FROSTBOLT.id} /> to generate
+              procs or build <SpellLink id={SPELLS.ICICLES_BUFF.id} />.
+            </>,
+          )
             .icon('spell_mage_altertime')
-            .actual(t({
-        id: "mage.frost.suggestions.alwaysBeCasting.downtime",
-        message: `${formatPercentage(actual)}% downtime`
-      }))
-            .recommended(`<${formatPercentage(recommended)}% is recommended`));
+            .actual(
+              t({
+                id: 'mage.frost.suggestions.alwaysBeCasting.downtime',
+                message: `${formatPercentage(actual)}% downtime`,
+              }),
+            )
+            .recommended(`<${formatPercentage(recommended)}% is recommended`),
+      );
     }
   }
 
@@ -46,18 +59,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        tooltip={(
+        tooltip={
           <Trans id="mage.frost.alwaysBeCasting.statistic.tooltip">
-            Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br />
+            Downtime is available time not used to cast anything (including not having your GCD
+            rolling). This can be caused by delays between casting spells, latency, cast
+            interrupting or just simply not casting anything (e.g. due to movement/stunned).
+            <br />
             <ul>
-              <li>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</li>
-              <li>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</li>
+              <li>
+                You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your
+                time casting something.
+              </li>
+              <li>
+                You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time
+                casting nothing at all.
+              </li>
             </ul>
           </Trans>
-        )}
+        }
       >
         <div className="pad">
-          <label><Trans id="mage.frost.alwaysBeCasting.statistic.label">Active time</Trans></label>
+          <label>
+            <Trans id="mage.frost.alwaysBeCasting.statistic.label">Active time</Trans>
+          </label>
           <Gauge value={this.activeTimePercentage} />
         </div>
       </Statistic>

@@ -1,20 +1,18 @@
+import Abilities from 'parser/core/modules/Abilities';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
-import { HolyPowerDetails } from '@wowanalyzer/paladin'
+import { HolyPowerDetails } from '@wowanalyzer/paladin';
 
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Abilities from 'parser/core/modules/Abilities';
-import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
-
-import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
-import NoDamageShieldOfTheRighteous from '../NoDamageShieldOfTheRighteous';
 import Consecration from '../../spells/Consecration';
 import HammerOfTheRighteous from '../../spells/HammerOfTheRighteous';
 import LightOfTheProtector from '../../spells/LightOfTheProtector';
 import WordOfGlory from '../../spells/WordOfGlory';
-
+import NoDamageShieldOfTheRighteous from '../NoDamageShieldOfTheRighteous';
+import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -32,7 +30,7 @@ class Checklist extends BaseChecklist {
     wog: WordOfGlory,
   };
 
-  render(){
+  render() {
     return (
       <Component
         combatant={this.combatants.selected}

@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class Enrage extends EventsNormalizer {
   /**
@@ -19,12 +18,20 @@ class Enrage extends EventsNormalizer {
       if (event.type === EventType.ApplyBuff && event.ability.guid === SPELLS.ENRAGE.id) {
         const castTimestamp = event.timestamp;
 
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > 50) {
+          if (castTimestamp - previousEvent.timestamp > 50) {
             break;
           }
-          if (previousEvent.type === EventType.Cast && previousEvent.ability.guid === SPELLS.BLOODTHIRST.id && previousEvent.sourceID === event.sourceID) {
+          if (
+            previousEvent.type === EventType.Cast &&
+            previousEvent.ability.guid === SPELLS.BLOODTHIRST.id &&
+            previousEvent.sourceID === event.sourceID
+          ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

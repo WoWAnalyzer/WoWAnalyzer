@@ -1,25 +1,25 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Statistic from 'parser/ui/Statistic';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import { LIFECYCLES_MANA_PERC_REDUCTION } from '../../constants';
 
-const LC_MANA_PER_SECOND_RETURN_MINOR: number = 40; //since its based on mp5 and mana & mp5 got halved going into SL we're gonna just halve this value too (80 -> 40)
+const LC_MANA_PER_SECOND_RETURN_MINOR = 40; //since its based on mp5 and mana & mp5 got halved going into SL we're gonna just halve this value too (80 -> 40)
 const LC_MANA_PER_SECOND_RETURN_AVERAGE: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const LC_MANA_PER_SECOND_RETURN_MAJOR: number = LC_MANA_PER_SECOND_RETURN_MINOR - 15;
-const CHIJI_MANA_SAVED_PER_STACK: number = 1001;
-const MAX_CHIJI_STACKS: number = 3;
+const CHIJI_MANA_SAVED_PER_STACK = 1001;
+const MAX_CHIJI_STACKS = 3;
 
-const debug: boolean = false;
+const debug = false;
 
 class Lifecycles extends Analyzer {
   manaSaved: number = 0;
@@ -37,7 +37,10 @@ class Lifecycles extends Analyzer {
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.envelopingMistCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      this.envelopingMistCast,
+    );
   }
 
   get suggestionThresholds() {
@@ -54,7 +57,10 @@ class Lifecycles extends Analyzer {
 
   vivifyCast(event: CastEvent) {
     // Checking for TFT->Viv and classify as non-reduced Viv
-    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
+    ) {
       return;
     }
     if (!this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
@@ -77,7 +83,10 @@ class Lifecycles extends Analyzer {
       return;
     }
     // Checking for chiji stacks and determine mana reduction
-    const chijiStacksAtEnvCast = this.selectedCombatant.getBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id, event.timestamp)?.stacks;
+    const chijiStacksAtEnvCast = this.selectedCombatant.getBuff(
+      SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id,
+      event.timestamp,
+    )?.stacks;
     if (!chijiStacksAtEnvCast) {
       this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost);
       return;
@@ -87,7 +96,8 @@ class Lifecycles extends Analyzer {
       return;
     }
     //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
-    const modifiedManaCost = SPELLS.ENVELOPING_MIST.manaCost - (CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast);
+    const modifiedManaCost =
+      SPELLS.ENVELOPING_MIST.manaCost - CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast;
     this.calculateEnvManaSaved(modifiedManaCost);
   }
 
@@ -99,17 +109,23 @@ class Lifecycles extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.
-      </>,
-    )
-      .icon(SPELLS.LIFECYCLES_TALENT.icon)
-      .actual(`${formatNumber(actual)}${t({
-      id: "monk.mistweaver.suggestions.lifecycles.manaSaved",
-      message: ` mana saved through Lifecycles`
-    })}`)
-      .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your current spell usage is not taking full advantage of the{' '}
+          <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate
+          the use of these spells as often as possible to take advantage of the buff.
+        </>,
+      )
+        .icon(SPELLS.LIFECYCLES_TALENT.icon)
+        .actual(
+          `${formatNumber(actual)}${t({
+            id: 'monk.mistweaver.suggestions.lifecycles.manaSaved',
+            message: ` mana saved through Lifecycles`,
+          })}`,
+        )
+        .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`),
+    );
   }
 
   statistic() {
@@ -118,23 +134,36 @@ class Lifecycles extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(70)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
             You saved a total of {this.manaSaved} mana from the Lifecycles talent.
             <ul>
-              <li>On {this.castsRedViv} Vivify casts, you saved {(this.manaSavedViv / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
-              <li>On {this.castsRedEnm} Enveloping Mists casts, you saved {(this.manaSavedEnm / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
-              <li>You casted {this.castsNonRedViv} Vivify's and {this.castsNonRedEnm} Enveloping Mists for full mana cost.</li>
+              <li>
+                On {this.castsRedViv} Vivify casts, you saved{' '}
+                {(this.manaSavedViv / 1000).toFixed(0)}k mana. (
+                {formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)
+              </li>
+              <li>
+                On {this.castsRedEnm} Enveloping Mists casts, you saved{' '}
+                {(this.manaSavedEnm / 1000).toFixed(0)}k mana. (
+                {formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)
+              </li>
+              <li>
+                You casted {this.castsNonRedViv} Vivify's and {this.castsNonRedEnm} Enveloping Mists
+                for full mana cost.
+              </li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringValueText
-          label={<><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /></>}
+          label={
+            <>
+              <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} />
+            </>
+          }
         >
-          <>
-            {formatNumber(this.manaSaved)} Mana Saved
-          </>
+          <>{formatNumber(this.manaSaved)} Mana Saved</>
         </BoringValueText>
       </Statistic>
     );

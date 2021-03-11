@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events from 'parser/core/Events';
+
 import { EnergyCapTracker } from '@wowanalyzer/rogue'; // todo use the outlaw cap tracker once available
 
 import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
@@ -45,11 +46,18 @@ class RollTheBonesCastTracker extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES),
+      this.processCast,
+    );
   }
 
   categorizeCast(cast) {
-    if (cast.appliedBuffs.some(buff => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id)) {
+    if (
+      cast.appliedBuffs.some(
+        (buff) => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id,
+      )
+    ) {
       return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
     } else if (cast.appliedBuffs.length > 1) {
       return ROLL_THE_BONES_CATEGORIES.MID_VALUE;
@@ -70,10 +78,14 @@ class RollTheBonesCastTracker extends Analyzer {
     if (!event || !event.classResources) {
       return;
     }
-    const refresh = this.lastCast ? event.timestamp < (this.lastCast.timestamp + this.lastCast.duration) : false;
+    const refresh = this.lastCast
+      ? event.timestamp < this.lastCast.timestamp + this.lastCast.duration
+      : false;
 
     // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate
-    const appliedBuffs = ROLL_THE_BONES_BUFFS.filter(b => this.energyCapTracker.combatantHasBuffActive(b.id));
+    const appliedBuffs = ROLL_THE_BONES_BUFFS.filter((b) =>
+      this.energyCapTracker.combatantHasBuffActive(b.id),
+    );
 
     let duration = ROLL_THE_BONES_DURATION;
 
