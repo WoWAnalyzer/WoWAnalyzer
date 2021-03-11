@@ -47,7 +47,6 @@ class HymnBuffBenefit extends Analyzer {
          AND source.name='${this.selectedCombatant.name}')
      GROUP BY
        target ON target END`;
-
   }
 
   get totalHealingFromHymnBuff() {
@@ -69,24 +68,32 @@ class HymnBuffBenefit extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter(stackCount),
-    })
-      .then(json => {
-        // This is an array just to make debugging easier.
-        this.totalHealingFromHymnBuffPerStack[stackCount - 1] += json.entries.reduce(
-          // Because this is a % healing increase and we are unable to parse each healing event individually for its effective healing,
-          // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
-          // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
-          // lot of overhealing occurs.
-          (healingFromBuff: any, entry: WCLHealing) => healingFromBuff + ((entry.total - entry.total / (1 + (DIVINE_HYMN_HEALING_INCREASE_PER_STACK * stackCount))) * (entry.total / (entry.total + (entry.overheal || 0)))),
-          0,
-        );
-      });
+    }).then((json) => {
+      // This is an array just to make debugging easier.
+      this.totalHealingFromHymnBuffPerStack[stackCount - 1] += json.entries.reduce(
+        // Because this is a % healing increase and we are unable to parse each healing event individually for its effective healing,
+        // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
+        // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
+        // lot of overhealing occurs.
+        (healingFromBuff: any, entry: WCLHealing) =>
+          healingFromBuff +
+          (entry.total - entry.total / (1 + DIVINE_HYMN_HEALING_INCREASE_PER_STACK * stackCount)) *
+            (entry.total / (entry.total + (entry.overheal || 0))),
+        0,
+      );
+    });
   }
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL), this.onBuffStackApply);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL), this.onBuffStackApply);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL),
+      this.onBuffStackApply,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL),
+      this.onBuffStackApply,
+    );
   }
 
   maxHymnStacks = 0;
@@ -106,14 +113,17 @@ class HymnBuffBenefit extends Analyzer {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
-        value={`≈${formatNumber(this.totalHealingFromHymnBuff / fightDuration * 1000)} HPS`}
+        value={`≈${formatNumber((this.totalHealingFromHymnBuff / fightDuration) * 1000)} HPS`}
         label="Hymn Buff Contribution"
-        tooltip={(
+        tooltip={
           <>
-            The Divine Hymn buff contributed {formatNumber(this.totalHealingFromHymnBuff)} healing. This includes healing from other healers.<br />
-            NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.
+            The Divine Hymn buff contributed {formatNumber(this.totalHealingFromHymnBuff)} healing.
+            This includes healing from other healers.
+            <br />
+            NOTE: This metric uses an approximation to calculate contribution from the buff due to
+            technical limitations.
           </>
-        )}
+        }
       />
     );
   }
