@@ -55,7 +55,7 @@ class HymnBuffBenefit extends Analyzer {
   load() {
     const promises = [];
     // This just reduces the number of calls we make (making 5 is probably not great)
-    for (let i = 1; i <= this.maxHymnStacks; i++) {
+    for (let i = 1; i <= this.maxHymnStacks; i += 1) {
       promises.push(this.makeHymnQuery(i));
     }
     return Promise.all(promises);
