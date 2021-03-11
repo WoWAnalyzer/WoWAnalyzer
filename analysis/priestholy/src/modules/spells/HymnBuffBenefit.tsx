@@ -1,13 +1,12 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
-import { formatNumber } from 'common/format';
-import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType } from 'parser/core/Events';
+import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
+import React from 'react';
 
 const DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
 
