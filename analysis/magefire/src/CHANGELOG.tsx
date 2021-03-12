@@ -6,6 +6,8 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Fire Mage has not been fully tested/updated for 9.0.5.', Sharrq),
+  change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Fire Mage. Marked Fire Mage as Unsupported/Unmaintained.', Sharrq),
   change(date(2021, 3, 6), 'Updated for Patch 9.0.5.', Sharrq),
   change(date(2021, 3, 6), <>Adjusted <SpellLink id={SPELLS.COMBUSTION.id} /> Statistics to show a breakdown of the active time and pre-cast delay for each cast.</>, Sharrq),
   change(date(2021, 3, 6), <>Added the ability to check the delay between using <SpellLink id={SPELLS.COMBUSTION.id} /> and the end of pre-cast abilities.</>, Sharrq),
