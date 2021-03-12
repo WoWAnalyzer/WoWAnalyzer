@@ -13,7 +13,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      As of March 11, 2021, Fire Mage is no longer being maintained or supported 
+      As of March 11, 2021, Fire Mage is no longer being maintained or supported
       <br />
       <br />
       If you are looking for help improving your gameplay, refer to the resources below:
