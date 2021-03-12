@@ -3241,7 +3241,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "90",
+            "0": "70",
           }
         }
       />
@@ -4326,7 +4326,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "60.65287932905489%",
+                  "width": "64.52665363052938%",
                 }
               }
             />
@@ -4485,7 +4485,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.30575865810977%",
+                        "width": "29.05330726105878%",
                       }
                     }
                   />
