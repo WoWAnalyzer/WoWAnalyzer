@@ -13,10 +13,12 @@ class Channeling extends Analyzer {
   };
   _currentChannel = null;
 
-  constructor(options) {
+  constructor(options, addEventListeners = true) {
     super(options);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBegincast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    if (addEventListeners) {
+      this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBegincast);
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    }
   }
 
   beginChannel(event, ability = event.ability) {

@@ -9,7 +9,7 @@ import CoreChanneling from 'parser/shared/modules/Channeling';
 
 class SoulInfusion extends CoreChanneling {
   constructor(options: Options) {
-    super(options);
+    super(options, false);
 
     const boss = this.owner.boss;
     this.active = boss === bosses.bosses['SunKingsSalvation'];
