@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -10,6 +11,8 @@ class HammerofWrath extends ExecuteHelper {
     ...ExecuteHelper.dependencies,
     abilities: Abilities,
   };
+
+  protected abilities!: Abilities;
 
   static executeSpells: Spell[] = [SPELLS.HAMMER_OF_WRATH];
   static executeSources: number = SELECTED_PLAYER;
@@ -31,21 +34,23 @@ class HammerofWrath extends ExecuteHelper {
     (options.abilities as Abilities).add({
       spell: SPELLS.HAMMER_OF_WRATH,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      cooldown: 7.5,
+      cooldown: (haste) => 7.5 / (1 + haste),
       gcd: {
         base: 1500,
       },
       castEfficiency: {
         suggestion: true,
-        recommendedEfficiency: 0.85,
-        maxCasts: () => this.maxCasts || 0,
+        recommendedEfficiency:
+          this.owner.characterProfile?.spec === SPECS.HOLY_PALADIN ? 0.65 : 0.85,
+        maxCasts: () => this.maxCasts,
       },
     });
   }
 
   adjustMaxCasts(event: FightEndEvent) {
+    const cooldown = this.abilities.getAbility(SPELLS.HAMMER_OF_WRATH.id)!.cooldown * 1000;
     super.onFightEnd(event);
-    this.maxCasts += Math.ceil(this.totalExecuteDuration / 7500);
+    this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown);
   }
 }
 
