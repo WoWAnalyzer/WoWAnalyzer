@@ -7,6 +7,8 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Arcane Mage has not been fully tested/updated for 9.0.5.', Sharrq),
+  change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Arcane Mage. Marked Arcane Mage as Unsupported/Unmaintained.', Sharrq),
   change(date(2021, 3, 6), 'Updated for Patch 9.0.5.', Sharrq),
   change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
   change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),

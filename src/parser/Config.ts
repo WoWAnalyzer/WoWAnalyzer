@@ -39,6 +39,7 @@ interface Config {
     | '8.3'
     | '9.0.1'
     | '9.0.2'
+    | '9.0.5'
     | string;
   /**
    * Whether support for the spec is only partial and some important elements
