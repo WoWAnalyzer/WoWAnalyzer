@@ -1,0 +1,20 @@
+{
+  "name": "@wowanalyzer/shaman-restoration",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "typings": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@lingui/macro": "^3.3.0",
+    "@wowanalyzer/shaman": "*",
+    "common": "link:../../src/common",
+    "game": "link:../../src/game",
+    "interface": "link:../../src/interface",
+    "parser": "link:../../src/parser",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-toggle": "^4.0.2"
+  }
+}

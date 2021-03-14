@@ -1,17 +1,21 @@
-import React from 'react';
-
 import { Zerotorescue } from 'CONTRIBUTORS';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
+import React from 'react';
 
 import DiscordBotGif from './discord-bot.gif';
 
 export default (
-  <RegularArticle
+  <NewsRegularArticle
     title="The WoWAnalyzer Discord bot"
     publishedAt="2017-12-24"
     publishedBy={Zerotorescue}
-    bodyStyle={{ padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}
+    bodyStyle={{
+      padding: 0,
+      overflow: 'hidden',
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
+    }}
   >
     <div className="flex wrapable">
       <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
@@ -20,12 +24,15 @@ export default (
             <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
           </div>
           <div className="flex-main" style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}>
-            Introducing the <b>WoWAnalyzer</b> <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
+            Introducing the <b>WoWAnalyzer</b>{' '}
+            <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
           </div>
         </div>
         <div className="text-center">
           <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
-            Get users to analyze themselves without lifting a finger (even if they don't read the pins).<br />
+            Get users to analyze themselves without lifting a finger (even if they don't read the
+            pins).
+            <br />
           </div>
           <div style={{ marginBottom: 7 }}>
             <a
@@ -44,5 +51,5 @@ export default (
         <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
       </div>
     </div>
-  </RegularArticle>
+  </NewsRegularArticle>
 );

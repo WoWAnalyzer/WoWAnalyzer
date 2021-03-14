@@ -1,14 +1,22 @@
-import SPECS from 'game/SPECS';
-import RACES from 'game/RACES';
-import TALENT_ROWS from 'game/TALENT_ROWS';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
-import { findByBossId } from 'raids';
-import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import RACES from 'game/RACES';
+import { findByBossId } from 'game/raids';
+import SPECS from 'game/SPECS';
+import TALENT_ROWS from 'game/TALENT_ROWS';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import {
+  Buff,
+  CombatantInfoEvent,
+  Conduit,
+  EventType,
+  Item,
+  SoulbindTrait,
+} from 'parser/core/Events';
 
 import Entity from './Entity';
+import { PlayerInfo } from './Player';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -76,8 +84,19 @@ class Combatant extends Entity {
     super(parser);
 
     const playerInfo = parser.players.find(
-      (player: Player) => player.id === combatantInfo.sourceID,
+      (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
+
+    //TODO - verify if this is ever fixed on WCL side
+    if (!combatantInfo.soulbindTraits) {
+      combatantInfo.soulbindTraits = combatantInfo.artifact;
+    }
+    if (!combatantInfo.conduits) {
+      combatantInfo.conduits = combatantInfo.heartOfAzeroth;
+    }
+    delete combatantInfo.artifact;
+    delete combatantInfo.heartOfAzeroth;
+
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this
       // into account would cause the log to be unparsable
@@ -90,9 +109,8 @@ class Combatant extends Entity {
     this._parsePrepullBuffs(combatantInfo.auras);
     this._parseCovenant(combatantInfo.covenantID);
     this._parseSoulbind(combatantInfo.soulbindID);
-    this._parseSoulbindTraits(combatantInfo.artifact);
-    this._parseConduits(combatantInfo.heartOfAzeroth);
-
+    this._parseSoulbindTraits(combatantInfo.soulbindTraits);
+    this._parseConduits(combatantInfo.conduits);
   }
 
   // region Talents
@@ -201,7 +219,7 @@ class Combatant extends Entity {
 
   soulbindTraitsByID: { [key: number]: SoulbindTrait } = {};
 
-  _parseSoulbindTraits(soulbindTraits: SoulbindTrait[]) {
+  _parseSoulbindTraits(soulbindTraits: SoulbindTrait[] | undefined) {
     if (soulbindTraits === undefined) {
       return;
     }
@@ -218,10 +236,10 @@ class Combatant extends Entity {
 
   //endregion
 
-  //region Conduits TODO Verify where these are parsed (is it still in heartOfAzeroth?) and how are they parsed
+  //region Conduits
   conduitsByConduitID: { [key: number]: Conduit } = {};
 
-  _parseConduits(conduits: Conduit[]) {
+  _parseConduits(conduits: Conduit[] | undefined) {
     if (!conduits) {
       return;
     }

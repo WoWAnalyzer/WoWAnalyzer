@@ -1,6 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import {
   AnyEvent,
   ApplyBuffEvent,
@@ -10,8 +8,10 @@ import {
   HasTarget,
   HasSource,
 } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
-import { Player } from 'parser/core/CombatLogParser';
+
+import { PlayerInfo } from '../../core/Player';
 
 const debug = false;
 
@@ -34,7 +34,7 @@ class ApplyBuff extends EventsNormalizer {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
     const playersById = this.owner.players.reduce<{
-      [id: number]: Player;
+      [id: number]: PlayerInfo;
     }>((obj, player) => {
       obj[player.id] = player;
       return obj;

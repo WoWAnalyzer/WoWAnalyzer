@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 /*
  * Fields:
@@ -15,7 +15,8 @@ import SPELLS from 'common/SPELLS/index';
 
 // This only works with actual healing events; casts are not recognized.
 export default {
-  [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
+  [SPELLS.LEECH.id]: {
+    // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
   },
   [SPELLS.HEALTHSTONE.id]: {

@@ -1,29 +1,31 @@
-import React from 'react';
-
-import InformationIcon from 'interface/icons/Information';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
-import colorForPerformance from 'common/colorForPerformance';
-import { BoolThreshold, NumberThreshold, Threshold, ThresholdStyle } from 'parser/core/ParseResults';
 import { Trans } from '@lingui/macro';
+import colorForPerformance from 'common/colorForPerformance';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { Tooltip, TooltipElement } from 'interface';
+import InformationIcon from 'interface/icons/Information';
+import {
+  BoolThreshold,
+  NumberThreshold,
+  Threshold,
+  ThresholdStyle,
+} from 'parser/core/ParseResults';
+import React from 'react';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
 
-
 export type RequirementThresholds = NumberThreshold | BoolThreshold;
 
 interface Props {
-  name: React.ReactNode,
-  thresholds: RequirementThresholds,
-  tooltip?: React.ReactNode,
-  valueTooltip?: React.ReactNode,
-  setPerformance: (performance: number) => void,
-  prefix?: React.ReactNode,
-  suffix?: React.ReactNode,
+  name: React.ReactNode;
+  thresholds: RequirementThresholds;
+  tooltip?: React.ReactNode;
+  valueTooltip?: React.ReactNode;
+  setPerformance: (performance: number) => void;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
 }
 class Requirement extends React.PureComponent<Props> {
-
   constructor(props: Props) {
     super(props);
     props.setPerformance(this.performance);
@@ -44,7 +46,11 @@ class Requirement extends React.PureComponent<Props> {
       case ThresholdStyle.DECIMAL:
         return `${thresholds.actual.toFixed(2)}`;
       case ThresholdStyle.BOOLEAN:
-        return thresholds.actual ? <Trans id="common.yes">Yes</Trans> : <Trans id="common.no">No</Trans>;
+        return thresholds.actual ? (
+          <Trans id="common.yes">Yes</Trans>
+        ) : (
+          <Trans id="common.no">No</Trans>
+        );
       case ThresholdStyle.SECONDS:
         return `${thresholds.actual.toFixed(2)}s`;
       default:
@@ -58,7 +64,7 @@ class Requirement extends React.PureComponent<Props> {
     const performance = this.performance;
     let max = undefined;
     const thresholdsN = thresholds as NumberThreshold;
-    if(thresholdsN.max !== undefined) {
+    if (thresholdsN.max !== undefined) {
       max = `/ ${thresholdsN.max}`;
     }
     const actual = (
@@ -70,14 +76,9 @@ class Requirement extends React.PureComponent<Props> {
     return (
       <div className="col-md-6">
         <div className="flex">
-          <div className="flex-main">
-            {name}
-          </div>
+          <div className="flex-main">{name}</div>
           {tooltip && (
-            <div
-              className="flex-sub"
-              style={{ marginLeft: 10 }}
-            >
+            <div className="flex-sub" style={{ marginLeft: 10 }}>
               <Tooltip content={tooltip}>
                 <div>
                   <InformationIcon />
@@ -85,9 +86,16 @@ class Requirement extends React.PureComponent<Props> {
               </Tooltip>
             </div>
           )}
-          <div className="flex-sub content-middle text-muted" style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}>
+          <div
+            className="flex-sub content-middle text-muted"
+            style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}
+          >
             <div className="text-right" style={{ width: '100%' }}>
-              {valueTooltip ? <TooltipElement content={valueTooltip}>{actual}</TooltipElement> : actual}
+              {valueTooltip ? (
+                <TooltipElement content={valueTooltip}>{actual}</TooltipElement>
+              ) : (
+                actual
+              )}
             </div>
           </div>
           <div className="flex-sub content-middle" style={{ width: 50 }}>
@@ -111,10 +119,7 @@ class Requirement extends React.PureComponent<Props> {
 export default (props: Omit<Props, 'setPerformance'>) => (
   <RuleContext.Consumer>
     {(setPerformance: (performance: number) => void) => (
-      <Requirement
-        {...props}
-        setPerformance={setPerformance}
-      />
+      <Requirement {...props} setPerformance={setPerformance} />
     )}
   </RuleContext.Consumer>
 );

@@ -1,0 +1,35 @@
+@import 'interface/Theme.scss';
+
+.expandable > .meta {
+  position: relative;
+  cursor: pointer;
+
+  .chevron {
+    color: $primaryColor;
+    font-size: 0.5em;
+    display: flex;
+    align-items: center;
+
+    svg {
+      transition: all 400ms;
+    }
+  }
+}
+.expandable.expanded .chevron svg {
+  transform: rotate(180deg);
+}
+.expandable:hover > .meta {
+  background-color: rgba(255, 255, 255, .03);
+}
+.expandable.expanded > .meta {
+  background-color: rgba(255, 255, 255, .03);
+}
+.expandable > .details > div {
+  background: rgba(0, 0, 0, 0.15); // It's underneath the meta-row, so it is slightly darker due to less light hitting it
+  padding: 15px 30px;
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+  > ul.list {
+    margin: -15px -30px;
+  }
+}

@@ -1,25 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AutoSizer } from 'react-virtualized';
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
 import { t } from '@lingui/macro';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { AutoSizer } from 'react-virtualized';
 
 const DEATH_COLOR = 'rgba(255, 0, 0, 0.8)';
 
 class RaidHealthChart extends React.Component {
   static propTypes = {
-    players: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      borderColor: PropTypes.string.isRequired,
-      backgroundColor: PropTypes.string.isRequired,
-      data: PropTypes.arrayOf(PropTypes.shape({
+    players: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        borderColor: PropTypes.string.isRequired,
+        backgroundColor: PropTypes.string.isRequired,
+        data: PropTypes.arrayOf(
+          PropTypes.shape({
+            x: PropTypes.number.isRequired,
+            y: PropTypes.number.isRequired,
+          }),
+        ).isRequired,
+      }),
+    ).isRequired,
+    deaths: PropTypes.arrayOf(
+      PropTypes.shape({
         x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-      })).isRequired,
-    })).isRequired,
-    deaths: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-    })).isRequired,
+      }),
+    ).isRequired,
     startTime: PropTypes.number.isRequired,
     endTime: PropTypes.number.isRequired,
   };
@@ -27,7 +33,7 @@ class RaidHealthChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      players: this.props.players.map(player => ({ disabled: false, ...player })),
+      players: this.props.players.map((player) => ({ disabled: false, ...player })),
     };
     this.togglePlayer = this.togglePlayer.bind(this);
   }
@@ -98,16 +104,16 @@ class RaidHealthChart extends React.Component {
           type: 'quantitative',
           stack: true,
           title: t({
-            id: "shared.modules.raidHealthTab.chart.title.y",
-            message: `Total Raid Health`
+            id: 'shared.modules.raidHealthTab.chart.title.y',
+            message: `Total Raid Health`,
           }),
         },
         color: {
           field: 'title',
           type: 'nominal',
           title: t({
-            id: "common.player",
-            message: `Player`
+            id: 'common.player',
+            message: `Player`,
           }),
         },
         opacity: {
@@ -117,7 +123,7 @@ class RaidHealthChart extends React.Component {
       },
     };
     const data = {
-      hp: [].concat(...players.map(p => p.data.map(datum => ({...datum, title: p.title })))),
+      hp: [].concat(...players.map((p) => p.data.map((datum) => ({ ...datum, title: p.title })))),
       deaths,
     };
 
@@ -127,14 +133,7 @@ class RaidHealthChart extends React.Component {
 
     return (
       <AutoSizer disableHeight>
-        {({ width }) => (
-          <BaseChart
-            height={400}
-            width={width}
-            spec={spec}
-            data={data}
-          />
-        )}
+        {({ width }) => <BaseChart height={400} width={width} spec={spec} data={data} />}
       </AutoSizer>
     );
   }

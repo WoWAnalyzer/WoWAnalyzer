@@ -1,0 +1,7281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Demonology Warlock integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          49.86 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "50.13804849917523%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant. Make good use of your 
+      <ForwardRef
+        id={268358}
+      />
+       or
+       
+      <ForwardRef
+        id={111400}
+      />
+       when you can.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"warlock.demonology.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"49.86"}}
+       (
+      &lt;10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_azuredraenite_01",
+    "importance": "minor",
+    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
+<div
+  className="panel "
+>
+  <div
+    className="panel-heading"
+  >
+    <h1
+      style={
+        Object {
+          "position": "relative",
+        }
+      }
+    >
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
+    </h1>
+  </div>
+  <div
+    className="panel-body "
+  >
+    <div
+      style={
+        Object {
+          "marginBottom": -10,
+          "marginTop": -10,
+        }
+      }
+    >
+      <table
+        className="data-table"
+        style={
+          Object {
+            "marginBottom": 10,
+            "marginTop": 10,
+          }
+        }
+      >
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=104316"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Call Dreadstalkers
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.65
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              8
+              /16
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "53.294153961538896%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              53.29%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=105174"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_handofguldan.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Hand of Gul'dan
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              10.33
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              50
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=264178"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv__demonbolt.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonbolt
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              6.40
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              31
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=172"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="/img/Icons/spell_shadow_abominationexplosion.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Corruption
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=264057"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_polearm_2h_fellord_04.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Soul Strike
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              2.89
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              14
+              /30
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "47.567348006581625%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              47.57%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=686"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowbolt.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Shadow Bolt
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              7.02
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              34
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=196277"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_implosion.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Implosion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=265187"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Summon Demonic Tyrant
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.62
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /4
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "83.96212126427682%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              83.96%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=267171"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonic Strength
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.62
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /5
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "61.960854509029076%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              61.96%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=104773"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Unending Resolve
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=111400"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathwing_sealarmorbreachtga.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Burning Rush
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=234153"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_lifedrain02.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Drain Life
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.03
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              5
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=6789"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_mortalcoil.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Mortal Coil
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.41
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              /7
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "30.980427254514538%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              30.98%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=48018"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonic Circle Summon
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /30
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=48020"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonic Circle Teleport
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /10
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=20707"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_soulgem.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Soulstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=111771"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Demonic Gateway
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /30
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=710"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_cripple.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Banish
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=6201"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Create Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=29893"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadesofdarkness.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Create Soulwell
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /3
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=1098"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_enslavedemon.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Enslave Demon
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=126"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_evileye.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Eye of Kilrogg
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=5782"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_possession.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Fear
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=1714"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseoftounges.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Curse of Tongues
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=702"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseofmannoroth.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Curse of Weakness
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=334275"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_grimward.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Curse of Exhaustion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=755"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_lifedrain.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Health Funnel
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=688"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_summonimp.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Summon Imp
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=30283"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_shadowfurytga.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Shadowfury
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /5
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=333889"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_felmending.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Fel Domination
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=5697"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonbreath.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Unending Breath
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=307192"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spiritual Healing Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=307162"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Combat Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_warlock_calldreadstalkers",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={104316}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 8,
+            "1": 16,
+            "2": "53",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_polearm_2h_fellord_04",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={264057}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 14,
+            "1": 30,
+            "2": "48",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_summondemonictyrant",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={265187}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 3,
+            "1": 4,
+            "2": "84",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_warlock_demonicempowerment",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={267171}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 3,
+            "1": 5,
+            "2": "62",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_shadow_demonictactics",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={104773}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 2,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "33",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_fiegndead",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You died during this fight and were dead for 
+      32.78
+      % of the fight duration (
+      95
+       seconds). Dying has a significant performance cost. View the
+       
+      <Link
+        to="/report/XAHa3hgKm4JcyDT2/156-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%224:50%22%7D%7D/Armaghoul/standard/death-recap"
+      >
+        Death Recap
+      </Link>
+       
+      to see the damage taken and what defensives and potions were still available.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.suggestions.deathTracker.deathTime"
+        message="You were dead for {0}% of the fight"
+        values={
+          Object {
+            "0": "32.78",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.suggestions.deathTracker.recommended"
+        message="0% is recommended"
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log DemonicCalling matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=205145"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Calling"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_impoweredimp.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=205145"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Calling
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0
+           
+          <small>
+            Wasted procs
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log DemonicConsumption matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=267215"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Consumption"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_soulburn.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=267215"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Consumption
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          3,422
+           DPS
+           
+          <small>
+            7.44
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log DemonicStrength matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=267171"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Strength"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=267171"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Strength
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          1,582
+           DPS
+           
+          <small>
+            3.44
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard "
+    position={10000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          ≈ 
+          280
+           yards
+          <small
+            style={
+              Object {
+                "marginLeft": 15,
+              }
+            }
+          >
+            ≈ 
+            21.44
+            %
+          </small>
+        </div>
+        <div
+          style={
+            Object {
+              "bottom": 0,
+              "height": "45%",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 75,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "overflow": "visible",
+                  "width": 0,
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  1517,
+                  4786,
+                  6510,
+                ],
+                "icon": "inv_chest_cloth_nzothraid_d_01.jpg",
+                "id": 174119,
+                "itemLevel": 480,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174119}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.chest"
+            message="Chest"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  6579,
+                  6556,
+                  6513,
+                  1647,
+                  4786,
+                ],
+                "icon": "inv_bracer_cloth_kultirasdungeon_c_01.jpg",
+                "id": 159256,
+                "itemLevel": 475,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159256}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.bracers"
+            message="Bracers"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_03e.jpg",
+    "importance": "minor",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6530,
+                  6578,
+                  6515,
+                  1642,
+                  4786,
+                  6546,
+                ],
+                "icon": "inv_ring_80_03e.jpg",
+                "id": 159459,
+                "itemLevel": 470,
+                "permanentEnchant": 6109,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159459}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.ring"
+            message="Ring"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_06e.jpg",
+    "importance": "minor",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6516,
+                  6515,
+                  1637,
+                  4786,
+                ],
+                "icon": "inv_ring_80_06e.jpg",
+                "id": 159462,
+                "itemLevel": 465,
+                "permanentEnchant": 6109,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159462}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.ring"
+            message="Ring"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6603,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 500,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.cloak"
+            message="Cloak"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_staff_2h_mechagnome_c_01.jpg",
+    "importance": "minor",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1532,
+                  4786,
+                  6514,
+                  6554,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_metagem_b.jpg",
+                    "id": 168638,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_staff_2h_mechagnome_c_01.jpg",
+                "id": 168973,
+                "itemLevel": 475,
+                "permanentEnchant": 6112,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={168973}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.weapon"
+            message="Weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log Felstorm matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_warrior_bladestorm",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You should use your Felguard's 
+      <ForwardRef
+        id={89751}
+      />
+       more often, preferably on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"warlock.demonology.suggestions.felstorm.casts","message":"{0} out of {1} ({2} %) Felstorm casts.","values":{"0":7,"1":10,"2":"70.00"}}
+       (
+      &gt; 90.00 % is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "minor",
+    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log LegionStrike matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={5}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=30213"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Legion Strike"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_axe_09.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=30213"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Legion Strike
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          2,483
+           DPS
+           
+          <small>
+            5.40
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
+    "issue": <Trans
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      values={
+        Object {
+          "0": 0,
+          "1": "potions",
+          "2": 1,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log SoulConduit matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=215941"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Conduit"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_soulleech_2.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=215941"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Soul Conduit
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          24
+           
+          <small>
+            Shards generated
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log SoulShardDetails matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={3}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=246985"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Shards"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_gem_amethyst_02.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=246985"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Soul Shards
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          8
+           
+          <small>
+            Wasted Soul Shards
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log SoulShardDetails matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_amethyst_02",
+    "importance": "minor",
+    "issue": "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
+    "stat": <React.Fragment>
+      {"id":"warlock.demonology.suggestions.soulShards.wastedPerMinutes","message":"{shardsWasted} Soul Shards wasted ({0} per minute)","values":{"0":"1.65","shardsWasted":8}}
+       (
+      &lt; 0.50 Soul Shards per minute wasted are recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log SoulStrike matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=264057"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Strike"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_polearm_2h_fellord_04.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=264057"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Soul Strike
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          1,089
+           DPS
+           
+          <small>
+            2.37
+             % of total
+          </small>
+          <br />
+          13
+           
+          <small>
+            Shards generated
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log SummonDemonicTyrant matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    footer="Average demonic consumption power: 113.33%"
+    position={6}
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=265187"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Summon Demonic Tyrant"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=265187"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Summon Demonic Tyrant
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          9.00
+           
+          <small>
+            Avg. demons empowered
+          </small>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+<div
+  className="col-md-6 col-sm-12 col-xs-12"
+  position={0}
+  style={
+    Object {
+      "marginBottom": 30,
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
+    <div
+      className="panel statistic bar"
+      position={1}
+      style={
+        Object {
+          "marginBottom": 20,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <img
+              alt="Damage"
+              src="/img/sword.png"
+            />
+          </div>
+          <div
+            className="flex-sub value"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "width": 190,
+              }
+            }
+          >
+            45,977
+             DPS
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "padding": "10px 5px",
+                "textAlign": "center",
+                "width": 110,
+              }
+            }
+          />
+          <div
+            className="flex-main chart"
+          >
+            <a
+              href="https://www.warcraftlogs.com/reports/XAHa3hgKm4JcyDT2/#fight=156&source=2720&type=damage-done"
+            >
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "visible",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 75,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-md-12"
+  >
+    <div
+      className="panel statistic bar"
+      position={2}
+      style={
+        Object {
+          "marginBottom": 19,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <img
+              alt="Healing"
+              src="/img/healing.png"
+            />
+          </div>
+          <div
+            className="flex-sub value"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "width": 190,
+              }
+            }
+          >
+            9,558
+             HPS
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "padding": "10px 5px",
+                "textAlign": "center",
+                "width": 110,
+              }
+            }
+          />
+          <div
+            className="flex-main chart"
+            style={
+              Object {
+                "padding": 0,
+              }
+            }
+          >
+            <a
+              href="https://www.warcraftlogs.com/reports/XAHa3hgKm4JcyDT2/#fight=156&source=2720&type=healing"
+            >
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "visible",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 75,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-md-12"
+  >
+    <div
+      className="panel statistic bar"
+      position={3}
+      style={
+        Object {
+          "marginBottom": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <img
+              alt="Damage taken"
+              src="/img/shield.png"
+            />
+          </div>
+          <div
+            className="flex-sub value"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "width": 190,
+              }
+            }
+          >
+            28,498
+             DTPS
+          </div>
+          <div
+            className="flex-sub parse-grey"
+            style={
+              Object {
+                "textAlign": "center",
+                "width": 110,
+              }
+            }
+          >
+            -
+          </div>
+          <div
+            className="flex-main chart"
+          >
+            <a
+              href="https://www.warcraftlogs.com/reports/XAHa3hgKm4JcyDT2/#fight=156&source=2720&type=damage-taken"
+            >
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "visible",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 75,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Demonology Warlock integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_staff_2h_mechagnome_c_01.jpg",
+    "importance": "regular",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1532,
+                  4786,
+                  6514,
+                  6554,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_metagem_b.jpg",
+                    "id": 168638,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_staff_2h_mechagnome_c_01.jpg",
+                "id": 168973,
+                "itemLevel": 475,
+                "permanentEnchant": 6112,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={168973}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.weapon"
+            message="Weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Demonology Warlock integration test: example log matches the checklist snapshot 1`] = `
+<ul
+  className="checklist"
+>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use your core spells
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "width": "23.66260435892327%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Demonology has a lot of short cooldowns that make up majority of your rotation, such as
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=104316"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
+              />
+               
+              Call Dreadstalkers
+            </a>
+             or Felguard's
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=89751"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bladestorm.jpg"
+              />
+               
+              Felstorm
+            </a>
+            . Try to use them as much as possible.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=104316"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
+                  />
+                   
+                  Call Dreadstalkers
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  53.29%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "23.66260435892327%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=89751"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bladestorm.jpg"
+                  />
+                   
+                  Felstorm
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  70.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "33.300000000000004%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=264057"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_polearm_2h_fellord_04.jpg"
+                  />
+                   
+                  Soul Strike
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  47.57%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "21.119902514922238%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Don't cap your Soul Shards
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "width": "67.11036673941331%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Avoid overcapping Soul Shards.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Wasted shards per minute
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <dfn
+                    className=""
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onTouchStart={[Function]}
+                    style={Object {}}
+                  >
+                     
+                    2
+                     
+                     
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "67.11036673941331%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use your cooldowns
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#df7102",
+                  "width": "45.32724160602536%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=265187"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
+                  />
+                   
+                  Summon Demonic Tyrant
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  83.96%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "63.1438638100418%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=267171"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
+                  />
+                   
+                  Demonic Strength
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  61.96%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "27.510619402008913%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use your utility and defensive spells
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=111771"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+              />
+               
+              Demonic Gateway
+            </a>
+            ,
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=268358"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+              />
+               
+              Demonic Circle
+            </a>
+            ,
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=111400"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_deathwing_sealarmorbreachtga.jpg"
+              />
+               
+              Burning Rush
+            </a>
+             or mitigate incoming damage with
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=104773"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+              />
+               
+              Unending Resolve
+            </a>
+            /
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=108416"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deathpact.jpg"
+              />
+               
+              Dark Pact
+            </a>
+            .
+            <br />
+            While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=48020"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
+                  />
+                   
+                  Demonic Circle Teleport
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=104773"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+                  />
+                   
+                  Unending Resolve
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Always be casting
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "width": "20.03531690859463%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            You should try to avoid doing nothing during the fight. When you're waiting for cooldowns, keep building Soul Shards to summon additional Wild Imps. When you have to move, use your instant abilities like 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=264178"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv__demonbolt.jpg"
+              />
+               
+              Demonbolt
+            </a>
+             (with Demonic Core) or 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=264057"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_polearm_2h_fellord_04.jpg"
+              />
+               
+              Soul Strike
+            </a>
+             or try to utilize
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=268358"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+              />
+               
+              Teleport
+            </a>
+             
+            or
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=111771"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+              />
+               
+              Gateway
+            </a>
+             
+            to reduce the movement even further.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Downtime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  49.86%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "20.03531690859463%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  3
+                   
+                  / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "50%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.augmentRune"
+                  message="Augment rune used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+`;

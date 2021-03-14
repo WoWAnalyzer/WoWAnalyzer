@@ -3,7 +3,8 @@
 		{
 			"path": "src/localization/{locale}/messages",
 			"include": [
-				"<rootDir>/src/"
+				"<rootDir>/src/",
+				"<rootDir>/analysis/"
 			]
 		}
 	],

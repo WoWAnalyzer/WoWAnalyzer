@@ -16,7 +16,7 @@ class ArcaneTorrent extends Analyzer {
     options: Options & {
       gcd?: number;
       castEfficiency?: number;
-      abilities: Abilities
+      abilities: Abilities;
     },
   ) {
     super(options);

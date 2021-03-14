@@ -1,18 +1,20 @@
 import React from 'react';
 
-import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
-import EventFilter, {
-  SELECTED_PLAYER,
-  SELECTED_PLAYER_PET,
-} from './EventFilter';
-import { When } from './ParseResults';
+import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 import { EventType, MappedEvent } from './Events';
+import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
+import { When } from './ParseResults';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
-export type Options = _Options
+export type Options = _Options;
+
+export interface ParseResultsTab {
+  title: string;
+  url: string;
+  render: () => React.ReactNode;
+}
 
 class Analyzer extends EventSubscriber {
-
   /**
    * Called when the parser finished initializing; after all required
    * dependencies are loaded, normalizers have ran and combatants were
@@ -43,12 +45,8 @@ class Analyzer extends EventSubscriber {
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */
-  tab(): {
-    title: string;
-    url: string;
-    render: React.FC;
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-  } | void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  tab(): ParseResultsTab | void {}
 }
 
 export default Analyzer;

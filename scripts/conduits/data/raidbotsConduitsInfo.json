@@ -1,102 +1,5 @@
 [
   {
-    "id": 1,
-    "typeId": 0,
-    "type": "finesse",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 180468,
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 333101,
-        "icon": ""
-      },
-      {
-        "rank": 2,
-        "spellId": 333101,
-        "icon": ""
-      },
-      {
-        "rank": 3,
-        "spellId": 333101,
-        "icon": ""
-      },
-      {
-        "rank": 4,
-        "spellId": 333101,
-        "icon": ""
-      },
-      {
-        "rank": 5,
-        "spellId": 333101,
-        "icon": ""
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "typeId": 1,
-    "type": "potency",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 180467,
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 332331,
-        "icon": ""
-      },
-      {
-        "rank": 2,
-        "spellId": 332331,
-        "icon": ""
-      },
-      {
-        "rank": 3,
-        "spellId": 332331,
-        "icon": ""
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "typeId": 2,
-    "type": "endurance",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 180469,
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 333102,
-        "icon": ""
-      },
-      {
-        "rank": 2,
-        "spellId": 333102,
-        "icon": ""
-      },
-      {
-        "rank": 3,
-        "spellId": 333102,
-        "icon": ""
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "typeId": 1,
-    "type": "potency",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "ranks": []
-  },
-  {
     "id": 5,
     "name": "Stalwart Guardian",
     "icon": "ability_warrior_shieldmastery",
@@ -104,11 +7,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 180842,
     "ranks": [
       {
@@ -189,21 +88,6 @@
     ]
   },
   {
-    "id": 6,
-    "typeId": 1,
-    "type": "potency",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      }
-    ]
-  },
-  {
     "id": 7,
     "name": "Brutal Vitality",
     "icon": "ability_warrior_renewedvigor",
@@ -211,11 +95,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 180844,
     "ranks": [
       {
@@ -303,11 +183,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 180847,
     "ranks": [
       {
@@ -395,11 +271,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 180896,
     "ranks": [
       {
@@ -481,91 +353,89 @@
   },
   {
     "id": 10,
-    "name": "Iron Maiden",
-    "icon": "inv_titanium_shield_spike",
+    "name": "Fueled by Violence",
+    "icon": "ability_demonhunter_bloodlet",
     "typeId": 2,
     "type": "endurance",
     "covenant": 0,
     "specSet": 42,
-    "specUsable": [
-      73
-    ],
+    "specUsable": [73],
     "itemId": 180932,
     "ranks": [
       {
         "rank": 1,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 2,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 3,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 4,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 5,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 6,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 7,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 8,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 9,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 10,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 11,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 12,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 13,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 14,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       },
       {
         "rank": 15,
-        "spellId": 335225,
-        "icon": "inv_titanium_shield_spike"
+        "spellId": 347213,
+        "icon": "ability_demonhunter_bloodlet"
       }
     ]
   },
@@ -577,11 +447,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 180933,
     "ranks": [
       {
@@ -669,9 +535,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 40,
-    "specUsable": [
-      71
-    ],
+    "specUsable": [71],
     "itemId": 180935,
     "ranks": [
       {
@@ -759,11 +623,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 180943,
     "ranks": [
       {
@@ -851,9 +711,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 40,
-    "specUsable": [
-      71
-    ],
+    "specUsable": [71],
     "itemId": 180944,
     "ranks": [
       {
@@ -941,11 +799,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181373,
     "ranks": [
       {
@@ -1033,9 +887,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 26,
-    "specUsable": [
-      269
-    ],
+    "specUsable": [269],
     "itemId": 181376,
     "ranks": [
       {
@@ -1123,9 +975,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 22,
-    "specUsable": [
-      64
-    ],
+    "specUsable": [64],
     "itemId": 181383,
     "ranks": [
       {
@@ -1213,9 +1063,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 22,
-    "specUsable": [
-      64
-    ],
+    "specUsable": [64],
     "itemId": 181389,
     "ranks": [
       {
@@ -1303,9 +1151,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 26,
-    "specUsable": [
-      269
-    ],
+    "specUsable": [269],
     "itemId": 181435,
     "ranks": [
       {
@@ -1393,9 +1239,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 22,
-    "specUsable": [
-      64
-    ],
+    "specUsable": [64],
     "itemId": 181455,
     "ranks": [
       {
@@ -1483,9 +1327,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 22,
-    "specUsable": [
-      64
-    ],
+    "specUsable": [64],
     "itemId": 181461,
     "ranks": [
       {
@@ -1573,9 +1415,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 26,
-    "specUsable": [
-      269
-    ],
+    "specUsable": [269],
     "itemId": 181462,
     "ranks": [
       {
@@ -1663,11 +1503,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181464,
     "ranks": [
       {
@@ -1755,9 +1591,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 26,
-    "specUsable": [
-      269
-    ],
+    "specUsable": [269],
     "itemId": 181465,
     "ranks": [
       {
@@ -1845,11 +1679,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181466,
     "ranks": [
       {
@@ -1937,11 +1767,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181467,
     "ranks": [
       {
@@ -2029,11 +1855,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 181469,
     "ranks": [
       {
@@ -2121,9 +1943,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 25,
-    "specUsable": [
-      270
-    ],
+    "specUsable": [270],
     "itemId": 181495,
     "ranks": [
       {
@@ -2211,11 +2031,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181498,
     "ranks": [
       {
@@ -2303,9 +2119,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 23,
-    "specUsable": [
-      63
-    ],
+    "specUsable": [63],
     "itemId": 181504,
     "ranks": [
       {
@@ -2393,9 +2207,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 25,
-    "specUsable": [
-      270
-    ],
+    "specUsable": [270],
     "itemId": 181505,
     "ranks": [
       {
@@ -2483,9 +2295,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 23,
-    "specUsable": [
-      63
-    ],
+    "specUsable": [63],
     "itemId": 181506,
     "ranks": [
       {
@@ -2573,11 +2383,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181508,
     "ranks": [
       {
@@ -2665,9 +2471,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 21,
-    "specUsable": [
-      62
-    ],
+    "specUsable": [62],
     "itemId": 181509,
     "ranks": [
       {
@@ -2755,11 +2559,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181510,
     "ranks": [
       {
@@ -2847,9 +2647,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 21,
-    "specUsable": [
-      62
-    ],
+    "specUsable": [62],
     "itemId": 181511,
     "ranks": [
       {
@@ -2937,11 +2735,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181512,
     "ranks": [
       {
@@ -3029,11 +2823,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181539,
     "ranks": [
       {
@@ -3121,11 +2911,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181553,
     "ranks": [
       {
@@ -3213,11 +2999,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181600,
     "ranks": [
       {
@@ -3305,11 +3087,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181624,
     "ranks": [
       {
@@ -3397,11 +3175,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181640,
     "ranks": [
       {
@@ -3489,11 +3263,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181639,
     "ranks": [
       {
@@ -3581,9 +3351,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 25,
-    "specUsable": [
-      270
-    ],
+    "specUsable": [270],
     "itemId": 181641,
     "ranks": [
       {
@@ -3671,11 +3439,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181698,
     "ranks": [
       {
@@ -3763,9 +3527,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 24,
-    "specUsable": [
-      268
-    ],
+    "specUsable": [268],
     "itemId": 181700,
     "ranks": [
       {
@@ -3853,9 +3615,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 24,
-    "specUsable": [
-      268
-    ],
+    "specUsable": [268],
     "itemId": 181705,
     "ranks": [
       {
@@ -3943,11 +3703,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181707,
     "ranks": [
       {
@@ -4035,9 +3791,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 42,
-    "specUsable": [
-      73
-    ],
+    "specUsable": [73],
     "itemId": 181709,
     "ranks": [
       {
@@ -4125,9 +3879,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 41,
-    "specUsable": [
-      72
-    ],
+    "specUsable": [72],
     "itemId": 181712,
     "ranks": [
       {
@@ -4215,9 +3967,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 21,
-    "specUsable": [
-      62
-    ],
+    "specUsable": [62],
     "itemId": 181734,
     "ranks": [
       {
@@ -4305,9 +4055,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 41,
-    "specUsable": [
-      72
-    ],
+    "specUsable": [72],
     "itemId": 181735,
     "ranks": [
       {
@@ -4395,9 +4143,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 23,
-    "specUsable": [
-      63
-    ],
+    "specUsable": [63],
     "itemId": 181736,
     "ranks": [
       {
@@ -4485,9 +4231,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 25,
-    "specUsable": [
-      270
-    ],
+    "specUsable": [270],
     "itemId": 181737,
     "ranks": [
       {
@@ -4575,9 +4319,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 21,
-    "specUsable": [
-      62
-    ],
+    "specUsable": [62],
     "itemId": 181738,
     "ranks": [
       {
@@ -4665,9 +4407,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 24,
-    "specUsable": [
-      268
-    ],
+    "specUsable": [268],
     "itemId": 181740,
     "ranks": [
       {
@@ -4755,9 +4495,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 24,
-    "specUsable": [
-      268
-    ],
+    "specUsable": [268],
     "itemId": 181742,
     "ranks": [
       {
@@ -4845,11 +4583,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181756,
     "ranks": [
       {
@@ -4937,11 +4671,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181759,
     "ranks": [
       {
@@ -5029,11 +4759,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181770,
     "ranks": [
       {
@@ -5121,11 +4847,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 162,
-    "specUsable": [
-      62,
-      63,
-      64
-    ],
+    "specUsable": [62, 63, 64],
     "itemId": 181769,
     "ranks": [
       {
@@ -5213,11 +4935,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181774,
     "ranks": [
       {
@@ -5305,11 +5023,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 164,
-    "specUsable": [
-      268,
-      270,
-      269
-    ],
+    "specUsable": [268, 270, 269],
     "itemId": 181775,
     "ranks": [
       {
@@ -5397,9 +5111,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 41,
-    "specUsable": [
-      72
-    ],
+    "specUsable": [72],
     "itemId": 181776,
     "ranks": [
       {
@@ -5487,85 +5199,83 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 7,
-    "specUsable": [
-      252
-    ],
+    "specUsable": [252],
     "itemId": 181786,
     "ranks": [
       {
         "rank": 1,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 2,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 3,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 4,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 5,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 6,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 7,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 8,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 9,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 10,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 11,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 12,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 13,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 14,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       },
       {
         "rank": 15,
         "spellId": 337381,
-        "icon": "spell_animamaw_groundstate"
+        "icon": "inv_artifact_stolenpower"
       }
     ]
   },
@@ -5577,11 +5287,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181826,
     "ranks": [
       {
@@ -5669,11 +5375,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181827,
     "ranks": [
       {
@@ -5761,11 +5463,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 181834,
     "ranks": [
       {
@@ -5853,11 +5551,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181837,
     "ranks": [
       {
@@ -5945,11 +5639,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 181836,
     "ranks": [
       {
@@ -6037,11 +5727,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181838,
     "ranks": [
       {
@@ -6129,11 +5815,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181840,
     "ranks": [
       {
@@ -6221,11 +5903,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181842,
     "ranks": [
       {
@@ -6313,11 +5991,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 181841,
     "ranks": [
       {
@@ -6405,9 +6079,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 31,
-    "specUsable": [
-      256
-    ],
+    "specUsable": [256],
     "itemId": 181843,
     "ranks": [
       {
@@ -6495,9 +6167,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 31,
-    "specUsable": [
-      256
-    ],
+    "specUsable": [256],
     "itemId": 181844,
     "ranks": [
       {
@@ -6585,9 +6255,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 31,
-    "specUsable": [
-      256
-    ],
+    "specUsable": [256],
     "itemId": 181845,
     "ranks": [
       {
@@ -6675,9 +6343,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 32,
-    "specUsable": [
-      257
-    ],
+    "specUsable": [257],
     "itemId": 181847,
     "ranks": [
       {
@@ -6765,9 +6431,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 6,
-    "specUsable": [
-      251
-    ],
+    "specUsable": [251],
     "itemId": 181848,
     "ranks": [
       {
@@ -6855,9 +6519,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 5,
-    "specUsable": [
-      250
-    ],
+    "specUsable": [250],
     "itemId": 181866,
     "ranks": [
       {
@@ -6945,9 +6607,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 31,
-    "specUsable": [
-      256
-    ],
+    "specUsable": [256],
     "itemId": 181867,
     "ranks": [
       {
@@ -7035,9 +6695,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 32,
-    "specUsable": [
-      257
-    ],
+    "specUsable": [257],
     "itemId": 181942,
     "ranks": [
       {
@@ -7125,9 +6783,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 6,
-    "specUsable": [
-      251
-    ],
+    "specUsable": [251],
     "itemId": 181943,
     "ranks": [
       {
@@ -7215,9 +6871,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 32,
-    "specUsable": [
-      257
-    ],
+    "specUsable": [257],
     "itemId": 181944,
     "ranks": [
       {
@@ -7305,11 +6959,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181962,
     "ranks": [
       {
@@ -7397,85 +7047,83 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 5,
-    "specUsable": [
-      250
-    ],
+    "specUsable": [250],
     "itemId": 181963,
     "ranks": [
       {
         "rank": 1,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 2,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 3,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 4,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 5,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 6,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 7,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 8,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 9,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 10,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 11,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 12,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 13,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 14,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       },
       {
         "rank": 15,
         "spellId": 337957,
-        "icon": "ability_warrior_bloodnova"
+        "icon": "spell_holiday_tow_spicecloud"
       }
     ]
   },
@@ -7487,11 +7135,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181974,
     "ranks": [
       {
@@ -7579,11 +7223,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 181975,
     "ranks": [
       {
@@ -7671,9 +7311,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 7,
-    "specUsable": [
-      252
-    ],
+    "specUsable": [252],
     "itemId": 181980,
     "ranks": [
       {
@@ -7761,11 +7399,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 181981,
     "ranks": [
       {
@@ -7847,15 +7481,13 @@
   },
   {
     "id": 91,
-    "name": "Biting Cold",
+    "name": "Everfrost",
     "icon": "ability_mage_deepfreeze",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 6,
-    "specUsable": [
-      251
-    ],
+    "specUsable": [251],
     "itemId": 181982,
     "ranks": [
       {
@@ -7943,11 +7575,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182105,
     "ranks": [
       {
@@ -8035,11 +7663,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182106,
     "ranks": [
       {
@@ -8127,11 +7751,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182107,
     "ranks": [
       {
@@ -8219,11 +7839,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182108,
     "ranks": [
       {
@@ -8311,11 +7927,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182109,
     "ranks": [
       {
@@ -8403,11 +8015,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182110,
     "ranks": [
       {
@@ -8495,11 +8103,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182111,
     "ranks": [
       {
@@ -8587,177 +8191,171 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 182113,
     "ranks": [
       {
         "rank": 1,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 2,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 3,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 4,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 5,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 6,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 7,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 8,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 9,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 10,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 11,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 12,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 13,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 14,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       },
       {
         "rank": 15,
-        "spellId": 338093,
+        "spellId": 338089,
         "icon": "spell_lifegivingspeed"
       }
     ]
   },
   {
     "id": 100,
-    "name": "Earth and Sky",
-    "icon": "inv_misc_stormlordsfavor",
+    "name": "Pyroclastic Shock",
+    "icon": "ability_siege_engineer_purification_beam",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 11,
-    "specUsable": [
-      262
-    ],
+    "specUsable": [262],
     "itemId": 182125,
     "ranks": [
       {
         "rank": 1,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 2,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 3,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 4,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 5,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 6,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 7,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 8,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 9,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 10,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 11,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 12,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 13,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 14,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       },
       {
         "rank": 15,
-        "spellId": 338307,
-        "icon": "inv_misc_stormlordsfavor"
+        "spellId": 345594,
+        "icon": "ability_siege_engineer_purification_beam"
       }
     ]
   },
@@ -8769,11 +8367,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 182129,
     "ranks": [
       {
@@ -8861,9 +8455,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 11,
-    "specUsable": [
-      262
-    ],
+    "specUsable": [262],
     "itemId": 182126,
     "ranks": [
       {
@@ -8951,9 +8543,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 11,
-    "specUsable": [
-      262
-    ],
+    "specUsable": [262],
     "itemId": 182127,
     "ranks": [
       {
@@ -9041,9 +8631,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 11,
-    "specUsable": [
-      262
-    ],
+    "specUsable": [262],
     "itemId": 182128,
     "ranks": [
       {
@@ -9131,11 +8719,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 166,
-    "specUsable": [
-      258,
-      256,
-      257
-    ],
+    "specUsable": [258, 256, 257],
     "itemId": 182130,
     "ranks": [
       {
@@ -9223,11 +8807,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 182132,
     "ranks": [
       {
@@ -9315,9 +8895,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 33,
-    "specUsable": [
-      258
-    ],
+    "specUsable": [258],
     "itemId": 182131,
     "ranks": [
       {
@@ -9405,11 +8983,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 182133,
     "ranks": [
       {
@@ -9497,9 +9071,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 12,
-    "specUsable": [
-      263
-    ],
+    "specUsable": [263],
     "itemId": 182134,
     "ranks": [
       {
@@ -9587,9 +9159,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 12,
-    "specUsable": [
-      263
-    ],
+    "specUsable": [263],
     "itemId": 182135,
     "ranks": [
       {
@@ -9677,9 +9247,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 12,
-    "specUsable": [
-      263
-    ],
+    "specUsable": [263],
     "itemId": 182137,
     "ranks": [
       {
@@ -9767,9 +9335,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 12,
-    "specUsable": [
-      263
-    ],
+    "specUsable": [263],
     "itemId": 182136,
     "ranks": [
       {
@@ -9857,9 +9423,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 33,
-    "specUsable": [
-      258
-    ],
+    "specUsable": [258],
     "itemId": 182138,
     "ranks": [
       {
@@ -9947,9 +9511,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 33,
-    "specUsable": [
-      258
-    ],
+    "specUsable": [258],
     "itemId": 182139,
     "ranks": [
       {
@@ -10037,9 +9599,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 33,
-    "specUsable": [
-      258
-    ],
+    "specUsable": [258],
     "itemId": 182140,
     "ranks": [
       {
@@ -10127,9 +9687,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 32,
-    "specUsable": [
-      257
-    ],
+    "specUsable": [257],
     "itemId": 182141,
     "ranks": [
       {
@@ -10217,9 +9775,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 4,
-    "specUsable": [
-      264
-    ],
+    "specUsable": [264],
     "itemId": 182142,
     "ranks": [
       {
@@ -10307,9 +9863,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 4,
-    "specUsable": [
-      264
-    ],
+    "specUsable": [264],
     "itemId": 182143,
     "ranks": [
       {
@@ -10397,9 +9951,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 4,
-    "specUsable": [
-      264
-    ],
+    "specUsable": [264],
     "itemId": 182145,
     "ranks": [
       {
@@ -10487,9 +10039,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 4,
-    "specUsable": [
-      264
-    ],
+    "specUsable": [264],
     "itemId": 182144,
     "ranks": [
       {
@@ -10577,9 +10127,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 5,
-    "specUsable": [
-      250
-    ],
+    "specUsable": [250],
     "itemId": 182187,
     "ranks": [
       {
@@ -10667,9 +10215,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 6,
-    "specUsable": [
-      251
-    ],
+    "specUsable": [251],
     "itemId": 182201,
     "ranks": [
       {
@@ -10757,9 +10303,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 5,
-    "specUsable": [
-      250
-    ],
+    "specUsable": [250],
     "itemId": 182203,
     "ranks": [
       {
@@ -10847,9 +10391,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 7,
-    "specUsable": [
-      252
-    ],
+    "specUsable": [252],
     "itemId": 182206,
     "ranks": [
       {
@@ -10937,9 +10479,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 7,
-    "specUsable": [
-      252
-    ],
+    "specUsable": [252],
     "itemId": 182208,
     "ranks": [
       {
@@ -11027,11 +10567,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 182288,
     "ranks": [
       {
@@ -11119,11 +10655,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 182292,
     "ranks": [
       {
@@ -11211,11 +10743,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 182295,
     "ranks": [
       {
@@ -11303,11 +10831,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182304,
     "ranks": [
       {
@@ -11395,10 +10919,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182316,
     "ranks": [
       {
@@ -11486,10 +11007,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182318,
     "ranks": [
       {
@@ -11551,6 +11069,21 @@
         "rank": 12,
         "spellId": 338682,
         "icon": "inv_archaeology_orcclans_tattooknife"
+      },
+      {
+        "rank": 13,
+        "spellId": 338682,
+        "icon": "inv_archaeology_orcclans_tattooknife"
+      },
+      {
+        "rank": 14,
+        "spellId": 338682,
+        "icon": "inv_archaeology_orcclans_tattooknife"
+      },
+      {
+        "rank": 15,
+        "spellId": 338682,
+        "icon": "inv_archaeology_orcclans_tattooknife"
       }
     ]
   },
@@ -11562,10 +11095,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182317,
     "ranks": [
       {
@@ -11653,11 +11183,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182307,
     "ranks": [
       {
@@ -11745,10 +11271,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182324,
     "ranks": [
       {
@@ -11836,10 +11359,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182325,
     "ranks": [
       {
@@ -11927,11 +11447,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182321,
     "ranks": [
       {
@@ -12019,10 +11535,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182330,
     "ranks": [
       {
@@ -12104,17 +11617,13 @@
   },
   {
     "id": 139,
-    "name": "Empowered Shot",
+    "name": "Empowered Release",
     "icon": "buff_epichunter",
     "typeId": 1,
     "type": "potency",
     "covenant": 2,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182331,
     "ranks": [
       {
@@ -12202,11 +11711,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182335,
     "ranks": [
       {
@@ -12294,11 +11799,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182336,
     "ranks": [
       {
@@ -12380,93 +11881,89 @@
   },
   {
     "id": 142,
-    "name": "Stalwart as a Crusader",
-    "icon": "achievement_guildperk_everyones_a_hero",
+    "name": "Pure Concentration",
+    "icon": "spell_holy_mindsooth",
     "typeId": 0,
     "type": "finesse",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182338,
     "ranks": [
       {
         "rank": 1,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 2,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 3,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 4,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 5,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 6,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 7,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 8,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 9,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 10,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 11,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 12,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 13,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 14,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       },
       {
         "rank": 15,
         "spellId": 339124,
-        "icon": "achievement_guildperk_everyones_a_hero"
+        "icon": "spell_holy_mindsooth"
       }
     ]
   },
@@ -12478,11 +11975,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182339,
     "ranks": [
       {
@@ -12570,11 +12063,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182340,
     "ranks": [
       {
@@ -12662,10 +12151,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182344,
     "ranks": [
       {
@@ -12753,11 +12239,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182345,
     "ranks": [
       {
@@ -12845,11 +12327,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182346,
     "ranks": [
       {
@@ -12937,11 +12415,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182347,
     "ranks": [
       {
@@ -13029,11 +12503,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 13,
-    "specUsable": [
-      262,
-      264,
-      263
-    ],
+    "specUsable": [262, 264, 263],
     "itemId": 182348,
     "ranks": [
       {
@@ -13115,15 +12585,13 @@
   },
   {
     "id": 150,
-    "name": "Demon's Touch",
+    "name": "Relentless Onslaught",
     "icon": "ability_demonhunter_soulcleave2",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 9,
-    "specUsable": [
-      577
-    ],
+    "specUsable": [577],
     "itemId": 182368,
     "ranks": [
       {
@@ -13211,9 +12679,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 9,
-    "specUsable": [
-      577
-    ],
+    "specUsable": [577],
     "itemId": 182383,
     "ranks": [
       {
@@ -13301,9 +12767,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 9,
-    "specUsable": [
-      577
-    ],
+    "specUsable": [577],
     "itemId": 182384,
     "ranks": [
       {
@@ -13390,10 +12854,8 @@
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
-    "specSet": 9,
-    "specUsable": [
-      577
-    ],
+    "specSet": 8,
+    "specUsable": [577, 581],
     "itemId": 182385,
     "ranks": [
       {
@@ -13481,11 +12943,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 182440,
     "ranks": [
       {
@@ -13573,11 +13031,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182441,
     "ranks": [
       {
@@ -13665,11 +13119,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 182442,
     "ranks": [
       {
@@ -13757,11 +13207,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182448,
     "ranks": [
       {
@@ -13849,11 +13295,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182449,
     "ranks": [
       {
@@ -13941,11 +13383,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182456,
     "ranks": [
       {
@@ -14033,11 +13471,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182460,
     "ranks": [
       {
@@ -14125,11 +13559,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182461,
     "ranks": [
       {
@@ -14217,9 +13647,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 29,
-    "specUsable": [
-      70
-    ],
+    "specUsable": [70],
     "itemId": 182462,
     "ranks": [
       {
@@ -14307,11 +13735,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 182463,
     "ranks": [
       {
@@ -14399,11 +13823,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182464,
     "ranks": [
       {
@@ -14491,9 +13911,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 29,
-    "specUsable": [
-      70
-    ],
+    "specUsable": [70],
     "itemId": 182465,
     "ranks": [
       {
@@ -14581,11 +13999,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182466,
     "ranks": [
       {
@@ -14673,9 +14087,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 40,
-    "specUsable": [
-      71
-    ],
+    "specUsable": [71],
     "itemId": 182468,
     "ranks": [
       {
@@ -14763,11 +14175,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182469,
     "ranks": [
       {
@@ -14855,11 +14263,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182470,
     "ranks": [
       {
@@ -14947,9 +14351,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 10,
-    "specUsable": [
-      581
-    ],
+    "specUsable": [581],
     "itemId": 182471,
     "ranks": [
       {
@@ -15037,11 +14439,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182476,
     "ranks": [
       {
@@ -15129,9 +14527,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 37,
-    "specUsable": [
-      265
-    ],
+    "specUsable": [265],
     "itemId": 182478,
     "ranks": [
       {
@@ -15219,11 +14615,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182480,
     "ranks": [
       {
@@ -15311,9 +14703,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 29,
-    "specUsable": [
-      70
-    ],
+    "specUsable": [70],
     "itemId": 182559,
     "ranks": [
       {
@@ -15401,9 +14791,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 27,
-    "specUsable": [
-      65
-    ],
+    "specUsable": [65],
     "itemId": 182582,
     "ranks": [
       {
@@ -15491,11 +14879,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182584,
     "ranks": [
       {
@@ -15583,9 +14967,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 10,
-    "specUsable": [
-      581
-    ],
+    "specUsable": [581],
     "itemId": 182598,
     "ranks": [
       {
@@ -15673,9 +15055,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 10,
-    "specUsable": [
-      581
-    ],
+    "specUsable": [581],
     "itemId": 182604,
     "ranks": [
       {
@@ -15763,11 +15143,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 163,
-    "specUsable": [
-      253,
-      254,
-      255
-    ],
+    "specUsable": [253, 254, 255],
     "itemId": 182605,
     "ranks": [
       {
@@ -15855,9 +15231,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 29,
-    "specUsable": [
-      70
-    ],
+    "specUsable": [70],
     "itemId": 182608,
     "ranks": [
       {
@@ -15945,9 +15319,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 44,
-    "specUsable": [
-      253
-    ],
+    "specUsable": [253],
     "itemId": 182610,
     "ranks": [
       {
@@ -16035,9 +15407,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 27,
-    "specUsable": [
-      65
-    ],
+    "specUsable": [65],
     "itemId": 182622,
     "ranks": [
       {
@@ -16125,9 +15495,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 44,
-    "specUsable": [
-      253
-    ],
+    "specUsable": [253],
     "itemId": 182621,
     "ranks": [
       {
@@ -16215,9 +15583,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 42,
-    "specUsable": [
-      73
-    ],
+    "specUsable": [73],
     "itemId": 182624,
     "ranks": [
       {
@@ -16305,10 +15671,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182646,
     "ranks": [
       {
@@ -16396,9 +15759,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 14,
-    "specUsable": [
-      254
-    ],
+    "specUsable": [254],
     "itemId": 182648,
     "ranks": [
       {
@@ -16486,9 +15847,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 14,
-    "specUsable": [
-      254
-    ],
+    "specUsable": [254],
     "itemId": 182649,
     "ranks": [
       {
@@ -16576,11 +15935,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 182651,
     "ranks": [
       {
@@ -16668,11 +16023,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 168,
-    "specUsable": [
-      72,
-      71,
-      73
-    ],
+    "specUsable": [72, 71, 73],
     "itemId": 182656,
     "ranks": [
       {
@@ -16760,9 +16111,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 14,
-    "specUsable": [
-      254
-    ],
+    "specUsable": [254],
     "itemId": 182657,
     "ranks": [
       {
@@ -16850,9 +16199,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 27,
-    "specUsable": [
-      65
-    ],
+    "specUsable": [65],
     "itemId": 182667,
     "ranks": [
       {
@@ -16940,9 +16287,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 27,
-    "specUsable": [
-      65
-    ],
+    "specUsable": [65],
     "itemId": 182675,
     "ranks": [
       {
@@ -17030,9 +16375,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 28,
-    "specUsable": [
-      66
-    ],
+    "specUsable": [66],
     "itemId": 182681,
     "ranks": [
       {
@@ -17120,9 +16463,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 28,
-    "specUsable": [
-      66
-    ],
+    "specUsable": [66],
     "itemId": 182677,
     "ranks": [
       {
@@ -17210,9 +16551,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 28,
-    "specUsable": [
-      66
-    ],
+    "specUsable": [66],
     "itemId": 182684,
     "ranks": [
       {
@@ -17300,10 +16639,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182685,
     "ranks": [
       {
@@ -17391,9 +16727,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 14,
-    "specUsable": [
-      254
-    ],
+    "specUsable": [254],
     "itemId": 182686,
     "ranks": [
       {
@@ -17481,10 +16815,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 182706,
     "ranks": [
       {
@@ -17572,9 +16903,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 37,
-    "specUsable": [
-      265
-    ],
+    "specUsable": [265],
     "itemId": 182736,
     "ranks": [
       {
@@ -17662,9 +16991,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 37,
-    "specUsable": [
-      265
-    ],
+    "specUsable": [265],
     "itemId": 182743,
     "ranks": [
       {
@@ -17752,9 +17079,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 37,
-    "specUsable": [
-      265
-    ],
+    "specUsable": [265],
     "itemId": 182747,
     "ranks": [
       {
@@ -17842,9 +17167,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 39,
-    "specUsable": [
-      266
-    ],
+    "specUsable": [266],
     "itemId": 182748,
     "ranks": [
       {
@@ -17932,9 +17255,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 39,
-    "specUsable": [
-      266
-    ],
+    "specUsable": [266],
     "itemId": 182750,
     "ranks": [
       {
@@ -18022,9 +17343,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 39,
-    "specUsable": [
-      266
-    ],
+    "specUsable": [266],
     "itemId": 182751,
     "ranks": [
       {
@@ -18112,9 +17431,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 39,
-    "specUsable": [
-      266
-    ],
+    "specUsable": [266],
     "itemId": 182752,
     "ranks": [
       {
@@ -18202,9 +17519,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 38,
-    "specUsable": [
-      267
-    ],
+    "specUsable": [267],
     "itemId": 182754,
     "ranks": [
       {
@@ -18292,9 +17607,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 28,
-    "specUsable": [
-      66
-    ],
+    "specUsable": [66],
     "itemId": 182753,
     "ranks": [
       {
@@ -18382,11 +17695,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182767,
     "ranks": [
       {
@@ -18474,9 +17783,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 38,
-    "specUsable": [
-      267
-    ],
+    "specUsable": [267],
     "itemId": 182755,
     "ranks": [
       {
@@ -18564,9 +17871,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 38,
-    "specUsable": [
-      267
-    ],
+    "specUsable": [267],
     "itemId": 182769,
     "ranks": [
       {
@@ -18654,11 +17959,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182770,
     "ranks": [
       {
@@ -18746,9 +18047,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 38,
-    "specUsable": [
-      267
-    ],
+    "specUsable": [267],
     "itemId": 182772,
     "ranks": [
       {
@@ -18836,11 +18135,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182777,
     "ranks": [
       {
@@ -18928,11 +18223,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 30,
-    "specUsable": [
-      65,
-      66,
-      70
-    ],
+    "specUsable": [65, 66, 70],
     "itemId": 182778,
     "ranks": [
       {
@@ -19020,11 +18311,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182960,
     "ranks": [
       {
@@ -19106,93 +18393,89 @@
   },
   {
     "id": 218,
-    "name": "Prolonged Decimation",
-    "icon": "spell_animamaldraxxus_wave",
+    "name": "Fatal Decimation",
+    "icon": "spell_animamaldraxxus_missile",
     "typeId": 1,
     "type": "potency",
     "covenant": 4,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182961,
     "ranks": [
       {
         "rank": 1,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 2,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 3,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 4,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 5,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 6,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 7,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 8,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 9,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 10,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 11,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 12,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 13,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 14,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 15,
         "spellId": 340268,
-        "icon": "spell_animamaldraxxus_wave"
+        "icon": "spell_animamaldraxxus_missile"
       }
     ]
   },
@@ -19204,11 +18487,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182962,
     "ranks": [
       {
@@ -19296,11 +18575,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 182964,
     "ranks": [
       {
@@ -19388,11 +18663,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 183044,
     "ranks": [
       {
@@ -19480,11 +18751,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 167,
-    "specUsable": [
-      265,
-      266,
-      267
-    ],
+    "specUsable": [265, 266, 267],
     "itemId": 183076,
     "ranks": [
       {
@@ -19572,9 +18839,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 44,
-    "specUsable": [
-      253
-    ],
+    "specUsable": [253],
     "itemId": 183132,
     "ranks": [
       {
@@ -19662,9 +18927,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 20,
-    "specUsable": [
-      255
-    ],
+    "specUsable": [255],
     "itemId": 183167,
     "ranks": [
       {
@@ -19747,92 +19010,88 @@
   {
     "id": 225,
     "name": "Reverberation",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "spell_animabastion_buff",
     "typeId": 1,
     "type": "potency",
     "covenant": 1,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183492,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 2,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 3,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 4,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 5,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 6,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 7,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 8,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 9,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 10,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 11,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 12,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 13,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 14,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       },
       {
         "rank": 15,
         "spellId": 341264,
-        "icon": "ability_bastion_rogue"
+        "icon": "spell_animabastion_buff"
       }
     ]
   },
@@ -19844,9 +19103,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 20,
-    "specUsable": [
-      255
-    ],
+    "specUsable": [255],
     "itemId": 183184,
     "ranks": [
       {
@@ -19929,92 +19186,88 @@
   {
     "id": 227,
     "name": "Sudden Fractures",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "spell_animamaldraxxus_missile",
     "typeId": 1,
     "type": "potency",
     "covenant": 4,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183493,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 2,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 3,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 4,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 5,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 6,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 7,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 8,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 9,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 10,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 11,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 12,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 13,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 14,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       },
       {
         "rank": 15,
         "spellId": 341272,
-        "icon": "ability_maldraxxus_rogue"
+        "icon": "spell_animamaldraxxus_missile"
       }
     ]
   },
@@ -20026,1903 +19279,1843 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183494,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 2,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 3,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 4,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 5,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 6,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 7,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 8,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 9,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 10,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 11,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 12,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 13,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 14,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       },
       {
         "rank": 15,
         "spellId": 341309,
-        "icon": "ability_ardenweald_rogue"
+        "icon": "spell_animaardenweald_buff"
       }
     ]
   },
   {
     "id": 229,
-    "name": "Slaughter Scars",
-    "icon": "spell_animaardenweald_buff",
+    "name": "Lashing Scars",
+    "icon": "inv_misc_crop_01",
     "typeId": 1,
     "type": "potency",
     "covenant": 2,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183495,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 2,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 3,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 4,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 5,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 6,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 7,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 8,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 9,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 10,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 11,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 12,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 13,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 14,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       },
       {
         "rank": 15,
         "spellId": 341310,
-        "icon": "ability_revendreth_rogue"
+        "icon": "inv_misc_crop_01"
       }
     ]
   },
   {
     "id": 230,
     "name": "Nimble Fingers",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_rogue_crimsonvial",
     "typeId": 2,
     "type": "endurance",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183496,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 2,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 3,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 4,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 5,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 6,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 7,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 8,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 9,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 10,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 11,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 12,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 13,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 14,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       },
       {
         "rank": 15,
         "spellId": 341311,
-        "icon": "ability_paladin_handoflight"
+        "icon": "ability_rogue_crimsonvial"
       }
     ]
   },
   {
     "id": 231,
     "name": "Recuperator",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_gizmo_runichealthinjector",
     "typeId": 2,
     "type": "endurance",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183497,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 2,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 3,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 4,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 5,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 6,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 7,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 8,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 9,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 10,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 11,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 12,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 13,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 14,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       },
       {
         "rank": 15,
         "spellId": 341312,
-        "icon": "ability_rogue_recuperate"
+        "icon": "inv_gizmo_runichealthinjector"
       }
     ]
   },
   {
     "id": 232,
     "name": "Cloaked in Shadows",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_helm_cloth_shadowmoonclan_b_01",
     "typeId": 2,
     "type": "endurance",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183498,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 2,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 3,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 4,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 5,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 6,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 7,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 8,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 9,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 10,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 11,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 12,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 13,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 14,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       },
       {
         "rank": 15,
         "spellId": 341529,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_helm_cloth_shadowmoonclan_b_01"
       }
     ]
   },
   {
     "id": 233,
     "name": "Quick Decisions",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_misc_hook_01",
     "typeId": 0,
     "type": "finesse",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183499,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 2,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 3,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 4,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 5,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 6,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 7,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 8,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 9,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 10,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 11,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 12,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 13,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 14,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       },
       {
         "rank": 15,
         "spellId": 341531,
-        "icon": "inv_icon_shadowcouncilorb_purple"
+        "icon": "inv_misc_hook_01"
       }
     ]
   },
   {
     "id": 234,
     "name": "Fade to Nothing",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_warlock_everlastingaffliction",
     "typeId": 0,
     "type": "finesse",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183500,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 2,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 3,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 4,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 5,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 6,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 7,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 8,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 9,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 10,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 11,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 12,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 13,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 14,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       },
       {
         "rank": 15,
         "spellId": 341532,
-        "icon": "ability_rogue_sprint_blue"
+        "icon": "ability_warlock_everlastingaffliction"
       }
     ]
   },
   {
     "id": 235,
     "name": "Rushed Setup",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_skyreach_piercing_rush",
     "typeId": 0,
     "type": "finesse",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183501,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 2,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 3,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 4,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 5,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 6,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 7,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 8,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 9,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 10,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 11,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 12,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 13,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 14,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       },
       {
         "rank": 15,
         "spellId": 341534,
-        "icon": "ability_rogue_unfairadvantage"
+        "icon": "ability_skyreach_piercing_rush"
       }
     ]
   },
   {
     "id": 236,
     "name": "Prepared for All",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_rogue_ghostpirate",
     "typeId": 0,
     "type": "finesse",
     "covenant": 0,
     "specSet": 165,
-    "specUsable": [
-      259,
-      260,
-      261
-    ],
+    "specUsable": [259, 260, 261],
     "itemId": 183502,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 2,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 3,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 4,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 5,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 6,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 7,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 8,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 9,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 10,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 11,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 12,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 13,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 14,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       },
       {
         "rank": 15,
         "spellId": 341535,
-        "icon": "ability_rogue_wrongfullyaccused"
+        "icon": "ability_rogue_ghostpirate"
       }
     ]
   },
   {
     "id": 237,
     "name": "Poisoned Katar",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_hunter_cobrashot",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 34,
-    "specUsable": [
-      259
-    ],
+    "specUsable": [259],
     "itemId": 183503,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 2,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 3,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 4,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 5,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 6,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 7,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 8,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 9,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 10,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 11,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 12,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 13,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 14,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       },
       {
         "rank": 15,
         "spellId": 341536,
-        "icon": "ability_rogue_fanofknives"
+        "icon": "ability_hunter_cobrashot"
       }
     ]
   },
   {
     "id": 238,
     "name": "Well-Placed Steel",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_weapon_shortblade_62",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 34,
-    "specUsable": [
-      259
-    ],
+    "specUsable": [259],
     "itemId": 183504,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 2,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 3,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 4,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 5,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 6,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 7,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 8,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 9,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 10,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 11,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 12,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 13,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 14,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       },
       {
         "rank": 15,
         "spellId": 341537,
-        "icon": "inv_throwingknife_04"
+        "icon": "inv_weapon_shortblade_62"
       }
     ]
   },
   {
     "id": 239,
     "name": "Maim, Mangle",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_skeer_bloodletting",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 34,
-    "specUsable": [
-      259
-    ],
+    "specUsable": [259],
     "itemId": 183505,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 2,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 3,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 4,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 5,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 6,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 7,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 8,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 9,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 10,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 11,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 12,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 13,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 14,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       },
       {
         "rank": 15,
         "spellId": 341538,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_skeer_bloodletting"
       }
     ]
   },
   {
     "id": 240,
     "name": "Lethal Poisons",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_creature_poison_04",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 34,
-    "specUsable": [
-      259
-    ],
+    "specUsable": [259],
     "itemId": 183506,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 2,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 3,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 4,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 5,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 6,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 7,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 8,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 9,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 10,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 11,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 12,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 13,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 14,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       },
       {
         "rank": 15,
         "spellId": 341539,
-        "icon": "ability_rogue_deviouspoisons"
+        "icon": "ability_creature_poison_04"
       }
     ]
   },
   {
     "id": 241,
     "name": "Triple Threat",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_dualwield",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 35,
-    "specUsable": [
-      260
-    ],
+    "specUsable": [260],
     "itemId": 183507,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 2,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 3,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 4,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 5,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 6,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 7,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 8,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 9,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 10,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 11,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 12,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 13,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 14,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       },
       {
         "rank": 15,
         "spellId": 341540,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "ability_dualwield"
       }
     ]
   },
   {
     "id": 242,
     "name": "Ambidexterity",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_glove_cloth_oribosdungeon_c_01",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 35,
-    "specUsable": [
-      260
-    ],
+    "specUsable": [260],
     "itemId": 183508,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 2,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 3,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 4,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 5,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 6,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 7,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 8,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 9,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 10,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 11,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 12,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 13,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 14,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       },
       {
         "rank": 15,
         "spellId": 341542,
-        "icon": "ability_rogue_shadowstrikes"
+        "icon": "inv_glove_cloth_oribosdungeon_c_01"
       }
     ]
   },
   {
     "id": 243,
     "name": "Sleight of Hand",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_misc_dice_02",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 35,
-    "specUsable": [
-      260
-    ],
+    "specUsable": [260],
     "itemId": 183509,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 2,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 3,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 4,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 5,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 6,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 7,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 8,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 9,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 10,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 11,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 12,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 13,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 14,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       },
       {
         "rank": 15,
         "spellId": 341543,
-        "icon": "ability_rogue_rollthebones"
+        "icon": "inv_misc_dice_02"
       }
     ]
   },
   {
     "id": 244,
     "name": "Count the Odds",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_misc_dice_01",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 35,
-    "specUsable": [
-      260
-    ],
+    "specUsable": [260],
     "itemId": 183510,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 2,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 3,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 4,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 5,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 6,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 7,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 8,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 9,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 10,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 11,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 12,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 13,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 14,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       },
       {
         "rank": 15,
         "spellId": 341546,
-        "icon": "ability_rogue_waylay"
+        "icon": "inv_misc_dice_01"
       }
     ]
   },
   {
     "id": 245,
     "name": "Deeper Daggers",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "inv_weapon_shortblade_15",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 36,
-    "specUsable": [
-      261
-    ],
+    "specUsable": [261],
     "itemId": 183511,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 2,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 3,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 4,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 5,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 6,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 7,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 8,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 9,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 10,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 11,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 12,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 13,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 14,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       },
       {
         "rank": 15,
         "spellId": 341549,
-        "icon": "ability_rogue_focusedattacks"
+        "icon": "inv_weapon_shortblade_15"
       }
     ]
   },
   {
     "id": 246,
     "name": "Planned Execution",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_creature_cursed_02",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 36,
-    "specUsable": [
-      261
-    ],
+    "specUsable": [261],
     "itemId": 183512,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 2,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 3,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 4,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 5,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 6,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 7,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 8,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 9,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 10,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 11,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 12,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 13,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 14,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       },
       {
         "rank": 15,
         "spellId": 341556,
-        "icon": "spell_shadow_rune"
+        "icon": "ability_creature_cursed_02"
       }
     ]
   },
   {
     "id": 247,
-    "name": "Stileto Staccato",
-    "icon": "spell_animaardenweald_buff",
+    "name": "Stiletto Staccato",
+    "icon": "ability_rogue_shadowyduel",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 36,
-    "specUsable": [
-      261
-    ],
+    "specUsable": [261],
     "itemId": 183513,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 2,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 3,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 4,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 5,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 6,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 7,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 8,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 9,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 10,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 11,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 12,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 13,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 14,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       },
       {
         "rank": 15,
         "spellId": 341559,
-        "icon": "ability_rogue_masterofsubtlety"
+        "icon": "ability_rogue_shadowyduel"
       }
     ]
   },
   {
     "id": 248,
     "name": "Perforated Veins",
-    "icon": "spell_animaardenweald_buff",
+    "icon": "ability_warrior_bloodfrenzy",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
     "specSet": 36,
-    "specUsable": [
-      261
-    ],
+    "specUsable": [261],
     "itemId": 183514,
     "ranks": [
       {
         "rank": 1,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 2,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 3,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 4,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 5,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 6,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 7,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 8,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 9,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 10,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 11,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 12,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 13,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 14,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       },
       {
         "rank": 15,
         "spellId": 341567,
-        "icon": "ability_rogue_shadowstrike"
+        "icon": "ability_warrior_bloodfrenzy"
       }
     ]
   },
@@ -21934,9 +21127,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 23,
-    "specUsable": [
-      63
-    ],
+    "specUsable": [63],
     "itemId": 183197,
     "ranks": [
       {
@@ -22024,11 +21215,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 43,
-    "specUsable": [
-      250,
-      251,
-      252
-    ],
+    "specUsable": [250, 251, 252],
     "itemId": 183199,
     "ranks": [
       {
@@ -22116,9 +21303,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 20,
-    "specUsable": [
-      255
-    ],
+    "specUsable": [255],
     "itemId": 183202,
     "ranks": [
       {
@@ -22206,9 +21391,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 20,
-    "specUsable": [
-      255
-    ],
+    "specUsable": [255],
     "itemId": 183396,
     "ranks": [
       {
@@ -22296,9 +21479,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 44,
-    "specUsable": [
-      253
-    ],
+    "specUsable": [253],
     "itemId": 183402,
     "ranks": [
       {
@@ -22386,12 +21567,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183464,
     "ranks": [
       {
@@ -22479,12 +21655,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183465,
     "ranks": [
       {
@@ -22572,12 +21743,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183466,
     "ranks": [
       {
@@ -22665,12 +21831,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183467,
     "ranks": [
       {
@@ -22758,12 +21919,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183468,
     "ranks": [
       {
@@ -22851,12 +22007,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183469,
     "ranks": [
       {
@@ -22944,12 +22095,7 @@
     "type": "finesse",
     "covenant": 0,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183470,
     "ranks": [
       {
@@ -23037,9 +22183,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 15,
-    "specUsable": [
-      102
-    ],
+    "specUsable": [102],
     "itemId": 183476,
     "ranks": [
       {
@@ -23127,9 +22271,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 15,
-    "specUsable": [
-      102
-    ],
+    "specUsable": [102],
     "itemId": 183477,
     "ranks": [
       {
@@ -23217,9 +22359,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 15,
-    "specUsable": [
-      102
-    ],
+    "specUsable": [102],
     "itemId": 183478,
     "ranks": [
       {
@@ -23307,9 +22447,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 15,
-    "specUsable": [
-      102
-    ],
+    "specUsable": [102],
     "itemId": 183479,
     "ranks": [
       {
@@ -23397,9 +22535,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 16,
-    "specUsable": [
-      103
-    ],
+    "specUsable": [103],
     "itemId": 183480,
     "ranks": [
       {
@@ -23487,9 +22623,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 16,
-    "specUsable": [
-      103
-    ],
+    "specUsable": [103],
     "itemId": 183481,
     "ranks": [
       {
@@ -23577,9 +22711,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 16,
-    "specUsable": [
-      103
-    ],
+    "specUsable": [103],
     "itemId": 183482,
     "ranks": [
       {
@@ -23667,9 +22799,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 16,
-    "specUsable": [
-      103
-    ],
+    "specUsable": [103],
     "itemId": 183483,
     "ranks": [
       {
@@ -23757,9 +22887,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 17,
-    "specUsable": [
-      104
-    ],
+    "specUsable": [104],
     "itemId": 183484,
     "ranks": [
       {
@@ -23847,9 +22975,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 17,
-    "specUsable": [
-      104
-    ],
+    "specUsable": [104],
     "itemId": 183485,
     "ranks": [
       {
@@ -23937,9 +23063,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 17,
-    "specUsable": [
-      104
-    ],
+    "specUsable": [104],
     "itemId": 183486,
     "ranks": [
       {
@@ -24027,9 +23151,7 @@
     "type": "endurance",
     "covenant": 0,
     "specSet": 17,
-    "specUsable": [
-      104
-    ],
+    "specUsable": [104],
     "itemId": 183487,
     "ranks": [
       {
@@ -24117,9 +23239,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 18,
-    "specUsable": [
-      105
-    ],
+    "specUsable": [105],
     "itemId": 183488,
     "ranks": [
       {
@@ -24207,9 +23327,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 18,
-    "specUsable": [
-      105
-    ],
+    "specUsable": [105],
     "itemId": 183489,
     "ranks": [
       {
@@ -24297,9 +23415,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 18,
-    "specUsable": [
-      105
-    ],
+    "specUsable": [105],
     "itemId": 183490,
     "ranks": [
       {
@@ -24387,9 +23503,7 @@
     "type": "potency",
     "covenant": 0,
     "specSet": 18,
-    "specUsable": [
-      105
-    ],
+    "specUsable": [105],
     "itemId": 183491,
     "ranks": [
       {
@@ -24477,12 +23591,7 @@
     "type": "potency",
     "covenant": 1,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183471,
     "ranks": [
       {
@@ -24570,12 +23679,7 @@
     "type": "potency",
     "covenant": 4,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183472,
     "ranks": [
       {
@@ -24663,12 +23767,7 @@
     "type": "potency",
     "covenant": 3,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183473,
     "ranks": [
       {
@@ -24756,12 +23855,7 @@
     "type": "potency",
     "covenant": 2,
     "specSet": 48,
-    "specUsable": [
-      102,
-      103,
-      104,
-      105
-    ],
+    "specUsable": [102, 103, 104, 105],
     "itemId": 183474,
     "ranks": [
       {
@@ -24843,16 +23937,13 @@
   },
   {
     "id": 281,
-    "name": "Collateral Damage",
+    "name": "Unnatural Malice",
     "icon": "spell_animaardenweald_missile",
     "typeId": 1,
     "type": "potency",
     "covenant": 3,
     "specSet": 8,
-    "specUsable": [
-      577,
-      581
-    ],
+    "specUsable": [577, 581],
     "itemId": 183463,
     "ranks": [
       {
@@ -24929,6 +24020,449 @@
         "rank": 15,
         "spellId": 344358,
         "icon": "spell_animaardenweald_missile"
+      }
+    ]
+  },
+  {
+    "id": 282,
+    "name": "Ambuscade",
+    "icon": "ability_rogue_feint",
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 163,
+    "specUsable": [253, 254, 255],
+    "itemId": 184587,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 2,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 3,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 4,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 5,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 6,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 7,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 8,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 9,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 10,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 11,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 12,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 13,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 14,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      },
+      {
+        "rank": 15,
+        "spellId": 346747,
+        "icon": "ability_rogue_feint"
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 0,
+    "specUsable": [],
+    "itemId": 0,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 0,
+    "specUsable": [],
+    "itemId": 0,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 0,
+    "specUsable": [],
+    "itemId": 0,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 0,
+    "specUsable": [],
+    "itemId": 0,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "typeId": 0,
+    "type": "finesse",
+    "covenant": 0,
+    "specSet": 0,
+    "specUsable": [],
+    "itemId": 0,
+    "ranks": [
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
+      },
+      {
+        "rank": 1,
+        "spellId": 0,
+        "icon": ""
       }
     ]
   }

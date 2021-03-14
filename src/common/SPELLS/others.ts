@@ -133,7 +133,7 @@ const spells = {
   },
   MON_DAZI: {
     id: 257422,
-    name: 'Mon\'Dazi',
+    name: "Mon'Dazi",
     icon: 'inv_cooking_80_mondazi',
   },
   HONEY_GLAZED_HAUNCHES: {
@@ -143,12 +143,12 @@ const spells = {
   },
   SAILOR_PIE: {
     id: 257420,
-    name: 'Sailor\'s Pie',
+    name: "Sailor's Pie",
     icon: 'inv_cooking_80_sailorspie',
   },
   SWAMP_FISH_N_CHIPS: {
     id: 257415,
-    name: 'Swamp Fish \'n Chips',
+    name: "Swamp Fish 'n Chips",
     icon: 'inv_cooking_80_swampfishnchips',
   },
   SPICED_SNAPPER: {
@@ -171,27 +171,32 @@ const spells = {
     name: 'Boralus Blood Sausage',
     icon: 'inv_holiday_beerfestsausage01',
   },
-  WELL_FED_REAWAKENING_INT: { // caused by the Reawakening trait
+  WELL_FED_REAWAKENING_INT: {
+    // caused by the Reawakening trait
     id: 285719,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
-  WELL_FED_REAWAKENING_STR: { // caused by the Reawakening trait
+  WELL_FED_REAWAKENING_STR: {
+    // caused by the Reawakening trait
     id: 285720,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
-  WELL_FED_REAWAKENING_AGI: { // caused by the Reawakening trait
+  WELL_FED_REAWAKENING_AGI: {
+    // caused by the Reawakening trait
     id: 285721,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
-  WELL_FED_SEASONED_STEAK_AND_POTATOES: { // caused by the Seasoned Steak and Potatoes food
+  WELL_FED_SEASONED_STEAK_AND_POTATOES: {
+    // caused by the Seasoned Steak and Potatoes food
     id: 288075,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
-  WELL_FED_WILD_BERRY_BREAD: { // caused by the Wild Berry Bread food
+  WELL_FED_WILD_BERRY_BREAD: {
+    // caused by the Wild Berry Bread food
     id: 288074,
     name: 'Well Fed',
     icon: 'spell_misc_food',
@@ -218,22 +223,22 @@ const spells = {
   },
   BOUNTIFUL_CAPTAIN_FEAST_INT: {
     id: 259455,
-    name: 'Bountiful Captain\'s Feast',
+    name: "Bountiful Captain's Feast",
     icon: 'inv_cooking_80_majorfeast',
   },
   BOUNTIFUL_CAPTAIN_FEAST_STR: {
     id: 259456,
-    name: 'Bountiful Captain\'s Feast',
+    name: "Bountiful Captain's Feast",
     icon: 'inv_cooking_80_majorfeast',
   },
   BOUNTIFUL_CAPTAIN_FEAST_AGI: {
     id: 259454,
-    name: 'Bountiful Captain\'s Feast',
+    name: "Bountiful Captain's Feast",
     icon: 'inv_cooking_80_majorfeast',
   },
   BOUNTIFUL_CAPTAIN_FEAST_STA: {
     id: 259457,
-    name: 'Bountiful Captain\'s Feast',
+    name: "Bountiful Captain's Feast",
     icon: 'inv_cooking_80_majorfeast',
   },
   FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT: {
@@ -263,7 +268,7 @@ const spells = {
   },
   BIL_TONG: {
     id: 297037,
-    name: 'Bil\'Tong',
+    name: "Bil'Tong",
     icon: 'inv_misc_food_48',
   },
   FRAGRANT_KAKAVIA: {
@@ -371,7 +376,7 @@ const spells = {
   // Items buffs:
   JACINS_RUSE: {
     id: 224149,
-    name: 'Jacin\'s Ruse',
+    name: "Jacin's Ruse",
     icon: 'sha_ability_rogue_bloodyeye',
   },
   FRAGILE_ECHO_ENERGIZE: {
@@ -418,17 +423,17 @@ const spells = {
   },
   ALCHEMISTS_STRENGTH: {
     id: 299788,
-    name: 'Alchemist\'s Strength',
+    name: "Alchemist's Strength",
     icon: 'spell_nature_strength',
   },
   ALCHEMISTS_AGILITY: {
     id: 299789,
-    name: 'Alchemist\'s Agility',
+    name: "Alchemist's Agility",
     icon: 'ability_hunter_onewithnature',
   },
   ALCHEMISTS_INTELLECT: {
     id: 299790,
-    name: 'Alchemist\'s Intellect',
+    name: "Alchemist's Intellect",
     icon: 'spell_arcane_focusedpower',
   },
 
@@ -453,13 +458,20 @@ const spells = {
     name: 'Annihilation',
     icon: 'spell_arcane_arcanetorrent',
   },
+  SOUL_INFUSION: {
+    id: 339232,
+    name: 'Soul Infusion',
+    icon: 'spell_animarevendreth_beam',
+  },
   //Toys
-  BLOW_DARKMOON_WHISTLE: { //Blows the whistle making an annoying voice
+  BLOW_DARKMOON_WHISTLE: {
+    //Blows the whistle making an annoying voice
     id: 132568,
     name: 'Blow Darkmoon Whistle',
     icon: 'ability_hunter_beastcall',
   },
-  DARKMOON_FIREWORK: { //Darkmoon Firework toy
+  DARKMOON_FIREWORK: {
+    //Darkmoon Firework toy
     id: 103740,
     name: 'Darkmoon Firework',
     icon: 'inv_misc_missilesmallcluster_green',

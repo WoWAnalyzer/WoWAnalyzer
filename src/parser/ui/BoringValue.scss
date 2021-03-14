@@ -1,0 +1,26 @@
+@import 'interface/Theme.scss';
+
+.boring-value {
+  > .icon {
+    padding: 21px 18px;
+    background: rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 58px;
+      height: 58px;
+      margin-top: 0;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+  }
+  > .value {
+    padding: 15px 18px;
+    line-height: 1;
+
+    > div:first-of-type {
+      margin: 12px 0 4px 0;
+    }
+    > small {
+      display: block;
+    }
+  }
+}

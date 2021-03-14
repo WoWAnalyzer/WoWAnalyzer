@@ -1,11 +1,11 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellLink from 'common/SpellLink';
-import SPELLS from 'common/SPELLS';
-import Events, { DispelEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DispelEvent } from 'parser/core/Events';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class DispelTracker extends Analyzer {
   dispelEvents = new Map<number, number>();

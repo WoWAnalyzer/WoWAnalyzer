@@ -1,12 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
+import { makeAnalyzerUrl } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { Trans } from '@lingui/macro';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import Events, { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent, ResurrectEvent } from '../../core/Events';
+import Events, {
+  BeginCastEvent,
+  CastEvent,
+  DamageEvent,
+  DeathEvent,
+  HealEvent,
+  ResurrectEvent,
+} from '../../core/Events';
 
 const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
 
@@ -83,7 +90,9 @@ class DeathTracker extends Analyzer {
   }
 
   get totalTimeDead() {
-    return this._timeDead + (this.isAlive ? 0 : this.owner.currentTimestamp - this.lastDeathTimestamp);
+    return (
+      this._timeDead + (this.isAlive ? 0 : this.owner.currentTimestamp - this.lastDeathTimestamp)
+    );
   }
 
   get timeDeadPercent() {
@@ -94,7 +103,7 @@ class DeathTracker extends Analyzer {
     return {
       actual: this.timeDeadPercent,
       isGreaterThan: {
-        major: 0.00,
+        major: 0.0,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -110,18 +119,39 @@ class DeathTracker extends Analyzer {
     const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
 
     if (!disableDeathSuggestion && !isWipeDeath) {
-      when(this.deathSuggestionThresholds)
-        .addSuggestion((suggest, actual) => suggest(<>
-          You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>Death Recap</Link> to see the damage taken and what defensives and potions were still available.
-        </>)
+      when(this.deathSuggestionThresholds).addSuggestion((suggest, actual) =>
+        suggest(
+          <>
+            You died during this fight and were dead for {formatPercentage(actual)}% of the fight
+            duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant
+            performance cost. View the{' '}
+            <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>
+              Death Recap
+            </Link>{' '}
+            to see the damage taken and what defensives and potions were still available.
+          </>,
+        )
           .icon('ability_fiegndead')
-          .actual(<Trans id='shared.suggestions.deathTracker.deathTime'> You were dead for {formatPercentage(actual)}% of the fight </Trans>)
-          .recommended(<Trans id='shared.suggestions.deathTracker.recommended'> 0% is recommended </Trans>));
+          .actual(
+            <Trans id="shared.suggestions.deathTracker.deathTime">
+              {' '}
+              You were dead for {formatPercentage(actual)}% of the fight{' '}
+            </Trans>,
+          )
+          .recommended(
+            <Trans id="shared.suggestions.deathTracker.recommended"> 0% is recommended </Trans>,
+          ),
+      );
     }
-    when(this._didCast).isFalse()
-      .addSuggestion((suggest) => suggest('You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.')
-        .icon('ability_fiegndead')
-        .major(this.deathSuggestionThresholds.isGreaterThan.major));
+    when(this._didCast)
+      .isFalse()
+      .addSuggestion((suggest) =>
+        suggest(
+          'You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.',
+        )
+          .icon('ability_fiegndead')
+          .major(this.deathSuggestionThresholds.isGreaterThan.major),
+      );
   }
 }
 

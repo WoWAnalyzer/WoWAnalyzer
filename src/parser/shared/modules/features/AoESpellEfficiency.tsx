@@ -1,18 +1,15 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-import Abilities from 'parser/core/modules/Abilities';
-import SpellLink from 'common/SpellLink';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Spell from 'common/SPELLS/Spell';
-
-import React from 'react';
-
 import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
+import Spell from 'common/SPELLS/Spell';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible
@@ -26,16 +23,16 @@ class AoESpellEfficiency extends Analyzer {
 
   ability!: Spell;
   bonusDmg = 0;
-  casts: Array<{ timestamp: number, hits: number }> = [];
+  casts: Array<{ timestamp: number; hits: number }> = [];
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onCast(event: CastEvent) {
-    if(event.ability.guid !== this.ability.id) {
+    if (event.ability.guid !== this.ability.id) {
       return;
     }
     this.casts.push({
@@ -68,7 +65,7 @@ class AoESpellEfficiency extends Analyzer {
     let missedCasts = 0;
     let timeSum = 0;
 
-    this.casts.forEach(e => {
+    this.casts.forEach((e) => {
       if (!lastCast) {
         timeSum = e.timestamp - this.owner.fight.start_time;
       } else {
@@ -100,21 +97,29 @@ class AoESpellEfficiency extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.hitSuggestionThreshold)
-      .addSuggestion((suggest) => suggest(<>It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but don't delay it too long or you'll miss out on casts and possible hits.</>)
-          .icon(this.ability.icon)
-          .actual(t({
-      id: "shared.suggestions.aoeSpells.efficiency",
-      message: `${this.totalHits} total hits`
-    }))
-          .recommended(`${this.possibleHits} or more hits were possible`));
+    when(this.hitSuggestionThreshold).addSuggestion((suggest) =>
+      suggest(
+        <>
+          It's benefitial to delay <SpellLink id={this.ability.id} /> to hit multiple targets, but
+          don't delay it too long or you'll miss out on casts and possible hits.
+        </>,
+      )
+        .icon(this.ability.icon)
+        .actual(
+          t({
+            id: 'shared.suggestions.aoeSpells.efficiency',
+            message: `${this.totalHits} total hits`,
+          }),
+        )
+        .recommended(`${this.possibleHits} or more hits were possible`),
+    );
   }
 
   statistic() {
@@ -122,9 +127,13 @@ class AoESpellEfficiency extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={this.ability.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
+        value={`${formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)} DPS`}
         label="Damage contributed"
-        tooltip={`${this.ability.name} added a total of ${formatNumber(this.bonusDmg)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}
+        tooltip={`${this.ability.name} added a total of ${formatNumber(
+          this.bonusDmg,
+        )} damage (${formatPercentage(
+          this.owner.getPercentageOfTotalDamageDone(this.bonusDmg),
+        )}%).`}
       />
     );
   }
