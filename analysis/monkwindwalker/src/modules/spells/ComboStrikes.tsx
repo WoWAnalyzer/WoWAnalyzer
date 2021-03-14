@@ -73,9 +73,9 @@ class ComboStrikes extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.5 * hitComboMultiplier,
-        major: Number(hitComboMultiplier),
+        major: hitComboMultiplier,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.DECIMAL,
     };
   }
 

@@ -53,11 +53,6 @@ const covenants = {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  FAELINE_STOMP_STANDING_BUFF: {
-    id: 327104,
-    name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk',
-  },
   FAELINE_STOMP_RESET_BUFF: {
     id: 327276,
     name: 'Faeline Stomp',
