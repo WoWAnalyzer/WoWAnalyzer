@@ -133,7 +133,7 @@
   "druid.feral.suggestions.rip.uptime": "{0}% Uptime",
   "druid.feral.suggestions.ripSnapshot.earlyRefresh": "{0} Auffrischung(en) von Zerfetzen waren frühe Herabstufungen",
   "druid.feral.suggestions.ripSnapshot.reducedDuration": "Dauer von Zerfetzen wurde {0} Mal(e) verringert",
-  "druid.feral.suggestions.ripSnapshot.shouldBeBite": "{0} Einsätze von Zerfetzen hätten durch Biss ersetzen werden können",
+  "druid.feral.suggestions.ripSnapshot.shouldBeBite": "{0} Einsätze von Zerfetzen hätten durch Biss ersetzt werden können",
   "druid.feral.suggestions.savageRoar.uptime": "{0}% Uptime",
   "druid.feral.suggestions.swipe.hitcount.efficiency": "{0} Einsätze pro Minute, die nur 1 Ziel getroffen haben",
   "druid.feral.suggestions.swipe.hitcount.outOfRange": "{0} Einsätze pro Minute, die nichts getroffen haben",
