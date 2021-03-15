@@ -1,4 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 /**
  * NAME: {
@@ -12,6 +12,11 @@ const items: ItemList = {
     id: 173067,
     name: 'Vantus Rune',
     icon: 'inv_inscription_vantusrune_castlenathria01',
+  },
+  DARKMOON_DECK_VORACITY: {
+    id: 173087,
+    name: 'Darkmoon Deck: Voracity',
+    icon: 'inv_inscription_darkmooncard_voracity',
   },
 };
 export default items;

@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Defensive general spells
   FEINT: {
     id: 1966,
@@ -204,7 +203,7 @@ const spells: SpellList = {
   },
   SHADOW_SATYRS_WALK_ENERGY_BASE: {
     id: 224914,
-    name: 'Shadow Satyr\'s Walk',
+    name: "Shadow Satyr's Walk",
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
   SHADOW_SATYRS_WALK_ENERGY_EXTRA: {
@@ -281,6 +280,11 @@ const spells: SpellList = {
     id: 3408,
     name: 'Crippling Poison',
     icon: 'ability_poisonsting',
+  },
+  INSTANT_POISON: {
+    id: 315585,
+    name: 'Instant Poison',
+    icon: 'ability_creature_poison_03',
   },
 
   //Builders
@@ -540,5 +544,6 @@ const spells: SpellList = {
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
   },
-};
+} as const;
+
 export default spells;

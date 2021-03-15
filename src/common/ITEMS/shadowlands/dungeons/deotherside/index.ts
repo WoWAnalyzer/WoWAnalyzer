@@ -6,23 +6,13 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 const items: ItemList = {
-  //region Hakkar the Soulflayer
-
-  //endregion
-
-  //region The Manastorms
-
-  //endregion
-
-  //region Dealer Xy'exa
-
-  //endregion
-
-  //region Mueh'zala
-
-  //endregion
+  INSCRUTABLE_QUANTUM_DEVICE: {
+    id: 179350,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
 };
 export default items;

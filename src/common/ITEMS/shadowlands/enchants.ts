@@ -1,4 +1,4 @@
-import { ItemList, Enchant } from "common/ITEMS/Item";
+import { ItemList, Enchant } from 'common/ITEMS/Item';
 
 const enchants: ItemList<Enchant> = {
   ENCHANT_WEAPON_ASCENDED_VIGOR: {
@@ -30,6 +30,18 @@ const enchants: ItemList<Enchant> = {
     name: 'Enchant Weapon - Sinful Revelation',
     icon: 'inv_misc_enchantedscroll',
     effectId: 6228,
+  },
+  ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER: {
+    id: 172920,
+    name: 'Optical Target Embiggener',
+    icon: 'inv_engineering_90_scope_blue',
+    effectId: 6196,
+  },
+  ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT: {
+    id: 172921,
+    name: 'Infra-green Reflex Sight',
+    icon: 'inv_engineering_90_scope_green',
+    effectId: 6195,
   },
   ENCHANT_CLOAK_FORTIFIED_AVOIDANCE: {
     id: 172411,
@@ -203,7 +215,7 @@ const enchants: ItemList<Enchant> = {
   },
   EMBALMERS_OIL: {
     id: 171286,
-    name: 'Embalmer\'s Oil',
+    name: "Embalmer's Oil",
     icon: 'inv_misc_potionsetb',
     effectId: 6190,
   },

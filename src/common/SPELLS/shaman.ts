@@ -4,9 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from './Spell';
-
-const spells: SpellList = {
+const spells = {
   ASTRAL_SHIFT: {
     id: 108271,
     name: 'Astral Shift',
@@ -62,7 +60,7 @@ const spells: SpellList = {
   },
   NATURES_GUARDIAN_HEAL: {
     id: 31616,
-    name: 'Nature\'s Guardian',
+    name: "Nature's Guardian",
     icon: 'spell_nature_natureguardian',
   },
   TREMOR_TOTEM: {
@@ -75,12 +73,6 @@ const spells: SpellList = {
     id: 260881,
     name: 'Spirit Wolf',
     icon: 'spell_hunter_lonewolf',
-  },
-  EARTH_SHIELD: {
-    id: 974,
-    name: 'Earth Shield',
-    icon: 'spell_nature_skinofearth',
-    manaCost: 1000,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -740,7 +732,8 @@ const spells: SpellList = {
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },
-  SPIRIT_LINK_TOTEM_BUFF: { // casted by totem
+  SPIRIT_LINK_TOTEM_BUFF: {
+    // casted by totem
     id: 325174,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
@@ -777,7 +770,7 @@ const spells: SpellList = {
   },
   SPIRITWALKERS_GRACE: {
     id: 79206,
-    name: 'Spiritwalker\'s Grace',
+    name: "Spiritwalker's Grace",
     icon: 'spell_shaman_spiritwalkersgrace',
     manaCost: 1410,
   },
@@ -841,5 +834,6 @@ const spells: SpellList = {
     name: 'Surge of Earth',
     icon: 'inv_elementalearth2',
   },
-};
+} as const;
+
 export default spells;

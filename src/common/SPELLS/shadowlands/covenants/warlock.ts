@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //Kyrian
   SCOURING_TITHE: {
     id: 312321,
@@ -9,8 +7,18 @@ const covenants: SpellList = {
   },
 
   //Venthyr
-  IMPENDING_CATASTROPHE: {
+  IMPENDING_CATASTROPHE_CAST: {
     id: 321792,
+    name: 'Impending Catastrophe',
+    icon: 'ability_revendreth_warlock',
+  },
+  IMPENDING_CATASTROPHE_HIT: {
+    id: 322167,
+    name: 'Impending Catastrophe',
+    icon: 'ability_revendreth_warlock',
+  },
+  IMPENDING_CATASTROPHE_DEBUFF: {
+    id: 322170,
     name: 'Impending Catastrophe',
     icon: 'ability_revendreth_warlock',
   },
@@ -19,7 +27,7 @@ const covenants: SpellList = {
   DECIMATING_BOLT: {
     id: 325289,
     name: 'Decimating Bolt',
-    icon: 'ability_maldraxxus_warlock'
+    icon: 'ability_maldraxxus_warlock',
   },
 
   //Night Fae
@@ -28,5 +36,5 @@ const covenants: SpellList = {
     name: 'Soul Rot',
     icon: 'ability_ardenweald_warlock',
   },
-};
+} as const;
 export default covenants;

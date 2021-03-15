@@ -1,6 +1,5 @@
-import Cookies from 'universal-cookie';
-
 import { APPEND_REPORT_HISTORY } from 'interface/actions/reportHistory';
+import Cookies from 'universal-cookie';
 
 const MAX_ITEMS = 5;
 const cookies = new Cookies();
@@ -15,7 +14,7 @@ export default function reportHistory(state = defaultState, action) {
   switch (action.type) {
     case APPEND_REPORT_HISTORY: {
       let newState = [
-        ...state.filter(item => item.code !== action.payload.code), // remove existing report with this code
+        ...state.filter((item) => item.code !== action.payload.code), // remove existing report with this code
         action.payload,
       ];
       const numItems = newState.length;

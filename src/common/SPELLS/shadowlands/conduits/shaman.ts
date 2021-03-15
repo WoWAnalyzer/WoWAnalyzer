@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
 
   //endregion
@@ -28,14 +26,14 @@ const conduits: SpellList = {
     name: 'Heavy Rainfall',
     icon: 'shaman_pvp_ripplingwaters',
   },
-  HEAVY_RAINFALL_BUFF:{
+  HEAVY_RAINFALL_BUFF: {
     id: 338344,
     name: 'Heavy Rainfall',
     icon: 'shaman_pvp_ripplingwaters',
   },
   NATURES_FOCUS: {
     id: 338346,
-    name: 'Nature\'s Focus',
+    name: "Nature's Focus",
     icon: 'spell_shaman_blessingofeternals',
   },
   SWIRLING_CURRENTS: {
@@ -48,5 +46,5 @@ const conduits: SpellList = {
     name: 'Swirling Currents',
     icon: 'spell_holy_serendipity',
   },
-};
+} as const;
 export default conduits;

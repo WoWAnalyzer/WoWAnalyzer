@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //Affliction
   COLD_EMBRACE: {
     id: 339576,
@@ -41,7 +39,7 @@ const conduits: SpellList = {
   },
   TYRANTS_SOUL: {
     id: 339766,
-    name: 'Tyrant\'s Soul',
+    name: "Tyrant's Soul",
     icon: 'spell_warlock_soulburn',
   },
 
@@ -93,12 +91,16 @@ const conduits: SpellList = {
     name: 'Fel Celerity',
     icon: 'spell_shadow_felmending',
   },
+  KILROGGS_CUNNING: {
+    id: 58081,
+    name: "Kilrogg's Cunning",
+    icon: 'spell_shadow_evileye',
+  },
   SHADE_OF_TERROR: {
     id: 339379,
     name: 'Shade of Terror',
     icon: 'spell_shadow_possession',
   },
-  //WHAT IS THE MISSING CONDUIT??
 
   //Covenant
   SOUL_TITHE: {
@@ -121,5 +123,5 @@ const conduits: SpellList = {
     name: 'Exhumed Soul',
     icon: 'ability_ardenweald_warlock',
   },
-};
+} as const;
 export default conduits;

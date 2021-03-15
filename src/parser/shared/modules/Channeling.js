@@ -1,8 +1,7 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import SPELLS from 'common/SPELLS';
 import Events, { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const debug = false;
 
@@ -14,7 +13,7 @@ class Channeling extends Analyzer {
   };
   _currentChannel = null;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBegincast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -38,11 +37,15 @@ class Channeling extends Analyzer {
     debug && this.log('Beginning channel of', ability.name);
     this.eventEmitter.fabricateEvent(channelingEvent, event);
   }
+
   endChannel(event) {
     const currentChannel = this._currentChannel;
     const start = currentChannel ? currentChannel.timestamp : this.owner.fight.start_time;
     if (!this.isChanneling()) {
-      this.warn(event.ability.name, '`endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
+      this.warn(
+        event.ability.name,
+        "`endChannel` was called while we weren't channeling, assuming it was a pre-combat channel.",
+      );
     }
 
     const duration = event.timestamp - start;
@@ -50,44 +53,40 @@ class Channeling extends Analyzer {
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
     debug && this.log('Ending channel of', ability.name);
-    return this.eventEmitter.fabricateEvent({
-      type: EventType.EndChannel,
-      timestamp: event.timestamp,
-      ability,
-      sourceID: event.sourceID,
-      duration: duration,
-      start,
-      beginChannel: currentChannel,
-    }, event); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
+    return this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.EndChannel,
+        timestamp: event.timestamp,
+        ability,
+        sourceID: event.sourceID,
+        duration: duration,
+        start,
+        beginChannel: currentChannel,
+      },
+      event,
+    ); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
   }
+
   cancelChannel(event, ability) {
-    // Manually handle Potion of Replenishment
-    if (this.isChannelingSpell(SPELLS.POTION_OF_REPLENISHMENT.id)) {
-      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else:', event.ability.name);
-      this.endChannel(event);
-      return;
-    }
-    this.eventEmitter.fabricateEvent({
-      type: EventType.CancelChannel,
-      ability,
-      sourceID: event.sourceID,
-      timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
-    }, event);
+    this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.CancelChannel,
+        ability,
+        sourceID: event.sourceID,
+        timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
+      },
+      event,
+    );
     debug && this.warn('Canceled channel of', ability.name);
   }
 
   onBegincast(event) {
     this.beginChannel(event);
   }
+
   onCast(event) {
     if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
       // Some things such as boss mechanics are marked as cast-events even though they're usually just "ticks". This can even occur while channeling. We need to ignore them or it will throw off this module.
-      return;
-    }
-
-    // Fabricates the required events to show the channeling of Potion of Replenishment.
-    if (event.ability.guid === SPELLS.POTION_OF_REPLENISHMENT.id) {
-      this.beginChannel(event);
       return;
     }
 
@@ -103,9 +102,11 @@ class Channeling extends Analyzer {
       event.channel = this.endChannel(event);
     }
   }
+
   isChanneling() {
     return Boolean(this._currentChannel);
   }
+
   isChannelingSpell(spellId) {
     return this._currentChannel && this._currentChannel.ability.guid === spellId;
   }

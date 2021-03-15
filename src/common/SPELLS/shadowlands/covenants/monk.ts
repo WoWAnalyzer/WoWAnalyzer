@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   //heal 311123
   //buff and cast 310454
@@ -13,6 +11,11 @@ const covenants: SpellList = {
     id: 310454,
     name: 'Weapons of Order',
     icon: 'ability_bastion_monk',
+  },
+  WEAPONS_OF_ORDER_CHI_DISCOUNT: {
+    id: 311054,
+    name: 'Weapons of Order',
+    icon: 'ability_monk_risingsunkick',
   },
   //endregion
 
@@ -45,13 +48,23 @@ const covenants: SpellList = {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  FAELINE_STOMP_HEAL: {
+  FAELINE_STOMP_DAMAGE_AND_HEAL: {
     id: 345727,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
   FAELINE_STOMP_ESSENCE_FONT: {
     id: 344006,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_PULSE_DAMAGE: {
+    id: 327264,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_RESET: {
+    id: 327276,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
@@ -105,5 +118,5 @@ const covenants: SpellList = {
   },
 
   //endregion
-};
+} as const;
 export default covenants;

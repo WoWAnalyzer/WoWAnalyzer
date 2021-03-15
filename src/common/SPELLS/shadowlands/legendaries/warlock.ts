@@ -1,6 +1,4 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //Shared
   CLAW_OF_ENDERETH: {
     id: 337038,
@@ -22,7 +20,7 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING: {
     id: 337020,
-    name: 'Wilfred\'s Sigil of Superior Summoning',
+    name: "Wilfred's Sigil of Superior Summoning",
     icon: 'spell_warlock_demonicportal_purple',
     bonusID: 7025,
   },
@@ -36,13 +34,13 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   PERPETUAL_AGONY_OF_AZJAQIR: {
     id: 337106,
-    name: 'Perpetual Agony of Azj\'Aqir',
+    name: "Perpetual Agony of Azj'Aqir",
     icon: 'spell_shadow_painandsuffering',
     bonusID: 7029,
   },
   SACROLASHS_DARK_STRIDE: {
     id: 337111,
-    name: 'Sacrolash\'s Dark Stride',
+    name: "Sacrolash's Dark Stride",
     icon: 'spell_nzinsanity_fearofdeath',
     bonusID: 7030,
   },
@@ -62,7 +60,7 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   GRIM_INQUISITORS_DREAD_CALLING: {
     id: 337141,
-    name: 'Grim Inquisitor\'s Dread Calling',
+    name: "Grim Inquisitor's Dread Calling",
     icon: 'spell_warlock_calldreadstalkers',
     bonusID: 7034,
   },
@@ -74,7 +72,7 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   BALESPIDERS_BURNING_CORE: {
     id: 337159,
-    name: 'Balespider\'s Burning Core',
+    name: "Balespider's Burning Core",
     icon: 'inv_trinket_firelands_02',
     bonusID: 7036,
   },
@@ -82,7 +80,7 @@ const legendaries: SpellList<LegendarySpell> = {
   //Destruction
   CINDERS_OF_THE_AZJAQIR: {
     id: 337166,
-    name: 'Cinders of the Azj\'Aqir',
+    name: "Cinders of the Azj'Aqir",
     icon: 'spell_fire_fireball',
     bonusID: 7038,
   },
@@ -94,7 +92,7 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   MADNESS_OF_THE_AZJAQIR: {
     id: 337169,
-    name: 'Madness of the Azj\'Aqir',
+    name: "Madness of the Azj'Aqir",
     icon: 'ability_warlock_chaosbolt',
     bonusID: 7039,
   },
@@ -104,5 +102,5 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_cape_pandariapvp_d_01',
     bonusID: 7037,
   },
-};
+} as const;
 export default legendaries;

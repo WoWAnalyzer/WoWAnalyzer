@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Paladin:
   CRUSADER_STRIKE: {
     id: 35395,
@@ -45,17 +44,20 @@ const spells: SpellList = {
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
-  DIVINE_STEED_BUFF_ALT: { // probably class mount glyph
+  DIVINE_STEED_BUFF_ALT: {
+    // probably class mount glyph
     id: 254471,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
-  DIVINE_STEED_BUFF_ALT_2: { // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
+  DIVINE_STEED_BUFF_ALT_2: {
+    // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
     id: 276112,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
-  DIVINE_STEED_BUFF_ALT_3: { // Silvermoon charger I think - https://www.warcraftlogs.com/reports/TrfWp1jHdRtQDqkx/#fight=2&source=37&type=auras
+  DIVINE_STEED_BUFF_ALT_3: {
+    // Silvermoon charger I think - https://www.warcraftlogs.com/reports/TrfWp1jHdRtQDqkx/#fight=2&source=37&type=auras
     id: 221886,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
@@ -153,7 +155,7 @@ const spells: SpellList = {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 1400,
+    manaCost: 1600,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -204,7 +206,7 @@ const spells: SpellList = {
   },
   LIGHTS_HAMMER_HEAL: {
     id: 119952,
-    name: 'Light\'s Hammer',
+    name: "Light's Hammer",
     icon: 'spell_paladin_lightshammer',
   },
   JUDGMENT_OF_LIGHT_HEAL: {
@@ -317,12 +319,12 @@ const spells: SpellList = {
   },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
-    name: 'Templar\'s Verdict',
+    name: "Templar's Verdict",
     icon: 'spell_paladin_templarsverdict',
   },
   TEMPLARS_VERDICT: {
     id: 85256,
-    name: 'Templar\'s Verdict',
+    name: "Templar's Verdict",
     icon: 'spell_paladin_templarsverdict',
   },
   BLADE_OF_JUSTICE: {
@@ -416,7 +418,7 @@ const spells: SpellList = {
     icon: 'ability_paladin_sheathoflight',
   },
 
-	// Protection
+  // Protection
   ARDENT_DEFENDER: {
     id: 31850,
     name: 'Ardent Defender',
@@ -424,7 +426,7 @@ const spells: SpellList = {
   },
   AVENGERS_SHIELD: {
     id: 31935,
-    name: 'Avenger\'s Shield',
+    name: "Avenger's Shield",
     icon: 'spell_holy_avengersshield',
   },
   GUARDIAN_OF_ANCIENT_KINGS: {
@@ -484,13 +486,8 @@ const spells: SpellList = {
     name: 'Sacrifice of the Just',
     icon: 'spell_holy_divineshield',
   },
-  SANCTIFIED_WRATH_PROT_TALENT: {
-    id: 171648,
-    name: 'Sanctified Wrath',
-    icon: 'ability_paladin_judgementsofthejust',
-  },
 
-	// Buffs
+  // Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
     id: 132403,
     name: 'Shield of the Righteous',
@@ -508,7 +505,7 @@ const spells: SpellList = {
   },
   FAITHS_ARMOR_BUFF: {
     id: 211903,
-    name: 'Faith\'s Armor',
+    name: "Faith's Armor",
     icon: 'inv_misc_armorkit_23',
   },
   BULWARK_OF_ORDER_SHIELD: {
@@ -537,7 +534,7 @@ const spells: SpellList = {
     name: 'Shining Light',
     icon: 'ability_paladin_toweroflight',
   },
-	// Bonus set tiers
+  // Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
     name: 'T19 2 Set Bonus',
@@ -558,10 +555,10 @@ const spells: SpellList = {
     name: 'T20 4 Set Bonus',
     icon: 'ability_paladin_shieldofthetemplar',
   },
-	//DEBUFFS
+  //DEBUFFS
   AVENGERS_PROTECTION_DEBUFF: {
     id: 242265,
-    name: 'Avenger\'s Protection',
+    name: "Avenger's Protection",
     icon: 'ability_paladin_shieldofthetemplar',
   },
   BLESSED_HAMMER_DEBUFF: {
@@ -590,5 +587,6 @@ const spells: SpellList = {
     name: 'Divine Shield',
     icon: 'spell_holy_divineshield',
   },
-};
+} as const;
+
 export default spells;

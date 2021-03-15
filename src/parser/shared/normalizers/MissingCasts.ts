@@ -1,6 +1,5 @@
+import { AnyEvent, ApplyBuffEvent, CastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import SPELLS from 'common/SPELLS';
-import { AnyEvent, CastEvent, EventType, ApplyBuffEvent } from 'parser/core/Events';
 
 /*
  * Some on use items (e.g. trinkets) provide a buff when used but do not trigger a cast event, making it more annoying to check for automatically using e.g. usage suggestions.
@@ -10,26 +9,29 @@ class MissingCasts extends EventsNormalizer {
   /*
    * List of buffs that do not have an associated cast event
    */
-  static missingCastBuffs = [
-    SPELLS.IGNITION_MAGES_FUSE_BUFF.id,
-  ];
+  static missingCastBuffs: number[] = [];
 
   normalize(events: AnyEvent[]) {
     // Just in case someone chooses to extend this module to modify missingCastBuffs instead of adding to it here...
     const ctor = this.constructor as typeof MissingCasts;
     const missingCastEvents = events
-    .filter((event): event is ApplyBuffEvent => event.type === EventType.ApplyBuff && ctor.missingCastBuffs.includes(event.ability.guid))
-    .map(event => ctor._fabricateCastEvent(event));
-    missingCastEvents.forEach(event => {
-      const index = events.findIndex(e => e.timestamp >= event.timestamp);
+      .filter(
+        (event): event is ApplyBuffEvent =>
+          event.type === EventType.ApplyBuff && ctor.missingCastBuffs.includes(event.ability.guid),
+      )
+      .map((event) => ctor._fabricateCastEvent(event));
+    missingCastEvents.forEach((event) => {
+      const index = events.findIndex((e) => e.timestamp >= event.timestamp);
       events.splice(index, 0, event); //sort into event list just before cast event
     });
     return events;
   }
 
   static _fabricateCastEvent(event: ApplyBuffEvent): CastEvent {
-    if(event.sourceID === undefined) {
-      throw new Error('applybuff event defined in MissingCasts does not contain a sourceID for the fabricated event');
+    if (event.sourceID === undefined) {
+      throw new Error(
+        'applybuff event defined in MissingCasts does not contain a sourceID for the fabricated event',
+      );
     }
     return {
       type: EventType.Cast,

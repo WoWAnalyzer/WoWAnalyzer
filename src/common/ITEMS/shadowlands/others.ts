@@ -1,10 +1,15 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 const items: ItemList = {
   ETERNAL_CAULDRON: {
     id: 171281,
     name: 'Eternal Cauldron',
     icon: 'inv_alchemy_90_cauldron',
+  },
+  ETERNAL_FLASK: {
+    id: 171280,
+    name: 'Eternal Flask',
+    icon: 'inv_alchemy_90_flask_blue',
   },
   SPECTRAL_FLASK_OF_POWER: {
     id: 171276,
@@ -16,7 +21,5 @@ const items: ItemList = {
     name: 'Spectral Flask of Stamina',
     icon: 'inv_alchemy_90_flask_red',
   },
-  
-  
 };
 export default items;

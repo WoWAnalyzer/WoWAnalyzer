@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Blood Elf
   ARCANE_TORRENT_MANA1: {
     id: 155145,
@@ -244,12 +243,12 @@ const spells: SpellList = {
   // Lightforged Draenei
   LIGHTS_RECKONING: {
     id: 255652,
-    name: 'Light\'s Reckoning',
+    name: "Light's Reckoning",
     icon: 'ability_racial_finalverdict',
   },
   LIGHTS_JUDGMENT: {
     id: 255647,
-    name: 'Light\'s Judgment',
+    name: "Light's Judgment",
     icon: 'ability_racial_orbitalstrike',
   },
   FORGE_OF_LIGHT: {
@@ -263,25 +262,30 @@ const spells: SpellList = {
     name: 'Ancestral Call',
     icon: 'ability_racial_ancestralcall',
   },
-  RICTUS_OF_THE_LAUGHING_SKULL: { // Crit Buff
+  RICTUS_OF_THE_LAUGHING_SKULL: {
+    // Crit Buff
     id: 274739,
     name: 'Rictus of the Laughing Skull',
     icon: 'ability_racial_ancestralcall',
   },
-  ZEAL_OF_THE_BURNING_BLADE: { // Haste Buff
+  ZEAL_OF_THE_BURNING_BLADE: {
+    // Haste Buff
     id: 274740,
     name: 'Zeal of the Burning Blade',
     icon: 'ability_racial_ancestralcall',
   },
-  FEROCITY_OF_THE_FROSTWOLF: { // Mastery Buff
+  FEROCITY_OF_THE_FROSTWOLF: {
+    // Mastery Buff
     id: 274741,
     name: 'Ferocity of the Frostwolf',
     icon: 'ability_racial_ancestralcall',
   },
-  MIGHT_OF_THE_BLACKROCK: { // Versatility Buff
+  MIGHT_OF_THE_BLACKROCK: {
+    // Versatility Buff
     id: 274742,
     name: 'Might of the Blackrock',
     icon: 'ability_racial_ancestralcall',
   },
-};
+} as const;
+
 export default spells;

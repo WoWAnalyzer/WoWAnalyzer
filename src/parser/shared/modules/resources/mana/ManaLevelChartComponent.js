@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import fetchWcl from 'common/fetchWclApi';
-
-import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
+import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class ManaLevelChartComponent extends React.PureComponent {
   static propTypes = {
@@ -27,7 +25,12 @@ class ManaLevelChartComponent extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end || prevProps.offset !== this.props.offset) {
+    if (
+      prevProps.reportCode !== this.props.reportCode ||
+      prevProps.start !== this.props.start ||
+      prevProps.end !== this.props.end ||
+      prevProps.offset !== this.props.offset
+    ) {
       this.load();
     }
   }
@@ -40,38 +43,38 @@ class ManaLevelChartComponent extends React.PureComponent {
       sourceclass: 'Boss',
       hostility: 1,
       abilityid: 1000,
-    })
-      .then(json => {
-        this.setState({
-          bossHealth: json,
-        });
+    }).then((json) => {
+      this.setState({
+        bossHealth: json,
       });
+    });
   }
 
   render() {
     if (!this.state.bossHealth) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
+      return <div>Loading...</div>;
     }
 
     const { start, offset, manaUpdates, combatants } = this.props;
-    const initial = manaUpdates[0] ? (manaUpdates[0].current / manaUpdates[0].max) : 1; // if first event is defined, use it to copy first value, otherwise use 100%
-    const mana = offset === 0 ?
-      [{ x: 0, y: 100 }] :
-      [{
-        x: 0,
-        y: 100 * initial,
-      }]; // start with full mana if we start at the beginning of the fight, otherwise copy first value
-    mana.push(...manaUpdates.map(({ timestamp, current, max }) => {
-      const x = Math.max(timestamp, start) - start;
-      return {
-        x,
-        y: (current / max) * 100,
-      };
-    }));
+    const initial = manaUpdates[0] ? manaUpdates[0].current / manaUpdates[0].max : 1; // if first event is defined, use it to copy first value, otherwise use 100%
+    const mana =
+      offset === 0
+        ? [{ x: 0, y: 100 }]
+        : [
+            {
+              x: 0,
+              y: 100 * initial,
+            },
+          ]; // start with full mana if we start at the beginning of the fight, otherwise copy first value
+    mana.push(
+      ...manaUpdates.map(({ timestamp, current, max }) => {
+        const x = Math.max(timestamp, start) - start;
+        return {
+          x,
+          y: (current / max) * 100,
+        };
+      }),
+    );
 
     const bossData = this.state.bossHealth.series.map((series) => {
       const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
@@ -86,7 +89,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     let deaths = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
-        .filter(death => Boolean(death.targetIsFriendly))
+        .filter((death) => Boolean(death.targetIsFriendly))
         .map(({ timestamp, targetID, killingAbility }) => ({
           x: timestamp - start,
           name: combatants.players[targetID].name,
@@ -96,11 +99,7 @@ class ManaLevelChartComponent extends React.PureComponent {
 
     return (
       <div className="graph-container">
-        <ManaLevelGraph
-          mana={mana}
-          bossData={bossData}
-          deaths={deaths}
-        />
+        <ManaLevelGraph mana={mana} bossData={bossData} deaths={deaths} />
       </div>
     );
   }

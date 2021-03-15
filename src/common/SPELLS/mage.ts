@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   //General
   FROST_NOVA: {
     id: 122,
@@ -62,10 +61,10 @@ const spells: SpellList = {
     name: 'Rune of Power',
     icon: 'spell_mage_runeofpower',
   },
-  MIRROR_IMAGE: { 
-    id: 55342, 
-    name: 'Mirror Image', 
-    icon: 'spell_magic_lesserinvisibilty', 
+  MIRROR_IMAGE: {
+    id: 55342,
+    name: 'Mirror Image',
+    icon: 'spell_magic_lesserinvisibilty',
   },
   MIRROR_IMAGE_SUMMON: {
     id: 88088,
@@ -173,7 +172,6 @@ const spells: SpellList = {
     icon: 'inv_mawrat',
   },
 
-
   //Frost
   MASTERY_ICICLES: {
     id: 76613,
@@ -217,7 +215,7 @@ const spells: SpellList = {
   },
   WINTERS_CHILL: {
     id: 228358,
-    name: 'Winter\'s Chill',
+    name: "Winter's Chill",
     icon: 'spell_frost_frostward',
   },
   GLACIAL_SPIKE_BUFF: {
@@ -352,10 +350,10 @@ const spells: SpellList = {
     name: 'Fire Blast',
     icon: 'spell_fire_fireball',
   },
-  PHOENIX_FLAMES: { 
-    id: 257541, 
-    name: 'Phoenix Flames', 
-    icon: 'artifactability_firemage_phoenixbolt', 
+  PHOENIX_FLAMES: {
+    id: 257541,
+    name: 'Phoenix Flames',
+    icon: 'artifactability_firemage_phoenixbolt',
   },
   HEATING_UP: {
     id: 48107,
@@ -404,7 +402,7 @@ const spells: SpellList = {
   },
   DRAGONS_BREATH: {
     id: 31661,
-    name: 'Dragon\'s Breath',
+    name: "Dragon's Breath",
     icon: 'inv_misc_head_dragon_01',
   },
   METEOR_DAMAGE: {
@@ -417,7 +415,7 @@ const spells: SpellList = {
     name: 'Pyroclasm',
     icon: 'spell_shaman_lavasurge',
   },
-  PHOENIX_FLAMES_CLEAVE_DAMAGE: {
+  PHOENIX_FLAMES_DAMAGE: {
     id: 257542,
     name: 'Phoenix Flames',
     icon: 'artifactability_firemage_phoenixbolt',
@@ -454,10 +452,15 @@ const spells: SpellList = {
     name: 'Arcane Explosion',
     icon: 'spell_nature_wispsplode',
   },
-  TOUCH_OF_THE_MAGI: { 
-    id: 210725, 
-    name: 'Touch of the Magi', 
-    icon: 'spell_mage_icenova', 
+  TOUCH_OF_THE_MAGI: {
+    id: 321507,
+    name: 'Touch of the Magi',
+    icon: 'spell_mage_icenova',
+  },
+  TOUCH_OF_THE_MAGI_DEBUFF: {
+    id: 210824,
+    name: 'Touch of the Magi',
+    icon: 'spell_mage_icenova',
   },
   ARCANE_POWER: {
     id: 12042,
@@ -544,5 +547,5 @@ const spells: SpellList = {
     name: 'Arcane Orb',
     icon: 'spell_mage_arcaneorb',
   },
-};
+} as const;
 export default spells;

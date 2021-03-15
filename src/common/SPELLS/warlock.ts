@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // -------------
   // Shared spells
   // -------------
@@ -134,11 +133,11 @@ const spells: SpellList = {
     name: 'Fel Domination',
     icon: 'spell_shadow_felmending',
   },
-  DEMONIC_CIRCLE: { 
-    id: 268358, 
-    name: 'Demonic Circle', 
-    icon: 'spell_shadow_demoniccirclesummon', 
-    manaCost: 2000, 
+  DEMONIC_CIRCLE: {
+    id: 268358,
+    name: 'Demonic Circle',
+    icon: 'spell_shadow_demoniccirclesummon',
+    manaCost: 2000,
   },
   DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
@@ -252,10 +251,10 @@ const spells: SpellList = {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  SHADOW_EMBRACE: { 
-    id: 32388, 
-    name: 'Shadow Embrace', 
-    icon: 'spell_shadow_shadowembrace' 
+  SHADOW_EMBRACE: {
+    id: 32388,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
   },
   MALEFIC_RAPTURE: {
     id: 324536,
@@ -324,12 +323,12 @@ const spells: SpellList = {
   },
   HAND_OF_GULDAN_CAST: {
     id: 105174,
-    name: 'Hand of Gul\'dan',
+    name: "Hand of Gul'dan",
     icon: 'ability_warlock_handofguldan',
   },
   HAND_OF_GULDAN_DAMAGE: {
     id: 86040,
-    name: 'Hand of Gul\'dan',
+    name: "Hand of Gul'dan",
     icon: 'ability_warlock_handofguldan',
   },
   IMPLOSION_CAST: {
@@ -411,7 +410,7 @@ const spells: SpellList = {
   // Inner Demons pet abilities
   INNER_DEMONS_EYE_OF_GULDAN: {
     id: 272131,
-    name: 'Eye of Gul\'dan',
+    name: "Eye of Gul'dan",
     icon: 'inv_misc_eye_01',
   },
   INNER_DEMONS_TOXIC_BILE: {
@@ -572,7 +571,7 @@ const spells: SpellList = {
   },
   URZUL_SUMMON: {
     id: 268001,
-    name: 'Summon Ur\'zul',
+    name: "Summon Ur'zul",
     icon: 'inv_soulhoundmount_blue',
   },
   WRATHGUARD_SUMMON: {
@@ -582,7 +581,7 @@ const spells: SpellList = {
   },
   EYE_OF_GULDAN_SUMMON: {
     id: 267989,
-    name: 'Summon Eyes of Gul\'dan',
+    name: "Summon Eyes of Gul'dan",
     icon: 'inv_pet_inquisitoreye',
   },
   PRINCE_MALCHEZAAR_SUMMON: {
@@ -721,5 +720,6 @@ const spells: SpellList = {
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
   },
-};
+} as const;
+
 export default spells;

@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 const LOWER_FOOD_IDS = [
   //BFA Food
@@ -43,9 +43,9 @@ const HIGHER_FOOD_IDS = [
   SPELLS.BANANA_BEEF_PUDDING.id,
 
   //30 Secondary Stat
-  SPELLS.PHANTASMAL_SOUFFLE_AND_FRIES.id,
+  SPELLS.SPINEFIN_SOUFFLE_AND_FRIES.id,
   SPELLS.TENEBROUS_CROWN_ROAST_ASPIC.id,
-  SPELLS.CRAWLER_RAVIOLI_WITH_APPLE_SAUCE.id,
+  SPELLS.IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE.id,
   SPELLS.STEAK_A_LA_MODE.id,
 ];
 
@@ -54,7 +54,7 @@ class FoodChecker extends Analyzer {
   midTierFoodUp = false;
   higherFoodUp = false;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
   }
@@ -89,17 +89,20 @@ class FoodChecker extends Analyzer {
   }
   suggestions(when: When) {
     let importance = SUGGESTION_IMPORTANCE.MINOR;
-    let suggestionText = 'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
+    let suggestionText =
+      'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
     if (!this.higherFoodUp && (this.lowerFoodUp || this.midTierFoodUp)) {
-      suggestionText = 'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
+      suggestionText =
+        'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
     }
     if (!this.higherFoodUp && !this.lowerFoodUp && !this.midTierFoodUp) {
       importance = SUGGESTION_IMPORTANCE.MAJOR;
     }
-    when(this.higherFoodSuggestionThresholds)
-      .addSuggestion((suggest) => suggest(suggestionText)
-          .icon(SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.icon)
-          .staticImportance(importance));
+    when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
+      suggest(suggestionText)
+        .icon(SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.icon)
+        .staticImportance(importance),
+    );
   }
 }
 export default FoodChecker;

@@ -1,18 +1,15 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import SpellLink from 'common/SpellLink';
-import Enemies from 'parser/shared/modules/Enemies';
-
-import { findByBossId } from 'raids';
-import StatisticBox from 'interface/others/StatisticBox';
+import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+import { findByBossId } from 'game/raids';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const debug = false;
 

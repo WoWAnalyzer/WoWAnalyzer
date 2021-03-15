@@ -1,14 +1,10 @@
+import Spell from 'common/SPELLS/Spell';
+import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import Combatant from 'parser/core/Combatant';
-
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
-
-import Spell from 'common/SPELLS/Spell';
-
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 
 import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
@@ -84,10 +80,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
      * A function to get the amount of casts done of a spell.
      * @deprecated Usage should be avoided. This may be removed in the future.
      */
-    casts?: (
-      castCount: TrackedAbilityType,
-      parser: CombatLogParser,
-    ) => number;
+    casts?: (castCount: TrackedAbilityType, parser: CombatLogParser) => number;
     /**
      * A function to get the max amount of casts for a spell.
      * @deprecated Usage should be avoided. This may be removed in the future.
@@ -150,6 +143,18 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
 }
 
 class Ability {
+  /**
+   * When extending this class with a new propTypes property you MUST include
+   * its parent's propTypes values in your new override value. Otherwise your
+   * class will treat inherited props as misplaced
+   * Example:
+   * import CoreAbility from 'parser/core/modules/Ability';
+   * class Ability extends CoreAbility {
+   *   static propTypes = {
+   *     ...CoreAbility.propTypes,
+   *     //...new property entries here...
+   * }
+   */
   static propTypes: { [key: string]: any } = {
     /**
      * REQUIRED The spell definition. If an array of spell definitions is
@@ -268,10 +273,7 @@ class Ability {
      * The buff(s) belonging to the ability. Setting this will display the buff
      * on the timeline.
      */
-    buffSpellId: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(PropTypes.number),
-    ]),
+    buffSpellId: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
     /**
      * A boolean to indicate the spell is a defensive.
      */
@@ -394,8 +396,6 @@ class Ability {
   shownSpell = null;
 
   /**
-   * When extending this class you MUST copy-paste this function into the new
-   * class. Otherwise your new props will not be set properly.
    * @param owner
    * @param options
    */
@@ -419,7 +419,7 @@ class Ability {
         'prop',
         'Ability',
       );
-      Object.keys(props).forEach(prop => {
+      Object.keys(props).forEach((prop) => {
         if (
           // eslint-disable-next-line react/forbid-foreign-prop-types
           (this.constructor as typeof Ability).propTypes[prop] === undefined
@@ -433,14 +433,14 @@ class Ability {
         }
       });
     }
-    Object.keys(props).forEach(prop => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    Object.keys(props).forEach((prop) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this._setProp(prop, props[prop]);
     });
   }
   _setProp(prop: string, value: any) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this[prop] = value;
   }

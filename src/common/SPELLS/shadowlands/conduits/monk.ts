@@ -1,24 +1,26 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
-  //Potency 
+const conduits = {
+  //Potency
   //generic
-  STRIKE_WITH_CLARITY: {//kyrian
+  STRIKE_WITH_CLARITY: {
+    //kyrian
     id: 337286,
     name: 'Strike with Clarity',
     icon: 'ability_bastion_warrior',
   },
-  BONE_MARROW_HOPS: {//necrolord
+  BONE_MARROW_HOPS: {
+    //necrolord
     id: 337295,
     name: 'Bone Marrow Hops',
     icon: 'spell_animamaldraxxus_nova',
   },
-  IMBUED_REFLECTIONS: {//venthyr
+  IMBUED_REFLECTIONS: {
+    //venthyr
     id: 337301,
     name: 'Imbued Reflections',
     icon: 'spell_animarevendreth_buff',
   },
-  WAY_OF_THE_FAE: {//nightfae
+  WAY_OF_THE_FAE: {
+    //nightfae
     id: 337303,
     name: 'Way of the Fae',
     icon: 'spell_animaardenweald_beam',
@@ -47,7 +49,7 @@ const conduits: SpellList = {
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
   },
-  NOURISHING_CHI_BUFF:{
+  NOURISHING_CHI_BUFF: {
     id: 337242,
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
@@ -86,11 +88,11 @@ const conduits: SpellList = {
   },
   XUENS_BOND: {
     id: 336616,
-    name: 'Xuen\'s Bond',
+    name: "Xuen's Bond",
     icon: 'ability_demonhunter_netherbond',
   },
 
-  //Endurance  
+  //Endurance
   //generic
   HARM_DENIAL: {
     id: 336379,
@@ -134,5 +136,10 @@ const conduits: SpellList = {
     name: 'Evasive Stride',
     icon: 'ability_monk_uplift',
   },
-};
+  EVASIVE_STRIDE_HEAL: {
+    id: 343764,
+    name: 'Evasive Stride',
+    icon: 'ability_monk_uplift',
+  },
+} as const;
 export default conduits;

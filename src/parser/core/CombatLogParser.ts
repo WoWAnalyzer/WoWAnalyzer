@@ -1,100 +1,90 @@
-import React from 'react';
-
-import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import DeathRecapTracker from 'interface/others/DeathRecapTracker';
-import ModuleError from 'parser/core/ModuleError';
+import { Boss, findByBossId } from 'game/raids';
+import CharacterProfile from 'parser/core/CharacterProfile';
 import {
   AnyEvent,
   CombatantInfoEvent,
-  Event, EventType,
+  Event,
+  EventType,
   HasSource,
   HasTarget,
   MappedEvent,
 } from 'parser/core/Events';
+import ModuleError from 'parser/core/ModuleError';
+import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
+import Haste from 'parser/shared/modules/Haste';
+import React from 'react';
 
-import Module, { Options } from './Module';
-import Fight from './Fight';
-import Analyzer from './Analyzer';
-import EventFilter from './EventFilter';
-import { EventListener } from './EventSubscriber';
 import { Builds } from '../Config';
-// Normalizers
-import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
-import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
-import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
-import FightEndNormalizer from '../shared/normalizers/FightEnd';
-import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
-import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
-// Enhancers
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-// Core modules
-import HealingDone from '../shared/modules/throughput/HealingDone';
-import DamageDone from '../shared/modules/throughput/DamageDone';
-import DamageTaken from '../shared/modules/throughput/DamageTaken';
-import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
-import DeathTracker from '../shared/modules/DeathTracker';
-
-import Combatants from '../shared/modules/Combatants';
-import AbilityTracker from '../shared/modules/AbilityTracker';
-import Haste from '../shared/modules/Haste';
-import StatTracker from '../shared/modules/StatTracker';
-import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
-import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
-import Abilities from './modules/Abilities';
-import Buffs from './modules/Buffs';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
+import AbilityTracker from '../shared/modules/AbilityTracker';
+import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
-import SpellUsable from '../shared/modules/SpellUsable';
-import EventHistory from '../shared/modules/EventHistory';
-import SpellHistory from '../shared/modules/SpellHistory';
-import GlobalCooldown from '../shared/modules/GlobalCooldown';
-import Enemies from '../shared/modules/Enemies';
-import EnemyInstances from '../shared/modules/EnemyInstances';
-import Pets from '../shared/modules/Pets';
-import ManaValues from '../shared/modules/ManaValues';
-import SpellManaCost from '../shared/modules/SpellManaCost';
 import Channeling from '../shared/modules/Channeling';
+import Combatants from '../shared/modules/Combatants';
+import DeathTracker from '../shared/modules/DeathTracker';
+import DispelTracker from '../shared/modules/DispelTracker';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
-import DistanceMoved from '../shared/modules/others/DistanceMoved';
-import DispelTracker from '../shared/modules/DispelTracker';
-// Tabs
+import Enemies from '../shared/modules/Enemies';
+import EnemyInstances from '../shared/modules/EnemyInstances';
+import EventHistory from '../shared/modules/EventHistory';
+import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
-
+import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
+import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
-
-import PotionChecker from '../shared/modules/items/PotionChecker';
+import AugmentRuneChecker from '../shared/modules/items/AugmentRuneChecker';
+import CombatPotion from '../shared/modules/items/CombatPotion';
 import EnchantChecker from '../shared/modules/items/EnchantChecker';
 import FlaskChecker from '../shared/modules/items/FlaskChecker';
 import FoodChecker from '../shared/modules/items/FoodChecker';
-import Healthstone from '../shared/modules/items/Healthstone';
 import HealthPotion from '../shared/modules/items/HealthPotion';
-import CombatPotion from '../shared/modules/items/CombatPotion';
+import Healthstone from '../shared/modules/items/Healthstone';
+import PotionChecker from '../shared/modules/items/PotionChecker';
+import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/DarkmoonDeckVoracity';
+import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 import WeaponEnhancementChecker from '../shared/modules/items/WeaponEnhancementChecker';
-import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
-// Racials
+import ManaValues from '../shared/modules/ManaValues';
+import DistanceMoved from '../shared/modules/others/DistanceMoved';
+import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
-import Berserking from '../shared/modules/racials/troll/Berserking';
 import BloodFury from '../shared/modules/racials/orc/BloodFury';
-// Shared Buffs
+import Berserking from '../shared/modules/racials/troll/Berserking';
+import SpellHistory from '../shared/modules/SpellHistory';
+import SpellManaCost from '../shared/modules/SpellManaCost';
+import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 import VantusRune from '../shared/modules/spells/VantusRune';
-// Shadowlands
-// Dungeons
-// PVP
-//Enchants
-// Crafted
-// Castle Nathria
-
-// Legendaries
-
-import ParseResults from './ParseResults';
-import EventsNormalizer from './EventsNormalizer';
-import EventEmitter from './modules/EventEmitter';
+import SpellUsable from '../shared/modules/SpellUsable';
+import StatTracker from '../shared/modules/StatTracker';
+import DamageDone from '../shared/modules/throughput/DamageDone';
+import DamageTaken from '../shared/modules/throughput/DamageTaken';
+import HealingDone from '../shared/modules/throughput/HealingDone';
+import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
+import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
+import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
+import FightEndNormalizer from '../shared/normalizers/FightEnd';
+import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
+import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
+import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import Analyzer from './Analyzer';
 import Combatant from './Combatant';
+import EventFilter from './EventFilter';
+import EventsNormalizer from './EventsNormalizer';
+import { EventListener } from './EventSubscriber';
+import Fight from './Fight';
+import Module, { Options } from './Module';
+import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
+import EventEmitter from './modules/EventEmitter';
+import ParseResults from './ParseResults';
+import { PetInfo } from './Pet';
+import { PlayerInfo } from './Player';
+import Report from './Report';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -112,7 +102,6 @@ export interface Player {
   name: string;
   talents: Talent[];
   artifact: unknown;
-  heartOfAzeroth: unknown;
   gear: unknown;
   auras: unknown;
 }
@@ -181,6 +170,7 @@ class CombatLogParser {
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
+    augmentRuneChecker: AugmentRuneChecker,
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
@@ -198,38 +188,40 @@ class CombatLogParser {
     // Items:
 
     // Legendaries
+
+    // Crafted
+    darkmoonDeckVoracity: DarkmoonDeckVoracity,
+
+    // Shadowlands
+
+    // Castle Nathria
+    soulInfusion: SoulInfusion,
+
+    // Dungeons
+    overchargedAnimaBattery: OverchargedAnimaBattery,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase: any, instance: any) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
 
-  // TODO create report type
-  report: any;
-  /** Character info from the Battle.net API (optional) */
-  // TODO create profile type
-  characterProfile: any;
+  report: Report;
+  characterProfile: CharacterProfile;
 
   // Player info from WCL - required
-  player: SelectedPlayer;
-  playerPets: Array<{
-    name: string;
-    id: number;
-    guid: number;
-    type: "Pet",
-    icon: string;
-  }>;
+  player: PlayerInfo;
+  playerPets: PetInfo[];
   fight: Fight;
-  build: string;
-  builds: Builds;
+  build?: string;
+  builds?: Builds;
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
   //Disabled Modules
   disabledModules!: { [state in ModuleError]: any[] };
 
-  adjustForDowntime = true;
+  adjustForDowntime = false;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
@@ -259,7 +251,7 @@ class CombatLogParser {
   }
   finished = false;
 
-  get players(): Player[] {
+  get players(): PlayerInfo[] {
     return this.report.friendlies;
   }
   get selectedCombatant(): Combatant {
@@ -267,19 +259,17 @@ class CombatLogParser {
   }
 
   constructor(
-    report: any,
-    selectedPlayer: SelectedPlayer,
+    report: Report,
+    selectedPlayer: PlayerInfo,
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
-    characterProfile: any,
-    build: string,
-    builds: Builds,
+    characterProfile: CharacterProfile,
+    build?: string,
+    builds?: Builds,
   ) {
     this.report = report;
     this.player = selectedPlayer;
-    this.playerPets = report.friendlyPets.filter(
-      (pet: { petOwner: any }) => pet.petOwner === selectedPlayer.id,
-    );
+    this.playerPets = report.friendlyPets.filter((pet) => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
     this.build = build;
     this.builds = builds;
@@ -289,7 +279,7 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore populated dynamically but object keys still strongly typed
     this.disabledModules = {};
     //initialize disabled modules for each state
@@ -369,7 +359,7 @@ class CombatLogParser {
       // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
       // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
       Object.keys(options).forEach((key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         module[key] = options[key];
       });
@@ -679,11 +669,5 @@ class CombatLogParser {
     return results;
   }
 }
-export type SelectedPlayer = {
-  name: string;
-  id: number;
-  guid: number;
-  type: string;
-};
 
 export default CombatLogParser;

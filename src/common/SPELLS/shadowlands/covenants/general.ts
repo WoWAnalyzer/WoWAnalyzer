@@ -1,11 +1,14 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   SUMMON_STEWARD: {
     id: 324739,
     name: 'Summon Steward',
     icon: 'ability_kyrian_summonsteward',
+  },
+  PURIFY_SOUL: {
+    id: 323436,
+    name: 'Purify Soul',
+    icon: 'inv_misc_flaskofvolatility',
   },
   //endregion
 
@@ -30,7 +33,7 @@ const covenants: SpellList = {
     id: 300728,
     name: 'Door of Shadows',
     icon: 'ability_venthyr_doorofshadows',
-  }
+  },
   //endregion
-};
+} as const;
 export default covenants;

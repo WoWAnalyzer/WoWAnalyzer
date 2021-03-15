@@ -1,7 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 
-import CombatLogParser from './CombatLogParser';
 import Combatant from './Combatant';
+import CombatLogParser from './CombatLogParser';
 
 export interface Options {
   [prop: string]: unknown;
@@ -36,8 +36,8 @@ class Module {
     // since a parent constructor can't override the values of a child's class
     // properties.
     // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-    Object.keys(others).forEach(key => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    Object.keys(others).forEach((key) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this[key] = others[key];
     });

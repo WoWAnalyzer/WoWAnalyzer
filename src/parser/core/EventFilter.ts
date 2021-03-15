@@ -39,9 +39,7 @@ class EventFilter<T extends EventType> {
   spell(value: SpellFilter) {
     // TODO: Use spell id instead
     if (typeof value !== 'object') {
-      throw new Error(
-        'The spell filter must be a spell object, not a spell id.',
-      );
+      throw new Error('The spell filter must be a spell object, not a spell id.');
     }
     this._spell = value;
     return this;

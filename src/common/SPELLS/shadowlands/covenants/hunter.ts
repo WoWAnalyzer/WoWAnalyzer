@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   RESONATING_ARROW: {
     id: 308491,
@@ -68,9 +66,9 @@ const covenants: SpellList = {
   },
   FLAYERS_MARK: {
     id: 324156,
-    name: 'Flayer\'s Mark',
+    name: "Flayer's Mark",
     icon: 'ability_hunter_assassinate2',
   },
   //endregion
-};
+} as const;
 export default covenants;

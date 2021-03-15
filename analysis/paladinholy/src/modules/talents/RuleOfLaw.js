@@ -1,0 +1,84 @@
+import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import StatisticBar from 'parser/ui/StatisticBar';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import UptimeBar from 'parser/ui/UptimeBar';
+import React from 'react';
+
+class RuleOfLaw extends Analyzer {
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
+  }
+
+  get uptime() {
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration
+    );
+  }
+
+  get uptimeSuggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.25,
+        average: 0.2,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <Trans id="paladin.holy.modules.talents.ruleOfLaw.suggestion">
+          Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping
+          at least 1 charge on cooldown; you should (almost) never be at max charges.
+        </Trans>,
+      )
+        .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
+        .actual(
+          <Trans id="paladin.holy.modules.talents.ruleOfLaw.actual">
+            {formatPercentage(actual)}% uptime
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="paladin.holy.modules.talents.ruleOfLaw.recommended">
+            &gt;{formatPercentage(recommended)}% is recommended
+          </Trans>,
+        ),
+    );
+  }
+  statistic() {
+    const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
+
+    return (
+      <StatisticBar position={STATISTIC_ORDER.CORE(31)} wide size="small">
+        <div className="flex">
+          <div className="flex-sub icon">
+            <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />
+          </div>
+          <div className="flex-sub value">
+            <Trans id="paladin.holy.modules.talents.ruleOfLaw.smallUptime">
+              {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+            </Trans>
+          </div>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <UptimeBar
+              uptimeHistory={history}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+              style={{ height: '100%' }}
+            />
+          </div>
+        </div>
+      </StatisticBar>
+    );
+  }
+}
+
+export default RuleOfLaw;

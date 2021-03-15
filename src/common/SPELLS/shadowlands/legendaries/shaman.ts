@@ -1,6 +1,5 @@
-import { LegendarySpell, SpellList } from "common/SPELLS/Spell";
 //https://www.raidbots.com/static/data/live/bonuses.json
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Enhancement
 
   //endregion
@@ -12,13 +11,13 @@ const legendaries: SpellList<LegendarySpell> = {
   //region Restoration
   JONATS_NATURAL_FOCUS: {
     id: 335893,
-    name: 'Jonat\'s Natural Focus',
+    name: "Jonat's Natural Focus",
     icon: 'spell_nature_healingwavegreater',
     bonusID: 6997,
   },
   JONATS_NATURAL_FOCUS_BUFF: {
     id: 335894,
-    name: 'Jonat\'s Natural Focus',
+    name: "Jonat's Natural Focus",
     icon: 'spell_nature_healingwavegreater',
   },
   PRIMAL_TIDE_CORE: {
@@ -38,5 +37,5 @@ const legendaries: SpellList<LegendarySpell> = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

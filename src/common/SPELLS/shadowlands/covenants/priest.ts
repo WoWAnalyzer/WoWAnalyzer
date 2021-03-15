@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   BOON_OF_THE_ASCENDED: {
     id: 325013,
@@ -12,13 +10,28 @@ const covenants: SpellList = {
     name: 'Ascended Blast',
     icon: 'spell_animabastion_missile',
   },
+  ASCENDED_BLAST_HEAL: {
+    id: 325315,
+    name: 'Ascended Blast',
+    icon: 'spell_animabastion_missile',
+  },
   ASCENDED_NOVA: {
     id: 325020,
     name: 'Ascended Nova',
     icon: 'spell_animabastion_nova',
   },
+  ASCENDED_NOVA_HEAL: {
+    id: 325041,
+    name: 'Ascended Nova',
+    icon: 'spell_animabastion_nova',
+  },
   ASCENDED_ERUPTION: {
     id: 325326,
+    name: 'Ascended Eruption',
+    icon: 'ability_bastion_priest',
+  },
+  ASCENDED_ERUPTION_HEAL: {
+    id: 347625,
     name: 'Ascended Eruption',
     icon: 'ability_bastion_priest',
   },
@@ -30,7 +43,17 @@ const covenants: SpellList = {
     name: 'Unholy Nova',
     icon: 'ability_maldraxxus_priest',
   },
+  UNHOLY_NOVA_BUFF: {
+    id: 347788,
+    name: 'Unholy Nova',
+    icon: 'ability_maldraxxus_priest',
+  },
   UNHOLY_TRANSFUSION: {
+    id: 325118,
+    name: 'Unholy Transfusion',
+    icon: 'spell_animamaldraxxus_debuff',
+  },
+  UNHOLY_TRANSFUSION_DAMAGE: {
     id: 325203,
     name: 'Unholy Transfusion',
     icon: 'spell_animamaldraxxus_debuff',
@@ -45,6 +68,11 @@ const covenants: SpellList = {
   },
   WRATHFUL_FAERIE: {
     id: 342132,
+    name: 'Wrathful Faerie',
+    icon: 'spell_animaardenweald_orb',
+  },
+  WRATHFUL_FAERIE_ENERGIZE: {
+    id: 327703,
     name: 'Wrathful Faerie',
     icon: 'spell_animaardenweald_orb',
   },
@@ -77,5 +105,5 @@ const covenants: SpellList = {
     icon: 'ability_revendreth_priest',
   },
   //endregion
-};
+} as const;
 export default covenants;

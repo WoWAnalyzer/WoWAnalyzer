@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import SpellLink from 'common/SpellLink';
 import { captureException } from 'common/errorLogger';
+import { SpellLink } from 'interface';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import Requirement from './Requirement';
 
@@ -29,15 +28,16 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
 
   get thresholds() {
     if (!this.props.castEfficiency) {
-      captureException(new Error(`GenericCastEfficiencyRequirement requires that you pass the castEfficiency object yourself. Spell: ${this.props.spell}`));
+      captureException(
+        new Error(
+          `GenericCastEfficiencyRequirement requires that you pass the castEfficiency object yourself. Spell: ${this.props.spell}`,
+        ),
+      );
       return null;
     }
 
-    if(this.props.isMaxCasts) {
-      const {
-        casts,
-        maxCasts,
-      } = this.props.castEfficiency;
+    if (this.props.isMaxCasts) {
+      const { casts, maxCasts } = this.props.castEfficiency;
 
       return {
         actual: casts,
@@ -79,11 +79,7 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
     }
 
     return (
-      <Requirement
-        name={name || <SpellLink id={spell} />}
-        thresholds={thresholds}
-        {...others}
-      />
+      <Requirement name={name || <SpellLink id={spell} />} thresholds={thresholds} {...others} />
     );
   }
 }

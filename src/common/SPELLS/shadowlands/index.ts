@@ -1,12 +1,25 @@
-import safeMerge from 'common/safeMerge';
-
 import Conduits from './conduits';
-import Soulbinds from './soulbinds';
 import Covenants from './covenants';
-import Legendaries from './legendaries';
+import Crafted from './crafted';
+import Dungeons from './dungeons';
 import Enchants from './enchants';
-import Potions from './potions';
+import Legendaries from './legendaries';
 import Oils from './oils';
 import Others from './others';
+import Potions from './potions';
+import Raids from './raids';
+import Soulbinds from './soulbinds';
 
-export default safeMerge(Conduits, Soulbinds, Covenants, Legendaries, Enchants, Potions, Oils, Others);
+export default {
+  ...Conduits,
+  ...Crafted,
+  ...Dungeons,
+  ...Raids,
+  ...Soulbinds,
+  ...Covenants,
+  ...Legendaries,
+  ...Enchants,
+  ...Potions,
+  ...Oils,
+  ...Others,
+} as const;

@@ -1,7 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
-
+const conduits = {
   //Arcane
   ARCANE_PRODIGY: {
     id: 336873,
@@ -20,7 +17,7 @@ const conduits: SpellList = {
   },
   MAGIS_BRAND: {
     id: 337192,
-    name: 'Magi\'s Brand',
+    name: "Magi's Brand",
     icon: 'spell_arcane_arcane01_nightborne',
   },
   NETHER_PRECISION: {
@@ -116,7 +113,7 @@ const conduits: SpellList = {
   },
   WINTERS_PROTECTION: {
     id: 336613,
-    name: 'Winter\'s Protection',
+    name: "Winter's Protection",
     icon: 'spell_ice_rune',
   },
   GROUNDING_SURGE: {
@@ -149,7 +146,7 @@ const conduits: SpellList = {
   DISCIPLINE_OF_THE_GROVE: {
     id: 336992,
     name: 'Discipline of the Grove',
-    icon: 'achievement_big_wineos',
+    icon: 'achievement_bg_wineos',
   },
-};
+} as const;
 export default conduits;

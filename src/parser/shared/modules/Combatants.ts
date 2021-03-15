@@ -1,6 +1,6 @@
+import Combatant from 'parser/core/Combatant';
 import { AnyEvent, HasTarget } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import Combatant from 'parser/core/Combatant';
 
 import Entities from './Entities';
 
@@ -31,9 +31,11 @@ class Combatants extends Entities<Combatant> {
 
   constructor(options: Options) {
     super(options);
-    this.owner.combatantInfoEvents.forEach(combatantInfo => {
+    this.owner.combatantInfoEvents.forEach((combatantInfo) => {
       if (combatantInfo.error) {
-        console.error(`Error retrieving combatant information for player with sourceID ${combatantInfo.sourceID}`);
+        console.error(
+          `Error retrieving combatant information for player with sourceID ${combatantInfo.sourceID}`,
+        );
         return;
       }
 

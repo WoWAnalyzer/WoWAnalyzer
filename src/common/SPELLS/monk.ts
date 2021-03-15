@@ -3,8 +3,7 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Shared
   MYSTIC_TOUCH: {
     id: 8647,
@@ -164,7 +163,7 @@ const spells: SpellList = {
   },
   INVOKE_YULON_THE_JADE_SERPENT: {
     id: 322118,
-    name: 'Invoke Yu\'lon, the Jade Serpent',
+    name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
     manaCost: 2500,
   },
@@ -231,7 +230,8 @@ const spells: SpellList = {
     name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
   },
-  BLACKOUT_KICK_TOTM : { //Backout Kick from TotM
+  BLACKOUT_KICK_TOTM: {
+    //Backout Kick from TotM
     id: 228649,
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
@@ -250,6 +250,11 @@ const spells: SpellList = {
     id: 132578,
     name: 'Invoke Niuzao, the Black Ox',
     icon: 'spell_monk_brewmaster_spec',
+  },
+  NIUZAO_STOMP_DAMAGE: {
+    id: 227291,
+    name: 'Stomp',
+    icon: 'ability_warstomp',
   },
   BLACKOUT_KICK_BRM: {
     id: 205523,
@@ -432,14 +437,14 @@ const spells: SpellList = {
     icon: 'ability_monk_blackoutkick',
   },
   POTENT_KICK: {
-      id: 213047,
-      name: 'Potent Kick',
-      icon: 'ability_monk_ironskinbrew',
+    id: 213047,
+    name: 'Potent Kick',
+    icon: 'ability_monk_ironskinbrew',
   },
   QUICK_SIP: {
-      id: 238129,
-      name: 'Quick Sip',
-      icon: 'spell_misc_drink',
+    id: 238129,
+    name: 'Quick Sip',
+    icon: 'spell_misc_drink',
   },
   STAGGERING_AROUND: {
     id: 213055,
@@ -454,22 +459,28 @@ const spells: SpellList = {
   WANDERERS_HARDINESS_TRAIT: {
     id: 214920,
     name: "Wanderer's Hardiness",
-    icon: "inv_staff_2h_artifactmonkeyking_d_02",
+    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
   },
   ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT: {
     id: 241131,
-    name: "Endurance of the Broken Temple",
-    icon: "misc_legionfall_monk",
+    name: 'Endurance of the Broken Temple',
+    icon: 'misc_legionfall_monk',
   },
   BREW_STACHE: {
     id: 214373,
-    name: "Brew-Stache",
-    icon: "inv_misc_archaeology_vrykuldrinkinghorn",
+    name: 'Brew-Stache',
+    icon: 'inv_misc_archaeology_vrykuldrinkinghorn',
   },
   HOT_TRUB: {
     id: 202126,
-    name: "Hot Trub",
-    icon: "spell_brew_dark",
+    name: 'Hot Trub',
+    icon: 'spell_brew_dark',
+  },
+  // Conduits
+  EVASIVE_STRIDE_HEAL: {
+    id: 343764,
+    name: 'Evasive Stride',
+    icon: 'ability_monk_uplift',
   },
 
   // Windwalker Spells
@@ -583,5 +594,10 @@ const spells: SpellList = {
     name: 'Invoke Xuen, the White Tiger',
     icon: 'ability_monk_summontigerstatue',
   },
-};
+  DANCE_OF_CHI_JI_BUFF: {
+    id: 325202,
+    name: 'Dance of Chi-Ji',
+    icon: 'ability_monk_quitornado',
+  },
+} as const;
 export default spells;

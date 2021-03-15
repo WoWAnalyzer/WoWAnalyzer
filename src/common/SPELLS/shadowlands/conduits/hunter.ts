@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
   ENFEEBLED_MARK_CONDUIT: {
     id: 339018,
@@ -35,6 +33,49 @@ const conduits: SpellList = {
     id: 339061,
     name: 'Empowered Release',
     icon: 'buff_epichunter',
+  },
+  //endregion
+
+  //region Shared
+  HARMONY_OF_THE_TORTOLLAN_CONDUIT: {
+    id: 339377,
+    name: 'Harmony of the Tortollan',
+    icon: 'inv_shield_21',
+  },
+  MARKMANS_ADVANTAGE_CONDUIT: {
+    id: 339264,
+    name: "Markman's Advantage",
+    icon: 'ability_argus_soulbombdebuffsmall',
+  },
+  REJUVENATING_WIND_CONDUIT: {
+    id: 339399,
+    name: 'Rejuvenating Wind',
+    icon: 'ability_druid_galewinds',
+  },
+  REJUVENATING_WIND_BUFF: {
+    id: 339400,
+    name: 'Rejuvenating Wind',
+    icon: 'ability_druid_galewinds',
+  },
+  RESILIENCE_OF_THE_HUNTER_CONDUIT: {
+    id: 339459,
+    name: 'Resilience of the Hunter',
+    icon: 'spell_nature_spiritarmor',
+  },
+  RESILIENCE_OF_THE_HUNTER_BUFF: {
+    id: 339461,
+    name: 'Resilience of the Hunter',
+    icon: 'spell_nature_spiritarmor',
+  },
+  REVERSAL_OF_FORTUNE_CONDUIT: {
+    id: 339495,
+    name: 'Reversal of Fortune',
+    icon: 'inv_trickshot',
+  },
+  REVERSAL_OF_FORTUNE_ENERGIZE: {
+    id: 339498,
+    name: 'Reversal of Fortune',
+    icon: 'inv_trickshot',
   },
   //endregion
 
@@ -89,7 +130,7 @@ const conduits: SpellList = {
   },
   SHARPSHOOTERS_FOCUS_CONDUIT: {
     id: 339920,
-    name: 'Sharpshooter\'s Focus',
+    name: "Sharpshooter's Focus",
     icon: 'ability_creature_cursed_04',
   },
   //endregion
@@ -126,5 +167,5 @@ const conduits: SpellList = {
     icon: 'ability_ironmaidens_swirlingvortex',
   },
   //endregion
-};
+} as const;
 export default conduits;

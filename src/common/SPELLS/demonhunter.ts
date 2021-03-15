@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Common Spells
   GLIDE: {
     id: 131347,
@@ -17,7 +16,7 @@ const spells: SpellList = {
     name: 'Consume Soul',
     icon: 'ability_warlock_improvedsoulleech',
   },
-  FELBLADE_PAIN_GENERATION: {
+  FELBLADE_DAMAGE: {
     id: 213243,
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',
@@ -42,20 +41,20 @@ const spells: SpellList = {
   },
 
   // Abilities:
-  FRACTURE: { //Fracture replaces shear when you take the fracture talent
-    id: 209795,
-    name: "Fracture",
-    icon: "ability_creature_felsunder",
+  FEL_DEVASTATION: {
+    id: 212084,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
   },
   FRACTURE_MAIN_HAND: {
     id: 225919,
-    name: "Fracture(Main Hand)",
-    icon: "ability_creature_felsunder",
+    name: 'Fracture(Main Hand)',
+    icon: 'ability_creature_felsunder',
   },
   FRACTURE_OFF_HAND: {
     id: 225921,
-    name: "Fracture(Off Hand)",
-    icon: "ability_creature_felsunder",
+    name: 'Fracture(Off Hand)',
+    icon: 'ability_creature_felsunder',
   },
   SHEAR: {
     id: 203782,
@@ -154,9 +153,14 @@ const spells: SpellList = {
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
-  IMMOLATION_AURA_FIRST_STRIKE: {
+  IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
     id: 258921,
     name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DAMAGE: {
+    id: 258922,
+    name: 'Immolation Aura Second Strike',
     icon: 'ability_demonhunter_immolation',
   },
   INFERNAL_STRIKE: {
@@ -215,7 +219,7 @@ const spells: SpellList = {
   //spells
   DEMONS_BITE: {
     id: 162243,
-    name: 'Demon\'s Bite',
+    name: "Demon's Bite",
     icon: 'inv_weapon_glave_01',
   },
   CHAOS_STRIKE: {
@@ -223,7 +227,8 @@ const spells: SpellList = {
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },
-  CHAOS_STRIKE_ENERGIZE: { //This occures due the cycle of hatred talent
+  CHAOS_STRIKE_ENERGIZE: {
+    //This occures due the cycle of hatred talent
     id: 193840,
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
@@ -258,6 +263,16 @@ const spells: SpellList = {
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },
+  BLADE_DANCE_DAMAGE: {
+    id: 199552,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  BLADE_DANCE_DAMAGE_LAST_HIT: {
+    id: 200685,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
   DEATH_SWEEP: {
     id: 210152,
     name: 'Death Sweep',
@@ -265,7 +280,7 @@ const spells: SpellList = {
   },
   DEATH_SWEEP_DAMAGE: {
     id: 210153,
-    name : 'Death Sweep',
+    name: 'Death Sweep',
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
   DEATH_SWEEP_DAMAGE_LAST_HIT: {
@@ -365,12 +380,13 @@ const spells: SpellList = {
   },
   DECEIVERS_FURY_FURY: {
     id: 202120,
-    name: 'Deceiver\'s Fury',
+    name: "Deceiver's Fury",
     icon: 'ability_demonhunter_blur',
   },
 
   // Havoc Talents
-  DEMONIC_APPETITE_FURY: { //Generates Fury for the Demonic Appetite talent
+  DEMONIC_APPETITE_FURY: {
+    //Generates Fury for the Demonic Appetite talent
     id: 210041,
     name: 'Demonic Appetite',
     icon: 'spell_misc_zandalari_council_soulswap',
@@ -435,11 +451,6 @@ const spells: SpellList = {
     name: 'Momentum',
     icon: 'ability_foundryraid_demolition',
   },
-  FEL_MASTERY_FURY: {
-    id: 234244,
-    name: 'Fel Mastery',
-    icon: 'ability_skyreach_piercing_rush',
-  },
   TRAIL_OF_RUIN_DAMAGE: {
     id: 258883,
     name: 'Trail of Ruin',
@@ -455,5 +466,16 @@ const spells: SpellList = {
     name: 'Master of the Glaive Debuff',
     icon: 'inv_glaive_1h_demonhunter_a_01',
   },
-};
+  ESSENCE_BREAK_DAMAGE: {
+    id: 320338,
+    name: 'Essence Break',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
+  GLAIVE_TEMPEST_DAMAGE: {
+    id: 342857,
+    name: 'Glaive Tempest',
+    icon: 'inv_glaive_1h_artifactazgalor_d_06dual',
+  },
+} as const;
+
 export default spells;

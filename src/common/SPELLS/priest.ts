@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Shared
   HOLY_NOVA: {
     id: 132157,
@@ -29,10 +28,10 @@ const spells: SpellList = {
     id: 32379,
     name: 'Shadow Word: Death',
     icon: 'spell_shadow_demonicfortitude',
-    manaCost: 800,
+    manaCost: 250,
   },
   POWER_INFUSION: {
-    id: 265314,
+    id: 10060,
     name: 'Power Infusion',
     icon: 'spell_holy_powerinfusion',
   },
@@ -134,7 +133,7 @@ const spells: SpellList = {
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: 'Light\'s Wrath',
+    name: "Light's Wrath",
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
@@ -294,7 +293,7 @@ const spells: SpellList = {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: 'Kam Xi\'raff',
+    name: "Kam Xi'raff",
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -309,7 +308,7 @@ const spells: SpellList = {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: 'Dejahna\'s Inspiration',
+    name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
   },
   PRAYER_CIRCLE_BUFF: {
@@ -324,7 +323,7 @@ const spells: SpellList = {
     id: 204197,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
-    manaCost: 22000,
+    manaCost: 900,
   },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
@@ -335,7 +334,7 @@ const spells: SpellList = {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 2700,
+    manaCost: 1350,
   },
 
   // Holy Priest Spells
@@ -343,7 +342,7 @@ const spells: SpellList = {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 1900,
+    manaCost: 1200,
   },
   CIRCLE_OF_HEALING_TALENT: {
     id: 204883,
@@ -355,7 +354,7 @@ const spells: SpellList = {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 3000,
+    manaCost: 1800,
   },
   PRAYER_OF_MENDING_CAST: {
     id: 33076,
@@ -484,6 +483,12 @@ const spells: SpellList = {
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
+  // Items
+  DIVINE_IMAGE: {
+    id: 336401,
+    name: 'Divine Image',
+    icon: 'ability_priest_ascension',
+  },
 
   // Shadow Spells
   MIND_BLAST: {
@@ -512,6 +517,11 @@ const spells: SpellList = {
     name: 'Void Eruption',
     icon: 'spell_priest_void-blast',
   },
+  MASTERY_SHADOW_WEAVING: {
+    id: 343690,
+    name: 'Mastery: Shadow Weaving',
+    icon: 'spell_shadow_shadetruesight',
+  },
 
   // From shadow word pain/vampiric touch:
   VOID_ERUPTION_DAMAGE_1: {
@@ -527,8 +537,21 @@ const spells: SpellList = {
     icon: 'spell_priest_void-blast',
   },
 
+  // Void torrent debuff applied on enemy
+  VOID_TORRENT_BUFF: {
+    id: 289577,
+    name: 'Void Torrent',
+    icon: 'spell_priest_voidsear',
+  },
+
   VOID_BOLT: {
     id: 205448,
+    name: 'Void Bolt',
+    icon: 'ability_ironmaidens_convulsiveshadows',
+  },
+
+  VOID_BOLT_DISSONANT_ECHOES: {
+    id: 343355,
     name: 'Void Bolt',
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
@@ -638,6 +661,12 @@ const spells: SpellList = {
     icon: 'spell_priest_shadow-mend',
   },
 
+  DEATH_AND_MADNESS_BUFF: {
+    id: 321973,
+    name: 'Death and Madness',
+    icon: 'spell_shadow_painandsuffering',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {
@@ -646,5 +675,12 @@ const spells: SpellList = {
     icon: 'spell_shadow_shadowfury',
   },
 
-};
+  // Disc
+  SPIRIT_SHELL_TALENT_BUFF: {
+    id: 114908,
+    name: 'Spirit Shell',
+    icon: 'ability_shaman_astralshift.jpg',
+  },
+} as const;
+
 export default spells;

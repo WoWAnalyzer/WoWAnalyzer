@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Beast Mastery
   DIRE_COMMAND_EFFECT: {
     id: 336819,
@@ -10,25 +8,25 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   FLAMEWAKERS_COBRA_STING_EFFECT: {
     id: 336822,
-    name: 'Flamewaker\'s Cobra Sting',
+    name: "Flamewaker's Cobra Sting",
     icon: 'ability_hunter_cobrashot',
     bonusID: 7008,
   },
   QAPLA_EREDUN_WAR_ORDER_EFFECT: {
     id: 336830,
-    name: 'Qa\'pla, Eredun War Order',
+    name: "Qa'pla, Eredun War Order",
     icon: 'ability_hunter_barbedshot',
     bonusID: 7009,
   },
   RYLAKSTALKERS_PIERCING_FANGS_EFFECT: {
     id: 336844,
-    name: 'Rylakstalker\'s Piercing Fangs',
+    name: "Rylakstalker's Piercing Fangs",
     icon: 'inv_misc_monsterfang_02',
     bonusID: 7010,
   },
   FLAMEWAKERS_COBRA_STING_BUFF: {
     id: 336826,
-    name: 'Flamewaker\'s Cobra Sting',
+    name: "Flamewaker's Cobra Sting",
     icon: 'ability_hunter_cobrashot',
   },
   //endregion
@@ -36,13 +34,13 @@ const legendaries: SpellList<LegendarySpell> = {
   //region Marksmanship
   EAGLETALONS_TRUE_FOCUS_EFFECT: {
     id: 336849,
-    name: 'Eagletalon\'s True Focus',
+    name: "Eagletalon's True Focus",
     icon: 'ability_trueshot',
     bonusID: 7011,
   },
   EAGLETALONS_TRUE_FOCUS_BUFF: {
     id: 336851,
-    name: 'Eagletalon\'s True Focus',
+    name: "Eagletalon's True Focus",
     icon: 'ability_trueshot',
   },
   SURGING_SHOTS_EFFECT: {
@@ -53,7 +51,7 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   SERPENTSTALKERS_TRICKERY_EFFECT: {
     id: 336870,
-    name: 'Serpentstalker\'s Trickery',
+    name: "Serpentstalker's Trickery",
     icon: 'inv_spear_07',
     bonusID: 7013,
   },
@@ -85,7 +83,7 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT: {
     id: 336901,
-    name: 'Rylakstalker\'s Confounding Strikes',
+    name: "Rylakstalker's Confounding Strikes",
     icon: 'ability_searingarrow',
     bonusID: 7016,
   },
@@ -100,15 +98,20 @@ const legendaries: SpellList<LegendarySpell> = {
     name: 'Latent Poison Injectors',
     icon: 'ability_poisonarrow',
   },
+  LATENT_POISON_INJECTORS_DAMAGE: {
+    id: 336904,
+    name: 'Latent Poison Injectors',
+    icon: 'ability_poisonarrow',
+  },
   BUTCHERS_BONE_FRAGMENTS_EFFECT: {
     id: 336907,
-    name: 'Butcher\'s Bone Fragments',
+    name: "Butcher's Bone Fragments",
     icon: 'inv_skinning_80_bloodsoakedbone',
     bonusID: 7018,
   },
   BUTCHERS_BONE_FRAGMENTS_BUFF: {
     id: 336908,
-    name: 'Butcher\'s Bone Fragments',
+    name: "Butcher's Bone Fragments",
     icon: 'inv_skinning_80_bloodsoakedbone',
   },
   //endregion
@@ -122,13 +125,13 @@ const legendaries: SpellList<LegendarySpell> = {
   },
   NESINGWARYS_TRAPPING_APPARATUS_EFFECT: {
     id: 336743,
-    name: 'Nesingwary\'s Trapping Apparatus',
+    name: "Nesingwary's Trapping Apparatus",
     icon: 'ability_hunter_invigeration',
     bonusID: 7004,
   },
   NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE: {
     id: 336744,
-    name: 'Nesingwary\'s Trapping Apparatus',
+    name: "Nesingwary's Trapping Apparatus",
     icon: 'ability_hunter_traplauncher',
   },
   SOULFORGE_EMBERS_EFFECT: {
@@ -149,5 +152,5 @@ const legendaries: SpellList<LegendarySpell> = {
     bonusID: 7006,
   },
   //endregion
-};
+} as const;
 export default legendaries;
