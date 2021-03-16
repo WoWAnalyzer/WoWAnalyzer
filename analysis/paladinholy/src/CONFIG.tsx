@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [acornellier],
-  patchCompatibility: '9.0.2',
+  patchCompatibility: '9.0.5',
   isPartial: false,
   description: (
     <>
