@@ -53,12 +53,7 @@ const covenants = {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  FAELINE_STOMP_RESET: {
-    id: 327276,
-    name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk',
-  },
-  FAELINE_STOMP_HEAL_AND_DAMAGE: {
+  FAELINE_STOMP_DAMAGE_AND_HEAL: {
     id: 345727,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
@@ -70,6 +65,11 @@ const covenants = {
   },
   FAELINE_STOMP_PULSE_DAMAGE: {
     id: 327264,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_RESET: {
+    id: 327276,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
