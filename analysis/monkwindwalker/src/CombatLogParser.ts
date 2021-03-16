@@ -26,6 +26,7 @@ import FistsofFury from './modules/spells/FistsofFury';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
 // Talents
+import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energyCapTracker: EnergyCapTracker,
 
     // Talents:
+    danceofchiji: DanceOfChiJi,
     hitCombo: HitCombo,
     serenity: Serenity,
 
