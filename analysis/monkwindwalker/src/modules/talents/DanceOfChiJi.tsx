@@ -21,7 +21,7 @@ import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
-const DAMAGE_BOOST = 2
+const DANCE_OF_CHI_JI_MULTIPLIER = 2
 
 class DANCE_OF_CHI_JI extends Analyzer {
 currentStacks: number = 0;
@@ -33,7 +33,7 @@ constructor( options: Options) {
       this.onApplyBuff,
     );
     this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
+        Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET ).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
         this.onDamage,
       );
 }
@@ -44,7 +44,7 @@ constructor( options: Options) {
   }
 
   onDamage(event: DamageEvent) {
-    const boostedDamage = calculateEffectiveDamage(event, DAMAGE_BOOST * this.currentStacks);
+    const boostedDamage = calculateEffectiveDamage(event, DANCE_OF_CHI_JI_MULTIPLIER * this.currentStacks);
     this.bonusDamage += boostedDamage;
   }
 
