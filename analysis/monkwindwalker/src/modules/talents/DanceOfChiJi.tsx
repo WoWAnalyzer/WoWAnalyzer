@@ -21,7 +21,7 @@ import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
-const DAMAGE_BOOST = 0.2
+const DAMAGE_BOOST = 2
 
 class DANCE_OF_CHI_JI extends Analyzer {
 currentStacks: number = 0;
@@ -33,7 +33,7 @@ constructor( options: Options) {
       this.onApplyBuff,
     );
     this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
         this.onDamage,
       );
 }
