@@ -2245,7 +2245,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               0
-              /23
+              /27
                casts
             </td>
             <td
@@ -3980,6 +3980,91 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=53563"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Beacon of Light
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.30
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=156910"
                 rel="noopener noreferrer"
                 style={
@@ -4012,7 +4097,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              0.30
+              0.00
             </td>
             <td
               className="text-right"
@@ -4022,7 +4107,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              2
+              0
               
                casts
             </td>
@@ -4887,7 +4972,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "80",
+            "0": "90",
           }
         }
       />
@@ -4941,7 +5026,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "85",
+            "0": "75",
           }
         }
       />
@@ -5119,7 +5204,7 @@ Array [
         values={
           Object {
             "0": 0,
-            "1": 23,
+            "1": 27,
             "2": "0",
           }
         }
@@ -9065,7 +9150,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "14.234621278049525%",
+                  "width": "14.27837417263663%",
                 }
               }
             />
@@ -9231,7 +9316,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.060430968084738%",
+                        "width": "23.452373505673442%",
                       }
                     }
                   />
@@ -9377,7 +9462,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.698414244558247%",
+                        "width": "26.481483285317957%",
                       }
                     }
                   />

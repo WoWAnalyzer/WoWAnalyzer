@@ -40,6 +40,11 @@ const covenants = {
     name: 'Bonedust Brew',
     icon: 'ability_maldraxxus_monk',
   },
+  BONEDUST_BREW_CHI: {
+    id: 328296,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
   //endregion
 
   //region Night Fae

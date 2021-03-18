@@ -181,7 +181,7 @@ const spells = {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 1600,
+    manaCost: 1500,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
@@ -287,7 +287,7 @@ const spells = {
   },
   BEACON_OF_LIGHT_HOLY_POWER: {
     id: 88852,
-    name: 'Beacon Of Light',
+    name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
   GLIMMER_OF_LIGHT_HEAL_TALENT: {
