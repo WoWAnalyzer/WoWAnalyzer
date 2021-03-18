@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 3, 16), 'Fixed issue with contributor icons.', emallson),
   change(date(2021, 3, 8), 'Converted most Report related components to TS', acornellier),
   change(date(2021, 3, 3), 'Converted dungeon files to TS and added Dungeon interface', Procyon),
   change(date(2021, 3, 3), 'Converted various components to functional components in TypeScript.', acornellier),
