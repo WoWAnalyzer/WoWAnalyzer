@@ -1,11 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Abelito75 } from 'CONTRIBUTORS';
+import { Juko8, Abelito75, Talby } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
-  change(date(2021, 3, 17), 'Added tracker for Dance of Chiji Bonus damage', Talby223),
+  change(date(2021, 3, 17), 'Added tracker for Dance of Chiji Bonus damage', Talby),
   change(date(2020, 3, 16), 'Marked as 9.0.5 compatible', Juko8),
   change(date(2020, 12, 22), <>Added <SpellLink id={SPELLS.INVOKERS_DELIGHT.id} /> haste buff.</>, Abelito75),
   change(date(2020, 12, 13), <>Added <SpellLink id={SPELLS.WEAPONS_OF_ORDER_CAST.id} /></>, Juko8),
