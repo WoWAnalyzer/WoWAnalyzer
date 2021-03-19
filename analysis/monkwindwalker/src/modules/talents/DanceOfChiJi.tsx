@@ -1,25 +1,17 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, {
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
   DamageEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
-
-import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 const DANCE_OF_CHI_JI_MULTIPLIER = 2
 
