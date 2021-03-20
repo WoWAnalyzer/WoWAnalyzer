@@ -39,17 +39,17 @@ class AstralPowerDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
-  get suggestionThresholdsWasted() {
-    const usingBoat = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.bonusID,
-    );
+  get usingBoat() {
+    return this.selectedCombatant.hasLegendaryByBonusID(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.bonusID);
+  }
 
+  get suggestionThresholdsWasted() {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
-        minor: usingBoat ? MINOR_THRESHOLD_BOAT : MINOR_THRESHOLD,
-        average: usingBoat ? AVERAGE_THRESHOLD_BOAT : AVERAGE_THRESHOLD,
-        major: usingBoat ? MAJOR_THRESHOLD_BOAT : MAJOR_THRESHOLD,
+        minor: this.usingBoat ? MINOR_THRESHOLD_BOAT : MINOR_THRESHOLD,
+        average: this.usingBoat ? AVERAGE_THRESHOLD_BOAT : AVERAGE_THRESHOLD,
+        major: this.usingBoat ? MAJOR_THRESHOLD_BOAT : MAJOR_THRESHOLD,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -73,10 +73,16 @@ class AstralPowerDetails extends Analyzer {
   protected astralPowerTracker!: AstralPowerTracker;
 
   suggestions(when: When) {
+    let suggestionMessage: React.ReactNode;
+
+    if (this.usingBoat) {
+      suggestionMessage = `You overcapped ${this.wasted} Astral Power. Try to maximize your Astral Power usage while still ensuring you have atleast 90 Astral Power when entering an eclipse.`;
+    } else {
+      suggestionMessage = `You overcapped ${this.wasted} Astral Power. Always prioritize spending it over casting other spells.`;
+    }
+
     when(this.suggestionThresholdsWasted).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        `You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`,
-      )
+      suggest(suggestionMessage)
         .icon('ability_druid_cresentburn')
         .actual(
           t({
