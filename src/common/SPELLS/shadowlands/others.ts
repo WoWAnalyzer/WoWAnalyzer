@@ -114,6 +114,11 @@ const spells = {
     name: 'Feast of Gluttonous Hedonism',
     icon: 'inv_tradeskill_cooking_shadowlandsfeast_large01',
   },
+  DRUID_BORN_ANEW: {
+    id: 341449,
+    name: 'Born Anew',
+    icon: 'spell_nature_reincarnation',
+  },
   VEILED_AUGMENT_RUNE: {
     id: 347901,
     name: 'Veiled Augment Rune',

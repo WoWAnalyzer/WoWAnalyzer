@@ -47,6 +47,9 @@ const HIGHER_FOOD_IDS = [
   SPELLS.TENEBROUS_CROWN_ROAST_ASPIC.id,
   SPELLS.IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE.id,
   SPELLS.STEAK_A_LA_MODE.id,
+
+  //30 Primary stat Druid Conduit 'Born Anew' Well Fed Buff
+  SPELLS.DRUID_BORN_ANEW.id,
 ];
 
 class FoodChecker extends Analyzer {
