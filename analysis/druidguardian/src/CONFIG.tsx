@@ -1,6 +1,6 @@
+import { Buudha } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import { Buudha } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 

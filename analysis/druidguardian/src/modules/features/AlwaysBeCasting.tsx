@@ -1,8 +1,8 @@
-import React from 'react';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
+import React from 'react';
+import { When } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
@@ -12,7 +12,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)..</span>)
         .icon('spell_mage_altertime')
         .actual(t({
-      id: "druid.guardian.suggestions.alwaysBeCasting.downtime",
+      id: 'druid.guardian.suggestions.alwaysBeCasting.downtime',
       message: `${formatPercentage(actual)}% downtime`
     }))
         .recommended(`${Math.round(Number(formatPercentage(recommended)))}% is recommended`)

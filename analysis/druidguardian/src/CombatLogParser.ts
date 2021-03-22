@@ -1,11 +1,10 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-import Checklist from './modules/features/Checklist/Module';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AntiFillerSpam from './modules/features/AntiFillerSpam';
+import Checklist from './modules/features/Checklist/Module';
 import FrenziedRegenGoEProcs from './modules/features/FrenziedRegenGoEProcs';
 import GalacticGuardian from './modules/features/GalacticGuardian';
 import Gore from './modules/features/Gore';
@@ -17,9 +16,9 @@ import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 import IronFur from './modules/spells/IronFur';
 import Moonfire from './modules/spells/Moonfire';
 import Thrash from './modules/spells/Thrash';
-import Pulverize from './modules/talents/Pulverize';
 import Earthwarden from './modules/talents/Earthwarden';
 import Incarnation from './modules/talents/Incarnation';
+import Pulverize from './modules/talents/Pulverize';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

@@ -44,9 +44,9 @@ class IronFur extends Analyzer {
     return {
       actual: this.overallIronfurUptime,
       isLessThan: {
-        minor: .90,
-        average: .80,
-        major: .70,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

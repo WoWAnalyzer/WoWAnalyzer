@@ -1,11 +1,9 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import ManaValues from 'parser/shared/modules/ManaValues';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
-
+import ManaValues from 'parser/shared/modules/ManaValues';
+import React from 'react';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import IronFur from '../../spells/IronFur';
