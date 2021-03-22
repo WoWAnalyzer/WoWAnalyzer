@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -37,6 +38,18 @@ class IronFur extends Analyzer {
     }
 
     return this.ironfurStacksApplied / this.totalHitsTaken;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.overallIronfurUptime,
+      isLessThan: {
+        minor: .90,
+        average: .80,
+        major: .70,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   get percentOfHitsMitigated() {
