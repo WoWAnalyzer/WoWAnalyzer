@@ -16,60 +16,60 @@ import React from 'react';
 const DANCE_OF_CHI_JI_MULTIPLIER = 2
 
 class DANCE_OF_CHI_JI extends Analyzer {
-currentStacks: number = 0;
+  currentStacks: number = 0;
+  bonusDamage = 0;
 
 constructor( options: Options) {
-    super(options);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DANCE_OF_CHI_JI_BUFF),
-      this.onApplyBuff,
+  super(options);
+  this.addEventListener(
+    Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DANCE_OF_CHI_JI_BUFF),
+    this.onApplyBuff,
     );
     this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET ).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
-        this.onDamage,
+      Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET ).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
+      this.onDamage,
       );
-}
-    bonusDamage = 0;
+    }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.currentStacks = 1;
-  }
+    onApplyBuff(event: ApplyBuffEvent) {
+      this.currentStacks = 1;
+    }
 
-  onDamage(event: DamageEvent) {
-    const boostedDamage = calculateEffectiveDamage(event, DANCE_OF_CHI_JI_MULTIPLIER * this.currentStacks);
-    this.bonusDamage += boostedDamage;
-  }
+    onDamage(event: DamageEvent) {
+      const boostedDamage = calculateEffectiveDamage(event, DANCE_OF_CHI_JI_MULTIPLIER * this.currentStacks);
+      this.bonusDamage += boostedDamage;
+    }
 
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.currentStacks = 0;
-  }
+    onRemoveBuff(event: RemoveBuffEvent) {
+      this.currentStacks = 0;
+    }
 
-  get dps() {
-    return (this.bonusDamage / this.owner.fightDuration) * 1000;
-  }
+    get dps() {
+      return (this.bonusDamage / this.owner.fightDuration) * 1000;
+    }
 
  
-  statistic() {
-    return (
+    statistic() {
+      return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(11)}
-        size="flexible"
-        tooltip={
-          <>
-            Total damage increase: {formatNumber(this.bonusDamage)}
-          </>
-        }
+      position={STATISTIC_ORDER.CORE(11)}
+      size="flexible"
+      tooltip={
+      <>
+      Total damage increase: {formatNumber(this.bonusDamage)}
+      </>
+      }
       >
         <BoringSpellValueText spell={SPELLS.DANCE_OF_CHI_JI_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))} % of
             total
-          </small>
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
-}
-    
+            </small>
+            </BoringSpellValueText>
+            </Statistic>
+            );
+          }
+        }
+
 export default DANCE_OF_CHI_JI;
