@@ -3,73 +3,77 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
-import Events, {
-  ApplyBuffEvent,
-  DamageEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
-const DANCE_OF_CHI_JI_MULTIPLIER = 2
+const DAMAGE_MODIFIER = 1;
+const STORM_EARTH_AND_FIRE_CAST_BUFFER = 200;
 
 class DANCE_OF_CHI_JI extends Analyzer {
-  currentStacks: number = 0;
-  bonusDamage = 0;
+  buffedCast: boolean = false;
+  damageGain: number = 0;
 
-constructor( options: Options) {
-  super(options);
-  this.addEventListener(
-    Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DANCE_OF_CHI_JI_BUFF),
-    this.onApplyBuff,
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
+        .spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
+      this.onSpinningCraneKickDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET ).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
-      this.onDamage,
-      );
-    }
+      Events.cast.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.onSpinningCraneKickCast,
+    );
+  }
 
-    onApplyBuff(event: ApplyBuffEvent) {
-      this.currentStacks = 1;
-    }
+  onSpinningCraneKickDamage(event: DamageEvent) {
+    const bonusDamage = this.buffedCast ? calculateEffectiveDamage(event, DAMAGE_MODIFIER) : 0;
+    this.damageGain += bonusDamage;
+  }
 
-    onDamage(event: DamageEvent) {
-      const boostedDamage = calculateEffectiveDamage(event, DANCE_OF_CHI_JI_MULTIPLIER * this.currentStacks);
-      this.bonusDamage += boostedDamage;
+  onSpinningCraneKickCast(event: CastEvent) {
+    if (
+      this.selectedCombatant.hasBuff(
+        SPELLS.DANCE_OF_CHI_JI_BUFF.id,
+        null,
+        STORM_EARTH_AND_FIRE_CAST_BUFFER,
+      )
+    ) {
+      this.buffedCast = true;
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = 'This cast was empowered by Dance of Chi-Ji';
+    } else {
+      // GCD is shorter than the duration SCK deals damage, and new SCK casts override any ongoing SCK cast, so this prevents a directly following from being marked as benefitting
+      this.buffedCast = false;
     }
+  }
 
-    onRemoveBuff(event: RemoveBuffEvent) {
-      this.currentStacks = 0;
-    }
+  get dps() {
+    return (this.damageGain / this.owner.fightDuration) * 1000;
+  }
 
-    get dps() {
-      return (this.bonusDamage / this.owner.fightDuration) * 1000;
-    }
-
- 
-    statistic() {
-      return (
+  statistic() {
+    return (
       <Statistic
-      position={STATISTIC_ORDER.CORE(11)}
-      size="flexible"
-      tooltip={
-      <>
-      Total damage increase: {formatNumber(this.bonusDamage)}
-      </>
-      }
+        position={STATISTIC_ORDER.CORE(11)}
+        size="flexible"
+        tooltip={<>Total damage increase: {formatNumber(this.damageGain)}</>}
       >
         <BoringSpellValueText spell={SPELLS.DANCE_OF_CHI_JI_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))} % of
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of
             total
-            </small>
-            </BoringSpellValueText>
-            </Statistic>
-            );
-          }
-        }
+          </small>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+}
 
 export default DANCE_OF_CHI_JI;

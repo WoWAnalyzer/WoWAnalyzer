@@ -53,7 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energyCapTracker: EnergyCapTracker,
 
     // Talents:
-    danceofchiji: DanceOfChiJi,
+    danceOfChiJi: DanceOfChiJi,
     hitCombo: HitCombo,
     serenity: Serenity,
 
