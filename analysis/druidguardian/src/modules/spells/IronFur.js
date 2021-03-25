@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -37,6 +38,18 @@ class IronFur extends Analyzer {
     }
 
     return this.ironfurStacksApplied / this.totalHitsTaken;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.overallIronfurUptime,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   get percentOfHitsMitigated() {
