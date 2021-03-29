@@ -1523,9 +1523,4 @@ export const maestrohdude: Contributor = {
   nickname: 'maestrohdude',
   github: 'maestrohdude',
   discord: 'maestrohdude#6100',
-  mains: [{
-    name: 'Korzax',
-    spec: SPECS.FROST_DEATH_KNIGHT,
-    link: 'https://worldofwarcraft.com/en-us/character/us/thrall/korzax',
-  }],
 };
