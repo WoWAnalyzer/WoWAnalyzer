@@ -298,7 +298,7 @@
   "interface.nameSearch.guild": "",
   "interface.nameSearch.nameNotFound": "",
   "interface.nameSearch.noAPIResponse": "",
-  "interface.nameSearch.noResponse": "Es sieht so aus als ob wir keine rechtzeitige Antwort von der API erhalten, bitte gebe deinen Berichts-Code manuell ein.",
+  "interface.nameSearch.noResponse": "Es sieht so aus als ob wir keine rechtzeitige Antwort von der API erhalten, bitte gib deinen Berichts-Code manuell ein.",
   "interface.nameSearch.pleaseSelect": "",
   "interface.nameSearch.realm": "",
   "interface.nameSearch.search": "Suchen",
