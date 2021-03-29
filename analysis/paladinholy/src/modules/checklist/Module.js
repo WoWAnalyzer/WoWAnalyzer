@@ -1,17 +1,15 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import MasteryEffectiveness from '../features/MasteryEffectiveness';
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import DirectBeaconHealing from '../beacons/DirectBeaconHealing';
 import BeaconUptime from '../beacons/BeaconUptime';
-import FillerLightOfTheMartyrs from '../spells/FillerLightOfTheMartyrs';
+import DirectBeaconHealing from '../beacons/DirectBeaconHealing';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import MasteryEffectiveness from '../features/MasteryEffectiveness';
 import FillerFlashOfLight from '../spells/FillerFlashOfLight';
-
+import FillerLightOfTheMartyrs from '../spells/FillerLightOfTheMartyrs';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -38,7 +36,8 @@ class Checklist extends BaseChecklist {
 
           fillerFlashOfLight: this.fillerFlashOfLight.suggestionThresholds,
           masteryEffectiveness: this.masteryEffectiveness.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
+            .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           directBeaconHealing: this.directBeaconHealing.suggestionThresholds,
           beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoL,
@@ -46,7 +45,8 @@ class Checklist extends BaseChecklist {
           beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoF,
           beaconUptimeBoFUptime: this.beaconUptime.suggestionThresholdsBoFUptime,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
-          fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
+          fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs
+            .inefficientCpmSuggestionThresholds,
         }}
       />
     );

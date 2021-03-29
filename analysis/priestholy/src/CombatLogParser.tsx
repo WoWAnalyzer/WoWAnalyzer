@@ -1,3 +1,9 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+
 import {
   BoonOfTheAscended,
   FaeGuardians,
@@ -5,65 +11,41 @@ import {
   TwinsOfTheSunPriestess,
   UnholyNova,
 } from '@wowanalyzer/priest';
-
-import React from 'react';
-
-import { Panel } from 'interface';
-
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
-import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import AbilityTracker from '@wowanalyzer/priest-holy/src/modules/core/AbilityTracker';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
-
-import SpellManaCost from './modules/core/SpellManaCost';
-// Spell data
-import DivineHymn from './modules/spells/DivineHymn';
-import GuardianSpirit from './modules/spells/GuardianSpirit';
-import HolyNova from './modules/spells/HolyNova';
-import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
-import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
-import HolyWordSalvationCooldown from './modules/spells/holyword/HolyWordSalvation';
-import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
-import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
-import Renew from './modules/spells/Renew';
-import PrayerOfMending from './modules/spells/PrayerOfMending';
-import CircleOfHealing from './modules/spells/CircleOfHealing';
-
-//Talents
-import Talents from './modules/talents';
-// Features
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import SpellUsable from './modules/features/SpellUsable';
-import HealingReceived from './modules/features/HealingReceived';
-import HealingTargetTracker from './modules/features/HealingTargetTracker';
-// Priest Core
 import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
 import FortitudeRaidBuff from './modules/core/FortitudeRaidBuff';
 import HolyWordsReductionBySpell from './modules/core/HolyWordsReductionBySpell';
 import HolyWordWastedAmounts from './modules/core/HolyWordWastedAmounts';
-import StatWeights from './modules/features/StatWeights';
-
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-
-// Mana Tracker
+import SpellManaCost from './modules/core/SpellManaCost';
+// Spell data
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import HealingReceived from './modules/features/HealingReceived';
+import HealingTargetTracker from './modules/features/HealingTargetTracker';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
-
-// Items
-import HarmoniousApparatus from './modules/shadowlands/items/HarmoniousApparatus';
-import DivineImage from './modules/shadowlands/items/DivineImage';
-
-// Conduits
+import SpellUsable from './modules/features/SpellUsable';
+import StatWeights from './modules/features/StatWeights';
 import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
-
-import HolyPriestSpreadsheet from './HolyPriestSpreadsheet';
+import DivineImage from './modules/shadowlands/items/DivineImage';
+import HarmoniousApparatus from './modules/shadowlands/items/HarmoniousApparatus';
+import CircleOfHealing from './modules/spells/CircleOfHealing';
+import DivineHymn from './modules/spells/DivineHymn';
+import GuardianSpirit from './modules/spells/GuardianSpirit';
+import HolyNova from './modules/spells/HolyNova';
+import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
+import HolyWordSalvationCooldown from './modules/spells/holyword/HolyWordSalvation';
+import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
+import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
+import PrayerOfMending from './modules/spells/PrayerOfMending';
+import Renew from './modules/spells/Renew';
+import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
+import Talents from './modules/talents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -156,24 +138,6 @@ class CombatLogParser extends CoreCombatLogParser {
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
   };
-
-  generateResults(adjustForDowntime: boolean) {
-    const results = super.generateResults(adjustForDowntime);
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Player Log Data',
-        url: 'player-log-data',
-        render: () => (
-          <Panel style={{ padding: '15px 22px 15px 15px' }}>
-            <HolyPriestSpreadsheet parser={this} />
-          </Panel>
-        ),
-      },
-    ];
-    return results;
-  }
 }
 
 export default CombatLogParser;

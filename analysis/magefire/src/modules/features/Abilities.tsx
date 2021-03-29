@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
+
 import { WINTERS_PROTECTION_REDUCTION_SEC, FLOW_OF_TIME_REDUCTION_SEC } from '@wowanalyzer/mage';
 
 class Abilities extends CoreAbilities {
@@ -58,18 +58,19 @@ class Abilities extends CoreAbilities {
         charges: 3,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
         spell: SPELLS.FIRE_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: null,
-        cooldown: (haste: any) => (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste),
+        cooldown: (haste: any) =>
+          (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste),
         charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -119,7 +120,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -139,7 +140,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -153,7 +154,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -166,7 +167,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -179,7 +180,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -192,7 +193,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -205,7 +206,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -222,7 +223,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICE_BLOCK,
         buffSpellId: SPELLS.ICE_BLOCK.id,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id) ? 240 - WINTERS_PROTECTION_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)] : 240,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id)
+          ? 240 -
+            WINTERS_PROTECTION_REDUCTION_SEC[
+              combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)
+            ]
+          : 240,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -261,13 +267,17 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)] : 15,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
+          ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
+          : 15,
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)] : 25,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
+          ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
+          : 25,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
       },
@@ -325,13 +335,22 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
       },
       {
-        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG,
-          SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
-          SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
-          SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
-          SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
-          SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
-          SPELLS.POLYMORPH_DIREHORN, SPELLS.POLYMORPH_MAWRAT],
+        spell: [
+          SPELLS.POLYMORPH_SHEEP,
+          SPELLS.POLYMORPH_PIG,
+          SPELLS.POLYMORPH_BLACK_CAT,
+          SPELLS.POLYMORPH_MONKEY,
+          SPELLS.POLYMORPH_RABBIT,
+          SPELLS.POLYMORPH_POLAR_BEAR_CUB,
+          SPELLS.POLYMORPH_PORCUPINE,
+          SPELLS.POLYMORPH_TURTLE,
+          SPELLS.POLYMORPH_TURKEY,
+          SPELLS.POLYMORPH_PENGUIN,
+          SPELLS.POLYMORPH_BUMBLEBEE,
+          SPELLS.POLYMORPH_PEACOCK,
+          SPELLS.POLYMORPH_DIREHORN,
+          SPELLS.POLYMORPH_MAWRAT,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

@@ -1,14 +1,13 @@
-import React from 'react';
-
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Strike your target with an icy blade, dealing (65% of Attack power)
@@ -34,8 +33,7 @@ class IceStrike extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.ICE_STRIKE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_STRIKE_TALENT),
       this.onIceStrikeDamage,
     );
   }
@@ -57,11 +55,16 @@ class IceStrike extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`You cast Ice Strike ${this.casts} times, for a total shock cooldown reduction of ${formatNumber(shockCooldownReducedInSeconds)} seconds.`}
+        tooltip={`You cast Ice Strike ${
+          this.casts
+        } times, for a total shock cooldown reduction of ${formatNumber(
+          shockCooldownReducedInSeconds,
+        )} seconds.`}
       >
         <BoringSpellValueText spell={SPELLS.ICE_STRIKE_TALENT}>
           <>
-            {formatNumber(shockCooldownReducedInSeconds / this.casts)}s <small> avg. Shock Cooldown Reduction</small>
+            {formatNumber(shockCooldownReducedInSeconds / this.casts)}s{' '}
+            <small> avg. Shock Cooldown Reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

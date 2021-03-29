@@ -1,25 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
-import { Link, Route, Switch } from 'react-router-dom';
-
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
+import Ad from 'interface/Ad';
+import ErrorBoundary from 'interface/ErrorBoundary';
+import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
+import HelpWantedIcon from 'interface/icons/Information';
 import NewsIcon from 'interface/icons/Megaphone';
 import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
-import HelpWantedIcon from 'interface/icons/Information';
-import { hasPremium } from 'interface/selectors/user';
-import ErrorBoundary from 'interface/ErrorBoundary';
-import Ad from 'interface/Ad';
 import NavigationBar from 'interface/NavigationBar';
+import { hasPremium } from 'interface/selectors/user';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import './Home.scss';
-import ReportSelectionHeader from './ReportSelectionHeader';
-import NotFound from './NotFound';
 import LanguageSwitcher from './LanguageSwitcher';
+import NotFound from './NotFound';
+import ReportSelectionHeader from './ReportSelectionHeader';
 
 const News = lazyLoadComponent(() =>
   retryingPromise(() =>
@@ -156,13 +155,13 @@ class Home extends React.PureComponent {
           <ErrorBoundary>
             <Switch>
               <Route path="/" exact component={News} />
-              <Route path="/news" component={News} />
               <Route
                 path="/news/:articleId"
                 render={({ match }) => (
                   <NewsPage articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
                 )}
               />
+              <Route path="/news" component={News} />
               <Route path="/specs" component={SpecList} />
               <Route path="/premium" component={Premium} />
               <Route path="/about" component={AboutPage} />

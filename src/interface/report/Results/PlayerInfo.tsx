@@ -1,18 +1,20 @@
-import React from 'react';
-
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import Combatant from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
+import React from 'react';
 
 import './PlayerInfo.scss';
+import PlayerGearHeader from './PlayerGearHeader';
 import PlayerInfoEnchants from './PlayerInfoEnchants';
 import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
-import PlayerGearHeader from './PlayerGearHeader';
 import PlayerInfoTalents from './PlayerInfoTalents';
 
 function _parseTalents(talents: TalentsType[]): number[] {
-  return talents.reduce((talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id), []);
+  return talents.reduce(
+    (talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id),
+    [],
+  );
 }
 
 function _parseGear(gear: Item[]) {
@@ -34,7 +36,15 @@ const PlayerInfo = ({ combatant }: Props) => {
 
   const averageIlvl = getAverageItemLevel(gear);
 
-  const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar', 'main')}` : '/img/fallback-character.jpg';
+  const background =
+    combatant.characterProfile && combatant.characterProfile.thumbnail
+      ? `https://render-${
+          combatant.characterProfile.region
+        }.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace(
+          'avatar',
+          'main',
+        )}`
+      : '/img/fallback-character.jpg';
 
   return (
     <div className="player-info">

@@ -1,8 +1,7 @@
-import React from 'react';
+import { Putro } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-
-import { Putro } from 'CONTRIBUTORS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -50,9 +49,9 @@ const config: Config = {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('@wowanalyzer/hunter-survival/src/CombatLogParser' /* webpackChunkName: "SurvivalHunter" */).then(
-      (exports) => exports.default,
-    ),
+    import(
+      '@wowanalyzer/hunter-survival/src/CombatLogParser' /* webpackChunkName: "SurvivalHunter" */
+    ).then((exports) => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

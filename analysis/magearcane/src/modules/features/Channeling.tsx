@@ -1,13 +1,15 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 class Channeling extends CoreChanneling {
-
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EVOCATION), this.onRemoveBuff);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EVOCATION),
+      this.onRemoveBuff,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -27,13 +29,15 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event: any, ability: any) {
-    if (this.isChannelingSpell(SPELLS.ARCANE_MISSILES.id) || this.isChannelingSpell(SPELLS.EVOCATION.id)) {
+    if (
+      this.isChannelingSpell(SPELLS.ARCANE_MISSILES.id) ||
+      this.isChannelingSpell(SPELLS.EVOCATION.id)
+    ) {
       this.endChannel(event);
       return;
     }
     super.cancelChannel(event, ability);
   }
-
 }
 
 export default Channeling;

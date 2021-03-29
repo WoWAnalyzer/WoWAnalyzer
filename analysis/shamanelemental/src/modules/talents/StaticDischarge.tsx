@@ -1,17 +1,14 @@
-import React from 'react';
-
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 class StaticDischarge extends Analyzer {
   damageDone = 0;
@@ -56,24 +53,27 @@ class StaticDischarge extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            You missed ${formatPercentage(1 - actual)}% of the ticks of your <SpellLink id={SPELLS.STATIC_DISCHARGE.id} />.
-            Try to maximize the ticks by only using it while Flame Shock is active on an enemy in range.
-          </span>)
-          .icon(SPELLS.STATIC_DISCHARGE_TALENT.icon)
-          .actual(`${actual}% of possible ticks with ${<SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id} />}`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
-  };
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          You missed ${formatPercentage(1 - actual)}% of the ticks of your{' '}
+          <SpellLink id={SPELLS.STATIC_DISCHARGE.id} />. Try to maximize the ticks by only using it
+          while Flame Shock is active on an enemy in range.
+        </span>,
+      )
+        .icon(SPELLS.STATIC_DISCHARGE_TALENT.icon)
+        .actual(
+          `${actual}% of possible ticks with ${(
+            <SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id} />
+          )}`,
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
+  }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <BoringSpellValueText spell={SPELLS.STATIC_DISCHARGE_TALENT}>
           <>
             <ItemDamageDone amount={this.damageDone} />

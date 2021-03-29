@@ -1,15 +1,19 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ONE_SECOND_IN_MS } from '@wowanalyzer/hunter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE, TRICK_SHOTS_BASELINE_DAMAGE } from '@wowanalyzer/hunter-marksmanship/src/constants';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { ONE_SECOND_IN_MS } from '@wowanalyzer/hunter';
+import {
+  DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE,
+  TRICK_SHOTS_BASELINE_DAMAGE,
+} from '@wowanalyzer/hunter-marksmanship/src/constants';
 
 /**
  * Trick Shots secondary damage is increased by 10.0%.
@@ -18,7 +22,6 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
  *
  */
 class DeadlyChain extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
   trickShotsCastTimestamp: number = 0;
@@ -32,8 +35,14 @@ class DeadlyChain extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.AIMED_SHOT, SPELLS.RAPID_FIRE]), this.onTricksAffectedCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AIMED_SHOT, SPELLS.RAPID_FIRE_DAMAGE]), this.onTricksAffectedDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.AIMED_SHOT, SPELLS.RAPID_FIRE]),
+      this.onTricksAffectedCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AIMED_SHOT, SPELLS.RAPID_FIRE_DAMAGE]),
+      this.onTricksAffectedDamage,
+    );
   }
 
   onTricksAffectedCast(event: CastEvent) {
@@ -51,7 +60,10 @@ class DeadlyChain extends Analyzer {
       this.firstHitConnected = true;
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, (DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE[this.conduitRank] / TRICK_SHOTS_BASELINE_DAMAGE));
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE[this.conduitRank] / TRICK_SHOTS_BASELINE_DAMAGE,
+    );
   }
 
   statistic() {

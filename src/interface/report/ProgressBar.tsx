@@ -15,10 +15,7 @@ const ProgressBar = ({ width, height, percentage }: Props) => {
   const adjustedWidth = width - 2 * height;
   const fillColor = percentage === 100 ? killFillColor : wipeFillColor;
   return (
-    <svg
-      className="ProgressBar icon"
-      style={{ width, height }}
-    >
+    <svg className="ProgressBar icon" style={{ width, height }}>
       <path
         strokeWidth={height}
         stroke={backgroundColor}
@@ -34,7 +31,7 @@ const ProgressBar = ({ width, height, percentage }: Props) => {
           strokeLinejoin="round"
           strokeLinecap="round"
           fill="none"
-          d={`M${height} ${height / 2} h 0 ${adjustedWidth * percentage / 100}`}
+          d={`M${height} ${height / 2} h 0 ${(adjustedWidth * percentage) / 100}`}
         />
       )}
     </svg>

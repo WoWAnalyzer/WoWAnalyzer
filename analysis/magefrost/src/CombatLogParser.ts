@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   ArcaneIntellect,
   CancelledCasts,
@@ -13,42 +16,29 @@ import {
   TempestBarrier,
 } from '@wowanalyzer/mage';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
 import Checklist from './modules/checklist/Module';
-import Buffs from './modules/features/Buffs';
-
-//Normalizers
-
-//Features
+import ColdSnap from './modules/cooldowns/ColdSnap';
+import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import WintersChill from './modules/features/WintersChill';
 import BrainFreeze from './modules/features/BrainFreeze';
+import Buffs from './modules/features/Buffs';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import IceLance from './modules/features/IceLance';
 import IcyVeins from './modules/features/IcyVeins';
-import FrozenOrb from './modules/cooldowns/FrozenOrb';
-import ColdSnap from './modules/cooldowns/ColdSnap';
-
-//Talents
 import WaterElemental from './modules/features/WaterElemental';
-import LonelyWinter from './modules/talents/LonelyWinter';
-import SplittingIce from './modules/talents/SplittingIce';
-import ThermalVoid from './modules/talents/ThermalVoid';
-import GlacialSpike from './modules/talents/GlacialSpike';
-import BoneChilling from './modules/talents/BoneChilling';
-
-//Legendaries
+import WintersChill from './modules/features/WintersChill';
 import ColdFront from './modules/items/ColdFront';
 import GlacialFragments from './modules/items/GlacialFragments';
-
-//Conduits
 import IceBite from './modules/items/IceBite';
 import IcyPropulsion from './modules/items/IcyPropulsion';
 import ShiveringCore from './modules/items/ShiveringCore';
 import UnrelentingCold from './modules/items/UnrelentingCold';
+import BoneChilling from './modules/talents/BoneChilling';
+import GlacialSpike from './modules/talents/GlacialSpike';
+import LonelyWinter from './modules/talents/LonelyWinter';
+import SplittingIce from './modules/talents/SplittingIce';
+import ThermalVoid from './modules/talents/ThermalVoid';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

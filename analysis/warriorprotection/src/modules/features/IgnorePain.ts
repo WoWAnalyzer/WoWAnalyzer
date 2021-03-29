@@ -1,6 +1,6 @@
+import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import SPELLS from 'common/SPELLS';
 
 class IgnorePain extends Analyzer {
   get uptime(): number {

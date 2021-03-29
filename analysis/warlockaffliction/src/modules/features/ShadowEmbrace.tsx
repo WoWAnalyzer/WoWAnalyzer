@@ -1,24 +1,20 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
-
+import { t } from '@lingui/macro';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import { TooltipElement } from 'interface';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import UptimeBar from 'parser/ui/UptimeBar';
-
-import { t } from '@lingui/macro';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import UptimeBar from 'parser/ui/UptimeBar';
+import React from 'react';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another

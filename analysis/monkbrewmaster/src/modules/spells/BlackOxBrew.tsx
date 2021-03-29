@@ -1,14 +1,12 @@
-import React from 'react';
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import Abilities from '../Abilities';
 

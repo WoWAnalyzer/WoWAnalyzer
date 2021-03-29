@@ -1,14 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import Combatants from 'parser/shared/modules/Combatants';
 import EventFilter from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import Combatants from 'parser/shared/modules/Combatants';
 
-import BeaconTargets from './BeaconTargets';
-import BeaconTransferFactor from './BeaconTransferFactor';
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 import BeaconOfVirtue from '../../normalizers/BeaconOfVirtue';
+import BeaconTargets from './BeaconTargets';
+import BeaconTransferFactor from './BeaconTransferFactor';
 
 const debug = false;
 
@@ -213,7 +213,7 @@ class BeaconHealSource extends Analyzer {
       (beaconTransferEvent.absorbed || 0) +
       (beaconTransferEvent.overheal || 0);
 
-    return this.healBacklog.findIndex(healEvent => {
+    return this.healBacklog.findIndex((healEvent) => {
       const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(
         healEvent,
         beaconTransferEvent,

@@ -1,17 +1,16 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-
-import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SPELLS from 'common/SPELLS';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import UptimeIcon from 'interface/icons/Uptime';
-import Events, { DamageEvent } from 'parser/core/Events';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
 import { COORDINATED_ASSAULT_DMG_MOD } from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
@@ -44,7 +43,9 @@ class CoordinatedAssault extends Analyzer {
   }
 
   get percentUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -66,17 +67,29 @@ class CoordinatedAssault extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(4)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Over the course of the encounter you had Coordinated Assault up for a total of {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds.
+            Over the course of the encounter you had Coordinated Assault up for a total of{' '}
+            {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(
+              1,
+            )}{' '}
+            seconds.
             <br />
             Total damage breakdown:
             <ul>
-              <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
-              <li>Pet damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
+              <li>
+                Player damage:{' '}
+                {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% /{' '}
+                {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS
+              </li>
+              <li>
+                Pet damage:{' '}
+                {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% /{' '}
+                {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS
+              </li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
           <>

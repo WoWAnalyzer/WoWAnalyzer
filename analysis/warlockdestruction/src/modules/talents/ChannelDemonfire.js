@@ -1,19 +1,16 @@
-import React from 'react';
-
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-
-import SPELLS from 'common/SPELLS';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 class ChannelDemonfire extends Analyzer {
   get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
+    return (this.damage / this.owner.fightDuration) * 1000;
   }
 
   static dependencies = {
@@ -24,7 +21,10 @@ class ChannelDemonfire extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE), this.onCDFdamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE),
+      this.onCDFdamage,
+    );
   }
 
   onCDFdamage(event) {
@@ -39,7 +39,10 @@ class ChannelDemonfire extends Analyzer {
         tooltip={`${formatThousands(this.damage)} damage`}
       >
         <BoringSpellValueText spell={SPELLS.CHANNEL_DEMONFIRE_TALENT}>
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

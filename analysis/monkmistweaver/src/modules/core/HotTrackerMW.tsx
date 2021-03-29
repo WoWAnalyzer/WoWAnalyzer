@@ -13,7 +13,6 @@ const MISTWRAP = 1000;
 const TFT_REM_EXTRA_DURATION = 10000;
 
 class HotTrackerMW extends HotTracker {
-
   mistwrapActive: boolean = false;
   upwellingActive: boolean = false;
 
@@ -32,21 +31,30 @@ class HotTrackerMW extends HotTracker {
     if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
       return (EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0)) * 2;
     }
-    if (event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id) {
+    if (
+      event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
+      spellId === SPELLS.RENEWING_MIST_HEAL.id
+    ) {
       return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2;
     }
     return REM_BASE_DURATION * 2;
   }
 
-  calculateMaxRemDuration(event: (ApplyBuffEvent | RefreshBuffEvent) & { selectedCombatant: Combatant }) {
+  calculateMaxRemDuration(
+    event: (ApplyBuffEvent | RefreshBuffEvent) & { selectedCombatant: Combatant },
+  ) {
     const spellId = event.ability.guid;
-    if (event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id) {
-      return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION);
+    if (
+      event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
+      spellId === SPELLS.RENEWING_MIST_HEAL.id
+    ) {
+      return REM_BASE_DURATION + TFT_REM_EXTRA_DURATION;
     }
     return REM_BASE_DURATION;
   }
 
-  _generateHotInfo() { // must be generated dynamically because it reads from traits
+  _generateHotInfo() {
+    // must be generated dynamically because it reads from traits
     return {
       [SPELLS.RENEWING_MIST_HEAL.id]: {
         duration: REM_BASE_DURATION,

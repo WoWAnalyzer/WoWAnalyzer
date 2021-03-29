@@ -1,8 +1,8 @@
-import React from 'react';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import React from 'react';
 
-import ResourceLink from './ResourceLink';
 import Icon from './Icon';
+import ResourceLink from './ResourceLink';
 
 interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
   id: number;
@@ -19,13 +19,7 @@ const ResourceIcon = ({ id, noLink, ...others }: Props) => {
     icon: 'inv_misc_questionmark',
   };
 
-  const icon = (
-    <Icon
-      icon={spell.icon}
-      alt={spell.name}
-      {...others}
-    />
-  );
+  const icon = <Icon icon={spell.icon} alt={spell.name} {...others} />;
 
   if (noLink) {
     return icon;

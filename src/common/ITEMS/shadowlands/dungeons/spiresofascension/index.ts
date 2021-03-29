@@ -6,7 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 const items: ItemList = {
   //region Kin-tara

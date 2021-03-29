@@ -37,7 +37,7 @@ class Buffs extends CoreBuffs {
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

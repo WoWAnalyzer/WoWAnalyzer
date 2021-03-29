@@ -1,9 +1,8 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from '../../core/modules/Abilities';
@@ -24,7 +23,7 @@ class GlobalCooldown extends Analyzer {
     channeling: Channeling,
   };
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
@@ -33,7 +32,7 @@ class GlobalCooldown extends Analyzer {
 
   _errors = 0;
   get errorsPerMinute() {
-    const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
+    const minutesElapsed = this.owner.fightDuration / 1000 / 60;
     return this._errors / minutesElapsed;
   }
   get isAccurate() {
@@ -83,7 +82,8 @@ class GlobalCooldown extends Analyzer {
     }
     // We can't rely on `this.channeling` here since it will have been executed first so will already have marked the channel as ended. This is annoying since it will be more reliable and work with changes.
     const isChanneling = Boolean(this._currentChannel);
-    const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;
+    const isChannelingSameSpell =
+      isChanneling && this._currentChannel.ability.guid === event.ability.guid;
 
     // Reset the current channel prior to returning if `isChannelingSameSpell`, since the player might cast the same ability again and the second `cast` event might be an instant (e.g. channeled Aimed Shot into proc into instant Aimed Shot).
     this._currentChannel = null;
@@ -100,14 +100,17 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   triggerGlobalCooldown(event) {
-    return this.eventEmitter.fabricateEvent({
-      type: EventType.GlobalCooldown,
-      ability: event.ability,
-      sourceID: event.sourceID,
-      targetID: event.sourceID, // no guarantees the original targetID is the player
-      timestamp: event.timestamp,
-      duration: this.getGlobalCooldownDuration(event.ability.guid),
-    }, event);
+    return this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.GlobalCooldown,
+        ability: event.ability,
+        sourceID: event.sourceID,
+        targetID: event.sourceID, // no guarantees the original targetID is the player
+        timestamp: event.timestamp,
+        duration: this.getGlobalCooldownDuration(event.ability.guid),
+      },
+      event,
+    );
   }
 
   /**
@@ -136,7 +139,9 @@ class GlobalCooldown extends Analyzer {
       const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || MIN_GCD;
       return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
-    throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);
+    throw new Error(
+      `Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`,
+    );
   }
   _resolveAbilityGcdField(value) {
     if (typeof value === 'function') {
@@ -160,14 +165,20 @@ class GlobalCooldown extends Analyzer {
         console.error(
           formatMilliseconds(this.owner.fightDuration),
           'GlobalCooldown',
-          event.trigger.ability.name, event.trigger.ability.guid,
+          event.trigger.ability.name,
+          event.trigger.ability.guid,
           `was cast while the Global Cooldown from`,
-          this.lastGlobalCooldown.ability.name, this.lastGlobalCooldown.ability.guid,
+          this.lastGlobalCooldown.ability.name,
+          this.lastGlobalCooldown.ability.guid,
           `was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
-          'time passed:', timeSince,
-          'cooldown remaining:', remainingDuration,
-          'expectedDuration:', this.lastGlobalCooldown.duration,
-          'errors:', this._errors,
+          'time passed:',
+          timeSince,
+          'cooldown remaining:',
+          remainingDuration,
+          'expectedDuration:',
+          this.lastGlobalCooldown.duration,
+          'errors:',
+          this._errors,
         );
       }
     }

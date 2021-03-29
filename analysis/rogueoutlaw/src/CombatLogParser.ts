@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   ComboPointDetails,
   EchoingReprimand,
@@ -10,38 +13,33 @@ import {
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
+  InstantPoison,
 } from '@wowanalyzer/rogue';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
 import Abilities from './modules/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
-
-import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import ComboPoints from './modules/core/ComboPoints';
-import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import Energy from './modules/core/Energy';
-
-import Checklist from './modules/features/Checklist/Module';
-import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
-import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
-import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
-import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
+import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
+import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import RestlessBlades from './modules/core/RestlessBlades';
-import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
+import Finishers from './modules/features/Finishers';
+import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
+import BetweenTheEyes from './modules/spells/BetweenTheEyes';
+import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
+import BladeFlurry from './modules/spells/BladeFlurry';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
-import BetweenTheEyes from './modules/spells/BetweenTheEyes';
-import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
-import Finishers from './modules/features/Finishers';
-
-import BladeRush from './modules/talents/BladeRush';
-import BladeFlurry from './modules/spells/BladeFlurry';
-import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
+import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
+import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
+import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import GreenskinsWickers from './modules/spells/shadowlands/legendaries/GreenskinsWickers';
+import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
+import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
+import BladeRush from './modules/talents/BladeRush';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     restlessBlades: RestlessBlades,
     rollTheBonesCastTracker: RollTheBonesCastTracker,
+    instantPoison: InstantPoison,
 
     //Items
     guileCharm: GuileCharm,

@@ -1,5 +1,5 @@
-import { Sharrq, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { Sharrq, Zeboot } from 'CONTRIBUTORS';
 
 export default [
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),

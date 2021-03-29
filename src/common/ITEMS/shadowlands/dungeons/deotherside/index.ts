@@ -6,7 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 const items: ItemList = {
   INSCRUTABLE_QUANTUM_DEVICE: {

@@ -1,11 +1,11 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class AngelicFeather extends Analyzer {
@@ -15,8 +15,14 @@ class AngelicFeather extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT), this.onApplyBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT),
+      this.onApplyBuff,
+    );
   }
 
   onCast(event: CastEvent) {

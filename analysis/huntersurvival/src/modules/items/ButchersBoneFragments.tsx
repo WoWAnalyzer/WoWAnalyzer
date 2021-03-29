@@ -1,15 +1,21 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  DamageEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+
 import { BUTCHERS_BONE_FRAGMENTS_DMG_AMP } from '@wowanalyzer/hunter-survival/src/constants';
-import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 /**
  * Mongoose Bite and Raptor Strike increases the damage of your next Butchery or Carve by 20%, stacking up to 6 times.
@@ -19,28 +25,41 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
  */
 
 class ButchersBoneFragments extends Analyzer {
-
   stacks = 0;
   damage = 0;
-  spellKnown = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+  spellKnown = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id)
+    ? SPELLS.BUTCHERY_TALENT
+    : SPELLS.CARVE;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BUTCHERS_BONE_FRAGMENTS_BUFF), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BUTCHERS_BONE_FRAGMENTS_BUFF), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BUTCHERS_BONE_FRAGMENTS_BUFF), this.handleStacks);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onDamage);
-
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BUTCHERS_BONE_FRAGMENTS_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BUTCHERS_BONE_FRAGMENTS_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BUTCHERS_BONE_FRAGMENTS_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]),
+      this.onDamage,
+    );
   }
 
   handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
     this.stacks = currentStacks(event);
-
   }
 
   onDamage(event: DamageEvent) {
@@ -60,7 +79,6 @@ class ButchersBoneFragments extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default ButchersBoneFragments;

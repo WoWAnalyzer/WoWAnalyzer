@@ -1,4 +1,10 @@
-import { AtonementOnPlayer1, AtonementOnPlayer2, DamagingEvent1, DamagingEvent2, thisPlayer } from '@wowanalyzer/priest-discipline/src/test-fixtures/TestingEvents';
+import {
+  AtonementOnPlayer1,
+  AtonementOnPlayer2,
+  DamagingEvent1,
+  DamagingEvent2,
+  thisPlayer,
+} from '@wowanalyzer/priest-discipline/src/test-fixtures/TestingEvents';
 
 import AtonementSuccessiveDamage from './AtonementSuccessiveDamage';
 
@@ -26,7 +32,9 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
     ];
 
-    const result = atonementSuccessiveDamageNormalizer.normalize(AtonementOf2DamingEventsGroupedTogether);
+    const result = atonementSuccessiveDamageNormalizer.normalize(
+      AtonementOf2DamingEventsGroupedTogether,
+    );
     expect(result).toEqual([
       AtonementOnPlayer2,
       DamagingEvent1,
@@ -34,7 +42,8 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
       DamagingEvent2,
       AtonementOnPlayer1,
-      AtonementOnPlayer2]);
+      AtonementOnPlayer2,
+    ]);
   });
 
   it('If the atonement of 2 events is correct, it stays untouched', () => {
@@ -48,7 +57,9 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
     ];
 
-    const result = atonementSuccessiveDamageNormalizer.normalize(AtonementOf2DamingEventsGroupedTogether);
+    const result = atonementSuccessiveDamageNormalizer.normalize(
+      AtonementOf2DamingEventsGroupedTogether,
+    );
     expect(result).toEqual([
       AtonementOnPlayer2,
       DamagingEvent1,
@@ -56,11 +67,11 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
       DamagingEvent2,
       AtonementOnPlayer1,
-      AtonementOnPlayer2]);
+      AtonementOnPlayer2,
+    ]);
   });
 
   it('If the 2 damaging blocks scenario happens twice, both are corrected', () => {
-
     const AtonementOf2DamingEventsGroupedTogether = [
       AtonementOnPlayer2,
       DamagingEvent1,
@@ -77,7 +88,9 @@ describe('DisciplinePriest.Reordering', () => {
       AtonementOnPlayer2,
     ];
 
-    const result = atonementSuccessiveDamageNormalizer.normalize(AtonementOf2DamingEventsGroupedTogether);
+    const result = atonementSuccessiveDamageNormalizer.normalize(
+      AtonementOf2DamingEventsGroupedTogether,
+    );
     expect(result).toEqual([
       AtonementOnPlayer2,
       DamagingEvent1,

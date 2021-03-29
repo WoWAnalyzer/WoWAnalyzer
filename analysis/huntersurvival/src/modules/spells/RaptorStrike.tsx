@@ -10,11 +10,12 @@ import Events, { CastEvent } from 'parser/core/Events';
  */
 
 class RaptorStrike extends Analyzer {
-
   constructor(options: Options) {
     super(options);
 
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) && this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+    this.active =
+      !this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) &&
+      this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPTOR_STRIKE), this.onCast);
   }
 
@@ -27,7 +28,7 @@ class RaptorStrike extends Analyzer {
     }
     if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Viper\'s Venom buff still active.';
+      event.meta.inefficientCastReason = "Viper's Venom buff still active.";
     }
   }
 }

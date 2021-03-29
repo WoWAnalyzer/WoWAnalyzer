@@ -10,9 +10,9 @@ Imagine you were hit by a spell that does 1,000 raw damage. You have two damage 
 
 ## Equal share
 
-The first method takes all damage reduction effects into account and gives an equal share of the reduced damage to each effect as if they're all comparable. This can be done using the formula `total damage reduced / total raw damage reduction * damage reduction` where *damage reduction* is the DR under analysis.
+The first method takes all damage reduction effects into account and gives an equal share of the reduced damage to each effect as if they're all comparable. This can be done using the formula `total damage reduced / total raw damage reduction * damage reduction` where _damage reduction_ is the DR under analysis.
 
-Using the example values, we have a total of 520 damage reduced by 60% total *raw* damage reduction. For Divine Protection (the 20% DR buff) the resulting damage reduction of this method would be `520 / 60% * 20% =` **173 damage**.
+Using the example values, we have a total of 520 damage reduced by 60% total _raw_ damage reduction. For Divine Protection (the 20% DR buff) the resulting damage reduction of this method would be `520 / 60% * 20% =` **173 damage**.
 
 This method is illustrated in the image below.
 
@@ -20,7 +20,7 @@ This method is illustrated in the image below.
 
 ## Fair share
 
-The issue with the *equal share* approach is that if you look closely at damage reduction effects, you'll find that most aren't that similar and so giving every DR an equal share would be incorrect.
+The issue with the _equal share_ approach is that if you look closely at damage reduction effects, you'll find that most aren't that similar and so giving every DR an equal share would be incorrect.
 
 The most extreme example of this is static DR such as Armor or Versatility versus a short duration or optional DR such as Divine Protection or Devotion Aura. Both Armor and Versatility have a 100% uptime and are (mostly) non-variable. On the other hand Divine Protection can be timed to be active at the exact right moment, or not at all, and Devotion Aura can be replaced with the other talents in the row; Aura of Mercy or Aura of Sacrifice.
 
@@ -48,7 +48,7 @@ The big advantage of this approach is that it works under the assumption that al
 
 [![Tooltip](https://user-images.githubusercontent.com/4565223/43018363-bc61c862-8c59-11e8-80fc-77938dfe1740.png)](https://wowdb.com/spells/183425-devotion-aura)
 
-To analyze Devotion Aura we use the *optional DRs* method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the talent at all, or maybe activate Aura Mastery at another time. For example you wouldn't change your Divine Protection cast based on having slightly more or less Armor, and you probably would have cast Divine Protection regardless of being affected by Devotion Aura.
+To analyze Devotion Aura we use the _optional DRs_ method because we assume the DR under analysis is the one thing that's optional and everything else likely would have been cast regardless. We assume you use the shown data to consider if you should use the talent at all, or maybe activate Aura Mastery at another time. For example you wouldn't change your Divine Protection cast based on having slightly more or less Armor, and you probably would have cast Divine Protection regardless of being affected by Devotion Aura.
 
 ## Analyzing Devotion Aura's passive
 
@@ -62,7 +62,7 @@ Because of the way the passive scales, its total power is increased as more alli
 
 ![Passive damage reduction total (sum of all players)](https://user-images.githubusercontent.com/4565223/43359144-16f16de2-929e-11e8-81db-5ad85f864625.png)
 
-To account for this in the analysis of the passive, the calculated damage reduction is based on the total damage reduction of the passive to all affected players at that moment. With everything taken into account, the passive's damage taken is calculated with the formula `actual damage taken / total passive damage reduction * total passive damage reduction` where *actual damage taken* is the damage taken by the Paladin.
+To account for this in the analysis of the passive, the calculated damage reduction is based on the total damage reduction of the passive to all affected players at that moment. With everything taken into account, the passive's damage taken is calculated with the formula `actual damage taken / total passive damage reduction * total passive damage reduction` where _actual damage taken_ is the damage taken by the Paladin.
 
 This damage reduction is calculated separate for each damage taken event. This calculation uses an accurate total current damage reduction based on the amount of players affected by the aura at that time.
 

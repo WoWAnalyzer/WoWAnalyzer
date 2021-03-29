@@ -1,16 +1,15 @@
-import React from 'react';
-
-import InformationIcon from 'interface/icons/Information';
+import { Trans } from '@lingui/macro';
+import colorForPerformance from 'common/colorForPerformance';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import { Tooltip, TooltipElement } from 'interface';
-import colorForPerformance from 'common/colorForPerformance';
+import InformationIcon from 'interface/icons/Information';
 import {
   BoolThreshold,
   NumberThreshold,
   Threshold,
   ThresholdStyle,
 } from 'parser/core/ParseResults';
-import { Trans } from '@lingui/macro';
+import React from 'react';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';

@@ -1,7 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 
-import Timeline from '../Timeline';
 import PetDamage from '../PetDamage';
+import Timeline from '../Timeline';
 
 const debug = false;
 
@@ -29,14 +29,17 @@ class DemoPets extends Analyzer {
     // because you know what you're looking for (pet IDs change, GUIDs don't)
     const guid = isGuid ? id : this._toGuid(id);
     if (!this.damage.hasEntry(guid, instance)) {
-      debug && this.error(`this.getPetDamage() called with nonexistant ${isGuid ? 'gu' : ''}id ${id}`);
+      debug &&
+        this.error(`this.getPetDamage() called with nonexistant ${isGuid ? 'gu' : ''}id ${id}`);
       return 0;
     }
     return this.damage.getDamageForGuid(guid, instance);
   }
 
   getPetCount(timestamp = this.owner.currentTimestamp, petId = null) {
-    return this.timeline.getPetsAtTimestamp(timestamp).filter(pet => petId ? pet.id === petId : true).length;
+    return this.timeline
+      .getPetsAtTimestamp(timestamp)
+      .filter((pet) => (petId ? pet.id === petId : true)).length;
   }
 
   // HELPER METHODS
@@ -46,18 +49,21 @@ class DemoPets extends Analyzer {
   }
 
   _getPetFromTimeline(id, instance) {
-    return this.timeline.find(pet => pet.id === id && pet.instance === instance);
+    return this.timeline.find((pet) => pet.id === id && pet.instance === instance);
   }
 
   _getPetInfo(id, isGuid = false) {
     let pet;
     if (isGuid) {
-      pet = this.owner.playerPets.find(pet => pet.guid === id);
+      pet = this.owner.playerPets.find((pet) => pet.guid === id);
     } else {
-      pet = this.owner.playerPets.find(pet => pet.id === id);
+      pet = this.owner.playerPets.find((pet) => pet.id === id);
     }
     if (!pet) {
-      debug && this.error(`NewPets._getPetInfo() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`);
+      debug &&
+        this.error(
+          `NewPets._getPetInfo() called with nonexistant pet ${isGuid ? 'gu' : ''}id ${id}`,
+        );
       return null;
     }
     return pet;

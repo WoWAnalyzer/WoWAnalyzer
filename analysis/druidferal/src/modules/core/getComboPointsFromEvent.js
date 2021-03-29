@@ -7,9 +7,11 @@ export default function getComboPointsFromEvent(castEvent) {
     debug && this.warn('castEvent is null or without a classResources property.');
     return 0;
   }
-  const resource = castEvent.classResources.find(item => item.type === RESOURCE_TYPES.COMBO_POINTS.id);
+  const resource = castEvent.classResources.find(
+    (item) => item.type === RESOURCE_TYPES.COMBO_POINTS.id,
+  );
   if (!resource) {
-    debug && this.warn('castEvent classResources property doesn\'t have combo points listed.');
+    debug && this.warn("castEvent classResources property doesn't have combo points listed.");
     return 0;
   }
   return resource.amount;

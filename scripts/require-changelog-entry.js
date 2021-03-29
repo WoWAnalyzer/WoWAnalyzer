@@ -1,21 +1,23 @@
+const childProcess = require('child_process');
 const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+
+const exec = util.promisify(childProcess.exec);
 
 function getTargetBranch() {
   return process.env.GITHUB_BASE_REF;
 }
 async function getChangedFiles(targetBranch) {
   // eslint-disable-next-line no-unused-vars
-  const { stdout, stderr } = await exec(
-    `git diff --name-only ${targetBranch}..HEAD`,
-  );
+  const { stdout, stderr } = await exec(`git diff --name-only ${targetBranch}..HEAD`);
   // TODO: How do I properly handle stderr?
   return stdout.trim().split('\n');
 }
 
 function getChangelogs(changedFiles) {
-  const allowedChangelogFormats = ['/CHANGELOG.js','/CHANGELOG.tsx','/CHANGELOG.ts'];
-  return changedFiles.filter(path => allowedChangelogFormats.some(format => path.includes(format)));
+  const allowedChangelogFormats = ['/CHANGELOG.js', '/CHANGELOG.tsx', '/CHANGELOG.ts'];
+  return changedFiles.filter((path) =>
+    allowedChangelogFormats.some((format) => path.includes(format)),
+  );
 }
 
 async function main() {
@@ -28,7 +30,7 @@ async function main() {
   const changelogs = getChangelogs(changedFiles);
   if (changelogs.length > 0) {
     console.log('Found a changelog entry. Thanks!');
-    changelogs.forEach(changelog => console.log(changelog));
+    changelogs.forEach((changelog) => console.log(changelog));
     process.exit(0);
   } else {
     console.error(
@@ -41,7 +43,7 @@ async function main() {
   }
 }
 
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   throw err;
 });
 

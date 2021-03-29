@@ -1,52 +1,49 @@
-import { RuneTracker, RuneDetails, RuneOfTheFallenCrusader, RuneOfHysteria, Superstrain, SwarmingMist } from '@wowanalyzer/deathknight';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
+import {
+  RuneTracker,
+  RuneDetails,
+  RuneOfTheFallenCrusader,
+  RuneOfHysteria,
+  Superstrain,
+  SwarmingMist,
+} from '@wowanalyzer/deathknight';
 
 import Abilities from './modules/Abilities';
 import Channeling from './modules/core/Channeling';
-import GlobalCooldown from './modules/core/GlobalCooldown';
-
-// Features
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
-import CrimsonScourge from './modules/features/CrimsonScourge';
-import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
-import Checklist from './modules/features/checklist/Module';
-import MarrowrendUsage from './modules/features/MarrowrendUsage';
-import BoneShield from './modules/features/BoneShield';
-import DancingRuneWeapon from './modules/features/DancingRuneWeapon';
-import InitialMarrowrendCast from './modules/features/InitialMarrowrendCast';
-import DeathStrikeTiming from './modules/features/DeathStrikeTiming';
-import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
 import DeathsCaress from './modules/core/DeathsCaress';
+import GlobalCooldown from './modules/core/GlobalCooldown';
+import RuneForgeChecker from './modules/core/RuneForgeChecker';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
+import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
+import BoneShield from './modules/features/BoneShield';
+import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
+import Checklist from './modules/features/checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import CrimsonScourge from './modules/features/CrimsonScourge';
+import DancingRuneWeapon from './modules/features/DancingRuneWeapon';
+import DeathStrikeTiming from './modules/features/DeathStrikeTiming';
+import InitialMarrowrendCast from './modules/features/InitialMarrowrendCast';
+import MarrowrendUsage from './modules/features/MarrowrendUsage';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Ossuary from './modules/features/Ossuary';
-
-// Resources
+import BrynadaorsMight from './modules/items/BrynadaorsMight';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
-
-// Talents
-import RedThirst from './modules/talents/RedThirst';
+import Bloodworms from './modules/talents/Bloodworms';
 import BoneStorm from './modules/talents/Bonestorm';
-import MarkOfBlood from './modules/talents/MarkOfBlood';
-import Hemostasis from './modules/talents/Hemostasis';
+import Consumption from './modules/talents/Consumption';
 import FoulBulwark from './modules/talents/FoulBulwark';
 import Heartbreaker from './modules/talents/Heartbreaker';
-import Bloodworms from './modules/talents/Bloodworms';
+import Hemostasis from './modules/talents/Hemostasis';
+import MarkOfBlood from './modules/talents/MarkOfBlood';
+import RapidDecomposition from './modules/talents/RapidDecomposition';
+import RedThirst from './modules/talents/RedThirst';
+import RelishInBlood from './modules/talents/RelishInBlood';
 import Tombstone from './modules/talents/Tombstone';
 import Voracious from './modules/talents/Voracious';
-import RapidDecomposition from './modules/talents/RapidDecomposition';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
-import Consumption from './modules/talents/Consumption';
-import RelishInBlood from './modules/talents/RelishInBlood';
-
-// Runes
-import RuneForgeChecker from './modules/core/RuneForgeChecker';
-
-// Legendaries
-import BrynadaorsMight from './modules/items/BrynadaorsMight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,7 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     superStrain: Superstrain,
 
     // Covenants
-    swarmingMist: SwarmingMist
+    swarmingMist: SwarmingMist,
   };
 }
 

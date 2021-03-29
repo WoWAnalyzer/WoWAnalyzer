@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-
-import MissingDotApplyDebuffPrePull, { Dot } from "parser/shared/normalizers/MissingDotApplyDebuffPrePull";
+import MissingDotApplyDebuffPrePull, {
+  Dot,
+} from 'parser/shared/normalizers/MissingDotApplyDebuffPrePull';
 
 const DOTS = [
   {
@@ -21,10 +22,9 @@ const DOTS = [
   {
     debuffId: SPELLS.IMMOLATE_DEBUFF.id,
   },
-]
+];
 
 class WarlockMissingDotApplyDebuffPrePull extends MissingDotApplyDebuffPrePull {
-
   static dots: Dot[] = DOTS;
 }
 

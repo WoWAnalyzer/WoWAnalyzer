@@ -1,8 +1,8 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const debug = false;
 
@@ -16,7 +16,6 @@ const EXECUTE_RANGE_VENTHYR = 0.8;
  * @extends Analyzer
  */
 class ExecuteRangeTracker extends Analyzer {
-
   enemyMap = {};
 
   isExecPhase = false;
@@ -24,8 +23,12 @@ class ExecuteRangeTracker extends Analyzer {
   execPhaseDuration = 0;
   lastHitInExecPhase = 0;
 
-  lowerThreshold = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
-  upperThreshold = (this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) ? EXECUTE_RANGE_VENTHYR : 100)
+  lowerThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id)
+    ? EXECUTE_RANGE_MASSACRE
+    : EXECUTE_RANGE;
+  upperThreshold = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id)
+    ? EXECUTE_RANGE_VENTHYR
+    : 100;
 
   constructor(...args) {
     super(...args);
@@ -38,8 +41,9 @@ class ExecuteRangeTracker extends Analyzer {
       return;
     }
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
-    this.enemyMap[targetString] = ((event.hitPoints / event.maxHitPoints <= this.lowerThreshold) 
-                                  || (event.hitPoints / event.maxHitPoints >= this.upperThreshold)); 
+    this.enemyMap[targetString] =
+      event.hitPoints / event.maxHitPoints <= this.lowerThreshold ||
+      event.hitPoints / event.maxHitPoints >= this.upperThreshold;
 
     if (this.isTargetInExecuteRange(event)) {
       this.lastHitInExecPhase = event.timestamp;
@@ -51,7 +55,11 @@ class ExecuteRangeTracker extends Analyzer {
       debug && console.log('Execution phase started');
     }
 
-    if (!this.isTargetInExecuteRange(event) && this.isExecPhase && event.timestamp > this.lastHitInExecPhase + 2000) {
+    if (
+      !this.isTargetInExecuteRange(event) &&
+      this.isExecPhase &&
+      event.timestamp > this.lastHitInExecPhase + 2000
+    ) {
       this.isExecPhase = false;
       this.execPhaseDuration += event.timestamp - this.execPhaseStart;
       debug && console.log('Execution phase finished, total duration: ' + this.execPhaseDuration);

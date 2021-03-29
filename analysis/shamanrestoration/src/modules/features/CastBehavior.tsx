@@ -1,15 +1,12 @@
-import React from 'react';
-
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
 import Analyzer from 'parser/core/Analyzer';
-
-import StatisticGroup from 'parser/ui/StatisticGroup';
-import Statistic from 'parser/ui/Statistic';
 import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { Trans } from '@lingui/macro';
+import StatisticGroup from 'parser/ui/StatisticGroup';
+import React from 'react';
 
 import { RESTORATION_COLORS } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
@@ -52,16 +49,18 @@ class CastBehavior extends Analyzer {
       {
         color: RESTORATION_COLORS.UNUSED,
         label: <Trans id="shaman.restoration.castBehaviour.unusedTW">Unused Tidal Waves</Trans>,
-        tooltip: <Trans id="shaman.restoration.castBehaviour.unusedTW.tooltip">The amount of Tidal Waves you did not use out of the total available. You cast {riptideCasts} Riptides and {chainHealCasts} Chain Heals which gave you {totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.</Trans>,
+        tooltip: (
+          <Trans id="shaman.restoration.castBehaviour.unusedTW.tooltip">
+            The amount of Tidal Waves you did not use out of the total available. You cast{' '}
+            {riptideCasts} Riptides and {chainHealCasts} Chain Heals which gave you{' '}
+            {totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.
+          </Trans>
+        ),
         value: unusedTw,
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   get fillerCastRatioChart() {
@@ -90,11 +89,7 @@ class CastBehavior extends Analyzer {
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
@@ -102,13 +97,19 @@ class CastBehavior extends Analyzer {
       <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style={{}}>
         <Statistic ultrawide>
           <div className="pad">
-            <label><Trans id="shaman.restoration.castBehaviour.statistic.tidalWaves"><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</Trans></label>
+            <label>
+              <Trans id="shaman.restoration.castBehaviour.statistic.tidalWaves">
+                <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage
+              </Trans>
+            </label>
             {this.twUsageRatioChart}
           </div>
         </Statistic>
         <Statistic ultrawide>
           <div className="pad">
-            <label><Trans id="shaman.restoration.castBehaviour.statistic.fillers">Fillers</Trans></label>
+            <label>
+              <Trans id="shaman.restoration.castBehaviour.statistic.fillers">Fillers</Trans>
+            </label>
             {this.fillerCastRatioChart}
           </div>
         </Statistic>

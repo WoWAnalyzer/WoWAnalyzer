@@ -1,7 +1,7 @@
-import React from 'react';
 import DocumentTitle from 'interface/DocumentTitle';
-import NavigationBar from 'interface/NavigationBar';
 import GuildReports from 'interface/GuildReports';
+import NavigationBar from 'interface/NavigationBar';
+import React from 'react';
 
 interface GuildPageProps {
   region: string;

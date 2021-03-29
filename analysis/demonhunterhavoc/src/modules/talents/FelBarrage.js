@@ -1,18 +1,17 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Events from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import React from 'react';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/Mz8cTFgNkxXaJt3j/#fight=4&source=18
  */
 
 class FelBarrage extends Analyzer {
-
   get suggestionThresholds() {
     return {
       actual: this.badCasts,
@@ -35,8 +34,14 @@ class FelBarrage extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_DAMAGE), this.felBarrage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_TALENT), this.felBarrageCasts);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_DAMAGE),
+      this.felBarrage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_TALENT),
+      this.felBarrageCasts,
+    );
   }
 
   felBarrage(event) {
@@ -46,7 +51,10 @@ class FelBarrage extends Analyzer {
   felBarrageCasts(event) {
     this.casts += 1;
 
-    const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp);
+    const hasMetaBuff = this.selectedCombatant.hasBuff(
+      SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+      event.timestamp,
+    );
 
     if (!hasMetaBuff) {
       this.badCasts += 1;
@@ -54,11 +62,22 @@ class FelBarrage extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> during{' '}
+          <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
+        </>,
+      )
         .icon(SPELLS.FEL_BARRAGE_TALENT.icon)
-        .actual(<>{actual} bad <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.</>)
-        .recommended(`No bad casts is recommended.`));
+        .actual(
+          <>
+            {actual} bad <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> casts without{' '}
+            <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
+          </>,
+        )
+        .recommended(`No bad casts is recommended.`),
+    );
   }
 
   statistic() {
@@ -66,19 +85,24 @@ class FelBarrage extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.FEL_BARRAGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
+        value={
           <>
-            {this.badCasts} <small>casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> </small> <br />
+            {this.badCasts}{' '}
+            <small>
+              casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
+            </small>{' '}
+            <br />
             {this.owner.formatItemDamageDone(this.damage)}
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            A bad cast is casting Fel Barage without Metamorphosis up.<br /><br />
-
+            A bad cast is casting Fel Barage without Metamorphosis up.
+            <br />
+            <br />
             {formatThousands(this.damage)} total damage
           </>
-        )}
+        }
       />
     );
   }

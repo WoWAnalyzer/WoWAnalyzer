@@ -1,18 +1,15 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SPELLS from 'common/SPELLS';
-
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-
-import Statistic from 'parser/ui/Statistic';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import RageTracker from '../core/RageTracker';
 
@@ -30,7 +27,10 @@ class HeavyRepercussions extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
+      this.onSlamCast,
+    );
   }
 
   get shieldBlockuptime() {
@@ -41,9 +41,9 @@ class HeavyRepercussions extends Analyzer {
     return {
       actual: this.sbExtended / this.sbCasts,
       isLessThan: {
-        minor: .9,
-        average: .85,
-        major: .80,
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -58,14 +58,24 @@ class HeavyRepercussions extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />
+          's during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of{' '}
+          <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of{' '}
+          <SpellLink id={SPELLS.SHIELD_SLAM.id} />.
+        </>,
+      )
         .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
-        .actual(t({
-      id: "warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts",
-      message: `${formatPercentage(actual)}% cast during Shield Block`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts',
+            message: `${formatPercentage(actual)}% cast during Shield Block`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -80,13 +90,21 @@ class HeavyRepercussions extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            You casted Shield Slam {this.sbExtended} times during Shield Block, resulting in additional {sbExtendedMS / 1000} sec uptime.<br />
+            You casted Shield Slam {this.sbExtended} times during Shield Block, resulting in
+            additional {sbExtendedMS / 1000} sec uptime.
+            <br />
           </>
-        )}
+        }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage
+            </>
+          }
+        >
           <>
             {formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}% <br />
             {rageFromTalent} <small>rage</small>

@@ -1,15 +1,15 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { ALPHA_DAMAGE_KC_MODIFIER } from '@wowanalyzer/hunter-survival/src/constants';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import React from 'react';
+
+import { ALPHA_DAMAGE_KC_MODIFIER } from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Kill Command now has 2 charges, and deals 30% increased damage.
@@ -25,7 +25,10 @@ class AlphaPredator extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      this.onPetDamage,
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -37,11 +40,13 @@ class AlphaPredator extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            This statistic shows the damage gained from the increased Kill Command damage. It does not reflect the potential damage gain from having 2 charges of Kill Command or from the focus gain from Kill Command overall.
+            This statistic shows the damage gained from the increased Kill Command damage. It does
+            not reflect the potential damage gain from having 2 charges of Kill Command or from the
+            focus gain from Kill Command overall.
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.ALPHA_PREDATOR_TALENT}>

@@ -1,22 +1,18 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
+import JadeIgnition from '../../items/JadeIgnition';
+import LastEmperorsCapacitor from '../../items/LastEmperorsCapacitor';
+import ChiDetails from '../../resources/ChiDetails';
+import BlackoutKick from '../../spells/BlackoutKick';
 import ComboBreaker from '../../spells/ComboBreaker';
+import ComboStrikes from '../../spells/ComboStrikes';
 import FistsofFury from '../../spells/FistsofFury';
 import TouchOfKarma from '../../spells/TouchOfKarma';
-import ComboStrikes from '../../spells/ComboStrikes';
-import BlackoutKick from '../../spells/BlackoutKick';
-
 import HitCombo from '../../talents/HitCombo';
-import ChiDetails from '../../resources/ChiDetails';
-
-import LastEmperorsCapacitor from '../../items/LastEmperorsCapacitor';
-import JadeIgnition from '../../items/JadeIgnition';
-
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -68,11 +64,13 @@ class Checklist extends BaseChecklist {
           hitCombo: this.hitCombo.suggestionThresholds,
           chiDetails: this.chiDetails.suggestionThresholds,
 
-          lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor.averageStacksSuggestionThresholds,
-          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor.wastedStacksSuggestionThresholds,
+          lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor
+            .averageStacksSuggestionThresholds,
+          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor
+            .wastedStacksSuggestionThresholds,
           jadeIgnition: this.jadeIgnition.suggestionThresholds,
-       }}
-     />
+        }}
+      />
     );
   }
 }

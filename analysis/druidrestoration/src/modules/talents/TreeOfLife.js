@@ -1,30 +1,27 @@
-import React from 'react';
-
-import { formatNumber, formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { SpellIcon } from 'interface';
-import BoringValue from 'parser/ui/BoringValueText';
-
 import { t } from '@lingui/macro';
-
+import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
 import Rejuvenation from '../core/Rejuvenation';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
-const REJUV_BOOST = 0.50;
-const REJUV_MANA_SAVED = 0.30;
+const REJUV_BOOST = 0.5;
+const REJUV_MANA_SAVED = 0.3;
 const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
-const WG_INCREASE = (8 / 6) - 1;
+const WG_INCREASE = 8 / 6 - 1;
 const TOL_DURATION = 30000;
 
 // have to be careful about applying stacking boosts so we don't double count. Arbitrarily considering all boost to be applied "first"
@@ -46,7 +43,9 @@ const TOL_DURATION = 30000;
  */
 class TreeOfLife extends Analyzer {
   get hardcastUptime() {
-    const currentUptime = !(this.lastTolCast) ? 0 : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
+    const currentUptime = !this.lastTolCast
+      ? 0
+      : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
     return currentUptime + this.completedTolUptime;
   }
 
@@ -88,10 +87,24 @@ class TreeOfLife extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT, SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED), this.onRemoveBuff);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT, SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
+      this.onRemoveBuff,
+    );
   }
 
   // if ToL buff is due to hardcast, returns the hardcast accumulator,
@@ -116,9 +129,9 @@ class TreeOfLife extends Analyzer {
     accumulator.allBoostHealing += calculateEffectiveHealing(event, ALL_BOOST);
 
     if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
-      accumulator.rejuvBoostHealing += (calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT);
+      accumulator.rejuvBoostHealing += calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
     } else if (spellId === SPELLS.WILD_GROWTH.id) {
-      accumulator.extraWgHealing += (calculateEffectiveHealing(event, WG_INCREASE) / ALL_MULT);
+      accumulator.extraWgHealing += calculateEffectiveHealing(event, WG_INCREASE) / ALL_MULT;
     }
   }
 
@@ -126,7 +139,10 @@ class TreeOfLife extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
       this.lastTolCast = event.timestamp;
-    } else if (spellId === SPELLS.REJUVENATION.id && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+    } else if (
+      spellId === SPELLS.REJUVENATION.id &&
+      !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
+    ) {
       const accumulator = this._getAccumulator(event);
       if (!accumulator) {
         return;
@@ -161,18 +177,31 @@ class TreeOfLife extends Analyzer {
   }
 
   _getTotalHealing(accumulator) {
-    return accumulator.allBoostHealing + accumulator.rejuvBoostHealing + accumulator.extraWgHealing + this._getManaSavedHealing(accumulator);
+    return (
+      accumulator.allBoostHealing +
+      accumulator.rejuvBoostHealing +
+      accumulator.extraWgHealing +
+      this._getManaSavedHealing(accumulator)
+    );
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you
+          much throughput. You may want to plan your CD usage better or pick another talent.
+        </>,
+      )
         .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-        .actual(t({
-      id: "druid.restoration.suggestions.treeOfLife.efficiency",
-      message: `${formatPercentage(actual)}% healing`
-    }))
-        .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.treeOfLife.efficiency',
+            message: `${formatPercentage(actual)}% healing`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended, 0)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -180,21 +209,70 @@ class TreeOfLife extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            The Tree of Life buff was active for <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter. The displayed healing number is the sum of several benefits, listed below:
+            The Tree of Life buff was active for{' '}
+            <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or{' '}
+            <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter.
+            The displayed healing number is the sum of several benefits, listed below:
             <ul>
-              <li>Overall Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</strong></li>
-              <li>Rejuv Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</strong></li>
-              <li>Rejuv Mana Saved: <strong>{formatNumber(this._getManaSaved(this.hardcast))}</strong> (assuming mana used to fill with Rejuvs: <strong>≈{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</strong> healing)</li>
-              <li>Increased Wild Growths: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing))}%</strong></li>
+              <li>
+                Overall Increased Healing:{' '}
+                <strong>
+                  {formatPercentage(
+                    this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing),
+                  )}
+                  %
+                </strong>
+              </li>
+              <li>
+                Rejuv Increased Healing:{' '}
+                <strong>
+                  {formatPercentage(
+                    this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing),
+                  )}
+                  %
+                </strong>
+              </li>
+              <li>
+                Rejuv Mana Saved: <strong>{formatNumber(this._getManaSaved(this.hardcast))}</strong>{' '}
+                (assuming mana used to fill with Rejuvs:{' '}
+                <strong>
+                  ≈
+                  {formatPercentage(
+                    this.owner.getPercentageOfTotalHealingDone(
+                      this._getManaSavedHealing(this.hardcast),
+                    ),
+                  )}
+                  %
+                </strong>{' '}
+                healing)
+              </li>
+              <li>
+                Increased Wild Growths:{' '}
+                <strong>
+                  {formatPercentage(
+                    this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing),
+                  )}
+                  %
+                </strong>
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> Tree of Life healing</>}>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> Tree of Life healing
+            </>
+          }
+        >
           <>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %
+            {formatPercentage(
+              this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
+            )}{' '}
+            %
           </>
         </BoringValue>
       </Statistic>

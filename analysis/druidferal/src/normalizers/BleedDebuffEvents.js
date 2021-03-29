@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const CAST_WINDOW = 300;
 const CAST_DEBUFF_PAIRS = [
@@ -54,7 +54,7 @@ class BleedDebuffEvents extends EventsNormalizer {
       if (castEvent.type !== EventType.Cast) {
         continue;
       }
-      const pair = CAST_DEBUFF_PAIRS.find(item => item.cast.id === castEvent.ability.guid);
+      const pair = CAST_DEBUFF_PAIRS.find((item) => item.cast.id === castEvent.ability.guid);
       if (!pair) {
         continue;
       }
@@ -62,13 +62,20 @@ class BleedDebuffEvents extends EventsNormalizer {
       castEvent.debuffEvents = [];
       // found a suitable cast event so now look forward for debuff events
       // note: debuff events usually appear after associated cast events - make sure this normalizer runs after any that enforce that.
-      for (let debuffEventIndex = castEventIndex; debuffEventIndex < events.length; debuffEventIndex += 1) {
+      for (
+        let debuffEventIndex = castEventIndex;
+        debuffEventIndex < events.length;
+        debuffEventIndex += 1
+      ) {
         const debuffEvent = events[debuffEventIndex];
         if (debuffEvent.timestamp > castEvent.timestamp + CAST_WINDOW) {
           // if this event is past the time limit then can assume any future events will also be past the time limit, so stop looking.
           break;
         }
-        if (debuffEvent.type !== EventType.ApplyDebuff && debuffEvent.type !== EventType.RefreshDebuff) {
+        if (
+          debuffEvent.type !== EventType.ApplyDebuff &&
+          debuffEvent.type !== EventType.RefreshDebuff
+        ) {
           continue;
         }
         if (debuffEvent.ability.guid !== pair.debuff.id) {

@@ -1,12 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
-
-import Tooltip from 'interface/Tooltip';
-import SpellLink from 'interface/SpellLink';
 import Icon from 'interface/Icon';
-
+import SpellLink from 'interface/SpellLink';
+import Tooltip from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 

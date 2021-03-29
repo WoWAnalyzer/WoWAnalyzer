@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   ComboPointDetails,
   ComboPointTracker,
@@ -14,36 +17,28 @@ import {
   SpellEnergyCost,
   SpellUsable,
   StealthDamageTracker,
+  InstantPoison,
 } from '@wowanalyzer/rogue';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
-import GeneratorFollowingVanish from './modules/core/GeneratorFollowingVanish';
-
 import Abilities from './modules/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/checklist/Module';
-
-//Normalizers
-import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
-
+import BlackPowder from './modules/core/BlackPowder';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
 import CastsInStealth from './modules/core/CastsInStealth';
+import ComboPoints from './modules/core/ComboPoints';
+import DanceDamageTracker from './modules/core/DanceDamageTracker';
+import DeepeningShadows from './modules/core/DeepeningShadows';
+import Energy from './modules/core/Energy';
+import GeneratorFollowingVanish from './modules/core/GeneratorFollowingVanish';
+import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/checklist/Module';
 import ShadowBladesUptime from './modules/features/ShadowBladesUptime';
 import SymbolsOfDeathUptime from './modules/features/SymbolsOfDeathUptime';
-import DeepeningShadows from './modules/core/DeepeningShadows';
-import ComboPoints from './modules/core/ComboPoints';
-import Energy from './modules/core/Energy';
-import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
-import DanceDamageTracker from './modules/core/DanceDamageTracker';
-import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
-import BlackPowder from './modules/core/BlackPowder';
-
+import VanishFindWeakness from './modules/features/VanishFindWeakness';
 import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
 import TheRotten from './modules/spells/shadowlands/legendaries/TheRotten';
-import VanishFindWeakness from './modules/features/VanishFindWeakness';
+import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
+import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castsInStealth: CastsInStealth,
     vanishFindWeakness: VanishFindWeakness,
     generatorFollowingVanish: GeneratorFollowingVanish,
+    instantPoison: InstantPoison,
 
     //Talents
     darkShadowContribution: DarkShadowContribution,

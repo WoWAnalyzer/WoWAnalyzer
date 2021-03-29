@@ -1,26 +1,21 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
-
-//Classes
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
 import HUNTER from './hunter';
 import MAGE from './mage';
 import MONK from './monk';
+import OTHERS from './others';
 import PALADIN from './paladin';
 import PRIEST from './priest';
 import ROGUE from './rogue';
+import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-
-//Non class-specific
-import OTHERS from './others';
-import SHADOWLANDS from './shadowlands';
-
 
 const ITEMS: ItemList = {
   //Class items
@@ -39,10 +34,7 @@ const ITEMS: ItemList = {
     WARRIOR,
   ),
   //Any non class-specific items
-  ...safeMerge(
-    OTHERS,
-    SHADOWLANDS,
-  ),
+  ...safeMerge(OTHERS, SHADOWLANDS),
 };
 
 export default indexById(ITEMS);

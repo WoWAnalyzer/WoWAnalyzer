@@ -1,17 +1,16 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/PGMqmyH1b86fW7F2/#fight=55&source=10
  */
 
 class Netherwalk extends Analyzer {
-
   damageImmuned = [];
 
   constructor(...args) {
@@ -37,24 +36,28 @@ class Netherwalk extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
-        dropdown={(
-          this.damageImmuned.length !== 0 ? <>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.values(this.damageImmuned).map((e, i) => (
-                  <tr key={i}>
-                    <th>{this.damageImmuned[i].name}</th>
+        dropdown={
+          this.damageImmuned.length !== 0 ? (
+            <>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </> : ''
-        )}
+                </thead>
+                <tbody>
+                  {Object.values(this.damageImmuned).map((e, i) => (
+                    <tr key={i}>
+                      <th>{this.damageImmuned[i].name}</th>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            ''
+          )
+        }
       >
         <BoringSpellValueText spell={SPELLS.NETHERWALK_TALENT}>
           <>
@@ -62,7 +65,6 @@ class Netherwalk extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-
     );
   }
 }

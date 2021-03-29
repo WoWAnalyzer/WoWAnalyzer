@@ -1,5 +1,5 @@
-import { Sharrq } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
   change(date(2020, 10, 15), 'Updated Spellbook and added Conduit, Legendary, and Covenant Spell IDs', Sharrq),

@@ -4,10 +4,16 @@ import Events from 'parser/core/Events';
 
 class LightOfDawnIndexer extends Analyzer {
   _lightOfDawnHealIndex = 0;
-  constructor(options){
+  constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL),
+      this.onHeal,
+    );
   }
   onCast(event) {
     this._lightOfDawnHealIndex = 0;

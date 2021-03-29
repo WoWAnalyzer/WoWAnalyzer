@@ -24,7 +24,8 @@ export default {
     mastery: false, //Procs Gusts
     vers: true,
   },
-  [SPELLS.ENVELOPING_MIST_TFT.id]: { // Instant Heal when using TFT-> Enveloping Mist
+  [SPELLS.ENVELOPING_MIST_TFT.id]: {
+    // Instant Heal when using TFT-> Enveloping Mist
     int: true,
     crit: true,
     hasteHpm: false,
@@ -102,7 +103,8 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.LIFE_COCOON.id]: {//life cocoon scales off of hp
+  [SPELLS.LIFE_COCOON.id]: {
+    //life cocoon scales off of hp
     int: false,
     crit: false,
     hasteHpm: false,
@@ -110,7 +112,8 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.RISING_MIST_HEAL.id]: { // t100 trait
+  [SPELLS.RISING_MIST_HEAL.id]: {
+    // t100 trait
     int: true,
     crit: true,
     hasteHpm: false,
@@ -118,7 +121,8 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.HEALING_ELIXIR_TALENT.id]: { // t75 trait
+  [SPELLS.HEALING_ELIXIR_TALENT.id]: {
+    // t75 trait
     int: true,
     crit: true,
     hasteHpm: false,
@@ -150,7 +154,8 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.GUST_OF_MISTS_CHIJI.id]: { // Chi-ji's gusts
+  [SPELLS.GUST_OF_MISTS_CHIJI.id]: {
+    // Chi-ji's gusts
     int: true,
     crit: true,
     hasteHpm: false,
@@ -158,7 +163,8 @@ export default {
     mastery: true,
     vers: true,
   },
-  [SPELLS.SOOTHING_BREATH.id]: { //Yu'lon's healing
+  [SPELLS.SOOTHING_BREATH.id]: {
+    //Yu'lon's healing
     int: true,
     crit: true,
     hasteHpm: false,

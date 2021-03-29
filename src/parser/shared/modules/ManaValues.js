@@ -1,15 +1,14 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { formatPercentage, formatNumber } from 'common/format';
-import SPECS from 'game/SPECS';
-import ROLES from 'game/ROLES';
-import PropTypes from 'prop-types';
 import { t } from '@lingui/macro';
-import Events from 'parser/core/Events';
-
-import React from 'react';
 import { Trans } from '@lingui/macro';
+import { formatPercentage, formatNumber } from 'common/format';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class ManaValues extends Analyzer {
   static propTypes = {
@@ -25,7 +24,9 @@ class ManaValues extends Analyzer {
   constructor(...args) {
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.active = this.selectedCombatant.spec.role === ROLES.HEALER && this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
+    this.active =
+      this.selectedCombatant.spec.role === ROLES.HEALER &&
+      this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
   }
 
   onCast(event) {
@@ -35,7 +36,7 @@ class ManaValues extends Analyzer {
     }
     if (event.classResources) {
       event.classResources
-        .filter(resource => resource.type === RESOURCE_TYPES.MANA.id)
+        .filter((resource) => resource.type === RESOURCE_TYPES.MANA.id)
         .forEach(({ amount, cost, max }) => {
           const manaValue = amount;
           const manaCost = cost || 0;
@@ -58,7 +59,7 @@ class ManaValues extends Analyzer {
   }
 
   get manaLeftPercentage() {
-    return this.endingMana/this.maxMana;
+    return this.endingMana / this.maxMana;
   }
   get suggestionThresholds() {
     return {
@@ -78,16 +79,27 @@ class ManaValues extends Analyzer {
       return;
     }
 
-    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.manaValues.suggestions.label">You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.</Trans>)
+    when(this.suggestionThresholds.actual)
+      .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <Trans id="shared.manaValues.suggestions.label">
+            You had mana left at the end of the fight. A good rule of thumb is having the same mana
+            percentage as the bosses health percentage. Mana is indirectly tied with healing
+            throughput and should be optimized.
+          </Trans>,
+        )
           .icon('inv_elemental_mote_mana')
-          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${t({
-      id: "shared.suggestions.mana.efficiency",
-      message: `mana left`
-    })}`)
+          .actual(
+            `${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${t({
+              id: 'shared.suggestions.mana.efficiency',
+              message: `mana left`,
+            })}`,
+          )
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
-          .major(this.suggestionThresholds.isGreaterThan.major));
+          .major(this.suggestionThresholds.isGreaterThan.major),
+      );
   }
 }
 

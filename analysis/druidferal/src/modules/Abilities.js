@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -93,7 +92,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BRUTAL_SLASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // when taken, still used on single target
         enabled: combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
-        cooldown: haste => 8 / (1 + haste),
+        cooldown: (haste) => 8 / (1 + haste),
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -112,7 +111,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 11,
-        primaryCoefficient: 0.30,
+        primaryCoefficient: 0.3,
       },
 
       {
@@ -122,7 +121,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         // likely a Blizzard bug, probably intended to match Berserk's 1000 fixed
         gcd: {
@@ -137,7 +136,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         gcd: {
           static: 1000,
@@ -151,7 +150,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           // Predator may reset the cooldown very frequently, more often than is useful to use the ability
-          recommendedEfficiency: (combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) ? 0.50 : 0.80),
+          recommendedEfficiency: combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) ? 0.5 : 0.8,
         },
         gcd: null,
         timelineSortIndex: 20,
@@ -173,7 +172,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.REGROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: (combatant => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500)),
+          base: (combatant) => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500),
         },
         timelineSortIndex: 30,
       },
@@ -181,7 +180,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ENTANGLING_ROOTS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: (combatant => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500)),
+          base: (combatant) => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500),
         },
         timelineSortIndex: 31,
       },
@@ -200,7 +199,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 120,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             // off the GCD if player is already in cat form
             return null;
@@ -208,7 +207,7 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
         isDefensive: true,
         timelineSortIndex: 43,
       },
@@ -217,7 +216,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             // off the GCD if player is already in cat form
             return null;
@@ -225,15 +224,19 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
         isDefensive: true,
         timelineSortIndex: 43,
       },
       {
-        spell: [SPELLS.STAMPEDING_ROAR_HUMANOID, SPELLS.STAMPEDING_ROAR_CAT, SPELLS.STAMPEDING_ROAR_BEAR],
+        spell: [
+          SPELLS.STAMPEDING_ROAR_HUMANOID,
+          SPELLS.STAMPEDING_ROAR_CAT,
+          SPELLS.STAMPEDING_ROAR_BEAR,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             return {
               base: 1000,
@@ -247,7 +250,7 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
         isDefensive: true,
         timelineSortIndex: 44,
       },
@@ -347,7 +350,13 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
+        spell: [
+          SPELLS.WILD_CHARGE_TALENT,
+          SPELLS.WILD_CHARGE_MOONKIN,
+          SPELLS.WILD_CHARGE_CAT,
+          SPELLS.WILD_CHARGE_BEAR,
+          SPELLS.WILD_CHARGE_TRAVEL,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
@@ -410,7 +419,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
       },
       {
         spell: SPELLS.THRASH_BEAR,
@@ -418,7 +427,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
       },
       {
         // Moonfire from caster, bear, and moonkin forms. See MOONFIRE_FERAL for cat
@@ -501,7 +510,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         // unlike Guardian's version doesn't have charges
-        cooldown: haste => 36 / (1 + haste),
+        cooldown: (haste) => 36 / (1 + haste),
       },
       {
         spell: SPELLS.REJUVENATION,

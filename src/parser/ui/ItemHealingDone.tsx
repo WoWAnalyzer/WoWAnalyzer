@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { formatPercentage, formatNumber } from 'common/format';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 interface Props {
   amount: number;
@@ -19,15 +18,11 @@ const ItemHealingDone = (
   { parser }: Context,
 ) => (
   <>
-    <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
-    {approximate && '≈'}
+    <img src="/img/healing.png" alt="Healing" className="icon" /> {approximate && '≈'}
     {greaterThan && '>'}
     {lessThan && '<'}
     {formatNumber((amount / parser.fightDuration) * 1000)} HPS{' '}
-    <small>
-      {formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of
-      total
-    </small>
+    <small>{formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of total</small>
   </>
 );
 ItemHealingDone.contextTypes = {

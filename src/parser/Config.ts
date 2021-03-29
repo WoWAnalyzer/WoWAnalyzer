@@ -1,9 +1,8 @@
-import { ReactNode } from 'react';
-
 import { ChangelogEntry } from 'common/changelog';
 import { Contributor } from 'common/contributor';
 import { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import { ReactNode } from 'react';
 
 export type Build = {
   url: string;
@@ -40,6 +39,7 @@ interface Config {
     | '8.3'
     | '9.0.1'
     | '9.0.2'
+    | '9.0.5'
     | string;
   /**
    * Whether support for the spec is only partial and some important elements

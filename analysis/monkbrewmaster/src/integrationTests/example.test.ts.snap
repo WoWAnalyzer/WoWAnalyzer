@@ -34,7 +34,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
         <div
           className="value"
         >
-          53.00 %
+          55.56 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "46.99508397660328%",
+                  "width": "44.44061052293889%",
                 }
               }
             >
@@ -106,7 +106,7 @@ Array [
     "importance": "major",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC).",
     "stat": <React.Fragment>
-      {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"53.00"}}
+      {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"55.56"}}
        (
       &lt;20.00% is recommended
       )
@@ -182,7 +182,7 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
         <div
           className="value"
         >
-          26.30
+          25.23
            %
         </div>
       </div>
@@ -347,7 +347,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              7.75
+              7.33
             </td>
             <td
               className="text-right"
@@ -358,9 +358,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               34
-              /45
-               
-              casts
+              /47
+               casts
             </td>
             <td
               style={
@@ -377,7 +376,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "78.23333606774852%",
+                      "width": "74.41159349464954%",
                     }
                   }
                 />
@@ -392,7 +391,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              78.23%
+              74.41%
             </td>
             <td
               style={
@@ -450,7 +449,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              6.61
+              6.25
             </td>
             <td
               className="text-right"
@@ -461,9 +460,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               29
-              /66
-               
-              casts
+              /70
+               casts
             </td>
             <td
               style={
@@ -480,7 +478,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "44.07847488476899%",
+                      "width": "41.68253717291785%",
                     }
                   }
                 />
@@ -495,7 +493,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              44.08%
+              41.68%
             </td>
             <td
               style={
@@ -553,7 +551,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              1.82
+              1.72
             </td>
             <td
               className="text-right"
@@ -564,9 +562,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               8
-              /18
-               
-              casts
+              /19
+               casts
             </td>
             <td
               style={
@@ -583,7 +580,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "45.59842229458861%",
+                      "width": "43.1198660409495%",
                     }
                   }
                 />
@@ -598,7 +595,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              45.60%
+              43.12%
             </td>
             <td
               style={
@@ -651,7 +648,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              8.66
+              8.19
             </td>
             <td
               className="text-right"
@@ -663,8 +660,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               38
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -749,8 +745,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -823,7 +818,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.68
+              0.65
             </td>
             <td
               className="text-right"
@@ -835,8 +830,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               3
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -853,7 +847,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "37.61983835359297%",
+                      "width": "37.77839263512688%",
                     }
                   }
                 />
@@ -868,7 +862,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              37.62%
+              37.78%
             </td>
             <td
               style={
@@ -996,8 +990,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1128,7 +1121,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.23
+              0.22
             </td>
             <td
               className="text-right"
@@ -1140,8 +1133,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1158,7 +1150,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "57.53266936963981%",
+                      "width": "59.8410314271957%",
                     }
                   }
                 />
@@ -1173,7 +1165,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              57.53%
+              59.84%
             </td>
             <td
               style={
@@ -1238,8 +1230,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1387,7 +1378,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              5.02
+              4.74
             </td>
             <td
               className="text-right"
@@ -1398,9 +1389,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               22
-              /36
-               
-              casts
+              /38
+               casts
             </td>
             <td
               style={
@@ -1417,7 +1407,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "62.489252417320905%",
+                      "width": "59.99266962277304%",
                     }
                   }
                 />
@@ -1432,7 +1422,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              62.49%
+              59.99%
             </td>
             <td
               style={
@@ -1490,7 +1480,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.91
+              0.86
             </td>
             <td
               className="text-right"
@@ -1501,9 +1491,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               4
-              /8
-               
-              casts
+              /9
+               casts
             </td>
             <td
               style={
@@ -1520,7 +1509,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "46.63863630318391%",
+                      "width": "47.98594292367065%",
                     }
                   }
                 />
@@ -1535,7 +1524,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              46.64%
+              47.99%
             </td>
             <td
               style={
@@ -1593,7 +1582,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              2.96
+              2.80
             </td>
             <td
               className="text-right"
@@ -1604,9 +1593,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               13
-              /53
-               
-              casts
+              /56
+               casts
             </td>
             <td
               style={
@@ -1623,7 +1611,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "24.69914540956883%",
+                      "width": "23.35659410551431%",
                     }
                   }
                 />
@@ -1638,7 +1626,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              24.70%
+              23.36%
             </td>
             <td
               style={
@@ -1691,7 +1679,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.23
+              0.22
             </td>
             <td
               className="text-right"
@@ -1703,8 +1691,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1721,7 +1708,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "3.666493139337379%",
+                      "width": "8.90281500858804%",
                     }
                   }
                 />
@@ -1736,7 +1723,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              3.67%
+              8.90%
             </td>
             <td
               style={
@@ -1801,8 +1788,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1945,7 +1931,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.68
+              0.65
             </td>
             <td
               className="text-right"
@@ -1957,8 +1943,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               3
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1975,7 +1960,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "22.799211147294304%",
+                      "width": "21.55993302047475%",
                     }
                   }
                 />
@@ -1990,7 +1975,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              22.80%
+              21.56%
             </td>
             <td
               style={
@@ -2055,8 +2040,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2141,8 +2125,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2227,8 +2210,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2312,9 +2294,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              /6
-               
-              casts
+              /7
+               casts
             </td>
             <td
               style={
@@ -2411,8 +2392,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2497,7 +2477,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.91
+              0.86
             </td>
             <td
               className="text-right"
@@ -2508,9 +2488,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               4
-              /33
-               
-              casts
+              /35
+               casts
             </td>
             <td
               style={
@@ -2527,7 +2506,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "12.159579278556961%",
+                      "width": "11.498630944253199%",
                     }
                   }
                 />
@@ -2542,7 +2521,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              12.16%
+              11.50%
             </td>
             <td
               style={
@@ -2595,7 +2574,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.23
+              0.22
             </td>
             <td
               className="text-right"
@@ -2606,9 +2585,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               1
-              /18
-               
-              casts
+              /19
+               casts
             </td>
             <td
               style={
@@ -2625,7 +2603,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "5.699802786823576%",
+                      "width": "5.389983255118688%",
                     }
                   }
                 />
@@ -2640,7 +2618,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              5.70%
+              5.39%
             </td>
             <td
               style={
@@ -2704,9 +2682,8 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              /33
-               
-              casts
+              /35
+               casts
             </td>
             <td
               style={
@@ -2791,7 +2768,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              0.23
+              0.22
             </td>
             <td
               className="text-right"
@@ -2803,8 +2780,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2947,8 +2923,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3045,8 +3020,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3101,7 +3075,7 @@ Array [
   Object {
     "details": null,
     "icon": "achievement_brewery_2",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       <Trans
         components={
@@ -3124,8 +3098,8 @@ Array [
         values={
           Object {
             "0": 34,
-            "1": 45,
-            "2": "78",
+            "1": 47,
+            "2": "74",
           }
         }
       />
@@ -3168,8 +3142,8 @@ Array [
         values={
           Object {
             "0": 29,
-            "1": 66,
-            "2": "44",
+            "1": 70,
+            "2": "42",
           }
         }
       />
@@ -3212,8 +3186,8 @@ Array [
         values={
           Object {
             "0": 22,
-            "1": 36,
-            "2": "62",
+            "1": 38,
+            "2": "60",
           }
         }
       />
@@ -3256,8 +3230,8 @@ Array [
         values={
           Object {
             "0": 4,
-            "1": 8,
-            "2": "47",
+            "1": 9,
+            "2": "48",
           }
         }
       />
@@ -3267,7 +3241,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "90",
+            "0": "70",
           }
         }
       />
@@ -3472,7 +3446,7 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
         <div
           className="value"
         >
-          414
+          392
            HPS
         </div>
       </div>
@@ -3489,16 +3463,18 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You died during this fight and were dead for 
-      5.75
+      5.44
       % of the fight duration (
       15
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/bdf9wjm7XJQn3DCR/31-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.wipe%5C%22,%5C%22message%5C%22:%5C%22Wipe+%7Bwipes%7D%5C%22,%5C%22values%5C%22:%7B%5C%22wipes%5C%22:15%7D%7D%22,%22duration%22:%224:38%22%7D%7D/Xaronbm/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -3506,7 +3482,7 @@ Array [
         message="You were dead for {0}% of the fight"
         values={
           Object {
-            "0": "5.75",
+            "0": "5.44",
           }
         }
       />
@@ -3555,7 +3531,7 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
             }
           >
             ≈ 
-            62.03
+            58.66
             %
           </small>
         </div>
@@ -3656,7 +3632,7 @@ exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the s
         <div
           className="value"
         >
-          447
+          423
            HPS
         </div>
       </div>
@@ -3725,7 +3701,7 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
             />
           </svg>
            
-          10.83
+          10.24
            %
         </div>
       </div>
@@ -3953,7 +3929,7 @@ exports[`Brewmaster Monk integration test: example log StormstoutsLastKeg matche
             src="/img/sword.png"
           />
            
-          81
+          77
            DPS
            
           <small>
@@ -4033,7 +4009,7 @@ exports[`Brewmaster Monk integration test: example log ThroughputStatisticGroup 
               }
             }
           >
-            1,336
+            1,263
              DPS
           </div>
           <div
@@ -4122,7 +4098,7 @@ exports[`Brewmaster Monk integration test: example log ThroughputStatisticGroup 
               }
             }
           >
-            1,631
+            1,542
              HPS
           </div>
           <div
@@ -4216,7 +4192,7 @@ exports[`Brewmaster Monk integration test: example log ThroughputStatisticGroup 
               }
             }
           >
-            4,657
+            4,404
              DTPS
           </div>
           <div
@@ -4281,7 +4257,8 @@ Array [
       <ForwardRef
         id={100780}
       />
-       is your lowest priority ability. You should avoid casting it when you have other damaging abilities like 
+       is your lowest priority ability. You should avoid casting it when you have other damaging abilities like
+       
       <ForwardRef
         id={121253}
       />
@@ -4289,7 +4266,8 @@ Array [
       <ForwardRef
         id={205523}
       />
-       available.
+       
+      available.
     </React.Fragment>,
     "stat": <React.Fragment>
       68.42% of casts while better spells were available
@@ -4334,7 +4312,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
              
             Celestial Brew
           </a>
-           effectively
+           
+          effectively
         </div>
         <div
           className="flex-sub perf"
@@ -4347,7 +4326,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "60.35377725930683%",
+                  "width": "64.52665363052938%",
                 }
               }
             />
@@ -4418,7 +4397,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                
               Celestial Brew
             </a>
-             is a key part of your defensive toolkit. While it might be tempting to wait to cast it until you have max 
+             is a key part of your defensive toolkit. While it might be tempting to wait to cast it until you have max
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=325092"
@@ -4483,7 +4463,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  46.64%
+                  47.99%
                    
                    
                 </div>
@@ -4505,7 +4485,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "20.70755451861366%",
+                        "width": "29.05330726105878%",
                       }
                     }
                   />
@@ -4650,7 +4630,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
              
             Purifying Brew
           </a>
-           effectively
+           
+          effectively
         </div>
         <div
           className="flex-sub perf"
@@ -4662,8 +4643,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "51.33026707419566%",
+                  "backgroundColor": "#df7102",
+                  "width": "49.96258431320552%",
                 }
               }
             />
@@ -4775,7 +4756,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   Purifying Brew
                 </a>
-                 at less than 
+                 at less than
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
@@ -4790,7 +4772,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   Heavy Stagger
                 </a>
-                —but not if it would waste charges! In a raid environment, 
+                —but not if it would waste charges! In a raid environment,
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
@@ -4820,10 +4803,12 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   Heavy Stagger
                 </a>
-                 consistently, this remains a good rule of thumb.
+                 
+                consistently, this remains a good rule of thumb.
               </li>
               <li>
-                If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
+                If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=115069"
@@ -4856,7 +4841,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                
               Purifying Brew
             </a>
-            , see the 
+            , see the
+             
             <a
               href="https://www.peakofserenity.com/bfa/brewmaster/purifying/"
             >
@@ -4912,7 +4898,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  62.49%
+                  59.99%
                    
                    
                 </div>
@@ -4934,7 +4920,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "26.011151318709828%",
+                        "width": "24.971948730479284%",
                       }
                     }
                   />
@@ -5167,7 +5153,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "22.581741748658573%",
+                  "width": "21.354284428587146%",
                 }
               }
             />
@@ -5228,13 +5214,16 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
             <em>
               primary
             </em>
-             role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a 
+             role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a
+             
             <a
               href="https://www.peakofserenity.com/bfa/brewmaster/guide/"
             >
               correct DPS rotation
             </a>
-             also provides optimal brew generation. 
+             
+            also provides optimal brew generation.
+             
             <strong>
               However, if you are dying, ignore this checklist item!
             </strong>
@@ -5287,7 +5276,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  78.23%
+                  74.41%
                    
                    
                 </div>
@@ -5307,9 +5296,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "88.13401821120517%",
+                        "width": "64.64060633718299%",
                       }
                     }
                   />
@@ -5360,7 +5349,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  44.08%
+                  41.68%
                    
                    
                 </div>
@@ -5382,7 +5371,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.581741748658573%",
+                        "width": "21.354284428587146%",
                       }
                     }
                   />
@@ -5433,7 +5422,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  57.53%
+                  59.84%
                    
                    
                 </div>
@@ -5455,7 +5444,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "29.474429077061625%",
+                        "width": "30.65702071577872%",
                       }
                     }
                   />

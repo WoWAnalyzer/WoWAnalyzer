@@ -1,17 +1,15 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-
+import Events, { HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 const HEAL_INCREASE = 1.5;
-const TRIGGER_HEALTH_PERCENTAGE = .75;
+const TRIGGER_HEALTH_PERCENTAGE = 0.75;
 
 /**
  * Earth Shield healing is increased by 150% if your Earth Shield target is below 75% health, and Healing Wave adds a stack of Earth Shield to your target, up to 9 maximum stacks.
@@ -24,7 +22,10 @@ class EarthenHarmony extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EARTHEN_HARMONY.bonusID);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.earthShield);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
+      this.earthShield,
+    );
   }
 
   earthShield(event: HealEvent) {
@@ -39,10 +40,7 @@ class EarthenHarmony extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.EARTHEN_HARMONY}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>

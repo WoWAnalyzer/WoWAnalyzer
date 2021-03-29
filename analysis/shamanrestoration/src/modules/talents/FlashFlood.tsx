@@ -1,17 +1,15 @@
-import React from 'react';
-
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'interface';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
-import DonutChart from 'parser/ui/DonutChart';
-import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { TooltipElement } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import React from 'react';
 
 import { RESTORATION_COLORS } from '../../constants';
 
@@ -19,13 +17,13 @@ const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
 
 interface FlashFloodInfo {
-  [SpellID: number]: FlashFloodSpell
+  [SpellID: number]: FlashFloodSpell;
 }
 
 interface FlashFloodSpell {
-  timesBuffed: number,
-  timeSaved: number,
-  timeWasted: number
+  timesBuffed: number;
+  timeSaved: number;
+  timeWasted: number;
 }
 
 class FlashFlood extends Analyzer {
@@ -49,7 +47,8 @@ class FlashFlood extends Analyzer {
       timeSaved: 0,
       timeWasted: 0,
     },
-    [SPELLS.HEALING_SURGE.id]: { //-- always below GCD
+    [SPELLS.HEALING_SURGE.id]: {
+      //-- always below GCD
       timesBuffed: 0,
       timeSaved: 0,
       timeWasted: 0,
@@ -65,7 +64,8 @@ class FlashFlood extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id)) { //-- always below GCD
+    if (this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id)) {
+      //-- always below GCD
       this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id] = {
         timesBuffed: 0,
         timeSaved: 0,
@@ -73,8 +73,17 @@ class FlashFlood extends Analyzer {
       };
     }
 
-    const spellFilter = [SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_SURGE, SPELLS.HEALING_RAIN_CAST, SPELLS.WELLSPRING_TALENT];
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(spellFilter), this._onBeginCast);
+    const spellFilter = [
+      SPELLS.HEALING_WAVE,
+      SPELLS.CHAIN_HEAL,
+      SPELLS.HEALING_SURGE,
+      SPELLS.HEALING_RAIN_CAST,
+      SPELLS.WELLSPRING_TALENT,
+    ];
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(spellFilter),
+      this._onBeginCast,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
   }
 
@@ -93,7 +102,10 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, this.beginCastTimestamp + BUFFER_MS);
+    const hasFlashFlood = this.selectedCombatant.hasBuff(
+      SPELLS.FLASH_FLOOD_BUFF.id,
+      this.beginCastTimestamp + BUFFER_MS,
+    );
     if (!hasFlashFlood) {
       return;
     }
@@ -105,19 +117,29 @@ class FlashFlood extends Analyzer {
     if (castTime <= this.beginCastGlobalCooldown) {
       // The next 2 lines together add up to the total reduction, but everything below the GCD is discarded
       this.spellsConsumingFlashFlood[spellId].timeWasted += this.beginCastGlobalCooldown - castTime;
-      this.spellsConsumingFlashFlood[spellId].timeSaved += Math.max((castTime) / (1 - FLASH_FLOOD_HASTE) - this.beginCastGlobalCooldown, 0);
+      this.spellsConsumingFlashFlood[spellId].timeSaved += Math.max(
+        castTime / (1 - FLASH_FLOOD_HASTE) - this.beginCastGlobalCooldown,
+        0,
+      );
       return;
     }
 
-    this.spellsConsumingFlashFlood[spellId].timeSaved += castTime / (1 - FLASH_FLOOD_HASTE) * FLASH_FLOOD_HASTE;
+    this.spellsConsumingFlashFlood[spellId].timeSaved +=
+      (castTime / (1 - FLASH_FLOOD_HASTE)) * FLASH_FLOOD_HASTE;
   }
 
   get totalTimeSaved() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => sum + spell.timeSaved, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce(
+      (sum, spell) => sum + spell.timeSaved,
+      0,
+    );
   }
 
   get totalTimeWasted() {
-    return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => sum + spell.timeWasted, 0);
+    return Object.values(this.spellsConsumingFlashFlood).reduce(
+      (sum, spell) => sum + spell.timeWasted,
+      0,
+    );
   }
 
   get flashFloodUsageRatioChart() {
@@ -170,11 +192,7 @@ class FlashFlood extends Analyzer {
       items.splice(4, 0, wellspring);
     }
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
@@ -185,21 +203,30 @@ class FlashFlood extends Analyzer {
         size="flexible"
       >
         <div className="pad">
-          <label><Trans id="shaman.restoration.flashFlood.statistic.label"><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</Trans></label>
+          <label>
+            <Trans id="shaman.restoration.flashFlood.statistic.label">
+              <SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage
+            </Trans>
+          </label>
           <div className="flex">
             <div className="flex-main">
-              <Trans id="shaman.restoration.flashFlood.statistic.title">Total Cast Time Saved</Trans>
+              <Trans id="shaman.restoration.flashFlood.statistic.title">
+                Total Cast Time Saved
+              </Trans>
             </div>
             <div className="flex-sub text-right">
               <TooltipElement
-                content={(
+                content={
                   <Trans id="shaman.restoration.flashFlood.statistic.description.tooltip">
                     Cast time saved by Flash Flood. <br />
-                    {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.
+                    {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below
+                    GCD.
                   </Trans>
-                )}
+                }
               >
-                <Trans id="shaman.restoration.flashFlood.statistic.description">{(this.totalTimeSaved / 1000).toFixed(2)} seconds</Trans>
+                <Trans id="shaman.restoration.flashFlood.statistic.description">
+                  {(this.totalTimeSaved / 1000).toFixed(2)} seconds
+                </Trans>
               </TooltipElement>
             </div>
           </div>
@@ -208,7 +235,6 @@ class FlashFlood extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default FlashFlood;

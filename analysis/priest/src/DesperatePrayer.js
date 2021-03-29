@@ -1,19 +1,15 @@
-import React from 'react';
-import StatisticBox from 'parser/ui/StatisticBox';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events from 'parser/core/Events';
-
-import { t } from '@lingui/macro';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 class DesperatePrayer extends Analyzer {
-
   get lastDesperatePrayerUsage() {
     return this.desperatePrayerUsages[this.desperatePrayerUsages.length - 1];
   }
@@ -26,8 +22,14 @@ class DesperatePrayer extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onApplyBuff);
-    this.addEventListener(Events.heal.to(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onHeal);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      this.onHeal,
+    );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
   }
@@ -75,16 +77,13 @@ class DesperatePrayer extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {
-              this.desperatePrayerUsages
-                .map((dp, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{formatPercentage(dp.damageTaken / dp.originalMaxHealth)} %</td>
-                    <td>{formatPercentage(dp.originalHealth / dp.originalMaxHealth)} %</td>
-                  </tr>
-                ))
-            }
+            {this.desperatePrayerUsages.map((dp, index) => (
+              <tr key={index}>
+                <th scope="row">{index + 1}</th>
+                <td>{formatPercentage(dp.damageTaken / dp.originalMaxHealth)} %</td>
+                <td>{formatPercentage(dp.originalHealth / dp.originalMaxHealth)} %</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </StatisticBox>
@@ -94,14 +93,23 @@ class DesperatePrayer extends Analyzer {
   suggestions(when) {
     const boss = this.owner.boss;
     if (!boss || !boss.fight.disableDeathSuggestion) {
-      when(this.deathsWithDPReady).isGreaterThan(0)
-        .addSuggestion((suggest, actual, recommended) => suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
-          .icon(SPELLS.DESPERATE_PRAYER.icon)
-          .actual(t({
-        id: "priest.shared.suggestions.DesperatePrayer.efficiency",
-        message: `You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`
-      }))
-          .recommended(`0 is recommended`));
+      when(this.deathsWithDPReady)
+        .isGreaterThan(0)
+        .addSuggestion((suggest, actual, recommended) =>
+          suggest(
+            <>
+              You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.
+            </>,
+          )
+            .icon(SPELLS.DESPERATE_PRAYER.icon)
+            .actual(
+              t({
+                id: 'priest.shared.suggestions.DesperatePrayer.efficiency',
+                message: `You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`,
+              }),
+            )
+            .recommended(`0 is recommended`),
+        );
     }
   }
 }

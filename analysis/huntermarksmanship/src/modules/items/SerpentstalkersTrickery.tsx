@@ -1,32 +1,42 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Aimed Shot also fires a Serpent Sting at the primary target.
  */
 
 class SerpentstalkersTrickery extends Analyzer {
-
   damage = 0;
   aimedShotTargets: string[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onSerpentStingDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onStingRemoval);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      this.onSerpentStingDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.onAimedShotCast,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      this.onStingRemoval,
+    );
   }
 
   onSerpentStingDamage(event: DamageEvent) {

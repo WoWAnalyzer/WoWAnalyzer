@@ -1,4 +1,4 @@
-import { ItemList, Enchant } from "common/ITEMS/Item";
+import { ItemList, Enchant } from 'common/ITEMS/Item';
 
 const enchants: ItemList<Enchant> = {
   ENCHANT_WEAPON_ASCENDED_VIGOR: {
@@ -215,7 +215,7 @@ const enchants: ItemList<Enchant> = {
   },
   EMBALMERS_OIL: {
     id: 171286,
-    name: 'Embalmer\'s Oil',
+    name: "Embalmer's Oil",
     icon: 'inv_misc_potionsetb',
     effectId: 6190,
   },

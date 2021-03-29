@@ -1,15 +1,14 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-
-import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const DAMAGE_BONUS_PER_STACK = 0.005;
 const AFFECTED_SPELLS = [
@@ -30,14 +29,16 @@ const AFFECTED_SPELLS = [
 ];
 
 class BoneChilling extends Analyzer {
-
   totalDamage = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id);
     if (this.active) {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(AFFECTED_SPELLS), this.onAffectedDamage);
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(AFFECTED_SPELLS),
+        this.onAffectedDamage,
+      );
     }
   }
 
@@ -52,8 +53,10 @@ class BoneChilling extends Analyzer {
   }
 
   get uptime() {
-		return this.selectedCombatant.getBuffUptime(SPELLS.BONE_CHILLING_BUFF.id) / this.owner.fightDuration;
-	}
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.BONE_CHILLING_BUFF.id) / this.owner.fightDuration
+    );
+  }
 
   statistic() {
     return (
@@ -63,13 +66,13 @@ class BoneChilling extends Analyzer {
         tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
       >
         <BoringSpellValueText spell={SPELLS.BONE_CHILLING_TALENT}>
-          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small><br />
+          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small>
+          <br />
           {this.owner.formatItemDamageDone(this.totalDamage)}
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default BoneChilling;

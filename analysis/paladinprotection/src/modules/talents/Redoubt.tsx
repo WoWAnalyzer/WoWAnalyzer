@@ -1,12 +1,12 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import React from 'react';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const STAT_MODIFIER = 0.02;
 
@@ -14,7 +14,6 @@ class Redoubt extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-
 
   protected statTracker!: StatTracker;
 
@@ -27,7 +26,7 @@ class Redoubt extends Analyzer {
     const localStatTracker: StatTracker = options.statTracker as StatTracker;
     localStatTracker.add(SPELLS.REDOUBT_BUFF.id, {
       stamina: this.bonusStaminaGain(localStatTracker),
-      strength: this.bonusStrenghGain(localStatTracker)
+      strength: this.bonusStrenghGain(localStatTracker),
     });
   }
 
@@ -40,7 +39,10 @@ class Redoubt extends Analyzer {
   }
 
   get averageStacks() {
-    return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.REDOUBT_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.REDOUBT_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   statistic(): React.ReactNode {
@@ -51,11 +53,12 @@ class Redoubt extends Analyzer {
         position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            Taking the Redoubt talent gave you on average {formatNumber(averageStamGain)} Stamina and {formatNumber(averageStrengthGain)} Strength.
+            Taking the Redoubt talent gave you on average {formatNumber(averageStamGain)} Stamina
+            and {formatNumber(averageStrengthGain)} Strength.
           </>
-        )}
+        }
       >
         <BoringSpellValue
           spell={SPELLS.REDOUBT_TALENT}

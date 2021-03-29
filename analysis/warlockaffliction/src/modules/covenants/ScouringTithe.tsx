@@ -1,17 +1,13 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import { SpellLink, SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-import { SpellLink, SpellIcon } from 'interface';
-
 import UptimeBar from 'parser/ui/UptimeBar';
-
-import { t } from '@lingui/macro';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import React from 'react';
 
 class ScouringTitheUptime extends Analyzer {
   static dependencies = {

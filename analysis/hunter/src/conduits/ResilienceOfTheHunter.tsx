@@ -1,11 +1,11 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import { RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK } from '../constants';
@@ -17,19 +17,22 @@ import { RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK } from '../constants';
  * https://www.warcraftlogs.com/reports/1FV4MbPcn9gJLp7f#fight=5&type=auras&source=23&ability=339461
  */
 class ResilienceOfTheHunter extends Analyzer {
-
   conduitRank = 0;
   conduitDR = 0;
   totalDamageReduction = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(
+      SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id,
+    );
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id,
+    );
     this.conduitDR = RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK[this.conduitRank];
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);

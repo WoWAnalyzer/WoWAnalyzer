@@ -1,12 +1,11 @@
-import React from 'react';
-import { AutoSizer } from 'react-virtualized';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, DeathEvent, EventType, HealEvent } from 'parser/core/Events';
-import { Panel } from 'interface';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import React from 'react';
+import { AutoSizer } from 'react-virtualized';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
@@ -19,7 +18,7 @@ interface StaggerEvent {
 
 type PurifyEvent = RemoveStaggerEvent & {
   previousTimestamp: number;
-}
+};
 
 interface HPEvent {
   timestamp: number;
@@ -90,8 +89,18 @@ class StaggerPoolGraph extends Analyzer {
       encoding: {
         x: xAxis,
         tooltip: [
-          { field: 'hitPoints', type: 'quantitative' as const, title: 'Hit Points', format: '.3~s' },
-          { field: 'newPooledDamage', type: 'quantitative' as const, title: 'Staggered Damage', format: '.3~s' },
+          {
+            field: 'hitPoints',
+            type: 'quantitative' as const,
+            title: 'Hit Points',
+            format: '.3~s',
+          },
+          {
+            field: 'newPooledDamage',
+            type: 'quantitative' as const,
+            title: 'Staggered Damage',
+            format: '.3~s',
+          },
         ],
       },
       layer: [
@@ -192,7 +201,12 @@ class StaggerPoolGraph extends Analyzer {
             },
             tooltip: [
               { field: 'amount', title: 'Amount Purified', format: '.3~s' },
-              { field: 'oldPooledDamage', type: 'quantitative' as const, title: 'Staggered Damage', format: '.3~s' },
+              {
+                field: 'oldPooledDamage',
+                type: 'quantitative' as const,
+                title: 'Staggered Damage',
+                format: '.3~s',
+              },
             ],
           },
         },
@@ -230,10 +244,11 @@ class StaggerPoolGraph extends Analyzer {
 
       return (
         <div
-          className="graph-container" style={{
-          width: '100%',
-          minHeight: 200,
-        }}
+          className="graph-container"
+          style={{
+            width: '100%',
+            minHeight: 200,
+          }}
         >
           <AutoSizer>
             {({ width, height }) => (
@@ -265,7 +280,10 @@ class StaggerPoolGraph extends Analyzer {
       // record the *previous* timestamp for purification. this will
       // make the purifies line up with peaks in the plot, instead of
       // showing up *after* peaks
-      this._purifyEvents.push({ ...event, previousTimestamp: this._staggerEvents[this._staggerEvents.length - 1].timestamp });
+      this._purifyEvents.push({
+        ...event,
+        previousTimestamp: this._staggerEvents[this._staggerEvents.length - 1].timestamp,
+      });
     }
 
     this._staggerEvents.push({ ...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
@@ -294,11 +312,15 @@ class StaggerPoolGraph extends Analyzer {
       render: () => (
         <Panel
           title="Stagger"
-          explanation={(
+          explanation={
             <>
-              Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} />. This damage is then removed by the damage-over-time component of <SpellLink id={SPELLS.STAGGER.id} /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} /> (or other sources of purification). This plot shows the amount of damage pooled over the course of the fight.
+              Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} />
+              . This damage is then removed by the damage-over-time component of{' '}
+              <SpellLink id={SPELLS.STAGGER.id} /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} />{' '}
+              (or other sources of purification). This plot shows the amount of damage pooled over
+              the course of the fight.
             </>
-          )}
+          }
         >
           {this.plot}
         </Panel>

@@ -1,16 +1,16 @@
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import SPELLS from 'common/SPELLS';
+import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import Abilities from '@wowanalyzer/priest-holy/src/modules/Abilities';
-import Renew from '@wowanalyzer/priest-holy/src/modules/spells/Renew';
-import PrayerOfMending from '@wowanalyzer/priest-holy/src/modules/spells/PrayerOfMending';
-import HolyWordSalvation from '@wowanalyzer/priest-holy/src/modules/talents/100/HolyWordSalvation';
 import EchoOfLightMastery from '@wowanalyzer/priest-holy/src/modules/core/EchoOfLightMastery';
+import PrayerOfMending from '@wowanalyzer/priest-holy/src/modules/spells/PrayerOfMending';
+import Renew from '@wowanalyzer/priest-holy/src/modules/spells/Renew';
+import HolyWordSalvation from '@wowanalyzer/priest-holy/src/modules/talents/100/HolyWordSalvation';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -56,7 +56,8 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.healingDone = this.renew.healingFromRenew(this.renew.renewsCast);
     spellInfo.overhealingDone = this.renew.overhealingFromRenew(this.renew.renewsCast);
     spellInfo.healingAbsorbed = this.renew.absorptionFromRenew(this.renew.renewsCast);
-    spellInfo.healingHits = (this.renew.renewsCast / this.renew.totalRenewApplications) * this.renew.totalRenewTicks;
+    spellInfo.healingHits =
+      (this.renew.renewsCast / this.renew.totalRenewApplications) * this.renew.totalRenewTicks;
 
     return spellInfo;
   }
@@ -65,9 +66,12 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // This represents that amount of healing done by HARD CASTING PoM.
     // We don't want PoM to get Hpm credit for healing that we didn't spend mana on.
     // We *do* want PoM to get credit for any renews it leave behind from Benediction.
-    spellInfo.healingDone = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickHeal;
-    spellInfo.overhealingDone = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickOverheal;
-    spellInfo.healingAbsorbed = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickAbsorption;
+    spellInfo.healingDone =
+      this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickHeal;
+    spellInfo.overhealingDone =
+      this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickOverheal;
+    spellInfo.healingAbsorbed =
+      this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickAbsorption;
     spellInfo.healingHits = this.prayerOfMending.pomTicksFromCast;
 
     return spellInfo;
@@ -83,15 +87,23 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   addEcho(spellInfo: any, healingSpellIds: number[]) {
     if (this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id]) {
-      spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id].effectiveHealing;
-      spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id].overHealing;
+      spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[
+        spellInfo.spell.id
+      ].effectiveHealing;
+      spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[
+        spellInfo.spell.id
+      ].overHealing;
     }
 
     if (healingSpellIds) {
-      healingSpellIds.forEach(healingSpellId => {
+      healingSpellIds.forEach((healingSpellId) => {
         if (this.echoOfLight.masteryHealingBySpell[healingSpellId]) {
-          spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[healingSpellId].effectiveHealing;
-          spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[healingSpellId].overHealing;
+          spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[
+            healingSpellId
+          ].effectiveHealing;
+          spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[
+            healingSpellId
+          ].overHealing;
         }
       });
     }

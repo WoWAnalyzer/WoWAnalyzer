@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
-import PotionChecker from 'parser/shared/modules/items/PotionChecker';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import AugmentRuneChecker from 'parser/shared/modules/items/AugmentRuneChecker';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
-import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 import FlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 import FoodChecker from 'parser/shared/modules/items/FoodChecker';
-import AugmentRuneChecker from 'parser/shared/modules/items/AugmentRuneChecker';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import PotionChecker from 'parser/shared/modules/items/PotionChecker';
+import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
@@ -39,19 +39,27 @@ class PreparationRuleAnalyzer extends Analyzer {
       },
       itemsBestEnchanted: {
         // numSlotsMissingMaxEnchant doesn't include items without an enchant at all
-        actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant - this.enchantChecker.numSlotsMissingMaxEnchant,
+        actual:
+          this.enchantChecker.numEnchantableGear -
+          this.enchantChecker.numSlotsMissingEnchant -
+          this.enchantChecker.numSlotsMissingMaxEnchant,
         max: this.enchantChecker.numEnchantableGear,
         isLessThan: this.enchantChecker.numEnchantableGear,
         style: ThresholdStyle.NUMBER,
       },
       weaponsEnhanced: {
-        actual: this.weaponEnhancementChecker.numWeapons - this.weaponEnhancementChecker.numWeaponsMissingEnhancement,
+        actual:
+          this.weaponEnhancementChecker.numWeapons -
+          this.weaponEnhancementChecker.numWeaponsMissingEnhancement,
         max: this.weaponEnhancementChecker.numWeapons,
         isLessThan: this.weaponEnhancementChecker.numWeapons,
         style: ThresholdStyle.NUMBER,
       },
       bestWeaponEnhancements: {
-        actual: this.weaponEnhancementChecker.numWeapons - this.weaponEnhancementChecker.numWeaponsMissingEnhancement - this.weaponEnhancementChecker.numWeaponsMissingMaxEnhancement,
+        actual:
+          this.weaponEnhancementChecker.numWeapons -
+          this.weaponEnhancementChecker.numWeaponsMissingEnhancement -
+          this.weaponEnhancementChecker.numWeaponsMissingMaxEnhancement,
         max: this.weaponEnhancementChecker.numWeapons,
         isLessThan: this.weaponEnhancementChecker.numWeapons,
         style: ThresholdStyle.NUMBER,
@@ -61,10 +69,8 @@ class PreparationRuleAnalyzer extends Analyzer {
       higherFoodPresent: this.foodChecker.higherFoodSuggestionThresholds,
       foodPresent: this.foodChecker.isPresentFoodSuggestionThresholds,
       augmentRunePresent: this.augmentRuneChecker.augmentRuneSuggestionThresholds,
-
     };
   }
-
 }
 
 export default PreparationRuleAnalyzer;

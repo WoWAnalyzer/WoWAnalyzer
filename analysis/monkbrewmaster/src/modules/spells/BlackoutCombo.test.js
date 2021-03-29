@@ -1,6 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import { SimpleFight, applybuff, refreshBuff, dpsCasts } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
+import {
+  SimpleFight,
+  applybuff,
+  refreshBuff,
+  dpsCasts,
+} from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 
 import BlackoutCombo from './BlackoutCombo';
 

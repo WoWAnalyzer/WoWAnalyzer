@@ -1,18 +1,17 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import { formatThousands, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatThousands, formatPercentage } from 'common/format';
-import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import React from 'react';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
  */
 class DemonBlades extends Analyzer {
-
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -39,8 +38,14 @@ class DemonBlades extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY), this.onEnergizeEvent);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY), this.onDamageEvent);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
+      this.onDamageEvent,
+    );
   }
 
   onEnergizeEvent(event) {
@@ -53,14 +58,23 @@ class DemonBlades extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> Be mindful of your Fury levels and spend it before capping your Fury due to <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          {' '}
+          Be mindful of your Fury levels and spend it before capping your Fury due to{' '}
+          <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.
+        </>,
+      )
         .icon(SPELLS.DEMON_BLADES_TALENT.icon)
-        .actual(t({
-      id: "demonhunter.havoc.suggestions.demonBlades.furyWasted",
-      message: `${formatPercentage(actual)}% Fury wasted`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .actual(
+          t({
+            id: 'demonhunter.havoc.suggestions.demonBlades.furyWasted',
+            message: `${formatPercentage(actual)}% Fury wasted`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
@@ -69,20 +83,23 @@ class DemonBlades extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.DEMON_BLADES_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
+        value={
           <>
             {this.furyPerMin} <small>Fury per min</small> <br />
             {this.owner.formatItemDamageDone(this.damage)}
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            {formatThousands(this.damage)} Total damage<br />
-            {effectiveFuryGain} Effective Fury gained<br />
-            {this.furyGain} Total Fury gained<br />
+            {formatThousands(this.damage)} Total damage
+            <br />
+            {effectiveFuryGain} Effective Fury gained
+            <br />
+            {this.furyGain} Total Fury gained
+            <br />
             {this.furyWaste} Fury wasted
           </>
-        )}
+        }
       />
     );
   }

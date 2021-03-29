@@ -1,15 +1,19 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ARCANE_SHOT_MAX_TRAVEL_TIME, PRECISE_SHOTS_ASSUMED_PROCS, PRECISE_SHOTS_MODIFIER } from '@wowanalyzer/hunter-marksmanship/src/constants';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import {
+  ARCANE_SHOT_MAX_TRAVEL_TIME,
+  PRECISE_SHOTS_ASSUMED_PROCS,
+  PRECISE_SHOTS_MODIFIER,
+} from '@wowanalyzer/hunter-marksmanship/src/constants';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots, Chimaera Shots or Multi-Shots to deal 100% more damage.
@@ -19,7 +23,6 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
  */
 
 class PreciseShots extends Analyzer {
-
   damage = 0;
   buffsActive = 0;
   buffsSpent = 0;
@@ -29,13 +32,40 @@ class PreciseShots extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsApplication);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsRemoval);
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackRemoval);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS), this.onPreciseShotsStackApplication);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP]), this.onPreciseCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      this.onPreciseShotsApplication,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      this.onPreciseShotsRemoval,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      this.onPreciseShotsStackRemoval,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      this.onPreciseShotsStackApplication,
+    );
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP]),
+      this.onPreciseCast,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkForBuff);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE]), this.onPreciseDamage);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.ARCANE_SHOT,
+          SPELLS.MULTISHOT_MM,
+          SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE,
+          SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE,
+        ]),
+      this.onPreciseDamage,
+    );
   }
 
   get preciseShotsUtilizationPercentage() {
@@ -108,15 +138,17 @@ class PreciseShots extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You wasted between {this.minOverwrittenProcs} and {this.maxOverwrittenProcs} Precise Shots procs by casting Aimed Shot when you already had Precise Shots active
+            You wasted between {this.minOverwrittenProcs} and {this.maxOverwrittenProcs} Precise
+            Shots procs by casting Aimed Shot when you already had Precise Shots active
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             {this.buffsSpent} <small>buffs used</small>
           </>
         </BoringSpellValueText>

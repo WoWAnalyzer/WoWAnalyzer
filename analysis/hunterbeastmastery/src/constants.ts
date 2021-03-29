@@ -100,7 +100,11 @@ export const CRIT_PER_THRILL_STACK = 0.03;
 //region Pets
 /** Pet Basic Attacks */
 //There are three different Basic Attacks for Pets
-export const BASIC_ATTACK_SPELLS = [SPELLS.BITE_BASIC_ATTACK, SPELLS.CLAW_BASIC_ATTACK, SPELLS.SMACK_BASIC_ATTACK];
+export const BASIC_ATTACK_SPELLS = [
+  SPELLS.BITE_BASIC_ATTACK,
+  SPELLS.CLAW_BASIC_ATTACK,
+  SPELLS.SMACK_BASIC_ATTACK,
+];
 //The actual current delay without macros is ~300ms on top of the 3 second cooldown, but adding 100 ms to act as a buffer.
 export const MAX_TIME_BETWEEN_BASIC_ATK = 3400;
 //The delay is reduced to ~100-200ms depending on latency when you macro the abilities
@@ -167,18 +171,86 @@ export const LIST_OF_FOCUS_SPENDERS_BM = [
 //region Conduits
 /** Ferocious Appetite */
 //Ferocious Appetite causes Kill Command crits to reduce the cooldown of Aspect of the Wild with X seconds.
-export const FEROCIOUS_APPETITE_ASPECT_REDUCTION = [0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400];
+export const FEROCIOUS_APPETITE_ASPECT_REDUCTION = [
+  0,
+  1000,
+  1100,
+  1200,
+  1300,
+  1400,
+  1500,
+  1600,
+  1700,
+  1800,
+  1900,
+  2000,
+  2100,
+  2200,
+  2300,
+  2400,
+];
 /** One With the Beast */
 //One With the Beast increases all damage done during Bestial Wrath
-export const ONE_WITH_THE_BEAST_DAMAGE_INCREASE = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15];
+export const ONE_WITH_THE_BEAST_DAMAGE_INCREASE = [
+  0,
+  0.01,
+  0.02,
+  0.03,
+  0.04,
+  0.05,
+  0.06,
+  0.07,
+  0.08,
+  0.09,
+  0.1,
+  0.11,
+  0.12,
+  0.13,
+  0.14,
+  0.15,
+];
 /** Bloodletting */
 //Bloodletting reduces the recharge time of Barbed Shot by 1 second
 export const BLOODLETTING_BARBED_SHOT_RECHARGE_REDUCTION = 1000;
 //Bloodletting increases the damage done by x%
-export const BLOODLETTING_BARBED_DOT_INCREASE = [0, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.19, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25];
+export const BLOODLETTING_BARBED_DOT_INCREASE = [
+  0,
+  0.1,
+  0.11,
+  0.12,
+  0.13,
+  0.14,
+  0.15,
+  0.16,
+  0.18,
+  0.19,
+  0.2,
+  0.21,
+  0.22,
+  0.23,
+  0.24,
+  0.25,
+];
 /** Echoing Call */
 //Wild Call has a % increase chance to reset the cooldown of Barbed Shot
-export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [0, 0.05, 0.06, 0.06, 0.07, 0.07, 0.08, 0.08, 0.09, 0.09, 0.1, 0.1, 0.11, 0.11, 0.12, 0.12];
+export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [
+  0,
+  0.05,
+  0.06,
+  0.06,
+  0.07,
+  0.07,
+  0.08,
+  0.08,
+  0.09,
+  0.09,
+  0.1,
+  0.1,
+  0.11,
+  0.11,
+  0.12,
+  0.12,
+];
 //endregion
 
 //region Legendaries
@@ -193,5 +265,5 @@ export const FLAMEWAKERS_PROC_CHANCE = 0.25;
 export const QAPLA_KILL_COMMAND_REDUCTION_MS = 5000;
 /** Rylakstalker's Piercing Fangs */
 //Rylakstalker's Piercing Fang increases pet crit damage by 20% during Bestial Wrath
-export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.20;
+export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.2;
 //endregion

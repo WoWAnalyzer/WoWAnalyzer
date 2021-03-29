@@ -1,13 +1,12 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { CastEvent } from 'parser/core/Events';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ResourceGenerated from 'parser/ui/ResourceGenerated';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const FERAL_SPIRIT = {
   INITIAL_MAELSTROM_WEAPON_GAIN: 1,
@@ -23,8 +22,7 @@ class FeralSpirit extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FERAL_SPIRIT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT),
       this.onFeralSpiritCast,
     );
   }
@@ -33,7 +31,8 @@ class FeralSpirit extends Analyzer {
     const expectedMaelstromGained =
       FERAL_SPIRIT.INITIAL_MAELSTROM_WEAPON_GAIN +
       FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_PER_INTERVAL *
-      (FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_TOTAL_DURATION / FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_INTERVAL);
+        (FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_TOTAL_DURATION /
+          FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_INTERVAL);
 
     this.maelstromWeaponGained += expectedMaelstromGained;
   }

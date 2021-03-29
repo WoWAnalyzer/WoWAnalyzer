@@ -1,25 +1,28 @@
-import React from 'react';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import BoringValue from 'parser/ui/BoringValueText';
-import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { t } from '@lingui/macro';
+import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import Mastery from '../core/Mastery';
 
 class SpringBlossoms extends Analyzer {
   get directPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id));
+    return this.owner.getPercentageOfTotalHealingDone(
+      this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id),
+    );
   }
 
   get masteryPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id));
+    return this.owner.getPercentageOfTotalHealingDone(
+      this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id),
+    );
   }
 
   get totalPercent() {
@@ -54,35 +57,52 @@ class SpringBlossoms extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(20)}
-        tooltip={(
+        tooltip={
           <>
-            This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack.
+            This is the sum of the direct healing from Spring Blossoms and the healing enabled by
+            Spring Blossom's extra mastery stack.
             <ul>
-              <li>Direct: <strong>{formatPercentage(this.directPercent)}%</strong></li>
-              <li>Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong></li>
+              <li>
+                Direct: <strong>{formatPercentage(this.directPercent)}%</strong>
+              </li>
+              <li>
+                Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong>
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} /> Spring Blossoms healing</>}>
-          <>
-            {formatPercentage(this.totalPercent)} %
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} /> Spring Blossoms healing
+            </>
+          }
+        >
+          <>{formatPercentage(this.totalPercent)} %</>
         </BoringValue>
       </Statistic>
     );
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
-          Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved. Either
+          your efflorescence uptime could be improved or the encounter doesn't fit this talent very
+          well.
+        </span>,
+      )
         .icon(SPELLS.SPRING_BLOSSOMS.icon)
-        .actual(t({
-      id: "druid.restoration.suggestions.springBlossoms.efficiency",
-      message: `${formatPercentage(this.totalPercent)}% healing`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.springBlossoms.efficiency',
+            message: `${formatPercentage(this.totalPercent)}% healing`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

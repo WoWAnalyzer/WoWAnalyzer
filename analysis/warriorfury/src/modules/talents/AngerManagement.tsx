@@ -1,13 +1,13 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, { CastEvent } from 'parser/core/Events';
+import React from 'react';
 
 const RAGE_NEEDED_FOR_PROC = 20;
 const CDR_PER_PROC = 1000; // ms
@@ -39,13 +39,13 @@ class AngerManagement extends Analyzer {
       return;
     }
 
-    const rage = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+    const rage = event.classResources.find((e) => e.type === RESOURCE_TYPES.RAGE.id);
     if (!rage || !rage.cost) {
       return;
     }
 
     const rageSpent = rage.cost / 10;
-    const reduction = rageSpent / RAGE_NEEDED_FOR_PROC * CDR_PER_PROC;
+    const reduction = (rageSpent / RAGE_NEEDED_FOR_PROC) * CDR_PER_PROC;
 
     if (!this.spellUsable.isOnCooldown(SPELLS.RECKLESSNESS.id)) {
       this.wastedReduction += reduction;
@@ -64,9 +64,7 @@ class AngerManagement extends Analyzer {
         tooltip={`${formatNumber(this.wastedReduction / 1000)}s missed CDR`}
       >
         <BoringSpellValueText spell={SPELLS.ANGER_MANAGEMENT_TALENT}>
-          <>
-            {formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR
-          </>
+          <>{formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR</>
         </BoringSpellValueText>
       </Statistic>
     );

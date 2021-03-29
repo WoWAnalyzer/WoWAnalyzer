@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+
 import { EarthShield as EarthShieldCore } from '@wowanalyzer/shaman';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
@@ -18,7 +19,10 @@ class EarthShield extends EarthShieldCore {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_TALENT), this.earthShieldPrepullCheck);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_TALENT),
+      this.earthShieldPrepullCheck,
+    );
   }
 
   earthShieldPrepullCheck(event: ApplyBuffEvent) {
@@ -31,9 +35,9 @@ class EarthShield extends EarthShieldCore {
     return {
       actual: this.uptimePercent,
       isLessThan: {
-        minor: .9,
-        average: .85,
-        major: .8,
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

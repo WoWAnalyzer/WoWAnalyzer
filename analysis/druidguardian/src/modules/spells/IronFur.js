@@ -1,13 +1,15 @@
-import React from 'react';
-import { formatPercentage } from 'common/format';
-import SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import SCHOOLS from 'game/MAGIC_SCHOOLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const debug = false;
 
@@ -21,7 +23,7 @@ class IronFur extends Analyzer {
   }
 
   get ironfurStacksApplied() {
-    return this._hitsPerStack.reduce((sum, x, i) => sum + (x * i), 0);
+    return this._hitsPerStack.reduce((sum, x, i) => sum + x * i, 0);
   }
 
   get totalHitsTaken() {
@@ -69,7 +71,7 @@ class IronFur extends Analyzer {
   }
 
   computeIronfurUptimeArray() {
-    return this._hitsPerStack.map(hits => hits / this.totalHitsTaken);
+    return this._hitsPerStack.map((hits) => hits / this.totalHitsTaken);
   }
 
   onFightend() {
@@ -81,47 +83,80 @@ class IronFur extends Analyzer {
   }
 
   suggestions(when) {
-
-    when(this.percentOfHitsMitigated).isLessThan(0.90)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
-        .icon(SPELLS.IRONFUR.icon)
-        .actual(t({
-      id: "druid.guardian.suggestions.ironfur.uptime",
-      message: `${formatPercentage(actual)}% was mitigated by Ironfur`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
-        .regular(recommended - 0.10).major(recommended - 0.2));
+    when(this.percentOfHitsMitigated)
+      .isLessThan(0.9)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for{' '}
+            {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff
+            up to mitigate as much physical damage as possible.
+          </span>,
+        )
+          .icon(SPELLS.IRONFUR.icon)
+          .actual(
+            t({
+              id: 'druid.guardian.suggestions.ironfur.uptime',
+              message: `${formatPercentage(actual)}% was mitigated by Ironfur`,
+            }),
+          )
+          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
+          .regular(recommended - 0.1)
+          .major(recommended - 0.2),
+      );
   }
 
   statistic() {
     const totalIronFurTime = this.selectedCombatant.getBuffUptime(SPELLS.IRONFUR.id);
-    const uptimes = this.computeIronfurUptimeArray().reduce((str, uptime, stackCount) => (
-      <>{str}
-        <li>{stackCount} stack{stackCount !== 1 ? 's' : ''}: {formatPercentage(uptime)}%</li>
-      </>
-    ), null);
+    const uptimes = this.computeIronfurUptimeArray().reduce(
+      (str, uptime, stackCount) => (
+        <>
+          {str}
+          <li>
+            {stackCount} stack{stackCount !== 1 ? 's' : ''}: {formatPercentage(uptime)}%
+          </li>
+        </>
+      ),
+      null,
+    );
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(this.percentOfHitsMitigated)}% / ${this.overallIronfurUptime.toFixed(2)}`}
-        label="Hits mitigated with Ironfur / Average Stacks"
-        tooltip={(
+        size="flexible"
+        tooltip={
           <>
             Ironfur usage breakdown:
             <ul>
-              <li>You were hit <strong>{this.hitsMitigated}</strong> times with your Ironfur buff.</li>
-              <li>You were hit <strong>{this.hitsUnmitigated}</strong> times <strong><em>without</em></strong> your Ironfur buff.</li>
+              <li>
+                You were hit <strong>{this.hitsMitigated}</strong> times with your Ironfur buff.
+              </li>
+              <li>
+                You were hit <strong>{this.hitsUnmitigated}</strong> times{' '}
+                <strong>
+                  <em>without</em>
+                </strong>{' '}
+                your Ironfur buff.
+              </li>
             </ul>
             <strong>Uptimes per stack: </strong>
-            <ul>
-              {uptimes}
-            </ul>
-            <strong>{formatPercentage(this.percentOfHitsMitigated)}%</strong> of physical attacks were mitigated with Ironfur, and your overall uptime was <strong>{formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</strong>.
+            <ul>{uptimes}</ul>
+            <strong>{formatPercentage(this.percentOfHitsMitigated)}%</strong> of physical attacks
+            were mitigated with Ironfur, and your overall uptime was{' '}
+            <strong>{formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</strong>.
           </>
-        )}
-      />
+        }
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.IRONFUR.id} /> Hits mitigated with Ironfur / Average Stacks{' '}
+            </>
+          }
+        >
+          {`${formatPercentage(this.percentOfHitsMitigated)}%`}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

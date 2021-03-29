@@ -1,9 +1,9 @@
-import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { Enchant } from 'common/SPELLS/Spell';
+import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { Enchant } from 'common/SPELLS/Spell';
+import React from 'react';
 
 export interface RuneForgeCheckItem {
   forge: Enchant;
@@ -12,10 +12,13 @@ export interface RuneForgeCheckItem {
 }
 
 class RuneForgeChecker extends Analyzer {
-  public runeForges: RuneForgeCheckItem[] = []
+  public runeForges: RuneForgeCheckItem[] = [];
 
-  get activeSuggestion () {
-    return this.runeForges.find((runeForge, index) => this.selectedCombatant.hasWeaponEnchant(runeForge.forge) && runeForge.suggestion)
+  get activeSuggestion() {
+    return this.runeForges.find(
+      (runeForge, index) =>
+        this.selectedCombatant.hasWeaponEnchant(runeForge.forge) && runeForge.suggestion,
+    );
   }
 
   get showSuggestion() {
@@ -27,11 +30,12 @@ class RuneForgeChecker extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.showSuggestion)
-      .addSuggestion((suggest) => suggest(<span>{this.activeSuggestion?.suggestion}</span>)
-          .icon(SPELLS.RUNEFORGING.icon)
-          .staticImportance(this.activeSuggestion?.importance || SUGGESTION_IMPORTANCE.MINOR));
+    when(this.showSuggestion).addSuggestion((suggest) =>
+      suggest(<span>{this.activeSuggestion?.suggestion}</span>)
+        .icon(SPELLS.RUNEFORGING.icon)
+        .staticImportance(this.activeSuggestion?.importance || SUGGESTION_IMPORTANCE.MINOR),
+    );
   }
 }
 
-export default RuneForgeChecker
+export default RuneForgeChecker;

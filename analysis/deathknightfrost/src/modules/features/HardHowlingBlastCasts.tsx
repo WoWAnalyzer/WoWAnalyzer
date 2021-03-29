@@ -1,13 +1,12 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const debug = false;
 
@@ -33,7 +32,10 @@ class HardHowlingBlastCasts extends Analyzer {
     if (!target) {
       return;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) && target.hasBuff(SPELLS.FROST_FEVER.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) &&
+      target.hasBuff(SPELLS.FROST_FEVER.id)
+    ) {
       this.castsWithoutRime += 1;
       debug && console.log(`Caught a HB hardcast at ${event.timestamp}`);
     }

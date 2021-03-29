@@ -1,17 +1,23 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { formatPercentage } from 'common/format';
-import UptimeIcon from 'interface/icons/Uptime';
+import React from 'react';
+
 import { MS_BUFFER } from '@wowanalyzer/hunter';
-import { Trans } from '@lingui/macro';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
@@ -32,10 +38,22 @@ class BeastCleave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onRemoveBuff);
-    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF), this.onRefreshBuff);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_DAMAGE), this.onBeastCleaveDamage);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_DAMAGE),
+      this.onBeastCleaveDamage,
+    );
   }
 
   get beastCleavesWithoutHits() {
@@ -51,7 +69,9 @@ class BeastCleave extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.BEAST_CLEAVE_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.BEAST_CLEAVE_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -96,20 +116,34 @@ class BeastCleave extends Analyzer {
 
   suggestions(when: When) {
     if (this.casts > 0) {
-      when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} {actual === 1 ? 'time' : 'times'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
-        .icon(SPELLS.MULTISHOT_BM.icon)
-        .actual(<Trans id='hunter.beastmastery.suggestions.beastCleave.efficiency'>{actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage </Trans>)
-        .recommended(<Trans id='hunter.beastmastery.suggestions.beastCleave.recommended'>{recommended} is recommended </Trans>));
+      when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual}{' '}
+            {actual === 1 ? 'time' : 'times'} without your pets doing any{' '}
+            <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On
+            single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.
+          </>,
+        )
+          .icon(SPELLS.MULTISHOT_BM.icon)
+          .actual(
+            <Trans id="hunter.beastmastery.suggestions.beastCleave.efficiency">
+              {actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage{' '}
+            </Trans>,
+          )
+          .recommended(
+            <Trans id="hunter.beastmastery.suggestions.beastCleave.recommended">
+              {recommended} is recommended{' '}
+            </Trans>,
+          ),
+      );
     }
   }
 
   statistic() {
     if (this.damage > 0) {
       return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(13)}
-          size="flexible"
-        >
+        <Statistic position={STATISTIC_ORDER.OPTIONAL(13)} size="flexible">
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
               <ItemDamageDone amount={this.damage} />

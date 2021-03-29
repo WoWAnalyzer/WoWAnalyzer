@@ -1,40 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
 import { Tooltip } from 'interface';
 import InfoIcon from 'interface/icons/Info';
 import DrilldownIcon from 'interface/icons/Link';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import './Statistic.scss';
 
+export type StatisticSize = 'standard' | 'small' | 'medium' | 'large' | 'flexible';
+
 type Props = {
-  children: React.ReactNode,
+  children: ReactNode;
   /**
    * A tooltip node to be displayed when the user hovers over an information *(i)* icon in the
    * statistic box's top right corner.
    */
-  tooltip?: React.ReactNode,
-  wide: boolean,
-  ultrawide: boolean,
-  category?: STATISTIC_CATEGORY,
-  position?: number,
-  size: 'standard' | 'small' | 'medium' | 'large' | 'flexible',
+  tooltip?: ReactNode;
+  wide: boolean;
+  ultrawide: boolean;
+  category?: STATISTIC_CATEGORY;
+  position?: number;
+  size: StatisticSize;
   /**
    * A relative or absolute URL. If set, a button will be attached to the bottom of the statistic
    * box that a user can click to be sent to the given URL.
    */
-  drilldown?: string,
+  drilldown?: string;
   /**
    * A node to display upon the user clicking an *expand* arrow at the bottom of the statistic box.
    */
-  dropdown?: React.ReactNode,
+  dropdown?: ReactNode;
   /**
    * CSS class name(s) to apply to the statistic box.
    */
-  className: string,
-  expanded?: boolean,
-}
+  className: string;
+  expanded?: boolean;
+};
 
 class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
   static defaultProps = {
@@ -92,11 +93,7 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
       <>
         <div className="row">
           <div className="col-xs-12">
-            {this.state.expanded && (
-              <div className="statistic-expansion">
-                {dropdown}
-              </div>
-            )}
+            {this.state.expanded && <div className="statistic-expansion">{dropdown}</div>}
           </div>
         </div>
 
@@ -111,10 +108,28 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
   }
 
   render() {
-    const { children, wide, ultrawide, tooltip, size, drilldown, className, dropdown, ...others } = this.props;
+    const {
+      children,
+      wide,
+      ultrawide,
+      tooltip,
+      size,
+      drilldown,
+      className,
+      dropdown,
+      ...others
+    } = this.props;
 
     return (
-      <div className={ultrawide ? 'col-md-12' : (wide ? 'col-md-6 col-sm-12 col-xs-12' : 'col-lg-3 col-md-4 col-sm-6 col-xs-12')}>
+      <div
+        className={
+          ultrawide
+            ? 'col-md-12'
+            : wide
+            ? 'col-md-6 col-sm-12 col-xs-12'
+            : 'col-lg-3 col-md-4 col-sm-6 col-xs-12'
+        }
+      >
         <div
           className={`panel statistic ${size} ${className}`}
           // only add zIndex property if a dropdown exists, to preserve backwards compatiblity with StatisticBox utilizing Statistic

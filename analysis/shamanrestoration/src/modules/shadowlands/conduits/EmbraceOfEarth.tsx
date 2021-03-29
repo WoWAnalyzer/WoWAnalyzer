@@ -1,15 +1,14 @@
+import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import Events, { HealEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
-
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import { EARTHSHIELD_HEALING_INCREASE } from '@wowanalyzer/shaman';
 
 import { EMBRACE_OF_EARTH_RANKS } from '../../../constants';
@@ -52,7 +51,7 @@ class EmbraceOfEarth extends Analyzer {
       const boostedHeal = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
       const heal = boostedHeal / (1 + EARTHSHIELD_HEALING_INCREASE + this.boost);
       const bonusHeal = heal * this.boost;
-      const effectiveHealing = Math.max(0, (bonusHeal - (event.overheal || 0)));
+      const effectiveHealing = Math.max(0, bonusHeal - (event.overheal || 0));
       this.healing += effectiveHealing;
     }
   }
@@ -65,7 +64,8 @@ class EmbraceOfEarth extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.EMBRACE_OF_EARTH} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

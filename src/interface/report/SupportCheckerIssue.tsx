@@ -1,26 +1,25 @@
 import { t, Trans } from '@lingui/macro';
+import Changelog from 'interface/Changelog';
+import Contributor from 'interface/ContributorButton';
+import DiscordButton from 'interface/DiscordButton';
+import GitHubButton from 'interface/GitHubButton';
+import Icon from 'interface/Icon';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import Panel from 'interface/Panel';
+import ReadableListing from 'interface/ReadableListing';
+import Background from 'interface/report/images/weirdnelf.png';
+import Tooltip from 'interface/Tooltip';
+import Config from 'parser/Config';
+import { WCLFight } from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import Tooltip from 'interface/Tooltip';
-import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import Panel from 'interface/Panel';
-import GitHubButton from 'interface/GitHubButton';
-import DiscordButton from 'interface/DiscordButton';
-import Icon from 'interface/Icon';
-import Background from 'interface/report/images/weirdnelf.png';
-import Fight from 'parser/core/Fight';
-import { Player } from 'parser/core/CombatLogParser';
-import ReadableListing from 'interface/ReadableListing';
-import Contributor from 'interface/ContributorButton';
-import Config from 'parser/Config';
-import Changelog from 'interface/Changelog';
-
 interface Props {
   report: unknown;
-  fight: Fight;
+  fight: WCLFight;
   config: Config;
-  player: Player;
+  player: PlayerInfo;
   title: ReactNode;
   children: ReactNode;
   onContinueAnyway: () => void;

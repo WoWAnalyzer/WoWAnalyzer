@@ -1,10 +1,10 @@
-import React from 'react';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
-import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
+import React from 'react';
 
 class SliceAndDiceUptime extends Analyzer {
   get percentUptime() {
@@ -15,12 +15,11 @@ class SliceAndDiceUptime extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(100)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(100)} size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.SLICE_AND_DICE.id} /> Uptime</label>
+          <label>
+            <SpellLink id={SPELLS.SLICE_AND_DICE.id} /> Uptime
+          </label>
           <div className="value">{formatPercentage(this.percentUptime)}%</div>
         </div>
       </Statistic>

@@ -8,13 +8,15 @@
 .events-tab .ReactVirtualized__Table__row:hover {
   background: rgba(255, 255, 255, 0.15);
 }
-.events-tab .ReactVirtualized__Table__row.modified, .modified-legend {
+.events-tab .ReactVirtualized__Table__row.modified,
+.modified-legend {
   background: rgba(255, 118, 0, 0.3);
 }
 .events-tab .ReactVirtualized__Table__row.modified:hover {
   background: rgba(255, 118, 0, 0.4);
 }
-.events-tab .ReactVirtualized__Table__row.fabricated, .fabricated-legend {
+.events-tab .ReactVirtualized__Table__row.fabricated,
+.fabricated-legend {
   background: rgba(0, 255, 67, 0.15);
 }
 .events-tab .ReactVirtualized__Table__row:nth-child(2n).fabricated {
@@ -35,13 +37,24 @@
 .events-tab .absorbed {
   color: orange;
 }
-.events-tab .applybuff, .events-tab .removebuff, .events-tab .refreshbuff, .events-tab .applybuffstack, .events-tab .removebuffstack {
+.events-tab .applybuff,
+.events-tab .removebuff,
+.events-tab .refreshbuff,
+.events-tab .applybuffstack,
+.events-tab .removebuffstack {
   color: lightskyblue;
 }
-.events-tab .applydebuff, .events-tab .removedebuff, .events-tab .refreshdebuff, .events-tab .applydebuffstack, .events-tab .removedebuffstack {
+.events-tab .applydebuff,
+.events-tab .removedebuff,
+.events-tab .refreshdebuff,
+.events-tab .applydebuffstack,
+.events-tab .removedebuffstack {
   color: #ffe200;
 }
-.events-tab .overheal, .events-tab .NPC, .events-tab .combatantinfo, .events-tab .Pet {
+.events-tab .overheal,
+.events-tab .NPC,
+.events-tab .combatantinfo,
+.events-tab .Pet {
   color: gray;
 }
 .events-tab .effect {
@@ -52,7 +65,8 @@
   font-style: italic;
   font-size: 1.1em;
 }
-.events-tab .crit:before, .events-tab .crit:after {
+.events-tab .crit:before,
+.events-tab .crit:after {
   content: '*';
 }
 .events-tab a img {
@@ -63,4 +77,3 @@
 .events-tab .config label {
   min-width: 150px;
 }
-

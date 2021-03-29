@@ -1,6 +1,7 @@
+import SPELLS from 'common/SPELLS';
+
 import { FocusCapTracker, HUNTER_BASE_FOCUS_REGEN } from '@wowanalyzer/hunter';
 import { TRUESHOT_FOCUS_INCREASE } from '@wowanalyzer/hunter-marksmanship/src/constants';
-import SPELLS from 'common/SPELLS';
 
 class MarksmanshipFocusCapTracker extends FocusCapTracker {
   getBaseRegenRate() {

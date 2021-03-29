@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const CAST_WINDOW = 100;
 
@@ -30,15 +30,18 @@ class RakeBleed extends EventsNormalizer {
       // look for matching recent applydebuff or refreshdebuff of RAKE_BLEED
       for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
         const previousEvent = fixedEvents[previousEventIndex];
-        if ((castEvent.timestamp - previousEvent.timestamp) > CAST_WINDOW) {
+        if (castEvent.timestamp - previousEvent.timestamp > CAST_WINDOW) {
           // looked far enough back that we're outside the cast's time window, so give up
           break;
         }
-        if ((previousEvent.type === EventType.ApplyDebuff || previousEvent.type === EventType.RefreshDebuff) &&
+        if (
+          (previousEvent.type === EventType.ApplyDebuff ||
+            previousEvent.type === EventType.RefreshDebuff) &&
           previousEvent.ability.guid === SPELLS.RAKE_BLEED.id &&
           previousEvent.targetID === castEvent.targetID &&
           previousEvent.targetInstance === castEvent.targetInstance &&
-          previousEvent.sourceID === castEvent.sourceID) {
+          previousEvent.sourceID === castEvent.sourceID
+        ) {
           // the "wrong" version of this event has already been added to fixedEvents, so remove it and place in new position
           fixedEvents.splice(previousEventIndex, 1);
           fixedEvents.push(previousEvent);

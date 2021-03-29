@@ -1,13 +1,12 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValue from 'parser/ui/BoringSpellValue';
-import EventGrouper from 'parser/core/EventGrouper';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventGrouper from 'parser/core/EventGrouper';
 import Events from 'parser/core/Events';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
@@ -41,7 +40,9 @@ class Penance extends Analyzer {
   }
 
   static isPenance = (spellId) =>
-    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
+    spellId === SPELLS.PENANCE.id ||
+    spellId === SPELLS.PENANCE_HEAL.id ||
+    spellId === SPELLS.PENANCE_CAST.id;
 
   onDamage(event) {
     if (!Penance.isPenance(event.ability.guid)) {
@@ -68,20 +69,23 @@ class Penance extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(13)}
         size="small"
-        tooltip={(
+        tooltip={
           <>
-            Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />). You should try to let this channel finish as much as possible. You channeled Penance {this.casts} times.
+            Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
+            <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />
+            ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
+            {this.casts} times.
           </>
-        )}
+        }
       >
         <BoringSpellValue
           spell={SPELLS.PENANCE}
           value={this.missedBolts}
-          label={(
+          label={
             <>
               Wasted <SpellLink id={SPELLS.PENANCE.id} /> bolts
             </>
-          )}
+          }
         />
       </Statistic>
     );

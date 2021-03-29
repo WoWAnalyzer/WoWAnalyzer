@@ -1,16 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Events, { HealEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { HEAVY_RAINFALL_RANKS } from '../../../constants';
 
@@ -32,7 +29,10 @@ class HeavyRainfall extends Analyzer {
     }
     this.healingBoost = HEAVY_RAINFALL_RANKS[this.conduitRank] / 100;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.normalizeBoost);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
+      this.normalizeBoost,
+    );
   }
 
   normalizeBoost(event: HealEvent) {
@@ -49,7 +49,8 @@ class HeavyRainfall extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.HEAVY_RAINFALL} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

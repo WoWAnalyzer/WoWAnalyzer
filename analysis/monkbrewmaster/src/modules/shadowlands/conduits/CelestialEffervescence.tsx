@@ -1,13 +1,13 @@
-import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';import SPELLS from 'common/SPELLS';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import STATISTIC_ORDER  from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { CELESTIAL_EFFERVESCENCE_HEALING_INCREASE } from '../../../constants';
 
@@ -15,7 +15,6 @@ import { CELESTIAL_EFFERVESCENCE_HEALING_INCREASE } from '../../../constants';
  * While under the effects of Celestial Brew, your effects that heal you are increased by x%
  */
 export default class CelestialEffervescence extends Analyzer {
-
   healingIncrease = 0;
   rank: number;
 
@@ -23,7 +22,7 @@ export default class CelestialEffervescence extends Analyzer {
     super(options);
 
     this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.CELESTIAL_EFFERVESCENCE.id);
-    if(!this.rank) {
+    if (!this.rank) {
       this.active = false;
       return;
     }
@@ -32,8 +31,11 @@ export default class CelestialEffervescence extends Analyzer {
   }
 
   private onHeal(event: HealEvent) {
-    if(this.selectedCombatant.hasBuff(SPELLS.CELESTIAL_BREW.id)){
-      this.healingIncrease += calculateEffectiveHealing(event, CELESTIAL_EFFERVESCENCE_HEALING_INCREASE[this.rank]);
+    if (this.selectedCombatant.hasBuff(SPELLS.CELESTIAL_BREW.id)) {
+      this.healingIncrease += calculateEffectiveHealing(
+        event,
+        CELESTIAL_EFFERVESCENCE_HEALING_INCREASE[this.rank],
+      );
     }
   }
 
@@ -42,7 +44,8 @@ export default class CelestialEffervescence extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}>
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
         <ConduitSpellText spell={SPELLS.CELESTIAL_EFFERVESCENCE} rank={this.rank}>
           <ItemHealingDone amount={this.healingIncrease} />
         </ConduitSpellText>
