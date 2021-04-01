@@ -8,6 +8,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
+const MARK_OF_THE_CRANE_DURATION = 20000;
+
 interface MarkOfTheCrane {
   target: MarkOfTheCraneTarget;
   timestamp: number;
@@ -88,7 +90,7 @@ class SpinningCraneKick extends Analyzer {
   onSCKCast(event: CastEvent) {
     // Filter out expired targets
     this.cycloneStrikesMarks = this.cycloneStrikesMarks.filter(
-      (mark) => event.timestamp - mark.timestamp <= 15000,
+      (mark) => event.timestamp - mark.timestamp <= MARK_OF_THE_CRANE_DURATION,
     );
   }
 
@@ -116,7 +118,7 @@ class SpinningCraneKick extends Analyzer {
         <Statistic
           position={STATISTIC_ORDER.CORE(7)}
           size="flexible"
-          tooltip="Spinning Crane Kick hits all nearby enemies 4 times over its duration. Mark of the crane, which increases the damage of your Spinning Crane Kick, is applied by your single target abilities and is capped at 5 targets."
+          tooltip="Spinning Crane Kick hits all nearby enemies 4 times over its duration. Mark of the crane, which increases the damage of your Spinning Crane Kick, is applied by your single target abilities and is capped at 6 targets."
         >
           <BoringSpellValueText spell={SPELLS.SPINNING_CRANE_KICK}>
             {this.averageMarks.toFixed(2)} <small>Average marks</small>
