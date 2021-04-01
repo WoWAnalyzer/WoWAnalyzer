@@ -18,6 +18,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DANCE_OF_CHI_JI_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
