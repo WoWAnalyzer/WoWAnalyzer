@@ -1518,3 +1518,9 @@ export const Akai: Contributor = {
   github: 'akaiwow21',
   discord: 'supbro123#2933',
 };
+
+export const maestrohdude: Contributor = {
+  nickname: 'maestrohdude',
+  github: 'maestrohdude',
+  discord: 'maestrohdude#6100',
+};
