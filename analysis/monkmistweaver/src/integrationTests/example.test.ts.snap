@@ -5910,7 +5910,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             6,561
-             (1.63%)
+             (1.75%)
           </td>
           <td
             className="text-right"
@@ -5978,7 +5978,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             1,200
-             (0.30%)
+             (0.32%)
           </td>
           <td
             className="text-right"
@@ -6031,6 +6031,74 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td>
             <a
               className="spell-link-text"
+              href="http://wowhead.com/spell=115151"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_renewingmists.jpg"
+              />
+               
+              Renewing Mist
+            </a>
+          </td>
+          <td>
+            67k
+             (17.76%)
+          </td>
+          <td
+            className="text-right"
+          >
+            233.17
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "24.058393700402668%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            205000
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "9.85576923076923%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -6046,7 +6114,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             112k
-             (27.69%)
+             (29.76%)
           </td>
           <td
             className="text-right"
@@ -6099,74 +6167,6 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td>
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=115151"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_renewingmists.jpg"
-              />
-               
-              Renewing Mist
-            </a>
-          </td>
-          <td>
-            81k
-             (20.20%)
-          </td>
-          <td
-            className="text-right"
-          >
-            190.78
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "19.684140300329453%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            205000
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "9.85576923076923%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              className="spell-link-text"
               href="http://wowhead.com/spell=115175"
               rel="noopener noreferrer"
               target="_blank"
@@ -6182,7 +6182,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             2,400
-             (0.60%)
+             (0.64%)
           </td>
           <td
             className="text-right"
@@ -6250,7 +6250,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             6,000
-             (1.49%)
+             (1.60%)
           </td>
           <td
             className="text-right"
@@ -6317,13 +6317,13 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
             </a>
           </td>
           <td>
-            180k
-             (44.76%)
+            167k
+             (44.58%)
           </td>
           <td
             className="text-right"
           >
-            34.10
+            36.79
           </td>
           <td
             width="20%"
@@ -6337,7 +6337,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "3.518124579865698%",
+                    "width": "3.7958712572235163%",
                   }
                 }
               />
@@ -6386,7 +6386,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             500
-             (0.12%)
+             (0.13%)
           </td>
           <td
             className="text-right"
@@ -6454,7 +6454,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             15k
-             (3.72%)
+             (4.00%)
           </td>
           <td
             className="text-right"
