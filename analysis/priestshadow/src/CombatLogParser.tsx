@@ -15,10 +15,10 @@ import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+// resources
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-// resources
 import DarkThoughts from './modules/features/DarkThoughts';
 import DotUptimes from './modules/features/DotUptimes';
 import SkippableCasts from './modules/features/SkippableCasts';
@@ -47,9 +47,7 @@ import TwistOfFate from './modules/talents/TwistOfFate';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 // normalizers
-
 // conduits
-
 // legendaries
 
 class CombatLogParser extends MainCombatLogParser {
