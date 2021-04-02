@@ -5802,23 +5802,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Vampiric Touch
             </a>
-            ,
-             
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=335467"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_devouringplague.jpg"
-              />
-               
-              Devouring Plague
-            </a>
-            , and
+             and
              
             <a
               className="spell-link-text"
