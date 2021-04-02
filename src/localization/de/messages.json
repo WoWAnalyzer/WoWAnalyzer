@@ -243,7 +243,7 @@
   "interface.characterParses.characterParses.errors.noParsesForTier": "Wir konnten keine Logs finden",
   "interface.characterParses.characterParses.errors.noParsesForTierDetails": "Bitte prüfe deine Filter und stelle sicher, dass du diese Kämpfe auf Warcraft Logs aufgezeichnet hast.<0/><1/>Weißt du nicht, wie man seine Kämpfe aufzeichnet? Siehe dir den <2>Warcraft Logs Guide</2> an, um anzufangen.",
   "interface.characterParses.characterParses.errors.notResponding": "Nachfrage ist abgelaufen",
-  "interface.characterParses.characterParses.errors.notRespondingDetails": "Es scheint, dass wir keine rechtzeitige Antwort von der API abrufen konnten, das passiert normalerweise, wenn die Server beladen sind.<0/><1/>Du kannst es probieren, deinen Meldungscode <2>hier</2> manuell einzugeben.<3/>Das würde die Ladevorgang des Charakterenlookups umgehen und wir sollten deine Meldung analysieren können.<4/>",
+  "interface.characterParses.characterParses.errors.notRespondingDetails": "Es scheint, dass wir keine rechtzeitige Antwort von der API abrufen konnten, das passiert normalerweise, wenn die Server beladen sind.<0/><1/>Du kannst es probieren, deinen Meldungscode <2>hier</2> manuell einzugeben.<3/>Das würde den Ladevorgang des Charakterenlookups umgehen und wir sollten deine Meldung analysieren können.<4/>",
   "interface.characterParses.characterParses.errors.unexpected": "Etwas ist schiefgelaufen",
   "interface.characterParses.characterParses.errors.unknownAPIError": "Etwas ist beim Kommunizieren mit dem Server schiefgelaufen",
   "interface.characterParses.characterParses.errors.wclAPIError": "Etwas ist beim Kommunizieren mit Warcraft Logs schiefgelaufen",
