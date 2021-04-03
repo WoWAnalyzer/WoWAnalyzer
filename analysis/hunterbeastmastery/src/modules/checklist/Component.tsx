@@ -173,7 +173,8 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> CDR efficiency
+                <SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> Kill Command Reset
+                Efficiency
               </>
             }
             thresholds={thresholds.qaplaEfficiencyThreshold}
