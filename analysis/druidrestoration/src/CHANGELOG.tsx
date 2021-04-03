@@ -1,7 +1,8 @@
 import { change, date } from 'common/changelog';
-import { Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn, Ciuffi } from 'CONTRIBUTORS';
+import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn, Ciuffi } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 2, 12), 'Added form tracking to the convoke module', Ciuffi),
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),

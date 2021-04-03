@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
-import { Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn } from 'CONTRIBUTORS';
+import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn } from 'CONTRIBUTORS';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),
   change(date(2020, 12, 15), <>Update Bloodtalons for Shadowlands</>, Tora),
   change(date(2020, 12, 14), <>Corrected tracking of Berserk cooldown usage.</>, Xcessiv),
