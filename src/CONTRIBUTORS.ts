@@ -879,6 +879,11 @@ export const Adoraci: Contributor = {
   avatar: avatar('Adoraci-avatar.jpg'),
   mains: [
     {
+      name: 'Adoracii',
+      spec: SPECS.FIRE_MAGE,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoracii',
+    },
+    {
       name: 'Adoraci',
       spec: SPECS.SHADOW_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
