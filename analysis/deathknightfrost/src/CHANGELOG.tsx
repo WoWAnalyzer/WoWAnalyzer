@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 4, 4), 'Version bump to 9.0.5', Khazak),
   change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),
   change(date(2021, 3, 7), <>Added basic Frost specific suggestions to <SpellLink id={SPELLS.SUPERSTRAIN.id}/></>, Khazak),
   change(date(2021, 2, 17), <> Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
