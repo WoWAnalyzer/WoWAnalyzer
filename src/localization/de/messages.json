@@ -142,6 +142,7 @@
   "druid.feral.suggestions.tigerFuryEnergy.energyWasted": "{0}% deiner generierten Energie verschwendet",
   "druid.feral.suggetions.shadowmeld.efficiency": "{0}% Effizienz deiner Einsätze",
   "druid.feral.suggetions.shadowmeld.wasted": "{0} Einsätze mit Verstohlenheit bereits aktiv",
+  "druid.guardian.suggestions.alwaysBeCasting.downtime": "",
   "druid.guardian.suggestions.earthwarden.efficiency": "{0}% potenzielles Schadens wurden von Erdenwächter gemildert",
   "druid.guardian.suggestions.earthwarden.notOptimal": "{0}% deines gesamten Schadens sind Nahkampfangriffe",
   "druid.guardian.suggestions.fillerSpells.efficiency": "{0}% unnötige Filler-Zauber gewirkt",

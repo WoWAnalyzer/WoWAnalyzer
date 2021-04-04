@@ -142,6 +142,7 @@
   "druid.feral.suggestions.tigerFuryEnergy.energyWasted": "{0}% of generated energy wasted.",
   "druid.feral.suggetions.shadowmeld.efficiency": "{0}% cast efficiency.",
   "druid.feral.suggetions.shadowmeld.wasted": "{0} cast{1} when already stealthed.",
+  "druid.guardian.suggestions.alwaysBeCasting.downtime": "",
   "druid.guardian.suggestions.earthwarden.efficiency": "{0}% of potential damage was mitigated by Earthwarden",
   "druid.guardian.suggestions.earthwarden.notOptimal": "{0}% of total damage is melee attacks",
   "druid.guardian.suggestions.fillerSpells.efficiency": "{0}% unnecessary filler spells cast",
