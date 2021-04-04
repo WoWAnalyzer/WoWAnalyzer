@@ -1,4 +1,4 @@
-//Havoc Conduits
+//Shared Conduits
 export const GROWING_INFERNO_DAMAGE_INCREASE = [
   0,
   0.1,
@@ -16,4 +16,24 @@ export const GROWING_INFERNO_DAMAGE_INCREASE = [
   0.22,
   0.23,
   0.24,
+];
+
+//Havoc Conduits
+export const FEL_DEFENDER_COOLDOWN_REDUCTION = [
+  0,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  20,
 ];

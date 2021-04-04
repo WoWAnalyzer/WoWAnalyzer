@@ -1,6 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
+import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -69,6 +69,9 @@ class CombatLogParser extends CoreCombatLogParser {
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
     elysianDecree: ElysianDecree,
+
+    // Conduits
+    felDefender: FelDefender,
   };
 }
 
