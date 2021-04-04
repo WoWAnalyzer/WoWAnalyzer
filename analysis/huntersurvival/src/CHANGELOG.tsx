@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Putro, Kartarn } from 'CONTRIBUTORS';
+import { Adoraci, Putro, Kartarn } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Putro),
   change(date(2021, 1, 16), <> Added support for <SpellLink id={SPELLS.LATENT_POISON_INJECTORS_EFFECT.id} />, <SpellLink id={SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.id} /> and <SpellLink id={SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT.id} />. </>, Putro),

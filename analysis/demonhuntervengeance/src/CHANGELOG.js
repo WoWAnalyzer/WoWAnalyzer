@@ -7,6 +7,7 @@ import React from 'react';
 
 export default [
   change(date(2021, 4, 4), <>Added <SpellLink id={SPELLS.FEL_DEFENDER.id} /> conduit support.</>, Adoraci),
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 1, 20), <> Added <SpellLink id={SPELLS.ELYSIAN_DECREE.id} />  <SpellLink id={SPELLS.SINFUL_BRAND.id} /> and <SpellLink id={SPELLS.THE_HUNT.id}/> to Statistics</>, Makhai),
   change(date(2021, 1, 10), <> Added tracking of wasted soul generation by <SpellLink id={SPELLS.FRACTURE_TALENT.id} /> / <SpellLink id={SPELLS.SHEAR.id} />. Added to suggestions and checklist. </>, Yajinni),
   change(date(2021, 1, 10), <> Updated <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> to take into accoun the conduit <SpellLink id={SPELLS.REPEAT_DECREE.id} />.</>, Yajinni),
