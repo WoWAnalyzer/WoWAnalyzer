@@ -198,7 +198,7 @@
   "hunter.beastmastery.suggestions.cobraShot.cooldown.wasted": "You cast {actual} Cobra Shots when Kill Command wasn't on cooldown",
   "hunter.beastmastery.suggestions.cobraShot.efficiency": "You had {0}% effective cooldown reduction of Kill Command",
   "hunter.beastmastery.suggestions.cobraShot.recommended": ">{0}% is recommended",
-  "hunter.beastmastery.suggestions.items.qapla.actual": "You had {0}% effective cooldown reduction of Kill Command",
+  "hunter.beastmastery.suggestions.items.qapla.actual": "You had {0}% of your Barbed Shots reset Kill Command",
   "hunter.beastmastery.suggestions.items.qapla.recommended": ">{0}% is recommended",
   "hunter.beastmastery.suggestions.killerCobra.efficiency": "You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up {actual} times.",
   "hunter.beastmastery.suggestions.killerCobra.recommended": "{recommended} is recommended.",
