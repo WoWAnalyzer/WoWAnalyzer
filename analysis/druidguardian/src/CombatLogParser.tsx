@@ -3,7 +3,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AntiFillerSpam from './modules/features/AntiFillerSpam';
+import Checklist from './modules/features/Checklist/Module';
 import FrenziedRegenGoEProcs from './modules/features/FrenziedRegenGoEProcs';
 import GalacticGuardian from './modules/features/GalacticGuardian';
 import Gore from './modules/features/Gore';
@@ -14,10 +16,10 @@ import RageWasted from './modules/features/RageWasted';
 import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 import IronFur from './modules/spells/IronFur';
 import Moonfire from './modules/spells/Moonfire';
-import Pulverize from './modules/spells/Pulverize';
 import Thrash from './modules/spells/Thrash';
 import Earthwarden from './modules/talents/Earthwarden';
 import Incarnation from './modules/talents/Incarnation';
+import Pulverize from './modules/talents/Pulverize';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -27,6 +29,8 @@ class CombatLogParser extends CoreCombatLogParser {
     mitigationCheck: MitigationCheck,
 
     // Features
+    checklist: Checklist,
+    alwaysBeCasting: AlwaysBeCasting,
     activeTargets: ActiveTargets,
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
