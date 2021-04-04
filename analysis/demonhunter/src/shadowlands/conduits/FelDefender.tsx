@@ -1,13 +1,16 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
-import Events, { CastEvent } from 'parser/core/Events';
-import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter'
+import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
 
 /**
  * Example log:
@@ -16,9 +19,16 @@ import { SpellLink } from 'interface';
  */
 
 class FelDefender extends Analyzer {
+  static dependencies = {
+    abilities: Abilities,
+  };
+
+  protected abilities!: Abilities;
 
   conduitRank: number = 0;
-  blurCount: number = 0;
+  abilityCasts: number = 0;
+  cdrAbility =
+    this.selectedCombatant.spec === SPECS.HAVOC_DEMON_HUNTER ? SPELLS.BLUR : SPELLS.FEL_DEVASTATION;
 
   constructor(options: Options) {
     super(options);
@@ -28,11 +38,20 @@ class FelDefender extends Analyzer {
     }
 
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLUR), this.onBlurCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdrAbility), this.onCast);
   }
 
-  onBlurCast(event: CastEvent) {
-    this.blurCount += 1;
+  get abilityCooldown() {
+    return (
+      this.abilities.getAbility(this.cdrAbility.id)!.cooldown -
+      FEL_DEFENDER_COOLDOWN_REDUCTION[
+        this.selectedCombatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)
+      ]
+    );
+  }
+
+  onCast(event: CastEvent) {
+    this.abilityCasts += 1;
   }
 
   statistic() {
@@ -41,16 +60,14 @@ class FelDefender extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            Blur Cooldown: {60 - FEL_DEFENDER_COOLDOWN_REDUCTION[this.selectedCombatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]}
+            <SpellLink id={this.cdrAbility.id} /> Cooldown Reduced to: {this.abilityCooldown}s
           </>
-        )}
+        }
       >
         <ConduitSpellText spell={SPELLS.FEL_DEFENDER} rank={this.conduitRank}>
-            <>
-              <SpellLink id={SPELLS.BLUR.id}>Blur's</SpellLink> casted: {this.blurCount}
-            </>
+          {this.abilityCasts} Casts
         </ConduitSpellText>
       </Statistic>
     );
