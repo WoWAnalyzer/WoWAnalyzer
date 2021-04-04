@@ -10,8 +10,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
-
 /**
  * Example log:
  * https://www.warcraftlogs.com/reports/kvaBpJcMdqG2FKXC#fight=1&type=damage-done&source=4 Rank 7
@@ -41,15 +39,6 @@ class FelDefender extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdrAbility), this.onCast);
   }
 
-  get abilityCooldown() {
-    return (
-      this.abilities.getAbility(this.cdrAbility.id)!.cooldown -
-      FEL_DEFENDER_COOLDOWN_REDUCTION[
-        this.selectedCombatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)
-      ]
-    );
-  }
-
   onCast(event: CastEvent) {
     this.abilityCasts += 1;
   }
@@ -62,12 +51,13 @@ class FelDefender extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            <SpellLink id={this.cdrAbility.id} /> Cooldown Reduced to: {this.abilityCooldown}s
+            <SpellLink id={this.cdrAbility.id} /> Cooldown Reduced to:{' '}
+            {this.abilities.getAbility(this.cdrAbility.id)!.cooldown}s
           </>
         }
       >
         <ConduitSpellText spell={SPELLS.FEL_DEFENDER} rank={this.conduitRank}>
-          {this.abilityCasts} Casts
+          {this.abilityCasts} Cast(s)
         </ConduitSpellText>
       </Statistic>
     );
