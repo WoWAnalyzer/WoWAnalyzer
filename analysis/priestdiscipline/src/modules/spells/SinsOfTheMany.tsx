@@ -1,16 +1,15 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
-import Combatants from 'parser/shared/modules/Combatants';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import Combatants from 'parser/shared/modules/Combatants';
+import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
+import React from 'react';
 
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
@@ -23,18 +22,7 @@ const SINS_OF_THE_MANY_FLOOR_BONUS = 0.03;
  * from the passive and from 6 onwards it only decreases 0.005.
  * Hence this map with the values for each Atonement count.
  */
-const BONUS_DAMAGE_ARRAY = [
-  0.12,
-  0.12,
-  0.10,
-  0.08,
-  0.07,
-  0.06,
-  0.055,
-  0.05,
-  0.045,
-  0.04,
-];
+const BONUS_DAMAGE_ARRAY = [0.12, 0.12, 0.1, 0.08, 0.07, 0.06, 0.055, 0.05, 0.045, 0.04];
 
 class SinsOfTheMany extends Analyzer {
   static dependencies = {
@@ -94,17 +82,22 @@ class SinsOfTheMany extends Analyzer {
           `${formatNumber((this.bonusHealing / this.owner.fightDuration) * 1000)} HPS`,
           `${formatNumber((this.bonusDamage / this.owner.fightDuration) * 1000)} DPS`,
         ]}
-        footer={(
+        footer={
           <>
             <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> throughput
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            The effective healing contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.bonusHealing))}% of total healing done.<br />
-            The direct damage contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of total damage done.
+            The effective healing contributed by Sins of the Many was{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.bonusHealing))}% of
+            total healing done.
+            <br />
+            The direct damage contributed by Sins of the Many was{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of
+            total damage done.
           </>
-        )}
+        }
         alignIcon="center"
       />
     );

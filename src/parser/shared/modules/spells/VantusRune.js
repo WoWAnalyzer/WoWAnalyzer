@@ -1,21 +1,17 @@
-import React from 'react';
-
 import { formatNumber } from 'common/format';
-
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import BoringItemValueText from 'parser/ui/BoringItemValueText';
-
 import ITEMS from 'common/ITEMS';
-
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
-import StatTracker from 'parser/shared/modules/StatTracker';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import BoringItemValueText from 'parser/ui/BoringItemValueText';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 // https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
-const VANTUS_RUNE_VERSATILITY = 40;
+const VANTUS_RUNE_VERSATILITY = 100;
 const VERSATILITY_PER_PERCENT_THROUGHPUT = 40 * 100;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
@@ -23,9 +19,7 @@ const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION =
   VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-const runes = [
-  ITEMS.VANTUS_RUNE_CASTLE_NATHRIA,
-];
+const runes = [ITEMS.VANTUS_RUNE_CASTLE_NATHRIA];
 
 /**
  * @property {HealingDone} healingDone

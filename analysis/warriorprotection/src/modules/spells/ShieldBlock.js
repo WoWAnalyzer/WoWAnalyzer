@@ -1,24 +1,23 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { ThresholdStyle } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import React from 'react';
 
 const debug = false;
 
 class ShieldBlock extends Analyzer {
-
   get suggestionThresholds() {
     return {
       actual: this.goodCast / (this.goodCast + this.badCast),
       isLessThan: {
-        minor: .90,
-        average: .80,
-        major: .70,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -59,7 +58,7 @@ class ShieldBlock extends Analyzer {
     }
 
     if (this.shieldBlocksOffensive.length === 0) {
-      this.shieldBlockCast(event);//kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
+      this.shieldBlockCast(event); //kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
     }
 
     if (spellId === SPELLS.SHIELD_SLAM.id) {
@@ -68,7 +67,6 @@ class ShieldBlock extends Analyzer {
   }
 
   onDamageTaken(event) {
-
     if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
@@ -78,26 +76,30 @@ class ShieldBlock extends Analyzer {
     }
 
     if (this.shieldBlocksDefensive.length === 0) {
-      this.shieldBlockCast(event);//kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
+      this.shieldBlockCast(event); //kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
     }
 
     if (event.blocked > 0) {
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockAbleEvents += 1;
-      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].eventName.add(event.ability.name);
-      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].eventSpellId.add(event.ability.guid);
+      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].eventName.add(
+        event.ability.name,
+      );
+      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].eventSpellId.add(
+        event.ability.guid,
+      );
     }
 
-    this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockedDamage += event.blocked || 0;
-    this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].damageTaken += event.amount + event.absorbed || 0;
+    this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockedDamage +=
+      event.blocked || 0;
+    this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].damageTaken +=
+      event.amount + event.absorbed || 0;
 
     if (this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockAbleEvents > 1) {
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].good = true;
     }
-
   }
 
   shieldBlockCast(event) {
-
     const offensive = {
       shieldBlock: this.shieldBlocksOffensive.length + 1,
       shieldSlamCasts: 0,
@@ -114,35 +116,39 @@ class ShieldBlock extends Analyzer {
       blockAbleEvents: 0,
       blockedDamage: 0,
       damageTaken: 0,
-      eventName: new Set(),//human readable
-      eventSpellId: new Set(),//data safe
+      eventName: new Set(), //human readable
+      eventSpellId: new Set(), //data safe
       good: false,
     };
 
     this.shieldBlocksDefensive.push(defensive);
-
   }
 
   shieldSlamCast(event) {
     this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].shieldSlamCasts += 1;
 
-    if (this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].shieldSlamCasts > this.ssNeeded) {
+    if (
+      this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].shieldSlamCasts >
+      this.ssNeeded
+    ) {
       this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].good = true;
     }
 
-    const beforeDamage = this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].bonusDamage || 0;
-    const eventDamage = ((event.amount || 0) + (event.absorbed || 0));
+    const beforeDamage =
+      this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].bonusDamage || 0;
+    const eventDamage = (event.amount || 0) + (event.absorbed || 0);
     const bonusDamage = Math.round(eventDamage - eventDamage / 1.3);
 
-    this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].bonusDamage = beforeDamage + bonusDamage;
-
+    this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].bonusDamage =
+      beforeDamage + bonusDamage;
   }
 
   checkLastBlock() {
-
     const overall = {
       shieldBlock: this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].shieldBlock,
-      good: (this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].good || this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].good),
+      good:
+        this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].good ||
+        this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].good,
     };
 
     if (overall.good) {
@@ -157,7 +163,6 @@ class ShieldBlock extends Analyzer {
     }
 
     this.shieldBlocksOverall.push(overall);
-
   }
 
   onFightend() {
@@ -174,15 +179,23 @@ class ShieldBlock extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was either no blockable damage events or you didn't cast shield slam enough. </>,
-    )
-      .icon(SPELLS.SHIELD_BLOCK.icon)
-      .actual(t({
-      id: "warrior.protection.suggestions.shieldBlock.goodCasts",
-      message: `${this.goodCast} good casts of shield block`
-    }))
-      .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          {' '}
+          You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was
+          either no blockable damage events or you didn't cast shield slam enough.{' '}
+        </>,
+      )
+        .icon(SPELLS.SHIELD_BLOCK.icon)
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.shieldBlock.goodCasts',
+            message: `${this.goodCast} good casts of shield block`,
+          }),
+        )
+        .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`),
+    );
   }
 
   statistic() {
@@ -199,23 +212,33 @@ class ShieldBlock extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Overall bad casts: {totalCasts - goodCasts}<br />
-            Good offensive casts: {offensiveCasts}<br />
-            Good offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
-            <br /><br />
-            Good defensive casts: {defensiveCasts}<br />
+            Overall bad casts: {totalCasts - goodCasts}
+            <br />
+            Good offensive casts: {offensiveCasts}
+            <br />
+            Good offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the{' '}
+            <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased{' '}
+            <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
+            <br />
+            <br />
+            Good defensive casts: {defensiveCasts}
+            <br />
             Good defensive casts where you blocked several hits.
-            <br /><br />
+            <br />
+            <br />
             Some casts may be good both offensively and defensively.
-            <br /><br />
-            Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts by ensuring that you take advantage of the offensive or defensive effects each time.
+            <br />
+            <br />
+            Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts
+            by ensuring that you take advantage of the offensive or defensive effects each time.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SHIELD_BLOCK}>
-          Bad Defensive Casts: {totalCasts - defensiveCasts}<br />
+          Bad Defensive Casts: {totalCasts - defensiveCasts}
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

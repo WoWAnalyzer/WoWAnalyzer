@@ -1,18 +1,15 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-import Events, { CastEvent } from 'parser/core/Events';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import { formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import RageTracker from '../../core/RageTracker';
-
 
 const REDUCTION = 5000;
 const EXTRA_RAGE = 5;
@@ -45,21 +42,21 @@ class TheWall extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onCast);
   }
 
-  onCast(event: CastEvent){
-    if(this.spellUsable.isOnCooldown(SPELLS.SHIELD_WALL.id)){
+  onCast(event: CastEvent) {
+    if (this.spellUsable.isOnCooldown(SPELLS.SHIELD_WALL.id)) {
       const cdr = this.spellUsable.reduceCooldown(SPELLS.SHIELD_WALL.id, REDUCTION);
       this.effectiveCDR += cdr;
-      this.wastedCDR += (REDUCTION - cdr);
-    }else{
+      this.wastedCDR += REDUCTION - cdr;
+    } else {
       this.wastedCDR += REDUCTION;
     }
 
-    if(this.rageTracker.maxResource > this.rageTracker.current + EXTRA_RAGE){
+    if (this.rageTracker.maxResource > this.rageTracker.current + EXTRA_RAGE) {
       this.effectiveRage += 5;
-    }else{
+    } else {
       const effective = this.rageTracker.maxResource - this.rageTracker.current;
       this.effectiveRage += effective;
-      this.wastedRage += (EXTRA_RAGE - effective);
+      this.wastedRage += EXTRA_RAGE - effective;
     }
   }
 
@@ -69,14 +66,16 @@ class TheWall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={<>
-        Wasted Rage: {this.wastedRage} <br />
-        Wasted CDR: {formatDuration(this.wastedCDR/1000)}
-        </>}
+        tooltip={
+          <>
+            Wasted Rage: {this.wastedRage} <br />
+            Wasted CDR: {formatDuration(this.wastedCDR / 1000)}
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.THE_WALL}>
           {this.effectiveRage} <small>rage</small> <br />
-          {formatDuration(this.effectiveCDR/1000)} <small>cdr</small>
+          {formatDuration(this.effectiveCDR / 1000)} <small>cdr</small>
         </BoringSpellValueText>
       </Statistic>
     );

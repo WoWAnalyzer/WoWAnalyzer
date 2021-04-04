@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Protection Paladin integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like 
+      <ForwardRef
+        icon={true}
+        id={20271}
+      />
+       or
+       
+      <ForwardRef
+        icon={true}
+        id={31935}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"paladin.protection.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"27.52"}}
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Protection Paladin integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -227,8 +257,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               25
               /44
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -325,8 +354,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               18
               /36
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -423,8 +451,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               11
               /60
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -526,8 +553,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               17
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -612,8 +638,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               38
               /45
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -710,8 +735,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /25
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -866,8 +890,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1027,8 +1050,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1113,8 +1135,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1216,8 +1237,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1275,7 +1295,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=204079"
+                href="http://wowhead.com/spell=642"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1287,7 +1307,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_crusade.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineshield.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -1296,7 +1316,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Final Stand
+                Divine Shield
               </a>
             </td>
             <td
@@ -1319,8 +1339,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1480,8 +1499,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1636,8 +1654,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1780,8 +1797,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               3
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1878,8 +1894,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1976,8 +1991,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2074,8 +2088,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2172,8 +2185,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2270,8 +2282,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2368,8 +2379,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               6
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2466,8 +2476,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /11
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2622,8 +2631,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2720,8 +2728,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2951,14 +2958,14 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_crusade",
+    "icon": "spell_holy_divineshield",
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
         components={
           Object {
             "0": <ForwardRef
-              id={204079}
+              id={642}
             />,
           }
         }
@@ -3564,7 +3571,8 @@ Array [
       <ForwardRef
         id={275779}
       />
-       and 
+       and
+       
       <ForwardRef
         id={31935}
       />
@@ -3572,7 +3580,8 @@ Array [
       <em>
         filler
       </em>
-       ability and should only be used when you have no better spells to cast.
+       
+      ability and should only be used when you have no better spells to cast.
     </React.Fragment>,
     "stat": <React.Fragment>
       {"id":"paladin.protection.suggestions.hammerOfTheRighteous.efficiency","message":"{0}% of casts while better spells were available","values":{"0":"38.89"}}
@@ -5275,7 +5284,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
              
             Shield of the Righteous
           </a>
-           and 
+           and
+           
           <a
             className="spell-link-text"
             href="http://wowhead.com/spell=26573"
@@ -5406,7 +5416,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                
               Ardent Defender
             </a>
-             can be used either as a cooldown to mitigate boss abilities or to cover time when 
+             can be used either as a cooldown to mitigate boss abilities or to cover time when
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=53600"
@@ -5875,7 +5886,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             <b>
               not
             </b>
-             do this at the expense of 
+             do this at the expense of
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=53600"
@@ -5890,7 +5902,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                
               Shield of the Righteous
             </a>
-             uptime. Instead, take advantage of 
+             uptime. Instead, take advantage of
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=321136"
@@ -5905,7 +5918,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                
               Shining Light
             </a>
-             to make most of your 
+             to make most of your
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=85673"

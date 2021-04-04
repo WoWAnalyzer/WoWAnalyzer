@@ -6,7 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 const items: ItemList = {
   //region Shriekwing
@@ -31,7 +31,7 @@ const items: ItemList = {
 
   //region The Council of Blood
   MACABRE_SHEET_MUSIC: {
-    id: 184024, 
+    id: 184024,
     name: 'Macabre Sheet Music',
     icon: 'inv_scroll_16',
   },

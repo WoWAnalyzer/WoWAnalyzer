@@ -1,63 +1,49 @@
-import { ConvokeSpirits } from '@wowanalyzer/druid';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 
-import WildGrowthNormalizer from './normalizers/WildGrowth';
-import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
-import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
-import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
+import { ConvokeSpirits } from '@wowanalyzer/druid';
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
-import Checklist from './modules/features/Checklist/Module';
-
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import Abilities from './modules/Abilities';
+import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
+import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
+import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
-
-import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
-import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
-import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
 import SpellManaCost from './modules/core/SpellManaCost';
-
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
-import Abilities from './modules/Abilities';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import WildGrowth from './modules/features/WildGrowth';
-import Lifebloom from './modules/features/Lifebloom';
-import Efflorescence from './modules/features/Efflorescence';
+import Checklist from './modules/features/Checklist/Module';
 import Clearcasting from './modules/features/Clearcasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Efflorescence from './modules/features/Efflorescence';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
+import Lifebloom from './modules/features/Lifebloom';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
-
+import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
+import StatWeights from './modules/features/StatWeights';
+import WildGrowth from './modules/features/WildGrowth';
+import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
+import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
+import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
+import Abundance from './modules/talents/Abundance';
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
 import Flourish from './modules/talents/Flourish';
-import SpringBlossoms from './modules/talents/SpringBlossoms';
-import SoulOfTheForest from './modules/talents/SoulOfTheForest';
-import TreeOfLife from './modules/talents/TreeOfLife';
 import Photosynthesis from './modules/talents/Photosynthesis';
-import Abundance from './modules/talents/Abundance';
-
-import StatWeights from './modules/features/StatWeights';
-
-// Mana Tracker
-import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
-
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-
-// Conduits
-
-// Potency
-import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
-
-//legos
-import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
-import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
+import SoulOfTheForest from './modules/talents/SoulOfTheForest';
+import SpringBlossoms from './modules/talents/SpringBlossoms';
+import TreeOfLife from './modules/talents/TreeOfLife';
+import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
+import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
+import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
+import WildGrowthNormalizer from './normalizers/WildGrowth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -73,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rejuvenation: Rejuvenation,
     mastery: Mastery,
     spellManaCost: SpellManaCost,
+    activeDruidForm: ActiveDruidForm,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,

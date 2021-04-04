@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
+
 import {
   HammerOfWrath,
   HolyAvenger,
@@ -8,50 +11,40 @@ import {
   DivineToll,
 } from '@wowanalyzer/paladin';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-
-import LightOfDawnNormalizer from './normalizers/LightOfDawn';
-import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
-
-import BeaconTransferFactor from './modules/beacons/BeaconTransferFactor';
-import BeaconHealSource from './modules/beacons/BeaconHealSource';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import BeaconHealingDone from './modules/beacons/BeaconHealingDone';
+import BeaconHealSource from './modules/beacons/BeaconHealSource';
 import BeaconTargets from './modules/beacons/BeaconTargets';
-import MissingBeacons from './modules/beacons/MissingBeacons';
-import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
-import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
+import BeaconTransferFactor from './modules/beacons/BeaconTransferFactor';
 import BeaconUptime from './modules/beacons/BeaconUptime';
-
+import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
+import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
+import MissingBeacons from './modules/beacons/MissingBeacons';
+import Checklist from './modules/checklist/Module';
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
+import Abilities from './modules/features/Abilities';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/features/Buffs';
 import CastBehavior from './modules/features/CastBehavior';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
+import StatValues from './modules/features/StatValues';
+import MightOfTheMountain from './modules/racials/MightOfTheMountain';
+import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
+import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
+import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
 import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
-import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import LightOfDawn from './modules/spells/LightOfDawn';
 import LightOfDawnIndexer from './modules/spells/LightOfDawnIndexer';
-
-import Abilities from './modules/features/Abilities';
-import Buffs from './modules/features/Buffs';
-import Checklist from './modules/checklist/Module';
-import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import StatValues from './modules/features/StatValues';
-
-import MightOfTheMountain from './modules/racials/MightOfTheMountain';
-
-import RuleOfLaw from './modules/talents/RuleOfLaw';
-import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
-
-import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
-
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
-import JudgmentOfLight from './modules/talents/JudgmentOfLight';
+import CrusadersMight from './modules/talents/CrusadersMight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
+import JudgmentOfLight from './modules/talents/JudgmentOfLight';
+import RuleOfLaw from './modules/talents/RuleOfLaw';
+import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
+import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

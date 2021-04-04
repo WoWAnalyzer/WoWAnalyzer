@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2020, 12, 1), <>Added <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION.id} icon /> module and minor housekeeping.</>, Skeletor),

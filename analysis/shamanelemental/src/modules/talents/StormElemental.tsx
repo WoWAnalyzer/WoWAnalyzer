@@ -1,23 +1,18 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Statistic from 'parser/ui/Statistic';
-import { SpellLink } from 'interface';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import Abilities from '../Abilities';
 
 class StormElemental extends Analyzer {
-
   static dependencies = {
     abilities: Abilities,
     enemies: EnemyInstances,
@@ -33,26 +28,36 @@ class StormElemental extends Analyzer {
     [SPELLS.EARTHQUAKE.id]: 0,
     others: 0,
   };
-  protected enemies !: Enemies;
-  protected abilities !: Abilities;
+  protected enemies!: Enemies;
+  protected abilities!: Abilities;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT), this.onSECast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT),
+      this.onSECast,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onSECast);
   }
 
   get stormEleUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.WIND_GUST_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.WIND_GUST_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   get averageLightningBoltCasts() {
-    return (this.numCasts[SPELLS.LIGHTNING_BOLT.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
+    return (
+      this.numCasts[SPELLS.LIGHTNING_BOLT.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id] || 0
+    );
   }
 
   get averageChainLightningCasts() {
-    return (this.numCasts[SPELLS.CHAIN_LIGHTNING.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
+    return (
+      this.numCasts[SPELLS.CHAIN_LIGHTNING.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id] ||
+      0
+    );
   }
 
   get suggestionThresholds() {
@@ -83,7 +88,7 @@ class StormElemental extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
             With a uptime of: {formatPercentage(this.stormEleUptime)} %<br />
             Casts while Storm Elemental was up:
@@ -95,26 +100,29 @@ class StormElemental extends Analyzer {
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>
           </>
-        )}
+        }
       >
         <>
-          You cast <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> {this.averageLightningBoltCasts} times per <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />
+          You cast <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> {this.averageLightningBoltCasts}{' '}
+          times per <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />
         </>
       </Statistic>
-
     );
   }
 
   suggestions(when: When) {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
         .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(t({
-      id: "shaman.elemental.suggestions.stormElemental.badCasts",
-      message: `${actual} other casts with Storm Elemental up`
-    }))
-        .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
+        .actual(
+          t({
+            id: 'shaman.elemental.suggestions.stormElemental.badCasts',
+            message: `${actual} other casts with Storm Elemental up`,
+          }),
+        )
+        .recommended(`Only cast ${abilities} while Storm Elemental is up.`),
+    );
   }
 }
 

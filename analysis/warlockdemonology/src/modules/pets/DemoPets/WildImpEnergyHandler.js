@@ -1,12 +1,11 @@
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import DemoPets from './index';
-import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
 import PETS from '../PETS';
+import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
+import DemoPets from './index';
 
 const debug = false;
 const test = false;
@@ -38,9 +37,11 @@ class WildImpEnergyHandler extends Analyzer {
       debug && this.error('Wild Imp casted something after despawn', pet, event);
       return;
     }
-    const energyResource = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.ENERGY.id);
+    const energyResource =
+      event.classResources &&
+      event.classResources.find((resource) => resource.type === RESOURCE_TYPES.ENERGY.id);
     if (!energyResource) {
-      debug && this.error('Wild Imp doesn\'t have energy class resource field', event);
+      debug && this.error("Wild Imp doesn't have energy class resource field", event);
       return;
     }
     pet.updatePosition(event);
@@ -51,7 +52,15 @@ class WildImpEnergyHandler extends Analyzer {
       // Imp was empowered at least once, mark as empowered
       pet.setMeta(META_CLASSES.EMPOWERED, META_TOOLTIPS.EMPOWERED);
     }
-    pet.pushHistory(event.timestamp, 'Cast', event, 'old energy', oldEnergy, 'new energy', pet.currentEnergy);
+    pet.pushHistory(
+      event.timestamp,
+      'Cast',
+      event,
+      'old energy',
+      oldEnergy,
+      'new energy',
+      pet.currentEnergy,
+    );
 
     if (pet.currentEnergy === 0) {
       pet.despawn(event.timestamp, DESPAWN_REASONS.ZERO_ENERGY);

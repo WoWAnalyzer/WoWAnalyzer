@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
-import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 const FURY_EXECUTES = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
 

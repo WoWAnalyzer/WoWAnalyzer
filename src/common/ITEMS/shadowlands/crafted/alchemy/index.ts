@@ -1,4 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 /**
  * NAME: {
@@ -7,7 +7,5 @@ import { ItemList } from "common/ITEMS/Item";
  *   icon: string,
  * },
  */
-const items: ItemList = {
-
-};
+const items: ItemList = {};
 export default items;

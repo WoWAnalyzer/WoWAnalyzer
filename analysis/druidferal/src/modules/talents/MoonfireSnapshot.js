@@ -1,13 +1,13 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import { TooltipElement } from 'interface';
-import { t } from '@lingui/macro';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import React from 'react';
 
-import Snapshot from '../core/Snapshot';
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
+import Snapshot from '../core/Snapshot';
 
 /**
  * Moonfire benefits from the damage bonus of Tiger's Fury over its whole duration, even if the
@@ -26,7 +26,7 @@ class MoonfireSnapshot extends Snapshot {
       isGreaterThan: {
         minor: 0,
         average: 0.15,
-        major: 0.60,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -55,8 +55,7 @@ class MoonfireSnapshot extends Snapshot {
       return;
     }
 
-    if (stateNew.startTime >= stateOld.pandemicTime ||
-      stateNew.power >= stateOld.power) {
+    if (stateNew.startTime >= stateOld.pandemicTime || stateNew.power >= stateOld.power) {
       // good refresh
       return;
     }
@@ -70,21 +69,41 @@ class MoonfireSnapshot extends Snapshot {
     }
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = 'You refreshed with a weaker version of Moonfire before the pandemic window.';
+    event.meta.inefficientCastReason =
+      'You refreshed with a weaker version of Moonfire before the pandemic window.';
   }
 
   suggestions(when) {
-    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Try not to refresh <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Moonfire's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> unless you have more powerful <TooltipElement content="Applying Moonfire with Tiger's Fury will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
-      </>,
-    )
-      .icon(SPELLS.MOONFIRE_FERAL.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.moonfireSnapshot.downgrades",
-      message: `${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`
-    }))
-      .recommended(`${recommended}% is recommended`));
+    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try not to refresh <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> before the{' '}
+          <TooltipElement
+            content={`The last ${(
+              (this.constructor.durationOfFresh * PANDEMIC_FRACTION) /
+              1000
+            ).toFixed(
+              1,
+            )} seconds of Moonfire's duration. When you refresh during this time you don't lose any duration in the process.`}
+          >
+            pandemic window
+          </TooltipElement>{' '}
+          unless you have more powerful{' '}
+          <TooltipElement content="Applying Moonfire with Tiger's Fury will boost its damage until you reapply it.">
+            snapshot buffs
+          </TooltipElement>{' '}
+          than were present when it was first cast.
+        </>,
+      )
+        .icon(SPELLS.MOONFIRE_FERAL.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.moonfireSnapshot.downgrades',
+            message: `${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`,
+          }),
+        )
+        .recommended(`${recommended}% is recommended`),
+    );
   }
 
   statistic() {

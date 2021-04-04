@@ -3,22 +3,21 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';
-import Gore from './modules/features/Gore';
+import AntiFillerSpam from './modules/features/AntiFillerSpam';
+import FrenziedRegenGoEProcs from './modules/features/FrenziedRegenGoEProcs';
 import GalacticGuardian from './modules/features/GalacticGuardian';
+import Gore from './modules/features/Gore';
 import GuardianOfElune from './modules/features/GuardianOfElune';
 import IronFurGoEProcs from './modules/features/IronFurGoEProcs';
-import FrenziedRegenGoEProcs from './modules/features/FrenziedRegenGoEProcs';
-import RageWasted from './modules/features/RageWasted';
-import AntiFillerSpam from './modules/features/AntiFillerSpam';
 import MitigationCheck from './modules/features/MitigationCheck';
-
+import RageWasted from './modules/features/RageWasted';
+import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 import IronFur from './modules/spells/IronFur';
-import Thrash from './modules/spells/Thrash';
 import Moonfire from './modules/spells/Moonfire';
 import Pulverize from './modules/spells/Pulverize';
+import Thrash from './modules/spells/Thrash';
 import Earthwarden from './modules/talents/Earthwarden';
 import Incarnation from './modules/talents/Incarnation';
-import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

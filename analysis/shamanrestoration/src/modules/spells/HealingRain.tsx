@@ -1,26 +1,22 @@
-import React from 'react';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
+import { t, Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'interface';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { HealEvent } from 'parser/core/Events';
-
-import { t, Trans } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
 
 interface HealingRainTickInfo {
-  timestamp: number,
-  hits: number
+  timestamp: number;
+  hits: number;
 }
 
 class HealingRain extends Analyzer {
@@ -35,7 +31,10 @@ class HealingRain extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.onHealingRainHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
+      this.onHealingRainHeal,
+    );
   }
 
   get averageHitsPerTick() {
@@ -45,15 +44,26 @@ class HealingRain extends Analyzer {
 
   suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
-    when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players stack. This allows the spell to consitantly hit all 6 possible targets.</span>)
-        .icon(SPELLS.HEALING_RAIN_CAST.icon)
-        .actual(t({
-          id: 'shaman.restoration.suggestions.healingRain.averageTargets',
-          message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`,
-        }))
-        .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
-        .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
+    when(suggestionThreshold.actual)
+      .isLessThan(suggestionThreshold.isLessThan.minor)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players
+            stack. This allows the spell to consitantly hit all 6 possible targets.
+          </span>,
+        )
+          .icon(SPELLS.HEALING_RAIN_CAST.icon)
+          .actual(
+            t({
+              id: 'shaman.restoration.suggestions.healingRain.averageTargets',
+              message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`,
+            }),
+          )
+          .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
+          .regular(suggestionThreshold.isLessThan.average)
+          .major(suggestionThreshold.isLessThan.average),
+      );
   }
 
   get suggestionThreshold() {
@@ -76,7 +86,9 @@ class HealingRain extends Analyzer {
       return;
     }
 
-    const healingRainTick = this.healingRainTicks.find(tick => event.timestamp - BUFFER_MS <= tick.timestamp);
+    const healingRainTick = this.healingRainTicks.find(
+      (tick) => event.timestamp - BUFFER_MS <= tick.timestamp,
+    );
     if (!healingRainTick) {
       this.healingRainTicks.push({
         timestamp: event.timestamp,
@@ -84,7 +96,8 @@ class HealingRain extends Analyzer {
       });
     } else {
       // dirty fix for partial ticks happening at the same time as a real tick
-      healingRainTick.hits = healingRainTick.hits + 1 > 6 ? healingRainTick.hits = 6 : healingRainTick.hits + 1;
+      healingRainTick.hits =
+        healingRainTick.hits + 1 > 6 ? (healingRainTick.hits = 6) : healingRainTick.hits + 1;
     }
   }
 
@@ -98,11 +111,20 @@ class HealingRain extends Analyzer {
         icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
-        label={(
-          <TooltipElement content={<Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.</Trans>}>
-            <Trans id="shaman.restoration.healingRain.averageTargets.label">Average Healing Rain Targets</Trans>
+        label={
+          <TooltipElement
+            content={
+              <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
+                The average number of targets healed by Healing Rain out of the maximum amount of 6
+                targets.
+              </Trans>
+            }
+          >
+            <Trans id="shaman.restoration.healingRain.averageTargets.label">
+              Average Healing Rain Targets
+            </Trans>
           </TooltipElement>
-        )}
+        }
       />
     );
   }

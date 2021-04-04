@@ -1,7 +1,7 @@
+import { change, date } from 'common/changelog';
+import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import React from 'react';
 
-import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),

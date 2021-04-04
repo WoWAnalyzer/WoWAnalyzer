@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   ArcaneIntellect,
   CancelledCasts,
@@ -14,51 +17,39 @@ import {
   TempestBarrier,
 } from '@wowanalyzer/mage';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
-import FlamestrikeNormalizer from './normalizers/Flamestrike';
-import CombustionNormalizer from './normalizers/Combustion';
-import ScorchNormalizer from './normalizers/Scorch';
-import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
-
 import Checklist from './modules/Checklist/Module';
-import Buffs from './modules/features/Buffs';
-
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/features/Abilities';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/features/Buffs';
+import CombustionActiveTime from './modules/features/CombustionActiveTime';
+import CombustionCharges from './modules/features/CombustionCharges';
+import CombustionFirestarter from './modules/features/CombustionFirestarter';
+import CombustionPreCastDelay from './modules/features/CombustionPreCastDelay';
+import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-
+import HeatingUp from './modules/features/HeatingUp';
 import HotStreak from './modules/features/HotStreak';
 import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
 import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
-import CombustionFirestarter from './modules/features/CombustionFirestarter';
-import CombustionCharges from './modules/features/CombustionCharges';
-import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
-import CombustionActiveTime from './modules/features/CombustionActiveTime';
 import PhoenixFlames from './modules/features/PhoenixFlames';
-import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
-
-//Talents
-import SearingTouch from './modules/talents/SearingTouch';
-import Meteor from './modules/talents/Meteor';
-import MeteorRune from './modules/talents/MeteorRune';
-import MeteorCombustion from './modules/talents/MeteorCombustion';
-import Kindling from './modules/talents/Kindling';
-
-//Legendaries
+import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
+import ControlledDestruction from './modules/items/ControlledDestruction';
+import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
 import FeveredIncantation from './modules/items/FeveredIncantation';
 import Firestorm from './modules/items/Firestorm';
-
-//Covenants
-import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
-
-//Conduits
-import MasterFlame from './modules/items/MasterFlame';
-import ControlledDestruction from './modules/items/ControlledDestruction';
 import InfernalCascade from './modules/items/InfernalCascade';
+import MasterFlame from './modules/items/MasterFlame';
 import FromTheAshes from './modules/talents/FromTheAshes';
+import Kindling from './modules/talents/Kindling';
+import Meteor from './modules/talents/Meteor';
+import MeteorCombustion from './modules/talents/MeteorCombustion';
+import MeteorRune from './modules/talents/MeteorRune';
+import SearingTouch from './modules/talents/SearingTouch';
+import CombustionNormalizer from './normalizers/Combustion';
+import FlamestrikeNormalizer from './normalizers/Flamestrike';
+import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
+import ScorchNormalizer from './normalizers/Scorch';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -85,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     combustionActiveTime: CombustionActiveTime,
+    combustionPreCastDelay: CombustionPreCastDelay,
     phoenixFlames: PhoenixFlames,
     heatingUp: HeatingUp,
     mirrorImage: MirrorImage,
@@ -104,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
+    disciplinaryCommand: DisciplinaryCommand,
 
     //Covenants
     shiftingPower: ShiftingPower,

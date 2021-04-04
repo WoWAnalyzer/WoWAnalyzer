@@ -1,9 +1,10 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter'
+import React from 'react';
+
+import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -34,17 +35,32 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.BLADE_DANCE, SPELLS.DEATH_SWEEP],
-        category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id) ? 9 / (1 + haste) : 15 / (1 + haste),
+        category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id)
+          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+          : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: (haste) =>
+          combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)
+            ? 9 / (1 + haste)
+            : 15 / (1 + haste),
         //Blade dance = 15s cd
         //Death Sweep = 9s cd
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || combatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id),
+          suggestion:
+            combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ||
+            combatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id),
           recommendedEfficiency: 0.95,
-          extraSuggestion: <>This should be part of your single target rotation due to using <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} />. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share their cooldowns.</>,
+          extraSuggestion: (
+            <>
+              This should be part of your single target rotation due to using{' '}
+              <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or{' '}
+              <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} />. This includes the{' '}
+              <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and
+              share their cooldowns.
+            </>
+          ),
         },
       },
       {
@@ -52,14 +68,15 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // Felblade cooldown can be reset by Demon Bite. But it's CD reset is not any event, so can't track if it resets or not.
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. And also it can be used to charge to the desired target, making it very strong movement spell.',
+          extraSuggestion:
+            'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. And also it can be used to charge to the desired target, making it very strong movement spell.',
         },
       },
       {
@@ -67,14 +84,15 @@ class Abilities extends CoreAbilities {
         // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 30 / (1 + haste),
+        cooldown: (haste) => 30 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
+          extraSuggestion:
+            'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
         },
       },
       {
@@ -88,13 +106,19 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <>Pool your Fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> / <SpellLink id={SPELLS.ANNIHILATION.id} /> during its buff window.</>,
+          extraSuggestion: (
+            <>
+              Pool your Fury before hand to maximizing casting{' '}
+              <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> / <SpellLink id={SPELLS.ANNIHILATION.id} />{' '}
+              during its buff window.
+            </>
+          ),
         },
       },
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: (haste) => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -103,7 +127,9 @@ class Abilities extends CoreAbilities {
       //Movement
       {
         spell: SPELLS.FEL_RUSH_CAST, //Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
+        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id)
+          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+          : Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 10,
         gcd: {
@@ -112,19 +138,30 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
           recommendedEfficiency: 0.95,
-          extraSuggestion: <>Use it to keep your <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff going.</>,
+          extraSuggestion: (
+            <>
+              Use it to keep your <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff going.
+            </>
+          ),
         },
       },
       {
         spell: SPELLS.VENGEFUL_RETREAT, //Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
+        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id)
+          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+          : Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? 20 : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
           recommendedEfficiency: 0.95,
-          extraSuggestion: <>Use it to generate Fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> talent.</>,
+          extraSuggestion: (
+            <>
+              Use it to generate Fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} />{' '}
+              talent.
+            </>
+          ),
         },
       },
       {
@@ -216,14 +253,20 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GLAIVE_TEMPEST_TALENT,
         enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: haste => 20 / (1 + haste),
+        cooldown: (haste) => 20 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting{' '}
+              <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to
+              spawn soon.
+            </>
+          ),
         },
       },
       //Covenant
@@ -252,7 +295,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> is when you're expecting adds to spawn soon.</>,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> is
+              when you're expecting adds to spawn soon.
+            </>
+          ),
         },
       },
       {
@@ -262,7 +310,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: {
           base: 1500,
-        }
+        },
       },
       {
         spell: SPELLS.THE_HUNT,
@@ -275,7 +323,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
-          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when you're expecting adds to spawn soon or for an upcoming haste buff.</>,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when
+              you're expecting adds to spawn soon or for an upcoming haste buff.
+            </>
+          ),
         },
       },
       {
@@ -311,7 +364,7 @@ class Abilities extends CoreAbilities {
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80, //5 minute cd. You want some leeway in when to burn it.
+          recommendedEfficiency: 0.8, //5 minute cd. You want some leeway in when to burn it.
         },
       },
 
@@ -320,7 +373,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLUR,
         buffSpellId: SPELLS.BLUR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id) ? 60 - FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)] : 60,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id)
+          ? 60 -
+            FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]
+          : 60,
       },
       {
         spell: SPELLS.DARKNESS,

@@ -1,14 +1,13 @@
-import React from 'react';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatThousands } from 'common/format';
-import Events from 'parser/core/Events';
+import React from 'react';
 
 class GlaiveTempest extends Analyzer {
-
   damage = 0;
 
   constructor(...args) {
@@ -17,7 +16,10 @@ class GlaiveTempest extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLAIVE_TEMPEST_DAMAGE), this.onDamageEvent);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLAIVE_TEMPEST_DAMAGE),
+      this.onDamageEvent,
+    );
   }
 
   onDamageEvent(event) {
@@ -29,16 +31,15 @@ class GlaiveTempest extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(this.damage)} Total damage<br />
+            {formatThousands(this.damage)} Total damage
+            <br />
           </>
-      )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.GLAIVE_TEMPEST_TALENT}>
-          <>
-          {this.owner.formatItemDamageDone(this.damage)}
-          </>
+          <>{this.owner.formatItemDamageDone(this.damage)}</>
         </BoringSpellValueText>
       </Statistic>
     );

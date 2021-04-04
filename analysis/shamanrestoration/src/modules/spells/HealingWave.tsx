@@ -1,14 +1,12 @@
-import React from 'react';
+import { t, Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatPercentage } from 'common/format';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
-
-import { t, Trans } from '@lingui/macro';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -24,8 +22,14 @@ class HealingWave extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this.onHealingWaveBegincast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this.onHealingWaveCast);
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      this.onHealingWaveBegincast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      this.onHealingWaveCast,
+    );
   }
 
   _isCurrentCastInefficient = false;
@@ -38,8 +42,16 @@ class HealingWave extends Analyzer {
   }
 
   _isInefficientCastEvent(event: BeginCastEvent) {
-    const hasTidalWave = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, -1);
-    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp, -1);
+    const hasTidalWave = this.selectedCombatant.hasBuff(
+      SPELLS.TIDAL_WAVES_BUFF.id,
+      event.timestamp,
+      -1,
+    );
+    const hasFlashFlood = this.selectedCombatant.hasBuff(
+      SPELLS.FLASH_FLOOD_BUFF.id,
+      event.timestamp,
+      -1,
+    );
     if (hasTidalWave || hasFlashFlood) {
       return false;
     }
@@ -59,7 +71,13 @@ class HealingWave extends Analyzer {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = <Trans id="shaman.restoration.healingWave.inefficientCast.reason">Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.</Trans>;
+      event.meta.inefficientCastReason = (
+        <Trans id="shaman.restoration.healingWave.inefficientCast.reason">
+          Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting
+          Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood
+          buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.
+        </Trans>
+      );
     }
   }
 
@@ -74,9 +92,9 @@ class HealingWave extends Analyzer {
     return {
       actual: unbuffedHealingWavesPerc,
       isGreaterThan: {
-        minor: 0.20,
-        average: 0.40,
-        major: 0.60,
+        minor: 0.2,
+        average: 0.4,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -84,15 +102,32 @@ class HealingWave extends Analyzer {
 
   suggestions(when: When) {
     const suggestedThreshold = this.suggestedThreshold;
-    when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
-      .addSuggestion((suggest) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /></span>)
-        .icon(SPELLS.HEALING_WAVE.icon)
-        .actual(t({
-          id: "shaman.restoration.suggestions.healingWave.unbuffed",
-          message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`
-        }))
-        .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Waves`)
-        .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
+    when(suggestedThreshold.actual)
+      .isGreaterThan(suggestedThreshold.isGreaterThan.minor)
+      .addSuggestion((suggest) =>
+        suggest(
+          <span>
+            Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without{' '}
+            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient.
+            Consider casting a riptide first to generate{' '}
+            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon />
+          </span>,
+        )
+          .icon(SPELLS.HEALING_WAVE.icon)
+          .actual(
+            t({
+              id: 'shaman.restoration.suggestions.healingWave.unbuffed',
+              message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`,
+            }),
+          )
+          .recommended(
+            `${formatPercentage(
+              suggestedThreshold.isGreaterThan.minor,
+            )}% of unbuffed Healing Waves`,
+          )
+          .regular(suggestedThreshold.isGreaterThan.average)
+          .major(suggestedThreshold.isGreaterThan.major),
+      );
   }
 }
 

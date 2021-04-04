@@ -1,12 +1,11 @@
-import React from 'react';
-
-import { formatPercentage } from 'common/format';
-import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Statistic from 'parser/ui/Statistic';
-import Gauge from 'parser/ui/Gauge';
 import { t, Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import Gauge from 'parser/ui/Gauge';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [

@@ -17,4 +17,4 @@ export interface Character {
   lastSeenAt: string;
   talents: string;
   thumbnail?: string;
-};
+}

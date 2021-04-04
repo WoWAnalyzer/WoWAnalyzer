@@ -16,7 +16,7 @@ class TooltipProviderWowdb extends Base {
     } else {
       const queryString = [];
       if (details.gems && details.gems.length > 0) {
-        queryString.push(`gems=${details.gems.map(gem => gem.id).join(',')}`);
+        queryString.push(`gems=${details.gems.map((gem) => gem.id).join(',')}`);
       }
       if (details.permanentEnchant) {
         queryString.push(`enchantment=${details.permanentEnchant}`);

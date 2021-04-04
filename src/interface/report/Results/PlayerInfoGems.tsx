@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { ItemIcon } from 'interface';
 import { Item } from 'parser/core/Events';
+import React from 'react';
 
 interface Props {
   gear: Item[];
@@ -13,7 +12,9 @@ const PlayerInfoGems = (props: Props) => {
   return (
     <>
       {itemsWithGems.map((item) => {
-        if(!item.gems) { return null }
+        if (!item.gems) {
+          return null;
+        }
         const gearSlot = gear.indexOf(item);
         const gem = item.gems[0];
         return (

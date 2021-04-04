@@ -1,14 +1,13 @@
-import { Link } from 'react-router-dom';
-import React, { ComponentType, ReactNode } from 'react';
 import { Trans } from '@lingui/macro';
-
+import AboutIcon from 'interface/icons/About';
+import ArmorIcon from 'interface/icons/Armor';
 import ChecklistIcon from 'interface/icons/Checklist';
+import EventsIcon from 'interface/icons/Events';
+import OtherIcon from 'interface/icons/More';
 import StatisticsIcon from 'interface/icons/Statistics';
 import TimelineIcon from 'interface/icons/Timeline';
-import OtherIcon from 'interface/icons/More';
-import ArmorIcon from 'interface/icons/Armor';
-import AboutIcon from 'interface/icons/About';
-import EventsIcon from 'interface/icons/Events';
+import React, { ComponentType, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   makeTabUrl: (url: string) => string;
@@ -40,7 +39,7 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
     },
     ...(tabs
       ?.sort((a, b) => (a.order || 0) - (b.order || 0))
-      .map(tab => ({
+      .map((tab) => ({
         icon: tab.icon || OtherIcon,
         name: tab.title,
         url: tab.url,

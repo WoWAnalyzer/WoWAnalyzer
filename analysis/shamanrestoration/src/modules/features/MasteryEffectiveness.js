@@ -1,22 +1,20 @@
-import React from 'react';
-
-import { SpellIcon } from 'interface';
-import SPELLS from 'common/SPELLS';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Panel from 'parser/ui/Panel';
-import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import { Trans } from '@lingui/macro';
-
-import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import Panel from 'parser/ui/Panel';
+import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
@@ -33,7 +31,10 @@ class MasteryEffectiveness extends Analyzer {
   constructor(options) {
     super(options);
     // Totems count as pets, but are still affected by mastery.
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_MASTERY),
+      this.onHeal,
+    );
   }
 
   onHeal(event) {
@@ -50,7 +51,10 @@ class MasteryEffectiveness extends Analyzer {
     const maxPotentialMasteryHealing = baseHealingDone * masteryPercent; // * 100% mastery effectiveness
 
     this.totalMasteryHealing += Math.max(0, masteryHealingDone - (event.overheal || 0));
-    this.totalMaxPotentialMasteryHealing += Math.max(0, maxPotentialMasteryHealing - (event.overheal || 0));
+    this.totalMaxPotentialMasteryHealing += Math.max(
+      0,
+      maxPotentialMasteryHealing - (event.overheal || 0),
+    );
 
     this.masteryHealEvents.push({
       ...event,
@@ -74,33 +78,44 @@ class MasteryEffectiveness extends Analyzer {
     const avgEffectiveMasteryPercent = this.masteryEffectivenessPercent * masteryPercent;
 
     return [
-      (
-        <StatisticBox
-          key="StatisticBox"
-          icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
-          value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
-          position={STATISTIC_ORDER.CORE(30)}
-          label={(
-            <TooltipElement content={<Trans id="shaman.restoration.masteryEffectiveness.statistic.tooltip">The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have {formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by {formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.</Trans>}>
-              <Trans id="shaman.restoration.masteryEffectiveness.statistic.label">Mastery benefit</Trans>
-            </TooltipElement>
-          )}
+      <StatisticBox
+        key="StatisticBox"
+        icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
+        value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
+        position={STATISTIC_ORDER.CORE(30)}
+        label={
+          <TooltipElement
+            content={
+              <Trans id="shaman.restoration.masteryEffectiveness.statistic.tooltip">
+                The percent of your mastery that you benefited from on average (so always between 0%
+                and 100%). Since you have {formatPercentage(masteryPercent)}% mastery, this means
+                that on average your heals were increased by{' '}
+                {formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.
+              </Trans>
+            }
+          >
+            <Trans id="shaman.restoration.masteryEffectiveness.statistic.label">
+              Mastery benefit
+            </Trans>
+          </TooltipElement>
+        }
+      />,
+      <Panel
+        key="Panel"
+        title={
+          <Trans id="shaman.restoration.masteryEffectiveness.statistic.panel">
+            Mastery effectiveness breakdown
+          </Trans>
+        }
+        position={200}
+        pad={false}
+      >
+        <PlayerBreakdown
+          report={this.report}
+          spellreport={this.spellReport}
+          players={this.owner.players}
         />
-      ),
-      (
-        <Panel
-          key="Panel"
-          title={<Trans id="shaman.restoration.masteryEffectiveness.statistic.panel">Mastery effectiveness breakdown</Trans>}
-          position={200}
-          pad={false}
-        >
-          <PlayerBreakdown
-            report={this.report}
-            spellreport={this.spellReport}
-            players={this.owner.players}
-          />
-        </Panel>
-      ),
+      </Panel>,
     ];
   }
 
@@ -131,7 +146,7 @@ class MasteryEffectiveness extends Analyzer {
 
   get spellReport() {
     const statsBySpellId = this.masteryHealEvents.reduce((obj, event) => {
-      if (!BASE_ABILITIES_AFFECTED_BY_MASTERY.some(s => s.id === event.ability.guid)) {
+      if (!BASE_ABILITIES_AFFECTED_BY_MASTERY.some((s) => s.id === event.ability.guid)) {
         return obj;
       }
       // Update the spell-totals

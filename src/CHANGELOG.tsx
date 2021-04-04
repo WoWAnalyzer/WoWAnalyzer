@@ -1,14 +1,27 @@
+import { change, date } from 'common/changelog';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { ItemLink } from 'interface';
+import SpellLink from 'interface/SpellLink';
 import React from 'react';
 // prettier-ignore
-import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import SpellLink from 'interface/SpellLink';
-import { ItemLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 4, 1), 'Added German translations in de/messages.json for hunter section', maestrohdude),
+  change(date(2021, 3, 29), 'Added German translations in de/messages.json for common, core abilities, death knight, demon hunter, and druid sections', maestrohdude),
+  change(date(2021, 3, 20), <> Fixed food check warning when druid conduit's <SpellLink id={SPELLS.DRUID_BORN_ANEW.id} /> was present on fight start.</>, Kartarn),
+  change(date(2021, 3, 16), 'Fixed issue with contributor icons.', emallson),
+  change(date(2021, 3, 8), 'Converted most Report related components to TS', acornellier),
+  change(date(2021, 3, 3), 'Converted dungeon files to TS and added Dungeon interface', Procyon),
+  change(date(2021, 3, 3), 'Converted various components to functional components in TypeScript.', acornellier),
+  change(date(2021, 2, 27), 'Fixed a crash resulting from precasting spells on druid specs.', Kartarn),
+  change(date(2021, 2, 24), <>Fixed a crash triggered by <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> casting 0 spells</>, acornellier),
+  change(date(2021, 2, 23), 'Refactored the language switcher into a functional component', acornellier),
+  change(date(2021, 2, 20), 'Added spell info for conduits, Venthyr soulbind\'s and some Kyrian SB\'s as well as legendary data', Buudha),
+  change(date(2021, 2, 14), <>Update <ItemLink id={ITEMS.VANTUS_RUNE_CASTLE_NATHRIA.id} /> versatility value.</>, Adoraci),
+  change(date(2021, 1, 24), 'Fix fight downtime toggle.', Zerotorescue),
   change(date(2021, 1, 20), 'Rework spec support: automatically mark specs as unsupported when patch does not match the game and added a toggle to mark a spec with partial support.', Zerotorescue),
   change(date(2021, 1, 20), 'Change homepage header to be consistent with report page.', Zerotorescue),
   change(date(2021, 1, 20), 'Updated the Missing Encounters warning to show always and prompt users to click Refresh if encounters are missing.', Sharrq),

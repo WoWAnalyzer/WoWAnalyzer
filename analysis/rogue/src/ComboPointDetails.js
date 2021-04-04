@@ -1,11 +1,10 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import { Panel } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { Icon } from 'interface';
 import { formatPercentage } from 'common/format';
+import { Panel } from 'interface';
+import { Icon } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import ComboPointTracker from './ComboPointTracker';
 
@@ -60,10 +59,7 @@ class ComboPointDetails extends Analyzer {
       url: 'combo-points',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.comboPointTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.comboPointTracker} showSpenders />
         </Panel>
       ),
     };

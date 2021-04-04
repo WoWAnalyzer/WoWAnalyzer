@@ -1,9 +1,9 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
+import React from 'react';
+
 import { EnergyTracker } from '@wowanalyzer/rogue';
 
 class Energy extends Analyzer {
@@ -17,7 +17,12 @@ class Energy extends Analyzer {
       minor: 0.05,
       avg: 0.1,
       major: 0.15,
-      extraSuggestion: <>Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.COMBAT_POTENCY.id} /> procs.</>,
+      extraSuggestion: (
+        <>
+          Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.COMBAT_POTENCY.id} />{' '}
+          procs.
+        </>
+      ),
     });
 
     if (this.selectedCombatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id)) {
@@ -26,7 +31,12 @@ class Energy extends Analyzer {
         minor: 0.05,
         avg: 0.1,
         major: 0.15,
-        extraSuggestion: <>Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.BLADE_RUSH_TALENT.id} /> gains.</>,
+        extraSuggestion: (
+          <>
+            Try to keep energy below max to avoid waisting{' '}
+            <SpellLink id={SPELLS.BLADE_RUSH_TALENT.id} /> gains.
+          </>
+        ),
       });
     }
   }

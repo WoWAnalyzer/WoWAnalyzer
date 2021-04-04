@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class EyeBeam extends EventsNormalizer {
   /**
@@ -19,12 +18,21 @@ class EyeBeam extends EventsNormalizer {
       if (event.type === EventType.ApplyBuff && event.ability.guid === SPELLS.EYE_BEAM.id) {
         const castTimestamp = event.timestamp;
 
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > 50) { // the max delay between the applybff events never looks to be more than this.
+          if (castTimestamp - previousEvent.timestamp > 50) {
+            // the max delay between the applybff events never looks to be more than this.
             break;
           }
-          if (previousEvent.type === EventType.ApplyBuff && previousEvent.ability.guid === SPELLS.METAMORPHOSIS_HAVOC_BUFF.id && previousEvent.sourceID === event.sourceID) {
+          if (
+            previousEvent.type === EventType.ApplyBuff &&
+            previousEvent.ability.guid === SPELLS.METAMORPHOSIS_HAVOC_BUFF.id &&
+            previousEvent.sourceID === event.sourceID
+          ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

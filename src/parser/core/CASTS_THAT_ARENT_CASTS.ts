@@ -55,6 +55,7 @@ const spells: number[] = [
 
   //region Mage
   SPELLS.RUNE_OF_POWER_BUFF.id,
+  SPELLS.DISCIPLINARY_COMMAND_BUFF.id,
 
   //region Covenants
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
@@ -62,7 +63,7 @@ const spells: number[] = [
   //endregion
 
   //region Demon Hunter
-  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting 
+  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting
   //endregion
 
   //region druid

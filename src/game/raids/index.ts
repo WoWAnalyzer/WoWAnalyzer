@@ -1,5 +1,6 @@
-import { Race } from 'parser/core/Combatant';
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Spec } from 'game/SPECS';
+import { Race } from 'parser/core/Combatant';
 
 export interface PhaseConfig {
   name: string;
@@ -37,6 +38,15 @@ interface Raid {
 export interface Phase extends PhaseConfig {
   start: number[];
   end: number[];
+}
+export interface Dungeon {
+  id: number;
+  name: string;
+  background?: string;
+  backgroundPosition?: string;
+  headshot?: string;
+  icon?: string;
+  fight: unknown;
 }
 
 const raids = {

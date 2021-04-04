@@ -1,12 +1,9 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import React from 'react';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -64,7 +61,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -84,7 +81,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        enabled:
+          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+          !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -102,7 +101,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown.</span>,
+          extraSuggestion: (
+            <span>
+              Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's
+              cooldown is up is important, try to plan for it's use as it is coming off cooldown.
+            </span>
+          ),
         },
       },
 
@@ -116,7 +120,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -129,7 +133,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -182,7 +186,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -192,7 +196,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -205,7 +209,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -290,7 +294,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
@@ -300,7 +304,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_2,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
@@ -310,7 +314,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_3,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
@@ -327,7 +331,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
@@ -349,7 +353,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
@@ -368,7 +372,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
@@ -381,9 +385,11 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled:
+          combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+          !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
       },
       {
         spell: SPELLS.SOULSHAPE,

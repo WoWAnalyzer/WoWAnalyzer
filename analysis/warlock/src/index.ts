@@ -1,6 +1,6 @@
-import SoulShardIcon from './images/warlock_soulshard_bw.jpg'
+import SoulShardIcon from './images/warlock_soulshard_bw.jpg';
 
-export { SoulShardIcon }
+export { SoulShardIcon };
 
 export { default as GrimoireOfSacrifice } from './GrimoireOfSacrifice';
 export { default as GrimoireOfSacrificeNormalizer } from './GrimoireOfSacrificeNormalizer';

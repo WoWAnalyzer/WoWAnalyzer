@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
 //import { SpellLink } from 'interface';
 
@@ -11,7 +10,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSECRATION_CAST,
         buffSpellId: SPELLS.CONSECRATION_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: (haste) => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -19,7 +18,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLESSED_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -33,7 +32,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AVENGERS_SHIELD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -50,14 +49,13 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
+        gcd: null,
       },
-      { // T15: Holy Shield
+      {
+        // T15: Holy Shield
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -70,7 +68,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST_PROTECTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
@@ -98,7 +96,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.GUARDIAN_OF_ANCIENT_KINGS, SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN],
-        buffSpellId: [SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id, SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id],
+        buffSpellId: [
+          SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id,
+          SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+        ],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300,
         castEfficiency: {
@@ -122,9 +123,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        gcd: {
-          base: 1500,
-        },
         cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
@@ -208,7 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAMMER_OF_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
+        cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -242,7 +240,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {
-        spell: SPELLS.FINAL_STAND_CAST,
+        spell: SPELLS.DIVINE_SHIELD,
+        buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
         castEfficiency: {

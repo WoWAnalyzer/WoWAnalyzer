@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreBuffs from 'parser/core/modules/Buffs';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {
@@ -46,12 +46,16 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DISCIPLINARY_COMMAND_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.MIRROR_IMAGE.id,
         triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
         timelineHighlight: true,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

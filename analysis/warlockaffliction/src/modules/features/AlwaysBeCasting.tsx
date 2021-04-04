@@ -1,17 +1,13 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-
+import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Gauge from 'parser/ui/Gauge';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {

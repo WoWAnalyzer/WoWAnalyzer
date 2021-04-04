@@ -1,14 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import React from 'react';
 
 /**
  * Shatters a line of earth in front of you with your main hand weapon,
@@ -28,14 +27,12 @@ class Sundering extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.SUNDERING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT),
       this.onCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.SUNDERING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT),
       this.onDamage,
     );
   }
@@ -58,7 +55,8 @@ class Sundering extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SUNDERING_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} /><br />
+            <ItemDamageDone amount={this.damageGained} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>

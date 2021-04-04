@@ -1,19 +1,16 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent, BeginCastEvent } from 'parser/core/Events';
-
+import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 import HealingRainLocation from '../core/HealingRainLocation';
 
-const DELUGE_HEALING_INCREASE = 0.20;
+const DELUGE_HEALING_INCREASE = 0.2;
 
 /**
  * Chain Heal heals for an additional 20% on targets within your Healing Rain or affected by your Riptide.
@@ -33,8 +30,16 @@ class Deluge extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]), this._onHeal);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this._onHealingRainBegincast);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
+      this._onHeal,
+    );
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST),
+      this._onHealingRainBegincast,
+    );
     this.addEventListener(Events.fightend, this._onFightend);
   }
 
@@ -46,7 +51,13 @@ class Deluge extends Analyzer {
       return;
     }
 
-    const hasBuff = combatant.hasBuff(SPELLS.RIPTIDE.id, event.timestamp, undefined, undefined, this.owner.playerId);
+    const hasBuff = combatant.hasBuff(
+      SPELLS.RIPTIDE.id,
+      event.timestamp,
+      undefined,
+      undefined,
+      this.owner.playerId,
+    );
     if (!hasBuff) {
       // We add events for the Healing Rain here, so that it doesn't double dip on targets with Riptide
       this.eventsDuringRain.push(event);
@@ -77,7 +88,10 @@ class Deluge extends Analyzer {
       return;
     }
 
-    this.healing += this.healingRainLocation.processHealingRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
+    this.healing += this.healingRainLocation.processHealingRain(
+      this.eventsDuringRain,
+      DELUGE_HEALING_INCREASE,
+    );
   }
 
   subStatistic() {
@@ -88,7 +102,6 @@ class Deluge extends Analyzer {
       />
     );
   }
-
 }
 
 export default Deluge;

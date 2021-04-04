@@ -1,18 +1,17 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import { BARRAGE_HITS_PER_CAST } from './constants';
 
@@ -25,7 +24,7 @@ import { BARRAGE_HITS_PER_CAST } from './constants';
  */
 class Barrage extends Analyzer {
   damage = 0;
-  casts: Array<{ averageHits: number, hits: number }> = [];
+  casts: Array<{ averageHits: number; hits: number }> = [];
   hits = 0;
   uniqueTargets: string[] = [];
   uniqueTargetsHit = 0;
@@ -34,8 +33,14 @@ class Barrage extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BARRAGE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_DAMAGE),
+      this.onDamage,
+    );
     this.addEventListener(Events.fightend, this.calculateAverageHits);
   }
 
@@ -79,7 +84,7 @@ class Barrage extends Analyzer {
   }
 
   calculateAverageHits() {
-    this.casts.forEach((cast: { averageHits: number, hits: number }) => {
+    this.casts.forEach((cast: { averageHits: number; hits: number }) => {
       cast.averageHits = cast.hits / BARRAGE_HITS_PER_CAST;
       if (cast.averageHits < 1) {
         this.inefficientCasts += 1;
@@ -88,13 +93,24 @@ class Barrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channeling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
-      .icon(SPELLS.BARRAGE_TALENT.icon)
-      .actual(t({
-        id: 'hunter.shared.suggestions.barrage.efficiency',
-        message: `${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`,
-      }))
-      .recommended(`${recommended} is recommended`));
+    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual}{' '}
+          {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all{' '}
+          {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your
+          target when channeling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />.{' '}
+        </>,
+      )
+        .icon(SPELLS.BARRAGE_TALENT.icon)
+        .actual(
+          t({
+            id: 'hunter.shared.suggestions.barrage.efficiency',
+            message: `${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`,
+          }),
+        )
+        .recommended(`${recommended} is recommended`),
+    );
   }
 
   statistic() {
@@ -107,7 +123,8 @@ class Barrage extends Analyzer {
         <BoringSpellValueText spell={SPELLS.BARRAGE_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <AverageTargetsHit casts={this.casts.length} hits={this.hits} /><br />
+            <AverageTargetsHit casts={this.casts.length} hits={this.hits} />
+            <br />
             <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} unique />
           </>
         </BoringSpellValueText>

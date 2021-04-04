@@ -1,17 +1,16 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { formatPercentage } from 'common/format';
-import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import Abilities from '../Abilities';
 import SpellUsable from '../features/SpellUsable';
-
 
 const BASE_PROC_CHANCE = 0.15;
 
@@ -27,7 +26,12 @@ class GrandCrusader extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]), this.trackGrandCrusaderChanceCasts);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]),
+      this.trackGrandCrusaderChanceCasts,
+    );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.trackGrandCrusaderChanceHits);
   }
 
@@ -38,7 +42,11 @@ class GrandCrusader extends Analyzer {
   _lastResetSource: CastEvent | DamageEvent | null = null;
 
   trackGrandCrusaderChanceCasts(event: CastEvent) {
-    if (![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(event.ability.guid)) {
+    if (
+      ![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(
+        event.ability.guid,
+      )
+    ) {
       return;
     }
     this._resetChances += 1;
@@ -62,16 +70,32 @@ class GrandCrusader extends Analyzer {
   resetCooldowns(spellUsable: SpellUsable, event: CastEvent | DamageEvent) {
     // reset AS cd
     if (spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
-      spellUsable.endCooldown(SPELLS.AVENGERS_SHIELD.id, false, this._lastResetSource?.timestamp, 0);
+      spellUsable.endCooldown(
+        SPELLS.AVENGERS_SHIELD.id,
+        false,
+        this._lastResetSource?.timestamp,
+        0,
+      );
     }
 
     // reset Judgment CD if the CJ talent is selected
-    if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) && spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id) && this._lastResetSource !== null) {
+    if (
+      this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) &&
+      spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id) &&
+      this._lastResetSource !== null
+    ) {
       // get haste as of last reset source. fingers crossed that it
       // isn't too far off
-      const ecd: number | undefined = this.abilities.getExpectedCooldownDuration(SPELLS.JUDGMENT_CAST_PROTECTION.id, this._lastResetSource);
+      const ecd: number | undefined = this.abilities.getExpectedCooldownDuration(
+        SPELLS.JUDGMENT_CAST_PROTECTION.id,
+        this._lastResetSource,
+      );
       if (ecd !== undefined) {
-        spellUsable.reduceCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id, ecd, this._lastResetSource.timestamp);
+        spellUsable.reduceCooldown(
+          SPELLS.JUDGMENT_CAST_PROTECTION.id,
+          ecd,
+          this._lastResetSource.timestamp,
+        );
       }
     }
   }
@@ -89,18 +113,33 @@ class GrandCrusader extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Grand Crusader reset the cooldown of Avenger's Shield at least {this._totalResets} times. {this._inferredResets} are inferred from using it before its cooldown normally be up.<br />
-            You had {this._resetChances} chances for Grand Crusader to trigger with a {formatPercentage(this.procChance, 0)}% chance to trigger.
+            Grand Crusader reset the cooldown of Avenger's Shield at least {this._totalResets}{' '}
+            times. {this._inferredResets} are inferred from using it before its cooldown normally be
+            up.
+            <br />
+            You had {this._resetChances} chances for Grand Crusader to trigger with a{' '}
+            {formatPercentage(this.procChance, 0)}% chance to trigger.
           </>
-               )}
-        dropdown={(
+        }
+        dropdown={
           <div style={{ padding: '8px' }}>
-            {plotOneVariableBinomChart(this._totalResets, this._resetChances, this.procChance, 'Reset %', 'Actual Resets', [0, 0.2], binomChartXAxis)}
-            <p>Likelihood of having <em>exactly</em> as many resets as you did with your traits and talents.</p>
+            {plotOneVariableBinomChart(
+              this._totalResets,
+              this._resetChances,
+              this.procChance,
+              'Reset %',
+              'Actual Resets',
+              [0, 0.2],
+              binomChartXAxis,
+            )}
+            <p>
+              Likelihood of having <em>exactly</em> as many resets as you did with your traits and
+              talents.
+            </p>
           </div>
-        )}
+        }
       >
         <BoringSpellValue
           spell={SPELLS.GRAND_CRUSADER}
@@ -108,7 +147,7 @@ class GrandCrusader extends Analyzer {
           label="Grand Crusader"
         />
       </Statistic>
-    )
+    );
   }
 }
 

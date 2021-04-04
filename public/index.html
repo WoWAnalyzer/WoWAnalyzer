@@ -91,9 +91,7 @@
   </head>
 
   <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="app-mount">
       <div id="splash">
         <div>
@@ -118,12 +116,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      window.Sentry &&
-        Sentry.init({
-          dsn: '%REACT_APP_SENTRY_DSN%',
-          release: 'wowanalyzer@%REACT_APP_VERSION%',
-          environment: '%REACT_APP_ENVIRONMENT_NAME%',
-        });
+      window.Sentry?.init({
+        dsn: '%REACT_APP_SENTRY_DSN%',
+        release: 'wowanalyzer@%REACT_APP_VERSION%',
+        environment: '%REACT_APP_ENVIRONMENT_NAME%',
+      });
     </script>
     <script>
       window.dataLayer = window.dataLayer || [];

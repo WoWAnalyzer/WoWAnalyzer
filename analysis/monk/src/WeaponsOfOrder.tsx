@@ -1,8 +1,8 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import Abilities from 'parser/core/modules/Abilities';
 import SPECS from 'game/SPECS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 
 const BASE_MASTERY_PERCENTAGE = 0.1;
 

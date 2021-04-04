@@ -1,6 +1,5 @@
-import React from 'react';
-
 import PatreonIcon from 'interface/icons/PatreonTiny';
+import React from 'react';
 
 interface Props {
   text?: string;

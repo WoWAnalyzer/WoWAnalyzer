@@ -1,16 +1,15 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import Enemies from 'parser/shared/modules/Enemies';
 import Events, { DamageEvent } from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import React from 'react';
 
 const EARTHEN_SPIKE = {
   INCREASE: 0.2,
@@ -39,22 +38,15 @@ class EarthenSpike extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.EARTHEN_SPIKE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_SPIKE_TALENT),
       this.onEarthenSpikeDamage,
     );
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER),
-      this.onAnyDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAnyDamage);
   }
 
   get buffedSchools() {
-    return [
-      MAGIC_SCHOOLS.ids.PHYSICAL,
-      MAGIC_SCHOOLS.ids.NATURE,
-    ];
+    return [MAGIC_SCHOOLS.ids.PHYSICAL, MAGIC_SCHOOLS.ids.NATURE];
   }
 
   onEarthenSpikeDamage(event: DamageEvent) {

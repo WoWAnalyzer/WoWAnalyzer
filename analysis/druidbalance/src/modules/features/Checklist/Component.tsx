@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
@@ -24,11 +23,21 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     <Checklist>
       <Rule
         name="Always be casting"
-        description={(
+        description={
           <>
-            <em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.
+            <em>
+              <b>
+                Continuously chaining casts throughout an encounter is the single most important
+                thing for achieving good DPS as a caster
+              </b>
+            </em>
+            . There shoule be no delay at all between your spell casts, it's better to start casting
+            the wrong spell than to think for a few seconds and then cast the right spell. You
+            should be able to handle a fight's mechanics with the minimum possible interruption to
+            your casting. Some fights (like Argus) have unavoidable downtime due to phase
+            transitions and the like, so in these cases 0% downtime will not be possible.
           </>
-        )}
+        }
       >
         <Requirement name="Active Time" thresholds={thresholds.downtime} />
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
@@ -38,28 +47,28 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         description="DoTs are a big part of your damage. You should try to keep as high uptime on them as possible."
       >
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime
             </>
-          )}
+          }
           thresholds={thresholds.moonfireUptime}
         />
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.SUNFIRE.id} /> uptime
             </>
-          )}
+          }
           thresholds={thresholds.sunfireUptime}
         />
         {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
                 <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime
               </>
-            )}
+            }
             thresholds={thresholds.stellarFlareUptime}
           />
         )}
@@ -69,28 +78,28 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         description="DoTs do very little direct damage, and you should avoid ever refreshing them with more than 30% duration remaining unless you have nothing else to cast while moving."
       >
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> good refreshes
             </>
-          )}
+          }
           thresholds={thresholds.moonfireRefresh}
         />
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes
             </>
-          )}
+          }
           thresholds={thresholds.sunfireRefresh}
         />
         {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
                 <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes
               </>
-            )}
+            }
             thresholds={thresholds.stellarFlareRefresh}
           />
         )}

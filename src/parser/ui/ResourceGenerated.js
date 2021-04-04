@@ -1,14 +1,23 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-const ResourceGenerated = props => {
+const ResourceGenerated = (props) => {
   const { amount, wasted, approximate, resourceType } = props;
 
-    return (
-      <>
-        {approximate && '≈'}{amount} {resourceType.name} generated <small>{wasted>0 && <>{approximate && '≈'}{wasted} wasted</>}</small>
-      </>
-    );
+  return (
+    <>
+      {approximate && '≈'}
+      {amount} {resourceType.name} generated{' '}
+      <small>
+        {wasted > 0 && (
+          <>
+            {approximate && '≈'}
+            {wasted} wasted
+          </>
+        )}
+      </small>
+    </>
+  );
 };
 
 ResourceGenerated.propTypes = {

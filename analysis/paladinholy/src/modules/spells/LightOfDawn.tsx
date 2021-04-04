@@ -1,13 +1,12 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValue from 'parser/ui/BoringSpellValue';
-import PlayerHits from 'parser/ui/PlayerHits';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import PlayerHits from 'parser/ui/PlayerHits';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import './LightOfDawn.scss';
 
@@ -43,7 +42,11 @@ class LightOfDawn extends Analyzer {
         <BoringSpellValue
           spell={SPELLS.LIGHT_OF_DAWN_CAST}
           value={playersHitPerCast.toFixed(2)}
-          label={<Trans id="paladin.holy.modules.lightOfDawn.avgHitPerCast">Average targets hit per cast</Trans>}
+          label={
+            <Trans id="paladin.holy.modules.lightOfDawn.avgHitPerCast">
+              Average targets hit per cast
+            </Trans>
+          }
           className="light-of-dawn-hits-per-cast"
           extra={<PlayerHits performance={performance} />}
         />

@@ -1,6 +1,6 @@
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * The Global Cooldown of Fists of Fury is also being triggered by fabricated channeling events

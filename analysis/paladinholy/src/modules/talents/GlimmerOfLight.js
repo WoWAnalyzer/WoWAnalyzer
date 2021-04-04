@@ -1,17 +1,15 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { SpellLink } from 'interface';
-
 import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
-
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
+import React from 'react';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
 
@@ -95,13 +93,13 @@ class GlimmerOfLight extends Analyzer {
     this.glimmerBuffs.unshift(event);
   }
   onRemoveBuff(event /*: RemoveBuffEvent | RemoveDebuffEvent*/) {
-    this.glimmerBuffs = this.glimmerBuffs.filter(buff => buff.targetID !== event.targetID);
+    this.glimmerBuffs = this.glimmerBuffs.filter((buff) => buff.targetID !== event.targetID);
   }
 
   onCast(event) {
     this.casts += 1;
 
-    const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
+    const index = this.glimmerBuffs.findIndex((g) => g.targetID === event.targetID);
 
     if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // Cast a new one while at cap (applybuff will occur later, so this will be accurate)
@@ -223,13 +221,14 @@ class GlimmerOfLight extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <Trans id="paladin.holy.modules.talents.glimmerOfLight">
-          Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} /> can be improved. To maximize
-          the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />, try to keep as
-          many buffs up as possible. Avoid overwritting buffs early, this suggestion does not take
-          priority over healing targets with low health. If two targets have similar health pools
-          priorize the target without a glimmer as your{' '}
+          Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} /> can be improved. To
+          maximize the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />,
+          try to keep as many buffs up as possible. Avoid overwritting buffs early, this suggestion
+          does not take priority over healing targets with low health. If two targets have similar
+          health pools priorize the target without a glimmer as your{' '}
           <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
         </Trans>,
       )
@@ -239,9 +238,9 @@ class GlimmerOfLight extends Analyzer {
             this.earlyGlimmerRefreshLoss,
           )}%`,
         )
-        .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
-    }
-
+        .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`),
+    );
+  }
 }
 
 export default GlimmerOfLight;

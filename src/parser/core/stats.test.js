@@ -1,17 +1,23 @@
-import { calculatePrimaryStat, calculateSecondaryStatDefault, calculateSecondaryStatJewelry } from './stats';
+import {
+  calculatePrimaryStat,
+  calculateSecondaryStatDefault,
+  calculateSecondaryStatJewelry,
+} from './stats';
 
 describe('stats', () => {
   expect.extend({
     toBeWithin(received, expected, maxDeviation) {
-      const pass = expected >= (received - maxDeviation) && expected <= (received + maxDeviation);
+      const pass = expected >= received - maxDeviation && expected <= received + maxDeviation;
       if (pass) {
         return {
-          message: () => `expected ${received} not to be within ${maxDeviation} of expected ${expected}`,
+          message: () =>
+            `expected ${received} not to be within ${maxDeviation} of expected ${expected}`,
           pass: true,
         };
       } else {
         return {
-          message: () => `expected ${received} to be within ${maxDeviation} of expected ${expected}`,
+          message: () =>
+            `expected ${received} to be within ${maxDeviation} of expected ${expected}`,
           pass: false,
         };
       }
@@ -20,7 +26,7 @@ describe('stats', () => {
 
   it('scales primary stat correctly', () => {
     // Trinket https://wowhead.com/item=160651/vigilants-bloodshaper&bonus=4800:1507
-    const vigilantsBloodshaper = itemLevel => calculatePrimaryStat(355, 236, itemLevel);
+    const vigilantsBloodshaper = (itemLevel) => calculatePrimaryStat(355, 236, itemLevel);
 
     expect(vigilantsBloodshaper(340)).toBeWithin(205, 1); // LFG
     expect(vigilantsBloodshaper(355)).toBeWithin(236, 1); // Normal
@@ -31,7 +37,7 @@ describe('stats', () => {
     expect(vigilantsBloodshaper(430)).toBeWithin(475, 1); // Mythic+45
 
     // Helm
-    const helmOfTheDefiledLaboratorium = itemLevel => calculatePrimaryStat(355, 472, itemLevel);
+    const helmOfTheDefiledLaboratorium = (itemLevel) => calculatePrimaryStat(355, 472, itemLevel);
 
     expect(helmOfTheDefiledLaboratorium(340)).toBeWithin(411, 1); // LFG
     expect(helmOfTheDefiledLaboratorium(355)).toBeWithin(472, 1); // Normal
@@ -40,7 +46,8 @@ describe('stats', () => {
   });
   it('scales secondary stat correctly', () => {
     // Two handed Mace
-    const khorHammerOfTheCorrupted = itemLevel => calculateSecondaryStatDefault(355, 124, itemLevel);
+    const khorHammerOfTheCorrupted = (itemLevel) =>
+      calculateSecondaryStatDefault(355, 124, itemLevel);
 
     expect(khorHammerOfTheCorrupted(340)).toBeWithin(115, 1); // LFG
     expect(khorHammerOfTheCorrupted(355)).toBeWithin(124, 1); // Normal
@@ -48,7 +55,8 @@ describe('stats', () => {
     expect(khorHammerOfTheCorrupted(385)).toBeWithin(142, 1); // Mythic
 
     // Cloak (Haste)
-    const fetidHorrorsTanglecloak = itemLevel => calculateSecondaryStatDefault(355, 68, itemLevel);
+    const fetidHorrorsTanglecloak = (itemLevel) =>
+      calculateSecondaryStatDefault(355, 68, itemLevel);
 
     expect(fetidHorrorsTanglecloak(340)).toBeWithin(63, 1); // LFG
     expect(fetidHorrorsTanglecloak(355)).toBeWithin(68, 1); // Normal
@@ -57,7 +65,8 @@ describe('stats', () => {
 
     // Azurethos' Ruffling Plumage (Trinket Haste active)
     // https://wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
-    const azurethosRufflingPlumageHaste = itemLevel => calculateSecondaryStatDefault(355, 925, itemLevel);
+    const azurethosRufflingPlumageHaste = (itemLevel) =>
+      calculateSecondaryStatDefault(355, 925, itemLevel);
 
     expect(azurethosRufflingPlumageHaste(340)).toBeWithin(860, 1); // LFG
     expect(azurethosRufflingPlumageHaste(355)).toBeWithin(925, 1); // Normal
@@ -67,7 +76,7 @@ describe('stats', () => {
   it('scales secondary stat for Jewelry correctly', () => {
     // Rot-Scour Ring (Crit)
     // https://wowhead.com/item=160645
-    const rotScourRingCrit = itemLevel => calculateSecondaryStatJewelry(355, 108, itemLevel);
+    const rotScourRingCrit = (itemLevel) => calculateSecondaryStatJewelry(355, 108, itemLevel);
 
     expect(rotScourRingCrit(340)).toBeWithin(101, 1); // LFG
     expect(rotScourRingCrit(355)).toBeWithin(108, 1); // Normal
@@ -75,7 +84,7 @@ describe('stats', () => {
     expect(rotScourRingCrit(385)).toBeWithin(123, 1); // Mythic
 
     // Rot-Scour Ring (Haste)
-    const rotScourRingHaste = itemLevel => calculateSecondaryStatJewelry(355, 260, itemLevel);
+    const rotScourRingHaste = (itemLevel) => calculateSecondaryStatJewelry(355, 260, itemLevel);
 
     expect(rotScourRingHaste(340)).toBeWithin(241, 1); // LFG
     expect(rotScourRingHaste(355)).toBeWithin(260, 1); // Normal

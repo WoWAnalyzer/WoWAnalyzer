@@ -7,7 +7,7 @@ import Ability from './Ability';
 // The amount of time after a proc has occurred when casting a filler is no longer acceptable
 const REACTION_TIME_THRESHOLD = 500;
 
-const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
+const hastedCooldown = (baseCD, haste) => baseCD / (1 + haste);
 
 class Abilities extends CoreAbilities {
   static ABILITY_CLASS = Ability;
@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
+        cooldown: (haste) => {
           if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
             return hastedCooldown(1.5, haste);
           }
@@ -46,7 +46,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
+        cooldown: (haste) => {
           if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
             return hastedCooldown(1.5, haste);
           }
@@ -71,21 +71,29 @@ class Abilities extends CoreAbilities {
         },
         antiFillerSpam: {
           isFiller: (event, selectedCombatant, targets) => {
-            if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id) && selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id)) {
+            if (
+              combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id) &&
+              selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id)
+            ) {
               return false;
             }
             // Check if moonfire is present on the current target
             // Note that if the current target has no enemy data we can't track whether the dot
             // is ticking or not, in that case we consider it non-filler as a concession.
-            if (!this.enemies.getEntity(event) || !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)) {
+            if (
+              !this.enemies.getEntity(event) ||
+              !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)
+            ) {
               return false;
             }
             return true;
           },
           isHighPriority: ({ timestamp }, selectedCombatant) =>
             // Account for reaction time; the player must have had the proc for at least this long
-            selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
-          ,
+            selectedCombatant.hasBuff(
+              SPELLS.GALACTIC_GUARDIAN.id,
+              timestamp - REACTION_TIME_THRESHOLD,
+            ),
         },
         timelineSortIndex: 3,
       },
@@ -147,14 +155,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARKSKIN,
         buffSpellId: SPELLS.BARKSKIN.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90,
+        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - 90 / 3 : 90,
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240,
+        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id)
+          ? 240 - 240 / 3
+          : 240,
         charges: 2,
         timelineSortIndex: 9,
       },
@@ -185,7 +195,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.IRONFUR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: null,
-        cooldown: .5,
+        cooldown: 0.5,
         timelineSortIndex: 7,
       },
       {
@@ -195,7 +205,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => hastedCooldown(36, haste),
+        cooldown: (haste) => hastedCooldown(36, haste),
         charges: 2,
         timelineSortIndex: 8,
       },
@@ -210,11 +220,12 @@ class Abilities extends CoreAbilities {
           // A spell must meet these conditions to be castable
           isHighPriority: ({ timestamp, targetID }, selectedCombatant, targets) => {
             const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
-            const target = targets.find(t => t.id === targetID);
+            const target = targets.find((t) => t.id === targetID);
             if (!target) {
               return false;
             }
-            const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
+            const targetHasThrashStacks =
+              target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
             return pulverizeTalented && targetHasThrashStacks;
           },
         },
@@ -307,7 +318,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
+        spell: [
+          SPELLS.WILD_CHARGE_TALENT,
+          SPELLS.WILD_CHARGE_MOONKIN,
+          SPELLS.WILD_CHARGE_CAT,
+          SPELLS.WILD_CHARGE_BEAR,
+          SPELLS.WILD_CHARGE_TRAVEL,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         gcd: null,

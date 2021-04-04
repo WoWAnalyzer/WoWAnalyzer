@@ -1,10 +1,10 @@
-import React from 'react';
+import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 /**
  * Strikes all enemies in front of you with a sweeping attack for [ 45% of Attack Power ] Physical damage.
@@ -27,7 +27,11 @@ class Cleave extends Analyzer {
     const avg = total / (Cleave.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<>Average <SpellLink id={SPELLS.CLEAVE_TALENT.id} /> damage</>}
+        title={
+          <>
+            Average <SpellLink id={SPELLS.CLEAVE_TALENT.id} /> damage
+          </>
+        }
         value={formatThousands(avg)}
         valueTooltip={`Total Cleave damage: ${formatThousands(total)}`}
       />

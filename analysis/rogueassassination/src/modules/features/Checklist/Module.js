@@ -1,25 +1,21 @@
-import { ComboPointDetails, EnergyCapTracker, EnergyDetails } from '@wowanalyzer/rogue';
-
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
+import { ComboPointDetails, EnergyCapTracker, EnergyDetails } from '@wowanalyzer/rogue';
+
+import EarlyDotRefresh from '../../spells/EarlyDotRefresh';
 import GarroteUptime from '../../spells/GarroteUptime';
 import RuptureUptime from '../../spells/RuptureUptime';
-import EarlyDotRefresh from '../../spells/EarlyDotRefresh';
-
 import Blindside from '../../talents/Blindside';
-
+import MasterAssassin from '../../talents/MasterAssassin';
+import Nightstalker from '../../talents/Nightstalker';
 import Subterfuge from '../../talents/Subterfuge';
-
-import Component from './Component';
 import GarroteSnapshot from '../GarroteSnapshot';
 import RuptureSnapshot from '../RuptureSnapshot';
-import Nightstalker from '../../talents/Nightstalker';
-import MasterAssassin from '../../talents/MasterAssassin';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

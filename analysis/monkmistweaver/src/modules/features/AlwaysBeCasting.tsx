@@ -1,12 +1,10 @@
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-
-import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DeathEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD: number[] = [
@@ -26,21 +24,27 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   constructor(options: Options) {
     super(options);
-    if(this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT)) {
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
     }
-    if(this.selectedCombatant.hasTalent(SPELLS.SONG_OF_CHI_JI_TALENT)) {
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT), this.handleChijiStart);
+    if (this.selectedCombatant.hasTalent(SPELLS.SONG_OF_CHI_JI_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
+        this.handleChijiStart,
+      );
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     }
-    if(this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID)){
+    if (
+      this.selectedCombatant.hasLegendaryByBonusID(
+        SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID,
+      )
+    ) {
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     }
-
   }
 
   handleChijiStart(event: CastEvent) {
@@ -53,10 +57,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   handleChijiDeath(event: DeathEvent) {
     const tpSpot = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.TIGER_PALM.id);
     const rskSpot = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK.id);
-    const rskTwoSpot = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK_SECOND.id);
+    const rskTwoSpot = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.indexOf(
+      SPELLS.RISING_SUN_KICK_SECOND.id,
+    );
     const bokSpot = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.BLACKOUT_KICK.id);
     //if tp isn't there then we don't want to mess with this
-    if(tpSpot === -1){
+    if (tpSpot === -1) {
       return;
     }
     delete AlwaysBeCasting.HEALING_ABILITIES_ON_GCD[tpSpot];
@@ -90,24 +96,40 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   }
 
   suggestions(when: When) {
-    when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
-        .icon('petbattle_health-down')
-        .actual(t({
-      id: "monk.mistweaver.suggestions.alwaysBeCasting.nonHealing",
-      message: `${formatPercentage(actual)}% non healing time`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major));
-    when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
-        .icon('spell_mage_altertime')
-        .actual(t({
-      id: "monk.mistweaver.suggestions.alwaysBeCasting.downtime",
-      message: `${formatPercentage(actual)}% downtime`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
+    when(this.nonHealingTimePercentage)
+      .isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          'Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.',
+        )
+          .icon('petbattle_health-down')
+          .actual(
+            t({
+              id: 'monk.mistweaver.suggestions.alwaysBeCasting.nonHealing',
+              message: `${formatPercentage(actual)}% non healing time`,
+            }),
+          )
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average)
+          .major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major),
+      );
+    when(this.downtimePercentage)
+      .isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
+        )
+          .icon('spell_mage_altertime')
+          .actual(
+            t({
+              id: 'monk.mistweaver.suggestions.alwaysBeCasting.downtime',
+              message: `${formatPercentage(actual)}% downtime`,
+            }),
+          )
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average)
+          .major(this.downtimeSuggestionThresholds.isGreaterThan.major),
+      );
   }
 }
 

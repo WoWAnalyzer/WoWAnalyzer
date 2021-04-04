@@ -1,18 +1,14 @@
-import React from 'react';
-
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-
-import { t } from '@lingui/macro';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
 
 class GrimoireOfSacrifice extends Analyzer {
   static dependencies = {

@@ -1,22 +1,26 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
-import Statistic from 'parser/ui/Statistic';
+import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import Analyzer from 'parser/core/Analyzer';
-import { formatPercentage } from 'common/format';
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import AstralPowerTracker from './AstralPowerTracker';
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.02;
 const MAJOR_THRESHOLD = 0.05;
+
+// When using the Balance Of All Things (BOAT) Legendary, it is expected to overcap a bit of Astral Power to have 90 AP available on entering an Eclipse
+const MINOR_THRESHOLD_BOAT = 0.05;
+const AVERAGE_THRESHOLD_BOAT = 0.07;
+const MAJOR_THRESHOLD_BOAT = 0.1;
 
 class AstralPowerDetails extends Analyzer {
   get wasted() {
@@ -35,13 +39,17 @@ class AstralPowerDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
+  get usingBoat() {
+    return this.selectedCombatant.hasLegendaryByBonusID(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.bonusID);
+  }
+
   get suggestionThresholdsWasted() {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
+        minor: this.usingBoat ? MINOR_THRESHOLD_BOAT : MINOR_THRESHOLD,
+        average: this.usingBoat ? AVERAGE_THRESHOLD_BOAT : AVERAGE_THRESHOLD,
+        major: this.usingBoat ? MAJOR_THRESHOLD_BOAT : MAJOR_THRESHOLD,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -65,14 +73,25 @@ class AstralPowerDetails extends Analyzer {
   protected astralPowerTracker!: AstralPowerTracker;
 
   suggestions(when: When) {
-    when(this.suggestionThresholdsWasted)
-      .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
+    let suggestionMessage: React.ReactNode;
+
+    if (this.usingBoat) {
+      suggestionMessage = `You overcapped ${this.wasted} Astral Power. Try to maximize your Astral Power usage while still ensuring you have atleast 90 Astral Power when entering an eclipse.`;
+    } else {
+      suggestionMessage = `You overcapped ${this.wasted} Astral Power. Always prioritize spending it over casting other spells.`;
+    }
+
+    when(this.suggestionThresholdsWasted).addSuggestion((suggest, actual, recommended) =>
+      suggest(suggestionMessage)
         .icon('ability_druid_cresentburn')
-        .actual(t({
-      id: "druid.balance.suggestions.astralPower.overcapped",
-      message: `${formatPercentage(actual)}% overcapped Astral Power`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.astralPower.overcapped',
+            message: `${formatPercentage(actual)}% overcapped Astral Power`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -97,15 +116,11 @@ class AstralPowerDetails extends Analyzer {
       url: 'astral-power-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.astralPowerTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.astralPowerTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default AstralPowerDetails;

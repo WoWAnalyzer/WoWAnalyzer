@@ -1,20 +1,19 @@
-import React, { HTMLAttributes, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
-
 import getFightName from 'common/getFightName';
-import Tooltip from 'interface/Tooltip';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
-import { getReport } from 'interface/selectors/report';
-import { getFightById } from 'interface/selectors/fight';
-import { getUser } from 'interface/selectors/user';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import { getFightById } from 'interface/selectors/fight';
+import { getReport } from 'interface/selectors/report';
+import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
+import { getUser } from 'interface/selectors/user';
+import Tooltip from 'interface/Tooltip';
+import { useWaSelector } from 'interface/utils/useWaSelector';
+import React, { HTMLAttributes, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import './NavigationBar.scss';
 
@@ -25,9 +24,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const NavigationBar = ({ children, ...others }: Props) => {
   const { pathname } = useLocation();
   const playerName = getPlayerName(pathname);
-  const report = useSelector((state) => getReportCode(pathname) && getReport(state));
-  const fight = useSelector((state) => getFightById(state, getFightId(pathname)));
-  const user = useSelector((state) => getUser(state));
+  const report = useWaSelector((state) => getReportCode(pathname) && getReport(state));
+  const fight = useWaSelector((state) => getFightById(state, getFightId(pathname)));
+  const user = useWaSelector((state) => getUser(state));
 
   return (
     <nav className="global" {...others}>

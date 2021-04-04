@@ -1,19 +1,19 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
+
 import { FocusDetails, FocusCapTracker, CancelledCasts } from '@wowanalyzer/hunter';
-import SteadyFocus from '@wowanalyzer/hunter-marksmanship/src/modules/talents/SteadyFocus';
-import LethalShots from '@wowanalyzer/hunter-marksmanship/src/modules/talents/LethalShots';
-import SerpentSting from '@wowanalyzer/hunter-marksmanship/src/modules/talents/SerpentSting';
+import PreciseShots from '@wowanalyzer/hunter-marksmanship/src/modules/spells/PreciseShots';
 import CallingTheShots from '@wowanalyzer/hunter-marksmanship/src/modules/talents/CallingTheShots';
 import DeadEye from '@wowanalyzer/hunter-marksmanship/src/modules/talents/DeadEye';
-import PreciseShots from '@wowanalyzer/hunter-marksmanship/src/modules/spells/PreciseShots';
+import LethalShots from '@wowanalyzer/hunter-marksmanship/src/modules/talents/LethalShots';
+import SerpentSting from '@wowanalyzer/hunter-marksmanship/src/modules/talents/SerpentSting';
+import SteadyFocus from '@wowanalyzer/hunter-marksmanship/src/modules/talents/SteadyFocus';
 
-import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

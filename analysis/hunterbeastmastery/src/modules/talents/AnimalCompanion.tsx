@@ -1,13 +1,13 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
-import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+import React from 'react';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
@@ -20,7 +20,7 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
  */
 class AnimalCompanion extends Analyzer {
   damage = 0;
-  pets: Array<{ petName: string, sourceID: number | undefined, damage: number }> = [];
+  pets: Array<{ petName: string; sourceID: number | undefined; damage: number }> = [];
   mainPetName: string = '';
 
   constructor(options: Options) {
@@ -32,11 +32,14 @@ class AnimalCompanion extends Analyzer {
   }
 
   petDamage(event: DamageEvent) {
-    const foundPet = this.pets.find((pet: { sourceID: number | undefined }) => pet.sourceID === event.sourceID);
-    const damage = event.amount +
-      (event.absorbed || 0);
+    const foundPet = this.pets.find(
+      (pet: { sourceID: number | undefined }) => pet.sourceID === event.sourceID,
+    );
+    const damage = event.amount + (event.absorbed || 0);
     if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find((pet: { id: number | undefined; }) => pet.id === event.sourceID);
+      const sourcePet = this.owner.playerPets.find(
+        (pet: { id: number | undefined }) => pet.id === event.sourceID,
+      );
       if (!sourcePet || !isPermanentPet(sourcePet.guid)) {
         return;
       }
@@ -52,7 +55,7 @@ class AnimalCompanion extends Analyzer {
 
   onFightEnd() {
     let max = 0;
-    this.pets.forEach((pet: { damage: number; petName: string; }) => {
+    this.pets.forEach((pet: { damage: number; petName: string }) => {
       if (pet.damage > max) {
         max = pet.damage;
         this.mainPetName = pet.petName;
@@ -61,14 +64,15 @@ class AnimalCompanion extends Analyzer {
   }
 
   statistic() {
-    const totalDamage = this.pets.map((pet: { damage: number; }) => pet.damage)
+    const totalDamage = this.pets
+      .map((pet: { damage: number }) => pet.damage)
       .reduce((total: number, current: number) => total + current, 0);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -85,19 +89,25 @@ class AnimalCompanion extends Analyzer {
                     <td>{pet.petName}</td>
                     <td>{formatNumber(pet.damage)}</td>
                     <td>{formatNumber(pet.damage / (this.owner.fightDuration / 1000))}</td>
-                    <td>{pet.petName === this.mainPetName ?
-                      formatNumber(pet.damage / 0.65) + ' / ' + formatNumber((pet.damage / 0.65) / (this.owner.fightDuration / 1000)) + ' DPS'
-                      : ''}</td>
+                    <td>
+                      {pet.petName === this.mainPetName
+                        ? formatNumber(pet.damage / 0.65) +
+                          ' / ' +
+                          formatNumber(pet.damage / 0.65 / (this.owner.fightDuration / 1000)) +
+                          ' DPS'
+                        : ''}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.ANIMAL_COMPANION_TALENT}>
           <>
-            {formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS
+            {formatNumber(totalDamage)} /{' '}
+            {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS
           </>
         </BoringSpellValueText>
       </Statistic>

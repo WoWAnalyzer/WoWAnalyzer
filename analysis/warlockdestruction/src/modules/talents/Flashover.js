@@ -1,16 +1,13 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-
-import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { Tooltip } from 'interface';
-
-import Statistic from 'parser/ui/Statistic';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const DAMAGE_BONUS = 0.25;
 const MAX_STACKS = 4;
@@ -19,7 +16,7 @@ const debug = false;
 
 class Flashover extends Analyzer {
   get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
+    return (this.damage / this.owner.fightDuration) * 1000;
   }
 
   _currentStacks = 0;
@@ -30,10 +27,22 @@ class Flashover extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE), this.onConflagrateDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE), this.onConflagrateCast);
-    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT), this.onBackdraftRemoveBuffStack);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT), this.onBackdraftRemoveBuff);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),
+      this.onConflagrateDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),
+      this.onConflagrateCast,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
+      this.onBackdraftRemoveBuffStack,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
+      this.onBackdraftRemoveBuff,
+    );
   }
 
   onConflagrateDamage(event) {
@@ -72,11 +81,17 @@ class Flashover extends Analyzer {
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
         <BoringSpellValueText spell={SPELLS.FLASHOVER_TALENT}>
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small> <br />
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
+          </small>{' '}
+          <br />
           {this.bonusStacks} <small>bonus Backdraft stacks</small> <br />
           {this.wastedStacks}
           <Tooltip content="Conflagrate on 3 or 4 stacks of Backdraft">
-            <small style={{ marginLeft: 7 }}>wasted Backdraft stacks <sup>*</sup></small>
+            <small style={{ marginLeft: 7 }}>
+              wasted Backdraft stacks <sup>*</sup>
+            </small>
           </Tooltip>
         </BoringSpellValueText>
       </Statistic>

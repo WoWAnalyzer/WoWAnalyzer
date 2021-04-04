@@ -1,8 +1,13 @@
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyDebuffEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyDebuffEvent,
+  CastEvent,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /**
  * Crackling Jade Lightning don't reveal in the combatlog when channeling begins and ends, this fabricates the required events so that ABC can handle it properly.
@@ -13,12 +18,20 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
  * To avoid Crackling Jade Lightning as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT, SPELLS.SOOTHING_MIST]), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onApplyDebuff,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onRemoveDebuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT, SPELLS.SOOTHING_MIST]),
+      this.onRemoveBuff,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -26,7 +39,10 @@ class Channeling extends CoreChanneling {
       // We track Crackling Jade Lightning differently
       return;
     }
-    if (event.ability.guid === SPELLS.ESSENCE_FONT.id || event.ability.guid === SPELLS.SOOTHING_MIST.id) {
+    if (
+      event.ability.guid === SPELLS.ESSENCE_FONT.id ||
+      event.ability.guid === SPELLS.SOOTHING_MIST.id
+    ) {
       this.beginChannel(event);
       return;
     }
@@ -34,9 +50,17 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event: CastEvent, ability: Ability) {
-    if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
+    if (
+      this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) ||
+      this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) ||
+      this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)
+    ) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
+      this.log(
+        'Marking',
+        this._currentChannel.ability.name,
+        'as ended since we started casting something else',
+      );
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);
@@ -58,7 +82,10 @@ class Channeling extends CoreChanneling {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    if (!this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || !this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
+    if (
+      !this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) ||
+      !this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)
+    ) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
       return;
     }

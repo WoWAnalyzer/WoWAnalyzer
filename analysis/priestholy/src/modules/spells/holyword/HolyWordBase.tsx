@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from '@wowanalyzer/priest-holy/src/modules/features/SpellUsable';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+
+import SpellUsable from '@wowanalyzer/priest-holy/src/modules/features/SpellUsable';
 
 class HolyWordBase extends Analyzer {
   static dependencies = {
@@ -40,13 +41,19 @@ class HolyWordBase extends Analyzer {
     }
 
     if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
-      this.harmoniousApparatusActive = true
+      this.harmoniousApparatusActive = true;
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   // Legendary https://www.wowhead.com/spell=336314/harmonious-apparatus
@@ -123,7 +130,11 @@ class HolyWordBase extends Analyzer {
   }
 
   get totalCooldownReduction() {
-    return this.baseCooldownReduction + this.lightOfTheNaaruCooldownReduction + this.apotheosisCooldownReduction;
+    return (
+      this.baseCooldownReduction +
+      this.lightOfTheNaaruCooldownReduction +
+      this.apotheosisCooldownReduction
+    );
   }
 
   onCast(event: CastEvent) {
@@ -136,7 +147,6 @@ class HolyWordBase extends Analyzer {
         this.apotheosisManaReduction += this.manaCost;
         this.holyWordApotheosisCasts += 1;
       }
-
     } else if (this.serendipityProccers[spellId] != null) {
       const reductionAmount = this.parseSerendipityCast(spellId);
       this.remainingCooldown -= reductionAmount;
@@ -162,8 +172,10 @@ class HolyWordBase extends Analyzer {
     // Get the modified reduction by spell
     if (this.lightOfTheNaruActive) {
       const lightOfTheNaaruReduction = this.serendipityProccers[spellId].lightOfTheNaaruReduction();
-      this.lightOfTheNaruReductionBySpell[spellId] = this.lightOfTheNaruReductionBySpell[spellId] || 0;
-      this.lightOfTheNaruReductionBySpell[spellId] += lightOfTheNaaruReduction - baseReductionAmount;
+      this.lightOfTheNaruReductionBySpell[spellId] =
+        this.lightOfTheNaruReductionBySpell[spellId] || 0;
+      this.lightOfTheNaruReductionBySpell[spellId] +=
+        lightOfTheNaaruReduction - baseReductionAmount;
       return lightOfTheNaaruReduction;
     } else if (this.apotheosisActive) {
       const apotheosisReduction = this.serendipityProccers[spellId].apotheosisReduction();

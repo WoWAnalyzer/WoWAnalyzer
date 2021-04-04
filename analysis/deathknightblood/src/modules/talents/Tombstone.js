@@ -1,14 +1,14 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TooltipElement } from 'interface';
-import { t } from '@lingui/macro';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import React from 'react';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
@@ -28,14 +28,26 @@ class Tombstone extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onApplyBuff);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onEnergize);
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onAbsorb);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      this.onEnergize,
+    );
+    this.addEventListener(
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      this.onAbsorb,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   get wastedCasts() {
-    return this.tombstone.filter(e => e.charges < MAXCHARGES).length;
+    return this.tombstone.filter((e) => e.charges < MAXCHARGES).length;
   }
 
   onApplyBuff(event) {
@@ -58,8 +70,8 @@ class Tombstone extends Analyzer {
       rpWasted: this.rpWasted,
       absorbSize: this.absorbSize,
       totalAbsorbed: this.totalAbsorbed,
-      absorbedWasted: (this.absorbSize - this.totalAbsorbed),
-      charges: (this.rpGained / RPPERCHARGE),
+      absorbedWasted: this.absorbSize - this.totalAbsorbed,
+      charges: this.rpGained / RPPERCHARGE,
     });
     this.totalAbsorbed = 0;
   }
@@ -70,21 +82,29 @@ class Tombstone extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholdsEfficiency)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</>)
-          .icon(SPELLS.TOMBSTONE_TALENT.icon)
-          .actual(t({
-      id: "deathknight.blood.suggestions.tomestone.badCasts",
-      message: `${formatPercentage(actual)}% bad Tombstone casts`
-    }))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than
+          5 charges causing a reduced absorb shield.
+        </>,
+      )
+        .icon(SPELLS.TOMBSTONE_TALENT.icon)
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.tomestone.badCasts',
+            message: `${formatPercentage(actual)}% bad Tombstone casts`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -109,21 +129,34 @@ class Tombstone extends Analyzer {
               <tr key={i}>
                 <th>{this.tombstone[i].charges}</th>
                 <td>
-                  <TooltipElement content={<><strong>RP Generated:</strong> {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}</>}>
+                  <TooltipElement
+                    content={
+                      <>
+                        <strong>RP Generated:</strong>{' '}
+                        {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}
+                      </>
+                    }
+                  >
                     {this.tombstone[i].rpWasted}
                   </TooltipElement>
                 </td>
                 <td>
                   <TooltipElement
-                    content={(
+                    content={
                       <>
-                        <strong>Damage Absorbed:</strong> {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
-                        <strong>Absorb Shield: </strong> {formatNumber(this.tombstone[i].absorbSize)} <br />
-                        <strong>Healing: </strong> {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
+                        <strong>Damage Absorbed:</strong>{' '}
+                        {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
+                        <strong>Absorb Shield: </strong>{' '}
+                        {formatNumber(this.tombstone[i].absorbSize)} <br />
+                        <strong>Healing: </strong>{' '}
+                        {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
                       </>
-                    )}
+                    }
                   >
-                    {formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%
+                    {formatPercentage(
+                      this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize,
+                    )}
+                    %
                   </TooltipElement>
                 </td>
               </tr>

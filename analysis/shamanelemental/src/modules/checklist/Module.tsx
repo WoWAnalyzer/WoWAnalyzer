@@ -1,17 +1,16 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
+
 import { FlameShock } from '@wowanalyzer/shaman';
 
-import Icefury from '../talents/Icefury';
-import Ascendance from '../talents/Ascendance';
-import CancelledCasts from '../features/CancelledCasts';
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
-
 import Component from '../checklist/Component';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import CancelledCasts from '../features/CancelledCasts';
+import Ascendance from '../talents/Ascendance';
+import Icefury from '../talents/Icefury';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

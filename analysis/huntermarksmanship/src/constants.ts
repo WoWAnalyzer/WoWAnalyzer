@@ -24,7 +24,7 @@ export const TRUESHOT_DURATION_BASELINE = 15000;
 export const TRUESHOT_FOCUS_INCREASE = 0.5;
 /** Lone Wolf */
 //Lone Wolf increases damage done by up to 10%
-export const MAX_LONE_WOLF_MODIFIER = 0.10;
+export const MAX_LONE_WOLF_MODIFIER = 0.1;
 //Lone Wolf ramps up every 2 seconds if it isn't capped
 export const LONE_WOLF_RAMP_INTERVAL_MS = 2000;
 //Lone Wolf increases its damage done by 1% every 2 seconds
@@ -88,7 +88,7 @@ export const CTS_CDR_MS = 2500;
 //Careful Aim is a execution-like talent that triggers off above 70%
 export const CAREFUL_AIM_THRESHOLD = 0.7;
 //Careful Aim increases Aimed Shot damage by 50% when active
-export const CA_MODIFIER = .5;
+export const CA_MODIFIER = 0.5;
 /** Lock and Load */
 //Lock and Load has a 8% chance to proc per auto attack
 export const LNL_PROC_CHANCE = 0.08;
@@ -123,16 +123,84 @@ export const LIST_OF_FOCUS_SPENDERS_MM = [
 //With Brutal Projectiles your auto attacks have a 10%
 export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
 //Each Shot of Rapid Fire increases damage more and more over its duration
-export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [0, 0.01, 1.25, 0.015, 0.02, 0.0225, 0.025, 0.0275, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05];
+export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [
+  0,
+  0.01,
+  1.25,
+  0.015,
+  0.02,
+  0.0225,
+  0.025,
+  0.0275,
+  0.0325,
+  0.035,
+  0.0375,
+  0.04,
+  0.0425,
+  0.045,
+  0.0475,
+  0.05,
+];
 /** Deadly Chain */
 //With Deadly Chain your trickshots damage is increased
-export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [0, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25];
+export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [
+  0,
+  0.1,
+  0.11,
+  0.12,
+  0.13,
+  0.14,
+  0.15,
+  0.16,
+  0.18,
+  0.19,
+  0.2,
+  0.21,
+  0.22,
+  0.23,
+  0.24,
+  0.25,
+];
 /** Powerful Precision */
 //With Powerful Precision Precise Shots further increases the damage of Arcane Shot, Chimaera Shots and Multi-Shot
-export const POWERFUL_PRECISION_DAMAGE_INCREASE = [0, 0.05, 0.06, 0.07, 0.08, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+export const POWERFUL_PRECISION_DAMAGE_INCREASE = [
+  0,
+  0.05,
+  0.06,
+  0.07,
+  0.08,
+  0.1,
+  0.11,
+  0.12,
+  0.13,
+  0.14,
+  0.15,
+  0.16,
+  0.17,
+  0.18,
+  0.19,
+  0.2,
+];
 /** Sharpshooter's Focus */
 //With Sharpshooter's Focus, Trueshot lasts x% longer
-export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [0, 0.20, 0.22, 0.24, 0.27, 0.29, 0.31, 0.33, 0.36, 0.38, 0.40, 0.42, 0.44, 0.46, 0.48, 0.50];
+export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [
+  0,
+  0.2,
+  0.22,
+  0.24,
+  0.27,
+  0.29,
+  0.31,
+  0.33,
+  0.36,
+  0.38,
+  0.4,
+  0.42,
+  0.44,
+  0.46,
+  0.48,
+  0.5,
+];
 //endregion
 
 //region Legendaries

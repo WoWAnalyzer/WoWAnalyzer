@@ -1,11 +1,10 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
 import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import RollTheBonesCastTracker from '../features/RollTheBonesCastTracker';
 
@@ -40,11 +39,7 @@ class RollTheBonesCounter extends Analyzer {
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
@@ -54,7 +49,9 @@ class RollTheBonesCounter extends Analyzer {
         tooltip="Simulated averages are approximately 80% chance for 1 buff, 19% chance for 2 buffs, 1% chance for 5 buffs"
       >
         <div className="pad">
-          <label><SpellLink id={SPELLS.ROLL_THE_BONES.id} /> distribution</label>
+          <label>
+            <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> distribution
+          </label>
           {this.rolltheBonesBuffDistributionChart()}
         </div>
       </Statistic>

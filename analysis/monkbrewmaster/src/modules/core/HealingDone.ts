@@ -1,14 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent } from 'parser/core/Events';
-
 import CoreHealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 class HealingDone extends CoreHealingDone {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onStagger);
+    this.addEventListener(
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER),
+      this.onStagger,
+    );
   }
 
   onStagger(event: AbsorbedEvent) {

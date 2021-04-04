@@ -1,9 +1,14 @@
+
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS'
+import { Abelito75, acornellier, Putro, Zeboot } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
-import { change, date } from 'common/changelog';
-
-export default [  
+export default [
+  change(date(2021, 3, 11), <>Fix <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/> cooldown, reduce recommended uptime of <SpellLink id={SPELLS.JUDGMENT_CAST_HOLY.id}/> and <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/>, and increase recommended uptime of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/></>, acornellier),
+  change(date(2021, 3, 10), <>Update <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> mana cost</>, acornellier),
+  change(date(2021, 2, 24), <>Fixed spells missing from ABC: <SpellLink id={SPELLS.WORD_OF_GLORY.id}/> <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/></>, acornellier),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),
   change(date(2021, 1, 9), <>Removed Avenging Wrath, Avenging Crusader, and Holy Avenger from the gcd.</>, Abelito75),
   change(date(2021, 1, 7), <>Update direct beacon healing to include Holy Shock.</>, Abelito75),

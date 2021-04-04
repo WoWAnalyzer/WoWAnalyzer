@@ -1,7 +1,7 @@
 // import SPELLS from 'common/SPELLS';
 
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { CastEvent } from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class ElementalAbilityTracker extends AbilityTracker {
   onCast(event: CastEvent) {

@@ -1,9 +1,8 @@
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-
-import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
 
 /*  When considering Infernal Strike, it is worth tracking how much time is spent overcapped on charges.
     Unless you are in a fight that requires quick back-to-back movement uses, it is best to use a charge of this before,
@@ -45,7 +44,10 @@ class InfernalStrike extends Analyzer {
         Damage events are triggered, but this doesn't capture using the ability for mobility
     */
 
-    this.addEventListener(Events.cast.spell(SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(
+      Events.cast.spell(SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER),
+      this.onCast,
+    );
   }
 
   onCast(event) {
@@ -53,20 +55,19 @@ class InfernalStrike extends Analyzer {
 
     // Track recharge
     if (this.currentCastTimestamp > this.lastCastTimestamp + 12000) {
-      this.infernalCharges++;
+      this.infernalCharges += 1;
     }
-    this.infernalCasts++;
+    this.infernalCasts += 1;
 
     // Track overcapped data
     if (this.infernalCharges === 2) {
-      this.castsAtCap++;
+      this.castsAtCap += 1;
       if (this.lastCastTimestamp > 0) {
         this.secsOverCap += (this.currentCastTimestamp - this.lastCastTimestamp - 1200) / 1000;
       }
     }
 
-    this.infernalCharges--;
-
+    this.infernalCharges -= 1;
   }
 }
 
