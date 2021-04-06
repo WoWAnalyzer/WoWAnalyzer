@@ -34,6 +34,7 @@ import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 import Mindgames from './modules/shadowlands/covenant/Mindgames';
+import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -109,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    thePenitentOne: ThePenitentOne,
   };
 }
 
