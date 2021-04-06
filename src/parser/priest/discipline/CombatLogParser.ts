@@ -46,6 +46,7 @@ import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -104,6 +105,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     shiningRadiance: ShiningRadiance,
     exaltation: Exaltation,
+
+    // legendaries
+    thePenitentOne: ThePenitentOne,
   };
 }
 
