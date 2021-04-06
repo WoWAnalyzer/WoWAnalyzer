@@ -20,17 +20,11 @@ import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnal
 
 class Schism extends Analyzer {
   protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
   protected atonementDamageSource!: AtonementDamageSource;
-  protected penance!: Penance;
-  protected atonement!: Atonement;
 
   static dependencies = {
     enemies: Enemies,
-    statTracker: StatTracker,
     atonementDamageSource: AtonementDamageSource,
-    penance: Penance,
-    atonement: Atonement,
   };
 
   static bonus = 0.25;
