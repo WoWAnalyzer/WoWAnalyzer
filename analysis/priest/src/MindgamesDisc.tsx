@@ -1,21 +1,18 @@
-import React from 'react';
-
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-
-import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
-import AtonementDamageSource from '@wowanalyzer/priest-discipline/src/modules/core/features/AtonementDamageSource';
-import AtonementAnalyzer from '@wowanalyzer/priest-discipline/src/modules/core/AtonementAnalyuz';
+import AtonementAnalyzer from '@wowanalyzer/priest-discipline/src/modules/core/AtonementAnalyzer';
+import AtonementDamageSource from '@wowanalyzer/priest-discipline/src/modules/features/AtonementDamageSource';
 
 class Mindgames extends Analyzer {
   static dependencies = {
@@ -43,7 +40,9 @@ class Mindgames extends Analyzer {
   onAtonement(event: any) {
     const { healEvent, damageEvent } = event;
 
-    if (damageEvent.ability.guid !== SPELLS.MINDGAMES.id) return;
+    if (damageEvent.ability.guid !== SPELLS.MINDGAMES.id) {
+      return;
+    }
 
     this.atonementHealing += healEvent.amount + (event.absorbed || 0);
   }

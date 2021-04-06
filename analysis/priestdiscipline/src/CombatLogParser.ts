@@ -7,7 +7,8 @@ import {
   BoonOfTheAscended,
   DesperatePrayer,
   FaeGuardians,
-  Mindgames,
+  MindgamesDisc,
+  MindgamesShadow,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
@@ -96,7 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     unholyNova: UnholyNova,
-    mindgames: Mindgames,
+    mindgamesDisc: MindgamesDisc,
+    mindgamesShadow: MindgamesShadow,
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
 

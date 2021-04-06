@@ -1,17 +1,16 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import { Options } from 'parser/core/Module';
-import { EXALTATION_SPIRIT_SHELL_INCREASE } from 'parser/priest/discipline/constants';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import { EXALTATION_SPIRIT_SHELL_INCREASE } from '@wowanalyzer/priest-discipline/src/constants';
+
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
   SourceProvenance,
@@ -37,7 +36,9 @@ class Exaltation extends Analyzer {
 
   handleSpiritShell(event: AtonementAnalyzerEvent) {
     const { healEvent } = event;
-    if (event.provenance !== SourceProvenance.SpiritShell) return;
+    if (event.provenance !== SourceProvenance.SpiritShell) {
+      return;
+    }
 
     this.bonusExaltationHealing += calculateEffectiveHealing(healEvent, this.conduitIncrease);
   }

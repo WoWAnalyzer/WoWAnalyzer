@@ -89,6 +89,10 @@ class Atonement extends Analyzer {
     return this.numAtonementsActive >= 3;
   }
 
+  get atonementTargets() {
+    return this.currentAtonementTargets;
+  }
+
   onApplyBuff(event: ApplyBuffEvent) {
     const atonement = {
       target: event.targetID,

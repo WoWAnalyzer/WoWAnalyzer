@@ -1,23 +1,22 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import Combatants from 'parser/shared/modules/Combatants';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import SPELLS from 'common/SPELLS';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
 import PRIEST_TALENTS from 'common/SPELLS/talents/priest';
+import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
-import isAtonement from '../core/isAtonement';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
+import isAtonement from '../core/isAtonement';
 import { SpiritShellEvent } from '../core/SpiritShell';
 
 // Use the priest spell list to whitelist abilities
-const PRIEST_WHITELIST = Object.values({
+const PRIEST_WHITELIST: number[] = Object.values({
   ...PRIEST_SPELLS,
   ...PRIEST_TALENTS,
 })
@@ -61,7 +60,9 @@ class Grace extends Analyzer {
   onAbsorb(event: AbsorbedEvent) {
     const spellId = event.ability.guid;
 
-    if (event.ability.guid === SPELLS.SPIRIT_SHELL_BUFF.id) return;
+    if (event.ability.guid === SPELLS.SPIRIT_SHELL_TALENT_BUFF.id) {
+      return;
+    }
 
     if (!PRIEST_WHITELIST.includes(spellId)) {
       this.healingUnaffectedByMastery += event.amount;
@@ -112,7 +113,9 @@ class Grace extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (isAtonement(event)) return; // Now handled by AtonementAnalyzer listener
+    if (isAtonement(event)) {
+      return;
+    } // Now handled by AtonementAnalyzer listener
 
     const spellId = event.ability.guid;
 

@@ -1,20 +1,20 @@
-import React from 'react';
-
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
-import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import Combatants from 'parser/shared/modules/Combatants';
+import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
+import React from 'react';
 
-import Atonement from './Atonement';
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
-} from '@wowanalyzer/priest-discipline/src/modules/core';
+} from '@wowanalyzer/priest-discipline/src/modules/core/AtonementAnalyzer';
+
+import Atonement from './Atonement';
 
 const SINS_OF_THE_MANY_FLOOR_BONUS = 0.03;
 

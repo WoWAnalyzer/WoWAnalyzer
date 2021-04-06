@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 4, 6), <>9.0.5 support! <SpellLink id={SPELLS.SPIRIT_SHELL_TALENT.id} /> support for everyone!</>, Reglitch),
   change(date(2021, 1, 31), <>Added <SpellLink id={SPELLS.POWER_INFUSION.id} /> to the checklist.</>, jasper),
   change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id} /> legendary.</>, Adoraci),
   change(date(2020, 12, 28), <>Fixing <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} /></>, Khadaj),

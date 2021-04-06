@@ -9,10 +9,10 @@ import Events, {
   EventType,
   HealEvent,
 } from 'parser/core/Events';
-
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
+
 import {
   ATONEMENT_COEFFICIENT,
   ATONEMENT_SOURCE_FILTER,
@@ -60,7 +60,7 @@ export default class SpiritShell extends Analyzer {
     eventEmitter: EventEmitter,
   };
 
-  private chaosBrandMap: Map<number, Boolean> = new Map();
+  private chaosBrandMap: Map<number, boolean> = new Map();
   private shellTotalMap: Map<number, number> = new Map();
   private shellExpiryMap: Map<number, number> = new Map();
   private shellCurrentMap: Map<number, number> = new Map();
@@ -81,12 +81,12 @@ export default class SpiritShell extends Analyzer {
 
     // Spirit Shell buff events
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_SHELL_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_SHELL_TALENT_BUFF),
       this.handleSpiritShellExpiration,
     );
 
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_SHELL_BUFF),
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_SHELL_TALENT_BUFF),
       this.absorbHandler,
     );
   }
@@ -106,7 +106,9 @@ export default class SpiritShell extends Analyzer {
    * @param event A damage event
    */
   private handleChaosBrandSet(event: DamageEvent): void {
-    if (this.chaosBrandMap.has(event.targetID)) return;
+    if (this.chaosBrandMap.has(event.targetID)) {
+      return;
+    }
 
     const critMultiplier = event.hitType === 2 ? 2 : 1;
     const { unmitigatedAmount, amount, overkill } = event;
@@ -126,15 +128,15 @@ export default class SpiritShell extends Analyzer {
    * @param hasSins If the player has Sins of the Many
    */
   private estimatedDamageMultiplier(
-    hasChaosBrand: Boolean,
-    hasSchism: Boolean,
-    hasSins: Boolean,
+    hasChaosBrand: boolean,
+    hasSchism: boolean,
+    hasSins: boolean,
   ): number {
     const cbMultiplier = hasChaosBrand ? CHAOS_BRAND_VALUE : 1;
     const schismMultiplier = hasSchism ? SCHISM_VALUE : 1;
     const sinsMultiplier = hasSins ? this.sinsOfTheMany.currentBonus + 1 : 1;
 
-    return 1 * cbMultiplier * schismMultiplier * sinsMultiplier;
+    return Number(cbMultiplier) * schismMultiplier * sinsMultiplier;
   }
 
   /**
@@ -170,13 +172,15 @@ export default class SpiritShell extends Analyzer {
    * @param event A damage event
    */
   private getEstimatedSpiritShellValueForEvent(event: DamageEvent): number {
-    const hasSchism: Boolean =
+    const hasSchism: boolean =
       this.enemies.getEntity(event)?.hasBuff(SPELLS.SCHISM_TALENT.id) || false;
-    const hasChaosBrand: Boolean = this.chaosBrandMap.get(event.targetID) || false;
+    const hasChaosBrand: boolean = this.chaosBrandMap.get(event.targetID) || false;
     const { currentMasteryPercentage, currentCritPercentage } = this.statTracker;
     const hasSins = this.sinsOfTheMany.active;
 
-    if (!event.unmitigatedAmount) return 0;
+    if (!event.unmitigatedAmount) {
+      return 0;
+    }
 
     const estimatedDamageValue =
       (event.unmitigatedAmount || 0) *
@@ -196,7 +200,9 @@ export default class SpiritShell extends Analyzer {
    */
   private handleDamage(event: DamageEvent): void {
     // We do not care about this event if Spirit Shell is not active on the priest
-    if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT.id)) return;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT.id)) {
+      return;
+    }
 
     // Calculate the estimated shield value for this event
     const spiritShellEstimate = this.getEstimatedSpiritShellValueForEvent(event);
@@ -210,7 +216,9 @@ export default class SpiritShell extends Analyzer {
    */
   private handlePetDamage(event: DamageEvent): void {
     // We do not care about this event if Spirit Shell is not active on the priest
-    if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT.id)) return;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT.id)) {
+      return;
+    }
 
     this.attributeSpiritShell(event.unmitigatedAmount || 0, event);
   }
@@ -235,7 +243,6 @@ export default class SpiritShell extends Analyzer {
 
       // Over absorb
       if (projectedAbsorbValue > this.spiritShellCap) {
-        const effectiveAbsorb = this.spiritShellCap - existingAbsorb;
         const overAbsorb = projectedAbsorbValue - this.spiritShellCap;
 
         // Emit an event for other modules to use when overhealing

@@ -1,21 +1,20 @@
-import React from 'react';
-
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import DualStatisticBox from 'parser/ui/DualStatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import Enemies from 'parser/shared/modules/Enemies';
+import DualStatisticBox from 'parser/ui/DualStatisticBox';
+import React from 'react';
 
-import AtonementDamageSource from '../features/AtonementDamageSource';
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
-} from '@wowanalyzer/priest-discipline/src/modules/core';
+} from '@wowanalyzer/priest-discipline/src/modules/core/AtonementAnalyzer';
+
+import AtonementDamageSource from '../features/AtonementDamageSource';
 
 class Schism extends Analyzer {
   protected enemies!: Enemies;
@@ -42,9 +41,13 @@ class Schism extends Analyzer {
 
   private onAtonement(event: AtonementAnalyzerEvent) {
     const { healEvent, damageEvent } = event;
-    if (!damageEvent) return;
+    if (!damageEvent) {
+      return;
+    }
     const target = this.enemies.getEntity(damageEvent);
-    if (!target?.hasBuff(SPELLS.SCHISM_TALENT.id)) return;
+    if (!target?.hasBuff(SPELLS.SCHISM_TALENT.id)) {
+      return;
+    }
 
     // Schism isn't buffed by itself, so requires a different path
     if (damageEvent.ability.guid === SPELLS.SCHISM_TALENT.id) {
@@ -66,7 +69,9 @@ class Schism extends Analyzer {
       this.directDamage += event.amount + (event.absorbed || 0);
       return;
     }
-    if (target?.hasBuff(SPELLS.SCHISM_TALENT.id)) return;
+    if (target?.hasBuff(SPELLS.SCHISM_TALENT.id)) {
+      return;
+    }
 
     this.damageFromBuff += calculateEffectiveDamage(event, Schism.bonus);
   }
