@@ -14,6 +14,7 @@ import AbilityTracker from './modules/core/AbilityTracker';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
+import SpiritShell from './modules/core/SpiritShell';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -42,6 +43,7 @@ import Mindgames from './modules/shadowlands/covenants/MindGames';
 import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended';
 
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
+import Exaltation from './modules/shadowlands/conduits/Exaltation';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -62,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
     atonementAnalyzer: AtonementAnalyzer,
+    spiritShell: SpiritShell,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -100,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     shiningRadiance: ShiningRadiance,
+    exaltation: Exaltation,
   };
 }
 

@@ -336,6 +336,11 @@ const spells = {
     icon: 'ability_priest_halo',
     manaCost: 2700,
   },
+  SPIRIT_SHELL_BUFF: {
+    id: 114908,
+    name: 'Spirit Shell',
+    icon: 'ability_shaman_astralshift'
+  },
 
   // Holy Priest Spells
   GREATER_HEAL: {
