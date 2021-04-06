@@ -7,7 +7,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
-import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
+import DualStatisticBox from 'parser/ui/DualStatisticBox';
 import React from 'react';
 
 import AtonementAnalyzer, {
@@ -33,7 +33,6 @@ class SinsOfTheMany extends Analyzer {
   };
   bonusDamage = 0;
   bonusHealing = 0;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
   protected atonement!: Atonement;
   protected combatants!: Combatants;
 

@@ -9,7 +9,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
@@ -19,7 +19,6 @@ const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
 class TwistOfFate extends Analyzer {
   healing = 0;
   damage = 0;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(options: Options) {
     super(options);

@@ -7,8 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import {
   BoonOfTheAscended,
   FaeGuardians,
-  MindgamesShadow,
-  MindgamesDisc,
+  Mindgames,
   TwinsOfTheSunPriestess,
   UnholyNova,
 } from '@wowanalyzer/priest';
@@ -135,8 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     unholyNova: UnholyNova,
-    mindgamesShadow: MindgamesShadow,
-    mindgamesDisc: MindgamesDisc,
+    mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
   };

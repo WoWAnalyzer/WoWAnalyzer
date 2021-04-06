@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
@@ -22,7 +21,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.DIVINE_HYMN_CAST.id,
     SPELLS.HOLY_WORD_SALVATION_TALENT.id,
   ];
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

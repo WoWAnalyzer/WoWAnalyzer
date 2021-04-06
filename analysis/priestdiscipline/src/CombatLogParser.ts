@@ -7,8 +7,6 @@ import {
   BoonOfTheAscended,
   DesperatePrayer,
   FaeGuardians,
-  MindgamesDisc,
-  MindgamesShadow,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
@@ -33,6 +31,7 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
+import Mindgames from './modules/shadowlands/covenant/Mindgames';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -97,8 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     unholyNova: UnholyNova,
-    mindgamesDisc: MindgamesDisc,
-    mindgamesShadow: MindgamesShadow,
+    mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
 

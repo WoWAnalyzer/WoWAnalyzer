@@ -12,7 +12,7 @@ import Events, {
 import { Options } from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import isAtonement from '../core/isAtonement';
@@ -40,7 +40,6 @@ class Atonement extends Analyzer {
   totalAtonementRefreshes = 0;
   currentAtonementTargets: AtonementTarget[] = [];
   improperAtonementRefreshes: AtonementTarget[] = [];
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
   protected eventEmitter!: EventEmitter;
   protected combatants!: Combatants;
   protected atonementApplicationSource!: AtonementApplicationSource;

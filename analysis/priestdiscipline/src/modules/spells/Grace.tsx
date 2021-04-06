@@ -8,7 +8,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
@@ -39,7 +39,6 @@ class Grace extends Analyzer {
   healingUnbuffedByMastery = 0;
   healingBuffedByMastery = 0;
   atonement = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(3);
   private combatants!: Combatants;
   private statTracker!: StatTracker;
 

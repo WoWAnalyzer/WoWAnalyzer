@@ -3,7 +3,7 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 import {
   BoonOfTheAscended,
   FaeGuardians,
-  MindgamesShadow,
+  Mindgames,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
@@ -87,7 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // covenants:
     unholyNova: UnholyNova,
-    mindgamesShadow: MindgamesShadow,
+    mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
 

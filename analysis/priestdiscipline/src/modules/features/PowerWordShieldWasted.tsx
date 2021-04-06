@@ -4,14 +4,13 @@ import { TooltipElement } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent } from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 class PowerWordShieldWasted extends Analyzer {
   wasted = 0;
   count = 0;
   totalCount = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 
   constructor(options: Options) {
     super(options);
