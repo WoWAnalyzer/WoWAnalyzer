@@ -70,7 +70,7 @@ export enum EventType {
   AtonementFaded = 'atonement_faded',
   AtonementRefresh = 'atonement_refresh',
   AtonementRefreshImproper = 'atonement_refresh_improper',
-  SpiritShellApply = 'spirit_shell_applied',
+  SpiritShell = 'spirit_shell',
 
   //Shaman
   FeedHeal = 'feed_heal',

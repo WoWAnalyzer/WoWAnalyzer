@@ -12,7 +12,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import AtonementAnalyzer from '../../core/AtonementAnalyzer';
+import AtonementAnalyzer, {
+  AtonementAnalyzerEvent,
+  SourceProvenance,
+} from '../../core/AtonementAnalyzer';
 
 class Exaltation extends Analyzer {
   conduitRank: number = 0;
@@ -32,8 +35,10 @@ class Exaltation extends Analyzer {
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.handleSpiritShell);
   }
 
-  handleSpiritShell(event: any) {
+  handleSpiritShell(event: AtonementAnalyzerEvent) {
     const { healEvent } = event;
+    if (event.provenance !== SourceProvenance.SpiritShell) return;
+
     this.bonusExaltationHealing += calculateEffectiveHealing(healEvent, this.conduitIncrease);
   }
 

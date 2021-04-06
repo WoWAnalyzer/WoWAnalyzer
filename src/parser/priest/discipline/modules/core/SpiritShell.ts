@@ -34,9 +34,9 @@ const SCHISM_VALUE = 1.25;
  * Setup for custom events
  * Instead of adding Spirit Shell support directly into every module, we route it through the AtonementAnalyzer module
  */
-export const SpiritShellApplied = new EventFilter(EventType.SpiritShellApply);
+export const SpiritShellApplied = new EventFilter(EventType.SpiritShell);
 
-export interface SpiritShellAppliedEvent extends Event<EventType.SpiritShellApply> {
+export interface SpiritShellEvent extends Event<EventType.SpiritShell> {
   sourceEvent: DamageEvent | HealEvent | AbsorbedEvent;
   amount: number;
   overheal?: number;
@@ -286,11 +286,11 @@ export default class SpiritShell extends Analyzer {
     amount: number,
     targetID: number,
     overheal?: number,
-  ): SpiritShellAppliedEvent {
+  ): SpiritShellEvent {
     return {
       sourceEvent: source,
       timestamp: source.timestamp,
-      type: EventType.SpiritShellApply,
+      type: EventType.SpiritShell,
       amount,
       overheal,
       targetID,

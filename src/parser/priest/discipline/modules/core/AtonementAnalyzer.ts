@@ -6,19 +6,18 @@ import HIT_TYPES from 'game/HIT_TYPES';
 
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import isAtonement from './isAtonement';
-import { SpiritShellAppliedEvent, SpiritShellApplied } from './SpiritShell';
-import { eventFromUnknownInput } from '@sentry/browser/dist/eventbuilder';
+import { SpiritShellEvent, SpiritShellApplied } from './SpiritShell';
 
-export enum SourceProvidence {
+export enum SourceProvenance {
   SpiritShell,
   Atonement,
 }
 
 export interface AtonementAnalyzerEvent extends Event<EventType.Atonement> {
   sourceID?: number;
-  healEvent: HealEvent | SpiritShellAppliedEvent;
+  healEvent: HealEvent | SpiritShellEvent;
   damageEvent?: DamageEvent;
-  providence: SourceProvidence;
+  provenance: SourceProvenance;
   targetID?: number;
 }
 
@@ -85,14 +84,14 @@ export default class AtonementAnalyzer extends Analyzer {
     });
   }
 
-  _processSpiritShell(spiritShellEvent: SpiritShellAppliedEvent) {
+  _processSpiritShell(spiritShellEvent: SpiritShellEvent) {
     const evt: AtonementAnalyzerEvent = {
       timestamp: spiritShellEvent.timestamp,
       targetID: spiritShellEvent.targetID,
       healEvent: spiritShellEvent,
       damageEvent: this.atonementSource,
       sourceID: spiritShellEvent.sourceEvent.sourceID,
-      providence: SourceProvidence.SpiritShell,
+      provenance: SourceProvenance.SpiritShell,
       type: AtonementAnalyzer.atonementEventFilter.eventType,
     };
 
@@ -121,7 +120,7 @@ export default class AtonementAnalyzer extends Analyzer {
       sourceID: healEvent.sourceID,
       targetID: healEvent.targetID,
       type: AtonementAnalyzer.atonementEventFilter.eventType,
-      providence: SourceProvidence.Atonement,
+      provenance: SourceProvenance.Atonement,
     };
 
     this.eventEmitter.fabricateEvent(evt);
