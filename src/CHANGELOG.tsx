@@ -1,20 +1,57 @@
-import React from 'react';
-import { Abelito75, AdamKelly, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { ItemLink } from 'interface';
+import SpellLink from 'interface/SpellLink';
+import React from 'react';
+// prettier-ignore
 
 // prettier-ignore
 export default [
+  change(date(2021, 4, 2), 'Added German translations in de/messages.json for the character parses section', maestrohdude),
+  change(date(2021, 4, 1), 'Added German translations in de/messages.json for hunter section', maestrohdude),
+  change(date(2021, 3, 29), 'Added German translations in de/messages.json for common, core abilities, death knight, demon hunter, and druid sections', maestrohdude),
+  change(date(2021, 3, 20), <> Fixed food check warning when druid conduit's <SpellLink id={SPELLS.DRUID_BORN_ANEW.id} /> was present on fight start.</>, Kartarn),
+  change(date(2021, 3, 16), 'Fixed issue with contributor icons.', emallson),
+  change(date(2021, 3, 8), 'Converted most Report related components to TS', acornellier),
+  change(date(2021, 3, 3), 'Converted dungeon files to TS and added Dungeon interface', Procyon),
+  change(date(2021, 3, 3), 'Converted various components to functional components in TypeScript.', acornellier),
+  change(date(2021, 2, 27), 'Fixed a crash resulting from precasting spells on druid specs.', Kartarn),
+  change(date(2021, 2, 24), <>Fixed a crash triggered by <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> casting 0 spells</>, acornellier),
+  change(date(2021, 2, 23), 'Refactored the language switcher into a functional component', acornellier),
+  change(date(2021, 2, 20), 'Added spell info for conduits, Venthyr soulbind\'s and some Kyrian SB\'s as well as legendary data', Buudha),
+  change(date(2021, 2, 14), <>Update <ItemLink id={ITEMS.VANTUS_RUNE_CASTLE_NATHRIA.id} /> versatility value.</>, Adoraci),
+  change(date(2021, 1, 24), 'Fix fight downtime toggle.', Zerotorescue),
+  change(date(2021, 1, 20), 'Rework spec support: automatically mark specs as unsupported when patch does not match the game and added a toggle to mark a spec with partial support.', Zerotorescue),
+  change(date(2021, 1, 20), 'Change homepage header to be consistent with report page.', Zerotorescue),
+  change(date(2021, 1, 20), 'Updated the Missing Encounters warning to show always and prompt users to click Refresh if encounters are missing.', Sharrq),
+  change(date(2021, 1, 20), 'Added raid preparation analysis for Veiled Augment Runes.', Maldark),
+  change(date(2021, 1, 16), 'Clarify login buttons on the Premium page.', Zerotorescue),
+  change(date(2021, 1, 16), 'The first 10 seconds of the timeline are always visible so openers can be reviewed properly.', Zerotorescue),
+  change(date(2021, 1, 16), 'Address an issue where our potion modules thought that potions had infinite cooldown when used in combat.', Putro),
+  change(date(2021, 1, 15), 'Made the timeline only available with WoWAnalyzer Premium. This is necessary to be able to continue to update WoWAnalyzer.', Zerotorescue),
+  change(date(2021, 1, 14), 'Updated CastEfficiency to use the average cooldown for a spell instead of the configured static cooldown to improve cast efficiency stats for spells with effects that reduce the cooldown', Khazak),
+  change(date(2021, 1, 13), 'Updated Mastery coefficients and baseline Critical Strike values for specs where it was necessary.', Putro),
+  change(date(2021, 1, 3), 'Fixed a crash if you were trying to analyze an extremely short pull where players have cast basically 0 spells.', Putro),
+  change(date(2021, 1, 2), <> Added Inneficient <SpellLink id={SPELLS.REGROWTH.id} /> to resto druid statistics and fixed bug in reporting of overwritten CC procs. </>, Barry),
+  change(date(2021, 1, 2), <> Added <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime to resto druid checklist. </>, Barry),
+  change(date(2021, 1, 2), <><SpellLink id={SPELLS.SOUL_INFUSION.id} /> is now being shown as channeld in Timeline and fixed bad icon</>, flurreN),
+  change(date(2021, 1, 1), 'Happy New Years! Added most used legendaries, conduits, covenants and soulbinds to the character page.', Putro),
+  change(date(2020, 12, 29), <> Add support for <ItemLink id={ITEMS.OVERCHARGED_ANIMA_BATTERY.id} />. </>, Putro),
+  change(date(2020, 12, 28), <>Resolved a crash that would occur if the player did not have a weapon equipped.</>, Sharrq),
+  change(date(2020, 12, 28), <>Fixed the Changelog dropdown selector displaying incorrectly.</>, Adoraci),
+  change(date(2020, 12, 22), <>Re-enabled the QElive button for healers that have it supported.</>, Abelito75),
+  change(date(2020, 12, 22), <>Added support for <ItemLink id={ITEMS.DARKMOON_DECK_VORACITY.id} /> and corrected downtime issues in fights where you had <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Putro),
+  change(date(2020, 12, 22), 'Resolved an issue in FilteredActiveTime that was not counting properly, resulting in > 100% active time.', Sharrq),
+  change(date(2020, 12, 13), 'Reverted using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
   change(date(2020, 12, 20), 'Removed the last remnants of Azerite across the codebase', Putro),
   change(date(2020, 12, 19), 'Add warnings for logs with Advanced Combat Logging disabled and when no encounters are found.', Sharrq),
-  change(date(2020, 12, 19), <> Fix issues with <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} /> not accounting for the correct stat given. </>, Putro),
+  change(date(2020, 12, 19), <>Fix issues with <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} /> not accounting for the correct stat given. </>, Putro),
   change(date(2020, 12, 19), 'Adjust our weak Potion suggestion to only show if a weak potion was actually used', Putro),
   change(date(2020, 12, 17), 'Added phase information for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 16), 'Fix character API realm slugs for non-English realms.', Zerotorescue),
-  change(date(2020, 12, 15), <> Add support for the Engineering scopes, <ItemLink id={ITEMS.ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER.id} /> and <ItemLink id={ITEMS.ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT.id} />, to the enchant checker. </>, Putro),
+  change(date(2020, 12, 15), <>Add support for the Engineering scopes, <ItemLink id={ITEMS.ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER.id} /> and <ItemLink id={ITEMS.ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT.id} />, to the enchant checker. </>, Putro),
   change(date(2020, 12, 15), 'Add support for Aura Broken events in our Events tab', Putro),
   change(date(2020, 12, 13), 'Using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
   change(date(2020, 12, 12), 'Fix a few translation issues.', Zerotorescue),

@@ -1,4 +1,4 @@
-* text=auto
+* text=auto eol=lf
 
 *.jx  diff=jsx
 *.js linguist-language=JSX

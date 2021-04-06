@@ -40,6 +40,11 @@ const covenants = {
     name: 'Bonedust Brew',
     icon: 'ability_maldraxxus_monk',
   },
+  BONEDUST_BREW_CHI: {
+    id: 328296,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
   //endregion
 
   //region Night Fae
@@ -48,13 +53,23 @@ const covenants = {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  FAELINE_STOMP_HEAL: {
+  FAELINE_STOMP_DAMAGE_AND_HEAL: {
     id: 345727,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
   FAELINE_STOMP_ESSENCE_FONT: {
     id: 344006,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_PULSE_DAMAGE: {
+    id: 327264,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_RESET: {
+    id: 327276,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },

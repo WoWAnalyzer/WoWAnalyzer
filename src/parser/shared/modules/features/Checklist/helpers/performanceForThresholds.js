@@ -12,7 +12,7 @@
 function performanceForLessThanThresholds(actual, { minor, average, major }) {
   if (actual < major) {
     // major issue
-    return 0.333 * actual / major;
+    return (0.333 * actual) / major;
   } else if (actual < average) {
     // average issue (between major and average issue)
     return 0.333 + 0.333 * ((actual - major) / (average - major));
@@ -27,7 +27,7 @@ function performanceForLessThanThresholds(actual, { minor, average, major }) {
 function performanceForGreaterThanThresholds(actual, { minor, average, major }) {
   if (actual > major) {
     // major issue
-    return 0.333 * major / actual;
+    return (0.333 * major) / actual;
   } else if (actual > average) {
     // average issue (between major and average issue)
     return 0.666 - 0.333 * ((actual - average) / (major - average));
@@ -40,13 +40,13 @@ function performanceForGreaterThanThresholds(actual, { minor, average, major }) 
   }
 }
 export default function performanceForThresholds(thresholds) {
-  if (thresholds.isGreaterThan) {
+  if (thresholds.isGreaterThan || thresholds.isGreaterThan === 0) {
     if (typeof thresholds.isGreaterThan === 'object') {
       return performanceForGreaterThanThresholds(thresholds.actual, thresholds.isGreaterThan);
     } else {
       return thresholds.isGreaterThan / thresholds.actual;
     }
-  } else if (thresholds.isLessThan) {
+  } else if (thresholds.isLessThan || thresholds.isLessThan === 0) {
     if (typeof thresholds.isLessThan === 'object') {
       return performanceForLessThanThresholds(thresholds.actual, thresholds.isLessThan);
     } else {

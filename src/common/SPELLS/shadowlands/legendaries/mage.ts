@@ -5,6 +5,11 @@ const legendaries = {
     icon: 'spell_fire_masterofelements',
     bonusID: 6832,
   },
+  DISCIPLINARY_COMMAND_BUFF: {
+    id: 327371,
+    name: 'Disciplinary Command',
+    icon: 'spell_fire_masterofelements',
+  },
   EXPANDED_POTENTIAL: {
     id: 327489,
     name: 'Expanded Potential',
@@ -76,7 +81,7 @@ const legendaries = {
   },
   SUN_KINGS_BLESSING: {
     id: 333313,
-    name: 'Sun King\'s Blessing',
+    name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
     bonusID: 6934,
   },
@@ -97,6 +102,11 @@ const legendaries = {
     name: 'Glacial Fragments',
     icon: 'artifactability_frostmage_blackicicles',
     bonusID: 6830,
+  },
+  GLACIAL_FRAGMENTS_DAMAGE: {
+    id: 327498,
+    name: 'Glacial Fragments',
+    icon: 'artifactability_frostmage_blackicicles',
   },
   SLICK_ICE: {
     id: 327508,

@@ -1,5 +1,6 @@
+import REALMS from 'game/REALMS';
+
 import makeUrl from './makeUrl';
-import REALMS from './REALMS';
 
 export interface QueryParams {
   [key: string]: string | number | boolean | undefined;
@@ -12,14 +13,14 @@ export default function makeApiUrl(endpoint: string, queryParams: QueryParams = 
   );
 }
 export function makeCharacterApiUrl(
-  characterId?: string,
+  characterId?: number,
   region?: string,
   realm?: string,
   name?: string,
 ) {
   const parts = ['character'];
   if (characterId) {
-    parts.push(characterId);
+    parts.push(characterId.toString());
   }
   if (region && realm && name) {
     const realmSlug = REALMS[region as 'EU' | 'US' | 'KR' | 'TW']?.find(

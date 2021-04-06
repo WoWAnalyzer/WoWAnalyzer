@@ -26,14 +26,14 @@ const conduits = {
     name: 'Heavy Rainfall',
     icon: 'shaman_pvp_ripplingwaters',
   },
-  HEAVY_RAINFALL_BUFF:{
+  HEAVY_RAINFALL_BUFF: {
     id: 338344,
     name: 'Heavy Rainfall',
     icon: 'shaman_pvp_ripplingwaters',
   },
   NATURES_FOCUS: {
     id: 338346,
-    name: 'Nature\'s Focus',
+    name: "Nature's Focus",
     icon: 'spell_shaman_blessingofeternals',
   },
   SWIRLING_CURRENTS: {

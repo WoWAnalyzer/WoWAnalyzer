@@ -5,5 +5,5 @@ const aprilFools = {
 
 export function isItAprilFoolDay() {
   const now = new Date();
-  return (now.getMonth() === aprilFools.month && now.getDate() === aprilFools.date);
+  return now.getMonth() === aprilFools.month && now.getDate() === aprilFools.date;
 }

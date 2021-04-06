@@ -1,4 +1,3 @@
-
 import safeMerge from 'common/safeMerge';
 
 import CastleNathria from './castlenathria';

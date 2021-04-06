@@ -1,11 +1,15 @@
 import CombatLogParser from './CombatLogParser';
 import Entity from './Entity';
+import Unit from './Unit';
 
-export interface EnemyInfo {
-  name: string;
-  type: string;
-  guid: string;
+interface EnemyFight {
   id: number;
+  groups: number;
+  instances: number;
+}
+
+export interface EnemyInfo extends Unit {
+  fights: EnemyFight[];
 }
 
 class Enemy extends Entity {

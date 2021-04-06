@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Abilities from './Abilities';
@@ -60,10 +60,13 @@ describe('core/modules/Abilities', () => {
   });
   describe('getExpectedCooldownDuration', () => {
     it('calculates the cooldown duration using the cooldown property of an ability', () => {
-      module.getAbility = jest.fn(() => new Ability(parserMock, {
-        spell: SPELLS.HOLY_SHOCK_CAST,
-        cooldown: 41,
-      }));
+      module.getAbility = jest.fn(
+        () =>
+          new Ability(parserMock, {
+            spell: SPELLS.HOLY_SHOCK_CAST,
+            cooldown: 41,
+          }),
+      );
 
       const result = module.getExpectedCooldownDuration(SPELLS.HOLY_SHOCK_CAST.id);
       expect(result).toBe(41000);

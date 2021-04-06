@@ -1,10 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
-
+import { t } from '@lingui/macro';
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import TooltipProvider from 'interface/common/TooltipProvider/index';
 import retryingPromise from 'common/retryingPromise';
 import {
   API_DOWN,
@@ -15,33 +10,37 @@ import {
   UNKNOWN_NETWORK_ISSUE,
 } from 'interface/actions/error';
 import { fetchUser } from 'interface/actions/user';
+import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
+import Footer from 'interface/Footer';
+import FullscreenError from 'interface/FullscreenError';
+import HomePage from 'interface/Home';
+import ApiDownBackground from 'interface/images/api-down-background.gif';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import PortalTarget from 'interface/PortalTarget';
+import ReportPage from 'interface/report';
 import { getError } from 'interface/selectors/error';
 import { getOpenModals } from 'interface/selectors/openModals';
-import { t } from '@lingui/macro';
-import ApiDownBackground from 'interface/common/images/api-down-background.gif';
-import FullscreenError from 'interface/FullscreenError';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Footer from 'interface/layout/Footer/index';
-import HomePage from 'interface/home/Page';
-import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
-import ReportPage from 'interface/report';
-import PortalTarget from 'interface/PortalTarget';
+import TooltipProvider from 'interface/TooltipProvider';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import 'react-toggle/style.css';
-import './layout/App.scss';
+import './App.scss';
 import Hotkeys from './Hotkeys';
 
 const CharacterPage = lazyLoadComponent(() =>
   retryingPromise(() =>
     import(/* webpackChunkName: 'CharacterPage' */ 'interface/CharacterPage').then(
-      exports => exports.default,
+      (exports) => exports.default,
     ),
   ),
 );
 const GuildPage = lazyLoadComponent(() =>
   retryingPromise(() =>
     import(/* webpackChunkName: 'GuildPage' */ 'interface/GuildPage').then(
-      exports => exports.default,
+      (exports) => exports.default,
     ),
   ),
 );
@@ -82,8 +81,8 @@ class App extends React.Component {
       return (
         <FullscreenError
           error={t({
-            id: "fullScreenError.apiDown.error",
-            message: `The API is down.`
+            id: 'fullScreenError.apiDown.error',
+            message: `The API is down.`,
           })}
           details="This is usually because we're leveling up with another patch."
           background={ApiDownBackground}
@@ -105,8 +104,8 @@ class App extends React.Component {
       return (
         <FullscreenError
           error={t({
-            id: "home.reportSelector.search",
-            message: `Report not found.`
+            id: 'home.reportSelector.search',
+            message: `Report not found.`,
           })}
           details="Either you entered a wrong report, or it is private."
           background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
@@ -135,8 +134,8 @@ class App extends React.Component {
       return (
         <FullscreenError
           error={t({
-            id: "fullScreenError.error",
-            message: `An API error occured.`
+            id: 'fullScreenError.error',
+            message: `An API error occured.`,
           })}
           details="Something went wrong talking to our servers, please try again."
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
@@ -154,8 +153,8 @@ class App extends React.Component {
       return (
         <FullscreenError
           error={t({
-            id: "home.internetExplorer.error",
-            message: `A wild INTERNET EXPLORER appeared!`
+            id: 'home.internetExplorer.error',
+            message: `A wild INTERNET EXPLORER appeared!`,
           })}
           details="This browser is too unstable for WoWAnalyzer to work properly."
           background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
@@ -174,8 +173,8 @@ class App extends React.Component {
     return (
       <FullscreenError
         error={t({
-          id: "home.unknown.error",
-          message: `An unknown error occured.`
+          id: 'home.unknown.error',
+          message: `An unknown error occured.`,
         })}
         details={error.details.message || error.details}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
@@ -245,7 +244,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: getError(state),
   openModals: getOpenModals(state),
 });

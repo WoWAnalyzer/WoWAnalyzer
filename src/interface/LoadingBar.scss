@@ -1,0 +1,26 @@
+@import 'interface/Theme.scss';
+
+.LoadingBar {
+  height: 12px;
+  background: #000;
+  transition: opacity 400ms;
+  pointer-events: none;
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.LoadingBar > div {
+  border: 1px solid #000;
+  background: #333;
+  flex: 1 0 auto;
+  position: relative;
+}
+.LoadingBar > div > div {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $primaryColor;
+}

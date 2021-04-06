@@ -1,36 +1,43 @@
 const conduits = {
   //region Covenants Conduits
-  COURAGEOUS_ASCENSION: {  //kyrian
+  COURAGEOUS_ASCENSION: {
+    //kyrian
     id: 337966,
     name: 'Courageous Ascension',
     icon: 'spell_animabastion_wave',
   },
-  FESTERING_TRANSFUSION: {  //Necrolords
+  FESTERING_TRANSFUSION: {
+    //Necrolords
     id: 337979,
     name: 'Festering Transfusion',
     icon: 'spell_animamaldraxxus_debuff',
   },
-  FAE_FERMATA: {  //Night Fae
+  FAE_FERMATA: {
+    //Night Fae
     id: 338305,
     name: 'Fae Fermata',
     icon: 'spell_animaardenweald_buff',
   },
-  WRATHFUL_FAERIE_FERMATA: {  //Night Fae
+  WRATHFUL_FAERIE_FERMATA: {
+    //Night Fae
     id: 345452,
     name: 'Wrathful Faerie Fermata',
     icon: 'ability_ardenweald_priest',
   },
-  GUARDIAN_FAERIE_FERMATA: {  //Night Fae
+  GUARDIAN_FAERIE_FERMATA: {
+    //Night Fae
     id: 345451,
     name: 'Guardian Faerie Fermata',
     icon: 'ability_ardenweald_priest',
   },
-  BENEVOLENT_FAERIE_FERMATA: {  //Night Fae
+  BENEVOLENT_FAERIE_FERMATA: {
+    //Night Fae
     id: 345453,
     name: 'Benevolent Faerie Fermata',
     icon: 'ability_ardenweald_priest',
   },
-  SHATTERED_PERCEPTIONS: {  //Venthyr
+  SHATTERED_PERCEPTIONS: {
+    //Venthyr
     id: 338315,
     name: 'Shattered Perceptions',
     icon: 'spell_animarevendreth_debuff',
@@ -50,12 +57,12 @@ const conduits = {
   },
   LIGHTS_INSPIRATION: {
     id: 337748,
-    name: 'Light\'s Inspiration',
+    name: "Light's Inspiration",
     icon: 'spell_holy_restoration',
   },
   LIGHTS_INSPIRATION_BUFF: {
     id: 337749,
-    name: 'Light\'s Inspiration',
+    name: "Light's Inspiration",
     icon: 'spell_holy_restoration',
   },
   TRANSLUCENT_IMAGE: {

@@ -1,15 +1,14 @@
-import SPELLS from 'common/SPELLS';
-import SPECS from 'game/SPECS';
+import { Trans } from '@lingui/macro';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ItemLink from 'common/ItemLink';
-import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
+import SPECS from 'game/SPECS';
+import { ItemLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
 import React from 'react';
-import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -140,11 +139,19 @@ class PotionChecker extends Analyzer {
 
   _applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
-    if (WEAK_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
+    if (
+      WEAK_POTIONS.includes(spellId) &&
+      event.prepull &&
+      event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time
+    ) {
       this.potionsUsed += 1;
       this.weakPotionsUsed += 1;
     }
-    if (STRONG_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
+    if (
+      STRONG_POTIONS.includes(spellId) &&
+      event.prepull &&
+      event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time
+    ) {
       this.potionsUsed += 1;
       this.strongPotionsUsed += 1;
     }
@@ -153,17 +160,27 @@ class PotionChecker extends Analyzer {
   _cast(event: CastEvent | FilterCooldownInfoEvent) {
     const spellId = event.ability.guid;
 
-    if (WEAK_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
+    if (
+      WEAK_POTIONS.includes(spellId) &&
+      event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time
+    ) {
       this.potionsUsed += 1;
       this.weakPotionsUsed += 1;
     }
 
-    if (STRONG_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
+    if (
+      STRONG_POTIONS.includes(spellId) &&
+      event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time
+    ) {
       this.potionsUsed += 1;
       this.strongPotionsUsed += 1;
     }
 
-    if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {
+    if (
+      event.classResources &&
+      event.classResources[0] &&
+      event.classResources[0].type === RESOURCE_TYPES.MANA.id
+    ) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
       if (manaLeftAfterCast < COMMON_MANA_POTION_AMOUNT) {
@@ -255,16 +272,29 @@ class PotionChecker extends Analyzer {
   suggestions(when: When) {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
-    when(this.potionsUsedThresholds)
-      .addSuggestion((suggest) =>
-        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</Trans>)
-          .icon(this.strongPotionIcon)
-          .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
-    when(this.potionStrengthThresholds)
-      .addSuggestion((suggest) =>
-        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}. <ItemLink id={this.strongPotionId} /> should be used in order to get a slightly higher damage output.</Trans>)
-          .icon(this.strongPotionIcon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
+    when(this.potionsUsedThresholds).addSuggestion((suggest) =>
+      suggest(
+        <Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">
+          You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during
+          this encounter, but you could have used {this.maxPotions}. Since you are able to use a
+          combat potion every 5 minutes, you should ensure that you are getting the maximum number
+          of potions in each encounter.
+        </Trans>,
+      )
+        .icon(this.strongPotionIcon)
+        .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
+    );
+    when(this.potionStrengthThresholds).addSuggestion((suggest) =>
+      suggest(
+        <Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">
+          You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}.{' '}
+          <ItemLink id={this.strongPotionId} /> should be used in order to get a slightly higher
+          damage output.
+        </Trans>,
+      )
+        .icon(this.strongPotionIcon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+    );
   }
 }
 

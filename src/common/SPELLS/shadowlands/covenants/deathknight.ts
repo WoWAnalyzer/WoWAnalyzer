@@ -15,12 +15,38 @@ const covenants = {
     icon: 'ability_maldraxxus_deathknight',
   },
 
+  // recasts and applies damage every second on the environment, similar to what remorseless winter does
+  ABOMINATION_LIMB_HIDDEN_CAST: {
+    id: 323798,
+    name: 'Abomination Limb',
+    icon: 'ability_maldraxxus_deathknight',
+  },
+
+  // spell that performs the grip
+  ABOMINATION_LIMB_GRIP: {
+    id: 323710,
+    name: 'Abomination Limb',
+    icon: 'ability_maldraxxus_deathknight',
+  },
+
   //endregion
 
   //region Night Fae
   DEATHS_DUE: {
     id: 324128,
-    name: 'Death\'s Due',
+    name: "Death's Due",
+    icon: 'ability_ardenweald_deathknight',
+  },
+
+  DEATHS_DUE_DAMAGE_TICK: {
+    id: 341340,
+    name: "Death's Due",
+    icon: 'ability_ardenweald_deathknight',
+  },
+
+  DEATHS_DUE_BUFF: {
+    id: 324165,
+    name: "Death's Due",
     icon: 'ability_ardenweald_deathknight',
   },
 
@@ -30,12 +56,17 @@ const covenants = {
   SWARMING_MIST: {
     id: 311648,
     name: 'Swarming Mist',
-    icon: 'ability_revendreth_deathknight'
+    icon: 'ability_revendreth_deathknight',
+  },
+  SWARMING_MIST_TICK: {
+    id: 311730,
+    name: 'Swarming Mist',
+    icon: 'ability_revendreth_deathknight',
   },
   SWARMING_MIST_RUNIC_POWER_GAIN: {
     id: 312546,
     name: 'Swarming Mist',
-    icon: 'ability_revendreth_deathknight'
+    icon: 'ability_revendreth_deathknight',
   },
 
   //endregion

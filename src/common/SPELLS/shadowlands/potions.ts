@@ -50,7 +50,7 @@ const spells = {
     icon: 'inv_alchemy_90_combat1_yellow',
   },
   POTION_OF_EMPOWERED_EXORCISMS: {
-    id: 307381,
+    id: 307494,
     name: 'Potion of Empowered Exorcisms',
     icon: 'inv_alchemy_90_combat1_pink',
   },
@@ -96,7 +96,7 @@ const spells = {
   },
   POTION_OF_THE_PSYCHOPOMPS_SPEED: {
     id: 344314,
-    name: 'Potion of the Psychopomp\'s Speed',
+    name: "Potion of the Psychopomp's Speed",
     icon: 'trade_alchemy_dpotion_d13',
   },
   POTION_OF_UNHINDERED_PASSING: {
@@ -104,6 +104,5 @@ const spells = {
     name: 'Potion of Unhindered Passing',
     icon: 'inv_alchemy_90_utility_teal',
   },
-
 } as const;
 export default spells;

@@ -1,9 +1,5 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, {
-  EventType,
-  GlobalCooldownEvent,
-  UpdateSpellUsableEvent,
-} from 'parser/core/Events';
+import Events, { EventType, GlobalCooldownEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
 
 import SpellUsable from '../modules/SpellUsable';
 
@@ -20,10 +16,7 @@ class SpellTimeWaitingOnGlobalCooldown extends Analyzer {
   private lastGlobalCooldown: GlobalCooldownEvent | undefined;
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.UpdateSpellUsable,
-      this.handleUpdateSpellUsable,
-    );
+    this.addEventListener(Events.UpdateSpellUsable, this.handleUpdateSpellUsable);
     this.addEventListener(Events.GlobalCooldown, this.handleGlobalCooldown);
   }
 
@@ -31,8 +24,7 @@ class SpellTimeWaitingOnGlobalCooldown extends Analyzer {
     if (!this.lastGlobalCooldown) {
       return;
     }
-    const resetBufferMS =
-      RESET_BUFFER_PERCENT * this.lastGlobalCooldown.duration;
+    const resetBufferMS = RESET_BUFFER_PERCENT * this.lastGlobalCooldown.duration;
     const earlyByMS = event.start + event.expectedDuration - event.timestamp;
     // check if the ability was reset early. If the reset was less than a percentage of the GCD don't consider it as a reset.
     // check if the reset happened as a result of the previous cast
@@ -42,10 +34,7 @@ class SpellTimeWaitingOnGlobalCooldown extends Analyzer {
       event.timestamp < this.lastGlobalCooldown.timestamp + GCD_MATCH_BUFFER_MS
     ) {
       // if the time remaining was less than the GCD use that instead
-      event.timeWaitingOnGCD = Math.min(
-        earlyByMS,
-        this.lastGlobalCooldown.duration,
-      );
+      event.timeWaitingOnGCD = Math.min(earlyByMS, this.lastGlobalCooldown.duration);
     }
   }
   private handleGlobalCooldown(event: GlobalCooldownEvent) {

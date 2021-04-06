@@ -1,20 +1,19 @@
-import React from 'react';
-
+import { Trans } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
-import FlushLineChart from 'interface/others/FlushLineChart';
-import { Trans } from '@lingui/macro';
+import FlushLineChart from 'parser/ui/FlushLineChart';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const debug = false;
 
 type PositionalData = {
-  x: number,
-  y: number,
-  timestamp: number,
-}
+  x: number;
+  y: number;
+  timestamp: number;
+};
 
 class DistanceMoved extends Analyzer {
   lastPosition: PositionalData | null = null;
@@ -53,12 +52,20 @@ class DistanceMoved extends Analyzer {
     if (!this.lastPosition) {
       return;
     }
-    const distanceMoved = this.calculateDistance(this.lastPosition.x, this.lastPosition.y, newData.x, newData.y);
+    const distanceMoved = this.calculateDistance(
+      this.lastPosition.x,
+      this.lastPosition.y,
+      newData.x,
+      newData.y,
+    );
     if (distanceMoved !== 0) {
       this.timeSpentMoving += newData.timestamp - this.lastPosition.timestamp;
       this.totalDistanceMoved += distanceMoved;
       const secondsIntoFight = Math.floor((newData.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond.set(secondsIntoFight, (this.bySecond.get(secondsIntoFight) || 0) + distanceMoved);
+      this.bySecond.set(
+        secondsIntoFight,
+        (this.bySecond.get(secondsIntoFight) || 0) + distanceMoved,
+      );
     }
   }
 
@@ -70,41 +77,69 @@ class DistanceMoved extends Analyzer {
       x: event.x,
       y: event.y,
       timestamp: event.timestamp,
-    }
+    };
     this.updateTotalDistance(updatedPosition);
-    if (!this.lastPositionChange || this.lastPositionChange.x !== updatedPosition.x || this.lastPositionChange.y !== updatedPosition.y) {
+    if (
+      !this.lastPositionChange ||
+      this.lastPositionChange.x !== updatedPosition.x ||
+      this.lastPositionChange.y !== updatedPosition.y
+    ) {
       this.lastPositionChange = updatedPosition;
     }
     this.lastPosition = updatedPosition;
   }
 
   statistic() {
-    debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000}s, Total distance moved: ${this.totalDistanceMoved} yds`);
+    debug &&
+      console.log(
+        `Time spent moving: ${this.timeSpentMoving / 1000}s, Total distance moved: ${
+          this.totalDistanceMoved
+        } yds`,
+      );
 
-    const data = Array.from(this.bySecond, ([sec, val]) => ({ 'time': sec, 'val': val }));
+    const data = Array.from(this.bySecond, ([sec, val]) => ({ time: sec, val: val }));
 
     return (
       <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT()}
-        tooltip={(
+        tooltip={
           <Trans id="shared.distanceMoved.statistic.tooltip">
-            Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.<br /><br />
-
-            In ≈{formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈{formatThousands(this.totalDistanceMoved)} yards (≈{formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute). This statistic may not be entirely accurate for fights with lots of problems.
+            Consider this when analyzing the fight, as some fights require more movement than
+            others. Unnecessary movement can result in a DPS/HPS loss.
+            <br />
+            <br />
+            In ≈{formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈
+            {formatThousands(this.totalDistanceMoved)} yards (≈
+            {formatThousands(
+              (this.totalDistanceMoved / (this.owner.fightDuration / 1000)) * 60,
+            )}{' '}
+            yards per minute). This statistic may not be entirely accurate for fights with lots of
+            problems.
           </Trans>
-        )}
+        }
       >
         <div className="pad">
-          <label><Trans id="shared.distanceMoved.statistic.label">Distance moved</Trans></label>
+          <label>
+            <Trans id="shared.distanceMoved.statistic.label">Distance moved</Trans>
+          </label>
 
           <div className="value">
             ≈ {formatThousands(this.totalDistanceMoved)} yards
             <small style={{ marginLeft: 15 }}>
-              ≈ {formatPercentage(this.timeSpentMoving / (this.owner.fightDuration))}%
+              ≈ {formatPercentage(this.timeSpentMoving / this.owner.fightDuration)}%
             </small>
           </div>
 
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', height: '45%' }}>
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              width: '100%',
+              height: '45%',
+            }}
+          >
             <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} />
           </div>
         </div>

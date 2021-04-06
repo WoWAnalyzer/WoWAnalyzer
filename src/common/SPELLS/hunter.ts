@@ -5,7 +5,6 @@
  */
 
 const spells = {
-
   //region Beast Mastery
   ASPECT_OF_THE_WILD: {
     id: 193530,
@@ -320,7 +319,7 @@ const spells = {
   },
   FLANKERS_ADVANTAGE: {
     id: 259285,
-    name: 'Flanker\'s Advantage',
+    name: "Flanker's Advantage",
     icon: 'ability_hunter_resistanceisfutile',
   },
   MUZZLE: {
@@ -353,7 +352,8 @@ const spells = {
     name: 'Mongoose Fury',
     icon: 'ability_hunter_mongoosebite',
   },
-  HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
+  HARPOON_DAMAGE: {
+    //doesn't actually do damage, but it's categorized as that
     id: 190927,
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
@@ -368,7 +368,8 @@ const spells = {
     name: 'Mongoose Bite',
     icon: 'ability_hunter_mongoosebite',
   },
-  STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
+  STEEL_TRAP_DAMAGE: {
+    //the event is a damage event, but it merely applies the debuff
     id: 162480,
     name: 'Steel Trap',
     icon: 'inv_pet_pettrap02',
@@ -385,7 +386,7 @@ const spells = {
   },
   VIPERS_VENOM_BUFF: {
     id: 268552,
-    name: 'Viper\'s Venom',
+    name: "Viper's Venom",
     icon: 'ability_hunter_potentvenom',
   },
   WILDFIRE_BOMB_DOT: {
@@ -503,7 +504,7 @@ const spells = {
   },
   HUNTERS_MARK: {
     id: 257284,
-    name: 'Hunter\'s Mark',
+    name: "Hunter's Mark",
     icon: 'ability_hunter_markedfordeath',
   },
   POSTHASTE_BUFF: {
@@ -676,7 +677,7 @@ const spells = {
   },
   MASTERS_CALL: {
     id: 272682,
-    name: 'Master\'s Call',
+    name: "Master's Call",
     icon: 'ability_hunter_masterscall',
   },
   SURVIVAL_OF_THE_FITTEST: {

@@ -126,7 +126,7 @@ const spells = {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 1100,
+    manaCost: 900,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -148,7 +148,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 2050,
+    manaCost: 1900,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -163,7 +163,7 @@ const spells = {
   },
   INVOKE_YULON_THE_JADE_SERPENT: {
     id: 322118,
-    name: 'Invoke Yu\'lon, the Jade Serpent',
+    name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
     manaCost: 2500,
   },
@@ -230,7 +230,8 @@ const spells = {
     name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
   },
-  BLACKOUT_KICK_TOTM : { //Backout Kick from TotM
+  BLACKOUT_KICK_TOTM: {
+    //Backout Kick from TotM
     id: 228649,
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
@@ -249,6 +250,11 @@ const spells = {
     id: 132578,
     name: 'Invoke Niuzao, the Black Ox',
     icon: 'spell_monk_brewmaster_spec',
+  },
+  NIUZAO_STOMP_DAMAGE: {
+    id: 227291,
+    name: 'Stomp',
+    icon: 'ability_warstomp',
   },
   BLACKOUT_KICK_BRM: {
     id: 205523,
@@ -431,14 +437,14 @@ const spells = {
     icon: 'ability_monk_blackoutkick',
   },
   POTENT_KICK: {
-      id: 213047,
-      name: 'Potent Kick',
-      icon: 'ability_monk_ironskinbrew',
+    id: 213047,
+    name: 'Potent Kick',
+    icon: 'ability_monk_ironskinbrew',
   },
   QUICK_SIP: {
-      id: 238129,
-      name: 'Quick Sip',
-      icon: 'spell_misc_drink',
+    id: 238129,
+    name: 'Quick Sip',
+    icon: 'spell_misc_drink',
   },
   STAGGERING_AROUND: {
     id: 213055,
@@ -453,22 +459,22 @@ const spells = {
   WANDERERS_HARDINESS_TRAIT: {
     id: 214920,
     name: "Wanderer's Hardiness",
-    icon: "inv_staff_2h_artifactmonkeyking_d_02",
+    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
   },
   ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT: {
     id: 241131,
-    name: "Endurance of the Broken Temple",
-    icon: "misc_legionfall_monk",
+    name: 'Endurance of the Broken Temple',
+    icon: 'misc_legionfall_monk',
   },
   BREW_STACHE: {
     id: 214373,
-    name: "Brew-Stache",
-    icon: "inv_misc_archaeology_vrykuldrinkinghorn",
+    name: 'Brew-Stache',
+    icon: 'inv_misc_archaeology_vrykuldrinkinghorn',
   },
   HOT_TRUB: {
     id: 202126,
-    name: "Hot Trub",
-    icon: "spell_brew_dark",
+    name: 'Hot Trub',
+    icon: 'spell_brew_dark',
   },
   // Conduits
   EVASIVE_STRIDE_HEAL: {
@@ -562,6 +568,11 @@ const spells = {
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
+  },
+  FIST_OF_THE_WHITE_TIGER_SECOND: {
+    id: 261977,
+    name: 'Fist of the White Tiger',
+    icon: 'ability_monk_jab',
   },
   FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
     id: 261978,

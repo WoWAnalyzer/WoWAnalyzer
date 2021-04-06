@@ -149,7 +149,7 @@ const RACES: {
     id: 36,
     mask: 8,
     side: 'horde',
-    name: 'Mag\'har Orc',
+    name: "Mag'har Orc",
   },
   Mechagnome: {
     id: 37,

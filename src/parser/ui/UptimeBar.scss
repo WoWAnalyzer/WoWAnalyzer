@@ -1,0 +1,15 @@
+@import 'interface/Theme.scss';
+
+.uptime-bar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $muted;
+
+  > div {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: transparentize($primaryColor, 0.3);
+  }
+}

@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
-
-import Tooltip from 'common/Tooltip';
 import { formatDuration } from 'common/format';
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
+import Icon from 'interface/Icon';
+import SpellLink from 'interface/SpellLink';
+import Tooltip from 'interface/Tooltip';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { EventType } from 'parser/core/Events';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import './Casts.scss';
 
@@ -18,9 +17,11 @@ class Casts extends React.PureComponent {
     start: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
     parser: PropTypes.shape({
-      eventHistory: PropTypes.arrayOf(PropTypes.shape({
-        type: PropTypes.string.isRequired,
-      })).isRequired,
+      eventHistory: PropTypes.arrayOf(
+        PropTypes.shape({
+          type: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
       toPlayer: PropTypes.func.isRequired,
       byPlayer: PropTypes.func.isRequired,
     }).isRequired,
@@ -32,7 +33,7 @@ class Casts extends React.PureComponent {
   }
 
   getOffsetLeft(timestamp) {
-    return (timestamp - this.props.start) / 1000 * this.props.secondWidth;
+    return ((timestamp - this.props.start) / 1000) * this.props.secondWidth;
   }
 
   isApplicableCastEvent(event) {
@@ -117,9 +118,7 @@ class Casts extends React.PureComponent {
       style: {
         '--level': level > 0 ? level : undefined,
       },
-      children: lower ? (
-        <div className="time-indicator" />
-      ) : undefined,
+      children: lower ? <div className="time-indicator" /> : undefined,
       tooltip: castReason,
     });
   }
@@ -128,14 +127,24 @@ class Casts extends React.PureComponent {
     let castReason;
     if (event.isCancelled) {
       className += ' cancelled';
-      castReason = <Trans id="interface.report.results.timeline.casts.neverFinished">Cast never finished.</Trans>;
+      castReason = (
+        <Trans id="interface.report.results.timeline.casts.neverFinished">
+          Cast never finished.
+        </Trans>
+      );
     }
     // If the beginchannel has a meta prop use that.
     // If it doesn't, look inside the trigger (which should be a begincast).
     // If the trigger doesn't have a meta prop, and it's a begincast event, use the cast event's instead. We need to do this since often we can only determine if something was a bad cast on cast finish, e.g. if a player should only cast something while a buff is up on finish.
     // Using the cast event's meta works here since the timeline is only ever called when parsing has finished, so it doesn't matter that it's not chronological.
     // This is kind of an ugly hack, but it's the only way to render an icon on the beginchannel event while allowing maintainers to mark the cast events bad. We could have forced everyone to modify meta on the beginchannel/begincast event instead, but that would be inconvenient and unexpected with no real gain.
-    const meta = event.meta || (event.trigger && event.trigger.meta) || (event.trigger && event.trigger.type === EventType.BeginCast && event.trigger.castEvent && event.trigger.castEvent.meta);
+    const meta =
+      event.meta ||
+      (event.trigger && event.trigger.meta) ||
+      (event.trigger &&
+        event.trigger.type === EventType.BeginCast &&
+        event.trigger.castEvent &&
+        event.trigger.castEvent.meta);
     if (meta) {
       if (meta.isInefficientCast) {
         className += ' inefficient';
@@ -154,7 +163,7 @@ class Casts extends React.PureComponent {
   renderIcon(event, { className = '', style = {}, children, tooltip } = {}) {
     const left = this.getOffsetLeft(event.timestamp);
 
-    const linkIcon = children => (
+    const linkIcon = (children) => (
       <SpellLink
         id={event.ability.guid}
         icon={false}
@@ -169,10 +178,7 @@ class Casts extends React.PureComponent {
     );
     const icon = (
       <>
-        <Icon
-          icon={event.ability.abilityIcon.replace('.jpg', '')}
-          alt={event.ability.name}
-        />
+        <Icon icon={event.ability.abilityIcon.replace('.jpg', '')} alt={event.ability.name} />
         {children}
       </>
     );
@@ -185,10 +191,12 @@ class Casts extends React.PureComponent {
         {tooltip ? (
           <Tooltip content={tooltip}>
             <div className={`cast ${className}`} style={{ left, ...style }}>
-               {icon}
+              {icon}
             </div>
           </Tooltip>
-        ) : linkIcon(icon)}
+        ) : (
+          linkIcon(icon)
+        )}
       </React.Fragment>
     );
   }
@@ -200,17 +208,18 @@ class Casts extends React.PureComponent {
     return (
       <Tooltip
         key={`channel-${left}-${event.ability.guid}`}
-        content={(
+        content={
           <Trans id="interface.report.results.timeline.casts.tooltip.xSecChannelByAbility">
-            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by {event.ability.name}
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by{' '}
+            {event.ability.name}
           </Trans>
-        )}
+        }
       >
         <div
           className="channel"
           style={{
             left,
-            width: event.duration / 1000 * this.props.secondWidth,
+            width: (event.duration / 1000) * this.props.secondWidth,
           }}
         />
       </Tooltip>
@@ -224,17 +233,18 @@ class Casts extends React.PureComponent {
     return (
       <Tooltip
         key={`gcd-${left}-${event.ability.guid}`}
-        content={(
+        content={
           <Trans id="interface.report.results.timeline.casts.tooltip.xSecGCDByAbility">
-            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global Cooldown by {event.ability.name}
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global
+            Cooldown by {event.ability.name}
           </Trans>
-        )}
+        }
       >
         <div
           className="gcd"
           style={{
             left,
-            width: event.duration / 1000 * this.props.secondWidth,
+            width: (event.duration / 1000) * this.props.secondWidth,
           }}
         />
       </Tooltip>

@@ -1,14 +1,22 @@
-import SPECS from 'game/SPECS';
-import RACES from 'game/RACES';
-import TALENT_ROWS from 'game/TALENT_ROWS';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
-import { findByBossId } from 'raids';
-import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import RACES from 'game/RACES';
+import { findByBossId } from 'game/raids';
+import SPECS from 'game/SPECS';
+import TALENT_ROWS from 'game/TALENT_ROWS';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import {
+  Buff,
+  CombatantInfoEvent,
+  Conduit,
+  EventType,
+  Item,
+  SoulbindTrait,
+} from 'parser/core/Events';
 
 import Entity from './Entity';
+import { PlayerInfo } from './Player';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -76,7 +84,7 @@ class Combatant extends Entity {
     super(parser);
 
     const playerInfo = parser.players.find(
-      (player: Player) => player.id === combatantInfo.sourceID,
+      (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
 
     //TODO - verify if this is ever fixed on WCL side
@@ -103,7 +111,6 @@ class Combatant extends Entity {
     this._parseSoulbind(combatantInfo.soulbindID);
     this._parseSoulbindTraits(combatantInfo.soulbindTraits);
     this._parseConduits(combatantInfo.conduits);
-
   }
 
   // region Talents

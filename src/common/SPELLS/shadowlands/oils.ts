@@ -9,6 +9,6 @@ const oils = {
     name: 'Shadowcore Oil Blast',
     icon: 'inv_misc_potionseta',
   },
-} as const
+} as const;
 
 export default oils;
