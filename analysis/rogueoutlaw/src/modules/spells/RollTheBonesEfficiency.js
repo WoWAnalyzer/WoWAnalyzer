@@ -53,7 +53,9 @@ class RollTheBonesEfficiency extends Analyzer {
         extraSuggestion: (
           <>
             If you roll a single buff and it's not one of the two highest value, try to reroll it as
-            soon as you can.
+            soon as you can. If you roll a single buff and use{' '}
+            <SpellLink id={SPELLS.SLEIGHT_OF_HAND.id} /> reroll any single roll, regardless of the
+            buff.
           </>
         ),
         suggestionThresholds: this.rollSuggestionThreshold(
@@ -68,9 +70,9 @@ class RollTheBonesEfficiency extends Analyzer {
         total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length,
         extraSuggestion: (
           <>
-            If you ever roll one of the two highest value buffs (especially with a 5 buff roll!),
-            try to leave the buff active as long as possible, refreshing with less than 3 seconds
-            remaining.
+            If you ever roll a high value buff or multiple bufss, try to leave keep them as long as
+            possible, refreshing with less than 3 seconds remaining. If you're using
+            <SpellLink id={SPELLS.SLEIGHT_OF_HAND.id} /> no single buff is considered high value.
           </>
         ),
         suggestionThresholds: this.rollSuggestionThreshold(
