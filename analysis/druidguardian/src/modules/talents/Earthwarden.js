@@ -59,7 +59,7 @@ class Earthwarden extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHWARDEN_BUFF),
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.EARTHWARDEN_BUFF),
       this.onAbsorbed,
     );
   }
