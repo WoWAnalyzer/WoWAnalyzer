@@ -698,7 +698,6 @@
   "paladin.shared.suggestions.holyPower.wasted": "{0}% Holy Power wasted",
   "priest.discipline.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "priest.discipline.suggestions.purgeTheWicked.uptime": "{0}% uptime",
-  "priest.discipline.suggestions.schism.efficiency": "You cast Schism {actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.",
   "priest.discipline.suggestions.twistOfFate.efficiency": "{0}% of total healing",
   "priest.holy.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "priest.holy.suggestions.divineHymn.wastedTicks": "{actual} missed Hymn ticks",
