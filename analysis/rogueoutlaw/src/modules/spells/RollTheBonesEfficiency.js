@@ -10,7 +10,6 @@ import RollTheBonesCastTracker, {
   ROLL_THE_BONES_CATEGORIES,
 } from '../features/RollTheBonesCastTracker';
 
-const MID_TIER_REFRESH_TIME = 11000;
 const HIGH_TIER_REFRESH_TIME = 3000;
 
 /**
@@ -34,17 +33,6 @@ class RollTheBonesEfficiency extends Analyzer {
     return totalRolls - delayedRolls;
   }
 
-  get goodMidValueRolls() {
-    // todo get the actual pandemic window. it's tricky because it's based on the next cast, and it's not really important that the player is exact anyway
-    return this.rollTheBonesCastTracker.rolltheBonesCastValues[
-      ROLL_THE_BONES_CATEGORIES.MID_VALUE
-    ].filter(
-      (cast) =>
-        this.rollTheBonesCastTracker.castRemainingDuration(cast) > HIGH_TIER_REFRESH_TIME &&
-        this.rollTheBonesCastTracker.castRemainingDuration(cast) < MID_TIER_REFRESH_TIME,
-    ).length;
-  }
-
   get goodHighValueRolls() {
     return this.rollTheBonesCastTracker.rolltheBonesCastValues[
       ROLL_THE_BONES_CATEGORIES.HIGH_VALUE
@@ -65,28 +53,14 @@ class RollTheBonesEfficiency extends Analyzer {
         extraSuggestion: (
           <>
             If you roll a single buff and it's not one of the two highest value, try to reroll it as
-            soon as you can.
+            soon as you can. If you roll a single buff and use{' '}
+            <SpellLink id={SPELLS.SLEIGHT_OF_HAND.id} /> reroll any single roll, regardless of the
+            buff.
           </>
         ),
         suggestionThresholds: this.rollSuggestionThreshold(
           this.goodLowValueRolls,
           rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length,
-        ),
-      },
-      // Percentage of mid rolls that were rerolled at or below pandemic, but above 3 seconds
-      {
-        label: 'mid value',
-        pass: this.goodMidValueRolls,
-        total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE].length,
-        extraSuggestion: (
-          <>
-            If you roll two buffs and neither is one of the two highest value, try to reroll them
-            once you reach the pandemic window, at about 9-10 seconds remaining.
-          </>
-        ),
-        suggestionThresholds: this.rollSuggestionThreshold(
-          this.goodMidValueRolls,
-          rtbCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE].length,
         ),
       },
       // Percentage of good rolls that were rerolled below 3 seconds
@@ -96,9 +70,9 @@ class RollTheBonesEfficiency extends Analyzer {
         total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length,
         extraSuggestion: (
           <>
-            If you ever roll one of the two highest value buffs (especially with a 5 buff roll!),
-            try to leave the buff active as long as possible, refreshing with less than 3 seconds
-            remaining.
+            If you ever roll a high value buff or multiple bufss, try to leave keep them as long as
+            possible, refreshing with less than 3 seconds remaining. If you're using
+            <SpellLink id={SPELLS.SLEIGHT_OF_HAND.id} /> no single buff is considered high value.
           </>
         ),
         suggestionThresholds: this.rollSuggestionThreshold(
@@ -158,9 +132,8 @@ class RollTheBonesEfficiency extends Analyzer {
         suggest(
           <>
             Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a{' '}
-            {suggestion.label} roll could be improved.{' '}
-            <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and{' '}
-            <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from{' '}
+            {suggestion.label} roll could be improved. <SpellLink id={SPELLS.BROADSIDE.id} /> and{' '}
+            <SpellLink id={SPELLS.TRUE_BEARING.id} /> are your highest value buffs from{' '}
             <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}
           </>,
         )
