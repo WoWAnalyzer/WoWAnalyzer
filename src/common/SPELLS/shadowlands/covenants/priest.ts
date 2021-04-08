@@ -104,6 +104,11 @@ const covenants = {
     name: 'Mind Games',
     icon: 'ability_revendreth_priest',
   },
+  MINDGAMES_REVERSAL: {
+    id: 323707,
+    name: 'Mind Games',
+    icon: 'ability_revendreth_priest',
+  },
   //endregion
 } as const;
 export default covenants;
