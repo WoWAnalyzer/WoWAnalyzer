@@ -9,9 +9,23 @@ import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
 
 export const ROLL_THE_BONES_CATEGORIES = {
   LOW_VALUE: 'low',
-  MID_VALUE: 'mid',
   HIGH_VALUE: 'high',
 };
+
+const BROADSIDE_VALUE = { sleight_of_hand: 2, base: 3 };
+const TRUE_BEARING_VALUE = { sleight_of_hand: 2, base: 3 };
+const RUTHLESS_PRECISION_VALUE = { sleight_of_hand: 2, base: 2 };
+const SKULL_AND_CROSSBONES_VALUE = { sleight_of_hand: 2, base: 2 };
+const BURIED_TREASURE_VALUE = { sleight_of_hand: 1, base: 1 };
+const GRAND_MELEE_VALUE = { sleight_of_hand: 1, base: 1 };
+
+let BUFF_VALUE_BY_ID = {};
+BUFF_VALUE_BY_ID[SPELLS.BROADSIDE.id] = BROADSIDE_VALUE;
+BUFF_VALUE_BY_ID[SPELLS.TRUE_BEARING.id] = TRUE_BEARING_VALUE;
+BUFF_VALUE_BY_ID[SPELLS.RUTHLESS_PRECISION.id] = RUTHLESS_PRECISION_VALUE;
+BUFF_VALUE_BY_ID[SPELLS.SKULL_AND_CROSSBONES.id] = SKULL_AND_CROSSBONES_VALUE;
+BUFF_VALUE_BY_ID[SPELLS.BURIED_TREASURE.id] = BURIED_TREASURE_VALUE;
+BUFF_VALUE_BY_ID[SPELLS.GRAND_MELEE.id] = GRAND_MELEE_VALUE;
 
 // e.g. 1 combo point is 12 seconds, 3 combo points is 24 seconds
 const PANDEMIC_WINDOW = 0.3;
@@ -53,14 +67,18 @@ class RollTheBonesCastTracker extends Analyzer {
   }
 
   categorizeCast(cast) {
-    if (
-      cast.appliedBuffs.some(
-        (buff) => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id,
-      )
-    ) {
+    let combat_buffs_value = 0;
+    if (this.selectedCombatant.hasConduitBySpellID(SPELLS.SLEIGHT_OF_HAND)) {
+      // Players should aim to roll for at least 2 buffs if they're using the Sleight of Hand conduit,
+      // as such we use a lower value for the combat buffs to make sure no single buff outweighs a 2x roll.
+      cast.appliedBuffs.forEach(
+        (buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].sleight_of_hand),
+      );
+    } else {
+      cast.appliedBuffs.forEach((buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].base));
+    }
+    if (combat_buffs_value > 2) {
       return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
-    } else if (cast.appliedBuffs.length > 1) {
-      return ROLL_THE_BONES_CATEGORIES.MID_VALUE;
     }
 
     return ROLL_THE_BONES_CATEGORIES.LOW_VALUE;

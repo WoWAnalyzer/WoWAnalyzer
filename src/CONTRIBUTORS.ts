@@ -94,6 +94,10 @@ export const Zerotorescue: Contributor = {
     },
   ],
 };
+export const ab: Contributor = {
+  nickname: 'ab',
+  github: 'alex-bau',
+};
 export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
