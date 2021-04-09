@@ -9,6 +9,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'spell_holy_penance',
     bonusID: 6976,
   },
+  CLARITY_OF_MIND: {
+    id: 336067,
+    name: 'Clarity of Mind',
+    icon: 'spell_holy_spiritualguidence',
+    bonusID: 6980,
+  },
   //endregion
 
   //region Holy

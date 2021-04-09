@@ -10,7 +10,7 @@ import {
 
 class AtonementApplicationSource extends Analyzer {
   // Spells that apply atonement
-  atonementApplicators = new Map([
+  atonementApplicators = new Map<number, number>([
     [SPELLS.POWER_WORD_RADIANCE.id, POWER_WORD_RADIANCE_ATONEMENT_DUR],
     [SPELLS.POWER_WORD_SHIELD.id, POWER_WORD_SHIELD_ATONEMENT_DUR],
     [SPELLS.SHADOW_MEND.id, SHADOW_MEND_ATONEMENT_DUR],

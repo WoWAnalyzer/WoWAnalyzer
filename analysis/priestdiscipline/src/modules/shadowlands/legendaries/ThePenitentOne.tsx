@@ -35,7 +35,6 @@ class ThePenitentOne extends Analyzer {
     this.expectedBolts = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
-    console.log('active');
   }
 
   onAtone(event: AtonementAnalyzerEvent) {
