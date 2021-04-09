@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 4, 8), 'More German translations for the interface', maestrohdude),
   change(date(2021, 4, 2), 'Added German translations in de/messages.json for the character parses section', maestrohdude),
   change(date(2021, 4, 1), 'Added German translations in de/messages.json for hunter section', maestrohdude),
   change(date(2021, 3, 29), 'Added German translations in de/messages.json for common, core abilities, death knight, demon hunter, and druid sections', maestrohdude),
