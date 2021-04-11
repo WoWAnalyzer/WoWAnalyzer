@@ -4,6 +4,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamageReduction from 'parser/core/calculateEffectiveDamageReduction';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
@@ -20,7 +21,7 @@ import React from 'react';
 
 import ItemInsanityGained from '@wowanalyzer/priest-shadow/src/interface/ItemInsanityGained';
 
-const GUARDIAN_DAMAGE_REDUCTION = 0.1;
+const GUARDIAN_DAMAGE_REDUCTION = 0.2;
 
 // Holy: https://www.warcraftlogs.com/reports/2frFV7hnRg4ZxXcA#fight=5
 // Shadow: https://www.warcraftlogs.com/reports/WqcaKR9nNkChXyfm#fight=5
@@ -108,7 +109,7 @@ class FaeGuardians extends Analyzer {
     if (event.targetID !== this.currentShieldedTargetId) {
       return;
     }
-    this.damageReduced += (event.amount || 0) / (1 - GUARDIAN_DAMAGE_REDUCTION);
+    this.damageReduced += calculateEffectiveDamageReduction(event, GUARDIAN_DAMAGE_REDUCTION);
   }
 
   onEnergize(event: EnergizeEvent) {

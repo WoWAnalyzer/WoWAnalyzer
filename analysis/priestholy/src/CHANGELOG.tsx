@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 4, 11), <>Updated <SpellLink id={SPELLS.GUARDIAN_FAERIE.id} /> damage reduction to 20% and corrected DR calculation.</>, Adoraci),
   change(date(2021, 3, 10), <>Updated <SpellLink id={SPELLS.DIVINE_HYMN_HEAL.id} /> appproxmiation</>, Khadaj),
   change(date(2021, 3, 3), <>Removed spreadsheet tab</>, acornellier),
   change(date(2021, 2, 26), <>Updating base mana value for <SpellLink id={SPELLS.ENLIGHTENMENT_TALENT.id} />.</>, Khadaj),
