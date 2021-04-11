@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 
@@ -13,11 +12,9 @@ import GlobalCooldown from '../core/GlobalCooldown';
 // Example log: /report/ZTdNYvhp9aqQD36A/9-Mythic+Huntsman+Altimor+-+Kill+(5:47)/Lampshadow/standard/timeline
 class VoidBoltUsage extends Analyzer {
   static dependencies = {
-    eventHistory: EventHistory,
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
   };
-  protected eventHistory!: EventHistory;
   protected globalCooldown!: GlobalCooldown;
   protected spellUsable!: SpellUsable;
 

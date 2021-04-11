@@ -1,4 +1,5 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import {
   BoonOfTheAscended,
@@ -101,6 +102,8 @@ class CombatLogParser extends MainCombatLogParser {
     eternalCallToTheVoid: EternalCallToTheVoid,
     talbadarsStratagem: TalbadarsStratagem,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+
+    arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
 }
 
