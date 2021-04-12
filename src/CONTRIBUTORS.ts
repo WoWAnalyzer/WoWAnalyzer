@@ -1533,3 +1533,7 @@ export const maestrohdude: Contributor = {
   github: 'maestrohdude',
   discord: 'maestrohdude#6100',
 };
+export const Bloodfox: Contributor = {
+  nickname: 'Bloodfox',
+  github: 'sspeaks',
+};
