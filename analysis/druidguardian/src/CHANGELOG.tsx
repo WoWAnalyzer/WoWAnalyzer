@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Kettlepaw, Zeboot, g3neral, Tiboonn, Buudha } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2021, 4, 10), 'Updated class syntax to re-enable AntiFillerSpam info', Kettlepaw),
   change(date(2021, 4, 7), 'Correct reporting for Earthwarden absorb events', Kettlepaw),
   change(date(2021, 3, 25), 'Added basic checklist section to be expanded on, and upgraded touched files to Typescript', Buudha),
   change(date(2021, 2, 20), 'Updated the Stats page to use the new Statistics modules', Buudha),
