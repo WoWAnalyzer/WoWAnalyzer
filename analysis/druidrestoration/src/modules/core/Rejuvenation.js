@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import Mastery from './Mastery';
+import Mastery from '../core/Mastery';
 
 const BASE_MANA = 20000;
 const REJUV_COST = 0.105; // % of base mana

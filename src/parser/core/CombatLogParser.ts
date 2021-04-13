@@ -60,7 +60,7 @@ import SpellManaCost from '../shared/modules/SpellManaCost';
 import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 import VantusRune from '../shared/modules/spells/VantusRune';
 import SpellUsable from '../shared/modules/SpellUsable';
-import StatTracker from '../shared/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import DamageDone from '../shared/modules/throughput/DamageDone';
 import DamageTaken from '../shared/modules/throughput/DamageTaken';
 import HealingDone from '../shared/modules/throughput/HealingDone';
