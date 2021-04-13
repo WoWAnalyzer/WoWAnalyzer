@@ -4,7 +4,17 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, ChangeBuffStackEvent, ChangeDebuffStackEvent, EventType, Event, HasAbility, HealEvent, Item, HasSource } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  ChangeBuffStackEvent,
+  ChangeDebuffStackEvent,
+  EventType,
+  Event,
+  HasAbility,
+  HealEvent,
+  Item,
+  HasSource,
+} from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
@@ -312,20 +322,20 @@ class StatTracker extends Analyzer {
 
   addStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
     const delta: StatBuff = {};
-    Object.entries(statMult).forEach(([stat , multiplier]: [string, number | undefined]) => {
+    Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier === undefined) {
         return;
       }
 
       const before = this.playerMultipliers[stat as keyof Stats];
-      (this.playerMultipliers[stat as keyof Stats]) *= multiplier;
+      this.playerMultipliers[stat as keyof Stats] *= multiplier;
 
       debug &&
-      console.log(
-        `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
-          stat as keyof Stats
+        console.log(
+          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+            stat as keyof Stats
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
-      );
+        );
 
       if (changeCurrentStats) {
         const curr: number = this._currentStats[stat as keyof Stats];
@@ -338,19 +348,19 @@ class StatTracker extends Analyzer {
 
   removeStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
     const delta: StatBuff = {};
-    Object.entries(statMult).forEach(([stat , multiplier]: [string, number | undefined]) => {
+    Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier === undefined) {
         return;
       }
       const before: number = this.playerMultipliers[stat as keyof Stats]!;
-      (this.playerMultipliers[stat as keyof Stats]) /= multiplier;
+      this.playerMultipliers[stat as keyof Stats] /= multiplier;
 
       debug &&
-      console.log(
-        `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
-          stat as keyof Stats
+        console.log(
+          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+            stat as keyof Stats
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
-      );
+        );
 
       if (changeCurrentStats) {
         const curr: number = this._currentStats[stat as keyof Stats];
@@ -362,10 +372,11 @@ class StatTracker extends Analyzer {
   }
 
   applySpecModifiers(): void {
-    const modifiers: StatMultiplier = StatTracker.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
+    const modifiers: StatMultiplier =
+      StatTracker.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier !== undefined) {
-        (this._pullStats[stat as keyof Stats]) *= multiplier;
+        this._pullStats[stat as keyof Stats] *= multiplier;
       }
     });
   }
@@ -610,7 +621,12 @@ class StatTracker extends Analyzer {
    * @param isSecondary - boolean -- Whether we are calculating a secondary or tertiary stat
    * @returns {number}
    */
-  ratingNeededForNextPercentage(rating: number, baselineRatingPerPercent: number, coef: number = 1, isSecondary: boolean = true) {
+  ratingNeededForNextPercentage(
+    rating: number,
+    baselineRatingPerPercent: number,
+    coef: number = 1,
+    isSecondary: boolean = true,
+  ) {
     return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
   }
 
@@ -761,7 +777,11 @@ class StatTracker extends Analyzer {
    * eventReason is the WCL event object that caused this change, it is not required.
    */
   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
-  forceChangeStats (change: StatBuff, eventReason: Event<EventType> | null, withoutMultipliers = false): void {
+  forceChangeStats(
+    change: StatBuff,
+    eventReason: Event<EventType> | null,
+    withoutMultipliers = false,
+  ): void {
     const before: PlayerStats = Object.assign({}, this._currentStats);
     const delta = this._changeStats(change, 1, withoutMultipliers);
     const after: PlayerStats = Object.assign({}, this._currentStats);
@@ -844,7 +864,7 @@ class StatTracker extends Analyzer {
     };
 
     Object.entries(this._currentStats).forEach(([stat, value]: [string, number]) => {
-      (this._currentStats[stat as keyof Stats]) += withoutMultipliers
+      this._currentStats[stat as keyof Stats] += withoutMultipliers
         ? value
         : Math.round(value * this.playerMultipliers[stat as keyof Stats]);
     });
@@ -855,10 +875,15 @@ class StatTracker extends Analyzer {
   /**
    * Fabricates an event indicating when stats change
    */
-  _triggerChangeStats(event: Event<EventType> | null, before: Stats, delta: Stats, after: Stats): void {
+  _triggerChangeStats(
+    event: Event<EventType> | null,
+    before: Stats,
+    delta: Stats,
+    after: Stats,
+  ): void {
     const fabricatedEvent = {
       type: EventType.ChangeStats,
-      sourceID: (event !== null && HasSource(event)) ? event.sourceID : this.owner.playerId,
+      sourceID: event !== null && HasSource(event) ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       targetIsFriendly: true,
       before,
@@ -884,9 +909,7 @@ class StatTracker extends Analyzer {
         itemDetails = this.selectedCombatant.getItem(buffObj.itemId);
         if (itemDetails) {
           return buffVal(selectedCombatant, itemDetails);
-        }
-        else
-        {
+        } else {
           console.warn(
             'Failed to retrieve item information for item with ID:',
             buffObj.itemId,
@@ -914,28 +937,28 @@ class StatTracker extends Analyzer {
 /**
  * TODO I don't fully understand how these work, need to document
  */
-export interface PenaltyThreshold{
-  base: number,
-  scaled: number,
-  penaltyAboveThis: number
+export interface PenaltyThreshold {
+  base: number;
+  scaled: number;
+  penaltyAboveThis: number;
 }
 
 /**
  * A base interface listing all player stats
  */
-export interface Stats{
-  strength: number
-  agility: number
-  intellect: number
-  stamina: number
-  crit: number
-  haste: number
-  mastery: number
-  versatility: number
-  avoidance: number
-  leech: number
-  speed: number
-  armor: number
+export interface Stats {
+  strength: number;
+  agility: number;
+  intellect: number;
+  stamina: number;
+  crit: number;
+  haste: number;
+  mastery: number;
+  versatility: number;
+  avoidance: number;
+  leech: number;
+  speed: number;
+  armor: number;
 }
 
 /**

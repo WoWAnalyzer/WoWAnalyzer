@@ -1,18 +1,16 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { AbsorbedEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import StatTracker, { StatBuff } from 'parser/shared/modules/StatTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 import { HealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
-import Entity, { TrackedBuffEvent } from 'parser/core/Entity';
+import Entity from 'parser/core/Entity';
 
 class Mastery extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
@@ -26,21 +24,20 @@ class Mastery extends Analyzer {
   masteryTimesHealing = 0;
 
   // tracks mastery attribution by spell
-  spellAttributions: MasteryAttributionsBySpell = { };
+  spellAttributions: MasteryAttributionsBySpell = {};
 
   // Tracks healing attributable to mastery buffs
-  buffAttributions: MasteryAttributionsByBuff = { };
+  buffAttributions: MasteryAttributionsByBuff = {};
 
   constructor(options: Options) {
     super(options);
 
     // inits spellAttributions with an entry for each HoT that works with Mastery
-    Object.entries(DRUID_HEAL_INFO)
-      .forEach(([guid, buff]: [string, HealerSpellInfo]) => {
-        if (buff.masteryStack) {
-          this.spellAttributions[guid] = new MasterySpellAttribution();
-        }
-      });
+    Object.entries(DRUID_HEAL_INFO).forEach(([guid, buff]: [string, HealerSpellInfo]) => {
+      if (buff.masteryStack) {
+        this.spellAttributions[guid] = new MasterySpellAttribution();
+      }
+    });
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbed);
@@ -71,25 +68,32 @@ class Mastery extends Analyzer {
       // tally benefits for spells
       hotsOn
         .filter((hotOn) => hotOn !== spellId) // don't double count
-        .forEach((hotOn) => this._tallyMasteryBenefit(
-          hotOn.toString(), spellId.toString(), decomposedHeal.oneStack));
+        .forEach((hotOn) =>
+          this._tallyMasteryBenefit(hotOn.toString(), spellId.toString(), decomposedHeal.oneStack),
+        );
 
       // tally benefits for ratings buffs
-      this.selectedCombatant.activeBuffs()
-        .filter(buff => this.statTracker.statBuffs[buff.ability.guid] && this.statTracker.statBuffs[buff.ability.guid].mastery)
-        .forEach(buff => {
+      this.selectedCombatant
+        .activeBuffs()
+        .filter(
+          (buff) =>
+            this.statTracker.statBuffs[buff.ability.guid] &&
+            this.statTracker.statBuffs[buff.ability.guid].mastery,
+        )
+        .forEach((buff) => {
           const buffId = buff.ability.guid;
           const statBuff = this.statTracker.statBuffs[buffId];
-          if (!this.buffAttributions[buffId])
-          {
+          if (!this.buffAttributions[buffId]) {
             this.buffAttributions[buffId] = new MasteryBuffAttribution(
-              this.statTracker.getBuffValue(statBuff, statBuff.mastery));
+              this.statTracker.getBuffValue(statBuff, statBuff.mastery),
+            );
           }
 
-          this.buffAttributions[buffId].attributable +=
-            calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(this.buffAttributions[buffId].buffAmount));
+          this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
+            event,
+            decomposedHeal.relativeBuffBenefit(this.buffAttributions[buffId].buffAmount),
+          );
         });
-
     } else {
       this.totalNoMasteryHealing += healVal.effective;
     }
@@ -264,20 +268,18 @@ export type MasteryAttributionsBySpell = { [key: string]: MasterySpellAttributio
  */
 export class MasterySpellAttribution {
   direct: number; // the direct healing from the HoT, should be same as entry in WCL. Includes benefit from own stack of Mastery.
-  mastery: {[key: string]: number}; // a mapping from spell ID to how much this HoT boosted it via Mastery.
+  mastery: { [key: string]: number }; // a mapping from spell ID to how much this HoT boosted it via Mastery.
 
   constructor() {
     this.direct = 0;
-    this.mastery = { };
+    this.mastery = {};
   }
 
-  get totalMastery(): number
-  {
+  get totalMastery(): number {
     return Object.values(this.mastery).reduce((s, v) => s + v, 0);
   }
 
-  get total(): number
-  {
+  get total(): number {
     return this.direct + this.totalMastery;
   }
 }
@@ -307,7 +309,7 @@ export interface DecomposedHeal {
   noMastery: number; // the amount the heal would have done without being boosted by mastery
   oneStack: number; // the amount of *effective* heal added per stack of mastery
   effectiveStackBenefit: number; // the number of mastery stacks that we actually benefitted from once overheal is considered.
-  relativeBuffBenefit: ((rating: number) => number); // a function that takes a mastery buff rating as input and outputs the healing attributable to that buff
+  relativeBuffBenefit: (rating: number) => number; // a function that takes a mastery buff rating as input and outputs the healing attributable to that buff
 }
 
 export default Mastery;
