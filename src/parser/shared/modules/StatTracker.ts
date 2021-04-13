@@ -863,10 +863,11 @@ class StatTracker extends Analyzer {
       armor: this.getBuffValue(change, change.armor) * factor,
     };
 
-    Object.entries(this._currentStats).forEach(([stat, value]: [string, number]) => {
-      this._currentStats[stat as keyof Stats] += withoutMultipliers
-        ? value
-        : Math.round(value * this.playerMultipliers[stat as keyof Stats]);
+    Object.keys(this._currentStats).forEach((stat: string) => {
+      const statKey = stat as keyof Stats;
+      this._currentStats[statKey] += withoutMultipliers
+        ? delta[statKey]
+        : Math.round(delta[statKey] * this.playerMultipliers[statKey]);
     });
 
     return delta;

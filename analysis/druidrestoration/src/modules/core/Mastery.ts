@@ -1,6 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events, { AbsorbedEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, FightEndEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -10,6 +10,17 @@ import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 import { HealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
 import Entity from 'parser/core/Entity';
 
+const DEBUG = false;
+
+/**
+ * Resto Druid's "Mastery: Harmony" -
+ * Your healing is increased by X% for each of your Restoration heal over time effects on the target.
+ *
+ * When attempting to attribute healing to a Druid HoT, we must look not only at the direct healing from the HoT
+ * but also the amount the Druid's *other spells* are boosted by the presence of that HoT.
+ *
+ * This module performs the background calculations needed to make these attributions.
+ */
 class Mastery extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -41,6 +52,9 @@ class Mastery extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbed);
+
+    // for outputting final computed values when debug is enabled
+    DEBUG && this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onHeal(event: HealEvent): void {
@@ -101,6 +115,11 @@ class Mastery extends Analyzer {
 
   onAbsorbed(event: AbsorbedEvent): void {
     this.totalNoMasteryHealing += event.amount;
+  }
+
+  onFightEnd(_: FightEndEvent): void {
+    DEBUG && this.log(`Spell Attributions`, this.spellAttributions);
+    DEBUG && this.log(`Buff Attributions`, this.buffAttributions);
   }
 
   /* accessors for computed values */
