@@ -326,20 +326,21 @@ class StatTracker extends Analyzer {
       if (multiplier === undefined) {
         return;
       }
+      const statKey = stat as keyof Stats;
 
-      const before = this.playerMultipliers[stat as keyof Stats];
-      this.playerMultipliers[stat as keyof Stats] *= multiplier;
+      const before: number = this.playerMultipliers[statKey];
+      this.playerMultipliers[statKey] *= multiplier;
 
       debug &&
         console.log(
           `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
-            stat as keyof Stats
+            statKey
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );
 
       if (changeCurrentStats) {
-        const curr: number = this._currentStats[stat as keyof Stats];
-        delta[stat as keyof Stats] = Math.round(curr * multiplier - curr);
+        const curr: number = this._currentStats[statKey];
+        delta[statKey] = Math.round(curr * multiplier - curr);
       }
     });
 
@@ -352,19 +353,21 @@ class StatTracker extends Analyzer {
       if (multiplier === undefined) {
         return;
       }
-      const before: number = this.playerMultipliers[stat as keyof Stats]!;
-      this.playerMultipliers[stat as keyof Stats] /= multiplier;
+      const statKey = stat as keyof Stats;
+
+      const before: number = this.playerMultipliers[statKey];
+      this.playerMultipliers[statKey] /= multiplier;
 
       debug &&
         console.log(
           `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
-            stat as keyof Stats
+            statKey
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );
 
       if (changeCurrentStats) {
-        const curr: number = this._currentStats[stat as keyof Stats];
-        delta[stat as keyof StatBuff] = Math.round(curr / multiplier - curr);
+        const curr: number = this._currentStats[statKey];
+        delta[statKey] = Math.round(curr / multiplier - curr);
       }
     });
 
@@ -609,6 +612,7 @@ class StatTracker extends Analyzer {
         return (statFromLastCurvePoint + calculateStatGainWithinCurrentCurvePoint) * coef;
       }
     }
+    console.error("Unreachable code hit??");
     return Infinity; // should be unreachable, but just in case
   }
 
