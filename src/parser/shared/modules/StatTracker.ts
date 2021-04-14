@@ -22,7 +22,7 @@ import STAT from 'parser/shared/modules/features/STAT';
 
 const ARMOR_INT_BONUS = 0.05;
 
-const debug = false;
+const debug = true;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
@@ -640,7 +640,7 @@ class StatTracker extends Analyzer {
   critPercentage(rating: number, withBase = false): number {
     return (
       (withBase ? this.baseCritPercentage : 0) +
-      this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]
+      this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])
     );
   }
 
