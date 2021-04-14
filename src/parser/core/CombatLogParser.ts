@@ -13,6 +13,7 @@ import {
 import ModuleError from 'parser/core/ModuleError';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import Haste from 'parser/shared/modules/Haste';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import React from 'react';
 
 import { Builds } from '../Config';
@@ -60,7 +61,6 @@ import SpellManaCost from '../shared/modules/SpellManaCost';
 import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 import VantusRune from '../shared/modules/spells/VantusRune';
 import SpellUsable from '../shared/modules/SpellUsable';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import DamageDone from '../shared/modules/throughput/DamageDone';
 import DamageTaken from '../shared/modules/throughput/DamageTaken';
 import HealingDone from '../shared/modules/throughput/HealingDone';

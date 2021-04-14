@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
 import Events, {
   CastEvent,
   ChangeBuffStackEvent,
@@ -18,7 +19,6 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
-import Combatant from 'parser/core/Combatant';
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -612,7 +612,7 @@ class StatTracker extends Analyzer {
         return (statFromLastCurvePoint + calculateStatGainWithinCurrentCurvePoint) * coef;
       }
     }
-    console.error("Unreachable code hit??");
+    console.error('Unreachable code hit??');
     return Infinity; // should be unreachable, but just in case
   }
 

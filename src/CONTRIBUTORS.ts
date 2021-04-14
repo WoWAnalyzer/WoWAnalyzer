@@ -1533,3 +1533,9 @@ export const maestrohdude: Contributor = {
   github: 'maestrohdude',
   discord: 'maestrohdude#6100',
 };
+
+export const Sref: Contributor = {
+  nickname: 'Sref',
+  github: 'kfinch',
+  discord: 'Sref#1337',
+};

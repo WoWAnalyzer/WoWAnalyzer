@@ -1,14 +1,14 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Entity from 'parser/core/Entity';
 import Events, { AbsorbedEvent, FightEndEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
+import { HealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
-import { HealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
-import Entity from 'parser/core/Entity';
 
 const DEBUG = false;
 
