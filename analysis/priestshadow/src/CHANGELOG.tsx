@@ -8,6 +8,9 @@ import { ResourceLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 4, 11), <>Updated <SpellLink id={SPELLS.GUARDIAN_FAERIE.id} /> damage reduction to 20% and corrected DR calculation.</>, Adoraci),
+  change(date(2021, 4, 11), <>Removed <SpellLink id={SPELLS.ARCANE_TORRENT_MANA3.id} /> suggestion.</>, Adoraci),
+  change(date(2021, 4, 11), <>Added <SpellLink id={SPELLS.VOID_BOLT.id} /> cast efficiency module.</>, Adoraci),
   change(date(2021, 4, 1), <>Bump support to 9.0.5</>, Adoraci),
   change(date(2021, 1, 29), <>Added <SpellLink id={SPELLS.HAUNTING_APPARITIONS.id} /> conduit module.</>, Adoraci),
   change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} /> talent module.</>, Adoraci),
