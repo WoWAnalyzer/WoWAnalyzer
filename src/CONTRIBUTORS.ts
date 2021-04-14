@@ -1538,7 +1538,7 @@ export const Sref: Contributor = {
   nickname: 'Sref',
   github: 'kfinch',
   discord: 'Sref#1337',
-}
+};
 
 export const Bloodfox: Contributor = {
   nickname: 'Bloodfox',
