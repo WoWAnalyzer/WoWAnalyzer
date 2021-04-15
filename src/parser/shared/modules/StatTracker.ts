@@ -19,6 +19,7 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
+import { SpellInfo } from 'parser/core/EventFilter';
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -276,10 +277,10 @@ class StatTracker extends Analyzer {
 
   /**
    * Adds a stat buff to StatTracker.
-   * @param buffId ID of the stat buff TODO when is this called with object?
+   * @param buffId Spell or ID of the stat buff
    * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
    */
-  add(buffId: any, stats: StatBuff) {
+  add(buffId: number | SpellInfo, stats: StatBuff): void {
     if (!buffId || !stats) {
       throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
     }
@@ -300,8 +301,12 @@ class StatTracker extends Analyzer {
     this.statBuffs[buffId] = stats;
   }
 
-  // TODO beter type than any for buffId?
-  update(buffId: any, stats: StatBuff) {
+  /**
+   * Update a stat buff in StatTracker.
+   * @param buffId Spell or ID of the stat buff
+   * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
+   */
+  update(buffId: number | SpellInfo, stats: StatBuff): void {
     if (!buffId || !stats) {
       throw new Error(`StatTracker.update() called with invalid buffId ${buffId} or stats`);
     }
@@ -323,6 +328,9 @@ class StatTracker extends Analyzer {
     this.statBuffs[buffId] = stats;
   }
 
+  /**
+   * Adds a stat multiplier to tracking
+   */
   addStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
     const delta: StatBuff = {};
     Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
@@ -350,6 +358,9 @@ class StatTracker extends Analyzer {
     changeCurrentStats && this.forceChangeStats(delta, null, true);
   }
 
+  /**
+   * Removes a stat multiplier from tracking
+   */
   removeStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
     const delta: StatBuff = {};
     Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
@@ -751,7 +762,10 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
-  // TODO document why specifically heal or cast to update intellect? Is it because they're only ones with spellPower field?
+  /*
+   * Cast and Heal events include player's spellpower which translates directly to player's int.
+   * This can be used to "check our work" with regards to tracked int.
+   */
   onCast(event: CastEvent) {
     this._updateIntellect(event);
   }
@@ -943,7 +957,7 @@ class StatTracker extends Analyzer {
 }
 
 /**
- * TODO I don't fully understand how these work, need to document
+ * TODO better docs for this object once I understand how it works
  */
 export interface PenaltyThreshold {
   base: number;
