@@ -5,6 +5,7 @@ import RACES from 'game/RACES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
+import { SpellInfo } from 'parser/core/EventFilter';
 import Events, {
   CastEvent,
   ChangeBuffStackEvent,
@@ -19,7 +20,6 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
-import { SpellInfo } from 'parser/core/EventFilter';
 
 const ARMOR_INT_BONUS = 0.05;
 
