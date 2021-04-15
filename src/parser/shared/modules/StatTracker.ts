@@ -22,9 +22,12 @@ import STAT from 'parser/shared/modules/features/STAT';
 
 const ARMOR_INT_BONUS = 0.05;
 
-const debug = true;
+const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
+/**
+ * The module in charge of tracking the player's stats over the course of an encounter.
+ */
 class StatTracker extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
