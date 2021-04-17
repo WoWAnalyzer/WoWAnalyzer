@@ -3,8 +3,20 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import SPECS from 'game/SPECS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
+import { SpellInfo } from 'parser/core/EventFilter';
+import Events, {
+  CastEvent,
+  ChangeBuffStackEvent,
+  ChangeDebuffStackEvent,
+  EventType,
+  Event,
+  HasAbility,
+  HealEvent,
+  Item,
+  HasSource,
+} from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
@@ -14,10 +26,15 @@ const ARMOR_INT_BONUS = 0.05;
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
+/**
+ * The module in charge of tracking the player's stats over the course of an encounter.
+ */
 class StatTracker extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
   };
+
+  protected eventEmitter!: EventEmitter;
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -29,7 +46,7 @@ class StatTracker extends Analyzer {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
   };
 
-  static DEFAULT_BUFFS = {
+  static DEFAULT_BUFFS: StatBuffsByGuid = {
     // region Potions
     [SPELLS.POTION_OF_SPECTRAL_AGILITY.id]: { agility: 190 },
     [SPELLS.POTION_OF_SPECTRAL_INTELLECT.id]: { intellect: 190 },
@@ -144,12 +161,14 @@ class StatTracker extends Analyzer {
     // endregion
   };
 
-  statBuffs = {};
+  // all known stat buffs
+  statBuffs: StatBuffsByGuid;
+  // the player's stat ratings at pull
+  _pullStats: PlayerStats;
+  // the player's 'current' stat ratings
+  _currentStats: PlayerStats;
 
-  _pullStats = {};
-  _currentStats = {};
-
-  statMultiplier = {
+  playerMultipliers: PlayerMultipliers = {
     strength: 1,
     agility: 1,
     intellect: 1,
@@ -163,7 +182,8 @@ class StatTracker extends Analyzer {
     speed: 1,
     armor: 1,
   };
-  statMultiplierBuffs = {
+
+  statMultiplierBuffs: StatMultipliersByGuid = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
   };
@@ -185,7 +205,7 @@ class StatTracker extends Analyzer {
    * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
    * Search for 21024 in the first column for secondary stat scaling
    */
-  secondaryStatPenaltyThresholds = [
+  secondaryStatPenaltyThresholds: PenaltyThreshold[] = [
     /** Secondary stat scaling thresholds */
     { base: 0, scaled: 0, penaltyAboveThis: 0 },
     { base: 0.3, scaled: 0.3, penaltyAboveThis: 0.1 },
@@ -201,7 +221,7 @@ class StatTracker extends Analyzer {
    * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
    * Search for 21025 in the first column for tertiary stat scaling
    */
-  tertiaryStatPenaltyThresholds = [
+  tertiaryStatPenaltyThresholds: PenaltyThreshold[] = [
     /** Tertiary stat scaling thresholds */
     { base: 0, scaled: 0, penaltyAboveThis: 0 },
     { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
@@ -212,8 +232,8 @@ class StatTracker extends Analyzer {
     { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
   ];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     // TODO: Use combatantinfo event directly
     this._pullStats = {
       strength: this.selectedCombatant._combatantInfo.strength,
@@ -233,7 +253,7 @@ class StatTracker extends Analyzer {
     this.applySpecModifiers();
 
     this.statBuffs = {
-      ...this.constructor.DEFAULT_BUFFS,
+      ...StatTracker.DEFAULT_BUFFS,
     };
 
     this._currentStats = {
@@ -257,10 +277,10 @@ class StatTracker extends Analyzer {
 
   /**
    * Adds a stat buff to StatTracker.
-   * @param buffId ID of the stat buff
+   * @param buffId Spell or ID of the stat buff
    * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
    */
-  add(buffId, stats) {
+  add(buffId: number | SpellInfo, stats: StatBuff): void {
     if (!buffId || !stats) {
       throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
     }
@@ -281,7 +301,12 @@ class StatTracker extends Analyzer {
     this.statBuffs[buffId] = stats;
   }
 
-  update(buffId, stats) {
+  /**
+   * Update a stat buff in StatTracker.
+   * @param buffId Spell or ID of the stat buff
+   * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
+   */
+  update(buffId: number | SpellInfo, stats: StatBuff): void {
     if (!buffId || !stats) {
       throw new Error(`StatTracker.update() called with invalid buffId ${buffId} or stats`);
     }
@@ -303,51 +328,73 @@ class StatTracker extends Analyzer {
     this.statBuffs[buffId] = stats;
   }
 
-  addStatMultiplier(stats, changeCurrentStats = false) {
-    const delta = {};
-    for (const stat in stats) {
-      const before = this.statMultiplier[stat];
-      this.statMultiplier[stat] *= stats[stat];
+  /**
+   * Adds a stat multiplier to tracking
+   */
+  addStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
+    const delta: StatBuff = {};
+    Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
+      if (multiplier === undefined) {
+        return;
+      }
+      const statKey = stat as keyof Stats;
+
+      const before: number = this.playerMultipliers[statKey];
+      this.playerMultipliers[statKey] *= multiplier;
+
       debug &&
         console.log(
-          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.statMultiplier[
-            stat
+          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+            statKey
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );
 
       if (changeCurrentStats) {
-        delta[stat] = Math.round(this._currentStats[stat] * stats[stat] - this._currentStats[stat]);
+        const curr: number = this._currentStats[statKey];
+        delta[statKey] = Math.round(curr * multiplier - curr);
       }
-    }
+    });
 
     changeCurrentStats && this.forceChangeStats(delta, null, true);
   }
 
-  removeStatMultiplier(stats, changeCurrentStats = false) {
-    const delta = {};
-    for (const stat in stats) {
-      const before = this.statMultiplier[stat];
-      this.statMultiplier[stat] /= stats[stat];
+  /**
+   * Removes a stat multiplier from tracking
+   */
+  removeStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
+    const delta: StatBuff = {};
+    Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
+      if (multiplier === undefined) {
+        return;
+      }
+      const statKey = stat as keyof Stats;
+
+      const before: number = this.playerMultipliers[statKey];
+      this.playerMultipliers[statKey] /= multiplier;
 
       debug &&
         console.log(
-          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.statMultiplier[
-            stat
+          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+            statKey
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );
 
       if (changeCurrentStats) {
-        delta[stat] = Math.round(this._currentStats[stat] / stats[stat] - this._currentStats[stat]);
+        const curr: number = this._currentStats[statKey];
+        delta[statKey] = Math.round(curr / multiplier - curr);
       }
-    }
+    });
 
     changeCurrentStats && this.forceChangeStats(delta, null, true);
   }
 
-  applySpecModifiers() {
-    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
-    Object.entries(modifiers).forEach(([stat, multiplier]) => {
-      this._pullStats[stat] *= multiplier;
+  applySpecModifiers(): void {
+    const modifiers: StatMultiplier =
+      StatTracker.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
+    Object.entries(modifiers).forEach(([stat, multiplier]: [string, number | undefined]) => {
+      if (multiplier !== undefined) {
+        this._pullStats[stat as keyof Stats] *= multiplier;
+      }
     });
   }
 
@@ -355,78 +402,78 @@ class StatTracker extends Analyzer {
    * Stat rating at pull.
    * Should be identical to what you get from Combatant.
    */
-  get startingStrengthRating() {
+  get startingStrengthRating(): number {
     return this._pullStats.strength;
   }
 
-  get startingAgilityRating() {
+  get startingAgilityRating(): number {
     return this._pullStats.agility;
   }
 
-  get startingIntellectRating() {
+  get startingIntellectRating(): number {
     return this._pullStats.intellect;
   }
 
-  get startingStaminaRating() {
+  get startingStaminaRating(): number {
     return this._pullStats.stamina;
   }
 
-  get startingCritRating() {
+  get startingCritRating(): number {
     return this._pullStats.crit;
   }
 
-  get startingHasteRating() {
+  get startingHasteRating(): number {
     return this._pullStats.haste;
   }
 
-  get startingMasteryRating() {
+  get startingMasteryRating(): number {
     return this._pullStats.mastery;
   }
 
-  get startingVersatilityRating() {
+  get startingVersatilityRating(): number {
     return this._pullStats.versatility;
   }
 
-  get startingAvoidanceRating() {
+  get startingAvoidanceRating(): number {
     return this._pullStats.avoidance;
   }
 
-  get startingLeechRating() {
+  get startingLeechRating(): number {
     return this._pullStats.leech;
   }
 
-  get startingSpeedRating() {
+  get startingSpeedRating(): number {
     return this._pullStats.speed;
   }
 
-  get startingArmorRating() {
+  get startingArmorRating(): number {
     return this._pullStats.armor;
   }
 
   /*
    * Current stat rating, as tracked by this module.
    */
-  get currentStrengthRating() {
+  get currentStrengthRating(): number {
     return this._currentStats.strength;
   }
 
-  get currentAgilityRating() {
+  get currentAgilityRating(): number {
     return this._currentStats.agility;
   }
 
-  get currentIntellectRating() {
+  get currentIntellectRating(): number {
     return this._currentStats.intellect;
   }
 
-  get currentStaminaRating() {
+  get currentStaminaRating(): number {
     return this._currentStats.stamina;
   }
 
-  get currentCritRating() {
+  get currentCritRating(): number {
     return this._currentStats.crit;
   }
 
-  get currentHasteRating() {
+  get currentHasteRating(): number {
     return this._currentStats.haste;
   }
 
@@ -533,12 +580,12 @@ class StatTracker extends Analyzer {
    * @returns {number}
    */
   calculateStatPercentage(
-    rating,
-    baselineRatingPerPercent,
-    returnRatingForNextPercent = false,
-    isSecondary = true,
-    coef = 1,
-  ) {
+    rating: number,
+    baselineRatingPerPercent: number,
+    returnRatingForNextPercent: boolean = false,
+    isSecondary: boolean = true,
+    coef: number = 1,
+  ): number {
     //Which penalty thresholds we should use based on type of stat
     const penaltyThresholds = isSecondary
       ? this.secondaryStatPenaltyThresholds
@@ -555,8 +602,10 @@ class StatTracker extends Analyzer {
         return penaltyThresholds[penaltyThresholds.length - 1].scaled * coef;
       }
     }
+    // TODO surely there's a prettier way than an indexed for loop
     //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint
-    for (const idx in penaltyThresholds) {
+    // eslint-disable-next-line no-plusplus
+    for (let idx = 0; idx < penaltyThresholds.length; idx++) {
       //If we have a higher percent than the baseline, we can move on immediately
       if (baselinePercent >= penaltyThresholds[idx].base) {
         continue;
@@ -577,6 +626,8 @@ class StatTracker extends Analyzer {
         return (statFromLastCurvePoint + calculateStatGainWithinCurrentCurvePoint) * coef;
       }
     }
+    console.error('Unreachable code hit??');
+    return Infinity; // should be unreachable, but just in case
   }
 
   /**
@@ -588,28 +639,33 @@ class StatTracker extends Analyzer {
    * @param isSecondary - boolean -- Whether we are calculating a secondary or tertiary stat
    * @returns {number}
    */
-  ratingNeededForNextPercentage(rating, baselineRatingPerPercent, coef = 1, isSecondary = true) {
+  ratingNeededForNextPercentage(
+    rating: number,
+    baselineRatingPerPercent: number,
+    coef: number = 1,
+    isSecondary: boolean = true,
+  ) {
     return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
   }
 
   /*
    * For percentage stats, returns the combined base stat values and the values gained from ratings -- this does not include percentage increases such as Bloodlust
    */
-  critPercentage(rating, withBase = false) {
+  critPercentage(rating: number, withBase = false): number {
     return (
       (withBase ? this.baseCritPercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])
     );
   }
 
-  hastePercentage(rating, withBase = false) {
+  hastePercentage(rating: number, withBase = false): number {
     return (
       (withBase ? this.baseHastePercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.HASTE])
     );
   }
 
-  masteryPercentage(rating, withBase = false) {
+  masteryPercentage(rating: number, withBase = false): number {
     return (
       (withBase ? this.baseMasteryPercentage : 0) +
       this.calculateStatPercentage(
@@ -622,14 +678,14 @@ class StatTracker extends Analyzer {
     );
   }
 
-  versatilityPercentage(rating, withBase = false) {
+  versatilityPercentage(rating: number, withBase = false): number {
     return (
       (withBase ? this.baseVersatilityPercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.VERSATILITY])
     );
   }
 
-  avoidancePercentage(rating, withBase = false) {
+  avoidancePercentage(rating: number, withBase = false) {
     return (
       (withBase ? this.baseAvoidancePercentage : 0) +
       this.calculateStatPercentage(
@@ -641,7 +697,7 @@ class StatTracker extends Analyzer {
     );
   }
 
-  leechPercentage(rating, withBase = false) {
+  leechPercentage(rating: number, withBase = false): number {
     return (
       (withBase ? this.baseLeechPercentage : 0) +
       this.calculateStatPercentage(
@@ -653,7 +709,7 @@ class StatTracker extends Analyzer {
     );
   }
 
-  speedPercentage(rating, withBase = false) {
+  speedPercentage(rating: number, withBase: boolean = false): number {
     return (
       (withBase ? this.baseSpeedPercentage : 0) +
       this.calculateStatPercentage(
@@ -668,53 +724,57 @@ class StatTracker extends Analyzer {
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
    */
-  get currentCritPercentage() {
+  get currentCritPercentage(): number {
     return this.critPercentage(this.currentCritRating, true);
   }
 
   // This is only the percentage from BASE + RATING.
   // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
-  get currentHastePercentage() {
+  get currentHastePercentage(): number {
     return this.hastePercentage(this.currentHasteRating, true);
   }
 
-  get currentMasteryPercentage() {
+  get currentMasteryPercentage(): number {
     return this.masteryPercentage(this.currentMasteryRating, true);
   }
 
-  get currentVersatilityPercentage() {
+  get currentVersatilityPercentage(): number {
     return this.versatilityPercentage(this.currentVersatilityRating, true);
   }
 
-  get currentAvoidancePercentage() {
+  get currentAvoidancePercentage(): number {
     return this.avoidancePercentage(this.currentAvoidanceRating, true);
   }
 
-  get currentLeechPercentage() {
+  get currentLeechPercentage(): number {
     return this.leechPercentage(this.currentLeechRating, true);
   }
 
-  get currentSpeedPercentage() {
+  get currentSpeedPercentage(): number {
     return this.speedPercentage(this.currentSpeedRating, true);
   }
 
-  onChangeBuffStack(event) {
+  onChangeBuffStack(event: ChangeBuffStackEvent) {
     this._changeBuffStack(event);
   }
 
-  onChangeDebuffStack(event) {
+  onChangeDebuffStack(event: ChangeDebuffStackEvent) {
     this._changeBuffStack(event);
   }
 
-  onCast(event) {
+  /*
+   * Cast and Heal events include player's spellpower which translates directly to player's int.
+   * This can be used to "check our work" with regards to tracked int.
+   */
+  onCast(event: CastEvent) {
     this._updateIntellect(event);
   }
 
-  onHealTaken(event) {
+  onHealTaken(event: HealEvent) {
     this._updateIntellect(event);
   }
 
-  _updateIntellect(event) {
+  _updateIntellect(event: HealEvent | CastEvent): void {
     // updates intellect values directly from game events
     if (!event.spellPower) {
       return;
@@ -738,13 +798,17 @@ class StatTracker extends Analyzer {
    * eventReason is the WCL event object that caused this change, it is not required.
    */
   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
-  forceChangeStats(change, eventReason, withoutMultipliers = false) {
-    const before = Object.assign({}, this._currentStats);
+  forceChangeStats(
+    change: StatBuff,
+    eventReason: Event<EventType> | null,
+    withoutMultipliers = false,
+  ): void {
+    const before: PlayerStats = Object.assign({}, this._currentStats);
     const delta = this._changeStats(change, 1, withoutMultipliers);
-    const after = Object.assign({}, this._currentStats);
+    const after: PlayerStats = Object.assign({}, this._currentStats);
     if (debug) {
       const spellName =
-        eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
+        eventReason && HasAbility(eventReason) ? eventReason.ability.name : 'unspecified';
       console.log(
         `StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`,
       );
@@ -753,10 +817,10 @@ class StatTracker extends Analyzer {
     this._triggerChangeStats(eventReason, before, delta, after);
   }
 
-  _changeBuffStack(event) {
+  _changeBuffStack(event: ChangeBuffStackEvent | ChangeDebuffStackEvent): void {
     const spellId = event.ability.guid;
-    const statBuff = this.statBuffs[spellId];
-    const statMult = this.statMultiplierBuffs[spellId];
+    const statBuff: StatBuff = this.statBuffs[spellId];
+    const statMult: StatMultiplier = this.statMultiplierBuffs[spellId];
     if (statBuff) {
       // ignore prepull buff application, as they're already accounted for in combatantinfo
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
@@ -804,26 +868,27 @@ class StatTracker extends Analyzer {
   }
 
   // withoutMultipliers should be a rare exception where you have already buffed values
-  _changeStats(change, factor, withoutMultipliers = false) {
+  _changeStats(change: StatBuff, factor: number, withoutMultipliers: boolean = false): PlayerStats {
     const delta = {
-      strength: this._getBuffValue(change, change.strength) * factor,
-      agility: this._getBuffValue(change, change.agility) * factor,
-      intellect: this._getBuffValue(change, change.intellect) * factor,
-      stamina: this._getBuffValue(change, change.stamina) * factor,
-      crit: this._getBuffValue(change, change.crit) * factor,
-      haste: this._getBuffValue(change, change.haste) * factor,
-      mastery: this._getBuffValue(change, change.mastery) * factor,
-      versatility: this._getBuffValue(change, change.versatility) * factor,
-      avoidance: this._getBuffValue(change, change.avoidance) * factor,
-      leech: this._getBuffValue(change, change.leech) * factor,
-      speed: this._getBuffValue(change, change.speed) * factor,
-      armor: this._getBuffValue(change, change.armor) * factor,
+      strength: this.getBuffValue(change, change.strength) * factor,
+      agility: this.getBuffValue(change, change.agility) * factor,
+      intellect: this.getBuffValue(change, change.intellect) * factor,
+      stamina: this.getBuffValue(change, change.stamina) * factor,
+      crit: this.getBuffValue(change, change.crit) * factor,
+      haste: this.getBuffValue(change, change.haste) * factor,
+      mastery: this.getBuffValue(change, change.mastery) * factor,
+      versatility: this.getBuffValue(change, change.versatility) * factor,
+      avoidance: this.getBuffValue(change, change.avoidance) * factor,
+      leech: this.getBuffValue(change, change.leech) * factor,
+      speed: this.getBuffValue(change, change.speed) * factor,
+      armor: this.getBuffValue(change, change.armor) * factor,
     };
 
-    Object.keys(this._currentStats).forEach((key) => {
-      this._currentStats[key] += withoutMultipliers
-        ? delta[key]
-        : Math.round(delta[key] * this.statMultiplier[key]);
+    Object.keys(this._currentStats).forEach((stat: string) => {
+      const statKey = stat as keyof Stats;
+      this._currentStats[statKey] += withoutMultipliers
+        ? delta[statKey]
+        : Math.round(delta[statKey] * this.playerMultipliers[statKey]);
     });
 
     return delta;
@@ -832,59 +897,128 @@ class StatTracker extends Analyzer {
   /**
    * Fabricates an event indicating when stats change
    */
-  _triggerChangeStats(event, before, delta, after) {
-    this.eventEmitter.fabricateEvent(
-      {
-        type: EventType.ChangeStats,
-        sourceID: event ? event.sourceID : this.owner.playerId,
-        targetID: this.owner.playerId,
-        targetIsFriendly: true,
-        before,
-        delta,
-        after,
-      },
-      event,
-    );
+  _triggerChangeStats(
+    event: Event<EventType> | null,
+    before: Stats,
+    delta: Stats,
+    after: Stats,
+  ): void {
+    const fabricatedEvent = {
+      type: EventType.ChangeStats,
+      sourceID: event !== null && HasSource(event) ? event.sourceID : this.owner.playerId,
+      targetID: this.owner.playerId,
+      targetIsFriendly: true,
+      before,
+      delta,
+      after,
+    };
+    this.eventEmitter.fabricateEvent(fabricatedEvent, event);
   }
 
   /**
-   * Gets the actual stat value in whatever format it is.
+   * Gets the actual buff value in whatever format it is.
    * a number value will be returned as is
    * a function value will be called with (selectedCombatant, itemDetails) and the result returned
-   * an undefined stat will default to 0.
+   * an undefined value will default to 0.
    */
-  _getBuffValue(buffObj, statVal) {
-    if (statVal === undefined) {
+  getBuffValue(buffObj: StatBuff, buffVal: BuffVal | undefined): number {
+    if (buffVal === undefined) {
       return 0;
-    } else if (typeof statVal === 'function') {
+    } else if (typeof buffVal === 'function') {
       const selectedCombatant = this.selectedCombatant;
-      let itemDetails;
+      let itemDetails: Item | undefined;
       if (buffObj.itemId) {
         itemDetails = this.selectedCombatant.getItem(buffObj.itemId);
-        if (!itemDetails) {
+        if (itemDetails) {
+          return buffVal(selectedCombatant, itemDetails);
+        } else {
           console.warn(
             'Failed to retrieve item information for item with ID:',
             buffObj.itemId,
             ' ...unable to handle stats buff, making no stat change.',
           );
-          return 0;
         }
       }
-      return statVal(selectedCombatant, itemDetails);
+      return 0;
     } else {
-      return statVal;
+      return buffVal; // is raw number
     }
   }
 
-  _debugPrintStats(stats) {
+  _debugPrintStats(stats: PlayerStats) {
     console.log(
       `StatTracker: ${formatMilliseconds(this.owner.fightDuration)} - ${this._statPrint(stats)}`,
     );
   }
 
-  _statPrint(stats) {
+  _statPrint(stats: PlayerStats) {
     return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed} ARMOR=${this._currentStats.armor}`;
   }
 }
+
+/**
+ * TODO better docs for this object once I understand how it works
+ */
+export interface PenaltyThreshold {
+  base: number;
+  scaled: number;
+  penaltyAboveThis: number;
+}
+
+/**
+ * A base interface listing all player stats
+ */
+export interface Stats {
+  strength: number;
+  agility: number;
+  intellect: number;
+  stamina: number;
+  crit: number;
+  haste: number;
+  mastery: number;
+  versatility: number;
+  avoidance: number;
+  leech: number;
+  speed: number;
+  armor: number;
+}
+
+/**
+ * A player's total stat ratings
+ */
+export type PlayerStats = Stats;
+
+/**
+ * A player's total stat multipliers
+ */
+export type PlayerMultipliers = Stats;
+
+/**
+ * StatBuff values can be represented as a static value
+ * or as a dynamically generated value using the combatant and item
+ * (typically an item buff will have power based on its ilvl)
+ */
+export type BuffVal = number | ((s: Combatant, t: Item) => number);
+
+/**
+ * A buff that boosts player stats.
+ * 'itemId' need only be filled in for an item based buff, when we will need the ID for the BuffVal callback.
+ */
+export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
+
+/**
+ * StatBuffs mapped by their guid
+ */
+export type StatBuffsByGuid = { [key: string]: StatBuff };
+
+/**
+ * A buff or effect that multiplies stats (as opposed to adding)
+ */
+export type StatMultiplier = Partial<Stats>;
+
+/**
+ * StatMultipliers mapped by their guid
+ */
+export type StatMultipliersByGuid = { [key: string]: StatMultiplier };
 
 export default StatTracker;

@@ -270,7 +270,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     if (this.playerHealthMissing > 0) {
       // if the player is full HP this would have overhealed.
       const healIncreaseFromOneLeech =
-        this.statTracker.statMultiplier.leech /
+        this.statTracker.playerMultipliers.leech /
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentLeechRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.LEECH],
@@ -287,7 +287,7 @@ abstract class BaseHealerStatValues extends Analyzer {
       return 0;
     }
     const healIncreaseFromOneInt =
-      this.statTracker.statMultiplier.intellect / this.statTracker.currentIntellectRating;
+      this.statTracker.playerMultipliers.intellect / this.statTracker.currentIntellectRating;
     return healVal.effective * healIncreaseFromOneInt;
   }
   _getCritChance(event: HealerStatWeightEvents) {
@@ -332,7 +332,7 @@ abstract class BaseHealerStatValues extends Analyzer {
       const effectiveCritHealing = Math.max(0, healVal.effective - rawBaseHealing);
       const rating = this.statTracker.currentCritRating;
       const healIncreaseFromOneCrit =
-        (this.statTracker.statMultiplier.crit * ratingCritChanceContribution) / rating;
+        (this.statTracker.playerMultipliers.crit * ratingCritChanceContribution) / rating;
 
       return effectiveCritHealing * healIncreaseFromOneCrit;
     }
@@ -341,7 +341,7 @@ abstract class BaseHealerStatValues extends Analyzer {
   _hasteHpct(event: HealerStatWeightEvents, healVal: HealingValue) {
     const currHastePerc = this.statTracker.currentHastePercentage;
     const healIncreaseFromOneHaste =
-      this.statTracker.statMultiplier.haste /
+      this.statTracker.playerMultipliers.haste /
       this.statTracker.ratingNeededForNextPercentage(
         this.statTracker.currentHasteRating,
         this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
@@ -351,7 +351,7 @@ abstract class BaseHealerStatValues extends Analyzer {
   }
   _hasteHpm(event: HealerStatWeightEvents, healVal: HealingValue) {
     const healIncreaseFromOneHaste =
-      this.statTracker.statMultiplier.haste /
+      this.statTracker.playerMultipliers.haste /
       this.statTracker.ratingNeededForNextPercentage(
         this.statTracker.currentHasteRating,
         this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
@@ -369,7 +369,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     }
     const currVersPerc = this.statTracker.currentVersatilityPercentage;
     const healIncreaseFromOneVers =
-      this.statTracker.statMultiplier.versatility /
+      this.statTracker.playerMultipliers.versatility /
       this.statTracker.ratingNeededForNextPercentage(
         this.statTracker.currentVersatilityRating,
         this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY],
@@ -393,7 +393,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     const amount = damageVal.effective;
     const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
     const damageReductionIncreaseFromOneVers =
-      this.statTracker.statMultiplier.versatility /
+      this.statTracker.playerMultipliers.versatility /
       this.statTracker.ratingNeededForNextPercentage(
         this.statTracker.currentVersatilityRating,
         this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY],
