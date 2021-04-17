@@ -2,14 +2,15 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import React from 'react';
 
 import OpportunityDamageTracker from './OpportunityDamageTracker';
 
 class Opportunity extends Analyzer {
-  get thresholds() {
+  get thresholds(): NumberThreshold {
     const total = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
     const filtered = this.opportunityDamageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
 
@@ -20,7 +21,7 @@ class Opportunity extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -28,17 +29,19 @@ class Opportunity extends Analyzer {
     damageTracker: DamageTracker,
     opportunityDamageTracker: OpportunityDamageTracker,
   };
+  protected damageTracker!: DamageTracker;
+  protected opportunityDamageTracker!: OpportunityDamageTracker;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options & { opportunityDamageTracker: OpportunityDamageTracker }) {
+    super(options);
 
-    this.opportunityDamageTracker.subscribeInefficientCast(
+    options.opportunityDamageTracker.subscribeInefficientCast(
       [SPELLS.SINISTER_STRIKE],
-      (s) => `Pistol Shot should be used as your builder during Opportunity`,
+      () => `Pistol Shot should be used as your builder during Opportunity`,
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

@@ -2,14 +2,15 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import React from 'react';
 
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
 class Dispatch extends Analyzer {
-  get thresholds() {
+  get thresholds(): NumberThreshold {
     const total = this.damageTracker.getAbility(SPELLS.DISPATCH.id);
     const filtered = this.betweenTheEyesDamageTracker.getAbility(SPELLS.DISPATCH.id);
 
@@ -20,7 +21,7 @@ class Dispatch extends Analyzer {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -38,15 +39,18 @@ class Dispatch extends Analyzer {
     betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast(
+  protected damageTracker!: DamageTracker;
+  protected betweenTheEyesDamageTracker!: BetweenTheEyesDamageTracker;
+
+  constructor(options: Options & { betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker }) {
+    super(options);
+    options.betweenTheEyesDamageTracker.subscribeInefficientCast(
       [SPELLS.DISPATCH],
-      (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`,
+      () => `Between The Eyes should be prioritized as your spender during Ruthless Precision`,
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

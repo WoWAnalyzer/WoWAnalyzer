@@ -7,12 +7,12 @@ import React from 'react';
 import { EnergyDetails, ComboPointDetails } from '@wowanalyzer/rogue';
 
 import OutlawEnergyCapTracker from '../../core/OutlawEnergyCapTracker';
+import Finishers from '../../features/Finishers';
 import BetweenTheEyes from '../../spells/BetweenTheEyes';
 import Dispatch from '../../spells/Dispatch';
 import Opportunity from '../../spells/Opportunity';
 import RollTheBonesBuffs from '../../spells/RollTheBonesBuffs';
 import RollTheBonesEfficiency from '../../spells/RollTheBonesEfficiency';
-import Finishers from '../Finishers';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -47,11 +47,11 @@ class Checklist extends BaseChecklist {
 
           finishers: this.finishers.suggestionThresholds,
           rollTheBonesBuffs: this.rollTheBonesBuffs.suggestionThresholds,
-          rollTheBonesEfficiency: this.rollTheBonesEfficiency.rollSuggestions,
           betweenTheEyes: this.betweenTheEyes.thresholds,
           dispatch: this.dispatch.thresholds,
           opportunity: this.opportunity.thresholds,
         }}
+        rtbEfficiencies={this.rollTheBonesEfficiency.rollSuggestions}
       />
     );
   }

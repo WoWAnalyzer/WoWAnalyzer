@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Spell from 'common/SPELLS/Spell';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 import { EnergyCapTracker } from '@wowanalyzer/rogue'; // todo use the outlaw cap tracker once available
 
@@ -12,14 +13,31 @@ export const ROLL_THE_BONES_CATEGORIES = {
   HIGH_VALUE: 'high',
 };
 
-const BROADSIDE_VALUE = { sleight_of_hand: 2, base: 3 };
-const TRUE_BEARING_VALUE = { sleight_of_hand: 2, base: 3 };
-const RUTHLESS_PRECISION_VALUE = { sleight_of_hand: 2, base: 2 };
-const SKULL_AND_CROSSBONES_VALUE = { sleight_of_hand: 2, base: 2 };
-const BURIED_TREASURE_VALUE = { sleight_of_hand: 1, base: 1 };
-const GRAND_MELEE_VALUE = { sleight_of_hand: 1, base: 1 };
+interface CastValue {
+  sleight_of_hand: number;
+  base: number;
+}
 
-let BUFF_VALUE_BY_ID = {};
+interface BuffValueMap {
+  [index: number]: CastValue;
+}
+
+export interface RTBCast extends CastEvent {
+  appliedBuffs: Spell[];
+  duration: number;
+  isRefresh: boolean;
+  timestampEnd?: number;
+  RTBIsDelayed?: boolean;
+}
+
+const BROADSIDE_VALUE: CastValue = { sleight_of_hand: 2, base: 3 };
+const TRUE_BEARING_VALUE: CastValue = { sleight_of_hand: 2, base: 3 };
+const RUTHLESS_PRECISION_VALUE: CastValue = { sleight_of_hand: 2, base: 2 };
+const SKULL_AND_CROSSBONES_VALUE: CastValue = { sleight_of_hand: 2, base: 2 };
+const BURIED_TREASURE_VALUE: CastValue = { sleight_of_hand: 1, base: 1 };
+const GRAND_MELEE_VALUE: CastValue = { sleight_of_hand: 1, base: 1 };
+
+const BUFF_VALUE_BY_ID: BuffValueMap = [];
 BUFF_VALUE_BY_ID[SPELLS.BROADSIDE.id] = BROADSIDE_VALUE;
 BUFF_VALUE_BY_ID[SPELLS.TRUE_BEARING.id] = TRUE_BEARING_VALUE;
 BUFF_VALUE_BY_ID[SPELLS.RUTHLESS_PRECISION.id] = RUTHLESS_PRECISION_VALUE;
@@ -45,28 +63,33 @@ const PANDEMIC_WINDOW = 0.3;
  * CAST_SUCCESS for Roll the Bones
  */
 class RollTheBonesCastTracker extends Analyzer {
-  get lastCast() {
+  get lastCast(): RTBCast {
     return this.rolltheBonesCastEvents[this.rolltheBonesCastEvents.length - 1];
   }
 
   static dependencies = {
     energyCapTracker: EnergyCapTracker,
   };
-  rolltheBonesCastEvents = [];
-  rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce((map, label) => {
-    map[label] = [];
-    return map;
-  }, {});
+  protected energyCapTracker!: EnergyCapTracker;
 
-  constructor(...args) {
-    super(...args);
+  rolltheBonesCastEvents: RTBCast[] = [];
+  rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce(
+    (map: any, label: string) => {
+      map[label] = [];
+      return map;
+    },
+    {},
+  );
+
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES),
       this.processCast,
     );
   }
 
-  categorizeCast(cast) {
+  categorizeCast(cast: RTBCast) {
     let combat_buffs_value = 0;
     if (this.selectedCombatant.hasConduitBySpellID(SPELLS.SLEIGHT_OF_HAND)) {
       // Players should aim to roll for at least 2 buffs if they're using the Sleight of Hand conduit,
@@ -84,7 +107,7 @@ class RollTheBonesCastTracker extends Analyzer {
     return ROLL_THE_BONES_CATEGORIES.LOW_VALUE;
   }
 
-  castRemainingDuration(cast) {
+  castRemainingDuration(cast: RTBCast) {
     if (!cast.timestampEnd) {
       return 0;
     }
@@ -92,7 +115,7 @@ class RollTheBonesCastTracker extends Analyzer {
     return cast.duration - (cast.timestampEnd - cast.timestamp);
   }
 
-  processCast(event) {
+  processCast(event: CastEvent) {
     if (!event || !event.classResources) {
       return;
     }
@@ -117,7 +140,7 @@ class RollTheBonesCastTracker extends Analyzer {
       duration += Math.min(this.castRemainingDuration(this.lastCast), duration * PANDEMIC_WINDOW);
     }
 
-    const newCast = {
+    const newCast: RTBCast = {
       ...event,
       appliedBuffs: appliedBuffs,
       duration: duration,

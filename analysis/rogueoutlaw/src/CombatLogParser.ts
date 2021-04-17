@@ -9,7 +9,6 @@ import {
   EssenceOfBloodfang,
   Flagellation,
   InvigoratingShadowdust,
-  Sepsis,
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
@@ -89,7 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
     serratedBoneSpike: SerratedBoneSpike,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
-    sepsis: Sepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [

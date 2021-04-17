@@ -12,7 +12,7 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
   static buffsChangeMax = [SPELLS.ADRENALINE_RUSH.id];
   static buffsChangeRegen = [SPELLS.ADRENALINE_RUSH.id, SPELLS.BURIED_TREASURE.id];
 
-  getBaseRegenRate() {
+  getBaseRegenRate(): number {
     let regenRate = BASE_ENERGY_REGEN;
     if (this.combatantHasBuffActive(SPELLS.BURIED_TREASURE.id)) {
       // Buried Treasure buff adds 4 energy per second, before any multipliers
@@ -22,7 +22,7 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
     return regenRate;
   }
 
-  naturalRegenRate() {
+  naturalRegenRate(): number {
     let regen = super.naturalRegenRate();
 
     if (this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)) {
@@ -32,7 +32,7 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
     return regen;
   }
 
-  currentMaxResource() {
+  currentMaxResource(): number {
     let max = super.currentMaxResource();
     if (this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)) {
       max += ADRENALINE_RUSH_MAX_ADDITION;

@@ -7,7 +7,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 class SliceAndDiceUptime extends Analyzer {
-  get percentUptime() {
+  get percentUptime(): number {
     return (
       this.selectedCombatant.getBuffUptime(SPELLS.SLICE_AND_DICE.id) / this.owner.fightDuration
     );

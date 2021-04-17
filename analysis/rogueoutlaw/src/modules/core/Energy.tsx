@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
 import React from 'react';
 
@@ -10,8 +11,9 @@ class Energy extends Analyzer {
   static dependencies = {
     energyTracker: EnergyTracker,
   };
+  protected energyTracker!: EnergyTracker;
 
-  suggestions(when) {
+  suggestions(when: When) {
     resourceSuggest(when, this.energyTracker, {
       spell: SPELLS.COMBAT_POTENCY,
       minor: 0.05,

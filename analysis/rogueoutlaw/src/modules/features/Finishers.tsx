@@ -5,7 +5,7 @@ import React from 'react';
 import { FinisherTracker } from '@wowanalyzer/rogue';
 
 class Finishers extends FinisherTracker {
-  get quickDrawSuggestionText() {
+  get quickDrawSuggestionText(): React.ReactElement | string {
     if (this.selectedCombatant.hasTalent(SPELLS.QUICK_DRAW_TALENT.id)) {
       return (
         <>
@@ -16,7 +16,7 @@ class Finishers extends FinisherTracker {
     return '';
   }
 
-  recommendedFinisherPoints() {
+  recommendedFinisherPoints(): number {
     let points = super.recommendedFinisherPoints();
 
     if (this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id)) {
@@ -31,7 +31,7 @@ class Finishers extends FinisherTracker {
     return points;
   }
 
-  extraSuggestion() {
+  extraSuggestion(): React.ReactElement | any {
     return (
       <>
         If you have <SpellLink id={SPELLS.BROADSIDE.id} /> active{this.quickDrawSuggestionText} use

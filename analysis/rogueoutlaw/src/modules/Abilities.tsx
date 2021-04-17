@@ -1,15 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
+import Combatant from 'parser/core/Combatant';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import React from 'react';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
 
-    const standardGcd = (combatant) =>
+    const standardGcd = (combatant: Combatant) =>
       1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
 
     return [

@@ -12,11 +12,12 @@ class RollTheBonesCounter extends Analyzer {
   static dependencies = {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
+  protected rollTheBonesCastTracker!: RollTheBonesCastTracker;
 
   rolltheBonesBuffDistributionChart() {
     const castTracker = this.rollTheBonesCastTracker;
 
-    const distributionObj = castTracker.rolltheBonesCastEvents.reduce((buffCount, cast) => {
+    const distributionObj = castTracker.rolltheBonesCastEvents.reduce((buffCount: any, cast) => {
       buffCount[cast.appliedBuffs.length] = (buffCount[cast.appliedBuffs.length] || 0) + 1;
       return buffCount;
     }, {});
