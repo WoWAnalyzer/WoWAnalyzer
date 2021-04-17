@@ -21,5 +21,10 @@ const items: ItemList = {
     name: 'Spectral Flask of Stamina',
     icon: 'inv_alchemy_90_flask_red',
   },
+  INSTRUCTORS_DIVINE_BELL: {
+    id: 184842,
+    name: "Instructor's Divine Bell",
+    icon: 'inv_misc_bell_01',
+  },
 };
 export default items;
