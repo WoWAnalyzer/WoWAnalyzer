@@ -6,7 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import RollTheBonesCastTracker from '../features/RollTheBonesCastTracker';
+import RollTheBonesCastTracker, { RTBCast } from '../features/RollTheBonesCastTracker';
 
 class RollTheBonesCounter extends Analyzer {
   static dependencies = {
@@ -17,10 +17,13 @@ class RollTheBonesCounter extends Analyzer {
   rolltheBonesBuffDistributionChart() {
     const castTracker = this.rollTheBonesCastTracker;
 
-    const distributionObj = castTracker.rolltheBonesCastEvents.reduce((buffCount: any, cast) => {
-      buffCount[cast.appliedBuffs.length] = (buffCount[cast.appliedBuffs.length] || 0) + 1;
-      return buffCount;
-    }, {});
+    const distributionObj = castTracker.rolltheBonesCastEvents.reduce(
+      (buffLevel: { [index: number]: number }, cast: RTBCast) => {
+        buffLevel[cast.appliedBuffs.length] = (buffLevel[cast.appliedBuffs.length] || 0) + 1;
+        return buffLevel;
+      },
+      {},
+    );
 
     const items = [
       {

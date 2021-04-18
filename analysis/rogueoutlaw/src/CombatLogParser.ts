@@ -13,6 +13,7 @@ import {
   SpellEnergyCost,
   SpellUsable,
   InstantPoison,
+  Sepsis,
 } from '@wowanalyzer/rogue';
 
 import Abilities from './modules/Abilities';
@@ -88,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     serratedBoneSpike: SerratedBoneSpike,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
+    sepsis: Sepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [

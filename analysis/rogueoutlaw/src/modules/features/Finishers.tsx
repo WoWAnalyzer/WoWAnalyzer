@@ -31,7 +31,7 @@ class Finishers extends FinisherTracker {
     return points;
   }
 
-  extraSuggestion(): React.ReactElement | any {
+  extraSuggestion(): React.ReactElement | string {
     return (
       <>
         If you have <SpellLink id={SPELLS.BROADSIDE.id} /> active{this.quickDrawSuggestionText} use
