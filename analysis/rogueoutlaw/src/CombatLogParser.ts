@@ -9,11 +9,11 @@ import {
   EssenceOfBloodfang,
   Flagellation,
   InvigoratingShadowdust,
-  Sepsis,
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
   InstantPoison,
+  Sepsis,
 } from '@wowanalyzer/rogue';
 
 import Abilities from './modules/Abilities';

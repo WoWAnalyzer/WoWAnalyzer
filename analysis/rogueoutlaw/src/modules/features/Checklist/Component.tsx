@@ -1,6 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -8,8 +12,19 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = (props) => (
+import { RTBSuggestion } from '../../spells/RollTheBonesEfficiency';
+
+interface OutlawChecklistInputs extends ChecklistProps {
+  rtbEfficiencies: RTBSuggestion[];
+}
+
+const OutlawRogueChecklist = ({
+  combatant,
+  castEfficiency,
+  thresholds,
+  rtbEfficiencies,
+}: OutlawChecklistInputs) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -43,7 +58,7 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
           }
           thresholds={thresholds.rollTheBonesBuffs}
         />
-        {thresholds.rollTheBonesEfficiency.map((suggestion) => (
+        {rtbEfficiencies.map((suggestion: RTBSuggestion) => (
           <Requirement
             key={suggestion.label}
             name={`Reroll ${suggestion.label} efficiency`}
@@ -135,6 +150,7 @@ OutlawRogueChecklist.propTypes = {
     hasTalent: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
+  rtbEfficiencies: PropTypes.object.isRequired,
 };
 
 export default OutlawRogueChecklist;

@@ -1,10 +1,10 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
@@ -16,11 +16,11 @@ class RollTheBonesBuffs extends Analyzer {
    * Percentage of the fight that Roll the Bones was active
    * In other words, at least one of the buffs was active
    */
-  get totalPercentUptime() {
+  get totalPercentUptime(): number {
     return this.percentUptime(SPELLS.ROLL_THE_BONES.id);
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.totalPercentUptime,
       isLessThan: {
@@ -28,15 +28,15 @@ class RollTheBonesBuffs extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  percentUptime(spellid) {
+  percentUptime(spellid: number) {
     return this.selectedCombatant.getBuffUptime(spellid) / this.owner.fightDuration;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

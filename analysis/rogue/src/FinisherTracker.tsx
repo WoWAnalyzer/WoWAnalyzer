@@ -2,8 +2,9 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { SpendResourceEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
 import ComboPointTracker from './ComboPointTracker';
@@ -13,19 +14,19 @@ const AVERAGE_THRESHOLD = 0.1;
 const MAJOR_THRESHOLD = 0.2;
 
 class FinisherTracker extends Analyzer {
-  get maximumComboPoints() {
+  get maximumComboPoints(): number {
     return this.comboPointTracker.maxResource;
   }
 
-  get totalFinisherCount() {
+  get totalFinisherCount(): number {
     return this.comboPointTracker.spendersCasts;
   }
 
-  get finisherInefficiency() {
+  get finisherInefficiency(): number {
     return this.inefficientFinisherCount / this.totalFinisherCount;
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.finisherInefficiency,
       isGreaterThan: {
@@ -33,16 +34,17 @@ class FinisherTracker extends Analyzer {
         average: AVERAGE_THRESHOLD,
         major: MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
+  protected comboPointTracker!: ComboPointTracker;
   inefficientFinisherCount = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
@@ -52,7 +54,7 @@ class FinisherTracker extends Analyzer {
    * This is where logic is implemented for deciding how many combo points should be used for finishers.
    * @returns {number}  The minimum number of combo points for finishers; CP spends less than this number are considered inefficient.
    */
-  recommendedFinisherPoints() {
+  recommendedFinisherPoints(): number {
     const points = this.maximumComboPoints;
     return points;
   }
@@ -61,7 +63,7 @@ class FinisherTracker extends Analyzer {
    * IMPLEMENTME
    * Return spec specific suggestion text or JSX node here.
    */
-  extraSuggestion() {
+  extraSuggestion(): React.ReactElement | string {
     return '';
   }
 
@@ -69,11 +71,11 @@ class FinisherTracker extends Analyzer {
    * IMPLEMENTME
    * This can be overridden to change the suggestion icon to be something relevant to the spec.
    */
-  suggestionIcon() {
+  suggestionIcon(): string {
     return SPELLS.EVISCERATE.icon;
   }
 
-  onSpendResource(event) {
+  onSpendResource(event: SpendResourceEvent) {
     const spent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;
@@ -84,7 +86,7 @@ class FinisherTracker extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <React.Fragment>

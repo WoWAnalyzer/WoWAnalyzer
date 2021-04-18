@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
 import React from 'react';
 
@@ -10,8 +12,9 @@ class ComboPoints extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
+  protected comboPointTracker!: ComboPointTracker;
 
-  makeExtraSuggestion(spell) {
+  makeExtraSuggestion(spell: Spell) {
     return (
       <>
         Avoid wasting combo points when casting <SpellLink id={spell.id} />.
@@ -19,7 +22,7 @@ class ComboPoints extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
       minor: 0.2, // MFD is typically guaranteed to waste 1 CP (20%) because of the Ruthlessness passive refunding CP from the previous finisher.

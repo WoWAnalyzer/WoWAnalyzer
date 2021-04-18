@@ -2,15 +2,25 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
 import RollTheBonesCastTracker, {
   ROLL_THE_BONES_CATEGORIES,
+  RTBCast,
 } from '../features/RollTheBonesCastTracker';
 
 const HIGH_TIER_REFRESH_TIME = 3000;
+
+export interface RTBSuggestion {
+  label: string;
+  pass: number;
+  total: number;
+  extraSuggestion: React.ReactElement;
+  suggestionThresholds: NumberThreshold;
+}
 
 /**
  * Roll the Bones is pretty complex with a number of rules around when to use it. I've done my best to break this down into four main suggestions
@@ -22,10 +32,10 @@ const HIGH_TIER_REFRESH_TIME = 3000;
  * 4 - High value rolls (1 'good' buff, 2 buffs where at least one is a 'good' buff, or 5 buffs, keep as long as you can, rerolling under 3 seconds is considered fine)
  */
 class RollTheBonesEfficiency extends Analyzer {
-  get goodLowValueRolls() {
+  get goodLowValueRolls(): number {
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[
       ROLL_THE_BONES_CATEGORIES.LOW_VALUE
-    ].filter((cast) => cast.RTBIsDelayed).length;
+    ].filter((cast: RTBCast) => cast.RTBIsDelayed).length;
     const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[
       ROLL_THE_BONES_CATEGORIES.LOW_VALUE
     ].length;
@@ -33,15 +43,16 @@ class RollTheBonesEfficiency extends Analyzer {
     return totalRolls - delayedRolls;
   }
 
-  get goodHighValueRolls() {
+  get goodHighValueRolls(): number {
     return this.rollTheBonesCastTracker.rolltheBonesCastValues[
       ROLL_THE_BONES_CATEGORIES.HIGH_VALUE
     ].filter(
-      (cast) => this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME,
+      (cast: RTBCast) =>
+        this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME,
     ).length;
   }
 
-  get rollSuggestions() {
+  get rollSuggestions(): RTBSuggestion[] {
     const rtbCastValues = this.rollTheBonesCastTracker.rolltheBonesCastValues;
     return [
       // Percentage of low rolls that weren't rerolled right away, meaning a different finisher was cast first
@@ -86,9 +97,10 @@ class RollTheBonesEfficiency extends Analyzer {
   static dependencies = {
     rollTheBonesCastTracker: RollTheBonesCastTracker,
   };
+  protected rollTheBonesCastTracker!: RollTheBonesCastTracker;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]),
@@ -96,7 +108,7 @@ class RollTheBonesEfficiency extends Analyzer {
     );
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (
       event.ability.guid !== SPELLS.DISPATCH.id &&
       event.ability.guid !== SPELLS.BETWEEN_THE_EYES.id
@@ -114,7 +126,7 @@ class RollTheBonesEfficiency extends Analyzer {
     }
   }
 
-  rollSuggestionThreshold(pass, total) {
+  rollSuggestionThreshold(pass: number, total: number): NumberThreshold {
     return {
       actual: total === 0 ? 1 : pass / total,
       isLessThan: {
@@ -122,11 +134,11 @@ class RollTheBonesEfficiency extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     this.rollSuggestions.forEach((suggestion) => {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
