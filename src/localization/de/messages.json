@@ -325,7 +325,7 @@
   "interface.premiumPage.howToUnlock": "Wie man WowAnalyzer Premium bekommt",
   "interface.premiumPage.loginInstructions": "Nachdem du Premium bekommen hast, logge dich mit den Knöpfen nach links ein.",
   "interface.premiumPage.premium": "WoWAnalyzer Premium",
-  "interface.premiumPage.premium.helpout": "Hilfe mit Entwicklung und bekomme <0>WoWAnalyzer Premium</0>!",
+  "interface.premiumPage.premium.helpout": "Hilfe bei der Entwicklung und bekomme <0>WoWAnalyzer Premium</0>!",
   "interface.premiumPage.status": "Hallo {0}. Dein Premium ist aktuell {1} {2} {3}. {4}",
   "interface.premiumPage.status.active": "Aktiv",
   "interface.premiumPage.status.getPremium": "Du kannst dir Premium holen, indem du ein Patron auf Patreon wirst oder einen Eintrag zur Anwendung auf GitHub machst. Logge dich erneut ein, wenn du deinen Status auffrischen möchtest.",
