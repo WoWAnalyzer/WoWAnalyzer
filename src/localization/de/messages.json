@@ -290,7 +290,7 @@
   "interface.home.reportSelectionHeader.onlyRankedWCLogs": "Die Charakterseite wird nur von Warcraft Logs eingestufte Kämpfe anzeigen. Wipes werden nicht eingeschlossen und während beschäftigter Zeiträume kann es eine Verspätung geben, bevor neue Reporte auftauchen. Du kannst immerhin die Kämpfe analysieren, indem du den Report manuell auf Warcraft Logs findest und den Report-Link verwendest.",
   "interface.home.reportSelectionHeader.recentlyViewed": "Zuletzt angesehen",
   "interface.home.reportSelectionHeader.report": "Report",
-  "interface.languageSwitcher.clickToSwitch": "Klicke um die Sprache zu wechseln. Wir haben nur letztens mit der Lokalisierung der Anwendung angefangen, es wird etwas Zeit dauern, bis alles lokalisiert wird.",
+  "interface.languageSwitcher.clickToSwitch": "Klicke um die Sprache zu wechseln. Wir haben erst letztens mit der Lokalisierung der Anwendung angefangen, es wird etwas Zeit dauern, bis alles lokalisiert wird.",
   "interface.layout.navigationBar.fightSelection": "Kampfauswahl",
   "interface.layout.navigationBar.playerSelection": "Spielerauswahl",
   "interface.layout.navigationBar.premium": "Premium",
