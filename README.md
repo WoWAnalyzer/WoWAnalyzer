@@ -25,7 +25,7 @@ First make sure you have the following:
 
 Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your _Clone with HTTPS_ URL, and then run the command `git clone <paste link>`. This will take a minute.
 
-When cloning finishes, open a command window to the source and run the command `yarn`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key, login to Warcraft Logs and go to [your profile](https://www.warcraftlogs.com/profile). Scroll to the bottom, enter an **Application Name** (this is required) and copy the **public key**, then replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key.
+When cloning finishes, open a command window to the source and run the command `yarn`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key, login to Warcraft Logs and go to [your profile](https://www.warcraftlogs.com/profile). Scroll to the bottom, enter the **V1 Client Name** "WoWAnalyzer (development)" (this is required) and copy the **V1 Client Key**, then replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key.
 
 Optionally if you're on a bash compatible machine, you can run `scripts/setup` for an interactive setup of this application.
 
