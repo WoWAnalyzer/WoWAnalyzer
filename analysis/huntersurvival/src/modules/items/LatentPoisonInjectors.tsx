@@ -15,7 +15,7 @@ import {
 
 /**
  * Serpent Sting's damage applies Latent Poison to the target, stacking up to 10 times.
- * Mongoose Bite and Raptor Strike consumes all stacks of Latent Poison, dealing (18% of Attack power) Nature damage to the target per stack consumed.
+ * Raptor Strike consumes all stacks of Latent Poison, dealing (20.7% of Attack power) Nature damage to the target per stack consumed.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/WM6dXqCmj7aHPK3f#fight=3&type=auras&translate=true&hostility=1&spells=debuffs&target=23

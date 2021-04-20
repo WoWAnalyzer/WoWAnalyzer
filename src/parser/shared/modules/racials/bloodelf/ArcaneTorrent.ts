@@ -14,13 +14,16 @@ class ArcaneTorrent extends Analyzer {
 
   constructor(
     options: Options & {
+      active?: boolean;
       gcd?: number;
       castEfficiency?: number;
       abilities: Abilities;
     },
   ) {
     super(options);
-    this.active = this.selectedCombatant.race === RACES.BloodElf;
+    this.active =
+      this.selectedCombatant.race === RACES.BloodElf &&
+      (options.active === undefined || options.active === true);
     if (!this.active) {
       return;
     }

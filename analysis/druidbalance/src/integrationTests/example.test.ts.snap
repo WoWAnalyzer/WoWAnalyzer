@@ -195,11 +195,11 @@ Array [
     "details": null,
     "icon": "ability_druid_cresentburn",
     "importance": "major",
-    "issue": "You overcapped 176 Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.",
+    "issue": "You overcapped 176 Astral Power. Try to maximize your Astral Power usage while still ensuring you have atleast 90 Astral Power when entering an eclipse.",
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.astralPower.overcapped","message":"{0}% overcapped Astral Power","values":{"0":"15.08"}}
        (
-      0.00% is recommended
+      5.00% is recommended
       )
     </React.Fragment>,
   },

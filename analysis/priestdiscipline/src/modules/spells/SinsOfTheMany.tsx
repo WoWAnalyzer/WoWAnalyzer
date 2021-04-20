@@ -1,17 +1,19 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
-import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
+import DualStatisticBox from 'parser/ui/DualStatisticBox';
 import React from 'react';
 
-import isAtonement from '../core/isAtonement';
+import AtonementAnalyzer, {
+  AtonementAnalyzerEvent,
+} from '@wowanalyzer/priest-discipline/src/modules/core/AtonementAnalyzer';
+
 import Atonement from './Atonement';
 
 const SINS_OF_THE_MANY_FLOOR_BONUS = 0.03;
@@ -31,7 +33,6 @@ class SinsOfTheMany extends Analyzer {
   };
   bonusDamage = 0;
   bonusHealing = 0;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
   protected atonement!: Atonement;
   protected combatants!: Combatants;
 
@@ -40,7 +41,8 @@ class SinsOfTheMany extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SINS_OF_THE_MANY_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+
+    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onHeal);
   }
 
   get currentBonus() {
@@ -66,12 +68,9 @@ class SinsOfTheMany extends Analyzer {
    * This is whitelisted by virtue of Atonement naturally not occuring
    * from abilities not in the whitelist.
    */
-  onHeal(event: HealEvent) {
-    if (!isAtonement(event)) {
-      return;
-    }
-
-    this.bonusHealing += calculateEffectiveHealing(event, this.currentBonus);
+  onHeal(event: AtonementAnalyzerEvent) {
+    const { healEvent } = event;
+    this.bonusHealing += calculateEffectiveHealing(healEvent, this.currentBonus);
   }
 
   statistic() {

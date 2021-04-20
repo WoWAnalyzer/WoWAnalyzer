@@ -40,8 +40,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <React.Fragment>
             When not in <SpellLink id={SPELLS.VOIDFORM.id} />, it's important to keep your DoTs up
             on the boss. While in <SpellLink id={SPELLS.VOIDFORM.id} />, your{' '}
-            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />,{' '}
-            <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />, and{' '}
+            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> and{' '}
             <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> durations are extended when the target or
             a nearby target gets hit by <SpellLink id={SPELLS.VOID_BOLT.id} />.
           </React.Fragment>

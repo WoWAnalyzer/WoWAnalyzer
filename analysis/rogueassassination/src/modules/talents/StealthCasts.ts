@@ -33,7 +33,7 @@ class StealthCasts extends Analyzer {
       }
       return;
     }
-    if (!this.latestStealth) {
+    if (this.latestStealth.length === 0) {
       this.latestStealth = [];
       this.stealthSequences.push(this.latestStealth);
     }

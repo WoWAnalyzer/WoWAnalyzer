@@ -92,7 +92,7 @@ class Checklist extends BaseChecklist {
           //endregion
 
           //region Legendaries
-          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.cdrEfficiencyKillCommandThreshold,
+          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.killCommandResetsThreshold,
           //endregion
 
           //region Resources

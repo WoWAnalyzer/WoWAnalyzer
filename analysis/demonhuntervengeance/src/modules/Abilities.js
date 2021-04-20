@@ -4,6 +4,8 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import React from 'react';
 
+import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
@@ -137,7 +139,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_DEVASTATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: 60,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id)
+          ? 60 -
+            FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]
+          : 60,
         gcd: {
           base: 1500,
         },

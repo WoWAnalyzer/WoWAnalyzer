@@ -148,7 +148,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              Times <SpellLink id={SPELLS.COMBO_STRIKES.id} /> was broken
+              <SpellLink id={SPELLS.COMBO_STRIKES.id} /> breaks per minute
             </>
           }
           thresholds={thresholds.comboStrikes}

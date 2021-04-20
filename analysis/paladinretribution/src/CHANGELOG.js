@@ -1,11 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
+import { Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
-
 export default [
+  change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2020, 12, 1), <>Added <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION.id} icon /> module and minor housekeeping.</>, Skeletor),
   change(date(2020, 11, 8), <>Added <SpellLink id={SPELLS.EMPYREAN_POWER_TALENT.id} icon /> module.</>, Skeletor),
   change(date(2020, 11, 7), <>Added <SpellLink id={SPELLS.HOLY_AVENGER_TALENT.id} icon /> module from new Shared module.</>, Skeletor),

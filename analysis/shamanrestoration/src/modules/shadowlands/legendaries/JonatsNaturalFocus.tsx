@@ -8,10 +8,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
-const HEAL_INCREASE_PER_STACK = 0.1;
+const HEAL_INCREASE_PER_STACK = 0.2;
 
 /**
- * Healing Wave and Healing Surge increase the healing done by your next Chain Heal by 10%, stacking up to 5 times.
+ * Healing Wave and Healing Surge increase the healing done by your next Chain Heal by 20%, stacking up to 5 times.
  * https://www.warcraftlogs.com/reports/CHaBLQd6FPZ9xGX1#fight=24&type=auras&source=7
  */
 class JonatsNaturalFocus extends Analyzer {

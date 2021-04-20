@@ -1,9 +1,9 @@
 import { change, date } from 'common/changelog';
-import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
+import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import React from 'react';
 
-
 export default [
+  change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),
   change(date(2021, 1, 10), 'Updated to 9.0.2.', Abelito75),
   change(date(2021, 1, 10), 'Added Thunderlord statistic.', Abelito75),

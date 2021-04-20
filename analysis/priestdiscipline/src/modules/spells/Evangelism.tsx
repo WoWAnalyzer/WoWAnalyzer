@@ -5,7 +5,7 @@ import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import isAtonement from '../core/isAtonement';
@@ -18,7 +18,6 @@ class Evangelism extends Analyzer {
     atonementModule: Atonement,
   };
   _previousEvangelismCast: CastEvent | null = null;
-  statisticOrder = STATISTIC_ORDER.CORE(2);
   protected atonementModule!: Atonement;
 
   constructor(options: Options) {

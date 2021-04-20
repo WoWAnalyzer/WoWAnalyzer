@@ -90,7 +90,7 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
             throughout the fight. When used early and often they can contribute a lot of healing for
             very little mana. Try to plan your major cooldowns like (
             <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> around big damage boss abilities, like the
-            Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages
+            pillar charge on Sludgefist or Blood Price on Sire Denathrius. The below percentages
             represent the percentage of time you kept each spell on cooldown.
           </>
         }

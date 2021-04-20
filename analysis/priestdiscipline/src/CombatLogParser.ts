@@ -7,7 +7,6 @@ import {
   BoonOfTheAscended,
   DesperatePrayer,
   FaeGuardians,
-  Mindgames,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
@@ -21,6 +20,7 @@ import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellManaCost from './modules/core/SpellManaCost';
 import SpellUsable from './modules/core/SpellUsable';
+import SpiritShell from './modules/core/SpiritShell';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AtonementApplicationSource from './modules/features/AtonementApplicationSource';
 import AtonementApplicatorBreakdown from './modules/features/AtonementApplicatorBreakdown';
@@ -31,7 +31,12 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import Exaltation from './modules/shadowlands/conduits/Exaltation';
+import ShatteredPerceptions from './modules/shadowlands/conduits/ShatteredPerceptions';
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
+import Mindgames from './modules/shadowlands/covenant/Mindgames';
+import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
+import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -93,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
+    spiritShell: SpiritShell,
 
     // Covenants
     unholyNova: UnholyNova,
@@ -102,9 +108,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     shiningRadiance: ShiningRadiance,
+    exaltation: Exaltation,
+    shatteredPerceptions: ShatteredPerceptions,
 
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    thePenitentOne: ThePenitentOne,
+    clarityOfMind: ClarityOfMind,
   };
 }
 

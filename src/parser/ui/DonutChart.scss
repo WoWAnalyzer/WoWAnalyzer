@@ -4,7 +4,12 @@
   > .legend {
     font-size: 85%;
     flex: 1 1 auto;
+    flex-wrap: wrap;
     margin-top: 3px;
+
+    a {
+      white-space: normal;
+    }
 
     > div {
       margin-bottom: 5px;

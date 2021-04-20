@@ -2,7 +2,19 @@ import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
 
 const legendaries: SpellList<LegendarySpell> = {
   //region Discipline
-
+  // https://www.warcraftlogs.com/reports/khGwRjZaqWvYbK3m#fight=33&type=healing&source=137
+  THE_PENITENT_ONE: {
+    id: 336011,
+    name: 'The Penitent One',
+    icon: 'spell_holy_penance',
+    bonusID: 6976,
+  },
+  CLARITY_OF_MIND: {
+    id: 336067,
+    name: 'Clarity of Mind',
+    icon: 'spell_holy_spiritualguidence',
+    bonusID: 6980,
+  },
   //endregion
 
   //region Holy

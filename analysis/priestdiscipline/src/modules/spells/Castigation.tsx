@@ -5,7 +5,7 @@ import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import {
@@ -25,7 +25,6 @@ class Castigation extends Analyzer {
   damage = 0;
 
   _isCastigationBolt = false;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(options: Options) {
     super(options);

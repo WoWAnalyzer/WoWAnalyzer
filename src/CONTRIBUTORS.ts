@@ -38,19 +38,31 @@
 import { Contributor } from 'common/contributor';
 import SPECS from 'game/SPECS';
 
+function avatar(filename: string): string {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const avatar = require(`interface/images/avatars/${filename}`);
+
+  // this branch makes it work both in tests and in the browser
+  if (typeof avatar === 'string') {
+    return avatar;
+  } else {
+    return avatar.default;
+  }
+}
+
 // For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
 export const Dummy: Contributor = {
   nickname: 'Dummy',
   github: 'DummyHub',
   twitter: '@Dummy',
-  avatar: require('./interface/images/avatars/zerotorescue-avatar.jpg'),
+  avatar: avatar('zerotorescue-avatar.jpg'),
 };
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
   twitter: 'Zerotorescue',
   discord: 'Zerotorescue#0724',
-  avatar: require('./interface/images/avatars/zerotorescue-avatar.jpg'),
+  avatar: avatar('zerotorescue-avatar.jpg'),
   about: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
   mains: [
     {
@@ -82,6 +94,10 @@ export const Zerotorescue: Contributor = {
     },
   ],
 };
+export const ab: Contributor = {
+  nickname: 'ab',
+  github: 'alex-bau',
+};
 export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
@@ -94,7 +110,7 @@ export const Stui: Contributor = {
   nickname: 'Stui',
   github: 'vpicone',
   twitter: '@vppicone',
-  avatar: require('./interface/images/avatars/stui-avatar.jpg'),
+  avatar: avatar('stui-avatar.jpg'),
   mains: [
     {
       name: 'Stui',
@@ -106,12 +122,12 @@ export const Stui: Contributor = {
 export const sref: Contributor = {
   nickname: 'sref',
   github: 'kfinch',
-  avatar: require('./interface/images/avatars/sref-avatar.jpg'),
+  avatar: avatar('sref-avatar.jpg'),
 };
 export const Iskalla: Contributor = {
   nickname: 'Iskalla',
   github: 'Iskalla',
-  avatar: require('./interface/images/avatars/iskalla-avatar.jpg'),
+  avatar: avatar('iskalla-avatar.jpg'),
 };
 export const enragednuke: Contributor = {
   nickname: 'enragednuke',
@@ -140,7 +156,7 @@ export const Bonebasher: Contributor = {
 export const Sharrq: Contributor = {
   nickname: 'Sharrq',
   github: 'Sharrq',
-  avatar: require('./interface/images/avatars/Sharrq_avatar.jpg'),
+  avatar: avatar('Sharrq_avatar.jpg'),
   mains: [
     {
       name: 'Sharrq',
@@ -164,7 +180,7 @@ export const Sharrq: Contributor = {
 export const Khazak: Contributor = {
   nickname: 'Khazak',
   github: 'jjs451',
-  avatar: require('./interface/images/avatars/khazak-avatar.jpg'),
+  avatar: avatar('khazak-avatar.jpg'),
   discord: 'Khazak#3360',
   mains: [
     {
@@ -181,7 +197,7 @@ export const Bicepspump: Contributor = {
 export const Mamtooth: Contributor = {
   nickname: 'Mamtooth',
   github: 'ronaldpereira',
-  avatar: require('./interface/images/avatars/mamtooth-avatar.png'),
+  avatar: avatar('mamtooth-avatar.png'),
 };
 export const Thieseract: Contributor = {
   nickname: 'Thieseract',
@@ -191,7 +207,7 @@ export const Putro: Contributor = {
   nickname: 'Putro',
   github: 'Pewtro',
   discord: 'Putro#6093',
-  avatar: require('./interface/images/avatars/putro-avatar.png'),
+  avatar: avatar('putro-avatar.png'),
   mains: [
     {
       name: 'Putro',
@@ -207,12 +223,12 @@ export const Blazballs: Contributor = {
 export const faide: Contributor = {
   nickname: 'faide',
   github: 'FaideWW',
-  avatar: require('./interface/images/avatars/faide-avatar.png'),
+  avatar: avatar('faide-avatar.png'),
 };
 export const Fyruna: Contributor = {
   nickname: 'Fyruna',
   github: 'Fyruna',
-  avatar: require('./interface/images/avatars/Fyruna_avatar.jpg'),
+  avatar: avatar('Fyruna_avatar.jpg'),
   mains: [
     {
       name: 'Aevaa',
@@ -243,7 +259,7 @@ export const Anomoly: Contributor = {
   github: 'anom0ly',
   twitter: 'Anom_MW',
   discord: 'Anomoly#0110',
-  avatar: require('./interface/images/avatars/anomoly-avatar.jpg'),
+  avatar: avatar('anomoly-avatar.jpg'),
   mains: [
     {
       name: 'Anom',
@@ -255,7 +271,7 @@ export const Anomoly: Contributor = {
 export const Juko8: Contributor = {
   nickname: 'Juko8',
   github: 'Juko8',
-  avatar: require('./interface/images/avatars/juko8-avatar.jpg'),
+  avatar: avatar('juko8-avatar.jpg'),
 };
 export const Noichxd: Contributor = {
   nickname: 'Noichxd',
@@ -264,7 +280,7 @@ export const Noichxd: Contributor = {
 export const Hewhosmites: Contributor = {
   nickname: 'Hewhosmites',
   github: 'CollCrom',
-  avatar: require('./interface/images/avatars/hewhosmites-avatar.png'),
+  avatar: avatar('hewhosmites-avatar.png'),
 };
 export const Reglitch: Contributor = {
   nickname: 'Reglitch',
@@ -313,7 +329,7 @@ export const Versaya: Contributor = {
 export const Chizu: Contributor = {
   nickname: 'Chizu',
   github: 'sMteX',
-  avatar: require('./interface/images/avatars/Chizu_avatar.jpg'),
+  avatar: avatar('Chizu_avatar.jpg'),
 };
 export const Gwelican: Contributor = {
   nickname: 'Gwelican',
@@ -326,7 +342,7 @@ export const Hordehobbs: Contributor = {
 export const TheBadBossy: Contributor = {
   nickname: 'TheBadBossy',
   github: 'BadBossy',
-  avatar: require('./interface/images/avatars/thebadbossy_avatar.jpg'),
+  avatar: avatar('thebadbossy_avatar.jpg'),
 };
 export const JLassie82: Contributor = {
   nickname: 'JLassie82',
@@ -371,13 +387,13 @@ export const hatra344: Contributor = {
 export const emallson: Contributor = {
   nickname: 'emallson',
   github: 'emallson',
-  avatar: require('./interface/images/avatars/emallson-avatar.jpg'),
+  avatar: avatar('emallson-avatar.jpg'),
 };
 export const Gebuz: Contributor = {
   nickname: 'Gebuz',
   github: 'Gebuz',
   discord: 'Gebuz#5801',
-  avatar: require('./interface/images/avatars/gebuz-avatar.jpg'),
+  avatar: avatar('gebuz-avatar.jpg'),
   about: 'Balance Druid theorycrafter and top end mythic raider.',
   mains: [
     {
@@ -465,7 +481,7 @@ export const Zeboot: Contributor = {
   nickname: 'Zeboot',
   github: 'Zeboot',
   discord: 'Zeboot#0001',
-  avatar: require('./interface/images/avatars/Zeboot-avatar.jpg'),
+  avatar: avatar('Zeboot-avatar.jpg'),
   mains: [
     {
       name: 'Zebeer',
@@ -499,7 +515,7 @@ export const Vetyst: Contributor = {
   nickname: 'Vetyst',
   github: 'djanse',
   discord: 'vetyst#0001',
-  avatar: require('./interface/images/avatars/vetyst-avatar.png'),
+  avatar: avatar('vetyst-avatar.png'),
   mains: [
     {
       name: 'Vetyst',
@@ -516,7 +532,7 @@ export const Anatta336: Contributor = {
 export const Scaleable: Contributor = {
   nickname: 'Scaleable',
   github: 'wkrueger',
-  avatar: require('./interface/images/avatars/scaleable-avatar.jpg'),
+  avatar: avatar('scaleable-avatar.jpg'),
 };
 export const Cloake: Contributor = {
   nickname: 'Cloake',
@@ -546,7 +562,7 @@ export const niseko: Contributor = {
   nickname: 'niseko',
   github: 'niseko',
   discord: 'niseko#4130',
-  avatar: require('./interface/images/avatars/niseko-avatar.jpg'),
+  avatar: avatar('niseko-avatar.jpg'),
   mains: [
     {
       name: 'Niseko',
@@ -566,7 +582,7 @@ export const niseko: Contributor = {
 export const Aelexe: Contributor = {
   nickname: 'Aelexe',
   github: 'Aelexe',
-  avatar: require('./interface/images/avatars/Aelexe-avatar.jpg'),
+  avatar: avatar('Aelexe-avatar.jpg'),
   mains: [
     {
       name: 'Aelexe',
@@ -579,7 +595,7 @@ export const CubeLuke: Contributor = {
   nickname: 'CubeLuke',
   github: 'CubeLuke',
   discord: 'CubeLuke#8595',
-  avatar: require('./interface/images/avatars/CubeLuke-avatar.jpg'),
+  avatar: avatar('CubeLuke-avatar.jpg'),
   mains: [
     {
       name: 'Monachi',
@@ -592,7 +608,7 @@ export const ackwell: Contributor = {
   nickname: 'ackwell',
   github: 'ackwell',
   discord: 'ackwell#3835',
-  avatar: require('./interface/images/avatars/ackwell-avatar.jpg'),
+  avatar: avatar('ackwell-avatar.jpg'),
 };
 export const regret: Contributor = {
   nickname: 'regret',
@@ -610,7 +626,7 @@ export const Khadaj: Contributor = {
   nickname: 'Khadaj',
   github: 'tjmoats',
   discord: 'Khadaj#3519',
-  avatar: require('./interface/images/avatars/khadaj-avatar.jpg'),
+  avatar: avatar('khadaj-avatar.jpg'),
   mains: [
     {
       name: 'Khadaj',
@@ -623,7 +639,7 @@ export const fel1ne: Contributor = {
   nickname: 'fel1ne',
   github: 'fel1n3',
   discord: 'Dr. fel1ne#5614',
-  avatar: require('./interface/images/avatars/fel1ne-avatar.png'),
+  avatar: avatar('fel1ne-avatar.png'),
   mains: [
     {
       name: 'Felerai',
@@ -636,7 +652,7 @@ export const Dambroda: Contributor = {
   nickname: 'Dambroda',
   github: 'Dambroda',
   discord: 'Dambroda#1290',
-  avatar: require('./interface/images/avatars/Dambroda-avatar.jpg'),
+  avatar: avatar('Dambroda-avatar.jpg'),
   mains: [
     {
       name: 'Dambroma',
@@ -678,7 +694,7 @@ export const Matardarix: Contributor = {
   nickname: 'Matardarix',
   github: 'matardarix',
   discord: 'Matardarix#9847',
-  avatar: require('./interface/images/avatars/matardarix-avatar.jpg'),
+  avatar: avatar('matardarix-avatar.jpg'),
   mains: [
     {
       name: 'Matärdarix',
@@ -727,7 +743,7 @@ export const _4Ply: Contributor = {
 export const Dorixius: Contributor = {
   nickname: 'Dorixius',
   github: 'florianschut',
-  avatar: require('./interface/images/avatars/dorixius-avatar.jpeg'),
+  avatar: avatar('dorixius-avatar.jpeg'),
   discord: 'Florian#9270',
   mains: [
     {
@@ -741,7 +757,7 @@ export const Skeletor: Contributor = {
   nickname: 'Skeletor',
   github: 'LordSkeletor',
   discord: 'Skeletor#0001',
-  avatar: require('./interface/images/avatars/Skeletor_avatar.png'),
+  avatar: avatar('Skeletor_avatar.png'),
   mains: [
     {
       name: 'Ilivath',
@@ -756,7 +772,7 @@ export const Skeletor: Contributor = {
 export const Abelito75: Contributor = {
   nickname: 'Abelito75',
   github: 'abelito75',
-  avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
+  avatar: avatar('Abelito75-avatar.png'),
   about: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
   mains: [
     {
@@ -776,7 +792,7 @@ export const Abelito75: Contributor = {
 export const HolySchmidt: Contributor = {
   nickname: 'HolySchmidt',
   github: '5chmidt',
-  avatar: require('./interface/images/avatars/holyschmidt-avatar.jpg'),
+  avatar: avatar('holyschmidt-avatar.jpg'),
   about: 'Holy Paladin, Tinkerer',
   mains: [
     {
@@ -802,7 +818,7 @@ export const Scotsoo: Contributor = {
   nickname: 'Scotsoo',
   github: 'Scotsoo',
   discord: 'Scotsoo#5328',
-  avatar: require('./interface/images/avatars/Scotsoo-avatar.jpg'),
+  avatar: avatar('Scotsoo-avatar.jpg'),
   mains: [
     {
       name: 'Scotsoodh',
@@ -815,7 +831,7 @@ export const LeoZhekov: Contributor = {
   nickname: 'LeoZhekov',
   github: 'LeoZhekov',
   discord: 'LeoZhekov#6641',
-  avatar: require('./interface/images/avatars/LeoZhekov-avatar.jpg'),
+  avatar: avatar('LeoZhekov-avatar.jpg'),
   mains: [
     {
       name: 'Lisossa',
@@ -864,8 +880,13 @@ export const Adoraci: Contributor = {
   nickname: 'Adoraci',
   github: 'DylanDirlam',
   discord: 'Adoraci#0001',
-  avatar: require('./interface/images/avatars/Adoraci-avatar.jpg'),
+  avatar: avatar('Adoraci-avatar.jpg'),
   mains: [
+    {
+      name: 'Adoracii',
+      spec: SPECS.FIRE_MAGE,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoracii',
+    },
     {
       name: 'Adoraci',
       spec: SPECS.SHADOW_PRIEST,
@@ -936,7 +957,7 @@ export const JeremyDwayne: Contributor = {
 export const Taleria: Contributor = {
   nickname: 'Taleria',
   github: 'bramdevries',
-  avatar: require('./interface/images/avatars/taleria-avatar.jpg'),
+  avatar: avatar('taleria-avatar.jpg'),
   mains: [
     {
       name: 'Taleria',
@@ -953,7 +974,7 @@ export const soloxcx: Contributor = {
   nickname: 'soloxcx',
   github: 'soloxcx',
   discord: 'Connor#7037',
-  avatar: require('./interface/images/avatars/soloxcx-avatar.jpg'),
+  avatar: avatar('soloxcx-avatar.jpg'),
   mains: [
     {
       name: 'Vaerminà',
@@ -975,7 +996,7 @@ export const FraunchToost: Contributor = {
   nickname: 'FraunchToost',
   github: 'FraunchToost',
   discord: 'FraunchToost#1207',
-  avatar: require('./interface/images/avatars/FraunchToost-avatar.png'),
+  avatar: avatar('FraunchToost-avatar.png'),
   mains: [
     {
       name: 'Azamia',
@@ -988,7 +1009,7 @@ export const Tiphess: Contributor = {
   nickname: 'Tiphess',
   github: 'Tiphess',
   discord: 'Tiphess#0324',
-  avatar: require('./interface/images/avatars/Tiphess-avatar.jpeg'),
+  avatar: avatar('Tiphess-avatar.jpeg'),
   mains: [
     {
       name: 'Tjphess',
@@ -1001,7 +1022,7 @@ export const Tyndi: Contributor = {
   nickname: 'Tyndi',
   github: 'darthelit',
   discord: 'Tyndi#4337',
-  avatar: require('./interface/images/avatars/tyndi-avatar.png'),
+  avatar: avatar('tyndi-avatar.png'),
 };
 export const MusicMeister: Contributor = {
   nickname: 'MusicMeister',
@@ -1059,7 +1080,7 @@ export const Vonn: Contributor = {
   nickname: 'Vonn',
   github: 'kenrms',
   discord: 'vønn#2776',
-  avatar: require('./interface/images/avatars/vonn-avatar.jpg'),
+  avatar: avatar('vonn-avatar.jpg'),
   mains: [
     {
       name: 'Vønn',
@@ -1072,7 +1093,7 @@ export const AdamKelly: Contributor = {
   nickname: 'AdamKelly',
   github: 'Adammkelly',
   discord: 'Overload#0899',
-  avatar: require('./interface/images/avatars/karagus-avatar.jpg'),
+  avatar: avatar('karagus-avatar.jpg'),
   mains: [
     {
       name: 'Karagus',
@@ -1112,7 +1133,7 @@ export const Amani: Contributor = {
   github: 'AmaniZandalari',
   discord: 'Amani#0001',
   about: 'Russian localizator and leader of Russian Shaman Discord community Vodovorot',
-  avatar: require('./interface/images/avatars/amani_avatar.png'),
+  avatar: avatar('amani_avatar.png'),
   mains: [
     {
       name: 'Аманя',
@@ -1138,7 +1159,7 @@ export const Mae: Contributor = {
   nickname: 'Mae',
   github: 'invfo',
   discord: 'Mae#3348',
-  avatar: require('./interface/images/avatars/Mae_avatar.png'),
+  avatar: avatar('Mae_avatar.png'),
   mains: [
     {
       name: 'Maerstrom',
@@ -1187,7 +1208,7 @@ export const Maleficien: Contributor = {
 export const Xcessiv: Contributor = {
   nickname: 'Xcessiv',
   github: 'jwmclark',
-  avatar: require('./interface/images/avatars/xcessiv-avatar.jpg'),
+  avatar: avatar('xcessiv-avatar.jpg'),
   discord: 'Xcessiv#6732',
   mains: [
     {
@@ -1260,7 +1281,7 @@ export const flurreN: Contributor = {
 export const Carrottopp: Contributor = {
   nickname: 'Carrottopp',
   github: 'Chasson1992',
-  avatar: require('./interface/images/avatars/Carrottopp_avatar.png'),
+  avatar: avatar('Carrottopp_avatar.png'),
   discord: 'Carrottopp#2592',
   mains: [
     {
@@ -1324,7 +1345,7 @@ export const Barry: Contributor = {
   nickname: 'Barry',
   github: 'bcrabbe',
   discord: 'Barry#5878',
-  avatar: require('./interface/images/avatars/barry-avatar.jpg'),
+  avatar: avatar('barry-avatar.jpg'),
   mains: [
     {
       name: 'Druulux',
@@ -1425,7 +1446,7 @@ export const jasper: Contributor = {
   nickname: 'jasper',
   github: 'jasper-priest',
   discord: 'jasper#6666',
-  avatar: require('./interface/images/avatars/jasper-avatar.png'),
+  avatar: avatar('jasper-avatar.png'),
   mains: [
     {
       name: 'Jasper',
@@ -1478,7 +1499,7 @@ export const Pendragon: Contributor = {
   nickname: 'Pendragon',
   github: 'Pendragon64',
   discord: 'Pendragon#7845',
-  avatar: require('./interface/images/avatars/pendragon-avatar.jpg'),
+  avatar: avatar('pendragon-avatar.jpg'),
   mains: [
     {
       name: 'Larison',
@@ -1505,4 +1526,21 @@ export const Akai: Contributor = {
   nickname: 'Akai',
   github: 'akaiwow21',
   discord: 'supbro123#2933',
+};
+
+export const maestrohdude: Contributor = {
+  nickname: 'maestrohdude',
+  github: 'maestrohdude',
+  discord: 'maestrohdude#6100',
+};
+
+export const Sref: Contributor = {
+  nickname: 'Sref',
+  github: 'kfinch',
+  discord: 'Sref#1337',
+};
+
+export const Bloodfox: Contributor = {
+  nickname: 'Bloodfox',
+  github: 'sspeaks',
 };

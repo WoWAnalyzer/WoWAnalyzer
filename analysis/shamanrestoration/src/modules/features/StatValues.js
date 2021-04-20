@@ -82,7 +82,7 @@ class StatValues extends BaseHealerStatValues {
 
     const masteryEffectiveness = event.masteryEffectiveness;
     const healIncreaseFromOneMastery =
-      (this.statTracker.statMultiplier.mastery /
+      (this.statTracker.playerMultipliers.mastery /
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],

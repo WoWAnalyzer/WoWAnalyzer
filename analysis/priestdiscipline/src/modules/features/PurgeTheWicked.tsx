@@ -15,25 +15,26 @@ import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 class PurgeTheWicked extends Analyzer {
+  protected enemies!: Enemies;
+  protected abilityTracker!: AbilityTracker;
+
   static dependencies = {
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
+
+  ptwCleaveDamage = 0;
   dotSpell: any;
   ptwCasts = 0;
   ptwApplications = 0;
   lastCastTarget: number = 0;
   ptwCleaveTracker: any = {};
-  ptwCleaveDamage = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(10);
-  protected enemies!: Enemies;
-  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);

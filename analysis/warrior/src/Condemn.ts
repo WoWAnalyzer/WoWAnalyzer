@@ -3,7 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
-class FallenOrder extends Analyzer {
+class Condemn extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
@@ -27,4 +27,4 @@ class FallenOrder extends Analyzer {
   }
 }
 
-export default FallenOrder;
+export default Condemn;

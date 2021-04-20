@@ -255,15 +255,15 @@ export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [
 
 //region Legendaries
 /** Dire Command */
-//Dire Command has a 20% chance to summon a dire beast
-export const DIRE_COMMAND_PROC_CHANCE = 0.2;
+//Dire Command has a 30% chance to summon a dire beast
+export const DIRE_COMMAND_PROC_CHANCE = 0.3;
 /** Flamewaker's Cobra Sting */
-//Flamewaker's Cobra Sting has a 25% chance to reduce focus cost of next Kill Command by 100%
-export const FLAMEWAKERS_PROC_CHANCE = 0.25;
+//Flamewaker's Cobra Sting has a 50% chance to reduce focus cost of next Kill Command by 100%
+export const FLAMEWAKERS_PROC_CHANCE = 0.5;
 /** Qa'pla, Eredun War Order */
-//Qa'pla reduces the cooldown of Kill Command by 5 seconds everytime you cast Barbed Shot
-export const QAPLA_KILL_COMMAND_REDUCTION_MS = 5000;
+//Qa'pla increases Barbed Shot damage by 10%
+export const QAPLA_BARBED_SHOT_DMG_INCREASE = 0.1;
 /** Rylakstalker's Piercing Fangs */
-//Rylakstalker's Piercing Fang increases pet crit damage by 20% during Bestial Wrath
-export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.2;
+//Rylakstalker's Piercing Fang increases pet crit damage by 35% during Bestial Wrath
+export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.35;
 //endregion

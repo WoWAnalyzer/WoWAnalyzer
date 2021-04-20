@@ -37,6 +37,12 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DISSONANT_ECHOES_BUFF.id,
+        triggeredBySpellId: SPELLS.VOID_BOLT_DISSONANT_ECHOES.id,
+        enabled: combatant.hasConduitBySpellID(SPELLS.DISSONANT_ECHOES.id),
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.VAMPIRIC_EMBRACE.id,
         timelineHighlight: true,
       },

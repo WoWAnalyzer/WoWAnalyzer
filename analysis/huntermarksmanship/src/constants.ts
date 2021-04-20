@@ -205,13 +205,15 @@ export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [
 
 //region Legendaries
 /** Surging Shots */
-//Surging Shots increases the damage of Rapid Fire by 25%
-export const SURGING_SHOTS_DAMAGE_INCREASE = 0.25;
+//Surging Shots increases the damage of Rapid Fire by 35%
+export const SURGING_SHOTS_DAMAGE_INCREASE = 0.35;
 //Surging Shots gives 15% chance for Aimed Shot to reset the cooldown of Rapid Fire
 export const SURGING_SHOTS_RESET_CHANCE = 0.15;
 /** Eagletalon's True Focus */
-//Eagletalon's True Focus makes Trueshot reduces focus cost of all abilities by 50%
-export const EAGLETALONS_TRUE_FOCUS_COST_REDUCTION = 0.5;
+//Eagletalon's True Focus makes Trueshot reduces focus cost of all abilities by 25%
+export const EAGLETALONS_TRUE_FOCUS_COST_REDUCTION = 0.25;
+//Eagletalon's True Focus makes Trueshot last 3 seconds longer
+export const EAGLETALONS_TRUE_FOCUS_TRUESHOT_DURATION_INCREASE = 3000;
 /** Secrets of the Unblinking Vigil */
 //Secrets of the Unblinking Vigil has 50% chance to proc on gaining Trick Shots
 export const SECRETS_UNBLINKING_PROC_CHANCE = 0.5;

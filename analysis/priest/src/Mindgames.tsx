@@ -45,7 +45,10 @@ class Mindgames extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.active =
+      this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
+      this.selectedCombatant.spec !== SPECS.DISCIPLINE_PRIEST;
+
     if (!this.active) {
       return;
     }

@@ -30,6 +30,7 @@ class Abilities extends CoreAbilities {
               Casting Holy Shock regularly is very important for performing well.
             </Trans>
           ),
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 0,
         isDefensive: true,
@@ -62,7 +63,7 @@ class Abilities extends CoreAbilities {
               ignoring unimportant things to focus on important things.
             </Trans>
           ),
-          recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
+          recommendedEfficiency: 0.75,
         },
         timelineSortIndex: 20,
       },
@@ -352,7 +353,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 110,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id),
       },
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF
@@ -391,9 +391,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         timelineSortIndex: 52,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT,

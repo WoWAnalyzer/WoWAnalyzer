@@ -126,7 +126,7 @@ const spells = {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 1100,
+    manaCost: 900,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -148,7 +148,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 2050,
+    manaCost: 1900,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -568,6 +568,11 @@ const spells = {
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
+  },
+  FIST_OF_THE_WHITE_TIGER_SECOND: {
+    id: 261977,
+    name: 'Fist of the White Tiger',
+    icon: 'ability_monk_jab',
   },
   FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
     id: 261978,

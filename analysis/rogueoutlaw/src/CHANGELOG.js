@@ -1,11 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai } from 'CONTRIBUTORS';
+import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai, ab } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 4, 7), <>Refactor Outlaw modules into Typescript for future development.</>, Hordehobbs),
+  change(date(2021, 4, 7), <>Updated <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> to use the new combat buff priority list</>, ab),
   change(date(2021, 3, 4), <>Fixed error where <SpellLink id={SPELLS.DREADBLADES_TALENT.id} /> was being suggested even when not talented</>, Akai),
   change(date(2021, 2, 27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021, 1, 17), <>Suggestion added to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> more often</>, Canotsa),

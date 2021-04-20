@@ -114,6 +114,11 @@ const spells = {
     icon: 'spell_shaman_primalstrike',
     manaCost: 940,
   },
+  ANCESTRAL_PROTECTION_BUFF: {
+    id: 207495,
+    name: 'Ancestral Protection',
+    icon: 'spell_nature_reincarnation',
+  },
   // Hex and its variations
   HEX: {
     id: 51514,

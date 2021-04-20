@@ -5,6 +5,8 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 4, 2), 'Updated \'About\' page for Shadowlands and current state of the spec\'s analyzer.', Kartarn),
+  change(date(2021, 3, 20), <> Astral Power usage efficiency now takes into consideration if <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id} /> legendary is used. </>, Kartarn),
   change(date(2021, 3, 10), 'Updated Starlord, Stellar Drift and Twin Moons talents for Shadowlands.', Kartarn),
   change(date(2021, 3, 10), <> Implemented correct wrong-cast suggestions in timeline for casting <SpellLink id={SPELLS.STARFIRE.id} /> and <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> while not in the correct eclipse.</>, Kartarn),
   change(date(2021, 3, 10), <> Updated <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} /> talent for Shadowlands and added statistic for additional gained Astral Power. </>, Kartarn),
