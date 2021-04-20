@@ -309,7 +309,7 @@
   "interface.news.newStuff": "Neue Sachen",
   "interface.playerBreakdown.healingDone": "Verursachte Heilung",
   "interface.playerBreakdown.masteryEffectiveness": "Meisterschaftseffektivität",
-  "interface.playerBreakdown.masteryEffectivenessTooltip": "Das ist die Menge verursachter Heilung durch von Meisterschaft beeinflusste Zauber. Sachen wie Flamme des Glaubens von Heilig-Paladinen oder Feeding von Wiederherstellung-Schamanen werden NICHT eingeschlossen.",
+  "interface.playerBreakdown.masteryEffectivenessTooltip": "Das ist die Menge verursachter Heilung durch von Meisterschaft beeinflusste Zauber. Sachen wie Flamme des Glaubens von Heilig-Paladinen oder Totem des Wolkenbruchs von Wiederherstellung-Schamanen werden NICHT eingeschlossen.",
   "interface.playerBreakdown.name": "Name",
   "interface.playerBreakdown.toggle.players": "Spieler",
   "interface.playerBreakdown.toggle.spells": "Zauber",
