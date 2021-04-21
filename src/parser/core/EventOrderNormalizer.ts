@@ -1,6 +1,7 @@
 import { AnyEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
+import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**
  * An event normalizer that enforces the ordering of paired events that happen simultaneously
@@ -63,7 +64,9 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
   private _targetCheck(eo: EventOrder, event1: AnyEvent, event2: AnyEvent): boolean {
     return (
       eo.anyTarget ||
-      (HasTarget(event1) && HasTarget(event2) && event1.targetID === event2.targetID)
+      (HasTarget(event1) &&
+        HasTarget(event2) &&
+        encodeEventTargetString(event1) === encodeEventTargetString(event2))
     );
   }
 
@@ -134,7 +137,6 @@ export type EventOrder = {
   /** Iff true, the two events may be swapped even with different sources.
    * In most cases this should be false, and will default to false when omitted */
   anySource?: boolean;
-  // FIXME should we also check target instance?
   /** Iff true, the two events may be swapped even with different targets.
    * In most cases this should be false, and will default to false when omitted */
   anyTarget?: boolean;

@@ -168,6 +168,7 @@ export type SourcedEvent<T extends string> = Event<T> & {
 };
 export type TargettedEvent<T extends string> = Event<T> & {
   targetID: number;
+  targetInstance?: number;
   targetIsFriendly: boolean;
 };
 
