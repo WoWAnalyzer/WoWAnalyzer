@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
 
 const CAST_WINDOW = 100;

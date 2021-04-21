@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
