@@ -1,8 +1,25 @@
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EventOrder } from 'parser/core/EventOrderNormalizer';
 
 const MS_BUFFER = 100;
+
+// TODO finish here - this is more complex than I first thought
+const EVENT_ORDERS: EventOrder[] = [
+  {
+    beforeEventId: SPELLS.WILD_GROWTH.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.METAMORPHOSIS_HAVOC_BUFF,
+    afterEventType: EventType.ApplyBuff,
+    bufferMs: 100,
+  },
+];
+
+/**
+ * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event
+ * this can make parsing certain things rather hard, so we need to swap them
+ */
 class WildGrowth extends EventsNormalizer {
   /**
    * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event

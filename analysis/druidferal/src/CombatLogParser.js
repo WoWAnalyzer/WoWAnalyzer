@@ -31,7 +31,7 @@ import Predator from './modules/talents/Predator';
 import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
-import RakeBleed from './normalizers/RakeBleed';
+import RakeBleed from 'analysis/druidferal/src/normalizers/RakeBleed';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

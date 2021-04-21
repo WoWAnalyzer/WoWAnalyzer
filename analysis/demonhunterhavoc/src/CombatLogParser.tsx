@@ -33,7 +33,7 @@ import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import Momentum from './modules/talents/Momentum';
 import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
-import EyeBeamNormalizer from './normalizers/EyeBeam';
+import EyeBeamNormalizer from 'analysis/demonhunterhavoc/src/normalizers/EyeBeam';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
