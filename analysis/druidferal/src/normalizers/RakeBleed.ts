@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { Options } from 'parser/core/Module';
 
 const CAST_WINDOW = 100;
@@ -11,15 +11,7 @@ const EVENT_ORDERS: EventOrder[] = [
     beforeEventId: SPELLS.RAKE.id,
     beforeEventType: EventType.Cast,
     afterEventId: SPELLS.RAKE_BLEED.id,
-    afterEventType: EventType.ApplyDebuff,
-    bufferMs: CAST_WINDOW,
-    updateTimestamp: true,
-  },
-  {
-    beforeEventId: SPELLS.RAKE.id,
-    beforeEventType: EventType.Cast,
-    afterEventId: SPELLS.RAKE_BLEED.id,
-    afterEventType: EventType.RefreshDebuff,
+    afterEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     bufferMs: CAST_WINDOW,
     updateTimestamp: true,
   },

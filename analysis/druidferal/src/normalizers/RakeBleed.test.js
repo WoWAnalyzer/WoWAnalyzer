@@ -1,7 +1,6 @@
+import RakeBleed from 'analysis/druidferal/src/normalizers/RakeBleed';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
-
-import RakeBleed from 'analysis/druidferal/src/normalizers/RakeBleed';
 
 describe('Druid/Feral/Normalizers/RakeBleed', () => {
   const reorderScenarios = [

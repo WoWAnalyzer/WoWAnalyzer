@@ -1,11 +1,5 @@
+import { AnyEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import {
-  AnyEvent,
-  EventType,
-  HasAbility,
-  HasSource,
-  HasTarget,
-} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 /**
@@ -31,27 +25,29 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
 
   // detects if the given event matches all the conditions of the 'before' event
   private _isBefore(eo: EventOrder, event: AnyEvent): boolean {
-    const matchesType: boolean = (Array.isArray(eo.beforeEventType)
+    const matchesType: boolean = Array.isArray(eo.beforeEventType)
       ? eo.beforeEventType.includes(event.type)
-      : eo.beforeEventType === event.type);
-    const matchesId: boolean = eo.beforeEventId == null ||
-      HasAbility(event) &&
-      (typeof eo.beforeEventId === 'number'
-        ? eo.beforeEventId === event.ability.guid
-        : eo.beforeEventId.includes(event.ability.guid));
+      : eo.beforeEventType === event.type;
+    const matchesId: boolean =
+      eo.beforeEventId == null ||
+      (HasAbility(event) &&
+        (typeof eo.beforeEventId === 'number'
+          ? eo.beforeEventId === event.ability.guid
+          : eo.beforeEventId.includes(event.ability.guid)));
     return matchesType && matchesId;
   }
 
   // detects if the given event matches all the conditions of the 'after' event
   private _isAfter(eo: EventOrder, event: AnyEvent): boolean {
-    const matchesType: boolean = (Array.isArray(eo.afterEventType)
+    const matchesType: boolean = Array.isArray(eo.afterEventType)
       ? eo.afterEventType.includes(event.type)
-      : eo.afterEventType === event.type);
-    const matchesId: boolean = eo.afterEventId == null ||
-      HasAbility(event) &&
-      (typeof eo.afterEventId === 'number'
-        ? eo.afterEventId === event.ability.guid
-        : eo.afterEventId.includes(event.ability.guid));
+      : eo.afterEventType === event.type;
+    const matchesId: boolean =
+      eo.afterEventId == null ||
+      (HasAbility(event) &&
+        (typeof eo.afterEventId === 'number'
+          ? eo.afterEventId === event.ability.guid
+          : eo.afterEventId.includes(event.ability.guid)));
     return matchesType && matchesId;
   }
 

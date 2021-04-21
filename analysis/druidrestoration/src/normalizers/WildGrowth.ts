@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventOrder } from 'parser/core/EventOrderNormalizer';
 
 const MS_BUFFER = 100;
 

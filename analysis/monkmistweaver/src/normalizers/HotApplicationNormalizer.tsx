@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { Options } from 'parser/core/Module';
 
 const MAX_DELAY = 50;

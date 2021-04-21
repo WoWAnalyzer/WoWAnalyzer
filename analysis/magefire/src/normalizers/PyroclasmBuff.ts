@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
@@ -9,7 +9,13 @@ const EVENT_ORDERS: EventOrder[] = [
     beforeEventId: SPELLS.PYROBLAST.id,
     beforeEventType: EventType.Cast,
     afterEventId: SPELLS.PYROCLASM_BUFF.id,
-    afterEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RemoveBuff, EventType.RemoveBuffStack, EventType.RefreshBuff],
+    afterEventType: [
+      EventType.ApplyBuff,
+      EventType.ApplyBuffStack,
+      EventType.RemoveBuff,
+      EventType.RemoveBuffStack,
+      EventType.RefreshBuff,
+    ],
     bufferMs: 50,
     anyTarget: true,
   },
@@ -23,6 +29,5 @@ class PyroclasmBuff extends EventOrderNormalizer {
     super(options, EVENT_ORDERS);
   }
 }
-
 
 export default PyroclasmBuff;

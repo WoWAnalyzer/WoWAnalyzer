@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, EventType } from 'parser/core/Events';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
+import { AnyEvent, EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 // so far I haven't seen any delay, so leaving this at zero so timestamp ordering is preserved,
