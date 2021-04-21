@@ -1544,3 +1544,28 @@ export const Bloodfox: Contributor = {
   nickname: 'Bloodfox',
   github: 'sspeaks',
 };
+
+export const wmavis: Contributor = {
+  nickname: 'wmavis',
+  github: 'wmavis',
+  discord: 'Willard#6784',
+  mains: [
+    {
+      name: 'Poiple',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://worldofwarcraft.com/en-us/character/us/shattered-hand/poiple',
+    },
+  ],
+  alts: [
+    {
+      name: 'Purrpal',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/shattered-hand/purrpal',
+    },
+    {
+      name: 'Prrpll',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.com/en-us/character/us/shattered-hand/prrpll',
+    },
+  ],
+};
