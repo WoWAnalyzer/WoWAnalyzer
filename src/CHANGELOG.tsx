@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 4, 20), 'Normalized normalizers', Sref),
   change(date(2021, 4, 17), 'Added Shadowlands gems and trinket icons.', Adoraci),
   change(date(2021, 4, 14), 'Converted StatTracker to TypeScript', Sref),
   change(date(2021, 4, 8), 'More German translations for the interface', maestrohdude),
