@@ -134,6 +134,7 @@ export type EventOrder = {
   /** Iff true, the two events may be swapped even with different sources.
    * In most cases this should be false, and will default to false when omitted */
   anySource?: boolean;
+  // FIXME should we also check target instance?
   /** Iff true, the two events may be swapped even with different targets.
    * In most cases this should be false, and will default to false when omitted */
   anyTarget?: boolean;

@@ -15,6 +15,14 @@ const EVENT_ORDERS: EventOrder[] = [
     bufferMs: CAST_WINDOW,
     updateTimestamp: true,
   },
+  {
+    beforeEventId: SPELLS.RAKE.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.RAKE_BLEED.id,
+    afterEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    bufferMs: CAST_WINDOW,
+    updateTimestamp: true,
+  },
 ];
 
 /**
