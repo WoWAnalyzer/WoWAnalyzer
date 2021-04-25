@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={SPELLS.SEPSIS.id} /> analyzers. </>, Hordehobbs),
   change(date(2021, 4, 11), <>Adjusted logic to ensure correct <SpellLink id={SPELLS.MASTER_ASSASSIN_BUFF.id} /> usage is accounted for.</>, Bloodfox),
   change(date(2021,3,4), <>Removed analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),

@@ -13,6 +13,7 @@ import {
   Flagellation,
   InvigoratingShadowdust,
   Sepsis,
+  StealthAbilityFollowingSepsis,
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
     sepsis: Sepsis,
+    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
 
     // Legendaries
     akaarisSoulFragment: AkaarisSoulFragment,
