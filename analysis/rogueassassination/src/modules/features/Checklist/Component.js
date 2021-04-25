@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
@@ -90,6 +91,9 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         {combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.MARKED_FOR_DEATH_TALENT.id} />
         )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.SEPSIS.id} />
+        )}
       </Rule>
       <Rule
         name="Maximize Vanish usage"
@@ -170,6 +174,7 @@ AssassinationRogueChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
+    hasCovenant: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

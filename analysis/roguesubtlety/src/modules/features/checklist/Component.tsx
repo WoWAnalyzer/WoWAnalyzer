@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -39,6 +40,9 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement spell={SPELLS.SHADOW_BLADES.id} />
         {combatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SECRET_TECHNIQUE_TALENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.SEPSIS.id} />
         )}
       </Rule>
       <Rule
