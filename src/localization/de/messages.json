@@ -391,7 +391,7 @@
   "interface.report.reportDurationWarning.warning": "Report übersteigt die unterstützte Kampfdauer",
   "interface.report.reportDurationWarning.warningDetails": "Dieser Report enthält Daten, die über einen Zeitraum von <0>{0} {1}</0> gesammelt wurden. Das kann zu Auswertungsproblemen für spätere Kämpfe im Report führen. Wir empfehlen, dass du deine Logs trennst, bevor du sie auf warcraftlogs.com hochlädst.",
   "interface.report.reportDurationWarning.warningDetails.day": "Tag",
-  "interface.report.reportDurationWarning.warningDetails.days": "Tage",
+  "interface.report.reportDurationWarning.warningDetails.days": "Tagen",
   "interface.report.reportLoader": "Reportinformationen werden abgerufen...",
   "interface.report.results.about.aboutSpecnameClassname": "",
   "interface.report.results.about.isPartial": "",
