@@ -71,14 +71,13 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
-    const fixedEvents: AnyEvent[] = [];
-
-    // loop through all events looking for re-orders
-    events.forEach((event: AnyEvent, eventIndex: number) => {
-      fixedEvents.push(event);
-
-      // check for matches of the 'before' ability
-      this.eventOrders.forEach((eo: EventOrder) => {
+    // check each event order directive
+    this.eventOrders.forEach((eo: EventOrder) => {
+      const fixedEvents: AnyEvent[] = [];
+      // loop through all events in order
+      events.forEach((event: AnyEvent, eventIndex: number) => {
+        fixedEvents.push(event);
+        // if we find a match of the 'before' ability
         if (this._isBefore(eo, event)) {
           // loop backwards through the event history for matches of the 'after' ability within the buffer period
           for (
@@ -106,9 +105,11 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
           }
         }
       });
+      // the 'fixedEvents' output becames the new 'events'
+      events = fixedEvents;
     });
 
-    return fixedEvents;
+    return events;
   }
 }
 

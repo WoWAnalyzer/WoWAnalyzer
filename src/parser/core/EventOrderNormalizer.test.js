@@ -143,6 +143,29 @@ const tests = [
     resultOrder: [2, 1, 3, 0],
   },
   {
+    it: 'triple ordering should work',
+    eventOrders: [
+      {
+        beforeEventId: 1,
+        beforeEventType: EventType.Cast,
+        afterEventId: 2,
+        afterEventType: EventType.ApplyBuff,
+      },
+      {
+        beforeEventId: 2,
+        beforeEventType: EventType.ApplyBuff,
+        afterEventId: 3,
+        afterEventType: EventType.Heal,
+      },
+    ],
+    events: [
+      fakeEvent(3, EventType.Heal, 100, 1, 1),
+      fakeEvent(2, EventType.ApplyBuff, 100, 1, 1),
+      fakeEvent(1, EventType.Cast, 100, 1, 1),
+    ],
+    resultOrder: [2, 1, 0],
+  },
+  {
     it: 'eventID list should be followed',
     eventOrders: [
       {
