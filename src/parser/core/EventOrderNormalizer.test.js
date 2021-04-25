@@ -1,5 +1,5 @@
-import { EventType } from 'parser/core/Events';
 import EventOrderNormalizer from 'parser/core/EventOrderNormalizer';
+import { EventType } from 'parser/core/Events';
 
 function fakeEvent(abilityId, type, timestamp, sourceID, targetID) {
   return {
@@ -42,9 +42,7 @@ const tests = [
       fakeEvent(20, EventType.ApplyBuff, 100, 1, 2),
     ],
     resultOrder: [1, 0],
-    additionalChecks: (before, after) => {
-      return after[1].__modified === true && !after[0].__modified;
-    },
+    additionalChecks: (before, after) => after[1].__modified === true && !after[0].__modified,
   },
   {
     it: 'only exactly specified events should be reordered',
@@ -316,9 +314,7 @@ const tests = [
       fakeEvent(20, EventType.ApplyBuff, 100, 1, 2),
     ],
     resultOrder: [1, 0],
-    additionalChecks: (before, after) => {
-      return after[1].timestamp === 100;
-    },
+    additionalChecks: (before, after) => after[1].timestamp === 100,
   },
 ];
 
