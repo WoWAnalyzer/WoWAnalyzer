@@ -19,7 +19,7 @@ const STEALTH_ABILITIES: Spell[] = [
   SPELLS.SHADOWSTRIKE,
 ];
 
-const debug = true;
+const debug = false;
 
 /**
  * Analyzer to track the usage of the correct stealth abilities following
