@@ -128,7 +128,7 @@ class WildGrowth extends Analyzer {
       overheal: 0,
       firstTicksOverheal: 0,
       firstTicksRaw: 0,
-    }
+    };
   }
 
   onHeal(event) {
@@ -221,7 +221,8 @@ class WildGrowth extends Analyzer {
         tooltip={
           <>
             Your Wild Growth hit on average {this.averageEffectiveHits.toFixed(2)} players.
-            {this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the recommended targets.
+            {this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the
+            recommended targets.
           </>
         }
       >
@@ -238,7 +239,6 @@ class WildGrowth extends Analyzer {
     );
   }
 }
-
 
 interface WGTracker {
   wgBuffs: number[];

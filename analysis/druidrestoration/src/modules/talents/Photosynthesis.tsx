@@ -220,14 +220,13 @@ class Photosynthesis extends Analyzer {
   }
 
   statistic() {
-
-    const selfUptime = this.selectedCombatant.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, this.selectedCombatant.id);
+    const selfUptime = this.selectedCombatant.getBuffUptime(
+      SPELLS.LIFEBLOOM_HOT_HEAL.id,
+      this.selectedCombatant.id,
+    );
     const totalUptime = Object.keys(this.combatants.players)
       .map((key) => this.combatants.players[key])
-      .reduce(
-        (uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),
-        0,
-      );
+      .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), 0);
 
     return (
       <Statistic
