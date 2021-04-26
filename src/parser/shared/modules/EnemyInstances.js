@@ -1,6 +1,10 @@
 import EnemyInstance from '../../core/EnemyInstance';
 import Enemies from './Enemies';
 
+export function encodeEventTargetString(event) {
+  return encodeTargetString(event.targetID, event.targetInstance);
+}
+
 export function encodeTargetString(id, instance = 0) {
   return `${id}.${instance}`;
 }
