@@ -7,7 +7,7 @@ const EVENT_ORDERS: EventOrder[] = [
   {
     beforeEventId: SPELLS.REGROWTH.id,
     beforeEventType: EventType.Cast,
-    afterEventId: SPELLS.CLEARCASTING_BUFF,
+    afterEventId: SPELLS.CLEARCASTING_BUFF.id,
     afterEventType: EventType.RemoveBuff,
     bufferMs: 50,
     anyTarget: true,
