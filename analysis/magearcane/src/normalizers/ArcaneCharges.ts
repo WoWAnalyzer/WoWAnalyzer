@@ -6,10 +6,10 @@ import { Options } from 'parser/core/Module';
 const EVENT_ORDERS: EventOrder[] = [
   {
     beforeEventId: [
-      SPELLS.ARCANE_BLAST,
-      SPELLS.ARCANE_EXPLOSION,
-      SPELLS.TOUCH_OF_THE_MAGI,
-      SPELLS.ARTIFICE_OF_THE_ARCHMAGE,
+      SPELLS.ARCANE_BLAST.id,
+      SPELLS.ARCANE_EXPLOSION.id,
+      SPELLS.TOUCH_OF_THE_MAGI.id,
+      SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id,
     ],
     beforeEventType: EventType.Cast,
     afterEventId: null, // FIXME could this be acccidentally matching other kinds of energizes?

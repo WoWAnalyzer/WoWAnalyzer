@@ -7,7 +7,7 @@ const EVENT_ORDERS: EventOrder[] = [
   {
     beforeEventId: SPELLS.EYE_BEAM.id,
     beforeEventType: EventType.ApplyBuff,
-    afterEventId: SPELLS.METAMORPHOSIS_HAVOC_BUFF,
+    afterEventId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
     afterEventType: EventType.ApplyBuff,
     bufferMs: 50,
   },
