@@ -147,7 +147,7 @@ export interface ClassResources {
 
 // TODO: Find a good place for this
 export enum Class {
-  DemonHunter = 'DemonHunter',
+  DemonHunter = 'Demon Hunter',
   DeathKnight = 'Death Knight',
   Druid = 'Druid',
   Hunter = 'Hunter',
