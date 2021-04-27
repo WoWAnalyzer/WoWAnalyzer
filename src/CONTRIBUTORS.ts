@@ -1569,3 +1569,16 @@ export const wmavis: Contributor = {
     },
   ],
 };
+
+export const niko: Contributor = {
+  nickname: 'niko',
+  github: 'nicholasRutherford',
+  discord: 'niko#8550',
+  mains: [
+    {
+      name: 'Poro',
+      spec: SPECS.BREWMASTER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/wildhammer/poro',
+    },
+  ],
+};

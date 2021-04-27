@@ -147,7 +147,7 @@ export interface ClassResources {
 
 // TODO: Find a good place for this
 export enum Class {
-  DemonHunter = 'DemonHunter',
+  DemonHunter = 'Demon Hunter',
   DeathKnight = 'Death Knight',
   Druid = 'Druid',
   Hunter = 'Hunter',
@@ -168,6 +168,7 @@ export type SourcedEvent<T extends string> = Event<T> & {
 };
 export type TargettedEvent<T extends string> = Event<T> & {
   targetID: number;
+  targetInstance?: number;
   targetIsFriendly: boolean;
 };
 

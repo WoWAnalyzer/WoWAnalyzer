@@ -5,22 +5,30 @@ import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: SPELLS.COMBUSTION.id,
+    beforeEventId: SPELLS.OVERPOWER.id,
     beforeEventType: EventType.Cast,
-    afterEventId: SPELLS.COMBUSTION.id,
+    afterEventId: SPELLS.OVERPOWER.id,
     afterEventType: EventType.ApplyBuff,
+    bufferMs: 50,
+    anyTarget: true,
+  },
+  {
+    beforeEventId: SPELLS.OVERPOWER.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.OVERPOWER.id,
+    afterEventType: EventType.ApplyBuffStack,
     bufferMs: 50,
     anyTarget: true,
   },
 ];
 
 /**
- * Ensures that the apply buff event for Combustion is sorted after the Combustion cast.
+ * Ensures that the apply buff event for Overpower is sorted after the Overpower.
  */
-class Combustion extends EventOrderNormalizer {
+class OverpowerNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, EVENT_ORDERS);
   }
 }
 
-export default Combustion;
+export default OverpowerNormalizer;

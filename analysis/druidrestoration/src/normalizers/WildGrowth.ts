@@ -3,6 +3,7 @@ import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MS_BUFFER = 100;
+
 class WildGrowth extends EventsNormalizer {
   /**
    * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event
