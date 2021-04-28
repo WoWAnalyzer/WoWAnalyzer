@@ -603,10 +603,10 @@ export type HotInfoMap = { [key: number]: HotInfo };
 export interface HotInfo {
   duration: number; //HoT's base duration, in ms
   tickPeriod: number; //HoT's base period between ticks, in ms
-  maxDuration?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO description
+  maxDuration?: (e: ApplyBuffEvent) => number; // TODO description
   bouncy?: boolean; // true iff a hot will bounce to another target on any event
   durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO description
-  id: number; // the spell's ID again, for dynamic listeners
+  id?: number; // the spell's ID again, for dynamic listeners
 }
 
 
