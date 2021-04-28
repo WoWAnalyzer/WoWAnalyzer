@@ -3,7 +3,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -25,6 +25,52 @@ const FLOURISH_HEALING_INCREASE = 1;
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
+  static dependencies = {
+    hotTracker: HotTrackerRestoDruid,
+  };
+
+  hotTracker!: HotTrackerRestoDruid;
+
+  // Counters for hot extension
+  flourishCount = 0;
+  flourishes = [];
+  wgsExtended = 0; // tracks how many flourishes extended Wild Growth
+  cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
+  tranqsExtended = 0;
+  hasCenarionWard = false;
+  rejuvCount = 0;
+  wgCount = 0;
+  lbCount = 0;
+  regrowthCount = 0;
+  sbCount = 0;
+  cultCount = 0;
+  tranqCount = 0;
+  groveTendingCount = 0;
+  // Counters for increased ticking rate of hots
+  increasedRateTotalHealing = 0;
+  increasedRateRejuvenationHealing = 0;
+  increasedRateWildGrowthHealing = 0;
+  increasedRateCenarionWardHealing = 0;
+  increasedRateCultivationHealing = 0;
+  increasedRateLifebloomHealing = 0;
+  increasedRateRegrowthHealing = 0;
+  increasedRateTranqHealing = 0;
+  increasedRateGroveTendingHealing = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
+    this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+      this.onCast,
+    );
+  }
+
   get totalExtensionHealing() {
     return this.flourishes.reduce(
       (acc, flourish) => acc + flourish.healing + flourish.masteryHealing,
@@ -66,49 +112,6 @@ class Flourish extends Analyzer {
       },
       style: 'percentage',
     };
-  }
-
-  static dependencies = {
-    hotTracker: HotTrackerRestoDruid,
-  };
-  // Counters for hot extension
-  flourishCount = 0;
-  flourishes = [];
-  wgsExtended = 0; // tracks how many flourishes extended Wild Growth
-  cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
-  tranqsExtended = 0;
-  hasCenarionWard = false;
-  rejuvCount = 0;
-  wgCount = 0;
-  lbCount = 0;
-  regrowthCount = 0;
-  sbCount = 0;
-  cultCount = 0;
-  tranqCount = 0;
-  groveTendingCount = 0;
-  // Counters for increased ticking rate of hots
-  increasedRateTotalHealing = 0;
-  increasedRateRejuvenationHealing = 0;
-  increasedRateWildGrowthHealing = 0;
-  increasedRateCenarionWardHealing = 0;
-  increasedRateCultivationHealing = 0;
-  increasedRateLifebloomHealing = 0;
-  increasedRateRegrowthHealing = 0;
-  increasedRateTranqHealing = 0;
-  increasedRateGroveTendingHealing = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
-    this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.onCast,
-    );
   }
 
   onHeal(event) {

@@ -23,7 +23,7 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
-  calculateMaxDuration(event: ApplyBuffEvent & { selectedCombatant: Combatant }) {
+  calculateMaxDuration(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ENVELOPING_MIST.id) {
       return (ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0)) * 2;
@@ -32,7 +32,7 @@ class HotTrackerMW extends HotTracker {
       return (EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0)) * 2;
     }
     if (
-      event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
+      this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
       spellId === SPELLS.RENEWING_MIST_HEAL.id
     ) {
       return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2;
@@ -41,11 +41,11 @@ class HotTrackerMW extends HotTracker {
   }
 
   calculateMaxRemDuration(
-    event: (ApplyBuffEvent | RefreshBuffEvent) & { selectedCombatant: Combatant },
+    event: ApplyBuffEvent | RefreshBuffEvent
   ) {
     const spellId = event.ability.guid;
     if (
-      event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
+      this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
       spellId === SPELLS.RENEWING_MIST_HEAL.id
     ) {
       return REM_BASE_DURATION + TFT_REM_EXTRA_DURATION;

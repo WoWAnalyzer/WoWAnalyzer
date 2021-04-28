@@ -32,7 +32,7 @@ class Photosynthesis extends Analyzer {
 
   lifebloomIncrease = 0;
 
-  lastRealBloomTimestamp = null;
+  lastRealBloomTimestamp: number | null = null;
 
   // Counters for increased ticking rate of hots
   increasedRateRejuvenationHealing = 0;
@@ -224,8 +224,7 @@ class Photosynthesis extends Analyzer {
       SPELLS.LIFEBLOOM_HOT_HEAL.id,
       this.selectedCombatant.id,
     );
-    const totalUptime = Object.keys(this.combatants.players)
-      .map((key) => this.combatants.players[key])
+    const totalUptime = Object.values(this.combatants.players)
       .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), 0);
 
     return (

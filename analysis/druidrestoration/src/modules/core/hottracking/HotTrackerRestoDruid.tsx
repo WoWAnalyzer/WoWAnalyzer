@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import HotTracker from 'parser/shared/modules/HotTracker';
+import HotTracker, { HotInfoMap } from 'parser/shared/modules/HotTracker';
 
 class HotTrackerRestoDruid extends HotTracker {
-  _generateHotInfo() {
+  _generateHotInfo(): HotInfoMap {
     // must be generated dynamically because it reads from traits
     return {
       [SPELLS.REJUVENATION.id]: {

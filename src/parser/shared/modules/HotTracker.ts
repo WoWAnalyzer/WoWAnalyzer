@@ -1,10 +1,13 @@
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events from 'parser/core/Events';
+import Events, { AbilityEvent, AnyEvent, ApplyBuffEvent, HasTarget, HealEvent, RefreshBuffEvent, RemoveBuffEvent, TargettedEvent } from 'parser/core/Events';
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
+import { StatBuff } from 'parser/shared/modules/StatTracker';
+import Combatant from 'parser/core/Combatant';
+import Spell from 'common/SPELLS/Spell';
 
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
@@ -18,11 +21,17 @@ const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
 
-class HotTracker extends Analyzer {
+abstract class HotTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,
   };
+
+  combatants!: Combatants;
+  haste!: Haste;
+
+  hotInfo: HotInfoMap;
+  hotList: Spell[];
 
   //{
   //  [playerId]:{
@@ -30,15 +39,15 @@ class HotTracker extends Analyzer {
   //  },
   //}
 
-  hots = {};
-  bouncingHots = [];
+  hots: TrackersByPlayerAndSpell = {}; // a mapping of the currently tracked HoTs
+  bouncingHots: Tracker[] = []; // TODO what is this lul?
 
-  currentGuid = 0;
+  currentGuid: number = 0; // TODO what is this lul?
 
-  hotHistory = [];
+  hotHistory: Tracker[] = []; // a history of all HoTs tracked over the course of this encounter
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.hotInfo = this._generateHotInfo(); // some HoT info depends on traits and so must be generated dynamically
     this.hotList = this._generateHotList();
     if (!this.hotInfo) {
@@ -60,7 +69,7 @@ class HotTracker extends Analyzer {
     );
   }
 
-  hotApplied(event) {
+  hotApplied(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {
@@ -81,15 +90,15 @@ class HotTracker extends Analyzer {
     }
 
     let hotDuration = this.hotInfo[spellId].duration;
-    if (this.hotInfo[spellId].durationConditions) {
-      event.selectedCombatant = this.selectedCombatant;
-      hotDuration = this.hotInfo[spellId].durationConditions(event);
+    const durationConditionsFunc = this.hotInfo[spellId].durationConditions;
+    if (durationConditionsFunc !== undefined) {
+      hotDuration = durationConditionsFunc(event);
     }
 
     let maxDuration = -1;
-    if (this.hotInfo[spellId].maxDuration) {
-      event.selectedCombatant = this.selectedCombatant;
-      maxDuration = this.hotInfo[spellId].maxDuration(event);
+    const maxDurationFunc = this.hotInfo[spellId].maxDuration;
+    if (maxDurationFunc !== undefined) {
+      maxDuration = maxDurationFunc(event);
     }
 
     const newHot = {
@@ -116,7 +125,7 @@ class HotTracker extends Analyzer {
     this.hotHistory.push(newHot);
   }
 
-  hotHeal(event) {
+  hotHeal(event: HealEvent) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
 
@@ -142,18 +151,14 @@ class HotTracker extends Analyzer {
     hot.attributions.forEach((att) => {
       att.healing += healing;
     });
-    hot.boosts.forEach((att) => {
-      att.healing += calculateEffectiveHealing(event, att.boost);
+    hot.boosts.forEach((boost: Boost) => {
+      boost.attribution.healing += calculateEffectiveHealing(event, boost.increase);
     });
 
-    if (event.hitType === HIT_TYPES.CRIT && this.hotInfo[spellId].effectOnCrit) {
-      //if the heal crits and it does something fancy on crits do that
-      hot.effectOnCrit(event);
-    }
     // extensions handled when HoT falls, using ticks list
   }
 
-  hotReapplied(event) {
+  hotReapplied(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {
@@ -168,9 +173,9 @@ class HotTracker extends Analyzer {
 
     const oldEnd = hot.end;
     let freshDuration = this.hotInfo[spellId].duration;
-    if (this.hotInfo[spellId].durationConditions) {
-      event.selectedCombatant = this.selectedCombatant;
-      freshDuration = this.hotInfo[spellId].durationConditions(spellId);
+    const durationConditionsFunc = this.hotInfo[spellId].durationConditions;
+    if (durationConditionsFunc !== undefined) {
+      freshDuration = durationConditionsFunc(event);
     }
     hot.end += this._calculateExtension(freshDuration, hot, spellId, true, true);
 
@@ -210,7 +215,7 @@ class HotTracker extends Analyzer {
     hot.boosts = [];
   }
 
-  hotRemoved(event) {
+  hotRemoved(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
     if (!target) {
@@ -238,7 +243,7 @@ class HotTracker extends Analyzer {
    *    healing: Number (tallies the direct healing attributable)
    *    procs: Number (tallies the number of times this attribution was made)
    */
-  addAttribution(attribution, targetId, spellId) {
+  addAttribution(attribution: Attribution, targetId: number, spellId: number) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       debug &&
         console.warn(
@@ -269,13 +274,13 @@ class HotTracker extends Analyzer {
    * NOTE: can pass a null attribution to extend HoT without attributing it
    */
   addExtension(
-    attribution,
-    amount,
-    targetId,
-    spellId,
-    timestamp,
-    tickClamps = true,
-    pandemicClamps = false,
+    attribution: Attribution,
+    amount: number,
+    targetId: number,
+    spellId: number,
+    timestamp: number,
+    tickClamps: boolean = true,
+    pandemicClamps: boolean = false,
   ) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       debug &&
@@ -329,13 +334,13 @@ class HotTracker extends Analyzer {
   /*
    * For each attributed extension on a HoT, tallies the granted healing
    */
-  _tallyExtensions(hot) {
+  _tallyExtensions(hot: Tracker) {
     hot.extensions
       .filter((ext) => ext.amount > 0) // early refreshes can wipe out the effect of an extension, filter those ones out
       .forEach((ext) => this._tallyExtension(hot.ticks, ext.amount, ext.attribution));
   }
 
-  _tallyExtension(ticks, amount, attribution) {
+  _tallyExtension(ticks: Tick[], amount: number, attribution: Attribution) {
     const now = this.owner.currentTimestamp;
 
     let foundEarlier = false;
@@ -358,7 +363,9 @@ class HotTracker extends Analyzer {
       // TODO better explanation of why I need to scale direct healing
       const scale = amount / (now - latestOutside);
       attribution.healing += healing * scale;
-      attribution.duration += amount;
+      if (attribution.totalExtension !== undefined) {
+        attribution.totalExtension += amount;
+      }
     } else {
       // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
     }
@@ -382,7 +389,7 @@ class HotTracker extends Analyzer {
    *
    * Thanks @tremaho for the detailed explanation of the formula
    */
-  _calculateExtension(rawAmount, hot, spellId, tickClamps, pandemicClamps) {
+  _calculateExtension(rawAmount: number, hot: Tracker, spellId: number, tickClamps: boolean, pandemicClamps: boolean) {
     let amount = rawAmount;
     const currentTimeRemaining = hot.end - this.owner.currentTimestamp;
 
@@ -427,7 +434,7 @@ class HotTracker extends Analyzer {
   // Return will be positive if HoT actually ended after expected end (eg HoT lasted longer than expected).
   // Return will be negative if HoT actually ended before expected end (eg HoT lasted shorter than expected).
   // Logs when difference is over a certain threshold.
-  _checkRemovalTime(hot, actual, targetId) {
+  _checkRemovalTime(hot: Tracker, actual: number, targetId: number) {
     const expected = hot.end;
     const diff = actual - expected;
     if (diff > EXPECTED_REMOVAL_THRESHOLD) {
@@ -451,9 +458,9 @@ class HotTracker extends Analyzer {
   }
 
   // gets an event's target ... returns null if for any reason the event should not be further processed
-  _getTarget(event) {
+  _getTarget(event: AnyEvent) {
     const target = this.combatants.getEntity(event);
-    if (!target) {
+    if (target === null || !HasTarget(event)) {
       return null; // target wasn't important (a pet probably)
     }
 
@@ -491,7 +498,7 @@ class HotTracker extends Analyzer {
   }
 
   // validates that event is for one of the tracked hots and that HoT tracking involving it is in the expected state
-  _validateHot(event) {
+  _validateHot(event: AbilityEvent<any> & TargettedEvent<any>) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
     if (!this.hotInfo[spellId]) {
@@ -530,21 +537,78 @@ class HotTracker extends Analyzer {
     return true;
   }
 
-  /*{
-   *  [SPELLS.NAME.id]:{
-   *    duration: xxxx,                 //base duration
-   *    tickPeriod: xxxx,               //rate at which it heals
-   *    effectOnCrit: function,         //if anything special happens on crit
-   *    maxDuration: function,          //how to caculate max non-pandmic duration (return the max duration)
-   *    bouncy: boolean,                //if a hot will bounce to another target on any event
-   *    durationConditions: functions,  //function that will fire if the duration of the hot depend on event info
-   *    id: SPELLS.NAME.id,             //store again for dynamic listeners
-   *  },
-   * }
+  /**
+   * Called on construction to dynamically generate HoT info (depending on talents and what not).
    */
-  _generateHotInfo() {
-    // must be generated dynamically because it reads from traits
-  }
+  abstract _generateHotInfo(): HotInfoMap;
+
+  /**
+   * Called on construction to dynamically generate a listing of HoT spells (depending on talents and what not).
+   */
+  abstract _generateHotList(): Spell[];
+
 }
+
+type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell }
+
+type TrackersBySpell = { [key: number]: Tracker }
+
+// a tracking object for a specific instance of the player's HoT on a target
+interface Tracker {
+  start: number; // timestamp when the tracked HoT was applied
+  end: number; // timestamp when the tracked HoT is projected to end (dynamically updated by extensions)
+  originalEnd: number; // timestamp when the tracked HoT was originally projected to end (before extensions)
+  spellId: number; // the HoT's spellId
+  guid: number; // TODO WHAT IS THIS AND WHY IS IT HERE
+  name: string; // the HoT's name, for logging purposes
+  ticks: Tick[]; // listing of ticks recorded by this HoT
+  attributions: Attribution[]; // listing of attributions attached to this HoT
+  extensions: Extension[]; // listing of extensions attached to this HoT
+  boosts: Boost[]; // listing of boosts attached to this HoT
+  healingAfterOriginalEnd: number; // healing that occured after the original end (can be attributed to extensions)
+  maxDuration: number; // the 'true max duration' that extensions will obey (see Rising Mist)
+}
+
+// a record of a HoT's tick
+interface Tick {
+  healing: number; // the tick's effective healing
+  timestamp: number; // the tick's timestamp
+}
+
+// a record of healing attributable to an effect
+interface Attribution {
+  attributionId: number | null; // the ID of the effect attributed, or null in the case of a hardcast
+  name: string; // the name of the attribution, for logging purposes only
+  healing: number; // the amount of effective healing attributable - will be updated
+  procs: number; // the number of times this attribution was made - will be updated
+  totalExtension?: number; // the number of total milliseconds extended (for an extension attribution)
+}
+
+// a record of an extension to a HoT
+interface Extension {
+  amount: number; // the length of the extension in ms
+  attribution: Attribution; // the attribution of this extension
+}
+
+// a record of a boost to a HoT (for its full duration)
+interface Boost {
+  increase: number; // the amount of the healing increase - ex. 0.15 means a 15% increase
+  attribution: Attribution; // the attribution of this boost
+}
+
+// A mapping from spell ID to that spell's HotInfo
+export type HotInfoMap = { [key: number]: HotInfo };
+
+// information about a Heal over Time spell specific to tracking
+export interface HotInfo {
+  duration: number; //HoT's base duration, in ms
+  tickPeriod: number; //HoT's base period between ticks, in ms
+  maxDuration?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO description
+  bouncy?: boolean; // true iff a hot will bounce to another target on any event
+  durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO description
+  id: number; // the spell's ID again, for dynamic listeners
+}
+
+
 
 export default HotTracker;

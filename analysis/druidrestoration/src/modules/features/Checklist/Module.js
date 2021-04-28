@@ -7,7 +7,7 @@ import React from 'react';
 
 import Cultivation from '../../talents/Cultivation';
 import SpringBlossoms from '../../talents/SpringBlossoms';
-import TreeOfLife from '../../talents/TreeOfLife';
+import TreeOfLife from 'analysis/druidrestoration/src/modules/talents/TreeOfLife';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Clearcasting from '../Clearcasting';
 import Efflorescence from '../Efflorescence';

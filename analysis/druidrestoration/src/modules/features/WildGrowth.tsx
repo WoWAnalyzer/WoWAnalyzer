@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -114,7 +114,7 @@ class WildGrowth extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this.wgTracker.wgBuffs.length > 0) {
       this.wgTracker.badPrecast =
         this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw > PRECAST_THRESHOLD;
@@ -131,7 +131,7 @@ class WildGrowth extends Analyzer {
     };
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     this.wgTracker.heal += healVal.effective;
     this.wgTracker.overheal += healVal.overheal;
@@ -143,7 +143,7 @@ class WildGrowth extends Analyzer {
     }
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.wgTracker.wgBuffs.push(event.targetID);
   }
 
