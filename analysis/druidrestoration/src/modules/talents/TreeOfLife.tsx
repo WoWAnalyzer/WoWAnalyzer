@@ -12,6 +12,7 @@ import Events, {
   HealEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -21,7 +22,6 @@ import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
 import Rejuvenation from '../core/Rejuvenation';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;

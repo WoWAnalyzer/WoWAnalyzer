@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
 import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { HotInfoMap } from 'parser/shared/modules/HotTracker';
-import Combatant from 'parser/core/Combatant';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;

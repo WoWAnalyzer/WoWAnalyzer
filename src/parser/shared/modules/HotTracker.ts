@@ -1,6 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Combatant from 'parser/core/Combatant';
 import Events, {
   AbilityEvent,
   AnyEvent,
@@ -14,7 +15,6 @@ import Events, {
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
-import Combatant from 'parser/core/Combatant';
 
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
