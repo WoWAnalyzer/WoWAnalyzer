@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
+import { CastEvent } from 'parser/core/Events';
 
 const MS_BUFFER = 200;
 const ABUNDANCE_MANA_REDUCTION = 0.06;
 const TOL_REJUVENATION_REDUCTION = 0.3;
 
 class SpellManaCost extends CoreSpellManaCost {
-  getResourceCost(event) {
+  getResourceCost(event: CastEvent) {
     const spellId = event.ability.guid;
     let cost = super.getResourceCost(event);
     if (cost === 0) {
@@ -19,7 +20,7 @@ class SpellManaCost extends CoreSpellManaCost {
         event.timestamp,
         MS_BUFFER,
         0,
-        event.sourceId,
+        event.sourceID,
       ) &&
       spellId === SPELLS.REGROWTH.id
     ) {
@@ -33,7 +34,7 @@ class SpellManaCost extends CoreSpellManaCost {
         event.timestamp,
         0,
         0,
-        event.sourceId,
+        event.sourceID,
       ) &&
       (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION)
     ) {

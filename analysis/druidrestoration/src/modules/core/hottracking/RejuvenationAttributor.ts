@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 import HotTrackerRestoDruid from './HotTrackerRestoDruid';
+import { Attribution } from 'parser/shared/modules/HotTracker';
 
 const REJUV_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION];
 
@@ -10,21 +11,23 @@ const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> 
 
 /*
  * Backend module tracks attribution of Rejuvenations
- * TODO - Dead module?
+ * TODO - Revive this new module to use with Shadowlands attributions
  */
 class RejuvenationAttributor extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
   };
 
-  // cast tracking stuff
-  lastRejuvCastTimestamp;
-  lastRejuvTarget;
-  castRejuvApplied; // occasionally procs happen on target that was just cast on, assures that no more than 1 apply/refreshbuff is attributed per cast
-  lastWildGrowthCastTimestamp;
+  protected hotTracker!: HotTrackerRestoDruid;
 
-  constructor(...args) {
-    super(...args);
+  // cast tracking stuff
+  lastRejuvCastTimestamp: number | undefined;
+  lastRejuvTarget: number | undefined;
+  castRejuvApplied: boolean; // occasionally procs happen on target that was just cast on, assures that no more than 1 apply/refreshbuff is attributed per cast
+  lastWildGrowthCastTimestamp: number | undefined;
+
+  constructor(options: Options) {
+    super(options);
     this.castRejuvApplied = true;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]),
@@ -40,7 +43,7 @@ class RejuvenationAttributor extends Analyzer {
     );
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
@@ -55,7 +58,7 @@ class RejuvenationAttributor extends Analyzer {
   }
 
   // gets attribution for a given applybuff/refreshbuff of Rejuvenation or Germination
-  _getRejuvAttribution(event) {
+  _getRejuvAttribution(event: ApplyBuffEvent | RefreshBuffEvent) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
     if (!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][spellId]) {
@@ -63,11 +66,12 @@ class RejuvenationAttributor extends Analyzer {
     }
 
     const timestamp = event.timestamp;
-    const attributions = [];
+    const attributions: Attribution[] = [];
 
     if (
       event.prepull ||
-      (this.lastRejuvCastTimestamp + BUFFER_MS > timestamp &&
+      (this.lastRejuvCastTimestamp !== undefined &&
+        this.lastRejuvCastTimestamp + BUFFER_MS > timestamp &&
         this.lastRejuvTarget === targetId &&
         !this.castRejuvApplied)
     ) {

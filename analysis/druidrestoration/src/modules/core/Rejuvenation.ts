@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
@@ -33,36 +33,43 @@ class Rejuvenation extends Analyzer {
     healingDone: HealingDone,
     mastery: Mastery,
   };
+
+  protected healingDone!: HealingDone;
+  protected mastery!: Mastery;
+
   totalRejuvsCast = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
-    this.addEventListener(Events.fightend, this.onFightend);
+    // this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
+      this.onRejuvCast,
+    );
+    // this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    // this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onHeal(event) {
-    // TODO
-  }
+  // onHeal(event: HealEvent) {
+  //   // TODO
+  // }
 
-  onCast(event) {
+  onRejuvCast() {
     this.totalRejuvsCast += 1;
   }
 
-  onApplyBuff(event) {
-    // TODO check for applications too?
-  }
-
-  onFightend() {
-    // TODO debug prints
-  }
+  // onApplyBuff(event: ApplyBuffEvent) {
+  //   // TODO check for applications too?
+  // }
+  //
+  // onFightend() {
+  //   // TODO debug prints
+  // }
 
   /*
    * The expected healing done by using the given amount of mana to fill with Rejuv casts
    */
-  getRejuvFillHealing(mana) {
+  getRejuvFillHealing(mana: number) {
     return (mana / (BASE_MANA / REJUV_COST)) * this.avgRejuvHealing;
   }
 }
