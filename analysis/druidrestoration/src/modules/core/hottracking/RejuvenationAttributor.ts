@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { Attribution } from 'parser/shared/modules/HotTracker';
 
 import HotTrackerRestoDruid from './HotTrackerRestoDruid';
-import { Attribution } from 'parser/shared/modules/HotTracker';
 
 const REJUV_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION];
 

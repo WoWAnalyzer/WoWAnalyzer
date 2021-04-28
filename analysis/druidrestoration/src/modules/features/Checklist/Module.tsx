@@ -5,9 +5,9 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import ManaValues from 'parser/shared/modules/ManaValues';
 import React from 'react';
 
-import TreeOfLife from '../../talents/TreeOfLife';
 import Cultivation from '../../talents/Cultivation';
 import SpringBlossoms from '../../talents/SpringBlossoms';
+import TreeOfLife from '../../talents/TreeOfLife';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Clearcasting from '../Clearcasting';
 import Efflorescence from '../Efflorescence';

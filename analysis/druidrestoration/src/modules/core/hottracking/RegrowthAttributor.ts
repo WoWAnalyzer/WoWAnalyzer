@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { Attribution } from 'parser/shared/modules/HotTracker';
 
 import HotTrackerRestoDruid from './HotTrackerRestoDruid';
-import { Attribution } from 'parser/shared/modules/HotTracker';
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
 /*

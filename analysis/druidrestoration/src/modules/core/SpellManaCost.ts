@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { CastEvent } from 'parser/core/Events';
+import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 
 const MS_BUFFER = 200;
 const ABUNDANCE_MANA_REDUCTION = 0.06;
