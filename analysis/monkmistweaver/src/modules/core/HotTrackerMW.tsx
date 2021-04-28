@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
-import Combatant from 'parser/core/Combatant';
 import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
-import HotTracker, { HotInfo, HotInfoMap } from 'parser/shared/modules/HotTracker';
+import HotTracker, { HotInfoMap } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -40,9 +39,7 @@ class HotTrackerMW extends HotTracker {
     return REM_BASE_DURATION * 2;
   }
 
-  calculateMaxRemDuration(
-    event: ApplyBuffEvent | RefreshBuffEvent
-  ) {
+  calculateMaxRemDuration(event: ApplyBuffEvent | RefreshBuffEvent) {
     const spellId = event.ability.guid;
     if (
       this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&

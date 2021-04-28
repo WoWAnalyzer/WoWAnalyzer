@@ -35,11 +35,11 @@ import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfU
 import Abundance from './modules/talents/Abundance';
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
-import Flourish from 'analysis/druidrestoration/src/modules/talents/Flourish';
+import Flourish from './modules/talents/Flourish';
 import Photosynthesis from './modules/talents/Photosynthesis';
 import SoulOfTheForest from './modules/talents/SoulOfTheForest';
 import SpringBlossoms from './modules/talents/SpringBlossoms';
-import TreeOfLife from 'analysis/druidrestoration/src/modules/talents/TreeOfLife';
+import TreeOfLife from './modules/talents/TreeOfLife';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';

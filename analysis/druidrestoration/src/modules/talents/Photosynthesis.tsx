@@ -4,14 +4,14 @@ import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
-import { Options } from 'parser/core/Module';
-import React from 'react';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
@@ -224,8 +224,10 @@ class Photosynthesis extends Analyzer {
       SPELLS.LIFEBLOOM_HOT_HEAL.id,
       this.selectedCombatant.id,
     );
-    const totalUptime = Object.values(this.combatants.players)
-      .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), 0);
+    const totalUptime = Object.values(this.combatants.players).reduce(
+      (uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),
+      0,
+    );
 
     return (
       <Statistic

@@ -1,13 +1,19 @@
-import HIT_TYPES from 'game/HIT_TYPES';
+import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events, { AbilityEvent, AnyEvent, ApplyBuffEvent, HasTarget, HealEvent, RefreshBuffEvent, RemoveBuffEvent, TargettedEvent } from 'parser/core/Events';
+import Events, {
+  AbilityEvent,
+  AnyEvent,
+  ApplyBuffEvent,
+  HasTarget,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  TargettedEvent,
+} from 'parser/core/Events';
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
-import { StatBuff } from 'parser/shared/modules/StatTracker';
-import Combatant from 'parser/core/Combatant';
-import Spell from 'common/SPELLS/Spell';
 
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
@@ -33,16 +39,8 @@ abstract class HotTracker extends Analyzer {
   hotInfo: HotInfoMap;
   hotList: Spell[];
 
-  //{
-  //  [playerId]:{
-  //    [hotId]: {start, end, originalEnd, spellId, guid, name, ticks, attributions, extensions, boosts, healingAfterOriginalEnd, maxDuration},
-  //  },
-  //}
-
   hots: TrackersByPlayerAndSpell = {}; // a mapping of the currently tracked HoTs
-  bouncingHots: Tracker[] = []; // TODO what is this lul?
-
-  currentGuid: number = 0; // TODO what is this lul?
+  bouncingHots: Tracker[] = []; // a tracker for bouncing hots TODO used by MW - better desc?
 
   hotHistory: Tracker[] = []; // a history of all HoTs tracked over the course of this encounter
 
@@ -106,7 +104,6 @@ abstract class HotTracker extends Analyzer {
       end: event.timestamp + hotDuration,
       originalEnd: event.timestamp + hotDuration,
       spellId, // stored extra here so I don't have to convert string to number like I would if I used its key in the object.
-      guid: this.currentGuid,
       name: event.ability.name, // stored for logging
       ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
       attributions: [], // The effect or bonus that procced this HoT application. No attribution implies the spell was hardcast.
@@ -115,8 +112,6 @@ abstract class HotTracker extends Analyzer {
       healingAfterOriginalEnd: 0, //healing this hot did after the base duration due to extensions
       maxDuration: maxDuration, //the true max duration that extensions will obey by (looking at rising mist)
     };
-
-    this.currentGuid += 1;
 
     if (!this.hots[targetId]) {
       this.hots[targetId] = {};
@@ -274,20 +269,19 @@ abstract class HotTracker extends Analyzer {
    * NOTE: can pass a null attribution to extend HoT without attributing it
    */
   addExtension(
-    attribution: Attribution,
+    attribution: Attribution | null,
     amount: number,
     targetId: number,
     spellId: number,
-    timestamp: number,
+    timestamp: number = 0, // apparently only used w/ max duration?
     tickClamps: boolean = true,
     pandemicClamps: boolean = false,
   ) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       debug &&
         console.warn(
-          `Tried to add extension ${
-            attribution.name || 'NO-ATT'
-          } to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`,
+          `Tried to add extension ${attribution === null ? 'NO-ATT' : attribution.name}
+           to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`,
         );
       return;
     }
@@ -389,7 +383,13 @@ abstract class HotTracker extends Analyzer {
    *
    * Thanks @tremaho for the detailed explanation of the formula
    */
-  _calculateExtension(rawAmount: number, hot: Tracker, spellId: number, tickClamps: boolean, pandemicClamps: boolean) {
+  _calculateExtension(
+    rawAmount: number,
+    hot: Tracker,
+    spellId: number,
+    tickClamps: boolean,
+    pandemicClamps: boolean,
+  ) {
     let amount = rawAmount;
     const currentTimeRemaining = hot.end - this.owner.currentTimestamp;
 
@@ -546,20 +546,18 @@ abstract class HotTracker extends Analyzer {
    * Called on construction to dynamically generate a listing of HoT spells (depending on talents and what not).
    */
   abstract _generateHotList(): Spell[];
-
 }
 
-type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell }
+export type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell };
 
-type TrackersBySpell = { [key: number]: Tracker }
+export type TrackersBySpell = { [key: number]: Tracker };
 
 // a tracking object for a specific instance of the player's HoT on a target
-interface Tracker {
+export interface Tracker {
   start: number; // timestamp when the tracked HoT was applied
   end: number; // timestamp when the tracked HoT is projected to end (dynamically updated by extensions)
   originalEnd: number; // timestamp when the tracked HoT was originally projected to end (before extensions)
   spellId: number; // the HoT's spellId
-  guid: number; // TODO WHAT IS THIS AND WHY IS IT HERE
   name: string; // the HoT's name, for logging purposes
   ticks: Tick[]; // listing of ticks recorded by this HoT
   attributions: Attribution[]; // listing of attributions attached to this HoT
@@ -570,13 +568,13 @@ interface Tracker {
 }
 
 // a record of a HoT's tick
-interface Tick {
+export interface Tick {
   healing: number; // the tick's effective healing
   timestamp: number; // the tick's timestamp
 }
 
 // a record of healing attributable to an effect
-interface Attribution {
+export interface Attribution {
   attributionId: number | null; // the ID of the effect attributed, or null in the case of a hardcast
   name: string; // the name of the attribution, for logging purposes only
   healing: number; // the amount of effective healing attributable - will be updated
@@ -585,13 +583,13 @@ interface Attribution {
 }
 
 // a record of an extension to a HoT
-interface Extension {
+export interface Extension {
   amount: number; // the length of the extension in ms
   attribution: Attribution; // the attribution of this extension
 }
 
 // a record of a boost to a HoT (for its full duration)
-interface Boost {
+export interface Boost {
   increase: number; // the amount of the healing increase - ex. 0.15 means a 15% increase
   attribution: Attribution; // the attribution of this boost
 }
@@ -603,12 +601,10 @@ export type HotInfoMap = { [key: number]: HotInfo };
 export interface HotInfo {
   duration: number; //HoT's base duration, in ms
   tickPeriod: number; //HoT's base period between ticks, in ms
-  maxDuration?: (e: ApplyBuffEvent) => number; // TODO description
+  maxDuration?: (e: ApplyBuffEvent) => number; // TODO used by MW - description?
   bouncy?: boolean; // true iff a hot will bounce to another target on any event
-  durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO description
+  durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO used by MW - description?
   id?: number; // the spell's ID again, for dynamic listeners
 }
-
-
 
 export default HotTracker;

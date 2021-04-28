@@ -1,3 +1,4 @@
+import TreeOfLife from 'analysis/druidrestoration/src/modules/talents/TreeOfLife';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
@@ -7,7 +8,6 @@ import React from 'react';
 
 import Cultivation from '../../talents/Cultivation';
 import SpringBlossoms from '../../talents/SpringBlossoms';
-import TreeOfLife from 'analysis/druidrestoration/src/modules/talents/TreeOfLife';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Clearcasting from '../Clearcasting';
 import Efflorescence from '../Efflorescence';
