@@ -1,4 +1,3 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -8,9 +7,13 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = (props) => (
+const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -220,10 +223,8 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
               </>
             }
             thresholds={thresholds.cultivationPercent}
-            tooltip={`This is the percent of your total healing that Cultivation contributed. Below around ${formatPercentage(
-              thresholds.cultivationPercent.isLessThan.average,
-              0,
-            )}%, you either had too many healers in this fight, or the fight is better for Tree of Life`}
+            tooltip={`This is the percent of your total healing that Cultivation contributed.
+            If this number is low you either had too many healers in this fight, or the fight is better for Tree of Life`}
           />
         )}
         {combatant.hasTalent(SPELLS.SPRING_BLOSSOMS.id) && (
@@ -234,10 +235,9 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
               </>
             }
             thresholds={thresholds.springBlossomsPercent}
-            tooltip={`This is the percent of your total healing that Spring Blossoms contributed. Below around ${formatPercentage(
-              thresholds.springBlossomsPercent.isLessThan.average,
-              0,
-            )}%, you either weren't doing a good job with Efflorescence placement or you would have been better off picking Germination`}
+            tooltip={`This is the percent of your total healing that Spring Blossoms contributed.
+            If this number is low you either weren't doing a good job with Efflorescence placement
+            or it's a bad Efflorescence fight and you'd be better off with a different talent`}
           />
         )}
         {combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
@@ -248,10 +248,8 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
               </>
             }
             thresholds={thresholds.treeOfLifePercent}
-            tooltip={`This is the percent of your total healing that Tree of Life contributed. Below around ${formatPercentage(
-              thresholds.treeOfLifePercent.isLessThan.average,
-              0,
-            )}%, you either didn't pick good times to use ToL or you would have been better off picking Cultivation`}
+            tooltip={`This is the percent of your total healing that Tree of Life contributed.
+            If this number is low you either didn't pick good times to use ToL or you would have been better off picking Cultivation`}
           />
         )}
       </Rule>

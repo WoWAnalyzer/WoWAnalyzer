@@ -21,6 +21,7 @@ import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
 import Rejuvenation from '../core/Rejuvenation';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
@@ -91,7 +92,7 @@ class TreeOfLife extends Analyzer {
         average: 0.045,
         major: 0.025,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -169,7 +170,8 @@ class TreeOfLife extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    const buffUptime = event.timestamp - this.lastTolApply;
+    const tolApply = this.lastTolApply === null ? this.owner.fight.start_time : this.lastTolApply;
+    const buffUptime = event.timestamp - tolApply;
 
     if (this.lastTolCast) {
       this.completedTolUptime += Math.min(TOL_DURATION, buffUptime);
@@ -196,7 +198,7 @@ class TreeOfLife extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

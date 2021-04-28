@@ -14,6 +14,7 @@ import Events, {
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
+import Combatant from 'parser/core/Combatant';
 
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
@@ -90,13 +91,15 @@ abstract class HotTracker extends Analyzer {
     let hotDuration = this.hotInfo[spellId].duration;
     const durationConditionsFunc = this.hotInfo[spellId].durationConditions;
     if (durationConditionsFunc !== undefined) {
-      hotDuration = durationConditionsFunc(event);
+      const c: Combatant = this.selectedCombatant;
+      hotDuration = durationConditionsFunc(event, c);
     }
 
     let maxDuration = -1;
     const maxDurationFunc = this.hotInfo[spellId].maxDuration;
     if (maxDurationFunc !== undefined) {
-      maxDuration = maxDurationFunc(event);
+      const c: Combatant = this.selectedCombatant;
+      maxDuration = maxDurationFunc(event, c);
     }
 
     const newHot = {
@@ -170,7 +173,7 @@ abstract class HotTracker extends Analyzer {
     let freshDuration = this.hotInfo[spellId].duration;
     const durationConditionsFunc = this.hotInfo[spellId].durationConditions;
     if (durationConditionsFunc !== undefined) {
-      freshDuration = durationConditionsFunc(event);
+      freshDuration = durationConditionsFunc(event, this.selectedCombatant);
     }
     hot.end += this._calculateExtension(freshDuration, hot, spellId, true, true);
 
@@ -601,9 +604,9 @@ export type HotInfoMap = { [key: number]: HotInfo };
 export interface HotInfo {
   duration: number; //HoT's base duration, in ms
   tickPeriod: number; //HoT's base period between ticks, in ms
-  maxDuration?: (e: ApplyBuffEvent) => number; // TODO used by MW - description?
+  maxDuration?: (e: ApplyBuffEvent, c: Combatant) => number; // TODO used by MW - description?
   bouncy?: boolean; // true iff a hot will bounce to another target on any event
-  durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent) => number; // TODO used by MW - description?
+  durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent, c: Combatant) => number; // TODO used by MW - description?
   id?: number; // the spell's ID again, for dynamic listeners
 }
 

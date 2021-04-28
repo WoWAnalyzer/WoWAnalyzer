@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { HotInfoMap } from 'parser/shared/modules/HotTracker';
+import Combatant from 'parser/core/Combatant';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -22,16 +23,20 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
-  calculateMaxDuration(event: ApplyBuffEvent) {
+  calculateMaxDuration(event: ApplyBuffEvent, combatant: Combatant) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ENVELOPING_MIST.id) {
-      return (ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0)) * 2;
+      return (
+        (ENV_BASE_DURATION + (combatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? MISTWRAP : 0)) * 2
+      );
     }
     if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      return (EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0)) * 2;
+      return (
+        (EF_BASE_DURATION + (combatant.hasTalent(SPELLS.UPWELLING_TALENT.id) ? UPWELLING : 0)) * 2
+      );
     }
     if (
-      this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
+      combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
       spellId === SPELLS.RENEWING_MIST_HEAL.id
     ) {
       return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2;
@@ -39,10 +44,10 @@ class HotTrackerMW extends HotTracker {
     return REM_BASE_DURATION * 2;
   }
 
-  calculateMaxRemDuration(event: ApplyBuffEvent | RefreshBuffEvent) {
+  calculateMaxRemDuration(event: ApplyBuffEvent | RefreshBuffEvent, combatant: Combatant) {
     const spellId = event.ability.guid;
     if (
-      this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
+      combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
       spellId === SPELLS.RENEWING_MIST_HEAL.id
     ) {
       return REM_BASE_DURATION + TFT_REM_EXTRA_DURATION;
