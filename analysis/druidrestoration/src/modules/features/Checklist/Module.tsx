@@ -1,4 +1,3 @@
-import TreeOfLife from 'analysis/druidrestoration/src/modules/talents/TreeOfLife';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
@@ -6,6 +5,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import ManaValues from 'parser/shared/modules/ManaValues';
 import React from 'react';
 
+import TreeOfLife from '../../talents/TreeOfLife';
 import Cultivation from '../../talents/Cultivation';
 import SpringBlossoms from '../../talents/SpringBlossoms';
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -32,6 +32,20 @@ class Checklist extends BaseChecklist {
     springBlossoms: SpringBlossoms,
     treeOfLife: TreeOfLife,
   };
+
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected wildGrowth!: WildGrowth;
+  protected lifebloom!: Lifebloom;
+  protected efflorescence!: Efflorescence;
+  protected innervate!: Innervate;
+  protected clearCasting!: Clearcasting;
+  protected manaValues!: ManaValues;
+  protected cultivation!: Cultivation;
+  protected springBlossoms!: SpringBlossoms;
+  protected treeOfLife!: TreeOfLife;
 
   render() {
     return (
