@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={SPELLS.SEPSIS.id} /> analyzers. </>, Hordehobbs),
   change(date(2021, 4, 7), <>Refactor Outlaw modules into Typescript for future development.</>, Hordehobbs),
   change(date(2021, 4, 7), <>Updated <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> to use the new combat buff priority list</>, ab),
   change(date(2021, 3, 4), <>Fixed error where <SpellLink id={SPELLS.DREADBLADES_TALENT.id} /> was being suggested even when not talented</>, Akai),

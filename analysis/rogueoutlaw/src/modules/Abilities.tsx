@@ -312,6 +312,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SEPSIS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        cooldown: 90,
         gcd: {
           static: standardGcd,
         },
