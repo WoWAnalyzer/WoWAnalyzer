@@ -88,19 +88,8 @@ abstract class HotTracker extends Analyzer {
       return;
     }
 
-    let hotDuration = this.hotInfo[spellId].duration;
-    const durationConditionsFunc = this.hotInfo[spellId].durationConditions;
-    if (durationConditionsFunc !== undefined) {
-      const c: Combatant = this.selectedCombatant;
-      hotDuration = durationConditionsFunc(event, c);
-    }
-
-    let maxDuration = -1;
-    const maxDurationFunc = this.hotInfo[spellId].maxDuration;
-    if (maxDurationFunc !== undefined) {
-      const c: Combatant = this.selectedCombatant;
-      maxDuration = maxDurationFunc(event, c);
-    }
+    const hotDuration = this._getDuration(this.hotInfo[spellId]);
+    const maxDuration = this._getMaxDuration(this.hotInfo[spellId]);
 
     const newHot = {
       start: event.timestamp,
@@ -113,7 +102,7 @@ abstract class HotTracker extends Analyzer {
       extensions: [], // The effects or bonuses that caused this HoT to have extended duration. Format: { amount, attribution }
       boosts: [], // The effects or bonuses that caused the strength of this HoT to be boosted for its full duration.
       healingAfterOriginalEnd: 0, //healing this hot did after the base duration due to extensions
-      maxDuration: maxDuration, //the true max duration that extensions will obey by (looking at rising mist)
+      maxDuration, //the true max duration that extensions will obey by (looking at rising mist)
     };
 
     if (!this.hots[targetId]) {
@@ -142,7 +131,10 @@ abstract class HotTracker extends Analyzer {
       hot.ticks.push({ healing, timestamp: event.timestamp });
     }
 
-    if (hot.originalEnd < event.timestamp && event.timestamp < hot.start + hot.maxDuration) {
+    if (
+      hot.originalEnd < event.timestamp &&
+      event.timestamp < hot.start + (hot.maxDuration ? hot.maxDuration : 0)
+    ) {
       hot.healingAfterOriginalEnd += healing;
     }
 
@@ -170,11 +162,8 @@ abstract class HotTracker extends Analyzer {
     const hot = this.hots[targetId][spellId];
 
     const oldEnd = hot.end;
-    let freshDuration = this.hotInfo[spellId].duration;
-    const durationConditionsFunc = this.hotInfo[spellId].durationConditions;
-    if (durationConditionsFunc !== undefined) {
-      freshDuration = durationConditionsFunc(event, this.selectedCombatant);
-    }
+    const freshDuration = this._getDuration(this.hotInfo[spellId]);
+
     hot.end += this._calculateExtension(freshDuration, hot, spellId, true, true);
 
     hot.originalEnd = hot.end; //reframe our info
@@ -292,7 +281,7 @@ abstract class HotTracker extends Analyzer {
     const hot = this.hots[targetId][spellId];
 
     //double check if we can even extend in the first place
-    if (hot.maxDuration !== -1) {
+    if (hot.maxDuration !== undefined) {
       const timeOut = timestamp - hot.start;
       const timeLeft = hot.maxDuration - timeOut;
       const timeToAdd = Math.min(amount, timeLeft); //find the smaller one as this will be added
@@ -399,7 +388,7 @@ abstract class HotTracker extends Analyzer {
     let pandemicLog = '';
     if (pandemicClamps) {
       const newTimeRemaining = currentTimeRemaining + amount;
-      const pandemicMax = this.hotInfo[spellId].duration * PANDEMIC_FACTOR;
+      const pandemicMax = this._getDuration(this.hotInfo[spellId]) * PANDEMIC_FACTOR;
       if (newTimeRemaining > pandemicMax) {
         amount = pandemicMax - currentTimeRemaining;
         pandemicLog = `PANDEMIC:(remaining=${(pandemicMax / 1000).toFixed(2)}s)`;
@@ -540,6 +529,25 @@ abstract class HotTracker extends Analyzer {
     return true;
   }
 
+  // helper to extract a HoT's duration at time of application
+  _getDuration(hotInfo: HotInfo): number {
+    const durationOrFunc = hotInfo.duration;
+    return typeof durationOrFunc === 'number'
+      ? durationOrFunc
+      : durationOrFunc(this.selectedCombatant);
+  }
+
+  // helper to extract a HoT's max duration at time of application
+  _getMaxDuration(hotInfo: HotInfo): number | undefined {
+    const durationOrFunc = hotInfo.maxDuration;
+    if (durationOrFunc === undefined) {
+      return undefined;
+    }
+    return typeof durationOrFunc === 'number'
+      ? durationOrFunc
+      : durationOrFunc(this.selectedCombatant);
+  }
+
   /**
    * Called on construction to dynamically generate HoT info (depending on talents and what not).
    */
@@ -551,63 +559,91 @@ abstract class HotTracker extends Analyzer {
   abstract _generateHotList(): Spell[];
 }
 
+/** A mapping from player ID and then spell ID to that player/spell's Tracker */
 export type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell };
 
+/** A mapping from spell ID to that spell's Tracker */
 export type TrackersBySpell = { [key: number]: Tracker };
 
-// a tracking object for a specific instance of the player's HoT on a target
+/** a tracking object for a specific instance of the player's HoT on a target */
 export interface Tracker {
-  start: number; // timestamp when the tracked HoT was applied
-  end: number; // timestamp when the tracked HoT is projected to end (dynamically updated by extensions)
-  originalEnd: number; // timestamp when the tracked HoT was originally projected to end (before extensions)
-  spellId: number; // the HoT's spellId
-  name: string; // the HoT's name, for logging purposes
-  ticks: Tick[]; // listing of ticks recorded by this HoT
-  attributions: Attribution[]; // listing of attributions attached to this HoT
-  extensions: Extension[]; // listing of extensions attached to this HoT
-  boosts: Boost[]; // listing of boosts attached to this HoT
-  healingAfterOriginalEnd: number; // healing that occured after the original end (can be attributed to extensions)
-  maxDuration: number; // the 'true max duration' that extensions will obey (see Rising Mist)
+  /** timestamp when the tracked HoT was applied */
+  start: number;
+  /** timestamp when the tracked HoT is projected to end (dynamically updated by extensions) */
+  end: number;
+  /** timestamp when the tracked HoT was originally projected to end (before extensions) */
+  originalEnd: number;
+  /** the HoT's spellId */
+  spellId: number;
+  /** the HoT's name, for logging purposes */
+  name: string;
+  /** listing of ticks recorded by this HoT */
+  ticks: Tick[];
+  /** listing of attributions attached to this HoT */
+  attributions: Attribution[];
+  /** listing of extensions attached to this HoT */
+  extensions: Extension[];
+  /** listing of boosts attached to this HoT */
+  boosts: Boost[];
+  /** healing that occured after the original end (can be attributed to extensions) */
+  healingAfterOriginalEnd: number;
+  /** if present, this is the 'true max duration' beyond which the HoT cannot be extended */
+  maxDuration?: number;
 }
 
-// a record of a HoT's tick
+/** a record of a HoT's tick */
 export interface Tick {
-  healing: number; // the tick's effective healing
-  timestamp: number; // the tick's timestamp
+  /** the tick's effective healing */
+  healing: number; //
+  /** the tick's timestamp */
+  timestamp: number; //
 }
 
-// a record of healing attributable to an effect
+/** a record of healing attributable to an effect */
 export interface Attribution {
-  attributionId: number | null; // the ID of the effect attributed, or null in the case of a hardcast
-  name: string; // the name of the attribution, for logging purposes only
-  healing: number; // the amount of effective healing attributable - will be updated
-  procs: number; // the number of times this attribution was made - will be updated
-  totalExtension?: number; // the number of total milliseconds extended (for an extension attribution)
+  /** the ID of the effect attributed, or null in the case of a hardcast */
+  attributionId: number | null;
+  /** the name of the attribution, for logging purposes only */
+  name: string;
+  /** the amount of effective healing attributable - will be updated */
+  healing: number;
+  /** the number of times this attribution was made - will be updated */
+  procs: number;
+  /** the number of total milliseconds extended (for an extension attribution) */
+  totalExtension?: number;
 }
 
-// a record of an extension to a HoT
+/** a record of an extension to a HoT */
 export interface Extension {
-  amount: number; // the length of the extension in ms
-  attribution: Attribution; // the attribution of this extension
+  /** the length of the extension in ms */
+  amount: number;
+  /** the attribution of this extension */
+  attribution: Attribution;
 }
 
-// a record of a boost to a HoT (for its full duration)
+/** a record of a boost to a HoT (for its full duration) */
 export interface Boost {
-  increase: number; // the amount of the healing increase - ex. 0.15 means a 15% increase
-  attribution: Attribution; // the attribution of this boost
+  /** the amount of the healing increase - ex. 0.15 means a 15% increase */
+  increase: number;
+  /** the attribution of this boost */
+  attribution: Attribution;
 }
 
-// A mapping from spell ID to that spell's HotInfo
+/** A mapping from spell ID to that spell's HotInfo */
 export type HotInfoMap = { [key: number]: HotInfo };
 
-// information about a Heal over Time spell specific to tracking
+/** Information about a Heal over Time spell specific to tracking */
 export interface HotInfo {
-  duration: number; //HoT's base duration, in ms
-  tickPeriod: number; //HoT's base period between ticks, in ms
-  maxDuration?: (e: ApplyBuffEvent, c: Combatant) => number; // TODO used by MW - description?
-  bouncy?: boolean; // true iff a hot will bounce to another target on any event
-  durationConditions?: (e: ApplyBuffEvent | RefreshBuffEvent, c: Combatant) => number; // TODO used by MW - description?
-  id?: number; // the spell's ID again, for dynamic listeners
+  /** HoT's base duration, in ms. Either static or dynamically generated based on combatant state at time of application. */
+  duration: number | ((c: Combatant) => number);
+  /** HoT's base period between ticks, in ms. */
+  tickPeriod: number;
+  /** Hot's maximum duration beyond which it cannot be extended, in ms. Either static or dynamically generated based on combatant state at time of application. */
+  maxDuration?: number | ((c: Combatant) => number);
+  /** true iff a HoT bounces - this is special case handling for Mistweaver's 'Renewing Mist' spell */
+  bouncy?: boolean;
+  /** the spell's ID again, for dynamic listeners */
+  id?: number;
 }
 
 export default HotTracker;
