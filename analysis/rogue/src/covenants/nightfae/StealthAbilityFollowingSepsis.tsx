@@ -72,6 +72,41 @@ class StealthAbilityFollowingSepsis extends Analyzer {
         </>,
       );
     });
+    let tooltip: React.ReactElement | null;
+    if (this.badCasts.length === 0) {
+      tooltip = (
+        <>
+          You used <SpellLink id={this.properStealthAbility.id} />
+          following the completion of <SpellLink id={SPELLS.SEPSIS_POISON.id} />
+          every time! Great job!
+        </>
+      );
+    } else {
+      tooltip = (
+        <>
+          You used the incorrect stealth ability instead of{' '}
+          <SpellLink id={this.properStealthAbility.id} />
+          following the completion of <SpellLink id={SPELLS.SEPSIS_POISON.id} />
+        </>
+      );
+    }
+
+    let dropdown: React.ReactElement | null = null;
+    if (this.badCasts.length !== 0) {
+      dropdown = (
+        <>
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast Timestamp</th>
+                <th>Bad Ability</th>
+              </tr>
+            </thead>
+            <tbody>{tableEntries}</tbody>
+          </table>
+        </>
+      );
+    }
 
     return (
       <>
@@ -79,26 +114,8 @@ class StealthAbilityFollowingSepsis extends Analyzer {
           position={STATISTIC_ORDER.DEFAULT}
           size="flexible"
           category={STATISTIC_CATEGORY.COVENANTS}
-          tooltip={
-            <>
-              You used the incorrect stealth ability instead of{' '}
-              <SpellLink id={this.properStealthAbility.id} />
-              following the completion of <SpellLink id={SPELLS.SEPSIS_POISON.id} />
-            </>
-          }
-          dropdown={
-            <>
-              <table className="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>Cast Timestamp</th>
-                    <th>Bad Ability</th>
-                  </tr>
-                </thead>
-                <tbody>{tableEntries}</tbody>
-              </table>
-            </>
-          }
+          tooltip={tooltip}
+          dropdown={dropdown}
         >
           <BoringSpellValue
             spell={SPELLS.SEPSIS}

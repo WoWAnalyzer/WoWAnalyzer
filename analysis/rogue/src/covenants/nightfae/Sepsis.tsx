@@ -36,17 +36,16 @@ class Sepsis extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON),
       this.onPoisonDamage,
     );
-    this.addEventListener(Events.removedebuff.spell(SPELLS.SEPSIS), this.onDebuffFade);
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS),
+      this.onDebuffFade,
+    );
   }
 
   onDebuffFade(event: RemoveDebuffEvent) {
     if (this.lastSepsisCast == null) {
       // This should never happen and indicates a bug if it does.
       debug && console.warn('Sepsis debuff faded before cast recorded.');
-      return;
-    }
-    if (event.sourceID !== this.selectedCombatant.id) {
-      // Debuff faded from Sepsis cast by another Rogue.
       return;
     }
     const lastCastTimestamp = this.lastSepsisCast.timestamp;
