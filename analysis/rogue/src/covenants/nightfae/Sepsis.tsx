@@ -54,7 +54,10 @@ class Sepsis extends Analyzer {
 
     // If the Sepsis DoT does not reach its full duration, the CD
     // of Sepsis is reduced by 30 seconds.
-    if (timestampDiff < BASE_DOT_LENGTH_MS + DOT_END_BUFFER_MS) {
+    if (
+      timestampDiff < BASE_DOT_LENGTH_MS + DOT_END_BUFFER_MS &&
+      !this.spellUsable.isAvailable(SPELLS.SEPSIS.id)
+    ) {
       this.spellUsable.reduceCooldown(SPELLS.SEPSIS.id, COOLDOWN_REDUCTION_MS);
     }
   }
