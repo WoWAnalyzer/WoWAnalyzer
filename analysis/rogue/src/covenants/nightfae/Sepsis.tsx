@@ -58,14 +58,6 @@ class Sepsis extends Analyzer {
       timestampDiff < BASE_DOT_LENGTH_MS + DOT_END_BUFFER_MS &&
       !this.spellUsable.isAvailable(SPELLS.SEPSIS.id)
     ) {
-      console.log('Attempting CD reduction:');
-      console.log(
-        `Last Sepsis cast at: ${this.owner.formatTimestamp(this.lastSepsisCast.timestamp)}`,
-      );
-      console.dir(this.lastSepsisCast);
-      console.log(`Debuff fade event at: ${this.owner.formatTimestamp(event.timestamp)}`);
-      console.dir(event);
-      console.log(`TimestampDiff=${timestampDiff}`);
       this.spellUsable.reduceCooldown(SPELLS.SEPSIS.id, COOLDOWN_REDUCTION_MS);
     }
   }
