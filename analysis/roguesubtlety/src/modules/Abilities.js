@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -83,6 +84,18 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: 'In most cases should be used on cooldown.',
+        },
+      },
+      {
+        spell: SPELLS.SEPSIS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        cooldown: 90,
+        gcd: {
+          base: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {

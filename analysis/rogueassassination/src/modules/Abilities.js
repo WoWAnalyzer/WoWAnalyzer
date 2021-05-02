@@ -128,6 +128,18 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
       },
+      {
+        spell: SPELLS.SEPSIS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        cooldown: 90,
+        gcd: {
+          base: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
       // Defensive
       {
         spell: SPELLS.CLOAK_OF_SHADOWS,

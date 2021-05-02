@@ -316,6 +316,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.ECHOING_REPRIMAND,
