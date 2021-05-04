@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 5, 4), 'German translations', maestrohdude),
   change(date(2021, 4, 26), <>Fixed <SpellLink id={SPELLS.CHAOS_BRAND.id} /> count in Raid Buffs</>, niko),
   change(date(2021, 4, 24), 'German translations', maestrohdude),
   change(date(2021, 4, 20), 'Normalized normalizers', Sref),
