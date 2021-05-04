@@ -1,66 +1,60 @@
 import SPELLS from 'common/SPELLS';
-import HotTracker, { HotInfoMap } from 'parser/shared/modules/HotTracker';
+import HotTracker, { HotInfo } from 'parser/shared/modules/HotTracker';
 
 class HotTrackerRestoDruid extends HotTracker {
-  _generateHotInfo(): HotInfoMap {
-    // must be generated dynamically because it reads from traits
-    return {
-      [SPELLS.REJUVENATION.id]: {
+  _generateHotInfo(): HotInfo[] {
+    return [
+      {
+        spell: SPELLS.REJUVENATION,
         duration: 15000,
         tickPeriod: 3000,
       },
-      [SPELLS.REJUVENATION_GERMINATION.id]: {
+      {
+        spell: SPELLS.REJUVENATION_GERMINATION,
         duration: 15000,
         tickPeriod: 3000,
       },
-      [SPELLS.REGROWTH.id]: {
+      {
+        spell: SPELLS.REGROWTH,
         duration: 12000,
         tickPeriod: 2000,
       },
-      [SPELLS.WILD_GROWTH.id]: {
+      {
+        spell: SPELLS.WILD_GROWTH,
         duration: 7000,
         tickPeriod: 1000,
       },
-      [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
+      {
+        spell: SPELLS.LIFEBLOOM_HOT_HEAL,
         duration: 15000,
         tickPeriod: 1000,
       },
-      [SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id]: {
+      {
+        spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
         duration: 15000,
         tickPeriod: 1000,
       },
-      [SPELLS.CENARION_WARD_HEAL.id]: {
+      {
+        spell: SPELLS.CENARION_WARD_HEAL,
         duration: 8000,
         tickPeriod: 2000,
       },
-      [SPELLS.CULTIVATION.id]: {
+      {
+        spell: SPELLS.CULTIVATION,
         duration: 6000,
         tickPeriod: 2000,
       },
-      [SPELLS.SPRING_BLOSSOMS.id]: {
+      {
+        spell: SPELLS.SPRING_BLOSSOMS,
         duration: 6000,
         tickPeriod: 2000,
       },
-      [SPELLS.TRANQUILITY_HEAL.id]: {
+      {
+        spell: SPELLS.TRANQUILITY_HEAL,
         duration: 8000,
         tickPeriod: 2000,
       },
-    };
-  }
-
-  _generateHotList() {
-    return [
-      SPELLS.REJUVENATION,
-      SPELLS.REJUVENATION_GERMINATION,
-      SPELLS.REGROWTH,
-      SPELLS.WILD_GROWTH,
-      SPELLS.LIFEBLOOM_HOT_HEAL,
-      SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
-      SPELLS.CENARION_WARD_HEAL,
-      SPELLS.CULTIVATION,
-      SPELLS.SPRING_BLOSSOMS,
-      SPELLS.TRANQUILITY_HEAL,
-    ];
+    ]
   }
 }
 

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { HotInfoMap } from 'parser/shared/modules/HotTracker';
+import HotTracker, { HotInfo, HotInfoMap } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -34,35 +34,31 @@ class HotTrackerMW extends HotTracker {
       : REM_BASE_DURATION * 2;
   }
 
-  _generateHotInfo(): HotInfoMap {
+  _generateHotInfo(): HotInfo[] {
     // must be generated dynamically because it reads from traits
     const envMistDuration = ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0);
     const essenceFontDuration = EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0);
-    return {
-      [SPELLS.RENEWING_MIST_HEAL.id]: {
+    return [
+      {
+        spell: SPELLS.RENEWING_MIST_HEAL,
         duration: this._calculateRemDuration,
         tickPeriod: 2000,
         maxDuration: this._calculateMaxRemDuration,
         bouncy: true,
-        id: SPELLS.RENEWING_MIST_HEAL.id,
       },
-      [SPELLS.ENVELOPING_MIST.id]: {
+      {
+        spell: SPELLS.ENVELOPING_MIST,
         duration: envMistDuration,
         tickPeriod: 1000,
         maxDuration: envMistDuration * 2,
-        id: SPELLS.ENVELOPING_MIST.id,
       },
-      [SPELLS.ESSENCE_FONT_BUFF.id]: {
+      {
+        spell: SPELLS.ESSENCE_FONT_BUFF,
         duration: essenceFontDuration,
         tickPeriod: 2000,
         maxDuration: essenceFontDuration * 2,
-        id: SPELLS.ESSENCE_FONT_BUFF.id,
       },
-    };
-  }
-
-  _generateHotList() {
-    return [SPELLS.RENEWING_MIST_HEAL, SPELLS.ENVELOPING_MIST, SPELLS.ESSENCE_FONT_BUFF];
+    ];
   }
 }
 
