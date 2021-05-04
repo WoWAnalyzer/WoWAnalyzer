@@ -54,7 +54,7 @@ class HotTrackerRestoDruid extends HotTracker {
         duration: 8000,
         tickPeriod: 2000,
       },
-    ]
+    ];
   }
 }
 
