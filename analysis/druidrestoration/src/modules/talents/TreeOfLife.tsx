@@ -3,9 +3,16 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  Event,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -42,6 +49,30 @@ const TOL_DURATION = 30000;
  *  - Wild Growth: +2 targets
  */
 class TreeOfLife extends Analyzer {
+  static dependencies = {
+    healingDone: HealingDone,
+    abilityTracker: AbilityTracker,
+    rejuvenation: Rejuvenation,
+  };
+
+  healingDone!: HealingDone;
+  abilityTracker!: AbilityTracker;
+  rejuvenation!: Rejuvenation;
+
+  lastTolCast: number | null = null;
+  lastTolApply: number | null = null;
+  completedTolUptime = 0;
+
+  // gets the appropriate accumulator for tallying this event
+  // if ToL buff isn't active, returns null,
+  wgCasts = 0;
+  hardcast: TolAccumulator = {
+    allBoostHealing: 0,
+    rejuvBoostHealing: 0,
+    rejuvManaSaved: 0,
+    extraWgHealing: 0,
+  };
+
   get hardcastUptime() {
     const currentUptime = !this.lastTolCast
       ? 0
@@ -61,31 +92,12 @@ class TreeOfLife extends Analyzer {
         average: 0.045,
         major: 0.025,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    healingDone: HealingDone,
-    abilityTracker: AbilityTracker,
-    rejuvenation: Rejuvenation,
-  };
-  lastTolCast = null;
-  lastTolApply = null;
-  completedTolUptime = 0;
-
-  // gets the appropriate accumulator for tallying this event
-  // if ToL buff isn't active, returns null,
-  wgCasts = 0;
-  hardcast = {
-    allBoostHealing: 0,
-    rejuvBoostHealing: 0,
-    rejuvManaSaved: 0,
-    extraWgHealing: 0,
-  };
-
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS),
@@ -108,7 +120,7 @@ class TreeOfLife extends Analyzer {
   }
 
   // if ToL buff is due to hardcast, returns the hardcast accumulator,
-  _getAccumulator(event) {
+  _getAccumulator(event: Event<any>) {
     if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null;
     } else if (this.lastTolCast && this.lastTolCast + TOL_DURATION > event.timestamp) {
@@ -118,7 +130,7 @@ class TreeOfLife extends Analyzer {
     }
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     const accumulator = this._getAccumulator(event);
@@ -135,7 +147,7 @@ class TreeOfLife extends Analyzer {
     }
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
       this.lastTolCast = event.timestamp;
@@ -153,12 +165,13 @@ class TreeOfLife extends Analyzer {
     }
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.lastTolApply = event.timestamp;
   }
 
-  onRemoveBuff(event) {
-    const buffUptime = event.timestamp - this.lastTolApply;
+  onRemoveBuff(event: RemoveBuffEvent) {
+    const tolApply = this.lastTolApply === null ? this.owner.fight.start_time : this.lastTolApply;
+    const buffUptime = event.timestamp - tolApply;
 
     if (this.lastTolCast) {
       this.completedTolUptime += Math.min(TOL_DURATION, buffUptime);
@@ -168,15 +181,15 @@ class TreeOfLife extends Analyzer {
     this.lastTolApply = null;
   }
 
-  _getManaSavedHealing(accumulator) {
+  _getManaSavedHealing(accumulator: TolAccumulator) {
     return accumulator.rejuvManaSaved * this.rejuvenation.avgRejuvHealing;
   }
 
-  _getManaSaved(accumulator) {
+  _getManaSaved(accumulator: TolAccumulator) {
     return accumulator.rejuvManaSaved * REJUV_MANA_COST;
   }
 
-  _getTotalHealing(accumulator) {
+  _getTotalHealing(accumulator: TolAccumulator) {
     return (
       accumulator.allBoostHealing +
       accumulator.rejuvBoostHealing +
@@ -185,7 +198,7 @@ class TreeOfLife extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -278,6 +291,14 @@ class TreeOfLife extends Analyzer {
       </Statistic>
     );
   }
+}
+
+// data shuttle for keeping track of bonuses attributed to ToL
+interface TolAccumulator {
+  allBoostHealing: number;
+  rejuvBoostHealing: number;
+  rejuvManaSaved: number;
+  extraWgHealing: number;
 }
 
 export default TreeOfLife;

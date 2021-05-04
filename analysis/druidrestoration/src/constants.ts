@@ -40,6 +40,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
   //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
+// TODO this is OBE in Shadowlands
 export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   SPELLS.REJUVENATION,
   SPELLS.WILD_GROWTH,

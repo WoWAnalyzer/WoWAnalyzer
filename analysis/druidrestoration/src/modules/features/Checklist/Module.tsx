@@ -33,6 +33,20 @@ class Checklist extends BaseChecklist {
     treeOfLife: TreeOfLife,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected wildGrowth!: WildGrowth;
+  protected lifebloom!: Lifebloom;
+  protected efflorescence!: Efflorescence;
+  protected innervate!: Innervate;
+  protected clearCasting!: Clearcasting;
+  protected manaValues!: ManaValues;
+  protected cultivation!: Cultivation;
+  protected springBlossoms!: SpringBlossoms;
+  protected treeOfLife!: TreeOfLife;
+
   render() {
     return (
       <Component

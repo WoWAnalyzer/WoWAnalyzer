@@ -3,9 +3,11 @@ import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -25,55 +27,15 @@ const FLOURISH_HEALING_INCREASE = 1;
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
-  get totalExtensionHealing() {
-    return this.flourishes.reduce(
-      (acc, flourish) => acc + flourish.healing + flourish.masteryHealing,
-      0,
-    );
-  }
-
-  get averageHealing() {
-    return this.flourishCount === 0 ? 0 : this.totalExtensionHealing / this.flourishCount;
-  }
-
-  get percentWgsExtended() {
-    return this.flourishCount === 0 ? 0 : this.wgsExtended / this.flourishCount;
-  }
-
-  get wildGrowthSuggestionThresholds() {
-    return {
-      actual: this.percentWgsExtended,
-      isLessThan: {
-        minor: 1.0,
-        average: 0.75,
-        major: 0.5,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get percentCwsExtended() {
-    return this.cwsExtended / this.flourishCount || 0;
-  }
-
-  get cenarionWardSuggestionThresholds() {
-    return {
-      actual: this.percentCwsExtended,
-      isLessThan: {
-        minor: 1.0,
-        average: 0.0,
-        major: 0.0,
-      },
-      style: 'percentage',
-    };
-  }
-
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
   };
+
+  hotTracker!: HotTrackerRestoDruid;
+
   // Counters for hot extension
   flourishCount = 0;
-  flourishes = [];
+  flourishes: Attribution[] = [];
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
   cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
   tranqsExtended = 0;
@@ -97,8 +59,8 @@ class Flourish extends Analyzer {
   increasedRateTranqHealing = 0;
   increasedRateGroveTendingHealing = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
     this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
     this.addEventListener(
@@ -107,11 +69,51 @@ class Flourish extends Analyzer {
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.onCast,
+      this.onCastFlourish,
     );
   }
 
-  onHeal(event) {
+  get totalExtensionHealing() {
+    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing, 0);
+  }
+
+  get averageHealing() {
+    return this.flourishCount === 0 ? 0 : this.totalExtensionHealing / this.flourishCount;
+  }
+
+  get percentWgsExtended() {
+    return this.flourishCount === 0 ? 0 : this.wgsExtended / this.flourishCount;
+  }
+
+  get wildGrowthSuggestionThresholds() {
+    return {
+      actual: this.percentWgsExtended,
+      isLessThan: {
+        minor: 1.0,
+        average: 0.75,
+        major: 0.5,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get percentCwsExtended() {
+    return this.cwsExtended / this.flourishCount || 0;
+  }
+
+  get cenarionWardSuggestionThresholds() {
+    return {
+      actual: this.percentCwsExtended,
+      isLessThan: {
+        minor: 1.0,
+        average: 0.0,
+        major: 0.0,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
     if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id)) {
@@ -188,16 +190,16 @@ class Flourish extends Analyzer {
     }
   }
 
-  onCast(event) {
+  onCastFlourish() {
     this.flourishCount += 1;
     debug && console.log(`Flourish cast #: ${this.flourishCount}`);
 
-    const newFlourish = {
+    const newFlourish: Attribution = {
+      attributionId: SPELLS.FLOURISH_TALENT.id,
       name: `Flourish #${this.flourishCount}`,
       healing: 0,
-      masteryHealing: 0,
       procs: 0,
-      duration: 0,
+      totalExtension: 0,
     };
     this.flourishes.push(newFlourish);
 
@@ -205,7 +207,8 @@ class Flourish extends Analyzer {
     let foundCw = false;
     let foundTranq = false;
 
-    Object.keys(this.hotTracker.hots).forEach((playerId) => {
+    Object.keys(this.hotTracker.hots).forEach((playerIdString) => {
+      const playerId = Number(playerIdString);
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
         // due to flourish's refresh mechanc, we don't include it in Flourish numbers
@@ -250,7 +253,7 @@ class Flourish extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     if (this.flourishCount === 0) {
       return;
     }
@@ -312,78 +315,54 @@ class Flourish extends Analyzer {
             <strong>{formatPercentage(increasedRatePercent)} %</strong>
             <br />
             <ul>
-              {this.wildGrowth !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing),
-                  )}
-                  % from Wild Growth
-                </li>
-              )}
-              {this.rejuvenation !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateRejuvenationHealing,
-                    ),
-                  )}
-                  % from Rejuvenation
-                </li>
-              )}
-              {this.cenarionWard !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateCenarionWardHealing,
-                    ),
-                  )}
-                  % from Cenarion Ward
-                </li>
-              )}
-              {this.lifebloom !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing),
-                  )}
-                  % from Lifebloom
-                </li>
-              )}
-              {this.regrowth !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing),
-                  )}
-                  % from Regrowth
-                </li>
-              )}
-              {this.cultivation !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateCultivationHealing,
-                    ),
-                  )}
-                  % from Cultivation
-                </li>
-              )}
-              {this.traquility !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing),
-                  )}
-                  % from Tranquillity
-                </li>
-              )}
-              {this.groveTending !== 0 && (
-                <li>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateGroveTendingHealing,
-                    ),
-                  )}
-                  % from Grove Tending
-                </li>
-              )}
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing),
+                )}
+                % from Wild Growth
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing),
+                )}
+                % from Rejuvenation
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing),
+                )}
+                % from Cenarion Ward
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing),
+                )}
+                % from Lifebloom
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing),
+                )}
+                % from Regrowth
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing),
+                )}
+                % from Cultivation
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing),
+                )}
+                % from Tranquillity
+              </li>
+              <li>
+                {formatPercentage(
+                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing),
+                )}
+                % from Grove Tending
+              </li>
             </ul>
             The per Flourish amounts do <em>not</em> include Cultivation due to its refresh
             mechanic.
@@ -440,7 +419,7 @@ class Flourish extends Analyzer {
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{flourish.procs}</td>
-                    <td>{formatNumber(flourish.healing + flourish.masteryHealing)}</td>
+                    <td>{formatNumber(flourish.healing)}</td>
                   </tr>
                 ))}
               </tbody>

@@ -3,8 +3,9 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -57,7 +58,7 @@ class WildGrowth extends Analyzer {
         average: 0.08,
         major: 0.03,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -69,7 +70,7 @@ class WildGrowth extends Analyzer {
         average: 0.15,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -81,15 +82,18 @@ class WildGrowth extends Analyzer {
         average: 0.15,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  wgHistory = [];
-  wgTracker = {
+
+  abilityTracker!: AbilityTracker;
+
+  wgHistory: WGTracker[] = [];
+  wgTracker: WGTracker = {
     wgBuffs: [],
     startTimestamp: 0,
     heal: 0,
@@ -98,8 +102,8 @@ class WildGrowth extends Analyzer {
     firstTicksRaw: 0,
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.wgTracker.startTimestamp = this.owner.fight.start_time;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onHeal);
@@ -110,23 +114,24 @@ class WildGrowth extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this.wgTracker.wgBuffs.length > 0) {
       this.wgTracker.badPrecast =
         this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
     }
 
-    this.wgTracker = {};
-    this.wgTracker.wgBuffs = [];
-    this.wgTracker.startTimestamp = event.timestamp;
-    this.wgTracker.heal = 0;
-    this.wgTracker.overheal = 0;
-    this.wgTracker.firstTicksOverheal = 0;
-    this.wgTracker.firstTicksRaw = 0;
+    this.wgTracker = {
+      wgBuffs: [],
+      startTimestamp: event.timestamp,
+      heal: 0,
+      overheal: 0,
+      firstTicksOverheal: 0,
+      firstTicksRaw: 0,
+    };
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     this.wgTracker.heal += healVal.effective;
     this.wgTracker.overheal += healVal.overheal;
@@ -138,7 +143,7 @@ class WildGrowth extends Analyzer {
     }
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.wgTracker.wgBuffs.push(event.targetID);
   }
 
@@ -146,7 +151,7 @@ class WildGrowth extends Analyzer {
     this.wgHistory.push(this.wgTracker);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionpercentBelowRecommendedPrecastsThresholds).addSuggestion(
       (suggest, actual, recommended) =>
         suggest(
@@ -161,10 +166,10 @@ class WildGrowth extends Analyzer {
           .actual(
             t({
               id: 'druid.restoration.suggestions.wildgrowth.overhealing',
-              message: `${Math.round(formatPercentage(actual))}% of casts with high overhealing.`,
+              message: `${formatPercentage(actual)}% of casts with high overhealing.`,
             }),
           )
-          .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`),
+          .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.suggestionpercentBelowRecommendedCastsThresholds).addSuggestion((suggest) =>
       suggest(
@@ -204,7 +209,7 @@ class WildGrowth extends Analyzer {
             message: `${this.wgs} WGs / ${this.rejuvs} rejuvs`,
           }),
         )
-        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`),
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -213,11 +218,13 @@ class WildGrowth extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(19)}
-        tooltip={`Your Wild Growth hit on average ${this.averageEffectiveHits.toFixed(
-          2,
-        )} players. ${
-          this.belowRecommendedCasts
-        } of your cast(s) hit fewer than 5 players which is the recommended targets.`}
+        tooltip={
+          <>
+            Your Wild Growth hit on average {this.averageEffectiveHits.toFixed(2)} players.
+            {this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the
+            recommended targets.
+          </>
+        }
       >
         <BoringValue
           label={
@@ -231,6 +238,16 @@ class WildGrowth extends Analyzer {
       </Statistic>
     );
   }
+}
+
+interface WGTracker {
+  wgBuffs: number[];
+  startTimestamp: number;
+  heal: number;
+  overheal: number;
+  firstTicksOverheal: number;
+  firstTicksRaw: number;
+  badPrecast?: boolean;
 }
 
 export default WildGrowth;
