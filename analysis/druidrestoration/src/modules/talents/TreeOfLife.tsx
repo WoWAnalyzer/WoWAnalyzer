@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, {
@@ -15,7 +14,8 @@ import Events, {
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
@@ -274,20 +274,10 @@ class TreeOfLife extends Analyzer {
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> Tree of Life healing
-            </>
-          }
-        >
-          <>
-            {formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
-            )}{' '}
-            %
-          </>
-        </BoringValue>
+        <BoringSpellValueText spell={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT}>
+          <ItemPercentHealingDone amount={this._getTotalHealing(this.hardcast)} />
+          <br />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -13,7 +12,8 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
@@ -262,7 +262,6 @@ class SoulOfTheForest extends Analyzer {
     const proccs = this.wildGrowthsBuffed + this.regrowthBuffed + this.rejuvBuffed;
 
     const total = this.wildGrowthHealing + this.rejuvHealing + this.regrowthHealing;
-    const totalPercent = this.owner.getPercentageOfTotalHealingDone(total);
 
     const wgPercent = this.owner.getPercentageOfTotalHealingDone(this.wildGrowthHealing);
     const rejuvPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvHealing);
@@ -292,16 +291,10 @@ class SoulOfTheForest extends Analyzer {
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> Soul of the Forest
-              healing
-            </>
-          }
-        >
-          <>{formatPercentage(totalPercent)} %</>
-        </BoringValue>
+        <BoringSpellValueText spell={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION}>
+          <ItemPercentHealingDone amount={total} />
+          <br />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

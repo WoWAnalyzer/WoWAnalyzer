@@ -9,7 +9,7 @@ import Events, {
 } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -202,7 +202,7 @@ class MemoryoftheMotherTree extends Analyzer {
               <td>Rejuvenation</td>
               <td>{this.extraRejuvs}</td>
               <td>
-                <ItemHealingDone amount={this.rejuvHealing} />
+                <ItemPercentHealingDone amount={this.rejuvHealing} />
               </td>
               <td>{this.rejuvOverhealing}</td>
             </tr>
@@ -210,7 +210,7 @@ class MemoryoftheMotherTree extends Analyzer {
               <td>Regrowth</td>
               <td>{this.extraRegrowths}</td>
               <td>
-                <ItemHealingDone amount={this.regrowthHealing} />
+                <ItemPercentHealingDone amount={this.regrowthHealing} />
               </td>
               <td>{this.regrowthOverhealing}</td>
             </tr>
@@ -218,7 +218,7 @@ class MemoryoftheMotherTree extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.MEMORY_OF_THE_MOTHER_TREE}>
-          <ItemHealingDone amount={this.rejuvHealing + this.regrowthHealing} />
+          <ItemPercentHealingDone amount={this.rejuvHealing + this.regrowthHealing} />
           <br />
         </BoringSpellValueText>
         {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}
