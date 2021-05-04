@@ -243,9 +243,9 @@ abstract class HotTracker extends Analyzer {
   ): void {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       debug &&
-      console.warn(
-        `Tried to add boost ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`,
-      );
+        console.warn(
+          `Tried to add boost ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`,
+        );
       return;
     }
     attribution.procs += 1;
@@ -253,15 +253,15 @@ abstract class HotTracker extends Analyzer {
     const boost: Boost = {
       increase: boostAmount,
       attribution,
-    }
+    };
     this.hots[targetId][spellId].boosts.push(boost);
     debug &&
-    console.log(
-      `${this.hots[targetId][spellId].name} on ${targetId} @${this.owner.formatTimestamp(
-        this.owner.currentTimestamp,
-        1,
-      )} boosted ${boostAmount} by ${attribution.name}`,
-    );
+      console.log(
+        `${this.hots[targetId][spellId].name} on ${targetId} @${this.owner.formatTimestamp(
+          this.owner.currentTimestamp,
+          1,
+        )} boosted ${boostAmount} by ${attribution.name}`,
+      );
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
