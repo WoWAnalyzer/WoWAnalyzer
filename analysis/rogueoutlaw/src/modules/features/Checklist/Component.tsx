@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -138,6 +139,9 @@ const OutlawRogueChecklist = ({
           <AbilityRequirement spell={SPELLS.KILLING_SPREE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.VANISH.id} />
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.SEPSIS.id} />
+        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

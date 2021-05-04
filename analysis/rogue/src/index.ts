@@ -18,4 +18,5 @@ export { default as DeeperDaggers } from './conduits/DeeperDaggers';
 export { default as EchoingReprimand } from './covenants/kyrian/EchoingReprimand';
 export { default as SerratedBoneSpike } from './covenants/necrolord/SerratedBoneSpike';
 export { default as Sepsis } from './covenants/nightfae/Sepsis';
+export { default as StealthAbilityFollowingSepsis } from './covenants/nightfae/StealthAbilityFollowingSepsis';
 export { default as Flagellation } from './covenants/venthyr/Flagellation';

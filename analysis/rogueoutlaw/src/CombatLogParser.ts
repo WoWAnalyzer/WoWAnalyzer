@@ -14,6 +14,7 @@ import {
   SpellUsable,
   InstantPoison,
   Sepsis,
+  StealthAbilityFollowingSepsis,
 } from '@wowanalyzer/rogue';
 
 import Abilities from './modules/Abilities';
@@ -36,6 +37,7 @@ import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker'
 import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
+import Celerity from './modules/spells/shadowlands/legendaries/Celerity';
 import GreenskinsWickers from './modules/spells/shadowlands/legendaries/GreenskinsWickers';
 import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
@@ -70,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     greenskinsWickers: GreenskinsWickers,
     essenceOfBloodfang: EssenceOfBloodfang,
     invigoratingShadowdust: InvigoratingShadowdust,
+    celerity: Celerity,
 
     //Casts
     dispatch: Dispatch,
@@ -90,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
     sepsis: Sepsis,
+    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [
