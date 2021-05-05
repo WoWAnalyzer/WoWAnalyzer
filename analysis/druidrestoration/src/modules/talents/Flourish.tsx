@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Attribution } from 'parser/shared/modules/HotTracker';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
@@ -300,9 +300,7 @@ class Flourish extends Analyzer {
     const increasedRatePercent = this.owner.getPercentageOfTotalHealingDone(
       this.increasedRateTotalHealing,
     );
-    const totalPercent = this.owner.getPercentageOfTotalHealingDone(
-      this.totalExtensionHealing + this.increasedRateTotalHealing,
-    );
+    const totalHealing = this.totalExtensionHealing + this.increasedRateTotalHealing;
     return (
       <Statistic
         size="flexible"
@@ -427,15 +425,10 @@ class Flourish extends Analyzer {
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.FLOURISH_TALENT.id} /> Flourish healing
-            </>
-          }
-        >
-          <>{formatPercentage(totalPercent)} %</>
-        </BoringValue>
+        <BoringSpellValueText spell={SPELLS.FLOURISH_TALENT}>
+          <ItemPercentHealingDone amount={totalHealing} />
+          <br />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

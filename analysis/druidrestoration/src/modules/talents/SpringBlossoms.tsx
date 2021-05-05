@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
@@ -27,6 +27,18 @@ class SpringBlossoms extends Analyzer {
 
   get totalPercent() {
     return this.directPercent + this.masteryPercent;
+  }
+
+  get directHealing() {
+    return this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id);
+  }
+
+  get masteryHealing() {
+    return this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id);
+  }
+
+  get totalHealing() {
+    return this.directHealing + this.masteryHealing;
   }
 
   get suggestionThresholds() {
@@ -63,24 +75,19 @@ class SpringBlossoms extends Analyzer {
             Spring Blossom's extra mastery stack.
             <ul>
               <li>
-                Direct: <strong>{formatPercentage(this.directPercent)}%</strong>
+                Direct: <strong>{this.owner.formatItemHealingDone(this.directHealing)}</strong>
               </li>
               <li>
-                Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong>
+                Mastery: <strong>{this.owner.formatItemHealingDone(this.masteryHealing)}</strong>
               </li>
             </ul>
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} /> Spring Blossoms healing
-            </>
-          }
-        >
-          <>{formatPercentage(this.totalPercent)} %</>
-        </BoringValue>
+        <BoringSpellValueText spell={SPELLS.SPRING_BLOSSOMS_TALENT}>
+          <ItemPercentHealingDone amount={this.totalHealing} />
+          <br />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

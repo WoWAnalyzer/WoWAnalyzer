@@ -8,7 +8,7 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -115,7 +115,7 @@ class VisionOfUnendingGrowth extends Analyzer {
         tooltip={<>Extra Rejuvs: {this.extraRejuvs}</>}
       >
         <BoringSpellValueText spell={SPELLS.VISION_OF_UNENDING_GROWTH}>
-          <ItemHealingDone amount={this.healing} />
+          <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>
       </Statistic>

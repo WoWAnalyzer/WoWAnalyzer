@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -81,7 +81,7 @@ class FlashOfClarity extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.FLASH_OF_CLARITY}>
-          <ItemHealingDone amount={this.healing} />
+          <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>
       </Statistic>
