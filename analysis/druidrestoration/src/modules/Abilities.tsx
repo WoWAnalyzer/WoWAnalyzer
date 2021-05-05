@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ADAPTIVE_SWARM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 25, // TODO any modifiers to this?
+        cooldown: 25,
         gcd: {
           base: 1500,
         },
