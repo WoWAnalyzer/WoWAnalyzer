@@ -1,1 +1,1 @@
-export { default as ConvokeSpirits } from './ConvokeSpirits';
+export { default as ConvokeSpirits } from './shadowlands/ConvokeSpirits';

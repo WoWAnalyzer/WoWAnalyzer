@@ -22,7 +22,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import ActiveDruidForm, { DruidForm } from './core/ActiveDruidForm';
+import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
 
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,
