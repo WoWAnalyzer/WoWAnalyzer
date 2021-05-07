@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -100,6 +101,9 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
       >
         {combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.CENARION_WARD_TALENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <AbilityRequirement spell={SPELLS.ADAPTIVE_SWARM.id} />
         )}
         {combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.FLOURISH_TALENT.id} />
