@@ -5,7 +5,7 @@ import Combatant from 'parser/core/Combatant';
 import Events, {
   AbilityEvent,
   AnyEvent,
-  ApplyBuffEvent,
+  ApplyBuffEvent, FightEndEvent,
   HasTarget,
   HealEvent,
   RefreshBuffEvent,
@@ -94,6 +94,7 @@ abstract class HotTracker extends Analyzer {
       this.hotReapplied,
     );
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(spellList), this.hotRemoved);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,18 +304,18 @@ abstract class HotTracker extends Analyzer {
     // this is a new HoT - build and register a new tracker
     const hotDuration = this._getDuration(this.hotInfo[spellId]);
     const maxDuration = this._getMaxDuration(this.hotInfo[spellId]);
-    const newHot = {
+    const newHot: Tracker = {
       start: event.timestamp,
       end: event.timestamp + hotDuration,
       originalEnd: event.timestamp + hotDuration,
-      spellId, // stored extra here so I don't have to convert string to number like I would if I used its key in the object.
-      name: event.ability.name, // stored for logging
-      ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
-      attributions: [], // The effect or bonus that procced this HoT application. No attribution implies the spell was hardcast.
-      extensions: [], // The effects or bonuses that caused this HoT to have extended duration. Format: { amount, attribution }
-      boosts: [], // The effects or bonuses that caused the strength of this HoT to be boosted for its full duration.
-      healingAfterOriginalEnd: 0, //healing this hot did after the base duration due to extensions
-      maxDuration, //the true max duration that extensions will obey by (looking at rising mist)
+      lastTick: event.timestamp,
+      spellId,
+      name: event.ability.name,
+      attributions: [],
+      extensions: [],
+      boosts: [],
+      healingAfterOriginalEnd: 0,
+      maxDuration,
     };
 
     if (!this.hots[targetId]) {
@@ -340,11 +341,6 @@ abstract class HotTracker extends Analyzer {
     const healing = event.amount + (event.absorbed || 0);
     const hot = this.hots[targetId][spellId];
 
-    if (event.tick) {
-      // direct healing (say from a PotA procced regrowth) still should be counted for attribution, but not part of tick tracking
-      hot.ticks.push({ healing, timestamp: event.timestamp });
-    }
-
     // keep a tally of healing due to extensions in general
     if (
       hot.originalEnd < event.timestamp &&
@@ -361,8 +357,10 @@ abstract class HotTracker extends Analyzer {
     hot.boosts.forEach((boost: Boost) => {
       boost.attribution.healing += calculateEffectiveHealing(event, boost.increase);
     });
+    // tally extension attributions
+    this._tallyExtensions(hot, event);
 
-    // extension attributions aren't tallied until the HoT falls off
+    hot.lastTick = event.timestamp;
   }
 
   /** Handles a refresh buff for one of the tracked HoTs */
@@ -384,11 +382,10 @@ abstract class HotTracker extends Analyzer {
     const oldEnd = hot.end;
     const freshDuration = this._getDuration(this.hotInfo[spellId]);
     hot.end += this._calculateExtension(freshDuration, hot, true, true);
-    hot.originalEnd = hot.end; //reframe our info
 
     // calculate if the HoT was refreshed early and take actions if it was
     const remaining = oldEnd - event.timestamp;
-    const clipped = remaining - freshDuration * PANDEMIC_EXTRA;
+    let clipped = remaining - freshDuration * PANDEMIC_EXTRA;
     if (clipped > 0) {
       // duration was clipped - this was an early refresh
       debug &&
@@ -401,28 +398,34 @@ abstract class HotTracker extends Analyzer {
         );
       // Early refreshes potentially make HoT extensions irrelevant - for example if an effect extends a HoT's duration
       // by 6 seconds, but the HoT is then refreshed 2 seconds early, then effectively only 4 of those extensions seconds 'matter'.
-      // We implement this by subtracting the clipped seconds from all credited extensions.
+      // We implement this by subtracting the clipped seconds extensions until the clip is 'used up'.
       hot.extensions.forEach((ext) => {
-        ext.amount -= clipped;
+        if (clipped === 0) {
+          return;
+        }
+        const extClipped = Math.min(clipped, ext.amount);
+        clipped -= extClipped;
+        ext.amount -= extClipped;
+
         extensionDebug &&
           console.log(
             `Extension ${ext.attribution.name} on ${
               event.ability.name
             } / ${targetId} @${this.owner.formatTimestamp(event.timestamp)} was clipped by ${(
-              clipped / 1000
+              extClipped / 1000
             ).toFixed(1)}s`,
           );
       });
       // TODO do more stuff about clipped HoT duration (a suggestion?). Only suggest for clipping hardcasts, of course.
     }
 
+    const remainingExt = hot.extensions.reduce((acc, ext) => acc + ext.amount, 0);
+    hot.originalEnd = hot.end - remainingExt; // reframe our info
+
     // a new HoT application should overwrite any existing proc and boost attributions
     hot.attributions = [];
     hot.boosts = [];
-
-    // we treat a refresh mostly as a "remove then refresh", so we'll tally extensions now too
-    this._tallyExtensions(hot);
-    hot.extensions = [];
+    // extension attributions persist unless they were clipped (handled above)
   }
 
   /** Handles a removed buff for one of the tracked HoTs */
@@ -442,53 +445,56 @@ abstract class HotTracker extends Analyzer {
       // if this is a HoT that bounces, push it on to the bounce stack
       this.bouncingHots.push(this.hots[targetId][spellId]);
     } else {
-      // otherwise it's time to tally the extension healing
+      // check removal time for logging
       this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
-      this._tallyExtensions(this.hots[targetId][spellId]);
     }
 
     // the HoT's gone and must be removed from tracking
     delete this.hots[targetId][spellId];
   }
 
-  /*
-   * For each attributed extension on a HoT, tallies the granted healing
-   */
-  _tallyExtensions(hot: Tracker) {
-    hot.extensions
-      .filter((ext) => ext.amount > 0) // early refreshes can wipe out the effect of an extension, filter those ones out
-      .forEach((ext) => this._tallyExtension(hot.ticks, ext.amount, ext.attribution));
+  onFightEnd(_: FightEndEvent) {
+    console.log(this.hots)
   }
 
-  _tallyExtension(ticks: Tick[], amount: number, attribution: Attribution) {
-    const now = this.owner.currentTimestamp;
-
-    let foundEarlier = false;
-    let latestOutside = now;
-    let healing = 0;
-    // sums healing of every tick within 'amount',
-    // also gets the latest tick outside the range, used to scale the healing amount
-    for (let i = ticks.length - 1; i >= 0; i -= 1) {
-      const tick = ticks[i];
-      latestOutside = tick.timestamp;
-      if (now - tick.timestamp > amount) {
-        foundEarlier = true;
-        break;
-      }
-
-      healing += tick.healing;
+  // TODO docs
+  // TODO extension debug logging
+  _tallyExtensions(hot: Tracker, event: HealEvent) {
+    if (event.timestamp <= hot.originalEnd) {
+      return; // still in HoTs natural time period, nothing to tally
     }
 
-    if (foundEarlier) {
-      // TODO better explanation of why I need to scale direct healing
-      const scale = amount / (now - latestOutside);
-      attribution.healing += healing * scale;
-      if (attribution.totalExtension !== undefined) {
-        attribution.totalExtension += amount;
-      }
-    } else {
-      // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
+    const timeSinceOriginalEnd = event.timestamp - hot.originalEnd;
+    const timeSinceLastTick = event.timestamp - hot.lastTick;
+    if (timeSinceLastTick === 0) {
+      return; // shouldn't happen, but shortcircuiting here just in case to avoid div by zero
     }
+    const healMult = (timeSinceOriginalEnd < timeSinceLastTick)
+      ? timeSinceOriginalEnd / timeSinceLastTick
+      : 1;
+    let extensionUsed = Math.min(timeSinceOriginalEnd, timeSinceLastTick);
+    const extensionHealingPerUsed = (event.amount + (event.absorbed || 0)) * healMult / extensionUsed;
+
+    // go through extensions in order and attribute healing until extension amount is used up
+    hot.extensions.forEach(ext => {
+      if (extensionUsed === 0) {
+        return;
+      }
+      if (extensionUsed <= ext.amount)
+      {
+        ext.attribution.healing += (extensionUsed * extensionHealingPerUsed);
+        ext.amount -= extensionUsed;
+        extensionUsed = 0;
+      }
+      else {
+        ext.attribution.healing += (ext.amount * extensionHealingPerUsed);
+        extensionUsed -= ext.amount;
+        ext.amount = 0;
+      }
+    });
+
+    // remove used up extensions
+    hot.extensions.filter(ext => ext.amount !== 0);
   }
 
   /**
@@ -713,12 +719,12 @@ export interface Tracker {
   end: number;
   /** timestamp when the tracked HoT was originally projected to end (before extensions) */
   originalEnd: number;
+  /** timestamp of the last heal tick (or the start timestamp if it hasn't ticked yet) */
+  lastTick: number;
   /** the HoT's spellId */
   spellId: number;
   /** the HoT's name, for logging purposes */
   name: string;
-  /** listing of ticks recorded by this HoT */
-  ticks: Tick[];
   /** listing of attributions attached to this HoT */
   attributions: Attribution[];
   /** listing of extensions attached to this HoT */
@@ -743,7 +749,8 @@ export interface Tick {
 export interface Attribution {
   /** the ID of the effect attributed, or null in the case of a hardcast */
   attributionId: number | null;
-  /** the name of the attribution, for logging purposes only */
+  /** the name of the attribution -
+   * when attributing extensions name will be used to combine extensions from the same source */
   name: string;
   /** the amount of effective healing attributable - will be updated */
   healing: number;
@@ -755,7 +762,7 @@ export interface Attribution {
 
 /** a record of an extension to a HoT */
 export interface Extension {
-  /** the length of the extension in ms */
+  /** the current length of the extension in ms - will tick down as an extension is 'consumed' */
   amount: number;
   /** the attribution of this extension */
   attribution: Attribution;
