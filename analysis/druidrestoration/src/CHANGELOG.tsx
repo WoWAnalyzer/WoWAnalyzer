@@ -1,7 +1,11 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn, Ciuffi, Sref } from 'CONTRIBUTORS';
+import SpellLink from 'interface/SpellLink';
+import React from 'react';
 
 export default [
+  change(date(2021, 5, 5), <>Added <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> and <SpellLink id={SPELLS.EVOLVED_SWARM.id} /> support</>, Sref),
   change(date(2021, 5, 4), 'Re-added myself as spec maintainer and updated visuals of percent increase stats boxes.', Sref),
   change(date(2021, 5, 4), 'Converted all remaining modules to TypeScript and updated HoT Tracking in preparation for future work', Sref),
   change(date(2021, 4, 14), 'Converted Mastery to TypeScript', Sref),
