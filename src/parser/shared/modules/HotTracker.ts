@@ -25,8 +25,8 @@ const PANDEMIC_EXTRA = 0.3;
 const EXPECTED_REMOVAL_THRESHOLD = 200;
 
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
-const debug = false;
-const extensionDebug = false; // logs pertaining to extensions
+const debug = true;
+const extensionDebug = true; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
 
@@ -73,6 +73,8 @@ abstract class HotTracker extends Analyzer {
   bouncingHots: Tracker[] = [];
   /** A history of all HoTs that have been tracked over the course of this encounter */
   hotHistory: Tracker[] = [];
+  /** A history of all Attributions created with this module. For logging purposes only */
+  attributrions: Attribution[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -94,7 +96,10 @@ abstract class HotTracker extends Analyzer {
       this.hotReapplied,
     );
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(spellList), this.hotRemoved);
-    this.addEventListener(Events.fightend, this.onFightEnd);
+
+    if (debug) {
+      this.addEventListener(Events.fightend, this.onFightEndDebug);
+    }
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,13 +113,15 @@ abstract class HotTracker extends Analyzer {
    * @param attributionName a name for the attribution. Will be used only for logging and display.
    */
   public getNewAttribution(attributionId: number, attributionName: string): Attribution {
-    return {
+    const attribution: Attribution = {
       attributionId,
       name: attributionName,
       healing: 0,
       procs: 0,
       totalExtension: 0,
     };
+    this.attributrions.push(attribution);
+    return attribution;
   }
 
   /**
@@ -380,12 +387,18 @@ abstract class HotTracker extends Analyzer {
 
     // update tracker info to account for the new projected falloff time
     const oldEnd = hot.end;
+    const remaining = oldEnd - event.timestamp;
     const freshDuration = this._getDuration(this.hotInfo[spellId]);
-    hot.end += this._calculateExtension(freshDuration, hot, true, true);
+    let clipped: number;
+    if (this.hotInfo[spellId].refreshNoPandemic) {
+      hot.end = event.timestamp + freshDuration; // no pandemic refreshes also seem to not tick clamp
+      clipped = remaining;
+    } else {
+      hot.end += this._calculateExtension(freshDuration, hot, true, true);
+      clipped = remaining - freshDuration * PANDEMIC_EXTRA;
+    }
 
     // calculate if the HoT was refreshed early and take actions if it was
-    const remaining = oldEnd - event.timestamp;
-    let clipped = remaining - freshDuration * PANDEMIC_EXTRA;
     if (clipped > 0) {
       // duration was clipped - this was an early refresh
       debug &&
@@ -416,6 +429,8 @@ abstract class HotTracker extends Analyzer {
             ).toFixed(1)}s`,
           );
       });
+      hot.extensions.filter(ext => ext.amount !== 0); // filter all HoTs clipped to nothing
+
       // TODO do more stuff about clipped HoT duration (a suggestion?). Only suggest for clipping hardcasts, of course.
     }
 
@@ -453,7 +468,10 @@ abstract class HotTracker extends Analyzer {
     delete this.hots[targetId][spellId];
   }
 
-  onFightEnd(_: FightEndEvent) {
+  onFightEndDebug(_: FightEndEvent) {
+    console.log("Attributions:");
+    console.log(this.attributrions);
+    console.log("Current HoTs:")
     console.log(this.hots)
   }
 
@@ -466,31 +484,18 @@ abstract class HotTracker extends Analyzer {
 
     const timeSinceOriginalEnd = event.timestamp - hot.originalEnd;
     const timeSinceLastTick = event.timestamp - hot.lastTick;
-    if (timeSinceLastTick === 0) {
-      return; // shouldn't happen, but shortcircuiting here just in case to avoid div by zero
-    }
-    const healMult = (timeSinceOriginalEnd < timeSinceLastTick)
-      ? timeSinceOriginalEnd / timeSinceLastTick
-      : 1;
-    let extensionUsed = Math.min(timeSinceOriginalEnd, timeSinceLastTick);
-    const extensionHealingPerUsed = (event.amount + (event.absorbed || 0)) * healMult / extensionUsed;
+    let extension = Math.min(timeSinceOriginalEnd, timeSinceLastTick);
+    const healingPerTime = (event.amount + (event.absorbed || 0)) / timeSinceLastTick;
 
     // go through extensions in order and attribute healing until extension amount is used up
     hot.extensions.forEach(ext => {
-      if (extensionUsed === 0) {
+      if (extension === 0) {
         return;
       }
-      if (extensionUsed <= ext.amount)
-      {
-        ext.attribution.healing += (extensionUsed * extensionHealingPerUsed);
-        ext.amount -= extensionUsed;
-        extensionUsed = 0;
-      }
-      else {
-        ext.attribution.healing += (ext.amount * extensionHealingPerUsed);
-        extensionUsed -= ext.amount;
-        ext.amount = 0;
-      }
+      const extUsed = Math.min(extension, ext.amount);
+      ext.attribution.healing += extUsed * healingPerTime;
+      ext.amount -= extUsed;
+      extension -= extUsed;
     });
 
     // remove used up extensions
@@ -554,7 +559,10 @@ abstract class HotTracker extends Analyzer {
 
     let tickLog = '';
     if (tickClamps) {
-      const currentTickPeriod = this.hotInfo[hot.spellId].tickPeriod / (1 + this.haste.current);
+      let currentTickPeriod = this.hotInfo[hot.spellId].tickPeriod;
+      if (!this.hotInfo[hot.spellId].noHaste) {
+        currentTickPeriod /= (1 + this.haste.current);
+      }
       const newTimeRemaining = currentTimeRemaining + amount;
       const newTicksRemaining = newTimeRemaining / currentTickPeriod;
       const newRoundedTimeRemaining = Math.round(newTicksRemaining) * currentTickPeriod;
@@ -787,6 +795,10 @@ export interface HotInfo {
   duration: number | ((c: Combatant) => number);
   /** HoT's base period between ticks, in ms. */
   tickPeriod: number;
+  /** true iff the HoT's ticks are uneffected by haste - by default HoTs ARE effected by haste */
+  noHaste?: boolean;
+  /** true iff the HoT refreshes to its normal full duration (no pandemic extra) - by default HoTs do get up to an extra 30% from pandemic. */
+  refreshNoPandemic?: boolean;
   /** Hot's maximum duration beyond which it cannot be extended, in ms. Either static or dynamically generated based on combatant state at time of application. */
   maxDuration?: number | ((c: Combatant) => number);
   /** true iff a HoT bounces - this is special case handling for Mistweaver's 'Renewing Mist' spell */

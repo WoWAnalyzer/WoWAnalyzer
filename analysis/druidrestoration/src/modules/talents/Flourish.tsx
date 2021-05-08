@@ -13,76 +13,72 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
+import { HOTS_INCREASED_RATE } from '../../constants';
+
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const debug = false;
 
 const FLOURISH_EXTENSION = 8000;
 const FLOURISH_HEALING_INCREASE = 1;
-/*
-  Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
-  and increases the rate of your heal over time effects by 100% for 8 sec.
- */
 
+/**
+ * **Flourish** - Talent lvl 50
+ *
+ * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
+ * and increases the rate of your heal over time effects by 100% for 8 sec.
+ */
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
+    abilityTracker: AbilityTracker,
   };
 
   hotTracker!: HotTrackerRestoDruid;
+  abilityTracker!: AbilityTracker;
 
-  // Counters for hot extension
-  flourishCount = 0;
-  flourishes: Attribution[] = [];
+  extensionAttributions: Attribution[] = [];
+  rateAttributions: number[] = [];
+  flourishCount: number = 0;
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
-  cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
-  tranqsExtended = 0;
-  hasCenarionWard = false;
-  rejuvCount = 0;
-  wgCount = 0;
-  lbCount = 0;
-  regrowthCount = 0;
-  sbCount = 0;
-  cultCount = 0;
-  tranqCount = 0;
-  groveTendingCount = 0;
-  // Counters for increased ticking rate of hots
-  increasedRateTotalHealing = 0;
-  increasedRateRejuvenationHealing = 0;
-  increasedRateWildGrowthHealing = 0;
-  increasedRateCenarionWardHealing = 0;
-  increasedRateCultivationHealing = 0;
-  increasedRateLifebloomHealing = 0;
-  increasedRateRegrowthHealing = 0;
-  increasedRateTranqHealing = 0;
-  increasedRateGroveTendingHealing = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
-    this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR),
-      this.onHeal,
+      Events.heal.by(SELECTED_PLAYER).spell(HOTS_INCREASED_RATE),
+      this.onIncreasedRateHeal,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.onCastFlourish,
+      this.onFlourishCast,
     );
   }
 
   get totalExtensionHealing() {
-    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing, 0);
+    return this.extensionAttributions.reduce((acc, flourish) => acc + flourish.healing, 0);
   }
 
-  get averageHealing() {
-    return this.flourishCount === 0 ? 0 : this.totalExtensionHealing / this.flourishCount;
+  get totalRateHealing() {
+    return this.rateAttributions.reduce((acc, flourish) => acc + flourish, 0);
+  }
+
+  get totalHealing() {
+    return this.totalExtensionHealing + this.totalRateHealing;
+  }
+
+  get casts() {
+    return this.flourishCount;
+  }
+
+  get healingPerCast() {
+    return (this.casts === 0) ? 0 : this.totalHealing / this.casts;
   }
 
   get percentWgsExtended() {
-    return this.flourishCount === 0 ? 0 : this.wgsExtended / this.flourishCount;
+    return (this.casts === 0) ? 0 : this.wgsExtended / this.casts;
   }
 
   get wildGrowthSuggestionThresholds() {
@@ -97,103 +93,17 @@ class Flourish extends Analyzer {
     };
   }
 
-  get percentCwsExtended() {
-    return this.cwsExtended / this.flourishCount || 0;
-  }
-
-  get cenarionWardSuggestionThresholds() {
-    return {
-      actual: this.percentCwsExtended,
-      isLessThan: {
-        minor: 1.0,
-        average: 0.0,
-        major: 0.0,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  onHeal(event: HealEvent) {
+  onIncreasedRateHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
-    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id)) {
-      switch (spellId) {
-        case SPELLS.REJUVENATION.id:
-          this.increasedRateRejuvenationHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.REJUVENATION_GERMINATION.id:
-          this.increasedRateRejuvenationHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.WILD_GROWTH.id:
-          this.increasedRateWildGrowthHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.CENARION_WARD_HEAL.id:
-          this.increasedRateCenarionWardHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.CULTIVATION.id:
-          this.increasedRateCultivationHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.LIFEBLOOM_HOT_HEAL.id:
-          this.increasedRateLifebloomHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id:
-          this.increasedRateLifebloomHealing += calculateEffectiveHealing(
-            event,
-            FLOURISH_HEALING_INCREASE,
-          );
-          break;
-        case SPELLS.REGROWTH.id:
-          if (event.tick === true) {
-            this.increasedRateRegrowthHealing += calculateEffectiveHealing(
-              event,
-              FLOURISH_HEALING_INCREASE,
-            );
-          }
-          break;
-        case SPELLS.TRANQUILITY_HEAL.id:
-          if (event.tick === true) {
-            this.increasedRateTranqHealing += calculateEffectiveHealing(
-              event,
-              FLOURISH_HEALING_INCREASE,
-            );
-          }
-          break;
-        default:
-          console.error(
-            'EssenceOfGhanir: Error, could not identify this object as a HoT: %o',
-            event,
-          );
-      }
-
-      if ((SPELLS.REGROWTH.id === spellId || SPELLS.TRANQUILITY_HEAL.id) && event.tick !== true) {
-        return;
-      }
-      this.increasedRateTotalHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
+    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id) && event.tick) {
+      this.rateAttributions[this.flourishCount-1] += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
     }
   }
 
-  onCastFlourish() {
+  onFlourishCast() {
     this.flourishCount += 1;
-    debug && console.log(`Flourish cast #: ${this.flourishCount}`);
-
+    this.rateAttributions.push(0);
     const newFlourish: Attribution = {
       attributionId: SPELLS.FLOURISH_TALENT.id,
       name: `Flourish #${this.flourishCount}`,
@@ -201,55 +111,23 @@ class Flourish extends Analyzer {
       procs: 0,
       totalExtension: 0,
     };
-    this.flourishes.push(newFlourish);
+    this.extensionAttributions.push(newFlourish);
 
     let foundWg = false;
-    let foundCw = false;
-    let foundTranq = false;
 
     Object.keys(this.hotTracker.hots).forEach((playerIdString) => {
       const playerId = Number(playerIdString);
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
-        // due to flourish's refresh mechanc, we don't include it in Flourish numbers
-        const attribution = spellId === SPELLS.CULTIVATION.id ? null : newFlourish;
-        this.hotTracker.addExtension(attribution, FLOURISH_EXTENSION, playerId, spellId);
+        this.hotTracker.addExtension(newFlourish, FLOURISH_EXTENSION, playerId, spellId);
 
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
-          this.wgCount += 1;
-        } else if (spellId === SPELLS.CENARION_WARD_HEAL.id) {
-          foundCw = true;
-        } else if (
-          spellId === SPELLS.REJUVENATION.id ||
-          spellId === SPELLS.REJUVENATION_GERMINATION.id
-        ) {
-          this.rejuvCount += 1;
-        } else if (spellId === SPELLS.REGROWTH.id) {
-          this.regrowthCount += 1;
-        } else if (spellId === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
-          this.lbCount += 1;
-        } else if (spellId === SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id) {
-          this.lbCount += 1;
-        } else if (spellId === SPELLS.SPRING_BLOSSOMS.id) {
-          this.sbCount += 1;
-        } else if (spellId === SPELLS.CULTIVATION.id) {
-          this.cultCount += 1;
-        } else if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
-          foundTranq = true;
-          this.tranqCount += 1;
         }
       });
     });
-
     if (foundWg) {
       this.wgsExtended += 1;
-    }
-    if (foundCw) {
-      this.cwsExtended += 1;
-    }
-    if (foundTranq) {
-      this.tranqsExtended += 1;
     }
   }
 
@@ -274,132 +152,37 @@ class Flourish extends Analyzer {
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
-
-    if (this.hasCenarionWard) {
-      when(this.cenarionWardSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a{' '}
-            <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} />
-          </>,
-        )
-          .icon(SPELLS.FLOURISH_TALENT.icon)
-          .actual(
-            t({
-              id: 'druid.restoration.suggestions.flourish.cenarionWardExtended',
-              message: `${this.cwsExtended}/${this.flourishCount} CWs extended.`,
-            }),
-          )
-          .recommended(`${formatPercentage(recommended)}% is recommended`),
-      );
-    }
   }
 
   statistic() {
-    const extendPercent = this.owner.getPercentageOfTotalHealingDone(this.totalExtensionHealing);
-    const increasedRatePercent = this.owner.getPercentageOfTotalHealingDone(
-      this.increasedRateTotalHealing,
-    );
-    const totalHealing = this.totalExtensionHealing + this.increasedRateTotalHealing;
     return (
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(15)}
         tooltip={
           <>
-            The HoT extension contributed: <strong>{formatPercentage(extendPercent)} %</strong>
-            <br />
-            The HoT increased tick rate contributed:{' '}
-            <strong>{formatPercentage(increasedRatePercent)} %</strong>
-            <br />
+            This is the sum of the healing enabled by the HoT extension and the HoT rate increase.
+            Due to limitations in the way we do healing attribution, there may be some double-counting
+            between the Extension and Increased Rate values, meaning the true amount attributable will
+            be slightly lower than listed.
             <ul>
               <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing),
-                )}
-                % from Wild Growth
+                Extension: <strong>{this.owner.formatItemHealingDone(this.totalExtensionHealing)}</strong>
               </li>
               <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing),
-                )}
-                % from Rejuvenation
+                Increased Rate: <strong>{this.owner.formatItemHealingDone(this.totalRateHealing)}</strong>
               </li>
               <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing),
-                )}
-                % from Cenarion Ward
+                Wild Growths Casts Extended: <strong>{this.wgsExtended} / {this.flourishCount}</strong>
               </li>
               <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing),
-                )}
-                % from Lifebloom
-              </li>
-              <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing),
-                )}
-                % from Regrowth
-              </li>
-              <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing),
-                )}
-                % from Cultivation
-              </li>
-              <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing),
-                )}
-                % from Tranquillity
-              </li>
-              <li>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing),
-                )}
-                % from Grove Tending
+                Average Healing per Cast: <strong>{formatNumber(this.healingPerCast)}</strong>
               </li>
             </ul>
-            The per Flourish amounts do <em>not</em> include Cultivation due to its refresh
-            mechanic.
             <br />
-            Your {this.flourishCount} Flourish casts extended:
-            <ul>
-              <li>
-                {this.wgsExtended}/{this.flourishCount} Wild Growth casts ({this.wgCount} HoTs)
-              </li>
-              {this.hasCenarionWard && (
-                <li>
-                  {this.cwsExtended}/{this.flourishCount} Cenarion Wards
-                </li>
-              )}
-              {this.rejuvCount > 0 && <li>{this.rejuvCount} Rejuvenations</li>}
-              {this.regrowthCount > 0 && <li>{this.regrowthCount} Regrowths</li>}
-              {this.lbCount > 0 && <li>{this.lbCount} Lifeblooms</li>}
-              {this.sbCount > 0 && <li>{this.sbCount} Spring Blossoms</li>}
-              {this.cultCount > 0 && (
-                <li>
-                  {this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)
-                </li>
-              )}
-              {this.tranqCount > 0 && (
-                <li>
-                  {this.tranqsExtended}/{this.flourishCount} Tranquillities casts ({this.tranqCount}{' '}
-                  HoTs)
-                </li>
-              )}
-              {this.groveTendingCount > 0 && (
-                <li>
-                  {this.groveTendingCount}/{this.flourishCount} Grove tendings
-                </li>
-              )}
-            </ul>
-            <br />
-            The Healing column shows how much additional healing was done by the 8 extra seconds of
-            HoT time. Note that if you Flourished near the end of a fight, numbers might be lower
-            than you expect because extension healing isn't tallied until a HoT falls.
+            For the included table, note that extension healing for a flourish cast near the end of
+            a fight might have lower than expected numbers because extension healing isn't tallied
+            until the HoT has ticked past its original duration.
           </>
         }
         dropdown={
@@ -408,16 +191,18 @@ class Flourish extends Analyzer {
               <thead>
                 <tr>
                   <th>Cast</th>
-                  <th># of HoTs</th>
-                  <th>Healing</th>
+                  <th>HoTs Extended</th>
+                  <th>Extension Healing</th>
+                  <th>Rate Healing</th>
                 </tr>
               </thead>
               <tbody>
-                {this.flourishes.map((flourish, index) => (
+                {this.extensionAttributions.map((flourish, index) => (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{flourish.procs}</td>
                     <td>{formatNumber(flourish.healing)}</td>
+                    <td>{formatNumber(this.rateAttributions[index])}</td>
                   </tr>
                 ))}
               </tbody>
@@ -426,7 +211,7 @@ class Flourish extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.FLOURISH_TALENT}>
-          <ItemPercentHealingDone amount={totalHealing} />
+          <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>
       </Statistic>

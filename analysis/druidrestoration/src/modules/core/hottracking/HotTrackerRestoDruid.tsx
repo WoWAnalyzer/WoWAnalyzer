@@ -48,11 +48,13 @@ class HotTrackerRestoDruid extends HotTracker {
         spell: SPELLS.SPRING_BLOSSOMS,
         duration: 6000,
         tickPeriod: 2000,
+        noHaste: true,
       },
       {
         spell: SPELLS.TRANQUILITY_HEAL,
         duration: 8000,
         tickPeriod: 2000,
+        refreshNoPandemic: true,
       },
     ];
   }

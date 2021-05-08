@@ -29,6 +29,7 @@ import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
 import WildGrowth from './modules/features/WildGrowth';
+import Tranquility from './modules/features/Tranquility';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
@@ -88,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cultivation: Cultivation,
     ironbark: Ironbark,
     prematureRejuvenations: PrematureRejuvenations,
+    tranquility: Tranquility,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,

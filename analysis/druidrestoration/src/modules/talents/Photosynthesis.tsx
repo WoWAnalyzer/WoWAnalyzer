@@ -11,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
+import { HOTS_INCREASED_RATE } from '../../constants';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
@@ -67,7 +67,7 @@ class Photosynthesis extends Analyzer {
         .spell([
           SPELLS.EFFLORESCENCE_HEAL,
           SPELLS.SPRING_BLOSSOMS,
-          ...HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR,
+          ...HOTS_INCREASED_RATE,
         ]),
       this.onHeal,
     );
