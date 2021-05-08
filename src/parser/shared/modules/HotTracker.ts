@@ -5,7 +5,8 @@ import Combatant from 'parser/core/Combatant';
 import Events, {
   AbilityEvent,
   AnyEvent,
-  ApplyBuffEvent, FightEndEvent,
+  ApplyBuffEvent,
+  FightEndEvent,
   HasTarget,
   HealEvent,
   RefreshBuffEvent,
@@ -428,7 +429,7 @@ abstract class HotTracker extends Analyzer {
             ).toFixed(1)}s`,
           );
       });
-      hot.extensions.filter(ext => ext.amount !== 0); // filter all HoTs clipped to nothing
+      hot.extensions.filter((ext) => ext.amount !== 0); // filter all HoTs clipped to nothing
 
       // TODO do more stuff about clipped HoT duration (a suggestion?). Only suggest for clipping hardcasts, of course.
     }
@@ -468,10 +469,10 @@ abstract class HotTracker extends Analyzer {
   }
 
   onFightEndDebug(_: FightEndEvent) {
-    console.log("Attributions:");
+    console.log('Attributions:');
     console.log(this.attributrions);
-    console.log("Current HoTs:")
-    console.log(this.hots)
+    console.log('Current HoTs:');
+    console.log(this.hots);
   }
 
   /**
@@ -512,7 +513,7 @@ abstract class HotTracker extends Analyzer {
     const healingPerTime = (event.amount + (event.absorbed || 0)) / timeSinceLastTick;
 
     // go through extensions in order and attribute healing until extension amount is used up
-    hot.extensions.forEach(ext => {
+    hot.extensions.forEach((ext) => {
       if (extension === 0) {
         return;
       }
@@ -523,7 +524,7 @@ abstract class HotTracker extends Analyzer {
     });
 
     // remove used up extensions
-    hot.extensions.filter(ext => ext.amount !== 0);
+    hot.extensions.filter((ext) => ext.amount !== 0);
   }
 
   /**
@@ -585,7 +586,7 @@ abstract class HotTracker extends Analyzer {
     if (tickClamps) {
       let currentTickPeriod = this.hotInfo[hot.spellId].tickPeriod;
       if (!this.hotInfo[hot.spellId].noHaste) {
-        currentTickPeriod /= (1 + this.haste.current);
+        currentTickPeriod /= 1 + this.haste.current;
       }
       const newTimeRemaining = currentTimeRemaining + amount;
       const newTicksRemaining = newTimeRemaining / currentTickPeriod;

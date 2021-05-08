@@ -64,11 +64,7 @@ class Photosynthesis extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.EFFLORESCENCE_HEAL,
-          SPELLS.SPRING_BLOSSOMS,
-          ...HOTS_INCREASED_RATE,
-        ]),
+        .spell([SPELLS.EFFLORESCENCE_HEAL, SPELLS.SPRING_BLOSSOMS, ...HOTS_INCREASED_RATE]),
       this.onHeal,
     );
     this.addEventListener(

@@ -1,7 +1,7 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 /**
  * **Tranquility**
