@@ -17,8 +17,7 @@ import { HOTS_INCREASED_RATE } from '../../constants';
 
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-const debug = false;
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const FLOURISH_EXTENSION = 8000;
 const FLOURISH_HEALING_INCREASE = 1;
@@ -29,7 +28,6 @@ const FLOURISH_HEALING_INCREASE = 1;
  * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
  * and increases the rate of your heal over time effects by 100% for 8 sec.
  */
-// TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
@@ -40,20 +38,33 @@ class Flourish extends Analyzer {
   abilityTracker!: AbilityTracker;
 
   extensionAttributions: Attribution[] = [];
-  rateAttributions: number[] = [];
-  flourishCount: number = 0;
+  rateAttributions: MutableAmount[] = [];
+  lastCastTimestamp?: number;
+  hardcastCount: number = 0;
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
+
+  // separate attributors for Flourishes cast by Convoke the Spirits
+  convokeExtensionAttribution?: Attribution;
+  convokeRateAttribution: MutableAmount = { amount: 0 };
+
+  currentRateAttribution: MutableAmount = this.convokeRateAttribution;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
+    // Convoke the Spirits can cast a Flourish even if the player isn't talented for it
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id) || this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(HOTS_INCREASED_RATE),
       this.onIncreasedRateHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.onFlourishCast,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+      this.onFlourishApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+      this.onFlourishApplyBuff,
     );
   }
 
@@ -62,7 +73,7 @@ class Flourish extends Analyzer {
   }
 
   get totalRateHealing() {
-    return this.rateAttributions.reduce((acc, flourish) => acc + flourish, 0);
+    return this.rateAttributions.reduce((acc, flourish) => acc + flourish.amount, 0);
   }
 
   get totalHealing() {
@@ -70,7 +81,7 @@ class Flourish extends Analyzer {
   }
 
   get casts() {
-    return this.flourishCount;
+    return this.hardcastCount;
   }
 
   get healingPerCast() {
@@ -94,24 +105,28 @@ class Flourish extends Analyzer {
   }
 
   onIncreasedRateHeal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
     if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id) && event.tick) {
-      this.rateAttributions[this.flourishCount-1] += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
+      this.currentRateAttribution.amount += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
     }
   }
 
-  onFlourishCast() {
-    this.flourishCount += 1;
-    this.rateAttributions.push(0);
-    const newFlourish: Attribution = {
-      attributionId: SPELLS.FLOURISH_TALENT.id,
-      name: `Flourish #${this.flourishCount}`,
-      healing: 0,
-      procs: 0,
-      totalExtension: 0,
-    };
-    this.extensionAttributions.push(newFlourish);
+  onFlourishApplyBuff() {
+    let extensionAttribution: Attribution;
+    if (this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id)) {
+      if (this.convokeExtensionAttribution === undefined) {
+        this.convokeExtensionAttribution = this.hotTracker.getNewAttribution(
+          SPELLS.FLOURISH_TALENT.id, `Convoked Flourishes`);
+      }
+      extensionAttribution = this.convokeExtensionAttribution;
+      this.currentRateAttribution = this.convokeRateAttribution;
+    } else {
+      this.hardcastCount += 1;
+      extensionAttribution = this.hotTracker.getNewAttribution(
+        SPELLS.FLOURISH_TALENT.id, `Flourish #${this.hardcastCount}`);
+      this.currentRateAttribution = { amount: 0 };
+      this.rateAttributions.push(this.currentRateAttribution);
+      this.extensionAttributions.push(extensionAttribution);
+    }
 
     let foundWg = false;
 
@@ -119,7 +134,7 @@ class Flourish extends Analyzer {
       const playerId = Number(playerIdString);
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
-        this.hotTracker.addExtension(newFlourish, FLOURISH_EXTENSION, playerId, spellId);
+        this.hotTracker.addExtension(extensionAttribution, FLOURISH_EXTENSION, playerId, spellId);
 
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
@@ -132,7 +147,7 @@ class Flourish extends Analyzer {
   }
 
   suggestions(when: When) {
-    if (this.flourishCount === 0) {
+    if (this.hardcastCount === 0) {
       return;
     }
 
@@ -147,7 +162,7 @@ class Flourish extends Analyzer {
         .actual(
           t({
             id: 'druid.restoration.suggestions.flourish.wildGrowthExtended',
-            message: `${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`,
+            message: `${formatPercentage(this.wgsExtended / this.hardcastCount, 0)}% WGs extended.`,
           }),
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
@@ -163,8 +178,9 @@ class Flourish extends Analyzer {
           <>
             This is the sum of the healing enabled by the HoT extension and the HoT rate increase.
             Due to limitations in the way we do healing attribution, there may be some double-counting
-            between the Extension and Increased Rate values, meaning the true amount attributable will
-            be slightly lower than listed.
+            between the Extension and Increased Rate values, but we also aren't considering the Mastery
+            benefit of extended HoTs, meaning the true amount attributable maybe be somewhat higher
+            or lower than listed.
             <ul>
               <li>
                 Extension: <strong>{this.owner.formatItemHealingDone(this.totalExtensionHealing)}</strong>
@@ -173,7 +189,7 @@ class Flourish extends Analyzer {
                 Increased Rate: <strong>{this.owner.formatItemHealingDone(this.totalRateHealing)}</strong>
               </li>
               <li>
-                Wild Growths Casts Extended: <strong>{this.wgsExtended} / {this.flourishCount}</strong>
+                Wild Growths Casts Extended: <strong>{this.wgsExtended} / {this.hardcastCount}</strong>
               </li>
               <li>
                 Average Healing per Cast: <strong>{formatNumber(this.healingPerCast)}</strong>
@@ -202,7 +218,7 @@ class Flourish extends Analyzer {
                     <th scope="row">{index + 1}</th>
                     <td>{flourish.procs}</td>
                     <td>{formatNumber(flourish.healing)}</td>
-                    <td>{formatNumber(this.rateAttributions[index])}</td>
+                    <td>{formatNumber(this.rateAttributions[index].amount)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -217,6 +233,10 @@ class Flourish extends Analyzer {
       </Statistic>
     );
   }
+}
+
+type MutableAmount = {
+  amount: number,
 }
 
 export default Flourish;

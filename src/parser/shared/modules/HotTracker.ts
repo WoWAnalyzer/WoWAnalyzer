@@ -25,8 +25,8 @@ const PANDEMIC_EXTRA = 0.3;
 const EXPECTED_REMOVAL_THRESHOLD = 200;
 
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
-const debug = true;
-const extensionDebug = true; // logs pertaining to extensions
+const debug = false;
+const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
 
@@ -203,7 +203,6 @@ abstract class HotTracker extends Analyzer {
     const finalAmount = this._calculateExtension(amount, hot, tickClamps, pandemicClamps);
     hot.end += finalAmount;
 
-    // TODO log the result
     if (!attribution) {
       return;
     }
@@ -475,12 +474,37 @@ abstract class HotTracker extends Analyzer {
     console.log(this.hots)
   }
 
-  // TODO docs
-  // TODO extension debug logging
+  /**
+   * Tallies healing attributable to extensions.
+   * To do this, we only consider healing that takes place after a HoT's 'natural end'.
+   *
+   * Example: a HoT with a 10 second duration is applied at t=0. A 6 second extension is added to it.
+   * The healing it does between t=10 and t=16 would be attributed to the extension.
+   * If multiple differently attributed extensions are added to the same HoT, they are attributed in
+   * the order they were applied.
+   */
   _tallyExtensions(hot: Tracker, event: HealEvent) {
     if (event.timestamp <= hot.originalEnd) {
       return; // still in HoTs natural time period, nothing to tally
     }
+
+    /*
+     * For HoTs with slow tick rates, it's most correct to divvy up the tick to give an extension
+     * only partial credit. We 'backwards attribute' ticks because HoTs always partial tick right
+     * before they fall. We keep track of extension attributing by counting down the extension amount
+     * in the extension track object.
+     *
+     * For Example:
+     * Consider a HoT that originally ends at t=10, but then a 6 second extension is applied.
+     * Imagine it ticks at a 3 second interval with ticks at ... t=9, 12, 15, 16 (partial).
+     * This HoT does 100 HPS, meaning it heals for 300 each tick except for the partial t=16 tick which is for 100.
+     * On the t=12 tick, we attribute 2/3 of the tick healing to the extension
+     * and subtract 2 from the extension amount (2 seconds since t=10), leaving us with 4 seconds.
+     * On the t=15 tick we attribute the full tick healing and subtract 3, leaving us with 1 second.
+     * On the t=16 tick we attribute the full tick and subtract the final 1 second.
+     * This leaves us with 200 + 300 + 100 = 600 healing attributed, which accurately represents
+     * 6 seconds at 100 HPS.
+     */
 
     const timeSinceOriginalEnd = event.timestamp - hot.originalEnd;
     const timeSinceLastTick = event.timestamp - hot.lastTick;
@@ -748,9 +772,9 @@ export interface Tracker {
 /** a record of a HoT's tick */
 export interface Tick {
   /** the tick's effective healing */
-  healing: number; //
+  healing: number;
   /** the tick's timestamp */
-  timestamp: number; //
+  timestamp: number;
 }
 
 /** a record of healing attributable to an effect */
