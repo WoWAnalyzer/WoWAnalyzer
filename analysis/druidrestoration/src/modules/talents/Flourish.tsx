@@ -186,9 +186,8 @@ class Flourish extends Analyzer {
           <>
             This is the sum of the healing enabled by the HoT extension and the HoT rate increase.
             Due to limitations in the way we do healing attribution, there may be some
-            double-counting between the Extension and Increased Rate values, but we also aren't
-            considering the Mastery benefit of extended HoTs, meaning the true amount attributable
-            maybe be somewhat higher or lower than listed.
+            double-counting between the Extension and Increased Rate values, meaning the true amount
+            attributable will be somewhat lower than listed.
             <ul>
               <li>
                 Extension:{' '}
