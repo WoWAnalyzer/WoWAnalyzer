@@ -263,6 +263,7 @@ class Combatant extends Entity {
     };
 
     conduits.forEach((conduit: Conduit) => {
+      conduit.itemLevel = conduit.rank; // conduit "rank" passed in is actually its ilvl
       conduit.rank = ilvlToRankMapping[conduit.rank];
       this.conduitsByConduitID[conduit.spellID] = conduit;
     });
