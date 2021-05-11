@@ -32,6 +32,7 @@ import WildGrowth from './modules/features/WildGrowth';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
+import KindredSpiritsResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
 import Abundance from './modules/talents/Abundance';
@@ -110,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     convokeSpirits: ConvokeSpirits,
     adaptiveSwarm: AdaptiveSwarmResto,
+    kindredSpirits: KindredSpiritsResto,
 
     // Conduits
     // Potency
