@@ -226,7 +226,7 @@ class Mastery extends Analyzer {
   }
 
   // a version of _decompHeal for call by external modules, takes the heal event
-  decomposeHeal(event: HealEvent) {
+  decomposeHeal(event: HealEvent): DecomposedHeal | null {
     const target = this.combatants.getEntity(event);
     if (target === null) {
       return null;

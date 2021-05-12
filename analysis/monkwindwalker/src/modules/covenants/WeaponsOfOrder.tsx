@@ -10,6 +10,8 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import { WeaponsOfOrder } from '@wowanalyzer/monk';
@@ -117,7 +119,11 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
 
   statistic() {
     return (
-      <Statistic size="flexible">
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+      >
         <BoringSpellValueText spell={SPELLS.WEAPONS_OF_ORDER_CAST}>
           <span>
             <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}

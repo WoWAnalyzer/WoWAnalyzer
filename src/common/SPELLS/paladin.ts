@@ -397,11 +397,6 @@ const spells = {
     name: 'Wake of Ashes',
     icon: 'inv_sword_2h_artifactashbringerfire_d_03',
   },
-  FINAL_VERDICT: {
-    id: 336872,
-    name: 'Final Verdict',
-    icon: 'spell_paladin_templarsverdict',
-  },
   HAND_OF_HINDRANCE: {
     id: 183218,
     name: 'Hand of Hindrance',
