@@ -5,7 +5,8 @@ import Combatant from 'parser/core/Combatant';
 import Events, {
   AbilityEvent,
   AnyEvent,
-  ApplyBuffEvent, ApplyBuffStackEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
   FightEndEvent,
   HasTarget,
   HealEvent,
