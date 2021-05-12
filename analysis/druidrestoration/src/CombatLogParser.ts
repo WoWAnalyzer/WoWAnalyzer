@@ -35,6 +35,8 @@ import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
+import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
+
 import Abundance from './modules/talents/Abundance';
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
@@ -121,6 +123,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //legos
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
     memoryoftheMotherTree: MemoryoftheMotherTree,
+    verdantInfusion: VerdantInfusion,
   };
 }
 
