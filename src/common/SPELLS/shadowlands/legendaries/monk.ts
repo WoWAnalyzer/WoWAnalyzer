@@ -108,6 +108,11 @@ const legendaries = {
     icon: 'monk_stance_whitetiger',
     bonusID: 7070,
   },
+  PRESSURE_POINT: {
+    id: 337482,
+    name: 'Pressure Point',
+    icon: 'spell_monk_windwalker_spec',
+  },
   JADE_IGNITION: {
     id: 337483,
     name: 'Jade Ignition',
