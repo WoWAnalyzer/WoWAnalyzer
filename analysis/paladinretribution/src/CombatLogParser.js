@@ -20,6 +20,7 @@ import WakeofAshes from './modules/core/WakeofAshes';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import FinalVerdict from './modules/items/FinalVerdict';
 import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
@@ -57,6 +58,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+
+    // Items
+    finalVerdict: FinalVerdict,
   };
 }
 
