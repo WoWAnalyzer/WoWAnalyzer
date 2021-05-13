@@ -172,7 +172,10 @@ abstract class HotTracker extends Analyzer {
    * @param attribution the Attribution object to attach
    * @param event the event marking the application of the HoT to attribute.
    */
-  public addAttributionFromApply(attribution: Attribution, event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent): void {
+  public addAttributionFromApply(
+    attribution: Attribution,
+    event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+  ): void {
     this.addAttribution(attribution, event.targetID, event.ability.guid);
   }
 

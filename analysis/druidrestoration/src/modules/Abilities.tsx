@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
 import SPECS from 'game/SPECS';
 import Combatant from 'parser/core/Combatant';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
-          base: (c: Combatant) => c.spec === SPECS.FERAL_DRUID ? 1000 : 1500,
+          base: (c: Combatant) => (c.spec === SPECS.FERAL_DRUID ? 1000 : 1500),
         },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         castEfficiency: {

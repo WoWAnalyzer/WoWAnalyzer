@@ -82,8 +82,8 @@ class ConvokeSpirits extends Analyzer {
       this.travelingSpellTracker[e] = 0;
     });
 
-    this.spellsToTrack = (this.selectedCombatant.spec === SPECS.RESTORATION_DRUID)
-      ? SPELLS_CAST_RESTO : SPELLS_CAST;
+    this.spellsToTrack =
+      this.selectedCombatant.spec === SPECS.RESTORATION_DRUID ? SPELLS_CAST_RESTO : SPELLS_CAST;
 
     //start tracker
     this.addEventListener(
@@ -478,11 +478,11 @@ class ConvokeSpirits extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            Abilities cast by Convoke do not create cast events; this listing is created by
-            tracking related events during the channel. Occasionally a Convoke will cast an ability
-            that hits nothing (like Thrash when only immune targets are in range). In these cases
-            we won't be able to track it and so the number of spells listed may not add up to
-            {' '}{this.spellsToTrack}.
+            Abilities cast by Convoke do not create cast events; this listing is created by tracking
+            related events during the channel. Occasionally a Convoke will cast an ability that hits
+            nothing (like Thrash when only immune targets are in range). In these cases we won't be
+            able to track it and so the number of spells listed may not add up to{' '}
+            {this.spellsToTrack}.
           </>
         }
         dropdown={
