@@ -162,6 +162,21 @@ abstract class HotTracker extends Analyzer {
   }
 
   /**
+   * Provides an attribution for a HoT application. All healing done by the HoT will be tallied
+   * to the given attribution object.
+   *
+   * Typically this will be added at the same time the HoT is applied. In order for an Attribution
+   * to be addable, the Tracker for the given HoT must already be present. This means the module
+   * adding this attribution MUST come after HotTracker in the processing order.
+   *
+   * @param attribution the Attribution object to attach
+   * @param event the event marking the application of the HoT to attribute.
+   */
+  public addAttributionFromApply(attribution: Attribution, event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent): void {
+    this.addAttribution(attribution, event.targetID, event.ability.guid);
+  }
+
+  /**
    * Extends a HoT and optionally attributes that extension.
    *
    * Healing done at the end of the HoT (the time due to the extension) will be tallied to the given Attribution.

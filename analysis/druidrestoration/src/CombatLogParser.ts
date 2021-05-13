@@ -46,6 +46,7 @@ import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 import WildGrowthNormalizer from './normalizers/WildGrowth';
+import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -108,7 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     // Covenants
-    convokeSpirits: ConvokeSpirits,
+    convokeSpirits: ConvokeSpiritsResto,
     adaptiveSwarm: AdaptiveSwarmResto,
 
     // Conduits

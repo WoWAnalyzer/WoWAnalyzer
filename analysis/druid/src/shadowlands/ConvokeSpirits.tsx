@@ -4,6 +4,7 @@ import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  AbilityEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   ApplyDebuffEvent,
@@ -32,6 +33,18 @@ const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.WRATH_MOONKIN.id,
 ];
 
+const SPELLS_CAST = 16;
+const SPELLS_CAST_RESTO = 12;
+
+const AOE_BUFFER_MS = 100;
+
+/**
+ * **Convoke the Spirits**
+ * Covenant - Night Fae
+ *
+ * Call upon the Night Fae for an eruption of energy,
+ * channeling a rapid flurry of 16 (12 for Resto) Druid spells and abilities over 4 sec.
+ */
 class ConvokeSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -41,47 +54,36 @@ class ConvokeSpirits extends Analyzer {
   protected abilities!: Abilities;
   protected activeDruidForm!: ActiveDruidForm;
 
-  tracking = false;
-  spellsToTrack = 16;
-  cast = 0;
+  isChannelingConvoke: boolean = false;
+  spellsToTrack: number;
+  /** The number of times Convoke has been cast */
+  cast: number = 0;
 
+  /** Timestamp of the most recent AoE spell registered during Convoke - used to avoid double counts*/
   flexTimeStampForMultiApplySpells = 0;
 
   extraRejuvsFromOtherSources = 0;
-
+  /** Mapping from convoke cast number to a tracker for that cast - note that index zero will always be empty */
   whatHappendIneachConvoke: ConvokeCast[] = [];
 
-  travelTimeSpellsCastToDamageRatio: number[] = [];
+  /**
+   * A mapping from spellId of spell with travel time to the number of casts we're waiting to land.
+   * For example a Wrath cast will increment this while a Wrath damage event will decrement.
+   * If a damage event happens just after a Convoke with no matching cast, it could be attributed to the Convoke.
+   */
+  travelingSpellTracker: number[] = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
-    if (!this.active) {
-      return;
-    }
-
     //populate
     SPELLS_WITH_TRAVEL_TIME.forEach((e) => {
-      this.travelTimeSpellsCastToDamageRatio[e] = 0;
+      this.travelingSpellTracker[e] = 0;
     });
 
-    if (this.selectedCombatant.spec === SPECS.RESTORATION_DRUID) {
-      this.spellsToTrack = 12;
-    }
-
-    (options.abilities as Abilities).add({
-      spell: SPELLS.CONVOKE_SPIRITS,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      cooldown: 120,
-      gcd: {
-        base: this.selectedCombatant.spec === SPECS.FERAL_DRUID ? 1000 : 1500,
-      },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.8,
-      },
-    });
+    this.spellsToTrack = (this.selectedCombatant.spec === SPECS.RESTORATION_DRUID)
+      ? SPELLS_CAST_RESTO : SPELLS_CAST;
 
     //start tracker
     this.addEventListener(
@@ -270,135 +272,151 @@ class ConvokeSpirits extends Analyzer {
   }
 
   startTracking(event: ApplyBuffEvent) {
-    this.tracking = true;
+    this.isChannelingConvoke = true;
     this.cast += 1;
-    this.whatHappendIneachConvoke[this.cast] = { spellIdToCasts: [] };
+    this.whatHappendIneachConvoke[this.cast] = { spellIdToCasts: [], form: 'No Form' };
   }
 
   newRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newRegrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newMoonfire(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
     this.multiSpellSafety(event.timestamp);
   }
 
   newWrath(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newStarSurge(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newStarFall(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newFullMoon(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
     this.multiSpellSafety(event.timestamp);
   }
 
   newFerociousBite(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newRake(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newShred(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newTigersFury(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newFeralFrenzy(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newMangle(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newIronFur(event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newThrash(event: ApplyDebuffEvent | RefreshDebuffEvent | ApplyDebuffStackEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
     this.multiSpellSafety(event.timestamp);
   }
 
   newPulverize(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newSwiftMend(event: HealEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   newWildGrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
     this.multiSpellSafety(event.timestamp);
   }
 
   newFlourish(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
+    this.addemUp(event);
   }
 
   stopTracking(event: RemoveBuffEvent) {
-    this.tracking = false;
+    this.isChannelingConvoke = false;
     this.whatHappendIneachConvoke[this.cast].form = this.activeDruidForm.form;
     this.houseKeeping();
   }
 
+  /*
+   * TODO TODO TODO
+   * The handling of travel time spells is incorrect in two ways:
+   * 1) Casts that happen before the first convoke casue a tracker increment, but damage events before the first convoke DON'T decrement
+   * 2) Travel time spells that hit during a Convoke decrement the tracker but still get counted in the Convoke
+   *
+   * In practice these two issues typically cancel one another out and the overall reading is correct,
+   * but in rare can cause wrong results. This is too complicated for me to want to deal with it right now,
+   * but I'm documenting the issue here.
+   *
+   * - Sref
+   */
+
   wrathCast(event: CastEvent) {
-    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
+    this.travelingSpellTracker[event.ability.guid] += 1;
   }
 
   starsurgeCast(event: CastEvent) {
-    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
+    this.travelingSpellTracker[event.ability.guid] += 1;
   }
 
   fullMoonCast(event: CastEvent) {
-    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
+    this.travelingSpellTracker[event.ability.guid] += 1;
   }
 
-  //just adds to spell to a tracker... yeah i know i could feed them all down to addemUp my default but i don't want something like (event: DamageEvent | ApplyBuffEvent | RefreshBuffEvent... ) deal with it
-  addemUp(spellId: number, timestamp: number) {
-    // if Convoke hasn't been casted in this fight, there is nothing to analyzere here. This also fixes crashes resulting from precasting spells, as they don't have a cast Event associated with them
+  /** Registers the given event as a evidence of a possible Convoke cast */
+  addemUp(event: AbilityEvent<any>) {
+    const spellId = event.ability.guid;
+    const timestamp = event.timestamp;
+    // if Convoke hasn't been casted in this fight, there is nothing to analyze here.
+    // This also fixes crashes resulting from precasting spells, as they don't have a cast Event associated with them
     if (this.cast === 0) {
       return;
     }
 
+    // spells with travel times will damage at different times from when they cast
+    // a spell hardcast before convoke could hit during convoke
+    // or a spell procced by convoke could hit afterwards
     let fromConvokeButWeNoticeAfterwards = false;
-    //since travel time is the stupidiest thing in the world we have a weird af check
     if (SPELLS_WITH_TRAVEL_TIME.includes(spellId)) {
       //check if its from convoke or not (if 0 then it is)
-      if (this.travelTimeSpellsCastToDamageRatio[spellId] === 0) {
+      if (this.travelingSpellTracker[spellId] === 0) {
         fromConvokeButWeNoticeAfterwards = true;
       } else {
-        this.travelTimeSpellsCastToDamageRatio[spellId] -= 1;
+        this.travelingSpellTracker[spellId] -= 1;
       }
     }
 
-    if (!this.tracking) {
-      if (!fromConvokeButWeNoticeAfterwards) {
-        return;
-      }
+    if (!this.isChannelingConvoke && !fromConvokeButWeNoticeAfterwards) {
+      return;
     }
 
     //check for weird multiapplication spells
-    if (this.flexTimeStampForMultiApplySpells + 100 > timestamp) {
+    if (this.flexTimeStampForMultiApplySpells + AOE_BUFFER_MS > timestamp) {
       return;
     }
 
@@ -415,16 +433,22 @@ class ConvokeSpirits extends Analyzer {
     }
   }
 
+  /**
+   * Possibly sets the 'first hit' timestamp for an AoE ability,
+   * avoiding double counting for any subsequent hits
+   */
   multiSpellSafety(timestamp: number) {
-    //add a tenth of a second for safety this actually might be riskey but YOLO
-    if (this.flexTimeStampForMultiApplySpells + 100 < timestamp) {
+    if (this.flexTimeStampForMultiApplySpells + AOE_BUFFER_MS < timestamp) {
       this.flexTimeStampForMultiApplySpells = timestamp;
     }
   }
 
+  /**
+   * If we counted too many abilities, subtract due to possible procs from other effects
+   */
   houseKeeping() {
     //gotta have our safety : ^)
-    if (this.tracking) {
+    if (this.isChannelingConvoke) {
       return;
     }
 
@@ -454,11 +478,11 @@ class ConvokeSpirits extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            Normally when a cast of an ability happens in wow there is a CastEvent with it. During
-            convoke there isn't. This means we have to track damage events, heal events, and
-            buff/debuff events meaning if you thrash and hit nothing you don't create any events
-            meaning we can't track it. This means if your number don't add up to the expected amount
-            then that is the cause of it.
+            Abilities cast by Convoke do not create cast events; this listing is created by
+            tracking related events during the channel. Occasionally a Convoke will cast an ability
+            that hits nothing (like Thrash when only immune targets are in range). In these cases
+            we won't be able to track it and so the number of spells listed may not add up to
+            {' '}{this.spellsToTrack}.
           </>
         }
         dropdown={
@@ -498,7 +522,10 @@ class ConvokeSpirits extends Analyzer {
 
 export default ConvokeSpirits;
 
+/** A tracker for things that happen in a single Convoke cast */
 export interface ConvokeCast {
+  /** A mapping from spellId to the number of times that spell was cast during the Convoke */
   spellIdToCasts: number[];
-  form?: DruidForm;
+  /** The form the Druid was in during the cast */
+  form: DruidForm;
 }
