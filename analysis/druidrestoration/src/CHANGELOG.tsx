@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.VERDANT_INFUSION.id} /> support</>, Sref),
   change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.CONFLUX_OF_ELEMENTS.id} /> support</>, Sref),
   change(date(2021, 5, 12), 'Fixed an issue where the Swiftmend cast efficiency rule displayed wrong at low efficiency', Sref),
   change(date(2021, 5, 8), <>Cleaned up <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> module and improved its attribution to be better in some edge cases.</>, Sref),

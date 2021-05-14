@@ -134,6 +134,11 @@ class HotTrackerRestoDruid extends HotTracker {
         tickPeriod: 2000,
         refreshNoPandemic: true,
       },
+      {
+        spell: SPELLS.ADAPTIVE_SWARM_HEAL,
+        duration: 12000,
+        tickPeriod: 2000,
+      },
     ];
   }
 }
