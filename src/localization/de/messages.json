@@ -161,7 +161,6 @@
   "druid.restoration.suggestions.clearcasting.efficiency": "Du hast Nachwachsen {0} Male ohne einen Proc von Clearcasting gewirkt",
   "druid.restoration.suggestions.clearcasting.wastedProcs": "Du hast {0} aus {1} ({2}%) deiner kostenloses Nachwachsen Procs verpasst",
   "druid.restoration.suggestions.cultivation.notOptimal": "{0}% Heilung",
-  "druid.restoration.suggestions.flourish.cenarionWardExtended": "{0}/{1} Einsätze von 'Cenarischer Zauberschutz' erweitert",
   "druid.restoration.suggestions.flourish.wildGrowthExtended": "{0}/{1} Einsätze von Wildwuchs erweitert",
   "druid.restoration.suggestions.lifebloom.uptime": "{0}% Uptime",
   "druid.restoration.suggestions.rejuvenation.wastedSeconds": "Du hast {0} Male früh aufgefrischt, was zur Verschwendung von {1} Sekunden von Verjüngung geführt hat",

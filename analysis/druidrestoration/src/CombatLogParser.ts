@@ -29,11 +29,13 @@ import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
 import WildGrowth from './modules/features/WildGrowth';
+import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
+import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
 import Abundance from './modules/talents/Abundance';
 import CenarionWard from './modules/talents/CenarionWard';
@@ -117,10 +119,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Potency
     flashOfClarity: FlashOfClarity,
     evolvedSwarmResto: EvolvedSwarmResto,
+    confluxOfElementsResto: ConfluxOfElementsResto,
 
     //legos
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
     memoryoftheMotherTree: MemoryoftheMotherTree,
+    verdantInfusion: VerdantInfusion,
   };
 }
 
