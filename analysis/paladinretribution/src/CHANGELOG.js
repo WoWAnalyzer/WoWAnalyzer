@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 4, 10), <>Added <SpellLink id={SPELLS.FINAL_VERDICT.id} icon />.</>, Juko8),
   change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2020, 12, 1), <>Added <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION.id} icon /> module and minor housekeeping.</>, Skeletor),
   change(date(2020, 11, 8), <>Added <SpellLink id={SPELLS.EMPYREAN_POWER_TALENT.id} icon /> module.</>, Skeletor),

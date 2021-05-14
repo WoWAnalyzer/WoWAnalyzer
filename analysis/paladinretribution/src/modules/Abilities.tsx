@@ -129,6 +129,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.25,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
       //Utility
       {

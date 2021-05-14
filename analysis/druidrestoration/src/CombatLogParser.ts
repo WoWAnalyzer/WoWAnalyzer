@@ -28,8 +28,8 @@ import Lifebloom from './modules/features/Lifebloom';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
-import Tranquility from './modules/features/Tranquility';
 import WildGrowth from './modules/features/WildGrowth';
+import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
@@ -92,7 +92,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cultivation: Cultivation,
     ironbark: Ironbark,
     prematureRejuvenations: PrematureRejuvenations,
-    tranquility: Tranquility,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
@@ -118,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Potency
     flashOfClarity: FlashOfClarity,
     evolvedSwarmResto: EvolvedSwarmResto,
+    confluxOfElementsResto: ConfluxOfElementsResto,
 
     //legos
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,

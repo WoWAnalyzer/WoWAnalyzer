@@ -161,7 +161,6 @@
   "druid.restoration.suggestions.clearcasting.efficiency": "You cast {0} Regrowths per minute without a Clearcasting proc.",
   "druid.restoration.suggestions.clearcasting.wastedProcs": "You missed {0} out of {1} ({2}%) of your free regrowth procs",
   "druid.restoration.suggestions.cultivation.notOptimal": "{0}% healing",
-  "druid.restoration.suggestions.flourish.cenarionWardExtended": "{0}/{1} CWs extended.",
   "druid.restoration.suggestions.flourish.wildGrowthExtended": "{0}% WGs extended.",
   "druid.restoration.suggestions.lifebloom.uptime": "{0}% uptime",
   "druid.restoration.suggestions.rejuvenation.wastedSeconds": "You refreshed early {0} times which made you waste {1} seconds of rejuvenation.",

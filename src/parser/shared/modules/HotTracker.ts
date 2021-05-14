@@ -6,6 +6,7 @@ import Events, {
   AbilityEvent,
   AnyEvent,
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   FightEndEvent,
   HasTarget,
   HealEvent,
@@ -94,6 +95,10 @@ abstract class HotTracker extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellList), this.hotHeal);
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(spellList),
+      this.hotReapplied,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(spellList),
       this.hotReapplied,
     );
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(spellList), this.hotRemoved);
@@ -371,7 +376,7 @@ abstract class HotTracker extends Analyzer {
   }
 
   /** Handles a refresh buff for one of the tracked HoTs */
-  hotReapplied(event: RefreshBuffEvent) {
+  hotReapplied(event: RefreshBuffEvent | ApplyBuffStackEvent) {
     // ensure this is a target we care about and everything is in a good state
     const spellId = event.ability.guid;
     const target = this._getTarget(event);

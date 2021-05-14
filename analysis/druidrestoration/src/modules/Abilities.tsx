@@ -156,9 +156,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.4,
-          averageIssueEfficiency: 0.0, // average and "negative" major included for checklist bar scaling in line with a "minor" issue
-          majorIssueEfficiency: -1,
-          importance: ISSUE_IMPORTANCE.MINOR,
+          averageIssueEfficiency: 0.1,
+          importance: ISSUE_IMPORTANCE.REGULAR,
         },
       },
       {
