@@ -31,6 +31,7 @@ const CONVOKE_BUFF_SPELLS = [
   SPELLS.REGROWTH,
   SPELLS.IRONFUR,
   SPELLS.TIGERS_FURY,
+  SPELLS.FERAL_FRENZY_TALENT,
   SPELLS.WILD_GROWTH,
   SPELLS.FLOURISH_TALENT,
   SPELLS.STARFALL_CAST, // apparently this is also the ID for the buff
@@ -41,7 +42,6 @@ const CONVOKE_DEBUFF_SPELLS = [
   SPELLS.MOONFIRE_BEAR,
   SPELLS.MOONFIRE_FERAL,
   SPELLS.RAKE_BLEED,
-  SPELLS.FERAL_FRENZY_DEBUFF,
   SPELLS.THRASH_BEAR_DOT,
 ];
 /** All convokable spells that 'hit' with direct healing */
@@ -75,7 +75,6 @@ const SPELL_IDS_WITH_AOE = [
   SPELLS.FULL_MOON.id,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
-  // TODO check and add feral frenzy
 ];
 
 const SPELLS_CAST = 16;
@@ -209,7 +208,7 @@ class ConvokeSpirits extends Analyzer {
   }
 
   /**
-   * True iff the player is currently Convoking the Elements.
+   * True iff the player is currently Convoking the Spirits.
    * Includes a small buffer after the end because occasionally the last convoked spell occurs
    * slightly after the end.
    */
