@@ -63,19 +63,19 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this.isChannelingConvoke) {
+    if (this.isConvoking()) {
       this.hotTracker.addAttributionFromApply(this.currentConvokeAttribution, event);
     }
   }
 
   onRestoSwiftmend(event: HealEvent) {
-    if (this.isChannelingConvoke) {
+    if (this.isConvoking()) {
       this.currentConvokeAttribution.healing += event.amount + (event.absorbed || 0);
     }
   }
 
-  startTracking(event: ApplyBuffEvent) {
-    super.startTracking(event);
+  onConvoke(event: ApplyBuffEvent) {
+    super.onConvoke(event);
     this.convokeAttributions[this.cast] = this.hotTracker.getNewAttribution(
       SPELLS.CONVOKE_SPIRITS.id,
       'Convoke #' + this.cast,
@@ -112,7 +112,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             related events during the channel. Occasionally a Convoke will cast an ability that hits
             nothing (like Thrash when only immune targets are in range). In these cases we won't be
             able to track it and so the number of spells listed may not add up to{' '}
-            {this.spellsToTrack}.
+            {this.spellsPerCast}.
             <br />
             Healing amount is attributed by tracking the healing spells cast by Convoke, including
             possible Flourish casts. When Flourish is cast some double counting within this module
@@ -131,7 +131,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                 </tr>
               </thead>
               <tbody>
-                {this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
+                {this.convokeTracker.map((spellIdToCasts, index) => (
                   <tr key={index}>
                     <th scope="row">{index}</th>
                     <td>{spellIdToCasts.form}</td>
