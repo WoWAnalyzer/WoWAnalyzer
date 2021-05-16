@@ -4,7 +4,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { Attribution } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -76,10 +76,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   onConvoke(event: ApplyBuffEvent) {
     super.onConvoke(event);
-    this.convokeAttributions[this.cast] = this.hotTracker.getNewAttribution(
-      SPELLS.CONVOKE_SPIRITS.id,
-      'Convoke #' + this.cast,
-    );
+    this.convokeAttributions[this.cast] = HotTracker.getNewAttribution('Convoke #' + this.cast);
     this.convokeFlourishRateAttributions[this.cast] = { amount: 0 };
   }
 

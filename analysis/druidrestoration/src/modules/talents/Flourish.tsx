@@ -8,7 +8,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { Attribution } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -120,10 +120,7 @@ class Flourish extends Analyzer {
       this.currentRateAttribution = this.convokeSpirits.currentConvokeRateAttribution;
     } else {
       this.hardcastCount += 1;
-      extensionAttribution = this.hotTracker.getNewAttribution(
-        SPELLS.FLOURISH_TALENT.id,
-        `Flourish #${this.hardcastCount}`,
-      );
+      extensionAttribution = HotTracker.getNewAttribution(`Flourish #${this.hardcastCount}`);
       this.currentRateAttribution = { amount: 0 };
       this.rateAttributions.push(this.currentRateAttribution);
       this.extensionAttributions.push(extensionAttribution);

@@ -5,6 +5,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HotTracker from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -24,7 +25,7 @@ class RisingMist extends Analyzer {
   get averageExtension() {
     return this.risingMistCount === 0
       ? 0
-      : this.risingMists.reduce((acc, risingMist) => acc + risingMist.duration, 0) /
+      : this.risingMists.reduce((acc, risingMist) => acc + risingMist.totalExtension, 0) /
           this.risingMistCount /
           1000;
   }
@@ -196,12 +197,7 @@ class RisingMist extends Analyzer {
     this.risingMistCount += 1;
     debug && console.log(`risingMist cast #: ${this.risingMistCount}`);
 
-    const newRisingMist = {
-      name: `RisingMist #${this.risingMistCount}`,
-      healing: 0,
-      procs: 0,
-      duration: 0,
-    };
+    const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
     this.risingMists.push(newRisingMist);
 
     let foundEf = false;

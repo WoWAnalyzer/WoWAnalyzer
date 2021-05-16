@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { Attribution, TrackersBySpell } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution, TrackersBySpell } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -38,13 +38,7 @@ class VerdantInfusion extends Analyzer {
   hotTracker!: HotTrackerRestoDruid;
   combatants!: Combatants;
 
-  attribution: Attribution = {
-    attributionId: SPELLS.VERDANT_INFUSION.id,
-    name: 'Verdant Infusion',
-    healing: 0,
-    procs: 0,
-    totalExtension: 0,
-  };
+  attribution: Attribution = HotTracker.getNewAttribution('Verdant Infusion');
   casts: number = 0;
 
   constructor(options: Options) {
