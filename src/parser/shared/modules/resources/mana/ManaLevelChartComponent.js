@@ -92,7 +92,7 @@ class ManaLevelChartComponent extends React.PureComponent {
         .filter((death) => Boolean(death.targetIsFriendly))
         .map(({ timestamp, targetID, killingAbility }) => ({
           x: timestamp - start,
-          name: combatants.players[targetID].name,
+          name: combatants.players[targetID] ? combatants.players[targetID].name : 'Unknown Player',
           ability: killingAbility ? killingAbility.name : 'Unknown Ability',
         }));
     }
