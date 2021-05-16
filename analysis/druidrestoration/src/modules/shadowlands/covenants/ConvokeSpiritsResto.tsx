@@ -110,10 +110,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             nothing (like Thrash when only immune targets are in range). In these cases we won't be
             able to track it and so the number of spells listed may not add up to{' '}
             {this.spellsPerCast}.
-            <br />
+            <br /><br />
             Healing amount is attributed by tracking the healing spells cast by Convoke, including
-            possible Flourish casts. When Flourish is cast some double counting within this module
-            occurs, so the listed number will be somewhat higher than the true amount.
+            possible Flourish casts. This amount includes mastery benefit from the proceed HoTs.
           </>
         }
         dropdown={
