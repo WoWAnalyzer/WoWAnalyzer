@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
 import React from 'react';
+
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -378,6 +379,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      ...super.spellbook(),
     ];
   }
 }

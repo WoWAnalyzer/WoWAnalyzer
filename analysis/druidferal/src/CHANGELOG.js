@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } from 'CONTRIBUTORS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
   change(date(2021, 5, 16), <>Added <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id} /> support</>, Sref),
+  change(date(2021, 5, 15), <>Improved cast detection for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
   change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),
   change(date(2020, 12, 15), <>Update Bloodtalons for Shadowlands</>, Tora),

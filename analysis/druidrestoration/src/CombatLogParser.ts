@@ -5,7 +5,6 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
-import { ConvokeSpirits } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -33,6 +32,7 @@ import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElem
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
+import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
@@ -111,7 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     // Covenants
-    convokeSpirits: ConvokeSpirits,
+    convokeSpirits: ConvokeSpiritsResto,
     adaptiveSwarm: AdaptiveSwarmResto,
     kindredSpirits: KindredSpiritsResto,
 

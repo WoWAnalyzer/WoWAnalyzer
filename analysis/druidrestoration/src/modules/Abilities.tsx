@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
+
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -86,19 +87,6 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.55,
           majorIssueEfficiency: 0.3,
         },
-      },
-      {
-        spell: SPELLS.ADAPTIVE_SWARM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 25,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        healSpellIds: [SPELLS.ADAPTIVE_SWARM_HEAL.id],
       },
       {
         spell: SPELLS.WILD_GROWTH,
@@ -492,6 +480,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.OVERGROWTH_TALENT.id),
       },
+      ...super.spellbook(),
     ];
   }
 }

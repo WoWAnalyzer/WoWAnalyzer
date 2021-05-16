@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
 import Enemies from 'parser/shared/modules/Enemies';
+
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 import Ability from './Ability';
 
@@ -365,6 +366,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      ...super.spellbook(),
     ];
   }
 }

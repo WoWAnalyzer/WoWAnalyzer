@@ -75,8 +75,8 @@ abstract class HotTracker extends Analyzer {
   bouncingHots: Tracker[] = [];
   /** A history of all HoTs that have been tracked over the course of this encounter */
   hotHistory: Tracker[] = [];
-  /** A history of all Attributions created with this module. For logging purposes only */
-  attributrions: Attribution[] = [];
+  /** All Attributions seen, indexed by name. For logging purposes only */
+  attributions: { [key: string]: Attribution } = {};
 
   constructor(options: Options) {
     super(options);
@@ -115,19 +115,15 @@ abstract class HotTracker extends Analyzer {
   /**
    * Creates and returns a new Attribution object.
    * Pass an attribution object in with addAttribution, addExtension, or addBoost in order to attribute healing.
-   * @param attributionId the spell ID being attributed. Will be used only for logging and display.
-   * @param attributionName a name for the attribution. Will be used only for logging and display.
+   * @param name the name of the attribution - used as a key when detecting duplicate attributions
    */
-  public getNewAttribution(attributionId: number, attributionName: string): Attribution {
-    const attribution: Attribution = {
-      attributionId,
-      name: attributionName,
+  public static getNewAttribution(name: string): Attribution {
+    return {
+      name,
       healing: 0,
       procs: 0,
       totalExtension: 0,
     };
-    this.attributrions.push(attribution);
-    return attribution;
   }
 
   /**
@@ -159,6 +155,25 @@ abstract class HotTracker extends Analyzer {
           1,
         )} attributed to ${attribution.name}`,
       );
+    this.attributions[attribution.name] = attribution;
+  }
+
+  /**
+   * Provides an attribution for a HoT application. All healing done by the HoT will be tallied
+   * to the given attribution object.
+   *
+   * Typically this will be added at the same time the HoT is applied. In order for an Attribution
+   * to be addable, the Tracker for the given HoT must already be present. This means the module
+   * adding this attribution MUST come after HotTracker in the processing order.
+   *
+   * @param attribution the Attribution object to attach
+   * @param event the event marking the application of the HoT to attribute.
+   */
+  public addAttributionFromApply(
+    attribution: Attribution,
+    event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+  ): void {
+    this.addAttribution(attribution, event.targetID, event.ability.guid);
   }
 
   /**
@@ -212,6 +227,13 @@ abstract class HotTracker extends Analyzer {
     if (!attribution) {
       return;
     }
+    /*
+     * Some attributions (Convoke Spirits) can produce both full attributions and extensions,
+     * if they overlap we could double count - avoid that by checking for existing full attribution
+     */
+    if (hot.attributions.includes(attribution)) {
+      return;
+    }
 
     attribution.procs += 1;
     const existingExtension = hot.extensions.find(
@@ -232,6 +254,7 @@ abstract class HotTracker extends Analyzer {
           1,
         )} extended ${(finalAmount / 1000).toFixed(1)}s by ${attribution.name}`,
       );
+    this.attributions[attribution.name] = attribution;
   }
 
   /**
@@ -275,6 +298,7 @@ abstract class HotTracker extends Analyzer {
           1,
         )} boosted ${boostAmount} by ${attribution.name}`,
       );
+    this.attributions[attribution.name] = attribution;
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -475,7 +499,7 @@ abstract class HotTracker extends Analyzer {
 
   onFightEndDebug(_: FightEndEvent) {
     console.log('Attributions:');
-    console.log(this.attributrions);
+    console.log(this.attributions);
     console.log('Current HoTs:');
     console.log(this.hots);
   }
@@ -785,10 +809,8 @@ export interface Tick {
 
 /** a record of healing attributable to an effect */
 export interface Attribution {
-  /** the ID of the effect attributed, or null in the case of a hardcast */
-  attributionId: number | null;
   /** the name of the attribution -
-   * when attributing extensions name will be used to combine extensions from the same source */
+   * used as a key when detecting duplicate attributions */
   name: string;
   /** the amount of effective healing attributable - will be updated */
   healing: number;

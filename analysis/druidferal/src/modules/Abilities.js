@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -569,6 +570,7 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 60,
       },
+      ...super.spellbook(),
     ];
   }
 }
