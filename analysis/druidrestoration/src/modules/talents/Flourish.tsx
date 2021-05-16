@@ -8,7 +8,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { Attribution } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -17,6 +17,7 @@ import React from 'react';
 
 import { HOTS_INCREASED_RATE } from '../../constants';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
 
 const FLOURISH_EXTENSION = 8000;
 const FLOURISH_HEALING_INCREASE = 1;
@@ -31,10 +32,12 @@ class Flourish extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
     abilityTracker: AbilityTracker,
+    convokeSpirits: ConvokeSpiritsResto,
   };
 
   hotTracker!: HotTrackerRestoDruid;
   abilityTracker!: AbilityTracker;
+  convokeSpirits!: ConvokeSpiritsResto;
 
   extensionAttributions: Attribution[] = [];
   rateAttributions: MutableAmount[] = [];
@@ -42,11 +45,7 @@ class Flourish extends Analyzer {
   hardcastCount: number = 0;
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
 
-  // separate attributors for Flourishes cast by Convoke the Spirits
-  convokeExtensionAttribution?: Attribution;
-  convokeRateAttribution: MutableAmount = { amount: 0 };
-
-  currentRateAttribution: MutableAmount = this.convokeRateAttribution;
+  currentRateAttribution: MutableAmount = { amount: 0 };
 
   constructor(options: Options) {
     super(options);
@@ -117,20 +116,11 @@ class Flourish extends Analyzer {
   onFlourishApplyBuff() {
     let extensionAttribution: Attribution;
     if (this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id)) {
-      if (this.convokeExtensionAttribution === undefined) {
-        this.convokeExtensionAttribution = this.hotTracker.getNewAttribution(
-          SPELLS.FLOURISH_TALENT.id,
-          `Convoked Flourishes`,
-        );
-      }
-      extensionAttribution = this.convokeExtensionAttribution;
-      this.currentRateAttribution = this.convokeRateAttribution;
+      extensionAttribution = this.convokeSpirits.currentConvokeAttribution;
+      this.currentRateAttribution = this.convokeSpirits.currentConvokeRateAttribution;
     } else {
       this.hardcastCount += 1;
-      extensionAttribution = this.hotTracker.getNewAttribution(
-        SPELLS.FLOURISH_TALENT.id,
-        `Flourish #${this.hardcastCount}`,
-      );
+      extensionAttribution = HotTracker.getNewAttribution(`Flourish #${this.hardcastCount}`);
       this.currentRateAttribution = { amount: 0 };
       this.rateAttributions.push(this.currentRateAttribution);
       this.extensionAttributions.push(extensionAttribution);
@@ -247,7 +237,7 @@ class Flourish extends Analyzer {
   }
 }
 
-type MutableAmount = {
+export type MutableAmount = {
   amount: number;
 };
 
