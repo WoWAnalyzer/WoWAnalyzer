@@ -145,6 +145,18 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
+        spell: SPELLS.HEART_OF_THE_WILD,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 300,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.TIGERS_FURY,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
