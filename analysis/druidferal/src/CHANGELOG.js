@@ -1,9 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn } from 'CONTRIBUTORS';
+import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } from 'CONTRIBUTORS';
 import React from 'react';
+import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 
 export default [
+  change(date(2021, 5, 16), <>Added <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id} /> support</>, Sref),
   change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),
   change(date(2020, 12, 15), <>Update Bloodtalons for Shadowlands</>, Tora),
