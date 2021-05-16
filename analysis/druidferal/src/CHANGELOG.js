@@ -1,9 +1,8 @@
 import { change, date } from 'common/changelog';
-import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } from 'CONTRIBUTORS';
-import React from 'react';
-import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
-
+import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } from 'CONTRIBUTORS';
+import SpellLink from 'interface/SpellLink';
+import React from 'react';
 
 export default [
   change(date(2021, 5, 16), <>Added <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id} /> support</>, Sref),
