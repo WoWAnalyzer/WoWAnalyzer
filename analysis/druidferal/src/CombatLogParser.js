@@ -18,6 +18,7 @@ import EnergyTracker from './modules/features/EnergyTracker';
 import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
+import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
@@ -78,6 +79,9 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
     finisherUse: FinisherUse,
+
+    // shadowlands
+    draughtOfDeepFocus: DraughtOfDeepFocus,
   };
 }
 

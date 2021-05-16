@@ -86,6 +86,7 @@ const legendaries = {
     id: 338658,
     name: 'Draught of Deep Focus',
     icon: 'trade_alchemy_dpotion_d12',
+    bonusID: 7086,
   },
   OATH_OF_THE_ELDER_DRUID: {
     id: 338608,
