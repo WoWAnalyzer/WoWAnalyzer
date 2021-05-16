@@ -96,7 +96,7 @@ class Checklist extends BaseChecklist {
 
           // energy
           energyCapped: this.energyCapTracker.suggestionThresholds,
-          // tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
+          tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
           tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
 
           // cooldowns

@@ -231,7 +231,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
 
         Switch out the whole rule section if we can detect that the player was in a situation where energy was abundant.
       */}
-      {!thresholds.tigersFuryIgnoreEnergy && (
+      {!thresholds.tigersFuryIgnoreEnergy.actual && (
         <Rule
           name="Manage your energy"
           description={
@@ -271,7 +271,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           />
         </Rule>
       )}
-      {thresholds.tigersFuryIgnoreEnergy && combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
+      {thresholds.tigersFuryIgnoreEnergy.actual && combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
         <Rule
           name="Manage your energy"
           description={
