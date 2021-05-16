@@ -7,6 +7,7 @@ import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import {
   PANDEMIC_FRACTION,
@@ -48,7 +49,7 @@ class RipSnapshot extends Snapshot {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -60,7 +61,7 @@ class RipSnapshot extends Snapshot {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -76,7 +77,7 @@ class RipSnapshot extends Snapshot {
         average: 0.15,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

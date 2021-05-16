@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import HitCountAoE from '../core/HitCountAoE';
 
@@ -18,7 +19,7 @@ class ThrashHitCount extends HitCountAoE {
         average: 0.2,
         major: 0.5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -30,7 +31,7 @@ class ThrashHitCount extends HitCountAoE {
         average: 0.5,
         major: 3.0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

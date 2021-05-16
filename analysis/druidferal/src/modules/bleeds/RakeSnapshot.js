@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import React from 'react';
 
 import { RAKE_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
@@ -40,7 +41,7 @@ class RakeSnapshot extends Snapshot {
         average: 2.0,
         major: 8.0,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
@@ -52,7 +53,7 @@ class RakeSnapshot extends Snapshot {
         average: 0.15,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

@@ -10,6 +10,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class MoonfireUptime extends Analyzer {
   get uptime() {
@@ -24,7 +25,7 @@ class MoonfireUptime extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

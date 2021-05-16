@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import SpellEnergyCost from './SpellEnergyCost';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const BASE_ENERGY_REGEN = 11;
 const BASE_ENERGY_MAX = 100;
@@ -39,7 +40,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         average: 0.7,
         major: 0.65,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

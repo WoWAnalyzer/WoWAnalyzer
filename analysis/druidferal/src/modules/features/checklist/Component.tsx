@@ -5,17 +5,24 @@ import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement, {
+  RequirementThresholds,
+} from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
-const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const UptimeRequirement = (props) => (
+const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const UptimeRequirement = (props: { spell: number; thresholds: RequirementThresholds }) => (
     <Requirement
       name={
         <>
-          <SpellLink id={props.spell} /> uptime
+          <SpellLink id={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -24,7 +31,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
   UptimeRequirement.propTypes = {
     spell: PropTypes.object.isRequired,
   };
-  const CastEfficiencyRequirement = (props) => (
+
+  const CastEfficiencyRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -33,7 +41,11 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
   CastEfficiencyRequirement.propTypes = {
     spell: PropTypes.object.isRequired,
   };
-  const SnapshotDowngradeRequirement = (props) => (
+
+  const SnapshotDowngradeRequirement = (props: {
+    spell: number;
+    thresholds: RequirementThresholds;
+  }) => (
     <Requirement
       name={
         <>
@@ -41,7 +53,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         </>
       }
       thresholds={props.thresholds}
-      tooltip="Downgrading a snapshot can be unavoidable, but you should let the upgraded version last as long as possible by avoiding early refreshes."
+      tooltip="Downgrading a snapshot can be unavoidable, but you should let the upgraded version
+        last as long as possible by avoiding early refreshes."
     />
   );
   SnapshotDowngradeRequirement.propTypes = {
@@ -50,10 +63,12 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
 
   return (
     <Checklist>
-      {/* Builders
+      {/** Builders
         🗵 Uptime for Rake DoT
         🗵 Uptime for Moonfire DoT (if talented for it)
-        ☐ Avoid the types of early refresh which aren't already caught by the snapshot analysers. (Can be tricky to determine with certainty if such a refresh is bad, although if the player is just spamming Rake that should be flagged as a mistake.)
+        ☐ Avoid the types of early refresh which aren't already caught by the snapshot analysers.
+          (Can be tricky to determine with certainty if such a refresh is bad, although if the
+          player is just spamming Rake that should be flagged as a mistake.)
         🗵 Cast efficiency of Brutal Slash (if talented)
         🗵 Cast efficiency of Feral Frenzy (if talented)
         🗵 Only use Swipe if it hits multiple enemies
@@ -94,11 +109,14 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
             thresholds={thresholds.moonfireUptime}
           />
         )}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <UptimeRequirement
+            spell={SPELLS.ADAPTIVE_SWARM_DAMAGE.id}
+            thresholds={thresholds.adaptiveSwarmUptime}
+          />
+        )}
         {combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) && (
           <CastEfficiencyRequirement spell={SPELLS.BRUTAL_SLASH_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
         )}
         <Requirement
           name={
@@ -107,7 +125,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
             </>
           }
           thresholds={thresholds.swipeHitOne}
-          tooltip="How many times you used Swipe but had it only hit 1 target. Against a single target you should use Shred instead."
+          tooltip="How many times you used Swipe but had it only hit 1 target.
+            Against a single target you should use Shred instead."
         />
         <Requirement
           name={<>Combo points wasted</>}
@@ -116,7 +135,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         />
       </Rule>
 
-      {/* Finishers
+      {/** Finishers
         🗵 Uptime on Rip DoT
         🗵 Uptime for Savage Roar buff (if talented)
         🗵 Ferocious Bite only at energy >= 50
@@ -134,7 +153,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
             situations and simplifies your finisher use, allowing you to almost always use{' '}
             <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> as your single target finisher. When casting{' '}
             <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least{' '}
-            <TooltipElement content="Ferocious Bite's tooltip says it needs just 25 energy, but you should always give it an additional 25 to double its damage.">
+            <TooltipElement content="Ferocious Bite's tooltip says it needs just 25 energy,
+              but you should always give it an additional 25 to double its damage.">
               50 energy.
             </TooltipElement>
             <br />
@@ -159,7 +179,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
             </>
           }
           thresholds={thresholds.ferociousBiteEnergy}
-          tooltip="Ferocious Bite consumes up to 50 energy, and should always be given that full 50 energy to significantly increase its damage."
+          tooltip="Ferocious Bite consumes up to 50 energy,
+            and should always be given that full 50 energy to significantly increase its damage."
         />
         {combatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) && (
           <Requirement
@@ -170,7 +191,10 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
               </>
             }
             thresholds={thresholds.ripShouldBeBite}
-            tooltip="With the Sabertooth talent you can maintain your Rip by using Ferocious Bite. If you instead cast Rip you are missing out on the Ferocious Bite damage. If the replacement Rip has a better snapshot then it may have been worth using, so those cases are not counted here."
+            tooltip="With the Sabertooth talent you can maintain your Rip by using Ferocious Bite.
+              If you instead cast Rip you are missing out on the Ferocious Bite damage.
+              If the replacement Rip has a better snapshot then it may have been worth using,
+              so those cases are not counted here."
           />
         )}
         <Requirement
@@ -180,19 +204,25 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
             </>
           }
           thresholds={thresholds.ripDurationReduction}
-          tooltip="Because Rip's duration is based on combo points used it is possible to reduce the duration of your existing bleed by reapplying it with low combo points. Not only is this a waste of resources but you're doing less damage than you would if you'd done nothing at all."
+          tooltip="Because Rip's duration is based on combo points used it is possible
+            to reduce the duration of your existing bleed by reapplying it with low combo points.
+            Not only is this a waste of resources but you're doing less damage than you would if you'd done nothing at all."
         />
         <Requirement
           name={<>Needless low combo point finishers</>}
           thresholds={thresholds.badLowComboFinishers}
-          tooltip="Your finishers are most efficient when used with full combo points. However it is still worth using a low combo point Rip if it's not yet up on a target (this exception is detected and taken into account when calculating this metric.)"
+          tooltip="Your finishers are most efficient when used with full combo points.
+            However it is still worth using a low combo point Rip if it's not yet up on a target
+            (this exception is detected and taken into account when calculating this metric.)"
         />
       </Rule>
 
-      {/* Manage your energy
+      {/** Manage your energy
         🗵 Don't cap energy
         🗵 Don't waste energy from Tiger's Fury
-        ☐ Some kind of check for good pooling behaviour (having high energy when using a finisher is generally good, but would benefit from some research to quantify that effect.)
+        ☐ Some kind of check for good pooling behaviour
+          (having high energy when using a finisher is generally good,
+          but would benefit from some research to quantify that effect.)
 
         Switch out the whole rule section if we can detect that the player was in a situation where energy was abundant.
       */}
@@ -219,7 +249,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
           <Requirement
             name={<>Wasted natural regeneration from being capped</>}
             thresholds={thresholds.energyCapped}
-            tooltip="Some waste during Berserk or Incarnation (especially with Bloodlust active) is not a concern. If the fight mechanics force you to not attack for periods of time then capping energy is inevitable. Please use your knowledge of the fight when weighing the importance of this metric."
+            tooltip="Some waste during Berserk or Incarnation (especially with Bloodlust active) is not a concern.
+              If the fight mechanics force you to not attack for periods of time then capping energy is inevitable.
+              Please use your knowledge of the fight when weighing the importance of this metric."
           />
           <Requirement
             name={
@@ -228,7 +260,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
               </>
             }
             thresholds={thresholds.tigersFuryEnergy}
-            tooltip="There are some situations where energy is very abundant and the energy gain from Tiger's Fury becomes unimportant, but that is rare in boss fights. Generally you should aim to use Tiger's Fury both for its energy and damage increase."
+            tooltip="There are some situations where energy is very abundant and the energy gain
+              from Tiger's Fury becomes unimportant, but that is rare in boss fights.
+              Generally you should aim to use Tiger's Fury both for its energy and damage increase."
           />
         </Rule>
       )}
@@ -256,9 +290,10 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         </Rule>
       )}
 
-      {/*Use your cooldowns
+      {/**Use your cooldowns
         🗵 Cast efficiency of Berserk or Incarnation (depending on talent)
-        ☐ Make the most of Berserk/Incarnation by using as many abilities as possible during the buff (importance of this may be so low that it's not worth checking - run some simulations to find out)
+        ☐ Make the most of Berserk/Incarnation by using as many abilities as possible during the buff
+          (importance of this may be so low that it's not worth checking - run some simulations to find out)
         🗵 Cast efficiency of Tiger's Fury
         🗵 Shadowmeld for Night Elves: cast efficiency of correctly using it to buff Rake
       */}
@@ -284,6 +319,12 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
           <CastEfficiencyRequirement spell={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
         )}
         <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
+        {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
+          <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
+        )}
         {combatant.race === RACES.NightElf && (
           <Requirement
             name={<SpellLink id={SPELLS.SHADOWMELD.id} />}
@@ -312,11 +353,13 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
             <br />
             As a general rule it's beneficial to refresh a DoT early if you would increase the
             snapshot. It's better to refresh with a weaker version of the DoT during the{' '}
-            <TooltipElement content="The last 30% of the DoT's duration. If you refresh during this time you don't lose any duration in the process.">
+            <TooltipElement content="The last 30% of the DoT's duration.
+             If you refresh during this time you don't lose any duration in the process.">
               pandemic window
             </TooltipElement>{' '}
             than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by{' '}
-            <TooltipElement content="The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves">
+            <TooltipElement content="The effect is also provided by Incarnation: King of the Jungle,
+              and Shadowmeld for Night Elves">
               Prowl
             </TooltipElement>{' '}
             which is so much stronger that you should wait until the DoT wears off when replacing it
@@ -379,7 +422,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
               </>
             }
             thresholds={thresholds.bloodtalonsWasted}
-            tooltip="Using Bloodtalons to buff any ability counts as it not being wasted. See the statistics results section for details on how those charges were used."
+            tooltip="Using Bloodtalons to buff any ability counts as it not being wasted.
+              See the statistics results section for details on how those charges were used."
           />
         </Rule>
       )}

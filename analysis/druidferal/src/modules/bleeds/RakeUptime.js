@@ -9,6 +9,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import React from 'react';
 
 class RakeUptime extends Analyzer {
@@ -24,7 +25,7 @@ class RakeUptime extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

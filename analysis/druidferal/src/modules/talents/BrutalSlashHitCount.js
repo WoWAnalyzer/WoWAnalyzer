@@ -5,6 +5,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import HitCountAoE from '../core/HitCountAoE';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Despite being an AoE ability Brutal Slash is usually the best talent on its row for single target fights.
@@ -19,7 +20,7 @@ class BrutalSlashHitCount extends HitCountAoE {
         average: 0.2,
         major: 0.5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

@@ -8,6 +8,7 @@ import React from 'react';
 
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 import Snapshot from '../core/Snapshot';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Moonfire benefits from the damage bonus of Tiger's Fury over its whole duration, even if the
@@ -28,7 +29,7 @@ class MoonfireSnapshot extends Snapshot {
         average: 0.15,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

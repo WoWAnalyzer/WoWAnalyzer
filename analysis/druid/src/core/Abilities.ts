@@ -34,9 +34,6 @@ class Abilities extends CoreAbilities {
           base: (c: Combatant) => (c.spec === SPECS.FERAL_DRUID ? 1000 : 1500),
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        castEfficiency: {
-          suggestion: true,
-        },
         healSpellIds: [SPELLS.ADAPTIVE_SWARM_HEAL.id],
       },
     ];

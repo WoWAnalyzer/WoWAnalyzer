@@ -10,6 +10,7 @@ import React from 'react';
 
 import Abilities from '../Abilities';
 import SpellUsable from '../features/SpellUsable';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class Predator extends Analyzer {
   get baseCasts() {
@@ -37,7 +38,7 @@ class Predator extends Analyzer {
         average: 0.5,
         major: 0.2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

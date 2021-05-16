@@ -33,6 +33,7 @@ import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 import RakeBleed from './normalizers/RakeBleed';
+import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // shadowlands
     draughtOfDeepFocus: DraughtOfDeepFocus,
+    adaptiveSwarm: AdaptiveSwarmFeral,
   };
 }
 

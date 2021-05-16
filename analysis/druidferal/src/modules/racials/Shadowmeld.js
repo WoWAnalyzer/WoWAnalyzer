@@ -10,6 +10,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const BUFF_WINDOW_TIME = 60;
 
@@ -32,7 +33,7 @@ class Shadowmeld extends Analyzer {
         average: 0.8,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -44,7 +45,7 @@ class Shadowmeld extends Analyzer {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

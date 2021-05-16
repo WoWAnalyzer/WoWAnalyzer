@@ -15,6 +15,7 @@ import React from 'react';
 
 import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
 import getDamageBonus from '../core/getDamageBonus';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Since 8.0 only affects "cat" abilities.
@@ -57,7 +58,7 @@ class SavageRoar extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

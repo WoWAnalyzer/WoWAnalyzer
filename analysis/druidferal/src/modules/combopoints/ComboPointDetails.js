@@ -9,6 +9,7 @@ import React from 'react';
 
 import ResourceBreakdown from './ComboPointBreakdown';
 import ComboPointTracker from './ComboPointTracker';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class ComboPointDetails extends Analyzer {
   get pointsWasted() {
@@ -27,7 +28,7 @@ class ComboPointDetails extends Analyzer {
         average: 5,
         major: 10,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

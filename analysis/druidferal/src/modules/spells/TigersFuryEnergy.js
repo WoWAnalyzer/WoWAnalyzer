@@ -7,11 +7,12 @@ import React from 'react';
 
 import EnergyTracker from '../features/EnergyTracker';
 import Predator from '../talents/Predator';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class TigersFuryEnergy extends Analyzer {
   get shouldIgnoreEnergyWaste() {
     // If Predator is providing plenty of Tigers Fury resets it's no longer important to use them at the perfect time.
-    return this.predator.active && this.predator.extraCastsPerMinute > 1.0;
+    return  this.predator.active && this.predator.extraCastsPerMinute > 1.0;
   }
 
   get suggestionThresholds() {
@@ -25,7 +26,7 @@ class TigersFuryEnergy extends Analyzer {
         average: 0.1,
         major: 0.25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

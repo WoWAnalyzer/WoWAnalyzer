@@ -11,6 +11,7 @@ import React from 'react';
 
 import RipSnapshot from '../bleeds/RipSnapshot';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
@@ -50,7 +51,7 @@ class FinisherUse extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

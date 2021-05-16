@@ -8,6 +8,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
@@ -61,7 +62,7 @@ class Bloodtalons extends Analyzer {
         average: 0.5,
         major: 2.0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

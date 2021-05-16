@@ -21,6 +21,7 @@ import Predator from '../../talents/Predator';
 import SavageRoar from '../../talents/SavageRoar';
 import EnergyCapTracker from '../EnergyCapTracker';
 import Component from './Component';
+import AdaptiveSwarmFeral from '../../shadowlands/AdaptiveSwarmFeral';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -30,6 +31,7 @@ class Checklist extends BaseChecklist {
 
     rakeUptime: RakeUptime,
     moonfireUptime: MoonfireUptime,
+    adaptiveSwarm: AdaptiveSwarmFeral,
     swipeHitCount: SwipeHitCount,
     comboPointDetails: ComboPointDetails,
     ripUptime: RipUptime,
@@ -46,6 +48,28 @@ class Checklist extends BaseChecklist {
     finisherUse: FinisherUse,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+
+  protected rakeUptime!: RakeUptime;
+  protected moonfireUptime!: MoonfireUptime;
+  protected adaptiveSwarm!: AdaptiveSwarmFeral;
+  protected swipeHitCount!: SwipeHitCount;
+  protected comboPointDetails!: ComboPointDetails;
+  protected ripUptime!: RipUptime;
+  protected savageRoar!: SavageRoar;
+  protected ferociousBiteEnergy!: FerociousBiteEnergy;
+  protected energyCapTracker!: EnergyCapTracker;
+  protected ripSnapshot!: RipSnapshot;
+  protected rakeSnapshot!: RakeSnapshot;
+  protected moonfireSnapshot!: MoonfireSnapshot;
+  protected bloodtalons!: Bloodtalons;
+  protected predator!: Predator;
+  protected tigersFuryEnergy!: TigersFuryEnergy;
+  protected shadowmeld!: Shadowmeld;
+  protected finisherUse!: FinisherUse;
+
   render() {
     return (
       <Component
@@ -58,6 +82,7 @@ class Checklist extends BaseChecklist {
           // builders
           rakeUptime: this.rakeUptime.suggestionThresholds,
           moonfireUptime: this.moonfireUptime.suggestionThresholds,
+          adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
           swipeHitOne: this.swipeHitCount.hitJustOneThresholds,
           comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 
@@ -71,7 +96,7 @@ class Checklist extends BaseChecklist {
 
           // energy
           energyCapped: this.energyCapTracker.suggestionThresholds,
-          tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
+          // tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
           tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
 
           // cooldowns
