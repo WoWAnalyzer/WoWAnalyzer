@@ -1,15 +1,14 @@
-import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Combatant from 'parser/core/Combatant';
-import SPECS from 'game/SPECS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPECS from 'game/SPECS';
+import Combatant from 'parser/core/Combatant';
+import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 /**
  * Fully shared Druid abilites should go here
  */
 class Abilities extends CoreAbilities {
-
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
@@ -42,7 +41,6 @@ class Abilities extends CoreAbilities {
       },
     ];
   }
-
 }
 
-export default Abilities
+export default Abilities;

@@ -1,13 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
-import { SpellbookAbility } from 'parser/core/modules/Ability';
-import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
+import Combatant from 'parser/core/Combatant';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
+
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[]  {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {

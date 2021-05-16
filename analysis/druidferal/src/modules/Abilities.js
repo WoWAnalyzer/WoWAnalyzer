@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 class Abilities extends CoreAbilities {

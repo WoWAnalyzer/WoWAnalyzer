@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 import Enemies from 'parser/shared/modules/Enemies';
+
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 import Ability from './Ability';
 
