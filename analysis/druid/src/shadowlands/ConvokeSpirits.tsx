@@ -172,7 +172,7 @@ class ConvokeSpirits extends Analyzer {
 
   onConvoke(_: ApplyBuffEvent) {
     this.cast += 1;
-    this.convokeTracker[this.cast] = { spellIdToCasts: [], form: 'No Form' };
+    this.convokeTracker[this.cast] = { spellIdToCasts: [], form: this.activeDruidForm.form };
   }
 
   onHit(event: AbilityEvent<any> & TargettedEvent<any>) {
