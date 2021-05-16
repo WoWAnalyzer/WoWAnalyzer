@@ -68,6 +68,12 @@ const legendaries = {
     icon: 'spell_druid_rampantgrowth',
     bonusID: 7096,
   },
+  VERDANT_INFUSION: {
+    id: 338829,
+    name: 'Verdant Infusion',
+    icon: 'inv_relics_totemoflife',
+    bonusID: 7098,
+  },
   //endregion
 
   //region Shared

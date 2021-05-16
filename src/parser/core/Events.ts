@@ -727,6 +727,7 @@ export interface SoulbindTrait {
 export interface Conduit {
   traitID: number;
   rank: number;
+  itemLevel?: number;
   spellID: number;
   icon: string;
 }

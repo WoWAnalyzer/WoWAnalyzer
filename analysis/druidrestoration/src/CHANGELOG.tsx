@@ -6,6 +6,10 @@ import React from 'react';
 
 export default [
   change(date(2021, 5, 15), <>Improved cast detection and added healing attribution for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
+  change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.KINDRED_SPIRITS.id} /> support</>, Sref),
+  change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.VERDANT_INFUSION.id} /> support</>, Sref),
+  change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.CONFLUX_OF_ELEMENTS.id} /> support</>, Sref),
+  change(date(2021, 5, 12), 'Fixed an issue where the Swiftmend cast efficiency rule displayed wrong at low efficiency', Sref),
   change(date(2021, 5, 8), <>Cleaned up <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> module and improved its attribution to be better in some edge cases.</>, Sref),
   change(date(2021, 5, 5), <>Added <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> and <SpellLink id={SPELLS.EVOLVED_SWARM.id} /> support</>, Sref),
   change(date(2021, 5, 4), 'Re-added myself as spec maintainer and updated visuals of percent increase stats boxes.', Sref),
