@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import HitCountAoE from '../core/HitCountAoE';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Despite being an AoE ability Brutal Slash is usually the best talent on its row for single target fights.

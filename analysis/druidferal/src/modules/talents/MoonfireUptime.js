@@ -5,12 +5,12 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class MoonfireUptime extends Analyzer {
   get uptime() {

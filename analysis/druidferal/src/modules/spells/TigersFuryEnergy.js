@@ -3,16 +3,16 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import React from 'react';
 
 import EnergyTracker from '../features/EnergyTracker';
 import Predator from '../talents/Predator';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class TigersFuryEnergy extends Analyzer {
   get shouldIgnoreEnergyWaste() {
     // If Predator is providing plenty of Tigers Fury resets it's no longer important to use them at the perfect time.
-    return  this.predator.active && this.predator.extraCastsPerMinute > 1.0;
+    return this.predator.active && this.predator.extraCastsPerMinute > 1.0;
   }
 
   get suggestionThresholds() {

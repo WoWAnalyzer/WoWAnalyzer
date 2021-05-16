@@ -3,12 +3,12 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 import Snapshot from '../core/Snapshot';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Moonfire benefits from the damage bonus of Tiger's Fury over its whole duration, even if the

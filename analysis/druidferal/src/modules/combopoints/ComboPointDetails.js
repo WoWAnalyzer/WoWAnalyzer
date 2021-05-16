@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -9,7 +10,6 @@ import React from 'react';
 
 import ResourceBreakdown from './ComboPointBreakdown';
 import ComboPointTracker from './ComboPointTracker';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class ComboPointDetails extends Analyzer {
   get pointsWasted() {

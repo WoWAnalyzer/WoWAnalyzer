@@ -6,6 +6,7 @@ import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -15,7 +16,6 @@ import React from 'react';
 
 import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
 import getDamageBonus from '../core/getDamageBonus';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Since 8.0 only affects "cat" abilities.

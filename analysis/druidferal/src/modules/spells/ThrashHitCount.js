@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import HitCountAoE from '../core/HitCountAoE';
 

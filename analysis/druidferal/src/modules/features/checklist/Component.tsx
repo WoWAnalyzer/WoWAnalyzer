@@ -1,8 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement, {
@@ -11,11 +16,6 @@ import Requirement, {
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  AbilityRequirementProps,
-  ChecklistProps,
-} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const UptimeRequirement = (props: { spell: number; thresholds: RequirementThresholds }) => (
@@ -156,8 +156,10 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             situations and simplifies your finisher use, allowing you to almost always use{' '}
             <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> as your single target finisher. When casting{' '}
             <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least{' '}
-            <TooltipElement content="Ferocious Bite's tooltip says it needs just 25 energy,
-              but you should always give it an additional 25 to double its damage.">
+            <TooltipElement
+              content="Ferocious Bite's tooltip says it needs just 25 energy,
+              but you should always give it an additional 25 to double its damage."
+            >
               50 energy.
             </TooltipElement>
             <br />
@@ -356,13 +358,17 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             <br />
             As a general rule it's beneficial to refresh a DoT early if you would increase the
             snapshot. It's better to refresh with a weaker version of the DoT during the{' '}
-            <TooltipElement content="The last 30% of the DoT's duration.
-             If you refresh during this time you don't lose any duration in the process.">
+            <TooltipElement
+              content="The last 30% of the DoT's duration.
+             If you refresh during this time you don't lose any duration in the process."
+            >
               pandemic window
             </TooltipElement>{' '}
             than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by{' '}
-            <TooltipElement content="The effect is also provided by Incarnation: King of the Jungle,
-              and Shadowmeld for Night Elves">
+            <TooltipElement
+              content="The effect is also provided by Incarnation: King of the Jungle,
+              and Shadowmeld for Night Elves"
+            >
               Prowl
             </TooltipElement>{' '}
             which is so much stronger that you should wait until the DoT wears off when replacing it

@@ -18,6 +18,7 @@ import EnergyTracker from './modules/features/EnergyTracker';
 import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
+import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
@@ -33,7 +34,6 @@ import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 import RakeBleed from './normalizers/RakeBleed';
-import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

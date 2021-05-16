@@ -5,9 +5,8 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
-  change(date(2021, 5, 17), <>Updated the Checklist to include <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> cast efficiency
-    and <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> uptime. Fixed an issue where <SpellLink id={SPELLS.BERSERK_BUFF.id} />{' '}
-    showed incorrectly in the Combo Points tab.</>, Sref),
+  change(date(2021, 5, 17), <>Updated the Checklist to include <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and <SpellLink id={SPELLS.HEART_OF_THE_WILD.id} /> cast efficiency
+    and <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> uptime. Fixed an issue where <SpellLink id={SPELLS.BERSERK_BUFF.id} /> showed incorrectly in the Combo Points tab.</>, Sref),
   change(date(2021, 5, 16), <>Added <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id} /> support</>, Sref),
   change(date(2021, 5, 15), <>Improved cast detection for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
   change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),

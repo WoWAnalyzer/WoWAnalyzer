@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -9,7 +10,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import SpellEnergyCost from './SpellEnergyCost';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const BASE_ENERGY_REGEN = 11;
 const BASE_ENERGY_MAX = 100;

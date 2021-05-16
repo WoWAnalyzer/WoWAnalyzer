@@ -11,6 +11,7 @@ import RipUptime from '../../bleeds/RipUptime';
 import ComboPointDetails from '../../combopoints/ComboPointDetails';
 import FinisherUse from '../../combopoints/FinisherUse';
 import Shadowmeld from '../../racials/Shadowmeld';
+import AdaptiveSwarmFeral from '../../shadowlands/AdaptiveSwarmFeral';
 import FerociousBiteEnergy from '../../spells/FerociousBiteEnergy';
 import SwipeHitCount from '../../spells/SwipeHitCount';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
@@ -21,7 +22,6 @@ import Predator from '../../talents/Predator';
 import SavageRoar from '../../talents/SavageRoar';
 import EnergyCapTracker from '../EnergyCapTracker';
 import Component from './Component';
-import AdaptiveSwarmFeral from '../../shadowlands/AdaptiveSwarmFeral';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

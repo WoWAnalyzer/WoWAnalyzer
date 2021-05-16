@@ -4,11 +4,11 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 

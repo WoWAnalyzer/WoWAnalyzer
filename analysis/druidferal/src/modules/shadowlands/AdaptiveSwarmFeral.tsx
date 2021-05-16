@@ -1,7 +1,8 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
+
 import { AdaptiveSwarm } from '@wowanalyzer/druid';
 
 /**
@@ -29,9 +30,9 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
       actual: this.uptime,
       isLessThan: {
         // TODO double check reasonable numbers
-        minor: 0.60,
+        minor: 0.6,
         average: 0.45,
-        major: 0.30,
+        major: 0.3,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -40,7 +41,6 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
   // TODO suggestion
 
   // TODO statistic
-
 }
 
 export default AdaptiveSwarmFeral;

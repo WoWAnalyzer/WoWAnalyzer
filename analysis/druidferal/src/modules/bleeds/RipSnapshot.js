@@ -4,10 +4,10 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import {
   PANDEMIC_FRACTION,
