@@ -745,6 +745,11 @@ const spells = {
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
+  BERSERK_BUFF: {
+    id: 343216,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
   PROWL: {
     id: 5215,
     name: 'Prowl',

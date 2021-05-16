@@ -115,6 +115,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             thresholds={thresholds.adaptiveSwarmUptime}
           />
         )}
+        {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
+          <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
+        )}
         {combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) && (
           <CastEfficiencyRequirement spell={SPELLS.BRUTAL_SLASH_TALENT.id} />
         )}
@@ -319,9 +322,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <CastEfficiencyRequirement spell={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
         )}
         <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
-        {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
-        )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
         )}
