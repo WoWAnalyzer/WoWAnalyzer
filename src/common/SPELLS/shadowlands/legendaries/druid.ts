@@ -17,7 +17,12 @@ const legendaries = {
   //endregion
 
   //region Feral
-
+  FRENZYBAND: {
+    id: 340053,
+    name: 'Frenzyband',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+    bonusID: 7109,
+  },
   //endregion
 
   //region Guardian

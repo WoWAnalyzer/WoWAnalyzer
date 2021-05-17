@@ -855,6 +855,12 @@ const spells = {
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
   },
+  FRENZIED_ASSAULT: {
+    // DoT procced by Frenzyband legendary
+    id: 340056,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
 } as const;
 
 export default spells;

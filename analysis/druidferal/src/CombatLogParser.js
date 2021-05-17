@@ -20,6 +20,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
 import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
+import Frenzyband from './modules/shadowlands/Frenzyband';
 import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // shadowlands
     draughtOfDeepFocus: DraughtOfDeepFocus,
+    frenzyband: Frenzyband,
     adaptiveSwarm: AdaptiveSwarmFeral,
   };
 }
