@@ -14,7 +14,7 @@ const CAST_DEBUFF_PAIRS = [
   },
   {
     cast: SPELLS.MOONFIRE_FERAL,
-    debuff: SPELLS.MOONFIRE_BEAR,
+    debuff: SPELLS.MOONFIRE_FERAL,
   },
   {
     cast: SPELLS.THRASH_FERAL,
