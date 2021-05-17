@@ -22,8 +22,7 @@ const config: Config = {
       <br />
       <br />
       The tool is not perfect so we are always looking to improve it. If you have any suggestions or
-      comments, don't hesitated to open an issue on the Github repo.
-      Thanks and we hope you continue to enjoy the tool!
+      comments, don't hesitated to open an issue on the Github repo. Thanks and we hope you continue to enjoy the tool!
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
