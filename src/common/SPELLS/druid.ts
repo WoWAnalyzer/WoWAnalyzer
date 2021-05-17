@@ -89,6 +89,11 @@ const spells = {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
+  HEART_OF_THE_WILD: {
+    id: 108291,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
 
   //Affinity Spells
   //Moonkin-Balance
@@ -742,6 +747,11 @@ const spells = {
   },
   BERSERK: {
     id: 106951,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
+  BERSERK_BUFF: {
+    id: 343216,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },

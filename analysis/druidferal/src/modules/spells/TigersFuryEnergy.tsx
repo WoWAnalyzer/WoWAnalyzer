@@ -3,15 +3,30 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { BoolThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
 import EnergyTracker from '../features/EnergyTracker';
 import Predator from '../talents/Predator';
 
 class TigersFuryEnergy extends Analyzer {
-  get shouldIgnoreEnergyWaste() {
+  static dependencies = {
+    energyTracker: EnergyTracker,
+    predator: Predator,
+  };
+
+  energyTracker!: EnergyTracker;
+  predator!: Predator;
+
+  get shouldIgnoreEnergyWaste(): BoolThreshold {
     // If Predator is providing plenty of Tigers Fury resets it's no longer important to use them at the perfect time.
-    return this.predator.active && this.predator.extraCastsPerMinute > 1.0;
+    return {
+      actual: this.predator.active && this.predator.extraCastsPerMinute > 1.0,
+      // This is a fake Thresholds object used to smuggle the above boolean into the Checklist
+      // TODO better way to do this?
+      isEqual: true,
+      style: ThresholdStyle.BOOLEAN,
+    };
   }
 
   get suggestionThresholds() {
@@ -25,16 +40,11 @@ class TigersFuryEnergy extends Analyzer {
         average: 0.1,
         major: 0.25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    energyTracker: EnergyTracker,
-    predator: Predator,
-  };
-
-  suggestions(when) {
+  suggestions(when: When) {
     if (this.shouldIgnoreEnergyWaste) {
       return;
     }

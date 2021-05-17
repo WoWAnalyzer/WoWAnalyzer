@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
@@ -40,7 +41,7 @@ class RakeSnapshot extends Snapshot {
         average: 2.0,
         major: 8.0,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
@@ -52,7 +53,7 @@ class RakeSnapshot extends Snapshot {
         average: 0.15,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

@@ -4,6 +4,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
@@ -61,7 +62,7 @@ class Bloodtalons extends Analyzer {
         average: 0.5,
         major: 2.0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

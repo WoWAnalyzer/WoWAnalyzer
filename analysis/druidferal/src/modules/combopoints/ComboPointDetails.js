@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -27,7 +28,7 @@ class ComboPointDetails extends Analyzer {
         average: 5,
         major: 10,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

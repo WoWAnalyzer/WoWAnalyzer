@@ -18,6 +18,7 @@ import EnergyTracker from './modules/features/EnergyTracker';
 import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
+import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // shadowlands
     draughtOfDeepFocus: DraughtOfDeepFocus,
+    adaptiveSwarm: AdaptiveSwarmFeral,
   };
 }
 
