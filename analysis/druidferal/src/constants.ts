@@ -1,3 +1,17 @@
+import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
+
+/** The cast spells for Combo Point generating abilities */
+export const CP_GENERATORS: Spell[] = [
+  SPELLS.SHRED,
+  SPELLS.RAKE,
+  SPELLS.THRASH_FERAL,
+  SPELLS.SWIPE_CAT,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.BRUTAL_SLASH_TALENT,
+  SPELLS.FERAL_FRENZY_TALENT,
+];
+
 export const RAKE_BASE_DURATION = 15000;
 export const RIP_DURATION_1_CP = 8000;
 export const RIP_DURATION_PER_CP = 4000;
