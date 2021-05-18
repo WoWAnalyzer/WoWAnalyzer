@@ -149,8 +149,9 @@ class CooldownThroughputTracker extends Analyzer {
       // Default to only including cast events by the player
       const filter = cooldownSpell.startBufferFilter || Events.cast.by(SELECTED_PLAYER);
       const ctor = this.constructor as typeof CooldownThroughputTracker;
-      events = this.eventHistory.last(cooldownSpell.startBufferEvents, startBufferMS, filter)
-        .filter(event => !ctor.ignoredSpells.includes(event.ability.guid));
+      events = this.eventHistory
+        .last(cooldownSpell.startBufferEvents, startBufferMS, filter)
+        .filter((event) => !ctor.ignoredSpells.includes(event.ability.guid));
       if (startBufferMS) {
         start = timestamp - startBufferMS;
       } else {

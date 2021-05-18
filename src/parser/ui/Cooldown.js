@@ -117,7 +117,7 @@ class Cooldown extends React.Component {
 
   formatRelativeTimestamp(event, cooldown) {
     const relativeTimestamp = event.timestamp - cooldown.cdStart;
-    return ((relativeTimestamp > 0) ? "+" : "") + (relativeTimestamp / 1000).toFixed(3);
+    return (relativeTimestamp > 0 ? '+' : '') + (relativeTimestamp / 1000).toFixed(3);
   }
 
   render() {
