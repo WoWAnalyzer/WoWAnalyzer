@@ -107,6 +107,10 @@ class StatTracker extends Analyzer {
     [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_AGI.id]: { agility: 20 },
     //endregion
 
+    // region Conduits
+    [SPELLS.REDIRECTED_ANIMA.id]: { mastery: 25 },
+    // endregion
+
     // region Misc
     [SPELLS.JACINS_RUSE.id]: { mastery: 48 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },

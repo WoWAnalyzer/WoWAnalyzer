@@ -95,6 +95,8 @@ const spells = {
     icon: 'spell_holy_blessingofagility',
   },
 
+  // shared items / conduits
+
   //Affinity Spells
   //Moonkin-Balance
   //The moonkin form granted by Balance Affinity
@@ -854,6 +856,12 @@ const spells = {
     id: 252752,
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
+  },
+  FRENZIED_ASSAULT: {
+    // DoT procced by Frenzyband legendary
+    id: 340056,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
   },
 } as const;
 
