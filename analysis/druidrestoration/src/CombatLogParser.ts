@@ -31,6 +31,7 @@ import WildGrowth from './modules/features/WildGrowth';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
+import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigorationResto';
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
@@ -120,6 +121,8 @@ class CombatLogParser extends CoreCombatLogParser {
     flashOfClarity: FlashOfClarity,
     evolvedSwarmResto: EvolvedSwarmResto,
     confluxOfElementsResto: ConfluxOfElementsResto,
+    // Soulbind
+    groveInvigoration: GroveInvigorationResto,
 
     //legos
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
