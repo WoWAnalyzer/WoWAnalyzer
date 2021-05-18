@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 18), <>Added <SpellLink id={SPELLS.GROVE_INVIGORATION.id} /> support</>, Sref),
   change(date(2021, 5, 15), <>Improved cast detection and added healing attribution for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
   change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.KINDRED_SPIRITS.id} /> support</>, Sref),
   change(date(2021, 5, 14), <>Added <SpellLink id={SPELLS.VERDANT_INFUSION.id} /> support</>, Sref),

@@ -95,6 +95,8 @@ const spells = {
     icon: 'spell_holy_blessingofagility',
   },
 
+  // shared items / conduits
+
   //Affinity Spells
   //Moonkin-Balance
   //The moonkin form granted by Balance Affinity

@@ -105,7 +105,9 @@ class Mastery extends Analyzer {
 
           this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
             event,
-            decomposedHeal.relativeBuffBenefit(this.buffAttributions[buffId].buffAmount),
+            decomposedHeal.relativeBuffBenefit(
+              this.buffAttributions[buffId].buffAmount * buff.stacks,
+            ),
           );
         });
     } else {
