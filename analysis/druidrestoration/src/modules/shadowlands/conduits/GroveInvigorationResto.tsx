@@ -1,13 +1,14 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Mastery, { MasteryBuffAttribution } from '../../../modules/core/Mastery';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import { formatNumber } from 'common/format';
+import React from 'react';
+
+import Mastery from '../../../modules/core/Mastery';
 
 /**
  * **Grove Invigoration**
@@ -55,9 +56,12 @@ class GroveInvigorationResto extends Analyzer {
         tooltip={
           <>
             This is the healing attributable to the mastery proc from Grove Invigoration.
-            <br/>
-            You averaged <strong>{this.avgStacks.toFixed(1)} stacks
-            / {formatNumber(this.avgRatingGain)} bonus mastery</strong> over the course of the encounter.
+            <br />
+            You averaged{' '}
+            <strong>
+              {this.avgStacks.toFixed(1)} stacks / {formatNumber(this.avgRatingGain)} bonus mastery
+            </strong>{' '}
+            over the course of the encounter.
           </>
         }
       >
