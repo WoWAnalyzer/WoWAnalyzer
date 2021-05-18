@@ -32,6 +32,7 @@ CooldownOverview.propTypes = {
         icon: PropTypes.string.isRequired,
       }),
       start: PropTypes.number.isRequired,
+      cdStart: PropTypes.number.isRequired,
       end: PropTypes.number,
       events: PropTypes.arrayOf(
         PropTypes.shape({

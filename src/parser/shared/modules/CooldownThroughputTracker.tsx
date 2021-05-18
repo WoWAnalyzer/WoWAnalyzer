@@ -52,7 +52,11 @@ export type CooldownSpell = {
 };
 
 export type TrackedCooldown = CooldownSpell & {
+  /** The timestamp to begin tracking events */
   start: number;
+  /** The timestamp the Cooldown was cast/applied */
+  cdStart: number;
+  /** The timestamp the Cooldown ends / we stop trakcing */
   end: number | null;
   events: AnyEvent[];
 };
@@ -138,12 +142,16 @@ class CooldownThroughputTracker extends Analyzer {
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
     let events: AnyEvent[] = [];
-    let start = timestamp;
+    const cdStart = timestamp;
+    let start = cdStart;
     const startBufferMS = cooldownSpell.startBufferMS;
     if (startBufferMS || cooldownSpell.startBufferEvents) {
       // Default to only including cast events by the player
       const filter = cooldownSpell.startBufferFilter || Events.cast.by(SELECTED_PLAYER);
-      events = this.eventHistory.last(cooldownSpell.startBufferEvents, startBufferMS, filter);
+      const ctor = this.constructor as typeof CooldownThroughputTracker;
+      events = this.eventHistory
+        .last(cooldownSpell.startBufferEvents, startBufferMS, filter)
+        .filter((event) => !ctor.ignoredSpells.includes(event.ability.guid));
       if (startBufferMS) {
         start = timestamp - startBufferMS;
       } else {
@@ -154,6 +162,7 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = {
       ...cooldownSpell,
       start: start,
+      cdStart: cdStart,
       end: cooldownSpell.duration ? cooldownSpell.duration * 1000 + timestamp : null,
       events: events,
     };
