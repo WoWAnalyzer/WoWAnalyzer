@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 17), <>Added <SpellLink id={SPELLS.XUENS_BATTLEGEAR.id} /> module.</>, Juko8),
   change(date(2021, 5, 11), <>Added <SpellLink id={SPELLS.FAELINE_STOMP_CAST.id} /> module to Windwalker analyzer as well</>, Juko8),
   change(date(2021, 4, 1), <>Updated <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> module.</>, Juko8),
   change(date(2021, 3, 17), 'Added tracker for Dance of Chiji Bonus damage', Talby),
