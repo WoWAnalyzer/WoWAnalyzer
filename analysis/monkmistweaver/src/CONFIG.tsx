@@ -1,4 +1,3 @@
-import { Anomoly } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 import React from 'react';
@@ -7,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Anomoly],
+  contributors: [],
   // The WoW client patch this spec was last updated.
   patchCompatibility: '9.0.5',
   isPartial: false,
@@ -22,13 +21,9 @@ const config: Config = {
       us dreamers out.)
       <br />
       <br />
-      The tool is not perfect so we am always looking to improve it. If you have any suggestions or
-      comments, don't hesitated to swing by the{' '}
-      <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">
-        Peak of Serenity
-      </a>{' '}
-      discord server or opening an issue on the Github repo. You can also contact either on Discord.
-      Thanks and we hope you continue to enjoy the tool!
+      The tool is not perfect so we are always looking to improve it. If you have any suggestions or
+      comments, don't hesitated to open an issue on the Github repo. Thanks and we hope you continue
+      to enjoy the tool!
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
