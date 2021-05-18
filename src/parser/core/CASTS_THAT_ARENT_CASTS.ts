@@ -24,9 +24,6 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   SPELLS.SPIRITWALKERS_GRACE.id,
 
-  //region Enchants
-  SPELLS.CELESTIAL_GUIDANCE_CAST.id, //Celestial Guidance enchant proc
-
   //endregion
 
   //region Consumables
@@ -35,6 +32,7 @@ const spells: number[] = [
 
   //region Enchants
   SPELLS.SINFUL_REVELATION_PROC.id,
+  SPELLS.CELESTIAL_GUIDANCE_CAST.id,
 
   //region Death Knight
   SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
