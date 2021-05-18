@@ -566,6 +566,7 @@
   "monk.windwalker.suggestions.hitCombo.uptime": "{0} % uptime",
   "monk.windwalker.suggestions.jadeIgnitionWastedStacks": "You wasted your <0/> stacks by using Fists of Fury at full stacks",
   "monk.windwalker.suggestions.touchOfKarma.absorbUsed": "{0}% Touch of Karma absorb used",
+  "monk.windwalker.suggestions.xuensBattlegear.cdrWasted": "{0} seconds of wasted cooldown reduction per minute",
   "paladin.holy.modules.abilities.bestowFaithTalent": "If you can't or don't want to cast it more consider using <0/> or <1/> instead.",
   "paladin.holy.modules.abilities.castHolyShockRegularly": "Casting Holy Shock regularly is very important for performing well.",
   "paladin.holy.modules.abilities.crusadersMightTalent": "When you are using <0/> it is important to use <1/> often enough to benefit from the talent. Use a different talent if you are unable to.",

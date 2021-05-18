@@ -566,6 +566,7 @@
   "monk.windwalker.suggestions.hitCombo.uptime": "{0} % uptime",
   "monk.windwalker.suggestions.jadeIgnitionWastedStacks": "",
   "monk.windwalker.suggestions.touchOfKarma.absorbUsed": "{0}% Touch of Karma absorb used",
+  "monk.windwalker.suggestions.xuensBattlegear.cdrWasted": "",
   "paladin.holy.modules.abilities.bestowFaithTalent": "Если Вы не можете или не хотите использовать его чаще попробуйте заменить его на <0/> или <1/>.",
   "paladin.holy.modules.abilities.castHolyShockRegularly": "Регулярное использование Шока небес крайне важно для достижения хороших результатов",
   "paladin.holy.modules.abilities.crusadersMightTalent": "При выборе <0/> важно использовать <1/> достаточно часто чтобы извлечь из этого таланта выгоду. Используйте другой талант если у Вас это не получается.",
