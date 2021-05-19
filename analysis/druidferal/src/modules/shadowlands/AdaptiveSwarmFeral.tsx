@@ -5,6 +5,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import { AdaptiveSwarm } from '@wowanalyzer/druid';
 
+import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
+
 /**
  * Resto's display module for Adaptive Swarm.
  */
@@ -21,13 +23,17 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
     this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
   }
 
-  get uptime() {
+  get damageUptime() {
     return this.enemies.getBuffUptime(SPELLS.ADAPTIVE_SWARM_DAMAGE.id) / this.owner.fightDuration;
+  }
+
+  get damageUptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.uptime,
+      actual: this.damageUptime,
       isLessThan: {
         // TODO double check reasonable numbers
         minor: 0.6,
@@ -40,7 +46,16 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
 
   // TODO suggestion
 
-  // TODO statistic
+  // TODO damage statistic
+
+  subStatistic() {
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      SPELLS.ADAPTIVE_SWARM.id,
+      this.damageUptime,
+      this.damageUptimeHistory,
+    );
+  }
 }
 
 export default AdaptiveSwarmFeral;

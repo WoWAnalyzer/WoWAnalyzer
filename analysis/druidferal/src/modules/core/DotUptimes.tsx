@@ -3,8 +3,9 @@ import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
-import RipUptime from '../bleeds/RipUptime';
 import RakeUptime from '../bleeds/RakeUptime';
+import RipUptime from '../bleeds/RipUptime';
+import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
 import MoonfireUptime from '../talents/MoonfireUptime';
 
 /**
@@ -15,20 +16,22 @@ class DotUptimeStatisticBox extends Analyzer {
     ripUptime: RipUptime,
     rakeUptime: RakeUptime,
     moonfireUptime: MoonfireUptime,
+    adaptiveSwarm: AdaptiveSwarmFeral,
     // TODO Savage Roar?
-    // TODO Adaptive Swarm?
   };
 
   protected ripUptime!: RipUptime;
   protected rakeUptime!: RakeUptime;
   protected moonfireUptime!: MoonfireUptime;
+  protected adaptiveSwarm!: AdaptiveSwarmFeral;
 
   statistic() {
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
         {this.ripUptime.subStatistic()}
         {this.rakeUptime.subStatistic()}
-        {this.moonfireUptime.subStatistic()}
+        {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
+        {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
       </StatisticBar>
     );
   }

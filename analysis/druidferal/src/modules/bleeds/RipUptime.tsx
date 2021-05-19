@@ -3,20 +3,17 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 import React from 'react';
+
+import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
 class RipUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-  }
+  };
 
   protected enemies!: Enemies;
 
@@ -72,22 +69,9 @@ class RipUptime extends Analyzer {
     );
   }
 
-  // statistic() {
-  //   return (
-  //     <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
-  //       <BoringSpellValueText spell={SPELLS.RIP}>
-  //         <>
-  //           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-  //         </>
-  //       </BoringSpellValueText>
-  //     </Statistic>
-  //   );
-  // }
-
   subStatistic() {
-    return uptimeBarSubStatistic(SPELLS.RIP.id, this.uptime, this.uptimeHistory);
+    return uptimeBarSubStatistic(this.owner.fight, SPELLS.RIP.id, this.uptime, this.uptimeHistory);
   }
-
 }
 
 export default RipUptime;

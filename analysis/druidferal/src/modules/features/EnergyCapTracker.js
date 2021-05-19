@@ -104,7 +104,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   statistic() {
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.CORE(2)}
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${formatPercentage(this.cappedProportion)}%`}
         label="Time with capped energy"

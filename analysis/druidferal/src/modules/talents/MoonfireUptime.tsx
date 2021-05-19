@@ -3,20 +3,17 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+
 import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
 class MoonfireUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-  }
+  };
 
   protected enemies!: Enemies;
 
@@ -70,22 +67,13 @@ class MoonfireUptime extends Analyzer {
     );
   }
 
-  // statistic() {
-  //   const moonfireUptime =
-  //     this.enemies.getBuffUptime(SPELLS.MOONFIRE_FERAL.id) / this.owner.fightDuration;
-  //   return (
-  //     <Statistic size="flexible" position={STATISTIC_ORDER.OPTIONAL(2)}>
-  //       <BoringSpellValueText spell={SPELLS.MOONFIRE_BEAR}>
-  //         <>
-  //           <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>
-  //         </>
-  //       </BoringSpellValueText>
-  //     </Statistic>
-  //   );
-  // }
-
   subStatistic() {
-    return uptimeBarSubStatistic(SPELLS.MOONFIRE_FERAL.id, this.uptime, this.uptimeHistory);
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      SPELLS.MOONFIRE_FERAL.id,
+      this.uptime,
+      this.uptimeHistory,
+    );
   }
 }
 
