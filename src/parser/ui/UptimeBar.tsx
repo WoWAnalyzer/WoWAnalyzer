@@ -2,7 +2,7 @@ import React from 'react';
 
 import './UptimeBar.scss';
 
-type Uptime = {
+export type Uptime = {
   start: number;
   end: number;
 };

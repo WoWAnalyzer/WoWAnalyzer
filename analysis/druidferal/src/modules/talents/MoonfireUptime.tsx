@@ -3,18 +3,26 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
-import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
+import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
+
 class MoonfireUptime extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  protected enemies!: Enemies;
+
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.MOONFIRE_FERAL.id) / this.owner.fightDuration;
+  }
+
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_FERAL.id);
   }
 
   get suggestionThresholds() {
@@ -29,16 +37,12 @@ class MoonfireUptime extends Analyzer {
     };
   }
 
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -63,17 +67,12 @@ class MoonfireUptime extends Analyzer {
     );
   }
 
-  statistic() {
-    const moonfireUptime =
-      this.enemies.getBuffUptime(SPELLS.MOONFIRE_FERAL.id) / this.owner.fightDuration;
-    return (
-      <Statistic size="flexible" position={STATISTIC_ORDER.OPTIONAL(2)}>
-        <BoringSpellValueText spell={SPELLS.MOONFIRE_BEAR}>
-          <>
-            <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+  subStatistic() {
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      SPELLS.MOONFIRE_FERAL.id,
+      this.uptime,
+      this.uptimeHistory,
     );
   }
 }
