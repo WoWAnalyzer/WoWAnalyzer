@@ -12,7 +12,7 @@ import Mastery from '../../../modules/core/Mastery';
 
 /**
  * **Grove Invigoration**
- * Soulbind Conduit - Night Fae
+ * Soulbind Conduit - Niya / Night Fae
  *
  * Healing or dealing damage has a chance to grant you a stack of Redirected Anima.
  * Redirected Anima increases your maximum health by 1% and your Mastery by 25 for 30 sec, and stacks overlap.
