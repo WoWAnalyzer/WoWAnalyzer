@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 19), <>Added myself as maintainer and removed 'partial support' label. Updated appearance of uptime statistics.</>, Sref),
   change(date(2021, 5, 18), <>Added <SpellLink id={SPELLS.FRENZYBAND.id} /> support</>, Sref),
   change(date(2021, 5, 18), <>Fixed a bug where <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> snapshots weren't showing correctly</>, Sref),
   change(date(2021, 5, 17), 'Fixed confusing display of energy wasted statistic / suggestion', Sref),
