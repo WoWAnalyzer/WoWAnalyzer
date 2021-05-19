@@ -5,16 +5,27 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
-class RipUptime extends Analyzer {
+class RakeUptime extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  }
+
+  protected enemies!: Enemies;
+
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.RIP.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id) / this.owner.fightDuration;
+  }
+
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.RAKE_BLEED.id);
   }
 
   get suggestionThresholds() {
@@ -29,35 +40,22 @@ class RipUptime extends Analyzer {
     };
   }
 
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once
-          it has reached its{' '}
+          Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current
+          application was buffed by Prowl you should refresh the DoT once it has reached its{' '}
           <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
             pandemic window
           </TooltipElement>
           , don't wait for it to wear off.
-          {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ? (
-            <>
-              {' '}
-              Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if{' '}
-              <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.
-            </>
-          ) : (
-            <></>
-          )}
         </>,
       )
-        .icon(SPELLS.RIP.icon)
+        .icon(SPELLS.RAKE.icon)
         .actual(
           t({
-            id: 'druid.feral.suggestions.rip.uptime',
+            id: 'druid.feral.suggestions.rake.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),
         )
@@ -65,17 +63,21 @@ class RipUptime extends Analyzer {
     );
   }
 
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.RIP}>
-          <>
-            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+  // statistic() {
+  //   return (
+  //     <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
+  //       <BoringSpellValueText spell={SPELLS.RAKE}>
+  //         <>
+  //           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+  //         </>
+  //       </BoringSpellValueText>
+  //     </Statistic>
+  //   );
+  // }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(SPELLS.RAKE_BLEED.id, this.uptime, this.uptimeHistory);
   }
 }
 
-export default RipUptime;
+export default RakeUptime;
