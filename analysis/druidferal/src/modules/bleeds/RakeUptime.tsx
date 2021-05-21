@@ -1,21 +1,25 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { SpellLink, TooltipElement } from 'interface';
 import Enemies from 'parser/shared/modules/Enemies';
 import React from 'react';
+import Snapshots2, { PROWL_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 
 import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
-class RakeUptime extends Analyzer {
+class RakeUptime extends Snapshots2 {
   static dependencies = {
     enemies: Enemies,
   };
 
   protected enemies!: Enemies;
+
+  constructor(options: Options) {
+    super(SPELLS.RAKE, SPELLS.RAKE_BLEED, [TIGERS_FURY_SPEC, PROWL_SPEC], options);
+  }
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id) / this.owner.fightDuration;
@@ -63,9 +67,9 @@ class RakeUptime extends Analyzer {
   subStatistic() {
     return uptimeBarSubStatistic(
       this.owner.fight,
-      SPELLS.RAKE_BLEED.id,
-      this.uptime,
+      SPELLS.RAKE_BLEED,
       this.uptimeHistory,
+      this.snapshotUptimes,
     );
   }
 }

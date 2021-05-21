@@ -6,7 +6,7 @@ import Events, {
   ApplyBuffStackEvent,
   ApplyDebuffEvent,
   ApplyDebuffStackEvent,
-  EventType,
+  EventType, RefreshBuffEvent, RefreshDebuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   RemoveDebuffEvent,
@@ -31,12 +31,8 @@ abstract class Entities<T extends Entity> extends Analyzer {
     this.addEventListener(Events.applydebuff, this.applyBuff);
     this.addEventListener(Events.removebuff, this.removeBuff);
     this.addEventListener(Events.removedebuff, this.removeBuff);
-    // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
-    // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
-    // on_refreshbuff(event) {
-    //   this.removeActiveBuff(event);
-    //   this.applyActiveBuff(event);
-    // }
+    this.addEventListener(Events.refreshbuff, this.refreshBuff);
+    this.addEventListener(Events.refreshdebuff, this.refreshBuff);
     this.addEventListener(Events.applybuffstack, this.updateBuffStack);
     this.addEventListener(Events.applydebuffstack, this.updateBuffStack);
     this.addEventListener(Events.removebuffstack, this.updateBuffStack);
@@ -125,6 +121,38 @@ abstract class Entities<T extends Entity> extends Analyzer {
     }
   }
 
+  refreshBuff(event: RefreshBuffEvent | RefreshDebuffEvent) {
+    if (
+      !this.owner.byPlayer(event) &&
+      !this.owner.toPlayer(event) &&
+      !this.owner.byPlayerPet(event) &&
+      !this.owner.toPlayerPet(event)
+    ) {
+      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
+      return;
+    }
+    const entity = this.getEntity(event);
+    if (!entity) {
+      return;
+    }
+
+    debug && this.log(`Refresh buff ${event.ability.name} to ${entity.name}`);
+
+    const existingBuff = entity.buffs.find(
+      (item) =>
+        item.ability.guid === event.ability.guid &&
+        item.end === null &&
+        event.sourceID === item.sourceID,
+    );
+    if (existingBuff) {
+      existingBuff.refreshHistory.push(event.timestamp);
+    } else {
+      console.error(
+        "Buff refreshed while active buff wasn't known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.",
+      );
+    }
+  }
+
   removeBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
     if (
       !this.owner.byPlayer(event) &&
@@ -166,6 +194,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
           { stacks: 1, timestamp: this.owner.fight.start_time },
           { stacks: 0, timestamp: event.timestamp },
         ],
+        refreshHistory: [],
         isDebuff,
         stacks: 0,
       };

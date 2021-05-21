@@ -11,9 +11,10 @@ type Props = {
   uptimeHistory: Uptime[];
   start: number;
   end: number;
+  barColor?: string;
 };
 
-const UptimeBar = ({ uptimeHistory, start: fightStart, end: fightEnd, ...others }: Props) => {
+const UptimeBar = ({ uptimeHistory, start: fightStart, end: fightEnd, barColor, ...others }: Props) => {
   const fightDuration = fightEnd - fightStart;
 
   return (
@@ -28,6 +29,7 @@ const UptimeBar = ({ uptimeHistory, start: fightStart, end: fightEnd, ...others 
             style={{
               left: `${((start - fightStart) / fightDuration) * 100}%`,
               width: `${((end - start) / fightDuration) * 100}%`,
+              background: `${barColor}`
             }}
           />
         );

@@ -51,8 +51,7 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
   subStatistic() {
     return uptimeBarSubStatistic(
       this.owner.fight,
-      SPELLS.ADAPTIVE_SWARM.id,
-      this.damageUptime,
+      SPELLS.ADAPTIVE_SWARM,
       this.damageUptimeHistory,
     );
   }

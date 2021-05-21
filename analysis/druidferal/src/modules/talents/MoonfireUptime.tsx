@@ -9,8 +9,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import React from 'react';
 
 import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
+import Snapshots2, { TIGERS_FURY_SPEC } from '../core/Snapshots2';
 
-class MoonfireUptime extends Analyzer {
+class MoonfireUptime extends Snapshots2 {
   static dependencies = {
     enemies: Enemies,
   };
@@ -38,7 +39,7 @@ class MoonfireUptime extends Analyzer {
   }
 
   constructor(options: Options) {
-    super(options);
+    super(SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_FERAL, [TIGERS_FURY_SPEC], options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
   }
 
@@ -70,9 +71,9 @@ class MoonfireUptime extends Analyzer {
   subStatistic() {
     return uptimeBarSubStatistic(
       this.owner.fight,
-      SPELLS.MOONFIRE_FERAL.id,
-      this.uptime,
+      SPELLS.MOONFIRE_FERAL,
       this.uptimeHistory,
+      this.snapshotUptimes,
     );
   }
 }
