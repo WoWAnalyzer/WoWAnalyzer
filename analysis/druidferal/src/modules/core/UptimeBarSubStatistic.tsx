@@ -22,7 +22,7 @@ export default function uptimeBarSubStatistic(
       </div>
       <div className="flex-main">
         <div className="flex" style={{ padding: 5, height: 30 }}>
-          <div className="flex-sub value" style={{ padding: 0, width: 150 }}>
+          <div className="flex-sub value" style={{ padding: 0, width: 130 }}>
             {formatPercentUptime(dotUptime, fight.end_time - fight.start_time)} <small>uptime</small>
           </div>
           <div className="flex-main chart" style={{ padding: 2 }}>
@@ -32,7 +32,7 @@ export default function uptimeBarSubStatistic(
         {subUptimes.map((su) => {
           return (
             <div key={su.spell.id} className="flex" style={{ padding: 5, height: 25 }}>
-              <div className="flex-sub value" style={{ padding: 0, width: 150, color: su.color, fontSize: '16px' }}>
+              <div className="flex-sub value" style={{ padding: 0, width: 130, color: su.color, fontSize: '16px' }}>
                 <SpellIcon id={su.spell.id} /> {formatPercentUptime(getCombinedUptime(su.uptimes), dotUptime)}
               </div>
               <div className="flex-main chart" style={{ padding: 2 }}>
