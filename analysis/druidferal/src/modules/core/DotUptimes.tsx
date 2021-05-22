@@ -3,6 +3,7 @@ import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
+import UptimeIcon from 'interface/icons/Uptime';
 import RakeUptime from '../bleeds/RakeUptime';
 import RipUptime from '../bleeds/RipUptime';
 import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
@@ -18,7 +19,6 @@ class DotUptimeStatisticBox extends Analyzer {
     rakeUptime: RakeUptime,
     moonfireUptime: MoonfireUptime,
     adaptiveSwarm: AdaptiveSwarmFeral,
-    // TODO Savage Roar?
   };
 
   protected ripUptime!: RipUptime;
@@ -26,14 +26,27 @@ class DotUptimeStatisticBox extends Analyzer {
   protected moonfireUptime!: MoonfireUptime;
   protected adaptiveSwarm!: AdaptiveSwarmFeral;
 
+  // TODO more / better tooltips?
   statistic() {
     return (
-      <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
-        {this.ripUptime.subStatistic()}
-        {this.rakeUptime.subStatistic()}
-        {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
-        {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
-      </StatisticBar>
+      <Statistic wide size="flexible" position={STATISTIC_ORDER.CORE(1)} tooltip={
+        <>
+          These uptime bars show the times your DoT or snapshotted DoT were active on at
+          least one target.
+        </>
+      }>
+        <div className="pad">
+          <div className="boring-value">
+            <h3>
+              <UptimeIcon /> DoT Uptimes and Snapshots
+            </h3>
+          </div>
+          {this.ripUptime.subStatistic()}
+          {this.rakeUptime.subStatistic()}
+          {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
+          {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
+        </div>
+      </Statistic>
     );
   }
 }

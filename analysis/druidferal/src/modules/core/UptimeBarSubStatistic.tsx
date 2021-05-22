@@ -4,9 +4,11 @@ import { WCLFight } from 'parser/core/Fight';
 import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import React from 'react';
 import Spell from 'common/SPELLS/Spell';
+import './UptimeBarSubStatistic.scss';
 
 /**
- * Returns a JSX element that displays an 'uptime bar' over the course of an encounter.
+ * A JSX element with a primary 'uptime bar' over the course of an encounter and optionally
+ * one or more smaller sub bars.
  */
 export default function uptimeBarSubStatistic(
   fight: WCLFight,
@@ -16,37 +18,32 @@ export default function uptimeBarSubStatistic(
 ): React.ReactNode {
   const dotUptime = getCombinedUptime(uptimes);
   return (
-    <div className="flex">
-      <div className="flex-sub icon">
-        <SpellIcon id={spell.id} />
-      </div>
-      <div className="flex-main">
-        <div className="flex" style={{ padding: 5, height: 30 }}>
-          <div className="flex-sub value" style={{ padding: 0, width: 130 }}>
-            {formatPercentUptime(dotUptime, fight.end_time - fight.start_time)} <small>uptime</small>
-          </div>
-          <div className="flex-main chart" style={{ padding: 2 }}>
-            <UptimeBar uptimeHistory={uptimes} start={fight.start_time} end={fight.end_time} />
-          </div>
+    <div className="flex-main multi-uptime-bar">
+      <div className="flex main-bar">
+        <div className="flex-sub bar-label">
+          <SpellIcon id={spell.id} /> {formatPercentUptime(dotUptime, fight.end_time - fight.start_time)} <small>uptime</small>
         </div>
-        {subUptimes.map((su) => {
-          return (
-            <div key={su.spell.id} className="flex" style={{ padding: 5, height: 25 }}>
-              <div className="flex-sub value" style={{ padding: 0, width: 130, color: su.color, fontSize: '16px' }}>
-                <SpellIcon id={su.spell.id} /> {formatPercentUptime(getCombinedUptime(su.uptimes), dotUptime)}
-              </div>
-              <div className="flex-main chart" style={{ padding: 2 }}>
-                <UptimeBar
-                  uptimeHistory={su.uptimes}
-                  start={fight.start_time}
-                  end={fight.end_time}
-                  barColor={su.color}
-                />
-              </div>
-            </div>
-          );
-        })}
+        <div className="flex-main chart">
+          <UptimeBar uptimeHistory={uptimes} start={fight.start_time} end={fight.end_time} />
+        </div>
       </div>
+      {subUptimes.map((su) => {
+        return (
+          <div key={su.spell.id} className="flex sub-bar">
+            <div className="flex-sub bar-label" style={{color: su.color}}>
+              <SpellIcon id={su.spell.id} /> {formatPercentUptime(getCombinedUptime(su.uptimes), dotUptime)}
+            </div>
+            <div className="flex-main chart">
+              <UptimeBar
+                uptimeHistory={su.uptimes}
+                start={fight.start_time}
+                end={fight.end_time}
+                barColor={su.color}
+              />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
