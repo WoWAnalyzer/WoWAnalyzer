@@ -5,11 +5,12 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 22), <>Fixed a bug where <SpellLink id={SPELLS.HEART_OF_THE_WILD_TALENT} /> cast efficiency wasn't showing properly.</>, Sref),
   change(date(2021, 5, 19), <>Added myself as maintainer and removed 'partial support' label. Updated appearance of uptime statistics.</>, Sref),
   change(date(2021, 5, 18), <>Added <SpellLink id={SPELLS.FRENZYBAND.id} /> support</>, Sref),
   change(date(2021, 5, 18), <>Fixed a bug where <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> snapshots weren't showing correctly</>, Sref),
   change(date(2021, 5, 17), 'Fixed confusing display of energy wasted statistic / suggestion', Sref),
-  change(date(2021, 5, 17), <>Updated the Checklist to include <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and <SpellLink id={SPELLS.HEART_OF_THE_WILD.id} /> cast efficiency
+  change(date(2021, 5, 17), <>Updated the Checklist to include <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and <SpellLink id={SPELLS.HEART_OF_THE_WILD_TALENT.id} /> cast efficiency
     and <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> uptime. Fixed an issue where <SpellLink id={SPELLS.BERSERK_BUFF.id} /> showed incorrectly in the Combo Points tab.</>, Sref),
   change(date(2021, 5, 16), <>Added <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id} /> support</>, Sref),
   change(date(2021, 5, 15), <>Improved cast detection for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),

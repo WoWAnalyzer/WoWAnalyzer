@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Combatant from 'parser/core/Combatant';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
@@ -35,6 +36,24 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
         healSpellIds: [SPELLS.ADAPTIVE_SWARM_HEAL.id],
+      },
+      {
+        spell: [
+          SPELLS.HEART_OF_THE_WILD_BALANCE_AFFINITY,
+          SPELLS.HEART_OF_THE_WILD_FERAL_AFFINITY,
+          SPELLS.HEART_OF_THE_WILD_GUARDIAN_AFFINITY,
+          SPELLS.HEART_OF_THE_WILD_RESTO_AFFINITY,
+        ],
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 300,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
     ];
   }
