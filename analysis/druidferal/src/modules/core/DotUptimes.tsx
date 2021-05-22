@@ -7,6 +7,7 @@ import RakeUptime from '../bleeds/RakeUptime';
 import RipUptime from '../bleeds/RipUptime';
 import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
 import MoonfireUptime from '../talents/MoonfireUptime';
+import Statistic from 'parser/ui/Statistic';
 
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes
