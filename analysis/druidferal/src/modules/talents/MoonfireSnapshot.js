@@ -107,9 +107,10 @@ class MoonfireSnapshot extends Snapshot {
     );
   }
 
-  statistic() {
-    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name, STATISTIC_ORDER.OPTIONAL(10));
-  }
+  // TODO replace by new DotUptimeAndSnapshots module - eventually this whole module should be replaced
+  // statistic() {
+  //   return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name, STATISTIC_ORDER.OPTIONAL(10));
+  // }
 }
 
 export default MoonfireSnapshot;

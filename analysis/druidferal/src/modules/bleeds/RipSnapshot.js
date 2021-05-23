@@ -281,9 +281,10 @@ class RipSnapshot extends Snapshot {
     );
   }
 
-  statistic() {
-    return super.generateStatistic(SPELLS.RIP.name, STATISTIC_ORDER.CORE(11));
-  }
+  // TODO replace by new DotUptimeAndSnapshots module - eventually this whole module should be replaced
+  // statistic() {
+  //   return super.generateStatistic(SPELLS.RIP.name, STATISTIC_ORDER.CORE(11));
+  // }
 }
 
 export default RipSnapshot;

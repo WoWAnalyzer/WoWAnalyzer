@@ -9,7 +9,7 @@ import Buffs from './modules/Buffs';
 import ComboPointDetails from './modules/combopoints/ComboPointDetails';
 import ComboPointTracker from './modules/combopoints/ComboPointTracker';
 import FinisherUse from './modules/combopoints/FinisherUse';
-import DotUptimes from './modules/core/DotUptimes';
+import DotUptimesAndSnapshots from './modules/core/DotUptimesAndSnapshots';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -49,7 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    dotUptimes: DotUptimes,
+    dotUptimesAndSnapshots: DotUptimesAndSnapshots,
     ferociousBiteEnergy: FerociousBiteEnergy,
     spellUsable: SpellUsable,
     spellEnergyCost: SpellEnergyCost,

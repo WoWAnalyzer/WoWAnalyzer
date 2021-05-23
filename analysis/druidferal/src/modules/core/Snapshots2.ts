@@ -10,30 +10,45 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Combatant from 'parser/core/Combatant';
 import { SubUptimes } from '../core/UptimeBarSubStatistic';
 import { mergeTimePeriods } from 'parser/core/mergeTimePeriods';
+import RACES from 'game/RACES';
 
 /** Buffer in ms to use when determining if a buff was present when a DoT was applied */
 const BUFF_DROP_BUFFER = 60;
 
-export const TIGERS_FURY_SPEC: SnapshotSpec = {
-  spell: SPELLS.TIGERS_FURY,
-  isActive: (c) => true,
+export const TIGERS_FURY_SPEC: StaticSnapshotSpec = {
+  spellFunc: (_) => [SPELLS.TIGERS_FURY],
+  isActive: (_) => true,
   isPresent: (c, timestamp) => c.hasBuff(SPELLS.TIGERS_FURY.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#ff9955',
 };
 
-export const PROWL_SPEC: SnapshotSpec = {
-  spell: SPELLS.PROWL,
-  isActive: (c) => true,
+export const PROWL_SPEC: StaticSnapshotSpec = {
+  spellFunc: (c) => {
+    const res = [];
+    res.push(SPELLS.PROWL);
+    if (c.race === RACES.NightElf) {
+      res.push(SPELLS.SHADOWMELD);
+    }
+    if (c.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT)) {
+      res.push(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT);
+    }
+    if (c.hasConduitBySpellID(SPELLS.SUDDEN_AMBUSH.id)) {
+      res.push(SPELLS.SUDDEN_AMBUSH);
+    }
+    return res;
+  },
+  isActive: (_) => true,
   isPresent: (c, timestamp) =>
-    c.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
+    c.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL_INCARNATION.id, timestamp, BUFF_DROP_BUFFER) ||
-    c.hasBuff(SPELLS.SHADOWMELD.id, timestamp, BUFF_DROP_BUFFER),
+    c.hasBuff(SPELLS.SHADOWMELD.id, timestamp, BUFF_DROP_BUFFER) ||
+    c.hasBuff(SPELLS.SUDDEN_AMBUSH_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#5555ff',
 };
 
-export const BLOODTALONS_SPEC: SnapshotSpec = {
-  spell: SPELLS.BLOODTALONS_TALENT,
+export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
+  spellFunc: (_) => [SPELLS.BLOODTALONS_TALENT],
   isActive: (c) => c.hasTalent(SPELLS.BLOODTALONS_TALENT),
   isPresent: (c, timestamp) => c.hasBuff(SPELLS.BLOODTALONS_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#dd0022',
@@ -45,13 +60,24 @@ class Snapshots2 extends Analyzer {
   applicableSnapshots: SnapshotSpec[];
   snapshotsByTarget: { [key: string]: SnapshotUptime[] } = {};
 
-  constructor(spell: Spell, debuff: Spell, applicableSnapshots: SnapshotSpec[], options: Options) {
+  constructor(
+    spell: Spell,
+    debuff: Spell,
+    applicableSnapshots: StaticSnapshotSpec[],
+    options: Options,
+  ) {
     super(options);
     this.spell = spell;
     this.debuff = debuff;
-    this.applicableSnapshots = applicableSnapshots.filter((as) =>
-      as.isActive(this.selectedCombatant),
-    );
+    this.applicableSnapshots = applicableSnapshots
+      .filter((as) => as.isActive(this.selectedCombatant))
+      .map((as) => {
+        return {
+          spells: as.spellFunc(this.selectedCombatant),
+          isPresent: as.isPresent,
+          displayColor: as.displayColor,
+        };
+      });
 
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(debuff), this.onApplyDot);
     this.addEventListener(
@@ -93,7 +119,7 @@ class Snapshots2 extends Analyzer {
   _getActiveSnapshotNames(timestamp: number): string[] {
     return this.applicableSnapshots
       .filter((as) => as.isPresent(this.selectedCombatant, timestamp))
-      .map((as) => as.spell.name);
+      .map((as) => as.spells[0].name);
   }
 
   get snapshotUptimes(): SubUptimes[] {
@@ -104,20 +130,26 @@ class Snapshots2 extends Analyzer {
     const combinedUptimes = mergeTimePeriods(
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)
-        .filter((uptime) => uptime.snapshots.includes(spec.spell.name)),
+        .filter((uptime) => uptime.snapshots.includes(spec.spells[0].name)),
       this.owner.currentTimestamp,
     );
     return {
       uptimes: combinedUptimes,
       color: spec.displayColor,
-      spell: spec.spell,
+      spells: spec.spells,
     };
   }
 }
 
-type SnapshotSpec = {
-  spell: Spell;
+type StaticSnapshotSpec = {
+  spellFunc: (c: Combatant) => Spell[];
   isActive: (c: Combatant) => boolean;
+  isPresent: (c: Combatant, timestamp: number) => boolean;
+  displayColor: string;
+};
+
+type SnapshotSpec = {
+  spells: Spell[]; // filled in in constructor
   isPresent: (c: Combatant, timestamp: number) => boolean;
   displayColor: string;
 };

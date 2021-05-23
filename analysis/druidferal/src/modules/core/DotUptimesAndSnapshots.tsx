@@ -1,5 +1,4 @@
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
@@ -13,7 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes
  */
-class DotUptimeStatisticBox extends Analyzer {
+class DotUptimesAndSnapshots extends Analyzer {
   static dependencies = {
     ripUptime: RipUptime,
     rakeUptime: RakeUptime,
@@ -26,15 +25,20 @@ class DotUptimeStatisticBox extends Analyzer {
   protected moonfireUptime!: MoonfireUptime;
   protected adaptiveSwarm!: AdaptiveSwarmFeral;
 
-  // TODO more / better tooltips?
   statistic() {
     return (
-      <Statistic wide size="flexible" position={STATISTIC_ORDER.CORE(1)} tooltip={
-        <>
-          These uptime bars show the times your DoT or snapshotted DoT were active on at
-          least one target.
-        </>
-      }>
+      <Statistic
+        wide
+        size="flexible"
+        position={STATISTIC_ORDER.CORE(1)}
+        tooltip={
+          <>
+            These uptime bars show the times your DoT was active on at least one target. The
+            snapshot percent is the percentage of the DoT's uptime the snapshot was active on at
+            least one target (not the percent of the whole fight).
+          </>
+        }
+      >
         <div className="pad">
           <div className="boring-value">
             <h3>
@@ -51,4 +55,4 @@ class DotUptimeStatisticBox extends Analyzer {
   }
 }
 
-export default DotUptimeStatisticBox;
+export default DotUptimesAndSnapshots;
