@@ -36,6 +36,12 @@ const GiftOxOrder: EventOrder = {
   updateTimestamp: true,
 };
 
+/**
+ * Expel Harm Normalizer reorders events so that Expel Harm Casts are parsed **before**:
+ *  - Celestial Fortune Heals
+ *  - Gift of the Ox Heals, that have been attracted by Expel Harm
+ *  - Expel Harm Heal, the baseline part
+ */
 export default class ExpelHarm extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, [CelestialFortuneHealOrder, ExpelHarmHealOrder, GiftOxOrder]);
