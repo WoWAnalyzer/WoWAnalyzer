@@ -25,7 +25,8 @@ const UptimeBar = ({
   ...others
 }: Props) => {
   const fightDuration = fightEnd - fightStart;
-
+  // apparently React will omit an attribute if its null but NOT if its undefined
+  const nullableBarColor = barColor ? barColor : null;
   return (
     <div className="uptime-bar" {...others}>
       {uptimeHistory.map((buff) => {
@@ -44,7 +45,7 @@ const UptimeBar = ({
               style={{
                 left: `${((start - fightStart) / fightDuration) * 100}%`,
                 width: `${((end - start) / fightDuration) * 100}%`,
-                background: `${barColor}`,
+                background: `${nullableBarColor}`,
               }}
             />
           </Tooltip>
@@ -54,7 +55,7 @@ const UptimeBar = ({
             style={{
               left: `${((start - fightStart) / fightDuration) * 100}%`,
               width: `${((end - start) / fightDuration) * 100}%`,
-              background: `${barColor}`,
+              background: `${nullableBarColor}`,
             }}
           />
         );
