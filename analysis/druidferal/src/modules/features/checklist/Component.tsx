@@ -17,6 +17,8 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { getHeartOfTheWildSpellId } from '@wowanalyzer/druid/src/core/HeartOfTheWild';
+
 const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const UptimeRequirement = (props: { spell: number; thresholds: RequirementThresholds }) => (
     <Requirement
@@ -328,7 +330,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
         )}
         {combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.HEART_OF_THE_WILD.id} />
+          <CastEfficiencyRequirement spell={getHeartOfTheWildSpellId(combatant)} />
         )}
         {combatant.race === RACES.NightElf && (
           <Requirement

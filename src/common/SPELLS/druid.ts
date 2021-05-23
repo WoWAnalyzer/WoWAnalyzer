@@ -89,8 +89,23 @@ const spells = {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
-  HEART_OF_THE_WILD: {
+  HEART_OF_THE_WILD_BALANCE_AFFINITY: {
     id: 108291,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_FERAL_AFFINITY: {
+    id: 108292,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_GUARDIAN_AFFINITY: {
+    id: 108293,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_RESTO_AFFINITY: {
+    id: 108294,
     name: 'Heart of the Wild',
     icon: 'spell_holy_blessingofagility',
   },
