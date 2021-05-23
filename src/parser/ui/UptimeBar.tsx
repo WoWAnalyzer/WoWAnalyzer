@@ -25,8 +25,6 @@ const UptimeBar = ({
   ...others
 }: Props) => {
   const fightDuration = fightEnd - fightStart;
-  // apparently React will omit an attribute if its null but NOT if its undefined
-  const nullableBarColor = barColor ? barColor : null;
   return (
     <div className="uptime-bar" {...others}>
       {uptimeHistory.map((buff) => {
@@ -41,27 +39,36 @@ const UptimeBar = ({
               formatDuration((end - fightStart) / 1000)
             }
           >
-            <div
-              style={{
-                left: `${((start - fightStart) / fightDuration) * 100}%`,
-                width: `${((end - start) / fightDuration) * 100}%`,
-                background: `${nullableBarColor}`,
-              }}
-            />
+            <div style={getSegmentStyle(start, end, fightStart, fightDuration, barColor)} />
           </Tooltip>
         ) : (
           <div
             key={`${start}-${end}`}
-            style={{
-              left: `${((start - fightStart) / fightDuration) * 100}%`,
-              width: `${((end - start) / fightDuration) * 100}%`,
-              background: `${nullableBarColor}`,
-            }}
+            style={getSegmentStyle(start, end, fightStart, fightDuration, barColor)}
           />
         );
       })}
     </div>
   );
 };
+
+function getSegmentStyle(
+  start: number,
+  end: number,
+  fightStart: number,
+  fightDuration: number,
+  barColor: string | undefined,
+): React.CSSProperties {
+  return barColor !== undefined
+    ? {
+        left: `${((start - fightStart) / fightDuration) * 100}%`,
+        width: `${((end - start) / fightDuration) * 100}%`,
+        background: `${barColor}`,
+      }
+    : {
+        left: `${((start - fightStart) / fightDuration) * 100}%`,
+        width: `${((end - start) / fightDuration) * 100}%`,
+      };
+}
 
 export default UptimeBar;
