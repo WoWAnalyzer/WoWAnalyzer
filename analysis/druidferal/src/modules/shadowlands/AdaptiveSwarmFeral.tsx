@@ -1,19 +1,18 @@
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { AdaptiveSwarm } from '@wowanalyzer/druid';
 
 import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { formatNumber, formatPercentage } from 'common/format';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import React from 'react';
-import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
 /**
  * Resto's display module for Adaptive Swarm.
@@ -49,11 +48,7 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
   }
 
   subStatistic() {
-    return uptimeBarSubStatistic(
-      this.owner.fight,
-      SPELLS.ADAPTIVE_SWARM,
-      this.damageUptimeHistory,
-    );
+    return uptimeBarSubStatistic(this.owner.fight, SPELLS.ADAPTIVE_SWARM, this.damageUptimeHistory);
   }
 
   statistic() {
@@ -77,7 +72,8 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
             </ul>
             In addition, Adaptive Swarm did{' '}
             <strong>{formatNumber(this.owner.getPerSecond(this.totalHealing))} HPS</strong> over the
-            encounter with a HoT uptime of <strong>{formatPercentage(this.buffUptime / this.owner.fightDuration, 0)}%</strong>.
+            encounter with a HoT uptime of{' '}
+            <strong>{formatPercentage(this.buffUptime / this.owner.fightDuration, 0)}%</strong>.
           </>
         }
       >

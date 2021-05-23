@@ -1,9 +1,9 @@
 import { formatPercentage } from 'common/format';
+import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { WCLFight } from 'parser/core/Fight';
 import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import React from 'react';
-import Spell from 'common/SPELLS/Spell';
 import './UptimeBarSubStatistic.scss';
 
 /**
@@ -33,25 +33,22 @@ export default function uptimeBarSubStatistic(
           />
         </div>
       </div>
-      {subUptimes.map((su) => {
-        return (
-          <div key={su.spells[0].name} className="flex sub-bar">
-            <div className="flex-sub bar-label" style={{ color: su.color }}>
-              {getSubUptimeIcon(su)}{' '}
-              {formatPercentUptime(getCombinedUptime(su.uptimes), dotUptime)}
-            </div>
-            <div className="flex-main chart">
-              <UptimeBar
-                timeTooltip
-                uptimeHistory={su.uptimes}
-                start={fight.start_time}
-                end={fight.end_time}
-                barColor={su.color}
-              />
-            </div>
+      {subUptimes.map((su) => (
+        <div key={su.spells[0].name} className="flex sub-bar">
+          <div className="flex-sub bar-label" style={{ color: su.color }}>
+            {getSubUptimeIcon(su)} {formatPercentUptime(getCombinedUptime(su.uptimes), dotUptime)}
           </div>
-        );
-      })}
+          <div className="flex-main chart">
+            <UptimeBar
+              timeTooltip
+              uptimeHistory={su.uptimes}
+              start={fight.start_time}
+              end={fight.end_time}
+              barColor={su.color}
+            />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -65,7 +62,11 @@ function formatPercentUptime(uptime: number, total: number): string {
 }
 
 function getSubUptimeIcon(su: SubUptimes) {
-  return su.spells.map(s => <><SpellIcon key={"Icon-" + s.name}  id={s.id} />{' '}</>);
+  return su.spells.map((s) => (
+    <>
+      <SpellIcon key={'Icon-' + s.name} id={s.id} />{' '}
+    </>
+  ));
 }
 
 export type SubUptimes = {

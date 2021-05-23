@@ -1,16 +1,17 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Spell from 'common/SPELLS/Spell';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
+import RACES from 'game/RACES';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
 import Events, {
   ApplyDebuffEvent,
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import Combatant from 'parser/core/Combatant';
-import { SubUptimes } from '../core/UptimeBarSubStatistic';
 import { mergeTimePeriods } from 'parser/core/mergeTimePeriods';
-import RACES from 'game/RACES';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+
+import { SubUptimes } from '../core/UptimeBarSubStatistic';
 
 /** Buffer in ms to use when determining if a buff was present when a DoT was applied */
 const BUFF_DROP_BUFFER = 60;
@@ -71,13 +72,11 @@ class Snapshots2 extends Analyzer {
     this.debuff = debuff;
     this.applicableSnapshots = applicableSnapshots
       .filter((as) => as.isActive(this.selectedCombatant))
-      .map((as) => {
-        return {
-          spells: as.spellFunc(this.selectedCombatant),
-          isPresent: as.isPresent,
-          displayColor: as.displayColor,
-        };
-      });
+      .map((as) => ({
+        spells: as.spellFunc(this.selectedCombatant),
+        isPresent: as.isPresent,
+        displayColor: as.displayColor,
+      }));
 
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(debuff), this.onApplyDot);
     this.addEventListener(

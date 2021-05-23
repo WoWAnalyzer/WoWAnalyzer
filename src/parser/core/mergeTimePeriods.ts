@@ -6,7 +6,7 @@ export type OpenTimePeriod = {
 export type ClosedTimePeriod = {
   start: number;
   end: number;
-}
+};
 
 /**
  * Given a collection of possibly overlapping time periods (objects with a start and end), merges these periods
@@ -20,6 +20,8 @@ export function mergeTimePeriods(times: OpenTimePeriod[], maxTime: number): Clos
    * by incrementing a counter for every 'start' and decrementing for every 'end'.
    * When the counter goes from 0 to 1 we know it's the start of a merged time period,
    * and when it goes from 1 to 0 we know it's the end of that period.
+   * We can then further consolidate time periods by merging adjacent periods,
+   * which could happen if there is an edge from 1 to 0 then 0 to 1 on the same timestamp.
    */
   type PeriodEdge = { time: number; change: number };
   const merged: ClosedTimePeriod[] = [];
@@ -40,5 +42,25 @@ export function mergeTimePeriods(times: OpenTimePeriod[], maxTime: number): Clos
         merged.push({ start: currStart, end: edge.time });
       }
     });
-  return merged;
+
+  const adjacentMerged: ClosedTimePeriod[] = [];
+  let lastPeriod: ClosedTimePeriod | undefined = undefined;
+  merged.forEach((period) => {
+    if (!lastPeriod) {
+      lastPeriod = period;
+      return;
+    }
+    let newPeriod = period;
+    if (lastPeriod.end === period.start) {
+      newPeriod = { start: lastPeriod.start, end: period.end };
+    } else {
+      adjacentMerged.push(lastPeriod);
+    }
+    lastPeriod = newPeriod;
+  });
+  if (lastPeriod) {
+    adjacentMerged.push(lastPeriod);
+  }
+
+  return adjacentMerged;
 }

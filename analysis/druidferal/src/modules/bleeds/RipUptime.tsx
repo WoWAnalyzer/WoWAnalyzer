@@ -8,8 +8,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import React from 'react';
 
-import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 import Snapshots2, { BLOODTALONS_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
 class RipUptime extends Snapshots2 {
   static dependencies = {
@@ -75,7 +75,12 @@ class RipUptime extends Snapshots2 {
   }
 
   subStatistic() {
-    return uptimeBarSubStatistic(this.owner.fight, SPELLS.RIP, this.uptimeHistory, this.snapshotUptimes);
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      SPELLS.RIP,
+      this.uptimeHistory,
+      this.snapshotUptimes,
+    );
   }
 }
 

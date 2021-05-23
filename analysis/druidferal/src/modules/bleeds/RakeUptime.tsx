@@ -1,13 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink, TooltipElement } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { SpellLink, TooltipElement } from 'interface';
 import Enemies from 'parser/shared/modules/Enemies';
 import React from 'react';
-import Snapshots2, { PROWL_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 
+import Snapshots2, { PROWL_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
 class RakeUptime extends Snapshots2 {
