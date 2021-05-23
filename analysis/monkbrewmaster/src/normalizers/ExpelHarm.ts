@@ -26,20 +26,18 @@ const ExpelHarmHealOrder: EventOrder = {
   updateTimestamp: true,
 };
 
+const GiftOxOrder: EventOrder = {
+  beforeEventId: SPELLS.EXPEL_HARM.id,
+  beforeEventType: EventType.Cast,
+  afterEventId: GIFT_OF_THE_OX_SPELL_IDS,
+  afterEventType: EventType.Heal,
+  bufferMs: 50,
+  anyTarget: true,
+  updateTimestamp: true,
+};
+
 export default class ExpelHarm extends EventOrderNormalizer {
   constructor(options: Options) {
-    super(options, [
-      CelestialFortuneHealOrder,
-      ExpelHarmHealOrder,
-      ...GIFT_OF_THE_OX_SPELL_IDS.map((id) => ({
-        beforeEventId: SPELLS.EXPEL_HARM.id,
-        beforeEventType: EventType.Cast,
-        afterEventId: id,
-        afterEventType: EventType.Heal,
-        bufferMs: 50,
-        anyTarget: true,
-        updateTimestamp: true,
-      })),
-    ]);
+    super(options, [CelestialFortuneHealOrder, ExpelHarmHealOrder, GiftOxOrder]);
   }
 }
