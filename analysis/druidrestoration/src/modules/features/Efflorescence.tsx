@@ -14,6 +14,7 @@ import React from 'react';
 
 const DURATION = 30000;
 
+// TODO add uptime history to hook into chart
 class Efflorescence extends Analyzer {
   precastUptime = 0;
   castUptime = 0;

@@ -12,6 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
+// TODO add uptime history to hook into chart
 class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -96,6 +97,10 @@ class Lifebloom extends Analyzer {
         </BoringValue>
       </Statistic>
     );
+  }
+
+  subStatistic() {
+
   }
 }
 

@@ -10,8 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import { mergeTimePeriods } from 'parser/core/mergeTimePeriods';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-
-import { SubUptimes } from '../core/UptimeBarSubStatistic';
+import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 /** Buffer in ms to use when determining if a buff was present when a DoT was applied */
 const BUFF_DROP_BUFFER = 60;
@@ -121,11 +120,11 @@ class Snapshots2 extends Analyzer {
       .map((as) => as.spells[0].name);
   }
 
-  get snapshotUptimes(): SubUptimes[] {
+  get snapshotUptimes(): UptimeBarSpec[] {
     return this.applicableSnapshots.map((as) => this._getSnapshotUptimesForBuff(as));
   }
 
-  _getSnapshotUptimesForBuff(spec: SnapshotSpec): SubUptimes {
+  _getSnapshotUptimesForBuff(spec: SnapshotSpec): UptimeBarSpec {
     const combinedUptimes = mergeTimePeriods(
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)

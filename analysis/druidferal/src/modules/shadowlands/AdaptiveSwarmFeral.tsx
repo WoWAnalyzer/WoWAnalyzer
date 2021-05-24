@@ -12,7 +12,7 @@ import React from 'react';
 
 import { AdaptiveSwarm } from '@wowanalyzer/druid';
 
-import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 /**
  * Resto's display module for Adaptive Swarm.
@@ -48,7 +48,15 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
   }
 
   subStatistic() {
-    return uptimeBarSubStatistic(this.owner.fight, SPELLS.ADAPTIVE_SWARM, this.damageUptimeHistory);
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [SPELLS.ADAPTIVE_SWARM],
+        uptimes: this.damageUptimeHistory,
+      },
+      [],
+      SubPercentageStyle.RELATIVE,
+    );
   }
 
   statistic() {
