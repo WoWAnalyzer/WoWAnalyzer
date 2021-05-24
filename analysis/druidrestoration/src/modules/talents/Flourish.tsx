@@ -12,6 +12,7 @@ import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
@@ -171,7 +172,8 @@ class Flourish extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(15)}
+        position={STATISTIC_ORDER.OPTIONAL(50)}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This is the sum of the healing enabled by the HoT extension and the HoT rate increase.
