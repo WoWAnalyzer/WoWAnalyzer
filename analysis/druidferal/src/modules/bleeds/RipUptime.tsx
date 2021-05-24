@@ -3,17 +3,22 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import React from 'react';
 
+import Snapshots2, { BLOODTALONS_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
-class RipUptime extends Analyzer {
+class RipUptime extends Snapshots2 {
   static dependencies = {
     enemies: Enemies,
   };
+
+  constructor(options: Options) {
+    super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC, BLOODTALONS_SPEC], options);
+  }
 
   protected enemies!: Enemies;
 
@@ -70,7 +75,12 @@ class RipUptime extends Analyzer {
   }
 
   subStatistic() {
-    return uptimeBarSubStatistic(this.owner.fight, SPELLS.RIP.id, this.uptime, this.uptimeHistory);
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      SPELLS.RIP,
+      this.uptimeHistory,
+      this.snapshotUptimes,
+    );
   }
 }
 

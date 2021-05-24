@@ -6,6 +6,7 @@ export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
   stackHistory: StackHistory;
+  refreshHistory: number[];
   stacks: number;
 }
 
@@ -280,6 +281,7 @@ class Entity {
     this.buffs.push({
       end: null,
       stackHistory: [{ stacks: 1, timestamp: buff.timestamp }],
+      refreshHistory: [],
       stacks: 1,
       ...buff,
     });
