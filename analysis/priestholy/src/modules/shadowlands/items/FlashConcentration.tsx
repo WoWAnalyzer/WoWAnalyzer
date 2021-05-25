@@ -99,27 +99,48 @@ class FlashConcentration extends Analyzer {
     };
   }
 
+  get wastefulFlashHealSuggestion() {
+    return {
+      actual: this._wastefulCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: (2 * this.owner.fightDuration) / 1000 / 60,
+        major: (4 * this.owner.fightDuration) / 1000 / 60,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   suggestions(when: When) {
     when(this.dropSuggestion).addSuggestion((suggest, actual) =>
       suggest(
         <span>
-          You dropped <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> stacks {actual} times. Try to
-          keep it up at all times.
+          You dropped your <SpellLink id={SPELLS.FLASH_CONCENTRATION.id}></SpellLink> stacks{' '}
+          {actual} times. Try to keep it up at all times.
         </span>,
       )
         .icon(SPELLS.FLASH_CONCENTRATION.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR)
+        .actual(<>You lost your stacks {actual} times</>)
+        .recommended(<>It is recommended to maintain 5 stacks at all times</>),
     );
 
-    // when(this._drop_suggestion).addSuggestion((suggest) =>
-    //   suggest(
-    //     <span>
-    //       You used too many <SpellLink id={SPELLS.FLASH_HEAL.id} /> Jun!
-    //     </span>,
-    //   )
-    //     .icon(SPELLS.FLASH_CONCENTRATION.icon)
-    //     .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-    // );
+    when(this.wastefulFlashHealSuggestion).addSuggestion((suggest, actual) =>
+      suggest(
+        <span>
+          You used too many unnecessary <SpellLink id={SPELLS.FLASH_HEAL.id} /> while you had 5
+          stacks of <SpellLink id={SPELLS.FLASH_CONCENTRATION.id}></SpellLink>
+        </span>,
+      )
+        .icon(SPELLS.FLASH_CONCENTRATION.icon)
+        .actual(
+          <>
+            You used {actual} <SpellLink id={SPELLS.FLASH_HEAL.id} /> while there were more than 5
+            seconds left of <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />,
+          </>,
+        )
+        .recommended(<>No inefficient cast is recommended</>),
+    );
   }
 }
 
