@@ -878,6 +878,12 @@ const spells = {
     name: 'Frenzied Assault',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
+  SUDDEN_AMBUSH_BUFF: {
+    // Buff procced by Sudden Ambush conduit
+    id: 340698,
+    name: 'Sudden Ambush',
+    icon: 'ability_hunter_catlikereflexes',
+  },
 } as const;
 
 export default spells;

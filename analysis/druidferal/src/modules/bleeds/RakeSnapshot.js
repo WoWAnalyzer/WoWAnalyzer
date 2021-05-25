@@ -161,9 +161,10 @@ class RakeSnapshot extends Snapshot {
     );
   }
 
-  statistic() {
-    return super.generateStatistic(SPELLS.RAKE.name, STATISTIC_ORDER.CORE(10));
-  }
+  // TODO replace by new DotUptimeAndSnapshots module - eventually this whole module should be replaced
+  // statistic() {
+  //   return super.generateStatistic(SPELLS.RAKE.name, STATISTIC_ORDER.CORE(10));
+  // }
 }
 
 export default RakeSnapshot;
