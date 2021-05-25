@@ -11,12 +11,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 class FlashConcentration extends Analyzer {
-  totalDrops = 0;
-  suggestion = {
-    actual: true,
-    isEqual: true,
-    style: ThresholdStyle.BOOLEAN,
-  };
+  // Warcraft Logs seems to have issues with the stack status at fight start
+  // plus realistically, people start at 5 stacks, or _isFullStack is going to turn to false on the first Flash of Light cast
+  _isFullStack = true;
+  _lastFullStackRefresh = 0;
+  _wastefulCasts = 0;
+  _totalDrops = 0;
 
   constructor(options: Options) {
     super(options);
@@ -40,24 +40,40 @@ class FlashConcentration extends Analyzer {
   }
 
   onByPlayerFlashConcentrationBuff(event: ApplyBuffStackEvent) {
-    console.log(event);
-    console.log('it is a buff stack');
+    console.log(event.timestamp);
+    console.log(`it is a buff stack ${event.stack}`);
+    if (event.stack === 5) {
+      this._isFullStack = true;
+      this._lastFullStackRefresh = event.timestamp;
+    } else {
+      this._isFullStack = false;
+    }
   }
 
   onByPlayerFlashConcentrationInitialBuff(event: ApplyBuffEvent) {
-    console.log(event);
+    console.log(event.timestamp);
     console.log('it is the initial Buff');
+    this._isFullStack = false;
   }
 
   onByPlayerFlashConcentrationBuffRemoval(event: RemoveBuffEvent) {
-    this.totalDrops += 1;
-    console.log(event);
+    this._totalDrops += 1;
+    this._isFullStack = false;
+    console.log(event.timestamp);
     console.log('it is a buff removal');
   }
 
   onByPlayerFlashHealCast(event: CastEvent) {
-    console.log(event);
+    console.log(event.timestamp);
+    console.log(this._isFullStack);
+    console.log(event.timestamp - this._lastFullStackRefresh);
     console.log('Flash Heal FTW!');
+    if (this._isFullStack) {
+      if (event.timestamp - this._lastFullStackRefresh < 15000) {
+        this._wastefulCasts += 1;
+      }
+      this._lastFullStackRefresh = event.timestamp;
+    }
   }
 
   statistic() {
@@ -65,21 +81,45 @@ class FlashConcentration extends Analyzer {
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS} tooltip={<>Hello World</>}>
         <ItemHealingDone amount={125} />
         <SpellLink id={SPELLS.FLASH_CONCENTRATION.id}></SpellLink>
-        You let the buff drop {this.totalDrops} times;
+        You let the buff drop {this._totalDrops} times You had bad refresh {this._wastefulCasts}{' '}
+        times
       </Statistic>
     );
   }
 
+  get dropSuggestion() {
+    return {
+      actual: this._totalDrops,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   suggestions(when: When) {
-    when(this.suggestion).addSuggestion((suggest) =>
+    when(this.dropSuggestion).addSuggestion((suggest, actual) =>
       suggest(
         <span>
-          You used too many <SpellLink id={SPELLS.FLASH_HEAL.id} /> Jun!
+          You dropped <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> stacks {actual} times. Try to
+          keep it up at all times.
         </span>,
       )
         .icon(SPELLS.FLASH_CONCENTRATION.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
     );
+
+    // when(this._drop_suggestion).addSuggestion((suggest) =>
+    //   suggest(
+    //     <span>
+    //       You used too many <SpellLink id={SPELLS.FLASH_HEAL.id} /> Jun!
+    //     </span>,
+    //   )
+    //     .icon(SPELLS.FLASH_CONCENTRATION.icon)
+    //     .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
+    // );
   }
 }
 
