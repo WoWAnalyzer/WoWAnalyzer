@@ -1584,7 +1584,7 @@ export const niko: Contributor = {
 };
 
 export const carglass: Contributor = {
-  nickname: 'Carglass',
+  nickname: 'carglass',
   github: 'Carglass',
   discord: 'Bubu#7424',
   mains: [
