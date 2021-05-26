@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 26), <>Moved all talent related stat boxes to their own section, and combined <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> and <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptimes into a new graph.</>, Sref),
   change(date(2021, 5, 18), <>Added <SpellLink id={SPELLS.FIELD_OF_BLOSSOMS.id} /> support</>, Sref),
   change(date(2021, 5, 18), <>Added an entry for <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> on the Cooldowns tab</>, Sref),
   change(date(2021, 5, 18), <>Added <SpellLink id={SPELLS.GROVE_INVIGORATION.id} /> support</>, Sref),
