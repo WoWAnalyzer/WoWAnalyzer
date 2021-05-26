@@ -57,7 +57,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // We don't want regrowth to get Hpm credit for healing that we didn't spend mana on.
     spellInfo.healingDone = this.regrowthAttributor.totalNonCCRegrowthHealing;
     spellInfo.overhealingDone = this.regrowthAttributor.totalNonCCRegrowthOverhealing;
-    spellInfo.casts = this.clearcasting.nonCCRegrowths;
+    spellInfo.casts = this.clearcasting.badRegrowths;
 
     return spellInfo;
   }

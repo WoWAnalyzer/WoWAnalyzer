@@ -67,7 +67,7 @@ class Checklist extends BaseChecklist {
           innervateManaSaved: this.innervate.manaSavedThresholds,
           innervateSelfCasts: this.innervate.selfCastThresholds,
           clearCastingUtil: this.clearCasting.clearcastingUtilSuggestionThresholds,
-          nonCCRegrowths: this.clearCasting.nonCCRegrowthsSuggestionThresholds,
+          badRegrowths: this.clearCasting.badRegrowthsSuggestionThresholds,
           manaValues: this.manaValues.suggestionThresholds,
           cultivationPercent: this.cultivation.suggestionThresholds,
           springBlossomsPercent: this.springBlossoms.suggestionThresholds,
