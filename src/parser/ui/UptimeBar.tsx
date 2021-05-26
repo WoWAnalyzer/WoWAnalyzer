@@ -4,7 +4,9 @@ import { Tooltip } from 'interface';
 import React from 'react';
 
 export type Uptime = {
+  /** Timestamp in milliseconds of the uptime start */
   start: number;
+  /** Timestamp in milliseconds of the uptime end */
   end: number;
 };
 

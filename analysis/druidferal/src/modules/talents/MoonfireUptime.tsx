@@ -1,15 +1,14 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
 import Snapshots2, { TIGERS_FURY_SPEC } from '../core/Snapshots2';
-import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
 class MoonfireUptime extends Snapshots2 {
   static dependencies = {
@@ -71,9 +70,12 @@ class MoonfireUptime extends Snapshots2 {
   subStatistic() {
     return uptimeBarSubStatistic(
       this.owner.fight,
-      SPELLS.MOONFIRE_FERAL,
-      this.uptimeHistory,
+      {
+        spells: [SPELLS.MOONFIRE_FERAL],
+        uptimes: this.uptimeHistory,
+      },
       this.snapshotUptimes,
+      SubPercentageStyle.RELATIVE,
     );
   }
 }

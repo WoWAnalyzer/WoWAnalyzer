@@ -5,10 +5,10 @@ import { SpellLink, TooltipElement } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
 import Snapshots2, { PROWL_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
-import uptimeBarSubStatistic from '../core/UptimeBarSubStatistic';
 
 class RakeUptime extends Snapshots2 {
   static dependencies = {
@@ -67,9 +67,12 @@ class RakeUptime extends Snapshots2 {
   subStatistic() {
     return uptimeBarSubStatistic(
       this.owner.fight,
-      SPELLS.RAKE_BLEED,
-      this.uptimeHistory,
+      {
+        spells: [SPELLS.RAKE_BLEED],
+        uptimes: this.uptimeHistory,
+      },
       this.snapshotUptimes,
+      SubPercentageStyle.RELATIVE,
     );
   }
 }

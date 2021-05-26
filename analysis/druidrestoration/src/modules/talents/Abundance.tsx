@@ -5,6 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
@@ -78,7 +79,8 @@ class Abundance extends Analyzer {
     // TODO translate these values into healing/throughput.
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
+        position={STATISTIC_ORDER.CORE(15)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>

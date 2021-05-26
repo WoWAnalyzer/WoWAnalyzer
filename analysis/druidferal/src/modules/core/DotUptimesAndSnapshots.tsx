@@ -1,7 +1,7 @@
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 import React from 'react';
 
 import RakeUptime from '../bleeds/RakeUptime';
@@ -27,9 +27,12 @@ class DotUptimesAndSnapshots extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        wide
-        size="flexible"
+      <UptimeMultiBarStatistic
+        title={
+          <>
+            <UptimeIcon /> DoT Uptimes and Snapshots
+          </>
+        }
         position={STATISTIC_ORDER.CORE(1)}
         tooltip={
           <>
@@ -39,18 +42,11 @@ class DotUptimesAndSnapshots extends Analyzer {
           </>
         }
       >
-        <div className="pad">
-          <div className="boring-value">
-            <h3>
-              <UptimeIcon /> DoT Uptimes and Snapshots
-            </h3>
-          </div>
-          {this.ripUptime.subStatistic()}
-          {this.rakeUptime.subStatistic()}
-          {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
-          {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
-        </div>
-      </Statistic>
+        {this.ripUptime.subStatistic()}
+        {this.rakeUptime.subStatistic()}
+        {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
+        {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
+      </UptimeMultiBarStatistic>
     );
   }
 }
