@@ -13,8 +13,8 @@ import React from 'react';
 
 /**
  * An Analyzer for Flash Concentration:
- * - statistic: Uptime of the buff.
- * - statistic: Value added to Heal Casts.
+ * - statistic: HPS added to Heal Casts.
+ * - statistic: Cast Time gained on Heal thanks to FC
  * - suggestion: when too many FC Drops.
  * - suggestion: when too many wasteful Flash Heal Casts.
  */
