@@ -1,14 +1,13 @@
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 import React from 'react';
 
 import RakeUptime from '../bleeds/RakeUptime';
 import RipUptime from '../bleeds/RipUptime';
 import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
 import MoonfireUptime from '../talents/MoonfireUptime';
-import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes

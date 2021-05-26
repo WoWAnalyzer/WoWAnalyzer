@@ -1,19 +1,19 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Combatants from 'parser/shared/modules/Combatants';
-import React from 'react';
-import Spell from 'common/SPELLS/Spell';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import React from 'react';
 
 const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL];
-const LB_COLOR = '#00bb44'
-const DTL_COLOR = '#dd5500'
+const LB_COLOR = '#00bb44';
+const DTL_COLOR = '#dd5500';
 
 class Lifebloom extends Analyzer {
   static dependencies = {

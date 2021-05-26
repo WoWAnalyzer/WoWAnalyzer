@@ -5,10 +5,10 @@ import { SpellLink, TooltipElement } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
 import Snapshots2, { TIGERS_FURY_SPEC } from '../core/Snapshots2';
-import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 class MoonfireUptime extends Snapshots2 {
   static dependencies = {

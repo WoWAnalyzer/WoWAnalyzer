@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import React from 'react';
 
 const DURATION = 30000;
-const EFFLO_COLOR = '#bb0044'
+const EFFLO_COLOR = '#bb0044';
 
 class Efflorescence extends Analyzer {
   /** list of time periods when efflo was active */

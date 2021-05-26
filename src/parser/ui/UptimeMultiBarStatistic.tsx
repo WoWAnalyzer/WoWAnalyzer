@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React, { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
@@ -14,27 +14,15 @@ type Props = {
  * A statistic container for UptimeBarSubStatistics
  */
 // TODO add phase dividers
-const UptimeMultiBarStatistic = ({
-  children,
-  title,
-  ...others
-}: Props) => {
-  return (
-    <Statistic
-      wide
-      size="flexible"
-      {...others}
-    >
-      <div className="pad">
-        <div className="boring-value">
-          <h3>
-            {title}
-          </h3>
-        </div>
-        {children}
+const UptimeMultiBarStatistic = ({ children, title, ...others }: Props) => (
+  <Statistic wide size="flexible" {...others}>
+    <div className="pad">
+      <div className="boring-value">
+        <h3>{title}</h3>
       </div>
-    </Statistic>
-  );
-}
+      {children}
+    </div>
+  </Statistic>
+);
 
 export default UptimeMultiBarStatistic;

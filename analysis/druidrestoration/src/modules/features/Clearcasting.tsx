@@ -225,6 +225,7 @@ class Clearcasting extends Analyzer {
     );
   }
 
+  // TODO combine these stats
   statistic() {
     return (
       <>

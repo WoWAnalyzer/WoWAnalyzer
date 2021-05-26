@@ -1,10 +1,11 @@
-import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
-import Lifebloom from './Lifebloom';
-import Efflorescence from './Efflorescence';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
+import React from 'react';
+
+import Efflorescence from './Efflorescence';
+import Lifebloom from './Lifebloom';
 
 class LifebloomAndEffloUptime extends Analyzer {
   static dependencies = {
@@ -29,7 +30,6 @@ class LifebloomAndEffloUptime extends Analyzer {
       </UptimeMultiBarStatistic>
     );
   }
-
 }
 
 export default LifebloomAndEffloUptime;
