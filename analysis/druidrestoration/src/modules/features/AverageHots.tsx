@@ -31,12 +31,12 @@ class AverageHots extends Analyzer {
             <br />
             This number should not be read as a measure of performance but rather of talent choices
             and healing style. Doing lots of tank healing will increase this number, as will
-            speccing Talents that spread extra HoTs around like Cultivation and Spring Blossoms.
-            On the other hand, playing in larger groups will tend to reduce average stacks.
+            speccing Talents that spread extra HoTs around like Cultivation and Spring Blossoms. On
+            the other hand, playing in larger groups will tend to reduce average stacks.
             <br />
             <br />
-            This number includes all your healing, even heals that don't benefit from mastery
-            (like most trinkets). Your average mastery stacks counting only heals that benefit from
+            This number includes all your healing, even heals that don't benefit from mastery (like
+            most trinkets). Your average mastery stacks counting only heals that benefit from
             mastery is <strong>{avgDruidHots}</strong>.
           </>
         }
