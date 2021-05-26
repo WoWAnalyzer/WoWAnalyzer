@@ -10,12 +10,26 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
+/**
+ * An Analyzer for Flash Concentration:
+ * - statistic: Uptime of the buff.
+ * - statistic: Value added to Heal Casts.
+ * - suggestion: when too many FC Drops.
+ * - suggestion: when too many wasteful Flash Heal Casts.
+ */
 class FlashConcentration extends Analyzer {
   // Warcraft Logs seems to have issues with the stack status at fight start
-  // plus realistically, people start at 5 stacks, or _isFullStack is going to turn to false on the first Flash of Light cast
+  // we do not know how many stacks the character has and how long it has until expiration
+  // in WoWA we have a prepull apply buff with the same lack of info
+  // Realistically, people start at 5 stacks, or _isFullStack is going to turn to false on the first applyBuff or applyBuffStack
+  // the only issue is that the first Flash Heal may be considered wasteful when it is not.
   _isFullStack = true;
+  // There is also no buff event generated when Flash Heal is cast while there are already 5 stacks
+  // so we are maintaining the date of the last refresh here.
   _lastFullStackRefresh = 0;
+  // a Counter for wasteful Flash Heal Casts
   _wastefulCasts = 0;
+  // a counter for when FC stacks are dropped
   _totalDrops = 0;
 
   constructor(options: Options) {
@@ -39,9 +53,12 @@ class FlashConcentration extends Analyzer {
     );
   }
 
+  /**
+   * Sets _isFullStack to true if there are now 5 stacks, as well as the last refresh
+   * NB: it comes after the Flash Heal Cast
+   * @param event indicate the new number of stacks (only positive increments)
+   */
   onByPlayerFlashConcentrationBuff(event: ApplyBuffStackEvent) {
-    console.log(event.timestamp);
-    console.log(`it is a buff stack ${event.stack}`);
     if (event.stack === 5) {
       this._isFullStack = true;
       this._lastFullStackRefresh = event.timestamp;
@@ -50,24 +67,34 @@ class FlashConcentration extends Analyzer {
     }
   }
 
+  /**
+   * Sets _isFullStack to false.
+   * Note: The only exception is the prepull event, for which we assume that
+   * it means the character has five stacks. It will be corrected if the
+   * first Flash Heal generates a ApplyBuffStack or ApplyBuff event
+   * Note 2: Technically, the only time this function does something is on the first
+   * apply buff if there was no prepull FC.
+   * @param event with info about first stack, or prepull incomplete indication
+   */
   onByPlayerFlashConcentrationInitialBuff(event: ApplyBuffEvent) {
-    console.log(event.timestamp);
-    console.log('it is the initial Buff');
-    this._isFullStack = false;
+    if (event.prepull !== true) {
+      this._isFullStack = false;
+    }
   }
 
+  /**
+   * Increments _totalDrops for our suggestion, since that should ideally not happen
+   */
   onByPlayerFlashConcentrationBuffRemoval(event: RemoveBuffEvent) {
     this._totalDrops += 1;
     this._isFullStack = false;
-    console.log(event.timestamp);
-    console.log('it is a buff removal');
   }
 
+  /**
+   * when at full stack, it refreshes the last refresh timer,
+   * and counts a Wasteful Cast if it was used earlier than needed
+   */
   onByPlayerFlashHealCast(event: CastEvent) {
-    console.log(event.timestamp);
-    console.log(this._isFullStack);
-    console.log(event.timestamp - this._lastFullStackRefresh);
-    console.log('Flash Heal FTW!');
     if (this._isFullStack) {
       if (event.timestamp - this._lastFullStackRefresh < 15000) {
         this._wastefulCasts += 1;
@@ -135,8 +162,8 @@ class FlashConcentration extends Analyzer {
         .icon(SPELLS.FLASH_CONCENTRATION.icon)
         .actual(
           <>
-            You used {actual} <SpellLink id={SPELLS.FLASH_HEAL.id} /> while there were more than 5
-            seconds left of <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />,
+            You cast {actual} times while there were more than 5 seconds left of{' '}
+            <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />,
           </>,
         )
         .recommended(<>No inefficient cast is recommended</>),
