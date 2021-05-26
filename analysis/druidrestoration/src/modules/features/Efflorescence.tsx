@@ -1,24 +1,22 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValue from 'parser/ui/BoringValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 const DURATION = 30000;
+const EFFLO_COLOR = '#bb0044'
 
-// TODO add uptime history to hook into chart
 class Efflorescence extends Analyzer {
-  precastUptime = 0;
-  castUptime = 0;
-  castTimestamps: number[] = []; // TODO this array not really used yet, but I plan to use it to catch early refreshes
+  /** list of time periods when efflo was active */
+  effloUptimes: OpenTimePeriod[] = [];
+  /** true iff we've seen at least one Efflo cast */
+  hasCast: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -33,32 +31,32 @@ class Efflorescence extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (this.lastCastTimestamp !== null) {
-      this.castUptime += Math.min(DURATION, event.timestamp - this.lastCastTimestamp);
-    }
-    this.castTimestamps.push(event.timestamp);
+    this.hasCast = true;
+    this.effloUptimes.push({ start: event.timestamp });
   }
 
   onHeal(event: HealEvent) {
-    // if efflo heals before the first cast, we assume it was from a precast
-    if (this.castTimestamps.length === 0) {
-      this.precastUptime = event.timestamp - this.owner.fight.start_time;
+    // only way to detect precasts if by looking for heal events before the first cast
+    // assume the efflo lasted until the last detected heal that happens before first cast
+    if (!this.hasCast) {
+      if (this.effloUptimes.length === 0) {
+        this.effloUptimes.push({ start: this.owner.fight.start_time });
+      }
+      this.effloUptimes[0].end = event.timestamp;
     }
   }
 
-  get lastCastTimestamp() {
-    return this.castTimestamps.length === 0
-      ? null
-      : this.castTimestamps[this.castTimestamps.length - 1];
+  _mergeAndCapUptimes(): ClosedTimePeriod[] {
+    this.effloUptimes.forEach((ut) => {
+      if (ut.end === undefined) {
+        ut.end = Math.min(ut.start + DURATION, this.owner.currentTimestamp);
+      }
+    });
+    return mergeTimePeriods(this.effloUptimes, this.owner.currentTimestamp);
   }
 
   get uptime() {
-    // uptime from a cast is only tallied in 'castUptime' on the *next* cast, so the most recent cast must be handled special
-    const activeUptime =
-      this.lastCastTimestamp === null
-        ? 0
-        : Math.min(DURATION, this.owner.currentTimestamp - this.lastCastTimestamp);
-    return this.precastUptime + this.castUptime + activeUptime;
+    return this._mergeAndCapUptimes().reduce((acc, ut) => acc + ut.end - ut.start, 0);
   }
 
   get uptimePercent() {
@@ -97,21 +95,16 @@ class Efflorescence extends Analyzer {
     // TODO suggestion for early refreshes
   }
 
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(12)} size="flexible">
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} /> Efflorescence uptime
-            </>
-          }
-        >
-          <>
-            <UptimeIcon /> {formatPercentage(this.uptimePercent)} %
-          </>
-        </BoringValue>
-      </Statistic>
+  subStatistic() {
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [SPELLS.EFFLORESCENCE_CAST],
+        uptimes: this._mergeAndCapUptimes(),
+        color: EFFLO_COLOR,
+      },
+      [],
+      SubPercentageStyle.ABSOLUTE,
     );
   }
 }

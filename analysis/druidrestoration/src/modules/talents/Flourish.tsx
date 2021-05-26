@@ -169,6 +169,9 @@ class Flourish extends Analyzer {
   }
 
   statistic() {
+    if (!this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id)) {
+      return; // module needs to stay active for convoke, but we shouldn't display stat
+    }
     return (
       <Statistic
         size="flexible"

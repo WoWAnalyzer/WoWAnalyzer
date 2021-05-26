@@ -1,18 +1,20 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringValue from 'parser/ui/BoringValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+import Spell from 'common/SPELLS/Spell';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
-// TODO add uptime history to hook into chart
+const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL];
+const LB_COLOR = '#00bb44'
+const DTL_COLOR = '#dd5500'
+
 class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -20,32 +22,81 @@ class Lifebloom extends Analyzer {
 
   protected combatants!: Combatants;
 
+  /** true iff player has Dark Titan's Lesson legendary equipped */
   hasDTL = false;
+  /** the number of lifeblooms the player currently has active */
+  activeLifeblooms: number = 0;
+  /** list of time periods when at least one lifebloom was active */
+  lifebloomUptimes: OpenTimePeriod[] = [];
+  /** list of time periods when at least two lifeblooms were active */
+  dtlUptimes: OpenTimePeriod[] = [];
 
   constructor(options: Options) {
     super(options);
     this.hasDTL = this.selectedCombatant.hasLegendaryByBonusID(
       SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID,
     );
-  }
 
-  get uptime() {
-    // Only either LIFEBLOOM_HOT_HEAL or LIFEBLOOM_DTL_HOT_HEAL can be up (with or without the DTL legendary), but
-    // DTL Lifeblooms (LIFEBLOOM_DTL_HOT_HEAL) are on two targets so their BuffUptime need to behalved for a percentage
-    return (
-      this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
-      this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id)
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_HOTS),
+      this.onApplyLifebloom,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_HOTS),
+      this.onRemoveLifebloom,
     );
   }
 
-  get uptimePercent() {
-    return this.uptime / this.owner.fightDuration;
+  onApplyLifebloom(event: ApplyBuffEvent) {
+    if (this.activeLifeblooms === 0) {
+      // LBS 0 -> 1
+      this.lifebloomUptimes.push({ start: event.timestamp });
+    } else if (this.activeLifeblooms === 1) {
+      // LBS 1 -> 2
+      this.dtlUptimes.push({ start: event.timestamp });
+    }
+    this.activeLifeblooms += 1;
   }
 
-  // "The Dark Titan's Advice" legendary buffs Lifebloom, making high uptime more important
+  onRemoveLifebloom(event: RemoveBuffEvent) {
+    if (this.activeLifeblooms === 1) {
+      // LBS 1 -> 0
+      if (this.lifebloomUptimes.length > 0) {
+        this.lifebloomUptimes[this.lifebloomUptimes.length - 1].end = event.timestamp;
+      }
+    } else if (this.activeLifeblooms === 2) {
+      // LBS 2 -> 1
+      if (this.dtlUptimes.length > 0) {
+        this.dtlUptimes[this.dtlUptimes.length - 1].end = event.timestamp;
+      }
+    }
+    this.activeLifeblooms -= 1;
+  }
+
+  get oneLifebloomUptime() {
+    return this._getTotalUptime(this.lifebloomUptimes);
+  }
+
+  get oneLifebloomUptimePercent() {
+    return this.oneLifebloomUptime / this.owner.fightDuration;
+  }
+
+  get twoLifebloomUptime() {
+    return this._getTotalUptime(this.dtlUptimes);
+  }
+
+  _getTotalUptime(uptimes: OpenTimePeriod[]) {
+    return uptimes.reduce(
+      (acc, ut) => acc + (ut.end === undefined ? this.owner.currentTimestamp : ut.end) - ut.start,
+      0,
+    );
+  }
+
+  // TODO suggestion for two lifebloom uptime with DTL
+
   get suggestionThresholds() {
     return {
-      actual: this.uptimePercent,
+      actual: this.oneLifebloomUptimePercent,
       isLessThan: {
         minor: 0.8,
         average: 0.6,
@@ -74,33 +125,33 @@ class Lifebloom extends Analyzer {
         .actual(
           t({
             id: 'druid.restoration.suggestions.lifebloom.uptime',
-            message: `${formatPercentage(this.uptimePercent)}% uptime`,
+            message: `${formatPercentage(this.oneLifebloomUptimePercent)}% uptime`,
           }),
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 
-  statistic() {
-    return (
-      <Statistic size="flexible" position={STATISTIC_ORDER.CORE(10)}>
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> Lifebloom Uptime
-            </>
-          }
-        >
-          <>
-            <UptimeIcon /> {formatPercentage(this.uptimePercent)} %
-          </>
-        </BoringValue>
-      </Statistic>
-    );
-  }
-
   subStatistic() {
+    const subBars = [];
+    if (this.hasDTL) {
+      subBars.push({
+        spells: [SPELLS.THE_DARK_TITANS_LESSON],
+        uptimes: mergeTimePeriods(this.dtlUptimes, this.owner.currentTimestamp),
+        color: DTL_COLOR,
+      });
+    }
 
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [SPELLS.LIFEBLOOM_HOT_HEAL],
+        uptimes: mergeTimePeriods(this.lifebloomUptimes, this.owner.currentTimestamp),
+        color: LB_COLOR,
+      },
+      subBars,
+      SubPercentageStyle.ABSOLUTE,
+    );
   }
 }
 

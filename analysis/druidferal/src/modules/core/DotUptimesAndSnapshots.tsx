@@ -8,6 +8,7 @@ import RakeUptime from '../bleeds/RakeUptime';
 import RipUptime from '../bleeds/RipUptime';
 import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
 import MoonfireUptime from '../talents/MoonfireUptime';
+import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes
@@ -27,9 +28,12 @@ class DotUptimesAndSnapshots extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        wide
-        size="flexible"
+      <UptimeMultiBarStatistic
+        title={
+          <>
+            <UptimeIcon /> DoT Uptimes and Snapshots
+          </>
+        }
         position={STATISTIC_ORDER.CORE(1)}
         tooltip={
           <>
@@ -39,18 +43,11 @@ class DotUptimesAndSnapshots extends Analyzer {
           </>
         }
       >
-        <div className="pad">
-          <div className="boring-value">
-            <h3>
-              <UptimeIcon /> DoT Uptimes and Snapshots
-            </h3>
-          </div>
-          {this.ripUptime.subStatistic()}
-          {this.rakeUptime.subStatistic()}
-          {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
-          {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
-        </div>
-      </Statistic>
+        {this.ripUptime.subStatistic()}
+        {this.rakeUptime.subStatistic()}
+        {this.moonfireUptime.active && this.moonfireUptime.subStatistic()}
+        {this.adaptiveSwarm.active && this.adaptiveSwarm.subStatistic()}
+      </UptimeMultiBarStatistic>
     );
   }
 }

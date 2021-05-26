@@ -24,6 +24,7 @@ import Efflorescence from './modules/features/Efflorescence';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import Lifebloom from './modules/features/Lifebloom';
+import LifebloomAndEffloUptime from './modules/features/LifebloomAndEffloUptime';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cultivation: Cultivation,
     ironbark: Ironbark,
     prematureRejuvenations: PrematureRejuvenations,
+    lifebloomAndEffloUptime: LifebloomAndEffloUptime,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
