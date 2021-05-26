@@ -58,10 +58,8 @@ class Checklist extends BaseChecklist {
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
           nonHealingTime: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           wildGrowthRatio: this.wildGrowth.suggestionThresholds,
-          wildGrowthPercentBelowRecommendedCasts: this.wildGrowth
-            .suggestionpercentBelowRecommendedCastsThresholds,
-          wildGrowthPercentBelowRecommendedPrecasts: this.wildGrowth
-            .suggestionpercentBelowRecommendedPrecastsThresholds,
+          wildGrowthPercentIneffectiveCasts: this.wildGrowth
+            .suggestionPercentIneffectiveCastsThresholds,
           lifebloomUpTime: this.lifebloom.suggestionThresholds,
           efflorescenceUpTime: this.efflorescence.suggestionThresholds,
           innervateManaSaved: this.innervate.manaSavedThresholds,

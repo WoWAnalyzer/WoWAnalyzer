@@ -1,18 +1,18 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import CrossIcon from 'interface/icons/Cross';
-import HealthIcon from 'interface/icons/Health';
-import UptimeIcon from 'interface/icons/Uptime';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import CrossIcon from 'interface/icons/Cross';
+import HealthIcon from 'interface/icons/Health';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.4;
@@ -246,7 +246,7 @@ class Clearcasting extends Analyzer {
               </li>
               <li>
                 <HealthIcon /> Full Price Triage ({'<'}
-                {formatPercentage(TRIAGE_THRESHOLD, 0)}%) Casts:{' '}
+                {formatPercentage(TRIAGE_THRESHOLD, 0)}% HP) Casts:{' '}
                 <strong>{this.triageRegrowths}</strong>
               </li>
               <li>
