@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ApplyBuffStackEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -31,6 +32,13 @@ class FlashConcentration extends Analyzer {
   _wastefulCasts = 0;
   // a counter for when FC stacks are dropped
   _totalDrops = 0;
+  // tracker for number of current stacks
+  _currentStacks = 5;
+  // cumulated gained healing and cast time on every buffed Heal Cast, plus the totals
+  _totalHeal = 0;
+  _gainedHeal = 0;
+  _gainedCastTime = 0;
+  _totalCastTime = 0;
 
   constructor(options: Options) {
     super(options);
@@ -51,6 +59,14 @@ class FlashConcentration extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
       this.onByPlayerFlashHealCast,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL),
+      this.onByPlayerHealAmount,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL),
+      this.onByPlayerHealCast,
+    );
   }
 
   /**
@@ -65,6 +81,7 @@ class FlashConcentration extends Analyzer {
     } else {
       this._isFullStack = false;
     }
+    this._currentStacks = event.stack;
   }
 
   /**
@@ -79,6 +96,7 @@ class FlashConcentration extends Analyzer {
   onByPlayerFlashConcentrationInitialBuff(event: ApplyBuffEvent) {
     if (event.prepull !== true) {
       this._isFullStack = false;
+      this._currentStacks = 1;
     }
   }
 
@@ -88,6 +106,7 @@ class FlashConcentration extends Analyzer {
   onByPlayerFlashConcentrationBuffRemoval(event: RemoveBuffEvent) {
     this._totalDrops += 1;
     this._isFullStack = false;
+    this._currentStacks = 0;
   }
 
   /**
@@ -103,13 +122,47 @@ class FlashConcentration extends Analyzer {
     }
   }
 
+  onByPlayerHealAmount(event: HealEvent) {
+    this._totalHeal += event.amount;
+    this._gainedHeal +=
+      (event.amount * (this._currentStacks * 0.03)) / (1 + this._currentStacks * 0.03);
+    this._gainedCastTime += this._currentStacks * 200;
+  }
+
+  onByPlayerHealCast(event: CastEvent) {
+    this._totalCastTime +=
+      event.timestamp -
+      (event.channel?.beginChannel?.timestamp
+        ? event.channel.beginChannel.timestamp
+        : event.timestamp);
+  }
+
   statistic() {
+    // HealHPSNoFC gives the HPS which would have been obtained by casting the same number of heals without Flash Concentration Buff
+    const HealHPSNoFC =
+      (this._totalHeal - this._gainedHeal) / (this._totalCastTime + this._gainedCastTime);
+    // BuffedHealHPS gives the total HPS of Heal in this fight
+    const BuffedHealHPS = this._totalHeal / this._totalCastTime;
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS} tooltip={<>Hello World</>}>
-        <ItemHealingDone amount={125} />
-        <SpellLink id={SPELLS.FLASH_CONCENTRATION.id}></SpellLink>
-        You let the buff drop {this._totalDrops} times You had bad refresh {this._wastefulCasts}{' '}
-        times
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.ITEMS}
+        tooltip={
+          <>
+            Impact is approximative since <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> modifies
+            the gameplay in depth
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.FLASH_CONCENTRATION}>
+          <ItemHealingDone
+            // approximate considering the player would have cast heal without FC
+            amount={(BuffedHealHPS - HealHPSNoFC) * this._totalCastTime}
+            approximate
+          />
+          <br />
+          {this._gainedCastTime / 1000} sec saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+        </BoringSpellValueText>
       </Statistic>
     );
   }
