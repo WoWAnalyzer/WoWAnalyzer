@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 5, 4), 'German translation fix', maestrohdude),
   change(date(2021, 5, 15), 'Fixed a bug that could cause the Mana Pool graph to crash', Sref),
   change(date(2021, 5, 4), 'German translations', maestrohdude),
   change(date(2021, 4, 26), <>Fixed <SpellLink id={SPELLS.CHAOS_BRAND.id} /> count in Raid Buffs</>, niko),
