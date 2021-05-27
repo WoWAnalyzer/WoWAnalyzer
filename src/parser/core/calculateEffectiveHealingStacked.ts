@@ -1,5 +1,3 @@
-import { HealEvent } from 'parser/core/Events';
-
 /**
  * Calculates the effective healing attributable to the *last stack* of a stacking percent healing buff.
  * See `calculateEffectiveHealing` first for more info on the calculation and how overheal is handled.

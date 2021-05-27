@@ -51,8 +51,12 @@ class NaturesFocus extends Analyzer {
     // sometimes you have heal events before the cast happens, so check here as well
     // comparing the target ID guarantees no false positives as each cast can only heal the same target once
     if (this.chainHealEvent && this.chainHealEvent.targetID === event.targetID) {
-      if ('amount' in this.chainHealEvent) { // should always be a HealEvent, but just in case...
-        this.healing += calculateEffectiveHealing(this.chainHealEvent as { amount: number }, this.healingBoost);
+      if ('amount' in this.chainHealEvent) {
+        // should always be a HealEvent, but just in case...
+        this.healing += calculateEffectiveHealing(
+          this.chainHealEvent as { amount: number },
+          this.healingBoost,
+        );
       }
       this.chainHealEvent = null;
     } else {
