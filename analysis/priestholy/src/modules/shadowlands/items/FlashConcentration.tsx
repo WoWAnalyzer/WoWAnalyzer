@@ -7,7 +7,6 @@ import { ApplyBuffStackEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/cor
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
@@ -150,11 +149,6 @@ class FlashConcentration extends Analyzer {
   }
 
   statistic() {
-    // HealHPSNoFC gives the HPS which would have been obtained by casting the same number of heals without Flash Concentration Buff
-    const HealHPSNoFC =
-      (this._totalHeal - this._gainedHeal) / (this._totalCastTime + this._gainedCastTime);
-    // BuffedHealHPS gives the total HPS of Heal in this fight
-    const BuffedHealHPS = this._totalHeal / this._totalCastTime;
     return (
       <Statistic
         size="flexible"
@@ -167,12 +161,6 @@ class FlashConcentration extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.FLASH_CONCENTRATION}>
-          <ItemHealingDone
-            // approximate considering the player would have cast heal without FC
-            amount={(BuffedHealHPS - HealHPSNoFC) * this._totalCastTime}
-            approximate
-          />
-          <br />
           {this._gainedCastTime / 1000} sec{' '}
           <small>
             saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
