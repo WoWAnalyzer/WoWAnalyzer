@@ -167,7 +167,6 @@
   "druid.restoration.suggestions.soulOfTheForest.efficiency": "Wildwuchs hat {0}% aller Buffs aufgezehrt",
   "druid.restoration.suggestions.springBlossoms.efficiency": "{0}% Heilung",
   "druid.restoration.suggestions.treeOfLife.efficiency": "{0}% Heilung",
-  "druid.restoration.suggestions.wildgrowth.overhealing": "{0}% deiner Einsätze mit hoher Überheilung",
   "druid.restoration.suggestions.wildgrowth.rejuvenationRatio": "{0} Einsätze von Wildwuchs / {1} Einsätze von Verjüngung",
   "druid.restoration.suggestions.wildgrowth.tooFewTargets": "{0}% deiner Einsätze an weniger als {RECOMMENDED_HIT_THRESHOLD} Ziele",
   "fullScreenError.apiDown.error": "Die API funktioniert nicht",
