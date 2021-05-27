@@ -7,6 +7,7 @@ import { ApplyBuffStackEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/cor
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
+import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
@@ -151,61 +152,87 @@ class FlashConcentration extends Analyzer {
     this._HealBuffedStats[this._currentStacks] += 1;
   }
 
+  renderMaxStacksChart() {
+    const items = [
+      {
+        color: '#00bbcc',
+        label: 'Heal',
+        spellId: SPELLS.GREATER_HEAL.id,
+        value: this._HealBuffedStats[5],
+        valueTooltip: this._HealBuffedStats[5],
+      },
+      {
+        color: '#f37735',
+        label: 'Unoptimized',
+        spellId: SPELLS.FLASH_HEAL.id,
+        value: this._wastefulCasts,
+        valueTooltip: `${this._wastefulCasts} unoptimized casts`,
+      },
+    ];
+
+    return <DonutChart items={items} />;
+  }
+
   statistic() {
     const averageStacksOnHeal = (
       this._HealBuffedStats.reduce((p, v, i) => p + v * i) /
       this._HealBuffedStats.reduce((p, v) => p + v)
     ).toFixed(2);
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={
-          <>
-            Impact is approximative since <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> modifies
-            the gameplay in depth
-          </>
-        }
-        dropdown={
-          <>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Stacks</th>
-                  <th>Number of Casts</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this._HealBuffedStats.map((v, i) => (
-                  <tr key={`stack${i}`}>
-                    <th>{i}</th>
-                    <th>{v}</th>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        }
-      >
-        <BoringValue
-          label={
+      <>
+        <Statistic
+          size="flexible"
+          category={STATISTIC_CATEGORY.ITEMS}
+          tooltip={
             <>
-              <SpellLink id={SPELLS.GREATER_HEAL.id} /> with{' '}
-              <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />
+              Impact is approximative since <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />{' '}
+              modifies the gameplay in depth
+            </>
+          }
+          dropdown={
+            <>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Stacks</th>
+                    <th>Number of Casts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this._HealBuffedStats.map((v, i) => (
+                    <tr key={`stack${i}`}>
+                      <th>{i}</th>
+                      <th>{v}</th>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </>
           }
         >
-          {this._gainedCastTime / 1000} sec{' '}
-          <small>
-            saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
-          </small>
-          <br />
-          {averageStacksOnHeal}{' '}
-          <small>
-            avg stacks on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
-          </small>
-        </BoringValue>
-      </Statistic>
+          <BoringValue
+            label={
+              <>
+                <SpellLink id={SPELLS.GREATER_HEAL.id} /> with{' '}
+                <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />
+              </>
+            }
+          >
+            {this._gainedCastTime / 1000} sec{' '}
+            <small>
+              saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+            </small>
+            <br />
+            {averageStacksOnHeal}{' '}
+            <small>
+              avg stacks on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+            </small>
+          </BoringValue>
+        </Statistic>
+        <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
+          {this.renderMaxStacksChart()}
+        </Statistic>
+      </>
     );
   }
 
