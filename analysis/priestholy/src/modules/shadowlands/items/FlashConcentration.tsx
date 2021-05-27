@@ -162,28 +162,28 @@ class FlashConcentration extends Analyzer {
         label: 'Heal',
         spellId: SPELLS.GREATER_HEAL.id,
         value: this._HealBuffedStats[5],
-        valueTooltip: this._HealBuffedStats[5],
+        valueTooltip: `${this._HealBuffedStats[5]} casts of very efficient Heals`,
       },
       {
         color: '#f37735',
-        label: 'Unoptimized',
+        label: 'Innefficient Flash Heal',
         spellId: SPELLS.FLASH_HEAL.id,
         value: this._wastefulCasts,
-        valueTooltip: `${this._wastefulCasts} unoptimized casts`,
+        valueTooltip: `${this._wastefulCasts} unefficient Flash Heal casts. Some inefficient casts are unavoidable to account for mechanics that may silence you for a few seconds (e.g. Blood Price), or to move Fae Guardians.`,
       },
       {
         color: '#eeff41',
-        label: 'Surge of Light',
+        label: 'Surge of Light*2',
         spellId: SPELLS.SURGE_OF_LIGHT_TALENT.id,
         value: this._SurgeOfLightUnload,
-        valueTooltip: `${this._SurgeOfLightUnload} unoptimized casts`,
+        valueTooltip: `${this._SurgeOfLightUnload} Flash Heal casts with 2 stacks of Surge of Light`,
       },
       {
         color: '#b2ff59',
-        label: 'Refresh',
+        label: 'Efficient Refresh',
         spellId: SPELLS.FLASH_CONCENTRATION.id,
         value: this._goodRefreshes,
-        valueTooltip: `${this._goodRefreshes} good refreshes`,
+        valueTooltip: `${this._goodRefreshes} efficient refreshes of Flash Concentration`,
       },
     ];
 
@@ -246,7 +246,21 @@ class FlashConcentration extends Analyzer {
             </small>
           </BoringValue>
         </Statistic>
-        <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
+        <Statistic
+          size="flexible"
+          category={STATISTIC_CATEGORY.ITEMS}
+          tooltip={
+            <>
+              Detailed usage of <SpellLink id={SPELLS.FLASH_HEAL.id} /> and{' '}
+              <SpellLink id={SPELLS.GREATER_HEAL.id} /> while maintaining 5 stacks of{' '}
+              <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />
+            </>
+          }
+        >
+          <label>
+            {' '}
+            <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> fully stacked
+          </label>
           {this.renderMaxStacksChart()}
         </Statistic>
       </>
@@ -267,13 +281,18 @@ class FlashConcentration extends Analyzer {
 
   get wastefulFlashHealSuggestion() {
     return {
-      actual: this._wastefulCasts,
+      actual:
+        (100 * this._wastefulCasts) /
+        (this._wastefulCasts +
+          this._HealBuffedStats[5] +
+          this._SurgeOfLightUnload +
+          this._goodRefreshes),
       isGreaterThan: {
-        minor: Number(this.owner.fightDuration) / 1000 / 60,
-        average: (2 * this.owner.fightDuration) / 1000 / 60,
-        major: (4 * this.owner.fightDuration) / 1000 / 60,
+        minor: 10,
+        average: 20,
+        major: 30,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -291,21 +310,21 @@ class FlashConcentration extends Analyzer {
         .recommended(<>It is recommended to maintain 5 stacks at all times</>),
     );
 
-    when(this.wastefulFlashHealSuggestion).addSuggestion((suggest, actual) =>
+    when(this.wastefulFlashHealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You used too many unnecessary <SpellLink id={SPELLS.FLASH_HEAL.id} /> while you had 5
+          You used too many inefficient <SpellLink id={SPELLS.FLASH_HEAL.id} /> while you had 5
           stacks of <SpellLink id={SPELLS.FLASH_CONCENTRATION.id}></SpellLink>
         </span>,
       )
         .icon(SPELLS.FLASH_CONCENTRATION.icon)
-        .actual(
+        .actual(<>While some are unavoidable, you had {Math.floor(actual)}% of inefficient casts</>)
+        .recommended(
           <>
-            You cast {actual} times while there were more than 5 seconds left of{' '}
-            <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />,
+            {'<'}
+            {recommended}% inefficient casts is recommended
           </>,
-        )
-        .recommended(<>No inefficient cast is recommended</>),
+        ),
     );
   }
 }
