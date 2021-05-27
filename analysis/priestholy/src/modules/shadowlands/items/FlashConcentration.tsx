@@ -16,8 +16,8 @@ const FLASH_CONCENTRATION_CAST_TIME_REDUCTION = 200; // 0.2 seconds per stack
 
 /**
  * An Analyzer for Flash Concentration:
- * - statistic: HPS added to Heal Casts.
- * - statistic: Cast Time gained on Heal thanks to FC
+ * - statistic: Heal Usage Analysis.
+ * - statistic: Donut Analysis of Flash Heal and Heal Casts at 5 stacks of FC
  * - suggestion: when too many FC Drops.
  * - suggestion: when too many wasteful Flash Heal Casts.
  */
