@@ -11,6 +11,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
+const FLASH_CONCENTRATION_DURATION = 20000; // 20 s buff duration
+const FLASH_CONCENTRATION_HEAL_BUFF = 0.03; // 3% per stack
+const FLASH_CONCENTRATION_CAST_TIME_REDUCTION = 200; // 0.2 seconds per stack
+
 /**
  * An Analyzer for Flash Concentration:
  * - statistic: HPS added to Heal Casts.
@@ -116,7 +120,7 @@ class FlashConcentration extends Analyzer {
    */
   onByPlayerFlashHealCast(event: CastEvent) {
     if (this._isFullStack) {
-      if (event.timestamp - this._lastFullStackRefresh < 15000) {
+      if (event.timestamp - this._lastFullStackRefresh < FLASH_CONCENTRATION_DURATION - 5000) {
         this._wastefulCasts += 1;
       }
       this._lastFullStackRefresh = event.timestamp;
@@ -126,8 +130,9 @@ class FlashConcentration extends Analyzer {
   onByPlayerHealAmount(event: HealEvent) {
     this._totalHeal += event.amount;
     this._gainedHeal +=
-      (event.amount * (this._currentStacks * 0.03)) / (1 + this._currentStacks * 0.03);
-    this._gainedCastTime += this._currentStacks * 200;
+      (event.amount * (this._currentStacks * FLASH_CONCENTRATION_HEAL_BUFF)) /
+      (1 + this._currentStacks * FLASH_CONCENTRATION_HEAL_BUFF);
+    this._gainedCastTime += this._currentStacks * FLASH_CONCENTRATION_CAST_TIME_REDUCTION;
   }
 
   onByPlayerHealCast(event: CastEvent) {
