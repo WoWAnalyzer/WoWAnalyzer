@@ -10,7 +10,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import Abilities from '../Abilities';
 import RegrowthAttributor from '../core/hottracking/RegrowthAttributor';
-import Clearcasting from '../features/Clearcasting';
+import RegrowthAndClearcasting from '../features/RegrowthAndClearcasting';
 
 /*
     TODO:
@@ -29,7 +29,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // Custom dependencies
     abilities: Abilities,
     regrowthAttributor: RegrowthAttributor,
-    clearcasting: Clearcasting,
+    clearcasting: RegrowthAndClearcasting,
   };
 
   protected manaTracker!: ManaTracker;
@@ -41,7 +41,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   // Custom dependencies
   protected abilities!: Abilities;
   protected regrowthAttributor!: RegrowthAttributor;
-  protected clearcasting!: Clearcasting;
+  protected clearcasting!: RegrowthAndClearcasting;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
@@ -57,7 +57,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // We don't want regrowth to get Hpm credit for healing that we didn't spend mana on.
     spellInfo.healingDone = this.regrowthAttributor.totalNonCCRegrowthHealing;
     spellInfo.overhealingDone = this.regrowthAttributor.totalNonCCRegrowthOverhealing;
-    spellInfo.casts = this.clearcasting.nonCCRegrowths;
+    spellInfo.casts = this.clearcasting.badRegrowths;
 
     return spellInfo;
   }

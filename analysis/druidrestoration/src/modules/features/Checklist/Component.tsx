@@ -50,10 +50,11 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         description={
           <>
             Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to
-            your healing performance. When more than 5 raiders are wounded, it is probably the most
-            efficienct and effective spell you can cast. Try to time your{' '}
+            your healing performance. When more than 5 raiders are wounded, it is easily the most
+            efficient and effective spell you can cast. Try to time your{' '}
             <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order
-            to keep raiders healthy even through heavy AoE.
+            to keep raiders healthy even through heavy AoE. Most of its healing is frontloaded and
+            so it should not be precast.
           </>
         }
       >
@@ -73,17 +74,11 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
               Low target <SpellLink id={SPELLS.WILD_GROWTH.id} /> casts
             </>
           }
-          tooltip="This is your percent of Wild Growth casts that hit too few wounded targets. Low target casts happen either by casting it when almost all the raid was full health, or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target, so if you use it on a target far away from the rest of the raid your cast will not be effective."
-          thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts}
-        />
-        <Requirement
-          name={
-            <>
-              High initial overhealing <SpellLink id={SPELLS.WILD_GROWTH.id} />
-            </>
-          }
-          tooltip="This is your percent of Wild Growth casts that has high initial overhealing. Wild Growth does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs."
-          thresholds={thresholds.wildGrowthPercentBelowRecommendedPrecasts}
+          tooltip="This is your percent of Wild Growth casts that hit too few wounded targets.
+          Low target casts happen either by casting it when almost all the raid was full health,
+          or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target,
+          so if you use it on a target far away from the rest of the raid your cast will not be effective."
+          thresholds={thresholds.wildGrowthPercentIneffectiveCasts}
         />
       </Rule>
       <Rule
@@ -169,7 +164,9 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             </>
           }
           thresholds={thresholds.innervateManaSaved}
-          tooltip="All spells cost less mana during Innervate, so take care to chain cast for its duration. Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation. It's also fine to Regrowth a target that is in immediate danger of dying."
+          tooltip="All spells cost less mana during Innervate, so take care to chain cast for its duration.
+          Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation.
+          It's also fine to Regrowth a target that is in immediate danger of dying."
         />
         <Requirement
           name={
@@ -178,7 +175,9 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             </>
           }
           thresholds={thresholds.clearCastingUtil}
-          tooltip="This is the percentage of Clearcasting procs that you used. Regrowth is normally very expensive, but it's completely free with a Clearcasting proc. Use your procs in a timely fashion for a lot of free healing."
+          tooltip="This is the percentage of Clearcasting procs that you used.
+          Regrowth is normally very expensive, but it's completely free with a Clearcasting proc.
+          Use your procs in a timely fashion for a lot of free healing."
         />
         <Requirement
           name={
@@ -186,13 +185,18 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
               Don't overuse <SpellLink id={SPELLS.REGROWTH.id} />
             </>
           }
-          thresholds={thresholds.nonCCRegrowths}
-          tooltip="This is the number of no-clearcasting Regrowths you cast per minute. Regrowth is very mana inefficient, and should only be used in emergency situations (and when you've already expended Swiftmend). Usually, you should rely on other healers in your raid to triage."
+          thresholds={thresholds.badRegrowths}
+          tooltip="This is the number of bad Regrowths you cast per minute.
+          Regrowth is very mana inefficient, and should only be cast when free due to clearcasting or innervate,
+          cheap due to many stacks of Abundance, or to save a low health target."
         />
         <Requirement
           name="Mana remaining at fight end"
           thresholds={thresholds.manaValues}
-          tooltip="Try to spend your mana at roughly the same rate the boss is dying. Having too much mana left at fight end could mean you were too conservative with your spell casts. If your mana is in good shape but there isn't much to heal, consider mixing Moonfire and Sunfire into your DPS rotation, which will burn some mana for extra DPS contribution."
+          tooltip="Try to spend your mana at roughly the same rate the boss is dying.
+          Having too much mana left at fight end could mean you were too conservative with your spell casts.
+          If your mana is in good shape but there isn't much to heal, consider mixing Moonfire and Sunfire into your DPS rotation,
+          which will burn some mana for extra DPS contribution."
         />
       </Rule>
       <Rule

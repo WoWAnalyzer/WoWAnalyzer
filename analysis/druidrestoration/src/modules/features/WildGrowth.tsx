@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { AnyEvent, ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -13,41 +13,135 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-const RECOMMENDED_HIT_THRESHOLD = 5;
-const PRECAST_PERIOD = 3000;
-const PRECAST_THRESHOLD = 0.5;
+/** Number of targets WG must effectively heal in order to be efficient */
+const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
+/** Max buffer in ms from WG cast to WG apply */
+const APPLY_BUFFER = 100;
+/** Max time after WG apply to watch for high overhealing */
+const OVERHEAL_BUFFER = 3000;
+/** Overheal percent within OVERHEAL_BUFFER of application that will count as 'too much' */
+const OVERHEAL_THRESHOLD = 0.5;
 
+/**
+ * Tracks stats relating to Wild Growth
+ *
+ * This modules functioning relies on normalizers that ensure:
+ * * Wild Growth cast will always come before Wild Growth HoT apply
+ * * Wild Growth HoT apply will always come before Wild Growth first heal
+ */
 class WildGrowth extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
+  abilityTracker!: AbilityTracker;
+
+  /** Timestamp of the most recent Wild Growth cast, or undefined if it's too long ago */
+  recentWgCastTimestamp: number | undefined;
+  /** Tracker for the overhealing on targets hit by a recent hardcast Wild Growth, indexed by targetID */
+  recentWgTargetHealing: { [key: number]: { total: number; overheal: number } } = {};
+
+  /** Total Wild Growth hardcasts (not tallied until the rest of the fields) */
+  totalCasts = 0;
+  /** Total Wild Growth HoTs applied by hardcasts */
+  totalHardcastHits = 0;
+  /** Total Wild Growth HoTs applied by hardcasts that didn't overheal too much early */
+  totalEffectiveHits = 0;
+  /** Wild Growth hardcasts that were 'ineffective' */
+  ineffectiveCasts = 0;
+  /** Wild Growth hardcasts that hit too many total targets (effective or not) */
+  tooFewHitsCasts = 0;
+  /** Wild Growth hardcasts that had too much early overhealing */
+  tooMuchOverhealCasts = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onCastWg);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
+      this.onApplyBuffWg,
+    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onHealWg);
+  }
+
+  onCastWg(event: CastEvent) {
+    this._tallyRecentCast(event); // make sure the previous cast is closed out
+    this.recentWgCastTimestamp = event.timestamp; // spin up a new one
+  }
+
+  onApplyBuffWg(event: ApplyBuffEvent) {
+    if (
+      this.recentWgCastTimestamp !== undefined &&
+      this.recentWgCastTimestamp + APPLY_BUFFER >= event.timestamp
+    ) {
+      this.recentWgTargetHealing[event.targetID] = { total: 0, overheal: 0 };
+    }
+  }
+
+  onHealWg(event: HealEvent) {
+    const recentWgHealTracker = this.recentWgTargetHealing[event.targetID];
+    if (recentWgHealTracker !== undefined) {
+      const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+      recentWgHealTracker.total += healVal.raw;
+      recentWgHealTracker.overheal += healVal.overheal;
+    }
+  }
+
+  /**
+   * Closes out the 'recent cast' tallies if there is one open and enough time has passed
+   */
+  _tallyRecentCast(event: AnyEvent) {
+    if (
+      this.recentWgCastTimestamp !== undefined &&
+      this.recentWgCastTimestamp + OVERHEAL_BUFFER < event.timestamp
+    ) {
+      this.totalCasts += 1;
+      const hits = Object.values(this.recentWgTargetHealing);
+      const effectiveHits = hits.filter((wg) => wg.total * OVERHEAL_THRESHOLD > wg.overheal).length;
+      this.totalEffectiveHits += effectiveHits;
+
+      if (effectiveHits < RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD) {
+        this.ineffectiveCasts += 1;
+        if (hits.length - effectiveHits >= 2) {
+          this.tooMuchOverhealCasts += 1;
+        }
+        if (hits.length < RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD) {
+          this.tooFewHitsCasts += 1;
+        }
+      }
+
+      this.recentWgCastTimestamp = undefined;
+      this.recentWgTargetHealing = {};
+    }
+  }
+
   get averageEffectiveHits() {
-    return this.wgHistory.reduce((a, b) => a + b.wgBuffs.length, 0) / this.wgs || 0;
+    return this.totalEffectiveHits / this.totalCasts || 0;
   }
 
-  get belowRecommendedCasts() {
-    return this.wgHistory.filter((wg) => wg.wgBuffs.length < RECOMMENDED_HIT_THRESHOLD).length;
-  }
-
-  get belowRecommendedPrecasts() {
-    return this.wgHistory.filter((wg) => wg.badPrecast === true).length;
-  }
-
-  get wgs() {
+  // different from totalCasts because this doesn't consider tallying - used only for ratio vs rejuv
+  get actualWgCasts() {
     return this.abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
   }
 
-  get rejuvs() {
+  get actualRejuvCasts() {
     return this.abilityTracker.getAbility(SPELLS.REJUVENATION.id).casts || 0;
   }
 
   get wgsPerRejuv() {
-    return this.wgs / this.rejuvs || 0;
+    return this.actualWgCasts / this.actualRejuvCasts || 0;
   }
 
-  get percentBelowRecommendedCasts() {
-    return this.belowRecommendedCasts / this.wgs || 0;
+  get percentIneffectiveCasts() {
+    return this.ineffectiveCasts / this.totalCasts || 0;
   }
 
-  get percentBelowRecommendedPrecasts() {
-    return this.belowRecommendedPrecasts / this.wgs || 0;
+  get percentTooFewTargetCasts() {
+    return this.tooFewHitsCasts / this.totalCasts || 0;
+  }
+
+  get percentTooMuchOverhealCasts() {
+    return this.tooMuchOverhealCasts / this.totalCasts || 0;
   }
 
   get suggestionThresholds() {
@@ -62,9 +156,9 @@ class WildGrowth extends Analyzer {
     };
   }
 
-  get suggestionpercentBelowRecommendedCastsThresholds() {
+  get suggestionPercentIneffectiveCastsThresholds() {
     return {
-      actual: this.percentBelowRecommendedCasts,
+      actual: this.percentIneffectiveCasts,
       isGreaterThan: {
         minor: 0.0,
         average: 0.15,
@@ -74,113 +168,17 @@ class WildGrowth extends Analyzer {
     };
   }
 
-  get suggestionpercentBelowRecommendedPrecastsThresholds() {
-    return {
-      actual: this.percentBelowRecommendedPrecasts,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.15,
-        major: 0.35,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-
-  abilityTracker!: AbilityTracker;
-
-  wgHistory: WGTracker[] = [];
-  wgTracker: WGTracker = {
-    wgBuffs: [],
-    startTimestamp: 0,
-    heal: 0,
-    overheal: 0,
-    firstTicksOverheal: 0,
-    firstTicksRaw: 0,
-  };
-
-  constructor(options: Options) {
-    super(options);
-    this.wgTracker.startTimestamp = this.owner.fight.start_time;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onHeal);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.onApplyBuff,
-    );
-    this.addEventListener(Events.fightend, this.onFightend);
-  }
-
-  onCast(event: CastEvent) {
-    if (this.wgTracker.wgBuffs.length > 0) {
-      this.wgTracker.badPrecast =
-        this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw > PRECAST_THRESHOLD;
-      this.wgHistory.push(this.wgTracker);
-    }
-
-    this.wgTracker = {
-      wgBuffs: [],
-      startTimestamp: event.timestamp,
-      heal: 0,
-      overheal: 0,
-      firstTicksOverheal: 0,
-      firstTicksRaw: 0,
-    };
-  }
-
-  onHeal(event: HealEvent) {
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    this.wgTracker.heal += healVal.effective;
-    this.wgTracker.overheal += healVal.overheal;
-
-    // Track overhealing first couple ticks to determine if WG was precast before damaging event.
-    if (event.timestamp - this.wgTracker.startTimestamp < PRECAST_PERIOD) {
-      this.wgTracker.firstTicksRaw += healVal.raw;
-      this.wgTracker.firstTicksOverheal += healVal.overheal;
-    }
-  }
-
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.wgTracker.wgBuffs.push(event.targetID);
-  }
-
-  onFightend() {
-    this.wgHistory.push(this.wgTracker);
-  }
-
   suggestions(when: When) {
-    when(this.suggestionpercentBelowRecommendedPrecastsThresholds).addSuggestion(
-      (suggest, actual, recommended) =>
-        suggest(
-          <>
-            Your initial healing from <SpellLink id={SPELLS.WILD_GROWTH.id} /> were doing too much
-            overhealing. <SpellLink id={SPELLS.WILD_GROWTH.id} /> does most of it's healing
-            initially and declines over duration. Make sure you are not precasting it before
-            damaging event but after damage occurs.
-          </>,
-        )
-          .icon(SPELLS.WILD_GROWTH.icon)
-          .actual(
-            t({
-              id: 'druid.restoration.suggestions.wildgrowth.overhealing',
-              message: `${formatPercentage(actual)}% of casts with high overhealing.`,
-            }),
-          )
-          .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
-    when(this.suggestionpercentBelowRecommendedCastsThresholds).addSuggestion((suggest) =>
+    when(this.suggestionPercentIneffectiveCastsThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You sometimes cast <SpellLink id={SPELLS.WILD_GROWTH.id} /> on too few targets.{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} /> is not mana efficient when hitting few targets,
-          you should only cast it when you can hit at least {RECOMMENDED_HIT_THRESHOLD} wounded
-          targets. Make sure you are not casting on a primary target isolated from the raid.{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} /> has a maximum hit radius, the injured raiders
-          could have been out of range. Also, you should never pre-hot with{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} />.
+          You sometimes hit too few injured targets with your{' '}
+          <SpellLink id={SPELLS.WILD_GROWTH.id} /> casts. Wild Growth is not mana efficient when
+          hitting few targets, you should only cast it when you can hit at least{' '}
+          {RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD} wounded targets. Make sure you are not casting
+          on a primary target isolated from the raid, as it can only hit targets within 30 yds of
+          the primary. Make sure you are not pre-casting on targets before they are hurt, as Wild
+          Growth is a brief HoT and most of its healing is frontloaded.
         </>,
       )
         .icon(SPELLS.WILD_GROWTH.icon)
@@ -188,12 +186,14 @@ class WildGrowth extends Analyzer {
           t({
             id: 'druid.restoration.suggestions.wildgrowth.tooFewTargets',
             message: `${formatPercentage(
-              this.percentBelowRecommendedCasts,
+              this.percentIneffectiveCasts,
               0,
-            )}% of your casts on fewer than ${RECOMMENDED_HIT_THRESHOLD} targets.`,
+            )}% of your casts were effective on fewer than ${RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD} targets.`,
           }),
         )
-        .recommended(`never casting on fewer than ${RECOMMENDED_HIT_THRESHOLD} is recommended`),
+        .recommended(
+          `never casting on fewer than ${RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD} wounded targets is recommended`,
+        ),
     );
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -206,7 +206,7 @@ class WildGrowth extends Analyzer {
         .actual(
           t({
             id: 'druid.restoration.suggestions.wildgrowth.rejuvenationRatio',
-            message: `${this.wgs} WGs / ${this.rejuvs} rejuvs`,
+            message: `${this.actualWgCasts} WGs / ${this.actualRejuvCasts} rejuvs`,
           }),
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
@@ -220,34 +220,28 @@ class WildGrowth extends Analyzer {
         position={STATISTIC_ORDER.CORE(19)}
         tooltip={
           <>
-            Your Wild Growth hit on average {this.averageEffectiveHits.toFixed(2)} players.
-            {this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the
-            recommended targets.
+            This is the average number of effective hits per Wild Growth cast. Because its healing
+            is so frontloaded, we consider a hit effective only if it does less than{' '}
+            {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing over its first{' '}
+            {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds.
+            <br /> <br />
+            This statistic only considers hardcasts, Wild Growths procced by Convoke the Spirits are
+            ignored.
           </>
         }
       >
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.WILD_GROWTH.id} /> Average Wild Growth Hits
+              <SpellIcon id={SPELLS.WILD_GROWTH.id} /> Average Effective Wild Growth Hits
             </>
           }
         >
-          <>{this.averageEffectiveHits.toFixed(2)}</>
+          <>{this.averageEffectiveHits.toFixed(1)}</>
         </BoringValue>
       </Statistic>
     );
   }
-}
-
-interface WGTracker {
-  wgBuffs: number[];
-  startTimestamp: number;
-  heal: number;
-  overheal: number;
-  firstTicksOverheal: number;
-  firstTicksRaw: number;
-  badPrecast?: boolean;
 }
 
 export default WildGrowth;
