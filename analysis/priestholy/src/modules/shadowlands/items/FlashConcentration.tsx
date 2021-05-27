@@ -186,7 +186,7 @@ class FlashConcentration extends Analyzer {
     return {
       actual: this._wastefulCasts,
       isGreaterThan: {
-        minor: 0,
+        minor: Number(this.owner.fightDuration) / 1000 / 60,
         average: (2 * this.owner.fightDuration) / 1000 / 60,
         major: (4 * this.owner.fightDuration) / 1000 / 60,
       },
