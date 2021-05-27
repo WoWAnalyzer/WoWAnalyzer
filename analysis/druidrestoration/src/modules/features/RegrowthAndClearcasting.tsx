@@ -157,7 +157,10 @@ class RegrowthAndClearcasting extends Analyzer {
 
   get clearcastUtilPercent() {
     // return 100% when no clearcasts to avoid suggestion
-    return this.totalClearcasts === 0 ? 1 : this.usedClearcasts / this.totalClearcasts;
+    // clearcast still active at end shouldn't be counted in util, hence the subtraction from total
+    return this.totalClearcasts === 0
+      ? 1
+      : this.usedClearcasts / (this.totalClearcasts - this.endingClearcasts);
   }
 
   get badRegrowthsPerMinute() {
