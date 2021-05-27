@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Sharrq } from 'CONTRIBUTORS';
+import { Adoraci, Sharrq, Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 27), <>Fixed a bug where <SpellLink id={SPELLS.SHIVERING_CORE.id} /> damage contribution would always show as zero.</>, Sref),
   change(date(2021, 4, 3), 'Verified changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Frost Mage has not been fully tested/updated for 9.0.5.', Sharrq),
   change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Frost Mage. Marked Frost Mage as Unsupported/Unmaintained.', Sharrq),

@@ -10,20 +10,20 @@ import { HealEvent } from 'parser/core/Events';
  * so for a 1400 heal the calculation would be 1300 from base heal + 30%, 100 attributable from extra +10%.
  * If we had considered the +10% in a vacuum the calculation would have been 1400 - (1400 / 1.1) = 127.
  *
- * @param event a healing event that was boosted by an effect
+ * @param event a healing event (or heal-like event) that was boosted by an effect
  * @param relativeHealIncreasePerStack the boost's added multiplier per stack (for +10% pass 0.10)
  * @param stacks the number of stacks active, *including the marginal stack we're calculating for*
  *   (so in the above example we'd pass 4)
  * @return the amount of healing attributable on the given heal from the last stack of the given boost
  */
 export default function calculateEffectiveHealingStacked(
-  event: HealEvent,
+  event: { amount: number },
   relativeHealIncreasePerStack: number,
   stacks: number,
 ): number {
   const amount = event.amount;
-  const absorbed = event.absorbed || 0;
-  const overheal = event.overheal || 0;
+  const absorbed = (event as any).absorbed || 0;
+  const overheal = (event as any).overheal || 0;
   const raw = amount + absorbed + overheal;
   const relativeHealingIncreaseFactor = 1 + relativeHealIncreasePerStack * stacks;
   const totalHealingIncrease = raw - raw / relativeHealingIncreaseFactor;
