@@ -117,10 +117,14 @@ class FlashConcentration extends Analyzer {
   /**
    * when at full stack, it refreshes the last refresh timer,
    * and counts a Wasteful Cast if it was used earlier than needed
+   * without 2 Surge Of Light Stacks
    */
   onByPlayerFlashHealCast(event: CastEvent) {
     if (this._isFullStack) {
-      if (event.timestamp - this._lastFullStackRefresh < FLASH_CONCENTRATION_DURATION - 5000) {
+      if (
+        event.timestamp - this._lastFullStackRefresh < FLASH_CONCENTRATION_DURATION - 5000 &&
+        this.selectedCombatant.getBuffStacks(SPELLS.SURGE_OF_LIGHT_TALENT.id) < 2
+      ) {
         this._wastefulCasts += 1;
       }
       this._lastFullStackRefresh = event.timestamp;
@@ -128,7 +132,7 @@ class FlashConcentration extends Analyzer {
   }
 
   onByPlayerHealAmount(event: HealEvent) {
-    this._totalHeal += event.amount;
+    this._totalHeal += event.amount + (event.absorbed || 0);
     this._gainedHeal +=
       (event.amount * (this._currentStacks * FLASH_CONCENTRATION_HEAL_BUFF)) /
       (1 + this._currentStacks * FLASH_CONCENTRATION_HEAL_BUFF);
