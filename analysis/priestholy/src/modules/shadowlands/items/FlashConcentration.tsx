@@ -45,6 +45,8 @@ class FlashConcentration extends Analyzer {
   _gainedCastTime = 0;
   _totalCastTime = 0;
   _HealBuffedStats = [0, 0, 0, 0, 0, 0];
+  _SurgeOfLightUnload = 0;
+  _goodRefreshes = 0;
 
   constructor(options: Options) {
     super(options);
@@ -123,10 +125,11 @@ class FlashConcentration extends Analyzer {
    */
   onByPlayerFlashHealCast(event: CastEvent) {
     if (this._isFullStack) {
-      if (
-        event.timestamp - this._lastFullStackRefresh < FLASH_CONCENTRATION_DURATION - 5000 &&
-        this.selectedCombatant.getBuffStacks(SPELLS.SURGE_OF_LIGHT_TALENT.id) < 2
-      ) {
+      if (event.timestamp - this._lastFullStackRefresh > FLASH_CONCENTRATION_DURATION - 5000) {
+        this._goodRefreshes += 1;
+      } else if (this.selectedCombatant.getBuffStacks(SPELLS.SURGE_OF_LIGHT_TALENT.id) >= 2) {
+        this._SurgeOfLightUnload += 1;
+      } else {
         this._wastefulCasts += 1;
       }
       this._lastFullStackRefresh = event.timestamp;
@@ -167,6 +170,20 @@ class FlashConcentration extends Analyzer {
         spellId: SPELLS.FLASH_HEAL.id,
         value: this._wastefulCasts,
         valueTooltip: `${this._wastefulCasts} unoptimized casts`,
+      },
+      {
+        color: '#eeff41',
+        label: 'Surge of Light',
+        spellId: SPELLS.SURGE_OF_LIGHT_TALENT.id,
+        value: this._SurgeOfLightUnload,
+        valueTooltip: `${this._SurgeOfLightUnload} unoptimized casts`,
+      },
+      {
+        color: '#b2ff59',
+        label: 'Refresh',
+        spellId: SPELLS.FLASH_CONCENTRATION.id,
+        value: this._goodRefreshes,
+        valueTooltip: `${this._goodRefreshes} good refreshes`,
       },
     ];
 
