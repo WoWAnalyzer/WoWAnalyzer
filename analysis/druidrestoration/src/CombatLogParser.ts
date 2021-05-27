@@ -18,7 +18,6 @@ import SpellManaCost from './modules/core/SpellManaCost';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
 import Checklist from './modules/features/Checklist/Module';
-import Clearcasting from './modules/features/Clearcasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Efflorescence from './modules/features/Efflorescence';
 import Innervate from './modules/features/Innervate';
@@ -26,6 +25,7 @@ import Ironbark from './modules/features/Ironbark';
 import Lifebloom from './modules/features/Lifebloom';
 import LifebloomAndEffloUptime from './modules/features/LifebloomAndEffloUptime';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
+import RegrowthAndClearcasting from './modules/features/RegrowthAndClearcasting';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
 import WildGrowth from './modules/features/WildGrowth';
@@ -90,7 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
-    clearcasting: Clearcasting,
+    clearcasting: RegrowthAndClearcasting,
     innervate: Innervate,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,

@@ -9,10 +9,10 @@ import Cultivation from '../../talents/Cultivation';
 import SpringBlossoms from '../../talents/SpringBlossoms';
 import TreeOfLife from '../../talents/TreeOfLife';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import Clearcasting from '../Clearcasting';
 import Efflorescence from '../Efflorescence';
 import Innervate from '../Innervate';
 import Lifebloom from '../Lifebloom';
+import RegrowthAndClearcasting from '../RegrowthAndClearcasting';
 import WildGrowth from '../WildGrowth';
 import Component from './Component';
 
@@ -26,7 +26,7 @@ class Checklist extends BaseChecklist {
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     innervate: Innervate,
-    clearCasting: Clearcasting,
+    regrowthAndClearcasting: RegrowthAndClearcasting,
     manaValues: ManaValues,
     cultivation: Cultivation,
     springBlossoms: SpringBlossoms,
@@ -41,7 +41,7 @@ class Checklist extends BaseChecklist {
   protected lifebloom!: Lifebloom;
   protected efflorescence!: Efflorescence;
   protected innervate!: Innervate;
-  protected clearCasting!: Clearcasting;
+  protected regrowthAndClearcasting!: RegrowthAndClearcasting;
   protected manaValues!: ManaValues;
   protected cultivation!: Cultivation;
   protected springBlossoms!: SpringBlossoms;
@@ -64,8 +64,8 @@ class Checklist extends BaseChecklist {
           efflorescenceUpTime: this.efflorescence.suggestionThresholds,
           innervateManaSaved: this.innervate.manaSavedThresholds,
           innervateSelfCasts: this.innervate.selfCastThresholds,
-          clearCastingUtil: this.clearCasting.clearcastingUtilSuggestionThresholds,
-          badRegrowths: this.clearCasting.badRegrowthsSuggestionThresholds,
+          clearCastingUtil: this.regrowthAndClearcasting.clearcastingUtilSuggestionThresholds,
+          badRegrowths: this.regrowthAndClearcasting.badRegrowthsSuggestionThresholds,
           manaValues: this.manaValues.suggestionThresholds,
           cultivationPercent: this.cultivation.suggestionThresholds,
           springBlossomsPercent: this.springBlossoms.suggestionThresholds,

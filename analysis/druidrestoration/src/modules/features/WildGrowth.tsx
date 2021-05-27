@@ -22,6 +22,13 @@ const OVERHEAL_BUFFER = 3000;
 /** Overheal percent within OVERHEAL_BUFFER of application that will count as 'too much' */
 const OVERHEAL_THRESHOLD = 0.5;
 
+/**
+ * Tracks stats relating to Wild Growth
+ *
+ * This modules functioning relies on normalizers that ensure:
+ * * Wild Growth cast will always come before Wild Growth HoT apply
+ * * Wild Growth HoT apply will always come before Wild Growth first heal
+ */
 class WildGrowth extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,

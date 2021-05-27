@@ -21,11 +21,20 @@ const MS_BUFFER = 100;
 /** Min stacks required to consider a regrowth efficient */
 const ABUNDANCE_EXCEPTION_STACKS = 4;
 
-class Clearcasting extends Analyzer {
+/**
+ * Tracks stats relating to Regrowth and the Clearcasting proc
+ *
+ * This modules functioning relies on normalizers that ensure:
+ * * Regrowth cast will always come before Clearcasting fade
+ * * Regrowth cast will always come before Regrowth initial heal
+ */
+class RegrowthAndClearcasting extends Analyzer {
   /** total clearcasting procs */
   totalClearcasts = 0;
   /** overwritten clearcasting procs */
   overwrittenClearcasts = 0;
+  /** set to 1 iff there is a clearcast active at fight end */
+  endingClearcasts = 0;
 
   /** total regrowth hardcasts */
   totalRegrowths = 0;
@@ -64,6 +73,7 @@ class Clearcasting extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
       this.onHealRegrowth,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onApplyClearcast(event: ApplyBuffEvent) {
@@ -122,12 +132,23 @@ class Clearcasting extends Analyzer {
     this.lastRegrowthCast = undefined;
   }
 
+  onFightEnd() {
+    if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
+      this.endingClearcasts = 1;
+    }
+  }
+
   get usedClearcasts() {
     return this.ccRegrowths;
   }
 
   get expiredClearcasts() {
-    return this.totalClearcasts - this.overwrittenClearcasts - this.usedClearcasts;
+    return (
+      this.totalClearcasts -
+      this.overwrittenClearcasts -
+      this.usedClearcasts -
+      this.endingClearcasts
+    );
   }
 
   get wastedClearcasts() {
@@ -267,6 +288,11 @@ class Clearcasting extends Analyzer {
               <li>
                 <UptimeIcon /> Expired: <strong>{this.expiredClearcasts}</strong>
               </li>
+              {this.endingClearcasts > 0 && (
+                <li>
+                  Still active at fight end: <strong>{this.endingClearcasts}</strong>
+                </li>
+              )}
             </ul>
           </>
         }
@@ -287,4 +313,4 @@ class Clearcasting extends Analyzer {
   }
 }
 
-export default Clearcasting;
+export default RegrowthAndClearcasting;
