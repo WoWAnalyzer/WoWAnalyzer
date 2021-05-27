@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveHealingStacked from 'parser/core/calculateEffectiveHealingStacked';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ApplyBuffStackEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -133,9 +134,11 @@ class FlashConcentration extends Analyzer {
 
   onByPlayerHealAmount(event: HealEvent) {
     this._totalHeal += event.amount + (event.absorbed || 0);
-    this._gainedHeal +=
-      (event.amount * (this._currentStacks * FLASH_CONCENTRATION_HEAL_BUFF)) /
-      (1 + this._currentStacks * FLASH_CONCENTRATION_HEAL_BUFF);
+    this._gainedHeal += calculateEffectiveHealingStacked(
+      event,
+      FLASH_CONCENTRATION_HEAL_BUFF,
+      this._currentStacks,
+    );
     this._gainedCastTime += this._currentStacks * FLASH_CONCENTRATION_CAST_TIME_REDUCTION;
   }
 
