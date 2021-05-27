@@ -171,7 +171,10 @@ class FlashConcentration extends Analyzer {
             approximate
           />
           <br />
-          {this._gainedCastTime / 1000} sec saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+          {this._gainedCastTime / 1000} sec{' '}
+          <small>
+            saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );
