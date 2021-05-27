@@ -40,6 +40,8 @@ class RegrowthAndClearcasting extends Analyzer {
   totalRegrowths = 0;
   /** regrowth hardcasts made free by innervate */
   innervateRegrowths = 0;
+  /** regrowth hardcasts made free by nature's swiftness */
+  nsRegrowths = 0;
   /** regrowth hardcasts made free by clearcasting */
   ccRegrowths = 0;
   /** regrowth hardcasts that were cheap enough to be efficient due to abundance */
@@ -92,6 +94,10 @@ class RegrowthAndClearcasting extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.innervateRegrowths += 1;
       return;
+    } else if (
+      this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS.id, event.timestamp, MS_BUFFER)
+    ) {
+      this.nsRegrowths += 1;
     } else if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.ccRegrowths += 1;
     } else if (
@@ -168,7 +174,7 @@ class RegrowthAndClearcasting extends Analyzer {
   }
 
   get freeRegrowths() {
-    return this.innervateRegrowths + this.ccRegrowths;
+    return this.innervateRegrowths + this.ccRegrowths + this.nsRegrowths;
   }
 
   get clearcastingUtilSuggestionThresholds() {
@@ -249,7 +255,8 @@ class RegrowthAndClearcasting extends Analyzer {
         tooltip={
           <>
             <SpellLink id={SPELLS.REGROWTH.id} /> is very mana inefficient and should only be cast
-            when free due to <SpellLink id={SPELLS.INNERVATE.id} /> or{' '}
+            when free due to <SpellLink id={SPELLS.INNERVATE.id} />,{' '}
+            <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> or{' '}
             <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />, cheap due to{' '}
             {ABUNDANCE_EXCEPTION_STACKS}+ <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> stacks, or
             to save a low health target.
@@ -261,7 +268,8 @@ class RegrowthAndClearcasting extends Analyzer {
             <ul>
               <li>
                 <SpellIcon id={SPELLS.INNERVATE.id} />{' '}
-                <SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} /> Free Casts:{' '}
+                <SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />{' '}
+                <SpellIcon id={SPELLS.NATURES_SWIFTNESS.id} /> Free Casts:{' '}
                 <strong>{this.freeRegrowths}</strong>
               </li>
               <li>
