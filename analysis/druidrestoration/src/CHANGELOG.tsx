@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 27), <>Fixed an issue where <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> buffed <SpellLink id={SPELLS.REGROWTH.id} /> wasn't being counted as free by the tracker.</>, Sref),
   change(date(2021, 5, 26), <>Reworked <SpellLink id={SPELLS.REGROWTH.id} /> and <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> stats into a single box, and fixed some bugs in their display. Reworked display of average <SpellLink id={SPELLS.WILD_GROWTH.id} /> hits and fixed a bug where it was counting buffs from Convoke.</>, Sref),
   change(date(2021, 5, 26), <>Moved all talent related stat boxes to their own section, and combined <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> and <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptimes into a new graph.</>, Sref),
   change(date(2021, 5, 18), <>Added <SpellLink id={SPELLS.FIELD_OF_BLOSSOMS.id} /> support</>, Sref),
