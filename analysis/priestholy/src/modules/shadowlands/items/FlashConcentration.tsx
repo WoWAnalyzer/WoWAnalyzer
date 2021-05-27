@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { ApplyBuffStackEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -13,7 +12,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const FLASH_CONCENTRATION_DURATION = 20000; // 20 s buff duration
-const FLASH_CONCENTRATION_HEAL_BUFF = 0.03; // 3% per stack
 const FLASH_CONCENTRATION_CAST_TIME_REDUCTION = 200; // 0.2 seconds per stack
 
 /**
@@ -39,13 +37,13 @@ class FlashConcentration extends Analyzer {
   _totalDrops = 0;
   // tracker for number of current stacks
   _currentStacks = 5;
-  // cumulated gained healing and cast time on every buffed Heal Cast, plus the totals
-  _totalHeal = 0;
-  _gainedHeal = 0;
+  // overall gained cast time on Heals thanks to Flash Concentration
   _gainedCastTime = 0;
-  _totalCastTime = 0;
+  // number of Heal Casts at each number of stacks of FC
   _HealBuffedStats = [0, 0, 0, 0, 0, 0];
+  // number of times Flash Heal is cast at 5 stacks of FC, more than 5 seconds before the end of FC, to drop a second stack of Surge of Light
   _SurgeOfLightUnload = 0;
+  // number of refreshes of FC stacks done less than 5 seconds before the end of the FC Buff
   _goodRefreshes = 0;
 
   constructor(options: Options) {
@@ -67,10 +65,6 @@ class FlashConcentration extends Analyzer {
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
       this.onByPlayerFlashHealCast,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL),
-      this.onByPlayerHealAmount,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL),
@@ -136,23 +130,10 @@ class FlashConcentration extends Analyzer {
     }
   }
 
-  onByPlayerHealAmount(event: HealEvent) {
-    this._totalHeal += event.amount + (event.absorbed || 0);
-    this._gainedHeal += calculateEffectiveHealing(
-      event,
-      FLASH_CONCENTRATION_HEAL_BUFF * this._currentStacks,
-    );
-    this._gainedCastTime += this._currentStacks * FLASH_CONCENTRATION_CAST_TIME_REDUCTION;
-  }
-
   onByPlayerHealCast(event: CastEvent) {
-    this._totalCastTime +=
-      event.timestamp -
-      (event.channel?.beginChannel?.timestamp
-        ? event.channel.beginChannel.timestamp
-        : event.timestamp);
     // store the Heal in the table per number of stacks
     this._HealBuffedStats[this._currentStacks] += 1;
+    this._gainedCastTime += this._currentStacks * FLASH_CONCENTRATION_CAST_TIME_REDUCTION;
   }
 
   renderMaxStacksChart() {
