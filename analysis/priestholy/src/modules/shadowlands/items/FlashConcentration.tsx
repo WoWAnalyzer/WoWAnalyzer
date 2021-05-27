@@ -6,7 +6,7 @@ import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ApplyBuffStackEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
@@ -43,6 +43,7 @@ class FlashConcentration extends Analyzer {
   _gainedHeal = 0;
   _gainedCastTime = 0;
   _totalCastTime = 0;
+  _HealBuffedStats = [0, 0, 0, 0, 0, 0];
 
   constructor(options: Options) {
     super(options);
@@ -146,9 +147,15 @@ class FlashConcentration extends Analyzer {
       (event.channel?.beginChannel?.timestamp
         ? event.channel.beginChannel.timestamp
         : event.timestamp);
+    // store the Heal in the table per number of stacks
+    this._HealBuffedStats[this._currentStacks] += 1;
   }
 
   statistic() {
+    const averageStacksOnHeal = (
+      this._HealBuffedStats.reduce((p, v, i) => p + v * i) /
+      this._HealBuffedStats.reduce((p, v) => p + v)
+    ).toFixed(2);
     return (
       <Statistic
         size="flexible"
@@ -159,13 +166,45 @@ class FlashConcentration extends Analyzer {
             the gameplay in depth
           </>
         }
+        dropdown={
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Number of Casts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this._HealBuffedStats.map((v, i) => (
+                  <tr key={`stack${i}`}>
+                    <th>{i}</th>
+                    <th>{v}</th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        }
       >
-        <BoringSpellValueText spell={SPELLS.FLASH_CONCENTRATION}>
+        <BoringValue
+          label={
+            <>
+              <SpellLink id={SPELLS.GREATER_HEAL.id} /> with{' '}
+              <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} />
+            </>
+          }
+        >
           {this._gainedCastTime / 1000} sec{' '}
           <small>
             saved on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
           </small>
-        </BoringSpellValueText>
+          <br />
+          {averageStacksOnHeal}{' '}
+          <small>
+            avg stacks on <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+          </small>
+        </BoringValue>
       </Statistic>
     );
   }
