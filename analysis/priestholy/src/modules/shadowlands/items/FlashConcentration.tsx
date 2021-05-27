@@ -238,11 +238,13 @@ class FlashConcentration extends Analyzer {
             </>
           }
         >
-          <label>
-            {' '}
-            <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> fully stacked
-          </label>
-          {this.renderMaxStacksChart()}
+          <div className="pad">
+            <label>
+              {' '}
+              <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> fully stacked
+            </label>
+            {this.renderMaxStacksChart()}
+          </div>
         </Statistic>
       </>
     );
