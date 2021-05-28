@@ -121,7 +121,7 @@ class FlashConcentration extends Analyzer {
     if (this._isFullStack) {
       if (event.timestamp - this._lastFullStackRefresh > FLASH_CONCENTRATION_DURATION - 5000) {
         this._goodRefreshes += 1;
-      } else if (this.selectedCombatant.getBuffStacks(SPELLS.SURGE_OF_LIGHT_TALENT.id) >= 2) {
+      } else if (this.selectedCombatant.getBuffStacks(SPELLS.SURGE_OF_LIGHT_BUFF.id) >= 2) {
         this._SurgeOfLightUnload += 1;
       } else {
         this._wastefulCasts += 1;
