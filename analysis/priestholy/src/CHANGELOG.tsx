@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, acornellier, Khadaj, niseko, Zeboot } from 'CONTRIBUTORS';
+import { Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 5, 26), <>Added <SpellLink id={SPELLS.FLASH_CONCENTRATION.id} /> Analysis, Statistics and Suggestions</>, carglass),
   change(date(2021, 4, 11), <>Updated <SpellLink id={SPELLS.GUARDIAN_FAERIE.id} /> damage reduction to 20% and corrected DR calculation.</>, Adoraci),
   change(date(2021, 3, 10), <>Updated <SpellLink id={SPELLS.DIVINE_HYMN_HEAL.id} /> appproxmiation</>, Khadaj),
   change(date(2021, 3, 3), <>Removed spreadsheet tab</>, acornellier),

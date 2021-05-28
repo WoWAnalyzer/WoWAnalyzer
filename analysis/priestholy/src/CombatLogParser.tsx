@@ -32,6 +32,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import StatWeights from './modules/features/StatWeights';
 import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
 import DivineImage from './modules/shadowlands/items/DivineImage';
+import FlashConcentration from './modules/shadowlands/items/FlashConcentration';
 import HarmoniousApparatus from './modules/shadowlands/items/HarmoniousApparatus';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     harmoniousApparatus: HarmoniousApparatus,
     divineImage: DivineImage,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    flashConcentration: FlashConcentration,
 
     // Conduits
     resonantWords: ResonantWords,
