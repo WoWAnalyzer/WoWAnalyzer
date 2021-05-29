@@ -3,45 +3,72 @@ import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormaliz
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-// so far I haven't seen any delay, so leaving this at zero so timestamp ordering is preserved,
-// and to avoid false positives if HoT falls and then quickly refreshed
-const MAX_DELAY = 0;
+// max buffer that cast can be before apply to connect them
+const CAST_TO_APPLY_BUFFER_MS = 100;
+// max buffer that apply can be before heal to connect them
+const APPLY_TO_HEAL_BUFFER_MS = 0;
 
-// This ordering issue only happens for the HoTs that tick instantly upon application
 const EVENT_ORDERS: EventOrder[] = [
+  // Cast -> Apply reorders
+  {
+    beforeEventId: SPELLS.REJUVENATION.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id],
+    afterEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    bufferMs: CAST_TO_APPLY_BUFFER_MS,
+  },
+  {
+    beforeEventId: SPELLS.REGROWTH.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.REGROWTH.id,
+    afterEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    bufferMs: CAST_TO_APPLY_BUFFER_MS,
+  },
+  {
+    beforeEventId: SPELLS.WILD_GROWTH.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.WILD_GROWTH.id,
+    afterEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    bufferMs: CAST_TO_APPLY_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
+    beforeEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
+    afterEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    bufferMs: CAST_TO_APPLY_BUFFER_MS,
+  },
+  // Apply -> Heal reorders - only occur for instant ticking hots
   {
     beforeEventId: SPELLS.REJUVENATION.id,
     beforeEventType: EventType.ApplyBuff,
     afterEventId: SPELLS.REJUVENATION.id,
     afterEventType: EventType.Heal,
-    bufferMs: MAX_DELAY,
+    bufferMs: APPLY_TO_HEAL_BUFFER_MS,
   },
   {
     beforeEventId: SPELLS.REJUVENATION_GERMINATION.id,
     beforeEventType: EventType.ApplyBuff,
     afterEventId: SPELLS.REJUVENATION_GERMINATION.id,
     afterEventType: EventType.Heal,
-    bufferMs: MAX_DELAY,
-  },
-  {
-    beforeEventId: SPELLS.REGROWTH.id,
-    beforeEventType: EventType.ApplyBuff,
-    afterEventId: SPELLS.REGROWTH.id,
-    afterEventType: EventType.Heal,
-    bufferMs: MAX_DELAY,
+    bufferMs: APPLY_TO_HEAL_BUFFER_MS,
   },
   {
     beforeEventId: SPELLS.WILD_GROWTH.id,
     beforeEventType: EventType.ApplyBuff,
     afterEventId: SPELLS.WILD_GROWTH.id,
     afterEventType: EventType.Heal,
-    bufferMs: MAX_DELAY,
+    bufferMs: APPLY_TO_HEAL_BUFFER_MS,
   },
 ];
 
 /**
- * Occasionally HoT heal has same timestamp but happens before the applybuff event, which causes issues when attempting to attribute the heal.'
- * This normalizes the heal to always be after the applybuff
+ * When a HoT is cast on a target, the ordering of the ensuing Cast, ApplyBuff, and Heal events
+ * can be semi-arbitrary, making analysis difficult.
+ *
+ * This normalizer enforces the order Cast -> Apply -> Heal
+ * for Rejuvenation, Regrowth, Wild Growth, and Lifebloom.
  */
 class HotApplicationNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {

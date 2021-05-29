@@ -9,7 +9,6 @@ import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import Abilities from '../Abilities';
-import RegrowthAttributor from '../core/hottracking/RegrowthAttributor';
 import RegrowthAndClearcasting from '../features/RegrowthAndClearcasting';
 
 /*
@@ -28,7 +27,6 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
     // Custom dependencies
     abilities: Abilities,
-    regrowthAttributor: RegrowthAttributor,
     clearcasting: RegrowthAndClearcasting,
   };
 
@@ -40,7 +38,6 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   // Custom dependencies
   protected abilities!: Abilities;
-  protected regrowthAttributor!: RegrowthAttributor;
   protected clearcasting!: RegrowthAndClearcasting;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
@@ -55,8 +52,8 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getRegrowthDetails(spellInfo: SpellInfoDetails) {
     // This represents that amount of healing done by HARD CASTING regrowth.
     // We don't want regrowth to get Hpm credit for healing that we didn't spend mana on.
-    spellInfo.healingDone = this.regrowthAttributor.totalNonCCRegrowthHealing;
-    spellInfo.overhealingDone = this.regrowthAttributor.totalNonCCRegrowthOverhealing;
+    spellInfo.healingDone = 0; // TODO ??
+    spellInfo.overhealingDone = 0; // TODO ??
     spellInfo.casts = this.clearcasting.badRegrowths;
 
     return spellInfo;

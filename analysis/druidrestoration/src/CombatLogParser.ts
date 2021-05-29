@@ -10,8 +10,7 @@ import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
 import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
-import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
-import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
+import HotAttributor from './modules/core/hottracking/HotAttributor';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -51,16 +50,14 @@ import TreeOfLife from './modules/talents/TreeOfLife';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
-import WildGrowthNormalizer from './normalizers/WildGrowth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
     // Normalizers
-    wildGrowthNormalizer: WildGrowthNormalizer,
     clearcastingNormalizer: ClearcastingNormalizer,
-    hotApplicationNormalizer: HotApplicationNormalizer, // this needs to be loaded after potaNormalizer, as potaNormalizer can sometimes unfix the events if loaded before...
+    hotApplicationNormalizer: HotApplicationNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core
@@ -78,8 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hot Tracking
     hotTracker: HotTrackerRestoDruid,
-    rejuvenationAttributor: RejuvenationAttributor,
-    regrowthAttributor: RegrowthAttributor,
+    hotAttributor: HotAttributor,
 
     // Features
     lowHealthHealing: LowHealthHealing,

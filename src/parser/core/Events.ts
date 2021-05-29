@@ -190,11 +190,20 @@ export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
 export interface Event<T extends string> {
+  /** Event type string */
   type: T;
+  /** Timestamp in milliseconds */
   timestamp: number;
+  /** True iff the event happened before the pull. Added by WoWA */
   prepull?: boolean;
+  /** Other events associated with this event. Added by WoWA normalizers. */
+  linkedEvents?: AnyEvent[];
+  /** True iff the event was created by WoWA */
   __fabricated?: boolean;
+  /** True iff the event's content was modified by WoWA */
   __modified?: boolean;
+  /** True iff a WoWA normalizer reordered this event */
+  __reordered?: boolean;
 }
 
 export interface BeginCastEvent extends Event<EventType.BeginCast> {

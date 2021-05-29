@@ -29,6 +29,7 @@ class RiptideNormalizer extends EventsNormalizer {
           event.ability.guid === SPELLS.RIPTIDE.id &&
           event.targetID === healEvent.targetID
         ) {
+          healEvent.__reordered = true;
           healEvent.__modified = true;
           healEvent.timestamp = event.timestamp;
           fixedEvents.push(event);
