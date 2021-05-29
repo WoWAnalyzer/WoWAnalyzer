@@ -196,8 +196,8 @@ export interface Event<T extends string> {
   timestamp: number;
   /** True iff the event happened before the pull. Added by WoWA */
   prepull?: boolean;
-  /** Other events associated with this event. Added by WoWA normalizers. */
-  linkedEvents?: AnyEvent[];
+  /** Other events associated with this event. Added by WoWA normalizers. Meaning is context sensitive */
+  _linkedEvents?: AnyEvent[];
   /** True iff the event was created by WoWA */
   __fabricated?: boolean;
   /** True iff the event's content was modified by WoWA */

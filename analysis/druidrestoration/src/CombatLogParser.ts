@@ -49,6 +49,7 @@ import SpringBlossoms from './modules/talents/SpringBlossoms';
 import TreeOfLife from './modules/talents/TreeOfLife';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
+import HotCastLinkNormalizer from './normalizers/HotCastLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     clearcastingNormalizer: ClearcastingNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
+    hotCastLinkNormalizer: HotCastLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core

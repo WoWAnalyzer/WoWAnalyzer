@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent } from 'parser/core/Events';
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../../shadowlands/covenants/ConvokeSpiritsResto';
 import { LIFEBLOOM_BUFFS, REJUVENATION_BUFFS } from '../../../constants';
@@ -17,7 +17,7 @@ const DEBUG = true;
  * possibilities in mind. This analyzer centralizes that process.
  *
  * This modules functioning relies on normalizers that ensure:
- * * HoT casts will always come before that HoT's applybuff
+ * * HoT's applybuff/refreshbuff will always link to the cast that caused it (if present)
  */
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -27,12 +27,6 @@ class HotAttributor extends Analyzer {
 
   hotTracker!: HotTrackerRestoDruid;
   convokeSpirits!: ConvokeSpiritsResto;
-
-  lastPendingRejuvCast?: CastEvent;
-  lastPendingRegrowthCast?: CastEvent;
-  lastPendingWildGrowthCast?: CastEvent;
-  lastPendingLifebloomCast?: CastEvent;
-  lastPendingOvergrowthCast?: CastEvent;
 
   hasOvergrowth: boolean;
   hasMemoryOfTheMotherTree: boolean;
@@ -59,26 +53,6 @@ class HotAttributor extends Analyzer {
       SPELLS.LYCARAS_FLEETING_GLIMPSE.bonusID,
     );
 
-    // cast listeners
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.onCastRejuv,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.onCastRegrowth,
-    );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH), this.onCastWg);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
-      this.onCastLb,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERGROWTH_TALENT),
-      this.onCastOvergrowth,
-    );
-
-    // application listeners
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(REJUVENATION_BUFFS),
       this.onApplyRejuv,
@@ -113,33 +87,13 @@ class HotAttributor extends Analyzer {
     );
   }
 
-  onCastRejuv(event: CastEvent) {
-    this.lastPendingRejuvCast = event;
-  }
-
-  onCastRegrowth(event: CastEvent) {
-    this.lastPendingRegrowthCast = event;
-  }
-
-  onCastWg(event: CastEvent) {
-    this.lastPendingWildGrowthCast = event;
-  }
-
-  onCastLb(event: CastEvent) {
-    this.lastPendingLifebloomCast = event;
-  }
-
-  onCastOvergrowth(event: CastEvent) {
-    this.lastPendingOvergrowthCast = event;
-  }
-
   onApplyRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this._matchCast(this.lastPendingRejuvCast, event, true)) {
+    const cast = this._getCast(event);
+    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
       this._logAttrib(event, 'Hardcast');
-      this.lastPendingRejuvCast = undefined;
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
-    } else if (this.hasOvergrowth && this._matchCast(this.lastPendingOvergrowthCast, event, true)) {
+    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
@@ -156,12 +110,12 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyRegrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this._matchCast(this.lastPendingRegrowthCast, event, true)) {
+    const cast = this._getCast(event);
+    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
       this._logAttrib(event, 'Hardcast');
-      this.lastPendingRegrowthCast = undefined;
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
-    } else if (this.hasOvergrowth && this._matchCast(this.lastPendingOvergrowthCast, event, true)) {
+    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
@@ -176,12 +130,13 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyWg(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this._matchCast(this.lastPendingWildGrowthCast, event, false)) {
+    const cast = this._getCast(event);
+    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
       this._logAttrib(event, 'Hardcast');
       // don't clear pending because it hits many targets
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
-    } else if (this.hasOvergrowth && this._matchCast(this.lastPendingOvergrowthCast, event, true)) {
+    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (this.hasLycarasFleetingGlimpse) {
@@ -193,10 +148,10 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyLb(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this._matchCast(this.lastPendingLifebloomCast, event, true)) {
+    const cast = this._getCast(event);
+    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
       this._logAttrib(event, 'Hardcast');
-      this.lastPendingRegrowthCast = undefined;
-    } else if (this.hasOvergrowth && this._matchCast(this.lastPendingOvergrowthCast, event, true)) {
+    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else {
@@ -204,16 +159,12 @@ class HotAttributor extends Analyzer {
     }
   }
 
-  _matchCast(
-    cast: CastEvent | undefined,
-    apply: ApplyBuffEvent | RefreshBuffEvent,
-    matchTarget: boolean,
-  ): boolean {
-    return (
-      cast !== undefined &&
-      cast.timestamp + BUFFER_MS >= apply.timestamp &&
-      (!matchTarget || cast.targetID === apply.targetID)
-    );
+  _getCast(apply: ApplyBuffEvent | RefreshBuffEvent): CastEvent | undefined {
+    const event =
+      apply._linkedEvents === undefined
+        ? undefined
+        : apply._linkedEvents.find((e) => e.type === EventType.Cast);
+    return event === undefined ? undefined : (event as CastEvent);
   }
 
   _logAttrib(event: ApplyBuffEvent | RefreshBuffEvent, attrib: Attribution | string | undefined) {
