@@ -1,12 +1,13 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import HotAttributor from '../../core/hottracking/HotAttributor';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import React from 'react';
+
+import HotAttributor from '../../core/hottracking/HotAttributor';
 
 // TODO refactor to be usable by all specs?
 /**

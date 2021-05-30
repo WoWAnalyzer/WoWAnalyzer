@@ -1,6 +1,6 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Analyzer';
 import { AnyEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**
@@ -75,12 +75,18 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
     ) {
       // check and link
       if (linkingEvent._linkedEvents === undefined) {
-        linkingEvent._linkedEvents = { };
+        linkingEvent._linkedEvents = {};
       }
       if (linkingEvent._linkedEvents[el.linkKey] !== undefined) {
-        console.warn("Linking events with key " + el.linkKey + " - but the key was already defined!" +
-          " Linkers have probably been specified wrong. The old link will be overwritten.",
-          el, linkingEvent, linkingEvent._linkedEvents[el.linkKey]);
+        console.warn(
+          'Linking events with key ' +
+            el.linkKey +
+            ' - but the key was already defined!' +
+            ' Linkers have probably been specified wrong. The old link will be overwritten.',
+          el,
+          linkingEvent,
+          linkingEvent._linkedEvents[el.linkKey],
+        );
       }
       linkingEvent._linkedEvents[el.linkKey] = referencedEvent;
       linkingEvent.__modified = true;
@@ -88,12 +94,18 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
       // do reverse link if needed
       if (el.reverseLinkKey !== undefined) {
         if (referencedEvent._linkedEvents === undefined) {
-          referencedEvent._linkedEvents = { };
+          referencedEvent._linkedEvents = {};
         }
         if (referencedEvent._linkedEvents[el.reverseLinkKey] !== undefined) {
-          console.warn("Linking events with reverse key " + el.reverseLinkKey + " - but the key was already defined!" +
-            " Linkers have probably been specified wrong. The old link will be overwritten.",
-            el, referencedEvent, referencedEvent._linkedEvents[el.reverseLinkKey]);
+          console.warn(
+            'Linking events with reverse key ' +
+              el.reverseLinkKey +
+              ' - but the key was already defined!' +
+              ' Linkers have probably been specified wrong. The old link will be overwritten.',
+            el,
+            referencedEvent,
+            referencedEvent._linkedEvents[el.reverseLinkKey],
+          );
         }
         referencedEvent._linkedEvents[el.reverseLinkKey] = linkingEvent;
         referencedEvent.__modified = true;

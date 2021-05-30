@@ -1,15 +1,16 @@
+import { formatNth, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { binomialCDF, plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import { binomialCDF } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+
 import HotAttributor from '../../core/hottracking/HotAttributor';
-import { formatNth, formatPercentage } from 'common/format';
 
 const PROC_PROB = 0.4;
 

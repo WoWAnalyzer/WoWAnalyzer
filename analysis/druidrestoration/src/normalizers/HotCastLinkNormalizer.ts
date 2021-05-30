@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
 const CAST_TO_APPLY_BUFFER_MS = 100; // TODO can this be cut down?
 

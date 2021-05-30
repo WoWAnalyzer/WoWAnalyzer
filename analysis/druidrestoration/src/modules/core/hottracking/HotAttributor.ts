@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
-import ConvokeSpiritsResto from '../../shadowlands/covenants/ConvokeSpiritsResto';
-import { LIFEBLOOM_BUFFS, REJUVENATION_BUFFS } from '../../../constants';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
+
+import { LIFEBLOOM_BUFFS, REJUVENATION_BUFFS } from '../../../constants';
 import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/HotCastLinkNormalizer';
+import ConvokeSpiritsResto from '../../shadowlands/covenants/ConvokeSpiritsResto';
+import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
@@ -102,7 +103,11 @@ class HotAttributor extends Analyzer {
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
       this.hasMemoryOfTheMotherTree &&
-      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE.id, event.timestamp, BUFFER_MS)
+      this.selectedCombatant.hasBuff(
+        SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
+        event.timestamp,
+        BUFFER_MS,
+      )
     ) {
       this.hotTracker.addAttributionFromApply(this.memoryOfTheMotherTreeAttrib, event);
       this._logAttrib(event, this.memoryOfTheMotherTreeAttrib);
@@ -124,7 +129,11 @@ class HotAttributor extends Analyzer {
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
       this.hasMemoryOfTheMotherTree &&
-      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE.id, event.timestamp, BUFFER_MS)
+      this.selectedCombatant.hasBuff(
+        SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
+        event.timestamp,
+        BUFFER_MS,
+      )
     ) {
       this.hotTracker.addAttributionFromApply(this.memoryOfTheMotherTreeAttrib, event);
       this._logAttrib(event, this.memoryOfTheMotherTreeAttrib);
@@ -141,7 +150,11 @@ class HotAttributor extends Analyzer {
       !isFromHardcast(event) &&
       !(this.convokeSpirits.active && this.convokeSpirits.isConvoking()) &&
       this.hasMemoryOfTheMotherTree &&
-      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE.id, event.timestamp, BUFFER_MS)
+      this.selectedCombatant.hasBuff(
+        SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
+        event.timestamp,
+        BUFFER_MS,
+      )
     ) {
       this.memoryOfTheMotherTreeAttrib.healing += event.amount + (event.absorbed || 0);
     }

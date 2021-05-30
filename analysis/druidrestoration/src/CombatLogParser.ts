@@ -9,8 +9,8 @@ import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
-import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
 import HotAttributor from './modules/core/hottracking/HotAttributor';
+import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
 import SpellManaCost from './modules/core/SpellManaCost';

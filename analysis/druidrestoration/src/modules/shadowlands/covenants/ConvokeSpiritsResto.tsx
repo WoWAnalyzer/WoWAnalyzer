@@ -22,10 +22,7 @@ const CONVOKED_HOTS = [
   SPELLS.REGROWTH,
   SPELLS.WILD_GROWTH,
 ];
-const CONVOKED_DIRECT_HEALS = [
-  SPELLS.SWIFTMEND,
-  SPELLS.REGROWTH,
-];
+const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH];
 
 /**
  * Resto's extension to the Convoke the Spirits display. Includes healing attribution.
