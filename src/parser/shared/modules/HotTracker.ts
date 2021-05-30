@@ -363,6 +363,9 @@ abstract class HotTracker extends Analyzer {
 
   /** Handles a heal by one of the tracked HoTs */
   hotHeal(event: HealEvent) {
+    if (!event.tick) {
+      return; // direct heal attributions need to be handled separately
+    }
     // ensure this is a target we care about and everything is in a good state
     const spellId = event.ability.guid;
     const target = this._getTarget(event);
