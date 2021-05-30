@@ -73,16 +73,29 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
       this._sourceCheck(el, linkingEvent, referencedEvent) &&
       this._targetCheck(el, linkingEvent, referencedEvent)
     ) {
+      // check and link
       if (linkingEvent._linkedEvents === undefined) {
-        linkingEvent._linkedEvents = [];
+        linkingEvent._linkedEvents = { };
       }
-      linkingEvent._linkedEvents.push(referencedEvent);
+      if (linkingEvent._linkedEvents[el.linkKey] !== undefined) {
+        console.warn("Linking events with key " + el.linkKey + " - but the key was already defined!" +
+          " Linkers have probably been specified wrong. The old link will be overwritten.",
+          el, linkingEvent, linkingEvent._linkedEvents[el.linkKey]);
+      }
+      linkingEvent._linkedEvents[el.linkKey] = referencedEvent;
       linkingEvent.__modified = true;
-      if (el.bidirectional) {
+
+      // do reverse link if needed
+      if (el.reverseLinkKey !== undefined) {
         if (referencedEvent._linkedEvents === undefined) {
-          referencedEvent._linkedEvents = [];
+          referencedEvent._linkedEvents = { };
         }
-        referencedEvent._linkedEvents.push(linkingEvent);
+        if (referencedEvent._linkedEvents[el.reverseLinkKey] !== undefined) {
+          console.warn("Linking events with reverse key " + el.reverseLinkKey + " - but the key was already defined!" +
+            " Linkers have probably been specified wrong. The old link will be overwritten.",
+            el, referencedEvent, referencedEvent._linkedEvents[el.reverseLinkKey]);
+        }
+        referencedEvent._linkedEvents[el.reverseLinkKey] = linkingEvent;
         referencedEvent.__modified = true;
       }
     }
@@ -109,7 +122,8 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
           for (let backwardIndex = eventIndex; backwardIndex >= 0; backwardIndex -= 1) {
             const backwardEvent = events[backwardIndex];
             if (
-              event.timestamp - backwardEvent.timestamp > (el.backwardBufferMs ? el.backwardBufferMs : 0)
+              event.timestamp - backwardEvent.timestamp >
+              (el.backwardBufferMs ? el.backwardBufferMs : 0)
             ) {
               break;
             }
@@ -125,11 +139,12 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
 
 /**
  * The specification of an event link to apply.
- * By default, the link is one-way - the linking event adds the referenced event to its _linkedEvents,
- * but not vice versa.
+ * By default, the linking event adds the referenced event to its _linkedEvents, but not vice versa.
  * By default, the linked events must have the same timestamp, source, and target.
  */
 export type EventLink = {
+  /** REQUIRED The key with which to add the link */
+  linkKey: string;
   /** REQUIRED The ability id or ids of the event that is adding link(s)
    * Null will match ANY event ID and should be reserved for special event types */
   linkingEventId: null | number | number[];
@@ -152,8 +167,8 @@ export type EventLink = {
   /** Iff true, the two events may be linked even with different targets.
    * In most cases this should be false, and will default to false when omitted */
   anyTarget?: boolean;
-  /** Iff true, links will also be added from the referenced event to the linking event */
-  bidirectional?: boolean;
+  /** Iff defined, links will also be added from the referenced event to the linking event using this key. */
+  reverseLinkKey?: string;
 };
 
 export default EventLinkNormalizer;

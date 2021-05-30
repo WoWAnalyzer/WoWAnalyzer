@@ -103,6 +103,7 @@ const legendaries = {
     id: 340059,
     name: "Lycara's Fleeting Glimpse",
     icon: 'spell_unused',
+    bonusID: 7110,
   },
 
   //endregion

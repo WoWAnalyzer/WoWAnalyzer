@@ -36,6 +36,7 @@ import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigora
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
+import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
@@ -130,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
     memoryoftheMotherTree: MemoryoftheMotherTree,
     verdantInfusion: VerdantInfusion,
+    lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
   };
 }
 

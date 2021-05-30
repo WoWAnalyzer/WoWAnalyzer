@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../../shadowlands/covenants/ConvokeSpiritsResto';
 import { LIFEBLOOM_BUFFS, REJUVENATION_BUFFS } from '../../../constants';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
+import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/HotCastLinkNormalizer';
 
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
@@ -85,24 +86,28 @@ class HotAttributor extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
       this.onApplyLb,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
+      this.onHealRegrowth,
+    );
   }
 
   onApplyRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const cast = this._getCast(event);
-    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
+    if (event.prepull || isFromHardcast(event)) {
       this._logAttrib(event, 'Hardcast');
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
-    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
+    } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
       this.hasMemoryOfTheMotherTree &&
-      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE, event.timestamp, BUFFER_MS)
+      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE.id, event.timestamp, BUFFER_MS)
     ) {
       this.hotTracker.addAttributionFromApply(this.memoryOfTheMotherTreeAttrib, event);
       this._logAttrib(event, this.memoryOfTheMotherTreeAttrib);
     } else if (this.hasVisionOfUnendingGrowth) {
+      this.hotTracker.addAttributionFromApply(this.visionOfUnendingGrowthAttrib, event);
       this._logAttrib(event, this.visionOfUnendingGrowthAttrib);
     } else {
       this._logAttrib(event, undefined);
@@ -110,17 +115,16 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyRegrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const cast = this._getCast(event);
-    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
+    if (event.prepull || isFromHardcast(event)) {
       this._logAttrib(event, 'Hardcast');
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
-    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
+    } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
       this.hasMemoryOfTheMotherTree &&
-      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE, event.timestamp, BUFFER_MS)
+      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE.id, event.timestamp, BUFFER_MS)
     ) {
       this.hotTracker.addAttributionFromApply(this.memoryOfTheMotherTreeAttrib, event);
       this._logAttrib(event, this.memoryOfTheMotherTreeAttrib);
@@ -129,14 +133,27 @@ class HotAttributor extends Analyzer {
     }
   }
 
+  // the direct heal from regrowth hits before the buff application -
+  // this ensures the direct heal is also attributed
+  onHealRegrowth(event: HealEvent) {
+    if (
+      !event.tick &&
+      !isFromHardcast(event) &&
+      !(this.convokeSpirits.active && this.convokeSpirits.isConvoking()) &&
+      this.hasMemoryOfTheMotherTree &&
+      this.selectedCombatant.hasBuff(SPELLS.MEMORY_OF_THE_MOTHER_TREE.id, event.timestamp, BUFFER_MS)
+    ) {
+      this.memoryOfTheMotherTreeAttrib.healing += event.amount + (event.absorbed || 0);
+    }
+  }
+
   onApplyWg(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const cast = this._getCast(event);
-    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
+    if (event.prepull || isFromHardcast(event)) {
       this._logAttrib(event, 'Hardcast');
       // don't clear pending because it hits many targets
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
-    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
+    } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (this.hasLycarasFleetingGlimpse) {
@@ -148,23 +165,14 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyLb(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const cast = this._getCast(event);
-    if (cast !== undefined && cast.ability.guid !== SPELLS.OVERGROWTH_TALENT.id) {
+    if (event.prepull || isFromHardcast(event)) {
       this._logAttrib(event, 'Hardcast');
-    } else if (cast !== undefined && cast.ability.guid === SPELLS.OVERGROWTH_TALENT.id) {
+    } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else {
       this._logAttrib(event, undefined);
     }
-  }
-
-  _getCast(apply: ApplyBuffEvent | RefreshBuffEvent): CastEvent | undefined {
-    const event =
-      apply._linkedEvents === undefined
-        ? undefined
-        : apply._linkedEvents.find((e) => e.type === EventType.Cast);
-    return event === undefined ? undefined : (event as CastEvent);
   }
 
   _logAttrib(event: ApplyBuffEvent | RefreshBuffEvent, attrib: Attribution | string | undefined) {
