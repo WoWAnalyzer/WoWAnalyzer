@@ -1,6 +1,11 @@
 const legendaries = {
   //region Arms
-
+  ENDURING_BLOW: {
+    id: 335458,
+    name: 'Enduring Blow',
+    icon: 'ability_titankeeper_piercingcorruption',
+    bonusID: 6962,
+  },
   //endregion
 
   //region Fury
@@ -23,7 +28,12 @@ const legendaries = {
   //endregion
 
   //region Shared
-
+  SIGNET_OF_TORMENTED_KINGS: {
+    id: 335266,
+    name: 'Signet of Tormented Kings',
+    icon: 'inv_60crafted_ring4b',
+    bonusID: 6959,
+  },
   //endregion
 } as const;
 export default legendaries;
