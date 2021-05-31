@@ -201,7 +201,7 @@ export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent:
   if (event._linkedEvents === undefined) {
     event._linkedEvents = [];
   }
-  event._linkedEvents.push({ relation, event: relatedEvent});
+  event._linkedEvents.push({ relation, event: relatedEvent });
   event.__modified = true;
 }
 
