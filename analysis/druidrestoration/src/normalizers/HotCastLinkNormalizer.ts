@@ -9,7 +9,7 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-const CAST_TO_APPLY_BUFFER_MS = 100; // TODO can this be cut down?
+const CAST_BUFFER_MS = 65;
 
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_OVERGROWTH = 'FromOvergrowth';
@@ -21,8 +21,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.REJUVENATION.id,
     referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
-    backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -30,8 +30,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
     referencedEventId: SPELLS.REGROWTH.id,
     referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
-    backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -39,8 +39,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
     referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
-    backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -48,8 +48,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.WILD_GROWTH.id,
     referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
-    backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
   {
@@ -58,8 +58,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.SWIFTMEND.id,
     referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
-    backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_OVERGROWTH,
@@ -74,8 +74,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.OVERGROWTH_TALENT.id,
     referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
-    backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
 ];
 
