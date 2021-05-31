@@ -1,8 +1,17 @@
 import { Options } from 'parser/core/Analyzer';
-import { AnyEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
+import {
+  AddRelatedEvent,
+  AnyEvent,
+  EventType,
+  HasAbility,
+  HasSource,
+  HasTarget,
+} from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
 
+// TODO maximum links per event (prevent cast linking with too many)
+// TODO easier specification
 /**
  * An event normalizer that uses an Event's _linkedEvents field to indicate an association
  * between events. The meaning of this association is context sensitive and should be clearly
@@ -73,42 +82,9 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
       this._sourceCheck(el, linkingEvent, referencedEvent) &&
       this._targetCheck(el, linkingEvent, referencedEvent)
     ) {
-      // check and link
-      if (linkingEvent._linkedEvents === undefined) {
-        linkingEvent._linkedEvents = {};
-      }
-      if (linkingEvent._linkedEvents[el.linkKey] !== undefined) {
-        console.warn(
-          'Linking events with key ' +
-            el.linkKey +
-            ' - but the key was already defined!' +
-            ' Linkers have probably been specified wrong. The old link will be overwritten.',
-          el,
-          linkingEvent,
-          linkingEvent._linkedEvents[el.linkKey],
-        );
-      }
-      linkingEvent._linkedEvents[el.linkKey] = referencedEvent;
-      linkingEvent.__modified = true;
-
-      // do reverse link if needed
-      if (el.reverseLinkKey !== undefined) {
-        if (referencedEvent._linkedEvents === undefined) {
-          referencedEvent._linkedEvents = {};
-        }
-        if (referencedEvent._linkedEvents[el.reverseLinkKey] !== undefined) {
-          console.warn(
-            'Linking events with reverse key ' +
-              el.reverseLinkKey +
-              ' - but the key was already defined!' +
-              ' Linkers have probably been specified wrong. The old link will be overwritten.',
-            el,
-            referencedEvent,
-            referencedEvent._linkedEvents[el.reverseLinkKey],
-          );
-        }
-        referencedEvent._linkedEvents[el.reverseLinkKey] = linkingEvent;
-        referencedEvent.__modified = true;
+      AddRelatedEvent(linkingEvent, el.linkRelation, referencedEvent);
+      if (el.reverseLinkRelation !== undefined) {
+        AddRelatedEvent(referencedEvent, el.reverseLinkRelation, linkingEvent);
       }
     }
   }
@@ -155,8 +131,8 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
  * By default, the linked events must have the same timestamp, source, and target.
  */
 export type EventLink = {
-  /** REQUIRED The key with which to add the link */
-  linkKey: string;
+  /** REQUIRED The relation with which to add the link */
+  linkRelation: string;
   /** REQUIRED The ability id or ids of the event that is adding link(s)
    * Null will match ANY event ID and should be reserved for special event types */
   linkingEventId: null | number | number[];
@@ -179,8 +155,8 @@ export type EventLink = {
   /** Iff true, the two events may be linked even with different targets.
    * In most cases this should be false, and will default to false when omitted */
   anyTarget?: boolean;
-  /** Iff defined, links will also be added from the referenced event to the linking event using this key. */
-  reverseLinkKey?: string;
+  /** Iff defined, links will also be added from the referenced event to the linking event using this relation. */
+  reverseLinkRelation?: string;
 };
 
 export default EventLinkNormalizer;

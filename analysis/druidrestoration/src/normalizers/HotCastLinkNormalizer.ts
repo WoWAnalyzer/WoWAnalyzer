@@ -1,16 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, EventType, HasRelatedEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 const CAST_TO_APPLY_BUFFER_MS = 100; // TODO can this be cut down?
 
-export const FROM_HARDCAST_KEY = 'FromHardcast';
-export const FROM_OVERGROWTH_KEY = 'FromOvergrowth';
+export const FROM_HARDCAST = 'FromHardcast';
+export const FROM_OVERGROWTH = 'FromOvergrowth';
 
 const EVENT_LINKS: EventLink[] = [
   {
-    linkKey: FROM_HARDCAST_KEY,
+    linkRelation: FROM_HARDCAST,
     linkingEventId: [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.REJUVENATION.id,
@@ -19,7 +19,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
   },
   {
-    linkKey: FROM_HARDCAST_KEY,
+    linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.REGROWTH.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
     referencedEventId: SPELLS.REGROWTH.id,
@@ -28,7 +28,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
   },
   {
-    linkKey: FROM_HARDCAST_KEY,
+    linkRelation: FROM_HARDCAST,
     linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
@@ -37,7 +37,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
   },
   {
-    linkKey: FROM_HARDCAST_KEY,
+    linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.WILD_GROWTH.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.WILD_GROWTH.id,
@@ -47,7 +47,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
   },
   {
-    linkKey: FROM_HARDCAST_KEY,
+    linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.SWIFTMEND.id,
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.SWIFTMEND.id,
@@ -56,7 +56,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_TO_APPLY_BUFFER_MS,
   },
   {
-    linkKey: FROM_OVERGROWTH_KEY,
+    linkRelation: FROM_OVERGROWTH,
     linkingEventId: [
       SPELLS.REJUVENATION.id,
       SPELLS.REJUVENATION_GERMINATION.id,
@@ -91,13 +91,11 @@ class HotCastLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function isFromHardcast(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
-  return event._linkedEvents !== undefined && event._linkedEvents[FROM_HARDCAST_KEY] !== undefined;
+  return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  return (
-    event._linkedEvents !== undefined && event._linkedEvents[FROM_OVERGROWTH_KEY] !== undefined
-  );
+  return HasRelatedEvent(event, FROM_OVERGROWTH);
 }
 
 export default HotCastLinkNormalizer;

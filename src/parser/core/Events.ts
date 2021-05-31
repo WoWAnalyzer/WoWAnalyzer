@@ -184,6 +184,27 @@ export function HasTarget<T extends EventType>(event: Event<T>): event is Target
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
 
+export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
+  return event._linkedEvents === undefined
+    ? []
+    : event._linkedEvents.filter((le) => le.relation === relation).map((le) => le.event);
+}
+
+export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
+  return (
+    event._linkedEvents !== undefined &&
+    event._linkedEvents.find((le) => le.relation === relation) !== undefined
+  );
+}
+
+export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent: AnyEvent): void {
+  if (event._linkedEvents === undefined) {
+    event._linkedEvents = [];
+  }
+  event._linkedEvents.push({ relation, event: relatedEvent});
+  event.__modified = true;
+}
+
 export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
   ? MappedEventTypes[T]
   : Event<T>;
@@ -196,14 +217,22 @@ export interface Event<T extends string> {
   timestamp: number;
   /** True iff the event happened before the pull. Added by WoWA */
   prepull?: boolean;
-  /** Other events associated with this event by key. Added by WoWA normalizers. Meaning is context sensitive */
-  _linkedEvents?: { [key: string]: AnyEvent };
+  /** Other events associated with this event. Added by WoWA normalizers. Meaning is context sensitive */
+  _linkedEvents?: LinkedEvent[];
   /** True iff the event was created by WoWA */
   __fabricated?: boolean;
   /** True iff the event's content was modified by WoWA */
   __modified?: boolean;
   /** True iff a WoWA normalizer reordered this event */
   __reordered?: boolean;
+}
+
+// TODO way to specify specific expected event type?
+export interface LinkedEvent {
+  /** A string specifying the relationship of the linked event. Will be used as a key during lookup */
+  relation: string;
+  /** The linked event */
+  event: AnyEvent;
 }
 
 export interface BeginCastEvent extends Event<EventType.BeginCast> {

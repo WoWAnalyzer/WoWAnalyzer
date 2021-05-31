@@ -11,7 +11,7 @@ import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
 
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * Many Resto HoTs can be applied from multiple different sources including talents, legendaries,

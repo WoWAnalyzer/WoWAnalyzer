@@ -50,12 +50,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getRegrowthDetails(spellInfo: SpellInfoDetails) {
-    // This represents that amount of healing done by HARD CASTING regrowth.
-    // We don't want regrowth to get Hpm credit for healing that we didn't spend mana on.
-    spellInfo.healingDone = 0; // TODO ??
-    spellInfo.overhealingDone = 0; // TODO ??
-    spellInfo.casts = this.clearcasting.badRegrowths;
-
+    // TODO special handling of Regrowth HPM with regard to free casts?
     return spellInfo;
   }
 }
