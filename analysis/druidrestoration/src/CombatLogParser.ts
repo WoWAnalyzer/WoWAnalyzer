@@ -9,9 +9,8 @@ import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
+import HotAttributor from './modules/core/hottracking/HotAttributor';
 import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
-import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
-import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -37,6 +36,7 @@ import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigora
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
+import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
@@ -50,17 +50,17 @@ import SpringBlossoms from './modules/talents/SpringBlossoms';
 import TreeOfLife from './modules/talents/TreeOfLife';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
+import HotCastLinkNormalizer from './normalizers/HotCastLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
-import WildGrowthNormalizer from './normalizers/WildGrowth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
     // Normalizers
-    wildGrowthNormalizer: WildGrowthNormalizer,
     clearcastingNormalizer: ClearcastingNormalizer,
-    hotApplicationNormalizer: HotApplicationNormalizer, // this needs to be loaded after potaNormalizer, as potaNormalizer can sometimes unfix the events if loaded before...
+    hotApplicationNormalizer: HotApplicationNormalizer,
+    hotCastLinkNormalizer: HotCastLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core
@@ -78,8 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hot Tracking
     hotTracker: HotTrackerRestoDruid,
-    rejuvenationAttributor: RejuvenationAttributor,
-    regrowthAttributor: RegrowthAttributor,
+    hotAttributor: HotAttributor,
 
     // Features
     lowHealthHealing: LowHealthHealing,
@@ -132,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
     memoryoftheMotherTree: MemoryoftheMotherTree,
     verdantInfusion: VerdantInfusion,
+    lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
   };
 }
 

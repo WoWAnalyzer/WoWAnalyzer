@@ -98,8 +98,9 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
               fixedEvents.push(previousEvent);
               if (eo.updateTimestamp) {
                 previousEvent.timestamp = event.timestamp;
+                previousEvent.__modified = true;
               }
-              previousEvent.__modified = true;
+              previousEvent.__reordered = true;
               break;
             }
           }
@@ -119,6 +120,10 @@ export default EventOrderNormalizer;
  * The specification of an event ordering to apply.
  * The 'after' event will always be moved forward to be in front of the 'before' event.
  * By default, the reordered events must have the same timestamp, source, and target.
+ *
+ * As EventOrders are applied in the order specified, to enforce a multi-event ordering
+ * e.g. "A, B, C" you must pass them in back to front e.g. [A, B] them [B, C] in order
+ * for it to work in all cases.
  */
 export type EventOrder = {
   /** REQUIRED The ability id or ids of the event that should come before

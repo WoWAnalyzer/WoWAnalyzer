@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 30), <>Added <SpellLink id={SPELLS.LYCARAS_FLEETING_GLIMPSE.id} /> support. Reworked backend handling of HoT attributions and fixed some issues: <SpellLink id={SPELLS.VISION_OF_UNENDING_GROWTH.id} /> now accounts for mastery, and <SpellLink id={SPELLS.MEMORY_OF_THE_MOTHER_TREE.id} /> now accounts for mastery and no longer incorrectly gives continuing heal credit when a procced HoT is refreshed by a hardcast. Also fixed an issue where the initial heal from <SpellLink id={SPELLS.REGROWTH.id} /> was incorrectly counted as benefitting from its own mastery stack.</>, Sref),
   change(date(2021, 5, 27), <>Fixed an issue where <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> buffed <SpellLink id={SPELLS.REGROWTH.id} /> wasn't being counted as free by the tracker.</>, Sref),
   change(date(2021, 5, 26), <>Reworked <SpellLink id={SPELLS.REGROWTH.id} /> and <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> stats into a single box, and fixed some bugs in their display. Reworked display of average <SpellLink id={SPELLS.WILD_GROWTH.id} /> hits and fixed a bug where it was counting buffs from Convoke.</>, Sref),
   change(date(2021, 5, 26), <>Moved all talent related stat boxes to their own section, and combined <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> and <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptimes into a new graph.</>, Sref),

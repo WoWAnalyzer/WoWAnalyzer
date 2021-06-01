@@ -22,6 +22,7 @@ const CONVOKED_HOTS = [
   SPELLS.REGROWTH,
   SPELLS.WILD_GROWTH,
 ];
+const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH];
 
 /**
  * Resto's extension to the Convoke the Spirits display. Includes healing attribution.
@@ -56,8 +57,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       this.onRestoHotApply,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),
-      this.onRestoSwiftmend,
+      Events.heal.by(SELECTED_PLAYER).spell(CONVOKED_DIRECT_HEALS),
+      this.onRestoDirectHeal,
     );
     // Flourish is tracked from the Flourish module, which calls into this one to update the attribution
   }
@@ -68,8 +69,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     }
   }
 
-  onRestoSwiftmend(event: HealEvent) {
-    if (this.isConvoking()) {
+  onRestoDirectHeal(event: HealEvent) {
+    if (!event.tick && this.isConvoking()) {
       this.currentConvokeAttribution.healing += event.amount + (event.absorbed || 0);
     }
   }

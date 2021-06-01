@@ -63,7 +63,7 @@ class BeaconOfVirtue extends EventsNormalizer {
         const lastBeaconOfVirtueCastIndex = this.findPreviousCast(fixedEvents, event);
 
         if (lastBeaconOfVirtueCastIndex !== null) {
-          event.__modified = true;
+          event.__reordered = true;
           fixedEvents.splice(lastBeaconOfVirtueCastIndex + 1, 0, event);
           return;
         }

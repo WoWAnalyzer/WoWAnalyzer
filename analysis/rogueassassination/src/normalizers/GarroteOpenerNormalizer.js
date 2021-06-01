@@ -36,7 +36,7 @@ class GarroteNormalizer extends EventsNormalizer {
             event.timestamp = previousEvent.timestamp;
             fixedEvents.splice(eventIndex, 1);
             fixedEvents.splice(previousEventIndex, 0, event);
-            event.__modified = true;
+            event.__reordered = true;
             break;
           }
         }

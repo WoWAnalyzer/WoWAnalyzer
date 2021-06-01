@@ -203,7 +203,7 @@ class EventsTab extends React.Component {
       ...props,
       className: `${props.className} ${event.__modified ? 'modified' : ''} ${
         event.__fabricated ? 'fabricated' : ''
-      }`,
+      } ${event.__reordered ? 'reordered' : ''}`,
     });
   }
 
@@ -304,8 +304,15 @@ class EventsTab extends React.Component {
             <br />
             <div className="modified-legend" style={{ width: 240, padding: 10 }}>
               Events with an orange background were{' '}
-              <TooltipElement content="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">
+              <TooltipElement content="This means some fields were added to provide additional context or changed to fix inconsistencies.">
                 modified
+              </TooltipElement>
+              .
+            </div>
+            <div className="reordered-legend" style={{ width: 240, padding: 10 }}>
+              Events with a blue background were{' '}
+              <TooltipElement content="This means their order was changed from the original combatlog, typically to normalize the ordering of event sequences.">
+                reordered
               </TooltipElement>
               .
             </div>

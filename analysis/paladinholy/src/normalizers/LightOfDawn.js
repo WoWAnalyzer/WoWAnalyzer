@@ -36,7 +36,7 @@ class LightOfDawn extends EventsNormalizer {
           ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
+            previousEvent.__reordered = true;
             break; // I haven't seen a log with multiple `heal` events before the `cast` yet
           }
         }

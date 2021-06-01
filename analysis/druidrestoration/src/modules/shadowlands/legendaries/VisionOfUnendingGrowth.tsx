@@ -1,12 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  HealEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -14,96 +7,38 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
+import HotAttributor from '../../core/hottracking/HotAttributor';
+
 /**
- * Rejuv has 2.5% chance per heal to randomly make another rejuv
+ * **Vision of Unending Growth**
+ * Runecarving Legendary
  *
+ * Rejuvenation healing has a 2.5% chance to create a new Rejuvenation on a nearby target.
  */
 class VisionOfUnendingGrowth extends Analyzer {
-  extraRejuvs = 0;
+  static dependencies = {
+    hotAttributor: HotAttributor,
+  };
 
-  healing = 0;
-  overhealing = 0;
-
-  lastTarget: number | undefined = undefined;
-
-  rejuvsToTrack: number[] = [];
+  hotAttributor!: HotAttributor;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(
       SPELLS.VISION_OF_UNENDING_GROWTH.bonusID,
     );
-    if (!this.active) {
-      return;
-    }
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.rejuvCast,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.rejuvHeal,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.rejuvBuffApplied,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.rejuvBuffRefreshed,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.rejuvBuffRemoved,
-    );
   }
 
-  rejuvCast(event: CastEvent) {
-    this.lastTarget = event.targetID;
+  get procs() {
+    return this.hotAttributor.visionOfUnendingGrowthAttrib.procs;
   }
 
-  rejuvHeal(event: HealEvent) {
-    if (this.rejuvsToTrack.find((e) => e === event.targetID)) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.overhealing += event.overheal || 0;
-    }
+  get procsPerMinute() {
+    return this.procs / (this.owner.fightDuration / 60 / 1000);
   }
 
-  rejuvBuffApplied(event: ApplyBuffEvent) {
-    this.handleApplication(event.targetID, event.timestamp);
-  }
-
-  rejuvBuffRefreshed(event: RefreshBuffEvent) {
-    this.handleRemove(event.targetID);
-    this.handleApplication(event.targetID, event.timestamp);
-  }
-
-  rejuvBuffRemoved(event: RemoveBuffEvent) {
-    this.handleRemove(event.targetID);
-  }
-
-  handleApplication(targetID: number, timestamp: number) {
-    if (this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id)) {
-      return;
-    }
-
-    //precast? remove
-    if (this.owner.fight.start_time >= timestamp) {
-      return;
-    }
-
-    if (this.lastTarget !== targetID) {
-      this.extraRejuvs += 1;
-      this.rejuvsToTrack.push(targetID);
-    }
-  }
-
-  handleRemove(targetID: number) {
-    const toRemove = this.rejuvsToTrack.indexOf(targetID);
-    if (toRemove !== -1) {
-      delete this.rejuvsToTrack[toRemove];
-    }
+  get healing() {
+    return this.hotAttributor.visionOfUnendingGrowthAttrib.healing;
   }
 
   statistic() {
@@ -112,7 +47,20 @@ class VisionOfUnendingGrowth extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={<>Extra Rejuvs: {this.extraRejuvs}</>}
+        tooltip={
+          <>
+            This is the healing attributable to rejuvenations spawned by the Vision of Unending
+            Growth legendary. This amount includes the mastery benefit.
+            <ul>
+              <li>
+                Total Procs: <strong>{this.procs}</strong>
+              </li>
+              <li>
+                Procs per Minute: <strong>{this.procsPerMinute.toFixed(1)}</strong>
+              </li>
+            </ul>
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.VISION_OF_UNENDING_GROWTH}>
           <ItemPercentHealingDone amount={this.healing} />
