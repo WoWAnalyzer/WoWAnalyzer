@@ -176,9 +176,9 @@ class PrematureRejuvenations extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            You refreshed Rejuvenation early <strong>{this.earlyRefreshments} times</strong>,
-            losing a total of <strong>{this.timeLostInSeconds.toFixed(1)}s</strong> of HoT duration
-            ({this.timeLostInSecondsPerMinute.toFixed(1)}s per minute).
+            You refreshed Rejuvenation early <strong>{this.earlyRefreshments} times</strong>, losing
+            a total of <strong>{this.timeLostInSeconds.toFixed(1)}s</strong> of HoT duration (
+            {this.timeLostInSecondsPerMinute.toFixed(1)}s per minute).
           </>
         }
       >
@@ -190,8 +190,7 @@ class PrematureRejuvenations extends Analyzer {
           }
         >
           <>
-            {this.earlyRefreshmentsPerMinute.toFixed(1)}{' '}
-            <small>per minute</small>
+            {this.earlyRefreshmentsPerMinute.toFixed(1)} <small>per minute</small>
           </>
         </BoringValue>
       </Statistic>
