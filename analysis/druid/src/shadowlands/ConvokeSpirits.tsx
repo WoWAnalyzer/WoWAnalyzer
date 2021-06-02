@@ -25,7 +25,7 @@ import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
  */
 
 /** All convokable spells that 'hit' with a buff application */
-const CONVOKE_BUFF_SPELLS = [
+export const CONVOKE_BUFF_SPELLS = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,
   SPELLS.REGROWTH,
@@ -37,7 +37,7 @@ const CONVOKE_BUFF_SPELLS = [
   SPELLS.STARFALL_CAST, // apparently this is also the ID for the buff
 ];
 /** All convokable spells that 'hit' with a debuff application */
-const CONVOKE_DEBUFF_SPELLS = [
+export const CONVOKE_DEBUFF_SPELLS = [
   SPELLS.MOONFIRE,
   SPELLS.MOONFIRE_BEAR,
   SPELLS.MOONFIRE_FERAL,
@@ -45,9 +45,9 @@ const CONVOKE_DEBUFF_SPELLS = [
   SPELLS.THRASH_BEAR_DOT,
 ];
 /** All convokable spells that 'hit' with direct healing */
-const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND];
+export const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND];
 /** All convokable spells that 'hit' with direct damage */
-const CONVOKE_DAMAGE_SPELLS = [
+export const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.WRATH,
   SPELLS.WRATH_MOONKIN,
   SPELLS.STARSURGE_AFFINITY,
@@ -59,16 +59,16 @@ const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.PULVERIZE_TALENT,
 ];
 /** Convokable spells that have travel time */
-const SPELLS_WITH_TRAVEL_TIME = [
+export const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY,
   SPELLS.STARSURGE_MOONKIN,
   SPELLS.FULL_MOON,
   SPELLS.WRATH,
   SPELLS.WRATH_MOONKIN,
 ];
-const SPELL_IDS_WITH_TRAVEL_TIME = SPELLS_WITH_TRAVEL_TIME.map((s) => s.id);
+export const SPELL_IDS_WITH_TRAVEL_TIME = SPELLS_WITH_TRAVEL_TIME.map((s) => s.id);
 /** Convokable spells that can hit multiple targets */
-const SPELL_IDS_WITH_AOE = [
+export const SPELL_IDS_WITH_AOE = [
   SPELLS.MOONFIRE.id,
   SPELLS.MOONFIRE_BEAR.id,
   SPELLS.MOONFIRE_FERAL.id,
@@ -271,46 +271,55 @@ class ConvokeSpirits extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={
-          <>
-            Abilities cast by Convoke do not create cast events; this listing is created by tracking
-            related events during the channel. Occasionally a Convoke will cast an ability that hits
-            nothing (like Thrash when only immune targets are in range). In these cases we won't be
-            able to track it and so the number of spells listed may not add up to{' '}
-            {this.spellsPerCast}.
-          </>
-        }
-        dropdown={
-          <>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Cast #</th>
-                  <th>Form</th>
-                  <th>Spells In Cast</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.convokeTracker.map((spellIdToCasts, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index}</th>
-                    <td>{spellIdToCasts.form}</td>
-                    <td>
-                      {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
-                        <>
-                          <SpellLink id={spellId} /> {casts} <br />
-                        </>
-                      ))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        }
+        tooltip={this.baseTooltip}
+        dropdown={this.baseTable}
       >
         <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>-</BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  /** The dropdown table in the base form of this statistic */
+  get baseTable(): React.ReactNode {
+    return (
+      <>
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Cast #</th>
+              <th>Form</th>
+              <th>Spells In Cast</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.convokeTracker.map((spellIdToCasts, index) => (
+              <tr key={index}>
+                <th scope="row">{index}</th>
+                <td>{spellIdToCasts.form}</td>
+                <td>
+                  {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
+                    <>
+                      <SpellLink id={spellId} /> {casts} <br />
+                    </>
+                  ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    );
+  }
+
+  /** The tooltip in the base form of this statistic */
+  get baseTooltip(): React.ReactNode {
+    return (
+      <>
+        Abilities cast by Convoke do not create cast events; this listing is created by tracking
+        related events during the channel. Occasionally a Convoke will cast an ability that hits
+        nothing (like Thrash when only immune targets are in range). In these cases we won't be able
+        to track it and so the number of spells listed may not add up to {this.spellsPerCast}.
+      </>
     );
   }
 }

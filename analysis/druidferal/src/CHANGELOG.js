@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 6, 1), <>Fixed an issue where <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> stat box wasn't showing, and updated it to show direct damage done.</>, Sref),
   change(date(2021, 5, 24), <>Rolled snapshot uptimes into the uptimes graph. Added a statistic for <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/>.</>, Sref),
   change(date(2021, 5, 22), <>Fixed a bug where <SpellLink id={SPELLS.HEART_OF_THE_WILD_TALENT.id} /> cast efficiency wasn't showing properly.</>, Sref),
   change(date(2021, 5, 19), <>Added myself as maintainer and removed 'partial support' label. Updated appearance of uptime statistics.</>, Sref),
