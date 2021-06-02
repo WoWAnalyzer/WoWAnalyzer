@@ -15,13 +15,24 @@ import {
   SPELL_IDS_WITH_TRAVEL_TIME,
 } from '@wowanalyzer/druid/src/shadowlands/ConvokeSpirits';
 
+const debug = false;
+
+const DOTS_WITH_DIRECT_PORTION = [
+  SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.RAKE,
+  SPELLS.THRASH_BEAR,
+  SPELLS.MOONFIRE,
+  SPELLS.MOONFIRE_BEAR,
+  SPELLS.MOONFIRE_FERAL,
+];
+
 class ConvokeSpiritsFeral extends ConvokeSpirits {
   static dependencies = {
     ...ConvokeSpirits.dependencies,
   };
 
   /** The direct damage attributed to each Convoke, with the same indices as the base tracker */
-  convokeDamage: number[] = [];
+  convokeDamage: number[] = []; // TODO use in chart?
 
   constructor(options: Options) {
     super(options);
@@ -31,6 +42,11 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
       Events.damage.by(SELECTED_PLAYER).spell(CONVOKE_DAMAGE_SPELLS),
       this.onDamage,
     );
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(DOTS_WITH_DIRECT_PORTION),
+      this.onPossibleTickDamage,
+    );
   }
 
   onConvoke(event: ApplyBuffEvent) {
@@ -38,6 +54,16 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
     this.convokeDamage[this.cast] = 0;
   }
 
+  // TODO also attribute "non-refreshable" periodic damage like Feral Frenzy and Starfall
+
+  // the direct portion of damage that *can* tick can be attributed solely to convoke
+  onPossibleTickDamage(event: DamageEvent) {
+    if (!event.tick) {
+      this.onDamage(event);
+    }
+  }
+
+  // direct damage can be attributed solely to convoke
   onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
 
@@ -56,13 +82,15 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
   _addDamage(event: DamageEvent) {
     this.convokeDamage[this.cast] += event.amount + (event.absorbed || 0);
-    console.log(`Convoke ${event.ability.name} did ${event.amount + (event.absorbed || 0)}`);
+    debug &&
+      console.log(`Convoke ${event.ability.name} did ${event.amount + (event.absorbed || 0)}`);
   }
 
   get totalDamage() {
     return this.convokeDamage.reduce((att, amount) => att + amount, 0);
   }
 
+  // TODO also show energy and CP gained
   statistic() {
     return (
       <Statistic
