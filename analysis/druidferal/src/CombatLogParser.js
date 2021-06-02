@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+
 import Abilities from './modules/Abilities';
 import RakeSnapshot from './modules/bleeds/RakeSnapshot';
 import RakeUptime from './modules/bleeds/RakeUptime';
@@ -20,6 +22,7 @@ import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
 import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
+import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import Frenzyband from './modules/shadowlands/Frenzyband';
 import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
@@ -43,6 +46,9 @@ class CombatLogParser extends CoreCombatLogParser {
     rakeBleed: RakeBleed,
     bleedDebuffEvents: BleedDebuffEvents,
     comboPointsFromAoE: ComboPointsFromAoE,
+
+    // Core
+    activeDruidForm: ActiveDruidForm,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -85,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     finisherUse: FinisherUse,
 
     // shadowlands
+    convokeSpirits: ConvokeSpiritsFeral,
     draughtOfDeepFocus: DraughtOfDeepFocus,
     frenzyband: Frenzyband,
     adaptiveSwarm: AdaptiveSwarmFeral,
