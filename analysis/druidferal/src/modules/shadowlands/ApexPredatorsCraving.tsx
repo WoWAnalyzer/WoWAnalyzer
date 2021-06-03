@@ -1,16 +1,24 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { ResourceIcon, SpellIcon } from 'interface';
 import CrossIcon from 'interface/icons/Cross';
 import UptimeIcon from 'interface/icons/Uptime';
-import ConvokeSpiritsFeral from './ConvokeSpiritsFeral';
+import UpArrowIcon from 'interface/icons/UpArrow';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  EnergizeEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import React from 'react';
-import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
-import { SpellIcon } from 'interface';
+
+import ConvokeSpiritsFeral from './ConvokeSpiritsFeral';
+import Enemies from 'parser/shared/modules/Enemies';
 
 const BUFFER_MS = 50;
 
@@ -27,12 +35,18 @@ class ApexPredatorsCraving extends Analyzer {
 
   protected convokeSpirits!: ConvokeSpiritsFeral;
 
+  hasSotf: boolean;
+
   buffsGained: number = 0;
   buffsUsed: number = 0;
   buffsOverwritten: number = 0;
 
   damageDone: number = 0;
-  // TODO energy restored with SOTF?
+
+  lastSotf?: EnergizeEvent;
+  sotfEnergyGained: number = 0;
+  sotfEnergyEffective: number = 0;
+  sotfEnergyWasted: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -40,6 +54,8 @@ class ApexPredatorsCraving extends Analyzer {
     this.active = this.selectedCombatant.hasLegendaryByBonusID(
       SPELLS.APEX_PREDATORS_CRAVING.bonusID,
     );
+
+    this.hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APEX_PREDATORS_CRAVING_BUFF),
@@ -53,6 +69,13 @@ class ApexPredatorsCraving extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
       this.onFbDamage,
     );
+
+    if (this.hasSotf) {
+      this.addEventListener(
+        Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY),
+        this.onSotfEnergize,
+      );
+    }
   }
 
   onBuffApply(_: ApplyBuffEvent) {
@@ -75,7 +98,17 @@ class ApexPredatorsCraving extends Analyzer {
     ) {
       this.buffsUsed += 1;
       this.damageDone += event.amount + (event.absorbed || 0);
+      // SotF energize actually seems to consistently come before the damage and on same timestamp
+      if (this.lastSotf && this.lastSotf.timestamp === event.timestamp) {
+        this.sotfEnergyGained += this.lastSotf.resourceChange;
+        this.sotfEnergyWasted += this.lastSotf.waste;
+        this.sotfEnergyEffective += this.lastSotf.resourceChange - this.lastSotf.waste;
+      }
     }
+  }
+
+  onSotfEnergize(event: EnergizeEvent) {
+    this.lastSotf = event;
   }
 
   get buffsActive() {
@@ -87,7 +120,11 @@ class ApexPredatorsCraving extends Analyzer {
   }
 
   get buffsGainedPerMinute() {
-    return this.buffsGained / (this.owner.fightDuration / 1000 / 60);
+    return this.owner.getPerMinute(this.buffsGained);
+  }
+
+  get sotfEnergyEffectivePerMinute() {
+    return this.owner.getPerMinute(this.sotfEnergyEffective);
   }
 
   statistic() {
@@ -98,24 +135,49 @@ class ApexPredatorsCraving extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            This is the damage done by the free Ferocious Bites procced by Apex Predator's Craving.
+            This is the damage done by the free Ferocious Bites procced by Apex Predator's Craving
+            {this.hasSotf && ', and the effective energy gained due to Soul of the Forest from those bites'}.
             You gained <strong>{this.buffsGainedPerMinute.toFixed(1)} procs per minute</strong>, for
             a total of <strong>{this.buffsGained} procs</strong>:
             <ul>
-              <li><SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> Used: <strong>{this.buffsUsed}</strong></li>
-              <li><CrossIcon /> Overwritten: <strong>{this.buffsOverwritten}</strong></li>
-              <li><UptimeIcon /> Expired: <strong>{this.buffsExpired}</strong></li>
+              <li>
+                <SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> Used: <strong>{this.buffsUsed}</strong>
+              </li>
+              <li>
+                <CrossIcon /> Overwritten: <strong>{this.buffsOverwritten}</strong>
+              </li>
+              <li>
+                <UptimeIcon /> Expired: <strong>{this.buffsExpired}</strong>
+              </li>
               {this.buffsActive > 0 && (
                 <li>
                   Still active at fight end: <strong>{this.buffsActive}</strong>
                 </li>
               )}
             </ul>
+            {this.hasSotf && <>
+              Total Soul of the Forest energy gained from free bites was <strong>{this.sotfEnergyGained}</strong>.
+              <ul>
+                <li>
+                  <UpArrowIcon /> Effective: <strong>{this.sotfEnergyEffective}</strong>
+                </li>
+                <li>
+                  <CrossIcon /> Wasted: <strong>{this.sotfEnergyWasted}</strong>
+                </li>
+              </ul>
+            </>}
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.APEX_PREDATORS_CRAVING}>
           <ItemPercentDamageDone amount={this.damageDone} />
+          {this.hasSotf && (
+            <>
+              <br />
+              <SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} />{' '}
+              {this.sotfEnergyEffectivePerMinute.toFixed(1)} <small>energy per minute</small>
+            </>
+          )}
         </BoringSpellValueText>
       </Statistic>
     );

@@ -560,6 +560,9 @@ class CombatLogParser {
   getPerSecond(totalAmount: number): number {
     return (totalAmount / this.fightDuration) * 1000;
   }
+  getPerMinute(totalAmount: number): number {
+    return (totalAmount / this.fightDuration) * 1000 * 60;
+  }
   getPercentageOfTotalHealingDone(healingDone: number) {
     return healingDone / this.getModule(HealingDone).total.effective;
   }
