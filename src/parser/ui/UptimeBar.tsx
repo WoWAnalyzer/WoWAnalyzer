@@ -35,11 +35,7 @@ const UptimeBar = ({
         return timeTooltip ? (
           <Tooltip
             key={`${start}-${end}`}
-            content={
-              formatDuration((start - fightStart) / 1000) +
-              `-` +
-              formatDuration((end - fightStart) / 1000)
-            }
+            content={formatDuration(start - fightStart) + `-` + formatDuration(end - fightStart)}
           >
             <div style={getSegmentStyle(start, end, fightStart, fightDuration, barColor)} />
           </Tooltip>

@@ -221,7 +221,7 @@ class DarkmoonDeckVoracity extends Analyzer {
                 <tr key={index}>
                   <td>{card.name}</td>
                   <td>{card.hasteDrain}</td>
-                  <td>{formatDuration(card.uptime / 1000)}</td>
+                  <td>{formatDuration(card.uptime)}</td>
                   <td>{formatPercentage(card.uptime / this.owner.fightDuration)}%</td>
                 </tr>
               ))}

@@ -8,7 +8,7 @@ function suggest(when, suggestion) {
     suggest(
       <>
         You refreshed <SpellLink id={suggestion.spell.id} /> early {suggestion.count} times,
-        resulting in {formatDuration(suggestion.wastedDuration / 1000)} seconds lost. The individual
+        resulting in {formatDuration(suggestion.wastedDuration)} seconds lost. The individual
         casts are highlighted on the timeline.
       </>,
     )

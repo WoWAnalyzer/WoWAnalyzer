@@ -184,7 +184,7 @@ class Timeline extends React.PureComponent {
                   <div
                     key={second + this.offset / 1000}
                     style={{ width: this.secondWidth * skipInterval }}
-                    data-duration={formatDuration(second + this.offset / 1000)}
+                    data-duration={formatDuration(second * 1000 + this.offset)}
                   />
                 ))}
             </div>

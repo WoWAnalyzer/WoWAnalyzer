@@ -274,7 +274,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
         </td>
         <td>
           {spellDetail.timeSpentCasting !== 0
-            ? formatDuration(spellDetail.timeSpentCasting / 1000) +
+            ? formatDuration(spellDetail.timeSpentCasting) +
               ' (' +
               formatPercentage(spellDetail.percentTimeSpentCasting) +
               '%)'

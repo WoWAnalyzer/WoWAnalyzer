@@ -338,7 +338,7 @@ class EventsTab extends React.Component {
                     label="Time"
                     cellRenderer={({ cellData }) =>
                       formatDuration(
-                        (cellData - parser.fight.start_time + parser.fight.offset_time) / 1000,
+                        cellData - parser.fight.start_time + parser.fight.offset_time,
                         3,
                       )
                     }

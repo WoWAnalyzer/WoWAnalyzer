@@ -217,7 +217,7 @@ class EarthenWallTotem extends Analyzer {
                   <tr key={index}>
                     <th scope="row">{formatNth(index + 1)}</th>
                     <td>
-                      {formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000) || 0}
+                      {formatDuration(cast.timestamp - this.owner.fight.start_time) || 0}
                     </td>
                     <td
                       style={

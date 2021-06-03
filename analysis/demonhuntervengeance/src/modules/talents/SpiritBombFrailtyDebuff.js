@@ -73,7 +73,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
         tooltip={
           <>
             Total damage was {formatThousands(spiritBombDamage)}.<br />
-            Total uptime was {formatDuration(spiritBombUptime / 1000)}.
+            Total uptime was {formatDuration(spiritBombUptime)}.
           </>
         }
       >

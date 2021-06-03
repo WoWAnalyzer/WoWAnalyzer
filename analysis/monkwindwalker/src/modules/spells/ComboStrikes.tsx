@@ -124,7 +124,7 @@ class ComboStrikes extends Analyzer {
                   {this.masteryDropSpellSequence.map((item, index) => (
                     <tr key={index}>
                       <th scope="row">
-                        {formatDuration((item[0].timestamp - this.owner.fight.start_time) / 1000)}
+                        {formatDuration(item[0].timestamp - this.owner.fight.start_time)}
                       </th>
                       <td>
                         <SpellIcon id={item[0].ability} style={{ height: '2.4em' }} />

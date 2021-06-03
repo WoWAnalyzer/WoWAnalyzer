@@ -245,7 +245,7 @@ class DeathRecap extends React.PureComponent {
                       <tr key={eventIndex}>
                         <td style={{ width: '5%' }}>
                           {formatDuration(
-                            (event.time + this.props.report.fight.offset_time) / 1000,
+                            event.time + this.props.report.fight.offset_time,
                             2,
                           )}
                         </td>

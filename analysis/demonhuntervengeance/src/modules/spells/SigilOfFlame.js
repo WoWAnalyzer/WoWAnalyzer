@@ -64,7 +64,7 @@ class SigilOfFlame extends Analyzer {
             <br />
             <br />
             Sigil of Flame uptime: {formatPercentage(sigilOfFlameUptimePercentage)}% / (
-            {formatDuration(sigilOfFlameUptime / 1000)})<br />
+            {formatDuration(sigilOfFlameUptime)})<br />
             Sigil of Flame total damage: {formatThousands(sigilOfFlameDamage)}.
           </>
         }

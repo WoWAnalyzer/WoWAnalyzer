@@ -29,8 +29,8 @@ class ThermalVoid extends Analyzer {
     let totalDuration = 0; // We could use getBuffUptime but we are doing the math anyway
     const castRows = hist.map((buff: any, idx: any) => {
       const end = buff.end || this.owner.currentTimestamp;
-      const castTime = (buff.start - this.owner.fight.start_time) / 1000;
-      const duration = (end - buff.start) / 1000;
+      const castTime = buff.start - this.owner.fight.start_time;
+      const duration = end - buff.start;
       totalDuration += duration;
       // If the buff ended early because of death or fight end, don't blame the talent
       const increase = Math.max(0, duration - BASE_DURATION);
@@ -73,7 +73,7 @@ class ThermalVoid extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.THERMAL_VOID_TALENT}>
           <>
-            <SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds
+            <SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease * 1000)} seconds
           </>
         </BoringSpellValueText>
       </Statistic>

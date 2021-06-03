@@ -356,7 +356,7 @@ class EncounterStats extends React.PureComponent {
               </div>
             </a>
             <div>
-              {formatDuration(log.duration / 1000)} (
+              {formatDuration(log.duration)} (
               {log.duration > this.props.duration
                 ? ((log.duration - this.props.duration) / 1000).toFixed(1) + 's slower'
                 : ((this.props.duration - log.duration) / 1000).toFixed(1) + 's faster'}

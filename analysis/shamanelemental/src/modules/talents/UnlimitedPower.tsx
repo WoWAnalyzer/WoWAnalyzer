@@ -58,7 +58,7 @@ class UnlimitedPower extends Analyzer {
                 {Object.values(this.unlimitedPowerTimesByStack).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
                     <td>
                       {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
                     </td>

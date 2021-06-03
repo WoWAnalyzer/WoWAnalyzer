@@ -250,7 +250,7 @@ class PetTimeline extends React.PureComponent {
                 }
                 return (
                   <div key={second} className="lane" style={{ width: secondWidth * skipInterval }}>
-                    {formatDuration(second)}
+                    {formatDuration(second * 1000)}
                   </div>
                 );
               })}
