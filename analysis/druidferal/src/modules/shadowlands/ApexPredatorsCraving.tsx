@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { ResourceIcon, SpellIcon } from 'interface';
+import { SpellLink, SpellIcon } from 'interface';
 import CrossIcon from 'interface/icons/Cross';
 import UptimeIcon from 'interface/icons/Uptime';
 import UpArrowIcon from 'interface/icons/UpArrow';
@@ -18,7 +18,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import ConvokeSpiritsFeral from './ConvokeSpiritsFeral';
-import Enemies from 'parser/shared/modules/Enemies';
 
 const BUFFER_MS = 50;
 
@@ -135,8 +134,8 @@ class ApexPredatorsCraving extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            This is the damage done by the free Ferocious Bites procced by Apex Predator's Craving
-            {this.hasSotf && ', and the effective energy gained due to Soul of the Forest from those bites'}.
+            This is the damage done by the free <SpellLink id={SPELLS.FEROCIOUS_BITE.id}/> procced by Apex Predator's Craving
+            {this.hasSotf && <>, and the effective energy gained due to <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id}/> from those bites</>}.
             You gained <strong>{this.buffsGainedPerMinute.toFixed(1)} procs per minute</strong>, for
             a total of <strong>{this.buffsGained} procs</strong>:
             <ul>
@@ -156,7 +155,7 @@ class ApexPredatorsCraving extends Analyzer {
               )}
             </ul>
             {this.hasSotf && <>
-              Total Soul of the Forest energy gained from free bites was <strong>{this.sotfEnergyGained}</strong>.
+              Total <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id}/> energy gained from free bites was <strong>{this.sotfEnergyGained}</strong>.
               <ul>
                 <li>
                   <UpArrowIcon /> Effective: <strong>{this.sotfEnergyEffective}</strong>
@@ -175,7 +174,7 @@ class ApexPredatorsCraving extends Analyzer {
             <>
               <br />
               <SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} />{' '}
-              {this.sotfEnergyEffectivePerMinute.toFixed(1)} <small>energy per minute</small>
+              {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>
             </>
           )}
         </BoringSpellValueText>
