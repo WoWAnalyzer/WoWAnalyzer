@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
-const BASE_DURATION = 20;
+const BASE_DURATION = 20_000;
 
 /*
  * Icy Veins' duration is increased by 10 sec.
