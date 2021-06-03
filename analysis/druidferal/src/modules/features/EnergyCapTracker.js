@@ -122,7 +122,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
           <div className="statistic-box-bar">
             <Tooltip
               content={`Not at capped energy for ${formatDuration(
-                (this.owner.fightDuration - this.atCap),
+                this.owner.fightDuration - this.atCap,
               )}`}
             >
               <div
