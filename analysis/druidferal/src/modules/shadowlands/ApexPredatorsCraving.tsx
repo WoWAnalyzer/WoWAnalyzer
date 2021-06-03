@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink, SpellIcon } from 'interface';
 import CrossIcon from 'interface/icons/Cross';
-import UptimeIcon from 'interface/icons/Uptime';
 import UpArrowIcon from 'interface/icons/UpArrow';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -134,10 +134,16 @@ class ApexPredatorsCraving extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            This is the damage done by the free <SpellLink id={SPELLS.FEROCIOUS_BITE.id}/> procced by Apex Predator's Craving
-            {this.hasSotf && <>, and the effective energy gained due to <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id}/> from those bites</>}.
-            You gained <strong>{this.buffsGainedPerMinute.toFixed(1)} procs per minute</strong>, for
-            a total of <strong>{this.buffsGained} procs</strong>:
+            This is the damage done by the free <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> procced
+            by Apex Predator's Craving
+            {this.hasSotf && (
+              <>
+                , and the effective energy gained due to{' '}
+                <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} /> from those bites
+              </>
+            )}
+            . You gained <strong>{this.buffsGainedPerMinute.toFixed(1)} procs per minute</strong>,
+            for a total of <strong>{this.buffsGained} procs</strong>:
             <ul>
               <li>
                 <SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> Used: <strong>{this.buffsUsed}</strong>
@@ -154,17 +160,20 @@ class ApexPredatorsCraving extends Analyzer {
                 </li>
               )}
             </ul>
-            {this.hasSotf && <>
-              Total <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id}/> energy gained from free bites was <strong>{this.sotfEnergyGained}</strong>.
-              <ul>
-                <li>
-                  <UpArrowIcon /> Effective: <strong>{this.sotfEnergyEffective}</strong>
-                </li>
-                <li>
-                  <CrossIcon /> Wasted: <strong>{this.sotfEnergyWasted}</strong>
-                </li>
-              </ul>
-            </>}
+            {this.hasSotf && (
+              <>
+                Total <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} /> energy gained
+                from free bites was <strong>{this.sotfEnergyGained}</strong>.
+                <ul>
+                  <li>
+                    <UpArrowIcon /> Effective: <strong>{this.sotfEnergyEffective}</strong>
+                  </li>
+                  <li>
+                    <CrossIcon /> Wasted: <strong>{this.sotfEnergyWasted}</strong>
+                  </li>
+                </ul>
+              </>
+            )}
           </>
         }
       >
