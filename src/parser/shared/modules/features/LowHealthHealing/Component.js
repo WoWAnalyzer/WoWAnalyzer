@@ -122,9 +122,7 @@ class LowHealthHealing extends React.Component {
 
               return (
                 <tr key={`${event.timestamp}${effectiveHealing}${hitPointsBeforeHeal}`}>
-                  <td style={{ width: '5%' }}>
-                    {formatDuration(event.timestamp - fightStart)}
-                  </td>
+                  <td style={{ width: '5%' }}>{formatDuration(event.timestamp - fightStart)}</td>
                   <td style={{ width: '25%' }}>
                     <SpellLink id={event.ability.guid} icon={false}>
                       <Icon icon={event.ability.abilityIcon} alt={event.ability.abilityIcon} />{' '}

@@ -10,7 +10,7 @@ const DeathEvents = (props) => {
     <>
       {deaths.map((event) => {
         const eventStart = event.start || event.timestamp;
-        const fightDuration = (eventStart - start);
+        const fightDuration = eventStart - start;
         const left = ((eventStart - start) / 1000) * secondWidth;
         return (
           <Tooltip
@@ -28,7 +28,7 @@ const DeathEvents = (props) => {
       })}
       {resurrections.map((event) => {
         const eventStart = event.start || event.timestamp;
-        const fightDuration = (eventStart - start);
+        const fightDuration = eventStart - start;
         const left = ((eventStart - start) / 1000) * secondWidth;
         return (
           <Tooltip

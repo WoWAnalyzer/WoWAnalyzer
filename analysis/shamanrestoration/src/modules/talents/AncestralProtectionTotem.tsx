@@ -143,7 +143,7 @@ class AncestralProtectionTotem extends Analyzer {
                 return (
                   <tr key={index}>
                     <th scope="row">
-                      {formatDuration((event.timestamp - this.owner.fight.start_time), 0)}
+                      {formatDuration(event.timestamp - this.owner.fight.start_time, 0)}
                     </th>
                     <td className={specClassName}>{combatant.name}</td>
                     <td style={{ textAlign: 'center' }}>

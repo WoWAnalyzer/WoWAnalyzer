@@ -202,9 +202,7 @@ class ChainHeal extends Analyzer {
                   .map((cast) => (
                     <tr key={cast.timestamp}>
                       <th scope="row">{formatNth(cast.castNo)}</th>
-                      <td>
-                        {formatDuration((cast.timestamp - this.owner.fight.start_time), 0)}
-                      </td>
+                      <td>{formatDuration(cast.timestamp - this.owner.fight.start_time, 0)}</td>
                       <td className={cast.target.specClassName}>
                         {' '}
                         <SpecIcon id={cast.target.spec.id} /> {cast.target.name}

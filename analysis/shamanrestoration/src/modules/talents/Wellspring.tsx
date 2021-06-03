@@ -209,9 +209,8 @@ class Wellspring extends Analyzer {
               <tr key={index}>
                 <th scope="row">{formatNth(index)}</th>
                 <td>
-                  {formatDuration(
-                    (this.wellspringTimestamps[index] - this.owner.fight.start_time),
-                  ) || 0}
+                  {formatDuration(this.wellspringTimestamps[index] - this.owner.fight.start_time) ||
+                    0}
                 </td>
                 <td style={hits < 6 ? { color: 'red', fontWeight: 'bold' } : {}}>{hits} hits</td>
               </tr>

@@ -177,7 +177,7 @@ class EarlyDotRefreshes extends Analyzer {
     return `${dot.name} was refreshed ${formatDuration(
       this.lastCastMinWaste,
     )} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(
-      (PANDEMIC_WINDOW * dot.duration),
+      PANDEMIC_WINDOW * dot.duration,
     )} left or part of the dot will be wasted.`;
   }
 
