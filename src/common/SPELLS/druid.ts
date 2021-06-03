@@ -878,6 +878,12 @@ const spells = {
     name: 'Frenzied Assault',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
+  APEX_PREDATORS_CRAVING_BUFF: {
+    // Buff procced by Apex Predator's Craving legendary
+    id: 339140,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+  },
   SUDDEN_AMBUSH_BUFF: {
     // Buff procced by Sudden Ambush conduit
     id: 340698,

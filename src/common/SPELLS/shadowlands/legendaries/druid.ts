@@ -23,6 +23,12 @@ const legendaries = {
     icon: 'ability_deathwing_bloodcorruption_earth',
     bonusID: 7109,
   },
+  APEX_PREDATORS_CRAVING: {
+    id: 339139,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+    bonusID: 7091,
+  },
   //endregion
 
   //region Guardian
