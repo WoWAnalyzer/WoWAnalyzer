@@ -22,6 +22,7 @@ import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
 import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
+import ApexPredatorsCraving from './modules/shadowlands/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import Frenzyband from './modules/shadowlands/Frenzyband';
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     finisherUse: FinisherUse,
 
     // shadowlands
+    apexPredatorsCraving: ApexPredatorsCraving,
     convokeSpirits: ConvokeSpiritsFeral,
     draughtOfDeepFocus: DraughtOfDeepFocus,
     frenzyband: Frenzyband,
