@@ -34,6 +34,11 @@ const legendaries = {
     icon: 'inv_60crafted_ring4b',
     bonusID: 6959,
   },
+  SIGNET_OF_TORMENTED_KINGS_ENERGIZE: {
+    id: 347829,
+    name: 'Signet of Tormented Kings',
+    icon: 'inv_60crafted_ring4b',
+  },
   //endregion
 } as const;
 export default legendaries;
