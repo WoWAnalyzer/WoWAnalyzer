@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, EnergizeEvent } from 'parser/core/Events';
+import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -130,6 +132,34 @@ class SignetOfTormentedKings extends Analyzer {
           {this.renderProcsChart()}
         </div>
       </Statistic>
+    );
+  }
+
+  get wasteSuggestion() {
+    return {
+      actual: this._bad_uses,
+      isGreaterThan: 0,
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.wasteSuggestion).addSuggestion((suggest, actual) =>
+      suggest(
+        <>
+          Try not to use{' '}
+          {this.selectedCombatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS) ? (
+            <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS} />
+          ) : (
+            <SpellLink id={SPELLS.BLADESTORM} />
+          )}{' '}
+          right before using <SpellLink id={SPELLS.AVATAR_TALENT} />, potentially wasting{' '}
+          <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS} /> Procs
+        </>,
+      )
+        .icon(SPELLS.SIGNET_OF_TORMENTED_KINGS.icon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR)
+        .actual(<>You did it {actual} times</>),
     );
   }
 }
