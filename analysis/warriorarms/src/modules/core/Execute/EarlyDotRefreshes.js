@@ -151,9 +151,9 @@ class EarlyDotRefreshes extends Analyzer {
   // Get the suggestion for last bad cast. If empty, cast will be considered good.
   getLastBadCastText(event, dot) {
     return `${dot.name} was refreshed ${formatDuration(
-      this.lastCastMinWaste / 1000,
+      this.lastCastMinWaste,
     )} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(
-      (PANDEMIC_WINDOW * dot.duration) / 1000,
+      PANDEMIC_WINDOW * dot.duration,
     )} left or part of the dot will be wasted.`;
   }
 

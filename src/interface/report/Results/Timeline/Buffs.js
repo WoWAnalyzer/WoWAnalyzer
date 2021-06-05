@@ -108,7 +108,7 @@ class Buffs extends React.PureComponent {
     }
     const left = this.getOffsetLeft(applied.timestamp);
     const duration = event.timestamp - applied.timestamp;
-    const fightDuration = (applied.timestamp - this.props.start) / 1000;
+    const fightDuration = applied.timestamp - this.props.start;
 
     const level = this._levels.indexOf(event.ability.guid);
     this._levels[level] = undefined;

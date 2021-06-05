@@ -142,8 +142,8 @@ class Cooldown extends React.Component {
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.spell.id} icon={false} /> (
-              {formatDuration((cdStart - fightStart) / 1000)} -&gt;{' '}
-              {formatDuration((end - fightStart) / 1000)}) &nbsp;
+              {formatDuration(cdStart - fightStart)} -&gt; {formatDuration(end - fightStart)})
+              &nbsp;
               <TooltipElement
                 content={
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">

@@ -586,7 +586,7 @@ class CombatLogParser {
     return damageTaken / this.getModule(DamageTaken).total.effective;
   }
   formatTimestamp(timestamp: number, precision = 0) {
-    return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
+    return formatDuration(timestamp - this.fight.start_time, precision);
   }
 
   generateResults(adjustForDowntime: boolean): ParseResults {

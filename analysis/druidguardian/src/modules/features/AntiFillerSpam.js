@@ -75,7 +75,7 @@ class AntiFillerSpam extends Analyzer {
     debug &&
       console.group(
         `[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name} - ${formatDuration(
-          (event.timestamp - this.owner.fight.start_time) / 1000,
+          event.timestamp - this.owner.fight.start_time,
         )}`,
       );
 

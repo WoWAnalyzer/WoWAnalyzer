@@ -122,7 +122,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
           <div className="statistic-box-bar">
             <Tooltip
               content={`Not at capped energy for ${formatDuration(
-                (this.owner.fightDuration - this.atCap) / 1000,
+                this.owner.fightDuration - this.atCap,
               )}`}
             >
               <div
@@ -133,7 +133,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
               </div>
             </Tooltip>
 
-            <Tooltip content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}>
+            <Tooltip content={`At capped energy for ${formatDuration(this.atCap)}`}>
               <div className="remainder DeathKnight-bg">
                 <img src="/img/overhealing.png" alt="Capped Energy" />
               </div>

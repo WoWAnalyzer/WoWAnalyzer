@@ -183,8 +183,8 @@ class VolatileBomb extends Analyzer {
               <tbody>
                 <tr>
                   <td>{this.extendedSerpentStings}</td>
-                  <td>{formatDuration(this.extendedInMs / this.casts / 1000)}</td>
-                  <td>{formatDuration(this.extendedInMs / 1000)}</td>
+                  <td>{formatDuration(this.extendedInMs / this.casts)}</td>
+                  <td>{formatDuration(this.extendedInMs)}</td>
                   <td>{this.focusSaved}</td>
                   <td>{this.missedSerpentResets}</td>
                 </tr>
