@@ -301,6 +301,27 @@ abstract class HotTracker extends Analyzer {
     this.attributions[attribution.name] = attribution;
   }
 
+  /**
+   * Provides an attribution for a HoT boost (a percentage increase in healing done by the HoT).
+   * All boosted healing done by the HoT will be tallied to the given Attribution.
+   *
+   * Typically this will be added at the same time the HoT is applied. In order for an Attribution
+   * to be addable, the Tracker for the given HoT must already be present. This means the module
+   * adding this attribution MUST come after HotTracker in the processing order.
+   *
+   * @param attribution the Attribution object to attach
+   * @param boostAmount the amount the HoT is boosted by.
+   *   Should be the increase not the multiplier, so for a 50% boost you'd pass in 0.5.
+   * @param event the event marking the application of the HoT to boost.
+   */
+  public addBoostFromApply(
+    attribution: Attribution,
+    boostAmount: number,
+    event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+  ): void {
+    this.addBoost(attribution, boostAmount, event.targetID, event.ability.guid);
+  }
+
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // PROTECTED METHOD - Must be overridden by spec's implementation of HotTracker
   //
