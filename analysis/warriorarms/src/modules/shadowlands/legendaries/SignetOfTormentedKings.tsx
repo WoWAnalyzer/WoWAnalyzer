@@ -90,7 +90,7 @@ class SignetOfTormentedKings extends Analyzer {
       this._bad_uses += 1;
     }
     this._lastActivation = event.timestamp;
-    this._signetIsUp = !this._signetIsUp;
+    this._signetIsUp = true;
     this._lastSignetTrigger = event.ability.guid;
   }
 
