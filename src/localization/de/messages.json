@@ -1,6 +1,7 @@
 {
   "All weapons enhanced (oils/stones)": "Alle Waffen verbessert (Öle/Steine)",
   "Using high quality weapon enhancements": "Waffen-Verbesserungen hoher Qualität werden verwendet",
+  "className.hunter": "",
   "common.abilities": "Fähigkeiten",
   "common.ability": "Fähigkeit",
   "common.cast": "Wirken",
@@ -381,6 +382,7 @@
   "interface.report.render.hasDuplicatePlayers": "Es scheint, dass es mehrere Spieler namens \"{playerName}\" in diesem Log gibt. Bitte wähle den richtigen aus.",
   "interface.report.render.labelFightSelection": "Kampfauswahl",
   "interface.report.render.logCorrupted": "Die von WCL empfangenen Daten für diesen Spieler sind fehlerhaft. Dieser Spieler kann in diesem Kampf nicht analysiert werden.",
+  "interface.report.render.notSupported": "",
   "interface.report.render.playerSelection": "Spielerauswahl",
   "interface.report.render.playerSelectionDetails": "Wähle den Spieler aus, den du analysieren möchtest.",
   "interface.report.renderClassicWarning.classicUnsupported": "Entschuldigung, Classic WoW Logs werden nicht unterstützt.",
