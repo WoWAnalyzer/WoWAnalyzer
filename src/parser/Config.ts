@@ -68,6 +68,10 @@ interface Config {
    */
   spec: Spec;
   /**
+   * The expansion this config is for, if not the latest retail expansion.
+   */
+  expansion?: 'tbc' | string;
+  /**
    * The contents of your changelog.
    */
   changelog: ChangelogEntry[];

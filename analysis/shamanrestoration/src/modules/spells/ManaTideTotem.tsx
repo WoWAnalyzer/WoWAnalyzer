@@ -90,7 +90,7 @@ class ManaTideTotem extends Analyzer {
                 return (
                   <tr key={p.healer.id}>
                     <th className={specClassName}>
-                      <SpecIcon id={p.healer.specId} /> {p.healer.name}
+                      <SpecIcon spec={spec} /> {p.healer.name}
                     </th>
                     <td>{formatNumber(this.regenFromUptime(p.uptime))}</td>
                   </tr>

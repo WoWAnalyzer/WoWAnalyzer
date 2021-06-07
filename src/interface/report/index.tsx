@@ -289,7 +289,7 @@ const Report = () => (
               {(fight) => (
                 <PlayerLoader report={report} fight={fight}>
                   {(player, combatant, combatants) => (
-                    <ConfigLoader specId={combatant.specID}>
+                    <ConfigLoader specId={combatant.specID} type={player.type}>
                       {(config) => (
                         <SupportChecker
                           config={config}

@@ -205,7 +205,7 @@ class ChainHeal extends Analyzer {
                       <td>{formatDuration(cast.timestamp - this.owner.fight.start_time, 0)}</td>
                       <td className={cast.target.specClassName}>
                         {' '}
-                        <SpecIcon id={cast.target.spec.id} /> {cast.target.name}
+                        <SpecIcon spec={cast.target.spec} /> {cast.target.name}
                       </td>
                     </tr>
                   ))}

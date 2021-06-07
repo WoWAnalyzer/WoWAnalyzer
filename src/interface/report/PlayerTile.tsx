@@ -1,13 +1,13 @@
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import { getClassName } from 'game/ROLES';
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
-import SPECS from 'game/SPECS';
 import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
 import Icon from 'interface/Icon';
 import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Player from 'parser/core/Player';
+import getConfig from 'parser/getConfig';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -48,7 +48,8 @@ const PlayerTile = (props: Props) => {
         characterInfo.region
       }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
     : '/img/fallback-character.jpg';
-  const spec = SPECS[player.combatant.specID];
+  const config = getConfig(player.combatant.specID, player.type);
+  const spec = config?.spec;
   const analysisUrl = makeUrl(player.id);
   const covenant = player.combatant.covenantID || null;
   let covenantName: string | undefined = '';
@@ -56,9 +57,7 @@ const PlayerTile = (props: Props) => {
     covenantName = getCovenantById(covenant)?.name;
   }
 
-  const isParsable = !player.combatant.error && spec;
-
-  return isParsable ? (
+  return !player.combatant.error && spec ? (
     <Link to={analysisUrl} className={`player ${getClassName(spec.role)}`}>
       <div className="role" />
       <div className="card">
@@ -72,7 +71,7 @@ const PlayerTile = (props: Props) => {
             {player.name}
           </h1>
           <small title={`${spec.specName} ${spec.className}`}>
-            <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
+            <SpecIcon spec={spec} /> {spec.specName} {spec.className}
           </small>
           {covenant && (
             <div className="flex-main text-muted text-small">

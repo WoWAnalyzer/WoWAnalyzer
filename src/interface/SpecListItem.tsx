@@ -4,6 +4,8 @@ import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
 import React from 'react';
 
+import SpecIcon from './SpecIcon';
+
 const SpecListItem = ({
   spec,
   exampleReport,
@@ -31,10 +33,7 @@ const SpecListItem = ({
     >
       <div className="icon">
         <figure>
-          <img
-            src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`}
-            alt={`${spec.specName} ${spec.className}`}
-          />
+          <SpecIcon spec={spec} />
         </figure>
       </div>
       <div className="description">

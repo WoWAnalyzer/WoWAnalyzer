@@ -205,7 +205,7 @@ class PlayerBreakdown extends React.Component {
                   return (
                     <tr key={combatant.id}>
                       <td style={{ width: '20%' }}>
-                        <SpecIcon id={spec.id} /> {combatant.name}
+                        <SpecIcon spec={spec} /> {combatant.name}
                       </td>
                       <td style={{ width: 50, textAlign: 'right' }}>
                         {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%

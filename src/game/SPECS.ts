@@ -6,13 +6,17 @@ import ROLES from './ROLES';
 
 export interface Spec {
   id: number;
+  /**
+   * The "type" as provided in the player object by WCL. Used for expansions without specs, such as TBC.
+   */
+  type?: string;
   index: number;
   className: string;
-  specName: string;
+  specName?: string;
   role: number;
   primaryStat: string;
-  masterySpellId: number;
-  masteryCoefficient: number;
+  masterySpellId?: number;
+  masteryCoefficient?: number;
   ranking: {
     class: number;
     spec: number;

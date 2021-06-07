@@ -192,7 +192,7 @@ class CelestialFortune extends Analyzer {
       const specClassName = spec.className.replace(' ', '');
       return (
         <span style={style} className={specClassName}>
-          <SpecIcon id={spec.id} />
+          <SpecIcon spec={spec} />
           {` ${combatant.name}`}
         </span>
       );

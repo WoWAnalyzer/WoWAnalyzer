@@ -24,6 +24,7 @@ import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
+import getConfig from 'parser/getConfig';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -251,7 +252,8 @@ class PlayerLoader extends React.PureComponent<Props, State> {
     const player = players[0];
     const hasDuplicatePlayers = players.length > 1;
     const combatant = player && combatants.find((combatant) => combatant.sourceID === player.id);
-    if (!player || hasDuplicatePlayers || !combatant || !combatant.specID || combatant.error) {
+    const config = combatant && getConfig(combatant.specID, player.type);
+    if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
@@ -268,11 +270,18 @@ class PlayerLoader extends React.PureComponent<Props, State> {
               message: `Player data does not seem to be available for the selected player in this fight.`,
             }),
           );
-        } else if (combatant.error || !combatant.specID) {
+        } else if (combatant.error || (!combatant.specID && combatant.specID !== 0)) {
           alert(
             t({
               id: 'interface.report.render.logCorrupted',
               message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
+            }),
+          );
+        } else if (!config) {
+          alert(
+            t({
+              id: 'interface.report.render.notSupported',
+              message: `This spec is not supported for this expansion.`,
             }),
           );
         }

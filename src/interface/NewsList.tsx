@@ -92,7 +92,7 @@ const NewsList = ({ topAnchor }: Props) => {
                     </>
                   ) : (
                     <>
-                      <SpecIcon id={item.spec.id} /> {item.spec.specName} {item.spec.className}
+                      <SpecIcon spec={item.spec} /> {item.spec.specName} {item.spec.className}
                     </>
                   )}{' '}
                   updated at {item.date.toLocaleDateString()} by{' '}

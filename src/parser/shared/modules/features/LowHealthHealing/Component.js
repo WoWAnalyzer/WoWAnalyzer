@@ -130,7 +130,7 @@ class LowHealthHealing extends React.Component {
                     </SpellLink>
                   </td>
                   <td style={{ width: '20%' }} className={specClassName}>
-                    <SpecIcon id={spec.id} /> {combatant.name}
+                    <SpecIcon spec={spec} /> {combatant.name}
                   </td>
                   <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
                     {formatNumber(effectiveHealing)} @{' '}
