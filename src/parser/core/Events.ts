@@ -771,7 +771,7 @@ export interface Conduit {
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
-  expansion: string;
+  expansion: 'tbc' | string;
   pin: string;
   sourceID: number;
   gear: Item[];

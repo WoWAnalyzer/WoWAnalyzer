@@ -122,7 +122,7 @@ class PlayerLoader extends React.PureComponent<Props, State> {
           );
           player = generateFakeCombatantInfo(player);
         }
-        if (player.error || player.specID === 0 || player.specID === -1) {
+        if (player.error || player.specID === -1) {
           return;
         }
         const friendly = report.friendlies.find((friendly) => friendly.id === player.sourceID);
@@ -130,21 +130,24 @@ class PlayerLoader extends React.PureComponent<Props, State> {
           console.error('friendly missing from report for player', player.sourceID);
           return;
         }
-        switch (SPECS[player.specID].role) {
-          case ROLES.TANK:
-            this.tanks += 1;
-            break;
-          case ROLES.HEALER:
-            this.healers += 1;
-            break;
-          case ROLES.DPS.MELEE:
-            this.dps += 1;
-            break;
-          case ROLES.DPS.RANGED:
-            this.ranged += 1;
-            break;
-          default:
-            break;
+        if (SPECS[player.specID]) {
+          // TODO: TBC support: specID is always null, so look at talents to figure out the most likely spec. Or use friendly.icon. Then make a table that has roles for that. Cumbersome, but not too difficult.
+          switch (SPECS[player.specID].role) {
+            case ROLES.TANK:
+              this.tanks += 1;
+              break;
+            case ROLES.HEALER:
+              this.healers += 1;
+              break;
+            case ROLES.DPS.MELEE:
+              this.dps += 1;
+              break;
+            case ROLES.DPS.RANGED:
+              this.ranged += 1;
+              break;
+            default:
+              break;
+          }
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
