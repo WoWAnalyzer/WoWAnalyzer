@@ -1,4 +1,4 @@
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import CoreCombatLogParser from 'parser/tbc/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';

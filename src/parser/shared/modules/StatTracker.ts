@@ -36,16 +36,6 @@ class StatTracker extends Analyzer {
 
   protected eventEmitter!: EventEmitter;
 
-  // These are multipliers to the stats applied *on pull* that are not
-  // included in the stats reported by WCL. These are *baked in* and do
-  // not multiply temporary buffs.
-  //
-  // In general, it looks like armor is the only one that isn't applied
-  // by WCL.
-  static SPEC_MULTIPLIERS = {
-    [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
-  };
-
   static DEFAULT_BUFFS: StatBuffsByGuid = {
     // region Potions
     [SPELLS.POTION_OF_SPECTRAL_AGILITY.id]: { agility: 190 },
@@ -393,8 +383,7 @@ class StatTracker extends Analyzer {
   }
 
   applySpecModifiers(): void {
-    const modifiers: StatMultiplier =
-      StatTracker.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
+    const modifiers: StatMultiplier = this.owner.config.statMultipliers || {};
     Object.entries(modifiers).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier !== undefined) {
         this._pullStats[stat as keyof Stats] *= multiplier;

@@ -33,6 +33,13 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/bdf9wjm7XJQn3DCR/31-Mythic+The+Council+of+Blood+-+Wipe+15+(4:38)/Xaronbm',
+  // These are multipliers to the stats applied *on pull* that are not
+  // included in the stats reported by WCL. These are *baked in* and do
+  // not multiply temporary buffs.
+  //
+  // In general, it looks like armor is the only one that isn't applied
+  // by WCL.
+  statMultipliers: { armor: 1.25 },
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
