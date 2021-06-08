@@ -18,6 +18,7 @@ import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Haste from '../shared/modules/Haste';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
+import Healthstone from '../shared/modules/items/Healthstone';
 import ManaValues from '../shared/modules/ManaValues';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import Pets from '../shared/modules/Pets';
@@ -83,6 +84,7 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Tabs
     raidHealthTab: RaidHealthTab,
+    healthstone: Healthstone,
   };
 }
 
