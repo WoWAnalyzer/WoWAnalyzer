@@ -116,24 +116,26 @@ class PlayerLoader extends React.PureComponent<Props, State> {
         fight.start_time,
         fight.end_time,
       )) as CombatantInfoEvent[];
-      combatants.forEach((player) => {
+      combatants.forEach((combatant) => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error(
-            `This player (sourceID: ${player.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
+            `This player (sourceID: ${combatant.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
           );
-          player = generateFakeCombatantInfo(player);
+          combatant = generateFakeCombatantInfo(combatant);
         }
-        if (player.error || player.specID === -1) {
+        if (combatant.error || combatant.specID === -1) {
           return;
         }
-        const friendly = report.friendlies.find((friendly) => friendly.id === player.sourceID);
-        if (!friendly) {
-          console.error('friendly missing from report for player', player.sourceID);
+        const player = report.friendlies.find((friendly) => friendly.id === combatant.sourceID);
+        if (!player) {
+          console.error('friendly missing from report for player', combatant.sourceID);
           return;
         }
-        if (SPECS[player.specID]) {
+        combatant.player = player;
+        if (SPECS[combatant.specID]) {
           // TODO: TBC support: specID is always null, so look at talents to figure out the most likely spec. Or use friendly.icon. Then make a table that has roles for that. Cumbersome, but not too difficult.
-          switch (SPECS[player.specID].role) {
+          // TODO: Move this code to the component that renders the tanks/healers/dps/ranged
+          switch (SPECS[combatant.specID].role) {
             case ROLES.TANK:
               this.tanks += 1;
               break;
@@ -151,7 +153,7 @@ class PlayerLoader extends React.PureComponent<Props, State> {
           }
         }
         // Gear may be null for broken combatants
-        this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
+        this.ilvl += combatant.gear ? getAverageItemLevel(combatant.gear) : 0;
       });
       this.ilvl /= combatants.length;
       if (this.props.report !== report || this.props.fight !== fight) {

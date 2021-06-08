@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatNth, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SPECS, { Spec } from 'game/SPECS';
 import { SpellIcon, SpellLink, SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -21,7 +20,7 @@ interface ChainHealInfo {
   target: {
     id: number | undefined;
     name: string;
-    spec: Spec;
+    specIcon: string;
     specClassName: string;
   };
   timestamp: number;
@@ -81,8 +80,8 @@ class ChainHeal extends Analyzer {
       target: {
         id: currentCast.targetID,
         name: combatant.name,
-        spec: SPECS[combatant.specId],
-        specClassName: SPECS[combatant.specId].className.replace(' ', ''),
+        specIcon: combatant.player.icon,
+        specClassName: combatant.player.type,
       },
       timestamp: currentCast.timestamp,
       castNo: this.castIndex,
@@ -203,9 +202,9 @@ class ChainHeal extends Analyzer {
                     <tr key={cast.timestamp}>
                       <th scope="row">{formatNth(cast.castNo)}</th>
                       <td>{formatDuration(cast.timestamp - this.owner.fight.start_time, 0)}</td>
-                      <td className={cast.target.specClassName}>
+                      <td className={cast.target.specClassName.replace(' ', '')}>
                         {' '}
-                        <SpecIcon spec={cast.target.spec} /> {cast.target.name}
+                        <SpecIcon icon={cast.target.specIcon} /> {cast.target.name}
                       </td>
                     </tr>
                   ))}

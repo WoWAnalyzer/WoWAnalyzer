@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import ROLES from 'game/ROLES';
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
-import SPECS from 'game/SPECS';
 import { ItemLink } from 'interface';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import Icon from 'interface/Icon';
@@ -26,8 +25,8 @@ const LEVEL_15_TALENT_ROW_INDEX = 0;
 
 class EncounterStats extends React.PureComponent {
   static propTypes = {
+    config: PropTypes.object.isRequired,
     currentBoss: PropTypes.number.isRequired,
-    spec: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
     duration: PropTypes.number.isRequired,
     combatant: PropTypes.instanceOf(Combatant).isRequired,
@@ -102,7 +101,7 @@ class EncounterStats extends React.PureComponent {
   }
 
   load() {
-    switch (SPECS[this.props.spec].role) {
+    switch (this.props.config.spec.role) {
       case ROLES.HEALER:
         this.metric = 'hps';
         break;
@@ -117,8 +116,8 @@ class EncounterStats extends React.PureComponent {
     const currentWeek = Math.ceil(((now - onejan) / 86400000 + onejan.getDay() + 1) / 7); // current calendar-week
 
     return fetchWcl(`rankings/encounter/${this.props.currentBoss}`, {
-      class: SPECS[this.props.spec].ranking.class,
-      spec: SPECS[this.props.spec].ranking.spec,
+      class: this.props.config.spec.ranking.class,
+      spec: this.props.config.spec.ranking.spec,
       difficulty: this.props.difficulty,
       limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
       metric: this.metric,

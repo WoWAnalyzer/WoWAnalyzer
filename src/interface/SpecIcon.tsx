@@ -2,14 +2,17 @@ import { Spec } from 'game/SPECS';
 import React from 'react';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLImageElement>, 'id'> {
-  spec: Spec;
+  spec?: Spec;
+  icon?: string;
   className?: string;
 }
 
-const SpecIcon = ({ spec, className, ...others }: Props) => (
+const SpecIcon = ({ spec, icon, className, ...others }: Props) => (
   <img
-    src={`/specs/${[spec.className, spec.specName].filter(Boolean).join('-').replace(' ', '')}.jpg`}
-    alt={`${spec.specName} ${spec.className}`}
+    src={`/specs/${
+      spec ? [spec.className, spec.specName].filter(Boolean).join('-').replace(' ', '') : icon
+    }.jpg`}
+    alt={spec ? `${spec.specName} ${spec.className}` : icon}
     className={`icon ${className || ''}`}
     {...others}
   />

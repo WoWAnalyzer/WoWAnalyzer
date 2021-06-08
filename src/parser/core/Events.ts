@@ -4,6 +4,7 @@ import React from 'react';
 
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';
+import { PlayerInfo } from './Player';
 
 export enum EventType {
   Heal = 'heal',
@@ -771,6 +772,7 @@ export interface Conduit {
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
+  player: PlayerInfo;
   expansion: 'tbc' | string;
   pin: string;
   sourceID: number;

@@ -45,7 +45,11 @@ class Combatant extends Entity {
   get specId() {
     return this._combatantInfo.specID;
   }
+  get player() {
+    return this._combatantInfo.player;
+  }
 
+  /** @deprecated Use player.icon instead. */
   get spec() {
     return SPECS[this.specId];
   }

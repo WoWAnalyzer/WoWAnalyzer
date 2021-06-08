@@ -154,8 +154,7 @@ class AncestralVigor extends Analyzer {
                 if (!combatant) {
                   return null;
                 }
-                const spec = SPECS[combatant.specId];
-                const specClassName = spec.className.replace(' ', '');
+                const specClassName = combatant.player.type.replace(' ', '');
 
                 return (
                   <tr key={index}>
