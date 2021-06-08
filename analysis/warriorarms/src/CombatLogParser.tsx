@@ -19,6 +19,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import RageDetail from './modules/features/RageDetails';
 import RageTracker from './modules/features/RageTracker';
 import SpellUsable from './modules/features/SpellUsable';
+import SignetOfTormentedKings from './modules/shadowlands/legendaries/SignetOfTormentedKings';
 import Talents from './modules/talents';
 import AngerManagement from './modules/talents/AngerManagement';
 import Avatar from './modules/talents/Avatar';
@@ -86,6 +87,9 @@ class CombatLogParser extends CoreCombatLogParser {
     warbreaker: Warbreaker,
     avatar: Avatar,
     ravager: Ravager,
+
+    // Shadowlands
+    signetofTormentedKings: SignetOfTormentedKings,
   };
 }
 
