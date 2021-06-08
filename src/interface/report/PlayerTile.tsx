@@ -58,7 +58,7 @@ const PlayerTile = (props: Props) => {
   }
 
   return !player.combatant.error && spec ? (
-    <Link to={analysisUrl} className={`player ${getClassName(spec.role)}`}>
+    <Link to={analysisUrl} className={`player ${getClassName(spec?.role)}`}>
       <div className="role" />
       <div className="card">
         <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />

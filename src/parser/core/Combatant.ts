@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
-import SPECS from 'game/SPECS';
+import SPECS, { Spec } from 'game/SPECS';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import {
@@ -50,7 +50,7 @@ class Combatant extends Entity {
   }
 
   /** @deprecated Use player.icon instead. */
-  get spec() {
+  get spec(): Spec | undefined {
     return SPECS[this.specId];
   }
 

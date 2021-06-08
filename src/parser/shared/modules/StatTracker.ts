@@ -531,7 +531,7 @@ class StatTracker extends Analyzer {
 
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
-    return (spellPoints * this.selectedCombatant.spec.masteryCoefficient) / 100;
+    return (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient || 1)) / 100;
   }
 
   get hasMasteryCoefficient() {
@@ -666,7 +666,7 @@ class StatTracker extends Analyzer {
         this.statBaselineRatingPerPercent[STAT.MASTERY],
         false,
         true,
-        this.selectedCombatant.spec.masteryCoefficient,
+        this.selectedCombatant.spec?.masteryCoefficient || 1,
       )
     );
   }

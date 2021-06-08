@@ -35,7 +35,7 @@ class Healthstone extends Potion {
 
   get isAvailable() {
     const players = Object.values(this.combatants.players);
-    return players.some((combatant) => combatant.spec.className === Class.Warlock);
+    return players.some((combatant) => combatant.player.type === Class.Warlock);
   }
 
   onDeath(event: DeathEvent) {

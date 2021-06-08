@@ -101,7 +101,7 @@ class EncounterStats extends React.PureComponent {
   }
 
   load() {
-    switch (this.props.config.spec.role) {
+    switch (this.props.config.spec?.role) {
       case ROLES.HEALER:
         this.metric = 'hps';
         break;

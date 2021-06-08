@@ -50,7 +50,7 @@ class ManaTideTotem extends Analyzer {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players)
-        .filter((player) => player.spec.role === ROLES.HEALER)
+        .filter((player) => player.spec?.role === ROLES.HEALER)
         .map((player) => ({
           [player.id]: {
             healer: player,

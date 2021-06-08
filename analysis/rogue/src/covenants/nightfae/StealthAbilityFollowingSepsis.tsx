@@ -35,7 +35,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
     STEALTH_ABILITIES.forEach((ability) => {
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ability), this.onStealthAbility);
     });
-    const specId = this.selectedCombatant.spec.id;
+    const specId = this.selectedCombatant.specId;
     // Outlaw and Assassination should use Ambush, Sub should use Shadowstrike.
     this.properStealthAbility =
       specId === SPECS.OUTLAW_ROGUE.id || specId === SPECS.ASSASSINATION_ROGUE.id

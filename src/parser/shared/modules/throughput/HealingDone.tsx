@@ -151,9 +151,9 @@ class HealingDone extends Analyzer {
                     content={
                       <>
                         Your HPS compared to the HPS of a top 100 player. To become a top 100{' '}
-                        <span className={this.selectedCombatant.spec.className.replace(' ', '')}>
-                          {this.selectedCombatant.spec.specName}{' '}
-                          {this.selectedCombatant.spec.className}
+                        <span className={this.selectedCombatant.player.type.replace(' ', '')}>
+                          {this.selectedCombatant.spec?.specName || null}{' '}
+                          {this.selectedCombatant.player.type}
                         </span>{' '}
                         on this fight you need to do at least{' '}
                         <strong>{formatThousands(topThroughput || 0)} HPS</strong>.

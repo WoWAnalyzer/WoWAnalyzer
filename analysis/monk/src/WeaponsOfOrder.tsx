@@ -35,7 +35,7 @@ class WeaponsOfOrder extends Analyzer {
   }
 
   get masteryBuffPercentage() {
-    return BASE_MASTERY_PERCENTAGE * this.selectedCombatant.spec.masteryCoefficient;
+    return BASE_MASTERY_PERCENTAGE * (this.selectedCombatant.spec?.masteryCoefficient || 1);
   }
 }
 

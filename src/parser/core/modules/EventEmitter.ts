@@ -326,10 +326,7 @@ class EventEmitter extends Module {
     this.owner.deepDisable(module, ModuleError.EVENTS, err);
     window.Sentry?.withScope((scope) => {
       scope.setTag('type', 'module_error');
-      scope.setTag(
-        'spec',
-        `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`,
-      );
+      scope.setTag('spec', this.selectedCombatant.player.icon);
       scope.setExtra('module', name);
       window.Sentry?.captureException(err);
     });
