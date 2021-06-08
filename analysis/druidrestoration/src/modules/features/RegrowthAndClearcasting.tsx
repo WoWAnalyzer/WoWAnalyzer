@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import CheckmarkIcon from 'interface/icons/Checkmark';
 import CrossIcon from 'interface/icons/Cross';
 import HealthIcon from 'interface/icons/Health';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -322,7 +323,7 @@ class RegrowthAndClearcasting extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.REGROWTH}>
           <>
-            <CrossIcon />
+            {this.badRegrowths === 0 ? <CheckmarkIcon /> : <CrossIcon />}
             {'  '}
             {this.badRegrowths} <small>bad casts</small>
             <br />
