@@ -224,6 +224,11 @@ const spells = {
     name: 'Lightning Bolt Overload',
     icon: 'spell_nature_lightning',
   },
+  ELEMENTAL_BLAST: {
+    id: 344645,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+  },
   ELEMENTAL_BLAST_OVERLOAD: {
     id: 120588,
     name: 'Elemental Blast',
