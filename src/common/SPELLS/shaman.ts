@@ -97,7 +97,7 @@ const spells = {
     manaCost: 650,
   },
   LIGHTNING_SHIELD: {
-    id: 192106,
+    id: 344174,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
     manaCost: 150,
