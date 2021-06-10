@@ -9,7 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
-  change(date(2021, 6, 9), 'Added elemental blast for shaman module.', Sref),
+  change(date(2021, 6, 9), 'Added elemental blast for shaman module. also updated lightning shield spell id.', Sref),
   change(date(2021, 5, 31), 'Reordered events are now highlighted blue in the events listing, differentiating them from modified events.', Sref),
   change(date(2021, 5, 27), 'German translation fix', maestrohdude),
   change(date(2021, 5, 15), 'Fixed a bug that could cause the Mana Pool graph to crash', Sref),
