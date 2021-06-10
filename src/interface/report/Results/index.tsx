@@ -387,7 +387,7 @@ class Results extends React.PureComponent<Props, State> {
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
-          name={player.name}
+          player={player}
           characterProfile={characterProfile}
           boss={boss}
           fight={fight}
