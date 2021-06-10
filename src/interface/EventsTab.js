@@ -85,6 +85,9 @@ const FILTERABLE_TYPES = {
   energize: {
     name: 'Energize',
   },
+  drain: {
+    name: 'Drain',
+  },
   interrupt: {
     name: 'Interrupt',
   },
@@ -155,9 +158,12 @@ class EventsTab extends React.Component {
     const spellId = ability.guid;
 
     return (
-      <SpellLink id={spellId} icon={false}>
-        {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
-      </SpellLink>
+      <>
+        <SpellLink id={spellId} icon={false}>
+          {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
+        </SpellLink>{' '}
+        <small>ID: {spellId}</small>
+      </>
     );
   }
 
@@ -343,7 +349,7 @@ class EventsTab extends React.Component {
                       )
                     }
                     disableSort
-                    width={30}
+                    width={25}
                     flexGrow={1}
                   />
                   <Column
@@ -377,7 +383,7 @@ class EventsTab extends React.Component {
                     label="Ability"
                     cellRenderer={({ cellData }) => this.renderAbility(cellData)}
                     disableSort
-                    width={90}
+                    width={160}
                     flexGrow={1}
                   />
                   <Column
@@ -510,7 +516,7 @@ class EventsTab extends React.Component {
                       return null;
                     }}
                     disableSort
-                    width={35}
+                    width={25}
                     flexGrow={1}
                   />
                 </Table>

@@ -44,6 +44,10 @@
 .events-tab .absorbed {
   color: orange;
 }
+.events-tab .cast,
+.events-tab .begincast {
+  color: hotpink;
+}
 .events-tab .applybuff,
 .events-tab .removebuff,
 .events-tab .refreshbuff,
@@ -57,6 +61,12 @@
 .events-tab .applydebuffstack,
 .events-tab .removedebuffstack {
   color: #ffe200;
+}
+.events-tab .energize {
+  color: mediumpurple;
+}
+.events-tab .drain {
+  color: purple;
 }
 .events-tab .overheal,
 .events-tab .NPC,
