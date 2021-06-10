@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.METAMORPHOSIS_HAVOC_BUFF,
+      spell: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

@@ -32,7 +32,7 @@ class HammerofWrath extends ExecuteHelper {
 
     //FIXME added reduction from legendary when we can get that info
     (options.abilities as Abilities).add({
-      spell: SPELLS.HAMMER_OF_WRATH,
+      spell: SPELLS.HAMMER_OF_WRATH.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: (haste) => 7.5 / (1 + haste),
       gcd: {

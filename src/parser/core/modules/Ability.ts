@@ -1,4 +1,4 @@
-import Spell from 'common/SPELLS/Spell';
+import SPELLS from 'common/SPELLS';
 import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -11,13 +11,13 @@ import Abilities from './Abilities';
 
 export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
   /**
-   * REQUIRED The spell definition. If an array of spell definitions is
+   * REQUIRED The spell id. If an array of spell ids is
    * provided, the first element in the array will be what shows in suggestions
-   * / cast timeline. Multiple spell definitions in the same ability can be
+   * / cast timeline. Multiple spell ids in the same ability can be
    * used to tie multiple cast / buff IDs together as the same ability (with a
    * shared cooldown)
    */
-  spell: Spell | Spell[];
+  spell: number | number[];
   /**
    * The name to use if it is different from the name provided by the `spell`
    * object. This should only be used in rare situations.
@@ -137,9 +137,9 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   damageSpellIds?: number[];
   /**
-   * The spell that'll forcibly shown on the timeline if set.
+   * The spell ID that'll forcibly shown on the timeline if set.
    */
-  shownSpell?: Spell;
+  shownSpell?: number;
 }
 
 class Ability {
@@ -163,20 +163,7 @@ class Ability {
      * ability can be used to tie multiple cast / buff IDs together as the same
      * ability (with a shared cooldown)
      */
-    spell: PropTypes.oneOfType([
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }),
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          icon: PropTypes.string.isRequired,
-        }),
-      ),
-    ]).isRequired,
+    spell: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]).isRequired,
     /**
      * The name to use if it is different from the name provided by the `spell`
      * object. This should only be used in rare situations.
@@ -301,11 +288,7 @@ class Ability {
     /**
      * The spell that'll forcibly shown on the timeline if set.
      */
-    shownSpell: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
-    }),
+    shownSpell: PropTypes.number,
   };
 
   private readonly owner: Abilities;
@@ -325,7 +308,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return this.primarySpell.name;
+    return SPELLS[this.primarySpell]?.name;
   }
   set name(value) {
     this._name = value;

@@ -108,7 +108,7 @@ class DarkmoonDeckVoracity extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.VORACIOUS_HUNGER,
+      spell: SPELLS.VORACIOUS_HUNGER.id,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: 90,
       gcd: null,

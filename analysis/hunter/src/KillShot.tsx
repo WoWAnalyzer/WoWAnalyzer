@@ -43,7 +43,7 @@ class KillShot extends ExecuteHelper {
     ctor.executeSpells.push(this.activeKillShotSpell);
 
     (options.abilities as Abilities).add({
-      spell: this.activeKillShotSpell,
+      spell: this.activeKillShotSpell.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       charges: this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
       cooldown: 10,

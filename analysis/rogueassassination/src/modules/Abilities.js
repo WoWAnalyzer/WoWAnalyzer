@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: SPELLS.ENVENOM,
+        spell: SPELLS.ENVENOM.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ENVENOM.id,
       },
       {
-        spell: SPELLS.GARROTE,
+        spell: SPELLS.GARROTE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // During the Subterfuge buff (from the talent), the spell has no cd
         cooldown: () => {
@@ -37,21 +37,21 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GARROTE.id,
       },
       {
-        spell: SPELLS.MUTILATE,
+        spell: SPELLS.MUTILATE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.POISONED_KNIFE,
+        spell: SPELLS.POISONED_KNIFE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.RUPTURE,
+        spell: SPELLS.RUPTURE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -59,14 +59,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.RUPTURE.id,
       },
       {
-        spell: SPELLS.BLINDSIDE_TALENT,
+        spell: SPELLS.BLINDSIDE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.MARKED_FOR_DEATH_TALENT,
+        spell: SPELLS.MARKED_FOR_DEATH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: null,
@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
       },
       {
-        spell: SPELLS.CRIMSON_TEMPEST_TALENT,
+        spell: SPELLS.CRIMSON_TEMPEST_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           static: 1000,
@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational AOE
       {
-        spell: SPELLS.FAN_OF_KNIVES,
+        spell: SPELLS.FAN_OF_KNIVES.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           static: 1000,
@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.VENDETTA,
+        spell: SPELLS.VENDETTA.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
@@ -106,7 +106,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.VENDETTA.id,
       },
       {
-        spell: SPELLS.VANISH,
+        spell: SPELLS.VANISH.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
           : SPELLS.MASTER_ASSASSIN_BUFF.id,
       },
       {
-        spell: SPELLS.EXSANGUINATE_TALENT,
+        spell: SPELLS.EXSANGUINATE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         gcd: {
@@ -129,7 +129,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SEPSIS,
+        spell: SPELLS.SEPSIS.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         cooldown: 90,
@@ -142,14 +142,14 @@ class Abilities extends CoreAbilities {
       },
       // Defensive
       {
-        spell: SPELLS.CLOAK_OF_SHADOWS,
+        spell: SPELLS.CLOAK_OF_SHADOWS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         gcd: null,
         buffSpellId: SPELLS.CLOAK_OF_SHADOWS.id,
       },
       {
-        spell: SPELLS.CRIMSON_VIAL,
+        spell: SPELLS.CRIMSON_VIAL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 30,
         gcd: {
@@ -158,14 +158,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CRIMSON_VIAL.id,
       },
       {
-        spell: SPELLS.EVASION,
+        spell: SPELLS.EVASION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         buffSpellId: SPELLS.EVASION.id,
         cooldown: 120,
         gcd: null,
       },
       {
-        spell: SPELLS.FEINT,
+        spell: SPELLS.FEINT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         buffSpellId: SPELLS.FEINT.id,
         cooldown: 15,
@@ -175,40 +175,40 @@ class Abilities extends CoreAbilities {
       },
       // Others
       {
-        spell: SPELLS.DEADLY_POISON,
+        spell: SPELLS.DEADLY_POISON.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
-        spell: SPELLS.WOUND_POISON,
+        spell: SPELLS.WOUND_POISON.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
-        spell: SPELLS.CRIPPLING_POISON,
+        spell: SPELLS.CRIPPLING_POISON.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       // Utility
       {
-        spell: SPELLS.SHADOWSTEP,
+        spell: SPELLS.SHADOWSTEP.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: null,
         buffSpellId: SPELLS.SHADOWSTEP.id,
       },
       {
-        spell: SPELLS.SPRINT,
+        spell: SPELLS.SPRINT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: null,
         buffSpellId: SPELLS.SPRINT.id,
       },
       {
-        spell: SPELLS.TRICKS_OF_THE_TRADE,
+        spell: SPELLS.TRICKS_OF_THE_TRADE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: null,
       },
       {
-        spell: SPELLS.BLIND,
+        spell: SPELLS.BLIND.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         gcd: {
@@ -217,7 +217,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BLIND.id,
       },
       {
-        spell: SPELLS.CHEAP_SHOT,
+        spell: SPELLS.CHEAP_SHOT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           static: 1000,
@@ -225,7 +225,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CHEAP_SHOT.id,
       },
       {
-        spell: SPELLS.DISTRACT,
+        spell: SPELLS.DISTRACT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
@@ -233,13 +233,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.KICK,
+        spell: SPELLS.KICK.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         gcd: null,
       },
       {
-        spell: SPELLS.KIDNEY_SHOT,
+        spell: SPELLS.KIDNEY_SHOT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
         gcd: {
@@ -248,7 +248,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.KIDNEY_SHOT.id,
       },
       {
-        spell: SPELLS.SHROUD_OF_CONCEALMENT,
+        spell: SPELLS.SHROUD_OF_CONCEALMENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 6 * 60,
         gcd: {
@@ -257,22 +257,22 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHROUD_OF_CONCEALMENT.id,
       },
       {
-        spell: SPELLS.SAP,
+        spell: SPELLS.SAP.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         buffSpellId: SPELLS.SAP.id,
       },
       {
-        spell: SPELLS.PICK_LOCK,
+        spell: SPELLS.PICK_LOCK.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
-        spell: SPELLS.PICK_POCKET,
+        spell: SPELLS.PICK_POCKET.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
       // Covenant Abilities
       {
-        spell: SPELLS.SEPSIS,
+        spell: SPELLS.SEPSIS.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1000,
@@ -281,7 +281,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
-        spell: SPELLS.FLAGELLATION,
+        spell: SPELLS.FLAGELLATION.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1000,
@@ -289,7 +289,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
-        spell: SPELLS.ECHOING_REPRIMAND,
+        spell: SPELLS.ECHOING_REPRIMAND.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1000,
@@ -298,7 +298,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
-        spell: SPELLS.SERRATED_BONE_SPIKE,
+        spell: SPELLS.SERRATED_BONE_SPIKE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1000,

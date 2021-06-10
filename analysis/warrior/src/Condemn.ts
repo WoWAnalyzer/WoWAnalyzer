@@ -18,7 +18,7 @@ class Condemn extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.CONDEMN,
+      spell: SPELLS.CONDEMN.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       gcd: {
         base: 1500,

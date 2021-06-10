@@ -33,7 +33,7 @@ class DeathChakrams extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
+      spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 45,
       gcd: {

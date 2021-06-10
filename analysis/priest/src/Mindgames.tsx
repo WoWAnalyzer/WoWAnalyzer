@@ -72,7 +72,7 @@ class Mindgames extends Analyzer {
             majorIssueEfficiency: 0.4,
           };
     (options.abilities as Abilities).add({
-      spell: SPELLS.MINDGAMES,
+      spell: SPELLS.MINDGAMES.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 45,
       enabled: true,

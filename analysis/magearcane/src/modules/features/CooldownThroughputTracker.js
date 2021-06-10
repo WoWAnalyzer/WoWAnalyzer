@@ -7,12 +7,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.ARCANE_POWER,
+      spell: SPELLS.ARCANE_POWER.id,
       startBufferMS: 4000,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.RUNE_OF_POWER_TALENT,
+      spell: SPELLS.RUNE_OF_POWER_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
@@ -20,7 +20,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.MIRROR_IMAGE,
+      spell: SPELLS.MIRROR_IMAGE.id,
       duration: 40,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },

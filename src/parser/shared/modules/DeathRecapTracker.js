@@ -70,8 +70,8 @@ class DeathRecapTracker extends Analyzer {
 
     const cooldownsOnly = this.cooldowns.filter((e) => e.cooldown);
     extendedEvent.defensiveCooldowns = cooldownsOnly.map((e) => ({
-      id: e.primarySpell.id,
-      cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id),
+      id: e.primarySpell,
+      cooldownReady: this.spellUsable.isAvailable(e.primarySpell),
     }));
     if (event.hitPoints > 0) {
       this.lastBuffs = this.buffs.filter((e) => {

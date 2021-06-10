@@ -134,11 +134,7 @@ class Timeline extends React.PureComponent {
     if (!ability) {
       return spellId; // not a class ability
     }
-    if (ability.spell instanceof Array) {
-      return ability.spell[0].id;
-    } else {
-      return ability.spell.id;
-    }
+    return ability.primarySpell;
   }
 
   setContainerRef(elem) {

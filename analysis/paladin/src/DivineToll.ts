@@ -19,7 +19,7 @@ class DivineToll extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.DIVINE_TOLL,
+      spell: SPELLS.DIVINE_TOLL.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 60,
       gcd: {

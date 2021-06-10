@@ -39,7 +39,7 @@ class WildSpirits extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.WILD_SPIRITS,
+      spell: SPELLS.WILD_SPIRITS.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 120,
       gcd: {

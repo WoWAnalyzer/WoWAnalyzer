@@ -33,7 +33,7 @@ class TouchOfDeath extends ExecuteHelper {
     // }
 
     options.abilities.add({
-      spell: SPELLS.TOUCH_OF_DEATH,
+      spell: SPELLS.TOUCH_OF_DEATH.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
       gcd: {

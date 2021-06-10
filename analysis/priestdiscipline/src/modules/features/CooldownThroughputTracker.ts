@@ -19,7 +19,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.RAPTURE,
+      spell: SPELLS.RAPTURE.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED,
         BUILT_IN_SUMMARY_TYPES.ABSORBED,
@@ -39,7 +39,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
       this.lastEvangelism = this.addCooldown(
         {
-          spell: SPELLS.EVANGELISM_TALENT,
+          spell: SPELLS.EVANGELISM_TALENT.id,
           summary: [
             BUILT_IN_SUMMARY_TYPES.HEALING,
             {

@@ -19,7 +19,7 @@ class Healthstone extends Potion {
 
   protected combatants!: Combatants;
 
-  static spells = [SPELLS.HEALTHSTONE];
+  static spells = [SPELLS.HEALTHSTONE.id];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
     isDefensive: true,
