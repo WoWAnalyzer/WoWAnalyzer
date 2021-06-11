@@ -86,6 +86,9 @@
 .events-tab .crit:after {
   content: '*';
 }
+.events-tab .negative {
+  color: darkorange;
+}
 .events-tab a img {
   height: 1.6em;
   border-radius: 3px;

@@ -452,13 +452,14 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === EventType.Energize) {
+                      if (rowData.type === EventType.Energize || rowData.type === EventType.Drain) {
                         const resource = RESOURCE_TYPES[rowData.resourceChangeType];
+                        const change = rowData.resourceChange - (rowData.waste || 0);
                         if (resource) {
                           return (
                             <>
-                              <span className={resource.url}>
-                                {formatThousands(rowData.resourceChange - rowData.waste)}{' '}
+                              <span className={change < 0 ? 'negative' : null}>
+                                {formatThousands(change)}{' '}
                                 {resource.name}
                               </span>{' '}
                               {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
