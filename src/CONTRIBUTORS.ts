@@ -1595,3 +1595,8 @@ export const carglass: Contributor = {
     },
   ],
 };
+
+export const Zea: Contributor = {
+  nickname: 'Zea',
+  github: 'kedearian',
+};
