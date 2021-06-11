@@ -388,7 +388,7 @@ class EventsTab extends React.Component {
                   />
                   <Column
                     dataKey="effective"
-                    label="Effective"
+                    label="Amount"
                     className="effect"
                     cellRenderer={({ rowData }) => {
                       if (rowData.type === EventType.Damage) {
@@ -459,13 +459,29 @@ class EventsTab extends React.Component {
                           return (
                             <>
                               <span className={change < 0 ? 'negative' : null}>
-                                {formatThousands(change)}{' '}
-                                {resource.name}
+                                {formatThousands(change)} {resource.name}
                               </span>{' '}
                               {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
                             </>
                           );
                         }
+                      }
+                      if (
+                        rowData.type === EventType.ApplyBuffStack ||
+                        rowData.type === EventType.ApplyDebuffStack ||
+                        rowData.type === EventType.RemoveBuffStack ||
+                        rowData.type === EventType.RemoveDebuffStack
+                      ) {
+                        const remove =
+                          rowData.type === EventType.RemoveBuffStack ||
+                          rowData.type === EventType.RemoveDebuffStack;
+                        return (
+                          <>
+                            <span className={remove ? 'negative' : null}>
+                              {`\u2794 ${rowData.stack} stack${rowData.stack === 1 ? '' : 's'}`}
+                            </span>
+                          </>
+                        );
                       }
                       return null;
                     }}
@@ -475,7 +491,7 @@ class EventsTab extends React.Component {
                   />
                   <Column
                     dataKey="rest"
-                    label="Rest"
+                    label=""
                     className="effect"
                     cellRenderer={({ rowData }) => {
                       if (rowData.type === EventType.Damage) {
