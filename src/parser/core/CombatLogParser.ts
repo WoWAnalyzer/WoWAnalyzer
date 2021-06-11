@@ -81,6 +81,7 @@ import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import EventEmitter from './modules/EventEmitter';
+import SpellInfo from './modules/SpellInfo';
 import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
@@ -118,6 +119,7 @@ class CombatLogParser {
     combatants: Combatants,
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
+    spellInfo: SpellInfo,
   };
   static defaultModules: DependenciesDefinition = {
     // Normalizers
