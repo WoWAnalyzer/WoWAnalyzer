@@ -78,8 +78,7 @@ interface ConnectedProps {
 interface PassedProps {
   parser: CombatLogParser;
   characterProfile: CharacterProfile;
-  makeBuildUrl: (tab: string, build: string) => string;
-  makeTabUrl: (tab: string) => string;
+  makeTabUrl: (tab: string, build?: string) => string;
   phases: { [key: string]: Phase } | null;
   selectedPhase: string;
   selectedInstance: number;
@@ -365,7 +364,6 @@ class Results extends React.PureComponent<Props, State> {
       player,
       build,
       characterProfile,
-      makeBuildUrl,
       makeTabUrl,
       selectedTab,
       premium,
@@ -404,7 +402,6 @@ class Results extends React.PureComponent<Props, State> {
           fight={fight}
           tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
-          makeBuildUrl={makeBuildUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
           selectedInstance={selectedInstance}
