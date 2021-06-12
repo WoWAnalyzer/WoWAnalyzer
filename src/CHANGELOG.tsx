@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 6, 12), 'Fixed unit test', Sref),
   change(date(2021, 6, 10), 'Updated events tab with more event type coloring, spell IDs, and amount information', Sref),
   change(date(2021, 5, 31), 'Reordered events are now highlighted blue in the events listing, differentiating them from modified events.', Sref),
   change(date(2021, 5, 27), 'German translation fix', maestrohdude),
