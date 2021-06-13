@@ -42,7 +42,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IRONBARK,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,

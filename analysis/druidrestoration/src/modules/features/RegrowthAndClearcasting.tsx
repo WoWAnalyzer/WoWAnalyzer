@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import CheckmarkIcon from 'interface/icons/Checkmark';
 import CrossIcon from 'interface/icons/Cross';
 import HealthIcon from 'interface/icons/Health';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -56,8 +57,13 @@ class RegrowthAndClearcasting extends Analyzer {
   /** the most recent regrowth hardcast, or undefined if the last cast was 'accounted for' */
   lastRegrowthCast: CastEvent | undefined = undefined;
 
+  hasAbundance: boolean;
+
   constructor(options: Options) {
     super(options);
+
+    this.hasAbundance = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT);
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
       this.onApplyClearcast,
@@ -257,9 +263,14 @@ class RegrowthAndClearcasting extends Analyzer {
             <SpellLink id={SPELLS.REGROWTH.id} /> is very mana inefficient and should only be cast
             when free due to <SpellLink id={SPELLS.INNERVATE.id} />,{' '}
             <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> or{' '}
-            <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />, cheap due to{' '}
-            {ABUNDANCE_EXCEPTION_STACKS}+ <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> stacks, or
-            to save a low health target.
+            <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />,{' '}
+            {this.hasAbundance && (
+              <>
+                cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}
+                <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> stacks,
+              </>
+            )}{' '}
+            or to save a low health target.
             <br />
             <br />
             <strong>
@@ -272,10 +283,12 @@ class RegrowthAndClearcasting extends Analyzer {
                 <SpellIcon id={SPELLS.NATURES_SWIFTNESS.id} /> Free Casts:{' '}
                 <strong>{this.freeRegrowths}</strong>
               </li>
-              <li>
-                <SpellIcon id={SPELLS.ABUNDANCE_BUFF.id} /> Cheap Casts:{' '}
-                <strong>{this.abundanceRegrowths}</strong>
-              </li>
+              {this.hasAbundance && (
+                <li>
+                  <SpellIcon id={SPELLS.ABUNDANCE_BUFF.id} /> Cheap Casts:{' '}
+                  <strong>{this.abundanceRegrowths}</strong>
+                </li>
+              )}
               <li>
                 <HealthIcon /> Full Price Triage ({'<'}
                 {formatPercentage(TRIAGE_THRESHOLD, 0)}% HP) Casts:{' '}
@@ -310,7 +323,7 @@ class RegrowthAndClearcasting extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.REGROWTH}>
           <>
-            <CrossIcon />
+            {this.badRegrowths === 0 ? <CheckmarkIcon /> : <CrossIcon />}
             {'  '}
             {this.badRegrowths} <small>bad casts</small>
             <br />

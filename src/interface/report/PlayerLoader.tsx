@@ -122,7 +122,7 @@ class PlayerLoader extends React.PureComponent<Props, State> {
           );
           player = generateFakeCombatantInfo(player);
         }
-        if (player.error || player.specID === -1) {
+        if (player.error || player.specID === 0 || player.specID === -1) {
           return;
         }
         const friendly = report.friendlies.find((friendly) => friendly.id === player.sourceID);
