@@ -27,7 +27,7 @@ const PANDEMIC_EXTRA = 0.3;
 const EXPECTED_REMOVAL_THRESHOLD = 200;
 
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
-const debug = false;
+const debug = true;
 const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
@@ -296,7 +296,7 @@ abstract class HotTracker extends Analyzer {
         `${this.hots[targetId][spellId].name} on ${targetId} @${this.owner.formatTimestamp(
           this.owner.currentTimestamp,
           1,
-        )} boosted ${boostAmount} by ${attribution.name}`,
+        )} boosted ${boostAmount * 100}% by ${attribution.name}`,
       );
     this.attributions[attribution.name] = attribution;
   }
