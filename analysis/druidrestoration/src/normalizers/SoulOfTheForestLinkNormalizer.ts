@@ -1,7 +1,7 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
-import { AbilityEvent, AnyEvent, ApplyBuffEvent, EventType, HasRelatedEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { AbilityEvent, AnyEvent, ApplyBuffEvent, EventType, GetRelatedEvents, HasRelatedEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 export const BUFFED_BY_SOTF = 'BuffedBySotf';
 export const SOTF_BUFFS_HEAL = 'BuffsHeal';
@@ -96,8 +96,13 @@ class SoulOfTheForestLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isBuffedBySotf(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
-  return HasRelatedEvent(event, BUFFED_BY_SOTF);
+export function buffedBySotf(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): RemoveBuffEvent | undefined {
+  const sotfs: AnyEvent[] = GetRelatedEvents(event, BUFFED_BY_SOTF);
+  if (sotfs.length === 0) {
+    return undefined;
+  } else {
+    return sotfs[0] as RemoveBuffEvent;
+  }
 }
 
 export default SoulOfTheForestLinkNormalizer;

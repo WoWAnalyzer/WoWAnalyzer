@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -14,6 +14,7 @@ import React from 'react';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
 import { isFromHardcast } from '../../normalizers/HotCastLinkNormalizer';
+import { buffedBySotf } from '../../normalizers/SoulOfTheForestLinkNormalizer';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -71,7 +72,7 @@ class SoulOfTheForest extends Analyzer {
     [SPELLS.WILD_GROWTH.id]: this.sotfWgInfo,
   };
 
-  lastSotfEvent?: ApplyBuffEvent | RefreshBuffEvent | HealEvent;
+  lastTalliedSotF?: RemoveBuffEvent;
 
   constructor(options: Options) {
     super(options);
@@ -95,76 +96,42 @@ class SoulOfTheForest extends Analyzer {
    * Updates tracking logic then true iff the given event benefits from SotF
    */
   onSotfConsume(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-    // first check source
+    // check if buffed (link from normalizer)
+    const sotf: RemoveBuffEvent | undefined = buffedBySotf(event);
+    if (!sotf) {
+      return;
+    }
+
+    // check source
     const fromHardcast: boolean = isFromHardcast(event);
     const fromConvoke: boolean = !fromHardcast && this.convokeSpirits.isConvoking();
-    if (!fromHardcast && !fromConvoke) {
-      return; // spells from other sources (like MotMT and VUG) don't consume SotF
-    }
-    if (event.type === EventType.Heal && (event as HealEvent).tick) {
-      return; // only consider regrowth direct heal, not the ticks
-    }
 
-    // check if this event could also apply to the recent SotF consumption
-    if (this.lastSotfEvent && this.lastSotfEvent.timestamp + BUFFER_MS >= event.timestamp) {
-      if (this._checkMatch(event)) {
-        this._tallySotfHealing(event, false, fromHardcast, fromConvoke);
-      }
-      // there is no recent consumption -> check if we're consuming it now
-    } else if (
-      this.selectedCombatant.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id, event.timestamp, BUFFER_MS)
-    ) {
-      this.lastSotfEvent = event;
-      this._tallySotfHealing(event, true, fromHardcast, fromConvoke);
-    }
-  }
-
-  /** Given there was a recent SotF consumption, check if this event also applies */
-  _checkMatch(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
-    const lastGuid = this.lastSotfEvent!.ability.guid;
-    const lastTarget = this.lastSotfEvent!.targetID;
-    if (event.ability.guid === SPELLS.REGROWTH.id) {
-      if (lastGuid === SPELLS.REGROWTH && lastTarget === event.targetID) {
-        return true;
-      }
-    } else if (event.ability.guid === SPELLS.WILD_GROWTH.id) {
-      if (lastGuid === SPELLS.WILD_GROWTH.id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  _tallySotfHealing(
-    event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
-    isNewProc: boolean,
-    fromHardcast: boolean,
-    fromConvoke: boolean,
-  ): void {
+    // tally healing
     const procInfo = this.sotfSpellInfo[event.ability.guid];
     if (!procInfo) {
       // should be impossible
       console.error("Couldn't find spell info for SotF event!", event);
       return;
     }
-    if (isNewProc && fromHardcast) {
-      procInfo.hardcastUses += 1;
-      debug && console.log("New HARDCAST " + procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1));
+
+    if (!this.lastTalliedSotF || this.lastTalliedSotF.timestamp !== sotf.timestamp) {
+      this.lastTalliedSotF = sotf;
+      if (fromHardcast) {
+        procInfo.hardcastUses += 1;
+        debug && console.log("New HARDCAST " + procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1));
+      } else if (fromConvoke) {
+        procInfo.convokeUses += 1;
+        debug && console.log("New CONVOKE " + procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1));
+      } else {
+        console.warn(procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1) + " not from hardcast or convoke??");
+      }
     }
-    if (isNewProc && fromConvoke) {
-      procInfo.convokeUses += 1;
-      debug && console.log("New CONVOKE " + procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1));
-    }
-    if (event.type === EventType.Heal) {
-      const healEvent = event as HealEvent;
-      procInfo.attribution.healing += healEvent.amount + (healEvent.absorbed || 0);
-    } else {
-      this.hotTracker.addBoostFromApply(
-        procInfo.attribution,
-        procInfo.boost,
-        event as ApplyBuffEvent,
-      );
-    }
+
+    this.hotTracker.addBoostFromApply(
+      procInfo.attribution,
+      procInfo.boost,
+      event as ApplyBuffEvent,
+    );
   }
 
   get rejuvHardcastUses() {
