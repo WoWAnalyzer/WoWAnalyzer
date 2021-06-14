@@ -103,7 +103,7 @@ const spells = {
     manaCost: 150,
   },
   LIGHTNING_SHIELD_ELEMENTAL: {
-    id: 344174, // Appears to be the spellID used when lightning shield does damage as Elemental Spec.
+    id: 344174, // Appears to be the spellID used when lightning shield does damage as Elemental Spec
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
     manaCost: 150,
