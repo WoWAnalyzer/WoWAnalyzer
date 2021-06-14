@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,9 +15,8 @@ import React from 'react';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
 
-import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
 import { isFromHardcast } from '../../../normalizers/HotCastLinkNormalizer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
 
 const CONVOKED_HOTS = [
   SPELLS.REJUVENATION,
@@ -166,12 +166,14 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
               <>
                 <br />
                 <br />
-                In addition, you took advantage of the fact that <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> boosts convoked
-                Regrowth healing without consuming the buff. Nature's swiftness was active during{' '}
+                In addition, you took advantage of the fact that{' '}
+                <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> boosts convoked Regrowth healing
+                without consuming the buff. Nature's swiftness was active during{' '}
                 <strong>
                   {this.nsBoostedConvokeCount} out of {this.convokeCount}
                 </strong>{' '}
-                casts, during which it boosted <strong>{this.nsBoostedConvokeRegrowthCount} Regrowths</strong> and caused{' '}
+                casts, during which it boosted{' '}
+                <strong>{this.nsBoostedConvokeRegrowthCount} Regrowths</strong> and caused{' '}
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(this.totalNsConvokeHealing),
