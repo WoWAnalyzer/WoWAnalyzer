@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 6, 14), <>Updated <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> stat to properly account for Convoke, to better account for edge case issues, and updated the tooltip.</>, Sref),
   change(date(2021, 6, 6), <>Fixed an issue where <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> related items were referenced in the Regrowth stat box even when the player doesn't have the talent.</>, Sref),
   change(date(2021, 6, 6), <>Fixed an issue where <SpellLink id={SPELLS.IRONBARK.id} /> cooldown was listed at 60 instead of 90.</>, Sref),
   change(date(2021, 6, 1), 'Updated the Early Rejuvenation module to display per-minute and to properly account for Convoked Flourish', Sref),
