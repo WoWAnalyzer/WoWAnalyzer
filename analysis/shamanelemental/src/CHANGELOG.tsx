@@ -4,6 +4,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 6, 14), <>Added additional lightning_shield_elemental spellid.</>, Zea),
   change(date(2021, 6, 11), <>Bumped version to 9.0.5, left as partial support. Also added spellID for elemental blast.</>, Zea),
   change(date(2021, 1, 28), <>Added check for suboptimal Chain Lightning.</>, Maximaw),
   change(date(2021, 1, 14), 'Updated integration tests to Shadowlands', Putro),
