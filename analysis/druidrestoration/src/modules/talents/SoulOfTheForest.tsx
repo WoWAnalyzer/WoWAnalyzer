@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  EventType,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -21,6 +22,7 @@ import { isFromHardcast } from '../../normalizers/HotCastLinkNormalizer';
 import { buffedBySotf } from '../../normalizers/SoulOfTheForestLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -148,11 +150,15 @@ class SoulOfTheForest extends Analyzer {
       }
     }
 
-    this.hotTracker.addBoostFromApply(
-      procInfo.attribution,
-      procInfo.boost,
-      event as ApplyBuffEvent,
-    );
+    if (event.type === EventType.Heal) {
+      procInfo.attribution.healing += calculateEffectiveHealing(event, procInfo.boost);
+    } else {
+      this.hotTracker.addBoostFromApply(
+        procInfo.attribution,
+        procInfo.boost,
+        event as ApplyBuffEvent,
+      );
+    }
   }
 
   get rejuvHardcastUses() {
