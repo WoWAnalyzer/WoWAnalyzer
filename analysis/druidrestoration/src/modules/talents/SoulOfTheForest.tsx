@@ -35,7 +35,7 @@ const REJUVENATION_HEALING_INCREASE = 2;
 const REGROWTH_HEALING_INCREASE = 2;
 const WILD_GROWTH_HEALING_INCREASE = 0.75;
 
-const debug = true;
+const debug = false;
 
 /**
  * **Soul of the Forest**
