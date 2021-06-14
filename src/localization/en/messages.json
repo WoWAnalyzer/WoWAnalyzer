@@ -164,7 +164,7 @@
   "druid.restoration.suggestions.flourish.wildGrowthExtended": "{0}% WGs extended.",
   "druid.restoration.suggestions.lifebloom.uptime": "{0}% uptime",
   "druid.restoration.suggestions.rejuvenation.wastedSeconds": "You refreshed early {0} times which made you waste {1} seconds of rejuvenation.",
-  "druid.restoration.suggestions.soulOfTheForest.efficiency": "Wild growth consumed {0}% of all the buffs.",
+  "druid.restoration.suggestions.soulOfTheForest.efficiency": "Wild growth consumed {0}% of the buffs.",
   "druid.restoration.suggestions.springBlossoms.efficiency": "{0}% healing",
   "druid.restoration.suggestions.treeOfLife.efficiency": "{0}% healing",
   "druid.restoration.suggestions.wildgrowth.rejuvenationRatio": "{0} WGs / {1} rejuvs",
