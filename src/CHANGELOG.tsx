@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Sref, Ssabbar, wmavis, Zeboot, Zerotorescue, niko, Zea } from 'CONTRIBUTORS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Sref, Ssabbar, wmavis, Zeboot, Zerotorescue, niko } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import React from 'react';
