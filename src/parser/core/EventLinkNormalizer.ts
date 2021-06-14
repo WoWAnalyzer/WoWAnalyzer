@@ -80,7 +80,8 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
     if (
       this._isReferenced(el, referencedEvent) &&
       this._sourceCheck(el, linkingEvent, referencedEvent) &&
-      this._targetCheck(el, linkingEvent, referencedEvent)
+      this._targetCheck(el, linkingEvent, referencedEvent) &&
+      (!el.additionalCondition || el.additionalCondition(linkingEvent, referencedEvent))
     ) {
       AddRelatedEvent(linkingEvent, el.linkRelation, referencedEvent);
       if (el.reverseLinkRelation !== undefined) {
@@ -157,6 +158,8 @@ export type EventLink = {
   anyTarget?: boolean;
   /** Iff defined, links will also be added from the referenced event to the linking event using this relation. */
   reverseLinkRelation?: string;
+  /** Iff defined, this predicate will also be called with the candidate events and iff false no link will be made */
+  additionalCondition?: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => boolean;
 };
 
 export default EventLinkNormalizer;
