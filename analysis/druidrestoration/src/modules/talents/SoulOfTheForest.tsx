@@ -3,7 +3,12 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -11,10 +16,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
-import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
-import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
+
 import { isFromHardcast } from '../../normalizers/HotCastLinkNormalizer';
 import { buffedBySotf } from '../../normalizers/SoulOfTheForestLinkNormalizer';
+import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -26,8 +32,6 @@ const SOTF_SPELLS = [
 const REJUVENATION_HEALING_INCREASE = 2;
 const REGROWTH_HEALING_INCREASE = 2;
 const WILD_GROWTH_HEALING_INCREASE = 0.75;
-
-const BUFFER_MS = 100;
 
 const debug = true;
 
@@ -118,12 +122,29 @@ class SoulOfTheForest extends Analyzer {
       this.lastTalliedSotF = sotf;
       if (fromHardcast) {
         procInfo.hardcastUses += 1;
-        debug && console.log("New HARDCAST " + procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1));
+        debug &&
+          console.log(
+            'New HARDCAST ' +
+              procInfo.attribution.name +
+              ' @ ' +
+              this.owner.formatTimestamp(event.timestamp, 1),
+          );
       } else if (fromConvoke) {
         procInfo.convokeUses += 1;
-        debug && console.log("New CONVOKE " + procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1));
+        debug &&
+          console.log(
+            'New CONVOKE ' +
+              procInfo.attribution.name +
+              ' @ ' +
+              this.owner.formatTimestamp(event.timestamp, 1),
+          );
       } else {
-        console.warn(procInfo.attribution.name + " @ " + this.owner.formatTimestamp(event.timestamp, 1) + " not from hardcast or convoke??");
+        console.warn(
+          procInfo.attribution.name +
+            ' @ ' +
+            this.owner.formatTimestamp(event.timestamp, 1) +
+            ' not from hardcast or convoke??',
+        );
       }
     }
 
@@ -203,7 +224,6 @@ class SoulOfTheForest extends Analyzer {
     };
   }
 
-  // TODO update
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -250,7 +270,6 @@ class SoulOfTheForest extends Analyzer {
     );
   }
 
-  // TODO update
   statistic() {
     return (
       <Statistic
