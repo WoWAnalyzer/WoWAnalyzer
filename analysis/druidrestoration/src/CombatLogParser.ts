@@ -51,6 +51,7 @@ import TreeOfLife from './modules/talents/TreeOfLife';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotCastLinkNormalizer from './normalizers/HotCastLinkNormalizer';
+import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     clearcastingNormalizer: ClearcastingNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotCastLinkNormalizer: HotCastLinkNormalizer,
+    soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core

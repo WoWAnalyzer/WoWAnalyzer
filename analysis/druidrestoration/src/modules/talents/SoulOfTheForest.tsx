@@ -6,7 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, {
   ApplyBuffEvent,
-  CastEvent,
+  EventType,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -19,207 +19,202 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-const REGROWTH_HEALING_INCREASE = 2;
+import { isFromHardcast } from '../../normalizers/HotCastLinkNormalizer';
+import { buffedBySotf } from '../../normalizers/SoulOfTheForestLinkNormalizer';
+import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
+
+const SOTF_SPELLS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.WILD_GROWTH,
+  SPELLS.REGROWTH,
+];
+
 const REJUVENATION_HEALING_INCREASE = 2;
+const REGROWTH_HEALING_INCREASE = 2;
 const WILD_GROWTH_HEALING_INCREASE = 0.75;
 
-const WILD_GROWTH_BUFFER = 500;
+const debug = false;
 
+/**
+ * **Soul of the Forest**
+ * Talent - Level 40
+ *
+ * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 200%,
+ * or your next Wild Growth by 75%.
+ */
 class SoulOfTheForest extends Analyzer {
-  listening = false;
-  listenForWildGrowth = false;
-  wildGrowthTimestamp = 0;
+  static dependencies = {
+    hotTracker: HotTrackerRestoDruid,
+    convokeSpirits: ConvokeSpiritsResto,
+  };
 
-  regrowthBuffed = 0;
-  rejuvBuffed = 0;
-  wildGrowthsBuffed = 0;
+  hotTracker!: HotTrackerRestoDruid;
+  convokeSpirits!: ConvokeSpiritsResto;
 
-  regrowthHealing = 0;
-  rejuvHealing = 0;
-  wildGrowthHealing = 0;
+  sotfRejuvInfo = {
+    boost: REJUVENATION_HEALING_INCREASE,
+    attribution: HotTrackerRestoDruid.getNewAttribution('SotF Rejuvenation'),
+    hardcastUses: 0,
+    convokeUses: 0,
+  };
+  sotfRegrowthInfo = {
+    boost: REGROWTH_HEALING_INCREASE,
+    attribution: HotTrackerRestoDruid.getNewAttribution('SotF Regrowth'),
+    hardcastUses: 0,
+    convokeUses: 0,
+  };
+  sotfWgInfo = {
+    boost: WILD_GROWTH_HEALING_INCREASE,
+    attribution: HotTrackerRestoDruid.getNewAttribution('SotF Wild Growth'),
+    hardcastUses: 0,
+    convokeUses: 0,
+  };
+  sotfSpellInfo = {
+    [SPELLS.REJUVENATION.id]: this.sotfRejuvInfo,
+    [SPELLS.REJUVENATION_GERMINATION.id]: this.sotfRejuvInfo,
+    [SPELLS.REGROWTH.id]: this.sotfRegrowthInfo,
+    [SPELLS.WILD_GROWTH.id]: this.sotfWgInfo,
+  };
 
-  regrowthList: number[] = [];
-  rejuvList: number[] = [];
-  wildGrowthList: number[] = [];
+  lastTalliedSotF?: RemoveBuffEvent;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_BUFF),
-      this.startListening,
-    );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.applyRegrowth,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SOTF_SPELLS),
+      this.onSotfConsume,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.applyRejuv,
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SOTF_SPELLS),
+      this.onSotfConsume,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.castWildGrowth,
-    );
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.applyWildGrowths,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.refreshRegrowth,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.refreshRejuv,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.refreshWildGrowth,
-    );
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.removeRegrowth,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.removeRejuv,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.removeWildGrowth,
-    );
-
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.regrowthHeal,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.rejuvHeal,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.wildGrowthHeal,
+      this.onSotfConsume,
     );
   }
 
-  startListening(event: ApplyBuffEvent) {
-    this.listening = true;
-  }
-
-  applyRegrowth(event: CastEvent) {
-    if (!this.listening) {
+  /**
+   * Updates tracking logic then true iff the given event benefits from SotF
+   */
+  onSotfConsume(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+    // check if buffed (link from normalizer)
+    const sotf: RemoveBuffEvent | undefined = buffedBySotf(event);
+    if (!sotf) {
       return;
     }
-    this.listening = false;
-    this.regrowthList.push(event.targetID!);
-    this.regrowthBuffed += 1;
-  }
 
-  applyRejuv(event: CastEvent) {
-    if (!this.listening) {
+    // check source
+    const fromHardcast: boolean = isFromHardcast(event);
+    const fromConvoke: boolean = !fromHardcast && this.convokeSpirits.isConvoking();
+
+    // tally healing
+    const procInfo = this.sotfSpellInfo[event.ability.guid];
+    if (!procInfo) {
+      // should be impossible
+      console.error("Couldn't find spell info for SotF event!", event);
       return;
     }
-    this.listening = false;
-    this.rejuvList.push(event.targetID!);
-    this.rejuvBuffed += 1;
-  }
 
-  castWildGrowth(event: CastEvent) {
-    //We track the next 5 wild boys
-    if (!this.listening) {
-      return;
-    }
-    this.listening = false;
-    this.listenForWildGrowth = true;
-    this.wildGrowthTimestamp = event.timestamp;
-    this.wildGrowthsBuffed += 1;
-  }
-
-  applyWildGrowths(event: ApplyBuffEvent) {
-    if (!this.listenForWildGrowth) {
-      return;
-    }
-    if (event.timestamp > this.wildGrowthTimestamp + WILD_GROWTH_BUFFER) {
-      this.listenForWildGrowth = false;
-      return;
-    }
-    this.wildGrowthList.push(event.targetID);
-  }
-
-  refreshRegrowth(event: RefreshBuffEvent) {
-    //if we are not listening then we need to remove it from the list
-    if (!this.listening) {
-      delete this.regrowthList[event.targetID];
-    }
-  }
-
-  refreshRejuv(event: RefreshBuffEvent) {
-    //if we are not listening then we need to remove it from the list
-    if (!this.listening) {
-      delete this.rejuvList[event.targetID];
-    }
-  }
-
-  refreshWildGrowth(event: RefreshBuffEvent) {
-    //if we are not listening then we need to remove it from the list
-    if (
-      this.listenForWildGrowth &&
-      event.timestamp < this.wildGrowthTimestamp + WILD_GROWTH_BUFFER
-    ) {
-      //double check we are not already on the list for some weird reason
-      if (!this.wildGrowthList.includes(event.targetID)) {
-        this.wildGrowthList.push(event.targetID);
+    if (!this.lastTalliedSotF || this.lastTalliedSotF.timestamp !== sotf.timestamp) {
+      this.lastTalliedSotF = sotf;
+      if (fromHardcast) {
+        procInfo.hardcastUses += 1;
+        debug &&
+          console.log(
+            'New HARDCAST ' +
+              procInfo.attribution.name +
+              ' @ ' +
+              this.owner.formatTimestamp(event.timestamp, 1),
+          );
+      } else if (fromConvoke) {
+        procInfo.convokeUses += 1;
+        debug &&
+          console.log(
+            'New CONVOKE ' +
+              procInfo.attribution.name +
+              ' @ ' +
+              this.owner.formatTimestamp(event.timestamp, 1),
+          );
+      } else {
+        console.warn(
+          procInfo.attribution.name +
+            ' @ ' +
+            this.owner.formatTimestamp(event.timestamp, 1) +
+            ' not from hardcast or convoke??',
+        );
       }
+    }
+
+    if (event.type === EventType.Heal) {
+      procInfo.attribution.healing += calculateEffectiveHealing(event, procInfo.boost);
     } else {
-      //if we are listening we need to add it to the list
-      delete this.wildGrowthList[event.targetID];
-      this.listenForWildGrowth = false;
+      this.hotTracker.addBoostFromApply(
+        procInfo.attribution,
+        procInfo.boost,
+        event as ApplyBuffEvent,
+      );
     }
   }
 
-  removeRegrowth(event: RemoveBuffEvent) {
-    delete this.regrowthList[event.targetID];
+  get rejuvHardcastUses() {
+    return this.sotfRejuvInfo.hardcastUses;
   }
 
-  removeRejuv(event: RemoveBuffEvent) {
-    delete this.rejuvList[event.targetID];
+  get regrowthHardcastUses() {
+    return this.sotfRegrowthInfo.hardcastUses;
   }
 
-  removeWildGrowth(event: RemoveBuffEvent) {
-    delete this.wildGrowthList[event.targetID];
+  get wgHardcastUses() {
+    return this.sotfWgInfo.hardcastUses;
   }
 
-  regrowthHeal(event: HealEvent) {
-    if (this.regrowthList.includes(event.targetID)) {
-      this.regrowthHealing += calculateEffectiveHealing(event, REGROWTH_HEALING_INCREASE);
-    }
+  get rejuvConvokeUses() {
+    return this.sotfRejuvInfo.convokeUses;
   }
 
-  rejuvHeal(event: HealEvent) {
-    if (this.rejuvList.includes(event.targetID)) {
-      this.rejuvHealing += calculateEffectiveHealing(event, REJUVENATION_HEALING_INCREASE);
-    }
+  get regrowthConvokeUses() {
+    return this.sotfRegrowthInfo.convokeUses;
   }
 
-  wildGrowthHeal(event: HealEvent) {
-    if (this.wildGrowthList.includes(event.targetID)) {
-      this.wildGrowthHealing += calculateEffectiveHealing(event, WILD_GROWTH_HEALING_INCREASE);
-    }
+  get wgConvokeUses() {
+    return this.sotfWgInfo.convokeUses;
   }
 
+  get rejuvTotalUses() {
+    return this.rejuvHardcastUses + this.rejuvConvokeUses;
+  }
+
+  get regrowthTotalUses() {
+    return this.regrowthHardcastUses + this.regrowthConvokeUses;
+  }
+
+  get wgTotalUses() {
+    return this.wgHardcastUses + this.wgConvokeUses;
+  }
+
+  get totalUses() {
+    return this.rejuvTotalUses + this.regrowthTotalUses + this.wgTotalUses;
+  }
+
+  get totalHardcastUses() {
+    return this.rejuvHardcastUses + this.regrowthHardcastUses + this.wgHardcastUses;
+  }
+
+  /** Percent of hardcast consumes that were with WG - for suggest */
   get wgUsagePercent() {
+    return this.wgHardcastUses / this.totalHardcastUses;
+  }
+
+  get totalHealing() {
     return (
-      this.wildGrowthsBuffed / (this.wildGrowthsBuffed + this.regrowthBuffed + this.rejuvBuffed)
+      this.sotfWgInfo.attribution.healing +
+      this.sotfRegrowthInfo.attribution.healing +
+      this.sotfRejuvInfo.attribution.healing
     );
   }
 
@@ -238,13 +233,15 @@ class SoulOfTheForest extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <span>
-          You did not consume all your{' '}
+        <>
+          You did not consume all of your{' '}
           <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with{' '}
           <SpellLink id={SPELLS.WILD_GROWTH.id} />. Try to use{' '}
           <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a{' '}
           <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.
-        </span>,
+          {this.convokeSpirits.active &&
+            ` This stat considers only the buffs consumed by hardcasts (it does not consider buffs consumed during Convoke)`}
+        </>,
       )
         .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
         .actual(
@@ -252,22 +249,34 @@ class SoulOfTheForest extends Analyzer {
             id: 'druid.restoration.suggestions.soulOfTheForest.efficiency',
             message: `Wild growth consumed ${formatPercentage(
               this.wgUsagePercent,
-            )}% of all the buffs.`,
+              1,
+            )}% of the buffs.`,
           }),
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 
+  _spellReportLine(totalUses: number, hardcastUses: number, healing: number): React.ReactNode {
+    return this.convokeSpirits.active ? (
+      <>
+        {' '}
+        consumed <strong>{hardcastUses}</strong> hardcast /{' '}
+        <strong>{totalUses - hardcastUses}</strong> convoke :{' '}
+        <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing), 1)}%</strong>{' '}
+        healing
+      </>
+    ) : (
+      <>
+        {' '}
+        consumed <strong>{totalUses}</strong> procs :{' '}
+        <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing), 1)}%</strong>{' '}
+        healing
+      </>
+    );
+  }
+
   statistic() {
-    const proccs = this.wildGrowthsBuffed + this.regrowthBuffed + this.rejuvBuffed;
-
-    const total = this.wildGrowthHealing + this.rejuvHealing + this.regrowthHealing;
-
-    const wgPercent = this.owner.getPercentageOfTotalHealingDone(this.wildGrowthHealing);
-    const rejuvPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvHealing);
-    const regrowthPercent = this.owner.getPercentageOfTotalHealingDone(this.regrowthHealing);
-
     return (
       <Statistic
         size="flexible"
@@ -275,26 +284,38 @@ class SoulOfTheForest extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            You gained {proccs} total Soul of the Forest procs.
+            You used <strong>{this.totalUses}</strong> Soul of the Forest procs.
             <ul>
               <li>
-                Consumed {this.wildGrowthsBuffed} procs with Wild Growth for{' '}
-                {formatPercentage(wgPercent)}% healing
+                <SpellLink id={SPELLS.REJUVENATION.id} />
+                {this._spellReportLine(
+                  this.rejuvTotalUses,
+                  this.rejuvHardcastUses,
+                  this.sotfRejuvInfo.attribution.healing,
+                )}
               </li>
               <li>
-                Consumed {this.rejuvBuffed} procs with Rejuvenation for{' '}
-                {formatPercentage(rejuvPercent)}% healing
+                <SpellLink id={SPELLS.REGROWTH.id} />
+                {this._spellReportLine(
+                  this.regrowthTotalUses,
+                  this.regrowthHardcastUses,
+                  this.sotfRegrowthInfo.attribution.healing,
+                )}
               </li>
               <li>
-                Consumed {this.regrowthBuffed} procs with Regrowth for{' '}
-                {formatPercentage(regrowthPercent)}% healing
+                <SpellLink id={SPELLS.WILD_GROWTH.id} />
+                {this._spellReportLine(
+                  this.wgTotalUses,
+                  this.wgHardcastUses,
+                  this.sotfWgInfo.attribution.healing,
+                )}
               </li>
             </ul>
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION}>
-          <ItemPercentHealingDone amount={total} />
+          <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>
       </Statistic>
