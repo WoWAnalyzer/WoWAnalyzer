@@ -107,7 +107,7 @@ const spells = {
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
     manaCost: 150,
-  }, 
+  },
   FROST_SHOCK: {
     id: 196840,
     name: 'Frost Shock',
