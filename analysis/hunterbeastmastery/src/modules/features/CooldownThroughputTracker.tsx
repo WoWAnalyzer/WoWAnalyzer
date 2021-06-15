@@ -7,11 +7,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.BESTIAL_WRATH,
+      spell: SPELLS.BESTIAL_WRATH.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.ASPECT_OF_THE_WILD,
+      spell: SPELLS.ASPECT_OF_THE_WILD.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

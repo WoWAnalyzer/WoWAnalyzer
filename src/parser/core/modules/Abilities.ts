@@ -104,14 +104,14 @@ class Abilities extends Module {
   getAbility(spellId: number) {
     const ability = this.activeAbilities.find((ability) => {
       if (ability.spell instanceof Array) {
-        return ability.spell.some((spell) => spell.id === spellId);
+        return ability.spell.includes(spellId);
       } else {
-        return ability.spell.id === spellId;
+        return ability.spell === spellId;
       }
     });
 
     if (ability && ability.spell instanceof Array && ability.primaryOverride === undefined) {
-      ability.primaryOverride = ability.spell.findIndex((spell) => spell.id === spellId);
+      ability.primaryOverride = ability.spell.findIndex((spell) => spell === spellId);
     }
 
     return ability;

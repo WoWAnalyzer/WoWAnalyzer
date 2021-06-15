@@ -71,11 +71,7 @@ class SpellUsable extends Analyzer {
     if (!ability) {
       return spellId; // not a class ability
     }
-    if (ability.spell instanceof Array) {
-      return ability.spell[0].id;
-    } else {
-      return ability.spell.id;
-    }
+    return ability.primarySpell;
   }
 
   /**

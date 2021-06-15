@@ -42,7 +42,7 @@ export type SummaryDef = {
 };
 
 export type CooldownSpell = {
-  spell: any;
+  spell: number;
   summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>;
   startBufferFilter?: EventFilter<any>;
   startBufferMS?: number;
@@ -69,7 +69,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   static cooldownSpells: CooldownSpell[] = [
     {
-      spell: SPELLS.INNERVATE,
+      spell: SPELLS.INNERVATE.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -77,7 +77,7 @@ class CooldownThroughputTracker extends Analyzer {
       ],
     },
     {
-      spell: SPELLS.POWER_INFUSION,
+      spell: SPELLS.POWER_INFUSION.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
     },
   ];
@@ -121,13 +121,9 @@ class CooldownThroughputTracker extends Analyzer {
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     let cooldownSpell: CooldownSpell | undefined;
     if (isCastCooldown) {
-      cooldownSpell = ctor.castCooldowns.find(
-        (cooldownSpell) => cooldownSpell.spell.id === spellId,
-      );
+      cooldownSpell = ctor.castCooldowns.find((cooldownSpell) => cooldownSpell.spell === spellId);
     } else {
-      cooldownSpell = ctor.cooldownSpells.find(
-        (cooldownSpell) => cooldownSpell.spell.id === spellId,
-      );
+      cooldownSpell = ctor.cooldownSpells.find((cooldownSpell) => cooldownSpell.spell === spellId);
     }
 
     if (!cooldownSpell) {
@@ -137,7 +133,7 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = this.addCooldown(cooldownSpell, event.timestamp);
     this.activeCooldowns.push(cooldown);
     debug &&
-      console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
+      console.log(`%cCooldown started: ${SPELLS[cooldownSpell.spell]}`, 'color: green', cooldown);
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
@@ -173,7 +169,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   endCooldown(event: RemoveDebuffEvent | RemoveBuffEvent) {
     const spellId = event.ability.guid;
-    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId);
+    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell === spellId);
     if (index === -1) {
       return;
     }
@@ -181,13 +177,15 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = this.activeCooldowns[index];
     cooldown.end = event.timestamp;
     this.activeCooldowns.splice(index, 1);
-    debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
+    debug &&
+      console.log(`%cCooldown ended: ${SPELLS[cooldown.spell].name}`, 'color: red', cooldown);
   }
 
   onFightend() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
-      debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
+      debug &&
+        console.log(`%cCooldown ended: ${SPELLS[cooldown.spell].name}`, 'color: red', cooldown);
     });
     this.activeCooldowns = [];
   }
@@ -212,7 +210,7 @@ class CooldownThroughputTracker extends Analyzer {
     if (ctor.ignoredSpells.includes(spellId)) {
       return;
     }
-    if (ctor.castCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId) !== -1) {
+    if (ctor.castCooldowns.findIndex((cooldown) => cooldown.spell === spellId) !== -1) {
       this.startCooldown(event, true);
     } else {
       this.trackEvent(event);
@@ -259,14 +257,14 @@ class CooldownThroughputTracker extends Analyzer {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     const cooldownSpell = ctor.cooldownSpells.find(
-      (cooldownSpell) => cooldownSpell.spell.id === spellId,
+      (cooldownSpell) => cooldownSpell.spell === spellId,
     );
     if (!cooldownSpell) {
       return;
     }
 
     // This fixes weirdness were you can get the pet and the buff at the same time *cough yu'lon*
-    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId);
+    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell === spellId);
     if (index !== -1) {
       return;
     }
@@ -275,7 +273,7 @@ class CooldownThroughputTracker extends Analyzer {
     cooldown.petID = event.targetID;
     this.activeCooldowns.push(cooldown);
     debug &&
-      console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
+      console.log(`%cCooldown started: ${SPELLS[cooldown.spell].name}`, 'color: green', cooldown);
   }
 
   onPetDeath(event: DeathEvent) {
@@ -288,7 +286,8 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = this.activeCooldowns[index];
     cooldown.end = event.timestamp;
     this.activeCooldowns.splice(index, 1);
-    debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
+    debug &&
+      console.log(`%cCooldown ended: ${SPELLS[cooldown.spell].name}`, 'color: red', cooldown);
   }
 
   // endregion

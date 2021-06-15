@@ -22,7 +22,7 @@ class WeaponsOfOrder extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL,
+      spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 120,
       // WoO is hasted for WW/BrM for whatever fucking reason

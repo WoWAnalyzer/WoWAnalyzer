@@ -7,15 +7,15 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.SWEEPING_STRIKES,
+      spell: SPELLS.SWEEPING_STRIKES.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.AVATAR_TALENT,
+      spell: SPELLS.AVATAR_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.DEADLY_CALM_TALENT,
+      spell: SPELLS.DEADLY_CALM_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
@@ -23,12 +23,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.WARBREAKER_TALENT,
+      spell: SPELLS.WARBREAKER_TALENT.id,
       duration: 10,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.COLOSSUS_SMASH,
+      spell: SPELLS.COLOSSUS_SMASH.id,
       duration: 10,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },

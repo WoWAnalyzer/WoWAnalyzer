@@ -163,7 +163,7 @@ class BoonOfTheAscended extends Analyzer {
             majorIssueEfficiency: 0.4,
           };
     (options.abilities as Abilities).add({
-      spell: SPELLS.BOON_OF_THE_ASCENDED,
+      spell: SPELLS.BOON_OF_THE_ASCENDED.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 180,
       enabled: true,
@@ -173,7 +173,7 @@ class BoonOfTheAscended extends Analyzer {
       castEfficiency: castEfficiency,
     });
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_BLAST,
+      spell: SPELLS.ASCENDED_BLAST.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       enabled: true,
       gcd: {
@@ -181,7 +181,7 @@ class BoonOfTheAscended extends Analyzer {
       },
     });
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_NOVA,
+      spell: SPELLS.ASCENDED_NOVA.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       enabled: true,
       gcd: {
@@ -189,7 +189,7 @@ class BoonOfTheAscended extends Analyzer {
       },
     });
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_ERUPTION,
+      spell: SPELLS.ASCENDED_ERUPTION.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       enabled: true,
       gcd: {

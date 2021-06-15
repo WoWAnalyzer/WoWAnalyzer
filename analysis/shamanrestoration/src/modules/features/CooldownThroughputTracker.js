@@ -38,7 +38,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -182,7 +182,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
     this.lastCBT = this.addNewCooldown(
       {
-        spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
+        spell: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         summary: [
           BUILT_IN_SUMMARY_TYPES.HEALING,
           BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -193,7 +193,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     );
     this.lastAsc = this.addNewCooldown(
       {
-        spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+        spell: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         summary: [
           BUILT_IN_SUMMARY_TYPES.HEALING,
           BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -260,7 +260,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }
       this.lastCBT = this.addNewCooldown(
         {
-          spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
+          spell: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
           summary: [
             BUILT_IN_SUMMARY_TYPES.HEALING,
             BUILT_IN_SUMMARY_TYPES.OVERHEALING,

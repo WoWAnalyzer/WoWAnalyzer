@@ -21,6 +21,7 @@ import ResultsChangelogTab from 'interface/ResultsChangelogTab';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
+import TooltipProvider from 'interface/TooltipProvider';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -133,6 +134,16 @@ class Results extends React.PureComponent<Props, State> {
     if (this.props.selectedTab !== prevProps.selectedTab) {
       // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
       this.scrollToTop();
+    }
+
+    // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
+    switch (this.props.report.gameVersion) {
+      case 3:
+        TooltipProvider.baseUrl = 'http://tbc.wowhead.com/';
+        break;
+      default:
+        TooltipProvider.baseUrl = 'http://wowhead.com/';
+        break;
     }
   }
   scrollToTop() {
@@ -387,7 +398,7 @@ class Results extends React.PureComponent<Props, State> {
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
-          name={player.name}
+          player={player}
           characterProfile={characterProfile}
           boss={boss}
           fight={fight}

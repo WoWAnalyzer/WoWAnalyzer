@@ -31,7 +31,7 @@ class FinalVerdict extends Analyzer {
       this.onHammerOfWrathReset,
     );
     options.abilities.add({
-      spell: SPELLS.FINAL_VERDICT_FINISHER,
+      spell: SPELLS.FINAL_VERDICT_FINISHER.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       gcd: {
         base: 1500,

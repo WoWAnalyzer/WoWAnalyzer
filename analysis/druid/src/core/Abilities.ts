@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.CONVOKE_SPIRITS,
+        spell: SPELLS.CONVOKE_SPIRITS.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 100,
       },
       {
-        spell: SPELLS.ADAPTIVE_SWARM,
+        spell: SPELLS.ADAPTIVE_SWARM.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 25,
         gcd: {
@@ -39,10 +39,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [
-          SPELLS.HEART_OF_THE_WILD_BALANCE_AFFINITY,
-          SPELLS.HEART_OF_THE_WILD_FERAL_AFFINITY,
-          SPELLS.HEART_OF_THE_WILD_GUARDIAN_AFFINITY,
-          SPELLS.HEART_OF_THE_WILD_RESTO_AFFINITY,
+          SPELLS.HEART_OF_THE_WILD_BALANCE_AFFINITY.id,
+          SPELLS.HEART_OF_THE_WILD_FERAL_AFFINITY.id,
+          SPELLS.HEART_OF_THE_WILD_GUARDIAN_AFFINITY.id,
+          SPELLS.HEART_OF_THE_WILD_RESTO_AFFINITY.id,
         ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 300,

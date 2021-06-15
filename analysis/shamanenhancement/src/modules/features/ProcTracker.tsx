@@ -9,7 +9,7 @@ import React from 'react';
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     {
-      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

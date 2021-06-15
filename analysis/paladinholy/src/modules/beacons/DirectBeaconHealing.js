@@ -27,13 +27,13 @@ class DirectBeaconHealing extends Analyzer {
     this.abilities.activeAbilities.forEach((ability) => {
       if (Array.isArray(ability.spell)) {
         ability.spell.forEach((oneSpell) => {
-          if (BEACON_TRANSFERING_ABILITIES[oneSpell.id]) {
-            listOfSpells.push(oneSpell.id);
+          if (BEACON_TRANSFERING_ABILITIES[oneSpell]) {
+            listOfSpells.push(oneSpell);
           }
         });
       } else {
-        if (BEACON_TRANSFERING_ABILITIES[ability.spell.id]) {
-          listOfSpells.push(ability.spell.id);
+        if (BEACON_TRANSFERING_ABILITIES[ability.spell]) {
+          listOfSpells.push(ability.spell);
         }
       }
     });

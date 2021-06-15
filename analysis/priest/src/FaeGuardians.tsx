@@ -71,7 +71,7 @@ class FaeGuardians extends Analyzer {
             majorIssueEfficiency: 0.4,
           };
     (options.abilities as Abilities).add({
-      spell: SPELLS.FAE_GUARDIANS,
+      spell: SPELLS.FAE_GUARDIANS.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 90,
       enabled: true,

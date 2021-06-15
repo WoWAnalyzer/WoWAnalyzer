@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.UNHOLY_BLIGHT_TALENT,
+      spell: SPELLS.UNHOLY_BLIGHT_TALENT.id,
       duration: 20,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },

@@ -35,7 +35,7 @@ class FaelineStomp extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.FAELINE_STOMP_CAST,
+      spell: SPELLS.FAELINE_STOMP_CAST.id,
       category:
         this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK
           ? Abilities.SPELL_CATEGORIES.COOLDOWNS

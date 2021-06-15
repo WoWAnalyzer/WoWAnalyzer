@@ -49,7 +49,7 @@ class BindingShot extends Analyzer {
     );
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: SPELLS.BINDING_SHOT_TALENT,
+        spell: SPELLS.BINDING_SHOT_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         gcd: {
