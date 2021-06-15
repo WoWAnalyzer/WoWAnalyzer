@@ -4282,11 +4282,11 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log Stormkeeper 
             src="/img/sword.png"
           />
            
-          0
+          261
            DPS
            
           <small>
-            0.00
+            4.01
              % of total
           </small>
         </div>
@@ -10536,11 +10536,11 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log Stormkeeper mat
             src="/img/sword.png"
           />
            
-          0
+          471
            DPS
            
           <small>
-            0.00
+            4.03
              % of total
           </small>
         </div>
