@@ -48,9 +48,9 @@ import Photosynthesis from './modules/talents/Photosynthesis';
 import SoulOfTheForest from './modules/talents/SoulOfTheForest';
 import SpringBlossoms from './modules/talents/SpringBlossoms';
 import TreeOfLife from './modules/talents/TreeOfLife';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
-import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 

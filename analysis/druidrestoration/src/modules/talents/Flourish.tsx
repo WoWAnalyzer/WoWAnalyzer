@@ -17,9 +17,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import { HOTS_INCREASED_RATE } from '../../constants';
+import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
-import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 
 const FLOURISH_EXTENSION = 8000;
 const FLOURISH_HEALING_INCREASE = 1;
