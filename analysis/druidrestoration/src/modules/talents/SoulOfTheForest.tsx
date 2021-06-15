@@ -19,7 +19,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { isFromHardcast } from '../../normalizers/HotCastLinkNormalizer';
+import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import { buffedBySotf } from '../../normalizers/SoulOfTheForestLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';

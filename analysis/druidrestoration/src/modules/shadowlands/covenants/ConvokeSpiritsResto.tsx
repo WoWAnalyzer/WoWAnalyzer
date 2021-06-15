@@ -15,7 +15,7 @@ import React from 'react';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
 
-import { isFromHardcast } from '../../../normalizers/HotCastLinkNormalizer';
+import { isFromHardcast } from '../../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
 
 const CONVOKED_HOTS = [

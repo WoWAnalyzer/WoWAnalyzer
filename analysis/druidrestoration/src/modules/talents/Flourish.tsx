@@ -5,7 +5,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
@@ -19,6 +19,7 @@ import React from 'react';
 import { HOTS_INCREASED_RATE } from '../../constants';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
+import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 
 const FLOURISH_EXTENSION = 8000;
 const FLOURISH_HEALING_INCREASE = 1;
@@ -114,9 +115,9 @@ class Flourish extends Analyzer {
     }
   }
 
-  onFlourishApplyBuff() {
+  onFlourishApplyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     let extensionAttribution: Attribution;
-    if (this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id)) {
+    if (!isFromHardcast(event) && this.convokeSpirits.isConvoking()) {
       extensionAttribution = this.convokeSpirits.currentConvokeAttribution;
       this.currentRateAttribution = this.convokeSpirits.currentConvokeRateAttribution;
     } else {
