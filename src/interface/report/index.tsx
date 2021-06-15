@@ -231,6 +231,7 @@ class ResultsLoader extends React.PureComponent<Props, State> {
             <EventParser
               report={report}
               fight={this.state.filteredFight!}
+              config={config}
               player={player}
               combatants={combatants!}
               applyTimeFilter={this.applyTimeFilter}
@@ -289,7 +290,7 @@ const Report = () => (
               {(fight) => (
                 <PlayerLoader report={report} fight={fight}>
                   {(player, combatant, combatants) => (
-                    <ConfigLoader specId={combatant.specID}>
+                    <ConfigLoader specId={combatant.specID} type={player.type}>
                       {(config) => (
                         <SupportChecker
                           config={config}

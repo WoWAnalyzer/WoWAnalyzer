@@ -25,7 +25,7 @@ class ManaValues extends Analyzer {
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.active =
-      this.selectedCombatant.spec.role === ROLES.HEALER &&
+      this.selectedCombatant.spec?.role === ROLES.HEALER &&
       this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
   }
 

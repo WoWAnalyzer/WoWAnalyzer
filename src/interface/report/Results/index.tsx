@@ -177,6 +177,7 @@ class Results extends React.PureComponent<Props, State> {
 
   renderContent(selectedTab: string, results: ParseResults | null) {
     const { parser, premium } = this.props;
+    const config = this.context.config;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
@@ -228,6 +229,7 @@ class Results extends React.PureComponent<Props, State> {
             )}
 
             <EncounterStats
+              config={config}
               currentBoss={parser.fight.boss}
               difficulty={parser.fight.difficulty}
               spec={parser.selectedCombatant._combatantInfo.specID}
@@ -238,7 +240,6 @@ class Results extends React.PureComponent<Props, State> {
         );
       }
       case TABS.ABOUT: {
-        const config = this.context.config;
         return (
           <div className="container">
             <About config={config} />

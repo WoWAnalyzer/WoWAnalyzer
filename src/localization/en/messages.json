@@ -1,6 +1,7 @@
 {
   "All weapons enhanced (oils/stones)": "",
   "Using high quality weapon enhancements": "",
+  "className.hunter": "Hunter",
   "common.abilities": "Abilities",
   "common.ability": "Ability",
   "common.cast": "Cast",
@@ -381,6 +382,7 @@
   "interface.report.render.hasDuplicatePlayers": "It appears like another \"{playerName}\" is in this log, please select the correct one",
   "interface.report.render.labelFightSelection": "Fight selection",
   "interface.report.render.logCorrupted": "The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.",
+  "interface.report.render.notSupported": "This spec is not supported for this expansion.",
   "interface.report.render.playerSelection": "Player selection",
   "interface.report.render.playerSelectionDetails": "Select the player you wish to analyze.",
   "interface.report.renderClassicWarning.classicUnsupported": "Sorry, Classic WoW Logs are not supported",

@@ -1,6 +1,7 @@
 {
   "All weapons enhanced (oils/stones)": "",
   "Using high quality weapon enhancements": "",
+  "className.hunter": "",
   "common.abilities": "Способности",
   "common.ability": "Способность",
   "common.cast": "Заклинание",
@@ -381,6 +382,7 @@
   "interface.report.render.hasDuplicatePlayers": "Похоже, что в этом отчете присутствует еще один \"{playerName}\", пожалуйста, выберите нужного.",
   "interface.report.render.labelFightSelection": "Выбор боя",
   "interface.report.render.logCorrupted": "Полученные от Warcraft Logs данные игрока повреждены. Этот игрок не может быть проанализирован в этом бою.",
+  "interface.report.render.notSupported": "",
   "interface.report.render.playerSelection": "Выбор игрока",
   "interface.report.render.playerSelectionDetails": "Выберите игрока, данные которого Вы хотите проанализировать",
   "interface.report.renderClassicWarning.classicUnsupported": "Извините, но отчеты с WoW Classic не поддерживаются",

@@ -100,7 +100,7 @@ class MightOfTheMountain extends Analyzer {
 
   statistic() {
     let value;
-    switch (this.selectedCombatant.spec.role) {
+    switch (this.selectedCombatant.spec?.role) {
       case ROLES.HEALER:
         value = <ItemHealingDone amount={this.healing} />;
         break;

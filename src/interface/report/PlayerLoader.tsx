@@ -24,6 +24,7 @@ import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
+import getConfig from 'parser/getConfig';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -115,39 +116,44 @@ class PlayerLoader extends React.PureComponent<Props, State> {
         fight.start_time,
         fight.end_time,
       )) as CombatantInfoEvent[];
-      combatants.forEach((player) => {
+      combatants.forEach((combatant) => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error(
-            `This player (sourceID: ${player.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
+            `This player (sourceID: ${combatant.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
           );
-          player = generateFakeCombatantInfo(player);
+          combatant = generateFakeCombatantInfo(combatant);
         }
-        if (player.error || player.specID === 0 || player.specID === -1) {
+        if (combatant.error || combatant.specID === -1) {
           return;
         }
-        const friendly = report.friendlies.find((friendly) => friendly.id === player.sourceID);
-        if (!friendly) {
-          console.error('friendly missing from report for player', player.sourceID);
+        const player = report.friendlies.find((friendly) => friendly.id === combatant.sourceID);
+        if (!player) {
+          console.error('friendly missing from report for player', combatant.sourceID);
           return;
         }
-        switch (SPECS[player.specID].role) {
-          case ROLES.TANK:
-            this.tanks += 1;
-            break;
-          case ROLES.HEALER:
-            this.healers += 1;
-            break;
-          case ROLES.DPS.MELEE:
-            this.dps += 1;
-            break;
-          case ROLES.DPS.RANGED:
-            this.ranged += 1;
-            break;
-          default:
-            break;
+        combatant.player = player;
+        if (SPECS[combatant.specID]) {
+          // TODO: TBC support: specID is always null, so look at talents to figure out the most likely spec. Or use friendly.icon. Then make a table that has roles for that. Cumbersome, but not too difficult.
+          // TODO: Move this code to the component that renders the tanks/healers/dps/ranged
+          switch (SPECS[combatant.specID].role) {
+            case ROLES.TANK:
+              this.tanks += 1;
+              break;
+            case ROLES.HEALER:
+              this.healers += 1;
+              break;
+            case ROLES.DPS.MELEE:
+              this.dps += 1;
+              break;
+            case ROLES.DPS.RANGED:
+              this.ranged += 1;
+              break;
+            default:
+              break;
+          }
         }
         // Gear may be null for broken combatants
-        this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
+        this.ilvl += combatant.gear ? getAverageItemLevel(combatant.gear) : 0;
       });
       this.ilvl /= combatants.length;
       if (this.props.report !== report || this.props.fight !== fight) {
@@ -248,7 +254,8 @@ class PlayerLoader extends React.PureComponent<Props, State> {
     const player = players[0];
     const hasDuplicatePlayers = players.length > 1;
     const combatant = player && combatants.find((combatant) => combatant.sourceID === player.id);
-    if (!player || hasDuplicatePlayers || !combatant || !combatant.specID || combatant.error) {
+    const config = combatant && getConfig(combatant.specID, player.type);
+    if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
@@ -265,11 +272,18 @@ class PlayerLoader extends React.PureComponent<Props, State> {
               message: `Player data does not seem to be available for the selected player in this fight.`,
             }),
           );
-        } else if (combatant.error || !combatant.specID) {
+        } else if (combatant.error || (!combatant.specID && combatant.specID !== 0)) {
           alert(
             t({
               id: 'interface.report.render.logCorrupted',
               message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
+            }),
+          );
+        } else if (!config) {
+          alert(
+            t({
+              id: 'interface.report.render.notSupported',
+              message: `This spec is not supported for this expansion.`,
             }),
           );
         }

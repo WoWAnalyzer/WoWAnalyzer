@@ -265,7 +265,7 @@ class Mastery extends Analyzer {
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
-          this.selectedCombatant.spec.masteryCoefficient,
+          this.selectedCombatant.spec?.masteryCoefficient,
         );
       return buffBonus / healMasteryMult;
     };

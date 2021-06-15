@@ -167,7 +167,7 @@ class StatWeights extends BaseHealerStatValues {
       this.statTracker.ratingNeededForNextPercentage(
         this.statTracker.currentMasteryRating,
         this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
-        this.selectedCombatant.spec.masteryCoefficient,
+        this.selectedCombatant.spec?.masteryCoefficient,
       );
     const hotCount = this.mastery.getHotCount(target);
     const noMasteryHealing =
