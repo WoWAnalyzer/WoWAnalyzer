@@ -5,7 +5,8 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
-  change(date(2021, 6, 14), <>Added to the stat box tooltip of <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> showing the beneift of activating <SpellLink id={SPELLS.NATURES_SWIFTNESS} /> before convoking.</>, Sref),
+  change(date(2021, 6, 14), <>Fixed a bug where a hardcast <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> could be counted as part of a Convoke if cast immediately before or after the Convoke.</>, Sref),
+  change(date(2021, 6, 14), <>Added to the stat box tooltip of <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> showing the beneift of activating <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> before convoking.</>, Sref),
   change(date(2021, 6, 14), <>Updated <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> stat to properly account for Convoke, to better account for edge case issues, and updated the tooltip.</>, Sref),
   change(date(2021, 6, 6), <>Fixed an issue where <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> related items were referenced in the Regrowth stat box even when the player doesn't have the talent.</>, Sref),
   change(date(2021, 6, 6), <>Fixed an issue where <SpellLink id={SPELLS.IRONBARK.id} /> cooldown was listed at 60 instead of 90.</>, Sref),

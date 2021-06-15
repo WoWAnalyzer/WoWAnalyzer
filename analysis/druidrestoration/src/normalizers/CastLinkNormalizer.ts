@@ -62,6 +62,16 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    linkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.FLOURISH_TALENT.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.FLOURISH_TALENT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
     linkRelation: FROM_OVERGROWTH,
     linkingEventId: [
       SPELLS.REJUVENATION.id,
@@ -80,17 +90,17 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 /**
- * When a HoT is cast on a target, the ordering of the Cast and ApplyBuff/RefreshBuff/(direct)Heal
+ * When a spell is cast on a target, the ordering of the Cast and ApplyBuff/RefreshBuff/(direct)Heal
  * can be semi-arbitrary, making analysis difficult.
  *
  * This normalizer adds a _linkedEvent to the ApplyBuff/RefreshBuff/Heal linking back to the Cast event
  * that caused it (if one can be found).
  *
  * This normalizer adds links for the buffs Rejuvenation, Regrowth, Wild Growth, Lifebloom,
- * and for the direct heals of Swiftmend and Regrowth. A special link key is used
- * when the HoTs were applied by an Overgrowth cast instead of a normal hardcast.
+ * and for the direct heals of Swiftmend and Regrowth, and the self buff from Flourish.
+ * A special link key is used when the HoTs were applied by an Overgrowth cast instead of a normal hardcast.
  */
-class HotCastLinkNormalizer extends EventLinkNormalizer {
+class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
@@ -104,4 +114,4 @@ export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): bool
   return HasRelatedEvent(event, FROM_OVERGROWTH);
 }
 
-export default HotCastLinkNormalizer;
+export default CastLinkNormalizer;

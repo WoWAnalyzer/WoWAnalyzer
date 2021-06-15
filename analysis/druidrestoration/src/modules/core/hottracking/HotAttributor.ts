@@ -4,7 +4,7 @@ import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 
 import { LIFEBLOOM_BUFFS, REJUVENATION_BUFFS } from '../../../constants';
-import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/HotCastLinkNormalizer';
+import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/CastLinkNormalizer';
 import ConvokeSpiritsResto from '../../shadowlands/covenants/ConvokeSpiritsResto';
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 

@@ -48,9 +48,9 @@ import Photosynthesis from './modules/talents/Photosynthesis';
 import SoulOfTheForest from './modules/talents/SoulOfTheForest';
 import SpringBlossoms from './modules/talents/SpringBlossoms';
 import TreeOfLife from './modules/talents/TreeOfLife';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
-import HotCastLinkNormalizer from './normalizers/HotCastLinkNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
@@ -61,7 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     clearcastingNormalizer: ClearcastingNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
-    hotCastLinkNormalizer: HotCastLinkNormalizer,
+    hotCastLinkNormalizer: CastLinkNormalizer,
     soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
