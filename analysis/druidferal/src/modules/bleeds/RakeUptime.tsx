@@ -9,6 +9,8 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import React from 'react';
 
 import Snapshots2, { PROWL_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import { RAKE_BASE_DURATION } from '../../constants';
+import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 
 class RakeUptime extends Snapshots2 {
   static dependencies = {
@@ -21,8 +23,31 @@ class RakeUptime extends Snapshots2 {
     super(SPELLS.RAKE, SPELLS.RAKE_BLEED, [TIGERS_FURY_SPEC, PROWL_SPEC], options);
   }
 
-  get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id) / this.owner.fightDuration;
+  getDotExpectedDuration(): number {
+    return RAKE_BASE_DURATION;
+  }
+
+  getDotFullDuration(): number {
+    return RAKE_BASE_DURATION;
+  }
+
+  getTotalDotUptime(): number {
+    return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id);
+  }
+
+  handleApplication(
+    application: ApplyDebuffEvent | RefreshDebuffEvent,
+    snapshots: string[],
+    prevSnapshots: string[] | null,
+    remainingOnPrev: number,
+    clipped: number,
+  ) {
+    // TODO track downgrades
+    // TODO track non-upgrade clips
+  }
+
+  get uptimePercent() {
+    return this.getTotalDotUptime() / this.owner.fightDuration;
   }
 
   get uptimeHistory() {
@@ -31,7 +56,7 @@ class RakeUptime extends Snapshots2 {
 
   get suggestionThresholds() {
     return {
-      actual: this.uptime,
+      actual: this.uptimePercent,
       isLessThan: {
         minor: 0.95,
         average: 0.9,

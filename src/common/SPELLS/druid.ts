@@ -712,6 +712,7 @@ const spells = {
     icon: 'ability_ghoulfrenzy',
   },
   RAKE: {
+    // the cast and DIRECT damage
     id: 1822,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
@@ -743,11 +744,13 @@ const spells = {
     icon: 'ability_druid_mangle',
   },
   RAKE_BLEED: {
+    // the debuff and DOT damage
     id: 155722,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
   RAKE_STUN: {
+    // the stun when used from stealth
     id: 163505,
     name: 'Rake',
     icon: 'ability_druid_disembowel',

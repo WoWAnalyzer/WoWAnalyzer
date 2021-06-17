@@ -38,6 +38,7 @@ import MoonfireUptime from './modules/talents/MoonfireUptime';
 import Predator from './modules/talents/Predator';
 import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 import RakeBleed from './normalizers/RakeBleed';
 
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     rakeBleed: RakeBleed,
     bleedDebuffEvents: BleedDebuffEvents,
+    castLinkNormalizer: CastLinkNormalizer,
     comboPointsFromAoE: ComboPointsFromAoE,
 
     // Core
