@@ -28,6 +28,7 @@ class TestCombatLogParser extends CombatLogParser {
   }
 
   constructor(
+    config = {},
     report = {
       friendlyPets: [],
     },
@@ -44,7 +45,7 @@ class TestCombatLogParser extends CombatLogParser {
     },
     combatantInfoEvents = [],
   ) {
-    super(report, selectedPlayer, selectedFight, combatantInfoEvents);
+    super(config, report, selectedPlayer, selectedFight, combatantInfoEvents);
   }
 
   processEvents(events) {
