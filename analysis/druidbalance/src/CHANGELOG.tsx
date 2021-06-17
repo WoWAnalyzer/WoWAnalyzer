@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
+import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi, Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 5, 15), <>Improved cast detection for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
   change(date(2021, 4, 2), 'Updated \'About\' page for Shadowlands and current state of the spec\'s analyzer.', Kartarn),
   change(date(2021, 3, 20), <> Astral Power usage efficiency now takes into consideration if <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id} /> legendary is used. </>, Kartarn),
   change(date(2021, 3, 10), 'Updated Starlord, Stellar Drift and Twin Moons talents for Shadowlands.', Kartarn),

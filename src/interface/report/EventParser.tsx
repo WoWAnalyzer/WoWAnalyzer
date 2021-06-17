@@ -3,7 +3,7 @@ import sleep from 'common/sleep';
 import ExtendableError from 'es6-error';
 import { RootState } from 'interface/reducers';
 import { getBuild } from 'interface/selectors/url/report';
-import { Builds } from 'parser/Config';
+import Config, { Builds } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
@@ -35,6 +35,7 @@ export class EventsParseError extends ExtendableError {
 interface Props {
   report: Report;
   fight: Fight;
+  config: Config;
   player: PlayerInfo;
   combatants: CombatantInfoEvent[];
   applyTimeFilter: (start: number, end: number) => null;
@@ -92,6 +93,7 @@ class EventParser extends React.PureComponent<Props, State> {
 
   makeParser() {
     const {
+      config,
       report,
       fight,
       combatants,
@@ -108,13 +110,13 @@ class EventParser extends React.PureComponent<Props, State> {
       });
     //set current build to undefined if default build or non-existing build selected
     const parser = new parserClass(
+      config,
       report,
       player,
       fight,
       combatants,
       characterProfile,
       buildKey && build,
-      builds,
     );
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;

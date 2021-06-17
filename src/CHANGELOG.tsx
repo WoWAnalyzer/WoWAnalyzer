@@ -9,6 +9,11 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 6, 12), 'Fixed unit test', Sref),
+  change(date(2021, 6, 10), 'Updated events tab with more event type coloring, spell IDs, and amount information', Sref),
+  change(date(2021, 5, 31), 'Reordered events are now highlighted blue in the events listing, differentiating them from modified events.', Sref),
+  change(date(2021, 5, 27), 'German translation fix', maestrohdude),
+  change(date(2021, 5, 15), 'Fixed a bug that could cause the Mana Pool graph to crash', Sref),
   change(date(2021, 5, 4), 'German translations', maestrohdude),
   change(date(2021, 4, 26), <>Fixed <SpellLink id={SPELLS.CHAOS_BRAND.id} /> count in Raid Buffs</>, niko),
   change(date(2021, 4, 24), 'German translations', maestrohdude),

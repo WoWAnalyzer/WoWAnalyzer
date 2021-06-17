@@ -85,6 +85,9 @@ const FILTERABLE_TYPES = {
   energize: {
     name: 'Energize',
   },
+  drain: {
+    name: 'Drain',
+  },
   interrupt: {
     name: 'Interrupt',
   },
@@ -155,9 +158,12 @@ class EventsTab extends React.Component {
     const spellId = ability.guid;
 
     return (
-      <SpellLink id={spellId} icon={false}>
-        {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
-      </SpellLink>
+      <>
+        <SpellLink id={spellId} icon={false}>
+          {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
+        </SpellLink>{' '}
+        <small>ID: {spellId}</small>
+      </>
     );
   }
 
@@ -203,7 +209,7 @@ class EventsTab extends React.Component {
       ...props,
       className: `${props.className} ${event.__modified ? 'modified' : ''} ${
         event.__fabricated ? 'fabricated' : ''
-      }`,
+      } ${event.__reordered ? 'reordered' : ''}`,
     });
   }
 
@@ -304,8 +310,15 @@ class EventsTab extends React.Component {
             <br />
             <div className="modified-legend" style={{ width: 240, padding: 10 }}>
               Events with an orange background were{' '}
-              <TooltipElement content="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">
+              <TooltipElement content="This means some fields were added to provide additional context or changed to fix inconsistencies.">
                 modified
+              </TooltipElement>
+              .
+            </div>
+            <div className="reordered-legend" style={{ width: 240, padding: 10 }}>
+              Events with a blue background were{' '}
+              <TooltipElement content="This means their order was changed from the original combatlog, typically to normalize the ordering of event sequences.">
+                reordered
               </TooltipElement>
               .
             </div>
@@ -331,12 +344,12 @@ class EventsTab extends React.Component {
                     label="Time"
                     cellRenderer={({ cellData }) =>
                       formatDuration(
-                        (cellData - parser.fight.start_time + parser.fight.offset_time) / 1000,
+                        cellData - parser.fight.start_time + parser.fight.offset_time,
                         3,
                       )
                     }
                     disableSort
-                    width={30}
+                    width={25}
                     flexGrow={1}
                   />
                   <Column
@@ -370,12 +383,12 @@ class EventsTab extends React.Component {
                     label="Ability"
                     cellRenderer={({ cellData }) => this.renderAbility(cellData)}
                     disableSort
-                    width={90}
+                    width={160}
                     flexGrow={1}
                   />
                   <Column
                     dataKey="effective"
-                    label="Effective"
+                    label="Amount"
                     className="effect"
                     cellRenderer={({ rowData }) => {
                       if (rowData.type === EventType.Damage) {
@@ -439,19 +452,36 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === EventType.Energize) {
+                      if (rowData.type === EventType.Energize || rowData.type === EventType.Drain) {
                         const resource = RESOURCE_TYPES[rowData.resourceChangeType];
+                        const change = rowData.resourceChange - (rowData.waste || 0);
                         if (resource) {
                           return (
                             <>
-                              <span className={resource.url}>
-                                {formatThousands(rowData.resourceChange - rowData.waste)}{' '}
-                                {resource.name}
+                              <span className={change < 0 ? 'negative' : null}>
+                                {formatThousands(change)} {resource.name}
                               </span>{' '}
                               {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
                             </>
                           );
                         }
+                      }
+                      if (
+                        rowData.type === EventType.ApplyBuffStack ||
+                        rowData.type === EventType.ApplyDebuffStack ||
+                        rowData.type === EventType.RemoveBuffStack ||
+                        rowData.type === EventType.RemoveDebuffStack
+                      ) {
+                        const remove =
+                          rowData.type === EventType.RemoveBuffStack ||
+                          rowData.type === EventType.RemoveDebuffStack;
+                        return (
+                          <>
+                            <span className={remove ? 'negative' : null}>
+                              {`\u2794 ${rowData.stack} stack${rowData.stack === 1 ? '' : 's'}`}
+                            </span>
+                          </>
+                        );
                       }
                       return null;
                     }}
@@ -461,7 +491,7 @@ class EventsTab extends React.Component {
                   />
                   <Column
                     dataKey="rest"
-                    label="Rest"
+                    label=""
                     className="effect"
                     cellRenderer={({ rowData }) => {
                       if (rowData.type === EventType.Damage) {
@@ -503,7 +533,7 @@ class EventsTab extends React.Component {
                       return null;
                     }}
                     disableSort
-                    width={35}
+                    width={25}
                     flexGrow={1}
                   />
                 </Table>

@@ -1,4 +1,3 @@
-import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
@@ -30,7 +29,7 @@ class Potion extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
 
-  static spells: Spell[];
+  static spells: number[];
   static recommendedEfficiency: number;
   static extraAbilityInfo: { name?: string; buffSpellId?: number[]; isDefensive?: boolean };
   static cooldown = 300;
@@ -62,8 +61,7 @@ class Potion extends Analyzer {
       this.static.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
         (options.buffs as Buffs).add({
           spellId: buff,
-          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!
-            .id,
+          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!,
         });
       });
     }
@@ -76,8 +74,8 @@ class Potion extends Analyzer {
 
   get spellId() {
     const spells = this.static.spells;
-    const ability = this.abilities.getAbility(spells[0].id)!;
-    return ability.primarySpell.id;
+    const ability = this.abilities.getAbility(spells[0])!;
+    return ability.primarySpell;
   }
 
   get potionCasts() {

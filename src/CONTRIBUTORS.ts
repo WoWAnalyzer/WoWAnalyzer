@@ -1582,3 +1582,21 @@ export const niko: Contributor = {
     },
   ],
 };
+
+export const carglass: Contributor = {
+  nickname: 'carglass',
+  github: 'Carglass',
+  discord: 'Bubu#7424',
+  mains: [
+    {
+      name: 'Buldoru',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/aerie-peak/buldoru',
+    },
+  ],
+};
+
+export const Zea: Contributor = {
+  nickname: 'Zea',
+  github: 'kedearian',
+};

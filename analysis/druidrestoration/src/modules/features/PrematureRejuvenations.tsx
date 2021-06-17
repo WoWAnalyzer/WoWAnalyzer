@@ -23,6 +23,7 @@ const FLOURISH_EXTENSION = 8000;
  * This module tracks early refreshments of rejuvenation.
  * TODO: Extend/refactor this module to include other HoTs/Spells as well such as lifebloom/efflorescence
  * TODO: Add this module to checklist
+ * TODO: refactor to just use HotTracker rather than own logic
  */
 class PrematureRejuvenations extends Analyzer {
   static dependencies = {
@@ -47,8 +48,16 @@ class PrematureRejuvenations extends Analyzer {
       this.onRemoveBuff,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.FLOURISH_TALENT]),
-      this.onCast,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
+      this.onRejuvCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+      this.onFlourish,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+      this.onFlourish,
     );
     this.addEventListener(Events.fightend, this.onFightend);
   }
@@ -63,44 +72,44 @@ class PrematureRejuvenations extends Analyzer {
     this.rejuvenations = this.rejuvenations.filter((e) => e.targetId !== event.targetID);
   }
 
-  onCast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.REJUVENATION.id) {
-      this.totalRejuvsCasts += 1;
+  onRejuvCast(event: CastEvent) {
+    this.totalRejuvsCasts += 1;
 
-      const oldRejuv = this.rejuvenations.find((e) => e.targetId === event.targetID);
-      if (oldRejuv == null) {
-        this.rejuvenations.push({ targetId: event.targetID, timestamp: event.timestamp });
-        return;
-      }
-
-      const pandemicTimestamp =
-        oldRejuv.timestamp + (REJUV_DURATION * PANDEMIC_THRESHOLD + MS_BUFFER);
-      if (pandemicTimestamp > event.timestamp) {
-        this.earlyRefreshments += 1;
-        this.timeLost += pandemicTimestamp - event.timestamp;
-      }
-
-      // Account for pandemic time if hot was applied within the pandemic timeframe.
-      let pandemicTime = 0;
-      if (
-        event.timestamp >= pandemicTimestamp &&
-        event.timestamp <= oldRejuv.timestamp + REJUV_DURATION
-      ) {
-        pandemicTime = oldRejuv.timestamp + REJUV_DURATION - event.timestamp;
-      } else if (event.timestamp <= pandemicTime) {
-        pandemicTime = REJUV_DURATION - REJUV_DURATION * PANDEMIC_THRESHOLD;
-      }
-      debug && console.log('Extended within pandemic time frame: ' + pandemicTime);
-
-      // Set the new timestamp
-      oldRejuv.timestamp = event.timestamp + pandemicTime;
-    } else if (event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
-      // TODO - Flourish extends all active rejuvenations within 60 yards by 8 seconds. Add range check possible?
-      this.rejuvenations = this.rejuvenations.map((o) => ({
-        ...o,
-        timestamp: o.timestamp + FLOURISH_EXTENSION,
-      }));
+    const oldRejuv = this.rejuvenations.find((e) => e.targetId === event.targetID);
+    if (oldRejuv == null) {
+      this.rejuvenations.push({ targetId: event.targetID, timestamp: event.timestamp });
+      return;
     }
+
+    const pandemicTimestamp =
+      oldRejuv.timestamp + (REJUV_DURATION * PANDEMIC_THRESHOLD + MS_BUFFER);
+    if (pandemicTimestamp > event.timestamp) {
+      this.earlyRefreshments += 1;
+      this.timeLost += pandemicTimestamp - event.timestamp;
+    }
+
+    // Account for pandemic time if hot was applied within the pandemic timeframe.
+    let pandemicTime = 0;
+    if (
+      event.timestamp >= pandemicTimestamp &&
+      event.timestamp <= oldRejuv.timestamp + REJUV_DURATION
+    ) {
+      pandemicTime = oldRejuv.timestamp + REJUV_DURATION - event.timestamp;
+    } else if (event.timestamp <= pandemicTime) {
+      pandemicTime = REJUV_DURATION - REJUV_DURATION * PANDEMIC_THRESHOLD;
+    }
+    debug && console.log('Extended within pandemic time frame: ' + pandemicTime);
+
+    // Set the new timestamp
+    oldRejuv.timestamp = event.timestamp + pandemicTime;
+  }
+
+  onFlourish() {
+    // TODO - Flourish extends all active rejuvenations within 60 yards by 8 seconds. Add range check possible?
+    this.rejuvenations = this.rejuvenations.map((o) => ({
+      ...o,
+      timestamp: o.timestamp + FLOURISH_EXTENSION,
+    }));
   }
 
   onFightend() {
@@ -109,17 +118,29 @@ class PrematureRejuvenations extends Analyzer {
     debug && console.log('Time lost: ' + this.timeLost);
   }
 
+  get timeLostPerMinute() {
+    return this.timeLost / (this.owner.fightDuration / 1000 / 60);
+  }
+
   get timeLostInSeconds() {
     return this.timeLost / 1000;
   }
 
+  get timeLostInSecondsPerMinute() {
+    return this.timeLostPerMinute / 1000;
+  }
+
+  get earlyRefreshmentsPerMinute() {
+    return this.earlyRefreshments / (this.owner.fightDuration / 1000 / 60);
+  }
+
   get timeLostThreshold() {
     return {
-      actual: this.timeLostInSeconds,
+      actual: this.timeLostInSecondsPerMinute,
       isGreaterThan: {
         minor: 0,
-        average: 20,
-        major: 45,
+        average: 4,
+        major: 9,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -153,7 +174,13 @@ class PrematureRejuvenations extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(18)}
         size="flexible"
-        tooltip={`The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.`}
+        tooltip={
+          <>
+            You refreshed Rejuvenation early <strong>{this.earlyRefreshments} times</strong>, losing
+            a total of <strong>{this.timeLostInSeconds.toFixed(1)}s</strong> of HoT duration (
+            {this.timeLostInSecondsPerMinute.toFixed(1)}s per minute).
+          </>
+        }
       >
         <BoringValue
           label={
@@ -162,7 +189,9 @@ class PrematureRejuvenations extends Analyzer {
             </>
           }
         >
-          <>{this.earlyRefreshments}</>
+          <>
+            {this.earlyRefreshmentsPerMinute.toFixed(1)} <small>per minute</small>
+          </>
         </BoringValue>
       </Statistic>
     );

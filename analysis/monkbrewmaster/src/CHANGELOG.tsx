@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, emallson, Dambroda, Zeboot, LeoZhekov, Matardarix, Hordehobbs, Akhtal } from 'CONTRIBUTORS';
+import { Abelito75, emallson, Dambroda, Zeboot, LeoZhekov, Matardarix, Hordehobbs, Akhtal, carglass } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 5, 23), <>Reworked <SpellLink id={SPELLS.EXPEL_HARM.id}>Expel Harm</SpellLink> Normalizer to support attracted <SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id}>Gift of the Ox Orbs</SpellLink> </>, carglass),
   change(date(2021, 3, 12), <>Adjusted suggestion threshold for <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> cast efficiency.</>, emallson),
   change(date(2021, 2, 23), <>Added <SpellLink id={SPELLS.CELESTIAL_EFFERVESCENCE.id} /> statistic module.</>, Matardarix),
   change(date(2021, 1, 28), <>Added <SpellLink id={SPELLS.WALK_WITH_THE_OX.id} /> statistic module.</>, Matardarix),

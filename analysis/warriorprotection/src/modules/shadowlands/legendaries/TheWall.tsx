@@ -69,13 +69,13 @@ class TheWall extends Analyzer {
         tooltip={
           <>
             Wasted Rage: {this.wastedRage} <br />
-            Wasted CDR: {formatDuration(this.wastedCDR / 1000)}
+            Wasted CDR: {formatDuration(this.wastedCDR)}
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.THE_WALL}>
           {this.effectiveRage} <small>rage</small> <br />
-          {formatDuration(this.effectiveCDR / 1000)} <small>cdr</small>
+          {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>
       </Statistic>
     );

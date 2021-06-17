@@ -21,6 +21,7 @@ import ResultsChangelogTab from 'interface/ResultsChangelogTab';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
+import TooltipProvider from 'interface/TooltipProvider';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -134,6 +135,16 @@ class Results extends React.PureComponent<Props, State> {
       // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
       this.scrollToTop();
     }
+
+    // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
+    switch (this.props.report.gameVersion) {
+      case 3:
+        TooltipProvider.baseUrl = 'http://tbc.wowhead.com/';
+        break;
+      default:
+        TooltipProvider.baseUrl = 'http://wowhead.com/';
+        break;
+    }
   }
   scrollToTop() {
     window.scrollTo(0, 0);
@@ -177,6 +188,7 @@ class Results extends React.PureComponent<Props, State> {
 
   renderContent(selectedTab: string, results: ParseResults | null) {
     const { parser, premium } = this.props;
+    const config = this.context.config;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
@@ -228,6 +240,7 @@ class Results extends React.PureComponent<Props, State> {
             )}
 
             <EncounterStats
+              config={config}
               currentBoss={parser.fight.boss}
               difficulty={parser.fight.difficulty}
               spec={parser.selectedCombatant._combatantInfo.specID}
@@ -238,7 +251,6 @@ class Results extends React.PureComponent<Props, State> {
         );
       }
       case TABS.ABOUT: {
-        const config = this.context.config;
         return (
           <div className="container">
             <About config={config} />
@@ -386,7 +398,7 @@ class Results extends React.PureComponent<Props, State> {
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
-          name={player.name}
+          player={player}
           characterProfile={characterProfile}
           boss={boss}
           fight={fight}

@@ -19,7 +19,7 @@ class AshenHallow extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASHEN_HALLOW,
+      spell: SPELLS.ASHEN_HALLOW.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 240,
       gcd: {

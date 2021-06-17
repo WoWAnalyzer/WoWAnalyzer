@@ -191,8 +191,7 @@ class PlayerBreakdown extends React.Component {
                     console.error('Missing combatant:', player);
                     return null; // pet or something
                   }
-                  const spec = SPECS[combatant.specId];
-                  const specClassName = spec.className.replace(' ', '');
+                  const specClassName = combatant.player.type.replace(' ', '');
                   // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
                   // it easier to see relative amounts.
                   const performanceBarMasteryEffectiveness =
@@ -205,7 +204,7 @@ class PlayerBreakdown extends React.Component {
                   return (
                     <tr key={combatant.id}>
                       <td style={{ width: '20%' }}>
-                        <SpecIcon id={spec.id} /> {combatant.name}
+                        <SpecIcon icon={combatant.player.icon} /> {combatant.name}
                       </td>
                       <td style={{ width: 50, textAlign: 'right' }}>
                         {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%

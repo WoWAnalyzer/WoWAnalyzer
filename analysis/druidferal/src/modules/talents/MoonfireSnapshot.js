@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import React from 'react';
 
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
@@ -28,7 +28,7 @@ class MoonfireSnapshot extends Snapshot {
         average: 0.15,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -106,9 +106,10 @@ class MoonfireSnapshot extends Snapshot {
     );
   }
 
-  statistic() {
-    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name, STATISTIC_ORDER.OPTIONAL(10));
-  }
+  // TODO replace by new DotUptimeAndSnapshots module - eventually this whole module should be replaced
+  // statistic() {
+  //   return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name, STATISTIC_ORDER.OPTIONAL(10));
+  // }
 }
 
 export default MoonfireSnapshot;

@@ -30,7 +30,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     return (
       <div key={character.name}>
         <a href={character.link} className={this.removeWhiteSpaces(character.spec.className)}>
-          <SpecIcon id={character.spec.id} /> {character.name}
+          <SpecIcon spec={character.spec} /> {character.name}
         </a>
       </div>
     );
@@ -56,7 +56,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
     return (
       <>
-        <SpecIcon id={spec} style={{ height: '2em', width: '2em', marginRight: 10 }} />
+        <SpecIcon spec={SPECS[spec]} style={{ height: '2em', width: '2em', marginRight: 10 }} />
         {SPECS[spec].specName} {SPECS[spec].className}
       </>
     );
@@ -141,7 +141,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
         <div className="col-md-9">
           {maintainedSpecs.map((spec) => (
             <div key={spec.id} className={this.removeWhiteSpaces(spec.className)}>
-              <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
+              <SpecIcon spec={spec} /> {spec.specName} {spec.className}
             </div>
           ))}
         </div>

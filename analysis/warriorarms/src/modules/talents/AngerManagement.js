@@ -19,8 +19,8 @@ class AngerManagement extends Analyzer {
   get tooltip() {
     return this.cooldownsAffected.map((id) => (
       <>
-        {SPELLS[id].name}: {formatDuration(this.effectiveReduction[id] / 1000)} reduction (
-        {formatDuration(this.wastedReduction[id] / 1000)} wasted)
+        {SPELLS[id].name}: {formatDuration(this.effectiveReduction[id])} reduction (
+        {formatDuration(this.wastedReduction[id])} wasted)
         <br />
       </>
     ));
@@ -82,9 +82,8 @@ class AngerManagement extends Analyzer {
           </>
         }
         value={`${formatDuration(
-          (this.effectiveReduction[SPELLS.BLADESTORM.id] +
-            this.wastedReduction[SPELLS.BLADESTORM.id]) /
-            1000,
+          this.effectiveReduction[SPELLS.BLADESTORM.id] +
+            this.wastedReduction[SPELLS.BLADESTORM.id],
         )} min`}
         valueTooltip={this.tooltip}
       />

@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -54,7 +55,7 @@ class CastEfficiency extends Analyzer {
    * Only works on spells entered into CastEfficiency list.
    */
   private getCooldownInfo(ability: any) {
-    const mainSpellId = ability.primarySpell.id;
+    const mainSpellId = ability.primarySpell;
     const history = this.spellHistory.historyBySpellId[mainSpellId];
     if (!history) {
       // spell either never been cast, or not in abilities list
@@ -180,7 +181,7 @@ class CastEfficiency extends Analyzer {
         casts = cdInfo.casts;
       }
 
-      const averagetimeSpentOnAbility = this._getTimeSpentCasting(ability.primarySpell.id) / casts;
+      const averagetimeSpentOnAbility = this._getTimeSpentCasting(ability.primarySpell) / casts;
       // If the abilities GCD is longer than the time spent casting, use the GCD
       const gcd = this.getGcd(ability.gcd);
       if (gcd && gcd > averagetimeSpentOnAbility) {
@@ -239,17 +240,17 @@ class CastEfficiency extends Analyzer {
     ability: Ability,
     includeNoCooldownEfficiency = false,
   ): AbilityCastEfficiency | null {
-    const spellId = ability.primarySpell.id;
+    const spellId = ability.primarySpell;
     const availableFightDuration = this.owner.fightDuration;
 
     const cooldown = ability.cooldown;
     const cooldownMs = !cooldown ? null : cooldown * 1000;
     const cdInfo = this.getCooldownInfo(ability);
     const timeSpentCasting =
-      cooldown && ability.charges < 2 ? this._getTimeSpentCasting(ability.primarySpell.id) : 0;
+      cooldown && ability.charges < 2 ? this._getTimeSpentCasting(ability.primarySpell) : 0;
     const timeWaitingOnGCD =
       cooldown && ability.charges < 2 && ability.gcd
-        ? this._getTimeWaitingOnGCD(ability.primarySpell.id)
+        ? this._getTimeWaitingOnGCD(ability.primarySpell)
         : 0;
 
     // ability.casts is used for special cases that show the wrong number of cast events, like Penance
@@ -289,7 +290,7 @@ class CastEfficiency extends Analyzer {
       rawMaxCasts = availableFightDuration / cooldownMs! + (ability.charges || 1) - 1;
     } else if (casts > 0) {
       let averagetimeSpentOnNoCooldownAbility =
-        this._getTimeSpentCasting(ability.primarySpell.id) / casts;
+        this._getTimeSpentCasting(ability.primarySpell) / casts;
       const gcd = this.getGcd(ability.gcd);
       if (gcd && averagetimeSpentOnNoCooldownAbility < gcd) {
         // edge case for no cast time spells and spells with cast time lower than the gcd.
@@ -373,7 +374,7 @@ class CastEfficiency extends Analyzer {
         return;
       }
       const ability = abilityInfo.ability;
-      const mainSpell = ability.spell instanceof Array ? ability.spell[0] : ability.spell;
+      const spellInfo = SPELLS[ability.primarySpell];
 
       const suggestionThresholds = {
         actual: abilityInfo.efficiency,
@@ -389,12 +390,12 @@ class CastEfficiency extends Analyzer {
         suggest(
           <>
             <Trans id="shared.modules.castEfficiency.suggest">
-              Try to cast <SpellLink id={mainSpell.id} /> more often.
+              Try to cast <SpellLink id={ability.primarySpell} /> more often.
             </Trans>{' '}
             {ability.castEfficiency.extraSuggestion || ''}
           </>,
         )
-          .icon(mainSpell.icon)
+          .icon(spellInfo.icon)
           .actual(
             <Trans id="shared.modules.castEfficiency.actual">
               {abilityInfo.casts} out of {abilityInfo.maxCasts} possible casts. You kept it on

@@ -154,13 +154,12 @@ class AncestralVigor extends Analyzer {
                 if (!combatant) {
                   return null;
                 }
-                const spec = SPECS[combatant.specId];
-                const specClassName = spec.className.replace(' ', '');
+                const specClassName = combatant.player.type.replace(' ', '');
 
                 return (
                   <tr key={index}>
                     <th scope="row">
-                      {formatDuration((event.timestamp - this.owner.fight.start_time) / 1000, 0)}
+                      {formatDuration(event.timestamp - this.owner.fight.start_time, 0)}
                     </th>
                     <td className={specClassName}>{combatant.name}</td>
                     <td style={{ textAlign: 'center' }}>

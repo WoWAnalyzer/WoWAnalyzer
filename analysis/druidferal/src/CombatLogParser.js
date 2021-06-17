@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+
 import Abilities from './modules/Abilities';
 import RakeSnapshot from './modules/bleeds/RakeSnapshot';
 import RakeUptime from './modules/bleeds/RakeUptime';
@@ -9,6 +11,7 @@ import Buffs from './modules/Buffs';
 import ComboPointDetails from './modules/combopoints/ComboPointDetails';
 import ComboPointTracker from './modules/combopoints/ComboPointTracker';
 import FinisherUse from './modules/combopoints/FinisherUse';
+import DotUptimesAndSnapshots from './modules/core/DotUptimesAndSnapshots';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -18,6 +21,11 @@ import EnergyTracker from './modules/features/EnergyTracker';
 import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
 import Shadowmeld from './modules/racials/Shadowmeld';
+import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
+import ApexPredatorsCraving from './modules/shadowlands/ApexPredatorsCraving';
+import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
+import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
+import Frenzyband from './modules/shadowlands/Frenzyband';
 import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
@@ -40,11 +48,15 @@ class CombatLogParser extends CoreCombatLogParser {
     bleedDebuffEvents: BleedDebuffEvents,
     comboPointsFromAoE: ComboPointsFromAoE,
 
+    // Core
+    activeDruidForm: ActiveDruidForm,
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    dotUptimesAndSnapshots: DotUptimesAndSnapshots,
     ferociousBiteEnergy: FerociousBiteEnergy,
     spellUsable: SpellUsable,
     spellEnergyCost: SpellEnergyCost,
@@ -78,6 +90,13 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
     finisherUse: FinisherUse,
+
+    // shadowlands
+    apexPredatorsCraving: ApexPredatorsCraving,
+    convokeSpirits: ConvokeSpiritsFeral,
+    draughtOfDeepFocus: DraughtOfDeepFocus,
+    frenzyband: Frenzyband,
+    adaptiveSwarm: AdaptiveSwarmFeral,
   };
 }
 

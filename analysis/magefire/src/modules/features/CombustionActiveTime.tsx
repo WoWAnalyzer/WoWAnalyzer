@@ -155,7 +155,7 @@ class CombustionActiveTime extends Analyzer {
                 {Object.keys(this.combustionPreCastDelay.combustionCasts).map((cast) => (
                   <tr key={cast}>
                     <th style={{ textAlign: 'left' }}>
-                      {formatDuration((Number(cast) - this.owner.fight.start_time) / 1000)}
+                      {formatDuration(Number(cast) - this.owner.fight.start_time)}
                     </th>
                     <th style={{ textAlign: 'left' }}>
                       {formatPercentage(this.combustionCasts[Number(cast)])}

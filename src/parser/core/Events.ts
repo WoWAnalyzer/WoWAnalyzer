@@ -4,6 +4,7 @@ import React from 'react';
 
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';
+import { PlayerInfo } from './Player';
 
 export enum EventType {
   Heal = 'heal',
@@ -184,17 +185,55 @@ export function HasTarget<T extends EventType>(event: Event<T>): event is Target
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
 
+export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
+  return event._linkedEvents === undefined
+    ? []
+    : event._linkedEvents.filter((le) => le.relation === relation).map((le) => le.event);
+}
+
+export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
+  return (
+    event._linkedEvents !== undefined &&
+    event._linkedEvents.find((le) => le.relation === relation) !== undefined
+  );
+}
+
+export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent: AnyEvent): void {
+  if (event._linkedEvents === undefined) {
+    event._linkedEvents = [];
+  }
+  event._linkedEvents.push({ relation, event: relatedEvent });
+  event.__modified = true;
+}
+
 export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
   ? MappedEventTypes[T]
   : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
 export interface Event<T extends string> {
+  /** Event type string */
   type: T;
+  /** Timestamp in milliseconds */
   timestamp: number;
+  /** True iff the event happened before the pull. Added by WoWA */
   prepull?: boolean;
+  /** Other events associated with this event. Added by WoWA normalizers. Meaning is context sensitive */
+  _linkedEvents?: LinkedEvent[];
+  /** True iff the event was created by WoWA */
   __fabricated?: boolean;
+  /** True iff the event's content was modified by WoWA */
   __modified?: boolean;
+  /** True iff a WoWA normalizer reordered this event */
+  __reordered?: boolean;
+}
+
+// TODO way to specify specific expected event type?
+export interface LinkedEvent {
+  /** A string specifying the relationship of the linked event. Will be used as a key during lookup */
+  relation: string;
+  /** The linked event */
+  event: AnyEvent;
 }
 
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
@@ -727,12 +766,14 @@ export interface SoulbindTrait {
 export interface Conduit {
   traitID: number;
   rank: number;
+  itemLevel?: number;
   spellID: number;
   icon: string;
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
-  expansion: string;
+  player: PlayerInfo;
+  expansion: 'tbc' | string;
   pin: string;
   sourceID: number;
   gear: Item[];

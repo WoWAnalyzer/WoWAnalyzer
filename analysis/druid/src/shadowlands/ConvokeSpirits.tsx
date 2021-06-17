@@ -4,16 +4,10 @@ import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  AbilityEvent,
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  ApplyDebuffEvent,
-  ApplyDebuffStackEvent,
   CastEvent,
-  DamageEvent,
-  HealEvent,
-  RefreshBuffEvent,
-  RefreshDebuffEvent,
-  RemoveBuffEvent,
+  TargettedEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -24,14 +18,79 @@ import React from 'react';
 
 import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
 
-const SPELLS_WITH_TRAVEL_TIME = [
-  SPELLS.STARSURGE_AFFINITY.id,
-  SPELLS.STARSURGE_MOONKIN.id,
+/*
+ * For several spells we include multiple IDs for the same spell -
+ * probably only one ID is being used but as of this writing neither Abelito nor Sref
+ * has cared enough to find out which.
+ */
+
+/** All convokable spells that 'hit' with a buff application */
+export const CONVOKE_BUFF_SPELLS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.IRONFUR,
+  SPELLS.TIGERS_FURY,
+  SPELLS.FERAL_FRENZY_TALENT,
+  SPELLS.WILD_GROWTH,
+  SPELLS.FLOURISH_TALENT,
+  SPELLS.STARFALL_CAST, // apparently this is also the ID for the buff
+];
+/** All convokable spells that 'hit' with a debuff application */
+export const CONVOKE_DEBUFF_SPELLS = [
+  SPELLS.MOONFIRE,
+  SPELLS.MOONFIRE_BEAR,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.RAKE_BLEED,
+  SPELLS.THRASH_BEAR_DOT,
+];
+/** All convokable spells that 'hit' with direct healing */
+export const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND];
+/** All convokable spells that 'hit' with direct damage */
+export const CONVOKE_DAMAGE_SPELLS = [
+  SPELLS.WRATH,
+  SPELLS.WRATH_MOONKIN,
+  SPELLS.STARSURGE_AFFINITY,
+  SPELLS.STARSURGE_MOONKIN,
+  SPELLS.FULL_MOON,
+  SPELLS.FEROCIOUS_BITE,
+  SPELLS.SHRED,
+  SPELLS.MANGLE_BEAR,
+  SPELLS.PULVERIZE_TALENT,
+];
+/** Convokable spells that have travel time */
+export const SPELLS_WITH_TRAVEL_TIME = [
+  SPELLS.STARSURGE_AFFINITY,
+  SPELLS.STARSURGE_MOONKIN,
+  SPELLS.FULL_MOON,
+  SPELLS.WRATH,
+  SPELLS.WRATH_MOONKIN,
+];
+export const SPELL_IDS_WITH_TRAVEL_TIME = SPELLS_WITH_TRAVEL_TIME.map((s) => s.id);
+/** Convokable spells that can hit multiple targets */
+export const SPELL_IDS_WITH_AOE = [
+  SPELLS.MOONFIRE.id,
+  SPELLS.MOONFIRE_BEAR.id,
+  SPELLS.MOONFIRE_FERAL.id,
   SPELLS.FULL_MOON.id,
-  SPELLS.WRATH.id,
-  SPELLS.WRATH_MOONKIN.id,
+  SPELLS.THRASH_BEAR_DOT.id,
+  SPELLS.WILD_GROWTH.id,
 ];
 
+const SPELLS_CAST = 16;
+const SPELLS_CAST_RESTO = 12;
+
+const AOE_BUFFER_MS = 100;
+const AFTER_CHANNEL_BUFFER_MS = 50;
+const TRAVEL_BUFFER_MS = 2_000;
+
+/**
+ * **Convoke the Spirits**
+ * Covenant - Night Fae
+ *
+ * Call upon the Night Fae for an eruption of energy,
+ * channeling a rapid flurry of 16 (12 for Resto) Druid spells and abilities over 4 sec.
+ */
 class ConvokeSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -41,410 +100,170 @@ class ConvokeSpirits extends Analyzer {
   protected abilities!: Abilities;
   protected activeDruidForm!: ActiveDruidForm;
 
-  tracking = false;
-  spellsToTrack = 16;
-  cast = 0;
-
-  flexTimeStampForMultiApplySpells = 0;
-
-  extraRejuvsFromOtherSources = 0;
-
-  whatHappendIneachConvoke: ConvokeCast[] = [];
-
-  travelTimeSpellsCastToDamageRatio: number[] = [];
+  /** The number of times Convoke has been cast */
+  cast: number = 0;
+  /** The number of spells cast by a full Convoke channel */
+  spellsPerCast: number;
+  /** Timestamp of the most recent AoE spell hit registered during Convoke - used to avoid double counts */
+  mostRecentAoeTimestamp = 0;
+  /** Mapping from convoke cast number to a tracker for that cast - note that index zero will always be empty */
+  convokeTracker: ConvokeCast[] = [];
+  /**
+   * A mapping from spellId of a spell with travel time to the last cast for that ID.
+   * If we register a 'hit' during convoke, but the cast was within plausible travel time and
+   * had same target, we assume the hit was due to a hardcast (and not convoke).
+   * Cast entries will be cleared when we find a matching 'hit'.
+   */
+  lastTravelingSpellCast: Array<CastEvent | undefined> = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
-    if (!this.active) {
-      return;
-    }
+    this.spellsPerCast =
+      this.selectedCombatant.spec === SPECS.RESTORATION_DRUID ? SPELLS_CAST_RESTO : SPELLS_CAST;
 
-    //populate
-    SPELLS_WITH_TRAVEL_TIME.forEach((e) => {
-      this.travelTimeSpellsCastToDamageRatio[e] = 0;
-    });
-
-    if (this.selectedCombatant.spec === SPECS.RESTORATION_DRUID) {
-      this.spellsToTrack = 12;
-    }
-
-    (options.abilities as Abilities).add({
-      spell: SPELLS.CONVOKE_SPIRITS,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      cooldown: 120,
-      gcd: {
-        base: this.selectedCombatant.spec === SPECS.FERAL_DRUID ? 1000 : 1500,
-      },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.8,
-      },
-    });
-
-    //start tracker
+    // watch for convokes
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS),
-      this.startTracking,
+      this.onConvoke,
     );
 
-    //I'm dividing these out so you can see where each is and then if anything changes you're not changing one string in a long ass listener
-    //this is also done in such a way to make sure we don't count the wrong event like whitenoise rejuv healing or moonfire damage etc
-
-    //wouldn't it be lovely if blizzard just gave me cast events : ^)
-    //generic stuff
+    // watch for spell 'hits'
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.newRejuv,
+      Events.applybuff.by(SELECTED_PLAYER).spell(CONVOKE_BUFF_SPELLS),
+      this.onHit,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.newRejuv,
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(CONVOKE_BUFF_SPELLS),
+      this.onHit,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.newRegrowth,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.newRegrowth,
-    );
-
-    //I'm not getting paid enough to check a billion logs to figure out which moonfire does this so deal with it
-    //half the reason is because its random on which spells get fired and the fact its based on form so zzz
-    this.addEventListener(
-      Events.applydebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]),
-      this.newMoonfire,
-    );
-    this.addEventListener(
-      Events.refreshdebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]),
-      this.newMoonfire,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WRATH, SPELLS.WRATH_MOONKIN]),
-      this.newWrath,
-    );
-
-    //Balance stuff deal with it. idk which one it will be (it should be solar wrath moonkin but like edge cases)
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]),
-      this.newStarSurge,
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(CONVOKE_BUFF_SPELLS),
+      this.onHit,
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST),
-      this.newStarFall,
+      Events.applydebuff.by(SELECTED_PLAYER).spell(CONVOKE_DEBUFF_SPELLS),
+      this.onHit,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST),
-      this.newStarFall,
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(CONVOKE_DEBUFF_SPELLS),
+      this.onHit,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON),
-      this.newFullMoon,
-    );
-
-    //Feral Stuff
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
-      this.newFerociousBite,
+      Events.applydebuffstack.by(SELECTED_PLAYER).spell(CONVOKE_DEBUFF_SPELLS),
+      this.onHit,
     );
 
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RAKE_BLEED),
-      this.newRake,
-    );
-    this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.RAKE_BLEED),
-      this.newRake,
-    );
-
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHRED), this.newShred);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(CONVOKE_HEAL_SPELLS), this.onHit);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY),
-      this.newTigersFury,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY),
-      this.newTigersFury,
+      Events.damage.by(SELECTED_PLAYER).spell(CONVOKE_DAMAGE_SPELLS),
+      this.onHit,
     );
 
+    // watch for travel time casts
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_DEBUFF),
-      this.newFeralFrenzy,
-    );
-    this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_DEBUFF),
-      this.newFeralFrenzy,
-    );
-
-    //Bear stuff
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MANGLE_BEAR),
-      this.newMangle,
-    );
-
-    //from what bear druids say this ability caps at 20 but who knows what blizzard will do *cough* corruption 2.0 *cough*
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR),
-      this.newIronFur,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR),
-      this.newIronFur,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR),
-      this.newIronFur,
-    );
-
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.THRASH_BEAR_DOT),
-      this.newThrash,
-    );
-    this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.THRASH_BEAR_DOT),
-      this.newThrash,
-    );
-    this.addEventListener(
-      Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.THRASH_BEAR_DOT),
-      this.newThrash,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PULVERIZE_TALENT),
-      this.newPulverize,
-    );
-
-    //Resto stuff
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),
-      this.newSwiftMend,
-    );
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.newWildGrowth,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.newWildGrowth,
-    );
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.newFlourish,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.newFlourish,
-    );
-
-    //stop tracker
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS),
-      this.stopTracking,
-    );
-
-    //for travel time bs
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WRATH, SPELLS.WRATH_MOONKIN]),
-      this.wrathCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]),
-      this.starsurgeCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON),
-      this.fullMoonCast,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS_WITH_TRAVEL_TIME),
+      this.onTravelTimeCast,
     );
   }
 
-  startTracking(event: ApplyBuffEvent) {
-    this.tracking = true;
+  onConvoke(_: ApplyBuffEvent) {
     this.cast += 1;
-    this.whatHappendIneachConvoke[this.cast] = { spellIdToCasts: [] };
+    this.convokeTracker[this.cast] = { spellIdToCasts: [], form: this.activeDruidForm.form };
   }
 
-  newRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
+  onHit(event: AbilityEvent<any> & TargettedEvent<any>) {
+    const spellId = event.ability.guid;
 
-  newRegrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
+    const isNewHit = this.isNewHit(spellId);
+    const isTravelTime = SPELL_IDS_WITH_TRAVEL_TIME.includes(spellId);
+    const wasProbablyHardcast = isTravelTime && this.wasProbablyHardcast(event);
+    const isConvoking = this.isConvoking();
 
-  newMoonfire(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-    this.multiSpellSafety(event.timestamp);
-  }
-
-  newWrath(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newStarSurge(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newStarFall(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newFullMoon(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-    this.multiSpellSafety(event.timestamp);
-  }
-
-  newFerociousBite(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newRake(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newShred(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newTigersFury(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newFeralFrenzy(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newMangle(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newIronFur(event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newThrash(event: ApplyDebuffEvent | RefreshDebuffEvent | ApplyDebuffStackEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-    this.multiSpellSafety(event.timestamp);
-  }
-
-  newPulverize(event: DamageEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newSwiftMend(event: HealEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  newWildGrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-    this.multiSpellSafety(event.timestamp);
-  }
-
-  newFlourish(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.addemUp(event.ability.guid, event.timestamp);
-  }
-
-  stopTracking(event: RemoveBuffEvent) {
-    this.tracking = false;
-    this.whatHappendIneachConvoke[this.cast].form = this.activeDruidForm.form;
-    this.houseKeeping();
-  }
-
-  wrathCast(event: CastEvent) {
-    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
-  }
-
-  starsurgeCast(event: CastEvent) {
-    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
-  }
-
-  fullMoonCast(event: CastEvent) {
-    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
-  }
-
-  //just adds to spell to a tracker... yeah i know i could feed them all down to addemUp my default but i don't want something like (event: DamageEvent | ApplyBuffEvent | RefreshBuffEvent... ) deal with it
-  addemUp(spellId: number, timestamp: number) {
-    // if Convoke hasn't been casted in this fight, there is nothing to analyzere here. This also fixes crashes resulting from precasting spells, as they don't have a cast Event associated with them
-    if (this.cast === 0) {
-      return;
+    if (isNewHit && isConvoking && !wasProbablyHardcast) {
+      // spell hit during convoke and was due to convoke
+      this.registerConvokedSpell(spellId);
+    } else if (isTravelTime && !wasProbablyHardcast && this.isWithinTravelFromConvoke()) {
+      // spell hit soon after convoke but was due to convoke
+      this.registerConvokedSpell(spellId);
     }
 
-    let fromConvokeButWeNoticeAfterwards = false;
-    //since travel time is the stupidiest thing in the world we have a weird af check
-    if (SPELLS_WITH_TRAVEL_TIME.includes(spellId)) {
-      //check if its from convoke or not (if 0 then it is)
-      if (this.travelTimeSpellsCastToDamageRatio[spellId] === 0) {
-        fromConvokeButWeNoticeAfterwards = true;
-      } else {
-        this.travelTimeSpellsCastToDamageRatio[spellId] -= 1;
-      }
-    }
-
-    if (!this.tracking) {
-      if (!fromConvokeButWeNoticeAfterwards) {
-        return;
-      }
-    }
-
-    //check for weird multiapplication spells
-    if (this.flexTimeStampForMultiApplySpells + 100 > timestamp) {
-      return;
-    }
-
-    //we know it exists
-    const oneCast = this.whatHappendIneachConvoke[this.cast];
-    if (!oneCast.spellIdToCasts[spellId]) {
-      oneCast.spellIdToCasts[spellId] = 0;
-    }
-    oneCast.spellIdToCasts[spellId] += 1;
-
-    //Might seem weird but we gotta do this if we get extra events.
-    if (fromConvokeButWeNoticeAfterwards) {
-      this.houseKeeping();
+    if (isTravelTime) {
+      this.onTravelTimeHit(spellId);
     }
   }
 
-  multiSpellSafety(timestamp: number) {
-    //add a tenth of a second for safety this actually might be riskey but YOLO
-    if (this.flexTimeStampForMultiApplySpells + 100 < timestamp) {
-      this.flexTimeStampForMultiApplySpells = timestamp;
+  /**
+   * Tallies the given spellId as a convoked cast during the current convoke.
+   */
+  registerConvokedSpell(spellId: number): void {
+    const currentConvoke = this.convokeTracker[this.cast];
+    if (!currentConvoke.spellIdToCasts[spellId]) {
+      currentConvoke.spellIdToCasts[spellId] = 0;
     }
+    currentConvoke.spellIdToCasts[spellId] += 1;
   }
 
-  houseKeeping() {
-    //gotta have our safety : ^)
-    if (this.tracking) {
-      return;
-    }
+  /**
+   * True iff the player is currently Convoking the Spirits.
+   * Includes a small buffer after the end because occasionally the last convoked spell occurs
+   * slightly after the end.
+   */
+  isConvoking(): boolean {
+    return this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id, null, AFTER_CHANNEL_BUFFER_MS);
+  }
 
-    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce(
-      (previousValue: number, currentValue: number) => previousValue + currentValue,
-      0,
+  /**
+   * True iff we're soon enough after Convoking that a convoked spell with travel time
+   * could still plausibly be in the air.
+   */
+  isWithinTravelFromConvoke(): boolean {
+    return this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id, null, TRAVEL_BUFFER_MS);
+  }
+
+  /**
+   * True iff a hit with the given traveling spellId could plausibly have come from a hardcast
+   */
+  wasProbablyHardcast(event: AbilityEvent<any> & TargettedEvent<any>): boolean {
+    const lastCast: CastEvent | undefined = this.lastTravelingSpellCast[event.ability.guid];
+    return (
+      lastCast !== undefined &&
+      lastCast.timestamp + TRAVEL_BUFFER_MS > this.owner.currentTimestamp &&
+      lastCast.targetID === event.targetID
     );
+  }
 
-    //this can happen due to a resto druid lego that just randomly adds rejuvs (with no cast event)
-    //so lets remove those if possible. if not then ??? sorry fam
-    if (howManyDidWeCount > this.spellsToTrack) {
-      const diff = howManyDidWeCount - this.spellsToTrack;
-      const rejuvs = this.whatHappendIneachConvoke[this.cast].spellIdToCasts[
-        SPELLS.REJUVENATION.id
-      ];
-      if (rejuvs - diff > 0) {
-        this.whatHappendIneachConvoke[this.cast].spellIdToCasts[SPELLS.REJUVENATION.id] -= diff;
-      }
+  /**
+   * Checks if the hit from the given spellId is 'new', and updates trackers appropriately.
+   * A hit from a single target spell is always new.
+   * A hit from an AoE spell is only new if there wasn't another very recent hit.
+   */
+  isNewHit(spellId: number): boolean {
+    const isAoe: boolean = SPELL_IDS_WITH_AOE.includes(spellId);
+    if (!isAoe) {
+      return true;
+    }
+    if (this.owner.currentTimestamp <= this.mostRecentAoeTimestamp + AOE_BUFFER_MS) {
+      return false; // still within the same AoE
+    } else {
+      // new AoE
+      this.mostRecentAoeTimestamp = this.owner.currentTimestamp;
+      return true;
     }
   }
+
+  onTravelTimeCast(event: CastEvent) {
+    this.lastTravelingSpellCast[event.ability.guid] = event;
+  }
+
+  onTravelTimeHit(spellId: number) {
+    this.lastTravelingSpellCast[spellId] = undefined;
+  }
+
+  // TODO discount rejuvs procced from other sources?
 
   statistic() {
     return (
@@ -452,53 +271,65 @@ class ConvokeSpirits extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={
-          <>
-            Normally when a cast of an ability happens in wow there is a CastEvent with it. During
-            convoke there isn't. This means we have to track damage events, heal events, and
-            buff/debuff events meaning if you thrash and hit nothing you don't create any events
-            meaning we can't track it. This means if your number don't add up to the expected amount
-            then that is the cause of it.
-          </>
-        }
-        dropdown={
-          <>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Cast #</th>
-                  <th>Form</th>
-                  <th>Spells In Cast</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index}</th>
-                    <td>{spellIdToCasts.form}</td>
-                    <td>
-                      {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
-                        <>
-                          <SpellLink id={spellId} /> {casts} <br />
-                        </>
-                      ))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        }
+        tooltip={this.baseTooltip}
+        dropdown={this.baseTable}
       >
         <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>-</BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  /** The dropdown table in the base form of this statistic */
+  get baseTable(): React.ReactNode {
+    return (
+      <>
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Cast #</th>
+              <th>Form</th>
+              <th>Spells In Cast</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.convokeTracker.map((spellIdToCasts, index) => (
+              <tr key={index}>
+                <th scope="row">{index}</th>
+                <td>{spellIdToCasts.form}</td>
+                <td>
+                  {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
+                    <>
+                      <SpellLink id={spellId} /> {casts} <br />
+                    </>
+                  ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    );
+  }
+
+  /** The tooltip in the base form of this statistic */
+  get baseTooltip(): React.ReactNode {
+    return (
+      <>
+        Abilities cast by Convoke do not create cast events; this listing is created by tracking
+        related events during the channel. Occasionally a Convoke will cast an ability that hits
+        nothing (like Thrash when only immune targets are in range). In these cases we won't be able
+        to track it and so the number of spells listed may not add up to {this.spellsPerCast}.
+      </>
     );
   }
 }
 
 export default ConvokeSpirits;
 
+/** A tracker for things that happen in a single Convoke cast */
 export interface ConvokeCast {
+  /** A mapping from spellId to the number of times that spell was cast during the Convoke */
   spellIdToCasts: number[];
-  form?: DruidForm;
+  /** The form the Druid was in during the cast */
+  form: DruidForm;
 }

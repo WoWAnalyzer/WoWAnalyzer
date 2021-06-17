@@ -7,6 +7,7 @@ import Config, { Build } from 'parser/Config';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Fight from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,7 @@ import './Header.scss';
 
 interface Props {
   config: Config;
-  name: string;
+  player: PlayerInfo;
   characterProfile: CharacterProfile;
   boss: Boss | null;
   handlePhaseSelection: (phase: string, instance: number) => void;
@@ -40,7 +41,7 @@ interface Props {
 const Header = ({
   config: { spec, builds },
   build,
-  name,
+  player: { name, icon },
   fight,
   boss,
   handlePhaseSelection,
@@ -59,7 +60,7 @@ const Header = ({
   if (characterProfile?.thumbnail) {
     playerThumbnail = `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
   } else {
-    playerThumbnail = `/specs/${spec.className}-${spec.specName}.jpg`.replace(/ /, '');
+    playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');
   }
 
   const renderBuild = (build: Build, active: boolean) => (

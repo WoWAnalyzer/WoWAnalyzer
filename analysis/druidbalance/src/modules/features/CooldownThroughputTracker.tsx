@@ -7,11 +7,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT,
+      spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.CELESTIAL_ALIGNMENT,
+      spell: SPELLS.CELESTIAL_ALIGNMENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

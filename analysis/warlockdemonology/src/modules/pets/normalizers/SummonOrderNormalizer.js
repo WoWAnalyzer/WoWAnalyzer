@@ -58,7 +58,7 @@ class SummonOrderNormalizer extends EventsNormalizer {
   swapEvents(_events, previousEventIndex, previousEvent) {
     _events.splice(previousEventIndex, 1);
     _events.push(previousEvent);
-    previousEvent.__modified = true;
+    previousEvent.__reordered = true;
   }
 
   isDemonFire(previousEvent, event) {

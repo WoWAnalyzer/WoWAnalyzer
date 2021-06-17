@@ -28,6 +28,7 @@ class Haste extends Analyzer {
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
+    [SPELLS.FIELD_OF_BLOSSOMS_BUFF.id]: 0.12, // Buff from Field of Blossoms (Dreamweaver Soulbind Night Fae)
 
     //region Druid Haste Buffs
     [SPELLS.STARLORD.id]: {
@@ -59,7 +60,7 @@ class Haste extends Analyzer {
 
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
-    //region end
+    //endregion
   };
 
   get changehaste() {

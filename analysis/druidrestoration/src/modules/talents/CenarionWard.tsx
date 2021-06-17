@@ -3,6 +3,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
@@ -28,7 +29,8 @@ class CenarionWard extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)}
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>

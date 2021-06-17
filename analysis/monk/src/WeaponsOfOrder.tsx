@@ -22,7 +22,7 @@ class WeaponsOfOrder extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL,
+      spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 120,
       // WoO is hasted for WW/BrM for whatever fucking reason
@@ -35,7 +35,7 @@ class WeaponsOfOrder extends Analyzer {
   }
 
   get masteryBuffPercentage() {
-    return BASE_MASTERY_PERCENTAGE * this.selectedCombatant.spec.masteryCoefficient;
+    return BASE_MASTERY_PERCENTAGE * (this.selectedCombatant.spec?.masteryCoefficient || 1);
   }
 }
 

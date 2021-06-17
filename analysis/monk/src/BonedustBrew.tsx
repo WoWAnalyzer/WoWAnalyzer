@@ -21,7 +21,7 @@ export default class BonedustBrew extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.BONEDUST_BREW_CAST,
+      spell: SPELLS.BONEDUST_BREW_CAST.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 60,
       gcd:

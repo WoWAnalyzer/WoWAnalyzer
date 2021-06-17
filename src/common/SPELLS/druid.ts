@@ -89,6 +89,28 @@ const spells = {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
+  HEART_OF_THE_WILD_BALANCE_AFFINITY: {
+    id: 108291,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_FERAL_AFFINITY: {
+    id: 108292,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_GUARDIAN_AFFINITY: {
+    id: 108293,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_RESTO_AFFINITY: {
+    id: 108294,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+
+  // shared items / conduits
 
   //Affinity Spells
   //Moonkin-Balance
@@ -745,6 +767,11 @@ const spells = {
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
+  BERSERK_BUFF: {
+    id: 343216,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
   PROWL: {
     id: 5215,
     name: 'Prowl',
@@ -844,6 +871,24 @@ const spells = {
     id: 252752,
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
+  },
+  FRENZIED_ASSAULT: {
+    // DoT procced by Frenzyband legendary
+    id: 340056,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  APEX_PREDATORS_CRAVING_BUFF: {
+    // Buff procced by Apex Predator's Craving legendary
+    id: 339140,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+  },
+  SUDDEN_AMBUSH_BUFF: {
+    // Buff procced by Sudden Ambush conduit
+    id: 340698,
+    name: 'Sudden Ambush',
+    icon: 'ability_hunter_catlikereflexes',
   },
 } as const;
 

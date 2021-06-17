@@ -4,6 +4,8 @@ import { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
+import { Stats } from './shared/modules/StatTracker';
+
 export type Build = {
   url: string;
   name: string;
@@ -61,12 +63,26 @@ interface Config {
    */
   exampleReport: string;
   builds?: Builds;
+  /**
+   * These are multipliers to the stats applied *on pull* that are not
+   * included in the stats reported by WCL. These are *baked in* and do
+   * not multiply temporary buffs.
+   *
+   * In general, it looks like armor is the only one that isn't applied
+   * by WCL.
+   */
+  statMultipliers?: Partial<Stats>;
+
   // Don't change values for props below this line;
   /**
    * The spec this config is for . This is the only place (in code) that
    * specifies which spec this parser is about.
    */
   spec: Spec;
+  /**
+   * The expansion this config is for, if not the latest retail expansion.
+   */
+  expansion?: 'tbc' | string;
   /**
    * The contents of your changelog.
    */

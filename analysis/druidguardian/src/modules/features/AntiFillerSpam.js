@@ -75,7 +75,7 @@ class AntiFillerSpam extends Analyzer {
     debug &&
       console.group(
         `[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name} - ${formatDuration(
-          (event.timestamp - this.owner.fight.start_time) / 1000,
+          event.timestamp - this.owner.fight.start_time,
         )}`,
       );
 
@@ -85,8 +85,8 @@ class AntiFillerSpam extends Analyzer {
     this.abilities.abilities
       .filter((ability) => ability.antiFillerSpam)
       .forEach((gcdSpell) => {
-        const gcdSpellId = gcdSpell.primarySpell.id;
-        if (ability.primarySpell.id === gcdSpellId) {
+        const gcdSpellId = gcdSpell.primarySpell;
+        if (ability.primarySpell === gcdSpellId) {
           return;
         }
 
@@ -115,7 +115,7 @@ class AntiFillerSpam extends Analyzer {
       this._unnecessaryFillerSpells += 1;
       let text = '';
       for (let i = 0; i < availableSpells.length; i += 1) {
-        if (availableSpells[i].primarySpell.id === SPELLS.MOONFIRE.id) {
+        if (availableSpells[i].primarySpell === SPELLS.MOONFIRE.id) {
           text += 'a Galactic Guardian proc';
         } else {
           text += availableSpells[i].name;

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
@@ -19,7 +20,7 @@ class BrutalSlashHitCount extends HitCountAoE {
         average: 0.2,
         major: 0.5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

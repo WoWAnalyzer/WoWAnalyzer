@@ -203,7 +203,7 @@ class Casts extends React.PureComponent {
   renderChannel(event) {
     const start = this.props.start;
     const left = this.getOffsetLeft(event.start);
-    const fightDuration = (event.start - start) / 1000;
+    const fightDuration = event.start - start;
 
     return (
       <Tooltip
@@ -228,7 +228,7 @@ class Casts extends React.PureComponent {
   renderGlobalCooldown(event) {
     const start = this.props.start;
     const left = this.getOffsetLeft(event.timestamp);
-    const fightDuration = (event.timestamp - start) / 1000;
+    const fightDuration = event.timestamp - start;
 
     return (
       <Tooltip

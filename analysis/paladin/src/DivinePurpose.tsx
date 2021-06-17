@@ -135,7 +135,7 @@ class DivinePurpose extends Analyzer {
             <ul>
               <li>
                 Average Time Till Buff Consumed:{' '}
-                {formatDuration(this.averageTimeTillBuffConsumed / 1000 / this.procsGained)}
+                {formatDuration(this.averageTimeTillBuffConsumed / this.procsGained)}
               </li>
               <li>Total Buffs: {this.procsGained}</li>
               <li>Damage: {formatNumber(this.damageDone)}</li>

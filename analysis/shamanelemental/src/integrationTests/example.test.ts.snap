@@ -2554,6 +2554,103 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.37
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -3320,10 +3417,10 @@ Array [
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_questionmark.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/shaman_talent_elementalblast.jpg"
                 />
                  
-                Unknown spell: 344645
+                Elemental Blast
               </a>
             </td>
             <td
@@ -4282,11 +4379,11 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log Stormkeeper 
             src="/img/sword.png"
           />
            
-          0
+          261
            DPS
            
           <small>
-            0.00
+            4.01
              % of total
           </small>
         </div>
@@ -9017,6 +9114,103 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -9685,10 +9879,10 @@ Array [
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_questionmark.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/shaman_talent_elementalblast.jpg"
                 />
                  
-                Unknown spell: 344645
+                Elemental Blast
               </a>
             </td>
             <td
@@ -10536,11 +10730,11 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log Stormkeeper mat
             src="/img/sword.png"
           />
            
-          0
+          471
            DPS
            
           <small>
-            0.00
+            4.03
              % of total
           </small>
         </div>

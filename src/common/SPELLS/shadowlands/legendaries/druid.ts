@@ -17,7 +17,18 @@ const legendaries = {
   //endregion
 
   //region Feral
-
+  FRENZYBAND: {
+    id: 340053,
+    name: 'Frenzyband',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+    bonusID: 7109,
+  },
+  APEX_PREDATORS_CRAVING: {
+    id: 339139,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+    bonusID: 7091,
+  },
   //endregion
 
   //region Guardian
@@ -56,6 +67,7 @@ const legendaries = {
     icon: 'spell_druid_germination_rejuvenation',
   },
   LIFEBLOOM_DTL_HOT_HEAL: {
+    // with The Dark Titan's Lesson legendary, BOTH lifeblooms will have this ID
     id: 188550,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
@@ -67,6 +79,12 @@ const legendaries = {
     name: 'Memory of the Mother Tree',
     icon: 'spell_druid_rampantgrowth',
     bonusID: 7096,
+  },
+  VERDANT_INFUSION: {
+    id: 338829,
+    name: 'Verdant Infusion',
+    icon: 'inv_relics_totemoflife',
+    bonusID: 7098,
   },
   //endregion
 
@@ -80,6 +98,7 @@ const legendaries = {
     id: 338658,
     name: 'Draught of Deep Focus',
     icon: 'trade_alchemy_dpotion_d12',
+    bonusID: 7086,
   },
   OATH_OF_THE_ELDER_DRUID: {
     id: 338608,
@@ -90,6 +109,7 @@ const legendaries = {
     id: 340059,
     name: "Lycara's Fleeting Glimpse",
     icon: 'spell_unused',
+    bonusID: 7110,
   },
 
   //endregion

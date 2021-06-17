@@ -5,6 +5,7 @@ import React from 'react';
 
 interface Props {
   specId: number;
+  type: string;
   children: (config: Config) => React.ReactNode;
 }
 
@@ -16,7 +17,7 @@ class ConfigLoader extends React.PureComponent<Props, State> {
   static getDerivedStateFromProps(props: Props, state: State) {
     if (!state.config || props.specId !== state.config.spec.id) {
       return {
-        config: getConfig(props.specId),
+        config: getConfig(props.specId, props.type),
       };
     }
     return state;

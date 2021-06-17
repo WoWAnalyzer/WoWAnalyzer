@@ -43,7 +43,7 @@ class ShiveringCore extends Analyzer {
   }
 
   onBlizzardDamage(event: DamageEvent) {
-    this.bonusDamage += calculateEffectiveDamage(event.amount, DAMAGE_BONUS[this.conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {

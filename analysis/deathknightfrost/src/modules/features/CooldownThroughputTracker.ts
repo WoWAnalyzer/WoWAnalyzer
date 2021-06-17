@@ -7,15 +7,15 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
+      spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.PILLAR_OF_FROST,
+      spell: SPELLS.PILLAR_OF_FROST.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.OBLITERATION_TALENT,
+      spell: SPELLS.OBLITERATION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

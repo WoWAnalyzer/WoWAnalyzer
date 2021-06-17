@@ -22,7 +22,7 @@ const ItemLink = (props: Props) => {
 
   useEffect(() => {
     TooltipProvider.refresh(elem);
-  });
+  }, [elem, props.id]);
 
   const { id, children, details, ...others } = props;
   delete others.icon;

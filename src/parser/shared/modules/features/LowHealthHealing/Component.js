@@ -117,14 +117,11 @@ class LowHealthHealing extends React.Component {
                 console.error('Missing combatant for event:', event);
                 return null; // pet or something
               }
-              const spec = SPECS[combatant.specId];
-              const specClassName = spec.className.replace(' ', '');
+              const specClassName = combatant.player.type.replace(' ', '');
 
               return (
                 <tr key={`${event.timestamp}${effectiveHealing}${hitPointsBeforeHeal}`}>
-                  <td style={{ width: '5%' }}>
-                    {formatDuration((event.timestamp - fightStart) / 1000)}
-                  </td>
+                  <td style={{ width: '5%' }}>{formatDuration(event.timestamp - fightStart)}</td>
                   <td style={{ width: '25%' }}>
                     <SpellLink id={event.ability.guid} icon={false}>
                       <Icon icon={event.ability.abilityIcon} alt={event.ability.abilityIcon} />{' '}
@@ -132,7 +129,7 @@ class LowHealthHealing extends React.Component {
                     </SpellLink>
                   </td>
                   <td style={{ width: '20%' }} className={specClassName}>
-                    <SpecIcon id={spec.id} /> {combatant.name}
+                    <SpecIcon icon={combatant.player.icon} /> {combatant.name}
                   </td>
                   <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
                     {formatNumber(effectiveHealing)} @{' '}

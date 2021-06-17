@@ -105,7 +105,9 @@ class Mastery extends Analyzer {
 
           this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
             event,
-            decomposedHeal.relativeBuffBenefit(this.buffAttributions[buffId].buffAmount),
+            decomposedHeal.relativeBuffBenefit(
+              this.buffAttributions[buffId].buffAmount * buff.stacks,
+            ),
           );
         });
     } else {
@@ -226,7 +228,7 @@ class Mastery extends Analyzer {
   }
 
   // a version of _decompHeal for call by external modules, takes the heal event
-  decomposeHeal(event: HealEvent) {
+  decomposeHeal(event: HealEvent): DecomposedHeal | null {
     const target = this.combatants.getEntity(event);
     if (target === null) {
       return null;
@@ -263,7 +265,7 @@ class Mastery extends Analyzer {
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
-          this.selectedCombatant.spec.masteryCoefficient,
+          this.selectedCombatant.spec?.masteryCoefficient,
         );
       return buffBonus / healMasteryMult;
     };

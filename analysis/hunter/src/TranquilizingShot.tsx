@@ -29,7 +29,7 @@ class TranquilizingShot extends DispelTracker {
     this.addEventListener(Events.dispel.by(SELECTED_PLAYER), this.onDispel);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.TRANQUILIZING_SHOT,
+      spell: SPELLS.TRANQUILIZING_SHOT.id,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       cooldown: 10,
       gcd: {

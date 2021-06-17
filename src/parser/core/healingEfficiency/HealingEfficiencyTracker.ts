@@ -151,14 +151,18 @@ class HealingEfficiencyTracker extends Analyzer {
       if (ability.spell instanceof Array) {
         continue;
       }
-      if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
-        if (includeCooldowns || ability.category !== 'Cooldown') {
-          spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellIds);
 
-          topHpm = Math.max(topHpm, spells[ability.spell.id].hpm);
-          topDpm = Math.max(topDpm, spells[ability.spell.id].dpm);
-          topHpet = Math.max(topHpet, spells[ability.spell.id].hpet);
-          topDpet = Math.max(topDpet, spells[ability.spell.id].dpet);
+      // TODO: Move manaCost either to Abilities or make it a separate object
+      const spell = SPELLS[ability.spell];
+
+      if (spell.manaCost && spell.manaCost > 0) {
+        if (includeCooldowns || ability.category !== 'Cooldown') {
+          spells[ability.spell] = this.getSpellStats(ability.spell, ability.healSpellIds);
+
+          topHpm = Math.max(topHpm, spells[ability.spell].hpm);
+          topDpm = Math.max(topDpm, spells[ability.spell].dpm);
+          topHpet = Math.max(topHpet, spells[ability.spell].hpet);
+          topDpet = Math.max(topDpet, spells[ability.spell].dpet);
         }
       }
     }

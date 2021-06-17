@@ -33,7 +33,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
             _damageEventIndexes[_damageEventIndexes.length - 1],
             1,
           )[0];
-          lastDamageEvent.__modified = true;
+          lastDamageEvent.__reordered = true;
           fixedEvents.splice(fixedEvents.length - 1, 0, lastDamageEvent);
           _encounteredTargetIDs = [];
           return;

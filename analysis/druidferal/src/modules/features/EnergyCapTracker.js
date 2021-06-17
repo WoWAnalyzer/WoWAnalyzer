@@ -1,11 +1,14 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Icon, Tooltip } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import SpellEnergyCost from './SpellEnergyCost';
@@ -27,19 +30,19 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  * Reduced drain cost from Berserk/Incarnation on Ferocious Bite is already applied in the log.
  */
 class EnergyCapTracker extends RegenResourceCapTracker {
-  get percentCapped() {
+  get percentNotCapped() {
     return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.percentCapped,
+      actual: this.percentNotCapped,
       isLessThan: {
         minor: 0.8,
         average: 0.7,
         major: 0.65,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -94,32 +97,50 @@ class EnergyCapTracker extends RegenResourceCapTracker {
             )}% regenerated energy lost per minute due to being capped.`,
           }),
         )
-        .recommended(`<${recommended}% is recommended.`),
+        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
     );
   }
 
   statistic() {
     return (
-      <Statistic
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(2)}
+        icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
+        value={`${formatPercentage(this.cappedProportion)}%`}
+        label="Time with capped energy"
         tooltip={
           <>
             Although it can be beneficial to wait and let your energy pool ready to be used at the
             right time, you should still avoid letting it reach the cap.
             <br />
-            You spent <strong>{formatPercentage(this.cappedProportion)}%</strong> of the fight at
-            capped energy, causing you to miss out on a total of{' '}
-            <strong>{this.missedRegen.toFixed(0)}</strong> energy from regeneration.
+            You spent <b>{formatPercentage(this.cappedProportion)}%</b> of the fight at capped
+            energy, causing you to miss out on <b>{this.missedRegenPerMinute.toFixed(1)}</b> energy
+            per minute from regeneration.
           </>
         }
-        size="flexible"
-        position={STATISTIC_ORDER.CORE(1)}
-      >
-        <BoringResourceValue
-          resource={RESOURCE_TYPES.ENERGY}
-          value={`${formatPercentage(this.percentCapped)}%`}
-          label="Wasted energy per minute from being capped"
-        />
-      </Statistic>
+        footer={
+          <div className="statistic-box-bar">
+            <Tooltip
+              content={`Not at capped energy for ${formatDuration(
+                this.owner.fightDuration - this.atCap,
+              )}`}
+            >
+              <div
+                className="stat-healing-bg"
+                style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
+              >
+                <img src="/img/sword.png" alt="Uncapped Energy" />
+              </div>
+            </Tooltip>
+
+            <Tooltip content={`At capped energy for ${formatDuration(this.atCap)}`}>
+              <div className="remainder DeathKnight-bg">
+                <img src="/img/overhealing.png" alt="Capped Energy" />
+              </div>
+            </Tooltip>
+          </div>
+        }
+      />
     );
   }
 }

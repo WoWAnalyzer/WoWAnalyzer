@@ -8,10 +8,11 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
+import { HOTS_INCREASED_RATE } from '../../constants';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
@@ -64,11 +65,7 @@ class Photosynthesis extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.EFFLORESCENCE_HEAL,
-          SPELLS.SPRING_BLOSSOMS,
-          ...HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR,
-        ]),
+        .spell([SPELLS.EFFLORESCENCE_HEAL, SPELLS.SPRING_BLOSSOMS, ...HOTS_INCREASED_RATE]),
       this.onHeal,
     );
     this.addEventListener(
@@ -231,7 +228,8 @@ class Photosynthesis extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(20)}
+        position={STATISTIC_ORDER.OPTIONAL(50)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>

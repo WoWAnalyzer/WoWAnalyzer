@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
@@ -48,7 +49,7 @@ class RipSnapshot extends Snapshot {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -60,7 +61,7 @@ class RipSnapshot extends Snapshot {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -76,7 +77,7 @@ class RipSnapshot extends Snapshot {
         average: 0.15,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -280,9 +281,10 @@ class RipSnapshot extends Snapshot {
     );
   }
 
-  statistic() {
-    return super.generateStatistic(SPELLS.RIP.name, STATISTIC_ORDER.CORE(11));
-  }
+  // TODO replace by new DotUptimeAndSnapshots module - eventually this whole module should be replaced
+  // statistic() {
+  //   return super.generateStatistic(SPELLS.RIP.name, STATISTIC_ORDER.CORE(11));
+  // }
 }
 
 export default RipSnapshot;

@@ -109,7 +109,7 @@ interface SpecIconProps {
 
 const SpecIcon = ({ spec }: SpecIconProps) => (
   <img
-    src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`}
+    src={`/specs/${spec.className.replace(' ', '')}-${spec.specName?.replace(' ', '')}.jpg`}
     alt={`${spec.specName} ${spec.className}`}
     style={{ float: 'left', borderRadius: 5, margin: '5px 10px 10px 0px' }}
   />

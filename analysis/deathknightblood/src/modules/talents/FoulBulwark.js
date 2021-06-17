@@ -49,7 +49,7 @@ class FoulBulwark extends Analyzer {
             {this.boneShieldTimesByStack.map((e, i) => (
               <tr key={i}>
                 <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
                 <td>
                   {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
                 </td>

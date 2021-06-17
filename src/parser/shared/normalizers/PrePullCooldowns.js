@@ -71,7 +71,7 @@ class PrePullCooldowns extends EventsNormalizer {
     this.abilities.activeAbilities.forEach((ability) => {
       if (ability.damageSpellIds) {
         damageSpells.push({
-          castId: ability.spell.id,
+          castId: ability.spell,
           damageIds: ability.damageSpellIds,
         });
       }

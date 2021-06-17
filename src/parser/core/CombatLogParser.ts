@@ -16,7 +16,7 @@ import Haste from 'parser/shared/modules/Haste';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import React from 'react';
 
-import { Builds } from '../Config';
+import Config from '../Config';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -206,6 +206,7 @@ class CombatLogParser {
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
   applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
 
+  config: Config;
   report: Report;
   characterProfile: CharacterProfile;
 
@@ -214,7 +215,6 @@ class CombatLogParser {
   playerPets: PetInfo[];
   fight: Fight;
   build?: string;
-  builds?: Builds;
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
@@ -259,20 +259,20 @@ class CombatLogParser {
   }
 
   constructor(
+    config: Config,
     report: Report,
     selectedPlayer: PlayerInfo,
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
     characterProfile: CharacterProfile,
     build?: string,
-    builds?: Builds,
   ) {
+    this.config = config;
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter((pet) => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
     this.build = build;
-    this.builds = builds;
     this.combatantInfoEvents = combatantInfoEvents;
     // combatantinfo events aren't included in the regular events, but they're still used to analysis. We should have them show in the history to make it complete.
     combatantInfoEvents.forEach((event) => this.eventHistory.push(event));
@@ -560,6 +560,9 @@ class CombatLogParser {
   getPerSecond(totalAmount: number): number {
     return (totalAmount / this.fightDuration) * 1000;
   }
+  getPerMinute(totalAmount: number): number {
+    return (totalAmount / this.fightDuration) * 1000 * 60;
+  }
   getPercentageOfTotalHealingDone(healingDone: number) {
     return healingDone / this.getModule(HealingDone).total.effective;
   }
@@ -583,7 +586,7 @@ class CombatLogParser {
     return damageTaken / this.getModule(DamageTaken).total.effective;
   }
   formatTimestamp(timestamp: number, precision = 0) {
-    return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
+    return formatDuration(timestamp - this.fight.start_time, precision);
   }
 
   generateResults(adjustForDowntime: boolean): ParseResults {

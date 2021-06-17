@@ -41,7 +41,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
           BUFFS_TO_MOVE.includes(spellId)
         ) {
           event.timestamp = lastRadianceTimestamp;
-          event.__modified = true;
+          event.__reordered = true;
           fixedEvents.splice(lastRadianceIndex + 1, 0, event);
           fixedEvents.splice(-1, 1);
         }

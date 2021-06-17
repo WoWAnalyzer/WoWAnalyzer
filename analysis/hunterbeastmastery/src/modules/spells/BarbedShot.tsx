@@ -233,7 +233,7 @@ class BarbedShot extends Analyzer {
                 {Object.values(this.barbedShotTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a: number, b: number) => a + b, 0) / 1000)}</td>
+                    <td>{formatDuration(e.reduce((a: number, b: number) => a + b, 0))}</td>
                     <td>
                       {formatPercentage(
                         e.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration,

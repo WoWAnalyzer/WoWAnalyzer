@@ -22,15 +22,13 @@ class InvigoratingShadowdust extends Analyzer {
     abilities: Abilities,
     spellUsable: SpellUsable,
   };
-  spec: string = '';
   cooldownReduction: number = 15000; // 15 seconds
   cooldowns: SpellList[] = [];
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
-    this.spec = this.selectedCombatant.spec.specName;
-    switch (this.spec) {
+    switch (this.selectedCombatant.spec?.specName) {
       case 'Assassination':
         this.cooldowns = ASSASSINATION_ABILITY_COOLDOWNS;
         break;

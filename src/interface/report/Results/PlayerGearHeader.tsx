@@ -10,7 +10,7 @@ interface Props {
 
 const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
   <div className="player-gear-header">
-    <div className={`${player.spec.className.replace(' ', '')} player-name`}>
+    <div className={`${player.player.type.replace(' ', '')} player-name`}>
       <Link to={makeCharacterUrl(player)}>
         {player.name}
         <br></br>
@@ -18,7 +18,7 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
       </Link>
     </div>
     <div>
-      {player.race && player.race.name} {player.spec.className}
+      {player.race && player.race.name} {player.player.type}
     </div>
     <div>
       <b>Average ilvl:</b> {Math.round(averageIlvl)}
