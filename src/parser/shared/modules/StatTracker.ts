@@ -383,7 +383,7 @@ class StatTracker extends Analyzer {
   }
 
   applySpecModifiers(): void {
-    const modifiers: StatMultiplier = this.owner.config.statMultipliers || {};
+    const modifiers: StatMultiplier = this.config.statMultipliers || {};
     Object.entries(modifiers).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier !== undefined) {
         this._pullStats[stat as keyof Stats] *= multiplier;
