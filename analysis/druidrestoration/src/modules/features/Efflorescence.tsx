@@ -64,6 +64,7 @@ class Efflorescence extends Analyzer {
     }
   }
 
+  /** Merges adjacent uptimes and 'caps' the end to the current timestamp */
   _mergeAndCapUptimes(): ClosedTimePeriod[] {
     this.effloUptimes.forEach((ut) => {
       if (ut.end === undefined) {
@@ -73,6 +74,7 @@ class Efflorescence extends Analyzer {
     return mergeTimePeriods(this.effloUptimes, this.owner.currentTimestamp);
   }
 
+  /** Builds an artificial uptimes array that extrapolates based on number of targets hit */
   _buildTargetsUptimes(): StackTimePeriod[] {
     const stackTimePeriods: StackTimePeriod[] = [];
 
@@ -183,19 +185,6 @@ class Efflorescence extends Analyzer {
       </div>
     );
   }
-
-  // subStatistic() {
-  //   return uptimeBarSubStatistic(
-  //     this.owner.fight,
-  //     {
-  //       spells: [SPELLS.EFFLORESCENCE_CAST],
-  //       uptimes: this._mergeAndCapUptimes(),
-  //       color: EFFLO_COLOR,
-  //     },
-  //     [],
-  //     SubPercentageStyle.ABSOLUTE,
-  //   );
-  // }
 }
 
 /**

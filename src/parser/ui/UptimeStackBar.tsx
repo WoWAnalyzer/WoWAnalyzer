@@ -14,13 +14,21 @@ export type StackUptime = {
 };
 
 type Props = {
+  /** Uptimes to render, including number of active stacks */
   stackUptimeHistory: StackUptime[];
+  /** Starting timestamp */
   start: number;
+  /** Ending timestamp */
   end: number;
+  /** Maximum stacks to render - will show as full bar */
   maxStacks: number;
+  /** Uptime bar color in format '#rrggbb' */
   barColor?: string;
+  /** Optional additional set of uptimes which will background the stack uptimes */
   backgroundHistory?: Uptime[];
+  /** Background uptime bar color in format '#rrggbb'. If a background bar is specified, this must be defined */
   backgroundBarColor?: string;
+  /** Iff true, the background bars will have tooltips indicating their time range */
   timeTooltip?: boolean;
 };
 
