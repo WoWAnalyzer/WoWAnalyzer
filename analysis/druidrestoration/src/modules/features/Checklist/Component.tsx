@@ -132,9 +132,11 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime
+              <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> weighted effective uptime
             </>
           }
+          tooltip={`This uptime is weighted based on the number of players actually being healed by your Efflorescence.
+            Remember that for it to be effective, Efflorescene must be active and players must be standing on it.`}
           thresholds={thresholds.efflorescenceUpTime}
         />
         <Requirement
