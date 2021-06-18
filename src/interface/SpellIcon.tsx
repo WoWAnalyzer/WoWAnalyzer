@@ -1,8 +1,8 @@
-import SPELLS from 'common/SPELLS';
 import React from 'react';
 
 import Icon from './Icon';
 import SpellLink from './SpellLink';
+import useSpellInfo from './useSpellInfo';
 
 interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
   id: number;
@@ -12,11 +12,9 @@ interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
 }
 
 const SpellIcon = ({ id, noLink, alt, ilvl, ...others }: Props) => {
-  if (process.env.NODE_ENV === 'development' && !SPELLS[id]) {
-    throw new Error(`Unknown spell: ${id}`);
-  }
+  const spellInfo = useSpellInfo(id);
 
-  const spell = SPELLS[id] || {
+  const spell = spellInfo || {
     name: 'Spell not recognized',
     icon: 'inv_misc_questionmark',
   };
