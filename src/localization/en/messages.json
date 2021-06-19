@@ -158,7 +158,7 @@
   "druid.guardian.suggestions.thrash.uptime": "{0}% uptime",
   "druid.resto.suggestions.innervate.avgManaSaved": "average mana saved per Innervate cast",
   "druid.resto.suggestions.innervate.selfCasts": "time(s) you casted innervate on yourself",
-  "druid.restoration.efflorescence.uptime": "{0}% uptime",
+  "druid.restoration.efflorescence.uptime": "{0}% weighted effective uptime",
   "druid.restoration.suggestions.clearcasting.efficiency": "You cast {0} bad Regrowths per minute.",
   "druid.restoration.suggestions.clearcasting.wastedProcs": "You missed {0} out of {1} ({2}%) of your free regrowth procs",
   "druid.restoration.suggestions.cultivation.notOptimal": "{0}% healing",
