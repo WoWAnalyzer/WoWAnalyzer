@@ -8,7 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
-import Snapshots2, { BLOODTALONS_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import Snapshots2, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   PRIMAL_WRATH_RIP_DURATION_BASE,
@@ -69,8 +69,10 @@ class RipUptime extends Snapshots2 {
 
   handleApplication(
     application: ApplyDebuffEvent | RefreshDebuffEvent,
-    snapshots: string[],
-    prevSnapshots: string[] | null,
+    snapshots: SnapshotSpec[],
+    prevSnapshots: SnapshotSpec[] | null,
+    power: number,
+    prevPower: number,
     remainingOnPrev: number,
     clipped: number,
   ) {
@@ -112,6 +114,32 @@ class RipUptime extends Snapshots2 {
     };
   }
 
+  get tigersFurySnapshotThresholds() {
+    // TODO less friendly when player has SbT
+    return {
+      actual: this.percentWithTigerFury,
+      isLessThan: {
+        minor: 0.8,
+        average: 0.55,
+        major: 0.4,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get bloodTalonsSnapshotThresholds() {
+    return {
+      actual: this.percentWithBloodtalons,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.8,
+        major: 0.6,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  // TODO snapshot suggestions
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

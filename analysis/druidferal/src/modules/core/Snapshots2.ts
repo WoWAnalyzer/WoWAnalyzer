@@ -67,10 +67,18 @@ export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
   boostStrength: BLOODTALONS_DAMAGE_BONUS,
 };
 
+/**
+ * Many Feral DoT spells 'snapshot' certain buffs on cast, benefitting from them over the DoT's
+ * full duration. This abstract class can be extended to track the snapshots for a specific DoT.
+ */
 abstract class Snapshots2 extends Analyzer {
+  /** The spell for the DoT cast */
   spell: Spell;
+  /** The spell for the DoT debuff */
   debuff: Spell;
+  /** The snapshots that could apply to this DoT */
   applicableSnapshots: SnapshotSpec[];
+  /** Data on the current DoT / snapshot state per target */
   snapshotsByTarget: { [key: string]: DotUptime[] } = {};
 
   protected constructor(
@@ -112,9 +120,13 @@ abstract class Snapshots2 extends Analyzer {
   /**
    * Will be called when the DoT is applied or refreshed - allows for spell specific handling
    * @param application the DoT application event we're handling
-   * @param snapshots the snapshot names that apply to this application
-   * @param prevSnapshots the snapshot names that apply to the DoT we're overwriting,
+   * @param snapshots the snapshots that apply to this application
+   * @param prevSnapshots the snapshots that apply to the DoT we're overwriting,
    *     or null if this is a fresh application
+   * @param power the power multiplier for this application, as determined by snapshots.
+   *     The power of a no-snapshot application will be 1.
+   * @param prevPower the power multiplier for the DoT we're overwriting,
+   *     or 0 if this is a fresh application
    * @param remainingOnPrev the ms remaining on the DoT we're overwriting,
    *     or 0 if this is a fresh application
    * @param clipped the ms clipped from the DoT we're overwriting due to pandemic,
@@ -122,8 +134,10 @@ abstract class Snapshots2 extends Analyzer {
    */
   abstract handleApplication(
     application: ApplyDebuffEvent | RefreshDebuffEvent,
-    snapshots: string[],
-    prevSnapshots: string[] | null,
+    snapshots: SnapshotSpec[],
+    prevSnapshots: SnapshotSpec[] | null,
+    power: number,
+    prevPower: number,
     remainingOnPrev: number,
     clipped: number,
   ): void;
@@ -166,9 +180,12 @@ abstract class Snapshots2 extends Analyzer {
     const expectedEnd = event.timestamp + newDuration;
 
     // call DoT specific handlers
-    const snapshots = this._getActiveSnapshotNames(event.timestamp);
+    const snapshots = this._getActiveSnapshots(event.timestamp);
+    const power = snapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
     const previousSnapshots = previousUptime ? previousUptime.snapshots : null;
-    this.handleApplication(event, snapshots, previousSnapshots, remainingOnPrev, clipped);
+    const prevPower = previousSnapshots === null ? 0 : previousSnapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
+
+    this.handleApplication(event, snapshots, previousSnapshots, power, prevPower, remainingOnPrev, clipped);
 
     uptimes.push({
       start: event.timestamp,
@@ -190,10 +207,9 @@ abstract class Snapshots2 extends Analyzer {
     }
   }
 
-  _getActiveSnapshotNames(timestamp: number): string[] {
+  _getActiveSnapshots(timestamp: number): SnapshotSpec[] {
     return this.applicableSnapshots
-      .filter((as) => as.isPresent(this.selectedCombatant, timestamp))
-      .map((as) => as.name);
+      .filter((as) => as.isPresent(this.selectedCombatant, timestamp));
   }
 
   get snapshotUptimes(): UptimeBarSpec[] {
@@ -205,7 +221,7 @@ abstract class Snapshots2 extends Analyzer {
     return mergeTimePeriods(
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)
-        .filter((uptime) => uptime.snapshots.includes(snapshotName)),
+        .filter((uptime) => uptime.snapshots.find(ss => ss.name === snapshotName) !== undefined),
       this.owner.currentTimestamp,
     );
   }
@@ -265,7 +281,7 @@ type StaticSnapshotSpec = {
 };
 
 /** Specification of a snapshotting buff specific to the combatant, generated from StaticSnapshotSpecs */
-type SnapshotSpec = {
+export type SnapshotSpec = {
   /** The name of this snapshot */
   name: string;
   /** The spell or spells that cause this snapshot */
@@ -286,10 +302,10 @@ export type DotUptime = {
   expectedEnd: number;
   /** Timestamp when this debuff was removed or refreshed, or undefined if it's still active */
   end?: number;
-  /** Snapshot names applicable to this DoT application */
-  snapshots: string[];
-  /** Snapshot names applicable to the previous DoT application, or null if this was a fresh application */
-  previousSnapshots?: string[] | null;
+  /** Snapshots applicable to this DoT application */
+  snapshots: SnapshotSpec[];
+  /** Snapshots applicable to the previous DoT application, or null if this was a fresh application */
+  previousSnapshots?: SnapshotSpec[] | null;
 };
 
 export default Snapshots2;

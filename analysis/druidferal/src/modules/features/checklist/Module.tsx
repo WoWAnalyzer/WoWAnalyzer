@@ -12,7 +12,7 @@ import ComboPointDetails from '../../combopoints/ComboPointDetails';
 import FinisherUse from '../../combopoints/FinisherUse';
 import Shadowmeld from '../../racials/Shadowmeld';
 import AdaptiveSwarmFeral from '../../shadowlands/AdaptiveSwarmFeral';
-import FerociousBiteEnergy from '../../spells/FerociousBiteEnergy';
+import FerociousBite from '../../spells/FerociousBite';
 import SwipeHitCount from '../../spells/SwipeHitCount';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Bloodtalons from '../../talents/Bloodtalons';
@@ -36,7 +36,7 @@ class Checklist extends BaseChecklist {
     comboPointDetails: ComboPointDetails,
     ripUptime: RipUptime,
     savageRoar: SavageRoar,
-    ferociousBiteEnergy: FerociousBiteEnergy,
+    ferociousBite: FerociousBite,
     energyCapTracker: EnergyCapTracker,
     ripSnapshot: RipSnapshot,
     rakeSnapshot: RakeSnapshot,
@@ -59,7 +59,7 @@ class Checklist extends BaseChecklist {
   protected comboPointDetails!: ComboPointDetails;
   protected ripUptime!: RipUptime;
   protected savageRoar!: SavageRoar;
-  protected ferociousBiteEnergy!: FerociousBiteEnergy;
+  protected ferociousBite!: FerociousBite;
   protected energyCapTracker!: EnergyCapTracker;
   protected ripSnapshot!: RipSnapshot;
   protected rakeSnapshot!: RakeSnapshot;
@@ -79,20 +79,43 @@ class Checklist extends BaseChecklist {
           // be prepared
           ...this.preparationRuleAnalyzer.thresholds,
 
-          // builders
+          // uptimes
+          ripUptime: this.ripUptime.suggestionThresholds,
           rakeUptime: this.rakeUptime.suggestionThresholds,
           moonfireUptime: this.moonfireUptime.suggestionThresholds,
           adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
+
+          // snapshots
+          ripTfSnapshot: this.ripUptime.tigersFurySnapshotThresholds,
+          ripBtSnapshot: this.ripUptime.bloodTalonsSnapshotThresholds,
+          rakeTfSnapshot: this.rakeUptime.tigersFurySnapshotThresholds,
+          moonfireTfSnapshot: this.moonfireUptime.tigersFurySnapshotThresholds,
+          // TODO prowl rake overwrite
+
+          // TODO finishers
+          ferociousBiteEnergy: this.ferociousBite.extraEnergySuggestionThresholds,
+          badLowComboFinishers: this.finisherUse.badFinishersThresholds,
+          ripDurationReduction: this.ripSnapshot.durationReductionThresholds, // TODO depcrecated
+          // FB BT (Apex special case!)
+          // (Apex bite usage)
+          // (Savage Roar uptime)
+
+          // TODO resources
+          // natural energy overcap
+          // TF energy overcap
+          // CP overcap
+
+
+          // remainder TODO
+
+
           swipeHitOne: this.swipeHitCount.hitJustOneThresholds,
           comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 
           // finishers
-          ripUptime: this.ripUptime.suggestionThresholds,
           savageRoarUptime: this.savageRoar.suggestionThresholds,
-          ferociousBiteEnergy: this.ferociousBiteEnergy.suggestionThresholds,
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
-          ripDurationReduction: this.ripSnapshot.durationReductionThresholds,
-          badLowComboFinishers: this.finisherUse.badFinishersThresholds,
+
 
           // energy
           energyCapped: this.energyCapTracker.suggestionThresholds,

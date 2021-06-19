@@ -26,7 +26,7 @@ import ApexPredatorsCraving from './modules/shadowlands/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import Frenzyband from './modules/shadowlands/Frenzyband';
-import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
+import FerociousBite from './modules/spells/FerociousBite';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
 import ThrashHitCount from './modules/spells/ThrashHitCount';
@@ -40,6 +40,7 @@ import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
+import FerociousBiteDrainLinkNormalizer from './normalizers/FerociousBiteDrainLinkNormalizer';
 import RakeBleed from './normalizers/RakeBleed';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -48,10 +49,12 @@ class CombatLogParser extends CoreCombatLogParser {
     rakeBleed: RakeBleed,
     bleedDebuffEvents: BleedDebuffEvents,
     castLinkNormalizer: CastLinkNormalizer,
+    ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
     comboPointsFromAoE: ComboPointsFromAoE,
 
     // Core
     activeDruidForm: ActiveDruidForm,
+    spellEnergyCost: SpellEnergyCost,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -59,9 +62,8 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     dotUptimesAndSnapshots: DotUptimesAndSnapshots,
-    ferociousBiteEnergy: FerociousBiteEnergy,
+    ferociousBite: FerociousBite,
     spellUsable: SpellUsable,
-    spellEnergyCost: SpellEnergyCost,
     energyCapTracker: EnergyCapTracker,
     energyTracker: EnergyTracker,
     energyDetails: EnergyDetails,

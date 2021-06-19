@@ -12,6 +12,16 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.FERAL_FRENZY_TALENT,
 ];
 
+export const FINISHERS: Spell[] = [
+  SPELLS.FEROCIOUS_BITE,
+  SPELLS.RIP,
+  SPELLS.MAIM,
+  SPELLS.PRIMAL_WRATH_TALENT,
+  SPELLS.SAVAGE_ROAR_TALENT,
+];
+
+export const MAX_CPS = 5;
+
 export const RAKE_BASE_DURATION = 15000;
 export const RIP_DURATION_1_CP = 8000; // TODO remove
 export const RIP_DURATION_BASE = 4000;

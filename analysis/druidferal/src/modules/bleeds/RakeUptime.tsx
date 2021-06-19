@@ -8,7 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
-import Snapshots2, { PROWL_SPEC, TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import Snapshots2, { PROWL_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 import { RAKE_BASE_DURATION } from '../../constants';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 
@@ -37,8 +37,10 @@ class RakeUptime extends Snapshots2 {
 
   handleApplication(
     application: ApplyDebuffEvent | RefreshDebuffEvent,
-    snapshots: string[],
-    prevSnapshots: string[] | null,
+    snapshots: SnapshotSpec[],
+    prevSnapshots: SnapshotSpec[] | null,
+    power: number,
+    prevPower: number,
     remainingOnPrev: number,
     clipped: number,
   ) {
@@ -66,6 +68,22 @@ class RakeUptime extends Snapshots2 {
     };
   }
 
+  get tigersFurySnapshotThresholds() {
+    // TODO friendlier when player has BT
+    return {
+      actual: this.percentWithTigerFury,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.6,
+        major: 0.4,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  // TODO should we bother with a prowl suggestion? Depends on many things.
+
+  // TODO snapshot suggestions
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

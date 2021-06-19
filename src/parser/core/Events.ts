@@ -105,6 +105,7 @@ type MappedEventTypes = {
   [EventType.RemoveDebuff]: RemoveDebuffEvent;
   [EventType.Summon]: SummonEvent;
   [EventType.Energize]: EnergizeEvent;
+  [EventType.Drain]: DrainEvent;
   [EventType.Death]: DeathEvent;
   [EventType.CombatantInfo]: CombatantInfoEvent;
   [EventType.Dispel]: DispelEvent;

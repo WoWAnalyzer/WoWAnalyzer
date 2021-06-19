@@ -8,7 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
-import Snapshots2, { TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import Snapshots2, { SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 import { MOONFIRE_FERAL_BASE_DURATION } from '../../constants';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 
@@ -18,6 +18,11 @@ class MoonfireUptime extends Snapshots2 {
   };
 
   protected enemies!: Enemies;
+
+  constructor(options: Options) {
+    super(SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_FERAL, [TIGERS_FURY_SPEC], options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
+  }
 
   getDotExpectedDuration(): number {
     return MOONFIRE_FERAL_BASE_DURATION;
@@ -33,8 +38,10 @@ class MoonfireUptime extends Snapshots2 {
 
   handleApplication(
     application: ApplyDebuffEvent | RefreshDebuffEvent,
-    snapshots: string[],
-    prevSnapshots: string[] | null,
+    snapshots: SnapshotSpec[],
+    prevSnapshots: SnapshotSpec[] | null,
+    power: number,
+    prevPower: number,
     remainingOnPrev: number,
     clipped: number,
   ) {
@@ -62,11 +69,20 @@ class MoonfireUptime extends Snapshots2 {
     };
   }
 
-  constructor(options: Options) {
-    super(SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_FERAL, [TIGERS_FURY_SPEC], options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
+  get tigersFurySnapshotThresholds() {
+    // TODO friendlier when player has BT
+    return {
+      actual: this.percentWithTigerFury,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.6,
+        major: 0.4,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
+  // TODO snapshot suggestions
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

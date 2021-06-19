@@ -2,9 +2,9 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -12,17 +12,7 @@ import React from 'react';
 
 import RipSnapshot from '../bleeds/RipSnapshot';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
-
-const debug = false;
-
-const FINISHERS = [
-  SPELLS.FEROCIOUS_BITE,
-  SPELLS.RIP,
-  SPELLS.MAIM,
-  SPELLS.PRIMAL_WRATH_TALENT,
-  SPELLS.SAVAGE_ROAR_TALENT,
-];
-const MAX_COMBO = 5;
+import { FINISHERS, MAX_CPS } from '../../constants';
 
 /**
  * Although all finishers are most efficient at 5 combo points, in some situations use at fewer combo points
@@ -30,17 +20,73 @@ const MAX_COMBO = 5;
  *
  * Situations where <5 combo point use of an ability is fine:
  *  Fresh Rip on a target which doesn't yet have it.
- *  Rip on a target that already has Rip if it upgrades the snapshot, so long as player is using Sabertooth.
  *  [NYI] Maim on a target where the stun is effective and useful.
  *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
- *
  */
 class FinisherUse extends Analyzer {
-  get fractionBadFinishers() {
-    if (this.totalFinishers === 0) {
-      return 0;
+  static dependencies = {
+    ripSnapshot: RipSnapshot,
+  };
+
+  totalFinishers = 0;
+  notFullComboFinishers = 0;
+  badFinishers = 0;
+  freshRips = 0;
+  upgradingRips = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisher);
+  }
+
+  onFinisher(event: CastEvent) {
+    this.totalFinishers += 1;
+
+    const combo = getComboPointsFromEvent(event);
+    if (!combo || combo === MAX_CPS) {
+      // either full combo points (therefore not a problem) used or something went wrong and couldn't get combo information
+      return;
     }
-    return this.badFinishers / this.totalFinishers;
+    this.notFullComboFinishers += 1;
+
+    if (event.ability.guid !== SPELLS.RIP.id) {
+      this.badFinishers += 1;
+      return;
+    }
+
+    // TODO
+    // // Rip has been used without full combo points, which is a good thing only in certain situations
+    // // RipSnapshot will have added the feralSnapshotState prop to the event, because this module has RipSnapshot as a dependency
+    // // we know that will have been done before this executes.
+    // if (!event.feralSnapshotState) {
+    //   // ..but when it comes to null references it's worth checking.
+    //   // If for some reason the property doesn't exist just skip checking this cast
+    //   debug && this.warn("Rip cast event doesn't have the expected feralSnapshotState property.");
+    //   return;
+    // }
+    // if (RipSnapshot.wasStateFreshlyApplied(event.feralSnapshotState)) {
+    //   debug &&
+    //   this.log(
+    //     `cast ${finisher.name} with ${combo} combo points but it was a fresh application, so is good`,
+    //   );
+    //   this.freshRips += 1;
+    //   return;
+    // }
+    // if (this.hasSabertooth && RipSnapshot.wasStatePowerUpgrade(event.feralSnapshotState)) {
+    //   debug &&
+    //   this.log(
+    //     `cast ${finisher.name} with ${combo} combo points but it was upgrading ready to be extended with sabertooth, so is good`,
+    //   );
+    //   this.upgradingRips += 1;
+    //   return;
+    // }
+    // debug && this.log(`cast ${finisher.name} with ${combo} combo points`);
+    // this.badFinishers += 1;
+  }
+
+
+  get fractionBadFinishers() {
+    return this.totalFinishers === 0 ? 0 : this.badFinishers / this.totalFinishers;
   }
 
   get badFinishersThresholds() {
@@ -49,78 +95,14 @@ class FinisherUse extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.05,
-        major: 0.1,
+        major: 0.2,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    ripSnapshot: RipSnapshot,
-  };
-  hasSabertooth = false;
-  totalFinishers = 0;
-  notFullComboFinishers = 0;
-  badFinishers = 0;
-  freshRips = 0;
-  upgradingRips = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.hasSabertooth = this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._castSpell);
-  }
-
-  _castSpell(event) {
-    const finisher = FINISHERS.find((element) => element.id === event.ability.guid);
-    if (!finisher) {
-      return;
-    }
-    this.totalFinishers += 1;
-
-    const combo = getComboPointsFromEvent(event);
-    if (!combo || combo === MAX_COMBO) {
-      // either full combo points (therefore not a problem) used or something went wrong and couldn't get combo information
-      return;
-    }
-    this.notFullComboFinishers += 1;
-
-    if (finisher !== SPELLS.RIP) {
-      this.badFinishers += 1;
-      debug && this.log(`cast ${finisher.name} with ${combo} combo points`);
-      return;
-    }
-
-    // Rip has been used without full combo points, which is a good thing only in certain situations
-    // RipSnapshot will have added the feralSnapshotState prop to the event, because this module has RipSnapshot as a dependency
-    // we know that will have been done before this executes.
-    if (!event.feralSnapshotState) {
-      // ..but when it comes to null references it's worth checking.
-      // If for some reason the property doesn't exist just skip checking this cast
-      debug && this.warn("Rip cast event doesn't have the expected feralSnapshotState property.");
-      return;
-    }
-    if (RipSnapshot.wasStateFreshlyApplied(event.feralSnapshotState)) {
-      debug &&
-        this.log(
-          `cast ${finisher.name} with ${combo} combo points but it was a fresh application, so is good`,
-        );
-      this.freshRips += 1;
-      return;
-    }
-    if (this.hasSabertooth && RipSnapshot.wasStatePowerUpgrade(event.feralSnapshotState)) {
-      debug &&
-        this.log(
-          `cast ${finisher.name} with ${combo} combo points but it was upgrading ready to be extended with sabertooth, so is good`,
-        );
-      this.upgradingRips += 1;
-      return;
-    }
-    debug && this.log(`cast ${finisher.name} with ${combo} combo points`);
-    this.badFinishers += 1;
-  }
-
-  suggestions(when) {
+  // TODO update wording
+  suggestions(when: When) {
     when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -142,6 +124,7 @@ class FinisherUse extends Analyzer {
     );
   }
 
+  // TODO update wording
   statistic() {
     return (
       <Statistic

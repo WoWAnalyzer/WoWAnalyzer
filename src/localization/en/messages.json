@@ -124,7 +124,7 @@
   "druid.feral.suggestions.brutalSlash.hitcount.outOfRange": "{0} uses per minute that hit nothing.",
   "druid.feral.suggestions.comboPoints.wasted": "{0} combo points wasted per minute",
   "druid.feral.suggestions.energy.efficiency": "{0}% regenerated energy lost per minute due to being capped.",
-  "druid.feral.suggestions.ferociousBite.efficiency": "{0}% average damage bonus from energy on Ferocious Bite.",
+  "druid.feral.suggestions.ferociousBite.efficiency": "{0} average extra energy consumed by Ferocious Bite",
   "druid.feral.suggestions.finishers.efficiency": "{0}% of finishers were incorrectly used without full combo points",
   "druid.feral.suggestions.moonfire.uptime": "{0}% uptime",
   "druid.feral.suggestions.moonfireSnapshot.downgrades": "{0}% of Moonfire refreshes were early downgrades.",

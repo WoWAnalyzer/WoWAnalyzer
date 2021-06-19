@@ -124,7 +124,7 @@
   "druid.feral.suggestions.brutalSlash.hitcount.outOfRange": "{0}% Einsätze pro Minute, die nichts getroffen haben",
   "druid.feral.suggestions.comboPoints.wasted": "{0}% Combopunkte verschwendet pro Minute",
   "druid.feral.suggestions.energy.efficiency": "{0}% regenerierte Energie verloren pro Minute wegen eines Überschusses",
-  "druid.feral.suggestions.ferociousBite.efficiency": "{0}% durchschnittlicher zusätzlicher Schaden von Energie bei 'Wilder Biss'",
+  "druid.feral.suggestions.ferociousBite.efficiency": "",
   "druid.feral.suggestions.finishers.efficiency": "{0}% deiner Finisher wurden inkorrekt eingesetzt ohne maximale Combopunkte",
   "druid.feral.suggestions.moonfire.uptime": "{0}% Uptime",
   "druid.feral.suggestions.moonfireSnapshot.downgrades": "{0}% deiner Auffrischungen von Mondfeuer waren frühe Herabstufungen",
