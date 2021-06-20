@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -12,6 +12,13 @@ import ResourceBreakdown from './ComboPointBreakdown';
 import ComboPointTracker from './ComboPointTracker';
 
 class ComboPointDetails extends Analyzer {
+  static dependencies = {
+    comboPointTracker: ComboPointTracker,
+  };
+
+  comboPointTracker!: ComboPointTracker;
+
+
   get pointsWasted() {
     return this.comboPointTracker.wasted - this.comboPointTracker.unavoidableWaste;
   }
@@ -32,11 +39,9 @@ class ComboPointDetails extends Analyzer {
     };
   }
 
-  static dependencies = {
-    comboPointTracker: ComboPointTracker,
-  };
 
-  suggestions(when) {
+
+  suggestions(when: When) {
     when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<>You are wasting combo points. Avoid using generators once you reach the maximum.</>)
         .icon('creatureportrait_bubble')
@@ -65,7 +70,7 @@ class ComboPointDetails extends Analyzer {
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.COMBO_POINTS}
-          value={`${this.pointsWastedPerMinute.toFixed(2)}`}
+          value={`${this.pointsWastedPerMinute.toFixed(1)}`}
           label="Wasted Combo Points per minute"
         />
       </Statistic>

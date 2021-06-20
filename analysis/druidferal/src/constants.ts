@@ -12,6 +12,7 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.FERAL_FRENZY_TALENT,
 ];
 
+/** The cast spells for Finishers */
 export const FINISHERS: Spell[] = [
   SPELLS.FEROCIOUS_BITE,
   SPELLS.RIP,

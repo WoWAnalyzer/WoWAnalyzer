@@ -248,11 +248,10 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <SnapshotRequirement
             spell={SPELLS.FEROCIOUS_BITE.id}
             snapshot={SPELLS.BLOODTALONS_BUFF.id}
-            thresholds={thresholds.ripBtSnapshot}
+            thresholds={thresholds.ferociousBiteBloodtalons}
           />
         )}
-        {/* TODO PLACEHOLDER THRESHOLD! UPDATE! */}
-        {/* TODO update Bloodtalons module to check for percent of FBs buffed by BT*/}
+        {/* TODO add tooltip */}
 
         {combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id) && (
           <UptimeRequirement
@@ -279,9 +278,11 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
       >
         <Requirement
-          name={<>Energy Overcap from regeneration (per minute)</>}
+          name={<>Natural Energy Overcap</>}
           thresholds={thresholds.energyCapped}
-          tooltip="Some energy overcap can happen due to periods of extremely high regeneration
+          tooltip="This is the percentage of your natural energy regeneration that you wasted.
+            Any time spent at maximum energy wastes potential regeneration.
+            Some energy overcap can happen due to periods of extremely high regeneration
             or due to being forced off target by fight mechanics. Please use your knowledge of the
             fight when weighing the importance of this metric."
         />

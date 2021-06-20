@@ -16,6 +16,7 @@ import FerociousBite from '../../spells/FerociousBite';
 import SwipeHitCount from '../../spells/SwipeHitCount';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Bloodtalons from '../../talents/Bloodtalons';
+import Bloodtalons2 from '../../talents/Bloodtalons2';
 import MoonfireSnapshot from '../../talents/MoonfireSnapshot';
 import MoonfireUptime from '../../talents/MoonfireUptime';
 import Predator from '../../talents/Predator';
@@ -42,6 +43,7 @@ class Checklist extends BaseChecklist {
     rakeSnapshot: RakeSnapshot,
     moonfireSnapshot: MoonfireSnapshot,
     bloodtalons: Bloodtalons,
+    bloodtalons2: Bloodtalons2,
     predator: Predator,
     tigersFuryEnergy: TigersFuryEnergy,
     shadowmeld: Shadowmeld,
@@ -65,6 +67,7 @@ class Checklist extends BaseChecklist {
   protected rakeSnapshot!: RakeSnapshot;
   protected moonfireSnapshot!: MoonfireSnapshot;
   protected bloodtalons!: Bloodtalons;
+  protected bloodtalons2!: Bloodtalons2;
   protected predator!: Predator;
   protected tigersFuryEnergy!: TigersFuryEnergy;
   protected shadowmeld!: Shadowmeld;
@@ -96,31 +99,26 @@ class Checklist extends BaseChecklist {
           ferociousBiteEnergy: this.ferociousBite.extraEnergySuggestionThresholds,
           badLowComboFinishers: this.finisherUse.badFinishersThresholds,
           ripDurationReduction: this.ripSnapshot.durationReductionThresholds, // TODO depcrecated
-          // FB BT (Apex special case!)
-          // (Apex bite usage)
-          // (Savage Roar uptime)
+          ferociousBiteBloodtalons: this.bloodtalons2.correctFbSuggestionThresholds,
+          savageRoarUptime: this.savageRoar.suggestionThresholds,
+          // (Apex bite usage ??? or just a suggestion?)
 
-          // TODO resources
-          // natural energy overcap
-          // TF energy overcap
-          // CP overcap
-
+          // spend your resources
+          energyCapped: this.energyCapTracker.suggestionThresholds,
+          tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
+          comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 
           // remainder TODO
 
 
           swipeHitOne: this.swipeHitCount.hitJustOneThresholds,
-          comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 
           // finishers
-          savageRoarUptime: this.savageRoar.suggestionThresholds,
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
 
 
           // energy
-          energyCapped: this.energyCapTracker.suggestionThresholds,
-          tigersFuryIgnoreEnergy: this.tigersFuryEnergy.shouldIgnoreEnergyWaste,
-          tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
+
 
           // cooldowns
           shadowmeld: this.shadowmeld.efficiencyThresholds,

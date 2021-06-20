@@ -3,7 +3,7 @@ import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Icon, Tooltip } from 'interface';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -29,23 +29,8 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  * No need to override getReducedDrain:
  * Reduced drain cost from Berserk/Incarnation on Ferocious Bite is already applied in the log.
  */
+// TODO change over energy cap tracker to per minute?
 class EnergyCapTracker extends RegenResourceCapTracker {
-  get percentNotCapped() {
-    return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.percentNotCapped,
-      isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.65,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   static dependencies = {
     ...RegenResourceCapTracker.dependencies,
     // Needed for the `resourceCost` prop of events
@@ -63,6 +48,27 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     SPELLS.BRUTAL_SLASH_TALENT.id,
   ];
 
+
+  get percentNotCapped() {
+    return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
+  }
+
+  get percentCapped() {
+    return this.missedRegen / this.naturalRegen;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.percentCapped,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.15,
+        major: 0.30,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   currentMaxResource() {
     let max = BASE_ENERGY_MAX;
     if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT.id)) {
@@ -79,7 +85,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
