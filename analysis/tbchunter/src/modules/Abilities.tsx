@@ -1,6 +1,8 @@
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
+import { Build } from '../CONFIG';
+
 const SPELLS = {
   AUTO_SHOT: 75,
   MULTI_SHOT: 27021,
@@ -13,6 +15,7 @@ const SPELLS = {
   BESTIAL_WRATH: 19574,
   INTIMIDATION: 19577,
   ASPECT_OF_THE_HAWK: 27044,
+  ASPECT_OF_THE_VIPER: 34074,
   ASPECT_OF_THE_CHEETAH: 5118,
   MISDIRECTION: 34477,
   RAPTOR_STRIKE: 27014,
@@ -41,7 +44,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STEADY_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
@@ -50,7 +52,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6, // TODO: Talents
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
@@ -59,7 +60,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 10,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
@@ -75,7 +75,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
@@ -84,7 +83,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
@@ -92,14 +90,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SERPENT_STING,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
       {
         spell: SPELLS.RAPID_FIRE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300, // TODO: CD reduction talent
+        cooldown: 300 - (this.owner.build === Build.DEFAULT ? 120 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -120,7 +117,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_HAWK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
+          static: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ASPECT_OF_THE_VIPER,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
           static: 1500,
         },
       },
@@ -128,7 +131,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },
@@ -137,7 +139,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         gcd: {
-          // TODO: Verify when we get Haste in P4/5
           static: 1500,
         },
       },

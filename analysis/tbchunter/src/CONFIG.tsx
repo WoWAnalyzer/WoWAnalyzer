@@ -8,6 +8,10 @@ import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
+export enum Build {
+  DEFAULT = 'default',
+}
+
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Zerotorescue],
@@ -20,7 +24,7 @@ const config: Config = {
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/Dd4mA7LtyGqhCanN/10-Heroic+Hungering+Destroyer+-+Kill+(4:04)/Sucker',
   builds: {
-    default: {
+    [Build.DEFAULT]: {
       url: 'standard',
       name: '41/20/0',
       icon: <Icon icon="ability_hunter_mendpet" />,
