@@ -10,9 +10,9 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
+import { FINISHERS, MAX_CPS } from '../../constants';
 import RipSnapshot from '../bleeds/RipSnapshot';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
-import { FINISHERS, MAX_CPS } from '../../constants';
 
 /**
  * Although all finishers are most efficient at 5 combo points, in some situations use at fewer combo points
@@ -83,7 +83,6 @@ class FinisherUse extends Analyzer {
     // debug && this.log(`cast ${finisher.name} with ${combo} combo points`);
     // this.badFinishers += 1;
   }
-
 
   get fractionBadFinishers() {
     return this.totalFinishers === 0 ? 0 : this.badFinishers / this.totalFinishers;

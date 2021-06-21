@@ -3,13 +3,12 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
-import Snapshots2, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
-import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   PRIMAL_WRATH_RIP_DURATION_BASE,
   PRIMAL_WRATH_RIP_DURATION_PER_CP,
@@ -17,8 +16,9 @@ import {
   RIP_DURATION_PER_CP,
   SABERTOOTH_EXTEND_PER_CP,
 } from '../../constants';
-import { getHardcast, getPrimalWrath, isFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import { getHardcast, getPrimalWrath } from '../../normalizers/CastLinkNormalizer';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
+import Snapshots2, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 
 class RipUptime extends Snapshots2 {
   static dependencies = {

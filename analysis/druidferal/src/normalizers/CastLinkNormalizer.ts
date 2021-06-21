@@ -2,11 +2,13 @@ import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AnyEvent,
-  ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent,
-  EventType, GetRelatedEvents,
+  ApplyDebuffEvent,
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvents,
   HasRelatedEvent,
-  HealEvent,
-  RefreshBuffEvent, RefreshDebuffEvent,
+  RefreshDebuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
@@ -90,13 +92,17 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent): boolean {
+export function isFromHardcast(
+  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
+): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
-export function getHardcast(event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST)
-  return events.length === 0 ? undefined : events[0] as CastEvent;
+export function getHardcast(
+  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
+): CastEvent | undefined {
+  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
+  return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 
 // TODO get hardcast energy / cp?
@@ -105,9 +111,11 @@ export function isFromPrimalWrath(event: ApplyDebuffEvent | RefreshDebuffEvent):
   return HasRelatedEvent(event, FROM_PRIMAL_WRATH);
 }
 
-export function getPrimalWrath(event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_PRIMAL_WRATH)
-  return events.length === 0 ? undefined : events[0] as CastEvent;
+export function getPrimalWrath(
+  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
+): CastEvent | undefined {
+  const events: AnyEvent[] = GetRelatedEvents(event, FROM_PRIMAL_WRATH);
+  return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 
 export default CastLinkNormalizer;

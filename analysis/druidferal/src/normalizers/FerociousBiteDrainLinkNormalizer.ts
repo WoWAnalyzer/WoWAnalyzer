@@ -1,9 +1,9 @@
-import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
+import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { AnyEvent, CastEvent, DrainEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
-export const ADDITIONAL_ENERGY_USED = "AdditionalEnergyUsed";
+export const ADDITIONAL_ENERGY_USED = 'AdditionalEnergyUsed';
 
 const BUFFER_MS = 50;
 

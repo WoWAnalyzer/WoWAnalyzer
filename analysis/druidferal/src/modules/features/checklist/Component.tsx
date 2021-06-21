@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -249,10 +248,11 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={SPELLS.FEROCIOUS_BITE.id}
             snapshot={SPELLS.BLOODTALONS_BUFF.id}
             thresholds={thresholds.ferociousBiteBloodtalons}
+            tooltip="This includes only the Ferocious Bite casts where it was reasonably possible to use Bloodtalons.
+              Apex Predator's Craving or Convoke the Spirits could consume procs before you can use them, and during
+              Berserk you may not be able to cast enough builders to proc Bloodtalons - these cases aren't counted in this statistic"
           />
         )}
-        {/* TODO add tooltip */}
-
         {combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id) && (
           <UptimeRequirement
             spell={SPELLS.SAVAGE_ROAR_TALENT.id}
@@ -286,7 +286,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             or due to being forced off target by fight mechanics. Please use your knowledge of the
             fight when weighing the importance of this metric."
         />
-        {/* TODO double check this threshold */}
         <Requirement
           name={
             <>
@@ -297,7 +296,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           tooltip="Remember that Tiger's Fury generates instant energy which should not be wasted.
             Plan for it coming off cooldown by spending down your energy."
         />
-        {/* TODO double check this threshold */}
         <Requirement
           name={<>Combo Point Overcap (per minute)</>}
           thresholds={thresholds.comboPointsWaste}
@@ -305,28 +303,33 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           max CPs you should always use a finisher over a combo builder. This stat does not include
           the accidental overcap due to getting a crit when at 4 CPs, as this is unavoidable."
         />
-        {/* TODO double check this threshold */}
       </Rule>
-
       {/**Use your cooldowns
-        🗵 Cast efficiency of Berserk or Incarnation (depending on talent)
-        ☐ Make the most of Berserk/Incarnation by using as many abilities as possible during the buff
-          (importance of this may be so low that it's not worth checking - run some simulations to find out)
+        🗵 Cast efficiency of Berserk (or Incarnation)
         🗵 Cast efficiency of Tiger's Fury
-        🗵 Shadowmeld for Night Elves: cast efficiency of correctly using it to buff Rake
+        🗵 (Cast efficiency of Feral Frenzy)
+        🗵 (Cast efficiency of Convoke the Spirits)
+        🗵 (Cast efficiency of Kindred Spirits) TODO
+        🗵 (Cast efficiency of Ravenous Frenzy) TODO
+        🗵 (Cast efficiency of Heart of the Wild)
       */}
       <Rule
         name="Use your cooldowns"
         description={
           <>
-            Aim to use your cooldowns as often as possible, try to get prepared to use the ability
-            when you see it's nearly ready. <SpellLink id={SPELLS.BERSERK.id} /> (or{' '}
-            <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />) should be used when
-            you have plenty of energy so that you get the most effect from its cost reduction. Make
-            sure you don't cap energy when using <SpellLink id={SPELLS.TIGERS_FURY.id} />, but still
-            use it as often as possible. Slightly delaying one so it lines up with the other can be
-            beneficial, but avoid delaying so much that you'd miss out on an extra use during the
-            fight.
+            Aim to use your cooldowns as often as possible, try to prepare to use the ability when
+            you see it's nearly ready.{' '}
+            {combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT) ? (
+              <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
+            ) : (
+              <SpellLink id={SPELLS.BERSERK.id} />
+            )}{' '}
+            should be used when you have plenty of energy in order to maximize the number of
+            abilities you can use during it. On the other hand, be sure to use energy before using{' '}
+            <SpellLink id={SPELLS.TIGERS_FURY.id} /> in order to avoid overcapping, but still use it
+            as often as possible. Slightly delaying a cooldown to line up with others or to avoid
+            fight mechanics can be beneficial to a point, but avoid delaying so much that you'd miss
+            out on an extra use during the fight.
           </>
         }
       >
@@ -337,6 +340,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <CastEfficiencyRequirement spell={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
         )}
         <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
+        {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
+          <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
+        )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
         )}
@@ -351,34 +357,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           />
         )}
       </Rule>
-
-      {/*Pick the right talents (if player is using talents that may be unsuitable)
-        🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
-      */}
-      {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
-        <Rule
-          name="Pick the most suitable Talents"
-          description={
-            <>
-              The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on
-              fights with multiple enemies and should be swapped out for single target encounters.
-            </>
-          }
-        >
-          {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
-            <Requirement
-              name={
-                <>
-                  Additional <SpellLink id={SPELLS.TIGERS_FURY.id} /> from{' '}
-                  <SpellLink id={SPELLS.PREDATOR_TALENT.id} />
-                </>
-              }
-              thresholds={thresholds.predatorWrongTalent}
-            />
-          )}
-        </Rule>
-      )}
-
       {/*Be prepared
         🗵 Universal rules for using potions, enchants, etc.
       */}

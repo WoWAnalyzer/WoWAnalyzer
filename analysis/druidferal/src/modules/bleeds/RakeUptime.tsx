@@ -3,14 +3,14 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
 import { Options } from 'parser/core/Analyzer';
+import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
-import Snapshots2, { PROWL_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 import { RAKE_BASE_DURATION } from '../../constants';
-import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
+import Snapshots2, { PROWL_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
 
 class RakeUptime extends Snapshots2 {
   static dependencies = {

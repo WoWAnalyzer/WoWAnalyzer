@@ -18,7 +18,6 @@ class ComboPointDetails extends Analyzer {
 
   comboPointTracker!: ComboPointTracker;
 
-
   get pointsWasted() {
     return this.comboPointTracker.wasted - this.comboPointTracker.unavoidableWaste;
   }
@@ -35,11 +34,9 @@ class ComboPointDetails extends Analyzer {
         average: 5,
         major: 10,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.DECIMAL,
     };
   }
-
-
 
   suggestions(when: When) {
     when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>

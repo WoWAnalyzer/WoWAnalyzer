@@ -1,13 +1,14 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
+
+import { FINISHERS } from '../../constants';
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import ConvokeSpiritsFeral from '../shadowlands/ConvokeSpiritsFeral';
-import { FINISHERS } from '../../constants';
-import { SpellLink } from 'interface';
-import React from 'react';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { formatPercentage } from 'common/format';
 
 const BUFFER_MS = 50;
 
@@ -139,7 +140,8 @@ class Bloodtalons2 extends Analyzer {
           You are casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> without{' '}
           <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. With only a few exceptions, you should be
           able to buff each of your Bites with Bloodtalons.
-          <br /><br />
+          <br />
+          <br />
           The exceptions are: you have <SpellLink id={SPELLS.BERSERK.id} /> or{' '}
           <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} /> active and don't have
           enough combo builders between finishers to proc Bloodtalons, or your{' '}

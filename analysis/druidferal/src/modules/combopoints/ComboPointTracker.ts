@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { Options } from 'parser/core/Analyzer';
 import { ClassResources } from 'parser/core/Events';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 // Primal Fury may be slightly delayed.
 const PRIMAL_FURY_WINDOW = 50; //ms

@@ -12,6 +12,7 @@ import Events, {
 import { ClosedTimePeriod, mergeTimePeriods } from 'parser/core/mergeTimePeriods';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
+
 import {
   BLOODTALONS_DAMAGE_BONUS,
   PANDEMIC_FRACTION,
@@ -183,9 +184,20 @@ abstract class Snapshots2 extends Analyzer {
     const snapshots = this._getActiveSnapshots(event.timestamp);
     const power = snapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
     const previousSnapshots = previousUptime ? previousUptime.snapshots : null;
-    const prevPower = previousSnapshots === null ? 0 : previousSnapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
+    const prevPower =
+      previousSnapshots === null
+        ? 0
+        : previousSnapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
 
-    this.handleApplication(event, snapshots, previousSnapshots, power, prevPower, remainingOnPrev, clipped);
+    this.handleApplication(
+      event,
+      snapshots,
+      previousSnapshots,
+      power,
+      prevPower,
+      remainingOnPrev,
+      clipped,
+    );
 
     uptimes.push({
       start: event.timestamp,
@@ -208,8 +220,7 @@ abstract class Snapshots2 extends Analyzer {
   }
 
   _getActiveSnapshots(timestamp: number): SnapshotSpec[] {
-    return this.applicableSnapshots
-      .filter((as) => as.isPresent(this.selectedCombatant, timestamp));
+    return this.applicableSnapshots.filter((as) => as.isPresent(this.selectedCombatant, timestamp));
   }
 
   get snapshotUptimes(): UptimeBarSpec[] {
@@ -221,7 +232,7 @@ abstract class Snapshots2 extends Analyzer {
     return mergeTimePeriods(
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)
-        .filter((uptime) => uptime.snapshots.find(ss => ss.name === snapshotName) !== undefined),
+        .filter((uptime) => uptime.snapshots.find((ss) => ss.name === snapshotName) !== undefined),
       this.owner.currentTimestamp,
     );
   }

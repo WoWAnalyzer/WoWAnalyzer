@@ -110,15 +110,12 @@ class Checklist extends BaseChecklist {
 
           // remainder TODO
 
-
           swipeHitOne: this.swipeHitCount.hitJustOneThresholds,
 
           // finishers
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
 
-
           // energy
-
 
           // cooldowns
           shadowmeld: this.shadowmeld.efficiencyThresholds,

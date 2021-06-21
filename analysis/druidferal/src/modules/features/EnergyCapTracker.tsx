@@ -5,8 +5,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Icon, Tooltip } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
@@ -48,7 +46,6 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     SPELLS.BRUTAL_SLASH_TALENT.id,
   ];
 
-
   get percentNotCapped() {
     return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
   }
@@ -63,7 +60,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       isGreaterThan: {
         minor: 0.05,
         average: 0.15,
-        major: 0.30,
+        major: 0.3,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

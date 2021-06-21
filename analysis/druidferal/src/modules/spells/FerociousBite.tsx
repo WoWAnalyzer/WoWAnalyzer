@@ -1,13 +1,13 @@
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import SpellEnergyCost from '../features/SpellEnergyCost';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
-import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
-import React from 'react';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
+
+import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 
 const FB_BASE_COST = 25;
 const MAX_FB_DRAIN = 25;

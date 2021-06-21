@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 6, 21), <>Complete overhaul of the Checklist, including many bugfixes and improvements.</>, Sref),
   change(date(2021, 6, 3), <>Added <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} /> support</>, Sref),
   change(date(2021, 6, 1), <>Fixed an issue where <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> stat box wasn't showing, and updated it to show direct damage done.</>, Sref),
   change(date(2021, 5, 24), <>Rolled snapshot uptimes into the uptimes graph. Added a statistic for <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/>.</>, Sref),
