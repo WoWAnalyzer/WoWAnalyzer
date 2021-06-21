@@ -114,6 +114,22 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
       },
+      {
+        spell: SPELLS.HUNTERS_MARK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1500,
+        },
+      },
+      // Traps
+      {
+        spell: SPELLS.EXPLOSIVE_TRAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          static: 1500,
+        },
+      },
     ];
   }
 }
