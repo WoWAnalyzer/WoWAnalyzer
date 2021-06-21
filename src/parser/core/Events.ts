@@ -257,6 +257,24 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   ability: Ability;
   sourceID: number;
   isCancelled: boolean;
+  // Added by any module, used in the timeline
+  meta?: {
+    isInefficientCast?: boolean;
+    inefficientCastReason?: React.ReactNode;
+    isEnhancedCast?: boolean;
+    enhancedCastReason?: React.ReactNode;
+  };
+  trigger?: {
+    timestamp: number;
+    type: EventType;
+    castEvent: CastEvent;
+    meta?: {
+      isInefficientCast?: boolean;
+      inefficientCastReason?: React.ReactNode;
+      isEnhancedCast?: boolean;
+      enhancedCastReason?: React.ReactNode;
+    };
+  };
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {

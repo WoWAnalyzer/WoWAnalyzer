@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 import './Timeline.scss';
 import Buffs from './Buffs';
-import Casts from './Casts';
+import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
 
 class Timeline extends React.PureComponent {
@@ -184,7 +184,11 @@ class Timeline extends React.PureComponent {
                   />
                 ))}
             </div>
-            <Casts start={this.start} secondWidth={this.secondWidth} parser={parser} />
+            <Casts
+              start={this.start}
+              secondWidth={this.secondWidth}
+              events={parser.eventHistory.filter(isApplicableEvent(parser))}
+            />
             <Cooldowns
               start={this.start}
               end={this.end}
