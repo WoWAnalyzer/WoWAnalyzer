@@ -69,7 +69,7 @@ export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
 };
 
 export function hasSpec(snapshots: SnapshotSpec[], sss: StaticSnapshotSpec) {
-  return snapshots.find(ss => ss.name === sss.name) !== undefined;
+  return snapshots.find((ss) => ss.name === sss.name) !== undefined;
 }
 
 /**

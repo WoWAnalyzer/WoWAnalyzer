@@ -10,7 +10,6 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import React from 'react';
 
 import {
-  PANDEMIC_FRACTION,
   PRIMAL_WRATH_RIP_DURATION_BASE,
   PRIMAL_WRATH_RIP_DURATION_PER_CP,
   RIP_DURATION_BASE,

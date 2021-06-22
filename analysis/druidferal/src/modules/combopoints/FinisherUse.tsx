@@ -23,7 +23,6 @@ import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
  *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
  */
 class FinisherUse extends Analyzer {
-
   totalFinishers = 0;
   notFullComboFinishers = 0;
   badFinishers = 0;

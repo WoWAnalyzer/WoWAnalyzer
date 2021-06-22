@@ -10,13 +10,8 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import React from 'react';
 
 import { RAKE_BASE_DURATION } from '../../constants';
-import Snapshots, {
-  hasSpec,
-  PROWL_SPEC,
-  SnapshotSpec,
-  TIGERS_FURY_SPEC,
-} from '../core/Snapshots';
 import { getHardcast, isFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import Snapshots, { hasSpec, PROWL_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots';
 
 const MAX_RAKE_PROWL_DOWNGRADE_TIME = 2000;
 
