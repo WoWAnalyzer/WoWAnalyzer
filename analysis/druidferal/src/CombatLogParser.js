@@ -3,10 +3,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
-import RakeSnapshot from './modules/bleeds/RakeSnapshot';
-import RakeUptime from './modules/bleeds/RakeUptime';
-import RipSnapshot from './modules/bleeds/RipSnapshot';
-import RipUptime from './modules/bleeds/RipUptime';
+import RakeUptimeAndSnapshots from './modules/bleeds/RakeUptime';
+import RipUptimeAndSnapshots from './modules/bleeds/RipUptime';
 import Buffs from './modules/Buffs';
 import ComboPointDetails from './modules/combopoints/ComboPointDetails';
 import ComboPointTracker from './modules/combopoints/ComboPointTracker';
@@ -34,8 +32,7 @@ import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Bloodtalons from './modules/talents/Bloodtalons';
 import Bloodtalons2 from './modules/talents/Bloodtalons2';
 import BrutalSlashHitCount from './modules/talents/BrutalSlashHitCount';
-import MoonfireSnapshot from './modules/talents/MoonfireSnapshot';
-import MoonfireUptime from './modules/talents/MoonfireUptime';
+import MoonfireUptimeAndSnapshots from './modules/talents/MoonfireUptime';
 import Predator from './modules/talents/Predator';
 import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
@@ -71,11 +68,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     // bleeds
-    rakeUptime: RakeUptime,
-    ripUptime: RipUptime,
-    rakeSnapshot: RakeSnapshot,
-    ripSnapshot: RipSnapshot,
-    moonfireSnapshot: MoonfireSnapshot,
+    rakeUptime: RakeUptimeAndSnapshots,
+    ripUptime: RipUptimeAndSnapshots,
 
     // spells
     predatorySwiftness: PredatorySwiftness,
@@ -85,7 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowmeld: Shadowmeld,
 
     // talents
-    moonfireUptime: MoonfireUptime,
+    moonfireUptime: MoonfireUptimeAndSnapshots,
     savageRoar: SavageRoar,
     predator: Predator,
     bloodtalons: Bloodtalons, // TODO depcrecated, remove?

@@ -9,10 +9,10 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import React from 'react';
 
-import { RAKE_BASE_DURATION } from '../../constants';
-import Snapshots2, { PROWL_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import { MOONFIRE_FERAL_BASE_DURATION } from '../../constants';
+import Snapshots, { SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots';
 
-class RakeUptime extends Snapshots2 {
+class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
     enemies: Enemies,
   };
@@ -20,19 +20,20 @@ class RakeUptime extends Snapshots2 {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(SPELLS.RAKE, SPELLS.RAKE_BLEED, [TIGERS_FURY_SPEC, PROWL_SPEC], options);
+    super(SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_FERAL, [TIGERS_FURY_SPEC], options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id);
   }
 
   getDotExpectedDuration(): number {
-    return RAKE_BASE_DURATION;
+    return MOONFIRE_FERAL_BASE_DURATION;
   }
 
   getDotFullDuration(): number {
-    return RAKE_BASE_DURATION;
+    return MOONFIRE_FERAL_BASE_DURATION;
   }
 
   getTotalDotUptime(): number {
-    return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id);
+    return this.enemies.getBuffUptime(SPELLS.MOONFIRE_FERAL.id);
   }
 
   handleApplication(
@@ -53,7 +54,7 @@ class RakeUptime extends Snapshots2 {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.RAKE_BLEED.id);
+    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_FERAL.id);
   }
 
   get suggestionThresholds() {
@@ -81,25 +82,25 @@ class RakeUptime extends Snapshots2 {
     };
   }
 
-  // TODO should we bother with a prowl suggestion? Depends on many things.
-
   // TODO snapshot suggestions
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current
-          application was buffed by Prowl you should refresh the DoT once it has reached its{' '}
+          Your <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> uptime can be improved. You should
+          refresh the DoT once it has reached its{' '}
           <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
             pandemic window
           </TooltipElement>
-          , don't wait for it to wear off.
+          , don't wait for it to wear off. You may wish to consider switching talents to{' '}
+          <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> which is simpler to use and provides more
+          damage in most situations.
         </>,
       )
-        .icon(SPELLS.RAKE.icon)
+        .icon(SPELLS.MOONFIRE_FERAL.icon)
         .actual(
           t({
-            id: 'druid.feral.suggestions.rake.uptime',
+            id: 'druid.feral.suggestions.moonfire.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),
         )
@@ -111,7 +112,7 @@ class RakeUptime extends Snapshots2 {
     return uptimeBarSubStatistic(
       this.owner.fight,
       {
-        spells: [SPELLS.RAKE_BLEED],
+        spells: [SPELLS.MOONFIRE_FERAL],
         uptimes: this.uptimeHistory,
       },
       this.snapshotUptimes,
@@ -120,4 +121,4 @@ class RakeUptime extends Snapshots2 {
   }
 }
 
-export default RakeUptime;
+export default MoonfireUptimeAndSnapshots;

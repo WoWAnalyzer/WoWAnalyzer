@@ -11,7 +11,6 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import { FINISHERS, MAX_CPS } from '../../constants';
-import RipSnapshot from '../bleeds/RipSnapshot';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 
 /**
@@ -24,9 +23,6 @@ import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
  *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
  */
 class FinisherUse extends Analyzer {
-  static dependencies = {
-    ripSnapshot: RipSnapshot,
-  };
 
   totalFinishers = 0;
   notFullComboFinishers = 0;

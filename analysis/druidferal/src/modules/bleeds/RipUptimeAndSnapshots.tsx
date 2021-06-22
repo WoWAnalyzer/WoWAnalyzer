@@ -10,6 +10,7 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import React from 'react';
 
 import {
+  PANDEMIC_FRACTION,
   PRIMAL_WRATH_RIP_DURATION_BASE,
   PRIMAL_WRATH_RIP_DURATION_PER_CP,
   RIP_DURATION_BASE,
@@ -18,14 +19,16 @@ import {
 } from '../../constants';
 import { getHardcast, getPrimalWrath } from '../../normalizers/CastLinkNormalizer';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
-import Snapshots2, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots2';
+import Snapshots, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots';
 
-class RipUptime extends Snapshots2 {
+class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
     enemies: Enemies,
   };
 
   protected enemies!: Enemies;
+
+  earlyRefreshTimeLost: number = 0;
 
   constructor(options: Options) {
     super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC, BLOODTALONS_SPEC], options);
@@ -76,8 +79,19 @@ class RipUptime extends Snapshots2 {
     remainingOnPrev: number,
     clipped: number,
   ) {
-    // TODO track downgrades
-    // TODO track non-upgrade clips
+    if (prevPower >= power && clipped > 0) {
+      this.earlyRefreshTimeLost += clipped;
+      const cast = getHardcast(application);
+      if (cast) {
+        cast.meta = {
+          isInefficientCast: true,
+          inefficientCastReason: `This cast clipped ${(clipped / 1000).toFixed(
+            1,
+          )} seconds of Rip time without upgrading the snapshot.
+          Try to wait until the last 30% of Rip's duration before refreshing`,
+        };
+      }
+    }
   }
 
   onSabertoothFb(event: DamageEvent) {
@@ -100,6 +114,10 @@ class RipUptime extends Snapshots2 {
 
   get uptimeHistory() {
     return this.enemies.getDebuffHistory(SPELLS.RIP.id);
+  }
+
+  get earlyRefreshTimeLostSecondsPerMinute() {
+    return this.owner.getPerMinute(this.earlyRefreshTimeLost / 1000);
   }
 
   get suggestionThresholds() {
@@ -139,7 +157,18 @@ class RipUptime extends Snapshots2 {
     };
   }
 
-  // TODO snapshot suggestions
+  get earlyRefreshThresholds() {
+    return {
+      actual: this.earlyRefreshTimeLostSecondsPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 10,
+        major: 20,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -170,6 +199,26 @@ class RipUptime extends Snapshots2 {
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
+    when(this.earlyRefreshThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the last 30% of its duration
+          unless you are upgrading your snapshot. Refreshing before the last 30% causes you to clip
+          duration - you probably should have used
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> instead.
+        </>,
+      )
+        .icon(SPELLS.RIP.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.ripSnapshot.earlyRefresh',
+            message: `You clipped ${(this.earlyRefreshTimeLost / 1000).toFixed(
+              1,
+            )} seconds of Rip time during the encounter`,
+          }),
+        )
+        .recommended('None is recommended'),
+    );
   }
 
   subStatistic() {
@@ -185,4 +234,4 @@ class RipUptime extends Snapshots2 {
   }
 }
 
-export default RipUptime;
+export default RipUptimeAndSnapshots;

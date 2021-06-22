@@ -289,7 +289,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <Requirement
           name={
             <>
-              Energy Overcap from <SpellLink id={SPELLS.TIGERS_FURY.id} /> (per minute)
+              Energy Overcap from <SpellLink id={SPELLS.TIGERS_FURY.id} />
             </>
           }
           thresholds={thresholds.tigersFuryEnergy}

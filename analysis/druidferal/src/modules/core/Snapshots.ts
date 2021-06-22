@@ -68,11 +68,15 @@ export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
   boostStrength: BLOODTALONS_DAMAGE_BONUS,
 };
 
+export function hasSpec(snapshots: SnapshotSpec[], sss: StaticSnapshotSpec) {
+  return snapshots.find(ss => ss.name === sss.name) !== undefined;
+}
+
 /**
  * Many Feral DoT spells 'snapshot' certain buffs on cast, benefitting from them over the DoT's
  * full duration. This abstract class can be extended to track the snapshots for a specific DoT.
  */
-abstract class Snapshots2 extends Analyzer {
+abstract class Snapshots extends Analyzer {
   /** The spell for the DoT cast */
   spell: Spell;
   /** The spell for the DoT debuff */
@@ -319,4 +323,4 @@ export type DotUptime = {
   previousSnapshots?: SnapshotSpec[] | null;
 };
 
-export default Snapshots2;
+export default Snapshots;
