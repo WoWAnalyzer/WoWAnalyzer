@@ -1,6 +1,9 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
+import { ConvokeSpirits } from '@wowanalyzer/druid';
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -27,6 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilityTracker: AbilityTracker,
     abilities: Abilities,
     mitigationCheck: MitigationCheck,
+    activeDruidForm: ActiveDruidForm,
 
     // Features
     checklist: Checklist,
@@ -49,6 +53,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents:
     earthwarden: Earthwarden,
     incarnation: Incarnation,
+
+    // Covenants
+    convokeSpirits: ConvokeSpirits,
   };
 }
 
