@@ -296,6 +296,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   channel?: {
     type: EventType.BeginChannel;
     timestamp: number;
+    duration: number;
     ability: Ability;
     sourceID: number;
     isCancelled: boolean;
