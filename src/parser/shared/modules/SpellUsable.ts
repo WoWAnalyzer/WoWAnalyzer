@@ -459,19 +459,16 @@ class SpellUsable extends Analyzer {
   }
 
   _checkCooldownExpiry(timestamp: number) {
-    Object.keys(this._currentCooldowns)
-      .map(Number)
-      .forEach((spellId) => {
-        const remainingDuration = this.cooldownRemaining(spellId, timestamp);
-        if (remainingDuration <= 0) {
-          const cooldown = this._currentCooldowns[spellId];
-          const expectedEnd = Math.round(
-            cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime,
-          );
-          debug && this.log('Clearing', spellName(spellId), spellId, 'due to expiry');
-          this.endCooldown(Number(spellId), false, expectedEnd);
-        }
-      });
+    Object.entries(this._currentCooldowns).forEach(([spellId, cooldown]) => {
+      const remainingDuration = this.cooldownRemaining(Number(spellId), timestamp);
+      if (remainingDuration <= 0) {
+        const expectedEnd = Math.round(
+          cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime,
+        );
+        debug && this.log('Clearing', spellName(Number(spellId)), spellId, 'due to expiry');
+        this.endCooldown(Number(spellId), false, expectedEnd);
+      }
+    });
   }
 
   _lastTimestamp: number = -1;

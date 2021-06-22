@@ -18,7 +18,7 @@ describe('core/Modules/SpellUsable', () => {
     abilitiesMock = {
       getExpectedCooldownDuration: jest.fn(() => 7500),
       getMaxCharges: jest.fn(),
-      getAbility: jest.fn((id) => ({ spell: { id: id } })),
+      getAbility: jest.fn((id) => ({ spell: id, primarySpell: id })),
     };
 
     eventEmitter = parser.getModule(EventEmitter);
