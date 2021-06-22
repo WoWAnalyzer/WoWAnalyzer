@@ -4,10 +4,10 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 import React from 'react';
 
-import RakeUptimeAndSnapshots from '../bleeds/RakeUptime';
-import RipUptimeAndSnapshots from '../bleeds/RipUptime';
+import RakeUptimeAndSnapshots from '../bleeds/RakeUptimeAndSnapshots';
+import RipUptimeAndSnapshots from '../bleeds/RipUptimeAndSnapshots';
 import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
-import MoonfireUptimeAndSnapshots from '../talents/MoonfireUptime';
+import MoonfireUptimeAndSnapshots from '../talents/MoonfireUptimeAndSnapshots';
 
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes
