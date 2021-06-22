@@ -16,6 +16,7 @@ import './Timeline.scss';
 import Buffs from './Buffs';
 import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
+import TimeIndicators from './TimeIndicators';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -153,6 +154,8 @@ class Timeline extends React.PureComponent {
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
+    const castEvents = [parser.eventHistory.filter(isApplicableEvent(parser))];
+
     return (
       <>
         <div className="container" ref={this.setContainerRef} />
@@ -166,6 +169,7 @@ class Timeline extends React.PureComponent {
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
               margin: 'auto', //center horizontally if it's too small to take up the page
+              '--cast-bars': castEvents.length,
             }}
           >
             <Buffs
@@ -174,21 +178,20 @@ class Timeline extends React.PureComponent {
               parser={parser}
               buffs={buffs}
             />
-            <div className="time-line">
-              {this.seconds > 0 &&
-                [...Array(Math.ceil(this.seconds))].map((_, second) => (
-                  <div
-                    key={second + this.offset / 1000}
-                    style={{ width: this.secondWidth * skipInterval }}
-                    data-duration={formatDuration(second * 1000 + this.offset)}
-                  />
-                ))}
-            </div>
-            <Casts
-              start={this.start}
+            <TimeIndicators
+              seconds={this.seconds}
+              offset={this.offset}
               secondWidth={this.secondWidth}
-              events={parser.eventHistory.filter(isApplicableEvent(parser))}
+              skipInterval={skipInterval}
             />
+            {castEvents.map((events, index) => (
+              <Casts
+                key={index}
+                start={this.start}
+                secondWidth={this.secondWidth}
+                events={events}
+              />
+            ))}
             <Cooldowns
               start={this.start}
               end={this.end}

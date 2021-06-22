@@ -13,7 +13,7 @@ import {
   EventType,
   GlobalCooldownEvent,
 } from 'parser/core/Events';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import './Casts.scss';
 
@@ -44,13 +44,13 @@ export const isApplicableEvent = (parser: CombatLogParser) => (event: AnyEvent) 
   }
 };
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   secondWidth: number;
   events: AnyEvent[];
 }
 
-const Casts = ({ start, secondWidth, events }: Props) => {
+const Casts = ({ start, secondWidth, events, ...others }: Props) => {
   const getOffsetLeft = (timestamp: number) => ((timestamp - start) / 1000) * secondWidth;
 
   const renderIcon = (
@@ -128,7 +128,7 @@ const Casts = ({ start, secondWidth, events }: Props) => {
       if (_lastLowered && left - _lastLowered < ICON_WIDTH) {
         _level += 1;
         level = _level;
-        _maxLevel = Math.max(_maxLevel, level);
+        _maxLevel = Math.max(_maxLevel, level + 1);
       } else {
         _level = 0;
       }
@@ -265,10 +265,13 @@ const Casts = ({ start, secondWidth, events }: Props) => {
   return (
     <div
       className="casts"
+      {...others}
       style={{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        '--levels': _maxLevel + 1,
+        '--levels': _maxLevel,
+        '--has-levels': _maxLevel > 0 ? 1 : 0,
+        ...others.style,
       }}
     >
       {content}
