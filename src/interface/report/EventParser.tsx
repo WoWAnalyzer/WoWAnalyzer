@@ -116,7 +116,7 @@ class EventParser extends React.PureComponent<Props, State> {
       fight,
       combatants,
       characterProfile,
-      buildKey && build,
+      buildKey,
     );
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;

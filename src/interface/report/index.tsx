@@ -266,9 +266,8 @@ class ResultsLoader extends React.PureComponent<Props, State> {
           applyFilter={this.applyTimeFilter}
           timeFilter={this.state.timeFilter!}
           build={build}
-          makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab, build!)}
-          makeBuildUrl={(tab: string, build: string) =>
-            makeAnalyzerUrl(report, fight.id, player.id, tab, build)
+          makeTabUrl={(tab: string, newBuild?: string) =>
+            makeAnalyzerUrl(report, fight.id, player.id, tab, newBuild || build!)
           }
         />
       </>
