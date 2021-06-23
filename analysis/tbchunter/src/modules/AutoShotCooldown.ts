@@ -1,6 +1,6 @@
 import COMMON_SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
 import { Build } from '../CONFIG';
@@ -218,11 +218,11 @@ class AutoShotCooldown extends Analyzer {
     // this.log('as', duration, `${Math.round((haste - 1) * 100)}%`);
 
     const autoAttackCooldownEvent = {
-      type: 'autoattackcooldown',
+      type: EventType.AutoAttackCooldown,
       ability: event.ability,
       timestamp: event.timestamp,
       sourceID: event.sourceID,
-      targetID: event.targetID,
+      targetID: event.targetID!,
       haste,
       duration,
     };

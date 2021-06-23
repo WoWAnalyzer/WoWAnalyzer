@@ -7,6 +7,7 @@ import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
+import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
@@ -30,6 +31,9 @@ const config: Config = {
       icon: <Icon icon="ability_hunter_mendpet" />,
       visible: true,
     },
+  },
+  timeline: {
+    separateCastBars: [[SPELLS.AUTO_SHOT]],
   },
 
   // Don't change anything below this line;
