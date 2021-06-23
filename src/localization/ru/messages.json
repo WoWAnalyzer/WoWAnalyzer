@@ -430,6 +430,7 @@
   "interface.report.results.timeFilter.reset": "Сбросить фильтр",
   "interface.report.results.timeline.buffs.tooltip.gainedAbilityForXSec": "{0}: получено {1} за {2}",
   "interface.report.results.timeline.casts.neverFinished": "Применение заклинания не было завершено",
+  "interface.report.results.timeline.casts.tooltip.swingCooldown": "",
   "interface.report.results.timeline.casts.tooltip.xSecChannelByAbility": "{0}: {1} потоком от {2}",
   "interface.report.results.timeline.casts.tooltip.xSecGCDByAbility": "{0}: {1} ГКД от {2}",
   "interface.report.results.timeline.lane.tooltip.chargeRestored": "Заряд восполнен",
