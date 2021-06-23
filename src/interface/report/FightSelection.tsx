@@ -119,7 +119,7 @@ class FightSelection extends React.PureComponent<Props, State> {
           <ReportDurationWarning duration={reportDuration} />
         )}
 
-        {report.gameVersion !== 1 && <FightSelectionPanel report={report} killsOnly={killsOnly} />}
+        {report.gameVersion !== 2 && <FightSelectionPanel report={report} killsOnly={killsOnly} />}
       </div>
     );
   }
