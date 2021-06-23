@@ -72,6 +72,9 @@ interface Config {
    * by WCL.
    */
   statMultipliers?: Partial<Stats>;
+  timeline?: {
+    separateCastBars: number[][];
+  };
 
   // Don't change values for props below this line;
   /**

@@ -24,6 +24,9 @@ class Timeline extends React.PureComponent {
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
     premium: PropTypes.bool.isRequired,
+    config: PropTypes.shape({
+      separateCastBars: PropTypes.array,
+    }),
   };
   static defaultProps = {
     showCooldowns: true,
@@ -154,7 +157,17 @@ class Timeline extends React.PureComponent {
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
-    const castEvents = [parser.eventHistory.filter(isApplicableEvent(parser))];
+    const allSeparatedIds = this.props.config.separateCastBars.flat();
+    const castEvents = [
+      ...this.props.config.separateCastBars.map((spellIds) =>
+        parser.eventHistory
+          .filter(isApplicableEvent(parser))
+          .filter((event) => spellIds.includes(event.ability?.guid)),
+      ),
+      parser.eventHistory
+        .filter(isApplicableEvent(parser))
+        .filter((event) => !allSeparatedIds.includes(event.ability?.guid)),
+    ];
 
     return (
       <>

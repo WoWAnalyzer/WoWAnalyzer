@@ -21,6 +21,7 @@ const Container = ({ parser }: Props) => {
       abilities={parser.getModule(Abilities)}
       buffs={parser.getModule(Buffs)}
       premium={premium}
+      config={parser.config.timeline}
       // isAbilityCooldownsAccurate={parser.getModule(SpellUsable).isAccurate}
       // isGlobalCooldownAccurate={parser.getModule(GlobalCooldown).isAccurate}
     />
