@@ -181,12 +181,12 @@ abstract class Snapshots extends Analyzer {
     const combinedDuration = duration + remainingOnPrev;
     const maxDuration = this.getDotFullDuration() * (1 + PANDEMIC_FRACTION);
     const clipped = Math.max(combinedDuration - maxDuration, 0);
-    const newDuration = Math.max(combinedDuration, maxDuration);
+    const newDuration = Math.min(combinedDuration, maxDuration);
     const expectedEnd = event.timestamp + newDuration;
 
     // call DoT specific handlers
     const snapshots = this._getActiveSnapshots(event.timestamp);
-    const power = snapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
+    const power = snapshots.reduce((acc, ss) => acc * (1 + ss.boostStrength), 1);
     const previousSnapshots = previousUptime ? previousUptime.snapshots : null;
     const prevPower =
       previousSnapshots === null

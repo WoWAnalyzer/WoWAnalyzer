@@ -217,12 +217,13 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
     <Requirement
       name={
         <>
-          <SpellLink id={SPELLS.RIP.id} /> casts which reduced duration
+          <SpellLink id={SPELLS.RIP.id} /> duration clipped (seconds per minute)
         </>
       }
       thresholds={thresholds.ripDurationReduction}
-      tooltip="Refreshing Rip too early or with low combo points has the potential to lose duration.
-            You should only do this when you need to upgrade a snapshot."
+      tooltip="Refreshing Rip too early or with low combo points has the potential to clip duration.
+            You should only do this when you need to upgrade a snapshot. This statistic only counts
+            the times when you clipped without upgrading."
     />
     {/* TODO double check this threshold and update to 'seconds clipped per minute'*/}
 
