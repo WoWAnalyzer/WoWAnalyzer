@@ -3703,7 +3703,7 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
         <div
           className="value"
         >
-          88.90
+          86.95
           % 
           <small>
             Combustion Active Time
@@ -3766,9 +3766,9 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You spent 
-      7
+      8
        seconds (
-      1
+      2
       s per cast) not casting anything while
        
       <ForwardRef
@@ -3787,7 +3787,7 @@ Array [
         message="{0}% Active Time during Combustion"
         values={
           Object {
-            "0": "88.90",
+            "0": "86.95",
           }
         }
       />
@@ -5853,7 +5853,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "79.06433911412044%",
+                  "width": "78.25202515090974%",
                 }
               }
             />
@@ -6518,7 +6518,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  88.90%
+                  86.95%
                    
                    
                 </div>
@@ -6540,7 +6540,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "62.92717946814746%",
+                        "width": "56.42866776246183%",
                       }
                     }
                   />
