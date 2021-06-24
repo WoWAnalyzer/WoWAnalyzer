@@ -8,6 +8,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { EventType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';
+import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -22,6 +23,13 @@ class Timeline extends React.PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    movement: PropTypes.arrayOf(
+      PropTypes.shape({
+        start: PropTypes.number,
+        end: PropTypes.number,
+        distance: PropTypes.number,
+      }),
+    ),
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
     premium: PropTypes.bool.isRequired,
     config: PropTypes.shape({
@@ -151,7 +159,7 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { parser, abilities, buffs, premium } = this.props;
+    const { parser, abilities, buffs, premium, movement } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -203,6 +211,8 @@ class Timeline extends React.PureComponent {
                 start={this.start}
                 secondWidth={this.secondWidth}
                 events={events}
+                // Only show on the main cast bar since that should default to standard casts
+                movement={index === castEvents.length - 1 ? movement : undefined}
               />
             ))}
             <Cooldowns

@@ -46,13 +46,15 @@ export const isApplicableEvent = (parser: CombatLogParser) => (event: AnyEvent) 
   }
 };
 
+type MovementInstance = { start: number; end: number; distance: number };
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   secondWidth: number;
   events: AnyEvent[];
+  movement?: MovementInstance[];
 }
 
-const Casts = ({ start, secondWidth, events, ...others }: Props) => {
+const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
   const getOffsetLeft = (timestamp: number) => ((timestamp - start) / 1000) * secondWidth;
 
   const renderIcon = (
@@ -286,6 +288,33 @@ const Casts = ({ start, secondWidth, events, ...others }: Props) => {
 
   const content = events.map(renderEvent);
 
+  const renderMovement = ({ start: movementStart, end, distance }: MovementInstance) => {
+    const left = getOffsetLeft(movementStart);
+    const fightDuration = movementStart - start;
+    const duration = end - movementStart;
+
+    return (
+      <Tooltip
+        key={`channel-${left}-movement`}
+        content={
+          <Trans id="interface.report.results.timeline.movement">
+            {formatDuration(fightDuration, 3)}: there was {distance.toFixed(1)} yards movement
+            within this period. The start and stop time of the movement may vary due to incomplete
+            log data.
+          </Trans>
+        }
+      >
+        <div
+          className="movement"
+          style={{
+            left,
+            width: (duration / 1000) * secondWidth,
+          }}
+        />
+      </Tooltip>
+    );
+  };
+
   return (
     <div
       className="casts"
@@ -299,6 +328,8 @@ const Casts = ({ start, secondWidth, events, ...others }: Props) => {
       }}
     >
       {content}
+
+      {movement && movement.map(renderMovement)}
     </div>
   );
 };
