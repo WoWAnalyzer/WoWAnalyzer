@@ -3,7 +3,7 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
-import Config from 'parser/Config';
+import Config, { TextType } from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
@@ -21,7 +21,20 @@ const config: Config = {
   isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Proof of Concept analysis for BM Hunters.</>,
+  description: <>Proof of Concept analysis for TBCC BM Hunters.</>,
+  pages: {
+    overview: {
+      hideChecklist: true,
+      text: (
+        <>
+          Classic support is still a Work in Progress. You may be able to use the timeline to see
+          your Auto Shot clipping, and there are a few usable suggestions, but please consult your
+          class Discord for a complete log review.
+        </>
+      ),
+      type: TextType.Info,
+    },
+  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/Dd4mA7LtyGqhCanN/10-Heroic+Hungering+Destroyer+-+Kill+(4:04)/Sucker',
   builds: {

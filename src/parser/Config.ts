@@ -20,6 +20,11 @@ export type Build = {
 };
 export type Builds = { [name: string]: Build };
 
+export enum TextType {
+  Info,
+  Warning,
+}
+
 interface Config {
   /**
    * The people that have contributed to this spec recently. People don't have
@@ -57,6 +62,13 @@ interface Config {
    * this in the `<Warning>` component.
    */
   description: ReactNode;
+  pages?: {
+    overview?: {
+      hideChecklist?: boolean;
+      text: ReactNode;
+      type: TextType;
+    };
+  };
   /**
    * A recent example report to see interesting parts of the spec. Will be shown
    * on the homepage.

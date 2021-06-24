@@ -1,7 +1,11 @@
 import { Trans } from '@lingui/macro';
 import React from 'react';
 
-const Checklist = ({ children }: { children?: React.ReactNode }) => (
+interface Props {
+  children?: React.ReactNode;
+}
+
+const Checklist = ({ children }: Props) => (
   <div className="panel">
     <div className="panel-heading">
       <h1>
