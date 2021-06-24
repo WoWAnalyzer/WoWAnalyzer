@@ -117,7 +117,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
    🗵 Rip TF snapshot
    🗵 (Rip BT snapshot)
    🗵 (Moonfire TF snapshot)
-   TODO add Rake Prowl overwrites
+   🗵 Rake prowl overwrite
    */
   const snapshotYourDotsRule = (
     <Rule
@@ -140,6 +140,19 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         spell={SPELLS.RIP.id}
         snapshot={SPELLS.TIGERS_FURY.id}
         thresholds={thresholds.ripTfSnapshot}
+        tooltip={
+          combatant.hasTalent(SPELLS.SABERTOOTH_TALENT) ? (
+            <>
+              With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should be able to apply Rip
+              with Tiger's Fury and then extend it throughout the encounter.
+            </>
+          ) : (
+            <>
+              Where possible, plan your Rip refreshes around the timing of Tiger's Fury - still,
+              100% uptime may not be practical.
+            </>
+          )
+        }
       />
       {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) && (
         <SnapshotRequirement
@@ -152,14 +165,53 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         spell={SPELLS.RAKE.id}
         snapshot={SPELLS.TIGERS_FURY.id}
         thresholds={thresholds.rakeTfSnapshot}
+        tooltip={
+          combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) ? (
+            <>
+              You may have to use Rake to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />{' '}
+              and so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should
+              take precedence over Tiger's Fury snapshots.
+            </>
+          ) : (
+            <>
+              Where possible, plan to cast Rake near the beginning and end of each Tiger's Fury.
+              Cutting off some duration in order to maximize snapshotted time is acceptable.
+            </>
+          )
+        }
       />
       {combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) && (
         <SnapshotRequirement
           spell={SPELLS.MOONFIRE_FERAL.id}
           snapshot={SPELLS.TIGERS_FURY.id}
           thresholds={thresholds.moonfireTfSnapshot}
+          tooltip={
+            combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) ? (
+              <>
+                You may have to use Moonfire to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />{' '}
+                and so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should
+                take precedence over Tiger's Fury snapshots.
+              </>
+            ) : (
+              <>
+                Where possible, plan to cast Moonfire near the beginning and end of each Tiger's Fury.
+                Cutting off some duration in order to maximize snapshotted time is acceptable.
+              </>
+            )
+          }
         />
       )}
+      <Requirement
+        name={
+          <>
+            <SpellLink id={SPELLS.RAKE.id} /> with <SpellLink id={SPELLS.PROWL.id} /> overwrite
+            (seconds per minute)
+          </>
+        }
+        thresholds={thresholds.prowlRakeLost}
+        tooltip="Stealth (and stealth-like buffs) dramatically empower your Rake's damage. You should
+          avoid overwriting one of these empowered Rakes until the last possible moment."
+      />
     </Rule>
   );
 

@@ -132,14 +132,13 @@ class RipUptimeAndSnapshots extends Snapshots {
   }
 
   get tigersFurySnapshotThresholds() {
-    // TODO less friendly when player has SbT
+    // With Sabertooth, should be easy to push a TF Rip through the whole encounter
+    const breakpoints = this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT)
+      ? { minor: 0.95, average: 0.8, major: 0.6 }
+      : { minor: 0.85, average: 0.6, major: 0.4 };
     return {
       actual: this.percentWithTigerFury,
-      isLessThan: {
-        minor: 0.8,
-        average: 0.55,
-        major: 0.4,
-      },
+      isLessThan: breakpoints,
       style: ThresholdStyle.PERCENTAGE,
     };
   }

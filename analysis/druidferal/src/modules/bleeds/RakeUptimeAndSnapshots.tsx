@@ -99,14 +99,13 @@ class RakeUptimeAndSnapshots extends Snapshots {
   }
 
   get tigersFurySnapshotThresholds() {
-    // TODO friendlier when player has BT
+    // rake is often used for proccing BT, so harder to maintain snapshots
+    const breakpoints = this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT)
+      ? { minor: 0.6, average: 0.45, major: 0.3 }
+      : { minor: 0.85, average: 0.6, major: 0.4 };
     return {
       actual: this.percentWithTigerFury,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.6,
-        major: 0.4,
-      },
+      isLessThan: breakpoints,
       style: ThresholdStyle.PERCENTAGE,
     };
   }
@@ -119,7 +118,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
         average: 4,
         major: 6,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.DECIMAL,
     };
   }
 

@@ -84,7 +84,7 @@ class Checklist extends BaseChecklist {
           ripBtSnapshot: this.ripUptime.bloodTalonsSnapshotThresholds,
           rakeTfSnapshot: this.rakeUptime.tigersFurySnapshotThresholds,
           moonfireTfSnapshot: this.moonfireUptime.tigersFurySnapshotThresholds,
-          // TODO prowl rake overwrite
+          prowlRakeLost: this.rakeUptime.prowlLostThresholds,
 
           // finishers
           ferociousBiteEnergy: this.ferociousBite.extraEnergySuggestionThresholds,
