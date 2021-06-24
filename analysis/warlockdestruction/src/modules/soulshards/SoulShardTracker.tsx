@@ -1,8 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Options } from 'parser/core/Analyzer';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  EventType,
+  EnergizeEvent,
+  CastEvent,
+  Event,
+  ClassResources,
+} from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
@@ -12,32 +20,32 @@ const DAMAGE_GENERATORS = {
   [SPELLS.IMMOLATE_DEBUFF.id]: () => 1, // has 50% chance of additional fragment on crit
   [SPELLS.CONFLAGRATE.id]: () => 5,
   [SPELLS.SHADOWBURN_TALENT.id]: () => 3,
-  [SPELLS.INCINERATE.id]: (event) => (event.hitType === HIT_TYPES.CRIT ? 1 : 0),
+  [SPELLS.INCINERATE.id]: (event: DamageEvent) => (event.hitType === HIT_TYPES.CRIT ? 1 : 0),
 };
 
 const IMMO_PROB = 0.5;
 const ROF_PROB = 0.2;
 const INFERNAL_DURATION = 30000;
 const INFERNAL_FRAGMENT_TICK_PERIOD = 500;
-const FULL_SHARD_GAINED_EVENT_TYPE = 'fullshardgained';
 
 class SoulShardTracker extends ResourceTracker {
   static get fullshardgained() {
-    return new EventFilter(FULL_SHARD_GAINED_EVENT_TYPE);
+    return new EventFilter(EventType.FullShardGained);
   }
 
   static dependencies = {
     ...ResourceTracker.dependencies,
     enemies: Enemies,
   };
-  lastInfernalSummon = null;
-  lastInfernalTick = null;
+
+  lastInfernalSummon: number | null = null;
+  lastInfernalTick: number | null = null;
   immolateCrits = 0;
   rainOfFireHits = 0;
   hasInferno = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     // a copy of the object since I don't want to change it in the Events tab, only in the Resource tab
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
     this.resource.name = 'Soul Shard Fragments';
@@ -49,7 +57,7 @@ class SoulShardTracker extends ResourceTracker {
   }
 
   // this accounts for Soul Conduit and possibly Feretory of Souls (they grant whole Soul Shards and appear as energize events, but their resourceChange field is in values 0 - 5 and we want 0 - 50
-  onEnergize(event) {
+  onEnergize(event: EnergizeEvent) {
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }
@@ -59,7 +67,7 @@ class SoulShardTracker extends ResourceTracker {
     super.onEnergize(event);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SOUL_FIRE_TALENT.id) {
       this.processInvisibleEnergize(spellId, 4);
@@ -68,6 +76,12 @@ class SoulShardTracker extends ResourceTracker {
       this.processInvisibleEnergize(spellId, 2);
     } else if (this.shouldProcessCastEvent(event)) {
       const eventResource = this.getResource(event);
+
+      if (!eventResource) {
+        debug && console.error('Event resource is undefined.');
+        return;
+      }
+
       // eventResource.amount has correct amount of fragments *before* the cast
       // if this is larger than the fragments currently tracked, then some random fragment generation must have happened since last cast till this cast
       debug &&
@@ -120,7 +134,7 @@ class SoulShardTracker extends ResourceTracker {
     super.onCast(event);
   }
 
-  onEvent(event) {
+  onEvent(event: Event<string>) {
     // after summoning Infernal (after Infernal Awakening), it generates 1 fragment every 0.5 seconds for 30 seconds
     // theoretically accurate, practically it messes up the fragment generation a lot
     // (but it's a lot worse without it, so I decided to go with the lesser of two evils since this way of generating fragments isn't tied to any kind of event)
@@ -131,7 +145,7 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INFERNAL_AWAKENING.id) {
       this.lastInfernalSummon = event.timestamp;
@@ -172,9 +186,15 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  _applyBuilder(spellId, resource, gain, waste) {
+  _applyBuilder(
+    spellId: number,
+    gain: number,
+    waste: number,
+    resource?: ClassResources,
+    timestamp?: number,
+  ) {
     const beforeBuilder = this.current % 10;
-    super._applyBuilder(spellId, resource, gain, waste);
+    super._applyBuilder(spellId, gain, waste, resource, timestamp);
     const afterBuilder = this.current % 10;
     // for trait Chaos Shards we need to know when we generated a full Shard
     // can be either to full shard (39 => 40, beforebuilder = 9, afterBuilder = 0)
@@ -184,27 +204,33 @@ class SoulShardTracker extends ResourceTracker {
     if (beforeBuilder > afterBuilder) {
       this.eventEmitter.fabricateEvent({
         timestamp: this.owner.currentTimestamp,
-        type: FULL_SHARD_GAINED_EVENT_TYPE,
+        type: EventType.FullShardGained,
         current: this.current,
       });
     }
   }
 
-  _hasInfernal(timestamp) {
+  _hasInfernal(timestamp: number) {
     return (
       this.lastInfernalSummon !== undefined &&
+      this.lastInfernalSummon !== null &&
       timestamp < this.lastInfernalSummon + INFERNAL_DURATION
     );
   }
 
-  _infernalTicked(timestamp) {
+  _infernalTicked(timestamp: number) {
     return (
       this.lastInfernalTick !== undefined &&
+      this.lastInfernalTick !== null &&
       timestamp > this.lastInfernalTick + INFERNAL_FRAGMENT_TICK_PERIOD
     );
   }
 
-  _getRandomFragmentDistribution(immolateCrits, rainOfFireHits, totalFragments) {
+  _getRandomFragmentDistribution(
+    immolateCrits: number,
+    rainOfFireHits: number,
+    totalFragments: number,
+  ) {
     /*
         This function tries to "distribute" totalFragments into 2 possible sources:
           - Immolate crits

@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const BUFFER = 100;
-const debug = true;
+const debug = false;
 
 class Cataclysm extends Analyzer {
   static dependencies = {
