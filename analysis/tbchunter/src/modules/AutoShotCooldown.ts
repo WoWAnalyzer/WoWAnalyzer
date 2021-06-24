@@ -8,6 +8,7 @@ import * as SPELLS from '../SPELLS';
 
 const DRUM_OF_BATTLE_BUFF = 35476;
 const HASTE_POTION_BUFF = 28507;
+const THUNDERING_SKYFIRE_DIAMOND_BUFF = 39959; // meta gem
 const HASTE_RATING_PER_PERCENT = 15.7;
 const baseHaste = 0.15; // quiver
 const serpentSwiftnessHaste = 0.2;
@@ -19,6 +20,7 @@ const hasteBuffs = {
   [HASTE_POTION_BUFF]: 400 / HASTE_RATING_PER_PERCENT / 100,
   [COMMON_SPELLS.BLOODLUST.id]: 0.3,
   [COMMON_SPELLS.HEROISM.id]: 0.3,
+  [THUNDERING_SKYFIRE_DIAMOND_BUFF]: 240 / HASTE_RATING_PER_PERCENT / 100,
 };
 
 const weaponSpeeds: { [itemId: number]: number } = {
