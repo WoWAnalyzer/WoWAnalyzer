@@ -168,9 +168,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         tooltip={
           combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) ? (
             <>
-              You may have to use Rake to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />{' '}
-              and so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should
-              take precedence over Tiger's Fury snapshots.
+              You may have to use Rake to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> and
+              so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should take
+              precedence over Tiger's Fury snapshots.
             </>
           ) : (
             <>
@@ -189,13 +189,13 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) ? (
               <>
                 You may have to use Moonfire to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />{' '}
-                and so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should
-                take precedence over Tiger's Fury snapshots.
+                and so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing
+                should take precedence over Tiger's Fury snapshots.
               </>
             ) : (
               <>
-                Where possible, plan to cast Moonfire near the beginning and end of each Tiger's Fury.
-                Cutting off some duration in order to maximize snapshotted time is acceptable.
+                Where possible, plan to cast Moonfire near the beginning and end of each Tiger's
+                Fury. Cutting off some duration in order to maximize snapshotted time is acceptable.
               </>
             )
           }
