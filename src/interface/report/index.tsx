@@ -9,12 +9,13 @@ import { AnyEvent, CombatantInfoEvent, PhaseEvent } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import ReportObject from 'parser/core/Report';
+import getConfig from 'parser/getConfig';
 import React from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
-import ConfigLoader from './ConfigLoader';
+import ConfigContext from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import EventParser from './EventParser';
 import EventsLoader from './EventsLoader';
@@ -247,6 +248,7 @@ class ResultsLoader extends React.PureComponent<Props, State> {
           )}
 
         <Results
+          config={config}
           isLoadingParser={this.state.isLoadingParser}
           isLoadingEvents={this.state.isLoadingEvents}
           bossPhaseEventsLoadingState={this.state.bossPhaseEventsLoadingState}
@@ -296,24 +298,21 @@ const Report = () => (
               {(fight) => (
                 <PlayerLoader report={report} fight={fight}>
                   {(player, combatant, combatants) => (
-                    <ConfigLoader specId={combatant.specID} type={player.type}>
-                      {(config) => (
-                        <SupportChecker
-                          config={config}
-                          report={report}
-                          fight={fight}
-                          player={player}
-                        >
-                          <ResultsLoader
-                            config={config}
-                            report={report}
-                            fight={fight}
-                            player={player}
-                            combatants={combatants}
-                          />
-                        </SupportChecker>
-                      )}
-                    </ConfigLoader>
+                    <ConfigContext.Provider value={getConfig(combatant.specID, player.type)}>
+                      <SupportChecker report={report} fight={fight} player={player}>
+                        <ConfigContext.Consumer>
+                          {(config) => (
+                            <ResultsLoader
+                              config={config!}
+                              report={report}
+                              fight={fight}
+                              player={player}
+                              combatants={combatants}
+                            />
+                          )}
+                        </ConfigContext.Consumer>
+                      </SupportChecker>
+                    </ConfigContext.Provider>
                   )}
                 </PlayerLoader>
               )}
