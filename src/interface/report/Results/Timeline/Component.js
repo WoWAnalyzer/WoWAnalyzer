@@ -157,13 +157,13 @@ class Timeline extends React.PureComponent {
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
-    const allSeparatedIds = this.props.config.separateCastBars.flat();
+    const allSeparatedIds = this.props.config?.separateCastBars.flat() || [];
     const castEvents = [
-      ...this.props.config.separateCastBars.map((spellIds) =>
+      ...(this.props.config?.separateCastBars.map((spellIds) =>
         parser.eventHistory
           .filter(isApplicableEvent(parser))
           .filter((event) => spellIds.includes(event.ability?.guid)),
-      ),
+      ) || []),
       parser.eventHistory
         .filter(isApplicableEvent(parser))
         .filter((event) => !allSeparatedIds.includes(event.ability?.guid)),
