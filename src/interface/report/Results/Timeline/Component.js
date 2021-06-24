@@ -16,6 +16,7 @@ import './Timeline.scss';
 import Buffs from './Buffs';
 import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
+import TimeIndicators from './TimeIndicators';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -23,6 +24,9 @@ class Timeline extends React.PureComponent {
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
     premium: PropTypes.bool.isRequired,
+    config: PropTypes.shape({
+      separateCastBars: PropTypes.array,
+    }),
   };
   static defaultProps = {
     showCooldowns: true,
@@ -153,6 +157,18 @@ class Timeline extends React.PureComponent {
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
+    const allSeparatedIds = this.props.config.separateCastBars.flat();
+    const castEvents = [
+      ...this.props.config.separateCastBars.map((spellIds) =>
+        parser.eventHistory
+          .filter(isApplicableEvent(parser))
+          .filter((event) => spellIds.includes(event.ability?.guid)),
+      ),
+      parser.eventHistory
+        .filter(isApplicableEvent(parser))
+        .filter((event) => !allSeparatedIds.includes(event.ability?.guid)),
+    ];
+
     return (
       <>
         <div className="container" ref={this.setContainerRef} />
@@ -166,6 +182,7 @@ class Timeline extends React.PureComponent {
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
               margin: 'auto', //center horizontally if it's too small to take up the page
+              '--cast-bars': castEvents.length,
             }}
           >
             <Buffs
@@ -174,21 +191,20 @@ class Timeline extends React.PureComponent {
               parser={parser}
               buffs={buffs}
             />
-            <div className="time-line">
-              {this.seconds > 0 &&
-                [...Array(Math.ceil(this.seconds))].map((_, second) => (
-                  <div
-                    key={second + this.offset / 1000}
-                    style={{ width: this.secondWidth * skipInterval }}
-                    data-duration={formatDuration(second * 1000 + this.offset)}
-                  />
-                ))}
-            </div>
-            <Casts
-              start={this.start}
+            <TimeIndicators
+              seconds={this.seconds}
+              offset={this.offset}
               secondWidth={this.secondWidth}
-              events={parser.eventHistory.filter(isApplicableEvent(parser))}
+              skipInterval={skipInterval}
             />
+            {castEvents.map((events, index) => (
+              <Casts
+                key={index}
+                start={this.start}
+                secondWidth={this.secondWidth}
+                events={events}
+              />
+            ))}
             <Cooldowns
               start={this.start}
               end={this.end}

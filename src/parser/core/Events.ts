@@ -39,6 +39,7 @@ export enum EventType {
   Event = 'event', // everything
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
+  AutoAttackCooldown = 'autoattackcooldown',
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
   CancelChannel = 'cancelchannel',
@@ -113,6 +114,7 @@ type MappedEventTypes = {
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
   [EventType.GlobalCooldown]: GlobalCooldownEvent;
+  [EventType.AutoAttackCooldown]: AutoAttackCooldownEvent;
   [EventType.BeginChannel]: BeginChannelEvent;
   [EventType.EndChannel]: EndChannelEvent;
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
@@ -296,6 +298,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   channel?: {
     type: EventType.BeginChannel;
     timestamp: number;
+    duration: number;
     ability: Ability;
     sourceID: number;
     isCancelled: boolean;
@@ -635,6 +638,17 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   sourceID: number;
   targetID: number;
   targetIsFriendly: boolean;
+  timestamp: number;
+  trigger: CastEvent | BeginChannelEvent;
+  __fabricated: true;
+}
+
+export interface AutoAttackCooldownEvent extends Event<EventType.AutoAttackCooldown> {
+  ability: Ability;
+  duration: number;
+  haste: number;
+  sourceID: number;
+  targetID: number;
   timestamp: number;
   trigger: CastEvent | BeginChannelEvent;
   __fabricated: true;

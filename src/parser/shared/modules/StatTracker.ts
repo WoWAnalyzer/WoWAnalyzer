@@ -121,7 +121,7 @@ class StatTracker extends Analyzer {
      *               SHADOWLANDS:             *
      \****************************************/
 
-    //Trinkets
+    // region Trinkets
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
       crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
@@ -143,7 +143,6 @@ class StatTracker extends Analyzer {
       haste: (_, item) => calculateSecondaryStatDefault(213, 95, item.itemLevel),
     },
 
-    //endregion
     //endregion
 
     // region Racials
@@ -235,7 +234,11 @@ class StatTracker extends Analyzer {
       intellect: this.selectedCombatant._combatantInfo.intellect,
       stamina: this.selectedCombatant._combatantInfo.stamina,
       crit: this.selectedCombatant._combatantInfo.critSpell,
-      haste: this.selectedCombatant._combatantInfo.hasteSpell || 0, // the || 0 fixes tests where combatantinfo may not be defined
+      haste:
+        this.selectedCombatant._combatantInfo.hasteSpell ||
+        this.selectedCombatant._combatantInfo.hasteRanged ||
+        this.selectedCombatant._combatantInfo.hasteMelee ||
+        0, // the || 0 fixes tests where combatantinfo may not be defined
       mastery: this.selectedCombatant._combatantInfo.mastery,
       versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
       avoidance: this.selectedCombatant._combatantInfo.avoidance,

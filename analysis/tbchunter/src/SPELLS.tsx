@@ -14,8 +14,12 @@ export const ASPECT_OF_THE_VIPER = 34074;
 export const ASPECT_OF_THE_CHEETAH = 5118;
 export const MISDIRECTION = 34477;
 export const RAPTOR_STRIKE = 27014;
+export const HUNTERS_MARK = 14325;
+export const QUICK_SHOTS = 6150;
+export const SERPENT_SWIFTNESS_TALENT = 34470;
 // TODO FEIGN_DEATH
 // TODO Traps
+export const EXPLOSIVE_TRAP = 27025;
 // TODO FLARE
 // TODO HUNTERS_MARK
 // TODO VOLLEY_LOL
@@ -25,3 +29,5 @@ export const RAPTOR_STRIKE = 27014;
 // TODO MEND_PET
 // Orc racial
 export const BLOOD_FURY = 20572;
+// Items
+export const ABACUS_HASTE_BUFF = 33807;

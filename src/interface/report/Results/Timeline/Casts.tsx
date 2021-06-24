@@ -7,13 +7,14 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import {
   AnyEvent,
+  AutoAttackCooldownEvent,
   BeginChannelEvent,
   CastEvent,
   EndChannelEvent,
   EventType,
   GlobalCooldownEvent,
 } from 'parser/core/Events';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import './Casts.scss';
 
@@ -38,19 +39,20 @@ export const isApplicableEvent = (parser: CombatLogParser) => (event: AnyEvent) 
       return isApplicableCastEvent(event);
     case EventType.EndChannel:
     case EventType.GlobalCooldown:
+    case EventType.AutoAttackCooldown:
       return true;
     default:
       return false;
   }
 };
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   secondWidth: number;
   events: AnyEvent[];
 }
 
-const Casts = ({ start, secondWidth, events }: Props) => {
+const Casts = ({ start, secondWidth, events, ...others }: Props) => {
   const getOffsetLeft = (timestamp: number) => ((timestamp - start) / 1000) * secondWidth;
 
   const renderIcon = (
@@ -128,7 +130,7 @@ const Casts = ({ start, secondWidth, events }: Props) => {
       if (_lastLowered && left - _lastLowered < ICON_WIDTH) {
         _level += 1;
         level = _level;
-        _maxLevel = Math.max(_maxLevel, level);
+        _maxLevel = Math.max(_maxLevel, level + 1);
       } else {
         _level = 0;
       }
@@ -176,11 +178,8 @@ const Casts = ({ start, secondWidth, events }: Props) => {
     // This is kind of an ugly hack, but it's the only way to render an icon on the beginchannel event while allowing maintainers to mark the cast events bad. We could have forced everyone to modify meta on the beginchannel/begincast event instead, but that would be inconvenient and unexpected with no real gain.
     const meta =
       event.meta ||
-      (event.trigger && event.trigger.meta) ||
-      (event.trigger &&
-        event.trigger.type === EventType.BeginCast &&
-        event.trigger.castEvent &&
-        event.trigger.castEvent.meta);
+      event.trigger?.meta ||
+      (event.trigger?.type === EventType.BeginCast && event.trigger.castEvent?.meta);
     if (meta) {
       if (meta.isInefficientCast) {
         className += ' inefficient';
@@ -244,6 +243,29 @@ const Casts = ({ start, secondWidth, events }: Props) => {
       </Tooltip>
     );
   };
+  const renderSwingCooldown = (event: AutoAttackCooldownEvent) => {
+    const left = getOffsetLeft(event.timestamp);
+    const fightDuration = event.timestamp - start;
+
+    return (
+      <Tooltip
+        key={`swing-${left}-${event.ability.guid}`}
+        content={
+          <Trans id="interface.report.results.timeline.casts.tooltip.swingCooldown">
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Swing cooldown
+          </Trans>
+        }
+      >
+        <div
+          className="gcd"
+          style={{
+            left,
+            width: (event.duration / 1000) * secondWidth,
+          }}
+        />
+      </Tooltip>
+    );
+  };
 
   const renderEvent = (event: AnyEvent) => {
     switch (event.type) {
@@ -255,6 +277,8 @@ const Casts = ({ start, secondWidth, events }: Props) => {
         return renderChannel(event);
       case EventType.GlobalCooldown:
         return renderGlobalCooldown(event);
+      case EventType.AutoAttackCooldown:
+        return renderSwingCooldown(event);
       default:
         return null;
     }
@@ -265,10 +289,13 @@ const Casts = ({ start, secondWidth, events }: Props) => {
   return (
     <div
       className="casts"
+      {...others}
       style={{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        '--levels': _maxLevel + 1,
+        '--levels': _maxLevel,
+        '--has-levels': _maxLevel > 0 ? 1 : 0,
+        ...others.style,
       }}
     >
       {content}

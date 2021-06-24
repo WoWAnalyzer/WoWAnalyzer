@@ -22,6 +22,14 @@ class Buffs extends CoreBuffs {
         triggeredBySpellId: SPELLS.MISDIRECTION,
       },
       {
+        spellId: SPELLS.QUICK_SHOTS,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ABACUS_HASTE_BUFF,
+        timelineHighlight: true,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },

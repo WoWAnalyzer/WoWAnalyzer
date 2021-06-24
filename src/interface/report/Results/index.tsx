@@ -98,6 +98,7 @@ interface PassedProps {
   parsingState?: EVENT_PARSING_STATE;
   progress?: number;
   premium?: boolean;
+  config: Config;
 }
 
 type Props = PassedProps & ConnectedProps;
@@ -121,9 +122,6 @@ class Results extends React.PureComponent<Props, State> {
       parser: this.props.parser,
     };
   }
-  static contextTypes = {
-    config: PropTypes.object.isRequired,
-  };
 
   componentDidMount() {
     this.scrollToTop();
@@ -186,8 +184,7 @@ class Results extends React.PureComponent<Props, State> {
   }
 
   renderContent(selectedTab: string, results: ParseResults | null) {
-    const { parser, premium } = this.props;
-    const config = this.context.config;
+    const { parser, premium, config } = this.props;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
@@ -373,8 +370,8 @@ class Results extends React.PureComponent<Props, State> {
       phases,
       applyFilter,
       timeFilter,
+      config,
     } = this.props;
-    const config: Config = this.context.config;
 
     const boss = findByBossId(fight.boss);
 
@@ -438,7 +435,7 @@ class Results extends React.PureComponent<Props, State> {
             </AlertWarning>
           </div>
         )}
-        {build && (
+        {build && build !== 'default' && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.build">
