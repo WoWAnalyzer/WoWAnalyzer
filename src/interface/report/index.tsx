@@ -192,6 +192,7 @@ class ResultsLoader extends React.PureComponent<Props, State> {
   render() {
     const { config, report, fight, player, combatants } = this.props;
     const build = (this.state.parser && this.state.parser.build) || undefined;
+
     return (
       <>
         {/* Load these different api calls asynchronously */}
@@ -267,7 +268,13 @@ class ResultsLoader extends React.PureComponent<Props, State> {
           timeFilter={this.state.timeFilter!}
           build={build}
           makeTabUrl={(tab: string, newBuild?: string) =>
-            makeAnalyzerUrl(report, fight.id, player.id, tab, newBuild || build!)
+            makeAnalyzerUrl(
+              report,
+              fight.id,
+              player.id,
+              tab,
+              newBuild || config.builds?.[build!]?.url,
+            )
           }
         />
       </>
