@@ -438,7 +438,7 @@ class Results extends React.PureComponent<Props, State> {
             </AlertWarning>
           </div>
         )}
-        {build && (
+        {build && build !== 'default' && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.build">
