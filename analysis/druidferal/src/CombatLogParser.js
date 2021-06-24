@@ -3,10 +3,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
-import RakeSnapshot from './modules/bleeds/RakeSnapshot';
-import RakeUptime from './modules/bleeds/RakeUptime';
-import RipSnapshot from './modules/bleeds/RipSnapshot';
-import RipUptime from './modules/bleeds/RipUptime';
+import RakeUptimeAndSnapshots from './modules/bleeds/RakeUptimeAndSnapshots';
+import RipUptimeAndSnapshots from './modules/bleeds/RipUptimeAndSnapshots';
 import Buffs from './modules/Buffs';
 import ComboPointDetails from './modules/combopoints/ComboPointDetails';
 import ComboPointTracker from './modules/combopoints/ComboPointTracker';
@@ -26,19 +24,21 @@ import ApexPredatorsCraving from './modules/shadowlands/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import Frenzyband from './modules/shadowlands/Frenzyband';
-import FerociousBiteEnergy from './modules/spells/FerociousBiteEnergy';
+import FerociousBite from './modules/spells/FerociousBite';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import SwipeHitCount from './modules/spells/SwipeHitCount';
 import ThrashHitCount from './modules/spells/ThrashHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Bloodtalons from './modules/talents/Bloodtalons';
+import Bloodtalons2 from './modules/talents/Bloodtalons2';
 import BrutalSlashHitCount from './modules/talents/BrutalSlashHitCount';
-import MoonfireSnapshot from './modules/talents/MoonfireSnapshot';
-import MoonfireUptime from './modules/talents/MoonfireUptime';
+import MoonfireUptimeAndSnapshots from './modules/talents/MoonfireUptimeAndSnapshots';
 import Predator from './modules/talents/Predator';
 import SavageRoar from './modules/talents/SavageRoar';
 import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
+import FerociousBiteDrainLinkNormalizer from './normalizers/FerociousBiteDrainLinkNormalizer';
 import RakeBleed from './normalizers/RakeBleed';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -46,10 +46,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     rakeBleed: RakeBleed,
     bleedDebuffEvents: BleedDebuffEvents,
+    castLinkNormalizer: CastLinkNormalizer,
+    ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
     comboPointsFromAoE: ComboPointsFromAoE,
 
     // Core
     activeDruidForm: ActiveDruidForm,
+    spellEnergyCost: SpellEnergyCost,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -57,20 +60,16 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     dotUptimesAndSnapshots: DotUptimesAndSnapshots,
-    ferociousBiteEnergy: FerociousBiteEnergy,
+    ferociousBite: FerociousBite,
     spellUsable: SpellUsable,
-    spellEnergyCost: SpellEnergyCost,
     energyCapTracker: EnergyCapTracker,
     energyTracker: EnergyTracker,
     energyDetails: EnergyDetails,
     checklist: Checklist,
 
     // bleeds
-    rakeUptime: RakeUptime,
-    ripUptime: RipUptime,
-    rakeSnapshot: RakeSnapshot,
-    ripSnapshot: RipSnapshot,
-    moonfireSnapshot: MoonfireSnapshot,
+    rakeUptime: RakeUptimeAndSnapshots,
+    ripUptime: RipUptimeAndSnapshots,
 
     // spells
     predatorySwiftness: PredatorySwiftness,
@@ -80,10 +79,11 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowmeld: Shadowmeld,
 
     // talents
-    moonfireUptime: MoonfireUptime,
+    moonfireUptime: MoonfireUptimeAndSnapshots,
     savageRoar: SavageRoar,
     predator: Predator,
-    bloodtalons: Bloodtalons,
+    bloodtalons: Bloodtalons, // TODO depcrecated, remove?
+    bloodtalons2: Bloodtalons2,
     brutalSlashHitCount: BrutalSlashHitCount,
 
     // resources

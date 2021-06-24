@@ -283,6 +283,11 @@ class AdaptiveSwarm extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
   }
 
+  /** Percent uptime for the player's Adaptive Swarm damage debuff (DoT) */
+  get debuffUptimePercent(): number {
+    return this.debuffUptime / this.owner.fightDuration;
+  }
+
   /** The average ms of uptime for the player's Adaptive Swarm damage debuff (DoT) per cast */
   get debuffTimePerCast(): number {
     return this.casts === 0 ? 0 : this.debuffUptime / this.casts;

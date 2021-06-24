@@ -14,18 +14,13 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      We hope this analyzer will help improve your Feral druid experience. As always it's best to
-      focus on improving one aspect of your play at a time. Keeping good uptimes on your DoTs is key
-      to good damage output, so is a great place to start. Unless you have very high haste you can
-      expect to spend time waiting for energy during bos fights, use this to your advantage as it
-      gives you time to plan what to do next rather than spamming buttons.
+      Welcome to the Feral Druid analyzer! We hope you find these suggestions and statistics useful.
       <br />
       <br />
-      Most of the mechanics are now covered in this analyzer but there's always things to improve.
       If you have suggestions or comments about the analyzer you can reach the WoWAnalyzer team on{' '}
       <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
       <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
-      <a href="/contributor/Anatta336">Anatta</a>) directly on Discord. We're always interested in
+      <a href="/contributor/Sref">Sref</a>) directly on Discord. We're always interested in
       improving the analyzer, whether it's in-depth theorycraft or rewording some text to be easier
       to understand. The whole project is open source and welcomes contributions so you can directly
       improve it too!

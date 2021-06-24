@@ -35,9 +35,8 @@ class AdaptiveSwarmFeral extends AdaptiveSwarm {
 
   get suggestionThresholds() {
     return {
-      actual: this.debuffUptime,
+      actual: this.debuffUptimePercent,
       isLessThan: {
-        // TODO double check reasonable numbers
         minor: 0.65,
         average: 0.5,
         major: 0.3,

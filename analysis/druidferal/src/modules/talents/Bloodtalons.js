@@ -40,6 +40,7 @@ const CHART_COLOR_SPENDERS = [
  * - AoE abilities consume a charge if they succeed in hitting at least 1 enemy.
  * - Rip (DoT with no initial damage) success is detected by watching for debuff apply or refresh.
  */
+// TODO deprecated, being replaced by Bloodtalons2
 class Bloodtalons extends Analyzer {
   get wasted() {
     return this.expired + this.overwritten + this.remainAfterFight;
