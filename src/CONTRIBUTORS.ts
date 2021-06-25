@@ -1600,3 +1600,17 @@ export const Zea: Contributor = {
   nickname: 'Zea',
   github: 'kedearian',
 };
+
+export const ogunb: Contributor = {
+  nickname: 'ogunb',
+  github: 'ogunb',
+  discord: 'ogunb#5781',
+  avatar: avatar('ogunb-avatar.jpg'),
+  mains: [
+    {
+      name: 'Throlnoz',
+      spec: SPECS.DESTRUCTION_WARLOCK,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/Throlnoz',
+    },
+  ],
+};
