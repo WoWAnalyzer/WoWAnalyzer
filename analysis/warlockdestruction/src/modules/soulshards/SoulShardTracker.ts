@@ -8,7 +8,7 @@ import Events, {
   EventType,
   EnergizeEvent,
   CastEvent,
-  Event,
+  AnyEvent,
   ClassResources,
 } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -134,7 +134,7 @@ class SoulShardTracker extends ResourceTracker {
     super.onCast(event);
   }
 
-  onEvent(event: Event<string>) {
+  onEvent(event: AnyEvent) {
     // after summoning Infernal (after Infernal Awakening), it generates 1 fragment every 0.5 seconds for 30 seconds
     // theoretically accurate, practically it messes up the fragment generation a lot
     // (but it's a lot worse without it, so I decided to go with the lesser of two evils since this way of generating fragments isn't tied to any kind of event)
