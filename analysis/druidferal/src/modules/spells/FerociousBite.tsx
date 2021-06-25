@@ -78,21 +78,58 @@ class FerociousBite extends Analyzer {
   }
 
   suggestions(when: When) {
+    const hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL);
+    const hasApex = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.APEX_PREDATORS_CRAVING.bonusID,
+    );
+    let exceptions = 0;
+    if (hasSotf) {
+      exceptions += 1;
+    }
+    if (hasApex) {
+      exceptions += 1;
+    }
     when(this.extraEnergySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You didn't always give <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> enough energy to get
           the full damage bonus. You should aim to have {FB_BASE_COST + MAX_FB_DRAIN} energy before
-          using Ferocious Bite (or {0.8 * FB_BASE_COST + MAX_FB_DRAIN} during{' '}
-          <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
-          ).
-          <br />
-          The only times it is acceptable to use less than the full energy consumption is when using
-          free bite procs like with <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} /> or during
-          <SpellLink id={SPELLS.BERSERK.id} /> when you have{' '}
-          <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} /> - as the extra combo points
-          and energy allow you to maximize bites cast. These exceptions are <strong>not</strong>{' '}
-          being counted in this statistic.
+          using Ferocious Bite.
+          {exceptions === 2 && (
+            <>
+              <br />
+              <br />
+              The two exceptions are:{' '}
+            </>
+          )}
+          {exceptions === 1 && (
+            <>
+              <br />
+              <br />
+              The one exception is:{' '}
+            </>
+          )}
+          {hasSotf && (
+            <>
+              because you have <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} />, during{' '}
+              <SpellLink id={SPELLS.BERSERK.id} /> it is acceptable to cast at minimum energy in
+              order to maximize the number of bites cast
+              {hasApex ? ', and ' : '. '}
+            </>
+          )}
+          {hasApex && (
+            <>
+              because you have <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} /> your free bite
+              procs don't need extra energy because they always count as though they used the extra
+              energy.
+            </>
+          )}
+          {exceptions > 0 && (
+            <>
+              {' '}Exceptions are <strong>excluded</strong> from this statistic - this suggestion is based
+              only on the casts that should have had full energy.
+            </>
+          )}
         </>,
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)

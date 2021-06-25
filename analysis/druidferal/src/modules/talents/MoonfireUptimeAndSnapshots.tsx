@@ -105,6 +105,31 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
+    when(this.tigersFurySnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to maximize the time your <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> is empowered by{' '}
+          <SpellLink id={SPELLS.TIGERS_FURY.id} />. Tiger's Fury buffs Moonfire for its full
+          duration, the trick is to target your Moonfire refreshes to occur during Tiger's Fury.
+          It's acceptable to refresh early to accomplish this, for example refreshing right after
+          casting Tiger's Fury and then again right before it wears off.
+          <br />
+          <br />
+          Still, 100% snapshot uptime isn't practically possible and the impact of this is
+          relatively minor - don't screw up your rotation just to get better snapshotting.
+          {this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT) && (
+            <>
+              {' '}
+              This is especcially true with <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> - MFing
+              to gain a proc takes precedence over good snapshots.
+            </>
+          )}
+        </>,
+      )
+        .icon(SPELLS.MOONFIRE_FERAL.icon)
+        .actual(`${formatPercentage(actual, 1)}% of Moonfire uptime had Tiger's Fury snapshot`)
+        .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
+    );
   }
 
   subStatistic() {
