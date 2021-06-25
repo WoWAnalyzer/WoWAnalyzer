@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-const FEL_CELERITY_REDUCTION_SEC = {
+const FEL_CELERITY_REDUCTION_SEC: { [rank: number]: number } = {
   1: 48,
   2: 51,
   3: 54,
@@ -21,7 +22,7 @@ const FEL_CELERITY_REDUCTION_SEC = {
 };
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       // Rotational spells

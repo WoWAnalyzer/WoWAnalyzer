@@ -1,6 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyDebuffEvent,
+  RefreshDebuffEvent,
+  RemoveDebuffEvent,
+  SpendResourceEvent,
+} from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -14,21 +19,21 @@ const BUFFER = 50;
 const debug = false;
 const REDUCTION_MS_PER_SHARD = 2000;
 
+type ShadowburnedEnemies = {
+  [target: string]: {
+    start: number;
+    expectedEnd: number;
+  };
+};
+
 class SpellUsable extends CoreSpellUsable {
   hasSB = false;
   hasSF = false;
 
-  shadowburnedEnemies = {
-    /*
-    [targetString]: {
-      start: timestamp,
-      expectedEnd: timestamp
-    }
-     */
-  };
+  shadowburnedEnemies: ShadowburnedEnemies = {};
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.hasSB = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
     this.hasSF = this.selectedCombatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
@@ -43,7 +48,7 @@ class SpellUsable extends CoreSpellUsable {
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER), this.onRemoveDebuff);
   }
 
-  onSpendResource(event) {
+  onSpendResource(event: SpendResourceEvent) {
     if (!this.hasSF) {
       return;
     }
@@ -54,7 +59,7 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  _handleShadowburn(event) {
+  _handleShadowburn(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     if (!this.hasSB) {
       return;
     }
@@ -65,7 +70,7 @@ class SpellUsable extends CoreSpellUsable {
     };
   }
 
-  onRemoveDebuff(event) {
+  onRemoveDebuff(event: RemoveDebuffEvent) {
     if (!this.hasSB) {
       return;
     }
