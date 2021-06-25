@@ -246,8 +246,8 @@ class RipUptimeAndSnapshots extends Snapshots {
         suggest(
           <>
             Try to always empower your <SpellLink id={SPELLS.RIP.id} /> with{' '}
-            <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Bloodtalons buffs Rip for its full duration,
-            and you should always have a proc available when refreshing Rip.
+            <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Bloodtalons buffs Rip for its full
+            duration, and you should always have a proc available when refreshing Rip.
           </>,
         )
           .icon(SPELLS.BLOODTALONS_TALENT.icon)

@@ -126,8 +126,9 @@ class FerociousBite extends Analyzer {
           )}
           {exceptions > 0 && (
             <>
-              {' '}Exceptions are <strong>excluded</strong> from this statistic - this suggestion is based
-              only on the casts that should have had full energy.
+              {' '}
+              Exceptions are <strong>excluded</strong> from this statistic - this suggestion is
+              based only on the casts that should have had full energy.
             </>
           )}
         </>,
