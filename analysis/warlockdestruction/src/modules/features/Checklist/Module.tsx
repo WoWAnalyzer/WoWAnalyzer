@@ -26,6 +26,16 @@ class Checklist extends BaseChecklist {
     eradication: Eradication,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected immolateUptime!: ImmolateUptime;
+  protected backdraft!: Backdraft;
+  protected soulShardDetails!: SoulShardDetails;
+  protected soulShardTracker!: SoulShardTracker;
+  protected eradication!: Eradication;
+
   render() {
     return (
       <Component

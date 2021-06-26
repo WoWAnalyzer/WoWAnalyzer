@@ -1,34 +1,37 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
-/*
-  Roaring Blaze (Tier 90 Destruction talent):
-    Conflagrate burns the target for an additional (48% of Spell power) Fire damage over 6 sec.
- */
-class RoaringBlaze extends Analyzer {
+class ChannelDemonfire extends Analyzer {
   get dps() {
     return (this.damage / this.owner.fightDuration) * 1000;
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  protected enemies!: Enemies;
+
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ROARING_BLAZE_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ROARING_BLAZE_DAMAGE),
-      this.onRoaringBlazeDamage,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE),
+      this.onCDFdamage,
     );
   }
 
-  onRoaringBlazeDamage(event) {
-    this.damage += (event.amount || 0) + (event.absorbed || 0);
+  onCDFdamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
@@ -38,7 +41,7 @@ class RoaringBlaze extends Analyzer {
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.ROARING_BLAZE_TALENT}>
+        <BoringSpellValueText spell={SPELLS.CHANNEL_DEMONFIRE_TALENT}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
@@ -49,4 +52,4 @@ class RoaringBlaze extends Analyzer {
   }
 }
 
-export default RoaringBlaze;
+export default ChannelDemonfire;

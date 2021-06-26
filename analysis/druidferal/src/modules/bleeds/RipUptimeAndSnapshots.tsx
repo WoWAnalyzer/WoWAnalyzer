@@ -217,6 +217,44 @@ class RipUptimeAndSnapshots extends Snapshots {
         )
         .recommended('None is recommended'),
     );
+    when(this.tigersFurySnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to maximize the time your <SpellLink id={SPELLS.RIP.id} /> is empowered by{' '}
+          <SpellLink id={SPELLS.TIGERS_FURY.id} />. Tiger's Fury buffs Rip for its full duration,
+          the trick is to target your Rip refreshes to occur during Tiger's Fury. It can be
+          acceptable to refresh a little early or late to accomplish this, but not more than a few
+          seconds in either direction.
+          {this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT) && (
+            <>
+              <br />
+              <br />
+              Because you have <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} />, 100% snapshot uptime
+              should be possible by extending Rips duration such that you can always match a hard
+              refresh to a Tiger's Fury cast.
+            </>
+          )}
+        </>,
+      )
+        .icon(SPELLS.RIP.icon)
+        .actual(`${formatPercentage(actual, 1)}% of Rip uptime had Tiger's Fury snapshot`)
+        .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
+    );
+    // TODO move this to bloodtalons module?
+    if (this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT)) {
+      when(this.bloodTalonsSnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            Try to always empower your <SpellLink id={SPELLS.RIP.id} /> with{' '}
+            <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Bloodtalons buffs Rip for its full
+            duration, and you should always have a proc available when refreshing Rip.
+          </>,
+        )
+          .icon(SPELLS.BLOODTALONS_TALENT.icon)
+          .actual(`${formatPercentage(actual, 1)}% of Rip uptime had Bloodtalons snapshot`)
+          .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
+      );
+    }
   }
 
   subStatistic() {

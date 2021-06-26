@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -15,7 +16,7 @@ const BUFF_DURATION = 10000;
 const REMOVEBUFF_TOLERANCE = 20;
 
 class Backdraft extends Analyzer {
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     const wastedStacksPerMinute = (this.wastedStacks / this.owner.fightDuration) * 1000 * 60;
     return {
       actual: wastedStacksPerMinute,
@@ -24,7 +25,7 @@ class Backdraft extends Analyzer {
         average: 1.5,
         major: 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -34,8 +35,8 @@ class Backdraft extends Analyzer {
   _expectedBuffEnd = 0;
   wastedStacks = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this._maxStacks = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
     this._stacksPerApplication = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id)
       ? 2
@@ -55,7 +56,7 @@ class Backdraft extends Analyzer {
     );
   }
 
-  onConflagrateCast(event) {
+  onConflagrateCast(event: CastEvent) {
     this._currentStacks += this._stacksPerApplication;
     if (this._currentStacks > this._maxStacks) {
       debug && console.log('backdraft stack waste at ', event.timestamp);
@@ -69,7 +70,7 @@ class Backdraft extends Analyzer {
     this._currentStacks -= 1;
   }
 
-  onBackdraftRemove(event) {
+  onBackdraftRemove(event: RemoveBuffEvent) {
     if (event.timestamp >= this._expectedBuffEnd - REMOVEBUFF_TOLERANCE) {
       // if the buff expired when it "should", we wasted some stacks
       debug && console.log('backdraft stack waste at ', event.timestamp);
@@ -78,7 +79,7 @@ class Backdraft extends Analyzer {
     this._currentStacks = 0;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

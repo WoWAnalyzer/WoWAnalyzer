@@ -4,9 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,6 +17,13 @@ import React from 'react';
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
 const debug = false;
+
+type Spell = {
+  timestamp: number;
+  spellId: CastEvent['ability']['guid'];
+  targetID: CastEvent['targetID'];
+  targetInstance: CastEvent['targetInstance'];
+};
 
 /*
   Eradication - Chaos Bolt increases the damage you deal to the target by 10% for 7 sec
@@ -29,7 +37,7 @@ class Eradication extends Analyzer {
     return this._buffedCB / this._totalCB || 0;
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -37,7 +45,7 @@ class Eradication extends Analyzer {
         average: 0.65,
         major: 0.55,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -48,23 +56,17 @@ class Eradication extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
+  protected enemies!: Enemies;
+
   _buffedCB = 0;
   _totalCB = 0;
   bonusDmg = 0;
   // queues spells CAST with target having Eradication (except DoTs)
-  queue = [
-    /*
-    {
-      timestamp
-      spellId
-      targetID
-      targetInstance
-    }
-     */
-  ];
+  queue: Spell[] = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT]),
@@ -73,7 +75,7 @@ class Eradication extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onTravelSpellCast(event) {
+  onTravelSpellCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
@@ -88,7 +90,7 @@ class Eradication extends Analyzer {
     debug && console.log('Pushed a buffed cast into queue', JSON.parse(JSON.stringify(this.queue)));
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCINERATE.id || spellId === SPELLS.CHAOS_BOLT.id) {
       this._handleTravelSpellDamage(event);
@@ -103,7 +105,7 @@ class Eradication extends Analyzer {
     this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
   }
 
-  _handleTravelSpellDamage(event) {
+  _handleTravelSpellDamage(event: DamageEvent) {
     if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
       this._totalCB += 1;
     }
@@ -144,7 +146,7 @@ class Eradication extends Analyzer {
     this.queue.splice(castIndex, 1);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -182,7 +184,7 @@ class Eradication extends Analyzer {
           </small>{' '}
           <br />
           <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
-          {formatPercentage(this.CBpercentage, 0)} %
+          {formatPercentage(this.CBpercentage, 0)} %{' '}
           <TooltipElement content={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}>
             <small>
               buffed Chaos Bolts <sup>*</sup>

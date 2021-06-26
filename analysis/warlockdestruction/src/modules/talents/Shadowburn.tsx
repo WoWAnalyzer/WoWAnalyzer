@@ -1,7 +1,7 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -26,10 +26,14 @@ class Shadowburn extends Analyzer {
     soulShardTracker: SoulShardTracker,
     abilityTracker: AbilityTracker,
   };
+
+  protected soulShardTracker!: SoulShardTracker;
+  protected abilityTracker!: AbilityTracker;
+
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT),
@@ -37,7 +41,7 @@ class Shadowburn extends Analyzer {
     );
   }
 
-  onShadowburnDamage(event) {
+  onShadowburnDamage(event: DamageEvent) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 

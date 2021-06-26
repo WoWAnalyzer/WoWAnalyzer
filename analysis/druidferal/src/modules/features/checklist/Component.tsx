@@ -261,7 +261,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         thresholds={thresholds.ferociousBiteEnergy}
         tooltip="In addition to its base cost of 25 energy, Ferocious Bite consumes up to
             an additional 25 energy to significantly increase its damage. You should aim to always
-            cast full energy bites."
+            cast full energy bites (with the exception of during Berserk if you have the Soul of the
+            Forest talent - this statistic already excludes that exception)"
       />
       <Requirement
         name={<>Low Combo Point finishers</>}
@@ -281,8 +282,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             You should only do this when you need to upgrade a snapshot. This statistic only counts
             the times when you clipped without upgrading."
       />
-      {/* TODO double check this threshold and update to 'seconds clipped per minute'*/}
-
       {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) && (
         <SnapshotRequirement
           spell={SPELLS.FEROCIOUS_BITE.id}

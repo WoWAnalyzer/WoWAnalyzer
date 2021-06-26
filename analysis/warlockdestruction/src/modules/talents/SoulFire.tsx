@@ -1,6 +1,6 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -17,8 +17,11 @@ class SoulFire extends Analyzer {
     soulShardTracker: SoulShardTracker,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected abilityTracker!: AbilityTracker;
+  protected soulShardTracker!: SoulShardTracker;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id);
   }
 

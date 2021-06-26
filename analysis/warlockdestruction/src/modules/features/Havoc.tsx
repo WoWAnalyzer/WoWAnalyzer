@@ -1,7 +1,7 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,14 +16,17 @@ class Havoc extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
+  protected enemies!: Enemies;
+
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp)) {
       return;
