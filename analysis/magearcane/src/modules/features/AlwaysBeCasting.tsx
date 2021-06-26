@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
