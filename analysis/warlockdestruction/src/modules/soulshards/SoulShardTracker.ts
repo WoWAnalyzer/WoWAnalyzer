@@ -202,11 +202,13 @@ class SoulShardTracker extends ResourceTracker {
     // but not something like 34 => 39, before = 4, after = 9
     // also, Chaos Shards can't proc off itself
     if (beforeBuilder > afterBuilder) {
-      this.eventEmitter.fabricateEvent({
+      const event = {
         timestamp: this.owner.currentTimestamp,
         type: EventType.FullShardGained,
         current: this.current,
-      });
+      };
+
+      this.eventEmitter.fabricateEvent(event);
     }
   }
 

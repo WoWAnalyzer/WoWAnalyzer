@@ -2,7 +2,7 @@ import ModuleError from 'parser/core/ModuleError';
 
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
 import EventFilter, { SpellFilter } from '../EventFilter';
-import Events, { Event, EventType, HasAbility, MappedEvent } from '../Events';
+import Events, { EventType, HasAbility, MappedEvent } from '../Events';
 import { EventListener } from '../EventSubscriber';
 import Module, { Options } from '../Module';
 
@@ -15,11 +15,6 @@ type BoundListener<ET extends EventType, E extends MappedEvent<ET>> = {
   module: Module;
   listener: EventListener<ET, E>;
 };
-
-interface FabricatedEvent extends Omit<Event<any>, 'timestamp'> {
-  timestamp?: number | undefined;
-  [prop: string]: any;
-}
 
 /**
  * This (core) module takes care of:
@@ -294,7 +289,7 @@ class EventEmitter extends Module {
     }
   }
 
-  fabricateEvent(event: FabricatedEvent, trigger: any = null) {
+  fabricateEvent(event: { type: EventFilter<any> | string }, trigger: any = null) {
     const fabricatedEvent = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
       timestamp: this.owner.currentTimestamp,
