@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
-  change(date(2021, 4, 3), 'Removed reference to StatisticBox in AlwaysBeCasting feature', Soulhealer95),
+  change(date(2021, 6, 26), 'Removed reference to StatisticBox in AlwaysBeCasting feature', Soulhealer95),
   change(date(2021, 4, 3), 'Verified changes and bumped support to 9.0.5.', Adoraci),
   change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Arcane Mage has not been fully tested/updated for 9.0.5.', Sharrq),
   change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Arcane Mage. Marked Arcane Mage as Unsupported/Unmaintained.', Sharrq),
