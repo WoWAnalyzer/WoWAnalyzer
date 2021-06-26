@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
@@ -15,7 +16,7 @@ class ImmolateUptime extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -23,7 +24,7 @@ class ImmolateUptime extends Analyzer {
         average: 0.85,
         major: 0.75,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -31,7 +32,9 @@ class ImmolateUptime extends Analyzer {
     enemies: Enemies,
   };
 
-  suggestions(when) {
+  protected enemies!: Enemies;
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
+  CooldownSpell,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
-  static cooldownSpells = [
+  static cooldownSpells: CooldownSpell[] = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.DARK_SOUL_INSTABILITY_TALENT.id,
@@ -12,7 +13,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  static castCooldowns = [
+  static castCooldowns: CooldownSpell[] = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
       spell: SPELLS.HAVOC.id,

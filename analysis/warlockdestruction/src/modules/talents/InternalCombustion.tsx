@@ -1,7 +1,7 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -18,8 +18,8 @@ class InternalCombustion extends Analyzer {
 
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INTERNAL_COMBUSTION_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_COMBUSTION_DAMAGE),
@@ -27,7 +27,7 @@ class InternalCombustion extends Analyzer {
     );
   }
 
-  onInternalCombustionDamage(event) {
+  onInternalCombustionDamage(event: DamageEvent) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 

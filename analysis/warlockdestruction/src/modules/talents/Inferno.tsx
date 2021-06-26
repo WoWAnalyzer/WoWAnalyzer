@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -36,8 +36,12 @@ class Inferno extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected rainOfFire!: RainOfFire;
+  protected soulShardTracker!: SoulShardTracker;
+  protected abilityTracker!: AbilityTracker;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
   }
 

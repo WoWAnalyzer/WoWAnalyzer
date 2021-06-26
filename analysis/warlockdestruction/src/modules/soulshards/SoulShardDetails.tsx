@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import { AlertWarning } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -13,7 +14,7 @@ import '@wowanalyzer/warlock/src/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
 
 class SoulShardDetails extends Analyzer {
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     const fragmentsWasted = this.soulShardTracker.wasted;
     const fragmentsWastedPerMinute = (fragmentsWasted / this.owner.fightDuration) * 1000 * 60;
 
@@ -25,7 +26,7 @@ class SoulShardDetails extends Analyzer {
         average: 3, // 3 fragments per minute (3 shards in 10 minutes)
         major: 5, // 5 fragments per minute (5 shards in 10 minutes)
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -33,7 +34,9 @@ class SoulShardDetails extends Analyzer {
     soulShardTracker: SoulShardTracker,
   };
 
-  suggestions(when) {
+  protected soulShardTracker!: SoulShardTracker;
+
+  suggestions(when: When) {
     const fragmentsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

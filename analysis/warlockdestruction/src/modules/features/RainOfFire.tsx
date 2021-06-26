@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Haste from 'parser/shared/modules/Haste';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -12,6 +12,14 @@ const BUFFER = 100;
 const BASE_ROF_DURATION = 8000;
 const debug = false;
 
+type RoFCast = {
+  timestamp: number;
+  expectedEnd: number;
+  targetsHit: string[];
+  periods: number[];
+  lastTickTimestamp: number | null;
+};
+
 // Tries to estimate "effectiveness" of Rain of Fires - counting average targets hit by each RoF (unique targets hit)
 class RainOfFire extends Analyzer {
   get _expectedRoFduration() {
@@ -19,29 +27,20 @@ class RainOfFire extends Analyzer {
   }
 
   get averageTargetsHit() {
-    // first, maps the casts to the targets hit, resulting in array of array of strings
-    // [].concat(...array) just flattens it into single array of strings
-    const allTargetsHit = [].concat(...this.casts.map((cast) => cast.targetsHit));
+    const allTargetsHit = this.casts.flatMap((cast) => cast.targetsHit);
     return allTargetsHit.length / this.casts.length || 0;
   }
 
   static dependencies = {
     haste: Haste,
   };
-  casts = [
-    /*
-      {
-        timestamp: number,
-        expectedEnd: number,
-        targetsHit: [string...],
-        periods: [number...],
-        lastTickTimestamp: number,
-      }
-     */
-  ];
 
-  constructor(...args) {
-    super(...args);
+  protected haste!: Haste;
+
+  casts: RoFCast[] = [];
+
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_CAST),
       this.onRainCast,
@@ -52,7 +51,7 @@ class RainOfFire extends Analyzer {
     );
   }
 
-  onRainCast(event) {
+  onRainCast(event: CastEvent) {
     this.casts.push({
       timestamp: event.timestamp,
       expectedEnd: event.timestamp + this._expectedRoFduration,
@@ -62,7 +61,7 @@ class RainOfFire extends Analyzer {
     });
   }
 
-  onRainDamage(event) {
+  onRainDamage(event: DamageEvent) {
     // filter ROF that should be still active
     const filtered = this.casts.filter((cast) => event.timestamp <= cast.expectedEnd + BUFFER);
     const target = encodeTargetString(event.targetID, event.targetInstance);
@@ -85,7 +84,7 @@ class RainOfFire extends Analyzer {
       // multiple ROFs active
       // if any cast's last tick is within 100ms of current timestamp, it's probably still the same tick
       const possibleCurrentTickCast = filtered.find(
-        (cast) => event.timestamp <= cast.lastTickTimestamp + BUFFER,
+        (cast) => event.timestamp <= (cast.lastTickTimestamp || 0) + BUFFER,
       );
       if (possibleCurrentTickCast) {
         if (!possibleCurrentTickCast.targetsHit.includes(target)) {
@@ -119,7 +118,7 @@ class RainOfFire extends Analyzer {
     }
   }
 
-  _getAveragePeriod(cast) {
+  _getAveragePeriod(cast: RoFCast) {
     // gets average period of cast of Rain of Fire, or estimates one from the duration of Rain of Fire (it should always tick 8 times)
     if (cast.periods.length > 0) {
       return cast.periods.reduce((total, current) => total + current, 0) / cast.periods.length || 0;

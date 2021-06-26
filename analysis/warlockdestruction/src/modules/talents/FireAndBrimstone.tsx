@@ -2,9 +2,10 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -12,17 +13,23 @@ import React from 'react';
 
 const debug = false;
 
+type Target = {
+  timestamp: number;
+  targetID: CastEvent['targetID'];
+  targetInstance: CastEvent['targetInstance'];
+};
+
 class FireAndBrimstone extends Analyzer {
   get dps() {
     return (this.bonusDmg / this.owner.fightDuration) * 1000;
   }
 
-  _primaryTargets = [];
+  _primaryTargets: Target[] = [];
   bonusFragments = 0;
   bonusDmg = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE),
@@ -34,7 +41,7 @@ class FireAndBrimstone extends Analyzer {
     );
   }
 
-  onIncinerateCast(event) {
+  onIncinerateCast(event: CastEvent) {
     debug && this.log(`Storing Incinerate cast on ${event.targetID}, ${event.targetInstance}`);
     this._primaryTargets.push({
       timestamp: event.timestamp,
@@ -43,7 +50,7 @@ class FireAndBrimstone extends Analyzer {
     });
   }
 
-  onIncinerateDamage(event) {
+  onIncinerateDamage(event: DamageEvent) {
     // should find FIRST (oldest) Incinerate cast, so even though you can fire multiple Incinerates before the first hits, this should pair the events correctly even if they have the same ID and instance
     const primaryTargetEventIndex = this._primaryTargets.findIndex(
       (primary) =>
@@ -62,7 +69,7 @@ class FireAndBrimstone extends Analyzer {
     debug && this.log(`Current bonus fragments: ${this.bonusFragments}`);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     // this is incorrect in certain situations with pre-casted Incinerates, but there's very little I can do about it
     // example: pre-cast Incinerate -> *combat starts* -> hard cast Incinerate -> first Incinerate lands -> second Incinerate lands
     // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved

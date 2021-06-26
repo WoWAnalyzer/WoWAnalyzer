@@ -76,6 +76,9 @@ export enum EventType {
   //Shaman
   FeedHeal = 'feed_heal',
 
+  // Warlock
+  FullShardGained = 'fullshardgained',
+
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',
