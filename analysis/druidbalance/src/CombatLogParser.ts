@@ -1,6 +1,6 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
-import { ConvokeSpirits } from '@wowanalyzer/druid';
+import { AdaptiveSwarmDamageDealer, ConvokeSpirits } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
@@ -56,6 +56,7 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
     //Covenants
     convokeSpirits: ConvokeSpirits,
+    adaptiveSwarm: AdaptiveSwarmDamageDealer,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

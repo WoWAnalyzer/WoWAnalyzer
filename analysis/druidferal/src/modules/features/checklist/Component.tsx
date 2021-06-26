@@ -390,6 +390,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
         <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
       )}
+      {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+        <CastEfficiencyRequirement spell={SPELLS.RAVENOUS_FRENZY.id} />
+      )}
       {combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id) && (
         <CastEfficiencyRequirement spell={getHeartOfTheWildSpellId(combatant)} />
       )}

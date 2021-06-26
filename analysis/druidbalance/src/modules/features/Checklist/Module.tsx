@@ -4,6 +4,8 @@ import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
+import { AdaptiveSwarmDamageDealer } from '@wowanalyzer/druid';
+
 import AstralPowerDetails from '../../resourcetracker/AstralPowerDetails';
 import StellarFlareUptime from '../../talents/StellarFlareUptime';
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -27,6 +29,7 @@ class Checklist extends BaseModule {
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
+    adaptiveSwarm: AdaptiveSwarmDamageDealer,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -39,6 +42,7 @@ class Checklist extends BaseModule {
   protected earlyDotRefreshes!: EarlyDotRefreshes;
   protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected astralPowerDetails!: AstralPowerDetails;
+  protected adaptiveSwarm!: AdaptiveSwarmDamageDealer;
 
   render() {
     return (
@@ -57,6 +61,7 @@ class Checklist extends BaseModule {
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
           astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
+          adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
         }}
       />
     );
