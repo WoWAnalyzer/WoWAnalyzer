@@ -28,6 +28,20 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 100,
       },
       {
+        spell: SPELLS.RAVENOUS_FRENZY.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: (c: Combatant) => (c.spec === SPECS.FERAL_DRUID ? 1000 : 1500),
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        timelineSortIndex: 100,
+      },
+      {
         spell: SPELLS.ADAPTIVE_SWARM.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 25,

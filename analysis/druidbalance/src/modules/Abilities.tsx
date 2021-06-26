@@ -44,8 +44,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 5,
       },
       {
-        spell: SPELLS.MOONFIRE.id,
-        buffSpellId: SPELLS.MOONFIRE_BEAR.id,
+        spell: SPELLS.MOONFIRE_CAST.id,
+        buffSpellId: SPELLS.MOONFIRE_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,

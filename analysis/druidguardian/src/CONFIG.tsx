@@ -24,7 +24,7 @@ export default {
       The guardian toolkit is big and diverse, and knowing every corner of it is the key to success.
       The most important thing is to keep your hard-hitting, rage generating spells on cooldown at
       all times (<SpellLink id={SPELLS.THRASH_BEAR.id} />, <SpellLink id={SPELLS.MANGLE_BEAR.id} />,{' '}
-      <SpellLink id={SPELLS.MOONFIRE.id} /> with{' '}
+      <SpellLink id={SPELLS.MOONFIRE_CAST.id} /> with{' '}
       <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} />
       ). Keep <SpellLink id={SPELLS.IRONFUR.id} /> up when you're tanking the boss, use{' '}
       <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> when you're low or taking heavy damage, use{' '}

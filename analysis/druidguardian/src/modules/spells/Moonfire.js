@@ -17,7 +17,7 @@ class Moonfire extends Analyzer {
 
   suggestions(when) {
     const moonfireUptimePercentage =
-      this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
+      this.enemies.getBuffUptime(SPELLS.MOONFIRE_DEBUFF.id) / this.owner.fightDuration;
 
     when(moonfireUptimePercentage)
       .isLessThan(0.95)
@@ -25,12 +25,12 @@ class Moonfire extends Analyzer {
         suggest(
           <span>
             {' '}
-            Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was{' '}
+            Your <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> uptime was{' '}
             {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of
             downtime it should be near 100%.
           </span>,
         )
-          .icon(SPELLS.MOONFIRE_BEAR.icon)
+          .icon(SPELLS.MOONFIRE_DEBUFF.icon)
           .actual(
             t({
               id: 'druid.guardian.suggestions.moonfire.uptime',
@@ -45,7 +45,7 @@ class Moonfire extends Analyzer {
 
   statistic() {
     const moonfireUptimePercentage =
-      this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
+      this.enemies.getBuffUptime(SPELLS.MOONFIRE_DEBUFF.id) / this.owner.fightDuration;
 
     return (
       <Statistic
@@ -61,7 +61,7 @@ class Moonfire extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.MOONFIRE_BEAR.id} /> Moonfire uptime{' '}
+              <SpellIcon id={SPELLS.MOONFIRE_DEBUFF.id} /> Moonfire uptime{' '}
             </>
           }
         >

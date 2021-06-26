@@ -23,7 +23,7 @@ const RAGE_GENERATORS = {
   [SPELLS.MELEE.id]: 'Melee',
   [SPELLS.MANGLE_BEAR.id]: 'Mangle',
   [SPELLS.THRASH_BEAR.id]: 'Thrash',
-  [SPELLS.MOONFIRE.id]: 'Moonfire (Galactic Guardian)',
+  [SPELLS.MOONFIRE_CAST.id]: 'Moonfire (Galactic Guardian)',
   [SPELLS.BLOOD_FRENZY_TICK.id]: 'Blood Frenzy',
   [SPELLS.BRISTLING_FUR.id]: 'Bristling Fur',
   [SPELLS.OAKHEARTS_PUNY_QUODS_BUFF.id]: "Oakheart's Puny Quods",

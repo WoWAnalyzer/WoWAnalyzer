@@ -433,13 +433,14 @@ const spells = {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  // "MOONFIRE_BEAR" is actually the debuff left by Moonfire for all forms, all specs
-  MOONFIRE_BEAR: {
+  MOONFIRE_DEBUFF: {
+    // the caster form and bear form debuff and damage ID
     id: 164812,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
-  MOONFIRE: {
+  MOONFIRE_CAST: {
+    // the caster form and bear form cast ID
     id: 8921,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',

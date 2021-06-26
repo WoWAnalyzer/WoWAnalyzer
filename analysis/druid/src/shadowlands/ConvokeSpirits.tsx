@@ -38,8 +38,7 @@ export const CONVOKE_BUFF_SPELLS = [
 ];
 /** All convokable spells that 'hit' with a debuff application */
 export const CONVOKE_DEBUFF_SPELLS = [
-  SPELLS.MOONFIRE,
-  SPELLS.MOONFIRE_BEAR,
+  SPELLS.MOONFIRE_DEBUFF,
   SPELLS.MOONFIRE_FERAL,
   SPELLS.RAKE_BLEED,
   SPELLS.THRASH_BEAR_DOT,
@@ -69,8 +68,7 @@ export const SPELLS_WITH_TRAVEL_TIME = [
 export const SPELL_IDS_WITH_TRAVEL_TIME = SPELLS_WITH_TRAVEL_TIME.map((s) => s.id);
 /** Convokable spells that can hit multiple targets */
 export const SPELL_IDS_WITH_AOE = [
-  SPELLS.MOONFIRE.id,
-  SPELLS.MOONFIRE_BEAR.id,
+  SPELLS.MOONFIRE_DEBUFF.id,
   SPELLS.MOONFIRE_FERAL.id,
   SPELLS.FULL_MOON.id,
   SPELLS.THRASH_BEAR_DOT.id,
