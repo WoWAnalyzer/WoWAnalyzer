@@ -137,6 +137,10 @@ export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
 };
+export const Soulhealer95: Contributor = {
+  nickname: 'Soulhealer',
+  github: 'Soulhealer95',
+};
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
   github: 'Salarissia',
