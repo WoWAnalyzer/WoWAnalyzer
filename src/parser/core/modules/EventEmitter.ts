@@ -288,7 +288,7 @@ class EventEmitter extends Module {
       currentBatch.forEach((item) => item());
     }
   }
-
+  // todo double check this 'event' shape... seems wrong
   fabricateEvent(event: { type: EventFilter<any> | string }, trigger: any = null) {
     const fabricatedEvent = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
