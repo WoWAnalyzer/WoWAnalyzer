@@ -1,7 +1,7 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,12 +16,14 @@ class Cataclysm extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  _castTimestamp = null;
-  _currentCastCount = 0;
-  casts = [];
+  protected abilityTracker!: AbilityTracker;
 
-  constructor(...args) {
-    super(...args);
+  _castTimestamp: number | null = null;
+  _currentCastCount = 0;
+  casts: number[] = [];
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CATACLYSM_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT),
@@ -34,7 +36,7 @@ class Cataclysm extends Analyzer {
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onCataclysmCast(event) {
+  onCataclysmCast(event: CastEvent) {
     if (this._castTimestamp !== null) {
       // we've casted Cataclysm at least once, so we should add the current (at this time the previous) cast first before resetting the counter
       this.casts.push(this._currentCastCount);
@@ -43,8 +45,8 @@ class Cataclysm extends Analyzer {
     this._currentCastCount = 0;
   }
 
-  onCataclysmDamage(event) {
-    if (event.timestamp <= this._castTimestamp + BUFFER) {
+  onCataclysmDamage(event: DamageEvent) {
+    if (this._castTimestamp !== null && event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
     } else {
       debug && this.log('Cataclysm damage outside of the 100ms buffer after cast');

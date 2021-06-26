@@ -1,6 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -8,8 +12,19 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const DestructionWarlockChecklist = ({ combatant, castEfficiency, thresholds, shardTracker }) => {
-  const AbilityRequirement = (props) => (
+import SoulShardTracker from '../../soulshards/SoulShardTracker';
+
+interface Props extends ChecklistProps {
+  shardTracker: SoulShardTracker;
+}
+
+const DestructionWarlockChecklist = ({
+  combatant,
+  castEfficiency,
+  thresholds,
+  shardTracker,
+}: Props) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
