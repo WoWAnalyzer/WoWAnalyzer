@@ -8,8 +8,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 const DOTS = [
   {
     name: 'Moonfire',
-    debuffId: SPELLS.MOONFIRE_BEAR.id,
-    castId: SPELLS.MOONFIRE.id,
+    debuffId: SPELLS.MOONFIRE_DEBUFF.id,
+    castId: SPELLS.MOONFIRE_CAST.id,
     duration: 22000,
     movementFiller: true,
   },
@@ -29,7 +29,7 @@ const MAJOR_THRESHOLD = 0.6;
 class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   get suggestionThresholdsMoonfire() {
     return {
-      spell: SPELLS.MOONFIRE_BEAR,
+      spell: SPELLS.MOONFIRE_DEBUFF,
       count: this.casts[DOTS[0].castId].badCasts,
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
@@ -57,7 +57,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
 
   get suggestionThresholdsMoonfireEfficiency() {
     return {
-      spell: SPELLS.MOONFIRE_BEAR,
+      spell: SPELLS.MOONFIRE_DEBUFF,
       actual: 1 - this.badCastsPercent(DOTS[0].castId),
       isLessThan: {
         minor: MINOR_THRESHOLD,

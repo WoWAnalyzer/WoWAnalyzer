@@ -44,7 +44,7 @@ describe('Druid/Feral/Normalizers/BleedDebuffEvents', () => {
         {
           testid: 3,
           timestamp: 1,
-          ability: { guid: SPELLS.MOONFIRE_BEAR.id },
+          ability: { guid: SPELLS.MOONFIRE_DEBUFF.id },
           type: EventType.ApplyDebuff,
         },
         {

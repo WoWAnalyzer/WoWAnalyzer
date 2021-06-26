@@ -48,7 +48,7 @@ const PERIODIC_HEALS: SpellInfo[] = [
 
 const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.THRASH_BEAR_DOT,
-  SPELLS.MOONFIRE_BEAR, // apparently the DoT for everyone
+  SPELLS.MOONFIRE_DEBUFF,
   SPELLS.SUNFIRE,
   SPELLS.RIP,
   SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation

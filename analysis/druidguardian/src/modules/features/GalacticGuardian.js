@@ -32,7 +32,7 @@ class GalacticGuardian extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GALACTIC_GUARDIAN),
       this.onRefreshBuff,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE_CAST), this.onCast);
   }
 
   onApplyBuff(event) {

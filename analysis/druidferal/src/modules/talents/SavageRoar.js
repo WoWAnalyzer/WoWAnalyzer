@@ -37,7 +37,7 @@ const AFFECTED_BY_SAVAGE_ROAR = [
   SPELLS.SWIPE_CAT,
   SPELLS.FERAL_FRENZY_TALENT,
   SPELLS.MAIM,
-  SPELLS.MOONFIRE, // not really a cat ability, but is affected
+  SPELLS.MOONFIRE_DEBUFF, // not really a cat ability, but is affected
 ];
 
 /**

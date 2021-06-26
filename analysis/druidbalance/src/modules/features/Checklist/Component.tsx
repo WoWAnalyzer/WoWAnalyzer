@@ -49,7 +49,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime
+              <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> uptime
             </>
           }
           thresholds={thresholds.moonfireUptime}
@@ -80,7 +80,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> good refreshes
+              <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> good refreshes
             </>
           }
           thresholds={thresholds.moonfireRefresh}

@@ -432,7 +432,7 @@ class Abilities extends CoreAbilities {
       },
       {
         // Moonfire from caster, bear, and moonkin forms. See MOONFIRE_FERAL for cat
-        spell: SPELLS.MOONFIRE.id,
+        spell: SPELLS.MOONFIRE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
