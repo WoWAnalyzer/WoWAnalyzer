@@ -152,8 +152,6 @@ class StatTracker extends Analyzer {
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
     [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
 
-    // Highmountain Tauren 1% Buff
-    [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
     // endregion
   };
 
@@ -182,6 +180,9 @@ class StatTracker extends Analyzer {
   statMultiplierBuffs: StatMultipliersByGuid = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
+
+    // Highmountain Tauren 1% Buff
+    [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
   };
 
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
