@@ -94,6 +94,19 @@ export const Zerotorescue: Contributor = {
     },
   ],
 };
+
+export const Fashathus: Contributor = {
+  nickname: 'Fashathus',
+  github: 'SethEArnold',
+  discord: 'Fashathus#7292',
+  mains: [
+    {
+      name: 'Fashathus',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/us/thrall/fashathus',
+    },
+  ],
+};
 export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
