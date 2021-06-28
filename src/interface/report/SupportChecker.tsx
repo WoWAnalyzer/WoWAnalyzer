@@ -38,7 +38,7 @@ const SupportChecker = ({
 
   const isIgnored = ignored.includes(config.spec.id);
 
-  if (!isIgnored && (!config.patchCompatibility || !isLatestPatch(config.patchCompatibility))) {
+  if (!isIgnored && !isLatestPatch(config)) {
     return (
       <SupportCheckerSpecOutOfDate
         report={report}

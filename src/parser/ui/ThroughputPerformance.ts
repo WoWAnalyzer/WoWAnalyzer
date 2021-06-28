@@ -1,6 +1,8 @@
 import fetchWcl from 'common/fetchWclApi';
 import { WCLRanking, WCLRankingsResponse } from 'common/WCL_TYPES';
 import SPECS from 'game/SPECS';
+import VERSIONS from 'game/VERSIONS';
+import Config from 'parser/Config';
 import PropTypes from 'prop-types';
 import React, { ReactNode } from 'react';
 
@@ -79,10 +81,10 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
       difficulty: parser.fight.difficulty,
       metric: this.props.metric,
       // hehe jk this is actually the opposite of a cache key since without this it would be cached indefinitely. This is more like a "cache bust key" in that this changes weekly so that it auto-refreshes weekly. Super clever.
-      cache: this._getCacheKey(parser.selectedCombatant.spec.index),
+      cache: this._getCacheKey(parser.selectedCombatant.spec.index, parser.config),
     });
   }
-  _getCacheKey(specIndex: number) {
+  _getCacheKey(specIndex: number, config: Config) {
     // We want to cache data for 1 week. To avoid refreshing all specs at at the same time, we also want to stagger the requests.
     // We achieve this by adding a static amount of time to `now` based on the spec index (0-35).
     const specStaggerOffset = (DAYS_PER_WEEK * SECONDS_PER_DAY * specIndex) / TOTAL_SPECS;
@@ -97,7 +99,7 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
         1) /
         DAYS_PER_WEEK,
     );
-    return `${staggeredWeek}-${process.env.REACT_APP_CURRENT_GAME_PATCH}`; // current calendar-week
+    return `${staggeredWeek}-${VERSIONS[config.expansion] || ''}`; // current calendar-week
   }
   _getRank(rankings: WCLRanking[], desiredRank: number) {
     return rankings[desiredRank - 1];

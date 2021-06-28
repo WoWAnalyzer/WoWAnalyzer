@@ -1,5 +1,6 @@
 import { ChangelogEntry } from 'common/changelog';
 import { Contributor } from 'common/contributor';
+import Expansion from 'game/Expansion';
 import { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
@@ -34,6 +35,7 @@ interface Config {
    * they may be removed after major changes or during a new expansion.
    */
   contributors: Contributor[];
+  expansion: Expansion;
   /**
    * The WoW client patch this spec is compatible with.
    */
@@ -94,10 +96,6 @@ interface Config {
    * specifies which spec this parser is about.
    */
   spec: Spec;
-  /**
-   * The expansion this config is for, if not the latest retail expansion.
-   */
-  expansion?: 'tbc' | string;
   /**
    * The contents of your changelog.
    */
