@@ -5,6 +5,7 @@ import getFightName from 'common/getFightName';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { fetchCharacter } from 'interface/actions/characters';
 import { setCombatants } from 'interface/actions/combatants';
 import ActivityIndicator from 'interface/ActivityIndicator';
@@ -254,7 +255,9 @@ class PlayerLoader extends React.PureComponent<Props, State> {
     const player = players[0];
     const hasDuplicatePlayers = players.length > 1;
     const combatant = player && combatants.find((combatant) => combatant.sourceID === player.id);
-    const config = combatant && getConfig(combatant.specID, player.type);
+    const config =
+      combatant &&
+      getConfig(wclGameVersionToExpansion(report.gameVersion), combatant.specID, player.type);
     if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
       if (player) {
         // Player data was in the report, but there was another issue
@@ -338,24 +341,8 @@ class PlayerLoader extends React.PureComponent<Props, State> {
           {combatants.length === 0 && <AdvancedLoggingWarning />}
 
           <PlayerSelection
-            players={report.friendlies.flatMap((friendly) => {
-              const combatant = combatants.find((combatant) => combatant.sourceID === friendly.id);
-              if (!combatant) {
-                return [];
-              }
-              const exportedCharacter = report.exportedCharacters
-                ? report.exportedCharacters.find((char) => char.name === friendly.name)
-                : null;
-
-              return [
-                {
-                  ...friendly,
-                  combatant,
-                  server: exportedCharacter?.server,
-                  region: exportedCharacter?.region,
-                },
-              ];
-            })}
+            report={report}
+            combatants={combatants}
             makeUrl={(playerId) => makeAnalyzerUrl(report, fight.id, playerId)}
           />
           <ReportRaidBuffList combatants={combatants} />

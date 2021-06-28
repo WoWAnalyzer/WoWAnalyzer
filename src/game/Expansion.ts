@@ -1,5 +1,5 @@
 enum Expansion {
-  Classic = 1,
+  Vanilla = 1,
   TheBurningCrusade = 2,
   WrathOfTheLichKing = 3,
   Cataclysm = 4,

@@ -7,3 +7,20 @@ const VERSIONS: Partial<{ [expansion in Expansion]: string }> = {
 };
 
 export default VERSIONS;
+
+export const WCL_GAME_VERSIONS: Partial<{ [expansion in Expansion]: number }> = {
+  [Expansion.Shadowlands]: 1,
+  [Expansion.Vanilla]: 2,
+  [Expansion.TheBurningCrusade]: 3,
+};
+
+export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
+  switch (gameVersion) {
+    case 2:
+      return Expansion.Vanilla;
+    case 3:
+      return Expansion.TheBurningCrusade;
+    default:
+      return Expansion.Shadowlands;
+  }
+};

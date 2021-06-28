@@ -1,10 +1,15 @@
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import { CombatantInfoEvent } from 'parser/core/Events';
+import Report from 'parser/core/Report';
+import getConfig from 'parser/getConfig';
 import React from 'react';
 
-import './PlayerSelection.scss';
 import Player from '../../parser/core/Player';
 import PlayerTile from './PlayerTile';
+
+import './PlayerSelection.scss';
 
 const ROLE_SORT_KEY: { [key: string]: number } = {
   [ROLES.TANK]: 0,
@@ -35,15 +40,45 @@ function sortPlayers(a: Player, b: Player) {
 }
 
 interface Props {
-  players: Player[];
+  report: Report;
+  combatants: CombatantInfoEvent[];
   makeUrl: (playerId: number) => string;
 }
 
-const PlayerSelection = ({ players, makeUrl }: Props) => (
+const PlayerSelection = ({ report, combatants, makeUrl }: Props) => (
   <div className="player-selection">
-    {players.sort(sortPlayers).map((player) => (
-      <PlayerTile key={player.guid} player={player} makeUrl={makeUrl} />
-    ))}
+    {report.friendlies
+      .flatMap((friendly) => {
+        const combatant = combatants.find((combatant) => combatant.sourceID === friendly.id);
+        if (!combatant) {
+          return [];
+        }
+        const exportedCharacter = report.exportedCharacters
+          ? report.exportedCharacters.find((char) => char.name === friendly.name)
+          : null;
+
+        return [
+          {
+            ...friendly,
+            combatant,
+            server: exportedCharacter?.server,
+            region: exportedCharacter?.region,
+          },
+        ];
+      })
+      .sort(sortPlayers)
+      .map((player) => (
+        <PlayerTile
+          key={player.guid}
+          player={player}
+          makeUrl={makeUrl}
+          config={getConfig(
+            wclGameVersionToExpansion(report.gameVersion),
+            player.combatant.specID,
+            player.type,
+          )}
+        />
+      ))}
   </div>
 );
 
