@@ -21,8 +21,14 @@ interface Props {
   ignored: number[];
 }
 
-const SupportChecker = (props: Props) => {
-  const { children, report, fight, player, ignored, ignoreSpecNotSupportedWarning } = props;
+const SupportChecker = ({
+  children,
+  report,
+  fight,
+  player,
+  ignored,
+  ignoreSpecNotSupportedWarning,
+}: Props) => {
   const config = useConfig();
 
   const handleClickContinue = () => {

@@ -8,12 +8,13 @@ import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import Background from 'interface/report/images/weirdnelf.png';
+import { getBuild, getResultTab } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface Props {
   report: unknown;
@@ -34,6 +35,10 @@ const SupportCheckerIssue = ({
   children,
   onContinueAnyway,
 }: Props) => {
+  const location = useLocation();
+  const selectedTab = getResultTab(location.pathname);
+  const build = getBuild(location.pathname) || undefined;
+
   const maintainers = (
     <ReadableListing>
       {contributors.map((contributor) => (
@@ -95,7 +100,7 @@ const SupportCheckerIssue = ({
               }
             >
               <Link
-                to={makeAnalyzerUrl(report, fight.id, player.id)}
+                to={makeAnalyzerUrl(report, fight.id, player.id, selectedTab, build)}
                 onClick={onContinueAnyway}
                 style={{ fontSize: '1.2em' }}
               >
