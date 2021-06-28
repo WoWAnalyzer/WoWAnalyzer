@@ -6,6 +6,8 @@ import * as SPELLS from '../SPELLS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
+    const build = this.owner.build;
+
     return [
       {
         spell: SPELLS.AUTO_SHOT,
@@ -26,6 +28,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [3044, 14281, 14282, 14283, 14284, 14285, 14286, 14287],
       },
       {
         spell: SPELLS.MULTI_SHOT,
@@ -34,6 +37,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [2643, 14288, 14289, 14290, 25294],
       },
       {
         spell: SPELLS.KILL_COMMAND,
@@ -49,6 +53,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [19434, 20900, 20901, 20902, 20903, 20904],
       },
       {
         spell: SPELLS.RAPTOR_STRIKE,
@@ -57,6 +62,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [2973, 14260, 14261, 14262, 14263, 14264, 14265, 14266],
       },
       {
         spell: SPELLS.SERPENT_STING,
@@ -64,11 +70,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [1978, 13549, 13550, 13551, 13552, 13553, 13554, 13555, 25295],
       },
       {
         spell: SPELLS.RAPID_FIRE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 300 - (this.owner.build === Build.DEFAULT ? 120 : 0),
+        cooldown: 300 - (build === Build.DEFAULT ? 120 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -91,6 +98,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [13165, 14318, 14319, 14320, 14321, 14322, 25296],
       },
       {
         spell: SPELLS.ASPECT_OF_THE_VIPER,
@@ -120,6 +128,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [19421, 19422, 19423, 19424],
       },
       // Traps
       {
@@ -129,6 +138,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        lowerRanks: [13813, 14316, 14317],
       },
     ];
   }

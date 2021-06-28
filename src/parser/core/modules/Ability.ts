@@ -140,6 +140,10 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * The spell ID that'll forcibly shown on the timeline if set.
    */
   shownSpell?: number;
+  /**
+   * All lower ranks for the spell.
+   */
+  lowerRanks?: number[];
 }
 
 class Ability {
