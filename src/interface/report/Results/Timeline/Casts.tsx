@@ -290,7 +290,8 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
 
   const renderMovement = ({ start: movementStart, end, distance }: MovementInstance) => {
     const left = getOffsetLeft(movementStart);
-    const fightDuration = movementStart - start;
+    const movementStartRelative = movementStart - start;
+    const movementEndRelative = end - start;
     const duration = end - movementStart;
 
     return (
@@ -298,9 +299,9 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
         key={`channel-${left}-movement`}
         content={
           <Trans id="interface.report.results.timeline.movement">
-            {formatDuration(fightDuration, 3)}: there was {distance.toFixed(1)} yards movement
-            within this period. The start and stop time of the movement may vary due to incomplete
-            log data.
+            {formatDuration(movementStartRelative, 3)} - {formatDuration(movementEndRelative, 3)}:
+            there was {distance.toFixed(1)} yards movement within this period. The start and stop
+            time of the movement may vary due to incomplete log data.
           </Trans>
         }
       >
