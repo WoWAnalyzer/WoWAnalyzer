@@ -21,6 +21,7 @@ class DistanceMoved extends Analyzer {
   totalDistanceMoved = 0;
   timeSpentMoving = 0;
   bySecond = new Map<number, number>();
+  instances: Array<{ start: number; end: number; distance: number }> = [];
 
   constructor(options: Options) {
     super(options);
@@ -48,24 +49,26 @@ class DistanceMoved extends Analyzer {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
   }
 
-  updateTotalDistance(newData: PositionalData) {
+  updateDistance(newData: PositionalData) {
     if (!this.lastPosition) {
       return;
     }
-    const distanceMoved = this.calculateDistance(
+    const distance = this.calculateDistance(
       this.lastPosition.x,
       this.lastPosition.y,
       newData.x,
       newData.y,
     );
-    if (distanceMoved !== 0) {
+    if (distance !== 0) {
       this.timeSpentMoving += newData.timestamp - this.lastPosition.timestamp;
-      this.totalDistanceMoved += distanceMoved;
+      this.totalDistanceMoved += distance;
       const secondsIntoFight = Math.floor((newData.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond.set(
-        secondsIntoFight,
-        (this.bySecond.get(secondsIntoFight) || 0) + distanceMoved,
-      );
+      this.bySecond.set(secondsIntoFight, (this.bySecond.get(secondsIntoFight) || 0) + distance);
+      this.instances.push({
+        start: this.lastPosition.timestamp,
+        end: newData.timestamp,
+        distance: distance,
+      });
     }
   }
 
@@ -78,7 +81,7 @@ class DistanceMoved extends Analyzer {
       y: event.y,
       timestamp: event.timestamp,
     };
-    this.updateTotalDistance(updatedPosition);
+    this.updateDistance(updatedPosition);
     if (
       !this.lastPositionChange ||
       this.lastPositionChange.x !== updatedPosition.x ||
