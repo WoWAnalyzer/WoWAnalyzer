@@ -1,4 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
+import Combatant from 'parser/core/Combatant';
 
 export const DAMAGING_ABILITIES = [
   SPELLS.STARSURGE_MOONKIN.id,
@@ -13,4 +15,33 @@ export const DAMAGING_ABILITIES = [
   SPELLS.HALF_MOON.id,
 ];
 
-export default DAMAGING_ABILITIES;
+export function cooldownAbility(combatant: Combatant): Spell {
+  return combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
+    ? SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT
+    : SPELLS.CELESTIAL_ALIGNMENT;
+}
+
+export function inEclipse(combatant: Combatant): boolean {
+  return (
+    combatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
+    combatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
+    combatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ||
+    combatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id)
+  );
+}
+
+export function inSolarEclipse(combatant: Combatant): boolean {
+  return (
+    combatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
+    combatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ||
+    combatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id)
+  );
+}
+
+export function inLunarEclipse(combatant: Combatant): boolean {
+  return (
+    combatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
+    combatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ||
+    combatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id)
+  );
+}

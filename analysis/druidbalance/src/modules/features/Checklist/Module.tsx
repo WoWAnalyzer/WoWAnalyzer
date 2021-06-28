@@ -61,6 +61,7 @@ class Checklist extends BaseModule {
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
           astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
+          astralPowerEfficiencyEclipse: this.astralPowerDetails.suggestionThresholdsEclipse,
           adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
         }}
       />

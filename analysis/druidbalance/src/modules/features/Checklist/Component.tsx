@@ -9,6 +9,8 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { cooldownAbility } from '../../../constants';
+
 const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
@@ -131,10 +133,19 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
   const resourceRule = (
     <Rule
       name="Do not overcap your resources"
-      description="While you sometimes cannot avoid overcapping,
-        you should try to always avoid overcapping your Astral Power."
+      description={
+        <>
+          While you sometimes cannot avoid overcapping, you should try to avoid overcapping your
+          Astral Power. You should never overcap Astral Power during{' '}
+          <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
+        </>
+      }
     >
       <Requirement name="Astral Power efficiency" thresholds={thresholds.astralPowerEfficiency} />
+      <Requirement
+        name="Astral Power efficiency during Eclipse"
+        thresholds={thresholds.astralPowerEfficiencyEclipse}
+      />
     </Rule>
   );
 
