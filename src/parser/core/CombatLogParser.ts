@@ -95,6 +95,24 @@ const isMinified = process.env.NODE_ENV === 'production';
 type DependencyDefinition = typeof Module | readonly [typeof Module, { [option: string]: any }];
 export type DependenciesDefinition = { [desiredName: string]: DependencyDefinition };
 
+export enum SuggestionImportance {
+  Major = 'major',
+  Regular = 'regular',
+  Minor = 'minor',
+}
+export interface Suggestion {
+  text: React.ReactNode;
+  importance: SuggestionImportance;
+  icon?: string;
+  actual?: React.ReactNode;
+  recommended?: React.ReactNode;
+}
+// ALPHA - The parameters may still change
+export type WIPSuggestionFactory = (
+  events: AnyEvent[],
+  parser: CombatLogParser,
+) => Suggestion | Suggestion[];
+
 interface Talent {
   id: number;
 }
@@ -204,6 +222,8 @@ class CombatLogParser {
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
+
+  static suggestions: WIPSuggestionFactory[] = [];
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
   applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
@@ -673,6 +693,18 @@ class CombatLogParser {
       results.tabs = [];
       generated = attemptResultGeneration();
     }
+
+    console.time('functional');
+    const ctor = this.constructor as typeof CombatLogParser;
+    ctor.suggestions.forEach((suggestionFactory) => {
+      const suggestions = suggestionFactory(this.eventHistory, this);
+      if (Array.isArray(suggestions)) {
+        suggestions.forEach((suggestion) => results.addIssue(suggestion));
+      } else {
+        results.addIssue(suggestions);
+      }
+    });
+    console.timeEnd('functional');
 
     return results;
   }

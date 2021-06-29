@@ -293,6 +293,10 @@ class Ability {
      * The spell that'll forcibly shown on the timeline if set.
      */
     shownSpell: PropTypes.number,
+    /**
+     * All lower ranks for the spell.
+     */
+    lowerRanks: PropTypes.arrayOf(PropTypes.number),
   };
 
   private readonly owner: Abilities;
@@ -381,6 +385,7 @@ class Ability {
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;
   shownSpell = null;
+  lowerRanks: number[] | null = null;
 
   /**
    * @param owner

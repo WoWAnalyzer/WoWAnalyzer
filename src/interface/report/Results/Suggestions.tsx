@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import Icon from 'interface/Icon';
 import Panel from 'interface/Panel';
+import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
 import React, { CSSProperties } from 'react';
@@ -10,7 +11,7 @@ import Suggestion from './Suggestion';
 import './Suggestions.scss';
 
 interface Props {
-  children: Issue[];
+  children: Array<Issue | SuggestionData>;
   style?: CSSProperties;
 }
 
@@ -68,9 +69,36 @@ class Suggestions extends React.PureComponent<Props> {
             .filter(
               (issue) => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR,
             )
-            .map((issue, i) => (
-              <Suggestion key={i} {...issue} />
-            ))}
+            .map((issue, i) =>
+              'issue' in issue ? (
+                <Suggestion
+                  key={i}
+                  icon={issue.icon}
+                  importance={issue.importance}
+                  stat={issue.stat}
+                  details={issue.details}
+                >
+                  {issue.issue}
+                </Suggestion>
+              ) : (
+                <Suggestion
+                  key={i}
+                  icon={issue.icon}
+                  stat={
+                    issue.actual && issue.recommended ? (
+                      <>
+                        {issue.actual} ({issue.recommended})
+                      </>
+                    ) : (
+                      issue.actual || issue.recommended
+                    )
+                  }
+                  importance={(issue.importance as unknown) as ISSUE_IMPORTANCE}
+                >
+                  {issue.text}
+                </Suggestion>
+              ),
+            )}
           <li>
             <small>
               <Trans id="interface.report.results.overview.suggestions.improve">

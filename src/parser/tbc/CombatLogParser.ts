@@ -36,6 +36,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import lowRankSpells from './suggestions/lowRankSpells';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -86,6 +87,8 @@ class CombatLogParser extends BaseCombatLogParser {
     raidHealthTab: RaidHealthTab,
     healthstone: Healthstone,
   };
+
+  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpells()];
 }
 
 export default CombatLogParser;

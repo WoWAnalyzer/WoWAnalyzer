@@ -1,6 +1,7 @@
 import AlertInfo from 'interface/AlertInfo';
 import AlertWarning from 'interface/AlertWarning';
 import { TextType } from 'parser/Config';
+import { Suggestion } from 'parser/core/CombatLogParser';
 import { Issue } from 'parser/core/ParseResults';
 import React, { ReactNode } from 'react';
 
@@ -10,7 +11,7 @@ import Suggestions from './Suggestions';
 
 interface Props {
   checklist?: React.ReactNode;
-  issues: Issue[];
+  issues: Array<Issue | Suggestion>;
 }
 
 const Overview = ({ checklist, issues }: Props) => {
