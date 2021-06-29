@@ -431,6 +431,7 @@
   "interface.report.results.timeline.casts.tooltip.xSecGCDByAbility": "{0}: {1}s Global Cooldown by {2}",
   "interface.report.results.timeline.lane.tooltip.chargeRestored": "Charge restored",
   "interface.report.results.timeline.lane.tooltip.eventOrAbilityCooldown": "{0} cooldown: {1}s",
+  "interface.report.results.timeline.movement": "{0} - {1}: there was {2} yards movement within this period. The start and stop time of the movement may vary due to incomplete log data.",
   "interface.report.results.tooltip.backToTop": "Scroll back to the top.",
   "interface.report.results.tooltip.newTab.insightsAndTimelines": "Opens in a new tab. View insights and timelines for raid encounters.",
   "interface.report.results.tooltip.newTab.originalReport": "Opens in a new tab. View the original report.",

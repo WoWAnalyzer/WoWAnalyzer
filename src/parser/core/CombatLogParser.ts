@@ -26,6 +26,7 @@ import Channeling from '../shared/modules/Channeling';
 import Combatants from '../shared/modules/Combatants';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
+import DistanceMoved from '../shared/modules/DistanceMoved';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import Enemies from '../shared/modules/Enemies';
@@ -48,7 +49,6 @@ import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/Da
 import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 import WeaponEnhancementChecker from '../shared/modules/items/WeaponEnhancementChecker';
 import ManaValues from '../shared/modules/ManaValues';
-import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
