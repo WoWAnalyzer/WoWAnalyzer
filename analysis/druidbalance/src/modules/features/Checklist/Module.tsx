@@ -14,6 +14,7 @@ import CancelledCasts from '../CancelledCasts';
 import EarlyDotRefreshes from '../EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
 import MoonfireUptime from '../MoonfireUptime';
+import Starsurge from '../Starsurge';
 import SunfireUptime from '../SunfireUptime';
 import Component from './Component';
 
@@ -28,6 +29,7 @@ class Checklist extends BaseModule {
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
     fillerUsage: FillerUsage,
+    starsurge: Starsurge,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
@@ -42,6 +44,7 @@ class Checklist extends BaseModule {
   protected sunfireUptime!: SunfireUptime;
   protected stellarFlareUptime!: StellarFlareUptime;
   protected fillerUsage!: FillerUsage;
+  protected starsurge!: Starsurge;
   protected earlyDotRefreshes!: EarlyDotRefreshes;
   protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected astralPowerDetails!: AstralPowerDetails;
@@ -67,6 +70,7 @@ class Checklist extends BaseModule {
           astralPowerEfficiencyEclipse: this.astralPowerDetails.suggestionThresholdsEclipse,
           adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
           fillerUsage: this.fillerUsage.goodCastSuggestionThresholds,
+          starsurgeUsage: this.starsurge.goodCastSuggestionThresholds,
         }}
       />
     );

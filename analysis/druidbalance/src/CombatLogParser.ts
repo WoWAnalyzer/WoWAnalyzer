@@ -16,6 +16,7 @@ import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import FillerUsage from './modules/features/FillerUsage';
 import MoonfireUptime from './modules/features/MoonfireUptime';
+import Starsurge from './modules/features/Starsurge';
 import SunfireUptime from './modules/features/SunfireUptime';
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
@@ -42,6 +43,7 @@ class CombatLogParser extends MainCombatLogParser {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     fillerUsage: FillerUsage,
+    starsurge: Starsurge,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     balanceOfAllThingsOpener: BalanceOfAllThingsOpener,

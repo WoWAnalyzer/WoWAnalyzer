@@ -150,10 +150,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       }
     >
       <Requirement name="Correct fillers used" thresholds={thresholds.fillerUsage} />
-      <Requirement
-        name="Starsurge used during Eclipse PLACEHOLDER"
-        thresholds={thresholds.astralPowerEfficiencyEclipse}
-      />
+      <Requirement name="Starsurge used during Eclipse" thresholds={thresholds.starsurgeUsage} />
     </Rule>
   );
 

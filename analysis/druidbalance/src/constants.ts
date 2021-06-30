@@ -23,28 +23,3 @@ export function cooldownAbility(combatant: Combatant): Spell {
     ? SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT
     : SPELLS.CELESTIAL_ALIGNMENT;
 }
-
-export function inEclipse(combatant: Combatant): boolean {
-  return (
-    combatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
-    combatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
-    combatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ||
-    combatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id)
-  );
-}
-
-export function inSolarEclipse(combatant: Combatant): boolean {
-  return (
-    combatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
-    combatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ||
-    combatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id)
-  );
-}
-
-export function inLunarEclipse(combatant: Combatant): boolean {
-  return (
-    combatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
-    combatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ||
-    combatant.hasBuff(SPELLS.CELESTIAL_ALIGNMENT.id)
-  );
-}

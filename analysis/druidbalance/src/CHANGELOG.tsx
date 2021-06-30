@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 6, 30), <>Consolidated DoT sections of checklist, and added new <SpellLink id={SPELLS.ECLIPSE.id} /> section.</>, Sref),
   change(date(2021, 6, 26), <>Added myself as a spec maintainer and bumped support level to 'full'. Added checklist items for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} />, and <SpellLink id={SPELLS.RAVENOUS_FRENZY.id} /></>, Sref),
   change(date(2021, 5, 15), <>Improved cast detection for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
   change(date(2021, 4, 2), 'Updated \'About\' page for Shadowlands and current state of the spec\'s analyzer.', Kartarn),
