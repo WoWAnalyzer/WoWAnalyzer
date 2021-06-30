@@ -10,7 +10,7 @@ const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.05;
 const MAJOR_THRESHOLD = 0.1;
 
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * Suggestions and stuff related to Starsurge usage
