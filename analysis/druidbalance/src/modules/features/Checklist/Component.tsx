@@ -36,8 +36,13 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           . There shoule be no delay at all between your spell casts, it's better to start casting
           the wrong spell than to think for a few seconds and then cast the right spell. You should
           be able to handle a fight's mechanics with the minimum possible interruption to your
-          casting. Some fights have unavoidable downtime due to phase transitions and the like, so
-          in these cases 0% downtime will not be possible.
+          casting. It is particularly important that you plan your cooldowns to take place during
+          time when you won't be interrupted by mechanics.
+          <br />
+          <br />
+          Some fights have unavoidable downtime due to phase transitions and the like, so in these
+          cases 0% downtime will not be possible, however you should still plan your cooldowns such
+          that you have no downtime during them.
         </>
       }
     >
@@ -46,11 +51,13 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     </Rule>
   );
 
-  const dotUptimeRule = (
+  const dotRule = (
     <Rule
-      name="Maintain your DoTs on the boss"
-      description="DoTs are a big part of your damage.
-        You should try to keep as high uptime on them as possible."
+      name="Maintain your DoTs"
+      description="DoTs are a big part of your damage and do great damage per cast time if allowed
+        to tick for their full duration. You should try to maximize their uptime on targets.
+        However, your DoTs do very little direct damage, and should not be refreshed with
+        more than 30% duration remaining unless you have nothing else to cast while moving."
     >
       <Requirement
         name={
@@ -63,10 +70,26 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       <Requirement
         name={
           <>
+            <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> good refreshes
+          </>
+        }
+        thresholds={thresholds.moonfireRefresh}
+      />
+      <Requirement
+        name={
+          <>
             <SpellLink id={SPELLS.SUNFIRE.id} /> uptime
           </>
         }
         thresholds={thresholds.sunfireUptime}
+      />
+      <Requirement
+        name={
+          <>
+            <SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes
+          </>
+        }
+        thresholds={thresholds.sunfireRefresh}
       />
       {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
         <Requirement
@@ -76,6 +99,16 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
             </>
           }
           thresholds={thresholds.stellarFlareUptime}
+        />
+      )}
+      {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
+        <Requirement
+          name={
+            <>
+              <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes
+            </>
+          }
+          thresholds={thresholds.stellarFlareRefresh}
         />
       )}
       {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
@@ -95,38 +128,32 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     </Rule>
   );
 
-  const dotRefreshRule = (
+  const eclipseRule = (
     <Rule
-      name="Avoid refreshing your DoTs too early"
-      description="DoTs do very little direct damage, and you should avoid ever refreshing them with
-        more than 30% duration remaining unless you have nothing else to cast while moving."
+      name="Use Eclipse"
+      description={
+        <>
+          <SpellLink id={SPELLS.ECLIPSE.id} /> is a major contributor to your damage and dictates
+          which filler spell you should be using. You should cast{' '}
+          <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> during and after{' '}
+          <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} /> while you should cast
+          <SpellLink id={SPELLS.STARFIRE.id} /> during and after{' '}
+          <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} />. You should also hold your Astral Power until
+          the start of an Eclipse at which point you should dump it into{' '}
+          <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> (in single target situations).
+          <br />
+          <br />
+          In multi target situations, you should use <SpellLink id={SPELLS.STARFALL_CAST.id} /> as
+          your Astral Power spender and when you can hit 6 or more targets it's even correct to use{' '}
+          <SpellLink id={SPELLS.STARFIRE.id} /> during <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} />
+        </>
+      }
     >
+      <Requirement name="Correct fillers used" thresholds={thresholds.fillerUsage} />
       <Requirement
-        name={
-          <>
-            <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> good refreshes
-          </>
-        }
-        thresholds={thresholds.moonfireRefresh}
+        name="Starsurge used during Eclipse PLACEHOLDER"
+        thresholds={thresholds.astralPowerEfficiencyEclipse}
       />
-      <Requirement
-        name={
-          <>
-            <SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes
-          </>
-        }
-        thresholds={thresholds.sunfireRefresh}
-      />
-      {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes
-            </>
-          }
-          thresholds={thresholds.stellarFlareRefresh}
-        />
-      )}
     </Rule>
   );
 
@@ -200,8 +227,8 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
   return (
     <Checklist>
       {alwaysBeCastingRule}
-      {dotUptimeRule}
-      {dotRefreshRule}
+      {dotRule}
+      {eclipseRule}
       {resourceRule}
       {cooldownsRule}
       {supportRule}

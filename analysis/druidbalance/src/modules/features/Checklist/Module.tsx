@@ -6,6 +6,7 @@ import React from 'react';
 
 import { AdaptiveSwarmDamageDealer } from '@wowanalyzer/druid';
 
+import FillerUsage from '../../features/FillerUsage';
 import AstralPowerDetails from '../../resourcetracker/AstralPowerDetails';
 import StellarFlareUptime from '../../talents/StellarFlareUptime';
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -26,6 +27,7 @@ class Checklist extends BaseModule {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    fillerUsage: FillerUsage,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
@@ -39,6 +41,7 @@ class Checklist extends BaseModule {
   protected moonfireUptime!: MoonfireUptime;
   protected sunfireUptime!: SunfireUptime;
   protected stellarFlareUptime!: StellarFlareUptime;
+  protected fillerUsage!: FillerUsage;
   protected earlyDotRefreshes!: EarlyDotRefreshes;
   protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected astralPowerDetails!: AstralPowerDetails;
@@ -63,6 +66,7 @@ class Checklist extends BaseModule {
           astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
           astralPowerEfficiencyEclipse: this.astralPowerDetails.suggestionThresholdsEclipse,
           adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
+          fillerUsage: this.fillerUsage.goodCastSuggestionThresholds,
         }}
       />
     );
