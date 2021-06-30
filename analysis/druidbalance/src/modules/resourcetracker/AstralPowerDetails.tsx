@@ -127,7 +127,7 @@ class AstralPowerDetails extends Analyzer {
   get suggestionThresholdsEclipse() {
     return {
       actual: 1 - this.eclipseWastedPercent,
-      isGreaterThan: {
+      isLessThan: {
         minor: 1 - MINOR_THRESHOLD_ECLIPSE,
         average: 1 - AVERAGE_THRESHOLD_ECLIPSE,
         major: 1 - MAJOR_THRESHOLD_ECLIPSE,
