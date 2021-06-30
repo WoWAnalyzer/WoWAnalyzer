@@ -208,6 +208,11 @@ const spells = {
     name: 'Bull Rush',
     icon: 'ability_racial_bullrush',
   },
+  MOUNTAINEER: {
+    id: 255658,
+    name: 'Mountaineer',
+    icon: 'ability_racial_mountaineer',
+  },
   // Nightborne
   CANTRIPS: {
     id: 255661,
