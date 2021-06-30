@@ -17,6 +17,8 @@ const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.05;
 const MAJOR_THRESHOLD = 0.1;
 
+const DEBUG = false;
+
 /**
  * Balance has two 'filler' spells - Wrath and Starfire.
  * Which to use is dicated by the Eclipse cycle - Wrath during and after Solar Eclipse,
@@ -53,11 +55,15 @@ class FillerUsage extends Analyzer {
   }
 
   onSolarEclipse() {
-    this.lastEclipse = 'solar';
+    if (!this.selectedCombatant.hasBuff(cooldownAbility(this.selectedCombatant).id)) {
+      this.lastEclipse = 'solar';
+    }
   }
 
   onLunarEclipse() {
-    this.lastEclipse = 'lunar';
+    if (!this.selectedCombatant.hasBuff(cooldownAbility(this.selectedCombatant).id)) {
+      this.lastEclipse = 'lunar';
+    }
   }
 
   onCa() {
@@ -67,6 +73,7 @@ class FillerUsage extends Analyzer {
   onWrath(event: CastEvent) {
     this.totalFillerCasts += 1;
     if (this.lastEclipse === 'lunar') {
+      DEBUG && console.log('Bad Wrath @ ' + this.owner.formatTimestamp(event.timestamp));
       this.badFillerCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -78,6 +85,7 @@ class FillerUsage extends Analyzer {
   onStarfire(event: CastEvent) {
     this.totalFillerCasts += 1;
     if (this.lastEclipse === 'solar' && hardcastTargetsHit(event) < STARFIRE_TARGETS_FOR_SOLAR) {
+      DEBUG && console.log('Bad Starfire @ ' + this.owner.formatTimestamp(event.timestamp));
       this.badFillerCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
