@@ -6,6 +6,7 @@ import React from 'react';
 
 import { AdaptiveSwarmDamageDealer } from '@wowanalyzer/druid';
 
+import FillerUsage from '../../features/FillerUsage';
 import AstralPowerDetails from '../../resourcetracker/AstralPowerDetails';
 import StellarFlareUptime from '../../talents/StellarFlareUptime';
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -13,6 +14,7 @@ import CancelledCasts from '../CancelledCasts';
 import EarlyDotRefreshes from '../EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
 import MoonfireUptime from '../MoonfireUptime';
+import Starsurge from '../Starsurge';
 import SunfireUptime from '../SunfireUptime';
 import Component from './Component';
 
@@ -26,6 +28,8 @@ class Checklist extends BaseModule {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    fillerUsage: FillerUsage,
+    starsurge: Starsurge,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
@@ -39,6 +43,8 @@ class Checklist extends BaseModule {
   protected moonfireUptime!: MoonfireUptime;
   protected sunfireUptime!: SunfireUptime;
   protected stellarFlareUptime!: StellarFlareUptime;
+  protected fillerUsage!: FillerUsage;
+  protected starsurge!: Starsurge;
   protected earlyDotRefreshes!: EarlyDotRefreshes;
   protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected astralPowerDetails!: AstralPowerDetails;
@@ -61,7 +67,10 @@ class Checklist extends BaseModule {
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
           astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
+          astralPowerEfficiencyEclipse: this.astralPowerDetails.suggestionThresholdsEclipse,
           adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
+          fillerUsage: this.fillerUsage.goodCastSuggestionThresholds,
+          starsurgeUsage: this.starsurge.goodCastSuggestionThresholds,
         }}
       />
     );
