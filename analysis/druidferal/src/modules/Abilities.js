@@ -230,32 +230,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 43,
       },
       {
-        spell: [
-          SPELLS.STAMPEDING_ROAR_HUMANOID.id,
-          SPELLS.STAMPEDING_ROAR_CAT.id,
-          SPELLS.STAMPEDING_ROAR_BEAR.id,
-        ],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120,
-        gcd: (combatant) => {
-          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
-            return {
-              base: 1000,
-            };
-          }
-          if (combatant.hasBuff(SPELLS.BEAR_FORM.id)) {
-            return {
-              base: 1500,
-            };
-          }
-          return {
-            static: 1500,
-          };
-        },
-        isDefensive: true,
-        timelineSortIndex: 44,
-      },
-      {
         spell: [SPELLS.SKULL_BASH.id, SPELLS.SKULL_BASH_FERAL.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
