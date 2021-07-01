@@ -12,9 +12,8 @@ interface Props {
   config: Config;
 }
 
-const About = ({
-  config: { spec, description, contributors, patchCompatibility, isPartial },
-}: Props) => {
+const About = ({ config }: Props) => {
+  const { spec, description, contributors, patchCompatibility, isPartial } = config;
   const contributorinfo =
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
@@ -51,15 +50,14 @@ const About = ({
         </div>
         <div className="col-lg-8">{patchCompatibility}</div>
       </div>
-      {!patchCompatibility ||
-        (!isLatestPatch(patchCompatibility) && (
-          <AlertWarning style={{ marginTop: '1em' }}>
-            <Trans id="interface.report.results.about.outdated">
-              The analysis for this spec is outdated. It may be inaccurate for spells that were
-              changed since patch {patchCompatibility}.
-            </Trans>
-          </AlertWarning>
-        ))}
+      {!isLatestPatch(config) && (
+        <AlertWarning style={{ marginTop: '1em' }}>
+          <Trans id="interface.report.results.about.outdated">
+            The analysis for this spec is outdated. It may be inaccurate for spells that were
+            changed since patch {patchCompatibility}.
+          </Trans>
+        </AlertWarning>
+      )}
       {isPartial && (
         <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.isPartial">

@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 7, 1), 'Clarify the error shown when a character has no analysis available (e.g. for TBC reports).', Zerotorescue),
   change(date(2021, 6, 29), 'Added Mountaineer Racial to Highmountain Taurens and the same to StatTracker', Soulhealer95),
   change(date(2021, 6, 28), 'Add movement indicator to the timeline.', Zerotorescue),
   change(date(2021, 6, 26), 'Fixed a bug in the calculation of whether a DoT refresh cast was wasteful', Sref),

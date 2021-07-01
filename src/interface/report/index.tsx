@@ -1,4 +1,5 @@
 import { Phase } from 'game/raids';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
@@ -298,7 +299,13 @@ const Report = () => (
               {(fight) => (
                 <PlayerLoader report={report} fight={fight}>
                   {(player, combatant, combatants) => (
-                    <ConfigContext.Provider value={getConfig(combatant.specID, player.type)}>
+                    <ConfigContext.Provider
+                      value={getConfig(
+                        wclGameVersionToExpansion(report.gameVersion),
+                        combatant.specID,
+                        player.type,
+                      )}
+                    >
                       <SupportChecker report={report} fight={fight} player={player}>
                         <ConfigContext.Consumer>
                           {(config) => (
