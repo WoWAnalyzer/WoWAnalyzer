@@ -1,4 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
+import Combatant from 'parser/core/Combatant';
 
 export const DAMAGING_ABILITIES = [
   SPELLS.STARSURGE_MOONKIN.id,
@@ -13,4 +15,11 @@ export const DAMAGING_ABILITIES = [
   SPELLS.HALF_MOON.id,
 ];
 
-export default DAMAGING_ABILITIES;
+// Celestial Alignment buff or the talented version of it (Incarnation)
+export const CA_BUFF = [SPELLS.CELESTIAL_ALIGNMENT, SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT];
+
+export function cooldownAbility(combatant: Combatant): Spell {
+  return combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
+    ? SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT
+    : SPELLS.CELESTIAL_ALIGNMENT;
+}
