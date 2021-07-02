@@ -79,6 +79,7 @@ import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
+import Ability from './modules/Ability';
 import Buffs from './modules/Buffs';
 import EventEmitter from './modules/EventEmitter';
 import SpellInfo from './modules/SpellInfo';
@@ -107,11 +108,12 @@ export interface Suggestion {
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
 }
+export interface Info {
+  playerId: number;
+  abilities: Ability[];
+}
 // ALPHA - The parameters may still change
-export type WIPSuggestionFactory = (
-  events: AnyEvent[],
-  parser: CombatLogParser,
-) => Suggestion | Suggestion[];
+export type WIPSuggestionFactory = (events: AnyEvent[], info: Info) => Suggestion | Suggestion[];
 
 interface Talent {
   id: number;
@@ -696,8 +698,13 @@ class CombatLogParser {
 
     console.time('functional');
     const ctor = this.constructor as typeof CombatLogParser;
+    const info = {
+      abilities: this.getModule(Abilities).abilities,
+      playerId: this.selectedCombatant.id,
+    };
+
     ctor.suggestions.forEach((suggestionFactory) => {
-      const suggestions = suggestionFactory(this.eventHistory, this);
+      const suggestions = suggestionFactory(this.eventHistory, info);
       if (Array.isArray(suggestions)) {
         suggestions.forEach((suggestion) => results.addIssue(suggestion));
       } else {

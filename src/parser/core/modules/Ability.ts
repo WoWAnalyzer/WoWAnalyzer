@@ -299,7 +299,7 @@ class Ability {
     lowerRanks: PropTypes.arrayOf(PropTypes.number),
   };
 
-  private readonly owner: Abilities;
+  private readonly owner: Abilities | undefined;
 
   spell!: SpellbookAbility['spell'];
   primaryOverride: number | undefined;
@@ -331,7 +331,7 @@ class Ability {
   }
   /** @return {number} */
   get cooldown() {
-    return this.getCooldown(this.owner.haste.current);
+    return this.getCooldown(this.owner?.haste.current);
   }
   getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
@@ -358,7 +358,7 @@ class Ability {
       return 0;
     }
     if (typeof this._channel === 'function') {
-      return this._channel.call(this.owner, this.owner.haste.current);
+      return this._channel.call(this.owner, this.owner?.haste.current);
     }
 
     return this._channel;
@@ -391,7 +391,7 @@ class Ability {
    * @param owner
    * @param options
    */
-  constructor(owner: Abilities, options: SpellbookAbility) {
+  constructor(owner: Abilities | undefined, options: SpellbookAbility) {
     this.owner = owner;
     this._setProps(options);
   }

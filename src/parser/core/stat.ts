@@ -1,6 +1,7 @@
+import { Info } from './CombatLogParser';
 import { AnyEvent } from './Events';
 
-export type Stat<Value = any> = (events: AnyEvent[]) => Value;
+export type Stat<Value = any> = (events: AnyEvent[], info: Info) => Value;
 
 const stat = <Value = any>(fn: Stat<Value>): Stat<Value> => {
   // We store the last events in the CombatLogParser anyway, so leaving
@@ -8,9 +9,9 @@ const stat = <Value = any>(fn: Stat<Value>): Stat<Value> => {
   let lastEvents: AnyEvent[] | undefined = undefined;
   let lastValue: any | undefined = undefined;
 
-  return (events) => {
+  return (events, info) => {
     if (events !== lastEvents) {
-      lastValue = fn(events);
+      lastValue = fn(events, info);
       lastEvents = events;
     }
 

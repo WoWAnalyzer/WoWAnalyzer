@@ -1,18 +1,13 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
-import CombatLogParser, {
-  SuggestionImportance,
-  WIPSuggestionFactory,
-} from 'parser/core/CombatLogParser';
-import { AnyEvent } from 'parser/core/Events';
-import Abilities from 'parser/core/modules/Abilities';
+import { SuggestionImportance, WIPSuggestionFactory } from 'parser/core/CombatLogParser';
 import castCount from 'parser/shared/stats/castCount';
 import React from 'react';
 
-const lowRankSpells = (): WIPSuggestionFactory => (events: AnyEvent[], parser: CombatLogParser) => {
-  const { abilities } = parser.getModule(Abilities);
-  const casts = castCount(events);
+const lowRankSpells = (): WIPSuggestionFactory => (events, info) => {
+  const { abilities } = info;
+  const casts = castCount(events, info);
 
   return abilities
     .filter((ability) => ability.lowerRanks)
