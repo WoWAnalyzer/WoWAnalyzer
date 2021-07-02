@@ -215,7 +215,9 @@ class AutoShotCooldown extends Analyzer {
     const haste = this.currentHaste;
 
     const rawBowSpeed = weaponSpeeds[this.rangedWeapon.id];
-    const duration = (rawBowSpeed / haste) * 1000;
+    const autoShotInterval = (rawBowSpeed / haste) * 1000;
+    const autoShotCastTime = 500 / haste;
+    const duration = autoShotInterval - autoShotCastTime;
 
     // this.log('as', duration, `${Math.round((haste - 1) * 100)}%`);
 
