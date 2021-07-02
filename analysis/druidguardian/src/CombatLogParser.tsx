@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
+import ConvokeSpiritsGuardian from './modules/shadowlands/ConvokeSpiritsGuardian';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
@@ -55,7 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     incarnation: Incarnation,
 
     // Covenants
-    convokeSpirits: ConvokeSpirits,
+    convokeSpirits: ConvokeSpiritsGuardian,
   };
 }
 
