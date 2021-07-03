@@ -1,6 +1,12 @@
-import { Info } from './CombatLogParser';
 import { AnyEvent } from './Events';
+import Ability from './modules/Ability';
 
+export interface Info {
+  playerId: number;
+  abilities: Ability[];
+  fightStart: number;
+  fightEnd: number;
+}
 export type Stat<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
 
 const stat = <TValue>(fn: Stat<TValue>): Stat<TValue> => {

@@ -1,5 +1,5 @@
-import { EventType } from 'parser/core/Events';
-import stat, { Stat } from 'parser/core/stat';
+import { AnyEvent, EventType } from 'parser/core/Events';
+import stat from 'parser/core/stat';
 
 /**
  * Returns the index of the last element in the array where predicate is true, and -1
@@ -24,7 +24,7 @@ export function findLast<T>(
   return undefined;
 }
 
-const buffApplications: Stat = (events) =>
+const buffApplications = (events: AnyEvent[]) =>
   events.reduce<{
     [spellId: number]: {
       [sourceId: number]: Array<{

@@ -79,7 +79,6 @@ import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
-import Ability from './modules/Ability';
 import Buffs from './modules/Buffs';
 import EventEmitter from './modules/EventEmitter';
 import SpellInfo from './modules/SpellInfo';
@@ -87,6 +86,7 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
+import { Info } from './stat';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -107,10 +107,6 @@ export interface Suggestion {
   icon?: string;
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
-}
-export interface Info {
-  playerId: number;
-  abilities: Ability[];
 }
 // ALPHA - The parameters may still change
 export type WIPSuggestionFactory = (events: AnyEvent[], info: Info) => Suggestion | Suggestion[];

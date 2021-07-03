@@ -1,7 +1,7 @@
-import { EventType } from 'parser/core/Events';
-import stat, { Stat } from 'parser/core/stat';
+import { AnyEvent, EventType } from 'parser/core/Events';
+import stat, { Info } from 'parser/core/stat';
 
-const castCount: Stat = (events, { playerId }) =>
+const castCount = (events: AnyEvent[], { playerId }: Info) =>
   events.reduce<{ [spellId: number]: number }>((obj, event) => {
     if (event.type === EventType.Cast && event.sourceID === playerId) {
       obj[event.ability.guid] = (obj[event.ability.guid] ?? 0) + 1;
