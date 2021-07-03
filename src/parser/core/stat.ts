@@ -1,17 +1,17 @@
 import { Info } from './CombatLogParser';
 import { AnyEvent } from './Events';
 
-export type Stat<Value = any> = (events: AnyEvent[], info: Info) => Value;
+export type Stat<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
 
-const stat = <Value = any>(fn: Stat<Value>): Stat<Value> => {
+const stat = <TValue>(fn: Stat<TValue>): Stat<TValue> => {
   // We store the last events in the CombatLogParser anyway, so leaving
   // instances in stats should not be significant.
   let lastEvents: AnyEvent[] | undefined = undefined;
   let lastValue: any | undefined = undefined;
 
-  return (events, info) => {
+  return (events, info, ...args) => {
     if (events !== lastEvents) {
-      lastValue = fn(events, info);
+      lastValue = fn(events, info, ...args);
       lastEvents = events;
     }
 
