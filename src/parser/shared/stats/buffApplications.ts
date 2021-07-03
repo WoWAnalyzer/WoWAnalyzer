@@ -24,6 +24,10 @@ export function findLast<T>(
   return undefined;
 }
 
+/**
+ * Returns an object with all buff applications. Should probably not be used
+ * directly in configs, but only internally by other shared stats.
+ */
 const buffApplications = (events: AnyEvent[]) =>
   events.reduce<{
     [spellId: number]: {
