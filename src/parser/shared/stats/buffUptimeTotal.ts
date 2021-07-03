@@ -3,6 +3,10 @@ import stat, { Info } from 'parser/core/stat';
 
 import buffApplications from './buffApplications';
 
+/**
+ * Returns the total uptime of the buff. Any overlap is included (so the
+ * total may be longer than the fight duration).
+ */
 const buffUptimeTotal = (events: AnyEvent[], info: Info, spellId: number) => {
   const { playerId, fightStart, fightEnd } = info;
   const applications = buffApplications(events);
