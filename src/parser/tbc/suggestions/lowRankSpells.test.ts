@@ -1,5 +1,6 @@
 import { CastEvent, EventType } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
+import { Info } from 'parser/core/stat';
 
 import lowRankSpells from './lowRankSpells';
 
@@ -19,7 +20,7 @@ const castEvent = (id: number): CastEvent => ({
 });
 
 describe('lowRankSpells', () => {
-  const info = {
+  const info: Info = {
     abilities: [
       new Ability(undefined, {
         spell: 5,
@@ -28,6 +29,8 @@ describe('lowRankSpells', () => {
       }),
     ],
     playerId: 1,
+    fightStart: 0,
+    fightEnd: 0,
   };
 
   it('starts empty', () => {

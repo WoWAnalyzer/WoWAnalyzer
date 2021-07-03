@@ -1,4 +1,5 @@
 import { CastEvent, EventType } from 'parser/core/Events';
+import { Info } from 'parser/core/stat';
 
 import castCount from './castCount';
 
@@ -18,9 +19,11 @@ const castEvent = (id: number): CastEvent => ({
 });
 
 describe('castCount', () => {
-  const info = {
+  const info: Info = {
     abilities: [],
     playerId: 1,
+    fightStart: 0,
+    fightEnd: 0,
   };
 
   it('starts empty', () => {

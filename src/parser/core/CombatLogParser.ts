@@ -697,6 +697,8 @@ class CombatLogParser {
     const info = {
       abilities: this.getModule(Abilities).abilities,
       playerId: this.selectedCombatant.id,
+      fightStart: this.fight.start_time,
+      fightEnd: this.fight.end_time,
     };
 
     ctor.suggestions.forEach((suggestionFactory) => {
