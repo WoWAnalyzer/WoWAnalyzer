@@ -76,16 +76,11 @@ const removeDebuffEvent = (
 });
 
 describe('buffApplications', () => {
-  const info = {
-    abilities: [],
-    playerId: 1,
-  };
-
   it('starts empty', () => {
-    expect(buffApplications([], info)).toEqual({});
+    expect(buffApplications([])).toEqual({});
   });
   it('tracks buff applications', () => {
-    expect(buffApplications([applyBuffEvent(1)], info)).toEqual({
+    expect(buffApplications([applyBuffEvent(1)])).toEqual({
       1: {
         1: [
           {
@@ -97,7 +92,7 @@ describe('buffApplications', () => {
         ],
       },
     });
-    expect(buffApplications([applyBuffEvent(3)], info)).toEqual({
+    expect(buffApplications([applyBuffEvent(3)])).toEqual({
       3: {
         1: [
           {
@@ -109,7 +104,7 @@ describe('buffApplications', () => {
         ],
       },
     });
-    expect(buffApplications([applyBuffEvent(1), applyBuffEvent(3)], info)).toEqual({
+    expect(buffApplications([applyBuffEvent(1), applyBuffEvent(3)])).toEqual({
       1: {
         1: [
           {
@@ -132,17 +127,14 @@ describe('buffApplications', () => {
       },
     });
     expect(
-      buffApplications(
-        [
-          applyBuffEvent(1),
-          applyBuffEvent(3, { timestamp: 1 }),
-          applyBuffEvent(3, { timestamp: 2, targetID: 3 }),
-          applyBuffEvent(3, { timestamp: 3, targetInstance: 2 }),
-          applyBuffEvent(1, { timestamp: 4 }),
-          applyBuffEvent(3, { timestamp: 5 }),
-        ],
-        info,
-      ),
+      buffApplications([
+        applyBuffEvent(1),
+        applyBuffEvent(3, { timestamp: 1 }),
+        applyBuffEvent(3, { timestamp: 2, targetID: 3 }),
+        applyBuffEvent(3, { timestamp: 3, targetInstance: 2 }),
+        applyBuffEvent(1, { timestamp: 4 }),
+        applyBuffEvent(3, { timestamp: 5 }),
+      ]),
     ).toEqual({
       1: {
         1: [
@@ -192,17 +184,14 @@ describe('buffApplications', () => {
   });
   it("tracks other player's buff applications", () => {
     expect(
-      buffApplications(
-        [
-          applyBuffEvent(1),
-          {
-            ...applyBuffEvent(1),
-            sourceID: 2,
-            targetID: 1,
-          },
-        ],
-        info,
-      ),
+      buffApplications([
+        applyBuffEvent(1),
+        {
+          ...applyBuffEvent(1),
+          sourceID: 2,
+          targetID: 1,
+        },
+      ]),
     ).toEqual({
       1: {
         1: [
@@ -225,9 +214,7 @@ describe('buffApplications', () => {
     });
   });
   it('updates instances on removal', () => {
-    expect(
-      buffApplications([applyBuffEvent(1), removeBuffEvent(1, { timestamp: 2 })], info),
-    ).toEqual({
+    expect(buffApplications([applyBuffEvent(1), removeBuffEvent(1, { timestamp: 2 })])).toEqual({
       1: {
         1: [
           {
@@ -240,15 +227,12 @@ describe('buffApplications', () => {
       },
     });
     expect(
-      buffApplications(
-        [
-          applyBuffEvent(1),
-          applyBuffEvent(3, { timestamp: 1 }),
-          removeBuffEvent(1, { timestamp: 2 }),
-          removeBuffEvent(3, { timestamp: 3 }),
-        ],
-        info,
-      ),
+      buffApplications([
+        applyBuffEvent(1),
+        applyBuffEvent(3, { timestamp: 1 }),
+        removeBuffEvent(1, { timestamp: 2 }),
+        removeBuffEvent(3, { timestamp: 3 }),
+      ]),
     ).toEqual({
       1: {
         1: [
@@ -274,17 +258,14 @@ describe('buffApplications', () => {
   });
   it('updates the instance with the same target', () => {
     expect(
-      buffApplications(
-        [
-          applyBuffEvent(1),
-          {
-            ...applyBuffEvent(1, { timestamp: 1 }),
-            targetID: 3,
-          },
-          removeBuffEvent(1, { timestamp: 6 }),
-        ],
-        info,
-      ),
+      buffApplications([
+        applyBuffEvent(1),
+        {
+          ...applyBuffEvent(1, { timestamp: 1 }),
+          targetID: 3,
+        },
+        removeBuffEvent(1, { timestamp: 6 }),
+      ]),
     ).toEqual({
       1: {
         1: [
@@ -304,17 +285,14 @@ describe('buffApplications', () => {
       },
     });
     expect(
-      buffApplications(
-        [
-          applyBuffEvent(1),
-          {
-            ...applyBuffEvent(1, { timestamp: 1 }),
-            targetInstance: 2,
-          },
-          removeBuffEvent(1, { timestamp: 6 }),
-        ],
-        info,
-      ),
+      buffApplications([
+        applyBuffEvent(1),
+        {
+          ...applyBuffEvent(1, { timestamp: 1 }),
+          targetInstance: 2,
+        },
+        removeBuffEvent(1, { timestamp: 6 }),
+      ]),
     ).toEqual({
       1: {
         1: [
@@ -334,20 +312,17 @@ describe('buffApplications', () => {
       },
     });
     expect(
-      buffApplications(
-        [
-          {
-            ...applyBuffEvent(1),
-            targetInstance: 2,
-          },
-          applyBuffEvent(1, { timestamp: 1 }),
-          {
-            ...removeBuffEvent(1, { timestamp: 6 }),
-            targetInstance: 2,
-          },
-        ],
-        info,
-      ),
+      buffApplications([
+        {
+          ...applyBuffEvent(1),
+          targetInstance: 2,
+        },
+        applyBuffEvent(1, { timestamp: 1 }),
+        {
+          ...removeBuffEvent(1, { timestamp: 6 }),
+          targetInstance: 2,
+        },
+      ]),
     ).toEqual({
       1: {
         1: [
@@ -369,7 +344,7 @@ describe('buffApplications', () => {
   });
   it('handles buff removals of unknown buffs', () => {
     // sometimes we don't have an applybuff event for a removebuff
-    expect(buffApplications([removeBuffEvent(1, { timestamp: 2 })], info)).toEqual({
+    expect(buffApplications([removeBuffEvent(1, { timestamp: 2 })])).toEqual({
       1: {
         1: [
           {
@@ -383,7 +358,7 @@ describe('buffApplications', () => {
     });
   });
   it('tracks debuff applications', () => {
-    expect(buffApplications([applyDebuffEvent(1)], info)).toEqual({
+    expect(buffApplications([applyDebuffEvent(1)])).toEqual({
       1: {
         1: [
           {
@@ -397,7 +372,7 @@ describe('buffApplications', () => {
     });
   });
   it('tracks debuff removals', () => {
-    expect(buffApplications([removeDebuffEvent(1)], info)).toEqual({
+    expect(buffApplications([removeDebuffEvent(1)])).toEqual({
       1: {
         1: [
           {

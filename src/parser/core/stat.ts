@@ -9,15 +9,15 @@ export interface Info {
 }
 export type Stat<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
 
-const stat = <TValue>(fn: Stat<TValue>): Stat<TValue> => {
+const stat = <T extends any[], U>(fn: (events: AnyEvent[], ...args: T) => U) => {
   // We store the last events in the CombatLogParser anyway, so leaving
   // instances in stats should not be significant.
   let lastEvents: AnyEvent[] | undefined = undefined;
   let lastValue: any | undefined = undefined;
 
-  return (events, info, ...args) => {
+  return (events: AnyEvent[], ...args: T): U => {
     if (events !== lastEvents) {
-      lastValue = fn(events, info, ...args);
+      lastValue = fn(events, ...args);
       lastEvents = events;
     }
 
