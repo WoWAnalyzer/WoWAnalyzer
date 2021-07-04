@@ -145,7 +145,7 @@ class DivinePurpose extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DIVINE_PURPOSE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DIVINE_PURPOSE_TALENT.id}>
           <ItemDamageDone amount={this.damageDone} /> <br />
           <ItemHealingDone amount={this.healingDone} />
         </BoringSpellValueText>

@@ -123,7 +123,7 @@ class SavageRoar extends Analyzer {
         }
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spell={SPELLS.SAVAGE_ROAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SAVAGE_ROAR_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small> <br />
             <ItemDamageDone amount={this.bonusDmg} />

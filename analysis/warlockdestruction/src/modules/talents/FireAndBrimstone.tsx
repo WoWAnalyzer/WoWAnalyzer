@@ -97,7 +97,7 @@ class FireAndBrimstone extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
       >
-        <BoringSpellValueText spell={SPELLS.FIRE_AND_BRIMSTONE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id}>
           {this.bonusFragments} <small>bonus Soul Shard Fragments</small> <br />
           {formatNumber(this.dps)} DPS{' '}
           <small>

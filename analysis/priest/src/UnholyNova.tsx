@@ -181,7 +181,7 @@ class UnholyNova extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.UNHOLY_NOVA}>
+        <BoringSpellValueText spellId={SPELLS.UNHOLY_NOVA.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />

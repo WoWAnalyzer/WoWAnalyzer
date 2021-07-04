@@ -56,7 +56,7 @@ class StrengthOfThePack extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.STRENGTH_OF_THE_PACK_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.STRENGTH_OF_THE_PACK_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

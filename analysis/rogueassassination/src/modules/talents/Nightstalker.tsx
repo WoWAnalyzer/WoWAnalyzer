@@ -161,7 +161,7 @@ class Nightstalker extends StealthCasts {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spell={SPELLS.NIGHTSTALKER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NIGHTSTALKER_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamageTotal} />
         </BoringSpellValueText>
       </Statistic>

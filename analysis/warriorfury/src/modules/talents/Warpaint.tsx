@@ -56,7 +56,7 @@ class Warpaint extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.WARPAINT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.WARPAINT_TALENT.id}>
           <>
             {formatPercentage(this.damageMitigatedPercent)}% <small>damage mitigated</small>
           </>

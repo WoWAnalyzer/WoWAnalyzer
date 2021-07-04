@@ -60,7 +60,7 @@ class DeadEye extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DEAD_EYE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DEAD_EYE_TALENT.id}>
           <>
             {formatNumber(this.deadEyeEffectiveCDR / 1000)}/
             {formatNumber(this.deadEyePotentialCDR / 1000)}s <small> total Aimed Shot CDR</small>

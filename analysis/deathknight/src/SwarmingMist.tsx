@@ -178,7 +178,7 @@ class SwarmingMist extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SWARMING_MIST}>
+        <BoringSpellValueText spellId={SPELLS.SWARMING_MIST.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
           </>

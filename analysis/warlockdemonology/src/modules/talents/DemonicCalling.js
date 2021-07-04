@@ -100,7 +100,7 @@ class DemonicCalling extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.DEMONIC_CALLING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DEMONIC_CALLING_TALENT.id}>
           {this.wastedProcs} <small>Wasted procs</small>
         </BoringSpellValueText>
       </Statistic>

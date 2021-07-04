@@ -160,7 +160,7 @@ class InfernalCascade extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.INFERNAL_CASCADE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.INFERNAL_CASCADE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
           <br />
           {formatPercentage(this.maxStackPercent)}% <small>Uptime at Max Stacks</small>

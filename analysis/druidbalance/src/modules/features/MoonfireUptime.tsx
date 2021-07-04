@@ -55,7 +55,7 @@ class MoonfireUptime extends Analyzer {
       this.enemies.getBuffUptime(SPELLS.MOONFIRE_DEBUFF.id) / this.owner.fightDuration;
     return (
       <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.MOONFIRE_DEBUFF}>
+        <BoringSpellValueText spellId={SPELLS.MOONFIRE_DEBUFF.id}>
           <>
             <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>
           </>

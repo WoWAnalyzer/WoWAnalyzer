@@ -177,7 +177,7 @@ class Eradication extends Analyzer {
         size="flexible"
         tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
       >
-        <BoringSpellValueText spell={SPELLS.ERADICATION_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ERADICATION_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total

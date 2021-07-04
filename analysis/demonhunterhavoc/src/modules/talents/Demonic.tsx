@@ -109,7 +109,7 @@ class Demonic extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spell={SPELLS.DEMONIC_TALENT_HAVOC}>
+        <BoringSpellValueText spellId={SPELLS.DEMONIC_TALENT_HAVOC.id}>
           <>
             {this.badCasts} <small>Bad casts</small>
           </>

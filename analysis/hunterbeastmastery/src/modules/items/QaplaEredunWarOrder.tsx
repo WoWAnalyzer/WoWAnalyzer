@@ -118,7 +118,7 @@ class QaplaEredunWarOrder extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id}>
           <>
             {formatNumber(this.barbedShotBonusDamage)} <small>Bonus Barbed Shot damage</small>
             <br />

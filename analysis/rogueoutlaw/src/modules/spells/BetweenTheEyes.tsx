@@ -100,7 +100,7 @@ class BetweenTheEyes extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BETWEEN_THE_EYES}>
+        <BoringSpellValueText spellId={SPELLS.BETWEEN_THE_EYES.id}>
           <>
             {formatPercentage(this.thresholds.actual)}% <small>time spent on cooldown</small>
             <br />

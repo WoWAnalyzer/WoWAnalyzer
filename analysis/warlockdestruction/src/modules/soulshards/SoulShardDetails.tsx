@@ -72,7 +72,7 @@ class SoulShardDetails extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SOUL_SHARDS}>
+        <BoringSpellValueText spellId={SPELLS.SOUL_SHARDS.id}>
           {shardsWasted} <small>Wasted Soul Shards</small>
         </BoringSpellValueText>
       </Statistic>

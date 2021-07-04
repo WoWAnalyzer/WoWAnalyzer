@@ -80,7 +80,7 @@ class FlashOfClarity extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.FLASH_OF_CLARITY}>
+        <BoringSpellValueText spellId={SPELLS.FLASH_OF_CLARITY.id}>
           <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

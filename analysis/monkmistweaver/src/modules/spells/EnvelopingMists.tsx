@@ -86,7 +86,7 @@ class EnvelopingMists extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={<>This is the effective healing contributed by the Enveloping Mist buff.</>}
       >
-        <BoringSpellValueText spell={SPELLS.ENVELOPING_MIST}>
+        <BoringSpellValueText spellId={SPELLS.ENVELOPING_MIST.id}>
           <>
             {formatNumber(this.healingIncrease)} <small>healing contributed by the buff</small>
           </>

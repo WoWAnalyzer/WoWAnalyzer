@@ -84,7 +84,7 @@ class IcyPropulsion extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.ICY_PROPULSION} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ICY_PROPULSION.id} rank={this.conduitRank}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
         </ConduitSpellText>
       </Statistic>

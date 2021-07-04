@@ -54,7 +54,7 @@ class EchoingCall extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.ECHOING_CALL_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ECHOING_CALL_CONDUIT.id} rank={this.conduitRank}>
           <>
             ≈
             {(this.procChances * ECHOING_CALL_INCREASED_WILD_CALL_CHANCE[this.conduitRank]).toFixed(

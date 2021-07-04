@@ -101,7 +101,7 @@ class LatentPoisonInjectors extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.LATENT_POISON_INJECTORS_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.LATENT_POISON_INJECTORS_EFFECT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

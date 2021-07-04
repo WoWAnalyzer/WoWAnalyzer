@@ -49,7 +49,7 @@ class UnrelentingCold extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.UNRELENTING_COLD} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.UNRELENTING_COLD.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

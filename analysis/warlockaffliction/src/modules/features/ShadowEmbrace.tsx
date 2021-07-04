@@ -197,7 +197,7 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
+        <BoringSpellValueText spellId={SPELLS.SHADOW_EMBRACE.id}>
           {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={

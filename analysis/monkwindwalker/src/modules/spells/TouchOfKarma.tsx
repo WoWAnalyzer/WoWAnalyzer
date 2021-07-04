@@ -82,7 +82,7 @@ class TouchOfKarma extends Analyzer {
         size="flexible"
         tooltip="This does not account for possible absorbs from missed Touch of Karma casts"
       >
-        <BoringSpellValueText spell={SPELLS.TOUCH_OF_KARMA_CAST}>
+        <BoringSpellValueText spellId={SPELLS.TOUCH_OF_KARMA_CAST.id}>
           {formatPercentage(this.absorbUsed, 0)}% <small>Absorb used</small>
         </BoringSpellValueText>
       </Statistic>

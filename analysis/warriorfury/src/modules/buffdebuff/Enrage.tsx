@@ -90,7 +90,7 @@ class Enrage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ENRAGE}>
+        <BoringSpellValueText spellId={SPELLS.ENRAGE.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

@@ -61,7 +61,7 @@ class Redoubt extends Analyzer {
         }
       >
         <BoringSpellValue
-          spell={SPELLS.REDOUBT_TALENT}
+          spellId={SPELLS.REDOUBT_TALENT.id}
           value={formatNumber(this.averageStacks)}
           label="Average Stacks"
         />

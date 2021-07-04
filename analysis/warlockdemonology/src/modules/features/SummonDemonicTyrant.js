@@ -100,7 +100,7 @@ class SummonDemonicTyrant extends Analyzer {
         dropdown={petTable}
         footer={tyrantFooter}
       >
-        <BoringSpellValueText spell={SPELLS.SUMMON_DEMONIC_TYRANT}>
+        <BoringSpellValueText spellId={SPELLS.SUMMON_DEMONIC_TYRANT.id}>
           {`${avgPets.toFixed(2)}`} <small>Avg. demons empowered</small>
         </BoringSpellValueText>
       </Statistic>

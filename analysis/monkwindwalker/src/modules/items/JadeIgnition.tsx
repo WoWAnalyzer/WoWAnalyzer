@@ -95,7 +95,7 @@ class JadeIgnition extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.JADE_IGNITION}>
+        <BoringSpellValueText spellId={SPELLS.JADE_IGNITION.id}>
           <ItemDamageDone amount={this.damageDone} />
           <br />
           {formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>

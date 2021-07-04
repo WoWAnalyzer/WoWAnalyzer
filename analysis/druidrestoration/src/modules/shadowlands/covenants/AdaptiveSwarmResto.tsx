@@ -68,7 +68,7 @@ class AdaptiveSwarmResto extends AdaptiveSwarm {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ADAPTIVE_SWARM}>
+        <BoringSpellValueText spellId={SPELLS.ADAPTIVE_SWARM.id}>
           <ItemPercentHealingDone amount={this.totalHealingWithMastery} />
           <br />
         </BoringSpellValueText>

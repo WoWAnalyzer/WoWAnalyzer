@@ -87,7 +87,7 @@ class Stormflurry extends Analyzer {
             : ``
         } hits (+${formatPercentage(this.extraHits / this.totalStormstrikeCasts)}%).`}
       >
-        <BoringSpellValueText spell={SPELLS.STORMFLURRY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STORMFLURRY_TALENT.id}>
           <>
             <ItemDamageDone amount={this.extraDamage} />
             <br />

@@ -321,7 +321,7 @@ class RegrowthAndClearcasting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.REGROWTH}>
+        <BoringSpellValueText spellId={SPELLS.REGROWTH.id}>
           <>
             {this.badRegrowths === 0 ? <CheckmarkIcon /> : <CrossIcon />}
             {'  '}

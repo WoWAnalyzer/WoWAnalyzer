@@ -80,7 +80,7 @@ class Flashover extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spell={SPELLS.FLASHOVER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FLASHOVER_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

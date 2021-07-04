@@ -52,7 +52,7 @@ class Kindling extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spell={SPELLS.KINDLING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.KINDLING_TALENT.id}>
           <>
             {formatNumber(this.cooldownReductionSeconds)}s{' '}
             <small>Combustion Cooldown Reduction</small>

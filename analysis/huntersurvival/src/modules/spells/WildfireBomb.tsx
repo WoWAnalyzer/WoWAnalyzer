@@ -160,7 +160,7 @@ class WildfireBomb extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
+        <BoringSpellValueText spellId={SPELLS.WILDFIRE_BOMB.id}>
           <>
             {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
             <br />

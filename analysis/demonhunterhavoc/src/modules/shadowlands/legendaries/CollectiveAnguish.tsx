@@ -34,7 +34,7 @@ class CollectiveAnguish extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spell={SPELLS.COLLECTIVE_ANGUISH}>
+        <BoringSpellValueText spellId={SPELLS.COLLECTIVE_ANGUISH.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

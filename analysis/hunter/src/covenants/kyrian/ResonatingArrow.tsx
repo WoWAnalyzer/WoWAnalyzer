@@ -96,7 +96,7 @@ class ResonatingArrow extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RESONATING_ARROW}>
+        <BoringSpellValueText spellId={SPELLS.RESONATING_ARROW.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small> debuff uptime</small>
             <br />

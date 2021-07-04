@@ -73,7 +73,7 @@ class TheWall extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.THE_WALL}>
+        <BoringSpellValueText spellId={SPELLS.THE_WALL.id}>
           {this.effectiveRage} <small>rage</small> <br />
           {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>

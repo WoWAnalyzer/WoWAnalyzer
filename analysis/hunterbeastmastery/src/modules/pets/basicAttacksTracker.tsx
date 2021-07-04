@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -31,7 +30,7 @@ class BasicAttacks extends Analyzer {
   chainCasts: number = 0;
   damage: number = 0;
   //Assume that the usedBasicAttack is Bite, so that there are no issues if no Basic Attack have been cast this fight
-  usedBasicAttack: Spell = SPELLS.BITE_BASIC_ATTACK;
+  usedBasicAttack: number = SPELLS.BITE_BASIC_ATTACK.id;
   basicAttackChecked: boolean = false;
 
   constructor(options: Options) {
@@ -68,11 +67,7 @@ class BasicAttacks extends Analyzer {
 
   onPetBasicAttackDamage(event: DamageEvent) {
     if (!this.basicAttackChecked) {
-      this.usedBasicAttack = {
-        id: event.ability.guid,
-        name: event.ability.name,
-        icon: event.ability.abilityIcon,
-      };
+      this.usedBasicAttack = event.ability.guid;
       this.basicAttackChecked = true;
     }
     this.damage += event.amount + (event.absorbed || 0);
@@ -175,7 +170,7 @@ class BasicAttacks extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={this.usedBasicAttack}>
+        <BoringSpellValueText spellId={this.usedBasicAttack}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             {formatNumber(

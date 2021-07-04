@@ -38,7 +38,7 @@ class RoaringBlaze extends Analyzer {
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.ROARING_BLAZE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ROARING_BLAZE_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

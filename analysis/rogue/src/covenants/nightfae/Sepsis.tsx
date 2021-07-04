@@ -88,7 +88,7 @@ class Sepsis extends Analyzer {
             </ul>
           }
         >
-          <BoringSpellValueText spell={SPELLS.SEPSIS}>
+          <BoringSpellValueText spellId={SPELLS.SEPSIS.id}>
             <ItemDamageDone amount={this.damage + this.poisonDamage} />
           </BoringSpellValueText>
         </Statistic>

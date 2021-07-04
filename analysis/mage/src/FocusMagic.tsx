@@ -122,7 +122,7 @@ class FocusMagic extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FOCUS_MAGIC_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FOCUS_MAGIC_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.critBuffUptime, 0)}% <small>Crit Buff Uptime</small>
           <br />
           <UptimeIcon /> {formatPercentage(this.intBuffUptime, 0)}%{' '}

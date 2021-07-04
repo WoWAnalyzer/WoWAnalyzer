@@ -234,7 +234,7 @@ class Flourish extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FLOURISH_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FLOURISH_TALENT.id}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

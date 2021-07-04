@@ -111,7 +111,7 @@ class ArcanePowerActiveTime extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_POWER}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_POWER.id}>
           {formatPercentage(this.percentActiveTime)}% <small>Arcane Power Active Time</small>
         </BoringSpellValueText>
       </Statistic>

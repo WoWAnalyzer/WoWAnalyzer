@@ -73,7 +73,7 @@ class Doom extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.DOOM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DOOM_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>

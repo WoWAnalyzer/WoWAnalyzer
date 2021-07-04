@@ -49,7 +49,7 @@ class Nightfall extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.NIGHTFALL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NIGHTFALL_TALENT.id}>
           {this.wastedProcs} <small>wasted procs</small>
         </BoringSpellValueText>
       </Statistic>

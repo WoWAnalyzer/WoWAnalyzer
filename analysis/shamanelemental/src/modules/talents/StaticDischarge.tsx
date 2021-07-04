@@ -74,7 +74,7 @@ class StaticDischarge extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spell={SPELLS.STATIC_DISCHARGE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STATIC_DISCHARGE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageDone} />
           </>

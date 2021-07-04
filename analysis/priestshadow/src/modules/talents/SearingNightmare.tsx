@@ -85,7 +85,7 @@ class SearingNightmare extends Analyzer {
         size="flexible"
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
       >
-        <BoringSpellValueText spell={SPELLS.SEARING_NIGHTMARE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SEARING_NIGHTMARE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

@@ -222,7 +222,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
+        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

@@ -65,7 +65,7 @@ class SoulConduit extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SOUL_CONDUIT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SOUL_CONDUIT_TALENT.id}>
           {generatedShards} <small>generated Shards</small>
         </BoringSpellValueText>
       </Statistic>

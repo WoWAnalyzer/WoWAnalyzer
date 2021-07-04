@@ -258,7 +258,7 @@ class Darkglare extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
+        <BoringSpellValueText spellId={SPELLS.SUMMON_DARKGLARE.id}>
           {formatDPS(this.bonusDotDamage)}{' '}
           <TooltipElement
             content={

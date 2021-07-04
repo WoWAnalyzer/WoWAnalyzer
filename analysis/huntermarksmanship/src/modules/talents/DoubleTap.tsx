@@ -84,7 +84,7 @@ class DoubleTap extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DOUBLE_TAP_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DOUBLE_TAP_TALENT.id}>
           <>
             {this.aimedUsage}
             {'  '}

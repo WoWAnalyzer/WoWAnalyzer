@@ -90,7 +90,7 @@ class UnfurlingDarkness extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.UNFURLING_DARKNESS_BUFF}>
+        <BoringSpellValueText spellId={SPELLS.UNFURLING_DARKNESS_BUFF.id}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
           </>

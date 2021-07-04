@@ -101,7 +101,7 @@ class Backdraft extends Analyzer {
   statistic() {
     return (
       <Statistic size="small" position={STATISTIC_ORDER.CORE(4)}>
-        <BoringSpellValueText spell={SPELLS.BACKDRAFT}>
+        <BoringSpellValueText spellId={SPELLS.BACKDRAFT.id}>
           {this.wastedStacks} <small>Wasted procs</small>
         </BoringSpellValueText>
       </Statistic>

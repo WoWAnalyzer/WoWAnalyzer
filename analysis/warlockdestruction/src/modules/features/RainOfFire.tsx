@@ -137,7 +137,7 @@ class RainOfFire extends Analyzer {
         size="small"
         tooltip="There's a possibility of a mistake in assigning targets hit to individual casts, when there are multiple Rains of Fire overlapping."
       >
-        <BoringSpellValueText spell={SPELLS.RAIN_OF_FIRE_CAST}>
+        <BoringSpellValueText spellId={SPELLS.RAIN_OF_FIRE_CAST.id}>
           {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
         </BoringSpellValueText>
       </Statistic>

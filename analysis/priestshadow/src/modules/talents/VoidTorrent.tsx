@@ -177,7 +177,7 @@ class VoidTorrent extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.VOID_TORRENT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.VOID_TORRENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <Insanity /> {this.insanityGained} <small>Insanity generated</small>

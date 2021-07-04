@@ -250,7 +250,7 @@ class BrainFreeze extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BRAIN_FREEZE}>
+        <BoringSpellValueText spellId={SPELLS.BRAIN_FREEZE.id}>
           {formatPercentage(this.utilPercent, 0)}% <small>Proc utilization</small>
         </BoringSpellValueText>
       </Statistic>

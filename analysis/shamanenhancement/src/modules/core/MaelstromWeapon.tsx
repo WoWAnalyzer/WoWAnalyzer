@@ -152,7 +152,7 @@ class MaelstromWeapon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
+        <BoringSpellValueText spellId={SPELLS.MAELSTROM_WEAPON.id}>
           <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}%{' '}
           <small>of fight with max stacks</small>
           <br />

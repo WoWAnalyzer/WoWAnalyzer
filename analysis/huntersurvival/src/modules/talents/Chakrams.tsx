@@ -67,7 +67,7 @@ class Chakrams extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CHAKRAMS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CHAKRAMS_TALENT.id}>
           <>
             <AverageTargetsHit casts={this.casts} hits={this.targetsHit} unique />
           </>

@@ -36,7 +36,7 @@ class EssenceOfBloodfang extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spell={SPELLS.ESSENCE_OF_BLOODFANG}>
+        <BoringSpellValueText spellId={SPELLS.ESSENCE_OF_BLOODFANG.id}>
           <ItemDamageDone amount={this.bloodfangDamage} />
           <br />
           <ItemHealingDone amount={this.bloodfangHealing} />

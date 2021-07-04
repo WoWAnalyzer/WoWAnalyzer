@@ -55,7 +55,7 @@ class SteadyFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.STEADY_FOCUS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STEADY_FOCUS_TALENT.id}>
           <>
             <HasteIcon /> {formatPercentage(this.avgHaste)}% <small>average Haste gained</small>
           </>

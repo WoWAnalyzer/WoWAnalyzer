@@ -69,7 +69,7 @@ class UnlimitedPower extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.UNLIMITED_POWER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.UNLIMITED_POWER_TALENT.id}>
           <>Unlimited Power Average Haste Gain (Uptime {formatPercentage(this.uptime)}%)</>
         </BoringSpellValueText>
       </Statistic>

@@ -116,7 +116,7 @@ class ThrillOfTheHunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.THRILL_OF_THE_HUNT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.THRILL_OF_THE_HUNT_TALENT.id}>
           <>
             <CriticalStrike /> {this.averageCritPercent}% <small>average Crit</small>
           </>

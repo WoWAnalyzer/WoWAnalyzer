@@ -208,7 +208,7 @@ class SerpentSting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SERPENT_STING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SERPENT_STING_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

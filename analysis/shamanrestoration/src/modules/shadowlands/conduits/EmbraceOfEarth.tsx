@@ -63,7 +63,7 @@ class EmbraceOfEarth extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.EMBRACE_OF_EARTH} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.EMBRACE_OF_EARTH.id} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </ConduitSpellText>

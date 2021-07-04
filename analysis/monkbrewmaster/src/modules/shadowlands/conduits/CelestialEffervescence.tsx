@@ -46,7 +46,7 @@ export default class CelestialEffervescence extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.CELESTIAL_EFFERVESCENCE} rank={this.rank}>
+        <ConduitSpellText spellId={SPELLS.CELESTIAL_EFFERVESCENCE.id} rank={this.rank}>
           <ItemHealingDone amount={this.healingIncrease} />
         </ConduitSpellText>
       </Statistic>

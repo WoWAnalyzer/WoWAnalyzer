@@ -51,7 +51,7 @@ class ControlledDestruction extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.CONTROLLED_DESTRUCTION} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.CONTROLLED_DESTRUCTION.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

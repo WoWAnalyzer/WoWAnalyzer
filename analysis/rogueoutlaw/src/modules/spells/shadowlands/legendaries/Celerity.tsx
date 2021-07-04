@@ -130,7 +130,7 @@ class Celerity extends Analyzer {
           dropdown={dropdown}
         >
           <BoringSpellValue
-            spell={SPELLS.CELERITY}
+            spellId={SPELLS.CELERITY.id}
             value={`${this.lostUptimes.length}/${this.numAdrenalineRushCasts}`}
             label="Bad Casts of Adrenaline Rush with Celerity Legendary"
           />

@@ -146,7 +146,7 @@ class RuneOfHysteria extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RUNE_OF_HYSTERIA}>
+        <BoringSpellValueText spellId={SPELLS.RUNE_OF_HYSTERIA.id}>
           <>
             {Math.floor(this.runicPowerGainedByHysteria)} <small>RP gained</small>
           </>

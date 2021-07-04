@@ -71,7 +71,7 @@ class NesingwarysTrappingApparatus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.id}>
           <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
           {this.focusWasted + this.focusGained} <small>Focus gained immediately</small>
           <br />

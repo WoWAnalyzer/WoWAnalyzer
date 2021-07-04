@@ -78,7 +78,7 @@ class RecklessAbandon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RECKLESS_ABANDON_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.RECKLESS_ABANDON_TALENT.id}>
           <>{formatNumber(this.instantRageGained)} instant rage</>
         </BoringSpellValueText>
       </Statistic>

@@ -44,7 +44,7 @@ class AngelsMercy extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
       >
-        <BoringSpellValueText spell={SPELLS.ANGELS_MERCY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ANGELS_MERCY_TALENT.id}>
           {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
         </BoringSpellValueText>
       </Statistic>

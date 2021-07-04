@@ -65,14 +65,12 @@ class ElementalBarrier extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={this.barrierSpell}>
-          <>
-            {formatNumber(this.damageAbsorbed)} <small>Damage absorbed</small>
-            <br />
-            {formatNumber(this.absorbedPerCast)} <small>Avg. absorbed per barrier</small>
-            <br />
-            {formatPercentage(this.percentAbsorbed)}% <small> % of Damage absorbed</small>
-          </>
+        <BoringSpellValueText spellId={this.barrierSpell.id}>
+          {formatNumber(this.damageAbsorbed)} <small>Damage absorbed</small>
+          <br />
+          {formatNumber(this.absorbedPerCast)} <small>Avg. absorbed per barrier</small>
+          <br />
+          {formatPercentage(this.percentAbsorbed)}% <small> % of Damage absorbed</small>
         </BoringSpellValueText>
       </Statistic>
     );

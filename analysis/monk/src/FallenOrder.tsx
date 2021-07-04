@@ -154,7 +154,7 @@ class FallenOrder extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FALLEN_ORDER_CAST}>
+        <BoringSpellValueText spellId={SPELLS.FALLEN_ORDER_CAST.id}>
           <ItemHealingDone amount={this.mistHealing} />
           <br />
           <ItemDamageDone amount={totalDamage} />

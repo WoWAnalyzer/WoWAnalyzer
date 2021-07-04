@@ -104,7 +104,7 @@ class AnimalCompanion extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ANIMAL_COMPANION_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ANIMAL_COMPANION_TALENT.id}>
           <>
             {formatNumber(totalDamage)} /{' '}
             {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS

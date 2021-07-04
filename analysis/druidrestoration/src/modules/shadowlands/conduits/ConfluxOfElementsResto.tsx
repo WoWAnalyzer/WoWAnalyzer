@@ -68,7 +68,7 @@ class ConfluxOfElementsResto extends Analyzer {
         }
       >
         <BoringSpellValueText
-          spell={SPELLS.CONFLUX_OF_ELEMENTS}
+          spellId={SPELLS.CONFLUX_OF_ELEMENTS.id}
           ilvl={this.selectedCombatant.conduitsByConduitID[SPELLS.CONFLUX_OF_ELEMENTS.id].itemLevel}
         >
           <ItemPercentHealingDone amount={this.healing} />

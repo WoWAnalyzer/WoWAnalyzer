@@ -77,7 +77,7 @@ class ThePenitentOne extends Analyzer {
         }
       >
         <>
-          <BoringSpellValueText spell={SPELLS.THE_PENITENT_ONE}>
+          <BoringSpellValueText spellId={SPELLS.THE_PENITENT_ONE.id}>
             <ItemHealingDone amount={this.tpoAtonement + this.tpoDirect} />
           </BoringSpellValueText>
         </>

@@ -179,7 +179,7 @@ class SpinningCraneKick extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spell={SPELLS.MARK_OF_THE_CRANE}>
+          <BoringSpellValueText spellId={SPELLS.MARK_OF_THE_CRANE.id}>
             <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
             <small>
               {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of

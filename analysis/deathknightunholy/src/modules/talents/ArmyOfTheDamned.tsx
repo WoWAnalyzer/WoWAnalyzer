@@ -68,7 +68,7 @@ class ArmyOfTheDamned extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.ARMY_OF_THE_DAMNED_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id}>
           <>
             <CooldownIcon /> {this.totalApocalypseReductionMs / 1000}s{' '}
             <small> of Apocalypse CDR</small>

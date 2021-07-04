@@ -62,7 +62,7 @@ class VisionOfUnendingGrowth extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.VISION_OF_UNENDING_GROWTH}>
+        <BoringSpellValueText spellId={SPELLS.VISION_OF_UNENDING_GROWTH.id}>
           <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

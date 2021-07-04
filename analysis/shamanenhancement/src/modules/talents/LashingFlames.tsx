@@ -108,7 +108,7 @@ class LashingFlames extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.LASHING_FLAMES_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.LASHING_FLAMES_TALENT.id}>
           <>
             <>
               <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>

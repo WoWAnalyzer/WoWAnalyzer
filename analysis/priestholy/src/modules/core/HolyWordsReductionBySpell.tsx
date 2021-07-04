@@ -134,7 +134,7 @@ class HolyWordsReductionBySpell extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HOLY_WORDS}>
+        <BoringSpellValueText spellId={SPELLS.HOLY_WORDS.id}>
           {formatPercentage(reductionRatio)}% Effective Holy Word Reduction
         </BoringSpellValueText>
       </Statistic>

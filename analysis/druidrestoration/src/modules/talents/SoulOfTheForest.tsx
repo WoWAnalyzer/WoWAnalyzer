@@ -314,7 +314,7 @@ class SoulOfTheForest extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION}>
+        <BoringSpellValueText spellId={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

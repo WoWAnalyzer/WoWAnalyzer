@@ -100,7 +100,7 @@ class ArcaneOrb extends Analyzer {
             : ''
         } Casting Arcane Orb when it will only hit one target is still beneficial and acceptable, but if you can aim it so that it hits multiple enemies then you should.`}
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_ORB_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_ORB_TALENT.id}>
           <>
             {formatNumber(this.averageHitsPerCast)} <small>Average hits per cast</small>
           </>

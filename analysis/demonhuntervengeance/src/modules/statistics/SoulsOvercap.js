@@ -87,7 +87,7 @@ class SoulsOvercap extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT}>
+        <BoringSpellValueText spellId={SPELLS.SOUL_FRAGMENT.id}>
           <>
             {formatPercentage(this.wasterPerGenerated())}% <small>souls over cap</small>
           </>

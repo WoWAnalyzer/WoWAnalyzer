@@ -37,7 +37,7 @@ class Stormkeeper extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT_ELEMENTAL}>
+        <BoringSpellValueText spellId={SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>

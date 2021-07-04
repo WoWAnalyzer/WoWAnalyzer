@@ -315,7 +315,7 @@ class WintersChill extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.WINTERS_CHILL}>
+        <BoringSpellValueText spellId={SPELLS.WINTERS_CHILL.id}>
           <SpellIcon id={SPELLS.WINTERS_CHILL.id} /> {formatPercentage(this.shatterUtil, 0)}%{' '}
           <small>Spells shattered</small>
           <br />
