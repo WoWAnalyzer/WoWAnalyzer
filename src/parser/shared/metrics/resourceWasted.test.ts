@@ -1,5 +1,4 @@
 import { EnergizeEvent, EventType } from 'parser/core/Events';
-import { Info } from 'parser/core/metric';
 
 import resourceWasted from './resourceWasted';
 
@@ -35,27 +34,22 @@ const energizeEvent = (id: number, amount: number = 100): EnergizeEvent => ({
 });
 
 describe('resourceWasted', () => {
-  const info: Info = {
-    abilities: [],
-    playerId: 1,
-    fightStart: 0,
-    fightEnd: 0,
-  };
-
   it('starts empty', () => {
-    expect(resourceWasted([], info)).toEqual({});
+    expect(resourceWasted([], 1)).toEqual({});
   });
   it('tracks waste', () => {
-    expect(resourceWasted([{ ...energizeEvent(1), resourceChange: 100, waste: 25 }], info)).toEqual(
-      {
+    expect(resourceWasted([{ ...energizeEvent(1), resourceChange: 100, waste: 25 }], 1)).toEqual({
+      1: {
         0: {
           1: 25,
         },
       },
-    );
-    expect(resourceWasted([{ ...energizeEvent(1), resourceChange: 0, waste: 25 }], info)).toEqual({
-      0: {
-        1: 25,
+    });
+    expect(resourceWasted([{ ...energizeEvent(1), resourceChange: 0, waste: 25 }], 1)).toEqual({
+      1: {
+        0: {
+          1: 25,
+        },
       },
     });
     expect(
@@ -65,15 +59,17 @@ describe('resourceWasted', () => {
           { ...energizeEvent(3), waste: 50 },
           { ...energizeEvent(4), resourceChangeType: 2, waste: 75 },
         ],
-        info,
+        1,
       ),
     ).toEqual({
-      0: {
-        1: 25,
-        3: 50,
-      },
-      2: {
-        4: 75,
+      1: {
+        0: {
+          1: 25,
+          3: 50,
+        },
+        2: {
+          4: 75,
+        },
       },
     });
   });
@@ -84,22 +80,26 @@ describe('resourceWasted', () => {
           { ...energizeEvent(1), waste: 25 },
           { ...energizeEvent(1), waste: 50 },
         ],
-        info,
+        1,
       ),
     ).toEqual({
-      0: {
-        1: 75,
+      1: {
+        0: {
+          1: 75,
+        },
       },
     });
   });
   it('does not include resource gain', () => {
-    expect(resourceWasted([{ ...energizeEvent(1), resourceChange: 100, waste: 0 }], info)).toEqual({
-      0: {
-        1: 0,
+    expect(resourceWasted([{ ...energizeEvent(1), resourceChange: 100, waste: 0 }], 1)).toEqual({
+      1: {
+        0: {
+          1: 0,
+        },
       },
     });
   });
-  it("ignores other player's resource changes", () => {
+  it("tracks other player's resources wasted", () => {
     expect(
       resourceWasted(
         [
@@ -110,8 +110,14 @@ describe('resourceWasted', () => {
             targetID: 2,
           },
         ],
-        info,
+        1,
       ),
-    ).toEqual({});
+    ).toEqual({
+      2: {
+        0: {
+          1: 100,
+        },
+      },
+    });
   });
 });
