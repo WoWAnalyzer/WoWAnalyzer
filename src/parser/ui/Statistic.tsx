@@ -9,7 +9,7 @@ import './Statistic.scss';
 
 export type StatisticSize = 'standard' | 'small' | 'medium' | 'large' | 'flexible';
 
-type Props = {
+interface Props {
   children: ReactNode;
   /**
    * A tooltip node to be displayed when the user hovers over an information *(i)* icon in the
@@ -35,7 +35,7 @@ type Props = {
    */
   className: string;
   expanded?: boolean;
-};
+}
 
 class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
   static defaultProps = {
