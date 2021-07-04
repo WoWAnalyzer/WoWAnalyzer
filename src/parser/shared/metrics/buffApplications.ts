@@ -1,5 +1,5 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
-import stat from 'parser/core/stat';
+import metric from 'parser/core/metric';
 
 /**
  * Returns the index of the last element in the array where predicate is true, and -1
@@ -79,4 +79,4 @@ const buffApplications = (events: AnyEvent[]) =>
     return obj;
   }, {});
 
-export default stat(buffApplications);
+export default metric(buffApplications);

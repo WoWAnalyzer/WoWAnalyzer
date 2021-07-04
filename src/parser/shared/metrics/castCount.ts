@@ -1,5 +1,5 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
-import stat, { Info } from 'parser/core/stat';
+import metric, { Info } from 'parser/core/metric';
 
 /**
  * Returns an object with the total amount of casts per spell.
@@ -12,4 +12,4 @@ const castCount = (events: AnyEvent[], { playerId }: Info) =>
     return obj;
   }, {});
 
-export default stat(castCount);
+export default metric(castCount);

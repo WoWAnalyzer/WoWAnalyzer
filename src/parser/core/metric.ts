@@ -7,9 +7,9 @@ export interface Info {
   fightStart: number;
   fightEnd: number;
 }
-export type Stat<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
+export type Metric<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
 
-const stat = <T extends any[], U>(fn: (events: AnyEvent[], ...args: T) => U) => {
+const metric = <T extends any[], U>(fn: (events: AnyEvent[], ...args: T) => U) => {
   // We store the last events in the CombatLogParser anyway, so leaving
   // instances in stats should not be significant.
   let lastEvents: AnyEvent[] | undefined = undefined;
@@ -25,4 +25,4 @@ const stat = <T extends any[], U>(fn: (events: AnyEvent[], ...args: T) => U) => 
   };
 };
 
-export default stat;
+export default metric;

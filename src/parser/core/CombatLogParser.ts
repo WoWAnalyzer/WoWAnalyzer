@@ -77,6 +77,7 @@ import EventFilter from './EventFilter';
 import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
+import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -86,7 +87,6 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
-import { Info } from './stat';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;

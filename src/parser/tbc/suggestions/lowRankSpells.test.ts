@@ -1,6 +1,6 @@
 import { CastEvent, EventType } from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
 import Ability from 'parser/core/modules/Ability';
-import { Info } from 'parser/core/stat';
 
 import lowRankSpells from './lowRankSpells';
 

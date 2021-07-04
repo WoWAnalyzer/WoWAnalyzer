@@ -1,5 +1,5 @@
 import { AnyEvent } from 'parser/core/Events';
-import stat, { Info } from 'parser/core/stat';
+import metric, { Info } from 'parser/core/metric';
 
 import buffApplications from './buffApplications';
 
@@ -22,4 +22,4 @@ const buffUptimeTotal = (events: AnyEvent[], info: Info, spellId: number) => {
   );
 };
 
-export default stat(buffUptimeTotal);
+export default metric(buffUptimeTotal);

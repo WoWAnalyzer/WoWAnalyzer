@@ -1,5 +1,5 @@
 import { AnyEvent } from 'parser/core/Events';
-import stat, { Info } from 'parser/core/stat';
+import metric, { Info } from 'parser/core/metric';
 
 import buffApplications from './buffApplications';
 
@@ -30,4 +30,4 @@ const buffUptimeDistinct = (events: AnyEvent[], info: Info, spellId: number) => 
   }, 0);
 };
 
-export default stat(buffUptimeDistinct);
+export default metric(buffUptimeDistinct);

@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance, WIPSuggestionFactory } from 'parser/core/CombatLogParser';
-import castCount from 'parser/shared/stats/castCount';
+import castCount from 'parser/shared/metrics/castCount';
 import React from 'react';
 
 const lowRankSpells = (): WIPSuggestionFactory => (events, info) => {
