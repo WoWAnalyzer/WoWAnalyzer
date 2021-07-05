@@ -142,7 +142,8 @@ class PrePullCooldowns extends EventsNormalizer {
         if (precastClassResources === null && event.classResources) {
           debug && console.debug('Setting prepull class resources (but stripping costs) to:', event.classResources);
           precastClassResources = event.classResources;
-          precastClassResources.map(classResource => {
+          // make a new class resources with costs stripped - have to deep copy to avoid messing with the original cast event
+          precastClassResources = precastClassResources.map(classResource => {
             const noCostClassResource = Object.assign({}, classResource);
             noCostClassResource.cost = undefined;
             return noCostClassResource;
