@@ -128,12 +128,11 @@ class ConvokeSpiritsGuardian extends ConvokeSpirits {
         tooltip={
           <>
             <strong>
-              Damage amount listed considers only the direct damage and
-              non-refreshable DoT damage done by convoked abilities!{' '}
+              Damage amount listed considers only the direct damage and non-refreshable DoT damage
+              done by convoked abilities!{' '}
             </strong>
-            (Non-refreshable DoTs include Starfall) Refreshable DoTs and heals
-            are not considered by this number, making it almost
-            certainly an undercount of Convoke's true value.
+            (Non-refreshable DoTs include Starfall) Refreshable DoTs and heals are not considered by
+            this number, making it almost certainly an undercount of Convoke's true value.
             <br />
             <br />
             {this.baseTooltip}
