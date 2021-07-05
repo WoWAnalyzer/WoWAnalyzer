@@ -140,14 +140,15 @@ class PrePullCooldowns extends EventsNormalizer {
          * information more accurately.
          */
         if (precastClassResources === null && event.classResources) {
-          debug && console.debug('Setting prepull class resources (but stripping costs) to:', event.classResources);
-          precastClassResources = event.classResources;
-          // make a new class resources with costs stripped - have to deep copy to avoid messing with the original cast event
-          precastClassResources = precastClassResources.map(classResource => {
-            const noCostClassResource = Object.assign({}, classResource);
-            noCostClassResource.cost = undefined;
-            return noCostClassResource;
-          });
+          debug &&
+            console.debug(
+              'Setting prepull class resources (but stripping costs) to:',
+              event.classResources,
+            );
+          precastClassResources = event.classResources.map((classResource) => ({
+            ...classResource,
+            cost: undefined,
+          }));
         }
 
         // If a cast is found for a damage spell, remove it from the search
