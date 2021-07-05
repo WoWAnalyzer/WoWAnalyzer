@@ -1,8 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import { ConvokeSpirits } from '@wowanalyzer/druid';
-import ConvokeSpiritsGuardian from './modules/shadowlands/ConvokeSpiritsGuardian';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
@@ -17,6 +15,7 @@ import GuardianOfElune from './modules/features/GuardianOfElune';
 import IronFurGoEProcs from './modules/features/IronFurGoEProcs';
 import MitigationCheck from './modules/features/MitigationCheck';
 import RageWasted from './modules/features/RageWasted';
+import ConvokeSpiritsGuardian from './modules/shadowlands/ConvokeSpiritsGuardian';
 import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 import IronFur from './modules/spells/IronFur';
 import Moonfire from './modules/spells/Moonfire';
