@@ -140,7 +140,7 @@ class ConvokeSpiritsGuardian extends ConvokeSpirits {
         }
         dropdown={this.baseTable}
       >
-        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
+        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>
           <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>
