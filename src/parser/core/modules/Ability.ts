@@ -140,6 +140,10 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * The spell ID that'll forcibly shown on the timeline if set.
    */
   shownSpell?: number;
+  /**
+   * All lower ranks for the spell.
+   */
+  lowerRanks?: number[];
 }
 
 class Ability {
@@ -289,9 +293,13 @@ class Ability {
      * The spell that'll forcibly shown on the timeline if set.
      */
     shownSpell: PropTypes.number,
+    /**
+     * All lower ranks for the spell.
+     */
+    lowerRanks: PropTypes.arrayOf(PropTypes.number),
   };
 
-  private readonly owner: Abilities;
+  private readonly owner: Abilities | undefined;
 
   spell!: SpellbookAbility['spell'];
   primaryOverride: number | undefined;
@@ -323,7 +331,7 @@ class Ability {
   }
   /** @return {number} */
   get cooldown() {
-    return this.getCooldown(this.owner.haste.current);
+    return this.getCooldown(this.owner?.haste.current);
   }
   getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
@@ -350,7 +358,7 @@ class Ability {
       return 0;
     }
     if (typeof this._channel === 'function') {
-      return this._channel.call(this.owner, this.owner.haste.current);
+      return this._channel.call(this.owner, this.owner?.haste.current);
     }
 
     return this._channel;
@@ -377,12 +385,13 @@ class Ability {
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;
   shownSpell = null;
+  lowerRanks: number[] | null = null;
 
   /**
    * @param owner
    * @param options
    */
-  constructor(owner: Abilities, options: SpellbookAbility) {
+  constructor(owner: Abilities | undefined, options: SpellbookAbility) {
     this.owner = owner;
     this._setProps(options);
   }

@@ -3,7 +3,7 @@ import Icon from 'interface/Icon';
 import UpArrow from 'interface/icons/UpArrow';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   switch (importance) {
@@ -26,8 +26,12 @@ function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   }
 }
 
-class Suggestion extends React.PureComponent<Issue, { expanded: boolean }> {
-  constructor(props: Issue) {
+interface Props extends Omit<Issue, 'issue'> {
+  children: ReactNode;
+}
+
+class Suggestion extends React.PureComponent<Props, { expanded: boolean }> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       expanded: false,
@@ -42,7 +46,7 @@ class Suggestion extends React.PureComponent<Issue, { expanded: boolean }> {
   }
 
   render() {
-    const { icon, issue, stat, importance, details } = this.props;
+    const { children, icon, stat, importance, details } = this.props;
 
     return (
       <>
@@ -54,7 +58,7 @@ class Suggestion extends React.PureComponent<Issue, { expanded: boolean }> {
             <Icon icon={icon} alt="Icon" />
           </div>
           <div className="suggestion">
-            {issue}
+            {children}
             {stat && <small>{stat}</small>}
           </div>
           <div className="importance">

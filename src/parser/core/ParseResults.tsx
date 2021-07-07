@@ -1,5 +1,6 @@
 import { captureException } from 'common/errorLogger';
 import { ParseResultsTab } from 'parser/core/Analyzer';
+import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
 import React from 'react';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -267,11 +268,11 @@ class Suggestion {
 }
 
 export type Issue = {
-  icon?: string;
   issue: React.ReactNode;
-  stat?: React.ReactNode;
   importance: ISSUE_IMPORTANCE;
-  details: (() => React.ReactNode) | null;
+  icon?: string;
+  stat?: React.ReactNode;
+  details?: (() => React.ReactNode) | null;
 };
 
 export enum ThresholdStyle {
@@ -339,13 +340,13 @@ export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestio
 class ParseResults {
   tabs: ParseResultsTab[] = [];
   statistics: React.ReactElement[] = [];
-  issues: Issue[] = [];
+  issues: Array<Issue | SuggestionData> = [];
 
   constructor() {
     this.addIssue = this.addIssue.bind(this);
   }
 
-  addIssue(issue: Issue) {
+  addIssue(issue: Issue | SuggestionData) {
     this.issues.push(issue);
   }
 
