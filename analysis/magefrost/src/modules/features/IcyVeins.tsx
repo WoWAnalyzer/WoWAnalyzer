@@ -111,7 +111,7 @@ class IcyVeins extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ICY_VEINS}>
+        <BoringSpellValueText spellId={SPELLS.ICY_VEINS.id}>
           {formatPercentage(this.percentActiveTime)}% <small>Icy Veins Active Time</small>
         </BoringSpellValueText>
       </Statistic>

@@ -84,7 +84,7 @@ class Hemostasis extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HEMOSTASIS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HEMOSTASIS_TALENT.id}>
           <>
             {formatPercentage(this.averageIncrease)} % <small>average DS increase</small>
           </>

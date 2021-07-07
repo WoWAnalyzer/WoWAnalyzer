@@ -38,7 +38,7 @@ class FortifyingIngredients extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.FORTIFYING_INGREDIENTS}>
+        <BoringSpellValueText spellId={SPELLS.FORTIFYING_INGREDIENTS.id}>
           <ItemHealingDone amount={shield} />
         </BoringSpellValueText>
       </Statistic>

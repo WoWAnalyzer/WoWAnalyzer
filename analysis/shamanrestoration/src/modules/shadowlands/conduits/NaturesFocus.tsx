@@ -82,7 +82,7 @@ class NaturesFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.NATURES_FOCUS} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.NATURES_FOCUS.id} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </ConduitSpellText>

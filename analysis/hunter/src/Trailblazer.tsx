@@ -34,7 +34,7 @@ class Trailblazer extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.TRAILBLAZER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.TRAILBLAZER_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.percentUptime)}% <small>uptime</small>
           </>

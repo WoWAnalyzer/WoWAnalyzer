@@ -45,7 +45,7 @@ class TalbadarsStratagem extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.TALBADARS_STRATAGEM}>
+        <BoringSpellValueText spellId={SPELLS.TALBADARS_STRATAGEM.id}>
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
       </Statistic>

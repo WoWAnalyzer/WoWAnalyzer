@@ -73,7 +73,7 @@ class Stormbringer extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spell={SPELLS.STORMBRINGER}>
+        <BoringSpellValueText spellId={SPELLS.STORMBRINGER.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

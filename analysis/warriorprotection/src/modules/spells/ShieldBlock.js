@@ -236,7 +236,7 @@ class ShieldBlock extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SHIELD_BLOCK}>
+        <BoringSpellValueText spellId={SPELLS.SHIELD_BLOCK.id}>
           Bad Defensive Casts: {totalCasts - defensiveCasts}
           <br />
         </BoringSpellValueText>

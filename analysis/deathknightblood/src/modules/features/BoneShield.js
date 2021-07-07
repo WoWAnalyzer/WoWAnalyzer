@@ -81,7 +81,7 @@ class BoneShield extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BONE_SHIELD}>
+        <BoringSpellValueText spellId={SPELLS.BONE_SHIELD.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

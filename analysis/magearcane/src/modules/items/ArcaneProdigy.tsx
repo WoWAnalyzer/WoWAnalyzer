@@ -81,7 +81,7 @@ class ArcaneProdigy extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.ARCANE_PRODIGY} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ARCANE_PRODIGY.id} rank={this.conduitRank}>
           <UptimeIcon /> {this.reductionSeconds}s <small>Arcane Power CDR</small>
           <br />
           {this.wastedReductionSeconds}s <small>Wasted CDR</small>

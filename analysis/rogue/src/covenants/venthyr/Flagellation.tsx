@@ -42,7 +42,7 @@ class Flagellation extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
-        <BoringSpellValueText spell={SPELLS.FLAGELLATION}>
+        <BoringSpellValueText spellId={SPELLS.FLAGELLATION.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <ItemDamageDone amount={this.lashDamage} />

@@ -123,7 +123,7 @@ class Serenity extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SERENITY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SERENITY_TALENT.id}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of

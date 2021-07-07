@@ -38,7 +38,7 @@ class JonatsNaturalFocus extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spell={SPELLS.JONATS_NATURAL_FOCUS}>
+        <BoringSpellValueText spellId={SPELLS.JONATS_NATURAL_FOCUS.id}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>

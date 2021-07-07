@@ -136,7 +136,7 @@ class GuardianOfElune extends Analyzer {
         }
       >
         <BoringSpellValue
-          spell={SPELLS.GUARDIAN_OF_ELUNE}
+          spellId={SPELLS.GUARDIAN_OF_ELUNE.id}
           value={`${formatPercentage(unusedGoEProcs)}%`}
           label="Unused Guardian of Elune"
         />

@@ -87,7 +87,7 @@ export default class ScaldingBrew extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={`${this.missedHits} of your Keg Smash hits (besides the initial debuff application) were without the Breath of Fire debuff.`}
       >
-        <ConduitSpellText spell={SPELLS.SCALDING_BREW} rank={this.rank!}>
+        <ConduitSpellText spellId={SPELLS.SCALDING_BREW.id} rank={this.rank!}>
           <>
             <ItemDamageDone amount={this.bonusDamage} />
           </>

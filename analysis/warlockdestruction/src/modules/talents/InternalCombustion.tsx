@@ -38,7 +38,7 @@ class InternalCombustion extends Analyzer {
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.INTERNAL_COMBUSTION_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.INTERNAL_COMBUSTION_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

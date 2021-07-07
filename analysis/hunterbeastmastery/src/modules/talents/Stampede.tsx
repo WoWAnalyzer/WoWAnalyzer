@@ -157,7 +157,7 @@ class Stampede extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spell={SPELLS.STAMPEDE_TALENT}>
+          <BoringSpellValueText spellId={SPELLS.STAMPEDE_TALENT.id}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />

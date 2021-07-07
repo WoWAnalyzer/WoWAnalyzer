@@ -121,7 +121,7 @@ class CrimsonScourge extends Analyzer {
         size="flexible"
         tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
       >
-        <BoringSpellValueText spell={SPELLS.CRIMSON_SCOURGE}>
+        <BoringSpellValueText spellId={SPELLS.CRIMSON_SCOURGE.id}>
           <>
             {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
           </>

@@ -546,11 +546,14 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
-  resourceChange: number;
+  /** The id for the resource. See the RESOURCE_TYPES file for all available resource types. */
   resourceChangeType: number;
-  otherResourceChange: number;
+  /** The amount of resource gained. This includes any wasted gain, see `waste`. */
+  resourceChange: number;
+  /** The amount of wasted resource gain (overcapped). */
   waste: number;
-  resourceActor: number;
+  otherResourceChange: number; // defaults to 0?
+  resourceActor: number; // 1 = source, 2 = target? used for classResources/hitpoints/etc, not resourceChange fields I think
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;

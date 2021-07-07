@@ -23,7 +23,7 @@ class ReverseEntropy extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="small">
-        <BoringSpellValueText spell={SPELLS.REVERSE_ENTROPY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.REVERSE_ENTROPY_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>

@@ -52,7 +52,7 @@ class ReversalOfFortune extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.REVERSAL_OF_FORTUNE_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.REVERSAL_OF_FORTUNE_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
             {this.focusWasted + this.focusGained} <small>Focus gained</small>

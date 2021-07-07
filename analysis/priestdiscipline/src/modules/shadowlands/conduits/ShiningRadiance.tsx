@@ -44,7 +44,7 @@ class ShiningRadiance extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.SHINING_RADIANCE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SHINING_RADIANCE.id} rank={this.conduitRank}>
           <>
             <ItemHealingDone amount={this.bonusRadianceHealing} />
           </>

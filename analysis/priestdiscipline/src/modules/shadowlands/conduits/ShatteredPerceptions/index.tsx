@@ -212,7 +212,7 @@ class ShatteredPerceptions extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip="Shows the contribution given by Shattered Perceptions, if no graph shows you got no benefit from the duration extension portion of Shattered Perceptions"
       >
-        <ConduitSpellText spell={SPELLS.SHATTERED_PERCEPTIONS} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SHATTERED_PERCEPTIONS.id} rank={this.conduitRank}>
           <>
             <ItemHealingDone amount={this.bonusHealingTotal} />
           </>

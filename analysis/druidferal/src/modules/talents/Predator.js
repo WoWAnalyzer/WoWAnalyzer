@@ -113,7 +113,7 @@ class Predator extends Analyzer {
         tooltip={this.extraCasts > 0 ? hadExtraCasts : noExtraCasts}
         positon={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spell={SPELLS.PREDATOR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.PREDATOR_TALENT.id}>
           <>
             {this.extraCastsPerMinute.toFixed(2)} <small>extra casts per minute</small>
           </>

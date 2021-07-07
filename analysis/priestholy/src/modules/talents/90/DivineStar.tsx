@@ -55,7 +55,7 @@ class DivineStar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spell={SPELLS.DIVINE_STAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DIVINE_STAR_TALENT.id}>
           <>
             <ItemHealingDone amount={this.divineStarHealing} />
             <br />

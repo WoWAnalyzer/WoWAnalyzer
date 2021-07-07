@@ -40,7 +40,7 @@ class PsychicVoice extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(4)}
       >
-        <BoringSpellValueText spell={SPELLS.PSYCHIC_VOICE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.PSYCHIC_VOICE_TALENT.id}>
           {this.psychicScreamHits} Targets Feared
         </BoringSpellValueText>
       </Statistic>

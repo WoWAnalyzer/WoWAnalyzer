@@ -49,7 +49,7 @@ class AlphaPredator extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.ALPHA_PREDATOR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ALPHA_PREDATOR_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

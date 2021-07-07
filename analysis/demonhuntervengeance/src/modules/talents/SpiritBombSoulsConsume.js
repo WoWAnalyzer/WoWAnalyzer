@@ -141,7 +141,7 @@ class SpiritBombSoulsConsume extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SPIRIT_BOMB_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
           <>
             {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
           </>

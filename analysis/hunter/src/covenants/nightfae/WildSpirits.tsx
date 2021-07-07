@@ -79,7 +79,7 @@ class WildSpirits extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.WILD_SPIRITS}>
+        <BoringSpellValueText spellId={SPELLS.WILD_SPIRITS.id}>
           <>
             <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.damage)}{' '}
             <small> direct damage</small>

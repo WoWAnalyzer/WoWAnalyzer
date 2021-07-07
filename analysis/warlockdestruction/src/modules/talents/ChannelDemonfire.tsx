@@ -41,7 +41,7 @@ class ChannelDemonfire extends Analyzer {
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.CHANNEL_DEMONFIRE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CHANNEL_DEMONFIRE_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

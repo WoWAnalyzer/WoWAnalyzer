@@ -64,7 +64,7 @@ class MomentOfGlory extends Analyzer {
         }
       >
         <BoringSpellValue
-          spell={SPELLS.MOMENT_OF_GLORY_TALENT}
+          spellId={SPELLS.MOMENT_OF_GLORY_TALENT.id}
           value={formatNumber(this.totalExtraDamage)}
           label="Extra Damage"
         />

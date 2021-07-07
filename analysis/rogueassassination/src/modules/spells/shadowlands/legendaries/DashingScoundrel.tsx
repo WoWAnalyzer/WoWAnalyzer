@@ -45,7 +45,7 @@ class DashingScoundrel extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
+        <BoringSpellValueText spellId={SPELLS.DASHING_SCOUNDREL.id}>
           <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink /> {this.comboPointsGained}/
           {this.comboPointsWasted + this.comboPointsGained}{' '}
           <small> extra Combo Points gained.</small>

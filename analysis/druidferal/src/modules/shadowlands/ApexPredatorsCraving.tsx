@@ -177,7 +177,7 @@ class ApexPredatorsCraving extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.APEX_PREDATORS_CRAVING}>
+        <BoringSpellValueText spellId={SPELLS.APEX_PREDATORS_CRAVING.id}>
           <ItemPercentDamageDone amount={this.damageDone} />
           {this.hasSotf && (
             <>

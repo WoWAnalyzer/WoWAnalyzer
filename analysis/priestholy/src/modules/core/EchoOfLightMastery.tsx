@@ -368,7 +368,7 @@ class EchoOfLightMastery extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ECHO_OF_LIGHT_MASTERY}>
+        <BoringSpellValueText spellId={SPELLS.ECHO_OF_LIGHT_MASTERY.id}>
           <ItemHealingDone amount={this.effectiveHealing} />
         </BoringSpellValueText>
       </Statistic>

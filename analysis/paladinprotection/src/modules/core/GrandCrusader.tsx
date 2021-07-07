@@ -142,7 +142,7 @@ class GrandCrusader extends Analyzer {
         }
       >
         <BoringSpellValue
-          spell={SPELLS.GRAND_CRUSADER}
+          spellId={SPELLS.GRAND_CRUSADER.id}
           value={`${this._totalResets} Resets`}
           label="Grand Crusader"
         />

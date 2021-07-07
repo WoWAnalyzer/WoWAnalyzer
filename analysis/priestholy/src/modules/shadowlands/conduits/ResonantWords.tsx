@@ -75,7 +75,7 @@ class ResonantWords extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={`${this.wastedResonantWords}/${this.totalResonantWords} wasted resonant word buffs.`}
       >
-        <ConduitSpellText spell={SPELLS.RESONANT_WORDS} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.RESONANT_WORDS.id} rank={this.conduitRank}>
           <ItemHealingDone amount={this.bonusHealing} />
         </ConduitSpellText>
       </Statistic>

@@ -49,7 +49,7 @@ class ShiveringCore extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.SHIVERING_CORE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SHIVERING_CORE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

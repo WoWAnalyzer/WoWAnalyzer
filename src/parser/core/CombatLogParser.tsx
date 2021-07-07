@@ -14,7 +14,7 @@ import ModuleError from 'parser/core/ModuleError';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import Haste from 'parser/shared/modules/Haste';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import React from 'react';
+import React, { ComponentType } from 'react';
 
 import Config from '../Config';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
@@ -222,6 +222,7 @@ class CombatLogParser {
   static specModules: DependenciesDefinition = {};
 
   static suggestions: WIPSuggestionFactory[] = [];
+  static statistics: Array<ComponentType<{ events: AnyEvent[]; info: Info }>> = [];
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
   applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
@@ -701,6 +702,7 @@ class CombatLogParser {
       fightEnd: this.fight.end_time,
     };
 
+    console.time('functional suggestions');
     ctor.suggestions.forEach((suggestionFactory) => {
       const suggestions = suggestionFactory(this.eventHistory, info);
       if (Array.isArray(suggestions)) {
@@ -709,6 +711,12 @@ class CombatLogParser {
         results.addIssue(suggestions);
       }
     });
+    console.timeEnd('functional suggestions');
+    console.time('functional statistics');
+    ctor.statistics.forEach((Component) => {
+      results.statistics.push(<Component events={this.eventHistory} info={info} />);
+    });
+    console.timeEnd('functional statistics');
     console.timeEnd('functional');
 
     return results;

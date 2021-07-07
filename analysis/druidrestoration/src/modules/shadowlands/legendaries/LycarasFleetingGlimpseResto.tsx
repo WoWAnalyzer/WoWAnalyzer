@@ -49,7 +49,7 @@ class LycarasFleetingGlimpseResto extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.LYCARAS_FLEETING_GLIMPSE}>
+        <BoringSpellValueText spellId={SPELLS.LYCARAS_FLEETING_GLIMPSE.id}>
           <ItemPercentHealingDone
             amount={this.hotAttributor.lycarasFleetingGlimpseAttrib.healing}
           />

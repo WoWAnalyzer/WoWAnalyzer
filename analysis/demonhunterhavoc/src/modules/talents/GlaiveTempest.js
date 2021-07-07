@@ -38,7 +38,7 @@ class GlaiveTempest extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.GLAIVE_TEMPEST_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.GLAIVE_TEMPEST_TALENT.id}>
           <>{this.owner.formatItemDamageDone(this.damage)}</>
         </BoringSpellValueText>
       </Statistic>

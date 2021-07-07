@@ -40,7 +40,7 @@ class ShiningForce extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(4)}
       >
-        <BoringSpellValueText spell={SPELLS.SHINING_FORCE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SHINING_FORCE_TALENT.id}>
           {this.shiningForceHits} Knock Back(s)
         </BoringSpellValueText>
       </Statistic>

@@ -95,7 +95,7 @@ class Ossuary extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.OSSUARY}>
+        <BoringSpellValueText spellId={SPELLS.OSSUARY.id}>
           <>
             {this.dsWithoutOS} / {this.dsWithOS + this.dsWithoutOS}{' '}
             <small>Death Strikes without Ossuary</small>

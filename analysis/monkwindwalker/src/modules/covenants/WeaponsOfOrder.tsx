@@ -124,7 +124,7 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.WEAPONS_OF_ORDER_CAST}>
+        <BoringSpellValueText spellId={SPELLS.WEAPONS_OF_ORDER_CAST.id}>
           <span>
             <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
             <small>

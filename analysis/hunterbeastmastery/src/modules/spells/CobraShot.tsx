@@ -199,7 +199,7 @@ class CobraShot extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.COBRA_SHOT}>
+        <BoringSpellValueText spellId={SPELLS.COBRA_SHOT.id}>
           <>
             {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
             <br />

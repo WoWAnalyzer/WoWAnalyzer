@@ -44,7 +44,7 @@ class ExecutionSentence extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.EXECUTION_SENTENCE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.EXECUTION_SENTENCE_TALENT.id}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

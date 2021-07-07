@@ -373,7 +373,7 @@ class Photosynthesis extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.PHOTOSYNTHESIS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.PHOTOSYNTHESIS_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

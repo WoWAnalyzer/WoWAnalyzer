@@ -68,7 +68,7 @@ class PowerSiphon extends Analyzer {
         size="flexible"
         tooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
       >
-        <BoringSpellValueText spell={SPELLS.POWER_SIPHON_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.POWER_SIPHON_TALENT.id}>
           {this.totalCores} <small>Bonus cores</small>
         </BoringSpellValueText>
       </Statistic>

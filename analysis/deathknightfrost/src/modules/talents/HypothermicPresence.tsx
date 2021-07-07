@@ -27,7 +27,7 @@ class HypothermicPresence extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(50)} size="flexible">
         <BoringSpellValue
-          spell={SPELLS.HYPOTHERMIC_PRESENCE_TALENT}
+          spellId={SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id}
           value={`${this.runicPowerTracker.totalHypothermicPresenceReduction}`}
           label="Runic Power saved"
         />

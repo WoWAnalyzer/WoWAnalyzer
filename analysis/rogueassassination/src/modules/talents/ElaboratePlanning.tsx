@@ -52,7 +52,7 @@ class ElaboratePlanning extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
       >
-        <BoringSpellValueText spell={SPELLS.ELABORATE_PLANNING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ELABORATE_PLANNING_TALENT.id}>
           <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>

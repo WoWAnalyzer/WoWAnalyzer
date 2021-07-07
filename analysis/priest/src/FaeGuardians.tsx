@@ -144,7 +144,7 @@ class FaeGuardians extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.FAE_GUARDIANS}>
+        <BoringSpellValueText spellId={SPELLS.FAE_GUARDIANS.id}>
           <>
             {this.manaGenerated > 0 && (
               <>

@@ -139,7 +139,7 @@ class FlayedShot extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FLAYED_SHOT}>
+        <BoringSpellValueText spellId={SPELLS.FLAYED_SHOT.id}>
           <>
             {this.resets} / {this.totalProcs} <small>Kill Shot resets</small>
             <br />

@@ -272,7 +272,7 @@ class ConvokeSpirits extends Analyzer {
         tooltip={this.baseTooltip}
         dropdown={this.baseTable}
       >
-        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>-</BoringSpellValueText>
+        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>-</BoringSpellValueText>
       </Statistic>
     );
   }

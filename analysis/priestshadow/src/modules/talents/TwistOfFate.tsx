@@ -38,7 +38,7 @@ class TwistOfFate extends Analyzer {
         size="flexible"
         tooltip={`${formatPercentage(uptime)}% uptime`}
       >
-        <BoringSpellValueText spell={SPELLS.TWIST_OF_FATE_BUFF}>
+        <BoringSpellValueText spellId={SPELLS.TWIST_OF_FATE_BUFF.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

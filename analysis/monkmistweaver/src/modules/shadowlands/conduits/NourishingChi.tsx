@@ -75,7 +75,7 @@ class NourishingChi extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.NOURISHING_CHI}>
+        <BoringSpellValueText spellId={SPELLS.NOURISHING_CHI.id}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

@@ -93,7 +93,7 @@ class BindingHeal extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spell={SPELLS.BINDING_HEAL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BINDING_HEAL_TALENT.id}>
           <ItemHealingDone amount={this.bindingHealHealing} />
         </BoringSpellValueText>
       </Statistic>

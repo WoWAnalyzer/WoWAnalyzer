@@ -41,7 +41,7 @@ class EarthenHarmony extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spell={SPELLS.EARTHEN_HARMONY}>
+        <BoringSpellValueText spellId={SPELLS.EARTHEN_HARMONY.id}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>

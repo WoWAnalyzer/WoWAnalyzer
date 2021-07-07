@@ -65,7 +65,7 @@ class Momentum extends Analyzer {
         size="flexible"
         tooltip={`The Momentum buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spell={SPELLS.MOMENTUM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.MOMENTUM_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

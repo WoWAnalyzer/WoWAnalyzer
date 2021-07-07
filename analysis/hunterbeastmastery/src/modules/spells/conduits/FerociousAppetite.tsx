@@ -68,7 +68,7 @@ class FerociousAppetite extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.FEROCIOUS_APPETITE_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.FEROCIOUS_APPETITE_CONDUIT.id} rank={this.conduitRank}>
           <>
             {this.effectiveCDR}/{this.effectiveCDR + this.wastedCDR}{' '}
             <small>effective cooldown reduction</small>

@@ -133,20 +133,20 @@ class PrimordialWave extends Analyzer {
           <tbody>
             <th>
               <div className="panel-heading value">Total Healing</div>
-              <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
+              <BoringSpellValueText spellId={SPELLS.PRIMORDIAL_WAVE_CAST.id}>
                 <ItemHealingDone amount={totalHealing} />
               </BoringSpellValueText>
             </th>
             <th>
               <div className="panel-heading value">Breakdown</div>
-              <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
+              <BoringSpellValueText spellId={SPELLS.PRIMORDIAL_WAVE_CAST.id}>
                 <ItemHealingDone amount={this.healing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
                 {formatPercentage(this.overHealing / (this.healing + this.overHealing))} %{' '}
                 <small>Overhealing</small>
               </BoringSpellValueText>
-              <BoringSpellValueText spell={SPELLS.RIPTIDE}>
+              <BoringSpellValueText spellId={SPELLS.RIPTIDE.id}>
                 <ItemHealingDone amount={this.riptideHealing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
@@ -155,7 +155,7 @@ class PrimordialWave extends Analyzer {
                 )}{' '}
                 % <small>Overhealing</small>
               </BoringSpellValueText>
-              <BoringSpellValueText spell={SPELLS.HEALING_WAVE}>
+              <BoringSpellValueText spellId={SPELLS.HEALING_WAVE.id}>
                 <ItemHealingDone amount={this.waveHealing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}

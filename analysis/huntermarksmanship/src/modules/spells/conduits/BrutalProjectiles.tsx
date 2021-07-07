@@ -102,7 +102,7 @@ class BrutalProjectiles extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.BRUTAL_PROJECTILES_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

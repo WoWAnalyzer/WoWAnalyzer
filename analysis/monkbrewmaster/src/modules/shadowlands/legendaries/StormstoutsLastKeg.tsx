@@ -102,7 +102,7 @@ class StormstoutsLastKeg extends Analyzer {
         }
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.STORMSTOUTS_LAST_KEG}>
+        <BoringSpellValueText spellId={SPELLS.STORMSTOUTS_LAST_KEG.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

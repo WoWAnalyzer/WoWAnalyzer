@@ -247,7 +247,7 @@ class BarbedShot extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BARBED_SHOT_PET_BUFF}>
+        <BoringSpellValueText spellId={SPELLS.BARBED_SHOT_PET_BUFF.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.percentUptimeMaxStacks)}%{' '}
             <small>3 stack uptime</small>

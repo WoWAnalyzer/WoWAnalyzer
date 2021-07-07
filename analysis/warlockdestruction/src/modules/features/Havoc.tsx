@@ -55,7 +55,7 @@ class Havoc extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HAVOC}>
+        <BoringSpellValueText spellId={SPELLS.HAVOC.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

@@ -90,7 +90,7 @@ class Bloodshed extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.BLOODSHED_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BLOODSHED_TALENT.id}>
           <>
             <ItemDamageDone amount={this.bleedDamage} /> <small>bleed damage</small>
             <ItemDamageDone amount={this.increasedDamage} /> <small>damage amp</small>

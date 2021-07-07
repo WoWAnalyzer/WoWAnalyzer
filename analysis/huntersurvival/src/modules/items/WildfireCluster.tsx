@@ -35,7 +35,7 @@ class WildfireCluster extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spell={SPELLS.WILDFIRE_CLUSTER_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.WILDFIRE_CLUSTER_EFFECT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

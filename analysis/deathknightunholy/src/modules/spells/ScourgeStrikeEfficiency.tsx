@@ -95,7 +95,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.SCOURGE_STRIKE}>
+        <BoringSpellValueText spellId={SPELLS.SCOURGE_STRIKE.id}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>

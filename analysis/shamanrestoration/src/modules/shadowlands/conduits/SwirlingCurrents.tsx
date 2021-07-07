@@ -100,7 +100,7 @@ class SwirlingCurrents extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.SWIRLING_CURRENTS} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SWIRLING_CURRENTS.id} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </ConduitSpellText>

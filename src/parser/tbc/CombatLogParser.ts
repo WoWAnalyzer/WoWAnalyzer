@@ -36,6 +36,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import ManaGained from './statistic/ManaGained';
 import lowRankSpells from './suggestions/lowRankSpells';
 
 class CombatLogParser extends BaseCombatLogParser {
@@ -89,6 +90,7 @@ class CombatLogParser extends BaseCombatLogParser {
   };
 
   static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpells()];
+  static statistics = [...BaseCombatLogParser.statistics, ManaGained];
 }
 
 export default CombatLogParser;

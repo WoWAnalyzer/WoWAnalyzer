@@ -46,7 +46,7 @@ class ArtificeOfTheArchmage extends Analyzer {
           <>The number of Arcane Charges you received from the Artifice of the Archmage conduit. </>
         }
       >
-        <ConduitSpellText spell={SPELLS.ARTIFICE_OF_THE_ARCHMAGE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id} rank={this.conduitRank}>
           {this.freeCharges} <small>Free Arcane Charges</small>
         </ConduitSpellText>
       </Statistic>

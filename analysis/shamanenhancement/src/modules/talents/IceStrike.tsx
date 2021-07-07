@@ -61,7 +61,7 @@ class IceStrike extends Analyzer {
           shockCooldownReducedInSeconds,
         )} seconds.`}
       >
-        <BoringSpellValueText spell={SPELLS.ICE_STRIKE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ICE_STRIKE_TALENT.id}>
           <>
             {formatNumber(shockCooldownReducedInSeconds / this.casts)}s{' '}
             <small> avg. Shock Cooldown Reduction</small>

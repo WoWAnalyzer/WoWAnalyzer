@@ -76,7 +76,7 @@ class Bloodseeker extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.BLOODSEEKER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BLOODSEEKER_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             {formatPercentage(this.averageAttackSpeedGain)}% <small>atk speed gain</small>

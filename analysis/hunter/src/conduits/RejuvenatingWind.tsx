@@ -40,7 +40,7 @@ class ReversalOfFortune extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.REJUVENATING_WIND_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.REJUVENATING_WIND_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemHealingDone amount={this.healingDone} />
           </>

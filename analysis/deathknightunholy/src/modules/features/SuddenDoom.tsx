@@ -97,7 +97,7 @@ class SuddenDoom extends Analyzer {
         size="flexible"
         tooltip="A proc counts as wasted if it fades without being used or if it refreshes"
       >
-        <BoringSpellValueText spell={SPELLS.SUDDEN_DOOM_BUFF}>
+        <BoringSpellValueText spellId={SPELLS.SUDDEN_DOOM_BUFF.id}>
           <>
             {this.wastedProcs} <small>wasted procs</small>
           </>

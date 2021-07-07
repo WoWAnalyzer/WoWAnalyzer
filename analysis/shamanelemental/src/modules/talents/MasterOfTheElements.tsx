@@ -129,7 +129,7 @@ class MasterOfTheElements extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

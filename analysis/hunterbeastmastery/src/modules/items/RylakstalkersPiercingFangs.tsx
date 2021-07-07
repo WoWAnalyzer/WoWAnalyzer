@@ -49,7 +49,7 @@ class RylakstalkersPiercingFangs extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

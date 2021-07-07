@@ -120,7 +120,7 @@ class Barrage extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.BARRAGE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BARRAGE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <AverageTargetsHit casts={this.casts.length} hits={this.hits} />

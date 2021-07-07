@@ -72,7 +72,7 @@ class Cataclysm extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.CATACLYSM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CATACLYSM_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

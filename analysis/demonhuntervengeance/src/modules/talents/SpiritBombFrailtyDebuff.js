@@ -77,7 +77,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SPIRIT_BOMB_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

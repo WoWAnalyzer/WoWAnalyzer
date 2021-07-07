@@ -116,7 +116,7 @@ class VipersVenom extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.VIPERS_VENOM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.bonusDamage} />
             <br />

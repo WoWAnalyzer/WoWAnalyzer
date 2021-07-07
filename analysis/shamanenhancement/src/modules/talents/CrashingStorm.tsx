@@ -42,7 +42,7 @@ class CrashingStorm extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CRASHING_STORM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CRASHING_STORM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

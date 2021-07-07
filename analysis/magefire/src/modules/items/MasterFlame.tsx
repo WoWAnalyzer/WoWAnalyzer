@@ -49,7 +49,7 @@ class MasterFlame extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.MASTER_FLAME} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.MASTER_FLAME.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

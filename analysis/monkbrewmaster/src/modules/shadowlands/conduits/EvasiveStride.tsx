@@ -204,7 +204,7 @@ export default class EvasiveStride extends Analyzer {
           </div>
         }
       >
-        <ConduitSpellText spell={SPELLS.EVASIVE_STRIDE} rank={this.rank!}>
+        <ConduitSpellText spellId={SPELLS.EVASIVE_STRIDE.id} rank={this.rank!}>
           <>
             <ItemHealingDone amount={this.healingDone} />
           </>

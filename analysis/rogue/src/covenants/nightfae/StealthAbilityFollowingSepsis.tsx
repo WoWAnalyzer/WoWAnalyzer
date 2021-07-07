@@ -118,7 +118,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
           dropdown={dropdown}
         >
           <BoringSpellValue
-            spell={SPELLS.SEPSIS}
+            spellId={SPELLS.SEPSIS.id}
             value={`${this.badCasts.length}`}
             label="Bad Casts after Sepsis Finishes"
           />

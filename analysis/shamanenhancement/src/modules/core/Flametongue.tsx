@@ -60,7 +60,7 @@ class Flametongue extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="small">
         <BoringSpellValue
-          spell={SPELLS.FLAMETONGUE}
+          spellId={SPELLS.FLAMETONGUE.id}
           value={`${formatPercentage(this.flametongueUptime)} %`}
           label="Flametongue Uptime"
         />

@@ -115,7 +115,7 @@ class DraughtOfDeepFocus extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DRAUGHT_OF_DEEP_FOCUS}>
+        <BoringSpellValueText spellId={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id}>
           <ItemPercentDamageDone amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>

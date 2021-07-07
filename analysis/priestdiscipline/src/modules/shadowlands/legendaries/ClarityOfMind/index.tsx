@@ -72,7 +72,7 @@ class ClarityOfMind extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <>
-          <BoringSpellValueText spell={SPELLS.CLARITY_OF_MIND}>
+          <BoringSpellValueText spellId={SPELLS.CLARITY_OF_MIND.id}>
             <ItemHealingDone amount={this.atonementHealing} />
           </BoringSpellValueText>
           <ClaritySourceDonut abilityMap={this.abilityMap} healingMap={this.healingMap} />

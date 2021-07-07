@@ -50,7 +50,7 @@ class FortressOfTheMind extends Analyzer {
         size="flexible"
         tooltip="This damage and insanity is the bonus gained from taking the talent."
       >
-        <BoringSpellValueText spell={SPELLS.FORTRESS_OF_THE_MIND_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FORTRESS_OF_THE_MIND_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

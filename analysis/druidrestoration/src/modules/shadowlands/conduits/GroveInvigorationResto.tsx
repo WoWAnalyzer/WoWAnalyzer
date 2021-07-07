@@ -65,7 +65,7 @@ class GroveInvigorationResto extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.GROVE_INVIGORATION}>
+        <BoringSpellValueText spellId={SPELLS.GROVE_INVIGORATION.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

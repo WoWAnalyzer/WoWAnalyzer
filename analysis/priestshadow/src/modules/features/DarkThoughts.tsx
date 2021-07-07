@@ -87,7 +87,7 @@ class DarkThoughts extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spell={SPELLS.DARK_THOUGHTS}>
+        <BoringSpellValueText spellId={SPELLS.DARK_THOUGHTS.id}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
           </>

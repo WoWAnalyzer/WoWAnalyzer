@@ -47,7 +47,7 @@ class EchoingReprimand extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
-        <BoringSpellValueText spell={SPELLS.ECHOING_REPRIMAND}>
+        <BoringSpellValueText spellId={SPELLS.ECHOING_REPRIMAND.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

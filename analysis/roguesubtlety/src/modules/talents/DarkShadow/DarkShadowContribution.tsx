@@ -33,7 +33,7 @@ class DarkShadowContribution extends DarkShadow {
 
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-        <BoringSpellValueText spell={SPELLS.DARK_SHADOW_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DARK_SHADOW_TALENT.id}>
           <ItemDamageDone amount={danceDamage} />
         </BoringSpellValueText>
       </Statistic>

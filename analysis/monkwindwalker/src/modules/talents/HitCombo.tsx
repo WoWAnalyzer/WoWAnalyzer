@@ -99,7 +99,7 @@ class HitCombo extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HIT_COMBO_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HIT_COMBO_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small>
           <br />
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}

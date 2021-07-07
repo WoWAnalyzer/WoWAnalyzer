@@ -83,7 +83,7 @@ class RighteousProtector extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.RIGHTEOUS_PROTECTOR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id}>
           <SpellIcon id={SPELLS.AVENGING_WRATH.id} />{' '}
           {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
           <small>

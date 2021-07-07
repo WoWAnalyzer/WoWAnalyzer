@@ -50,7 +50,7 @@ class HarmDenial extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.HARM_DENIAL}>
+        <BoringSpellValueText spellId={SPELLS.HARM_DENIAL.id}>
           <ItemDamageDone amount={this.bonusDamage} />
           <br />
           <ItemHealingDone amount={this.healingIncrease} />

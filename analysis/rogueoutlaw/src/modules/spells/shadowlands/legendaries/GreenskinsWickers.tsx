@@ -35,7 +35,7 @@ class GreenskinsWickers extends Analyzer {
         size="flexible"
         tooltip="This shows you the amount of procs gained from Greenskin's Wickers Legendary."
       >
-        <BoringSpellValueText spell={SPELLS.GREENSKINS_WICKERS}>
+        <BoringSpellValueText spellId={SPELLS.GREENSKINS_WICKERS.id}>
           <SpellIcon id={SPELLS.GREENSKINS_WICKERS.id} /> {this.greenskinProcs}{' '}
           <small>Procs gained</small>
         </BoringSpellValueText>

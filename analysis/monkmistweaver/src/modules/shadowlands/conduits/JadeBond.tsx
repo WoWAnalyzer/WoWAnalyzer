@@ -95,7 +95,7 @@ class JadeBond extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.JADE_BOND}>
+        <BoringSpellValueText spellId={SPELLS.JADE_BOND.id}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>
