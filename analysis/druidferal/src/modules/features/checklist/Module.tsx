@@ -99,7 +99,7 @@ class Checklist extends BaseChecklist {
           tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
           comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 
-          // remainder TODO
+          // TODO combo builders section ??
 
           swipeHitOne: this.swipeHitCount.hitJustOneThresholds,
 
