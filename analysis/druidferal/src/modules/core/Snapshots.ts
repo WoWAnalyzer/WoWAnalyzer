@@ -9,7 +9,7 @@ import Events, {
   RemoveDebuffEvent,
   TargettedEvent,
 } from 'parser/core/Events';
-import { ClosedTimePeriod, mergeTimePeriods } from 'parser/core/timePeriods';
+import { ClosedTimePeriod, union } from 'parser/core/timePeriods';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
@@ -233,7 +233,7 @@ abstract class Snapshots extends Analyzer {
 
   /** Gets the specific uptime periods where at least one active DoT has the given snapshot */
   getSnapshotCombinedUptimes(snapshotName: string): ClosedTimePeriod[] {
-    return mergeTimePeriods(
+    return union(
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)
         .filter((uptime) => uptime.snapshots.find((ss) => ss.name === snapshotName) !== undefined),

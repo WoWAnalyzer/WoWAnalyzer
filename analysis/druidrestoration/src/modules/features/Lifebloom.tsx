@@ -5,7 +5,7 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/timePeriods';
+import { union, OpenTimePeriod } from 'parser/core/timePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
@@ -138,7 +138,7 @@ class Lifebloom extends Analyzer {
     if (this.hasDTL) {
       subBars.push({
         spells: [SPELLS.THE_DARK_TITANS_LESSON],
-        uptimes: mergeTimePeriods(this.dtlUptimes, {start: this.owner.fight.start_time, end: this.owner.currentTimestamp}),
+        uptimes: union(this.dtlUptimes, {start: this.owner.fight.start_time, end: this.owner.currentTimestamp}),
         color: DTL_COLOR,
       });
     }
@@ -147,7 +147,7 @@ class Lifebloom extends Analyzer {
       this.owner.fight,
       {
         spells: [SPELLS.LIFEBLOOM_HOT_HEAL],
-        uptimes: mergeTimePeriods(this.lifebloomUptimes, {start: this.owner.fight.start_time, end: this.owner.currentTimestamp}),
+        uptimes: union(this.lifebloomUptimes, {start: this.owner.fight.start_time, end: this.owner.currentTimestamp}),
         color: LB_COLOR,
       },
       subBars,

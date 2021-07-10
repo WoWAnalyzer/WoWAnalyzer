@@ -3,8 +3,6 @@
  * All time fields are implicitly assumed to be log timestamps i.e. milliseconds since start of logging.
  */
 
-import Fight from 'parser/core/Fight';
-
 /**
  * A standard time period with explicitly defined start and end times.
  */
@@ -24,33 +22,38 @@ export type ClosedTimePeriod = {
  */
 export type OpenTimePeriod = Partial<ClosedTimePeriod>;
 
+/** Returns the total duration of the given time period(s).
+ * Overlap will NOT be considered, use union first if non-overlapping duration is required. */
+export function duration(time: ClosedTimePeriod | ClosedTimePeriod[]): number {
+  return Array.isArray(time)
+    ? time.reduce((acc, t) => acc + t.end - t.start, 0)
+    : time.end - time.start;
+}
+
 /**
  * Gets the logical intersection of two time periods, at least one of which must be closed
  * @return a closed time period representing the intersection of the two period,
  *   or null if the time periods do not overlap
  */
-export function intersection(time: OpenTimePeriod, closedTime: ClosedTimePeriod): ClosedTimePeriod | null {
-  const start = time.start === undefined
-    ? closedTime.start
-    : Math.max(time.start, closedTime.start);
-  const end = time.end === undefined
-    ? closedTime.end
-    : Math.min(time.end, closedTime.end);
-  return (start >= end) ? null : { start, end };
+export function intersection(
+  time: OpenTimePeriod,
+  closedTime: ClosedTimePeriod,
+): ClosedTimePeriod | null {
+  const start =
+    time.start === undefined ? closedTime.start : Math.max(time.start, closedTime.start);
+  const end = time.end === undefined ? closedTime.end : Math.min(time.end, closedTime.end);
+  return start >= end ? null : { start, end };
 }
 
 /**
- * Gets the intersection of a given time period with an encounter.
+ * Gets the logical union of several time periods, bounded by an intersection with an enclosing time period.
+ * @return closed time periods representing the union of the given periods intersected with the
+ *   enclosing time period.
  */
-export function intersectionWithFight(time: OpenTimePeriod, fight: Fight): ClosedTimePeriod | null {
-  return intersection(time, { start: fight.start_time, end: fight.end_time });
-}
-
-/**
- * Given a collection of possibly overlapping time periods, merges these periods
- * to create a non-overlapping union of the given time periods, enclosed by an overarching period.
- */
-export function mergeTimePeriods(times: OpenTimePeriod[], enclosingTimePeriod: ClosedTimePeriod): ClosedTimePeriod[] {
+export function union(
+  times: OpenTimePeriod[],
+  enclosingTimePeriod: ClosedTimePeriod,
+): ClosedTimePeriod[] {
   /*
    * Algorithm:
    * Break down the time periods into 'start' and 'end' events, then sort them by time.
@@ -66,7 +69,7 @@ export function mergeTimePeriods(times: OpenTimePeriod[], enclosingTimePeriod: C
   let active = 0;
   let currStart = 0;
   times
-    .map(otp => intersection(otp, enclosingTimePeriod))
+    .map((otp) => intersection(otp, enclosingTimePeriod))
     .filter((otp): otp is ClosedTimePeriod => otp !== null)
     .flatMap((time) => [
       { time: time.start, change: 1 },
@@ -103,12 +106,4 @@ export function mergeTimePeriods(times: OpenTimePeriod[], enclosingTimePeriod: C
   }
 
   return adjacentMerged;
-}
-
-/**
- * Given a collection of possibly overlapping time periods, merges these periods
- * to create a non-overlapping union of the given time periods, enclosed by the given encounter.
- */
-export function mergeTimePeriodsWithFight(times: OpenTimePeriod[], fight: Fight): ClosedTimePeriod[] {
-  return mergeTimePeriods(times, { start: fight.start_time, end: fight.end_time });
 }

@@ -610,6 +610,17 @@ class CombatLogParser {
     return formatDuration(timestamp - this.fight.start_time, precision);
   }
 
+  /** The info object for the current fight, as required by functional analyzers */
+  _getInfo(): Info {
+    // TODO does this need to be memoized?
+    return {
+      abilities: this.getModule(Abilities).abilities,
+      playerId: this.selectedCombatant.id,
+      fightStart: this.fight.start_time,
+      fightEnd: this.fight.end_time,
+    };
+  }
+
   generateResults(adjustForDowntime: boolean): ParseResults {
     this.adjustForDowntime = adjustForDowntime;
 
@@ -695,16 +706,10 @@ class CombatLogParser {
 
     console.time('functional');
     const ctor = this.constructor as typeof CombatLogParser;
-    const info = {
-      abilities: this.getModule(Abilities).abilities,
-      playerId: this.selectedCombatant.id,
-      fightStart: this.fight.start_time,
-      fightEnd: this.fight.end_time,
-    };
 
     console.time('functional suggestions');
     ctor.suggestions.forEach((suggestionFactory) => {
-      const suggestions = suggestionFactory(this.eventHistory, info);
+      const suggestions = suggestionFactory(this.eventHistory, this._getInfo());
       if (Array.isArray(suggestions)) {
         suggestions.forEach((suggestion) => results.addIssue(suggestion));
       } else {
@@ -714,7 +719,7 @@ class CombatLogParser {
     console.timeEnd('functional suggestions');
     console.time('functional statistics');
     ctor.statistics.forEach((Component) => {
-      results.statistics.push(<Component events={this.eventHistory} info={info} />);
+      results.statistics.push(<Component events={this.eventHistory} info={this._getInfo()} />);
     });
     console.timeEnd('functional statistics');
     console.timeEnd('functional');
