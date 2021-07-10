@@ -30,7 +30,6 @@ import SwipeHitCount from './modules/spells/SwipeHitCount';
 import ThrashHitCount from './modules/spells/ThrashHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Bloodtalons from './modules/talents/Bloodtalons';
-import Bloodtalons2 from './modules/talents/Bloodtalons2';
 import BrutalSlashHitCount from './modules/talents/BrutalSlashHitCount';
 import MoonfireUptimeAndSnapshots from './modules/talents/MoonfireUptimeAndSnapshots';
 import Predator from './modules/talents/Predator';
@@ -82,8 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     moonfireUptime: MoonfireUptimeAndSnapshots,
     savageRoar: SavageRoar,
     predator: Predator,
-    bloodtalons: Bloodtalons, // TODO depcrecated, remove?
-    bloodtalons2: Bloodtalons2,
+    bloodtalons: Bloodtalons,
     brutalSlashHitCount: BrutalSlashHitCount,
 
     // resources
