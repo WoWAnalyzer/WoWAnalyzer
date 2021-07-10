@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.NEW_MOON_TALENT.id, SPELLS.HALF_MOON, SPELLS.FULL_MOON.id],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 25,
+        cooldown: 20,
         enabled: combatant.hasTalent(SPELLS.NEW_MOON_TALENT.id),
         gcd: {
           base: 1500,
