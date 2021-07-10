@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 7, 9), <>Fixed an issue where only <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} /> (and not <SpellLink id={SPELLS.BERSERK.id} />) was counted as giving a stealth bonus to <SpellLink id={SPELLS.RAKE.id} /></>, Sref),
   change(date(2021, 6, 26), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to CDs checklist, and fixed a bug where <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/> stats would only appear if player is specced for <SpellLink id={SPELLS.LUNAR_INSPIRATION_TALENT.id}/>.</>, Sref),
   change(date(2021, 6, 25), <>Added suggestions for <SpellLink id={SPELLS.TIGERS_FURY.id} /> and <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> snapshotting, and updated <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> energy suggestion to be more clear about exceptions.</>, Sref),
   change(date(2021, 6, 24), <>Complete overhaul of the Checklist, including many bugfixes and improvements.</>, Sref),

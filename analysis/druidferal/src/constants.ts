@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import Combatant from 'parser/core/Combatant';
 
 /** The cast spells for Combo Point generating abilities */
 export const CP_GENERATORS: Spell[] = [
@@ -59,3 +60,9 @@ export const BRUTAL_SLASH_COEFFICIENT = 0.6;
 export const FERAL_DRUID_DAMAGE_AURA = 1.12;
 export const INCARNATION_SHRED_DAMAGE = 1.5;
 export const SHRED_SWIPE_BONUS_ON_BLEEDING = 1.2;
+
+export function cdSpell(c: Combatant): Spell {
+  return c.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT)
+    ? SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT
+    : SPELLS.BERSERK;
+}

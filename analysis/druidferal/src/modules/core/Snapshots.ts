@@ -15,6 +15,7 @@ import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
   BLOODTALONS_DAMAGE_BONUS,
+  cdSpell,
   PANDEMIC_FRACTION,
   PROWL_RAKE_DAMAGE_BONUS,
   TIGERS_FURY_DAMAGE_BONUS,
@@ -37,11 +38,9 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
   spellFunc: (c) => {
     const res = [];
     res.push(SPELLS.PROWL);
+    res.push(cdSpell(c));
     if (c.race === RACES.NightElf) {
       res.push(SPELLS.SHADOWMELD);
-    }
-    if (c.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT)) {
-      res.push(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT);
     }
     if (c.hasConduitBySpellID(SPELLS.SUDDEN_AMBUSH.id)) {
       res.push(SPELLS.SUDDEN_AMBUSH);
@@ -51,6 +50,7 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
   isActive: (_) => true,
   isPresent: (c, timestamp) =>
     c.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id, timestamp, BUFF_DROP_BUFFER) ||
+    c.hasBuff(SPELLS.BERSERK.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL_INCARNATION.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.SHADOWMELD.id, timestamp, BUFF_DROP_BUFFER) ||
