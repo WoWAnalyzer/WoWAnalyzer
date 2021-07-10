@@ -9,7 +9,7 @@ import Events, {
   RemoveDebuffEvent,
   TargettedEvent,
 } from 'parser/core/Events';
-import { ClosedTimePeriod, mergeTimePeriods } from 'parser/core/mergeTimePeriods';
+import { ClosedTimePeriod, mergeTimePeriods } from 'parser/core/timePeriods';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
@@ -237,7 +237,7 @@ abstract class Snapshots extends Analyzer {
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)
         .filter((uptime) => uptime.snapshots.find((ss) => ss.name === snapshotName) !== undefined),
-      this.owner.currentTimestamp,
+      {start: this.owner.fight.start_time, end: this.owner.currentTimestamp}
     );
   }
 

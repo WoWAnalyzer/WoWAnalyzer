@@ -4,6 +4,12 @@ import { AnyEvent, EventType } from 'parser/core/Events';
 const BUFFER = 3000;
 
 class FilteredActiveTime extends Analyzer {
+
+  getActiveTime2(start: number, end: number) {
+
+  }
+
+
   filterEvents(events: AnyEvent[], start: number, end: number) {
     let filteredEvents = [];
     filteredEvents = events.filter(
