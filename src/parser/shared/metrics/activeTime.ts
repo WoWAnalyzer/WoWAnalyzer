@@ -1,6 +1,6 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
-import { ClosedTimePeriod, union } from 'parser/core/timePeriods';
+import { ClosedTimePeriod, intersection, union } from 'parser/core/timePeriods';
 
 // TODO possible extensions:
 //   * channel and GCD time periods marked with spell, allowing additional filtering
@@ -26,7 +26,11 @@ export const channelTimePeriods = metric((events: AnyEvent[], info: Info): Close
   return results;
 });
 
-/** Time periods the player was in a global cooldown during the encounter */
+/**
+ * Time periods the player was in a global cooldown during the encounter.
+ * In cases where the haste isn't quite right or abilities are misspecified,
+ * the returned time periods may have some overlap.
+ */
 export const gcdTimePeriods = metric((events: AnyEvent[], info: Info): ClosedTimePeriod[] => {
   return events.reduce((acc: ClosedTimePeriod[], event) => {
     if (event.type === EventType.GlobalCooldown) {
@@ -36,10 +40,17 @@ export const gcdTimePeriods = metric((events: AnyEvent[], info: Info): ClosedTim
   }, []);
 });
 
-/** Time periods the player was active during the encounter */
+/** The (non-overlapping) time periods the player was active during the encounter */
 export const activeTimePeriods = metric((events: AnyEvent[], info: Info): ClosedTimePeriod[] => {
   return union(channelTimePeriods(events, info).concat(gcdTimePeriods(events, info)), {
     start: info.fightStart,
     end: info.fightEnd,
   });
 });
+
+/** The (non-overlapping) time periods the player was active during a given subset of the encounter */
+export const activeTimePeriodSubset = (events: AnyEvent[], info: Info, subset: ClosedTimePeriod): ClosedTimePeriod[] => {
+  return activeTimePeriods(events, info)
+    .map(t => intersection(t, subset))
+    .filter((t): t is ClosedTimePeriod => t !== null);
+}
