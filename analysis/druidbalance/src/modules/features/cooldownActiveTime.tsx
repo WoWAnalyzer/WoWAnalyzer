@@ -1,14 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import metric, { Info } from 'parser/core/metric';
 import { AnyEvent } from 'parser/core/Events';
-import cooldownActiveTime from 'parser/shared/metrics/cooldownActiveTime';
+import coreCooldownActiveTime from 'parser/shared/metrics/cooldownActiveTime';
 import { SuggestionImportance, WIPSuggestionFactory } from 'parser/core/CombatLogParser';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
-import { cooldownAbility } from '../../constants';
+import { cooldownAbilityFn } from '../../constants';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import React from 'react';
-import Combatant from 'parser/core/Combatant';
+import { hasCovenant } from 'parser/core/combatantInfoUtils';
 
 const MAJOR_COOLDOWN_IDS: number[] = [
   SPELLS.CELESTIAL_ALIGNMENT.id,
@@ -21,17 +21,17 @@ const AVERAGE = 0.04;
 const MAJOR = 0.08;
 
 /** Gets the percentage of time the player was active during major cooldowns. */
-const balanceDruidCooldownActiveTime = metric((events: AnyEvent[], info: Info): number => {
-  return cooldownActiveTime(events, info, MAJOR_COOLDOWN_IDS);
+const cooldownActiveTime = metric((events: AnyEvent[], info: Info): number => {
+  return coreCooldownActiveTime(events, info, MAJOR_COOLDOWN_IDS);
 });
 
 // TODO how to feed this into the checklist?
-export const balanceDruidCooldownActiveTimeThresholds = (
+export const cooldownActiveTimeThresholds = (
   events: AnyEvent[],
   info: Info,
 ): NumberThreshold => {
   return {
-    actual: balanceDruidCooldownActiveTime(events, info),
+    actual: cooldownActiveTime(events, info),
     isLessThan: {
       minor: MINOR,
       average: AVERAGE,
@@ -42,10 +42,9 @@ export const balanceDruidCooldownActiveTimeThresholds = (
 };
 
 // TODO handling of thresholds less manual
-export const balanceDruidCooldownActiveTimeSuggestion = (): WIPSuggestionFactory => (events, info) => {
-  const { playerId } = info;
-  const combatant: Combatant = undefined; // TODO derive combatant
-  const activeTime = balanceDruidCooldownActiveTime(events, info);
+export const cooldownActiveTimeSuggestion = (): WIPSuggestionFactory => (events, info) => {
+  const { selectedCombatant } = info;
+  const activeTime = cooldownActiveTime(events, info);
   let importance;
   if (activeTime > MINOR) {
     return [];
@@ -58,8 +57,8 @@ export const balanceDruidCooldownActiveTimeSuggestion = (): WIPSuggestionFactory
   }
   return {
     text: (<>
-      You had downtime during <SpellLink id={cooldownAbility(combatant).id} />
-      {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (<> and <SpellLink id={SPELLS.RAVENOUS_FRENZY.id} /></>)}.
+      You had downtime during <SpellLink id={cooldownAbilityFn(selectedCombatant).id} />
+      {hasCovenant(selectedCombatant, COVENANTS.VENTHYR.id) && (<> and <SpellLink id={SPELLS.RAVENOUS_FRENZY.id} /></>)}.
       Making full use of your major damage cooldowns is extremely important towards doing good DPS,
       making any downtime at all very bad. Where the encounter requires, you should plan the timing
       of your cooldowns to ensure you won't be interrupted by mechanics.
