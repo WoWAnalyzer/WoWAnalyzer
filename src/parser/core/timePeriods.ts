@@ -3,6 +3,8 @@
  * All time fields are implicitly assumed to be log timestamps i.e. milliseconds since start of logging.
  */
 
+import { Info } from 'parser/core/metric';
+
 /**
  * A standard time period with explicitly defined start and end times.
  */
@@ -107,3 +109,15 @@ export function union(
 
   return adjacentMerged;
 }
+
+/**
+ * Gets the logical union of several time periods, bounded by a fight's time period.
+ * @return closed time periods representing the union of the given periods bounded by a fight's time period.
+ */
+export function unionOverFight(
+  times: OpenTimePeriod[],
+  fightInfo: Info,
+): ClosedTimePeriod[] {
+  return union(times, { start: fightInfo.fightStart, end: fightInfo.fightEnd });
+}
+
