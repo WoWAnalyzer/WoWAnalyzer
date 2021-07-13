@@ -12,8 +12,6 @@ import React from 'react';
 import Abilities from '../../core/modules/Abilities';
 import Channeling from './Channeling';
 import GlobalCooldown from './GlobalCooldown';
-import { activeTimePeriods } from 'parser/shared/metrics/activeTime';
-import { duration } from 'parser/core/timePeriods';
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -50,14 +48,6 @@ class AlwaysBeCasting extends Analyzer {
     super(options);
     this.addEventListener(Events.GlobalCooldown, this.onGCD);
     this.addEventListener(Events.EndChannel, this.onEndChannel);
-    this.addEventListener(Events.fightend, this.onFightEnd);
-  }
-
-  onFightEnd() {
-    const newActiveTime = duration(activeTimePeriods(this.owner.eventHistory, this.owner._getInfo()));
-    console.log(
-      `Fight Total Time:${this.owner.fightDuration} / Active Time Old:${this.activeTime} / Active Time New:${newActiveTime}`,
-    );
   }
 
   onGCD(event: GlobalCooldownEvent) {
