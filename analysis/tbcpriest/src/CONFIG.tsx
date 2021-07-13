@@ -26,13 +26,7 @@ const config: Config = {
   pages: {
     overview: {
       hideChecklist: true,
-      text: (
-        <>
-          Classic support is still a Work in Progress. You may be able to use the timeline to see
-          your Auto Shot clipping, and there are a few usable suggestions, but please consult your
-          class Discord for a complete log review.
-        </>
-      ),
+      text: <>Classic support is still a Work in Progress.</>,
       type: TextType.Info,
     },
   },
