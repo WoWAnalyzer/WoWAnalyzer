@@ -50,7 +50,8 @@ export function intersection(
 /**
  * Gets the logical union of several time periods, bounded by an intersection with an enclosing time period.
  * @return closed time periods representing the union of the given periods intersected with the
- *   enclosing time period.
+ *   enclosing time period, in ascending time order. Adjacent time periods that 'touch' but do not
+ *   overlap will be merged into single time periods.
  */
 export function union(
   times: OpenTimePeriod[],
