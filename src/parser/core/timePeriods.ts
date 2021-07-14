@@ -47,6 +47,18 @@ export function intersection(
   return start >= end ? null : { start, end };
 }
 
+/*
+ * A picture of what union does:
+ * times:
+ *         <*******>
+ *   <******>
+ *       <*******>
+ *                    <*****************
+ * enclosingTimePeriod:
+ * |***********************|
+ * returns:
+ *   <*************>  <****>
+ */
 /**
  * Gets the logical union of several time periods, bounded by an intersection with an enclosing time period.
  * @return closed time periods representing the union of the given periods intersected with the
