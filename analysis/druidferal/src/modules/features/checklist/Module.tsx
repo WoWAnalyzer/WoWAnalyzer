@@ -14,7 +14,6 @@ import FerociousBite from '../../spells/FerociousBite';
 import SwipeHitCount from '../../spells/SwipeHitCount';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Bloodtalons from '../../talents/Bloodtalons';
-import Bloodtalons2 from '../../talents/Bloodtalons2';
 import MoonfireUptimeAndSnapshots from '../../talents/MoonfireUptimeAndSnapshots';
 import Predator from '../../talents/Predator';
 import SavageRoar from '../../talents/SavageRoar';
@@ -37,7 +36,6 @@ class Checklist extends BaseChecklist {
     ferociousBite: FerociousBite,
     energyCapTracker: EnergyCapTracker,
     bloodtalons: Bloodtalons,
-    bloodtalons2: Bloodtalons2,
     predator: Predator,
     tigersFuryEnergy: TigersFuryEnergy,
     shadowmeld: Shadowmeld,
@@ -58,7 +56,6 @@ class Checklist extends BaseChecklist {
   protected ferociousBite!: FerociousBite;
   protected energyCapTracker!: EnergyCapTracker;
   protected bloodtalons!: Bloodtalons;
-  protected bloodtalons2!: Bloodtalons2;
   protected predator!: Predator;
   protected tigersFuryEnergy!: TigersFuryEnergy;
   protected shadowmeld!: Shadowmeld;
@@ -90,7 +87,7 @@ class Checklist extends BaseChecklist {
           ferociousBiteEnergy: this.ferociousBite.extraEnergySuggestionThresholds,
           badLowComboFinishers: this.finisherUse.badFinishersThresholds,
           ripDurationReduction: this.ripUptime.earlyRefreshThresholds,
-          ferociousBiteBloodtalons: this.bloodtalons2.correctFbSuggestionThresholds,
+          ferociousBiteBloodtalons: this.bloodtalons.correctFbSuggestionThresholds,
           savageRoarUptime: this.savageRoar.suggestionThresholds,
           // (Apex bite usage ??? or just a suggestion?)
 
