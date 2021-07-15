@@ -239,9 +239,6 @@ class CombatLogParser {
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
-  // Info object for Functional Analyzers - populated from above player / encounter info
-  functionalInfo: Info;
-
   //Disabled Modules
   disabledModules!: { [state in ModuleError]: any[] };
 
@@ -316,18 +313,6 @@ class CombatLogParser {
       ...ctor.defaultModules,
       ...ctor.specModules,
     });
-    // init functional info obj
-    const combatants: { [playerId: number]: CombatantInfoEvent } = [];
-    this.combatantInfoEvents.forEach((ci) => (combatants[ci.sourceID] = ci));
-    const selectedCombatant = combatants[this.playerId];
-    this.functionalInfo = {
-      abilities: [], // wait to load these - won't be available until later
-      playerId: this.selectedCombatant.id,
-      fightStart: this.fight.start_time,
-      fightEnd: this.fight.end_time,
-      selectedCombatant,
-      combatants,
-    };
   }
   finish() {
     this.finished = true;
@@ -628,9 +613,6 @@ class CombatLogParser {
   generateResults(adjustForDowntime: boolean): ParseResults {
     this.adjustForDowntime = adjustForDowntime;
 
-    // load abilities for functional modules
-    this.functionalInfo.abilities = this.getModule(Abilities).abilities;
-
     let results: ParseResults = new ParseResults();
 
     const addStatistic = (statistic: any, basePosition: number, key: string) => {
@@ -714,9 +696,22 @@ class CombatLogParser {
     console.time('functional');
     const ctor = this.constructor as typeof CombatLogParser;
 
+    // build info object for functional modules
+    const combatants: { [playerId: number]: CombatantInfoEvent } = [];
+    this.combatantInfoEvents.forEach((ci) => (combatants[ci.sourceID] = ci));
+    const selectedCombatant = combatants[this.playerId];
+    const functionalInfo = {
+      abilities: this.getModule(Abilities).abilities,
+      playerId: this.selectedCombatant.id,
+      fightStart: this.fight.start_time,
+      fightEnd: this.fight.end_time,
+      selectedCombatant,
+      combatants,
+    };
+
     console.time('functional suggestions');
     ctor.suggestions.forEach((suggestionFactory) => {
-      const suggestions = suggestionFactory(this.eventHistory, this.functionalInfo);
+      const suggestions = suggestionFactory(this.eventHistory, functionalInfo);
       if (Array.isArray(suggestions)) {
         suggestions.forEach((suggestion) => results.addIssue(suggestion));
       } else {
@@ -726,7 +721,7 @@ class CombatLogParser {
     console.timeEnd('functional suggestions');
     console.time('functional statistics');
     ctor.statistics.forEach((Component) => {
-      results.statistics.push(<Component events={this.eventHistory} info={this.functionalInfo} />);
+      results.statistics.push(<Component events={this.eventHistory} info={functionalInfo} />);
     });
     console.timeEnd('functional statistics');
     console.timeEnd('functional');
