@@ -9,7 +9,7 @@ import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import coreCooldownActiveTime from 'parser/shared/metrics/cooldownActiveTime';
 import React from 'react';
 
-import { cooldownAbilityFn } from '../../constants';
+import { getCooldownAbility } from '../../constants';
 
 const MAJOR_COOLDOWN_IDS: number[] = [
   SPELLS.CELESTIAL_ALIGNMENT.id,
@@ -54,7 +54,7 @@ export const cooldownActiveTimeSuggestion = (): WIPSuggestionFactory => (events,
   return {
     text: (
       <>
-        You had downtime during <SpellLink id={cooldownAbilityFn(selectedCombatant).id} />
+        You had downtime during <SpellLink id={getCooldownAbility(selectedCombatant).id} />
         {hasCovenant(selectedCombatant, COVENANTS.VENTHYR.id) && (
           <>
             {' '}

@@ -321,7 +321,7 @@ class CombatLogParser {
     this.combatantInfoEvents.forEach((ci) => (combatants[ci.sourceID] = ci));
     const selectedCombatant = combatants[this.playerId];
     this.functionalInfo = {
-      abilities: this.getModule(Abilities).abilities,
+      abilities: [], // wait to load these - won't be available until later
       playerId: this.selectedCombatant.id,
       fightStart: this.fight.start_time,
       fightEnd: this.fight.end_time,
@@ -627,6 +627,9 @@ class CombatLogParser {
 
   generateResults(adjustForDowntime: boolean): ParseResults {
     this.adjustForDowntime = adjustForDowntime;
+
+    // load abilities for functional modules
+    this.functionalInfo.abilities = this.getModule(Abilities).abilities;
 
     let results: ParseResults = new ParseResults();
 

@@ -27,7 +27,7 @@ export function cooldownAbility(combatant: Combatant): Spell {
 }
 
 // version for use with functional
-export function cooldownAbilityFn(combatantInfo: CombatantInfoEvent): Spell {
+export function getCooldownAbility(combatantInfo: CombatantInfoEvent): Spell {
   return hasTalent(combatantInfo, SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
     ? SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT
     : SPELLS.CELESTIAL_ALIGNMENT;
