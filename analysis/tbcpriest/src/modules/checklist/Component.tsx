@@ -11,6 +11,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
+import SPELLS from '../../SPELLS';
+
 const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -21,6 +23,27 @@ const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistPro
 
   return (
     <Checklist>
+      <Rule
+        name="Use core abilities as often as possible"
+        description={
+          <>
+            Using your core abilities as often as possible will typically result in better
+            performance, remember to as often as you can!
+          </>
+        }
+      >
+        <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING.id} />
+      </Rule>
+      <Rule
+        name="Use cooldowns effectively"
+        description={
+          <>
+            Cooldowns are an important part of healing, try to use them to counter fight mechanics.
+          </>
+        }
+      >
+        <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
+      </Rule>
       <Rule
         name={
           <>

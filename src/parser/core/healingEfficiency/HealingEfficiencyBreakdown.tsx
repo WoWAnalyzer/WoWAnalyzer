@@ -148,7 +148,9 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
               <PerformanceBar percent={spellDetail.hpm / topHpm} />
             </td>
 
-            <td className="text-right">{hasHealing ? spellDetail.hpet * 1000 : '-'}</td>
+            <td className="text-right">
+              {hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}
+            </td>
             <td width={barWidth + '%'}>
               <PerformanceBar percent={spellDetail.hpet / topHpet} />
             </td>
@@ -161,7 +163,9 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
               <PerformanceBar percent={spellDetail.dpm / topDpm} />
             </td>
 
-            <td className="text-right">{hasDamage ? spellDetail.dpet * 1000 : '-'}</td>
+            <td className="text-right">
+              {hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}
+            </td>
             <td width={barWidth + '%'}>
               <PerformanceBar percent={spellDetail.dpet / topDpet} />
             </td>

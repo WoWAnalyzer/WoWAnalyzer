@@ -144,6 +144,10 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * All lower ranks for the spell.
    */
   lowerRanks?: number[];
+  /**
+   * The resource cost for the spell
+   */
+  resourceCost?: number;
 }
 
 class Ability {
