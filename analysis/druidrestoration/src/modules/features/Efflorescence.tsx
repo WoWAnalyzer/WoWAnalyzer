@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { ClosedTimePeriod, union, OpenTimePeriod } from 'parser/core/timePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ClosedTimePeriod, union, OpenTimePeriod } from 'parser/core/timePeriods';
 import UptimeStackBar from 'parser/ui/UptimeStackBar';
 import React from 'react';
 
@@ -69,10 +69,13 @@ class Efflorescence extends Analyzer {
     this.effloUptimes.forEach((ut) => {
       if (ut.end === undefined) {
         // we know ut.start will always be defined here, hence the cast
-        ut.end = Math.min(ut.start as number + DURATION_MS, this.owner.currentTimestamp);
+        ut.end = Math.min((ut.start as number) + DURATION_MS, this.owner.currentTimestamp);
       }
     });
-    return union(this.effloUptimes, {start: this.owner.fight.start_time, end: this.owner.currentTimestamp});
+    return union(this.effloUptimes, {
+      start: this.owner.fight.start_time,
+      end: this.owner.currentTimestamp,
+    });
   }
 
   /** Builds an artificial uptimes array that extrapolates based on number of targets hit */

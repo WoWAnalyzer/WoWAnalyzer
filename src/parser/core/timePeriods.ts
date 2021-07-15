@@ -127,10 +127,6 @@ export function union(
  * Gets the logical union of several time periods, bounded by a fight's time period.
  * @return closed time periods representing the union of the given periods bounded by a fight's time period.
  */
-export function unionOverFight(
-  times: OpenTimePeriod[],
-  fightInfo: Info,
-): ClosedTimePeriod[] {
+export function unionOverFight(times: OpenTimePeriod[], fightInfo: Info): ClosedTimePeriod[] {
   return union(times, { start: fightInfo.fightStart, end: fightInfo.fightEnd });
 }
-

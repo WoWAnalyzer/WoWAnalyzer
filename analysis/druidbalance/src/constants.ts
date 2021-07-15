@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Combatant from 'parser/core/Combatant';
-import { CombatantInfoEvent } from 'parser/core/Events';
 import { hasTalent } from 'parser/core/combatantInfoUtils';
+import { CombatantInfoEvent } from 'parser/core/Events';
 
 export const DAMAGING_ABILITIES = [
   SPELLS.STARSURGE_MOONKIN.id,

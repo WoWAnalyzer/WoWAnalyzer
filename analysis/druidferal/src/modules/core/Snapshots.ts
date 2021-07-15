@@ -237,7 +237,7 @@ abstract class Snapshots extends Analyzer {
       Object.values(this.snapshotsByTarget)
         .flatMap((uptimes) => uptimes)
         .filter((uptime) => uptime.snapshots.find((ss) => ss.name === snapshotName) !== undefined),
-      {start: this.owner.fight.start_time, end: this.owner.currentTimestamp}
+      { start: this.owner.fight.start_time, end: this.owner.currentTimestamp },
     );
   }
 

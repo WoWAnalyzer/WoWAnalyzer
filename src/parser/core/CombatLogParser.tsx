@@ -317,8 +317,8 @@ class CombatLogParser {
       ...ctor.specModules,
     });
     // init functional info obj
-    const combatants: {[playerId: number]: CombatantInfoEvent} = [];
-    this.combatantInfoEvents.forEach(ci => combatants[ci.sourceID] = ci);
+    const combatants: { [playerId: number]: CombatantInfoEvent } = [];
+    this.combatantInfoEvents.forEach((ci) => (combatants[ci.sourceID] = ci));
     const selectedCombatant = combatants[this.playerId];
     this.functionalInfo = {
       abilities: this.getModule(Abilities).abilities,

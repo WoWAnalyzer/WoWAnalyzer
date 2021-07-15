@@ -2,12 +2,18 @@ import { AnyEvent, CombatantInfoEvent } from './Events';
 import Ability from './modules/Ability';
 
 export interface Info {
+  /** The ID of the selected player */
   playerId: number;
+  /** The selected player's spellbook */
   abilities: Ability[];
+  /** The timestamp of the selected fight's start */
   fightStart: number;
+  /** The timestamp of the selected fight's end */
   fightEnd: number;
-  selectedCombatant: CombatantInfoEvent;
-  combatants: { [playerId: number]: CombatantInfoEvent };
+  /** The combatantinfo for the selected player */
+  selectedCombatant?: CombatantInfoEvent;
+  /** The combatantinfos for all players in the encounter, indexed by playerId */
+  combatants?: { [playerId: number]: CombatantInfoEvent };
 }
 export interface FunctionalStatisticProps {
   events: AnyEvent[];

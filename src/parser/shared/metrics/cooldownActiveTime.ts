@@ -1,13 +1,13 @@
-import { Info } from 'parser/core/metric';
 import { AnyEvent } from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
 import {
   ClosedTimePeriod,
   duration,
   OpenTimePeriod,
   unionOverFight,
 } from 'parser/core/timePeriods';
-import buffApplications from 'parser/shared/metrics/buffApplications';
 import { activeTimePeriodSubset } from 'parser/shared/metrics/activeTime';
+import buffApplications from 'parser/shared/metrics/buffApplications';
 
 /**
  * Gets the percentage of time the player was active while given buff(s) were active.
