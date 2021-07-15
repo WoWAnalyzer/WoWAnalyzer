@@ -11,7 +11,7 @@ import { ctp } from 'parser/core/timePeriods.test';
 import {
   activeTimePercent,
   activeTimePeriods,
-  channelTimePeriods,
+  channelTimePeriods, gcdTimePeriods,
 } from 'parser/shared/metrics/activeTime';
 
 /** Testing info with fight from 0 to 1000 */
@@ -145,11 +145,11 @@ describe('gcdTimePeriods', () => {
   const info = _info();
   it('simple', () => {
     const events: AnyEvent[] = [_gcd(1, 0, 100), _gcd(1, 400, 150), _gcd(1, 700, 120)];
-    expect(channelTimePeriods(events, info)).toEqual([ctp(0, 100), ctp(400, 550), ctp(700, 820)]);
+    expect(gcdTimePeriods(events, info)).toEqual([ctp(0, 100), ctp(400, 550), ctp(700, 820)]);
   });
   it('overlapping', () => {
     const events: AnyEvent[] = [_gcd(1, 0, 100), _gcd(1, 400, 150), _gcd(1, 500, 120)];
-    expect(channelTimePeriods(events, info)).toEqual([ctp(0, 100), ctp(400, 550), ctp(500, 620)]);
+    expect(gcdTimePeriods(events, info)).toEqual([ctp(0, 100), ctp(400, 550), ctp(500, 620)]);
   });
 });
 
