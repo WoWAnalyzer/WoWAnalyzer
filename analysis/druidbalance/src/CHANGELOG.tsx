@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 7, 10), <>Fixed a bug where <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> usage wasn't being correctly tracked and another where <SpellLink id={SPELLS.NEW_MOON_TALENT.id} /> had the wrong cooldown.</>, Sref),
   change(date(2021, 6, 30), <>Added missing minor abilities to tracking.</>, Sref),
   change(date(2021, 6, 30), <>Consolidated DoT sections of checklist, and added new <SpellLink id={SPELLS.ECLIPSE.id} /> section.</>, Sref),
   change(date(2021, 6, 26), <>Added myself as a spec maintainer and bumped support level to 'full'. Added checklist items for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} />, and <SpellLink id={SPELLS.RAVENOUS_FRENZY.id} /></>, Sref),

@@ -120,7 +120,6 @@
   "druid.balance.suggestions.moonfire.uptime": "{0}% Moonfire uptime",
   "druid.balance.suggestions.stellarFlare.uptime": "{0}% Stellar Flare uptime",
   "druid.balance.suggestions.sunfire.uptime": "{0}% Sunfire uptime",
-  "druid.feral.suggestions.bloodtalons.efficiency": "{0} wasted charges of Bloodtalons per minute.",
   "druid.feral.suggestions.brutalSlash.hitcount.outOfRange": "{0} uses per minute that hit nothing.",
   "druid.feral.suggestions.comboPoints.wasted": "{0} combo points wasted per minute",
   "druid.feral.suggestions.energy.efficiency": "{0}% regenerated energy lost per minute due to being capped.",

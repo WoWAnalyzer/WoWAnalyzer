@@ -39,10 +39,11 @@ class Starsurge extends Analyzer {
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `You should only cast Starsurge during Eclipse!`;
     }
+    this.totalStarsurgeCasts += 1;
   }
 
   get percentBadStarsurges() {
-    return this.badStarsurgeCasts / this.totalStarsurgeCasts || 0;
+    return this.totalStarsurgeCasts === 0 ? 0 : this.badStarsurgeCasts / this.totalStarsurgeCasts;
   }
 
   get percentGoodStarsurges() {
