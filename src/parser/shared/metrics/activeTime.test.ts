@@ -10,7 +10,7 @@ import { Info } from 'parser/core/metric';
 import { ctp } from 'parser/core/timePeriods.test';
 import {
   activeTimePercent,
-  activeTimePeriods,
+  activeTimePeriods, activeTimePeriodSubset,
   channelTimePeriods, gcdTimePeriods,
 } from 'parser/shared/metrics/activeTime';
 
@@ -211,5 +211,44 @@ describe('activeTimePeriods', () => {
   it('off end gcd', () => {
     const events: AnyEvent[] = [_gcd(1, 900, 150)];
     expect(activeTimePeriods(events, info)).toEqual([ctp(900, 1000)]);
+  });
+});
+
+describe('activeTimePeriodSubset', () => {
+  const info = _info();
+  it('simple in subset', () => {
+    const events: AnyEvent[] = [
+      _endChannel(1, 300, 200),
+    ];
+    expect(activeTimePeriodSubset(events, info, ctp(0, 500))).toEqual([
+      ctp(200, 300),
+    ]);
+  });
+  it('many times', () => {
+    const events: AnyEvent[] = [
+      _endChannel(1, 300, 200),
+      _endChannel(1, 400, 300),
+      _endChannel(1, 600, 500),
+      _endChannel(1, 1000, 900),
+      _endChannel(1, 100, 0),
+    ];
+    expect(activeTimePeriodSubset(events, info, ctp(200, 700))).toEqual([
+      ctp(200, 400),
+      ctp(500, 600),
+    ]);
+  });
+  it('overlapping times', () => {
+    const events: AnyEvent[] = [
+      _endChannel(1, 250, 150),
+      _endChannel(1, 400, 300),
+      _gcd(3, 400, 100),
+      _endChannel(1, 600, 450),
+      _gcd(3, 650, 100),
+    ];
+    expect(activeTimePeriodSubset(events, info, ctp(200, 700))).toEqual([
+      ctp(200, 250),
+      ctp(300, 600),
+      ctp(650, 700),
+    ]);
   });
 });
