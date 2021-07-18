@@ -294,6 +294,9 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     const movementEndRelative = end - start;
     const duration = end - movementStart;
 
+    // percentage
+    const actualMovementDurationEstimate = Math.min(1, distance / 6 / (duration / 1000));
+
     return (
       <Tooltip
         key={`channel-${left}-movement`}
@@ -310,6 +313,9 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
           style={{
             left,
             width: (duration / 1000) * secondWidth,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            '--rate-height': actualMovementDurationEstimate,
           }}
         />
       </Tooltip>

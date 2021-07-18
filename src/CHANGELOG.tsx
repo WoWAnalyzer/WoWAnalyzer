@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 7, 18), 'Movement indicators in timeline show an indication of the amount of movement by height.', Zerotorescue),
   change(date(2021, 7, 18), 'Reduce visual obstructiveness of movement indicator in the timeline.', Zerotorescue),
   change(date(2021, 7, 14), 'Updated to handle changes to combatantinfo API, allowing Conduit and Soulbind stats to work again.', Sref),
   change(date(2021, 7, 4), 'Fixed a bug where erroneous costs could be assigned to pre-cast spells', Sref),

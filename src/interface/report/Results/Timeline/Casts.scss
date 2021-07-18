@@ -125,11 +125,21 @@
   }
   .movement {
     border-radius: 3px;
-    background-color: #002fff;
+    background-color: rgba(0, 47, 255, 0.2);
     box-shadow: 0 0 3px #000;
     z-index: 2;
     height: 22px;
     top: 0;
-    opacity: 0.5;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(var(--rate-height) * 22px);
+      background-color: rgba(0, 47, 255, 0.5);
+      opacity: 0.5;
+    }
   }
 }
