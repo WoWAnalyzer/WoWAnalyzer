@@ -5761,6 +5761,11 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
   >
     <div
       className="pad"
+      style={
+        Object {
+          "paddingTop": 10,
+        }
+      }
     >
       <div
         className="pull-left"
