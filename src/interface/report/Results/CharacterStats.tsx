@@ -11,13 +11,18 @@ import STAT, {
 import StatTracker from 'parser/shared/modules/StatTracker';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-class CharacterStats extends React.PureComponent {
+interface Props extends RouteComponentProps {
+  statTracker: StatTracker;
+}
+
+class CharacterStats extends React.PureComponent<Props, { expanded?: boolean }> {
   static propTypes = {
     statTracker: PropTypes.instanceOf(StatTracker).isRequired,
   };
 
-  getStatRating(stat) {
+  getStatRating(stat: STAT) {
     const statTracker = this.props.statTracker;
     switch (stat) {
       case STAT.STRENGTH:
@@ -43,10 +48,11 @@ class CharacterStats extends React.PureComponent {
       case STAT.SPEED:
         return statTracker.startingSpeedRating;
       default:
-        return null;
+        return 0;
     }
   }
-  getStatPercentage(stat) {
+
+  getStatPercentage(stat: STAT) {
     const statTracker = this.props.statTracker;
     switch (stat) {
       case STAT.CRITICAL_STRIKE:
@@ -69,6 +75,7 @@ class CharacterStats extends React.PureComponent {
         return null;
     }
   }
+
   get primaryStat() {
     const statTracker = this.props.statTracker;
     if (
@@ -89,9 +96,10 @@ class CharacterStats extends React.PureComponent {
     ) {
       return STAT.INTELLECT;
     }
-    return null;
+    return STAT.UNKNOWN;
   }
-  getTertiarySpell(stat) {
+
+  getTertiarySpell(stat: STAT) {
     switch (stat) {
       case STAT.LEECH:
         return SPELLS.LEECH.id;
@@ -104,7 +112,7 @@ class CharacterStats extends React.PureComponent {
     }
   }
 
-  renderStatValue(stat) {
+  renderStatValue(stat: STAT) {
     const rating = this.getStatRating(stat);
     const percentage = this.getStatPercentage(stat);
 
@@ -112,16 +120,19 @@ class CharacterStats extends React.PureComponent {
       ? formatThousands(rating)
       : `${formatPercentage(percentage)}% - ${formatThousands(rating)} rating`;
   }
+
   render() {
-    const mainStats = [
+    const mainStats: STAT[] = [
       this.primaryStat,
       STAT.STAMINA,
       STAT.CRITICAL_STRIKE,
       STAT.HASTE,
       STAT.MASTERY,
       STAT.VERSATILITY,
-    ];
-    const tertiaries = [STAT.LEECH, STAT.AVOIDANCE, STAT.SPEED];
+    ].filter((s: STAT) => this.props.statTracker.activeStats.includes(s));
+    const tertiaries = [STAT.LEECH, STAT.AVOIDANCE, STAT.SPEED].filter((s) =>
+      this.props.statTracker.activeStats.includes(s),
+    );
 
     return (
       <>
@@ -141,7 +152,7 @@ class CharacterStats extends React.PureComponent {
             </Tooltip>
           </div>
         </div>
-        {mainStats.map((stat) => {
+        {mainStats.map((stat: STAT) => {
           const Icon = getIcon(stat);
 
           return (
@@ -151,7 +162,7 @@ class CharacterStats extends React.PureComponent {
               style={{ marginBottom: '0.5em' }}
             >
               <div className="col-xs-2 col-md-3 text-center">
-                <Icon style={{ width: '3em', height: '3em' }} />
+                <Icon />
               </div>
               <div className="col-xs-10 col-md-9">
                 <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>

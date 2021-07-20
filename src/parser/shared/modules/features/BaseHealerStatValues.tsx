@@ -517,14 +517,14 @@ abstract class BaseHealerStatValues extends Analyzer {
     }
   }
 
-  abstract _prepareResults(): Array<string | StatMessage>;
+  abstract _prepareResults(): Array<STAT | StatMessage>;
 
   static position = STATISTIC_ORDER.CORE(9);
   statistic() {
     const results = this._prepareResults();
     const qeLink = results
-      .reduce((urlParts: string[], stat: StatMessage | string) => {
-        if (stat === 'intellect' || stat === 'versatilitydr') {
+      .reduce((urlParts: string[], stat: StatMessage | STAT) => {
+        if (stat === STAT.INTELLECT || stat === STAT.VERSATILITY_DR) {
           return urlParts;
         }
 
@@ -693,6 +693,6 @@ export interface ListOfHealerSpellInfo {
 }
 
 export interface StatMessage {
-  stat: string;
+  stat: STAT;
   tooltip: JSX.Element;
 }
