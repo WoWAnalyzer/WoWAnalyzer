@@ -1,4 +1,3 @@
-import Combatant from '../core/Combatant';
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
 import Buffs from '../core/modules/Buffs';
@@ -8,7 +7,6 @@ import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import Channeling from '../shared/modules/Channeling';
-import Combatants from '../shared/modules/Combatants';
 import DeathRecapTracker from '../shared/modules/DeathRecapTracker';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
@@ -89,16 +87,10 @@ class CombatLogParser extends BaseCombatLogParser {
     // Tabs
     raidHealthTab: RaidHealthTab,
     healthstone: Healthstone,
-
-    combatants: Combatants,
   };
 
   static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpells()];
   static statistics = [...BaseCombatLogParser.statistics, ManaGained];
-
-  get selectedCombatant(): Combatant {
-    return this.getModule(Combatants).selected;
-  }
 }
 
 export default CombatLogParser;
