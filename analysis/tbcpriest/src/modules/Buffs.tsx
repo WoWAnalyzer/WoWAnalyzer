@@ -1,6 +1,6 @@
 import CoreBuffs from 'parser/core/modules/Buffs';
 
-import SPELLS from '@wowanalyzer/tbc-priest/src/SPELLS';
+import * as SPELLS from '@wowanalyzer/tbc-priest/src/SPELLS';
 
 class Buffs extends CoreBuffs {
   buffs() {

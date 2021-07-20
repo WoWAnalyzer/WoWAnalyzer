@@ -11,7 +11,7 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-import SPELLS from '../../SPELLS';
+import * as SPELLS from '../../SPELLS';
 
 const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -32,7 +32,7 @@ const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistPro
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING.id} />
+        <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING} />
       </Rule>
       <Rule
         name="Use cooldowns effectively"
@@ -42,7 +42,7 @@ const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistPro
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
+        <AbilityRequirement spell={SPELLS.POWER_INFUSION} />
       </Rule>
       <Rule
         name={
