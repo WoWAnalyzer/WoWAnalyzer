@@ -2,6 +2,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 import { Build } from '../CONFIG';
+import killCommandMaxCasts from '../metrics/killCommandMaxCasts';
 import * as SPELLS from '../SPELLS';
 
 class Abilities extends CoreAbilities {
@@ -44,7 +45,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 5,
         gcd: null,
-        // TODO: instead of cast efficiency use usage / proc rate
+        castEfficiency: {
+          maxCasts: (cooldown) =>
+            killCommandMaxCasts(this.owner.normalizedEvents, this.owner.info, cooldown * 1000),
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
       },
       {
         spell: SPELLS.AIMED_SHOT,
