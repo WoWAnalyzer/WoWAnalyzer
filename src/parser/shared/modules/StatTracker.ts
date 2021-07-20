@@ -10,16 +10,18 @@ import Events, {
   CastEvent,
   ChangeBuffStackEvent,
   ChangeDebuffStackEvent,
-  EventType,
   Event,
+  EventType,
   HasAbility,
+  HasSource,
   HealEvent,
   Item,
-  HasSource,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
+
+import Expansion from '../../../game/Expansion';
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -228,6 +230,43 @@ class StatTracker extends Analyzer {
     { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
     { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
   ];
+
+  get activeStats(): STAT[] {
+    switch (this.owner.config.expansion) {
+      case Expansion.TheBurningCrusade:
+        return [
+          STAT.HEALTH,
+          STAT.STAMINA,
+          STAT.MANA,
+          STAT.STRENGTH,
+          STAT.AGILITY,
+          STAT.INTELLECT,
+          STAT.CRITICAL_STRIKE,
+          STAT.HASTE,
+          STAT.HASTE_HPCT,
+          STAT.HASTE_HPM,
+        ];
+      default:
+        return [
+          STAT.HEALTH,
+          STAT.STAMINA,
+          STAT.MANA,
+          STAT.STRENGTH,
+          STAT.AGILITY,
+          STAT.INTELLECT,
+          STAT.CRITICAL_STRIKE,
+          STAT.HASTE,
+          STAT.HASTE_HPCT,
+          STAT.HASTE_HPM,
+          STAT.MASTERY,
+          STAT.VERSATILITY,
+          STAT.VERSATILITY_DR,
+          STAT.LEECH,
+          STAT.AVOIDANCE,
+          STAT.SPEED,
+        ];
+    }
+  }
 
   constructor(options: Options) {
     super(options);

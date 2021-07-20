@@ -3,6 +3,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events from 'parser/core/Events';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
+import Expansion from '../../../game/Expansion';
+
 class SpellManaCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MANA;
 
@@ -39,7 +41,10 @@ class SpellManaCost extends SpellResourceCost {
     if (!cost || cost === 0) {
       return 0;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)) {
+    if (
+      this.owner.config.expansion === Expansion.Shadowlands &&
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)
+    ) {
       return 0;
     }
     return cost;
