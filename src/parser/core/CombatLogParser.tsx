@@ -695,15 +695,7 @@ class CombatLogParser {
 
     console.time('functional');
     const ctor = this.constructor as typeof CombatLogParser;
-    const info = {
-      abilities: this.getModule(Abilities).abilities,
-      playerId: this.selectedCombatant.id,
-      fightStart: this.fight.start_time,
-      fightEnd: this.fight.end_time,
-      fightDuration: this.fight.end_time - this.fight.start_time,
-      fightId: this.fight.id,
-      reportCode: this.report.code,
-    };
+    const info = this.info;
 
     console.time('functional suggestions');
     ctor.suggestions.forEach((suggestionFactory) => {
@@ -723,6 +715,27 @@ class CombatLogParser {
     console.timeEnd('functional');
 
     return results;
+  }
+
+  /**
+   * All fight events after normalization. This does not include (non
+   * normalizer) modules that fabricate or alter events.
+   *
+   * Do note that events may be mutated by those modules, so at a later point in
+   * time some events may be modified. Fabricated events will never appear in
+   * this array (unless fabricated in a normalizer).
+   */
+  normalizedEvents: AnyEvent[] = [];
+  get info() {
+    return {
+      abilities: this.getModule(Abilities).abilities,
+      playerId: this.selectedCombatant.id,
+      fightStart: this.fight.start_time,
+      fightEnd: this.fight.end_time,
+      fightDuration: this.fight.end_time - this.fight.start_time,
+      fightId: this.fight.id,
+      reportCode: this.report.code,
+    };
   }
 }
 
