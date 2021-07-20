@@ -319,7 +319,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
 
     return (
       <>
-        <div className="pad">
+        <div className="pad" style={{ paddingTop: 10 }}>
           <div className="pull-left">
             <div className="toggle-control pull-right" style={{ marginRight: '.5em' }}>
               <Toggle
