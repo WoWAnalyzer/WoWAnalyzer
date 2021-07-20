@@ -89,7 +89,7 @@ const configs: Config[] = [
   FuryWarrior,
 
   TbcHunter,
-  TbcPriest
+  TbcPriest,
 ];
 
 export default configs;

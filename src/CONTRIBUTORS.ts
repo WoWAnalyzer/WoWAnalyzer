@@ -651,10 +651,10 @@ export const Khadaj: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
     },
     {
-      name: "RatherBeBelf",
+      name: 'RatherBeBelf',
       spec: SPECS.HOLY_PRIEST,
-      link: ''
-    }
+      link: '',
+    },
   ],
 };
 export const fel1ne: Contributor = {
