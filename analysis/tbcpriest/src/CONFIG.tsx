@@ -35,8 +35,8 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '41/20/0',
-      icon: <Icon icon="ability_hunter_mendpet" />,
+      name: '20/41/0',
+      icon: <Icon icon="spell_holy_summonlightwell" />,
       visible: true,
     },
   },
