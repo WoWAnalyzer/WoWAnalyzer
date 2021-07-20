@@ -31,11 +31,6 @@ class Combatants extends Entities<Combatant> {
 
   constructor(options: Options) {
     super(options);
-    this.generateCombatants();
-    this._selected = this.players[this.owner.playerId];
-  }
-
-  generateCombatants() {
     this.owner.combatantInfoEvents.forEach((combatantInfo) => {
       if (combatantInfo.error) {
         console.error(
@@ -46,6 +41,7 @@ class Combatants extends Entities<Combatant> {
 
       this.players[combatantInfo.sourceID] = new Combatant(this.owner, combatantInfo);
     });
+    this._selected = this.players[this.owner.playerId];
   }
 }
 
