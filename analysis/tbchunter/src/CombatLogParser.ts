@@ -1,5 +1,7 @@
 import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
+import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
 
+import lowRankSpells from './lowRankSpells';
 import Abilities from './modules/Abilities';
 import AutoShotCooldown from './modules/AutoShotCooldown';
 import Buffs from './modules/Buffs';
@@ -16,7 +18,7 @@ class CombatLogParser extends BaseCombatLogParser {
     killCommandNormalizer: KillCommandNormalizer,
   };
 
-  static suggestions = [...BaseCombatLogParser.suggestions];
+  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpellsSuggestion(lowRankSpells)];
   static statistics = [...BaseCombatLogParser.statistics, GoForTheThroat];
 }
 

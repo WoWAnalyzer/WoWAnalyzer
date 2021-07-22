@@ -2,29 +2,35 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance, WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import { Info } from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 import React from 'react';
 
-const lowRankSpells = (): WIPSuggestionFactory => (events, info) => {
-  const { abilities } = info;
+export interface LowRankSpells {
+  [primarySpellId: number]: number[];
+}
+
+const lowRankSpells = (spells: LowRankSpells): WIPSuggestionFactory => (
+  events,
+  info: Pick<Info, 'playerId'>,
+) => {
   const casts = castCount(events, info);
 
-  return abilities
-    .filter((ability) => ability.lowerRanks)
-    .flatMap((ability) =>
-      ability
-        .lowerRanks!.filter((spellId) => casts[spellId] > 0)
+  return Object.entries<number[]>(spells as { [key: string]: number[] }).flatMap(
+    ([primarySpellId, lowRankSpellIds]) =>
+      lowRankSpellIds
+        .filter((spellId) => casts[spellId] > 0)
         .map((spellId) => ({
           text: (
-            <Trans>
+            <Trans id="tbc.suggestions.lowRankSpells">
               You cast the lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
-              <SpellLink id={ability.primarySpell} /> instead.
+              <SpellLink id={Number(primarySpellId)} /> instead.
             </Trans>
           ),
           importance: SuggestionImportance.Major,
-          icon: (SPELLS[ability.primarySpell] || SPELLS[spellId])?.icon,
+          icon: (SPELLS[primarySpellId] || SPELLS[spellId])?.icon,
         })),
-    );
+  );
 };
 
 export default lowRankSpells;
