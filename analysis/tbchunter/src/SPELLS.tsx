@@ -26,7 +26,7 @@ export const EXPLOSIVE_TRAP = 27025;
 // TODO CALL_PET
 // TODO DISMISS_PET
 // TODO REVIVE_PET
-// TODO MEND_PET
+export const MEND_PET = 27046;
 // Orc racial
 export const BLOOD_FURY = 20572;
 // Items
