@@ -54,6 +54,11 @@ const covenants = {
     name: 'Ashen Hallow',
     icon: 'ability_revendreth_paladin',
   },
+  HALLOWED_DISCERNMENT: {
+    id: 340214,
+    name: 'Hallowed Discernment',
+    icon: 'ability_revendreth_paladin',
+  },
   //endregion
 } as const;
 export default covenants;
