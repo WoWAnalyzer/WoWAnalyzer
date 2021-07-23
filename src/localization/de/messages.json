@@ -140,7 +140,7 @@
   "druid.feral.suggetions.shadowmeld.efficiency": "{0}% Effizienz deiner Einsätze",
   "druid.feral.suggetions.shadowmeld.wasted": "{0} Einsätze mit Verstohlenheit bereits aktiv",
   "druid.guardian.suggestions.alwaysBeCasting.downtime": "{0}% Downtime",
-  "druid.guardian.suggestions.earthwarden.efficiency": "{0}% potenzielles Schadens wurden von Erdenwächter gemildert",
+  "druid.guardian.suggestions.earthwarden.efficiency": "{0}% potenziellen Schadens wurden von Erdenwächter gemildert",
   "druid.guardian.suggestions.earthwarden.notOptimal": "{0}% deines gesamten Schadens sind Nahkampfangriffe",
   "druid.guardian.suggestions.fillerSpells.efficiency": "{0}% unnötige Filler-Zauber gewirkt",
   "druid.guardian.suggestions.frenziedRegeneration.efficiency": "{0}% deiner Einsätze hatten eine vorhergesagte Heilung von weniger als {1}% und wurden über {2}% Gesundheit eingesetzt",
