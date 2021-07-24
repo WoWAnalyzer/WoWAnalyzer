@@ -33,7 +33,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const ZONE_DEFAULT_NATHRIA = 26;
+const ZONE_DEFAULT_NATHRIA = 28;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';

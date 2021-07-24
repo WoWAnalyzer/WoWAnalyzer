@@ -14,27 +14,29 @@ import StrengthIcon from 'interface/icons/Strength';
 import VersatilityIcon from 'interface/icons/Versatility';
 import React from 'react';
 
-const STAT = {
-  HEALTH: 'health',
-  STAMINA: 'stamina',
-  MANA: 'mana',
-  STRENGTH: 'strength',
-  AGILITY: 'agility',
-  INTELLECT: 'intellect',
-  CRITICAL_STRIKE: 'criticalstrike',
-  HASTE: 'haste',
-  HASTE_HPCT: 'hastehpct',
-  HASTE_HPM: 'hastehpm',
-  MASTERY: 'mastery',
-  VERSATILITY: 'versatility',
-  VERSATILITY_DR: 'versatilitydr',
-  LEECH: 'leech',
-  AVOIDANCE: 'avoidance',
-  SPEED: 'speed',
-};
+enum STAT {
+  HEALTH = 'health',
+  STAMINA = 'stamina',
+  MANA = 'mana',
+  STRENGTH = 'strength',
+  AGILITY = 'agility',
+  INTELLECT = 'intellect',
+  CRITICAL_STRIKE = 'criticalstrike',
+  HASTE = 'haste',
+  HASTE_HPCT = 'hastehpct',
+  HASTE_HPM = 'hastehpm',
+  MASTERY = 'mastery',
+  VERSATILITY = 'versatility',
+  VERSATILITY_DR = 'versatilitydr',
+  LEECH = 'leech',
+  AVOIDANCE = 'avoidance',
+  SPEED = 'speed',
+  UNKNOWN = 'unknown',
+}
+
 export default STAT;
 
-export function getName(stat) {
+export function getName(stat: STAT) {
   switch (stat) {
     case STAT.HEALTH:
       return 'Health';
@@ -72,7 +74,8 @@ export function getName(stat) {
       return null;
   }
 }
-export function getNameTranslated(stat) {
+
+export function getNameTranslated(stat: STAT) {
   // there's stuff using getName with string functions which Trans breaks
   switch (stat) {
     case STAT.HEALTH:
@@ -111,7 +114,8 @@ export function getNameTranslated(stat) {
       return null;
   }
 }
-export function getClassNameColor(stat) {
+
+export function getClassNameColor(stat: STAT) {
   switch (stat) {
     case STAT.HEALTH:
       return 'stat-health';
@@ -149,10 +153,12 @@ export function getClassNameColor(stat) {
       return null;
   }
 }
-export function getClassNameBackgroundColor(stat) {
+
+export function getClassNameBackgroundColor(stat: STAT) {
   return `${getClassNameColor(stat)}-bg`;
 }
-export function getIcon(stat) {
+
+export function getIcon(stat: STAT): (props: any) => JSX.Element {
   switch (stat) {
     case STAT.HEALTH:
       return HealthIcon;
@@ -187,6 +193,6 @@ export function getIcon(stat) {
     case STAT.SPEED:
       return SpeedIcon;
     default:
-      return null;
+      return (parms) => <></>;
   }
 }
