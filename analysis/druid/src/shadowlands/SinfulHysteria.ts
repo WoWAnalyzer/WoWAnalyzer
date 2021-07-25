@@ -5,7 +5,7 @@ import Haste from 'parser/shared/modules/Haste';
 
 const RAVENOUS_FRENZY_HASTE_PER_STACK = 0.02;
 
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * **Sinful Hysteria**
@@ -23,8 +23,8 @@ class SinfulHysteria extends Analyzer {
 
   /*
    * No user facing display yet - this is just concerned with handling for the dynamic
-   * haste buff procced, which cannot be handled by the Haste module because the strength of the buff
-   * depends on the stacks of another buff.
+   * haste buff procced, which cannot be handled by the Haste module because of its mecahnics -
+   * lingering buff's haste amount depends on the number of stacks of the main buff that just fell
    */
 
   lastHighestStack: number = 0;
