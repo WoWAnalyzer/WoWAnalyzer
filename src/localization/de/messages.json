@@ -503,7 +503,7 @@
   "mage.fire.suggestions.searingTouch.nonExecuteScorchCasts": "{0}% Verwendung",
   "mage.fire.suggestions.shiftingPowerUsage.usagePercent": "{0}% Verwendung",
   "mage.frost.alwaysBeCasting.statistic.label": "Aktive Zeit",
-  "mage.frost.alwaysBeCasting.statistic.tooltip": "Downtime ist freie Zeit, in der nichts eingesetzt wird (inklusive einer inaktiven GCD). Dies kann von Verzögerungen zwischen Einsätzen deiner Zauber, Latenz, Einsatz-Unterbrechungen oder einfach nichtstun (z.B. wegen Bewegung oder Betäubung) verursacht werden.<0/><1><2>Du hast <3>{0}%</3> deienr Zeit am Wirken von Zaubern verbracht.</2><4>Du hast <5>{1}%</5> deiner Zeit daran verbracht, gar nichts zu wirken.</4></1>",
+  "mage.frost.alwaysBeCasting.statistic.tooltip": "Downtime ist freie Zeit, in der nichts eingesetzt wird (inklusive einer inaktiven GCD). Dies kann von Verzögerungen zwischen Einsätzen deiner Zauber, Latenz, Einsatz-Unterbrechungen oder einfach nichtstun (z.B. wegen Bewegung oder Betäubung) verursacht werden.<0/><1><2>Du hast <3>{0}%</3> deiner Zeit am Wirken von Zaubern verbracht.</2><4>Du hast <5>{1}%</5> deiner Zeit daran verbracht, gar nichts zu wirken.</4></1>",
   "mage.frost.suggestions.alwaysBeCasting.downtime": "{0}% Downtime",
   "mage.frost.suggestions.arcanePower.arcanePowerActiveTime": "{0}% Aktive Zeit während 'Arkane Macht'",
   "mage.frost.suggestions.brainFreeze.casts": "{0}% Einsätze",
