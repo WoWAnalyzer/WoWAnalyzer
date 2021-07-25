@@ -58,6 +58,7 @@ const spells: number[] = [
   //region Covenants
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
+  SPELLS.SOOTHING_SHADE.id, //The Spell ID when Theotar's soulbind proc "casts"
   //endregion
 
   //region Demon Hunter

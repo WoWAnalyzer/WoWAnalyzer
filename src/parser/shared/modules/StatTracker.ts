@@ -101,6 +101,7 @@ class StatTracker extends Analyzer {
 
     // region Conduits
     [SPELLS.REDIRECTED_ANIMA.id]: { mastery: 25 },
+    [SPELLS.SOOTHING_SHADE.id]: { mastery: 550 },
     // endregion
 
     // region Misc
