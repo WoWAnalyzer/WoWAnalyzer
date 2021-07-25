@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     draughtOfDeepFocus: DraughtOfDeepFocus,
     frenzyband: Frenzyband,
     adaptiveSwarm: AdaptiveSwarmFeral,
+    sinfulHysteria: SinfulHysteria,
   };
 }
 

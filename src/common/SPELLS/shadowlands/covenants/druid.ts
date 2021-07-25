@@ -109,6 +109,13 @@ const covenants = {
     name: 'Ravenous Frenzy',
     icon: 'ability_revendreth_druid',
   },
+  SINFUL_HYSTERIA_BUFF: {
+    // spellId for the 'lingering' Ravenous Frenzy procced by the Sinful Hysteria legendary
+    id: 355315,
+    name: 'Ravenous Frenzy',
+    icon: 'ability_revendreth_druid',
+  },
+
   //endregion
 } as const;
 export default covenants;

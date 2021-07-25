@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
+import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     convokeSpirits: ConvokeSpiritsGuardian,
+    sinfulHysteria: SinfulHysteria,
   };
 }
 

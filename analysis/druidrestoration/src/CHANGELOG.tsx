@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
   change(date(2021, 6, 18), <>Updated <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> tracking to account for the number of players actually being effected by it.</>, Sref),
   change(date(2021, 6, 14), <>Fixed a bug where a hardcast <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> could be counted as part of a Convoke if cast immediately before or after the Convoke.</>, Sref),
   change(date(2021, 6, 14), <>Added to the stat box tooltip of <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> showing the beneift of activating <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> before convoking.</>, Sref),

@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
   change(date(2021, 7, 22), <>Fixed an issue causing the <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> to crash.</>, Sref),
   change(date(2021, 7, 2), <>Add a basic statistic box for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Kettlepaw),
   change(date(2021, 5, 15), <>Improved cast detection for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /></>, Sref),
