@@ -1,6 +1,8 @@
 const soulbindPowers = {
   SOOTHING_SHADE: {
-    id: 336239,
+    // FIXME Soothing Shade has 2 other spell IDs on wowhead, but I haven't seen them show up in a log yet.
+    //   Leaving them un-added here so we'll get console logs if they do decide to show up
+    id: 336885,
     name: 'Soothing Shade',
     icon: 'archaeology_5_0_umbrellaofchiji',
   },
