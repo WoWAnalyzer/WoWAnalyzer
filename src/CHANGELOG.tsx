@@ -10,6 +10,7 @@ import React from 'react';
 // prettier-ignore
 export default [
   change(date(2021, 7, 25), <>Fixed a bug where <SpellLink id={SPELLS.SOOTHING_SHADE.id}/> procs could incorrectly cause casts to be marked as cancelled.</>, Sref),
+  change(date(2021, 7, 22), 'German translations for mage class', maestrohdude),
   change(date(2021, 7, 18), 'Movement indicators in timeline show an indication of the amount of movement by height.', Zerotorescue),
   change(date(2021, 7, 18), 'Reduce visual obstructiveness of movement indicator in the timeline.', Zerotorescue),
   change(date(2021, 7, 14), 'Updated to handle changes to combatantinfo API, allowing Conduit and Soulbind stats to work again.', Sref),
