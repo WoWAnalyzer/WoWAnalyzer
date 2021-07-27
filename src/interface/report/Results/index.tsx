@@ -4,6 +4,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
 import retryingPromise from 'common/retryingPromise';
 import { findByBossId, Phase } from 'game/raids';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import Ad from 'interface/Ad';
 import AlertWarning from 'interface/AlertWarning';
@@ -475,10 +476,14 @@ class Results extends React.PureComponent<Props, State> {
                 })}
               >
                 <a
-                  href={makeWclUrl(report.code, {
-                    fight: fight.id,
-                    source: parser ? parser.playerId : undefined,
-                  })}
+                  href={makeWclUrl(
+                    report.code,
+                    {
+                      fight: fight.id,
+                      source: parser ? parser.playerId : undefined,
+                    },
+                    wclGameVersionToExpansion(report.gameVersion),
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
