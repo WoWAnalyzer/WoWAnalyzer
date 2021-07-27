@@ -708,8 +708,12 @@ class CombatLogParser {
     });
     console.timeEnd('functional suggestions');
     console.time('functional statistics');
-    ctor.statistics.forEach((Component) => {
-      results.statistics.push(<Component events={this.eventHistory} info={info} />);
+    ctor.statistics.forEach((Component, index) => {
+      addStatistic(
+        <Component events={this.eventHistory} info={info} />,
+        100,
+        `functional-statistic-${Component.name}-${index}`,
+      );
     });
     console.timeEnd('functional statistics');
     console.timeEnd('functional');
