@@ -1,7 +1,6 @@
 {
   "All weapons enhanced (oils/stones)": "Alle Waffen verbessert (Öle/Steine)",
   "Using high quality weapon enhancements": "Waffen-Verbesserungen hoher Qualität werden verwendet",
-  "You cast the lower rank <0/>. You should use the max rank <1/> instead.": "",
   "className.hunter": "",
   "className.priest": "",
   "common.abilities": "Fähigkeiten",
@@ -1014,6 +1013,7 @@
   "specs.warrior": "",
   "specs.windwalker": "",
   "supportCheckerIssue.specChangelog": "",
+  "tbc.suggestions.lowRankSpells": "",
   "timeline.premium.description": "",
   "timeline.premium.unlock": "",
   "timeline.premium.wclTimeline": "",
