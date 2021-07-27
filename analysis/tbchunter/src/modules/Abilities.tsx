@@ -137,6 +137,13 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
       },
+      {
+        spell: SPELLS.REVIVE_PET,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1500,
+        },
+      },
       // Traps
       {
         spell: [SPELLS.EXPLOSIVE_TRAP, ...lowRankSpells[SPELLS.EXPLOSIVE_TRAP]],

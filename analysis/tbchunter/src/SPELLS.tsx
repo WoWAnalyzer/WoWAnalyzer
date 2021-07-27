@@ -25,7 +25,7 @@ export const EXPLOSIVE_TRAP = 27025;
 // TODO VOLLEY_LOL
 // TODO CALL_PET
 // TODO DISMISS_PET
-// TODO REVIVE_PET
+export const REVIVE_PET = 982;
 export const MEND_PET = 27046;
 // Orc racial
 export const BLOOD_FURY = 20572;
