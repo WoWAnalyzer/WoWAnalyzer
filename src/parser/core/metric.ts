@@ -1,8 +1,10 @@
 import { AnyEvent } from './Events';
 import Ability from './modules/Ability';
+import { PetInfo } from './Pet';
 
 export interface Info {
   playerId: number;
+  pets: PetInfo[];
   abilities: Ability[];
   fightStart: number;
   fightEnd: number;

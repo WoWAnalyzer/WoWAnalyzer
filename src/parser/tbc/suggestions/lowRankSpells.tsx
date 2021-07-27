@@ -13,9 +13,9 @@ export interface LowRankSpells {
 
 const lowRankSpells = (spells: LowRankSpells) => (
   events: AnyEvent[],
-  info: Pick<Info, 'playerId'>,
+  { playerId }: Pick<Info, 'playerId'>,
 ) => {
-  const casts = castCount(events, info);
+  const casts = castCount(events, playerId);
 
   return Object.entries<number[]>(spells as { [key: string]: number[] }).flatMap(
     ([primarySpellId, lowRankSpellIds]) =>

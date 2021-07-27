@@ -8,6 +8,7 @@ import Buffs from './modules/Buffs';
 import Haste from './modules/Haste';
 import KillCommandNormalizer from './normalizers/KillCommandNormalizer';
 import GoForTheThroat from './statistics/GoForTheThroat';
+import growl from './suggestions/growl';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -18,7 +19,11 @@ class CombatLogParser extends BaseCombatLogParser {
     killCommandNormalizer: KillCommandNormalizer,
   };
 
-  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpellsSuggestion(lowRankSpells)];
+  static suggestions = [
+    ...BaseCombatLogParser.suggestions,
+    lowRankSpellsSuggestion(lowRankSpells),
+    growl(),
+  ];
   static statistics = [...BaseCombatLogParser.statistics, GoForTheThroat];
 }
 
