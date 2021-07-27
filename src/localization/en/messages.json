@@ -1013,6 +1013,7 @@
   "specs.warrior": "Warrior",
   "specs.windwalker": "Windwalker",
   "supportCheckerIssue.specChangelog": "Spec changelog",
+  "tbc.suggestions.hunter.growl": "Your pet cast <0/>. You should not cast it when playing with a tank to avoid your pet from taking aggro. In addition, casting <1/> costs energy, which may reduce your pet's DPS.",
   "tbc.suggestions.lowRankSpells": "You cast the lower rank <0/>. You should use the max rank <1/> instead.",
   "timeline.premium.description": "The timeline shows your casts, channel times, GCD, active buffs, and cooldowns for a quick overview of what you did. It even incorporates some of our suggestions to give you specific examples of casts that you could improve. All in one easy to use overview.",
   "timeline.premium.unlock": "You need to unlock <0>WoWAnalyzer Premium</0> to access the full WoWAnalyzer timeline.",
