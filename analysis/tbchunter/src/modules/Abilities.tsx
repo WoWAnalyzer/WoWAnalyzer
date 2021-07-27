@@ -1,3 +1,4 @@
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
@@ -49,6 +50,7 @@ class Abilities extends CoreAbilities {
             killCommandMaxCasts(this.owner.normalizedEvents, this.owner.info, cooldown * 1000),
           suggestion: true,
           recommendedEfficiency: 0.8,
+          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {

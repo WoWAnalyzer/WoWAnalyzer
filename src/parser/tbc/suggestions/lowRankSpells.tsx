@@ -24,11 +24,11 @@ const lowRankSpells = (spells: LowRankSpells) => (
         .map((spellId) => ({
           text: (
             <Trans id="tbc.suggestions.lowRankSpells">
-              You cast the lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
+              You cast a lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
               <SpellLink id={Number(primarySpellId)} /> instead.
             </Trans>
           ),
-          importance: SuggestionImportance.Major,
+          importance: SuggestionImportance.Regular,
           icon: (SPELLS[primarySpellId] || SPELLS[spellId])?.icon,
         })),
   );

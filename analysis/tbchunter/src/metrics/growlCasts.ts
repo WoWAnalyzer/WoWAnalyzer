@@ -2,7 +2,7 @@ import { AnyEvent } from 'parser/core/Events';
 import metric from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 
-import * as SPELLS from '../SPELLS';
+import * as SPELLS from '../SPELLS_PET';
 
 /**
  * Returns the max amount of Kill Command casts considering the buff uptime.

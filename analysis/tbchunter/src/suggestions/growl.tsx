@@ -7,7 +7,7 @@ import { Info } from 'parser/core/metric';
 import React from 'react';
 
 import growlCasts from '../metrics/growlCasts';
-import * as SPELLS from '../SPELLS';
+import * as SPELLS from '../SPELLS_PET';
 
 const growl = () => (events: AnyEvent[], { pets }: Pick<Info, 'pets'>) => {
   const casts = growlCasts(events, pets);
