@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
-import { SuggestionImportance, WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import { SuggestionImportance } from 'parser/core/CombatLogParser';
+import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 import React from 'react';
@@ -10,8 +11,8 @@ export interface LowRankSpells {
   [primarySpellId: number]: number[];
 }
 
-const lowRankSpells = (spells: LowRankSpells): WIPSuggestionFactory => (
-  events,
+const lowRankSpells = (spells: LowRankSpells) => (
+  events: AnyEvent[],
   info: Pick<Info, 'playerId'>,
 ) => {
   const casts = castCount(events, info);
