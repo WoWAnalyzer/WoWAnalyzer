@@ -141,6 +141,7 @@ class EventParser extends React.PureComponent<Props, State> {
       bench('initialize');
       const parser = this.makeParser();
       const events = this.makeEvents(parser);
+      parser.normalizedEvents = events;
 
       const numEvents = events.length;
 
