@@ -109,7 +109,10 @@ export interface Suggestion {
   recommended?: React.ReactNode;
 }
 // ALPHA - The parameters may still change
-export type WIPSuggestionFactory = (events: AnyEvent[], info: Info) => Suggestion | Suggestion[];
+export type WIPSuggestionFactory = (
+  events: AnyEvent[],
+  info: Info,
+) => Suggestion | Suggestion[] | undefined;
 
 interface Talent {
   id: number;
@@ -702,14 +705,18 @@ class CombatLogParser {
       const suggestions = suggestionFactory(this.eventHistory, info);
       if (Array.isArray(suggestions)) {
         suggestions.forEach((suggestion) => results.addIssue(suggestion));
-      } else {
+      } else if (suggestions) {
         results.addIssue(suggestions);
       }
     });
     console.timeEnd('functional suggestions');
     console.time('functional statistics');
-    ctor.statistics.forEach((Component) => {
-      results.statistics.push(<Component events={this.eventHistory} info={info} />);
+    ctor.statistics.forEach((Component, index) => {
+      addStatistic(
+        <Component events={this.eventHistory} info={info} />,
+        100,
+        `functional-statistic-${Component.name}-${index}`,
+      );
     });
     console.timeEnd('functional statistics');
     console.timeEnd('functional');
@@ -730,6 +737,7 @@ class CombatLogParser {
     return {
       abilities: this.getModule(Abilities).abilities,
       playerId: this.selectedCombatant.id,
+      pets: this.playerPets.filter((pet) => pet.fights.some((fight) => fight.id === this.fight.id)),
       fightStart: this.fight.start_time,
       fightEnd: this.fight.end_time,
       fightDuration: this.fight.end_time - this.fight.start_time,

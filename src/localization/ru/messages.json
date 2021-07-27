@@ -1,7 +1,6 @@
 {
   "All weapons enhanced (oils/stones)": "",
   "Using high quality weapon enhancements": "",
-  "You cast the lower rank <0/>. You should use the max rank <1/> instead.": "",
   "className.hunter": "",
   "className.priest": "",
   "common.abilities": "Способности",
@@ -1014,6 +1013,8 @@
   "specs.warrior": "Воин",
   "specs.windwalker": "Танцующий с ветром",
   "supportCheckerIssue.specChangelog": "",
+  "tbc.suggestions.hunter.growl": "",
+  "tbc.suggestions.lowRankSpells": "",
   "timeline.premium.description": "",
   "timeline.premium.unlock": "",
   "timeline.premium.wclTimeline": "",

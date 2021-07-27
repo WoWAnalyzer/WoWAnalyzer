@@ -37,7 +37,6 @@ import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import ManaGained from './statistic/ManaGained';
-import lowRankSpells from './suggestions/lowRankSpells';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -89,7 +88,7 @@ class CombatLogParser extends BaseCombatLogParser {
     healthstone: Healthstone,
   };
 
-  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpells()];
+  static suggestions = [...BaseCombatLogParser.suggestions];
   static statistics = [...BaseCombatLogParser.statistics, ManaGained];
 }
 

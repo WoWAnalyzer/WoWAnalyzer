@@ -76,12 +76,12 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
 
     // TODO: Move this to a method that can be shared with the EncounterStats component
     return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${parser.fight.boss}`, {
-      class: parser.selectedCombatant.spec.ranking.class,
-      spec: parser.selectedCombatant.spec.ranking.spec,
+      class: parser.config.spec.ranking.class,
+      spec: parser.config.spec.ranking.spec,
       difficulty: parser.fight.difficulty,
       metric: this.props.metric,
       // hehe jk this is actually the opposite of a cache key since without this it would be cached indefinitely. This is more like a "cache bust key" in that this changes weekly so that it auto-refreshes weekly. Super clever.
-      cache: this._getCacheKey(parser.selectedCombatant.spec.index, parser.config),
+      cache: this._getCacheKey(parser.config.spec.index, parser.config),
     });
   }
   _getCacheKey(specIndex: number, config: Config) {

@@ -1,6 +1,5 @@
 import { CastEvent, EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import Ability from 'parser/core/modules/Ability';
 
 import lowRankSpells from './lowRankSpells';
 
@@ -20,38 +19,29 @@ const castEvent = (id: number): CastEvent => ({
 });
 
 describe('lowRankSpells', () => {
-  const info: Info = {
-    abilities: [
-      new Ability(undefined, {
-        spell: 5,
-        category: 'test',
-        lowerRanks: [1, 3],
-      }),
-    ],
+  const config = {
+    5: [1, 3],
+  };
+  const info: Pick<Info, 'playerId'> = {
     playerId: 1,
-    fightStart: 0,
-    fightEnd: 0,
-    fightDuration: 0,
-    fightId: 1,
-    reportCode: 'test',
   };
 
   it('starts empty', () => {
-    expect(lowRankSpells()([], info)).toHaveLength(0);
+    expect(lowRankSpells(config)([], info)).toHaveLength(0);
   });
   it('fails on low rank spells', () => {
-    expect(lowRankSpells()([castEvent(1)], info)).toHaveLength(1);
-    expect(lowRankSpells()([castEvent(3)], info)).toHaveLength(1);
+    expect(lowRankSpells(config)([castEvent(1)], info)).toHaveLength(1);
+    expect(lowRankSpells(config)([castEvent(3)], info)).toHaveLength(1);
   });
   it('ignores unrelated spells', () => {
-    expect(lowRankSpells()([castEvent(2)], info)).toHaveLength(0);
+    expect(lowRankSpells(config)([castEvent(2)], info)).toHaveLength(0);
   });
   it('passes on the main spell', () => {
-    expect(lowRankSpells()([castEvent(5)], info)).toHaveLength(0);
+    expect(lowRankSpells(config)([castEvent(5)], info)).toHaveLength(0);
   });
   it("ignores other player's spells", () => {
     expect(
-      lowRankSpells()(
+      lowRankSpells(config)(
         [
           {
             ...castEvent(1),

@@ -61,11 +61,11 @@ const config: Config = {
       id: 'className.hunter',
       message: `Hunter`,
     }),
-    role: ROLES.TANK,
+    role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     ranking: {
-      class: 12,
-      spec: 2,
+      class: 3,
+      spec: 1,
     },
   },
   // The contents of your changelog.
