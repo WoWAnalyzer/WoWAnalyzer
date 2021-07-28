@@ -4,15 +4,27 @@ import { Options } from 'parser/core/Analyzer';
 import { ClassResources } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
+import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
+
 // Primal Fury may be slightly delayed.
 const PRIMAL_FURY_WINDOW = 50; //ms
 
 class ComboPointTracker extends ResourceTracker {
+  static dependencies = {
+    convokeSpiritsFeral: ConvokeSpiritsFeral,
+    ...ResourceTracker.dependencies,
+  };
+
+  convokeSpiritsFeral!: ConvokeSpiritsFeral;
+
   /**
    * A critical hit from a generator triggers Primal Fury which gives an extra combo point.
    * A Feral druid should always build up 5 combo points and crits are unpredictable.
    * Generators used at 4 combo points that crit will waste the Primal Fury generation but
    * this is unavoidable, or at least shouldn't be avoided.
+   *
+   * Also, Convoke the Spirits is liable to produce more than 5 CPs, and so waste that occurs
+   * during Convoke is also unavoidable.
    */
   unavoidableWaste = 0;
 
@@ -40,8 +52,9 @@ class ComboPointTracker extends ResourceTracker {
       return;
     }
 
-    // primal fury procs that happen right after a cast that brought us to max CP shouldn't count as waste because it was out of the player's control
-    if (
+    if (this.convokeSpiritsFeral.isConvoking()) {
+      this.unavoidableWaste += waste;
+    } else if (
       spellId === SPELLS.PRIMAL_FURY.id &&
       this.owner.currentTimestamp - (this.castToMaxCpTimestamp || 0) < PRIMAL_FURY_WINDOW
     ) {

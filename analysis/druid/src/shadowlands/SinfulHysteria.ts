@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 
-const RAVENOUS_FRENZY_HASTE_PER_STACK = 0.02;
+const RAVENOUS_FRENZY_HASTE_PER_STACK = 0.01;
 
 const DEBUG = false;
 

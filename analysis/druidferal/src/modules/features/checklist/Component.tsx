@@ -335,14 +335,17 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
         thresholds={thresholds.tigersFuryEnergy}
         tooltip="Remember that Tiger's Fury generates instant energy which should not be wasted.
-            Plan for it coming off cooldown by spending down your energy."
+            Plan for it coming off cooldown by spending down your energy. The displayed waste
+            is only from hardcast Tiger's Fury. Procs from Convoke the Spirits are not counted here
+            because waste from them is generally unavoidable."
       />
       <Requirement
         name={<>Combo Point Overcap (per minute)</>}
         thresholds={thresholds.comboPointsWaste}
         tooltip="Your finishing moves are much more powerful than your combo builders. When at
           max CPs you should always use a finisher over a combo builder. This stat does not include
-          the accidental overcap due to getting a crit when at 4 CPs, as this is unavoidable."
+          the accidental overcap due to getting a crit when at 4 CPs or due to generating too many
+          CPs during Convoke the Spirits, as this is unavoidable."
       />
     </Rule>
   );
