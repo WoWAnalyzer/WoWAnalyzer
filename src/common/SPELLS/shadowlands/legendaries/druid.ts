@@ -122,7 +122,7 @@ const legendaries = {
     name: 'Celestial Spirits',
     icon: 'ability_ardenweald_druid',
     bonusID: 7571,
-  }
+  },
 
   //endregion
 } as const;

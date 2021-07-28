@@ -120,9 +120,15 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
-    this.spellsPerCast = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CELESTIAL_SPIRITS.bonusID)
-      ? (this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id ? CS_SPELLS_CAST_RESTO : CS_SPELLS_CAST)
-      : (this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id ? SPELLS_CAST_RESTO : SPELLS_CAST);
+    this.spellsPerCast = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.CELESTIAL_SPIRITS.bonusID,
+    )
+      ? this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
+        ? CS_SPELLS_CAST_RESTO
+        : CS_SPELLS_CAST
+      : this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
+      ? SPELLS_CAST_RESTO
+      : SPELLS_CAST;
 
     // watch for convokes
     this.addEventListener(
