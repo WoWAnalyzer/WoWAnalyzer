@@ -21,7 +21,7 @@ const growl = () => (events: AnyEvent[], { pets }: Pick<Info, 'pets'>) => {
           <SpellLink id={SPELLS.GROWL} /> costs energy, which may reduce your pet's DPS.
         </Trans>
       ),
-      importance: SuggestionImportance.Major,
+      importance: SuggestionImportance.Regular,
       icon: SPELL_INFO[SPELLS.GROWL].icon,
     };
   }
