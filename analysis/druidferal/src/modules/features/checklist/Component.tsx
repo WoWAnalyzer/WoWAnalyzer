@@ -335,7 +335,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
         thresholds={thresholds.tigersFuryEnergy}
         tooltip="Remember that Tiger's Fury generates instant energy which should not be wasted.
-            Plan for it coming off cooldown by spending down your energy."
+            Plan for it coming off cooldown by spending down your energy. The displayed waste
+            is only from hardcast Tiger's Fury. Procs from Convoke the Spirits are not counted here
+            because waste from them is generally unavoidable."
       />
       <Requirement
         name={<>Combo Point Overcap (per minute)</>}
