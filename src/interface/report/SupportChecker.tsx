@@ -38,30 +38,29 @@ const SupportChecker = ({
 
   const isIgnored = ignored.includes(config.spec.id);
 
-  if (!isIgnored && !isLatestPatch(config)) {
-    return (
-      <SupportCheckerSpecOutOfDate
-        report={report}
-        fight={fight}
-        player={player}
-        config={config}
-        onContinueAnyway={handleClickContinue}
-      />
-    );
-  }
-  if (!isIgnored && config.isPartial) {
-    return (
-      <SupportCheckerSpecPartialSupport
-        report={report}
-        fight={fight}
-        player={player}
-        config={config}
-        onContinueAnyway={handleClickContinue}
-      />
-    );
-  }
+  return (
+    <>
+      {!isIgnored && !isLatestPatch(config) ? (
+        <SupportCheckerSpecOutOfDate
+          report={report}
+          fight={fight}
+          player={player}
+          config={config}
+          onContinueAnyway={handleClickContinue}
+        />
+      ) : !isIgnored && config.isPartial ? (
+        <SupportCheckerSpecPartialSupport
+          report={report}
+          fight={fight}
+          player={player}
+          config={config}
+          onContinueAnyway={handleClickContinue}
+        />
+      ) : null}
 
-  return children;
+      {children}
+    </>
+  );
 };
 
 const mapStateToProps = (state: RootState) => ({

@@ -1,10 +1,9 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Changelog from 'interface/Changelog';
 import Contributor from 'interface/ContributorButton';
-import DiscordButton from 'interface/DiscordButton';
-import GitHubButton from 'interface/GitHubButton';
 import Icon from 'interface/Icon';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import Modal from 'interface/Modal';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import Background from 'interface/report/images/weirdnelf.png';
@@ -60,25 +59,7 @@ const SupportCheckerIssue = ({
     );
 
   return (
-    <div className="container offset">
-      <h1>
-        <div className="back-button">
-          <Tooltip
-            content={t({
-              id: 'interface.report.supportChecker.tooltip.backToPlayerSelection',
-              message: `Back to player selection`,
-            })}
-          >
-            <Link to={makeAnalyzerUrl(report, fight.id)}>
-              <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-            </Link>
-          </Tooltip>
-        </div>
-        <span className={spec.className.replace(' ', '')}>
-          {player.name} - {spec.specName} {spec.className}
-        </span>
-      </h1>
-
+    <Modal onClose={onContinueAnyway}>
       <Panel title={title}>
         <div className="flex wrapable">
           <div className="flex-main" style={{ minWidth: 400 }}>
@@ -89,9 +70,6 @@ const SupportCheckerIssue = ({
             <br />
             <br />
 
-            <div style={{ paddingBottom: '1.5em' }}>
-              <GitHubButton /> <DiscordButton />
-            </div>
             <Tooltip
               content={
                 <Trans id="interface.report.supportChecker.tooltip.khadgarApproves">
@@ -125,11 +103,13 @@ const SupportCheckerIssue = ({
         </div>
       </Panel>
 
-      <h1>
-        <Trans id="supportCheckerIssue.specChangelog">Spec changelog</Trans>
-      </h1>
-      <Changelog includeCore={false} changelog={changelog} />
-    </div>
+      <Panel
+        title={<Trans id="supportCheckerIssue.specChangelog">Spec changelog</Trans>}
+        pad={false}
+      >
+        <Changelog includeCore={false} changelog={changelog} />
+      </Panel>
+    </Modal>
   );
 };
 
