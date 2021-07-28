@@ -3,11 +3,11 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EnergizeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
 import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
-import Events, { EnergizeEvent } from 'parser/core/Events';
 
 class TigersFuryEnergy extends Analyzer {
   static dependencies = {
