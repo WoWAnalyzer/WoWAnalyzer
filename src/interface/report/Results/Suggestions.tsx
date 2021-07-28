@@ -83,6 +83,7 @@ class Suggestions extends React.PureComponent<Props> {
               ) : (
                 <Suggestion
                   key={i}
+                  spell={issue.spell}
                   icon={issue.icon}
                   stat={
                     issue.actual && issue.recommended ? (

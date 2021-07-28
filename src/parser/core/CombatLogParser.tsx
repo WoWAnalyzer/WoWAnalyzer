@@ -105,6 +105,7 @@ export interface Suggestion {
   text: React.ReactNode;
   importance: SuggestionImportance;
   icon?: string;
+  spell?: number;
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
 }

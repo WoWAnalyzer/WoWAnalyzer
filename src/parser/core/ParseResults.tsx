@@ -271,6 +271,7 @@ export type Issue = {
   issue: React.ReactNode;
   importance: ISSUE_IMPORTANCE;
   icon?: string;
+  spell?: number;
   stat?: React.ReactNode;
   details?: (() => React.ReactNode) | null;
 };

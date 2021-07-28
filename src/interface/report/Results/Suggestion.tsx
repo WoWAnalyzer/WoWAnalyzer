@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import Icon from 'interface/Icon';
 import UpArrow from 'interface/icons/UpArrow';
+import SpellIcon from 'interface/SpellIcon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
 import React, { ReactNode } from 'react';
@@ -46,7 +47,7 @@ class Suggestion extends React.PureComponent<Props, { expanded: boolean }> {
   }
 
   render() {
-    const { children, icon, stat, importance, details } = this.props;
+    const { children, icon, spell, stat, importance, details } = this.props;
 
     return (
       <>
@@ -55,7 +56,7 @@ class Suggestion extends React.PureComponent<Props, { expanded: boolean }> {
           onClick={details ? this.handleClick : undefined}
         >
           <div className="icon">
-            <Icon icon={icon} alt="Icon" />
+            {icon ? <Icon icon={icon} alt="Icon" /> : spell ? <SpellIcon id={spell} /> : null}
           </div>
           <div className="suggestion">
             {children}

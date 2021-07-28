@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import SPELL_INFO from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
@@ -22,7 +21,7 @@ const growl = () => (events: AnyEvent[], { pets }: Pick<Info, 'pets'>) => {
         </Trans>
       ),
       importance: SuggestionImportance.Regular,
-      icon: SPELL_INFO[SPELLS.GROWL].icon,
+      spell: SPELLS.GROWL,
     };
   }
 };
