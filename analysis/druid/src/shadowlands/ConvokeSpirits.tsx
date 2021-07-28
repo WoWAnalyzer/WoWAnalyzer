@@ -77,6 +77,8 @@ export const SPELL_IDS_WITH_AOE = [
 
 const SPELLS_CAST = 16;
 const SPELLS_CAST_RESTO = 12;
+const CS_SPELLS_CAST = 12;
+const CS_SPELLS_CAST_RESTO = 9;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -118,8 +120,9 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
-    this.spellsPerCast =
-      this.selectedCombatant.spec === SPECS.RESTORATION_DRUID ? SPELLS_CAST_RESTO : SPELLS_CAST;
+    this.spellsPerCast = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CELESTIAL_SPIRITS.bonusID)
+      ? (this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id ? CS_SPELLS_CAST_RESTO : CS_SPELLS_CAST)
+      : (this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id ? SPELLS_CAST_RESTO : SPELLS_CAST);
 
     // watch for convokes
     this.addEventListener(
