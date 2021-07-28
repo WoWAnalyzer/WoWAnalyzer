@@ -15,7 +15,7 @@ import StatWeights from '../../../modules/features/StatWeights';
 const ADAPTIVE_ARMOR_FRAGMENT_EFFECT_BY_RANK = [
   0, // rank '0' - doesn't exist
   0.02,
-  0.022,
+  0.021, // this is the actual value in game because a blizz employee made a data entry error
   0.024,
   0.026,
   0.028,
