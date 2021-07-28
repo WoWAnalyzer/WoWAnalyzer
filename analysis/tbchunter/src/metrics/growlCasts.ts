@@ -2,6 +2,7 @@ import { AnyEvent } from 'parser/core/Events';
 import metric from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 
+import lowRankSpellsPet from '../lowRankSpellsPet';
 import * as SPELLS from '../SPELLS_PET';
 
 /**
@@ -12,7 +13,11 @@ const growlCasts = (events: AnyEvent[], pets: Array<{ id: number }>) =>
   pets.reduce((sum, pet) => {
     const casts = castCount(events, pet.id);
 
-    return sum + casts[SPELLS.GROWL];
+    return (
+      sum +
+      (casts[SPELLS.GROWL] || 0) +
+      lowRankSpellsPet[SPELLS.GROWL].reduce((sum, spellId) => sum + (casts[spellId] || 0), 0)
+    );
   }, 0);
 
 export default metric(growlCasts);
