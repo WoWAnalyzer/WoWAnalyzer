@@ -64,6 +64,12 @@ const conduits = {
     name: 'Layered Mane',
     icon: 'ability_druid_ironfur',
   },
+  ADAPTIVE_ARMOR_FRAGMENT: {
+    // shared with other tank specs -- different id? Move to different file?
+    id: 357902,
+    name: 'Adaptive Armor Fragment',
+    icon: 'inv_belt_plate_ardenweald_d_01',
+  },
   //Restoration
   UNSTOPPABLE_GROWTH: {
     id: 340549,

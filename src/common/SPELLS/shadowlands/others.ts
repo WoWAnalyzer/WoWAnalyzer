@@ -124,5 +124,11 @@ const spells = {
     name: 'Veiled Augment Rune',
     icon: 'inv_misc_gem_azuredraenite_01',
   },
+  ADAPTIVE_ARMOR_FRAGMENT_BUFF: {
+    // buff procced by Adaptive Armor Fragment, a generic tanking conduit
+    id: 357972,
+    name: 'Adaptive Armor Fragment',
+    icon: 'inv_belt_plate_ardenweald_d_01',
+  },
 } as const;
 export default spells;
