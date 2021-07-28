@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
-  change(date(2021, 7, 25), <>Energy overcap from <SpellLink id={SPELLS.TIGERS_FURY.id}/> and Combo Point overcap stats no longer count waste that occurs during <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/>, as it is unavoidable.</>, Sref),
+  change(date(2021, 7, 28), <>Energy overcap from <SpellLink id={SPELLS.TIGERS_FURY.id}/> and Combo Point overcap stats no longer count waste that occurs during <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/>, as it is unavoidable.</>, Sref),
   change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
   change(date(2021, 7, 10), <>Removed outdated "<SpellLink id={SPELLS.BLOODTALONS_BUFF.id}/> overwrite" suggestion, and updated the statistic box to be more useful.</>, Sref),
   change(date(2021, 7, 9), <>Fixed an issue where only <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} /> (and not <SpellLink id={SPELLS.BERSERK.id} />) was counted as giving a stealth bonus to <SpellLink id={SPELLS.RAKE.id} /></>, Sref),
