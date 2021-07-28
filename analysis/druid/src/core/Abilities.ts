@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONVOKE_SPIRITS.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasLegendaryByBonusID(SPELLS.CELESTIAL_SPIRITS.bonusID) ? 60 : 120,
         gcd: {
           base: druidGcd,
         },

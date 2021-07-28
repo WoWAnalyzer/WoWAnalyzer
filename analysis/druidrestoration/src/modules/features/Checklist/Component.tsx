@@ -106,6 +106,9 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         {combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />
         )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
+        )}
         <AbilityRequirement spell={SPELLS.TRANQUILITY_CAST.id} />
         <AbilityRequirement spell={SPELLS.INNERVATE.id} />
       </Rule>
