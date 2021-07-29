@@ -111,6 +111,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     );
   };
 
+  let hasLowered = false;
   let _lastLowered: number | null = null;
   let _level = 0;
   let _maxLevel = 0;
@@ -137,6 +138,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
         _level = 0;
       }
       _lastLowered = left;
+      hasLowered = true;
     }
 
     let castReason;
@@ -329,8 +331,8 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       style={{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        '--levels': _maxLevel,
-        '--has-levels': _maxLevel > 0 ? 1 : 0,
+        '--levels': hasLowered ? _maxLevel + 1 : 0,
+        '--has-levels': hasLowered ? 1 : 0,
         ...others.style,
       }}
     >
