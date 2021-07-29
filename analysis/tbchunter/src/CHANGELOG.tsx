@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2021, 7, 28), 'Fix bug where Auto Shot cast time overlapping with the GCD counted twice for active time.', Zerotorescue),
   change(date(2021, 7, 27), 'Add low rank pet ability suggestions.', Zerotorescue),
   change(date(2021, 7, 27), 'The Kill Command cast count now only includes time with the buff up, and enabled the cast efficiency suggestion for Kill Command.', Zerotorescue),
   change(date(2021, 7, 24), 'Add Kill Command buff indicator to timeline.', Zerotorescue),

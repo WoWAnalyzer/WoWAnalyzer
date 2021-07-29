@@ -71,7 +71,6 @@ class AlwaysBeCasting extends Analyzer {
       amount = Math.max(amount, this._lastGlobalCooldownDuration);
     }
     this.activeTime += amount;
-    return true;
   }
 
   showStatistic = true;

@@ -4,6 +4,7 @@ import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
 import lowRankSpells from './lowRankSpells';
 import lowRankSpellsPet from './lowRankSpellsPet';
 import Abilities from './modules/Abilities';
+import AlwaysBeCasting from './modules/AlwaysBeCasting';
 import AutoShotCooldown from './modules/AutoShotCooldown';
 import Buffs from './modules/Buffs';
 import Haste from './modules/Haste';
@@ -19,6 +20,7 @@ class CombatLogParser extends BaseCombatLogParser {
     autoShotCooldown: AutoShotCooldown,
     haste: Haste,
     killCommandNormalizer: KillCommandNormalizer,
+    alwaysBeCasting: AlwaysBeCasting,
   };
 
   static suggestions = [

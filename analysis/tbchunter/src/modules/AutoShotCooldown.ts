@@ -198,7 +198,6 @@ class AutoShotCooldown extends Analyzer {
       .map(Number)
       .forEach((spellId) => {
         if (this.owner.selectedCombatant.hasBuff(spellId)) {
-          this.log('buff', spellId, hasteBuffs[spellId]);
           haste *= 1 + hasteBuffs[spellId];
         }
       });
