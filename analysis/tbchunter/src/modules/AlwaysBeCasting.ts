@@ -14,9 +14,21 @@ class AlwaysBeCasting extends BaseAlwaysBeCasting {
         this.activeTime += event.duration;
         return;
       }
+
       const lastGcdEndTimestamp = lastGcd.timestamp + lastGcd.duration;
-      const gcdRemaining = Math.max(0, lastGcdEndTimestamp - event.timestamp);
-      this.activeTime += Math.max(0, event.duration - gcdRemaining);
+      const castStart = event.timestamp - event.duration;
+      if (lastGcdEndTimestamp > castStart) {
+        // There was overlap
+        const overlap = lastGcdEndTimestamp - castStart;
+
+        if (overlap > event.duration) {
+          return;
+        }
+        const remainingDuration = event.duration - overlap;
+        this.activeTime += remainingDuration;
+      } else {
+        this.activeTime += event.duration;
+      }
       return;
     }
 
