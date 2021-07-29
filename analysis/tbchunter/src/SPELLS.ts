@@ -5,6 +5,7 @@ export const AIMED_SHOT = 27065;
 export const ARCANE_SHOT = 27019;
 export const KILL_COMMAND = 34026;
 export const SERPENT_STING = 27016;
+export const SCORPID_STING = 3043;
 export const RAPID_FIRE = 3045;
 export const BESTIAL_WRATH = 19574;
 export const BEAST_WITHIN_BUFF = 34471;

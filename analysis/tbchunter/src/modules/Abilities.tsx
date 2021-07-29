@@ -126,6 +126,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.SCORPID_STING,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          static: 1500,
+        },
+      },
+      {
         spell: [SPELLS.HUNTERS_MARK, ...lowRankSpells[SPELLS.HUNTERS_MARK]],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
