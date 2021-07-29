@@ -3,6 +3,7 @@ import { WCLRanking, WCLRankingsResponse } from 'common/WCL_TYPES';
 import SPECS from 'game/SPECS';
 import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
+import calculateMedian from 'parser/shared/modules/features/Checklist/helpers/calculateMedian';
 import PropTypes from 'prop-types';
 import React, { ReactNode } from 'react';
 
@@ -20,6 +21,7 @@ interface Props {
 interface State {
   performance: number | null;
   topThroughput: number | null;
+  medianDuration: number | null;
 }
 
 class ThroughputPerformance extends React.PureComponent<Props, State> {
@@ -32,6 +34,7 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
     this.state = {
       performance: null,
       topThroughput: null,
+      medianDuration: null,
     };
   }
   componentDidMount() {
@@ -45,20 +48,25 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
         return;
       }
       const { rankings } = await this.loadRankings();
-      // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
+      // We want the 100th rank to give people a reasonable goal to aim for. #1 might be a stretch.
       const topRank = this._getRank(rankings, 100);
       if (!topRank) {
         this.setState({
           performance: UNAVAILABLE,
           topThroughput: UNAVAILABLE,
+          medianDuration: null,
         });
         return;
       }
       const topThroughput = topRank.total;
+      const durations = rankings.map((rank) => rank.duration);
+      const medianDuration = calculateMedian(durations);
+
       this.setState({
         // If the player is in the top 100, this may be >=100%.
         performance: this.props.throughput && this.props.throughput / topThroughput,
         topThroughput,
+        medianDuration,
       });
     } catch (err) {
       console.error(
@@ -68,6 +76,7 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
       this.setState({
         performance: UNAVAILABLE,
         topThroughput: UNAVAILABLE,
+        medianDuration: null,
       });
     }
   }

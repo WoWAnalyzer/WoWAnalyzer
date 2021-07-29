@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 7, 29), 'Add median fight duration to the damage done statistic tooltip.', Zerotorescue),
   change(date(2021, 7, 28), 'Support issue warnings on the report page are now presented modally to make it clearer that the warning can be closed.', Zerotorescue),
   change(date(2021, 7, 27), 'Moved low rank spells config out of the ability config for better code isolation.', Zerotorescue),
   change(date(2021, 7, 25), <>Fixed a bug where <SpellLink id={SPELLS.SOOTHING_SHADE.id}/> procs could incorrectly cause casts to be marked as cancelled.</>, Sref),
