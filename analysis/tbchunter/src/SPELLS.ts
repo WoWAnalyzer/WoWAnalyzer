@@ -32,3 +32,4 @@ export const MEND_PET = 27046;
 export const BLOOD_FURY = 20572;
 // Items
 export const ABACUS_HASTE_BUFF = 33807;
+export const DRAGONSPINE_TROPHY_BUFF = 34775;

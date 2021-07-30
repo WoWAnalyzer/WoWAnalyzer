@@ -30,6 +30,10 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DRAGONSPINE_TROPHY_BUFF,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.KILL_COMMAND,
         timelineHighlight: true,
       },
