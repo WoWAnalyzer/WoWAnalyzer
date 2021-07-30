@@ -12,7 +12,7 @@ class AlwaysBeCasting extends BaseAlwaysBeCasting {
       const lastGcd = this.globalCooldown.lastGlobalCooldown;
       if (!lastGcd) {
         this.activeTime += event.duration;
-        return;
+        return true;
       }
 
       const lastGcdEndTimestamp = lastGcd.timestamp + lastGcd.duration;
@@ -22,17 +22,17 @@ class AlwaysBeCasting extends BaseAlwaysBeCasting {
         const overlap = lastGcdEndTimestamp - castStart;
 
         if (overlap > event.duration) {
-          return;
+          return true;
         }
         const remainingDuration = event.duration - overlap;
         this.activeTime += remainingDuration;
       } else {
         this.activeTime += event.duration;
       }
-      return;
+      return true;
     }
 
-    super.onEndChannel(event);
+    return super.onEndChannel(event);
   }
 }
 
