@@ -105,6 +105,14 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   timelineSortIndex?: number;
   /**
+   * If this ability is only castable with a certain buff, this can be indicated
+   * by setting this prop to the buff spell id.
+   * If the trigger isn't an actual buff but a crit, you may need to make a
+   * normalizer to fabricate buff events. See TBC Hunter's Kill Command for an
+   * example.
+   */
+  timelineCastableBuff?: number;
+  /**
    * @deprecated Use the Buffs module to define your buffs instead. If your
    * spec has no Buffs module, this prop will be used to prefill it.
    *
@@ -253,6 +261,7 @@ class Ability {
      * on the timeline it will be displayed.
      */
     timelineSortIndex: PropTypes.number,
+    timelineCastableBuff: PropTypes.number,
     /**
      * DEPRECATED. Use the Buffs module to define your buffs instead. If your
      * spec has no Buffs module, this prop will be used to prefill it.
@@ -374,6 +383,7 @@ class Ability {
   charges = 1;
   enabled = true;
   timelineSortIndex: number | null = null;
+  timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;
   shownSpell = null;

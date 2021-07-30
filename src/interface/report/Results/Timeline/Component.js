@@ -82,6 +82,9 @@ class Timeline extends React.PureComponent {
         return this.isApplicableCastEvent(event);
       case EventType.UpdateSpellUsable:
         return this.isApplicableUpdateSpellUsableEvent(event);
+      case EventType.ApplyBuff:
+      case EventType.RemoveBuff:
+        return this.isApplicableBuffEvent(event);
       default:
         return false;
     }
@@ -120,6 +123,10 @@ class Timeline extends React.PureComponent {
       return false;
     }
     return true;
+  }
+  isApplicableBuffEvent(event) {
+    const ability = this.props.abilities.getAbility(event.ability.guid);
+    return ability && ability.timelineCastableBuff === event.ability.guid;
   }
   /**
    * @param {object[]} events

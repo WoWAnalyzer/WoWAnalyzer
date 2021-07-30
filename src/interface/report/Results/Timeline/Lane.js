@@ -14,6 +14,7 @@ class Lane extends React.PureComponent {
     fightStartTimestamp: PropTypes.number.isRequired,
     fightEndTimestamp: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
+    castableBuff: PropTypes.number,
     style: PropTypes.object,
   };
 
@@ -21,6 +22,7 @@ class Lane extends React.PureComponent {
     return ((timestamp - this.props.fightStartTimestamp) / 1000) * this.props.secondWidth;
   }
 
+  lastApplyBuff = null;
   renderEvent(event) {
     switch (event.type) {
       case EventType.FilterCooldownInfo:
@@ -37,6 +39,16 @@ class Lane extends React.PureComponent {
         } else {
           return this.renderCooldown(event);
         }
+      case EventType.ApplyBuff:
+        if (this.props.castableBuff === event.ability.guid) {
+          this.lastApplyBuff = event;
+        }
+        return null;
+      case EventType.RemoveBuff:
+        if (this.props.castableBuff === event.ability.guid) {
+          return this.renderCastableWindow(event);
+        }
+        return null;
       default:
         return null;
     }
@@ -110,6 +122,31 @@ class Lane extends React.PureComponent {
           className="recharge"
           style={{
             left,
+          }}
+        />
+      </Tooltip>
+    );
+  }
+  renderCastableWindow(event) {
+    const start = this.lastApplyBuff?.timestamp || this.fightStartTimestamp;
+    const end = event.timestamp;
+
+    return (
+      <Tooltip
+        content={
+          <Trans id="interface.report.results.timeline.lane.tooltip.castable">Castable</Trans>
+        }
+      >
+        <div
+          key={`castable-${start}-${end}`}
+          className="castable"
+          style={{
+            left: this.getOffsetLeft(start),
+            width:
+              ((Math.min(this.props.fightEndTimestamp, end) -
+                Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, start)) /
+                1000) *
+              this.props.secondWidth,
           }}
         />
       </Tooltip>

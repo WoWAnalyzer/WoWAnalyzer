@@ -35,7 +35,6 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.KILL_COMMAND,
-        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

@@ -36,6 +36,7 @@ class Cooldowns extends React.PureComponent<Props> {
         fightStartTimestamp={this.props.start}
         fightEndTimestamp={this.props.end}
         secondWidth={this.props.secondWidth}
+        castableBuff={this.props.abilities.getAbility(spellId)?.timelineCastableBuff}
       >
         {events}
       </Lane>

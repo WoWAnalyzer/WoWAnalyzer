@@ -49,5 +49,9 @@
     > .cast {
       z-index: 3;
     }
+    > .castable {
+      background: rgba(248, 183, 0, 0.6);
+      border-radius: 3px;
+    }
   }
 }

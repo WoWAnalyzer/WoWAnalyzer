@@ -52,6 +52,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
+        timelineCastableBuff: SPELLS.KILL_COMMAND,
       },
       {
         spell: [SPELLS.AIMED_SHOT, ...lowRankSpells[SPELLS.AIMED_SHOT]],
