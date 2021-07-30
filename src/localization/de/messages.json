@@ -428,6 +428,7 @@
   "interface.report.results.timeline.casts.tooltip.swingCooldown": "",
   "interface.report.results.timeline.casts.tooltip.xSecChannelByAbility": "{0}: {1}s Kanalisierung von {2}",
   "interface.report.results.timeline.casts.tooltip.xSecGCDByAbility": "{0}: {1}s Globale Abklingzeit Fähigkeit von {2}",
+  "interface.report.results.timeline.lane.tooltip.castable": "",
   "interface.report.results.timeline.lane.tooltip.chargeRestored": "Ladung wiederhergestellt",
   "interface.report.results.timeline.lane.tooltip.eventOrAbilityCooldown": "{0} Abklingzeit: {1}s",
   "interface.report.results.timeline.movement": "",
