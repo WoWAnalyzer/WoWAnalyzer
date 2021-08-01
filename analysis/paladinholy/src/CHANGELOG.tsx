@@ -1,11 +1,12 @@
 
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
-import { Abelito75, acornellier, Putro, Zeboot } from 'CONTRIBUTORS';
+import { Abelito75, acornellier, Putro, Sref, Zeboot } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 1), <>Fixed a bug that caused the 'Inefficient Light of the Martyr' module to crash when used with Maraad's legendary.</>, Sref),
   change(date(2021, 3, 11), <>Fix <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/> cooldown, reduce recommended uptime of <SpellLink id={SPELLS.JUDGMENT_CAST_HOLY.id}/> and <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/>, and increase recommended uptime of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/></>, acornellier),
   change(date(2021, 3, 10), <>Update <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> mana cost</>, acornellier),
   change(date(2021, 2, 24), <>Fixed spells missing from ABC: <SpellLink id={SPELLS.WORD_OF_GLORY.id}/> <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/></>, acornellier),
