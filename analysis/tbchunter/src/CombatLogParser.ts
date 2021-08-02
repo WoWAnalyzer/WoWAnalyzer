@@ -28,6 +28,7 @@ class CombatLogParser extends BaseCombatLogParser {
       ManaValues,
       {
         active: true,
+        suggest: false,
       },
     ] as const,
   };
