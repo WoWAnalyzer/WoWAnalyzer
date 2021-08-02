@@ -1,3 +1,5 @@
+import ManaValues from 'parser/shared/modules/ManaValues';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
 import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
 
@@ -21,6 +23,13 @@ class CombatLogParser extends BaseCombatLogParser {
     haste: Haste,
     killCommandNormalizer: KillCommandNormalizer,
     alwaysBeCasting: AlwaysBeCasting,
+    manaLevelChart: ManaLevelChart,
+    manaValues: [
+      ManaValues,
+      {
+        active: true,
+      },
+    ] as const,
   };
 
   static suggestions = [
