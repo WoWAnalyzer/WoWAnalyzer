@@ -440,7 +440,7 @@
   "interface.report.results.warning.timeFilter": "",
   "interface.report.supportChecker.continueAnyway": "Continuer quand même",
   "interface.report.supportChecker.maintainedBy": "",
-  "interface.report.supportChecker.specNotSupported": "Désolé, cette spécialisation n'est pas supportée pour le moment",
+  "interface.report.supportChecker.outdated": "",
   "interface.report.supportChecker.specNotSupportedDetails": "",
   "interface.report.supportChecker.specPartialSupport": "",
   "interface.report.supportChecker.specPartialSupportDetails": "",
