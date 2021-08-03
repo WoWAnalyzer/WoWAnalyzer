@@ -9,7 +9,8 @@ import React from 'react';
 
 // prettier-ignore
 export default [
-  change(date(2021, 8, 2), 'Update Game Version in constants to ensure correct warnings are triggering when modules are out of date.', Anomoly),
+  change(date(2021, 8, 3), 'Update Game Version in constants to ensure correct warnings are triggering when modules are out of date.', Anomoly),
+  change(date(2021, 8, 3), 'Reword spec out of date warning.', Zerotorescue),
   change(date(2021, 7, 29), 'Add median fight duration to the damage done statistic tooltip.', Zerotorescue),
   change(date(2021, 7, 28), 'Support issue warnings on the report page are now presented modally to make it clearer that the warning can be closed.', Zerotorescue),
   change(date(2021, 7, 27), 'Moved low rank spells config out of the ability config for better code isolation.', Zerotorescue),
