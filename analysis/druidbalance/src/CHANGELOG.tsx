@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 2), <>Fixed a bug that was causing <SpellLink id={SPELLS.HALF_MOON.id}/> casts to be missed by the analyzer.</>, Sref),
   change(date(2021, 7, 28), <>Fixed incorrect haste number for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/>.</>, Sref),
   change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
   change(date(2021, 7, 10), <>Fixed a bug where <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> usage wasn't being correctly tracked and another where <SpellLink id={SPELLS.NEW_MOON_TALENT.id} /> had the wrong cooldown.</>, Sref),
