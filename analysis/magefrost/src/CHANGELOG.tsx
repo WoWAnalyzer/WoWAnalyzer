@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Sharrq, Sref } from 'CONTRIBUTORS';
+import { Adoraci, Sharrq, Sref, Zea } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
