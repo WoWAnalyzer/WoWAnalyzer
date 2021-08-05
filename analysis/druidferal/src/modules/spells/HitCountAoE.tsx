@@ -1,15 +1,16 @@
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
-import { getHitCount } from '../../normalizers/CastLinkNormalizer';
-import Statistic from 'parser/ui/Statistic';
+import Spell from 'common/SPELLS/Spell';
 import { TooltipElement } from 'interface';
 import { SpellIcon, SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
-import Spell from 'common/SPELLS/Spell';
-import { t } from '@lingui/macro';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
+import { getHitCount } from '../../normalizers/CastLinkNormalizer';
 
 /**
  * Tracks the number of targets hit by Feral's AoE abilities.
@@ -125,12 +126,21 @@ class HitCountAoE extends Analyzer {
     when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are using AoE abilities while out of range of any targets. Try to
-          get familiar with the range of your area of effect abilities so you can avoid wasting
-          energy when they'll not hit anything. You missed with{' '}
-          {this.thrashZeroHits > 0 && <>{this.thrashZeroHits} <SpellLink id={SPELLS.THRASH_FERAL.id} /></>}
+          You are using AoE abilities while out of range of any targets. Try to get familiar with
+          the range of your area of effect abilities so you can avoid wasting energy when they'll
+          not hit anything. You missed with{' '}
+          {this.thrashZeroHits > 0 && (
+            <>
+              {this.thrashZeroHits} <SpellLink id={SPELLS.THRASH_FERAL.id} />
+            </>
+          )}
           {this.thrashZeroHits > 0 && this.swipeOrBrsZeroHits > 0 && ` and `}
-          {this.swipeOrBrsZeroHits > 0 && <>{this.swipeOrBrsZeroHits} <SpellLink id={this.swipeOrBrs.id} /></>}.
+          {this.swipeOrBrsZeroHits > 0 && (
+            <>
+              {this.swipeOrBrsZeroHits} <SpellLink id={this.swipeOrBrs.id} />
+            </>
+          )}
+          .
         </>,
       )
         .icon(SPELLS.SWIPE_CAT.icon)
@@ -156,22 +166,31 @@ class HitCountAoE extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE(10)}
       >
-        <div className={`pad boring-text`}>
+        <div className="pad boring-text">
           <label>AoE Ability Usage</label>
           <div className="value">
             {this.aoeSpells.map((spell) => (
               <>
-                <TooltipElement key={spell.id} content={
-                  <>
-                    This statistic does not include casts from Convoke the Spirits.
-                    You cast {spell.name} <strong>{this._getCasts(spell.id)}</strong> times.
-                    <ul>
-                      <li><strong>{this._getZeroHits(spell.id)}</strong> hit nothing</li>
-                      <li><strong>{this._getOneHits(spell.id)}</strong> hit one target</li>
-                      <li><strong>{this._getMultiHits(spell.id)}</strong> hit multiple targets</li>
-                    </ul>
-                  </>
-                }>
+                <TooltipElement
+                  key={spell.id}
+                  content={
+                    <>
+                      This statistic does not include casts from Convoke the Spirits. You cast{' '}
+                      {spell.name} <strong>{this._getCasts(spell.id)}</strong> times.
+                      <ul>
+                        <li>
+                          <strong>{this._getZeroHits(spell.id)}</strong> hit nothing
+                        </li>
+                        <li>
+                          <strong>{this._getOneHits(spell.id)}</strong> hit one target
+                        </li>
+                        <li>
+                          <strong>{this._getMultiHits(spell.id)}</strong> hit multiple targets
+                        </li>
+                      </ul>
+                    </>
+                  }
+                >
                   <SpellIcon id={spell.id} /> {this._getAverageHits(spell.id).toFixed(1)}{' '}
                 </TooltipElement>
                 <small>avg targets hit</small>
