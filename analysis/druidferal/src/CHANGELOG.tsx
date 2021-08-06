@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 4), <>Combined AoE spell statistic box and suggestions into a single unified element with visual improvements.</>, Sref),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
   change(date(2021, 7, 28), <>Energy overcap from <SpellLink id={SPELLS.TIGERS_FURY.id}/> and Combo Point overcap stats no longer count waste that occurs during <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/>, as it is unavoidable.</>, Sref),
   change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),

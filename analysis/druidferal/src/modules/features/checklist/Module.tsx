@@ -11,7 +11,6 @@ import FinisherUse from '../../combopoints/FinisherUse';
 import Shadowmeld from '../../racials/Shadowmeld';
 import AdaptiveSwarmFeral from '../../shadowlands/AdaptiveSwarmFeral';
 import FerociousBite from '../../spells/FerociousBite';
-import SwipeHitCount from '../../spells/SwipeHitCount';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Bloodtalons from '../../talents/Bloodtalons';
 import MoonfireUptimeAndSnapshots from '../../talents/MoonfireUptimeAndSnapshots';
@@ -29,7 +28,6 @@ class Checklist extends BaseChecklist {
     rakeUptime: RakeUptimeAndSnapshots,
     moonfireUptime: MoonfireUptimeAndSnapshots,
     adaptiveSwarm: AdaptiveSwarmFeral,
-    swipeHitCount: SwipeHitCount,
     comboPointDetails: ComboPointDetails,
     ripUptime: RipUptimeAndSnapshots,
     savageRoar: SavageRoar,
@@ -49,7 +47,6 @@ class Checklist extends BaseChecklist {
   protected rakeUptime!: RakeUptimeAndSnapshots;
   protected moonfireUptime!: MoonfireUptimeAndSnapshots;
   protected adaptiveSwarm!: AdaptiveSwarmFeral;
-  protected swipeHitCount!: SwipeHitCount;
   protected comboPointDetails!: ComboPointDetails;
   protected ripUptime!: RipUptimeAndSnapshots;
   protected savageRoar!: SavageRoar;
@@ -97,8 +94,6 @@ class Checklist extends BaseChecklist {
           comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 
           // TODO combo builders section ??
-
-          swipeHitOne: this.swipeHitCount.hitJustOneThresholds,
 
           // cooldowns
           shadowmeld: this.shadowmeld.efficiencyThresholds,

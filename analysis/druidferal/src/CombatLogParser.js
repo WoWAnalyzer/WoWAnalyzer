@@ -26,12 +26,10 @@ import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
 import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import Frenzyband from './modules/shadowlands/Frenzyband';
 import FerociousBite from './modules/spells/FerociousBite';
+import HitCountAoE from './modules/spells/HitCountAoE';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
-import SwipeHitCount from './modules/spells/SwipeHitCount';
-import ThrashHitCount from './modules/spells/ThrashHitCount';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Bloodtalons from './modules/talents/Bloodtalons';
-import BrutalSlashHitCount from './modules/talents/BrutalSlashHitCount';
 import MoonfireUptimeAndSnapshots from './modules/talents/MoonfireUptimeAndSnapshots';
 import Predator from './modules/talents/Predator';
 import SavageRoar from './modules/talents/SavageRoar';
@@ -73,9 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // spells
     predatorySwiftness: PredatorySwiftness,
-    thrashHitCount: ThrashHitCount,
-    swipeHitCount: SwipeHitCount,
     tigersFuryEnergy: TigersFuryEnergy,
+    hitCountAoe: HitCountAoE,
     shadowmeld: Shadowmeld,
 
     // talents
@@ -83,7 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     savageRoar: SavageRoar,
     predator: Predator,
     bloodtalons: Bloodtalons,
-    brutalSlashHitCount: BrutalSlashHitCount,
 
     // resources
     comboPointTracker: ComboPointTracker,
