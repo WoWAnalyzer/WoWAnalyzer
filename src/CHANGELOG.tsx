@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 8, 9), 'German translations for monk class', maestrohdude),
   change(date(2021, 8, 3), 'Update Game Version in constants to ensure correct warnings are triggering when modules are out of date.', Anomoly),
   change(date(2021, 8, 3), 'Reword spec out of date warning.', Zerotorescue),
   change(date(2021, 7, 29), 'Add median fight duration to the damage done statistic tooltip.', Zerotorescue),
