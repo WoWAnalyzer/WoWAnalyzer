@@ -2,8 +2,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
-import DotUptimes from './modules/core/Dots';
 import DeepWoundsUptime from './modules/core/Dots/DeepWoundsUptime';
+import DotUptime from './modules/core/Dots/DotUptime';
 import RendUptime from './modules/core/Dots/RendUptime';
 import EarlyDotRefresh from './modules/core/Execute/EarlyDotRefresh';
 import ExecuteRange from './modules/core/Execute/ExecuteRange';
@@ -69,7 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Dots
     deepWoundsUptime: DeepWoundsUptime,
     rendUptime: RendUptime,
-    dotUptimes: DotUptimes,
+    dotUptimes: DotUptime,
     earlyDotRefresh: EarlyDotRefresh,
 
     // Talents
