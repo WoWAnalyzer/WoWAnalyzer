@@ -63,7 +63,7 @@ class DeepWoundsUptime extends Analyzer {
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>
         </div>
-        <div className="flex-main chart">
+        <div className="flex-main chart" style={{ padding: 10 }}>
           <UptimeBar
             uptimeHistory={history}
             start={this.owner.fight.start_time}
