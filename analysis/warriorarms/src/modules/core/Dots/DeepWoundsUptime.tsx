@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import UptimeBar from 'parser/ui/UptimeBar';
 import React from 'react';
 
 class DeepWoundsUptime extends Analyzer {
@@ -31,7 +31,9 @@ class DeepWoundsUptime extends Analyzer {
     enemies: Enemies,
   };
 
-  suggestions(when) {
+  protected enemies!: Enemies;
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -52,15 +54,23 @@ class DeepWoundsUptime extends Analyzer {
   }
 
   subStatistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id);
     return (
-      <StatisticListBoxItem
-        title={
-          <>
-            <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS.id} /> uptime
-          </>
-        }
-        value={`${formatPercentage(this.uptime)} %`}
-      />
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.MASTERY_DEEP_WOUNDS.id} />
+        </div>
+        <div className="flex-sub value" style={{ width: 140 }}>
+          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+        </div>
+        <div className="flex-main chart">
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+          />
+        </div>
+      </div>
     );
   }
 }
