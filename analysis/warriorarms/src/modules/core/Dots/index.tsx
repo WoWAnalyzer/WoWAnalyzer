@@ -19,7 +19,7 @@ class DotUptimeStatisticBox extends Analyzer {
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(3)}>
         {this.deepwoundsUptime.subStatistic()}
-        {this.rendUptime.subStatistic()}
+        {this.rendUptime.active ? this.rendUptime.subStatistic() : null}
       </StatisticBar>
     );
   }
