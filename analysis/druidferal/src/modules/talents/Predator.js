@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -37,7 +38,7 @@ class Predator extends Analyzer {
         average: 0.5,
         major: 0.2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -112,7 +113,7 @@ class Predator extends Analyzer {
         tooltip={this.extraCasts > 0 ? hadExtraCasts : noExtraCasts}
         positon={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spell={SPELLS.PREDATOR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.PREDATOR_TALENT.id}>
           <>
             {this.extraCastsPerMinute.toFixed(2)} <small>extra casts per minute</small>
           </>

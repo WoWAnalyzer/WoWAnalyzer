@@ -117,7 +117,7 @@ class DemonSpikes extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DEMON_SPIKES}>
+        <BoringSpellValueText spellId={SPELLS.DEMON_SPIKES.id}>
           <>
             {this.mitigatedUptime}% <small>hits mitigated</small>
           </>

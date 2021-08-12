@@ -91,7 +91,7 @@ class CoordinatedAssault extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
+        <BoringSpellValueText spellId={SPELLS.COORDINATED_ASSAULT.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />

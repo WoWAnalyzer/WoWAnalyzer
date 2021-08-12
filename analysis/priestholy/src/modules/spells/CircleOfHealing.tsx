@@ -73,7 +73,7 @@ class CircleOfHealing extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spell={SPELLS.CIRCLE_OF_HEALING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CIRCLE_OF_HEALING_TALENT.id}>
           <ItemHealingDone amount={this.circleOfHealingHealing} />
         </BoringSpellValueText>
       </Statistic>

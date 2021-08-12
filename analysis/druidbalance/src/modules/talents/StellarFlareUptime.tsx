@@ -60,7 +60,7 @@ class StellarFlareUptime extends Analyzer {
       this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.STELLAR_FLARE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STELLAR_FLARE_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(stellarFlareUptime)} % <small>uptime</small>
           </>

@@ -103,6 +103,7 @@ class HealingEfficiencyTracker extends Analyzer {
         casts: number;
       };
     };
+
     spellInfo.manaSpent = spenders[spellId] ? spenders[spellId].spent : 0;
 
     // All of the following information can be derived from the data in SpellInfo.
@@ -118,13 +119,12 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.hpm = spellInfo.healingDone / spellInfo.manaSpent || 0;
     spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent || 0;
 
-    spellInfo.timeSpentCasting =
-      this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting +
-      this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
+    const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);
+    spellInfo.timeSpentCasting = timeSpentCasting.timeSpentCasting + timeSpentCasting.gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
-    spellInfo.hpet = (spellInfo.healingDone / spellInfo.timeSpentCasting) | 0;
-    spellInfo.dpet = (spellInfo.damageDone / spellInfo.timeSpentCasting) | 0;
+    spellInfo.hpet = spellInfo.healingDone / spellInfo.timeSpentCasting || 0;
+    spellInfo.dpet = spellInfo.damageDone / spellInfo.timeSpentCasting || 0;
 
     return spellInfo;
   }
@@ -151,15 +151,17 @@ class HealingEfficiencyTracker extends Analyzer {
       if (ability.spell instanceof Array) {
         continue;
       }
-      if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
-        if (includeCooldowns || ability.category !== 'Cooldown') {
-          spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellIds);
 
-          topHpm = Math.max(topHpm, spells[ability.spell.id].hpm);
-          topDpm = Math.max(topDpm, spells[ability.spell.id].dpm);
-          topHpet = Math.max(topHpet, spells[ability.spell.id].hpet);
-          topDpet = Math.max(topDpet, spells[ability.spell.id].dpet);
+      if (includeCooldowns || ability.category !== 'Cooldown') {
+        spells[ability.spell] = this.getSpellStats(ability.spell, ability.healSpellIds);
+        if (spells[ability.spell].hpm !== Infinity) {
+          topHpm = Math.max(topHpm, spells[ability.spell].hpm);
         }
+        if (spells[ability.spell].dpm !== Infinity) {
+          topDpm = Math.max(topDpm, spells[ability.spell].dpm);
+        }
+        topHpet = Math.max(topHpet, spells[ability.spell].hpet);
+        topDpet = Math.max(topDpet, spells[ability.spell].dpet);
       }
     }
 

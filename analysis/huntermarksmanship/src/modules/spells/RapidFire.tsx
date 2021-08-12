@@ -158,7 +158,7 @@ class RapidFire extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(2)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.RAPID_FIRE}>
+        <BoringSpellValueText spellId={SPELLS.RAPID_FIRE.id}>
           <>
             {this.effectiveFocusGain}/{this.focusWasted + this.effectiveFocusGain}{' '}
             <small>possible focus gained</small>

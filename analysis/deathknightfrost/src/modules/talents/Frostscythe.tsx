@@ -103,7 +103,7 @@ class Frostscythe extends Analyzer {
         size="flexible"
         tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
       >
-        <BoringSpellValueText spell={SPELLS.FROSTSCYTHE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FROSTSCYTHE_TALENT.id}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>

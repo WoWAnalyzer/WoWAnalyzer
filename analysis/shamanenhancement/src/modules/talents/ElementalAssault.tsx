@@ -62,7 +62,7 @@ class ElementalAssault extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.ELEMENTAL_ASSAULT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ELEMENTAL_ASSAULT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />

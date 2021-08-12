@@ -51,7 +51,13 @@ class NaturesFocus extends Analyzer {
     // sometimes you have heal events before the cast happens, so check here as well
     // comparing the target ID guarantees no false positives as each cast can only heal the same target once
     if (this.chainHealEvent && this.chainHealEvent.targetID === event.targetID) {
-      this.healing += calculateEffectiveHealing(this.chainHealEvent, this.healingBoost);
+      if ('amount' in this.chainHealEvent) {
+        // should always be a HealEvent, but just in case...
+        this.healing += calculateEffectiveHealing(
+          this.chainHealEvent as { amount: number },
+          this.healingBoost,
+        );
+      }
       this.chainHealEvent = null;
     } else {
       this.chainHealEvent = event;
@@ -76,7 +82,7 @@ class NaturesFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.NATURES_FOCUS} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.NATURES_FOCUS.id} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </ConduitSpellText>

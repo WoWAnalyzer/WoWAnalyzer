@@ -97,7 +97,7 @@ class Felblade extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FELBLADE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FELBLADE_TALENT.id}>
           <>
             {this.furyPerMin} <small>Fury per min </small>
             <br />

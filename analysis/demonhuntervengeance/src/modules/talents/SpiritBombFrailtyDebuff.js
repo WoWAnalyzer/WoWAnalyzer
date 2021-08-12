@@ -73,11 +73,11 @@ class SpiritBombFrailtyDebuff extends Analyzer {
         tooltip={
           <>
             Total damage was {formatThousands(spiritBombDamage)}.<br />
-            Total uptime was {formatDuration(spiritBombUptime / 1000)}.
+            Total uptime was {formatDuration(spiritBombUptime)}.
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SPIRIT_BOMB_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

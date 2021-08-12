@@ -31,9 +31,9 @@ class BloodFury extends Analyzer {
 
     options.abilities.add({
       spell: [
-        SPELLS.BLOOD_FURY_PHYSICAL,
-        SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
-        SPELLS.BLOOD_FURY_SPELL,
+        SPELLS.BLOOD_FURY_PHYSICAL.id,
+        SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL.id,
+        SPELLS.BLOOD_FURY_SPELL.id,
       ],
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 120,

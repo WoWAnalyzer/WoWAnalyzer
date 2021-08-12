@@ -77,7 +77,7 @@ class VileTaint extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.VILE_TAINT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.VILE_TAINT_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

@@ -90,7 +90,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.VIRULENT_PLAGUE}>
+        <BoringSpellValueText spellId={SPELLS.VIRULENT_PLAGUE.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.Uptime)}% <small>uptime</small>
           </>

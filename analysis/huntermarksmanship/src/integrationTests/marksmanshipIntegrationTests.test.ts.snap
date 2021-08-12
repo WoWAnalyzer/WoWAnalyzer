@@ -3796,6 +3796,103 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -11846,6 +11943,103 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -13008,7 +13202,7 @@ Array [
       You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"10.11"}}
+      {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"10.25"}}
        (
       &lt;10% is recommended.
       )
@@ -13266,7 +13460,7 @@ exports[`Marksmanship Hunter integration test: Single Target NaturalMending matc
         >
           41
           s/
-          182
+          180
           s 
           <small>
              cooldown reduction
@@ -15084,7 +15278,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "65.94612701388884%",
+                  "width": "65.47342026878047%",
                 }
               }
             />
@@ -15254,7 +15448,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  89.89%
+                  89.75%
                    
                    
                 </div>
@@ -15276,7 +15470,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "99.17682440042938%",
+                        "width": "98.23141091021262%",
                       }
                     }
                   />

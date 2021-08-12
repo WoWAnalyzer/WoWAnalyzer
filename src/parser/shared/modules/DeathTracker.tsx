@@ -118,7 +118,7 @@ class DeathTracker extends Analyzer {
     const isWipe = !fight.kill;
     const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
 
-    if (!disableDeathSuggestion && !isWipeDeath) {
+    if (!disableDeathSuggestion && !isWipeDeath && this.totalTimeDead > 3000) {
       when(this.deathSuggestionThresholds).addSuggestion((suggest, actual) =>
         suggest(
           <>

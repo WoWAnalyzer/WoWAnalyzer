@@ -32,7 +32,7 @@ class VampiricEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatNumber(this.healingDone)} healing done in ${this.casts || 0} cast(s).`}
       >
-        <BoringSpellValueText spell={SPELLS.VAMPIRIC_EMBRACE}>
+        <BoringSpellValueText spellId={SPELLS.VAMPIRIC_EMBRACE.id}>
           <>
             <ItemHealingDone amount={this.healingDone} />
           </>

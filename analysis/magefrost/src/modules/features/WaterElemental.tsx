@@ -167,7 +167,7 @@ class WaterElemental extends Analyzer {
             {this._timestampFirstCast === 0
               ? 'Never attacked or not summoned'
               : 'First attack: ' +
-                formatDuration((this._timestampFirstCast - this.owner.fight.start_time) / 1000) +
+                formatDuration(this._timestampFirstCast - this.owner.fight.start_time) +
                 ' into the fight'}
           </Trans>,
         )

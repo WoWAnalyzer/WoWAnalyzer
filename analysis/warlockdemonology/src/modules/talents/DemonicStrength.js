@@ -64,7 +64,7 @@ class DemonicStrength extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.DEMONIC_STRENGTH_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DEMONIC_STRENGTH_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

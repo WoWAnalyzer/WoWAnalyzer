@@ -59,7 +59,7 @@ class Netherwalk extends Analyzer {
           )
         }
       >
-        <BoringSpellValueText spell={SPELLS.NETHERWALK_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NETHERWALK_TALENT.id}>
           <>
             {this.damageImmuned.length} <small>spells immuned</small>
           </>

@@ -33,7 +33,7 @@ class EternalCallToTheVoid extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.ETERNAL_CALL_TO_THE_VOID}>
+        <BoringSpellValueText spellId={SPELLS.ETERNAL_CALL_TO_THE_VOID.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

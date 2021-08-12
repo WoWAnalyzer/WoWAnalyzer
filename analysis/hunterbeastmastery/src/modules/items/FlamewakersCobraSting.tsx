@@ -86,7 +86,7 @@ class FlamewakersCobraSting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT.id}>
           {this.utilizedFlamewakerBuffs}/{this.wastedFlamewakerBuffs + this.utilizedFlamewakerBuffs}{' '}
           <small> Procs utilized </small>
           <br />

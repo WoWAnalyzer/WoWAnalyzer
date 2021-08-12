@@ -115,7 +115,7 @@ class SharpshootersFocus extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT.id} rank={this.conduitRank}>
           <>
             {(this.increasedTrueshotUptime / 1000).toFixed(1)}s{' '}
             <small>increased Trueshot uptime</small>

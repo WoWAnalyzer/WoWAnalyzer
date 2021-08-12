@@ -94,15 +94,15 @@ class StormstoutsLastKeg extends Analyzer {
               not reflect the potential damage gain from having 2 charges of Keg Smashs.
             </p>
             <p>
-              This legendary prevented {formatDuration(this.extraCD / 1000)} of wasted cooldown
-              time, equal to about {(this.extraCD / 1000 / this.avgCooldown()).toFixed(1)} extra
-              casts of Keg Smash. This includes the initial extra cast.
+              This legendary prevented {formatDuration(this.extraCD)} of wasted cooldown time, equal
+              to about {(this.extraCD / 1000 / this.avgCooldown()).toFixed(1)} extra casts of Keg
+              Smash. This includes the initial extra cast.
             </p>
           </>
         }
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.STORMSTOUTS_LAST_KEG}>
+        <BoringSpellValueText spellId={SPELLS.STORMSTOUTS_LAST_KEG.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

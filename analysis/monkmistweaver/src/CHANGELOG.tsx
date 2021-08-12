@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 5, 17), <>Removing Anomoly as a contributor to this spec.</>, Anomoly),
   change(date(2021, 4, 1), <>Updated Mana Costs for <SpellLink id={SPELLS.RENEWING_MIST.id} /> and <SpellLink id={SPELLS.VIVIFY.id} /> to the correct values for 9.0.5.</>, Anomoly),
   change(date(2021, 1, 16), <>Re-enabling module support, as it is currently still going to be updated and supported moving forward.</>, Anomoly),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),

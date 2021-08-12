@@ -38,7 +38,7 @@ class ResonatingArrow extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.RESONATING_ARROW,
+      spell: SPELLS.RESONATING_ARROW.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 60,
       gcd: {
@@ -96,7 +96,7 @@ class ResonatingArrow extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RESONATING_ARROW}>
+        <BoringSpellValueText spellId={SPELLS.RESONATING_ARROW.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small> debuff uptime</small>
             <br />

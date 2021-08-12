@@ -26,17 +26,17 @@ class AverageHots extends Analyzer {
         tooltip={
           <>
             This is the average number of mastery stacks your heals benefitted from, weighted by
-            healing done. It can help show how much mileage you're getting out of your mastery.
+            healing done. It can help show how valuable mastery was to you during the encounter.
             <br />
             <br />
-            Not all of this number is within your control. Having to do a lot of tank healing or
-            speccing for Cultivation and/or Spring Blossoms tends to produce higher average mastery
-            stacks, while playing in larger raid groups tends to produce lower average mastery
-            stacks.
+            This number should not be read as a measure of performance but rather of talent choices
+            and healing style. Doing lots of tank healing will increase this number, as will
+            speccing Talents that spread extra HoTs around like Cultivation and Spring Blossoms. On
+            the other hand, playing in larger groups will tend to reduce average stacks.
             <br />
             <br />
-            This number counts all your healing, even heals that don't benefit from your mastery
-            (like most trinkets). Your average mastery stacks counting only heals that benefit from
+            This number includes all your healing, even heals that don't benefit from mastery (like
+            most trinkets). Your average mastery stacks counting only heals that benefit from
             mastery is <strong>{avgDruidHots}</strong>.
           </>
         }

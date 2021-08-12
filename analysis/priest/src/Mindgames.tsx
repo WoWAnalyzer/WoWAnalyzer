@@ -45,7 +45,10 @@ class Mindgames extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.active =
+      this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
+      this.selectedCombatant.spec !== SPECS.DISCIPLINE_PRIEST;
+
     if (!this.active) {
       return;
     }
@@ -69,7 +72,7 @@ class Mindgames extends Analyzer {
             majorIssueEfficiency: 0.4,
           };
     (options.abilities as Abilities).add({
-      spell: SPELLS.MINDGAMES,
+      spell: SPELLS.MINDGAMES.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 45,
       enabled: true,
@@ -158,7 +161,7 @@ class Mindgames extends Analyzer {
         }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.MINDGAMES}>
+        <BoringSpellValueText spellId={SPELLS.MINDGAMES.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />

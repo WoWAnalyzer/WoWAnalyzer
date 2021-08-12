@@ -56,7 +56,7 @@ class ImpendingVicory extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.IMPENDING_VICTORY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.IMPENDING_VICTORY_TALENT.id}>
           <>{formatNumber(this.totalHeal)} Healing</>
         </BoringSpellValueText>
       </Statistic>

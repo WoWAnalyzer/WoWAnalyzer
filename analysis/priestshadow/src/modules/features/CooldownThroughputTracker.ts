@@ -7,15 +7,15 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.VOIDFORM_BUFF,
+      spell: SPELLS.VOIDFORM_BUFF.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.POWER_INFUSION,
+      spell: SPELLS.POWER_INFUSION.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.BOON_OF_THE_ASCENDED,
+      spell: SPELLS.BOON_OF_THE_ASCENDED.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

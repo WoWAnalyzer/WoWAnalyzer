@@ -1,4 +1,5 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import {
   BoonOfTheAscended,
@@ -20,6 +21,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import DarkThoughts from './modules/features/DarkThoughts';
 import DotUptimes from './modules/features/DotUptimes';
 import SkippableCasts from './modules/features/SkippableCasts';
+import VoidBoltUsage from './modules/features/VoidBoltUsage';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
@@ -62,6 +64,7 @@ class CombatLogParser extends MainCombatLogParser {
     dotUptimes: DotUptimes,
     skippableCasts: SkippableCasts,
     darkThoughts: DarkThoughts,
+    voidBoltUsage: VoidBoltUsage,
 
     // spells:
     shadowfiend: Shadowfiend,
@@ -99,6 +102,8 @@ class CombatLogParser extends MainCombatLogParser {
     eternalCallToTheVoid: EternalCallToTheVoid,
     talbadarsStratagem: TalbadarsStratagem,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+
+    arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
 }
 

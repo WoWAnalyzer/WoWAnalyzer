@@ -59,7 +59,7 @@ class AspectOfTheWild extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(5)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_WILD}>
+        <BoringSpellValueText spellId={SPELLS.ASPECT_OF_THE_WILD.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

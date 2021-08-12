@@ -78,7 +78,7 @@ class RenewedFaith extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spell={SPELLS.RENEWED_FAITH_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.RENEWED_FAITH_TALENT.id}>
           <ItemHealingDone amount={this.effectiveAdditionalHealing} />
         </BoringSpellValueText>
       </Statistic>

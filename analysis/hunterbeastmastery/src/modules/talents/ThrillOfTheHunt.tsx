@@ -104,7 +104,7 @@ class ThrillOfTheHunt extends Analyzer {
                 {Object.values(this.thrillOfTheHuntTimesByStacks).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
                     <td>
                       {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
                     </td>
@@ -116,7 +116,7 @@ class ThrillOfTheHunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.THRILL_OF_THE_HUNT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.THRILL_OF_THE_HUNT_TALENT.id}>
           <>
             <CriticalStrike /> {this.averageCritPercent}% <small>average Crit</small>
           </>

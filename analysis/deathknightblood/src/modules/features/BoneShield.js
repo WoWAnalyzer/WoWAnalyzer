@@ -70,7 +70,7 @@ class BoneShield extends Analyzer {
                 {Object.values(this.boneShieldTimesByStack).map((e, i) => (
                   <tr key={i}>
                     <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
                     <td>
                       {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
                     </td>
@@ -81,7 +81,7 @@ class BoneShield extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BONE_SHIELD}>
+        <BoringSpellValueText spellId={SPELLS.BONE_SHIELD.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

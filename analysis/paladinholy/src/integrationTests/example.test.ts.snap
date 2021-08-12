@@ -4739,6 +4739,103 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.15
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -6667,9 +6764,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Relicprince
@@ -6696,7 +6792,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "100%",
@@ -6727,7 +6823,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "7.776232572766344%",
@@ -6756,9 +6852,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Villahseen
@@ -6785,7 +6880,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "99.90453264906459%",
@@ -6816,7 +6911,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "100%",
@@ -6845,9 +6940,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"} {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Miguro
@@ -6874,7 +6968,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
+                  className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
                       "width": "99.75837816275181%",
@@ -6905,7 +6999,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
+                  className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
                       "width": "63.182920437471616%",
@@ -6934,9 +7028,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.beastMastery\\",\\"message\\":\\"Beast Mastery\\"} {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-{\\"id\\":\\"specs.beastMastery\\",\\"message\\":\\"BeastMastery\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Uniiq
@@ -6963,7 +7056,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
+                  className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
                       "width": "98.82772145283883%",
@@ -6994,7 +7087,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
+                  className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
                       "width": "33.534924350955656%",
@@ -7023,9 +7116,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Prüttan
@@ -7052,7 +7144,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "96.7527230206816%",
@@ -7083,7 +7175,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "23.98700164226563%",
@@ -7112,9 +7204,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.havoc\\",\\"message\\":\\"Havoc\\"} {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"Demon Hunter\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-{\\"id\\":\\"specs.havoc\\",\\"message\\":\\"Havoc\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Demolicious
@@ -7141,7 +7232,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
+                  className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
                       "width": "95.02652453637467%",
@@ -7172,7 +7263,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
+                  className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
                       "width": "36.795555400258564%",
@@ -7201,9 +7292,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.guardian\\",\\"message\\":\\"Guardian\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.guardian\\",\\"message\\":\\"Guardian\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Hildelyst
@@ -7230,7 +7320,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "92.36189391256022%",
@@ -7261,7 +7351,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "22.691638422027324%",
@@ -7290,9 +7380,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.brewmaster\\",\\"message\\":\\"Brewmaster\\"} {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-{\\"id\\":\\"specs.brewmaster\\",\\"message\\":\\"Brewmaster\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Dobbadon
@@ -7319,7 +7408,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
                       "width": "91.38361345054697%",
@@ -7350,7 +7439,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
                       "width": "20.533212201684194%",
@@ -7379,9 +7468,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Cónqs
@@ -7408,7 +7496,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "90.06108731455261%",
@@ -7439,7 +7527,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "18.76878996470876%",
@@ -7468,9 +7556,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.retribution\\",\\"message\\":\\"Retribution\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.retribution\\",\\"message\\":\\"Retribution\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Sanctues
@@ -7497,7 +7584,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "89.42101282580826%",
@@ -7528,7 +7615,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "24.32551801250917%",
@@ -7557,9 +7644,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Mooladin
@@ -7586,7 +7672,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "88.23653957419722%",
@@ -7617,7 +7703,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "2.1772948041510887%",
@@ -7646,9 +7732,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Jodiefroster
@@ -7675,7 +7760,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "87.6714126923483%",
@@ -7706,7 +7791,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "14.997309479716273%",
@@ -7735,9 +7820,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.affliction\\",\\"message\\":\\"Affliction\\"} {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-{\\"id\\":\\"specs.affliction\\",\\"message\\":\\"Affliction\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Diagentez
@@ -7764,7 +7848,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
+                  className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
                       "width": "82.53549868889384%",
@@ -7795,7 +7879,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
+                  className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
                       "width": "3.704951256158496%",
@@ -7824,9 +7908,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Snusraketten
@@ -7853,7 +7936,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "80.0775139814152%",
@@ -7884,7 +7967,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "5.307522974247878%",
@@ -7913,9 +7996,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.mage.arcane\\",\\"message\\":\\"Arcane\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.mage.arcane\\",\\"message\\":\\"Arcane\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Nuffemis
@@ -7942,7 +8024,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "72.62709335906682%",
@@ -7973,7 +8055,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "12.392326775918097%",
@@ -8002,9 +8084,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Smusk
@@ -8031,7 +8112,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "55.20479425239239%",
@@ -8062,7 +8143,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "15.60473811104511%",

@@ -1,6 +1,6 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
-import { ConvokeSpirits } from '@wowanalyzer/druid';
+import { AdaptiveSwarmDamageDealer, ConvokeSpirits, SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
@@ -14,10 +14,10 @@ import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
+import FillerUsage from './modules/features/FillerUsage';
 import MoonfireUptime from './modules/features/MoonfireUptime';
+import Starsurge from './modules/features/Starsurge';
 import SunfireUptime from './modules/features/SunfireUptime';
-import UnempoweredStarfire from './modules/features/UnempoweredStarfire';
-import UnempoweredWrath from './modules/features/UnempoweredWrath';
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 import SoulOfTheForest from './modules/talents/SoulOfTheForest';
@@ -42,8 +42,8 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
-    unempoweredStarfire: UnempoweredStarfire,
-    unempoweredWrath: UnempoweredWrath,
+    fillerUsage: FillerUsage,
+    starsurge: Starsurge,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     balanceOfAllThingsOpener: BalanceOfAllThingsOpener,
@@ -56,6 +56,8 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
     //Covenants
     convokeSpirits: ConvokeSpirits,
+    adaptiveSwarm: AdaptiveSwarmDamageDealer,
+    sinfulHysteria: SinfulHysteria,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.SERENITY_TALENT,
+      spell: SPELLS.SERENITY_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
@@ -15,11 +15,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
+      spell: SPELLS.STORM_EARTH_AND_FIRE_CAST.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER,
+      spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

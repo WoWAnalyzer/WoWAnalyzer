@@ -43,13 +43,13 @@ class ShiveringCore extends Analyzer {
   }
 
   onBlizzardDamage(event: DamageEvent) {
-    this.bonusDamage += calculateEffectiveDamage(event.amount, DAMAGE_BONUS[this.conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.SHIVERING_CORE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SHIVERING_CORE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

@@ -126,7 +126,7 @@ class CallingTheShots extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CALLING_THE_SHOTS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CALLING_THE_SHOTS_TALENT.id}>
           <>
             {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s /{' '}
             {formatNumber(

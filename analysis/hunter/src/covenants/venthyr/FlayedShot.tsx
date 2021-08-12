@@ -58,7 +58,7 @@ class FlayedShot extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.FLAYED_SHOT,
+      spell: SPELLS.FLAYED_SHOT.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 30,
       gcd: {
@@ -139,7 +139,7 @@ class FlayedShot extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FLAYED_SHOT}>
+        <BoringSpellValueText spellId={SPELLS.FLAYED_SHOT.id}>
           <>
             {this.resets} / {this.totalProcs} <small>Kill Shot resets</small>
             <br />

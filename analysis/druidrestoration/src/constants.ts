@@ -1,4 +1,9 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
+
+export const REJUVENATION_BUFFS: Spell[] = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION];
+
+export const LIFEBLOOM_BUFFS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL];
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.REJUVENATION.id,
@@ -40,7 +45,8 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
   //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
-export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
+// HoTs that can have their rate increased TODO should this be just for flourish? Why does Photosynthesis need this?
+export const HOTS_INCREASED_RATE = [
   SPELLS.REJUVENATION,
   SPELLS.WILD_GROWTH,
   SPELLS.REJUVENATION_GERMINATION,
@@ -48,7 +54,6 @@ export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   SPELLS.CENARION_WARD_HEAL,
   SPELLS.LIFEBLOOM_HOT_HEAL,
   SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
-  // Make sure to check that event.tick is true, because regrowth/tranq uses the same id for the heal and the HoT part
   SPELLS.REGROWTH,
   SPELLS.TRANQUILITY_HEAL,
 ];

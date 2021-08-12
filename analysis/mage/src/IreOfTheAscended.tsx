@@ -49,7 +49,7 @@ class IreOfTheAscended extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.IRE_OF_THE_ASCENDED} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.IRE_OF_THE_ASCENDED.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

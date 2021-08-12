@@ -94,6 +94,23 @@ export const Zerotorescue: Contributor = {
     },
   ],
 };
+
+export const Fashathus: Contributor = {
+  nickname: 'Fashathus',
+  github: 'SethEArnold',
+  discord: 'Fashathus#7292',
+  mains: [
+    {
+      name: 'Fashathus',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/us/thrall/fashathus',
+    },
+  ],
+};
+export const ab: Contributor = {
+  nickname: 'ab',
+  github: 'alex-bau',
+};
 export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
@@ -132,6 +149,10 @@ export const enragednuke: Contributor = {
 export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
+};
+export const Soulhealer95: Contributor = {
+  nickname: 'Soulhealer',
+  github: 'Soulhealer95',
 };
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
@@ -628,6 +649,11 @@ export const Khadaj: Contributor = {
       name: 'Khadaj',
       spec: SPECS.HOLY_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
+    },
+    {
+      name: 'RatherBeBelf',
+      spec: SPECS.HOLY_PRIEST,
+      link: '',
     },
   ],
 };
@@ -1528,4 +1554,85 @@ export const maestrohdude: Contributor = {
   nickname: 'maestrohdude',
   github: 'maestrohdude',
   discord: 'maestrohdude#6100',
+};
+
+export const Sref: Contributor = {
+  nickname: 'Sref',
+  github: 'kfinch',
+  discord: 'Sref#1337',
+};
+
+export const Bloodfox: Contributor = {
+  nickname: 'Bloodfox',
+  github: 'sspeaks',
+};
+
+export const wmavis: Contributor = {
+  nickname: 'wmavis',
+  github: 'wmavis',
+  discord: 'Willard#6784',
+  mains: [
+    {
+      name: 'Poiple',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://worldofwarcraft.com/en-us/character/us/shattered-hand/poiple',
+    },
+  ],
+  alts: [
+    {
+      name: 'Purrpal',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/shattered-hand/purrpal',
+    },
+    {
+      name: 'Prrpll',
+      spec: SPECS.BLOOD_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.com/en-us/character/us/shattered-hand/prrpll',
+    },
+  ],
+};
+
+export const niko: Contributor = {
+  nickname: 'niko',
+  github: 'nicholasRutherford',
+  discord: 'niko#8550',
+  mains: [
+    {
+      name: 'Poro',
+      spec: SPECS.BREWMASTER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/wildhammer/poro',
+    },
+  ],
+};
+
+export const carglass: Contributor = {
+  nickname: 'carglass',
+  github: 'Carglass',
+  discord: 'Bubu#7424',
+  mains: [
+    {
+      name: 'Buldoru',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/aerie-peak/buldoru',
+    },
+  ],
+};
+
+export const Zea: Contributor = {
+  nickname: 'Zea',
+  github: 'kedearian',
+};
+
+export const ogunb: Contributor = {
+  nickname: 'ogunb',
+  github: 'ogunb',
+  discord: 'ogunb#5781',
+  avatar: avatar('ogunb-avatar.jpg'),
+  mains: [
+    {
+      name: 'Throlnoz',
+      spec: SPECS.DESTRUCTION_WARLOCK,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/Throlnoz',
+    },
+  ],
 };

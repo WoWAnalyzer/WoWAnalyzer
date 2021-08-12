@@ -53,7 +53,7 @@ class HauntingApparitions extends Analyzer {
           </Trans>
         }
       >
-        <ConduitSpellText spell={SPELLS.HAUNTING_APPARITIONS} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.HAUNTING_APPARITIONS.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
           </>

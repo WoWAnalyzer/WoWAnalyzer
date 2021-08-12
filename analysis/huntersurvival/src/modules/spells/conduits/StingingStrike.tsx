@@ -56,7 +56,7 @@ class StingingStrike extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.STINGING_STRIKE_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.STINGING_STRIKE_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

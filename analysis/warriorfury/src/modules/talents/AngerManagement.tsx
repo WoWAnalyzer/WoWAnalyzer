@@ -63,7 +63,7 @@ class AngerManagement extends Analyzer {
         size="flexible"
         tooltip={`${formatNumber(this.wastedReduction / 1000)}s missed CDR`}
       >
-        <BoringSpellValueText spell={SPELLS.ANGER_MANAGEMENT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ANGER_MANAGEMENT_TALENT.id}>
           <>{formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR</>
         </BoringSpellValueText>
       </Statistic>

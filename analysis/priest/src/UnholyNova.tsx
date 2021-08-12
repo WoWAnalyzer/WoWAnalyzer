@@ -80,7 +80,7 @@ class UnholyNova extends Analyzer {
             majorIssueEfficiency: 0.4,
           };
     (options.abilities as Abilities).add({
-      spell: SPELLS.UNHOLY_NOVA,
+      spell: SPELLS.UNHOLY_NOVA.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 60,
       enabled: true,
@@ -181,7 +181,7 @@ class UnholyNova extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.UNHOLY_NOVA}>
+        <BoringSpellValueText spellId={SPELLS.UNHOLY_NOVA.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />

@@ -105,7 +105,7 @@ class Seraphim extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.SERAPHIM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SERAPHIM_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small>
           <br />
           <HasteIcon /> {formatPercentage(this.averageHasteGain)}%{' '}

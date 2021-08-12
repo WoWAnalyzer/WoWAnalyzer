@@ -221,7 +221,7 @@ class MongooseBite extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.MONGOOSE_BITE_TALENT.id}>
           <ItemDamageDone amount={this.damage} /> <br />
           {this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
         </BoringSpellValueText>

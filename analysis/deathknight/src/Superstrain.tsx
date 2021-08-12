@@ -194,7 +194,7 @@ class Superstrain extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SUPERSTRAIN}>
+        <BoringSpellValueText spellId={SPELLS.SUPERSTRAIN.id}>
           <>
             <ItemDamageDone amount={this.superStrainDamage} />
           </>

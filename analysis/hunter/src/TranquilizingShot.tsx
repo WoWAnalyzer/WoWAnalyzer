@@ -29,7 +29,7 @@ class TranquilizingShot extends DispelTracker {
     this.addEventListener(Events.dispel.by(SELECTED_PLAYER), this.onDispel);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.TRANQUILIZING_SHOT,
+      spell: SPELLS.TRANQUILIZING_SHOT.id,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       cooldown: 10,
       gcd: {
@@ -50,7 +50,7 @@ class TranquilizingShot extends DispelTracker {
           size="flexible"
           category={STATISTIC_CATEGORY.GENERAL}
         >
-          <BoringSpellValueText spell={SPELLS.TRANQUILIZING_SHOT}>
+          <BoringSpellValueText spellId={SPELLS.TRANQUILIZING_SHOT.id}>
             <>{this.totalDispels}</>
           </BoringSpellValueText>
         </Statistic>

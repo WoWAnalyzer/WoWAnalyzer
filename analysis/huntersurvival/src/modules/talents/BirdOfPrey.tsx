@@ -163,7 +163,7 @@ class BirdOfPrey extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.BIRDS_OF_PREY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BIRDS_OF_PREY_TALENT.id}>
           <>
             <small>Extended CA by</small> {this.timeExtendedInSeconds}s
           </>

@@ -15,6 +15,13 @@
 .events-tab .ReactVirtualized__Table__row.modified:hover {
   background: rgba(255, 118, 0, 0.4);
 }
+.events-tab .ReactVirtualized__Table__row.reordered,
+.reordered-legend {
+  background: rgba(50, 20, 255, 0.3);
+}
+.events-tab .ReactVirtualized__Table__row.reordered:hover {
+  background: rgba(50, 20, 255, 0.4);
+}
 .events-tab .ReactVirtualized__Table__row.fabricated,
 .fabricated-legend {
   background: rgba(0, 255, 67, 0.15);
@@ -37,6 +44,10 @@
 .events-tab .absorbed {
   color: orange;
 }
+.events-tab .cast,
+.events-tab .begincast {
+  color: hotpink;
+}
 .events-tab .applybuff,
 .events-tab .removebuff,
 .events-tab .refreshbuff,
@@ -50,6 +61,12 @@
 .events-tab .applydebuffstack,
 .events-tab .removedebuffstack {
   color: #ffe200;
+}
+.events-tab .energize {
+  color: mediumpurple;
+}
+.events-tab .drain {
+  color: purple;
 }
 .events-tab .overheal,
 .events-tab .NPC,
@@ -68,6 +85,9 @@
 .events-tab .crit:before,
 .events-tab .crit:after {
   content: '*';
+}
+.events-tab .negative {
+  color: darkorange;
 }
 .events-tab a img {
   height: 1.6em;

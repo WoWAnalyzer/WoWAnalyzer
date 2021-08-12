@@ -64,12 +64,12 @@ class SigilOfFlame extends Analyzer {
             <br />
             <br />
             Sigil of Flame uptime: {formatPercentage(sigilOfFlameUptimePercentage)}% / (
-            {formatDuration(sigilOfFlameUptime / 1000)})<br />
+            {formatDuration(sigilOfFlameUptime)})<br />
             Sigil of Flame total damage: {formatThousands(sigilOfFlameDamage)}.
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED}>
+        <BoringSpellValueText spellId={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id}>
           <>
             {this.successfulStack} <small>times</small>
           </>

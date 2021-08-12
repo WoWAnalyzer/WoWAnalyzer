@@ -49,7 +49,7 @@ class FromTheShadows extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spell={SPELLS.FROM_THE_SHADOWS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FROM_THE_SHADOWS_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

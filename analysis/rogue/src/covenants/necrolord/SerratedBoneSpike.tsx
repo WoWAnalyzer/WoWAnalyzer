@@ -73,7 +73,7 @@ class SerratedBoneSpike extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
-        <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE_DEBUFF}>
+        <BoringSpellValueText spellId={SPELLS.SERRATED_BONE_SPIKE_DEBUFF.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

@@ -246,7 +246,7 @@ class HeatingUp extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HEATING_UP}>
+        <BoringSpellValueText spellId={SPELLS.HEATING_UP.id}>
           <>
             <SpellIcon id={SPELLS.FIRE_BLAST.id} /> {formatPercentage(this.fireBlastUtil, 0)}%{' '}
             <small>Fire Blast Utilization</small>

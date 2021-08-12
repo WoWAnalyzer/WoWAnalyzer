@@ -29,11 +29,11 @@ class ImmolationAura extends Analyzer {
         tooltip={
           <>
             The Immolation Aura total damage was {formatThousands(this.immolationAuraDamage)}.<br />
-            The Immolation Aura total uptime was {formatDuration(immolationAuraUptime / 1000)}
+            The Immolation Aura total uptime was {formatDuration(immolationAuraUptime)}
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.IMMOLATION_AURA}>
+        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
           <>
             <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
           </>

@@ -126,7 +126,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()} size="flexible" tooltip="Flame Shock Uptime">
-        <BoringSpellValueText spell={SPELLS.FLAME_SHOCK}>
+        <BoringSpellValueText spellId={SPELLS.FLAME_SHOCK.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

@@ -22,6 +22,9 @@ class Module {
   get selectedCombatant(): Combatant {
     return this.owner.selectedCombatant;
   }
+  get config() {
+    return this.owner.config;
+  }
   constructor(options: Options) {
     if (!options) {
       throw new Error(

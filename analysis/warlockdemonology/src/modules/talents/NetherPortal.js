@@ -35,7 +35,7 @@ class NetherPortal extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.NETHER_PORTAL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NETHER_PORTAL_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

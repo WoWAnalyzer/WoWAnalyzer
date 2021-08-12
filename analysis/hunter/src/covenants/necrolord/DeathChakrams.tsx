@@ -33,7 +33,7 @@ class DeathChakrams extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
+      spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 45,
       gcd: {
@@ -73,7 +73,7 @@ class DeathChakrams extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE}>
+        <BoringSpellValueText spellId={SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

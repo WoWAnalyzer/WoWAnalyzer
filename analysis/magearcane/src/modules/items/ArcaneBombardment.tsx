@@ -43,7 +43,7 @@ class ArcaneBombardment extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.ARCANE_BOMBARDMENT}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_BOMBARDMENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
           <br />
         </BoringSpellValueText>

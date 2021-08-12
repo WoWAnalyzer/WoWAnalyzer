@@ -133,7 +133,7 @@ class LockAndLoad extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.LOCK_AND_LOAD_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.LOCK_AND_LOAD_TALENT.id}>
           <>
             {this.totalProcs} <small>procs</small>
             <br />

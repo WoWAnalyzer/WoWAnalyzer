@@ -89,6 +89,28 @@ const spells = {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
+  HEART_OF_THE_WILD_BALANCE_AFFINITY: {
+    id: 108291,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_FERAL_AFFINITY: {
+    id: 108292,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_GUARDIAN_AFFINITY: {
+    id: 108293,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_RESTO_AFFINITY: {
+    id: 108294,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+
+  // shared items / conduits
 
   //Affinity Spells
   //Moonkin-Balance
@@ -411,13 +433,14 @@ const spells = {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  // "MOONFIRE_BEAR" is actually the debuff left by Moonfire for all forms, all specs
-  MOONFIRE_BEAR: {
+  MOONFIRE_DEBUFF: {
+    // the caster form and bear form debuff and damage ID
     id: 164812,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
-  MOONFIRE: {
+  MOONFIRE_CAST: {
+    // the caster form and bear form cast ID
     id: 8921,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
@@ -690,6 +713,7 @@ const spells = {
     icon: 'ability_ghoulfrenzy',
   },
   RAKE: {
+    // the cast and DIRECT damage
     id: 1822,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
@@ -721,11 +745,13 @@ const spells = {
     icon: 'ability_druid_mangle',
   },
   RAKE_BLEED: {
+    // the debuff and DOT damage
     id: 155722,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
   RAKE_STUN: {
+    // the stun when used from stealth
     id: 163505,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
@@ -742,6 +768,11 @@ const spells = {
   },
   BERSERK: {
     id: 106951,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
+  BERSERK_BUFF: {
+    id: 343216,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
@@ -844,6 +875,24 @@ const spells = {
     id: 252752,
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
+  },
+  FRENZIED_ASSAULT: {
+    // DoT procced by Frenzyband legendary
+    id: 340056,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  APEX_PREDATORS_CRAVING_BUFF: {
+    // Buff procced by Apex Predator's Craving legendary
+    id: 339140,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+  },
+  SUDDEN_AMBUSH_BUFF: {
+    // Buff procced by Sudden Ambush conduit
+    id: 340698,
+    name: 'Sudden Ambush',
+    icon: 'ability_hunter_catlikereflexes',
   },
 } as const;
 

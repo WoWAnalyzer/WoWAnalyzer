@@ -6,6 +6,8 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 5, 2), <>Fix bug in Sepsis analyzer in mythic plus analysis.</>, Hordehobbs),
+  change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={SPELLS.SEPSIS.id} /> analyzers. </>, Hordehobbs),
   change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021, 1, 23), "Add GeneratorFollowingVanish analyzer.", Hordehobbs),
   change(date(2021, 1, 23), "Update CastsInShadowDance analyzer for proper value of max possible casts.", Hordehobbs),

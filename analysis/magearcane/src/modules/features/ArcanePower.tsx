@@ -360,7 +360,7 @@ class ArcanePower extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_FAMILIAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_FAMILIAR_TALENT.id}>
           <>
             <SpellIcon
               id={SPELLS.ARCANE_POWER.id}

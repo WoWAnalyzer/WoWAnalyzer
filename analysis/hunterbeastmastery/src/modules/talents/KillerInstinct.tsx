@@ -44,7 +44,7 @@ class KillerInstinct extends ExecuteHelper {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.KILLER_INSTINCT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.KILLER_INSTINCT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

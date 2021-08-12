@@ -50,7 +50,7 @@ class Bloodletting extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.BLOODLETTING_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.BLOODLETTING_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

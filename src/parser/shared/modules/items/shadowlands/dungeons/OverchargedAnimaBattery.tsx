@@ -50,7 +50,7 @@ class OverchargedAnimaBattery extends Analyzer {
     });
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF,
+      spell: SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: 90,
       gcd: null,

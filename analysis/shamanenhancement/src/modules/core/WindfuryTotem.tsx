@@ -32,7 +32,7 @@ class WindfuryTotem extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()}>
-        <BoringSpellValueText spell={SPELLS.WINDFURY_TOTEM}>
+        <BoringSpellValueText spellId={SPELLS.WINDFURY_TOTEM.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

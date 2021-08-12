@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
     return [
       // roational
       {
-        spell: SPELLS.FESTERING_STRIKE,
+        spell: SPELLS.FESTERING_STRIKE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.SCOURGE_STRIKE,
+        spell: SPELLS.SCOURGE_STRIKE.id,
         enabled: !combatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.CLAWING_SHADOWS_TALENT,
+        spell: SPELLS.CLAWING_SHADOWS_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.DEATH_COIL,
+        spell: SPELLS.DEATH_COIL.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -45,7 +45,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.CHAINS_OF_ICE,
+        spell: SPELLS.CHAINS_OF_ICE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 40,
         gcd: {
@@ -53,7 +53,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DARK_TRANSFORMATION,
+        spell: SPELLS.DARK_TRANSFORMATION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -65,21 +65,21 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.OUTBREAK,
+        spell: SPELLS.OUTBREAK.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.EPIDEMIC,
+        spell: SPELLS.EPIDEMIC.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.DEATH_AND_DECAY,
+        spell: SPELLS.DEATH_AND_DECAY.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled:
           !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
@@ -92,7 +92,7 @@ class Abilities extends CoreAbilities {
 
       // cooldowns
       {
-        spell: SPELLS.APOCALYPSE,
+        spell: SPELLS.APOCALYPSE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 75,
         gcd: {
@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: [SPELLS.SUMMON_GARGOYLE_TALENT, SPELLS.DARK_ARBITER_TALENT_GLYPH],
+        spell: [SPELLS.SUMMON_GARGOYLE_TALENT.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.ARMY_OF_THE_DEAD,
+        spell: SPELLS.ARMY_OF_THE_DEAD.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 480,
         gcd: {
@@ -139,7 +139,7 @@ class Abilities extends CoreAbilities {
 
       // defensives
       {
-        spell: SPELLS.SACRIFICIAL_PACT,
+        spell: SPELLS.SACRIFICIAL_PACT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         gcd: {
@@ -147,14 +147,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ICEBOUND_FORTITUDE,
+        spell: SPELLS.ICEBOUND_FORTITUDE.id,
         buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         gcd: null,
       },
       {
-        spell: SPELLS.ANTI_MAGIC_ZONE,
+        spell: SPELLS.ANTI_MAGIC_ZONE.id,
         buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
@@ -162,14 +162,14 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.ANTI_MAGIC_SHELL,
+        spell: SPELLS.ANTI_MAGIC_SHELL.id,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         gcd: null,
       },
       {
-        spell: SPELLS.LICHBORNE,
+        spell: SPELLS.LICHBORNE.id,
         buffSpellId: SPELLS.LICHBORNE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
@@ -177,7 +177,7 @@ class Abilities extends CoreAbilities {
       },
       // talents
       {
-        spell: SPELLS.DEFILE_TALENT,
+        spell: SPELLS.DEFILE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
         gcd: {
@@ -190,7 +190,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.UNHOLY_ASSAULT_TALENT,
+        spell: SPELLS.UNHOLY_ASSAULT_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 75,
         enabled: combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id),
@@ -200,7 +200,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.UNHOLY_BLIGHT_TALENT,
+        spell: SPELLS.UNHOLY_BLIGHT_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id),
         cooldown: 45,
@@ -213,7 +213,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DEATH_PACT_TALENT,
+        spell: SPELLS.DEATH_PACT_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.DEATH_PACT_TALENT.id),
         cooldown: 120,
@@ -222,7 +222,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ASPHYXIATE_TALENT,
+        spell: SPELLS.ASPHYXIATE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         gcd: {
@@ -230,7 +230,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WRAITH_WALK_TALENT,
+        spell: SPELLS.WRAITH_WALK_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
         gcd: {
@@ -238,14 +238,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DEATHS_ADVANCE,
+        spell: SPELLS.DEATHS_ADVANCE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.DEATH_STRIKE,
+        spell: SPELLS.DEATH_STRIKE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -253,7 +253,7 @@ class Abilities extends CoreAbilities {
       },
       // utility
       {
-        spell: SPELLS.RAISE_DEAD_UNHOLY,
+        spell: SPELLS.RAISE_DEAD_UNHOLY.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
@@ -261,14 +261,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CONTROL_UNDEAD,
+        spell: SPELLS.CONTROL_UNDEAD.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.RAISE_ALLY,
+        spell: SPELLS.RAISE_ALLY.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 600,
         gcd: {
@@ -276,23 +276,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DEATH_GRIP,
+        spell: SPELLS.DEATH_GRIP.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
       },
       {
-        spell: SPELLS.MIND_FREEZE,
+        spell: SPELLS.MIND_FREEZE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
       },
       {
-        spell: SPELLS.DARK_COMMAND,
+        spell: SPELLS.DARK_COMMAND.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
         gcd: null,
       },
       {
-        spell: SPELLS.RUNE_1,
+        spell: SPELLS.RUNE_1.id,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
@@ -302,7 +302,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.RUNE_2,
+        spell: SPELLS.RUNE_2.id,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
@@ -312,7 +312,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.RUNE_3,
+        spell: SPELLS.RUNE_3.id,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
@@ -323,7 +323,7 @@ class Abilities extends CoreAbilities {
 
       // covenants
       {
-        spell: SPELLS.SWARMING_MIST,
+        spell: SPELLS.SWARMING_MIST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -336,7 +336,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
-        spell: SPELLS.DOOR_OF_SHADOWS,
+        spell: SPELLS.DOOR_OF_SHADOWS.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
@@ -345,7 +345,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
-        spell: SPELLS.ABOMINATION_LIMB,
+        spell: SPELLS.ABOMINATION_LIMB.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -358,13 +358,13 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
-        spell: SPELLS.FLESHCRAFT,
+        spell: SPELLS.FLESHCRAFT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
-        spell: SPELLS.SHACKLE_THE_UNWORTHY,
+        spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -377,7 +377,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
-        spell: SPELLS.DEATHS_DUE,
+        spell: SPELLS.DEATHS_DUE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: {
@@ -392,7 +392,7 @@ class Abilities extends CoreAbilities {
           !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
       },
       {
-        spell: SPELLS.SOULSHAPE,
+        spell: SPELLS.SOULSHAPE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {

@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -32,7 +33,7 @@ class Shadowmeld extends Analyzer {
         average: 0.8,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -44,7 +45,7 @@ class Shadowmeld extends Analyzer {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -110,7 +111,7 @@ class Shadowmeld extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.SHADOWMELD}>
+        <BoringSpellValueText spellId={SPELLS.SHADOWMELD.id}>
           <>
             {formatPercentage(this.correctUses / this.possibleUses)}%{' '}
             <small>Shadowmeld used to buff Rake</small>

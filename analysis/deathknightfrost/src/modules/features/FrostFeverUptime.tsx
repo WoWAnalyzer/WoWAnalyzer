@@ -50,7 +50,7 @@ class FrostFeverUptime extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.FROST_FEVER}>
+        <BoringSpellValueText spellId={SPELLS.FROST_FEVER.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.frostFeverUptime)}% <small>uptime</small>
           </>

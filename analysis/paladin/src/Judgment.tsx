@@ -14,6 +14,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
+import { HOLY_POWER_FINISHERS } from '../../paladinretribution/src/constants';
+
 /**
  * Analyzer to track the extra damage caused by Holy Power abilities after
  * a Judgment cast.
@@ -26,12 +28,7 @@ class Judgment extends Analyzer {
 
   DAMAGE_MODIFIER: number = 0.25;
 
-  retHolyPowerAbilities: Spell[] = [
-    SPELLS.DIVINE_STORM,
-    SPELLS.TEMPLARS_VERDICT_DAMAGE,
-    SPELLS.EXECUTION_SENTENCE_TALENT,
-    SPELLS.JUSTICARS_VENGEANCE_TALENT,
-  ];
+  retHolyPowerAbilities: Spell[] = HOLY_POWER_FINISHERS;
 
   protHolyPowerAbilities: Spell[] = [SPELLS.SHIELD_OF_THE_RIGHTEOUS];
 
@@ -154,7 +151,7 @@ class Judgment extends Analyzer {
         tooltip={this.getStatisticTooltip()}
       >
         <BoringSpellValue
-          spell={SPELLS.JUDGMENT_DEBUFF}
+          spellId={SPELLS.JUDGMENT_DEBUFF.id}
           value={`${formatNumber(this.totalJudgmentConsumptions)}`}
           label="Judgment Debuffs Consumed"
         />

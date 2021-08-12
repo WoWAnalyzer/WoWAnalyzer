@@ -55,7 +55,10 @@ class ResilienceOfTheHunter extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText
+          spellId={SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id}
+          rank={this.conduitRank}
+        >
           <>
             {formatNumber(this.totalDamageReduction)} <small> damage prevented </small>
           </>

@@ -10,7 +10,7 @@ class Ability extends CoreAbility {
     }),
   };
 
-  antiFillerSpam = null;
+  antiFillerSpam;
 }
 
 export default Ability;

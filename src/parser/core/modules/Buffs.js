@@ -33,7 +33,7 @@ class Buffs extends Module {
         .map((ability) => ({
           spellId: ability.buffSpellId,
           triggeredBySpellId:
-            ability.spell.id !== ability.buffSpellId ? ability.primarySpell.id : undefined,
+            ability.spell !== ability.buffSpellId ? ability.primarySpell : undefined,
           timelineHighlight: true,
         })),
       {

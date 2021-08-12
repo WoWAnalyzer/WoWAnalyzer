@@ -28,7 +28,7 @@ class RuneOfPowerNormalizer extends EventsNormalizer {
             previousEvent.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id
           ) {
             fixedEvents.splice(previousEventIndex, 1);
-            previousEvent.__modified = true;
+            previousEvent.__reordered = true;
           }
           if (
             previousEvent &&
@@ -37,7 +37,7 @@ class RuneOfPowerNormalizer extends EventsNormalizer {
             previousEvent.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id
           ) {
             fixedEvents.splice(previousEventIndex, 1);
-            previousEvent.__modified = true;
+            previousEvent.__reordered = true;
           }
         }
       } else if (
@@ -63,7 +63,7 @@ class RuneOfPowerNormalizer extends EventsNormalizer {
           ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
+            previousEvent.__reordered = true;
             break;
           }
         }

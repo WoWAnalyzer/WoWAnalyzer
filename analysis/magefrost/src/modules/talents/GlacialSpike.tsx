@@ -163,7 +163,7 @@ class GlacialSpike extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.GLACIAL_SPIKE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.GLACIAL_SPIKE_TALENT.id}>
           {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
         </BoringSpellValueText>
       </Statistic>

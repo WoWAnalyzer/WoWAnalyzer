@@ -117,7 +117,7 @@ class SplittingIce extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SPLITTING_ICE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SPLITTING_ICE_TALENT.id}>
           <>
             {this.hasGlacialSpike ? '≈' : ''}
             {formatPercentage(this.damagePercent)}%

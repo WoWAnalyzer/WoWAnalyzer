@@ -43,7 +43,7 @@ class SinfulBrand extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spell={SPELLS.SINFUL_BRAND}>
+        <BoringSpellValueText spellId={SPELLS.SINFUL_BRAND.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

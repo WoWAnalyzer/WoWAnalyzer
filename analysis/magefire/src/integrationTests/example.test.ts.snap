@@ -3189,6 +3189,103 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.16
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -3606,7 +3703,7 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
         <div
           className="value"
         >
-          88.90
+          86.95
           % 
           <small>
             Combustion Active Time
@@ -3669,9 +3766,9 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You spent 
-      7
+      8
        seconds (
-      1
+      2
       s per cast) not casting anything while
        
       <ForwardRef
@@ -3690,7 +3787,7 @@ Array [
         message="{0}% Active Time during Combustion"
         values={
           Object {
-            "0": "88.90",
+            "0": "86.95",
           }
         }
       />
@@ -5756,7 +5853,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "79.06433911412044%",
+                  "width": "78.25202515090974%",
                 }
               }
             />
@@ -6421,7 +6518,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  88.90%
+                  86.95%
                    
                    
                 </div>
@@ -6443,7 +6540,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "62.92717946814746%",
+                        "width": "56.42866776246183%",
                       }
                     }
                   />

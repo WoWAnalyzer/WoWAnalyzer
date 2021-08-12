@@ -102,6 +102,12 @@ const spells = {
     icon: 'spell_nature_lightningshield',
     manaCost: 150,
   },
+  LIGHTNING_SHIELD_ELEMENTAL: {
+    id: 344174, // Appears to be the spellID used when lightning shield does damage as Elemental Spec
+    name: 'Lightning Shield',
+    icon: 'spell_nature_lightningshield',
+    manaCost: 150,
+  },
   FROST_SHOCK: {
     id: 196840,
     name: 'Frost Shock',
@@ -113,6 +119,11 @@ const spells = {
     name: 'Primal Strike',
     icon: 'spell_shaman_primalstrike',
     manaCost: 940,
+  },
+  ANCESTRAL_PROTECTION_BUFF: {
+    id: 207495,
+    name: 'Ancestral Protection',
+    icon: 'spell_nature_reincarnation',
   },
   // Hex and its variations
   HEX: {
@@ -218,6 +229,11 @@ const spells = {
     id: 45284,
     name: 'Lightning Bolt Overload',
     icon: 'spell_nature_lightning',
+  },
+  ELEMENTAL_BLAST: {
+    id: 344645,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
   },
   ELEMENTAL_BLAST_OVERLOAD: {
     id: 120588,

@@ -37,7 +37,7 @@ class FallenOrder extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.FALLEN_ORDER_CAST,
+      spell: SPELLS.FALLEN_ORDER_CAST.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
       gcd:
@@ -154,7 +154,7 @@ class FallenOrder extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FALLEN_ORDER_CAST}>
+        <BoringSpellValueText spellId={SPELLS.FALLEN_ORDER_CAST.id}>
           <ItemHealingDone amount={this.mistHealing} />
           <br />
           <ItemDamageDone amount={totalDamage} />

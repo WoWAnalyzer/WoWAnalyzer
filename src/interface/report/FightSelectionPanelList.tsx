@@ -66,7 +66,7 @@ class FightSelectionPanelList extends React.PureComponent<Props> {
                   <h2 style={{ marginTop: 0 }}>{getFightName(report, firstPull)}</h2>
                   <div className="pulls">
                     {pulls.map((pull) => {
-                      const duration = Math.round((pull.end_time - pull.start_time) / 1000);
+                      const duration = Math.round(pull.end_time - pull.start_time);
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
 
                       return (

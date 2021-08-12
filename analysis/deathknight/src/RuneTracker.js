@@ -382,7 +382,7 @@ class RuneTracker extends ResourceTracker {
                   .map((value, index) => (
                     <tr key={index}>
                       <th>{index}</th>
-                      <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
+                      <td>{formatDuration(this._runesReadySum[index])}</td>
                       <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
                     </tr>
                   ))
@@ -392,7 +392,7 @@ class RuneTracker extends ResourceTracker {
                 .map((value, index) => (
                   <tr key={index + badThreshold}>
                     <th style={{ color: 'red' }}>{index + badThreshold}</th>
-                    <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
+                    <td>{formatDuration(this._runesReadySum[index + badThreshold])}</td>
                     <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
                   </tr>
                 ))}

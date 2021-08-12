@@ -4,6 +4,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
 import retryingPromise from 'common/retryingPromise';
 import { findByBossId, Phase } from 'game/raids';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import Ad from 'interface/Ad';
 import AlertWarning from 'interface/AlertWarning';
@@ -21,6 +22,7 @@ import ResultsChangelogTab from 'interface/ResultsChangelogTab';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
+import TooltipProvider from 'interface/TooltipProvider';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -77,8 +79,7 @@ interface ConnectedProps {
 interface PassedProps {
   parser: CombatLogParser;
   characterProfile: CharacterProfile;
-  makeBuildUrl: (tab: string, build: string) => string;
-  makeTabUrl: (tab: string) => string;
+  makeTabUrl: (tab: string, build?: string) => string;
   phases: { [key: string]: Phase } | null;
   selectedPhase: string;
   selectedInstance: number;
@@ -98,6 +99,7 @@ interface PassedProps {
   parsingState?: EVENT_PARSING_STATE;
   progress?: number;
   premium?: boolean;
+  config: Config;
 }
 
 type Props = PassedProps & ConnectedProps;
@@ -121,9 +123,6 @@ class Results extends React.PureComponent<Props, State> {
       parser: this.props.parser,
     };
   }
-  static contextTypes = {
-    config: PropTypes.object.isRequired,
-  };
 
   componentDidMount() {
     this.scrollToTop();
@@ -133,6 +132,16 @@ class Results extends React.PureComponent<Props, State> {
     if (this.props.selectedTab !== prevProps.selectedTab) {
       // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
       this.scrollToTop();
+    }
+
+    // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
+    switch (this.props.report.gameVersion) {
+      case 3:
+        TooltipProvider.baseUrl = 'http://tbc.wowhead.com/';
+        break;
+      default:
+        TooltipProvider.baseUrl = 'http://wowhead.com/';
+        break;
     }
   }
   scrollToTop() {
@@ -176,7 +185,7 @@ class Results extends React.PureComponent<Props, State> {
   }
 
   renderContent(selectedTab: string, results: ParseResults | null) {
-    const { parser, premium } = this.props;
+    const { parser, premium, config } = this.props;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
@@ -228,6 +237,7 @@ class Results extends React.PureComponent<Props, State> {
             )}
 
             <EncounterStats
+              config={config}
               currentBoss={parser.fight.boss}
               difficulty={parser.fight.difficulty}
               spec={parser.selectedCombatant._combatantInfo.specID}
@@ -238,7 +248,6 @@ class Results extends React.PureComponent<Props, State> {
         );
       }
       case TABS.ABOUT: {
-        const config = this.context.config;
         return (
           <div className="container">
             <About config={config} />
@@ -353,7 +362,6 @@ class Results extends React.PureComponent<Props, State> {
       player,
       build,
       characterProfile,
-      makeBuildUrl,
       makeTabUrl,
       selectedTab,
       premium,
@@ -363,8 +371,8 @@ class Results extends React.PureComponent<Props, State> {
       phases,
       applyFilter,
       timeFilter,
+      config,
     } = this.props;
-    const config: Config = this.context.config;
 
     const boss = findByBossId(fight.boss);
 
@@ -386,13 +394,12 @@ class Results extends React.PureComponent<Props, State> {
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
-          name={player.name}
+          player={player}
           characterProfile={characterProfile}
           boss={boss}
           fight={fight}
           tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
-          makeBuildUrl={makeBuildUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
           selectedInstance={selectedInstance}
@@ -429,7 +436,7 @@ class Results extends React.PureComponent<Props, State> {
             </AlertWarning>
           </div>
         )}
-        {build && (
+        {build && build !== 'default' && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.build">
@@ -469,10 +476,14 @@ class Results extends React.PureComponent<Props, State> {
                 })}
               >
                 <a
-                  href={makeWclUrl(report.code, {
-                    fight: fight.id,
-                    source: parser ? parser.playerId : undefined,
-                  })}
+                  href={makeWclUrl(
+                    report.code,
+                    {
+                      fight: fight.id,
+                      source: parser ? parser.playerId : undefined,
+                    },
+                    wclGameVersionToExpansion(report.gameVersion),
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"

@@ -60,7 +60,7 @@ class SoulforgeEmbers extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.SOULFORGE_EMBERS_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.SOULFORGE_EMBERS_EFFECT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           {this.flareCasts} <SpellIcon id={SPELLS.FLARE.id} noLink /> / {this.tarTrapCasts}{' '}

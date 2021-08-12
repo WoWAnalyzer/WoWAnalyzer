@@ -29,7 +29,7 @@ class TempestBarrier extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.TEMPEST_BARRIER} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.TEMPEST_BARRIER.id} rank={this.conduitRank}>
           {formatNumber(this.damageAbsorbed)} <small>Damage absorbed</small>
         </ConduitSpellText>
       </Statistic>

@@ -135,7 +135,7 @@ class RimeEfficiency extends Analyzer {
           this.refreshedRimeProcs
         } procs were overwritten by new procs.`}
       >
-        <BoringSpellValueText spell={SPELLS.RIME}>
+        <BoringSpellValueText spellId={SPELLS.RIME.id}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>

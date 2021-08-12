@@ -73,7 +73,7 @@ class DeadlyChain extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.DEADLY_CHAIN_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.DEADLY_CHAIN_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

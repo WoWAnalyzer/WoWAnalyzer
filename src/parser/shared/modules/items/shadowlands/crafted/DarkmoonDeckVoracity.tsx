@@ -108,7 +108,7 @@ class DarkmoonDeckVoracity extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.VORACIOUS_HUNGER,
+      spell: SPELLS.VORACIOUS_HUNGER.id,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: 90,
       gcd: null,
@@ -221,7 +221,7 @@ class DarkmoonDeckVoracity extends Analyzer {
                 <tr key={index}>
                   <td>{card.name}</td>
                   <td>{card.hasteDrain}</td>
-                  <td>{formatDuration(card.uptime / 1000)}</td>
+                  <td>{formatDuration(card.uptime)}</td>
                   <td>{formatPercentage(card.uptime / this.owner.fightDuration)}%</td>
                 </tr>
               ))}

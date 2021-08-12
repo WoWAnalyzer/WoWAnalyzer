@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import { calculateOverhealing, OffensivePenanceBoltEstimation } from '../../SpellCalculations';
@@ -20,7 +20,6 @@ class Contrition extends Analyzer {
   healing = 0;
   damagePenalty = 0;
   penanceBoltEstimation: any;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
   protected statTracker!: StatTracker;
   protected penance!: Penance;
 

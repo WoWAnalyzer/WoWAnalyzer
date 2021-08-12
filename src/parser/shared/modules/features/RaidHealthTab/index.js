@@ -7,7 +7,7 @@ import TabComponent from './TabComponent';
 class RaidHealthTab extends Analyzer {
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
+    this.active = this.selectedCombatant.spec?.role === ROLES.HEALER;
   }
 
   tab() {

@@ -39,7 +39,7 @@ class WildSpirits extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.WILD_SPIRITS,
+      spell: SPELLS.WILD_SPIRITS.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 120,
       gcd: {
@@ -79,7 +79,7 @@ class WildSpirits extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.WILD_SPIRITS}>
+        <BoringSpellValueText spellId={SPELLS.WILD_SPIRITS.id}>
           <>
             <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.damage)}{' '}
             <small> direct damage</small>

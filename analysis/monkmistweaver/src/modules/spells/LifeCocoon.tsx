@@ -47,7 +47,7 @@ class LifeCocoon extends Analyzer {
         size="flexible"
         tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}
       >
-        <BoringSpellValueText spell={SPELLS.LIFE_COCOON}>
+        <BoringSpellValueText spellId={SPELLS.LIFE_COCOON.id}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

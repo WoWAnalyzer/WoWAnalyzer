@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import ROLES from 'game/ROLES';
-import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
 import ManaIcon from 'interface/icons/Mana';
@@ -51,7 +50,7 @@ class ManaTideTotem extends Analyzer {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players)
-        .filter((player) => player.spec.role === ROLES.HEALER)
+        .filter((player) => player.spec?.role === ROLES.HEALER)
         .map((player) => ({
           [player.id]: {
             healer: player,
@@ -84,13 +83,12 @@ class ManaTideTotem extends Analyzer {
             </thead>
             <tbody>
               {Object.values(this.regenPerHealer).map((p) => {
-                const spec = SPECS[p.healer.specId];
-                const specClassName = spec.className.replace(' ', '');
+                const specClassName = p.healer.player.type.replace(' ', '');
 
                 return (
                   <tr key={p.healer.id}>
                     <th className={specClassName}>
-                      <SpecIcon id={p.healer.specId} /> {p.healer.name}
+                      <SpecIcon icon={p.healer.player.icon} /> {p.healer.name}
                     </th>
                     <td>{formatNumber(this.regenFromUptime(p.uptime))}</td>
                   </tr>

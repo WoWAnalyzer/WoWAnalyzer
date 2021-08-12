@@ -1,6 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { FallenOrder, TouchOfDeath } from '@wowanalyzer/monk';
+import { FallenOrder, TouchOfDeath, FaelineStomp } from '@wowanalyzer/monk';
 
 // Features
 import Abilities from './modules/Abilities';
@@ -11,13 +11,13 @@ import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-// Resources
 import JadeIgnition from './modules/items/JadeIgnition';
 import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
+import XuensBattlegear from './modules/items/XuensBattlegear';
+// Resources
 import ChiDetails from './modules/resources/ChiDetails';
 import ChiTracker from './modules/resources/ChiTracker';
 import EnergyCapTracker from './modules/resources/EnergyCapTracker';
-// Core
 // Spells
 import BlackoutKick from './modules/spells/BlackoutKick';
 import ComboBreaker from './modules/spells/ComboBreaker';
@@ -29,10 +29,6 @@ import TouchOfKarma from './modules/spells/TouchOfKarma';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
-
-// Items
-
-// Covenants
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,10 +65,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
     jadeIgnition: JadeIgnition,
+    xuensBattleGear: XuensBattlegear,
 
     // Covenants
     fallenOrder: FallenOrder,
     weaponsOfOrder: WeaponsOfOrderWindwalker,
+    faelineStomp: FaelineStomp,
   };
 }
 

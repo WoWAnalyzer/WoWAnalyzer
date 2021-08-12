@@ -92,7 +92,7 @@ class ShiftingPower extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.SHIFTING_POWER}>
+        <BoringSpellValueText spellId={SPELLS.SHIFTING_POWER.id}>
           <>
             <small>Cooldown Reduction by Spell</small>
             <br />

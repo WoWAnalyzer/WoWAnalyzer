@@ -79,7 +79,7 @@ class SurgingShots extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SURGING_SHOTS_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.SURGING_SHOTS_EFFECT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

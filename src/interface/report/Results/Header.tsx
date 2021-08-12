@@ -2,15 +2,14 @@
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { Boss, Phase } from 'game/raids';
-import { TooltipElement } from 'interface/Tooltip';
-import Config, { Build } from 'parser/Config';
+import Config from 'parser/Config';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Fight from 'parser/core/Fight';
-import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
+import { PlayerInfo } from 'parser/core/Player';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import BuildSelection from './BuildSelection';
 import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
 import PhaseSelector from './PhaseSelector';
@@ -20,19 +19,18 @@ import './Header.scss';
 
 interface Props {
   config: Config;
-  name: string;
+  player: PlayerInfo;
   characterProfile: CharacterProfile;
   boss: Boss | null;
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
   phases: { [key: string]: Phase } | null;
-  makeBuildUrl: (selectedTab: string, buildName: string) => string;
   build?: string;
   selectedPhase: string;
   selectedInstance: number;
   isLoading: boolean;
   fight: Fight;
-  makeTabUrl: (url: string) => string;
+  makeTabUrl: (tab: string, build?: string) => string;
   selectedTab: string;
   tabs: ParseResultsTab[];
 }
@@ -40,7 +38,7 @@ interface Props {
 const Header = ({
   config: { spec, builds },
   build,
-  name,
+  player: { name, icon },
   fight,
   boss,
   handlePhaseSelection,
@@ -53,22 +51,13 @@ const Header = ({
   makeTabUrl,
   tabs,
   selectedTab,
-  makeBuildUrl,
 }: Props) => {
   let playerThumbnail;
   if (characterProfile?.thumbnail) {
     playerThumbnail = `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
   } else {
-    playerThumbnail = `/specs/${spec.className}-${spec.specName}.jpg`.replace(/ /, '');
+    playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');
   }
-
-  const renderBuild = (build: Build, active: boolean) => (
-    <Link to={makeBuildUrl(selectedTab, build.url)}>
-      <span className={'build ' + (active ? 'active' : '')}>
-        <TooltipElement content={build.name}>{build.icon}</TooltipElement>
-      </span>
-    </Link>
-  );
 
   return (
     <header>
@@ -102,15 +91,14 @@ const Header = ({
             <img src={playerThumbnail} alt="" />
           </div>
           <div className="details">
-            <h2 className="builds">
-              {builds && (
-                <>
-                  Build:
-                  {Object.keys(builds).map((b) => renderBuild(builds[b], build === builds[b].url))}
-                  {renderBuild(DEFAULT_BUILD, !build)}
-                </>
-              )}
-            </h2>
+            {builds && (
+              <BuildSelection
+                builds={builds}
+                activeBuild={build}
+                makeUrl={(build: string) => makeTabUrl(selectedTab, build)}
+                className="builds"
+              />
+            )}
             <h2>
               {spec.specName} {spec.className}
             </h2>

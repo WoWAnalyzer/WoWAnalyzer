@@ -8,16 +8,20 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
+import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import isAtonement from '../core/isAtonement';
+import { SpiritShellEvent } from '../core/SpiritShell';
 
 // Use the priest spell list to whitelist abilities
 const PRIEST_WHITELIST: number[] = Object.values({
   ...PRIEST_SPELLS,
   ...PRIEST_TALENTS,
-}).map((ability) => ability.id);
+})
+  .concat([SPELLS.MINDGAMES, SPELLS.MINDGAMES_HEAL, SPELLS.MINDGAMES_ABSORB])
+  .map((ability) => ability.id);
 
 class Grace extends Analyzer {
   static dependencies = {
@@ -35,7 +39,6 @@ class Grace extends Analyzer {
   healingUnbuffedByMastery = 0;
   healingBuffedByMastery = 0;
   atonement = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(3);
   private combatants!: Combatants;
   private statTracker!: StatTracker;
 
@@ -44,9 +47,10 @@ class Grace extends Analyzer {
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
   }
 
-  getGraceHealing(event: HealEvent | AbsorbedEvent) {
+  getGraceHealing(event: HealEvent | AbsorbedEvent | SpiritShellEvent) {
     const currentMastery = this.statTracker.currentMasteryPercentage;
     const masteryContribution = calculateEffectiveHealing(event, currentMastery);
     return masteryContribution;
@@ -54,6 +58,10 @@ class Grace extends Analyzer {
 
   onAbsorb(event: AbsorbedEvent) {
     const spellId = event.ability.guid;
+
+    if (event.ability.guid === SPELLS.SPIRIT_SHELL_TALENT_BUFF.id) {
+      return;
+    }
 
     if (!PRIEST_WHITELIST.includes(spellId)) {
       this.healingUnaffectedByMastery += event.amount;
@@ -104,6 +112,10 @@ class Grace extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    if (isAtonement(event)) {
+      return;
+    } // Now handled by AtonementAnalyzer listener
+
     const spellId = event.ability.guid;
 
     if (!PRIEST_WHITELIST.includes(spellId)) {
@@ -121,12 +133,17 @@ class Grace extends Analyzer {
       return;
     }
 
-    if (isAtonement(event)) {
-      this.atonement += event.amount;
-      this.graceHealingToAtonement += this.getGraceHealing(event);
-    }
     this.healingBuffedByMastery += event.amount;
     this.graceHealing += this.getGraceHealing(event);
+  }
+
+  onAtone(event: AtonementAnalyzerEvent) {
+    const { healEvent } = event;
+
+    this.atonement += healEvent.amount;
+    this.graceHealingToAtonement += this.getGraceHealing(healEvent);
+    this.healingBuffedByMastery += healEvent.amount;
+    this.graceHealing += this.getGraceHealing(healEvent);
   }
 
   statistic() {

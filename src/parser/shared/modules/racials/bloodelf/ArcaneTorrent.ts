@@ -14,13 +14,16 @@ class ArcaneTorrent extends Analyzer {
 
   constructor(
     options: Options & {
+      active?: boolean;
       gcd?: number;
       castEfficiency?: number;
       abilities: Abilities;
     },
   ) {
     super(options);
-    this.active = this.selectedCombatant.race === RACES.BloodElf;
+    this.active =
+      this.selectedCombatant.race === RACES.BloodElf &&
+      (options.active === undefined || options.active === true);
     if (!this.active) {
       return;
     }
@@ -31,15 +34,15 @@ class ArcaneTorrent extends Analyzer {
 
     options.abilities.add({
       spell: [
-        SPELLS.ARCANE_TORRENT_MANA1,
-        SPELLS.ARCANE_TORRENT_MANA2,
-        SPELLS.ARCANE_TORRENT_MANA3,
-        SPELLS.ARCANE_TORRENT_RAGE,
-        SPELLS.ARCANE_TORRENT_ENERGY,
-        SPELLS.ARCANE_TORRENT_RUNIC_POWER,
-        SPELLS.ARCANE_TORRENT_MONK,
-        SPELLS.ARCANE_TORRENT_FOCUS,
-        SPELLS.ARCANE_TORRENT_FURY,
+        SPELLS.ARCANE_TORRENT_MANA1.id,
+        SPELLS.ARCANE_TORRENT_MANA2.id,
+        SPELLS.ARCANE_TORRENT_MANA3.id,
+        SPELLS.ARCANE_TORRENT_RAGE.id,
+        SPELLS.ARCANE_TORRENT_ENERGY.id,
+        SPELLS.ARCANE_TORRENT_RUNIC_POWER.id,
+        SPELLS.ARCANE_TORRENT_MONK.id,
+        SPELLS.ARCANE_TORRENT_FOCUS.id,
+        SPELLS.ARCANE_TORRENT_FURY.id,
       ],
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 120,

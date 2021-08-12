@@ -155,7 +155,7 @@ class CombustionActiveTime extends Analyzer {
                 {Object.keys(this.combustionPreCastDelay.combustionCasts).map((cast) => (
                   <tr key={cast}>
                     <th style={{ textAlign: 'left' }}>
-                      {formatDuration((Number(cast) - this.owner.fight.start_time) / 1000)}
+                      {formatDuration(Number(cast) - this.owner.fight.start_time)}
                     </th>
                     <th style={{ textAlign: 'left' }}>
                       {formatPercentage(this.combustionCasts[Number(cast)])}
@@ -173,7 +173,7 @@ class CombustionActiveTime extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.COMBUSTION}>
+        <BoringSpellValueText spellId={SPELLS.COMBUSTION.id}>
           {formatPercentage(this.percentActiveTime)}% <small>Combustion Active Time</small>
           <br />
           {this.combustionPreCastDelay.averageCastDelay.toFixed(2)}s{' '}

@@ -1,22 +1,22 @@
 /**
  * A simple component that shows the spell value in the most plain way possible.
- * Use this only as the very last resort.
+ * Use this only as the last resort, prefer a custom layout instead.
  */
-import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-type Props = {
-  spell: Spell;
-  children: React.ReactNode;
+interface Props {
+  spellId: number;
+  children: ReactNode;
   className?: string;
-};
+  ilvl?: number;
+}
 
-const BoringSpellValueText = ({ spell, children, className }: Props) => (
+const BoringSpellValueText = ({ spellId, children, className, ilvl }: Props) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
-      <SpellIcon id={spell.id} /> <SpellLink id={spell.id} icon={false} />
+      <SpellIcon id={spellId} /> <SpellLink id={spellId} ilvl={ilvl} icon={false} />
     </label>
     <div className="value">{children}</div>
   </div>

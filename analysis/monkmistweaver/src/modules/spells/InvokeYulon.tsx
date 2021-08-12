@@ -51,7 +51,7 @@ class InvokeYulon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT}>
+        <BoringSpellValueText spellId={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id}>
           <ItemHealingDone amount={this.soothHealing + this.envelopHealing} />
           <br />
         </BoringSpellValueText>

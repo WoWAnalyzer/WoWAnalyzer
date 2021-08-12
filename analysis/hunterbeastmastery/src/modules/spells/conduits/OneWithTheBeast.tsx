@@ -53,7 +53,7 @@ class OneWithTheBeast extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.ONE_WITH_THE_BEAST_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

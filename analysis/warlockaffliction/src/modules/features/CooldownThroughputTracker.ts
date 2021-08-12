@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.DARK_SOUL_MISERY_TALENT,
+      spell: SPELLS.DARK_SOUL_MISERY_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
@@ -15,7 +15,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.SUMMON_DARKGLARE,
+      spell: SPELLS.SUMMON_DARKGLARE.id,
       duration: 20,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },

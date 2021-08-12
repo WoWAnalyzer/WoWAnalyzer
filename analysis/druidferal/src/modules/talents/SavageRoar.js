@@ -6,6 +6,7 @@ import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -36,7 +37,7 @@ const AFFECTED_BY_SAVAGE_ROAR = [
   SPELLS.SWIPE_CAT,
   SPELLS.FERAL_FRENZY_TALENT,
   SPELLS.MAIM,
-  SPELLS.MOONFIRE, // not really a cat ability, but is affected
+  SPELLS.MOONFIRE_DEBUFF, // not really a cat ability, but is affected
 ];
 
 /**
@@ -57,7 +58,7 @@ class SavageRoar extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -122,7 +123,7 @@ class SavageRoar extends Analyzer {
         }
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spell={SPELLS.SAVAGE_ROAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SAVAGE_ROAR_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small> <br />
             <ItemDamageDone amount={this.bonusDmg} />

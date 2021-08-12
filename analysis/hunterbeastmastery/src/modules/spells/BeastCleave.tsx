@@ -144,7 +144,7 @@ class BeastCleave extends Analyzer {
     if (this.damage > 0) {
       return (
         <Statistic position={STATISTIC_ORDER.OPTIONAL(13)} size="flexible">
-          <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
+          <BoringSpellValueText spellId={SPELLS.BEAST_CLEAVE_BUFF.id}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />

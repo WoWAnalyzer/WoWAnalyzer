@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -28,8 +28,6 @@ class FaelineStomp extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    // In my testing this line always returns false but its what putput uses so I have faith
-    // it will work in the future. (might just be a bad log too)
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
     if (!this.active) {
@@ -37,8 +35,11 @@ class FaelineStomp extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.FAELINE_STOMP_CAST,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      spell: SPELLS.FAELINE_STOMP_CAST.id,
+      category:
+        this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK
+          ? Abilities.SPELL_CATEGORIES.COOLDOWNS
+          : Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 30,
       gcd:
         this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
@@ -66,22 +67,22 @@ class FaelineStomp extends Analyzer {
     );
   }
 
-  casts(event: CastEvent) {
+  casts() {
     this.flsCasts += 1;
   }
 
-  reset(event: ApplyBuffEvent) {
+  reset() {
     if (this.spellUsable.isOnCooldown(SPELLS.FAELINE_STOMP_CAST.id)) {
       this.spellUsable.endCooldown(SPELLS.FAELINE_STOMP_CAST.id);
       this.resets += 1;
     }
   }
 
-  damage(event: DamageEvent) {
+  damage() {
     this.targetsDamaged += 1;
   }
 
-  heal(event: HealEvent) {
+  heal() {
     this.targetsHealed += 1;
   }
 
@@ -92,7 +93,7 @@ class FaelineStomp extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.FAELINE_STOMP_CAST}>
+        <BoringSpellValueText spellId={SPELLS.FAELINE_STOMP_CAST.id}>
           {this.resets} <small>resets</small> <br />
           {(this.targetsDamaged / this.flsCasts).toFixed(2)} <small>Foes Hit per cast</small> <br />
           {(this.targetsHealed / this.flsCasts).toFixed(2)} <small>Allies Hit per cast</small>

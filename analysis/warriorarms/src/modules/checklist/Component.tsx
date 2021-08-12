@@ -52,6 +52,13 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             >
               More info.
             </a>
+            <br />
+            {combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
+              <>
+                Note: When using <SpellLink id={SPELLS.ENDURING_BLOW.id} />,{' '}
+                <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> should be used on cooldown at any time
+              </>
+            )}
           </>
         }
       >
@@ -91,51 +98,57 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
           <AbilityRequirement spell={SPELLS.CONQUERORS_BANNER.id} />
         )}
+        {combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
+          <AbilityRequirement spell={SPELLS.MORTAL_STRIKE.id} />
+        )}
       </Rule>
 
-      <Rule
-        name={
-          <>
-            Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently
-          </>
-        }
-        description={
-          <>
-            You should cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as much as possible when
-            the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />)
-            . It should only be used during the execution phase to refresh{' '}
-            <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> as{' '}
-            <SpellLink id={SPELLS.EXECUTE.id} /> is more rage efficient than Mortal Strike.
-          </>
-        }
-      >
-        <Requirement
+      {!combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
+        <Rule
           name={
             <>
-              <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase
+              Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently
             </>
           }
-          thresholds={thresholds.goodMortalStrike}
-        />
-        <Requirement
-          name={
+          description={
             <>
-              <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> which should have been{' '}
-              <SpellLink id={SPELLS.EXECUTE.id} icon />
+              You should cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as much as possible
+              when the target is above 20% (or 35% with{' '}
+              <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) . It should only be used during the
+              execution phase to refresh{' '}
+              <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> as{' '}
+              <SpellLink id={SPELLS.EXECUTE.id} /> is more rage efficient than Mortal Strike.
             </>
           }
-          thresholds={thresholds.tooMuchMortalStrike}
-        />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> refreshed with{' '}
-              <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase
-            </>
-          }
-          thresholds={thresholds.notEnoughMortalStrike}
-        />
-      </Rule>
+        >
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase
+              </>
+            }
+            thresholds={thresholds.goodMortalStrike}
+          />
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> which should have been{' '}
+                <SpellLink id={SPELLS.EXECUTE.id} icon />
+              </>
+            }
+            thresholds={thresholds.tooMuchMortalStrike}
+          />
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> refreshed with{' '}
+                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase
+              </>
+            }
+            thresholds={thresholds.notEnoughMortalStrike}
+          />
+        </Rule>
+      )}
       <Rule
         name="Use your defensive cooldowns"
         description="While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally."

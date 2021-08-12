@@ -131,7 +131,7 @@ class EnvelopingBreath extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={<>This is the effective healing contributed by the Enveloping Breath buff.</>}
       >
-        <BoringSpellValueText spell={SPELLS.ENVELOPING_BREATH}>
+        <BoringSpellValueText spellId={SPELLS.ENVELOPING_BREATH.id}>
           <>
             {formatNumber(this.envBIncrease)} <small>healing contributed by the buff</small>
           </>

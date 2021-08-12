@@ -78,7 +78,10 @@ class HarmonyOfTheTortollan extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText
+          spellId={SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id}
+          rank={this.conduitRank}
+        >
           <>
             {formatNumber(this.effectiveReduction / 1000)}s <small>effective CDR</small>
           </>

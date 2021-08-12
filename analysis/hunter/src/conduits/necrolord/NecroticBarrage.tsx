@@ -68,7 +68,7 @@ class NecroticBarrage extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.NECROTIC_BARRAGE_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.NECROTIC_BARRAGE_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
             <br />

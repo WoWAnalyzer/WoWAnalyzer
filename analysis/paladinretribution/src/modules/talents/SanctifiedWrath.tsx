@@ -54,7 +54,7 @@ class SanctifiedWrath extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip="Damage dealt directly and the Avenging Wrath extension provided by Sanctified Wrath."
       >
-        <BoringSpellValueText spell={SPELLS.SANCTIFIED_WRATH_DAMAGE}>
+        <BoringSpellValueText spellId={SPELLS.SANCTIFIED_WRATH_DAMAGE.id}>
           <ItemDamageDone amount={this.damageDone} /> <br />
           <>
             <SpellIcon id={SPELLS.AVENGING_WRATH.id} /> +{formatNumber(totalIncrease)} seconds

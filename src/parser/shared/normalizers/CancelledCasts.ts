@@ -3,8 +3,6 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { AnyEvent, BeginCastEvent, EventType, CastEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const MS_BUFFER = 100;
-
 /**
  * During analysis there's no way to know at a `begincast` event if it will end up being canceled. This marks all `begincast` events by the player with an `isCancelled` property whether it was cancelled.
  */
@@ -20,7 +18,7 @@ class CancelledCasts extends EventsNormalizer {
     this.lastBeginCast = null;
   }
   handleBeginCast(event: BeginCastEvent) {
-    if (this.lastBeginCast !== null && event.timestamp - this.lastBeginCast.timestamp > MS_BUFFER) {
+    if (this.lastBeginCast !== null) {
       this.markLastBeginCastCancelled();
     }
     this.lastBeginCast = event;

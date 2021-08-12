@@ -95,7 +95,7 @@ class Subterfuge extends StealthCasts {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`You casted atleast one Garrote during Subterfuge ${this.stealthsWithAtleastOneGarrote} times out of ${this.stealthCasts}.`}
       >
-        <BoringSpellValueText spell={SPELLS.SUBTERFUGE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SUBTERFUGE_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
       </Statistic>

@@ -109,7 +109,7 @@ class PrimalTideCore extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.PRIMAL_TIDE_CORE}>
+        <BoringSpellValueText spellId={SPELLS.PRIMAL_TIDE_CORE.id}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>

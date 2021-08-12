@@ -66,7 +66,7 @@ class EnfeebledMark extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.ENFEEBLED_MARK_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ENFEEBLED_MARK_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

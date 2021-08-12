@@ -41,7 +41,7 @@ class AMurderOfCrows extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+        spell: SPELLS.A_MURDER_OF_CROWS_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         gcd: {
@@ -117,7 +117,7 @@ class AMurderOfCrows extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.A_MURDER_OF_CROWS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.A_MURDER_OF_CROWS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

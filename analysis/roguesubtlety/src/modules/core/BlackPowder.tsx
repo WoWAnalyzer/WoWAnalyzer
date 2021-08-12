@@ -25,7 +25,7 @@ class BlackPowder extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-        <BoringSpellValueText spell={SPELLS.BLACK_POWDER}>
+        <BoringSpellValueText spellId={SPELLS.BLACK_POWDER.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

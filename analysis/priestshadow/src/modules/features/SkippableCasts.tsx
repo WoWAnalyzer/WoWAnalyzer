@@ -57,7 +57,7 @@ class SkippableCasts extends Analyzer {
         size="flexible"
         tooltip={`There should only be 1 cast between Void Bolts casts when you exceed 140% haste. You casted a total of ${skippableCasts} extra abilities inbetween, wasting insanity generation & damage.`}
       >
-        <BoringSpellValueText spell={SPELLS.VOID_BOLT}>
+        <BoringSpellValueText spellId={SPELLS.VOID_BOLT.id}>
           <>
             {skippableCasts} <small>Skippable casts</small>
           </>

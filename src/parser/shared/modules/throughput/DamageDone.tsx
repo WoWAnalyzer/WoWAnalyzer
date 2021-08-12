@@ -1,4 +1,4 @@
-import { formatThousands, formatPercentage } from 'common/format';
+import { formatThousands, formatPercentage, formatDuration } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import makeWclUrl from 'common/makeWclUrl';
 import { Tooltip } from 'interface';
@@ -124,19 +124,23 @@ class DamageDone extends Analyzer {
             style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}
           >
             <ThroughputPerformance throughput={perSecond} metric="dps">
-              {({ performance, topThroughput }) =>
+              {({ performance, topThroughput, medianDuration }) =>
                 performance &&
-                performance !== UNAVAILABLE && (
+                performance !== UNAVAILABLE &&
+                medianDuration && (
                   <Tooltip
                     content={
                       <>
                         Your DPS compared to the DPS of a top 100 player. To become a top 100{' '}
-                        <span className={this.selectedCombatant.spec.className.replace(' ', '')}>
-                          {this.selectedCombatant.spec.specName}{' '}
-                          {this.selectedCombatant.spec.className}
+                        <span className={this.selectedCombatant.player.type.replace(' ', '')}>
+                          {this.selectedCombatant.spec?.specName || null}{' '}
+                          {this.selectedCombatant.player.type}
                         </span>{' '}
                         on this fight you need to do at least{' '}
-                        <strong>{formatThousands(topThroughput || 0)} DPS</strong>.
+                        <strong>{formatThousands(topThroughput || 0)} DPS</strong>.<br />
+                        <br />
+                        Your fight lasted {formatDuration(this.owner.fightDuration)}. The median
+                        duration of the fights in the top 100 was {formatDuration(medianDuration)}.
                       </>
                     }
                   >

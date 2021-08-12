@@ -99,7 +99,7 @@ class Meteor extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.METEOR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.METEOR_TALENT.id}>
           <>
             {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
             <small>Adjusted Cast Efficiency</small>

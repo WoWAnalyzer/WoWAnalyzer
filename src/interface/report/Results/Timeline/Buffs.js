@@ -23,6 +23,7 @@ class Buffs extends React.PureComponent {
       toPlayer: PropTypes.func.isRequired,
     }).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    style: PropTypes.object,
   };
 
   constructor() {
@@ -108,7 +109,7 @@ class Buffs extends React.PureComponent {
     }
     const left = this.getOffsetLeft(applied.timestamp);
     const duration = event.timestamp - applied.timestamp;
-    const fightDuration = (applied.timestamp - this.props.start) / 1000;
+    const fightDuration = applied.timestamp - this.props.start;
 
     const level = this._levels.indexOf(event.ability.guid);
     this._levels[level] = undefined;
@@ -170,12 +171,18 @@ class Buffs extends React.PureComponent {
     );
   }
   render() {
-    const { parser } = this.props;
+    const { parser, style } = this.props;
 
     const buffs = parser.eventHistory.map(this.renderEvent);
 
     return (
-      <div className="buffs" style={{ '--levels': this._maxLevel + 1 }}>
+      <div
+        className="buffs"
+        style={{
+          '--levels': this._maxLevel + 1,
+          ...style,
+        }}
+      >
         {buffs}
       </div>
     );

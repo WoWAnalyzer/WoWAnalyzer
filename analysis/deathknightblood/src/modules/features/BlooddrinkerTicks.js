@@ -85,7 +85,7 @@ class Blooddrinker extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BLOODDRINKER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BLOODDRINKER_TALENT.id}>
           <>
             {this._ruinedCasts} / {this._totalCasts} <small>Channels cancelled early</small>
           </>

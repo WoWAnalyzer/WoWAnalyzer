@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
-import HotTracker from 'parser/shared/modules/HotTracker';
+import HotTracker, { HotInfo } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -13,74 +12,53 @@ const MISTWRAP = 1000;
 const TFT_REM_EXTRA_DURATION = 10000;
 
 class HotTrackerMW extends HotTracker {
-  mistwrapActive: boolean = false;
-  upwellingActive: boolean = false;
+  mistwrapActive: boolean;
+  upwellingActive: boolean;
 
   constructor(options: Options) {
     super(options);
-    const selectedCombatant = options.owner.selectedCombatant;
-    this.mistwrapActive = selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
-    this.upwellingActive = selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+    this.mistwrapActive = this.owner.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
+    this.upwellingActive = this.owner.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
-  calculateMaxDuration(event: ApplyBuffEvent & { selectedCombatant: Combatant }) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.ENVELOPING_MIST.id) {
-      return (ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0)) * 2;
-    }
-    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      return (EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0)) * 2;
-    }
-    if (
-      event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
-      spellId === SPELLS.RENEWING_MIST_HEAL.id
-    ) {
-      return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2;
-    }
-    return REM_BASE_DURATION * 2;
+  // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
+  _calculateRemDuration(combatant: Combatant): number {
+    return combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)
+      ? REM_BASE_DURATION + TFT_REM_EXTRA_DURATION
+      : REM_BASE_DURATION;
   }
 
-  calculateMaxRemDuration(
-    event: (ApplyBuffEvent | RefreshBuffEvent) & { selectedCombatant: Combatant },
-  ) {
-    const spellId = event.ability.guid;
-    if (
-      event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) &&
-      spellId === SPELLS.RENEWING_MIST_HEAL.id
-    ) {
-      return REM_BASE_DURATION + TFT_REM_EXTRA_DURATION;
-    }
-    return REM_BASE_DURATION;
+  _calculateMaxRemDuration(combatant: Combatant): number {
+    return combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)
+      ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2
+      : REM_BASE_DURATION * 2;
   }
 
-  _generateHotInfo() {
+  _generateHotInfo(): HotInfo[] {
     // must be generated dynamically because it reads from traits
-    return {
-      [SPELLS.RENEWING_MIST_HEAL.id]: {
-        duration: REM_BASE_DURATION,
+    const envMistDuration = ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0);
+    const essenceFontDuration = EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0);
+    return [
+      {
+        spell: SPELLS.RENEWING_MIST_HEAL,
+        duration: this._calculateRemDuration,
         tickPeriod: 2000,
-        maxDuration: this.calculateMaxDuration,
+        maxDuration: this._calculateMaxRemDuration,
         bouncy: true,
-        durationConditions: this.calculateMaxRemDuration,
-        id: SPELLS.RENEWING_MIST_HEAL.id,
       },
-      [SPELLS.ENVELOPING_MIST.id]: {
-        duration: ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0),
+      {
+        spell: SPELLS.ENVELOPING_MIST,
+        duration: envMistDuration,
         tickPeriod: 1000,
-        maxDuration: this.calculateMaxDuration,
-        id: SPELLS.ENVELOPING_MIST.id,
+        maxDuration: envMistDuration * 2,
       },
-      [SPELLS.ESSENCE_FONT_BUFF.id]: {
-        duration: EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0),
+      {
+        spell: SPELLS.ESSENCE_FONT_BUFF,
+        duration: essenceFontDuration,
         tickPeriod: 2000,
-        maxDuration: this.calculateMaxDuration,
-        id: SPELLS.ESSENCE_FONT_BUFF.id,
+        maxDuration: essenceFontDuration * 2,
       },
-    };
-  }
-
-  _generateHotList() {
-    return [SPELLS.RENEWING_MIST_HEAL, SPELLS.ENVELOPING_MIST, SPELLS.ESSENCE_FONT_BUFF];
+    ];
   }
 }
 

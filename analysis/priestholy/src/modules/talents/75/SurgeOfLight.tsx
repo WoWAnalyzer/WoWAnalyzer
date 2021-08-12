@@ -72,7 +72,7 @@ class SurgeOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spell={SPELLS.SURGE_OF_LIGHT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SURGE_OF_LIGHT_TALENT.id}>
           <>
             {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts
             <br />

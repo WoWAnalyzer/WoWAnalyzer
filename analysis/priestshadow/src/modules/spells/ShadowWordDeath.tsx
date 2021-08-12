@@ -27,7 +27,7 @@ class ShadowWordDeath extends ExecuteHelper {
     ctor.executeSpells.push(SPELLS.SHADOW_WORD_DEATH);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.SHADOW_WORD_DEATH,
+      spell: SPELLS.SHADOW_WORD_DEATH.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: (haste: number) => 20 / (1 + haste),
       gcd: {

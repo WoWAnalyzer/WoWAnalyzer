@@ -44,7 +44,7 @@ class AkaarisSoulFragment extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.AKAARIS_SOUL_FRAGMENT}>
+        <BoringSpellValueText spellId={SPELLS.AKAARIS_SOUL_FRAGMENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

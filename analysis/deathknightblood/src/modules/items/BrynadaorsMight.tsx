@@ -109,7 +109,7 @@ class BrynadaorsMight extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BRYNDAORS_MIGHT}>
+        <BoringSpellValueText spellId={SPELLS.BRYNDAORS_MIGHT.id}>
           <>
             {this.runicPowerGained} <small>RP gained</small>
           </>

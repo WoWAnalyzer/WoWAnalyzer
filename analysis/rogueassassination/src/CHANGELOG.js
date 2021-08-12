@@ -1,11 +1,14 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Tyndi, Zeboot, Putro, Hordehobbs } from 'CONTRIBUTORS';
+import { Tyndi, Zeboot, Putro, Hordehobbs, Bloodfox } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 5, 2), <>Fix bug in Sepsis analyzer in mythic plus analysis.</>, Hordehobbs),
+  change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={SPELLS.SEPSIS.id} /> analyzers. </>, Hordehobbs),
+  change(date(2021, 4, 11), <>Adjusted logic to ensure correct <SpellLink id={SPELLS.MASTER_ASSASSIN_BUFF.id} /> usage is accounted for.</>, Bloodfox),
   change(date(2021,3,4), <>Removed analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2020, 12, 28), <> Fixed an issue where <SpellLink id={SPELLS.DUSKWALKERS_PATCH.id} /> module wouldn't load, as well as various crashes. </>, Putro),

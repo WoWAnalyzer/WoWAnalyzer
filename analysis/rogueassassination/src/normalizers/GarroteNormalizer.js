@@ -32,7 +32,7 @@ class GarroteNormalizer extends EventsNormalizer {
             previousEvent.ability.guid === SPELLS.GARROTE.id
           ) {
             event.type = EventType.RefreshDebuff;
-            event.__modified = true;
+            event.__reordered = true;
             fixedEvents.splice(previousEventIndex, 1);
             eventsRemoved += 1;
             break;

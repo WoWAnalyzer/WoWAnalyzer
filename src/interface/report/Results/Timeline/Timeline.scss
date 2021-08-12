@@ -40,10 +40,10 @@
 /* Time indicator */
 .spell-timeline .time-line {
   white-space: nowrap;
-  height: 32px;
+  height: calc(var(--cast-bars) * 22px);
 
   > * {
-    height: 100%;
+    height: calc(100% + 10px);
     display: inline-block;
     border-left: 1px solid rgba(255, 255, 255, 0.3);
     padding-left: 3px;
@@ -55,7 +55,7 @@
     content: attr(data-duration);
     position: absolute;
     left: 0;
-    top: 33px;
+    bottom: -16px;
     transform: translateX(-50%);
     color: rgba(200, 200, 200, 0.8);
   }
@@ -64,7 +64,7 @@
     width: 1px;
     background: rgba(255, 255, 255, 0.2);
     position: absolute;
-    top: 22px;
+    bottom: 3px;
     height: 7px;
     left: 50%;
   }

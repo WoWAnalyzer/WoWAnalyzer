@@ -119,7 +119,7 @@ class DragonRoar extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DRAGON_ROAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DRAGON_ROAR_TALENT.id}>
           <>{formatNumber((this.totalDamage / this.owner.fightDuration) * 1000)} DPS</>
         </BoringSpellValueText>
       </Statistic>

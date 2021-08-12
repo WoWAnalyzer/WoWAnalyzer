@@ -152,7 +152,7 @@ class CarefulAim extends ExecuteHelper {
                     <td>
                       {boss[0] === 'Adds'
                         ? 'N/A'
-                        : formatDuration((boss[1].timestampSub70 - boss[1].timestampSub100) / 1000)}
+                        : formatDuration(boss[1].timestampSub70 - boss[1].timestampSub100)}
                     </td>
                   </tr>
                 ))}
@@ -161,7 +161,7 @@ class CarefulAim extends ExecuteHelper {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CAREFUL_AIM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

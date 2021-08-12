@@ -8,21 +8,33 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { EventType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';
+import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Timeline.scss';
 import Buffs from './Buffs';
-import Casts from './Casts';
+import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
+import TimeIndicators from './TimeIndicators';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    movement: PropTypes.arrayOf(
+      PropTypes.shape({
+        start: PropTypes.number,
+        end: PropTypes.number,
+        distance: PropTypes.number,
+      }),
+    ),
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
     premium: PropTypes.bool.isRequired,
+    config: PropTypes.shape({
+      separateCastBars: PropTypes.array,
+    }),
   };
   static defaultProps = {
     showCooldowns: true,
@@ -70,6 +82,9 @@ class Timeline extends React.PureComponent {
         return this.isApplicableCastEvent(event);
       case EventType.UpdateSpellUsable:
         return this.isApplicableUpdateSpellUsableEvent(event);
+      case EventType.ApplyBuff:
+      case EventType.RemoveBuff:
+        return this.isApplicableBuffEvent(event);
       default:
         return false;
     }
@@ -109,6 +124,10 @@ class Timeline extends React.PureComponent {
     }
     return true;
   }
+  isApplicableBuffEvent(event) {
+    const ability = this.props.abilities.getAbility(event.ability.guid);
+    return ability && ability.timelineCastableBuff === event.ability.guid;
+  }
   /**
    * @param {object[]} events
    * @returns {Map<int, object[]>} Events grouped by spell id.
@@ -134,11 +153,7 @@ class Timeline extends React.PureComponent {
     if (!ability) {
       return spellId; // not a class ability
     }
-    if (ability.spell instanceof Array) {
-      return ability.spell[0].id;
-    } else {
-      return ability.spell.id;
-    }
+    return ability.primarySpell;
   }
 
   setContainerRef(elem) {
@@ -151,11 +166,23 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { parser, abilities, buffs, premium } = this.props;
+    const { parser, abilities, buffs, premium, movement } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
+
+    const allSeparatedIds = this.props.config?.separateCastBars.flat() || [];
+    const castEvents = [
+      ...(this.props.config?.separateCastBars.map((spellIds) =>
+        parser.eventHistory
+          .filter(isApplicableEvent(parser))
+          .filter((event) => spellIds.includes(event.ability?.guid)),
+      ) || []),
+      parser.eventHistory
+        .filter(isApplicableEvent(parser))
+        .filter((event) => !allSeparatedIds.includes(event.ability?.guid)),
+    ];
 
     return (
       <>
@@ -170,6 +197,7 @@ class Timeline extends React.PureComponent {
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
               margin: 'auto', //center horizontally if it's too small to take up the page
+              '--cast-bars': castEvents.length,
             }}
           >
             <Buffs
@@ -178,17 +206,22 @@ class Timeline extends React.PureComponent {
               parser={parser}
               buffs={buffs}
             />
-            <div className="time-line">
-              {this.seconds > 0 &&
-                [...Array(Math.ceil(this.seconds))].map((_, second) => (
-                  <div
-                    key={second + this.offset / 1000}
-                    style={{ width: this.secondWidth * skipInterval }}
-                    data-duration={formatDuration(second + this.offset / 1000)}
-                  />
-                ))}
-            </div>
-            <Casts start={this.start} secondWidth={this.secondWidth} parser={parser} />
+            <TimeIndicators
+              seconds={this.seconds}
+              offset={this.offset}
+              secondWidth={this.secondWidth}
+              skipInterval={skipInterval}
+            />
+            {castEvents.map((events, index) => (
+              <Casts
+                key={index}
+                start={this.start}
+                secondWidth={this.secondWidth}
+                events={events}
+                // Only show on the main cast bar since that should default to standard casts
+                movement={index === castEvents.length - 1 ? movement : undefined}
+              />
+            ))}
             <Cooldowns
               start={this.start}
               end={this.end}

@@ -132,7 +132,7 @@ class HotStreak extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HOT_STREAK}>
+        <BoringSpellValueText spellId={SPELLS.HOT_STREAK.id}>
           <>
             {formatPercentage(this.hotStreakUtil, 0)}% <small>Proc Utilization</small>
             <br />

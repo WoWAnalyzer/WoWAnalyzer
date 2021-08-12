@@ -1,12 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
@@ -25,20 +26,20 @@ class Cultivation extends Analyzer {
     this.active = hasCultivation;
   }
 
-  get directPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(
-      this.mastery.getDirectHealing(SPELLS.CULTIVATION.id),
-    );
+  get directHealing() {
+    return this.mastery.getDirectHealing(SPELLS.CULTIVATION.id);
   }
 
-  get masteryPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(
-      this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id),
-    );
+  get masteryHealing() {
+    return this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id);
+  }
+
+  get totalHealing() {
+    return this.directHealing + this.masteryHealing;
   }
 
   get totalPercent() {
-    return this.directPercent + this.masteryPercent;
+    return this.owner.getPercentageOfTotalHealingDone(this.totalHealing);
   }
 
   get suggestionThresholds() {
@@ -76,7 +77,8 @@ class Cultivation extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(11)}
+        position={STATISTIC_ORDER.OPTIONAL(40)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>
@@ -84,24 +86,19 @@ class Cultivation extends Analyzer {
             Cultivation's extra mastery stack.
             <ul>
               <li>
-                Direct: <strong>{formatPercentage(this.directPercent)}%</strong>
+                Direct: <strong>{this.owner.formatItemHealingDone(this.directHealing)}</strong>
               </li>
               <li>
-                Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong>
+                Mastery: <strong>{this.owner.formatItemHealingDone(this.masteryHealing)}</strong>
               </li>
             </ul>
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={SPELLS.CULTIVATION.id} /> Cultivation healing{' '}
-            </>
-          }
-        >
-          <>{formatPercentage(this.totalPercent)} %</>
-        </BoringValue>
+        <BoringSpellValueText spellId={SPELLS.CULTIVATION_TALENT.id}>
+          <ItemPercentHealingDone amount={this.totalHealing} />
+          <br />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

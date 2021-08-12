@@ -58,7 +58,7 @@ class TheHunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.THE_HUNT}>
+        <BoringSpellValueText spellId={SPELLS.THE_HUNT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <ItemHealingDone amount={this.heal} />

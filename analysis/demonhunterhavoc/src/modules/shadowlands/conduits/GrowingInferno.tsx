@@ -55,7 +55,7 @@ class GrowingInferno extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>Total damage of Immolation Aura {formatThousands(this.ImmolationDamage)}</>}
       >
-        <ConduitSpellText spell={SPELLS.GROWING_INFERNO} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.GROWING_INFERNO.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

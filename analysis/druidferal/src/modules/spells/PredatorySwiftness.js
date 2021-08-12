@@ -161,7 +161,7 @@ class PredatorySwiftness extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spell={SPELLS.PREDATORY_SWIFTNESS}>
+        <BoringSpellValueText spellId={SPELLS.PREDATORY_SWIFTNESS.id}>
           <>
             {formatPercentage(1 - this.wastedFraction)}% <small>buffs used</small>
           </>

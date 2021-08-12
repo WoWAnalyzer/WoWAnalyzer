@@ -109,7 +109,7 @@ class Bladestorm extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BLADESTORM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BLADESTORM_TALENT.id}>
           <>{formatNumber((this.totalDamage / this.owner.fightDuration) * 1000)} DPS</>
         </BoringSpellValueText>
       </Statistic>

@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Anomoly, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Sref, Ssabbar, Soulhealer95, wmavis, Zeboot, Zerotorescue, niko } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import React from 'react';
@@ -9,6 +9,36 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 8, 3), 'Update Game Version in constants to ensure correct warnings are triggering when modules are out of date.', Anomoly),
+  change(date(2021, 8, 3), 'Reword spec out of date warning.', Zerotorescue),
+  change(date(2021, 7, 29), 'Add median fight duration to the damage done statistic tooltip.', Zerotorescue),
+  change(date(2021, 7, 28), 'Support issue warnings on the report page are now presented modally to make it clearer that the warning can be closed.', Zerotorescue),
+  change(date(2021, 7, 27), 'Moved low rank spells config out of the ability config for better code isolation.', Zerotorescue),
+  change(date(2021, 7, 25), <>Fixed a bug where <SpellLink id={SPELLS.SOOTHING_SHADE.id}/> procs could incorrectly cause casts to be marked as cancelled.</>, Sref),
+  change(date(2021, 7, 22), 'German translations for mage class', maestrohdude),
+  change(date(2021, 7, 18), 'Movement indicators in timeline show an indication of the amount of movement by height.', Zerotorescue),
+  change(date(2021, 7, 18), 'Reduce visual obstructiveness of movement indicator in the timeline.', Zerotorescue),
+  change(date(2021, 7, 14), 'Updated to handle changes to combatantinfo API, allowing Conduit and Soulbind stats to work again.', Sref),
+  change(date(2021, 7, 4), 'Fixed a bug where erroneous costs could be assigned to pre-cast spells', Sref),
+  change(date(2021, 7, 1), 'Clarify the error shown when a character has no analysis available (e.g. for TBC reports).', Zerotorescue),
+  change(date(2021, 6, 29), 'Added Mountaineer Racial to Highmountain Taurens and the same to StatTracker', Soulhealer95),
+  change(date(2021, 6, 28), 'Add movement indicator to the timeline.', Zerotorescue),
+  change(date(2021, 6, 26), 'Fixed a bug in the calculation of whether a DoT refresh cast was wasteful', Sref),
+  change(date(2021, 6, 22), 'Load spell info automatically from logs or the WCL API to avoid having to manually add every spell to the codebase.', Zerotorescue),
+  change(date(2021, 6, 12), 'Fixed unit test', Sref),
+  change(date(2021, 6, 10), 'Updated events tab with more event type coloring, spell IDs, and amount information', Sref),
+  change(date(2021, 5, 31), 'Reordered events are now highlighted blue in the events listing, differentiating them from modified events.', Sref),
+  change(date(2021, 5, 27), 'German translation fix', maestrohdude),
+  change(date(2021, 5, 15), 'Fixed a bug that could cause the Mana Pool graph to crash', Sref),
+  change(date(2021, 5, 4), 'German translations', maestrohdude),
+  change(date(2021, 4, 26), <>Fixed <SpellLink id={SPELLS.CHAOS_BRAND.id} /> count in Raid Buffs</>, niko),
+  change(date(2021, 4, 24), 'German translations', maestrohdude),
+  change(date(2021, 4, 20), 'Normalized normalizers', Sref),
+  change(date(2021, 4, 20), 'More German translations for the interface', maestrohdude),
+  change(date(2021, 4, 20), 'Update README api key wording.', wmavis),
+  change(date(2021, 4, 17), 'Added Shadowlands gems and trinket icons.', Adoraci),
+  change(date(2021, 4, 14), 'Converted StatTracker to TypeScript', Sref),
+  change(date(2021, 4, 8), 'More German translations for the interface', maestrohdude),
   change(date(2021, 4, 2), 'Added German translations in de/messages.json for the character parses section', maestrohdude),
   change(date(2021, 4, 1), 'Added German translations in de/messages.json for hunter section', maestrohdude),
   change(date(2021, 3, 29), 'Added German translations in de/messages.json for common, core abilities, death knight, demon hunter, and druid sections', maestrohdude),

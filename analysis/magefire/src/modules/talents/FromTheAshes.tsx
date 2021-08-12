@@ -51,7 +51,7 @@ class FromTheAshes extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spell={SPELLS.FROM_THE_ASHES_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.FROM_THE_ASHES_TALENT.id}>
           <>
             {formatNumber(this.cooldownReductionSeconds)}s{' '}
             <small>Phoenix Flames Cooldown Reduction</small>

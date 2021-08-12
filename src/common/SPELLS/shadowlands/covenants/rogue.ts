@@ -46,6 +46,11 @@ const covenants = {
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
   },
+  SEPSIS_BUFF: {
+    id: 347037,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
   //endregion
 
   //region Venthyr

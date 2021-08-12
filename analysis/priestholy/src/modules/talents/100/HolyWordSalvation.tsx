@@ -101,7 +101,7 @@ class HolyWordSalvation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spell={SPELLS.HOLY_WORD_SALVATION_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HOLY_WORD_SALVATION_TALENT.id}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

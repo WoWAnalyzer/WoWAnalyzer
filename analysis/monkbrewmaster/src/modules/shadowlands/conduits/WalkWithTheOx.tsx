@@ -107,7 +107,7 @@ export default class WalkWithTheOx extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.WALK_WITH_THE_OX} rank={this.rank}>
+        <ConduitSpellText spellId={SPELLS.WALK_WITH_THE_OX.id} rank={this.rank}>
           <>
             <ItemDamageDone amount={this.additionalDamage} />
             <br />

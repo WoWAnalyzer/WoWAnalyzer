@@ -66,7 +66,7 @@ class SerpentstalkersTrickery extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

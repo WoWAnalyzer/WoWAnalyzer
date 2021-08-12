@@ -122,7 +122,7 @@ class DissonantEchoes extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.DISSONANT_ECHOES} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.DISSONANT_ECHOES.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
           </>

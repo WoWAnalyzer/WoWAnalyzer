@@ -66,7 +66,7 @@ class HolyShieldSpellBlock extends Analyzer {
         }
       >
         <BoringSpellValue
-          spell={SPELLS.HOLY_SHIELD_TALENT}
+          spellId={SPELLS.HOLY_SHIELD_TALENT.id}
           value={this.holyShieldProcsCount}
           label="Spells Blocked"
         />

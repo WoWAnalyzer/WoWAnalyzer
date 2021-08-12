@@ -71,7 +71,7 @@ class KillerCobra extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.KILLER_COBRA_TALENT.id}>
           <>
             {this.effectiveKillCommandResets}/
             {this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots}{' '}
