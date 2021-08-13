@@ -185,7 +185,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.NIGHTBLADE.id,
+        spell: SPELLS.RUPTURE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,

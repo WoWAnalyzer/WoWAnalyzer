@@ -1,12 +1,11 @@
-import { t } from '@lingui/macro';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -21,6 +20,7 @@ class Flagellation extends Analyzer {
   cooldown: number = 90;
   damage: number = 0;
   lashDamage: number = 0;
+  maxCasts = 0;
   protected abilities!: Abilities;
 
   constructor(options: Options) {
@@ -34,13 +34,32 @@ class Flagellation extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH),
       this.onLashDamage,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION), this.onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDmg);
+    this.addEventListener(Events.fightend, this.adjustMaxCasts);
+    (options.abilities as Abilities).add({
+      spell: SPELLS.FLAGELLATION.id,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      cooldown: this.cooldown,
+      gcd: {
+        base: 1000,
+      },
+      castEfficiency: {
+        maxCasts: () => this.maxCasts,
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+        averageIssueEfficiency: 0.8,
+        majorIssueEfficiency: 0.7,
+        extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
+      },
+    });
+  }
+
+  adjustMaxCasts() {
+    this.maxCasts = Math.floor(calculateMaxCasts(this.cooldown, this.owner.fightDuration));
   }
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
+    this.casts = this.casts + 1;
   }
 
   onLashDamage(event: DamageEvent) {
@@ -48,69 +67,38 @@ class Flagellation extends Analyzer {
     this.lashDamage += event.amount + (event.absorbed || 0);
   }
 
-  onCast(event: CastEvent) {
-    if (event.ability.name.toLowerCase().indexOf('lash') < 0) {
-      return;
-    }
-    // console.log(event)
-    // this.casts++;
-  }
-
-  onDmg(event: DamageEvent) {
-    if (event.ability.name.toLowerCase().indexOf('flag') < 0) {
-      return;
-    }
-    console.log(event);
-  }
-
   get efficiency() {
-    return this.casts / (this.cooldown / this.owner.fightDuration);
+    return this.casts / this.maxCasts;
   }
 
   get suggestionThresholds() {
-    const maxCasts = calculateMaxCasts(this.cooldown, this.owner.fightDuration);
+    console.log(this.efficiency);
     return {
-      actual: maxCasts,
+      actual: this.efficiency,
       isLessThan: {
         minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion(
-      (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) =>
-        suggest(
-          <>
-            Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of{' '}
-            <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have
-            the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc.{' '}
-          </>,
-        )
-          .icon(SPELLS.BLINDSIDE_TALENT.icon)
-          .actual(
-            t({
-              id: 'rogue.assassination.suggestions.blindside.efficiency',
-              message: `${actual}`,
-            }),
-          )
-          .recommended(`0 is recommended`),
-    );
-  }
-
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={
+          <ul>
+            <li>{formatNumber(this.lashDamage)} damage done by flagellation lashes</li>
+            <li>{formatNumber(this.damage)} damage done by flagellation</li>
+          </ul>
+        }
+      >
         <BoringSpellValueText spellId={SPELLS.FLAGELLATION.id}>
           <>
             <ItemDamageDone amount={this.damage} />
-            <br></br>
-            <ItemDamageDone amount={this.lashDamage} />
-            <br></br>
-            <ItemDamageDone amount={this.damage + this.lashDamage} />
           </>
         </BoringSpellValueText>
       </Statistic>
