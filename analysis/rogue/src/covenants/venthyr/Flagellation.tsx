@@ -72,7 +72,6 @@ class Flagellation extends Analyzer {
   }
 
   get suggestionThresholds() {
-    console.log(this.efficiency);
     return {
       actual: this.efficiency,
       isLessThan: {
