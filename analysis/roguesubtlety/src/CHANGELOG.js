@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Tyndi, Zeboot, Putro, Hordehobbs } from 'CONTRIBUTORS';
+import { Tyndi, Zeboot, Putro, Hordehobbs, Akai } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 8, 12), <>Added <SpellLink id={SPELLS.FLAGELLATION.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
   change(date(2021, 5, 2), <>Fix bug in Sepsis analyzer in mythic plus analysis.</>, Hordehobbs),
   change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={SPELLS.SEPSIS.id} /> analyzers. </>, Hordehobbs),
   change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
