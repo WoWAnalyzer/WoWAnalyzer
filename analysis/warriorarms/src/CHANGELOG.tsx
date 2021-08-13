@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 10), <>reworked Dot Uptime Statistic Box</>, carglass),
   change(date(2021, 6, 22), <>Support for <SpellLink id={SPELLS.ENDURING_BLOW.id} icon /> Legendary for Arms Warriors</>, carglass),
   change(date(2021, 6, 5), <>Support for <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS.id} icon /> Legendary for Arms Warriors</>, carglass),
   change(date(2021, 1, 23), <>Updated the module tracking the use of <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase.</>, Otthopsy),
