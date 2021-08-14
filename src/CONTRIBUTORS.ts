@@ -1636,3 +1636,16 @@ export const ogunb: Contributor = {
     },
   ],
 };
+
+export const Klex: Contributor = {
+  nickname: 'Klex',
+  github: 'BjarkeM',
+  discord: 'Klex#3053',
+  mains: [
+    {
+      name: 'Slowfood',
+      spec: SPECS.ARCANE_MAGE,
+      link: 'https://classic.warcraftlogs.com/character/eu/earthshaker/slowfood',
+    },
+  ],
+};
