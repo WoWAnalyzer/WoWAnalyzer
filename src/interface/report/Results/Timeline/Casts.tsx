@@ -257,6 +257,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
         content={
           <Trans id="interface.report.results.timeline.casts.tooltip.swingCooldown">
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Swing cooldown
+            ({(event.attackSpeed / 1000).toFixed(1)} attack speed)
           </Trans>
         }
       >

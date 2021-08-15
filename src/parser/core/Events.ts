@@ -654,6 +654,7 @@ export interface AutoAttackCooldownEvent extends Event<EventType.AutoAttackCoold
   ability: Ability;
   duration: number;
   haste: number;
+  attackSpeed: number;
   sourceID: number;
   targetID: number;
   timestamp: number;

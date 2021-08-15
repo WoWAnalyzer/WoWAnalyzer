@@ -422,7 +422,7 @@
   "interface.report.results.timeFilter.reset": "Reset Filter",
   "interface.report.results.timeline.buffs.tooltip.gainedAbilityForXSec": "{0}: gained {1} for {2}s",
   "interface.report.results.timeline.casts.neverFinished": "Cast never finished.",
-  "interface.report.results.timeline.casts.tooltip.swingCooldown": "{0}: {1}s Swing cooldown",
+  "interface.report.results.timeline.casts.tooltip.swingCooldown": "{0}: {1}s Swing cooldown ({2} attack speed)",
   "interface.report.results.timeline.casts.tooltip.xSecChannelByAbility": "{0}: {1}s channel by {2}",
   "interface.report.results.timeline.casts.tooltip.xSecGCDByAbility": "{0}: {1}s Global Cooldown by {2}",
   "interface.report.results.timeline.lane.tooltip.castable": "Castable",
