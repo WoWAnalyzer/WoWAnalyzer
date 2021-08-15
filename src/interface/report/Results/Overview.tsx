@@ -1,6 +1,4 @@
-import AlertInfo from 'interface/AlertInfo';
-import AlertWarning from 'interface/AlertWarning';
-import { TextType } from 'parser/Config';
+import { getAlertComponent } from 'interface/Alert';
 import { Suggestion } from 'parser/core/CombatLogParser';
 import { Issue } from 'parser/core/ParseResults';
 import React, { ReactNode } from 'react';
@@ -19,7 +17,7 @@ const Overview = ({ checklist, issues }: Props) => {
 
   let alert: ReactNode = null;
   if (config.pages?.overview?.text) {
-    const Component = config.pages?.overview?.type === TextType.Info ? AlertInfo : AlertWarning;
+    const Component = getAlertComponent(config.pages.overview.type);
 
     alert = (
       <Component
@@ -27,7 +25,7 @@ const Overview = ({ checklist, issues }: Props) => {
           marginBottom: 30,
         }}
       >
-        {config.pages?.overview?.text}
+        {config.pages.overview.text}
       </Component>
     );
   }

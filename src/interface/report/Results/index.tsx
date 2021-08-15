@@ -56,7 +56,7 @@ import TABS from './TABS';
 const TimelineTab = lazyLoadComponent(
   () =>
     retryingPromise(() =>
-      import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(
+      import(/* webpackChunkName: 'TimelineTab' */ './TimelineTab').then(
         (exports) => exports.default,
       ),
     ),

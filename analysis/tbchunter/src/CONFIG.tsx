@@ -3,8 +3,8 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
-import { Icon } from 'interface';
-import Config, { TextType } from 'parser/Config';
+import { Icon, SpellLink } from 'interface';
+import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
@@ -23,19 +23,37 @@ const config: Config = {
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Proof of Concept analysis for TBCC BM Hunters.</>,
+  description: (
+    <>
+      This is the The Burning Crusade classic Hunter analysis. Because classic does not have the
+      concept of "specs", analysis is active for the entire class even though not every spec may be
+      supported. You can switch between different talent builds using the builds selection above the
+      player name in the header. Currently only the standard Beast Mastery build is supported.
+    </>
+  ),
   pages: {
     overview: {
       hideChecklist: true,
-      text: (
-        <>
-          Classic support is still a Work in Progress. You may be able to use the timeline to see
-          your Auto Shot clipping, and there are a few usable suggestions, but please consult your
-          class Discord for a complete log review.
-        </>
-      ),
-      type: TextType.Info,
+      text: <>Only the Beast Mastery build is currently supported.</>,
+      type: 'info',
     },
+    timeline: (parser) =>
+      parser.build === Build.DEFAULT
+        ? {
+            type: 'info',
+            text: (
+              <>
+                The attack speed calculation for the timeline assumes 5/5 <SpellLink id={34470} />{' '}
+                and a 15% Haste quiver. We can not be determine if you have these from the log. If
+                you are missing either of these, the attack speed used in our Auto Shot calculations
+                may be off.
+              </>
+            ),
+          }
+        : {
+            type: 'danger',
+            text: 'The Auto Shot cooldown is not accurate for this build.',
+          },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/Dd4mA7LtyGqhCanN/10-Heroic+Hungering+Destroyer+-+Kill+(4:04)/Sucker',
