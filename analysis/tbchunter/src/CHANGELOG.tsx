@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2021, 8, 15), 'Removed "partial" label.', Zerotorescue),
   change(date(2021, 8, 15), 'Add current attack speed to swing cooldown tooltip in the timeline.', Zerotorescue),
   change(date(2021, 8, 2), 'Add mana graph to statistics.', Zerotorescue),
   change(date(2021, 7, 30), 'Move Kill Command castable indicator to the Kill Command cooldown bar in the timeline.', Zerotorescue),
