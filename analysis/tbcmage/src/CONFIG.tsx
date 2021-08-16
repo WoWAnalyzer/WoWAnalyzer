@@ -4,7 +4,7 @@ import Expansion from 'game/Expansion';
 import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
-import Config, { TextType } from 'parser/Config';
+import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
@@ -27,7 +27,7 @@ const config: Config = {
     overview: {
       hideChecklist: true,
       text: <>Classic support is still a Work in Progress.</>,
-      type: TextType.Info,
+      type: 'info',
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
