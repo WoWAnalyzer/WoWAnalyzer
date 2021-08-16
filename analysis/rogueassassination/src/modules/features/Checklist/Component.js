@@ -94,6 +94,9 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <AbilityRequirement spell={SPELLS.SEPSIS.id} />
         )}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <AbilityRequirement spell={SPELLS.FLAGELLATION.id} />
+        )}
       </Rule>
       <Rule
         name="Maximize Vanish usage"
