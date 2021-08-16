@@ -86,11 +86,8 @@ const SPELLS = indexById(ABILITIES);
 export default SPELLS;
 
 export const registerSpell = (id: number, name: string, icon: string) => {
-  if (SPELLS[id]) {
-    return;
-  }
-
   SPELLS[id] = {
+    ...SPELLS[id],
     id,
     name,
     icon,
