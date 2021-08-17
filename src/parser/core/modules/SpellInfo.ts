@@ -21,24 +21,12 @@ class SpellInfo extends Analyzer {
     }
   }
 
-  _normalizeAbilityIcon(abilityIcon: string) {
-    return abilityIcon.replace(/\.jpg$/, '');
-  }
-  _spellExists(ability: Omit<Ability, 'type'>) {
-    return (
-      SPELLS[ability.guid] !== undefined &&
-      SPELLS[ability.guid].name === ability.name &&
-      SPELLS[ability.guid].icon === this._normalizeAbilityIcon(ability.abilityIcon)
-    );
-  }
-
   addSpellInfo(ability: Omit<Ability, 'type'>) {
-    // Ability typing is incomplete: name and abilityIcon may be undefined. If that's the case, there's no point storing their info in the SPELLS object. I think it only occurs for fabricated events.
-    if (!ability.name || !ability.abilityIcon || this._spellExists(ability)) {
+    if (SPELLS[ability.guid]) {
       return;
     }
 
-    registerSpell(ability.guid, ability.name, this._normalizeAbilityIcon(ability.abilityIcon));
+    registerSpell(ability.guid, ability.name, ability.abilityIcon.replace(/\.jpg$/, ''));
   }
 }
 
