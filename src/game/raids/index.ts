@@ -53,6 +53,8 @@ const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,
   CastleNathria: require('./castlenathria').default, //tier 26
+  // The Burning Cursage
+  MagtheridonsLair: require('./magtheridonslair').default, //tier 4
 };
 export default raids;
 
