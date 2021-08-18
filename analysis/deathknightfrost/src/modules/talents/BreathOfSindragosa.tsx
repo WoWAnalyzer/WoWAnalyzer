@@ -116,7 +116,7 @@ class BreathOfSindragosa extends Analyzer {
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.BREATH_OF_SINDRAGOSA_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id}>
           <>
             {this.averageDuration.toFixed(1)}s <small>average duration</small>
           </>

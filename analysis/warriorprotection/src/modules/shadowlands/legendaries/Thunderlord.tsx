@@ -69,7 +69,7 @@ class Thunderlord extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>Wasted CDR: {formatDuration(this.wastedCDR)}</>}
       >
-        <BoringSpellValueText spell={SPELLS.THUNDERLORD}>
+        <BoringSpellValueText spellId={SPELLS.THUNDERLORD.id}>
           {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>
       </Statistic>

@@ -80,7 +80,7 @@ class Apocalypse extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.APOCALYPSE}>
+        <BoringSpellValueText spellId={SPELLS.APOCALYPSE.id}>
           <>
             {averageWoundsPopped} <small>average Wounds popped</small>
           </>

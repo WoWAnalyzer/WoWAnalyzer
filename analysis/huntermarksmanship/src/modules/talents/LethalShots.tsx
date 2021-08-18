@@ -97,7 +97,7 @@ class LethalShots extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.LETHAL_SHOTS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.LETHAL_SHOTS_TALENT.id}>
           <>
             ≈
             {(

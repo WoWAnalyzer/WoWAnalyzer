@@ -31,7 +31,7 @@ class EarthenRage extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.EARTHEN_RAGE_DAMAGE}>
+        <BoringSpellValueText spellId={SPELLS.EARTHEN_RAGE_DAMAGE.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

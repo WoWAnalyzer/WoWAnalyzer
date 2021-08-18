@@ -139,7 +139,7 @@ class Siegebreaker extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SIEGEBREAKER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SIEGEBREAKER_TALENT.id}>
           <>{formatThousands(this.dpsValue)} DPS</>
         </BoringSpellValueText>
       </Statistic>

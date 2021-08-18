@@ -69,7 +69,7 @@ class SigilOfFlame extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED}>
+        <BoringSpellValueText spellId={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id}>
           <>
             {this.successfulStack} <small>times</small>
           </>

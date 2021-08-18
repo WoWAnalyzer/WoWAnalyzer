@@ -93,7 +93,7 @@ class FaelineStomp extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.FAELINE_STOMP_CAST}>
+        <BoringSpellValueText spellId={SPELLS.FAELINE_STOMP_CAST.id}>
           {this.resets} <small>resets</small> <br />
           {(this.targetsDamaged / this.flsCasts).toFixed(2)} <small>Foes Hit per cast</small> <br />
           {(this.targetsHealed / this.flsCasts).toFixed(2)} <small>Allies Hit per cast</small>

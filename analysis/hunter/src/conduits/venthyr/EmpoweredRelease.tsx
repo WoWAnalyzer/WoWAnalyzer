@@ -98,7 +98,7 @@ class EmpoweredRelease extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.EMPOWERED_RELEASE_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.EMPOWERED_RELEASE_CONDUIT.id} rank={this.conduitRank}>
           <>
             ≈ {this.averageContributionAbsolute} <small> additional procs </small>
             <br />

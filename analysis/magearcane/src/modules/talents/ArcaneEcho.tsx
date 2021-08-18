@@ -122,7 +122,7 @@ class ArcaneEcho extends Analyzer {
             : ''
         } In order to get the most out of Arcane Echo, you should be hard casting Arcane Missiles into Touch of the Magi until the debuff is removed.`}
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_ECHO_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_ECHO_TALENT.id}>
           <>
             <SpellIcon id={SPELLS.ARCANE_MISSILES.id} /> {formatNumber(this.averageCastsPerTouch)}{' '}
             <small>Average casts per Touch of the Magi</small>

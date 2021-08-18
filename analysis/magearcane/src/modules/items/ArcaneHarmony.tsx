@@ -57,7 +57,7 @@ class ArcaneHarmony extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.ARCANE_HARMONY}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_HARMONY.id}>
           <ItemDamageDone amount={this.bonusDamage} />
           <br />
           {this.averageStacks.toFixed(2)} <small>Avg. stacks per Barrage</small>

@@ -54,7 +54,7 @@ class StellarDrift extends Analyzer {
           this.gainedUptime
         } seconds of additional uptime.`}
       >
-        <BoringSpellValueText spell={SPELLS.STELLAR_DRIFT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STELLAR_DRIFT_TALENT.id}>
           <>
             {formatPercentage(this.damagePercent)} % <small>of total damage</small>
             <br />

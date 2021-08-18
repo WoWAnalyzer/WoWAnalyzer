@@ -50,7 +50,7 @@ class Exaltation extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.EXALTATION} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.EXALTATION.id} rank={this.conduitRank}>
           <>
             <ItemHealingDone amount={this.bonusExaltationHealing} />
           </>

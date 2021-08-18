@@ -44,7 +44,7 @@ class GuileCharm extends Analyzer {
         size="flexible"
         tooltip="This measures how long each buff from this legendary is active."
       >
-        <BoringSpellValueText spell={SPELLS.GUILE_CHARM}>
+        <BoringSpellValueText spellId={SPELLS.GUILE_CHARM.id}>
           <SpellIcon id={SPELLS.SHALLOW_INSIGHT_BUFF.id} />{' '}
           {formatPercentage(this.percentUptime.shallowInsight)}%{' '}
           <small>Shallow Insight uptime</small>

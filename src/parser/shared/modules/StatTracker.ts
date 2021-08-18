@@ -10,16 +10,18 @@ import Events, {
   CastEvent,
   ChangeBuffStackEvent,
   ChangeDebuffStackEvent,
-  EventType,
   Event,
+  EventType,
   HasAbility,
+  HasSource,
   HealEvent,
   Item,
-  HasSource,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
+
+import Expansion from '../../../game/Expansion';
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -99,6 +101,7 @@ class StatTracker extends Analyzer {
 
     // region Conduits
     [SPELLS.REDIRECTED_ANIMA.id]: { mastery: 25 },
+    [SPELLS.SOOTHING_SHADE.id]: { mastery: 550 },
     // endregion
 
     // region Misc
@@ -121,7 +124,7 @@ class StatTracker extends Analyzer {
      *               SHADOWLANDS:             *
      \****************************************/
 
-    //Trinkets
+    // region Trinkets
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
       crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
@@ -144,7 +147,6 @@ class StatTracker extends Analyzer {
     },
 
     //endregion
-    //endregion
 
     // region Racials
     // Mag'har Orc
@@ -152,6 +154,7 @@ class StatTracker extends Analyzer {
     [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 125 },
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
     [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
+
     // endregion
   };
 
@@ -180,6 +183,9 @@ class StatTracker extends Analyzer {
   statMultiplierBuffs: StatMultipliersByGuid = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
+
+    // Highmountain Tauren 1% Buff
+    [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
   };
 
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
@@ -226,6 +232,43 @@ class StatTracker extends Analyzer {
     { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
   ];
 
+  get activeStats(): STAT[] {
+    switch (this.owner.config.expansion) {
+      case Expansion.TheBurningCrusade:
+        return [
+          STAT.HEALTH,
+          STAT.STAMINA,
+          STAT.MANA,
+          STAT.STRENGTH,
+          STAT.AGILITY,
+          STAT.INTELLECT,
+          STAT.CRITICAL_STRIKE,
+          STAT.HASTE,
+          STAT.HASTE_HPCT,
+          STAT.HASTE_HPM,
+        ];
+      default:
+        return [
+          STAT.HEALTH,
+          STAT.STAMINA,
+          STAT.MANA,
+          STAT.STRENGTH,
+          STAT.AGILITY,
+          STAT.INTELLECT,
+          STAT.CRITICAL_STRIKE,
+          STAT.HASTE,
+          STAT.HASTE_HPCT,
+          STAT.HASTE_HPM,
+          STAT.MASTERY,
+          STAT.VERSATILITY,
+          STAT.VERSATILITY_DR,
+          STAT.LEECH,
+          STAT.AVOIDANCE,
+          STAT.SPEED,
+        ];
+    }
+  }
+
   constructor(options: Options) {
     super(options);
     // TODO: Use combatantinfo event directly
@@ -235,7 +278,11 @@ class StatTracker extends Analyzer {
       intellect: this.selectedCombatant._combatantInfo.intellect,
       stamina: this.selectedCombatant._combatantInfo.stamina,
       crit: this.selectedCombatant._combatantInfo.critSpell,
-      haste: this.selectedCombatant._combatantInfo.hasteSpell || 0, // the || 0 fixes tests where combatantinfo may not be defined
+      haste:
+        this.selectedCombatant._combatantInfo.hasteSpell ||
+        this.selectedCombatant._combatantInfo.hasteRanged ||
+        this.selectedCombatant._combatantInfo.hasteMelee ||
+        0, // the || 0 fixes tests where combatantinfo may not be defined
       mastery: this.selectedCombatant._combatantInfo.mastery,
       versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
       avoidance: this.selectedCombatant._combatantInfo.avoidance,

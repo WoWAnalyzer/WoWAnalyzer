@@ -65,7 +65,7 @@ class DireBeast extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
       >
-        <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DIRE_BEAST_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

@@ -20,8 +20,7 @@ const debug = true;
 const DOTS_WITH_DIRECT_PORTION = [
   SPELLS.RAKE,
   SPELLS.THRASH_BEAR,
-  SPELLS.MOONFIRE,
-  SPELLS.MOONFIRE_BEAR,
+  SPELLS.MOONFIRE_DEBUFF,
   SPELLS.MOONFIRE_FERAL,
 ];
 
@@ -171,7 +170,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
         }
         dropdown={this.baseTable}
       >
-        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
+        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>
           <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>

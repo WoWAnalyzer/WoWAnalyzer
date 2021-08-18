@@ -44,7 +44,7 @@ class CosmicRipple extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spell={SPELLS.COSMIC_RIPPLE_HEAL}>
+        <BoringSpellValueText spellId={SPELLS.COSMIC_RIPPLE_HEAL.id}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

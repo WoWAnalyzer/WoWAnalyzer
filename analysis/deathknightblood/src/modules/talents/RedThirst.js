@@ -61,7 +61,7 @@ class RedThirst extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RED_THIRST_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.RED_THIRST_TALENT.id}>
           <>
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>

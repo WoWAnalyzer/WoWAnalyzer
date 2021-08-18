@@ -89,7 +89,7 @@ class FlameInfusion extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.FLAME_INFUSION_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.FLAME_INFUSION_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

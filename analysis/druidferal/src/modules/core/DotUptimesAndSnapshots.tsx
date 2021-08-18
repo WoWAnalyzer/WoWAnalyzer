@@ -4,25 +4,25 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 import React from 'react';
 
-import RakeUptime from '../bleeds/RakeUptime';
-import RipUptime from '../bleeds/RipUptime';
+import RakeUptimeAndSnapshots from '../bleeds/RakeUptimeAndSnapshots';
+import RipUptimeAndSnapshots from '../bleeds/RipUptimeAndSnapshots';
 import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
-import MoonfireUptime from '../talents/MoonfireUptime';
+import MoonfireUptimeAndSnapshots from '../talents/MoonfireUptimeAndSnapshots';
 
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes
  */
 class DotUptimesAndSnapshots extends Analyzer {
   static dependencies = {
-    ripUptime: RipUptime,
-    rakeUptime: RakeUptime,
-    moonfireUptime: MoonfireUptime,
+    ripUptime: RipUptimeAndSnapshots,
+    rakeUptime: RakeUptimeAndSnapshots,
+    moonfireUptime: MoonfireUptimeAndSnapshots,
     adaptiveSwarm: AdaptiveSwarmFeral,
   };
 
-  protected ripUptime!: RipUptime;
-  protected rakeUptime!: RakeUptime;
-  protected moonfireUptime!: MoonfireUptime;
+  protected ripUptime!: RipUptimeAndSnapshots;
+  protected rakeUptime!: RakeUptimeAndSnapshots;
+  protected moonfireUptime!: MoonfireUptimeAndSnapshots;
   protected adaptiveSwarm!: AdaptiveSwarmFeral;
 
   statistic() {

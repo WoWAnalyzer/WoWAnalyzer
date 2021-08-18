@@ -111,6 +111,18 @@ const legendaries = {
     icon: 'spell_unused',
     bonusID: 7110,
   },
+  SINFUL_HYSTERIA: {
+    id: 354109,
+    name: 'Sinful Hysteria',
+    icon: 'ability_revendreth_druid',
+    bonusID: 7474, // FIXME not 100% with this one - everyone uses the same buffs on this leggo and difficult to tell which bonusID is the leggo
+  },
+  CELESTIAL_SPIRITS: {
+    id: 354118,
+    name: 'Celestial Spirits',
+    icon: 'ability_ardenweald_druid',
+    bonusID: 7571,
+  },
 
   //endregion
 } as const;

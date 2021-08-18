@@ -31,7 +31,7 @@ class BodyAndSoul extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
       >
-        <BoringSpellValueText spell={SPELLS.BODY_AND_SOUL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BODY_AND_SOUL_TALENT.id}>
           {this.buffCount} Speed Buffs
         </BoringSpellValueText>
       </Statistic>

@@ -1,4 +1,5 @@
 import { Phase } from 'game/raids';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
@@ -9,12 +10,13 @@ import { AnyEvent, CombatantInfoEvent, PhaseEvent } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import ReportObject from 'parser/core/Report';
+import getConfig from 'parser/getConfig';
 import React from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
-import ConfigLoader from './ConfigLoader';
+import ConfigContext from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import EventParser from './EventParser';
 import EventsLoader from './EventsLoader';
@@ -192,6 +194,7 @@ class ResultsLoader extends React.PureComponent<Props, State> {
   render() {
     const { config, report, fight, player, combatants } = this.props;
     const build = (this.state.parser && this.state.parser.build) || undefined;
+
     return (
       <>
         {/* Load these different api calls asynchronously */}
@@ -246,6 +249,7 @@ class ResultsLoader extends React.PureComponent<Props, State> {
           )}
 
         <Results
+          config={config}
           isLoadingParser={this.state.isLoadingParser}
           isLoadingEvents={this.state.isLoadingEvents}
           bossPhaseEventsLoadingState={this.state.bossPhaseEventsLoadingState}
@@ -266,9 +270,14 @@ class ResultsLoader extends React.PureComponent<Props, State> {
           applyFilter={this.applyTimeFilter}
           timeFilter={this.state.timeFilter!}
           build={build}
-          makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab, build!)}
-          makeBuildUrl={(tab: string, build: string) =>
-            makeAnalyzerUrl(report, fight.id, player.id, tab, build)
+          makeTabUrl={(tab: string, newBuild?: string) =>
+            makeAnalyzerUrl(
+              report,
+              fight.id,
+              player.id,
+              tab,
+              newBuild || config.builds?.[build!]?.url,
+            )
           }
         />
       </>
@@ -290,24 +299,27 @@ const Report = () => (
               {(fight) => (
                 <PlayerLoader report={report} fight={fight}>
                   {(player, combatant, combatants) => (
-                    <ConfigLoader specId={combatant.specID} type={player.type}>
-                      {(config) => (
-                        <SupportChecker
-                          config={config}
-                          report={report}
-                          fight={fight}
-                          player={player}
-                        >
-                          <ResultsLoader
-                            config={config}
-                            report={report}
-                            fight={fight}
-                            player={player}
-                            combatants={combatants}
-                          />
-                        </SupportChecker>
+                    <ConfigContext.Provider
+                      value={getConfig(
+                        wclGameVersionToExpansion(report.gameVersion),
+                        combatant.specID,
+                        player.type,
                       )}
-                    </ConfigLoader>
+                    >
+                      <SupportChecker report={report} fight={fight} player={player}>
+                        <ConfigContext.Consumer>
+                          {(config) => (
+                            <ResultsLoader
+                              config={config!}
+                              report={report}
+                              fight={fight}
+                              player={player}
+                              combatants={combatants}
+                            />
+                          )}
+                        </ConfigContext.Consumer>
+                      </SupportChecker>
+                    </ConfigContext.Provider>
                   )}
                 </PlayerLoader>
               )}

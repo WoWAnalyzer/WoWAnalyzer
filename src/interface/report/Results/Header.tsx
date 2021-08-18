@@ -2,16 +2,14 @@
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { Boss, Phase } from 'game/raids';
-import { TooltipElement } from 'interface/Tooltip';
-import Config, { Build } from 'parser/Config';
+import Config from 'parser/Config';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Fight from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
-import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import BuildSelection from './BuildSelection';
 import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
 import PhaseSelector from './PhaseSelector';
@@ -27,19 +25,18 @@ interface Props {
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
   phases: { [key: string]: Phase } | null;
-  makeBuildUrl: (selectedTab: string, buildName: string) => string;
   build?: string;
   selectedPhase: string;
   selectedInstance: number;
   isLoading: boolean;
   fight: Fight;
-  makeTabUrl: (url: string) => string;
+  makeTabUrl: (tab: string, build?: string) => string;
   selectedTab: string;
   tabs: ParseResultsTab[];
 }
 
 const Header = ({
-  config: { spec, builds },
+  config: { spec, builds, expansion },
   build,
   player: { name, icon },
   fight,
@@ -54,7 +51,6 @@ const Header = ({
   makeTabUrl,
   tabs,
   selectedTab,
-  makeBuildUrl,
 }: Props) => {
   let playerThumbnail;
   if (characterProfile?.thumbnail) {
@@ -63,17 +59,9 @@ const Header = ({
     playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');
   }
 
-  const renderBuild = (build: Build, active: boolean) => (
-    <Link to={makeBuildUrl(selectedTab, build.url)}>
-      <span className={'build ' + (active ? 'active' : '')}>
-        <TooltipElement content={build.name}>{build.icon}</TooltipElement>
-      </span>
-    </Link>
-  );
-
   return (
     <header>
-      <HeaderBackground boss={boss} />
+      <HeaderBackground boss={boss} expansion={expansion} />
 
       <div className="subnavigation container">
         {phases && Object.keys(phases).length > 0 && (
@@ -103,15 +91,14 @@ const Header = ({
             <img src={playerThumbnail} alt="" />
           </div>
           <div className="details">
-            <h2 className="builds">
-              {builds && (
-                <>
-                  Build:
-                  {Object.keys(builds).map((b) => renderBuild(builds[b], build === builds[b].url))}
-                  {renderBuild(DEFAULT_BUILD, !build)}
-                </>
-              )}
-            </h2>
+            {builds && (
+              <BuildSelection
+                builds={builds}
+                activeBuild={build}
+                makeUrl={(build: string) => makeTabUrl(selectedTab, build)}
+                className="builds"
+              />
+            )}
             <h2>
               {spec.specName} {spec.className}
             </h2>

@@ -1,25 +1,22 @@
 import SPELLS from 'common/SPELLS';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
-const STARLORD_MULTIPLIER = 0.85;
-const NEW_MOON_MULTIPLIER = 2 / 3;
+const ECLIPSE_HASTE_MULT = 0.85;
 
 /**
- * The talent Starlord reduces GCD and cast time of empowered Lunar Strikes and Solar Wraths by 20%.
- * Since Solar Wrath cast time == GCD the GCD needs to be reduced.
+ * Eclipse reduces the cast time (and GCD) of the effected filler by 15%
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
     if (
-      (spellId === SPELLS.WRATH_MOONKIN.id &&
-        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id)) ||
-      (spellId === SPELLS.STARFIRE.id && this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id))
+      this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) &&
+      spellId === SPELLS.WRATH_MOONKIN.id
     ) {
-      return Math.max(gcd * STARLORD_MULTIPLIER, 750);
+      return Math.max(gcd * ECLIPSE_HASTE_MULT, 750);
     }
-    if (spellId === SPELLS.NEW_MOON_TALENT.id) {
-      return Math.max(gcd * NEW_MOON_MULTIPLIER, 750); // New Moon GCD is 1s reduced by haste but Half Moon and Full Moon are both 1.5s
+    if (this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) && spellId === SPELLS.STARFIRE.id) {
+      return Math.max(gcd * ECLIPSE_HASTE_MULT, 750);
     }
     return gcd;
   }

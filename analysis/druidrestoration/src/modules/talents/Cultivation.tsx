@@ -95,7 +95,7 @@ class Cultivation extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.CULTIVATION_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CULTIVATION_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

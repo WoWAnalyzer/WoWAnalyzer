@@ -224,7 +224,7 @@ class BestialWrath extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BESTIAL_WRATH}>
+        <BoringSpellValueText spellId={SPELLS.BESTIAL_WRATH.id}>
           <>
             <UptimeIcon /> {this.percentUptime}% <small>uptime</small>
           </>

@@ -36,6 +36,10 @@ class Haste extends Analyzer {
     },
     [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
     [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.1,
+    [SPELLS.RAVENOUS_FRENZY.id]: {
+      hastePerStack: 0.01,
+    },
+    // Sinful Hysteria legendary has to be handled dynamically in a different module
     //endregion
 
     //region Hunter Haste Buffs

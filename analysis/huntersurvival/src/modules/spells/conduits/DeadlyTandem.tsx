@@ -118,7 +118,7 @@ class DeadlyTandem extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.DEADLY_TANDOM_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.DEADLY_TANDOM_CONDUIT.id} rank={this.conduitRank}>
           <>
             {formatNumber(this.increasedCAUptime / 1000)}/
             {this.maximumAddedCoordinatedAssaultUptime / 1000}s{' '}

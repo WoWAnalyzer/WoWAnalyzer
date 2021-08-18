@@ -61,7 +61,7 @@ class FieldOfBlossomsResto extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FIELD_OF_BLOSSOMS}>
+        <BoringSpellValueText spellId={SPELLS.FIELD_OF_BLOSSOMS.id}>
           <ItemPercentHealingDone greaterThan amount={this.hpmHealAttribution} />
           <br />
         </BoringSpellValueText>

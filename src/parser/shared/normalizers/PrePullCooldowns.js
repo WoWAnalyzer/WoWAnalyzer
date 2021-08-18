@@ -140,8 +140,15 @@ class PrePullCooldowns extends EventsNormalizer {
          * information more accurately.
          */
         if (precastClassResources === null && event.classResources) {
-          debug && console.debug('Setting prepull class resources to:', event.classResources);
-          precastClassResources = event.classResources;
+          debug &&
+            console.debug(
+              'Setting prepull class resources (but stripping costs) to:',
+              event.classResources,
+            );
+          precastClassResources = event.classResources.map((classResource) => ({
+            ...classResource,
+            cost: undefined,
+          }));
         }
 
         // If a cast is found for a damage spell, remove it from the search

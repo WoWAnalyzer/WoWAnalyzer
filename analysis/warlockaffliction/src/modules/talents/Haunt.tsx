@@ -97,7 +97,7 @@ class Haunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HAUNT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HAUNT_TALENT.id}>
           {formatPercentage(this.uptime)} % <small>uptime</small>
           <br />
           {formatNumber(this.dps)} DPS{' '}

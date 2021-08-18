@@ -81,4 +81,18 @@ const ABILITIES = {
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-export default indexById(ABILITIES);
+const SPELLS = indexById(ABILITIES);
+
+export default SPELLS;
+
+export const registerSpell = (id: number, name: string, icon: string) => {
+  if (SPELLS[id]) {
+    return;
+  }
+
+  SPELLS[id] = {
+    id,
+    name,
+    icon,
+  };
+};

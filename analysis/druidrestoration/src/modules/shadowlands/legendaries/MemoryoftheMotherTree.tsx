@@ -90,7 +90,7 @@ class MemoryoftheMotherTree extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.MEMORY_OF_THE_MOTHER_TREE}>
+        <BoringSpellValueText spellId={SPELLS.MEMORY_OF_THE_MOTHER_TREE.id}>
           <ItemPercentHealingDone amount={this.hotAttributor.memoryOfTheMotherTreeAttrib.healing} />
         </BoringSpellValueText>
       </Statistic>

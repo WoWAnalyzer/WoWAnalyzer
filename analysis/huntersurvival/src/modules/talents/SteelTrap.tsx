@@ -62,7 +62,7 @@ class SteelTrap extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.STEEL_TRAP_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STEEL_TRAP_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

@@ -59,7 +59,7 @@ class GroundingBreath extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.GROUNDING_BREATH}>
+        <BoringSpellValueText spellId={SPELLS.GROUNDING_BREATH.id}>
           <ItemManaGained amount={this.resourceReturned} />
           <ItemHealingDone amount={this.healing} />
           <br />

@@ -93,7 +93,7 @@ class FesteringStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.FESTERING_STRIKE}>
+        <BoringSpellValueText spellId={SPELLS.FESTERING_STRIKE.id}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>

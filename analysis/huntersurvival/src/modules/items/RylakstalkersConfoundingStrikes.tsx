@@ -57,7 +57,7 @@ class RylakstalkersConfoundingStrikes extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.id}>
           {plotOneVariableBinomChart(
             this.spellUsable.bombResets,
             this.raptorMongooseCasts,

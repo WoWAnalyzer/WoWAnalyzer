@@ -44,8 +44,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 5,
       },
       {
-        spell: SPELLS.MOONFIRE.id,
-        buffSpellId: SPELLS.MOONFIRE_BEAR.id,
+        spell: SPELLS.MOONFIRE_CAST.id,
+        buffSpellId: SPELLS.MOONFIRE_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -124,9 +124,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: [SPELLS.NEW_MOON_TALENT.id, SPELLS.HALF_MOON, SPELLS.FULL_MOON.id],
+        spell: [SPELLS.NEW_MOON_TALENT.id, SPELLS.HALF_MOON.id, SPELLS.FULL_MOON.id],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 25,
+        cooldown: 20,
         enabled: combatant.hasTalent(SPELLS.NEW_MOON_TALENT.id),
         gcd: {
           base: 1500,

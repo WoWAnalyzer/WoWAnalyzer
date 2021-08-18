@@ -374,7 +374,7 @@ class BoonOfTheAscended extends Analyzer {
         }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED}>
+        <BoringSpellValueText spellId={SPELLS.BOON_OF_THE_ASCENDED.id}>
           <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
           <br />
           <ItemDamageDone amount={this.totalDamage} />

@@ -1,6 +1,8 @@
 import { ChangelogEntry } from 'common/changelog';
 import { Contributor } from 'common/contributor';
+import Expansion from 'game/Expansion';
 import { Spec } from 'game/SPECS';
+import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
@@ -29,6 +31,7 @@ interface Config {
    * they may be removed after major changes or during a new expansion.
    */
   contributors: Contributor[];
+  expansion: Expansion;
   /**
    * The WoW client patch this spec is compatible with.
    */
@@ -57,6 +60,24 @@ interface Config {
    * this in the `<Warning>` component.
    */
   description: ReactNode;
+  pages?: {
+    overview?: {
+      hideChecklist?: boolean;
+      text: ReactNode;
+      type: AlertKind;
+    };
+    timeline?:
+      | {
+          text: ReactNode;
+          type: AlertKind;
+        }
+      | ((
+          parser: CombatLogParser,
+        ) => {
+          text: ReactNode;
+          type: AlertKind;
+        } | null);
+  };
   /**
    * A recent example report to see interesting parts of the spec. Will be shown
    * on the homepage.
@@ -72,6 +93,9 @@ interface Config {
    * by WCL.
    */
   statMultipliers?: Partial<Stats>;
+  timeline?: {
+    separateCastBars: number[][];
+  };
 
   // Don't change values for props below this line;
   /**
@@ -79,10 +103,6 @@ interface Config {
    * specifies which spec this parser is about.
    */
   spec: Spec;
-  /**
-   * The expansion this config is for, if not the latest retail expansion.
-   */
-  expansion?: 'tbc' | string;
   /**
    * The contents of your changelog.
    */

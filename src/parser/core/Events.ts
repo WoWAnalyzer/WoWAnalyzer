@@ -39,6 +39,7 @@ export enum EventType {
   Event = 'event', // everything
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
+  AutoAttackCooldown = 'autoattackcooldown',
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
   CancelChannel = 'cancelchannel',
@@ -75,6 +76,9 @@ export enum EventType {
   //Shaman
   FeedHeal = 'feed_heal',
 
+  // Warlock
+  FullShardGained = 'fullshardgained',
+
   // Phases:
   PhaseStart = 'phasestart',
   PhaseEnd = 'phaseend',
@@ -105,6 +109,7 @@ type MappedEventTypes = {
   [EventType.RemoveDebuff]: RemoveDebuffEvent;
   [EventType.Summon]: SummonEvent;
   [EventType.Energize]: EnergizeEvent;
+  [EventType.Drain]: DrainEvent;
   [EventType.Death]: DeathEvent;
   [EventType.CombatantInfo]: CombatantInfoEvent;
   [EventType.Dispel]: DispelEvent;
@@ -113,6 +118,7 @@ type MappedEventTypes = {
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
   [EventType.GlobalCooldown]: GlobalCooldownEvent;
+  [EventType.AutoAttackCooldown]: AutoAttackCooldownEvent;
   [EventType.BeginChannel]: BeginChannelEvent;
   [EventType.EndChannel]: EndChannelEvent;
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
@@ -257,6 +263,24 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   ability: Ability;
   sourceID: number;
   isCancelled: boolean;
+  // Added by any module, used in the timeline
+  meta?: {
+    isInefficientCast?: boolean;
+    inefficientCastReason?: React.ReactNode;
+    isEnhancedCast?: boolean;
+    enhancedCastReason?: React.ReactNode;
+  };
+  trigger?: {
+    timestamp: number;
+    type: EventType;
+    castEvent: CastEvent;
+    meta?: {
+      isInefficientCast?: boolean;
+      inefficientCastReason?: React.ReactNode;
+      isEnhancedCast?: boolean;
+      enhancedCastReason?: React.ReactNode;
+    };
+  };
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
@@ -278,6 +302,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   channel?: {
     type: EventType.BeginChannel;
     timestamp: number;
+    duration: number;
     ability: Ability;
     sourceID: number;
     isCancelled: boolean;
@@ -521,11 +546,14 @@ export interface EnergizeEvent extends Event<EventType.Energize> {
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
-  resourceChange: number;
+  /** The id for the resource. See the RESOURCE_TYPES file for all available resource types. */
   resourceChangeType: number;
-  otherResourceChange: number;
+  /** The amount of resource gained. This includes any wasted gain, see `waste`. */
+  resourceChange: number;
+  /** The amount of wasted resource gain (overcapped). */
   waste: number;
-  resourceActor: number;
+  otherResourceChange: number; // defaults to 0?
+  resourceActor: number; // 1 = source, 2 = target? used for classResources/hitpoints/etc, not resourceChange fields I think
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;
@@ -617,6 +645,18 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   sourceID: number;
   targetID: number;
   targetIsFriendly: boolean;
+  timestamp: number;
+  trigger: CastEvent | BeginChannelEvent;
+  __fabricated: true;
+}
+
+export interface AutoAttackCooldownEvent extends Event<EventType.AutoAttackCooldown> {
+  ability: Ability;
+  duration: number;
+  haste: number;
+  attackSpeed: number;
+  sourceID: number;
+  targetID: number;
   timestamp: number;
   trigger: CastEvent | BeginChannelEvent;
   __fabricated: true;
@@ -773,7 +813,7 @@ export interface Conduit {
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   player: PlayerInfo;
-  expansion: 'tbc' | string;
+  expansion: 'tbc' | 'shadowlands' | string;
   pin: string;
   sourceID: number;
   gear: Item[];
@@ -805,9 +845,27 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   pvpTalents: Spell[];
   covenantID: number;
   soulbindID: number;
-  artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
+  /**
+   * Represents expansion specific traits
+   * Legion: Artifact Traits
+   * BFA: Azerite
+   * Shadowlands: Soulbinds
+   */
+  customPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  /**
+   * Represents expansion specific traits
+   * BFA: Essences
+   * Shadowlands: Conduits
+   */
+  secondaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  /**
+   * Represents expansion specific traits
+   * Shadowlands: Anima Powers
+   */
+  tertiaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  /** Filled from customPowerSet for Shadowlands logs */
   soulbindTraits?: SoulbindTrait[];
-  heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
+  /** Filled from secondaryCustomPowerSet for Shadowlands logs */
   conduits?: Conduit[];
   error?: any; //TODO: Verify, is this a bool? string?
 }

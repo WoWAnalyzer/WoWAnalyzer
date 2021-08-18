@@ -81,7 +81,7 @@ class BlessedHammerDamageReduction extends Analyzer {
         }
       >
         <BoringSpellValue
-          spell={SPELLS.BLESSED_HAMMER_TALENT}
+          spellId={SPELLS.BLESSED_HAMMER_TALENT.id}
           value={formatNumber(this.totalReducedDamage)}
           label={`Reduced damage from ${this.reducedDamageHits} hits.`}
         />

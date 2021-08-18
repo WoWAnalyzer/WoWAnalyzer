@@ -49,7 +49,7 @@ class BloodPlagueUptime extends Analyzer {
   statistic() {
     return (
       <Statistic size="small" position={STATISTIC_ORDER.CORE(2)}>
-        <BoringSpellValueText spell={SPELLS.BLOOD_PLAGUE}>
+        <BoringSpellValueText spellId={SPELLS.BLOOD_PLAGUE.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

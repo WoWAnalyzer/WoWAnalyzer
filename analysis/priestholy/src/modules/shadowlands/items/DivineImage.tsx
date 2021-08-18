@@ -73,7 +73,7 @@ class DivineImage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DIVINE_IMAGE}>
+        <BoringSpellValueText spellId={SPELLS.DIVINE_IMAGE.id}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
           <ItemDamageDone amount={this.totalDamage} />

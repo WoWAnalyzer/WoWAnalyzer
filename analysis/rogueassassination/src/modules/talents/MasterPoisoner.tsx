@@ -34,7 +34,7 @@ class MasterPoisoner extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spell={SPELLS.MASTER_POISONER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.MASTER_POISONER_TALENT.id}>
           <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>

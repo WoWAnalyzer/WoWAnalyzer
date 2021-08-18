@@ -73,7 +73,7 @@ class ButchersBoneFragments extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

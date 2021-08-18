@@ -65,7 +65,7 @@ class BoneChilling extends Analyzer {
         size="flexible"
         tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
       >
-        <BoringSpellValueText spell={SPELLS.BONE_CHILLING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BONE_CHILLING_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small>
           <br />
           {this.owner.formatItemDamageDone(this.totalDamage)}

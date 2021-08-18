@@ -61,6 +61,7 @@ class ManaValues extends Analyzer {
   get manaLeftPercentage() {
     return this.endingMana / this.maxMana;
   }
+  suggest = true;
   get suggestionThresholds() {
     return {
       actual: this.manaLeftPercentage,
@@ -76,6 +77,9 @@ class ManaValues extends Analyzer {
     const fight = this.owner.fight;
     const isWipe = !fight.kill;
     if (isWipe) {
+      return;
+    }
+    if (!this.suggest) {
       return;
     }
 

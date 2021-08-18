@@ -4,6 +4,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 6, 29), <>Bumped to 9.1, moved from partial.</>, Zea),
   change(date(2021, 6, 14), <>Added additional LIGHTNING_SHIELD_ELEMENTAL spellid. Fixed Stormkeeper damage calculation.</>, Zea),
   change(date(2021, 6, 11), <>Bumped version to 9.0.5, left as partial support. Also added spellID for elemental blast.</>, Zea),
   change(date(2021, 1, 28), <>Added check for suboptimal Chain Lightning.</>, Maximaw),

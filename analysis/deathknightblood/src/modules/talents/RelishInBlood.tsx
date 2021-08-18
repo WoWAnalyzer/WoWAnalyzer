@@ -102,7 +102,7 @@ class RelishInBlood extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RELISH_IN_BLOOD_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.RELISH_IN_BLOOD_TALENT.id}>
           <>
             {this.runicPowerGained} <small>RP gained</small>
           </>

@@ -43,7 +43,7 @@ class Firestorm extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.FIRESTORM}>
+        <BoringSpellValueText spellId={SPELLS.FIRESTORM.id}>
           {formatNumber(this.firestormProcs)} <small>Total Procs</small>
           <br />
           {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small>

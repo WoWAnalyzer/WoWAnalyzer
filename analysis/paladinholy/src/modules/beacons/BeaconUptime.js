@@ -470,7 +470,7 @@ class BeaconUptime extends Analyzer {
         {!this.hasBoV && (
           <div style={boringSpellValueContainer}>
             <BoringSpellValue
-              spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
+              spellId={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
               value={`${this.uptimeBoLPerc}%`}
               label={
                 <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>
@@ -484,7 +484,7 @@ class BeaconUptime extends Analyzer {
         {this.hasBoF && (
           <div style={boringSpellValueContainer}>
             <BoringSpellValue
-              spell={SPELLS.BEACON_OF_FAITH_TALENT}
+              spellId={SPELLS.BEACON_OF_FAITH_TALENT.id}
               value={`${this.uptimeBoFPerc}%`}
               label={
                 <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>
@@ -499,7 +499,7 @@ class BeaconUptime extends Analyzer {
         {this.hasBoV && (
           <div style={boringSpellValueContainer}>
             <BoringSpellValue
-              spell={SPELLS.BEACON_OF_VIRTUE_TALENT}
+              spellId={SPELLS.BEACON_OF_VIRTUE_TALENT.id}
               value={`${this.uptimeBoVPerc}%`}
               label={
                 <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>

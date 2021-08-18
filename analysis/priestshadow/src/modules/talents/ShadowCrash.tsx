@@ -57,7 +57,7 @@ class ShadowCrash extends Analyzer {
         size="flexible"
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
       >
-        <BoringSpellValueText spell={SPELLS.SHADOW_CRASH_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SHADOW_CRASH_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

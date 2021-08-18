@@ -96,7 +96,7 @@ class DeathAndMadness extends Analyzer {
         size="flexible"
         tooltip="Number of casts where the target was killed and insanity generated from it."
       >
-        <BoringSpellValueText spell={SPELLS.DEATH_AND_MADNESS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DEATH_AND_MADNESS_TALENT.id}>
           <>
             {formatNumber(this.resets)} CD Resets
             <br />

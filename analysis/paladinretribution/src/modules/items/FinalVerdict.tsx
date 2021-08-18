@@ -4,8 +4,6 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import { HOLY_POWER_FINISHERS } from '../../constants';
-
 class FinalVerdict extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -25,7 +23,6 @@ class FinalVerdict extends Analyzer {
     if (!this.active) {
       return;
     }
-    HOLY_POWER_FINISHERS.push(SPELLS.FINAL_VERDICT_FINISHER);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FINAL_VERDICT_RESET),
       this.onHammerOfWrathReset,

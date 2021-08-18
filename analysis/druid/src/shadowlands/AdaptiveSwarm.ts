@@ -48,7 +48,7 @@ const PERIODIC_HEALS: SpellInfo[] = [
 
 const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.THRASH_BEAR_DOT,
-  SPELLS.MOONFIRE_BEAR, // apparently the DoT for everyone
+  SPELLS.MOONFIRE_DEBUFF,
   SPELLS.SUNFIRE,
   SPELLS.RIP,
   SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation
@@ -281,6 +281,11 @@ class AdaptiveSwarm extends Analyzer {
   /** The total ms of uptime for the player's Adaptive Swarm damage debuff (DoT) */
   get debuffUptime(): number {
     return this.enemies.getBuffUptime(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
+  }
+
+  /** Percent uptime for the player's Adaptive Swarm damage debuff (DoT) */
+  get debuffUptimePercent(): number {
+    return this.debuffUptime / this.owner.fightDuration;
   }
 
   /** The average ms of uptime for the player's Adaptive Swarm damage debuff (DoT) per cast */

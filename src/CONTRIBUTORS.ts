@@ -94,6 +94,19 @@ export const Zerotorescue: Contributor = {
     },
   ],
 };
+
+export const Fashathus: Contributor = {
+  nickname: 'Fashathus',
+  github: 'SethEArnold',
+  discord: 'Fashathus#7292',
+  mains: [
+    {
+      name: 'Fashathus',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/us/thrall/fashathus',
+    },
+  ],
+};
 export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
@@ -136,6 +149,10 @@ export const enragednuke: Contributor = {
 export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
+};
+export const Soulhealer95: Contributor = {
+  nickname: 'Soulhealer',
+  github: 'Soulhealer95',
 };
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
@@ -632,6 +649,11 @@ export const Khadaj: Contributor = {
       name: 'Khadaj',
       spec: SPECS.HOLY_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
+    },
+    {
+      name: 'RatherBeBelf',
+      spec: SPECS.HOLY_PRIEST,
+      link: '',
     },
   ],
 };
@@ -1599,4 +1621,31 @@ export const carglass: Contributor = {
 export const Zea: Contributor = {
   nickname: 'Zea',
   github: 'kedearian',
+};
+
+export const ogunb: Contributor = {
+  nickname: 'ogunb',
+  github: 'ogunb',
+  discord: 'ogunb#5781',
+  avatar: avatar('ogunb-avatar.jpg'),
+  mains: [
+    {
+      name: 'Throlnoz',
+      spec: SPECS.DESTRUCTION_WARLOCK,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/Throlnoz',
+    },
+  ],
+};
+
+export const Klex: Contributor = {
+  nickname: 'Klex',
+  github: 'BjarkeM',
+  discord: 'Klex#3053',
+  mains: [
+    {
+      name: 'Slowfood',
+      spec: SPECS.ARCANE_MAGE,
+      link: 'https://classic.warcraftlogs.com/character/eu/earthshaker/slowfood',
+    },
+  ],
 };

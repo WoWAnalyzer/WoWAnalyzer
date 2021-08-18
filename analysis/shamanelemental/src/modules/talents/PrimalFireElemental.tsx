@@ -138,7 +138,7 @@ class PrimalFireElemental extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <>
-          <BoringSpellValueText spell={SPELLS.FIRE_ELEMENTAL}>
+          <BoringSpellValueText spellId={SPELLS.FIRE_ELEMENTAL.id}>
             <ItemDamageDone amount={this.damageGained} />
           </BoringSpellValueText>
         </>

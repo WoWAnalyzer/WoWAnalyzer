@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -20,7 +19,12 @@ import React from 'react';
 import { getHeartOfTheWildSpellId } from '@wowanalyzer/druid/src/core/HeartOfTheWild';
 
 const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
-  const UptimeRequirement = (props: { spell: number; thresholds: RequirementThresholds }) => (
+  /** Requirement to maintain a certain uptime for a spell */
+  const UptimeRequirement = (props: {
+    spell: number;
+    thresholds: RequirementThresholds;
+    tooltip?: React.ReactNode;
+  }) => (
     <Requirement
       name={
         <>
@@ -28,12 +32,38 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         </>
       }
       thresholds={props.thresholds}
+      tooltip={props.tooltip}
     />
   );
   UptimeRequirement.propTypes = {
     spell: PropTypes.object.isRequired,
+    tooltip: PropTypes.object,
   };
 
+  /** Requirement to apply a certain 'snapshot' to a DoT or attack */
+  const SnapshotRequirement = (props: {
+    spell: number;
+    snapshot: number;
+    thresholds: RequirementThresholds;
+    tooltip?: React.ReactNode;
+  }) => (
+    <Requirement
+      name={
+        <>
+          <SpellLink id={props.spell} icon /> with <SpellLink id={props.snapshot} icon />
+        </>
+      }
+      thresholds={props.thresholds}
+      tooltip={props.tooltip}
+    />
+  );
+  SnapshotRequirement.propTypes = {
+    spell: PropTypes.object.isRequired,
+    snapshot: PropTypes.object.isRequired,
+    tooltip: PropTypes.object,
+  };
+
+  /** Requirement to keep a spell on cooldown */
   const CastEfficiencyRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -44,431 +74,349 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
     spell: PropTypes.object.isRequired,
   };
 
-  const SnapshotDowngradeRequirement = (props: {
-    spell: number;
-    thresholds: RequirementThresholds;
-  }) => (
-    <Requirement
-      name={
+  /** Maintain your DoTs
+   🗵 Rake DoT uptime
+   🗵 Rip DoT uptime
+   🗵 (Moonfire DoT uptime)
+   🗵 (Adaptive Swarm DoT uptime)
+   */
+  const maintainYourDotsRule = (
+    <Rule
+      name="Maintain your DoTs"
+      description={
         <>
-          <SpellLink id={props.spell} /> downgraded before the pandemic window
+          Feral is a DoT based spec and as such keeping your DoTs active is very important. Assuming
+          the target will survive for its full duration, refreshing a DoT will always result in more
+          damage than your direct damage abilities.
         </>
       }
-      thresholds={props.thresholds}
-      tooltip="Downgrading a snapshot can be unavoidable, but you should let the upgraded version
-        last as long as possible by avoiding early refreshes."
-    />
+    >
+      <UptimeRequirement spell={SPELLS.RIP.id} thresholds={thresholds.ripUptime} />
+      <UptimeRequirement spell={SPELLS.RAKE.id} thresholds={thresholds.rakeUptime} />
+      {combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) && (
+        <UptimeRequirement
+          spell={SPELLS.MOONFIRE_FERAL.id}
+          thresholds={thresholds.moonfireUptime}
+        />
+      )}
+      {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+        <UptimeRequirement
+          spell={SPELLS.ADAPTIVE_SWARM_DAMAGE.id}
+          thresholds={thresholds.adaptiveSwarmUptime}
+          tooltip={`100% Adaptive Swarm uptime isn't practically possible due to its cooldown
+              and mechanics. On a single target fight you should NOT be using it on cooldown,
+              as you'll clip the 2nd bounce. Instead, wait for the 2nd bounce to reach
+              its refresh window.`}
+        />
+      )}
+    </Rule>
   );
-  SnapshotDowngradeRequirement.propTypes = {
-    spell: PropTypes.object.isRequired,
-  };
 
+  /** Snapshot your DoTs
+   🗵 Rake TF snapshot
+   🗵 Rip TF snapshot
+   🗵 (Rip BT snapshot)
+   🗵 (Moonfire TF snapshot)
+   🗵 Rake prowl overwrite
+   */
+  const snapshotYourDotsRule = (
+    <Rule
+      name="Snapshot your DoTs"
+      description={
+        <>
+          Unlike other specs, many Feral buffs 'Snapshot' DoT applications. This means the DoT's
+          damage is boosted over its full duration based on the buffs present at time of
+          application. You can take advantage of this mechanic by specifically refreshing DoTs when
+          snapshotting buffs are active.
+          <br />
+          <br /> The buffs that have this mechanic are <SpellLink id={SPELLS.TIGERS_FURY.id} />,
+          <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />, and <SpellLink id={SPELLS.PROWL.id} />{' '}
+          (with <SpellLink id={SPELLS.RAKE_BLEED.id} />
+          ).
+        </>
+      }
+    >
+      <SnapshotRequirement
+        spell={SPELLS.RIP.id}
+        snapshot={SPELLS.TIGERS_FURY.id}
+        thresholds={thresholds.ripTfSnapshot}
+        tooltip={
+          combatant.hasTalent(SPELLS.SABERTOOTH_TALENT) ? (
+            <>
+              With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should be able to apply Rip
+              with Tiger's Fury and then extend it throughout the encounter.
+            </>
+          ) : (
+            <>
+              Where possible, plan your Rip refreshes around the timing of Tiger's Fury - still,
+              100% uptime may not be practical.
+            </>
+          )
+        }
+      />
+      {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) && (
+        <SnapshotRequirement
+          spell={SPELLS.RIP.id}
+          snapshot={SPELLS.BLOODTALONS_BUFF.id}
+          thresholds={thresholds.ripBtSnapshot}
+        />
+      )}
+      <SnapshotRequirement
+        spell={SPELLS.RAKE.id}
+        snapshot={SPELLS.TIGERS_FURY.id}
+        thresholds={thresholds.rakeTfSnapshot}
+        tooltip={
+          combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) ? (
+            <>
+              You may have to use Rake to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> and
+              so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should take
+              precedence over Tiger's Fury snapshots.
+            </>
+          ) : (
+            <>
+              Where possible, plan to cast Rake near the beginning and end of each Tiger's Fury.
+              Cutting off some duration in order to maximize snapshotted time is acceptable.
+            </>
+          )
+        }
+      />
+      {combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) && (
+        <SnapshotRequirement
+          spell={SPELLS.MOONFIRE_FERAL.id}
+          snapshot={SPELLS.TIGERS_FURY.id}
+          thresholds={thresholds.moonfireTfSnapshot}
+          tooltip={
+            combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) ? (
+              <>
+                You may have to use Moonfire to proc <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />{' '}
+                and so end up with sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing
+                should take precedence over Tiger's Fury snapshots.
+              </>
+            ) : (
+              <>
+                Where possible, plan to cast Moonfire near the beginning and end of each Tiger's
+                Fury. Cutting off some duration in order to maximize snapshotted time is acceptable.
+              </>
+            )
+          }
+        />
+      )}
+      <Requirement
+        name={
+          <>
+            <SpellLink id={SPELLS.RAKE.id} /> with <SpellLink id={SPELLS.PROWL.id} /> overwrite
+            (seconds per minute)
+          </>
+        }
+        thresholds={thresholds.prowlRakeLost}
+        tooltip="Stealth (and stealth-like buffs) dramatically empower your Rake's damage. You should
+          avoid overwriting one of these empowered Rakes until the last possible moment."
+      />
+    </Rule>
+  );
+
+  /** Finishers
+   🗵 Ferocious Bite only at energy >= 50
+   🗵 Low CP finishers
+   🗵 Rip clipping w/o upgrade
+   🗵 (FB BT)
+   🗵 (Apex Bites)
+   🗵 (SR uptime)
+   */
+  const finishersRule = (
+    <Rule
+      name="Use the right finishers"
+      description={
+        <>
+          Most of Feral's damage comes from finishers, so it is very important to use the right one.
+          Generally speaking, you should always wait for 5 combo points before using a finisher
+          (with the exception of the first <SpellLink id={SPELLS.RIP.id} /> which should be applied
+          as quickly as possible).
+          <br />
+          <br />
+          In single target encounters, your finisher priority should be to{' '}
+          {combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT) && (
+            <>
+              maintain <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} />,{' '}
+            </>
+          )}
+          maintain <SpellLink id={SPELLS.RIP.id} />, and then fill with{' '}
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. In multi-target situations you should use{' '}
+          {combatant.hasTalent(SPELLS.PRIMAL_WRATH_TALENT) && (
+            <>
+              <SpellLink id={SPELLS.PRIMAL_WRATH_TALENT.id} /> against 3 or more enemies and{' '}
+            </>
+          )}
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> on targets that die too quickly for Rip to
+          tick.
+        </>
+      }
+    >
+      <Requirement
+        name={
+          <>
+            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> extra energy use
+          </>
+        }
+        thresholds={thresholds.ferociousBiteEnergy}
+        tooltip="In addition to its base cost of 25 energy, Ferocious Bite consumes up to
+            an additional 25 energy to significantly increase its damage. You should aim to always
+            cast full energy bites (with the exception of during Berserk if you have the Soul of the
+            Forest talent - this statistic already excludes that exception)"
+      />
+      <Requirement
+        name={<>Low Combo Point finishers</>}
+        thresholds={thresholds.badLowComboFinishers}
+        tooltip="Your finishers should always be cast with full combo points.
+            The only exception is using a low CP Rip if it's not yet up on a target
+            (this exception is detected and taken into account when calculating this metric.)"
+      />
+      <Requirement
+        name={
+          <>
+            <SpellLink id={SPELLS.RIP.id} /> duration clipped (seconds per minute)
+          </>
+        }
+        thresholds={thresholds.ripDurationReduction}
+        tooltip="Refreshing Rip too early or with low combo points has the potential to clip duration.
+            You should only do this when you need to upgrade a snapshot. This statistic only counts
+            the times when you clipped without upgrading."
+      />
+      {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT) && (
+        <SnapshotRequirement
+          spell={SPELLS.FEROCIOUS_BITE.id}
+          snapshot={SPELLS.BLOODTALONS_BUFF.id}
+          thresholds={thresholds.ferociousBiteBloodtalons}
+          tooltip="This includes only the Ferocious Bite casts where it was reasonably possible to use Bloodtalons.
+              Apex Predator's Craving or Convoke the Spirits could consume procs before you can use them, and during
+              Berserk you may not be able to cast enough builders to proc Bloodtalons - these cases aren't counted in this statistic"
+        />
+      )}
+      {combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id) && (
+        <UptimeRequirement
+          spell={SPELLS.SAVAGE_ROAR_TALENT.id}
+          thresholds={thresholds.savageRoarUptime}
+        />
+      )}
+    </Rule>
+  );
+
+  /** Spend your Resources
+   🗵 Natural energy overcap
+   🗵 TF energy overcap
+   🗵 CP overcap
+   */
+  const resourcesRule = (
+    <Rule
+      name="Spend your resources"
+      description={
+        <>
+          Your actions are limited by energy and combo points, so it is wasteful to allow yourself
+          to go overcap on either of them. "Pooling" energy is often valuable as it gives you more
+          leeway to react to fight mechanics, but you should never do so at the expense of letting
+          uptimes drop or going overcap.
+        </>
+      }
+    >
+      <Requirement
+        name={<>Natural Energy Overcap</>}
+        thresholds={thresholds.energyCapped}
+        tooltip="This is the percentage of your natural energy regeneration that you wasted.
+            Any time spent at maximum energy wastes potential regeneration.
+            Some energy overcap can happen due to periods of extremely high regeneration
+            or due to being forced off target by fight mechanics. Please use your knowledge of the
+            fight when weighing the importance of this metric."
+      />
+      <Requirement
+        name={
+          <>
+            Energy Overcap from <SpellLink id={SPELLS.TIGERS_FURY.id} />
+          </>
+        }
+        thresholds={thresholds.tigersFuryEnergy}
+        tooltip="Remember that Tiger's Fury generates instant energy which should not be wasted.
+            Plan for it coming off cooldown by spending down your energy. The displayed waste
+            is only from hardcast Tiger's Fury. Procs from Convoke the Spirits are not counted here
+            because waste from them is generally unavoidable."
+      />
+      <Requirement
+        name={<>Combo Point Overcap (per minute)</>}
+        thresholds={thresholds.comboPointsWaste}
+        tooltip="Your finishing moves are much more powerful than your combo builders. When at
+          max CPs you should always use a finisher over a combo builder. This stat does not include
+          the accidental overcap due to getting a crit when at 4 CPs or due to generating too many
+          CPs during Convoke the Spirits, as this is unavoidable."
+      />
+    </Rule>
+  );
+
+  /**Use your cooldowns
+   🗵 Cast efficiency of Berserk (or Incarnation)
+   🗵 Cast efficiency of Tiger's Fury
+   🗵 (Cast efficiency of Feral Frenzy)
+   🗵 (Cast efficiency of Convoke the Spirits)
+   🗵 (Cast efficiency of Kindred Spirits) TODO
+   🗵 (Cast efficiency of Ravenous Frenzy) TODO
+   🗵 (Cast efficiency of Heart of the Wild)
+   */
+  const cooldownsRule = (
+    <Rule
+      name="Use your cooldowns"
+      description={
+        <>
+          Aim to use your cooldowns as often as possible, try to prepare to use the ability when you
+          see it's nearly ready.{' '}
+          {combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT) ? (
+            <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
+          ) : (
+            <SpellLink id={SPELLS.BERSERK.id} />
+          )}{' '}
+          should be used when you have plenty of energy in order to maximize the number of abilities
+          you can use during it. On the other hand, be sure to use energy before using{' '}
+          <SpellLink id={SPELLS.TIGERS_FURY.id} /> in order to avoid overcapping, but still use it
+          as often as possible. Slightly delaying a cooldown to line up with others or to avoid
+          fight mechanics can be beneficial to a point, but avoid delaying so much that you'd miss
+          out on an extra use during the fight.
+        </>
+      }
+    >
+      {!combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) && (
+        <CastEfficiencyRequirement spell={SPELLS.BERSERK.id} />
+      )}
+      {combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) && (
+        <CastEfficiencyRequirement spell={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
+      )}
+      <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
+      {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
+        <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
+      )}
+      {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
+      )}
+      {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+        <CastEfficiencyRequirement spell={SPELLS.RAVENOUS_FRENZY.id} />
+      )}
+      {combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id) && (
+        <CastEfficiencyRequirement spell={getHeartOfTheWildSpellId(combatant)} />
+      )}
+      {combatant.race === RACES.NightElf && (
+        <Requirement
+          name={<SpellLink id={SPELLS.SHADOWMELD.id} />}
+          thresholds={thresholds.shadowmeld}
+          tooltip="This measures how many of the possible uses of Shadowmeld were used to provide the double damage bonus to Rake."
+        />
+      )}
+    </Rule>
+  );
+
+  /** Overall checklist */
   return (
     <Checklist>
-      {/** Builders
-        🗵 Uptime for Rake DoT
-        🗵 Uptime for Moonfire DoT (if talented for it)
-        ☐ Avoid the types of early refresh which aren't already caught by the snapshot analysers.
-          (Can be tricky to determine with certainty if such a refresh is bad, although if the
-          player is just spamming Rake that should be flagged as a mistake.)
-        🗵 Cast efficiency of Brutal Slash (if talented)
-        🗵 Cast efficiency of Feral Frenzy (if talented)
-        🗵 Only use Swipe if it hits multiple enemies
-        🗵 Don't waste combo points by generating more when full
-      */}
-      <Rule
-        name="Generate combo points"
-        description={
-          <>
-            Builders use energy and give you combo points. Keep your{' '}
-            <TooltipElement content="Rake and Moonfire if you have the Lunar Inspiration talent">
-              DoTs
-            </TooltipElement>{' '}
-            active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and{' '}
-            <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill
-            with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use
-            builders when at full combo points.
-            <br />
-            <br />
-            You should adapt your behaviour in AoE situations (the analyzer only accounts for some
-            of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or
-            more targets replace <SpellLink id={SPELLS.SHRED.id} /> with{' '}
-            <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting{' '}
-            <TooltipElement content="The threshold varies slightly depending on your stats.">
-              5 targets
-            </TooltipElement>{' '}
-            or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and{' '}
-            <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should
-            never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, only keep it active if you would
-            otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
-          </>
-        }
-      >
-        <UptimeRequirement spell={SPELLS.RAKE.id} thresholds={thresholds.rakeUptime} />
-        {combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) && (
-          <UptimeRequirement
-            spell={SPELLS.MOONFIRE_FERAL.id}
-            thresholds={thresholds.moonfireUptime}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <UptimeRequirement
-            spell={SPELLS.ADAPTIVE_SWARM_DAMAGE.id}
-            thresholds={thresholds.adaptiveSwarmUptime}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.FERAL_FRENZY_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.BRUTAL_SLASH_TALENT.id} />
-        )}
-        <Requirement
-          name={
-            <>
-              Inappropriate <SpellLink id={SPELLS.SWIPE_CAT.id} />
-            </>
-          }
-          thresholds={thresholds.swipeHitOne}
-          tooltip="How many times you used Swipe but had it only hit 1 target.
-            Against a single target you should use Shred instead."
-        />
-        <Requirement
-          name={<>Combo points wasted</>}
-          thresholds={thresholds.comboPointsWaste}
-          tooltip="Generating combo points after already reaching the maximum 5 wastes them."
-        />
-      </Rule>
-
-      {/** Finishers
-        🗵 Uptime on Rip DoT
-        🗵 Uptime for Savage Roar buff (if talented)
-        🗵 Ferocious Bite only at energy >= 50
-        🗵 Don't cast Rip when Ferocious Bite could have refreshed it, unless you're upgrading the snapshot
-        🗵 Don't reduce duration of Rip by refreshing early and with low combo points
-        🗵 Don't use finishers at less than 5 combo points (except for certain exceptions)
-      */}
-      <Rule
-        name="Spend combo points"
-        description={
-          <>
-            You should generally only use finishers with a full 5 combo points. The exception is the
-            first <SpellLink id={SPELLS.RIP.id} /> of the fight which should be applied as early as
-            possible. <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> is a damage gain in many
-            situations and simplifies your finisher use, allowing you to almost always use{' '}
-            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> as your single target finisher. When casting{' '}
-            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least{' '}
-            <TooltipElement
-              content="Ferocious Bite's tooltip says it needs just 25 energy,
-              but you should always give it an additional 25 to double its damage."
-            >
-              50 energy.
-            </TooltipElement>
-            <br />
-            <br />
-            <SpellLink id={SPELLS.PRIMAL_WRATH_TALENT.id} /> can replace both{' '}
-            <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> when
-            against approximately 3 or more enemies.
-          </>
-        }
-      >
-        <UptimeRequirement spell={SPELLS.RIP.id} thresholds={thresholds.ripUptime} />
-        {combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id) && (
-          <UptimeRequirement
-            spell={SPELLS.SAVAGE_ROAR_TALENT.id}
-            thresholds={thresholds.savageRoarUptime}
-          />
-        )}
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> damage bonus from energy
-            </>
-          }
-          thresholds={thresholds.ferociousBiteEnergy}
-          tooltip="Ferocious Bite consumes up to 50 energy,
-            and should always be given that full 50 energy to significantly increase its damage."
-        />
-        {combatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RIP.id} /> which should have been{' '}
-                <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
-              </>
-            }
-            thresholds={thresholds.ripShouldBeBite}
-            tooltip="With the Sabertooth talent you can maintain your Rip by using Ferocious Bite.
-              If you instead cast Rip you are missing out on the Ferocious Bite damage.
-              If the replacement Rip has a better snapshot then it may have been worth using,
-              so those cases are not counted here."
-          />
-        )}
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.RIP.id} /> casts which reduced duration
-            </>
-          }
-          thresholds={thresholds.ripDurationReduction}
-          tooltip="Because Rip's duration is based on combo points used it is possible
-            to reduce the duration of your existing bleed by reapplying it with low combo points.
-            Not only is this a waste of resources but you're doing less damage than you would if you'd done nothing at all."
-        />
-        <Requirement
-          name={<>Needless low combo point finishers</>}
-          thresholds={thresholds.badLowComboFinishers}
-          tooltip="Your finishers are most efficient when used with full combo points.
-            However it is still worth using a low combo point Rip if it's not yet up on a target
-            (this exception is detected and taken into account when calculating this metric.)"
-        />
-      </Rule>
-
-      {/** Manage your energy
-        🗵 Don't cap energy
-        🗵 Don't waste energy from Tiger's Fury
-        ☐ Some kind of check for good pooling behaviour
-          (having high energy when using a finisher is generally good,
-          but would benefit from some research to quantify that effect.)
-
-        Switch out the whole rule section if we can detect that the player was in a situation where energy was abundant.
-      */}
-      {!thresholds.tigersFuryIgnoreEnergy.actual && (
-        <Rule
-          name="Manage your energy"
-          description={
-            <>
-              Your actions are{' '}
-              <TooltipElement content="Notable exceptions are when you have the Predator talent with enemies regularly dying, or large AoE situations with certain builds.">
-                usually
-              </TooltipElement>{' '}
-              limited by available energy so managing it well is important. Don't let it reach the
-              cap and miss out on regeneration, and avoid wasting generated energy from{' '}
-              <SpellLink id={SPELLS.TIGERS_FURY.id} />. Allowing your energy to "pool" before using
-              a finisher is often{' '}
-              <TooltipElement content="Using a finisher when at low energy leaves you with little of both your main resources which greatly limits your options. Pooling energy first means you'll have energy left over to react to whatever happens in the fight around you. Although pooling is useful never let your uptime of DoTs and Savage Roar drop because of it.">
-                beneficial
-              </TooltipElement>
-              .
-            </>
-          }
-        >
-          <Requirement
-            name={<>Wasted natural regeneration from being capped</>}
-            thresholds={thresholds.energyCapped}
-            tooltip="Some waste during Berserk or Incarnation (especially with Bloodlust active) is not a concern.
-              If the fight mechanics force you to not attack for periods of time then capping energy is inevitable.
-              Please use your knowledge of the fight when weighing the importance of this metric."
-          />
-          <Requirement
-            name={
-              <>
-                Wasted energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />
-              </>
-            }
-            thresholds={thresholds.tigersFuryEnergy}
-            tooltip="There are some situations where energy is very abundant and the energy gain
-              from Tiger's Fury becomes unimportant, but that is rare in boss fights.
-              Generally you should aim to use Tiger's Fury both for its energy and damage increase."
-          />
-        </Rule>
-      )}
-      {thresholds.tigersFuryIgnoreEnergy.actual && combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
-        <Rule
-          name="Manage your energy"
-          description={
-            <>
-              Normally your actions are limited by available energy. In this fight you made good use
-              of <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> to allow extra{' '}
-              <SpellLink id={SPELLS.TIGERS_FURY.id} /> which makes the usual measures of energy
-              management much less important.
-            </>
-          }
-        >
-          <Requirement
-            name={
-              <>
-                Additional <SpellLink id={SPELLS.TIGERS_FURY.id} /> from{' '}
-                <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> per minute
-              </>
-            }
-            thresholds={thresholds.predatorWrongTalent}
-          />
-        </Rule>
-      )}
-
-      {/**Use your cooldowns
-        🗵 Cast efficiency of Berserk or Incarnation (depending on talent)
-        ☐ Make the most of Berserk/Incarnation by using as many abilities as possible during the buff
-          (importance of this may be so low that it's not worth checking - run some simulations to find out)
-        🗵 Cast efficiency of Tiger's Fury
-        🗵 Shadowmeld for Night Elves: cast efficiency of correctly using it to buff Rake
-      */}
-      <Rule
-        name="Use your cooldowns"
-        description={
-          <>
-            Aim to use your cooldowns as often as possible, try to get prepared to use the ability
-            when you see it's nearly ready. <SpellLink id={SPELLS.BERSERK.id} /> (or{' '}
-            <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />) should be used when
-            you have plenty of energy so that you get the most effect from its cost reduction. Make
-            sure you don't cap energy when using <SpellLink id={SPELLS.TIGERS_FURY.id} />, but still
-            use it as often as possible. Slightly delaying one so it lines up with the other can be
-            beneficial, but avoid delaying so much that you'd miss out on an extra use during the
-            fight.
-          </>
-        }
-      >
-        {!combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.BERSERK.id} />
-        )}
-        {combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />
-        )}
-        <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
-        )}
-        {combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id) && (
-          <CastEfficiencyRequirement spell={getHeartOfTheWildSpellId(combatant)} />
-        )}
-        {combatant.race === RACES.NightElf && (
-          <Requirement
-            name={<SpellLink id={SPELLS.SHADOWMELD.id} />}
-            thresholds={thresholds.shadowmeld}
-            tooltip="This measures how many of the possible uses of Shadowmeld were used to provide the double damage bonus to Rake."
-          />
-        )}
-      </Rule>
-
-      {/*Manage Snapshots
-        🗵 Only refresh a Moonfire (if talented) before pandemic if the new one is stronger
-        🗵 Only refresh a Rake before pandemic if the new one is stronger
-        🗵 Only refresh a Rip before pandemic if the new one is stronger
-        🗵 Don't end a Prowl-empowered Rake early by refreshing without that empowerment
-      */}
-      <Rule
-        name="Make the most of snapshots"
-        description={
-          <>
-            <TooltipElement content="Tiger's Fury affects all DoTs, Bloodtalons affects Ferocious Bite, Rip and Primal Wrath.">
-              Certain buffs
-            </TooltipElement>{' '}
-            will increase the damage of your DoTs for their full duration, even after the buff wears
-            off. Making the most of this mechanic can be the difference between good and great
-            results.
-            <br />
-            As a general rule it's beneficial to refresh a DoT early if you would increase the
-            snapshot. It's better to refresh with a weaker version of the DoT during the{' '}
-            <TooltipElement
-              content="The last 30% of the DoT's duration.
-             If you refresh during this time you don't lose any duration in the process."
-            >
-              pandemic window
-            </TooltipElement>{' '}
-            than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by{' '}
-            <TooltipElement
-              content="The effect is also provided by Incarnation: King of the Jungle,
-              and Shadowmeld for Night Elves"
-            >
-              Prowl
-            </TooltipElement>{' '}
-            which is so much stronger that you should wait until the DoT wears off when replacing it
-            with an unbuffed version.
-            <br />
-            <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> allows you to use{' '}
-            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to maintain the existing snapshot on{' '}
-            <SpellLink id={SPELLS.RIP.id} /> and should be used to do so.
-          </>
-        }
-      >
-        {combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) && (
-          <SnapshotDowngradeRequirement
-            spell={SPELLS.MOONFIRE_FERAL.id}
-            thresholds={thresholds.moonfireDowngrade}
-          />
-        )}
-        <SnapshotDowngradeRequirement
-          spell={SPELLS.RAKE.id}
-          thresholds={thresholds.rakeDowngrade}
-        />
-        <SnapshotDowngradeRequirement spell={SPELLS.RIP.id} thresholds={thresholds.ripDowngrade} />
-        <Requirement
-          name={
-            <>
-              Average seconds of Prowl-buffed <SpellLink id={SPELLS.RAKE.id} /> lost by refreshing
-              early
-            </>
-          }
-          thresholds={thresholds.rakeProwlDowngrade}
-        />
-      </Rule>
-
-      {/*Manage Bloodtalons - whole section is only if talent is taken
-        🗵 Use 3 different combo point-generating abilities within 4 seconds to generate charges
-        🗵 Don't waste charges by overwriting
-        ☐ Use charges on Rip and Ferocious Bite
-      */}
-      {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) && (
-        <Rule
-          name="Weave in Bloodtalons"
-          description={
-            <>
-              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of
-              mechanics to weave into your rotation. You should use 3 different combo
-              point-generating abilities within 4 seconds to generate{' '}
-              <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges which you then spend to buff
-              attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and{' '}
-              <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. Pool energy if necessary to generate the
-              buff. While the buff is active, use only <SpellLink id={SPELLS.SHRED.id} /> or{' '}
-              <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> if talented as combo point generators
-              on single target.
-            </>
-          }
-        >
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> wasted
-              </>
-            }
-            thresholds={thresholds.bloodtalonsWasted}
-            tooltip="Using Bloodtalons to buff any ability counts as it not being wasted.
-              See the statistics results section for details on how those charges were used."
-          />
-        </Rule>
-      )}
-
-      {/*Pick the right talents (if player is using talents that may be unsuitable)
-        🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
-      */}
-      {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
-        <Rule
-          name="Pick the most suitable Talents"
-          description={
-            <>
-              The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on
-              fights with multiple enemies and should be swapped out for single target encounters.
-            </>
-          }
-        >
-          {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
-            <Requirement
-              name={
-                <>
-                  Additional <SpellLink id={SPELLS.TIGERS_FURY.id} /> from{' '}
-                  <SpellLink id={SPELLS.PREDATOR_TALENT.id} />
-                </>
-              }
-              thresholds={thresholds.predatorWrongTalent}
-            />
-          )}
-        </Rule>
-      )}
-
-      {/*Be prepared
-        🗵 Universal rules for using potions, enchants, etc.
-      */}
+      {maintainYourDotsRule}
+      {finishersRule}
+      {resourcesRule}
+      {cooldownsRule}
+      {snapshotYourDotsRule}
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

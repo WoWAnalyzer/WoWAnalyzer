@@ -136,7 +136,7 @@ class MarkmansAdvantage extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.MARKMANS_ADVANTAGE_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id} rank={this.conduitRank}>
           <>
             {formatNumber(this.totalDamageReduction)} <small> damage prevented </small>
           </>

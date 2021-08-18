@@ -174,7 +174,7 @@ class IceLance extends Analyzer {
         size="flexible"
         tooltip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
       >
-        <BoringSpellValueText spell={SPELLS.ICE_LANCE}>
+        <BoringSpellValueText spellId={SPELLS.ICE_LANCE.id}>
           {`${formatPercentage(this.shatteredPercent, 0)}%`} <small>Casts shattered</small>
         </BoringSpellValueText>
       </Statistic>

@@ -111,7 +111,7 @@ class Shadowmeld extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.SHADOWMELD}>
+        <BoringSpellValueText spellId={SPELLS.SHADOWMELD.id}>
           <>
             {formatPercentage(this.correctUses / this.possibleUses)}%{' '}
             <small>Shadowmeld used to buff Rake</small>

@@ -151,7 +151,7 @@ class GlobalCooldown extends Analyzer {
     }
   }
 
-  /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
+  /** @type {import('parser/core/Events').GlobalCooldownEvent} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
   lastGlobalCooldown = null;
   onGlobalcooldown(event) {
     this._verifyAccuracy(event);

@@ -212,7 +212,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MOONFIRE.id,
+        spell: SPELLS.MOONFIRE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,

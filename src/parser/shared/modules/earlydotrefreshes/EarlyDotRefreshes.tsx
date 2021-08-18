@@ -40,7 +40,7 @@ class EarlyDotRefreshes extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   static dots: Dot[] = [];
-  targets: { [key: number]: any } = {};
+  targets: DotsById = {};
   lastGCD?: GlobalCooldownEvent;
   lastCast?: CastEvent;
   lastCastGoodExtension = false;
@@ -89,12 +89,7 @@ class EarlyDotRefreshes extends Analyzer {
       return;
     }
     const targetID = encodeTargetString(event.targetID, event.targetInstance);
-    const extensionInfo = this.extendDot(
-      dot.debuffId,
-      Number(targetID),
-      dot.duration,
-      event.timestamp,
-    );
+    const extensionInfo = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
     if (this.lastCastGoodExtension) {
       return;
     }
@@ -196,21 +191,21 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.
-  extendDot(spellId: number, targetID: number, extension: number, timestamp: number) {
+  extendDot(spellId: number, targetString: string, extension: number, timestamp: number) {
     const dot = this.getDot(spellId);
     if (!dot) {
       throw new Error(`The spellID ${spellId} is not in the list of dots to track`);
     }
-    const remainingDuration = this.targets[dot.debuffId][targetID] - timestamp || 0;
+    const remainingDuration = this.targets[dot.debuffId][targetString] - timestamp || 0;
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
     const lostDuration = newDuration - maxDuration;
     if (lostDuration <= 0) {
       //full extension
-      this.targets[dot.debuffId][targetID] = timestamp + newDuration;
+      this.targets[dot.debuffId][targetString] = timestamp + newDuration;
       return { wasted: 0, effective: extension };
     } // Else not full extension
-    this.targets[dot.debuffId][targetID] = timestamp + maxDuration;
+    this.targets[dot.debuffId][targetString] = timestamp + maxDuration;
     return { wasted: lostDuration, effective: extension - lostDuration };
   }
 
@@ -244,5 +239,8 @@ class EarlyDotRefreshes extends Analyzer {
     };
   }
 }
+
+export type DotsById = { [key: number]: DotsByTarget };
+export type DotsByTarget = { [key: string]: number };
 
 export default EarlyDotRefreshes;

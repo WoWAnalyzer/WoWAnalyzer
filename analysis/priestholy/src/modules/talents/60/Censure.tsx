@@ -61,7 +61,7 @@ class Censure extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(4)}
       >
-        <BoringSpellValueText spell={SPELLS.CENSURE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CENSURE_TALENT.id}>
           {this.censureStuns + this.censureIncomp} Censure CC(s)
         </BoringSpellValueText>
       </Statistic>

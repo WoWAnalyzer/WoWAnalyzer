@@ -161,7 +161,7 @@ class Mindgames extends Analyzer {
         }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.MINDGAMES}>
+        <BoringSpellValueText spellId={SPELLS.MINDGAMES.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />

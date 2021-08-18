@@ -12,7 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-const BUFFED_DOTS = [SPELLS.RIP, SPELLS.RAKE_BLEED, SPELLS.MOONFIRE_FERAL];
+const BUFFED_DOTS = [SPELLS.RIP, SPELLS.RAKE_BLEED, SPELLS.MOONFIRE_FERAL]; // TODO also caster moonfire?
 
 const DDF_BOOST = 0.4;
 
@@ -115,7 +115,7 @@ class DraughtOfDeepFocus extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DRAUGHT_OF_DEEP_FOCUS}>
+        <BoringSpellValueText spellId={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id}>
           <ItemPercentDamageDone amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>

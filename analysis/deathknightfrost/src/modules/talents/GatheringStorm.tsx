@@ -114,7 +114,7 @@ class GatheringStorm extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spell={SPELLS.GATHERING_STORM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.GATHERING_STORM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.bonusDamage} /> <br />
             <UptimeIcon /> {this.averageExtension.toFixed(1)}{' '}

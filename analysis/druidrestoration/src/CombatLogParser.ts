@@ -5,6 +5,7 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
+import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -28,6 +29,7 @@ import RegrowthAndClearcasting from './modules/features/RegrowthAndClearcasting'
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
 import WildGrowth from './modules/features/WildGrowth';
+import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FieldOfBlossomsResto from './modules/shadowlands/conduits/FieldOfBlossomsResto';
@@ -119,12 +121,14 @@ class CombatLogParser extends CoreCombatLogParser {
     convokeSpirits: ConvokeSpiritsResto,
     adaptiveSwarm: AdaptiveSwarmResto,
     kindredSpirits: KindredSpiritsResto,
+    sinfulHysteria: SinfulHysteria,
 
     // Conduits
     // Potency
     flashOfClarity: FlashOfClarity,
     evolvedSwarmResto: EvolvedSwarmResto,
     confluxOfElementsResto: ConfluxOfElementsResto,
+    adaptiveArmorFragment: AdaptiveArmorFragment,
     // Soulbind
     groveInvigoration: GroveInvigorationResto,
     fieldOfBlossoms: FieldOfBlossomsResto,

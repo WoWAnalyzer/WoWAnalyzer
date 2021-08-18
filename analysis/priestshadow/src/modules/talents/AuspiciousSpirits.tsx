@@ -37,7 +37,7 @@ class AuspiciousSpirits extends Analyzer {
         size="flexible"
         tooltip="The damage displayed is the additional damage you gained from taking this talent."
       >
-        <BoringSpellValueText spell={SPELLS.AUSPICIOUS_SPIRITS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.AUSPICIOUS_SPIRITS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
             <br />

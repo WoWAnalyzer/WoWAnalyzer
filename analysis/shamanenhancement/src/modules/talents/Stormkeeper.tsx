@@ -65,7 +65,7 @@ class Stormkeeper extends Analyzer {
           this.damageDoneByBuffedCasts,
         )} damage (${formatPercentage(this.damagePercent)}% of your damage)`}
       >
-        <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT}>
+        <BoringSpellValueText spellId={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
             <br />

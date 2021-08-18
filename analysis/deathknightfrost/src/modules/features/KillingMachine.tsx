@@ -144,7 +144,7 @@ class KillingMachineEfficiency extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.KILLING_MACHINE}>
+        <BoringSpellValueText spellId={SPELLS.KILLING_MACHINE.id}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>

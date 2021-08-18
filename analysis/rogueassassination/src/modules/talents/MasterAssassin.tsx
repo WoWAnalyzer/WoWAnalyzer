@@ -124,7 +124,7 @@ class MasterAssassin extends StealthCasts {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spell={SPELLS.MASTER_ASSASSIN_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.MASTER_ASSASSIN_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
       </Statistic>

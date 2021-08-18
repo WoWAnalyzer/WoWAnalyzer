@@ -53,7 +53,7 @@ class SiphonedMalice extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.SIPHONED_MALICE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SIPHONED_MALICE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

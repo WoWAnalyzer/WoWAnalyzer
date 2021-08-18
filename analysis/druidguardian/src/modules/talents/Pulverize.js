@@ -57,7 +57,7 @@ class Pulverize extends Analyzer {
         size="flexible"
       >
         <BoringSpellValue
-          spell={SPELLS.PULVERIZE_TALENT}
+          spellId={SPELLS.PULVERIZE_TALENT.id}
           value={`${formatPercentage(pulverizeUptimePercentage)}%`}
           label="Pulverize uptime"
         />

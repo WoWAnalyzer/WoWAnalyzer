@@ -48,7 +48,7 @@ class HeavyRainfall extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.HEAVY_RAINFALL} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.HEAVY_RAINFALL.id} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </ConduitSpellText>

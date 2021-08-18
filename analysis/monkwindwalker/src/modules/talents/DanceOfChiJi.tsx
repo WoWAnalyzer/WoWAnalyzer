@@ -65,7 +65,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
         size="flexible"
         tooltip={<>Total damage increase: {formatNumber(this.damageGain)}</>}
       >
-        <BoringSpellValueText spell={SPELLS.DANCE_OF_CHI_JI_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DANCE_OF_CHI_JI_TALENT.id}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of

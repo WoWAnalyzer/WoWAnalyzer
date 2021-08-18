@@ -50,7 +50,7 @@ class HotHand extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.HOT_HAND_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HOT_HAND_TALENT.id}>
           <>
             <ItemDamageDone amount={this.buffedLavaLashDamage} />
             <br />

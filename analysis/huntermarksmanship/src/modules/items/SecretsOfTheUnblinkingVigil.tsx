@@ -120,7 +120,7 @@ class SecretsOfTheUnblinkingVigil extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SECRETS_OF_THE_UNBLINKING_VIGIL_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.SECRETS_OF_THE_UNBLINKING_VIGIL_EFFECT.id}>
           {this.aimedShotRefunds}/{this.totalPossibleAimedShotRefunds}{' '}
           <small>Aimed Shot refunds</small>
           <br />

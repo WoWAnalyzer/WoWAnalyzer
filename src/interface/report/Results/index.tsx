@@ -4,6 +4,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeWclUrl from 'common/makeWclUrl';
 import retryingPromise from 'common/retryingPromise';
 import { findByBossId, Phase } from 'game/raids';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import Ad from 'interface/Ad';
 import AlertWarning from 'interface/AlertWarning';
@@ -55,7 +56,7 @@ import TABS from './TABS';
 const TimelineTab = lazyLoadComponent(
   () =>
     retryingPromise(() =>
-      import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(
+      import(/* webpackChunkName: 'TimelineTab' */ './TimelineTab').then(
         (exports) => exports.default,
       ),
     ),
@@ -78,8 +79,7 @@ interface ConnectedProps {
 interface PassedProps {
   parser: CombatLogParser;
   characterProfile: CharacterProfile;
-  makeBuildUrl: (tab: string, build: string) => string;
-  makeTabUrl: (tab: string) => string;
+  makeTabUrl: (tab: string, build?: string) => string;
   phases: { [key: string]: Phase } | null;
   selectedPhase: string;
   selectedInstance: number;
@@ -99,6 +99,7 @@ interface PassedProps {
   parsingState?: EVENT_PARSING_STATE;
   progress?: number;
   premium?: boolean;
+  config: Config;
 }
 
 type Props = PassedProps & ConnectedProps;
@@ -122,9 +123,6 @@ class Results extends React.PureComponent<Props, State> {
       parser: this.props.parser,
     };
   }
-  static contextTypes = {
-    config: PropTypes.object.isRequired,
-  };
 
   componentDidMount() {
     this.scrollToTop();
@@ -187,8 +185,7 @@ class Results extends React.PureComponent<Props, State> {
   }
 
   renderContent(selectedTab: string, results: ParseResults | null) {
-    const { parser, premium } = this.props;
-    const config = this.context.config;
+    const { parser, premium, config } = this.props;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
@@ -365,7 +362,6 @@ class Results extends React.PureComponent<Props, State> {
       player,
       build,
       characterProfile,
-      makeBuildUrl,
       makeTabUrl,
       selectedTab,
       premium,
@@ -375,8 +371,8 @@ class Results extends React.PureComponent<Props, State> {
       phases,
       applyFilter,
       timeFilter,
+      config,
     } = this.props;
-    const config: Config = this.context.config;
 
     const boss = findByBossId(fight.boss);
 
@@ -404,7 +400,6 @@ class Results extends React.PureComponent<Props, State> {
           fight={fight}
           tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
-          makeBuildUrl={makeBuildUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
           selectedInstance={selectedInstance}
@@ -441,7 +436,7 @@ class Results extends React.PureComponent<Props, State> {
             </AlertWarning>
           </div>
         )}
-        {build && (
+        {build && build !== 'default' && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.build">
@@ -481,10 +476,14 @@ class Results extends React.PureComponent<Props, State> {
                 })}
               >
                 <a
-                  href={makeWclUrl(report.code, {
-                    fight: fight.id,
-                    source: parser ? parser.playerId : undefined,
-                  })}
+                  href={makeWclUrl(
+                    report.code,
+                    {
+                      fight: fight.id,
+                      source: parser ? parser.playerId : undefined,
+                    },
+                    wclGameVersionToExpansion(report.gameVersion),
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"

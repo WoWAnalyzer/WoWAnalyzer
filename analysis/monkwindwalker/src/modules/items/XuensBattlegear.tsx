@@ -104,7 +104,7 @@ class XuensBattlegear extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.XUENS_BATTLEGEAR}>
+        <BoringSpellValueText spellId={SPELLS.XUENS_BATTLEGEAR.id}>
           <span>
             <SpellIcon
               id={SPELLS.FISTS_OF_FURY_CAST.id}

@@ -27,10 +27,10 @@ class TwinMoons extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TWIN_MOONS_TALENT.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE]),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE_DEBUFF),
       this.onDamage,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE_CAST), this.onCast);
   }
 
   onDamage(event: DamageEvent) {
@@ -54,7 +54,7 @@ class TwinMoons extends Analyzer {
           this.moonfireCasts
         } casts. This talent added ${formatNumber(this.perSecond)} DPS to your Moonfire.`}
       >
-        <BoringSpellValueText spell={SPELLS.TWIN_MOONS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.TWIN_MOONS_TALENT.id}>
           <>
             {formatPercentage(this.percentTwoHits)} % <small>double hits</small>
             <br />

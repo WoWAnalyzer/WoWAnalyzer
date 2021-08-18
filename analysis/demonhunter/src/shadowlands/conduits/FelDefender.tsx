@@ -56,7 +56,7 @@ class FelDefender extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spell={SPELLS.FEL_DEFENDER} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.FEL_DEFENDER.id} rank={this.conduitRank}>
           {this.abilityCasts} Cast(s)
         </ConduitSpellText>
       </Statistic>

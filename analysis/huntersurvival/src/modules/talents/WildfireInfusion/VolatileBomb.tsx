@@ -193,7 +193,7 @@ class VolatileBomb extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.VOLATILE_BOMB_WFI}>
+        <BoringSpellValueText spellId={SPELLS.VOLATILE_BOMB_WFI.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

@@ -42,7 +42,7 @@ class NaturesGuardian extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.NATURES_GUARDIAN_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NATURES_GUARDIAN_TALENT.id}>
           <>
             <ItemHealingDone amount={this.healthGained} />
           </>

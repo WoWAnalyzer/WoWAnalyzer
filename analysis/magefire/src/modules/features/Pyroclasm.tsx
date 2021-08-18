@@ -180,7 +180,7 @@ class Pyroclasm extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.PYROCLASM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.PYROCLASM_TALENT.id}>
           <>
             {formatPercentage(this.procUtilization, 0)}% <small>Proc Utilization</small>
           </>

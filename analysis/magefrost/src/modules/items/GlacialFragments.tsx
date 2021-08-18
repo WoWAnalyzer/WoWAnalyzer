@@ -49,7 +49,7 @@ class GlacialFragments extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.GLACIAL_FRAGMENTS}>
+        <BoringSpellValueText spellId={SPELLS.GLACIAL_FRAGMENTS.id}>
           <ItemDamageDone amount={this.fragmentDamage} />
           <br />
         </BoringSpellValueText>

@@ -127,7 +127,7 @@ class DisciplinaryCommand extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.DISCIPLINARY_COMMAND}>
+        <BoringSpellValueText spellId={SPELLS.DISCIPLINARY_COMMAND.id}>
           {formatPercentage(this.percentUptimeDuringCombustion, 0)}%{' '}
           <small>Uptime during Combustion</small>
         </BoringSpellValueText>

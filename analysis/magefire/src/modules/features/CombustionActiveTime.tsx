@@ -173,7 +173,7 @@ class CombustionActiveTime extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.COMBUSTION}>
+        <BoringSpellValueText spellId={SPELLS.COMBUSTION.id}>
           {formatPercentage(this.percentActiveTime)}% <small>Combustion Active Time</small>
           <br />
           {this.combustionPreCastDelay.averageCastDelay.toFixed(2)}s{' '}

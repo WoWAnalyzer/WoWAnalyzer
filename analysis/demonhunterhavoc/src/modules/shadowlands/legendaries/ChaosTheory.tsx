@@ -27,7 +27,7 @@ class ChaosTheory extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spell={SPELLS.CHAOS_THEORY}>
+        <BoringSpellValueText spellId={SPELLS.CHAOS_THEORY.id}>
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
         </BoringSpellValueText>
       </Statistic>

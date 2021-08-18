@@ -145,7 +145,7 @@ class ComboStrikes extends Analyzer {
           ) : null
         }
       >
-        <BoringSpellValueText spell={SPELLS.COMBO_STRIKES}>
+        <BoringSpellValueText spellId={SPELLS.COMBO_STRIKES.id}>
           {formatNumber(this.masteryDropEvents)} <small>Mastery benefit mistakes</small>
         </BoringSpellValueText>
       </Statistic>

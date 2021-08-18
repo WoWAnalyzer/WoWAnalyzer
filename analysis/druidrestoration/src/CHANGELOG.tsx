@@ -5,6 +5,11 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
+  change(date(2021, 7, 28), <>Added <SpellLink id={SPELLS.ADAPTIVE_ARMOR_FRAGMENT.id}/> statistic for the benefit of very particular and demanding raiders who must know the difference between 1.0% and 1.5% and are willing to bother developers on Discord to find out.</>, Sref),
+  change(date(2021, 7, 28), <>Added <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> cast efficiency to checklist, and updated it to account for <SpellLink id={SPELLS.CELESTIAL_SPIRITS.id}/>.</>, Sref),
+  change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
+  change(date(2021, 6, 18), <>Updated <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> tracking to account for the number of players actually being effected by it.</>, Sref),
   change(date(2021, 6, 14), <>Fixed a bug where a hardcast <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> could be counted as part of a Convoke if cast immediately before or after the Convoke.</>, Sref),
   change(date(2021, 6, 14), <>Added to the stat box tooltip of <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> showing the beneift of activating <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> before convoking.</>, Sref),
   change(date(2021, 6, 14), <>Updated <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> stat to properly account for Convoke, to better account for edge case issues, and updated the tooltip.</>, Sref),

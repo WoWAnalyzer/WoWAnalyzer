@@ -63,7 +63,7 @@ class ArcaneFamiliar extends Analyzer {
           this.uptime,
         )}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.`}
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_FAMILIAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ARCANE_FAMILIAR_TALENT.id}>
           <>
             {formatPercentage(this.uptime, 0)}% <small>Buff uptime</small>
           </>

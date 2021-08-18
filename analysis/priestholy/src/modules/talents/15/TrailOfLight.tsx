@@ -37,7 +37,7 @@ class TrailOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spell={SPELLS.TRAIL_OF_LIGHT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.TRAIL_OF_LIGHT_TALENT.id}>
           <ItemHealingDone amount={this.totalToLHealing} />
         </BoringSpellValueText>
       </Statistic>

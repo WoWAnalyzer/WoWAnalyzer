@@ -45,7 +45,7 @@ class ColdFront extends Analyzer {
         size="flexible"
         tooltip="This shows the number of extra Frozen Orb casts that were gained by using the Cold Front legendary effect."
       >
-        <BoringSpellValueText spell={SPELLS.COLD_FRONT}>
+        <BoringSpellValueText spellId={SPELLS.COLD_FRONT.id}>
           <SpellIcon id={SPELLS.FROZEN_ORB.id} /> {`${formatNumber(this.bonusFrozenOrbs)}`}{' '}
           <small>Extra Frozen Orbs</small>
         </BoringSpellValueText>

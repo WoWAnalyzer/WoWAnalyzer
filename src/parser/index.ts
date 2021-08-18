@@ -29,6 +29,8 @@ import ElementalShaman from '@wowanalyzer/shaman-elemental';
 import EnhancementShaman from '@wowanalyzer/shaman-enhancement';
 import RestorationShaman from '@wowanalyzer/shaman-restoration';
 import TbcHunter from '@wowanalyzer/tbc-hunter';
+import TbcMage from '@wowanalyzer/tbc-mage';
+import TbcPriest from '@wowanalyzer/tbc-priest';
 import AfflictionWarlock from '@wowanalyzer/warlock-affliction';
 import DemonologyWarlock from '@wowanalyzer/warlock-demonology';
 import DestructionWarlock from '@wowanalyzer/warlock-destruction';
@@ -87,7 +89,9 @@ const configs: Config[] = [
   ArmsWarrior,
   FuryWarrior,
 
+  TbcMage,
   TbcHunter,
+  TbcPriest,
 ];
 
 export default configs;

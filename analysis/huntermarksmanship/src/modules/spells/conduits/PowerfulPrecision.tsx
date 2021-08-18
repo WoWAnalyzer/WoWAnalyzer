@@ -71,7 +71,7 @@ class PowerfulPrecision extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.POWERFUL_PRECISION_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.POWERFUL_PRECISION_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

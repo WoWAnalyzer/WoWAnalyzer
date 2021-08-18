@@ -103,6 +103,7 @@ class EventParser extends React.PureComponent<Props, State> {
       builds,
       parserClass,
     } = this.props;
+
     const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
     builds &&
       Object.keys(builds).forEach((key) => {
@@ -116,7 +117,7 @@ class EventParser extends React.PureComponent<Props, State> {
       fight,
       combatants,
       characterProfile,
-      buildKey && build,
+      buildKey,
     );
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;
@@ -140,6 +141,7 @@ class EventParser extends React.PureComponent<Props, State> {
       bench('initialize');
       const parser = this.makeParser();
       const events = this.makeEvents(parser);
+      parser.normalizedEvents = events;
 
       const numEvents = events.length;
 

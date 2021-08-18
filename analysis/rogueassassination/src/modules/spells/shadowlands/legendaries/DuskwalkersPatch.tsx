@@ -55,7 +55,7 @@ class DuskwalkersPatch extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.DUSKWALKERS_PATCH}>
+        <BoringSpellValueText spellId={SPELLS.DUSKWALKERS_PATCH.id}>
           {formatNumber(this.effectiveVendettaReductionMs / 1000)}s/
           {formatNumber(
             (this.wastedVendettaReductionMs + this.effectiveVendettaReductionMs) / 1000,

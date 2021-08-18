@@ -164,7 +164,7 @@ class KindredSpiritsResto extends Analyzer {
   }
 
   statistic() {
-    const displaySpell = this._empowerCasts ? SPELLS.KINDRED_SPIRITS : SPELLS.LONE_MEDITATION;
+    const displaySpell = this._empowerCasts ? SPELLS.KINDRED_SPIRITS.id : SPELLS.LONE_MEDITATION.id;
     let castString = ' Kindred Spirits';
     if (this._empowerCasts && this._meditateCasts) {
       castString = ' Empower Bond and Lone Meditation';
@@ -222,7 +222,7 @@ class KindredSpiritsResto extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={displaySpell}>
+        <BoringSpellValueText spellId={displaySpell}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

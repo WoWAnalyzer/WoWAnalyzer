@@ -102,7 +102,7 @@ class Frenzyband extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.FRENZYBAND}>
+        <BoringSpellValueText spellId={SPELLS.FRENZYBAND.id}>
           <>
             <SpellIcon id={this.cdSpell.id} /> {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s{' '}
             <small>eff. CD reduction</small> <br />

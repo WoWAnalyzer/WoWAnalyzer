@@ -142,7 +142,7 @@ class LastEmperorsCapacitor extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spell={SPELLS.LAST_EMPERORS_CAPACITOR}>
+        <BoringSpellValueText spellId={SPELLS.LAST_EMPERORS_CAPACITOR.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

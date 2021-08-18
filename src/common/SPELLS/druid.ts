@@ -433,13 +433,14 @@ const spells = {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  // "MOONFIRE_BEAR" is actually the debuff left by Moonfire for all forms, all specs
-  MOONFIRE_BEAR: {
+  MOONFIRE_DEBUFF: {
+    // the caster form and bear form debuff and damage ID
     id: 164812,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
-  MOONFIRE: {
+  MOONFIRE_CAST: {
+    // the caster form and bear form cast ID
     id: 8921,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
@@ -712,6 +713,7 @@ const spells = {
     icon: 'ability_ghoulfrenzy',
   },
   RAKE: {
+    // the cast and DIRECT damage
     id: 1822,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
@@ -743,11 +745,13 @@ const spells = {
     icon: 'ability_druid_mangle',
   },
   RAKE_BLEED: {
+    // the debuff and DOT damage
     id: 155722,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
   RAKE_STUN: {
+    // the stun when used from stealth
     id: 163505,
     name: 'Rake',
     icon: 'ability_druid_disembowel',

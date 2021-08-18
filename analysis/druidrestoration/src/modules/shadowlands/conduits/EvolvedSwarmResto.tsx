@@ -41,7 +41,7 @@ class EvolvedSwarmResto extends Analyzer {
         }
       >
         <BoringSpellValueText
-          spell={SPELLS.EVOLVED_SWARM}
+          spellId={SPELLS.EVOLVED_SWARM.id}
           ilvl={this.selectedCombatant.conduitsByConduitID[SPELLS.EVOLVED_SWARM.id].itemLevel}
         >
           <ItemPercentHealingDone amount={this.adaptiveSwarmResto.evolvedSwarmHealing} />

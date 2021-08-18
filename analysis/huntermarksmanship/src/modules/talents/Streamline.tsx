@@ -82,7 +82,7 @@ class Streamline extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.STREAMLINE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STREAMLINE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

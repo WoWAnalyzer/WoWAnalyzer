@@ -102,7 +102,7 @@ class EmpyreanPower extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.EMPYREAN_POWER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.EMPYREAN_POWER_TALENT.id}>
           <ItemDamageDone amount={this.damageDone} />
         </BoringSpellValueText>
         {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}

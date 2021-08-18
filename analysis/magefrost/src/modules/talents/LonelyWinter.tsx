@@ -58,7 +58,7 @@ class LonelyWinter extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.LONELY_WINTER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.LONELY_WINTER_TALENT.id}>
           {this.owner.formatItemDamageDone(totalDamage)}
         </BoringSpellValueText>
       </Statistic>

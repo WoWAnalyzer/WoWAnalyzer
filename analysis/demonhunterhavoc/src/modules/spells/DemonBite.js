@@ -94,7 +94,7 @@ class DemonBite extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DEMONS_BITE}>
+        <BoringSpellValueText spellId={SPELLS.DEMONS_BITE.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small> <br />
             {this.owner.formatItemDamageDone(this.damage)}

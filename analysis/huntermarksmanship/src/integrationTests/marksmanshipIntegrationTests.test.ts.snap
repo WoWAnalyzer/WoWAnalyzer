@@ -13202,7 +13202,7 @@ Array [
       You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"10.11"}}
+      {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"10.25"}}
        (
       &lt;10% is recommended.
       )
@@ -13460,7 +13460,7 @@ exports[`Marksmanship Hunter integration test: Single Target NaturalMending matc
         >
           41
           s/
-          182
+          180
           s 
           <small>
              cooldown reduction
@@ -15278,7 +15278,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "65.94612701388884%",
+                  "width": "65.47342026878047%",
                 }
               }
             />
@@ -15448,7 +15448,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  89.89%
+                  89.75%
                    
                    
                 </div>
@@ -15470,7 +15470,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "99.17682440042938%",
+                        "width": "98.23141091021262%",
                       }
                     }
                   />

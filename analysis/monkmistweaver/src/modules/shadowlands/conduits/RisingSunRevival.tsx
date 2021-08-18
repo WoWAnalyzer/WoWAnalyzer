@@ -68,7 +68,7 @@ class RisingSunRevival extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.RISING_SUN_REVIVAL}>
+        <BoringSpellValueText spellId={SPELLS.RISING_SUN_REVIVAL.id}>
           <ItemHealingDone amount={healing} />
           <br />
         </BoringSpellValueText>

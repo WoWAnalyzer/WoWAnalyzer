@@ -5,6 +5,15 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 4), <>Combined AoE spell statistic box and suggestions into a single unified element with visual improvements.</>, Sref),
+  change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
+  change(date(2021, 7, 28), <>Energy overcap from <SpellLink id={SPELLS.TIGERS_FURY.id}/> and Combo Point overcap stats no longer count waste that occurs during <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/>, as it is unavoidable.</>, Sref),
+  change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
+  change(date(2021, 7, 10), <>Removed outdated "<SpellLink id={SPELLS.BLOODTALONS_BUFF.id}/> overwrite" suggestion, and updated the statistic box to be more useful.</>, Sref),
+  change(date(2021, 7, 9), <>Fixed an issue where only <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} /> (and not <SpellLink id={SPELLS.BERSERK.id} />) was counted as giving a stealth bonus to <SpellLink id={SPELLS.RAKE.id} /></>, Sref),
+  change(date(2021, 6, 26), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to CDs checklist, and fixed a bug where <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/> stats would only appear if player is specced for <SpellLink id={SPELLS.LUNAR_INSPIRATION_TALENT.id}/>.</>, Sref),
+  change(date(2021, 6, 25), <>Added suggestions for <SpellLink id={SPELLS.TIGERS_FURY.id} /> and <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> snapshotting, and updated <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> energy suggestion to be more clear about exceptions.</>, Sref),
+  change(date(2021, 6, 24), <>Complete overhaul of the Checklist, including many bugfixes and improvements.</>, Sref),
   change(date(2021, 6, 3), <>Added <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} /> support</>, Sref),
   change(date(2021, 6, 1), <>Fixed an issue where <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> stat box wasn't showing, and updated it to show direct damage done.</>, Sref),
   change(date(2021, 5, 24), <>Rolled snapshot uptimes into the uptimes graph. Added a statistic for <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/>.</>, Sref),

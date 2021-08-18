@@ -53,7 +53,7 @@ class Sundering extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.SUNDERING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SUNDERING_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />

@@ -175,7 +175,7 @@ class SearingTouch extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SEARING_TOUCH_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SEARING_TOUCH_TALENT.id}>
           <>
             {formatPercentage(this.executeUtil, 0)}% <small>Execute Utilization</small>
           </>

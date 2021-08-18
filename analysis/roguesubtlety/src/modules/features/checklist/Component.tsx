@@ -44,6 +44,9 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <AbilityRequirement spell={SPELLS.SEPSIS.id} />
         )}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <AbilityRequirement spell={SPELLS.FLAGELLATION.id} />
+        )}
       </Rule>
       <Rule
         name="Don't waste resources"

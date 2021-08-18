@@ -88,7 +88,7 @@ class LegionStrike extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.FELGUARD_LEGION_STRIKE}>
+        <BoringSpellValueText spellId={SPELLS.FELGUARD_LEGION_STRIKE.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

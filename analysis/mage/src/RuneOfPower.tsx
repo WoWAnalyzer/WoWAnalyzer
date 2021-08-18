@@ -192,7 +192,7 @@ class RuneOfPower extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spell={SPELLS.RUNE_OF_POWER_TALENT}>
+          <BoringSpellValueText spellId={SPELLS.RUNE_OF_POWER_TALENT.id}>
             <>
               {formatPercentage(this.damagePercent, 0)}%{' '}
               <small>Damage added by Rune of Power</small>

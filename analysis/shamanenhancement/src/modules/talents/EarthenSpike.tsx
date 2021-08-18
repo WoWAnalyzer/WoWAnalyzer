@@ -77,7 +77,7 @@ class EarthenSpike extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.EARTHEN_SPIKE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.EARTHEN_SPIKE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

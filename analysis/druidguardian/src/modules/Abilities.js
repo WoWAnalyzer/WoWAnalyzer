@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 2,
       },
       {
-        spell: SPELLS.MOONFIRE.id,
+        spell: SPELLS.MOONFIRE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
             // is ticking or not, in that case we consider it non-filler as a concession.
             if (
               !this.enemies.getEntity(event) ||
-              !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)
+              !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_DEBUFF.id, event.timestamp)
             ) {
               return false;
             }

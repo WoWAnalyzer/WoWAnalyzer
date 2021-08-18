@@ -165,7 +165,7 @@ class Hailstorm extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HAILSTORM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HAILSTORM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} approximate />
             <br />

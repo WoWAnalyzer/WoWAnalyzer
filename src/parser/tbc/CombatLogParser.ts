@@ -10,6 +10,7 @@ import Channeling from '../shared/modules/Channeling';
 import DeathRecapTracker from '../shared/modules/DeathRecapTracker';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
+import DistanceMoved from '../shared/modules/DistanceMoved';
 import Enemies from '../shared/modules/Enemies';
 import EnemyInstances from '../shared/modules/EnemyInstances';
 import EventHistory from '../shared/modules/EventHistory';
@@ -20,7 +21,6 @@ import Haste from '../shared/modules/Haste';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
 import Healthstone from '../shared/modules/items/Healthstone';
 import ManaValues from '../shared/modules/ManaValues';
-import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import Pets from '../shared/modules/Pets';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';
@@ -36,6 +36,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import ManaGained from './statistic/ManaGained';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -86,6 +87,9 @@ class CombatLogParser extends BaseCombatLogParser {
     raidHealthTab: RaidHealthTab,
     healthstone: Healthstone,
   };
+
+  static suggestions = [...BaseCombatLogParser.suggestions];
+  static statistics = [...BaseCombatLogParser.statistics, ManaGained];
 }
 
 export default CombatLogParser;

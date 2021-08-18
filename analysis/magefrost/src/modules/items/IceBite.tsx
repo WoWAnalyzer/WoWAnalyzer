@@ -60,7 +60,7 @@ class IceBite extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.ICE_BITE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ICE_BITE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

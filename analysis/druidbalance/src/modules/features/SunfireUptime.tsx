@@ -53,7 +53,7 @@ class SunfireUptime extends Analyzer {
     const sunfireUptime = this.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
     return (
       <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.SUNFIRE}>
+        <BoringSpellValueText spellId={SPELLS.SUNFIRE.id}>
           <>
             <UptimeIcon /> {formatPercentage(sunfireUptime)} % <small>uptime</small>
           </>

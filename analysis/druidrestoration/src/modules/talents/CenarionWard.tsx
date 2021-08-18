@@ -47,7 +47,7 @@ class CenarionWard extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.CENARION_WARD_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CENARION_WARD_TALENT.id}>
           <ItemPercentHealingDone amount={totalHealing} />
           <br />
         </BoringSpellValueText>

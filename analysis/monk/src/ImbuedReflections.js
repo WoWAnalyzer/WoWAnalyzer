@@ -103,7 +103,7 @@ class ImbuedReflections extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.IMBUED_REFLECTIONS}>
+        <BoringSpellValueText spellId={SPELLS.IMBUED_REFLECTIONS.id}>
           <ItemHealingDone amount={this.healing} />
           <br />
           <ItemDamageDone amount={this.damage} />
