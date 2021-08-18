@@ -36,7 +36,7 @@ interface Props {
 }
 
 const Header = ({
-  config: { spec, builds },
+  config: { spec, builds, expansion },
   build,
   player: { name, icon },
   fight,
@@ -61,7 +61,7 @@ const Header = ({
 
   return (
     <header>
-      <HeaderBackground boss={boss} />
+      <HeaderBackground boss={boss} expansion={expansion} />
 
       <div className="subnavigation container">
         {phases && Object.keys(phases).length > 0 && (
