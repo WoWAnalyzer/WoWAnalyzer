@@ -8,7 +8,7 @@ import {
   RuneOfHysteria,
   Superstrain,
   SwarmingMist,
-  DeathsDue
+  DeathsDue,
 } from '@wowanalyzer/deathknight';
 
 import SpellUsable from './modules/core/SpellUsable';

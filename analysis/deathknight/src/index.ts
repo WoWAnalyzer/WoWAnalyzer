@@ -6,4 +6,4 @@ export { default as RuneOfTheFallenCrusader } from './RuneOfTheFallenCrusader';
 export { default as RuneTracker } from './RuneTracker';
 export { default as Superstrain } from './Superstrain';
 export { default as SwarmingMist } from './SwarmingMist';
-export { default as DeathsDue } from './DeathsDue'
+export { default as DeathsDue } from './DeathsDue';

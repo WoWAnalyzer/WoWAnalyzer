@@ -7,7 +7,7 @@ import {
   RuneOfHysteria,
   Superstrain,
   SwarmingMist,
-  DeathsDue
+  DeathsDue,
 } from '@wowanalyzer/deathknight';
 
 import Abilities from './modules/Abilities';
@@ -106,7 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     swarmingMist: SwarmingMist,
-    deathsDue: DeathsDue
+    deathsDue: DeathsDue,
   };
 }
 

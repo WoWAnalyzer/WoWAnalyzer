@@ -46,7 +46,7 @@ const covenants = {
 
   DEATHS_DUE_DEBUFF: {
     id: 324164,
-    name: 'Death\'s Due',
+    name: "Death's·Due",
     icon: 'ability_ardenweald_deathknight',
   },
 

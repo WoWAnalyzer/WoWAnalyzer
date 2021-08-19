@@ -7,7 +7,7 @@ import {
   RuneOfTheFallenCrusader,
   Superstrain,
   SwarmingMist,
-  DeathsDue
+  DeathsDue,
 } from '@wowanalyzer/deathknight';
 
 import Abilities from './modules/Abilities';
