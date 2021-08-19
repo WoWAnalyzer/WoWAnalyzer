@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS'
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 8, 19), <>Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
   change(date(2021, 2, 17), <>Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
   change(date(2021, 1, 26), <>Fix issue causing <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /> procs to be counted as wasted when they should not</>, Khazak),
   change(date(2021, 1, 24), <>Add module for <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /></>, Khazak),

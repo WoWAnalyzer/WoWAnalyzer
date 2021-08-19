@@ -387,11 +387,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.80,
-          extraSuggestion: <span>Should be hard-cast without a <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> proc in order to maintain the <SpellLink id={SPELLS.DEATHS_DUE_BUFF.id} /> buff</span>
-        },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {

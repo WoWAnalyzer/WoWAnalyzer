@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 8, 19), <> Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
   change(date(2021, 2, 17), <> Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
   change(date(2020, 12, 27), <> Fix a crash in the <SpellLink id={SPELLS.SWARMING_MIST.id} /> module.</>, Putro),
   change(date(2020, 12, 20), <> Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),

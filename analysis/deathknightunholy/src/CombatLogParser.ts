@@ -1,4 +1,4 @@
-import { RuneDetails, RuneOfTheFallenCrusader, RuneOfHysteria, Superstrain, SwarmingMist } from '@wowanalyzer/deathknight';
+import { RuneDetails, RuneOfTheFallenCrusader, RuneOfHysteria, Superstrain, SwarmingMist, DeathsDue } from '@wowanalyzer/deathknight';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -66,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     swarmingMist: SwarmingMist,
+    deathsDue: DeathsDue,
     convocationOfTheDead: ConvocationOfTheDead,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

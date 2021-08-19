@@ -1,4 +1,4 @@
-import { RuneTracker, RuneDetails, RuneOfTheFallenCrusader, RuneOfHysteria, Superstrain, SwarmingMist } from '@wowanalyzer/deathknight';
+import { RuneTracker, RuneDetails, RuneOfTheFallenCrusader, RuneOfHysteria, Superstrain, SwarmingMist, DeathsDue } from '@wowanalyzer/deathknight';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -107,7 +107,8 @@ class CombatLogParser extends CoreCombatLogParser {
     superStrain: Superstrain,
 
     // Covenants
-    swarmingMist: SwarmingMist
+    swarmingMist: SwarmingMist,
+    deathsDue: DeathsDue
   };
 }
 
