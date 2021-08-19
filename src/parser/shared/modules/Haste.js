@@ -1,11 +1,11 @@
-import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import StatTracker from 'parser/shared/modules/StatTracker';
+import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import Analyzer from 'parser/core/Analyzer';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const debug = false;
 
@@ -28,6 +28,7 @@ class Haste extends Analyzer {
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
+    [SPELLS.FIELD_OF_BLOSSOMS_BUFF.id]: 0.12, // Buff from Field of Blossoms (Dreamweaver Soulbind Night Fae)
 
     //region Druid Haste Buffs
     [SPELLS.STARLORD.id]: {
@@ -35,6 +36,10 @@ class Haste extends Analyzer {
     },
     [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
     [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.1,
+    [SPELLS.RAVENOUS_FRENZY.id]: {
+      hastePerStack: 0.01,
+    },
+    // Sinful Hysteria legendary has to be handled dynamically in a different module
     //endregion
 
     //region Hunter Haste Buffs
@@ -59,7 +64,7 @@ class Haste extends Analyzer {
 
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
-    //region end
+    //endregion
   };
 
   get changehaste() {

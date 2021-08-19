@@ -1,14 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Events, { DamageEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import React from 'react';
 
 import { AMOUNT_OF_PETS_WITH_AC } from '../../constants';
 
@@ -33,10 +32,16 @@ class Stomp extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
     this.hasAC = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]), () => {
-      this.casts += 1;
-    });
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE), this.onPetStompDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]),
+      () => {
+        this.casts += 1;
+      },
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE),
+      this.onPetStompDamage,
+    );
   }
 
   onPetStompDamage(event: DamageEvent) {
@@ -51,10 +56,14 @@ class Stomp extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.STOMP_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STOMP_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hasAC ? this.hits / AMOUNT_OF_PETS_WITH_AC : this.hits} />
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <AverageTargetsHit
+              casts={this.casts}
+              hits={this.hasAC ? this.hits / AMOUNT_OF_PETS_WITH_AC : this.hits}
+            />
           </>
         </BoringSpellValueText>
       </Statistic>

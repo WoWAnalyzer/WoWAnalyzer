@@ -1,14 +1,22 @@
-import SPECS from 'game/SPECS';
-import RACES from 'game/RACES';
-import TALENT_ROWS from 'game/TALENT_ROWS';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
-import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
+import SPECS, { Spec } from 'game/SPECS';
+import TALENT_ROWS from 'game/TALENT_ROWS';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import {
+  Buff,
+  CombatantInfoEvent,
+  Conduit,
+  EventType,
+  Item,
+  SoulbindTrait,
+} from 'parser/core/Events';
 
 import Entity from './Entity';
+import { PlayerInfo } from './Player';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -37,8 +45,12 @@ class Combatant extends Entity {
   get specId() {
     return this._combatantInfo.specID;
   }
+  get player() {
+    return this._combatantInfo.player;
+  }
 
-  get spec() {
+  /** @deprecated Use player.icon instead. */
+  get spec(): Spec | undefined {
     return SPECS[this.specId];
   }
 
@@ -76,18 +88,13 @@ class Combatant extends Entity {
     super(parser);
 
     const playerInfo = parser.players.find(
-      (player: Player) => player.id === combatantInfo.sourceID,
+      (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
 
-    //TODO - verify if this is ever fixed on WCL side
-    if (!combatantInfo.soulbindTraits) {
-      combatantInfo.soulbindTraits = combatantInfo.artifact;
+    if (combatantInfo.expansion === 'shadowlands') {
+      combatantInfo.soulbindTraits = combatantInfo.customPowerSet;
+      combatantInfo.conduits = combatantInfo.secondaryCustomPowerSet;
     }
-    if (!combatantInfo.conduits) {
-      combatantInfo.conduits = combatantInfo.heartOfAzeroth;
-    }
-    delete combatantInfo.artifact;
-    delete combatantInfo.heartOfAzeroth;
 
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this
@@ -255,6 +262,7 @@ class Combatant extends Entity {
     };
 
     conduits.forEach((conduit: Conduit) => {
+      conduit.itemLevel = conduit.rank; // conduit "rank" passed in is actually its ilvl
       conduit.rank = ilvlToRankMapping[conduit.rank];
       this.conduitsByConduitID[conduit.spellID] = conduit;
     });

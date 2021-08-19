@@ -1,16 +1,15 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Insanity from 'interface/icons/Insanity';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { formatNumber, formatPercentage } from 'common/format';
-import { t } from '@lingui/macro';
-import Insanity from 'interface/icons/Insanity';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
+import React from 'react';
 
 class DeathAndMadness extends Analyzer {
   casts = 0;
@@ -20,10 +19,22 @@ class DeathAndMadness extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEATH_AND_MADNESS_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_DEATH), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF), this.onBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF), this.onBuff);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF), this.onEnergize);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_DEATH),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      this.onBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      this.onBuff,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      this.onEnergize,
+    );
   }
 
   // Since the actual buff only applies/refreshes as a reward for getting a kill within 7s of using SW: Death, don't have to do much to check
@@ -85,7 +96,7 @@ class DeathAndMadness extends Analyzer {
         size="flexible"
         tooltip="Number of casts where the target was killed and insanity generated from it."
       >
-        <BoringSpellValueText spell={SPELLS.DEATH_AND_MADNESS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DEATH_AND_MADNESS_TALENT.id}>
           <>
             {formatNumber(this.resets)} CD Resets
             <br />

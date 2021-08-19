@@ -1,17 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import SPELLS from 'common/SPELLS';
-import { Icon, SpellLink } from 'interface';
+import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
-import { TooltipElement } from 'interface';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
+import { Icon, SpellLink } from 'interface';
+import { TooltipElement } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import './Cooldown.css';
-import { Trans } from '@lingui/macro';
 
 class Cooldown extends React.Component {
   static propTypes = {
@@ -24,6 +22,7 @@ class Cooldown extends React.Component {
         icon: PropTypes.string.isRequired,
       }),
       start: PropTypes.number.isRequired,
+      cdStart: PropTypes.number.isRequired,
       end: PropTypes.number,
       events: PropTypes.arrayOf(
         PropTypes.shape({
@@ -116,12 +115,18 @@ class Cooldown extends React.Component {
     return { damageDone };
   }
 
+  formatRelativeTimestamp(event, cooldown) {
+    const relativeTimestamp = event.timestamp - cooldown.cdStart;
+    return (relativeTimestamp > 0 ? '+' : '') + (relativeTimestamp / 1000).toFixed(3);
+  }
+
   render() {
     const { cooldown, fightStart, fightEnd } = this.props;
 
     let healingStatistics = null;
 
     const start = cooldown.start;
+    const cdStart = cooldown.cdStart;
     const end = cooldown.end || fightEnd;
 
     /* eslint-disable no-script-url */
@@ -137,8 +142,8 @@ class Cooldown extends React.Component {
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.spell.id} icon={false} /> (
-              {formatDuration((start - fightStart) / 1000)} -&gt;{' '}
-              {formatDuration((end - fightStart) / 1000)}) &nbsp;
+              {formatDuration(cdStart - fightStart)} -&gt; {formatDuration(end - fightStart)})
+              &nbsp;
               <TooltipElement
                 content={
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">
@@ -194,7 +199,7 @@ class Cooldown extends React.Component {
                   .map((event, i) => (
                     <div className="row" key={i}>
                       <div className="col-xs-2 text-right" style={{ padding: 0 }}>
-                        +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                        {this.formatRelativeTimestamp(event, cooldown)}
                       </div>
                       <div className="col-xs-10">
                         <SpellLink
@@ -250,7 +255,7 @@ class Cooldown extends React.Component {
                   return (
                     <div className="row" key={i}>
                       <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                        +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                        {this.formatRelativeTimestamp(event, cooldown)}
                       </div>
                       <div
                         className={`col-xs-4 ${

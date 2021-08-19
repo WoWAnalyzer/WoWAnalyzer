@@ -1,14 +1,14 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_DAMAGE_SPELLS } from '../../constants';
 
@@ -27,20 +27,17 @@ class Stormbringer extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.STORMBRINGER_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
       this.onStormbringerApplied,
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_CAST_SPELLS),
+      Events.cast.by(SELECTED_PLAYER).spell(STORMSTRIKE_CAST_SPELLS),
       this.onStormstrikeUseWithStormbringerBuff,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
+      Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStrikeDamage,
     );
   }
@@ -76,9 +73,7 @@ class Stormbringer extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText
-          spell={SPELLS.STORMBRINGER}
-        >
+        <BoringSpellValueText spellId={SPELLS.STORMBRINGER.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

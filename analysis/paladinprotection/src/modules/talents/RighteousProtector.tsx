@@ -1,14 +1,14 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, { CastEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 export const REDUCTION_TIME = 1000; // ms
 const SECOND = 1000;
@@ -33,7 +33,10 @@ class RighteousProtector extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
+      this.onCast,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -44,7 +47,10 @@ class RighteousProtector extends Analyzer {
     } else {
       this.avengingWrathReductionWasted += REDUCTION_TIME;
     }
-    if (this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id) || this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id)) {
+    if (
+      this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id) ||
+      this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id)
+    ) {
       const reduction = this.guardianReduction;
       this.guardianOfAncientKingsReduced += reduction;
       this.guardianOfAncientKingsWasted += REDUCTION_TIME - reduction;
@@ -63,7 +69,10 @@ class RighteousProtector extends Analyzer {
     try {
       return this.spellUsable.reduceCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id, REDUCTION_TIME);
     } catch (e) {
-      return this.spellUsable.reduceCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id, REDUCTION_TIME);
+      return this.spellUsable.reduceCooldown(
+        SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+        REDUCTION_TIME,
+      );
     }
   }
 
@@ -74,12 +83,21 @@ class RighteousProtector extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.RIGHTEOUS_PROTECTOR_TALENT}>
-          <SpellIcon id={SPELLS.AVENGING_WRATH.id} /> {formatNumber(this.avengingWrathReduced/SECOND)}s <small>CD Reduction ({formatNumber(this.avengingWrathReductionWasted/SECOND)}s wasted)</small><br />
-          <SpellIcon id={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} /> {formatNumber(this.guardianOfAncientKingsReduced/SECOND)}s <small>CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted/SECOND)}s wasted)</small>
+        <BoringSpellValueText spellId={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id}>
+          <SpellIcon id={SPELLS.AVENGING_WRATH.id} />{' '}
+          {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
+          <small>
+            CD Reduction ({formatNumber(this.avengingWrathReductionWasted / SECOND)}s wasted)
+          </small>
+          <br />
+          <SpellIcon id={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} />{' '}
+          {formatNumber(this.guardianOfAncientKingsReduced / SECOND)}s{' '}
+          <small>
+            CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)
+          </small>
         </BoringSpellValueText>
       </Statistic>
-    )
+    );
   }
 }
 

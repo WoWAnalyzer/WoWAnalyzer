@@ -1,9 +1,10 @@
 import { Trans } from '@lingui/macro';
+import Contributor from 'interface/ContributorButton';
+import ReadableListing from 'interface/ReadableListing';
+import Config from 'parser/Config';
 import React from 'react';
 
-import Contributor from 'interface/ContributorButton';
-import Config from 'parser/Config';
-import ReadableListing from 'interface/ReadableListing';
+import SpecIcon from './SpecIcon';
 
 const SpecListItem = ({
   spec,
@@ -32,10 +33,7 @@ const SpecListItem = ({
     >
       <div className="icon">
         <figure>
-          <img
-            src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`}
-            alt={`${spec.specName} ${spec.className}`}
-          />
+          <SpecIcon spec={spec} />
         </figure>
       </div>
       <div className="description">
@@ -55,9 +53,7 @@ const SpecListItem = ({
         )}
         <br />
         {contributors.length !== 0 ? (
-          <Trans id="interface.specListItem.maintainer">
-            Maintained by: {maintainers}
-          </Trans>
+          <Trans id="interface.specListItem.maintainer">Maintained by: {maintainers}</Trans>
         ) : (
           <small>
             <em>

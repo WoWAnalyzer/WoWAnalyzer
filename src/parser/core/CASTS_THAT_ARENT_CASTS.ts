@@ -24,9 +24,6 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   SPELLS.SPIRITWALKERS_GRACE.id,
 
-  //region Enchants
-  SPELLS.CELESTIAL_GUIDANCE_CAST.id, //Celestial Guidance enchant proc
-
   //endregion
 
   //region Consumables
@@ -35,6 +32,7 @@ const spells: number[] = [
 
   //region Enchants
   SPELLS.SINFUL_REVELATION_PROC.id,
+  SPELLS.CELESTIAL_GUIDANCE_CAST.id,
 
   //region Death Knight
   SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
@@ -55,14 +53,16 @@ const spells: number[] = [
 
   //region Mage
   SPELLS.RUNE_OF_POWER_BUFF.id,
+  SPELLS.DISCIPLINARY_COMMAND_BUFF.id,
 
   //region Covenants
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
+  SPELLS.SOOTHING_SHADE.id, //The Spell ID when Theotar's soulbind proc "casts"
   //endregion
 
   //region Demon Hunter
-  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting 
+  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting
   //endregion
 
   //region druid

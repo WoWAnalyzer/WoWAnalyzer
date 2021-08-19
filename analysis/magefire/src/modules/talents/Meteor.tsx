@@ -1,18 +1,18 @@
-import React from 'react';
+import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import { Trans } from '@lingui/macro';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
-import MeteorRune from './MeteorRune';
 import MeteorCombustion from './MeteorCombustion';
+import MeteorRune from './MeteorRune';
 
 class Meteor extends Analyzer {
   static dependencies = {
@@ -56,36 +56,59 @@ class Meteor extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.meteorEfficiencySuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
-					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(<Trans id="mage.fire.suggestions.meteor.efficiency">{formatPercentage(this.meteorCastEfficiency)}% Utilization</Trans>)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`));
-	}
+    when(this.meteorEfficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times
+          during this fight, but you only cast it {this.totalMeteorCasts} times. While you should
+          not cast Meteor on cooldown (since you need to have it available for{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} />
+          ), you should be casting it at least once per minute.
+        </>,
+      )
+        .icon(SPELLS.METEOR_TALENT.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.meteor.efficiency">
+            {formatPercentage(this.meteorCastEfficiency)}% Utilization
+          </Trans>,
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
+  }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
             This is a measure of how well you utilized your Meteor casts.
             <ul>
               <li>{this.totalMeteorCasts} Total Meteor casts</li>
               <li>{this.meteorMaxCasts} Adjusted max casts</li>
-              <li>{this.meteorRune.totalMeteorCasts - this.meteorRune.badMeteor} Meteor casts during Rune of Power</li>
+              <li>
+                {this.meteorRune.totalMeteorCasts - this.meteorRune.badMeteor} Meteor casts during
+                Rune of Power
+              </li>
               <li>{this.meteorRune.badMeteor} Meteor casts without Rune of Power</li>
-              <li>{this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor</li>
+              <li>
+                {this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.METEOR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.METEOR_TALENT.id}>
           <>
-            {formatPercentage(this.meteorCastEfficiency,0)}% <small>Adjusted Cast Efficiency</small><br />
-            {formatPercentage(this.meteorRune.meteorUtilization,0)}% <small>Overall Utilization</small><br />
-            {formatPercentage(this.meteorCombustion.combustionUtilization,0)}% <small>Utilization during Combustion</small>
+            {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
+            <small>Adjusted Cast Efficiency</small>
+            <br />
+            {formatPercentage(this.meteorRune.meteorUtilization, 0)}%{' '}
+            <small>Overall Utilization</small>
+            <br />
+            {formatPercentage(this.meteorCombustion.combustionUtilization, 0)}%{' '}
+            <small>Utilization during Combustion</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -1,14 +1,12 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import React from 'react';
 
 /**
  * Your ranged special attack critical strikes cause the target to bleed for an additional 15% of the damage dealt over 6 sec.
@@ -18,13 +16,15 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
  */
 
 class MasterMarksman extends Analyzer {
-
   damage: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_MARKSMAN_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MASTER_MARKSMAN_DEBUFF), this.onDebuffDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MASTER_MARKSMAN_DEBUFF),
+      this.onDebuffDamage,
+    );
   }
 
   onDebuffDamage(event: DamageEvent) {
@@ -38,7 +38,7 @@ class MasterMarksman extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.MASTER_MARKSMAN_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.MASTER_MARKSMAN_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

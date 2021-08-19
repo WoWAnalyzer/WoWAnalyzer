@@ -46,16 +46,21 @@ const covenants = {
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
   },
+  SEPSIS_BUFF: {
+    id: 347037,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
   //endregion
 
   //region Venthyr
   FLAGELLATION: {
-    id: 345285,
+    id: 323654,
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
   },
   FLAGELLATION_LASH: {
-    id: 345390,
+    id: 345316,
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
   },

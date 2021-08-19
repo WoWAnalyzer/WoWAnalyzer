@@ -1,12 +1,12 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const OSSUARY_RUNICPOWER_REDUCTION = 5;
 
@@ -45,7 +45,7 @@ class Ossuary extends Analyzer {
       isLessThan: {
         minor: 1,
         average: 0.9,
-        major: .85,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -57,21 +57,26 @@ class Ossuary extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.efficiencySuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest('Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.')
+    when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        'Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.',
+      )
         .icon(SPELLS.OSSUARY.icon)
-        .actual(t({
-      id: "deathknight.blood.suggestions.ossuary.efficiency",
-      message: `${formatPercentage(actual)}% Ossuary efficiency`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.ossuary.efficiency',
+            message: `${formatPercentage(actual)}% Ossuary efficiency`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -79,17 +84,21 @@ class Ossuary extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without Ossuary up.<br />
-            {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary up.<br />
+            {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without
+            Ossuary up.
+            <br />
+            {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary up.
+            <br />
             {formatPercentage(this.uptime)}% uptime.
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.OSSUARY}>
+        <BoringSpellValueText spellId={SPELLS.OSSUARY.id}>
           <>
-            {this.dsWithoutOS} / {this.dsWithOS + this.dsWithoutOS} <small>Death Strikes without Ossuary</small>
+            {this.dsWithoutOS} / {this.dsWithOS + this.dsWithoutOS}{' '}
+            <small>Death Strikes without Ossuary</small>
           </>
         </BoringSpellValueText>
       </Statistic>

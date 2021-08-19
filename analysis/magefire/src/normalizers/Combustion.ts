@@ -1,33 +1,25 @@
 import SPELLS from 'common/SPELLS';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
+import { EventType } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+const EVENT_ORDERS: EventOrder[] = [
+  {
+    beforeEventId: SPELLS.COMBUSTION.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.COMBUSTION.id,
+    afterEventType: EventType.ApplyBuff,
+    bufferMs: 50,
+    anyTarget: true,
+  },
+];
 
-class Combustion extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
-    events.forEach((event, eventIndex) => {
-      fixedEvents.push(event);
-
-      if (event.type === EventType.Cast && event.ability.guid === SPELLS.COMBUSTION.id) {
-        const castTimestamp = event.timestamp;
-
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > 50) {
-            break;
-          }
-          if (previousEvent.type === EventType.ApplyBuff && previousEvent.ability.guid === SPELLS.COMBUSTION.id && previousEvent.sourceID === event.sourceID) {
-            fixedEvents.splice(previousEventIndex, 1);
-            fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
-            break;
-          }
-        }
-      }
-    });
-
-    return fixedEvents;
+/**
+ * Ensures that the apply buff event for Combustion is sorted after the Combustion cast.
+ */
+class Combustion extends EventOrderNormalizer {
+  constructor(options: Options) {
+    super(options, EVENT_ORDERS);
   }
 }
 

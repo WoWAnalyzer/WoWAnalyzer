@@ -1,13 +1,17 @@
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import { CombatantInfoEvent } from 'parser/core/Events';
+import Report from 'parser/core/Report';
+import getConfig from 'parser/getConfig';
 import React from 'react';
 
-import SPECS from 'game/SPECS';
-import ROLES from 'game/ROLES';
-import { CombatantInfoEvent } from 'parser/core/Events';
-
+import Player from '../../parser/core/Player';
 import PlayerTile from './PlayerTile';
+
 import './PlayerSelection.scss';
 
-const ROLE_SORT_KEY: {[key: string]: number} = {
+const ROLE_SORT_KEY: { [key: string]: number } = {
   [ROLES.TANK]: 0,
   [ROLES.HEALER]: 1,
   //Different sort for range/melee was tested and felt intuitive.
@@ -16,7 +20,7 @@ const ROLE_SORT_KEY: {[key: string]: number} = {
   [ROLES.DPS.RANGED]: 2,
 };
 
-function sortPlayers(a: Player, b: Player) {  
+function sortPlayers(a: Player, b: Player) {
   const aSpec = SPECS[a.combatant.specID];
   const bSpec = SPECS[b.combatant.specID];
   const aRoleSortKey = aSpec ? ROLE_SORT_KEY[aSpec.role] : -1;
@@ -35,32 +39,46 @@ function sortPlayers(a: Player, b: Player) {
   return a.name.localeCompare(b.name);
 }
 
-interface Fight {
-  id: number;
-}
-
-export interface Player { 
-  combatant: CombatantInfoEvent;
-  fights: Fight[];
-  guid: string;
-  icon: string;
-  id: string;
-  name: string;
-  region: string;
-  server: string;
-  type: string;
-}
-
 interface Props {
-  players: Player[];
-  makeUrl: (playerId: string) => string;
+  report: Report;
+  combatants: CombatantInfoEvent[];
+  makeUrl: (playerId: number) => string;
 }
 
-const PlayerSelection = ({ players, makeUrl }: Props) => (
+const PlayerSelection = ({ report, combatants, makeUrl }: Props) => (
   <div className="player-selection">
-    {players.sort(sortPlayers).map(player => (
-      <PlayerTile key={player.guid} player={player} makeUrl={makeUrl} />
-    ))}
+    {report.friendlies
+      .flatMap((friendly) => {
+        const combatant = combatants.find((combatant) => combatant.sourceID === friendly.id);
+        if (!combatant) {
+          return [];
+        }
+        const exportedCharacter = report.exportedCharacters
+          ? report.exportedCharacters.find((char) => char.name === friendly.name)
+          : null;
+
+        return [
+          {
+            ...friendly,
+            combatant,
+            server: exportedCharacter?.server,
+            region: exportedCharacter?.region,
+          },
+        ];
+      })
+      .sort(sortPlayers)
+      .map((player) => (
+        <PlayerTile
+          key={player.guid}
+          player={player}
+          makeUrl={makeUrl}
+          config={getConfig(
+            wclGameVersionToExpansion(report.gameVersion),
+            player.combatant.specID,
+            player.type,
+          )}
+        />
+      ))}
   </div>
 );
 

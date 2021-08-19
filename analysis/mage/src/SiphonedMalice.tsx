@@ -1,18 +1,34 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
-const DAMAGE_BONUS = [0, .02, .02, .02, .03, .03, .03, .03, .03, .04, .04, .04, .04, .04, .05, .05];
+const DAMAGE_BONUS = [
+  0,
+  0.02,
+  0.02,
+  0.02,
+  0.03,
+  0.03,
+  0.03,
+  0.03,
+  0.03,
+  0.04,
+  0.04,
+  0.04,
+  0.04,
+  0.04,
+  0.05,
+  0.05,
+];
 
 class SiphonedMalice extends Analyzer {
-
   conduitRank = 0;
   bonusDamage = 0;
 
@@ -28,16 +44,16 @@ class SiphonedMalice extends Analyzer {
     if (!buff) {
       return;
     }
-    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS[this.conduitRank] * buff.stacks);
+    this.bonusDamage += calculateEffectiveDamage(
+      event,
+      DAMAGE_BONUS[this.conduitRank] * buff.stacks,
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-      >
-        <ConduitSpellText spell={SPELLS.SIPHONED_MALICE} rank={this.conduitRank}>
+      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
+        <ConduitSpellText spellId={SPELLS.SIPHONED_MALICE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

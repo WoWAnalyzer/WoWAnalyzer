@@ -64,9 +64,8 @@ const spells = {
   WILD_CHARGE_TALENT: {
     id: 102401,
     name: 'Wild Charge',
-    icon: 'spell_druid_wildcharge'
-   },
-
+    icon: 'spell_druid_wildcharge',
+  },
 
   //shared talent spells
 
@@ -90,6 +89,28 @@ const spells = {
     name: 'Wild Charge',
     icon: 'trade_archaeology_antleredcloakclasp',
   },
+  HEART_OF_THE_WILD_BALANCE_AFFINITY: {
+    id: 108291,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_FERAL_AFFINITY: {
+    id: 108292,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_GUARDIAN_AFFINITY: {
+    id: 108293,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+  HEART_OF_THE_WILD_RESTO_AFFINITY: {
+    id: 108294,
+    name: 'Heart of the Wild',
+    icon: 'spell_holy_blessingofagility',
+  },
+
+  // shared items / conduits
 
   //Affinity Spells
   //Moonkin-Balance
@@ -118,9 +139,9 @@ const spells = {
     icon: 'ability_mage_firestarter',
   },
   //Guardian Affinity Spells
-      //Ironfur gained from affinity has same spell ID as the Guardian spell
-      //Thick Hide gained from affinity has same spell ID as the Guardian spell
-      //Thrash gained from affinity has same spell ID as the Guardian spell
+  //Ironfur gained from affinity has same spell ID as the Guardian spell
+  //Thick Hide gained from affinity has same spell ID as the Guardian spell
+  //Thrash gained from affinity has same spell ID as the Guardian spell
   //Granted by Guardian affinity
   FRENZIED_REGENERATION: {
     id: 22842,
@@ -129,12 +150,10 @@ const spells = {
   },
 
   //Feral Affinity Spells
-    //Rake gain from affinity has the same spell id as the Feral Spell
-    //Rip gain from affinity has the same spell id as the Feral Spell
-    //Ferocious Bite gain from affinity has the same spell id as the Feral Spell
-    //Swipe (Named SWIPE_CAT)  gain from affinity has the same spell id as the Feral Spell
-
-
+  //Rake gain from affinity has the same spell id as the Feral Spell
+  //Rip gain from affinity has the same spell id as the Feral Spell
+  //Ferocious Bite gain from affinity has the same spell id as the Feral Spell
+  //Swipe (Named SWIPE_CAT)  gain from affinity has the same spell id as the Feral Spell
 
   // RESTO DRUID //
 
@@ -251,7 +270,7 @@ const spells = {
   },
   NATURES_CURE: {
     id: 88423,
-    name: 'Nature\'s Cure',
+    name: "Nature's Cure",
     icon: 'ability_shaman_cleansespirit',
   },
   STAG_FORM: {
@@ -276,7 +295,7 @@ const spells = {
   },
   URSOLS_VORTEX: {
     id: 102793,
-    name: 'Ursol\'s Vortex',
+    name: "Ursol's Vortex",
     icon: 'spell_druid_ursolsvortex',
   },
   MOONKIN_FORM: {
@@ -297,12 +316,12 @@ const spells = {
   // Ysera's Gift has two heal IDs, one when it heals other players and one when it heals yourself.
   YSERAS_GIFT_OTHERS: {
     id: 145110,
-    name: 'Ysera\'s gift',
+    name: "Ysera's gift",
     icon: 'spell_nature_healingtouch',
   },
   YSERAS_GIFT_SELF: {
     id: 145109,
-    name: 'Ysera\'s gift',
+    name: "Ysera's gift",
     icon: 'spell_nature_healingtouch',
   },
   MARK_OF_SHIFTING: {
@@ -310,9 +329,10 @@ const spells = {
     name: 'Mark of Shifting',
     icon: 'spell_druid_tirelesspursuit',
   },
-  NATURES_ESSENCE_DRUID: { // there is also a Shaman spell by the name "Nature's Essence"
+  NATURES_ESSENCE_DRUID: {
+    // there is also a Shaman spell by the name "Nature's Essence"
     id: 189800,
-    name: 'Nature\'s Essence',
+    name: "Nature's Essence",
     icon: 'ability_druid_flourish',
   },
   SPRING_BLOSSOMS: {
@@ -332,16 +352,17 @@ const spells = {
     name: 'Incarnation',
     icon: 'spell_druid_incarnation',
   },
-  NATURES_SWIFTNESS :{
+  NATURES_SWIFTNESS: {
     id: 132158,
-    name: 'Nature\'s Swiftness',
+    name: "Nature's Swiftness",
     icon: 'spell_nature_ravenform',
   },
 
   // Sets/Items:
   // Hidden buffs that indicate set is equipped:
   // Visible procs produced by set/item:
-  ASTRAL_HARMONY: { // 2pc T19
+  ASTRAL_HARMONY: {
+    // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
     icon: 'talentspec_druid_restoration',
@@ -350,7 +371,7 @@ const spells = {
   // Traits:
   NATURES_ESSENCE_TRAIT: {
     id: 189787,
-    name: 'Nature\'s Essence',
+    name: "Nature's Essence",
     icon: 'ability_druid_flourish',
   },
 
@@ -412,13 +433,14 @@ const spells = {
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
   },
-  // "MOONFIRE_BEAR" is actually the debuff left by Moonfire for all forms, all specs
-  MOONFIRE_BEAR: {
+  MOONFIRE_DEBUFF: {
+    // the caster form and bear form debuff and damage ID
     id: 164812,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
-  MOONFIRE: {
+  MOONFIRE_CAST: {
+    // the caster form and bear form cast ID
     id: 8921,
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
@@ -461,7 +483,7 @@ const spells = {
   // passive spell with this ID granted to any druid with Restoration Affinity
   YSERAS_GIFT_BEAR: {
     id: 145108,
-    name: 'Ysera\'s gift',
+    name: "Ysera's gift",
     icon: 'inv_misc_head_dragon_green',
   },
   MAUL: {
@@ -506,7 +528,7 @@ const spells = {
   },
   URSOCS_ENDURANCE: {
     id: 200399,
-    name: 'Ursoc\'s Endurance',
+    name: "Ursoc's Endurance",
     icon: 'ability_hunter_pet_bear',
   },
   PULVERIZE_BUFF: {
@@ -516,7 +538,7 @@ const spells = {
   },
   SKYSECS_HOLD_HEAL: {
     id: 208218,
-    name: 'Skysec\'s Hold',
+    name: "Skysec's Hold",
     icon: 'spell_druid_bearhug',
   },
   BLOOD_FRENZY_TICK: {
@@ -531,7 +553,7 @@ const spells = {
   },
   OAKHEARTS_PUNY_QUODS_BUFF: {
     id: 236479,
-    name: 'Oakheart\'s Puny Quods',
+    name: "Oakheart's Puny Quods",
     icon: 'spell_druid_bearhug',
   },
   EARTHWARDEN_BUFF: {
@@ -561,7 +583,7 @@ const spells = {
   },
   MASTERY_NATURES_GUARDIAN_HEAL: {
     id: 227034,
-    name: 'Mastery: Nature\'s Guardian',
+    name: "Mastery: Nature's Guardian",
     icon: 'spell_druid_primaltenacity',
   },
   // Moonkin
@@ -691,13 +713,14 @@ const spells = {
     icon: 'ability_ghoulfrenzy',
   },
   RAKE: {
+    // the cast and DIRECT damage
     id: 1822,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
   TIGERS_FURY: {
     id: 5217,
-    name: 'Tiger\'s Fury',
+    name: "Tiger's Fury",
     icon: 'ability_mount_jungletiger',
   },
   SKULL_BASH_FERAL: {
@@ -715,17 +738,20 @@ const spells = {
     name: 'Maim',
     icon: 'ability_druid_mangle',
   },
-  MAIM_DEBUFF: { // the stun caused by Maim, which shows in the log as a 0 damage event
+  MAIM_DEBUFF: {
+    // the stun caused by Maim, which shows in the log as a 0 damage event
     id: 203123,
     name: 'Maim',
     icon: 'ability_druid_mangle',
   },
   RAKE_BLEED: {
+    // the debuff and DOT damage
     id: 155722,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
   RAKE_STUN: {
+    // the stun when used from stealth
     id: 163505,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
@@ -742,6 +768,11 @@ const spells = {
   },
   BERSERK: {
     id: 106951,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
+  BERSERK_BUFF: {
+    id: 343216,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
@@ -844,6 +875,24 @@ const spells = {
     id: 252752,
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
+  },
+  FRENZIED_ASSAULT: {
+    // DoT procced by Frenzyband legendary
+    id: 340056,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  APEX_PREDATORS_CRAVING_BUFF: {
+    // Buff procced by Apex Predator's Craving legendary
+    id: 339140,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+  },
+  SUDDEN_AMBUSH_BUFF: {
+    // Buff procced by Sudden Ambush conduit
+    id: 340698,
+    name: 'Sudden Ambush',
+    icon: 'ability_hunter_catlikereflexes',
   },
 } as const;
 

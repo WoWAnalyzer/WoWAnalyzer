@@ -1,14 +1,15 @@
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import HealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import SPELLS from 'common/SPELLS';
+import HealingEfficiencyTracker, {
+  SpellInfoDetails,
+} from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import RegrowthAttributor from '../core/hottracking/RegrowthAttributor';
 import Abilities from '../Abilities';
-import Clearcasting from '../features/Clearcasting';
+import RegrowthAndClearcasting from '../features/RegrowthAndClearcasting';
 
 /*
     TODO:
@@ -26,8 +27,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
     // Custom dependencies
     abilities: Abilities,
-    regrowthAttributor: RegrowthAttributor,
-    clearcasting: Clearcasting,
+    clearcasting: RegrowthAndClearcasting,
   };
 
   protected manaTracker!: ManaTracker;
@@ -36,10 +36,9 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected damageDone!: DamageDone;
   protected castEfficiency!: CastEfficiency;
 
-   // Custom dependencies
+  // Custom dependencies
   protected abilities!: Abilities;
-  protected regrowthAttributor!: RegrowthAttributor;
-  protected clearcasting!: Clearcasting;
+  protected clearcasting!: RegrowthAndClearcasting;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
@@ -51,12 +50,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getRegrowthDetails(spellInfo: SpellInfoDetails) {
-    // This represents that amount of healing done by HARD CASTING regrowth.
-    // We don't want regrowth to get Hpm credit for healing that we didn't spend mana on.
-    spellInfo.healingDone = this.regrowthAttributor.totalNonCCRegrowthHealing;
-    spellInfo.overhealingDone = this.regrowthAttributor.totalNonCCRegrowthOverhealing;
-    spellInfo.casts = this.clearcasting.nonCCRegrowths;
-
+    // TODO special handling of Regrowth HPM with regard to free casts?
     return spellInfo;
   }
 }

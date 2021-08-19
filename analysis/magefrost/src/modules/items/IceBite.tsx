@@ -1,14 +1,14 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 import { SHATTER_DEBUFFS } from '@wowanalyzer/mage';
 
@@ -60,7 +60,7 @@ class IceBite extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spell={SPELLS.ICE_BITE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.ICE_BITE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

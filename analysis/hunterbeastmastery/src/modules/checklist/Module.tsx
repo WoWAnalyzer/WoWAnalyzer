@@ -1,12 +1,13 @@
-import { FocusDetails } from '@wowanalyzer/hunter';
-
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
+import { FocusDetails } from '@wowanalyzer/hunter';
+
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import QaplaEredunWarOrder from '../items/QaplaEredunWarOrder';
 import BasicAttacks from '../pets/basicAttacksTracker';
 import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
 import BarbedShot from '../spells/BarbedShot';
@@ -15,7 +16,6 @@ import BestialWrath from '../spells/BestialWrath';
 import CobraShot from '../spells/CobraShot';
 import KillerCobra from '../talents/KillerCobra';
 import Component from './Component';
-import QaplaEredunWarOrder from '../items/QaplaEredunWarOrder';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -92,7 +92,7 @@ class Checklist extends BaseChecklist {
           //endregion
 
           //region Legendaries
-          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.cdrEfficiencyKillCommandThreshold,
+          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.killCommandResetsThreshold,
           //endregion
 
           //region Resources

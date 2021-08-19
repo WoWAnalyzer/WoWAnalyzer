@@ -252,7 +252,7 @@ Array [
     "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
     "stat": <React.Fragment>
-      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-56.37}}
+      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-49.89}}
        (
       &gt;70.00% is recommended
       )
@@ -1770,8 +1770,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               34
               /65
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1873,8 +1872,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               16
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1959,8 +1957,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               21
               /44
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2062,8 +2059,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               4
               /34
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2165,8 +2161,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2250,9 +2245,8 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               0
-              /23
-               
-              casts
+              /27
+               casts
             </td>
             <td
               style={
@@ -2412,8 +2406,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2510,8 +2503,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               2
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2613,8 +2605,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2711,8 +2702,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2814,8 +2804,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2912,8 +2901,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3010,8 +2998,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3166,8 +3153,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               14
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3252,8 +3238,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               34
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3338,8 +3323,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3424,8 +3408,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               6
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3510,8 +3493,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3654,8 +3636,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3752,8 +3733,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /51
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3850,8 +3830,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /17
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3948,8 +3927,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4002,6 +3980,91 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=53563"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Beacon of Light
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.30
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=156910"
                 rel="noopener noreferrer"
                 style={
@@ -4034,7 +4097,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              0.30
+              0.00
             </td>
             <td
               className="text-right"
@@ -4044,10 +4107,9 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              2
+              0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4132,8 +4194,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4230,8 +4291,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /51
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4386,8 +4446,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               39
               /89
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4484,8 +4543,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /105
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4518,6 +4576,91 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               0.96%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=53600"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Shield of the Righteous
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
             </td>
             <td
               style={
@@ -4596,6 +4739,103 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.15
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -4640,8 +4880,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4738,8 +4977,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4831,7 +5069,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "80",
+            "0": "90",
           }
         }
       />
@@ -4885,7 +5123,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "85",
+            "0": "75",
           }
         }
       />
@@ -5063,7 +5301,7 @@ Array [
         values={
           Object {
             "0": 0,
-            "1": 23,
+            "1": 27,
             "2": "0",
           }
         }
@@ -6526,9 +6764,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Relicprince
@@ -6555,7 +6792,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "100%",
@@ -6586,7 +6823,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "7.776232572766344%",
@@ -6615,9 +6852,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Villahseen
@@ -6644,7 +6880,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "99.90453264906459%",
@@ -6675,7 +6911,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "100%",
@@ -6704,9 +6940,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"} {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Miguro
@@ -6733,7 +6968,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
+                  className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
                       "width": "99.75837816275181%",
@@ -6764,7 +6999,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
+                  className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
                       "width": "63.182920437471616%",
@@ -6793,9 +7028,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.beastMastery\\",\\"message\\":\\"Beast Mastery\\"} {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-{\\"id\\":\\"specs.beastMastery\\",\\"message\\":\\"BeastMastery\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Uniiq
@@ -6822,7 +7056,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
+                  className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
                       "width": "98.82772145283883%",
@@ -6853,7 +7087,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
+                  className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
                       "width": "33.534924350955656%",
@@ -6882,9 +7116,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Prüttan
@@ -6911,7 +7144,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "96.7527230206816%",
@@ -6942,7 +7175,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "23.98700164226563%",
@@ -6971,9 +7204,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.havoc\\",\\"message\\":\\"Havoc\\"} {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"Demon Hunter\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-{\\"id\\":\\"specs.havoc\\",\\"message\\":\\"Havoc\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Demolicious
@@ -7000,7 +7232,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
+                  className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
                       "width": "95.02652453637467%",
@@ -7031,7 +7263,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
+                  className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
                       "width": "36.795555400258564%",
@@ -7060,9 +7292,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.guardian\\",\\"message\\":\\"Guardian\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.guardian\\",\\"message\\":\\"Guardian\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Hildelyst
@@ -7089,7 +7320,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "92.36189391256022%",
@@ -7120,7 +7351,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "22.691638422027324%",
@@ -7149,9 +7380,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.brewmaster\\",\\"message\\":\\"Brewmaster\\"} {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-{\\"id\\":\\"specs.brewmaster\\",\\"message\\":\\"Brewmaster\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Dobbadon
@@ -7178,7 +7408,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
                       "width": "91.38361345054697%",
@@ -7209,7 +7439,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
                       "width": "20.533212201684194%",
@@ -7238,9 +7468,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Cónqs
@@ -7267,7 +7496,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "90.06108731455261%",
@@ -7298,7 +7527,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "18.76878996470876%",
@@ -7327,9 +7556,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.retribution\\",\\"message\\":\\"Retribution\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.retribution\\",\\"message\\":\\"Retribution\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Sanctues
@@ -7356,7 +7584,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "89.42101282580826%",
@@ -7387,7 +7615,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "24.32551801250917%",
@@ -7416,9 +7644,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Mooladin
@@ -7445,7 +7672,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "88.23653957419722%",
@@ -7476,7 +7703,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "2.1772948041510887%",
@@ -7505,9 +7732,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Jodiefroster
@@ -7534,7 +7760,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "87.6714126923483%",
@@ -7565,7 +7791,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "14.997309479716273%",
@@ -7594,9 +7820,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.affliction\\",\\"message\\":\\"Affliction\\"} {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-{\\"id\\":\\"specs.affliction\\",\\"message\\":\\"Affliction\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Diagentez
@@ -7623,7 +7848,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
+                  className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
                       "width": "82.53549868889384%",
@@ -7654,7 +7879,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
+                  className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
                       "width": "3.704951256158496%",
@@ -7683,9 +7908,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Snusraketten
@@ -7712,7 +7936,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "80.0775139814152%",
@@ -7743,7 +7967,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "5.307522974247878%",
@@ -7772,9 +7996,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.mage.arcane\\",\\"message\\":\\"Arcane\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.mage.arcane\\",\\"message\\":\\"Arcane\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Nuffemis
@@ -7801,7 +8024,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "72.62709335906682%",
@@ -7832,7 +8055,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "12.392326775918097%",
@@ -7861,9 +8084,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Smusk
@@ -7890,7 +8112,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "55.20479425239239%",
@@ -7921,7 +8143,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "15.60473811104511%",
@@ -9009,7 +9231,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "14.234621278049525%",
+                  "width": "14.27837417263663%",
                 }
               }
             />
@@ -9095,7 +9317,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     id={223306}
                   />,
                   "1": <ForwardRef
-                    id={20271}
+                    id={275773}
                   />,
                   "2": "when using",
                   "3": <ForwardRef
@@ -9175,7 +9397,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.060430968084738%",
+                        "width": "23.452373505673442%",
                       }
                     }
                   />
@@ -9267,7 +9489,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=20271"
+                  href="http://wowhead.com/spell=275773"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9321,7 +9543,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.698414244558247%",
+                        "width": "26.481483285317957%",
                       }
                     }
                   />
@@ -10716,7 +10938,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "45.65417737038763%",
+                  "width": "47.318559162323645%",
                 }
               }
             />
@@ -10827,7 +11049,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  57.37%
+                  50.89%
                    
                    
                 </div>
@@ -10849,7 +11071,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "26.118061309562883%",
+                        "width": "29.44682489343492%",
                       }
                     }
                   />

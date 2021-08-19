@@ -1,12 +1,8 @@
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { formatPercentage } from 'common/format';
-
-import SPELLS from 'common/SPELLS';
-
-import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { When } from 'parser/core/ParseResults';
-
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { When } from 'parser/core/ParseResults';
+import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
@@ -25,20 +21,25 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.DIVINE_HYMN_CAST.id,
     SPELLS.HOLY_WORD_SALVATION_TALENT.id,
   ];
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    when(deadTimePercentage).isGreaterThan(0.15)
-      .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
-        .icon('spell_mage_altertime')
-        .actual(t({
-      id: "priest.holy.suggestions.alwaysBeCasting.downtime",
-      message: `${formatPercentage(actual)}% downtime`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended + 0.05).major(recommended + 0.05));
+    when(deadTimePercentage)
+      .isGreaterThan(0.15)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
+          .icon('spell_mage_altertime')
+          .actual(
+            t({
+              id: 'priest.holy.suggestions.alwaysBeCasting.downtime',
+              message: `${formatPercentage(actual)}% downtime`,
+            }),
+          )
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.05)
+          .major(recommended + 0.05),
+      );
   }
 }
 

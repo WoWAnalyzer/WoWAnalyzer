@@ -1,13 +1,11 @@
-import React from 'react';
-
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-import SPELLS from 'common/SPELLS';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 class PhantomSingularity extends Analyzer {
   static dependencies = {
@@ -30,7 +28,7 @@ class PhantomSingularity extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.PHANTOM_SINGULARITY_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.PHANTOM_SINGULARITY_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

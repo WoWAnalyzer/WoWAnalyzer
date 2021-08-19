@@ -1,20 +1,17 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const AFFECTED_ABILITIES = [
-  SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
-  SPELLS.LIGHTNING_BOLT.id,
-  SPELLS.CHAIN_LIGHTNING_OVERLOAD.id,
-  SPELLS.CHAIN_LIGHTNING.id,
+  SPELLS.LIGHTNING_BOLT_OVERLOAD,
+  SPELLS.LIGHTNING_BOLT,
+  SPELLS.CHAIN_LIGHTNING_OVERLOAD,
+  SPELLS.CHAIN_LIGHTNING,
 ];
 
 class Stormkeeper extends Analyzer {
@@ -39,11 +36,8 @@ class Stormkeeper extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        size="flexible"
-      >
-        <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT_ELEMENTAL}>
+      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
+        <BoringSpellValueText spellId={SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>

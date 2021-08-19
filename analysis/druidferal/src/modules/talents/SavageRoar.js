@@ -1,24 +1,21 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-
-import Events from 'parser/core/Events';
-
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import { t } from '@lingui/macro';
 import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
-import getDamageBonus from '../core/getDamageBonus';
 import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
+import getDamageBonus from '../core/getDamageBonus';
 
 /**
  * Since 8.0 only affects "cat" abilities.
@@ -40,7 +37,7 @@ const AFFECTED_BY_SAVAGE_ROAR = [
   SPELLS.SWIPE_CAT,
   SPELLS.FERAL_FRENZY_TALENT,
   SPELLS.MAIM,
-  SPELLS.MOONFIRE, // not really a cat ability, but is affected
+  SPELLS.MOONFIRE_DEBUFF, // not really a cat ability, but is affected
 ];
 
 /**
@@ -48,7 +45,9 @@ const AFFECTED_BY_SAVAGE_ROAR = [
  */
 class SavageRoar extends Analyzer {
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.SAVAGE_ROAR_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.SAVAGE_ROAR_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   get suggestionThresholds() {
@@ -56,10 +55,10 @@ class SavageRoar extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        average: 0.9,
+        major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -71,29 +70,45 @@ class SavageRoar extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_SAVAGE_ROAR), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_SAVAGE_ROAR),
+      this.onDamage,
+    );
   }
 
   onDamage(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id) ||
-      !this.selectedCombatant.hasBuff(SPELLS.CAT_FORM.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id) ||
+      !this.selectedCombatant.hasBuff(SPELLS.CAT_FORM.id)
+    ) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, SAVAGE_ROAR_DAMAGE_BONUS);
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should refresh the buff once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off. You may also consider switching to <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} /> which is simpler to use and provides more damage in many situations.
-      </>,
-    )
-      .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.savageRoar.uptime",
-      message: `${formatPercentage(actual)}% uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should
+          refresh the buff once it has reached its{' '}
+          <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
+            pandemic window
+          </TooltipElement>
+          , don't wait for it to wear off. You may also consider switching to{' '}
+          <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} /> which is simpler to use and
+          provides more damage in many situations.
+        </>,
+      )
+        .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.savageRoar.uptime',
+            message: `${formatPercentage(actual)}% uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -102,12 +117,13 @@ class SavageRoar extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Your Savage Roar talent contributed <strong>{formatNumber(this.bonusDmg)}</strong> total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).
+            Your Savage Roar talent contributed <strong>{formatNumber(this.bonusDmg)}</strong> total
+            damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).
           </>
         }
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spell={SPELLS.SAVAGE_ROAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SAVAGE_ROAR_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small> <br />
             <ItemDamageDone amount={this.bonusDmg} />

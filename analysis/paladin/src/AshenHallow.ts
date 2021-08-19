@@ -1,7 +1,7 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 
 class AshenHallow extends Analyzer {
   static dependencies = {
@@ -19,7 +19,7 @@ class AshenHallow extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASHEN_HALLOW,
+      spell: SPELLS.ASHEN_HALLOW.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 240,
       gcd: {

@@ -1,8 +1,8 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 
 export default class BonedustBrew extends Analyzer {
   static dependencies = {
@@ -21,10 +21,11 @@ export default class BonedustBrew extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.BONEDUST_BREW_CAST,
+      spell: SPELLS.BONEDUST_BREW_CAST.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 60,
-      gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
+      gcd:
+        this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency: 0.9,

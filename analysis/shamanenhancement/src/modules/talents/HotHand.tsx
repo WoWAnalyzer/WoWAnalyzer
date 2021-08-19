@@ -1,14 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const HOT_HAND = {
   INCREASE: 1.0,
@@ -23,7 +22,6 @@ const HOT_HAND = {
  *
  */
 class HotHand extends Analyzer {
-
   protected buffedLavaLashDamage: number = 0;
 
   constructor(options: Options) {
@@ -32,8 +30,7 @@ class HotHand extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LAVA_LASH),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
       this.onLavaLashDamage,
     );
   }
@@ -53,9 +50,10 @@ class HotHand extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.HOT_HAND_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.HOT_HAND_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.buffedLavaLashDamage} /><br />
+            <ItemDamageDone amount={this.buffedLavaLashDamage} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

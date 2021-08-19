@@ -1,15 +1,13 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import { formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const REDUCTION = 1500;
 const MAX_REDUCTION_PER_CAST = REDUCTION * 3;
@@ -37,26 +35,28 @@ class Thunderlord extends Analyzer {
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_CLAP), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_CLAP), this.reduce);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_CLAP),
+      this.reduce,
+    );
   }
 
-  onCast(event: CastEvent){
+  onCast(event: CastEvent) {
     this.currentCastsReduction = 0;
   }
 
-  reduce(event: DamageEvent){
-
-    if(this.currentCastsReduction === MAX_REDUCTION_PER_CAST){
+  reduce(event: DamageEvent) {
+    if (this.currentCastsReduction === MAX_REDUCTION_PER_CAST) {
       return;
     }
 
-    this.currentCastsReduction += REDUCTION;//i know its weird but im already dedicated
+    this.currentCastsReduction += REDUCTION; //i know its weird but im already dedicated
 
-    if(this.spellUsable.isOnCooldown(SPELLS.DEMORALIZING_SHOUT.id)){
+    if (this.spellUsable.isOnCooldown(SPELLS.DEMORALIZING_SHOUT.id)) {
       const cdr = this.spellUsable.reduceCooldown(SPELLS.DEMORALIZING_SHOUT.id, REDUCTION);
       this.effectiveCDR += cdr;
-      this.wastedCDR += (REDUCTION - cdr);
-    }else{
+      this.wastedCDR += REDUCTION - cdr;
+    } else {
       this.wastedCDR += REDUCTION;
     }
   }
@@ -67,12 +67,10 @@ class Thunderlord extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={<>
-        Wasted CDR: {formatDuration(this.wastedCDR/1000)}
-        </>}
+        tooltip={<>Wasted CDR: {formatDuration(this.wastedCDR)}</>}
       >
-        <BoringSpellValueText spell={SPELLS.THUNDERLORD}>
-          {formatDuration(this.effectiveCDR/1000)} <small>cdr</small>
+        <BoringSpellValueText spellId={SPELLS.THUNDERLORD.id}>
+          {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,12 +1,15 @@
 import SPELLS from 'common/SPELLS';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DispelEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class SpellUsable extends CoreSpellUsable {
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.dispel.by(SELECTED_PLAYER).spell(SPELLS.PURIFY_SPIRIT), this.onDispel);
+    this.addEventListener(
+      Events.dispel.by(SELECTED_PLAYER).spell(SPELLS.PURIFY_SPIRIT),
+      this.onDispel,
+    );
   }
   onDispel(event: DispelEvent) {
     super.beginCooldown(event.ability.guid, event);

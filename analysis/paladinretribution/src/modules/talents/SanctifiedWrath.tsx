@@ -1,14 +1,14 @@
-import React from 'react';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { SpellIcon } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const AW_BASE_DURATION = 20;
 
@@ -54,9 +54,11 @@ class SanctifiedWrath extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip="Damage dealt directly and the Avenging Wrath extension provided by Sanctified Wrath."
       >
-        <BoringSpellValueText spell={SPELLS.SANCTIFIED_WRATH_DAMAGE}>
+        <BoringSpellValueText spellId={SPELLS.SANCTIFIED_WRATH_DAMAGE.id}>
           <ItemDamageDone amount={this.damageDone} /> <br />
-          <><SpellIcon id={SPELLS.AVENGING_WRATH.id} /> +{formatNumber(totalIncrease)} seconds</>
+          <>
+            <SpellIcon id={SPELLS.AVENGING_WRATH.id} /> +{formatNumber(totalIncrease)} seconds
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

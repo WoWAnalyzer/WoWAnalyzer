@@ -1,27 +1,23 @@
+import SPELLS from 'common/SPELLS';
+import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import Combatant from 'parser/core/Combatant';
-
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
-
-import Spell from 'common/SPELLS/Spell';
-
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 
 import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
 
 export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
   /**
-   * REQUIRED The spell definition. If an array of spell definitions is
+   * REQUIRED The spell id. If an array of spell ids is
    * provided, the first element in the array will be what shows in suggestions
-   * / cast timeline. Multiple spell definitions in the same ability can be
+   * / cast timeline. Multiple spell ids in the same ability can be
    * used to tie multiple cast / buff IDs together as the same ability (with a
    * shared cooldown)
    */
-  spell: Spell | Spell[];
+  spell: number | number[];
   /**
    * The name to use if it is different from the name provided by the `spell`
    * object. This should only be used in rare situations.
@@ -84,10 +80,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
      * A function to get the amount of casts done of a spell.
      * @deprecated Usage should be avoided. This may be removed in the future.
      */
-    casts?: (
-      castCount: TrackedAbilityType,
-      parser: CombatLogParser,
-    ) => number;
+    casts?: (castCount: TrackedAbilityType, parser: CombatLogParser) => number;
     /**
      * A function to get the max amount of casts for a spell.
      * @deprecated Usage should be avoided. This may be removed in the future.
@@ -112,7 +105,15 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   timelineSortIndex?: number;
   /**
-   * DEPRECATED. Use the Buffs module to define your buffs instead. If your
+   * If this ability is only castable with a certain buff, this can be indicated
+   * by setting this prop to the buff spell id.
+   * If the trigger isn't an actual buff but a crit, you may need to make a
+   * normalizer to fabricate buff events. See TBC Hunter's Kill Command for an
+   * example.
+   */
+  timelineCastableBuff?: number;
+  /**
+   * @deprecated Use the Buffs module to define your buffs instead. If your
    * spec has no Buffs module, this prop will be used to prefill it.
    *
    * The buff(s) belonging to the ability. Setting this will display the buff
@@ -144,13 +145,13 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   damageSpellIds?: number[];
   /**
-   * The spell that'll forcibly shown on the timeline if set.
+   * The spell ID that'll forcibly shown on the timeline if set.
    */
-  shownSpell?: Spell;
+  shownSpell?: number;
 }
 
 class Ability {
-   /**
+  /**
    * When extending this class with a new propTypes property you MUST include
    * its parent's propTypes values in your new override value. Otherwise your
    * class will treat inherited props as misplaced
@@ -170,20 +171,7 @@ class Ability {
      * ability can be used to tie multiple cast / buff IDs together as the same
      * ability (with a shared cooldown)
      */
-    spell: PropTypes.oneOfType([
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }),
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          icon: PropTypes.string.isRequired,
-        }),
-      ),
-    ]).isRequired,
+    spell: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]).isRequired,
     /**
      * The name to use if it is different from the name provided by the `spell`
      * object. This should only be used in rare situations.
@@ -273,6 +261,7 @@ class Ability {
      * on the timeline it will be displayed.
      */
     timelineSortIndex: PropTypes.number,
+    timelineCastableBuff: PropTypes.number,
     /**
      * DEPRECATED. Use the Buffs module to define your buffs instead. If your
      * spec has no Buffs module, this prop will be used to prefill it.
@@ -280,10 +269,7 @@ class Ability {
      * The buff(s) belonging to the ability. Setting this will display the buff
      * on the timeline.
      */
-    buffSpellId: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(PropTypes.number),
-    ]),
+    buffSpellId: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
     /**
      * A boolean to indicate the spell is a defensive.
      */
@@ -311,14 +297,10 @@ class Ability {
     /**
      * The spell that'll forcibly shown on the timeline if set.
      */
-    shownSpell: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
-    }),
+    shownSpell: PropTypes.number,
   };
 
-  private readonly owner: Abilities;
+  private readonly owner: Abilities | undefined;
 
   spell!: SpellbookAbility['spell'];
   primaryOverride: number | undefined;
@@ -335,7 +317,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return this.primarySpell.name;
+    return SPELLS[this.primarySpell]?.name;
   }
   set name(value) {
     this._name = value;
@@ -350,7 +332,7 @@ class Ability {
   }
   /** @return {number} */
   get cooldown() {
-    return this.getCooldown(this.owner.haste.current);
+    return this.getCooldown(this.owner?.haste.current);
   }
   getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
@@ -377,7 +359,7 @@ class Ability {
       return 0;
     }
     if (typeof this._channel === 'function') {
-      return this._channel.call(this.owner, this.owner.haste.current);
+      return this._channel.call(this.owner, this.owner?.haste.current);
     }
 
     return this._channel;
@@ -401,6 +383,7 @@ class Ability {
   charges = 1;
   enabled = true;
   timelineSortIndex: number | null = null;
+  timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;
   shownSpell = null;
@@ -409,7 +392,7 @@ class Ability {
    * @param owner
    * @param options
    */
-  constructor(owner: Abilities, options: SpellbookAbility) {
+  constructor(owner: Abilities | undefined, options: SpellbookAbility) {
     this.owner = owner;
     this._setProps(options);
   }
@@ -429,7 +412,7 @@ class Ability {
         'prop',
         'Ability',
       );
-      Object.keys(props).forEach(prop => {
+      Object.keys(props).forEach((prop) => {
         if (
           // eslint-disable-next-line react/forbid-foreign-prop-types
           (this.constructor as typeof Ability).propTypes[prop] === undefined
@@ -443,14 +426,14 @@ class Ability {
         }
       });
     }
-    Object.keys(props).forEach(prop => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    Object.keys(props).forEach((prop) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this._setProp(prop, props[prop]);
     });
   }
   _setProp(prop: string, value: any) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this[prop] = value;
   }

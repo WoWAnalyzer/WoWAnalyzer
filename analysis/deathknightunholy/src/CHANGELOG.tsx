@@ -1,13 +1,16 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
 
-import { joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
+import { Adoraci, joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 8, 19), <>Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
+  change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),
+  change(date(2021, 3, 7), <>Added basic Unholy specific suggestions to <SpellLink id={SPELLS.SUPERSTRAIN.id}/></>, Khazak),
   change(date(2021, 2, 17), <>Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
   change(date(2021, 1, 26), <>Fix issue causing <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /> procs to be counted as wasted when they should not</>, Khazak),
   change(date(2021, 1, 24), <>Add module for <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /></>, Khazak),

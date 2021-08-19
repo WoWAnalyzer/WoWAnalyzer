@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
-
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, {
+  BUILT_IN_SUMMARY_TYPES,
+} from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.MANA_TEA_TALENT,
+      spell: SPELLS.MANA_TEA_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -14,7 +15,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT,
+      spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -22,7 +23,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+      spell: SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

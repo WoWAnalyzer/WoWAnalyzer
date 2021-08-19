@@ -1,19 +1,17 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
 //Core
-import ComboPoints from '../../core/ComboPoints';
-import Energy from '../../core/Energy';
-import AlwaysBeCasting from '../AlwaysBeCasting';
 
 //Base
 import CastsInShadowDance from '../../core/CastsInShadowDance';
 import CastsInStealth from '../../core/CastsInStealth';
-
+import ComboPoints from '../../core/ComboPoints';
+import Energy from '../../core/Energy';
+import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

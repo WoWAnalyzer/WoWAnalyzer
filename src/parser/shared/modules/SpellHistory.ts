@@ -1,6 +1,4 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
   ApplyBuffEvent,
   BeginCastEvent,
@@ -10,6 +8,8 @@ import Events, {
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import SpellUsable from './SpellUsable';
 
@@ -66,7 +66,7 @@ class SpellHistory extends Analyzer {
       return null;
     }
 
-    const primarySpellUd = ability.primarySpell.id;
+    const primarySpellUd = ability.primarySpell;
     if (!this.historyBySpellId[primarySpellUd]) {
       this.historyBySpellId[primarySpellUd] = [];
     }

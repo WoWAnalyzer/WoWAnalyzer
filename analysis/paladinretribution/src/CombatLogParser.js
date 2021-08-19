@@ -1,3 +1,5 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import {
   DivinePurpose,
   HolyAvenger,
@@ -6,26 +8,23 @@ import {
   Judgment,
 } from '@wowanalyzer/paladin';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
 import Abilities from './modules/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/features/Checklist/Module';
-import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
-
 import ArtOfWar from './modules/core/ArtOfWar';
 import BladeofJustice from './modules/core/BladeofJustice';
-import CrusaderStrike from './modules/core/CrusaderStrike';
-import Crusade from './modules/talents/Crusade';
-import WakeofAshes from './modules/core/WakeofAshes';
 import Consecration from './modules/core/Consecration';
+import CrusaderStrike from './modules/core/CrusaderStrike';
 import HammerofWrathRetribution from './modules/core/HammerofWrath';
-import RighteousVerdict from './modules/talents/RighteousVerdict';
-import ExecutionSentence from './modules/talents/ExecutionSentence';
+import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
+import WakeofAshes from './modules/core/WakeofAshes';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import FinalVerdict from './modules/items/FinalVerdict';
+import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
-
+import ExecutionSentence from './modules/talents/ExecutionSentence';
+import RighteousVerdict from './modules/talents/RighteousVerdict';
 import SanctifiedWrath from './modules/talents/SanctifiedWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -59,6 +58,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+
+    // Items
+    finalVerdict: FinalVerdict,
   };
 }
 

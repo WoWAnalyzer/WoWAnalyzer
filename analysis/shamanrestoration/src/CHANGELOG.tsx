@@ -1,11 +1,11 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Adoraci, niseko, Abelito75 } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { niseko, Abelito75 } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
-
 export default [
+  change(date(2021, 4, 3), <>Bumped support to 9.0.5, updated <SpellLink id={SPELLS.JONATS_NATURAL_FOCUS.id} /> chain heal increase value.</>, Adoraci),
   change(date(2020, 12, 15), <>Fixed mana costs of a few spells being vastly off.</>, niseko),
   change(date(2020, 12, 15), <>Added support for <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> and <SpellLink id={SPELLS.CHAIN_HARVEST.id} />.</>, niseko),
   change(date(2020, 12, 9), <>Fixing loading errors due to hanging spellIds.</>, Abelito75),

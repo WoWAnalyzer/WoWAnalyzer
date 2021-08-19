@@ -1,19 +1,18 @@
-import React from 'react';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
 
 class WindfuryTotem extends Analyzer {
   get uptime() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.WINDFURY_TOTEM_BUFF.id) /
-      this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(SPELLS.WINDFURY_TOTEM_BUFF.id) / this.owner.fightDuration
     );
   }
 
@@ -33,10 +32,9 @@ class WindfuryTotem extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()}>
-        <BoringSpellValueText spell={SPELLS.WINDFURY_TOTEM}>
+        <BoringSpellValueText spellId={SPELLS.WINDFURY_TOTEM.id}>
           <>
-            <UptimeIcon /> {formatPercentage(this.uptime)}%{' '}
-            <small>uptime</small>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -44,21 +42,23 @@ class WindfuryTotem extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime can be
-        improved. Make sure it's always active. Cast{' '}
-        <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /> if the buff is about to
-        fall off or if all other spells are on cooldown.
-      </>,
-    )
-      .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)
-      .actual(
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <>
-          <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> was active for {formatPercentage(actual)}% of the fight
+          Your <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime can be improved. Make sure
+          it's always active. Cast <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /> if the buff is about
+          to fall off or if all other spells are on cooldown.
         </>,
       )
-      .recommended(`recommended: ${formatPercentage(recommended)}%`));
+        .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)
+        .actual(
+          <>
+            <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> was active for{' '}
+            {formatPercentage(actual)}% of the fight
+          </>,
+        )
+        .recommended(`recommended: ${formatPercentage(recommended)}%`),
+    );
   }
 }
 

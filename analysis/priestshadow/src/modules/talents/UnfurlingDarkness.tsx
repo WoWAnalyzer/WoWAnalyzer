@@ -1,16 +1,15 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 // Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
 
@@ -26,8 +25,14 @@ class UnfurlingDarkness extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNFURLING_DARKNESS_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF), this.onBuffApplied);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF), this.onBuffRemoved);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF),
+      this.onBuffApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF),
+      this.onBuffRemoved,
+    );
   }
 
   onBuffApplied() {
@@ -35,7 +40,10 @@ class UnfurlingDarkness extends Analyzer {
   }
 
   onBuffRemoved() {
-    if (!this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_TOUCH))) { // If VT is not instant, it's not a proc
+    if (
+      !this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_TOUCH))
+    ) {
+      // If VT is not instant, it's not a proc
       return;
     }
 
@@ -59,25 +67,30 @@ class UnfurlingDarkness extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {formatPercentage(actual)}% of <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> procs. </>)
-          .icon(SPELLS.UNFURLING_DARKNESS_TALENT.icon)
-          .actual(
-            t({
-              id:'priest.shadow.suggestions.unfurlingDarkness.efficiency',
-              message: `Wasted ${formatPercentage(actual)}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.`
-            })
-          )
-          .recommended(`<${formatPercentage(recommended)}% is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You wasted {formatPercentage(actual)}% of{' '}
+          <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
+        </>,
+      )
+        .icon(SPELLS.UNFURLING_DARKNESS_TALENT.icon)
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
+            message: `Wasted ${formatPercentage(
+              actual,
+            )}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-      >
-        <BoringSpellValueText spell={SPELLS.UNFURLING_DARKNESS_BUFF}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+        <BoringSpellValueText spellId={SPELLS.UNFURLING_DARKNESS_BUFF.id}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
           </>

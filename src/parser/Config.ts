@@ -1,9 +1,12 @@
-import { ReactNode } from 'react';
-
 import { ChangelogEntry } from 'common/changelog';
 import { Contributor } from 'common/contributor';
+import Expansion from 'game/Expansion';
 import { Spec } from 'game/SPECS';
+import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import { ReactNode } from 'react';
+
+import { Stats } from './shared/modules/StatTracker';
 
 export type Build = {
   url: string;
@@ -28,6 +31,7 @@ interface Config {
    * they may be removed after major changes or during a new expansion.
    */
   contributors: Contributor[];
+  expansion: Expansion;
   /**
    * The WoW client patch this spec is compatible with.
    */
@@ -40,6 +44,7 @@ interface Config {
     | '8.3'
     | '9.0.1'
     | '9.0.2'
+    | '9.0.5'
     | string;
   /**
    * Whether support for the spec is only partial and some important elements
@@ -55,12 +60,43 @@ interface Config {
    * this in the `<Warning>` component.
    */
   description: ReactNode;
+  pages?: {
+    overview?: {
+      hideChecklist?: boolean;
+      text: ReactNode;
+      type: AlertKind;
+    };
+    timeline?:
+      | {
+          text: ReactNode;
+          type: AlertKind;
+        }
+      | ((
+          parser: CombatLogParser,
+        ) => {
+          text: ReactNode;
+          type: AlertKind;
+        } | null);
+  };
   /**
    * A recent example report to see interesting parts of the spec. Will be shown
    * on the homepage.
    */
   exampleReport: string;
   builds?: Builds;
+  /**
+   * These are multipliers to the stats applied *on pull* that are not
+   * included in the stats reported by WCL. These are *baked in* and do
+   * not multiply temporary buffs.
+   *
+   * In general, it looks like armor is the only one that isn't applied
+   * by WCL.
+   */
+  statMultipliers?: Partial<Stats>;
+  timeline?: {
+    separateCastBars: number[][];
+  };
+
   // Don't change values for props below this line;
   /**
    * The spec this config is for . This is the only place (in code) that

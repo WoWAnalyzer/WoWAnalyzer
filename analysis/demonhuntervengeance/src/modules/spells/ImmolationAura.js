@@ -1,15 +1,12 @@
-import React from 'react';
-
+import { formatPercentage, formatThousands, formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands, formatDuration } from 'common/format';
-
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import UptimeIcon from 'interface/icons/Uptime';
+import React from 'react';
 
 class ImmolationAura extends Analyzer {
   static dependencies = {
@@ -21,7 +18,9 @@ class ImmolationAura extends Analyzer {
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
-    this.immolationAuraDamage = this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id).damageEffective + this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA.id).damageEffective;
+    this.immolationAuraDamage =
+      this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id).damageEffective +
+      this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA.id).damageEffective;
 
     return (
       <Statistic
@@ -30,11 +29,11 @@ class ImmolationAura extends Analyzer {
         tooltip={
           <>
             The Immolation Aura total damage was {formatThousands(this.immolationAuraDamage)}.<br />
-            The Immolation Aura total uptime was {formatDuration(immolationAuraUptime / 1000)}
+            The Immolation Aura total uptime was {formatDuration(immolationAuraUptime)}
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.IMMOLATION_AURA}>
+        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
           <>
             <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
           </>

@@ -1,16 +1,15 @@
 import SPELLS from 'common/SPELLS';
-
 import { CastEvent } from 'parser/core/Events';
-import StatTracker from 'parser/shared/modules/StatTracker';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreEarlyDotRefreshesInstants from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const DOTS = [
   {
     name: 'Moonfire',
-    debuffId: SPELLS.MOONFIRE_BEAR.id,
-    castId: SPELLS.MOONFIRE.id,
+    debuffId: SPELLS.MOONFIRE_DEBUFF.id,
+    castId: SPELLS.MOONFIRE_CAST.id,
     duration: 22000,
     movementFiller: true,
   },
@@ -30,7 +29,7 @@ const MAJOR_THRESHOLD = 0.6;
 class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   get suggestionThresholdsMoonfire() {
     return {
-      spell: SPELLS.MOONFIRE_BEAR,
+      spell: SPELLS.MOONFIRE_DEBUFF,
       count: this.casts[DOTS[0].castId].badCasts,
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
@@ -58,7 +57,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
 
   get suggestionThresholdsMoonfireEfficiency() {
     return {
-      spell: SPELLS.MOONFIRE_BEAR,
+      spell: SPELLS.MOONFIRE_DEBUFF,
       actual: 1 - this.badCastsPercent(DOTS[0].castId),
       isLessThan: {
         minor: MINOR_THRESHOLD,
@@ -90,7 +89,10 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
 
   // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
   couldCastWhileMoving(castEvent: CastEvent, endEvent: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) &&
+      this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)
+    ) {
       return SPELLS.STELLAR_DRIFT.name;
     }
     return false;

@@ -1,14 +1,11 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 const FELSTORM_COOLDOWN = 30;
 // when Demonic Strength is cast, then AFTER the cast, Felguard charges at the target, and after he arrives, does the Felstorm
@@ -21,7 +18,7 @@ class Felstorm extends Analyzer {
   }
 
   get suggestionThresholds() {
-    const percentage = (this.mainPetFelstormCount / this.maxCasts) || 0;
+    const percentage = this.mainPetFelstormCount / this.maxCasts || 0;
     return {
       actual: percentage,
       isLessThan: {
@@ -38,8 +35,14 @@ class Felstorm extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_STRENGTH_TALENT), this.demonicStrengthCast);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.FELSTORM_BUFF), this.applyFelstormBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_STRENGTH_TALENT),
+      this.demonicStrengthCast,
+    );
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.FELSTORM_BUFF),
+      this.applyFelstormBuff,
+    );
   }
 
   demonicStrengthCast(event) {
@@ -48,7 +51,10 @@ class Felstorm extends Analyzer {
 
   // works with either direct /cast Felstorm or by using the Command Demon ability (if direct /cast Felstorm, then the player didn't cast it, but this buff gets applied either way)
   applyFelstormBuff(event) {
-    if (this._lastDemonicStrengthCast && event.timestamp <= this._lastDemonicStrengthCast + DEMONIC_STRENGTH_BUFFER) {
+    if (
+      this._lastDemonicStrengthCast &&
+      event.timestamp <= this._lastDemonicStrengthCast + DEMONIC_STRENGTH_BUFFER
+    ) {
       // casting Demonic Strength triggers Felstorm as well, but we care about the pet ability itself, which is on separate cooldown
       return;
     }
@@ -59,14 +65,24 @@ class Felstorm extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often, preferably on cooldown.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often,
+          preferably on cooldown.
+        </>,
+      )
         .icon(SPELLS.FELSTORM_BUFF.icon)
-        .actual(t({
-      id: "warlock.demonology.suggestions.felstorm.casts",
-      message: `${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(actual)} %) Felstorm casts.`
-    }))
-        .recommended(`> ${formatPercentage(recommended)} % is recommended`));
+        .actual(
+          t({
+            id: 'warlock.demonology.suggestions.felstorm.casts',
+            message: `${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(
+              actual,
+            )} %) Felstorm casts.`,
+          }),
+        )
+        .recommended(`> ${formatPercentage(recommended)} % is recommended`),
+    );
   }
 }
 

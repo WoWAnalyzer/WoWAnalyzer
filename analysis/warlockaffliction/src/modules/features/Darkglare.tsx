@@ -1,8 +1,7 @@
-import React from 'react';
-
+import { formatThousands, formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Events, {
   ApplyDebuffEvent,
   CastEvent,
@@ -10,13 +9,12 @@ import Events, {
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-
-import SPELLS from 'common/SPELLS';
-import { formatThousands, formatNumber } from 'common/format';
-import { TooltipElement } from 'interface';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { getDotDurations } from '../../constants';
 
@@ -260,7 +258,7 @@ class Darkglare extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
+        <BoringSpellValueText spellId={SPELLS.SUMMON_DARKGLARE.id}>
           {formatDPS(this.bonusDotDamage)}{' '}
           <TooltipElement
             content={

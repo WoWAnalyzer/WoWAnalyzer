@@ -1,19 +1,20 @@
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
-import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import { SpellLink } from 'interface';
-import { DIRE_COMMAND_PROC_CHANCE } from '@wowanalyzer/hunter-beastmastery/src/constants';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Haste from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
-import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Haste from 'interface/icons/Haste';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
+import { DIRE_COMMAND_PROC_CHANCE } from '@wowanalyzer/hunter-beastmastery/src/constants';
 
 /**
  * TODO Find a log with both Dire Command and Dire Beast talent and account for them using the same spell for buff
@@ -23,7 +24,6 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
  *
  */
 class DireCommand extends Analyzer {
-
   damage: number = 0;
   activeDireBeasts: string[] = [];
   targetId: string = '';
@@ -36,13 +36,21 @@ class DireCommand extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON), this.direBeastSummon);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM), this.killCommandDamage);
+    this.addEventListener(
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      this.direBeastSummon,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM),
+      this.killCommandDamage,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   direBeastSummon(event: SummonEvent) {
@@ -71,16 +79,23 @@ class DireCommand extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
-        dropdown={(
+        dropdown={
           <>
             <div style={{ padding: '8px' }}>
-              {plotOneVariableBinomChart(this.direCommandProcs, this.killCommandHits, DIRE_COMMAND_PROC_CHANCE)}
-              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.</p>
+              {plotOneVariableBinomChart(
+                this.direCommandProcs,
+                this.killCommandHits,
+                DIRE_COMMAND_PROC_CHANCE,
+              )}
+              <p>
+                Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
+                your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.
+              </p>
             </div>
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.DIRE_COMMAND_EFFECT}>
+        <BoringSpellValueText spellId={SPELLS.DIRE_COMMAND_EFFECT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% <small>Haste</small>

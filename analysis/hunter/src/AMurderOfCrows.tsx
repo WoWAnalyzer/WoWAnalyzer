@@ -1,16 +1,14 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Events, { AnyEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { AnyEvent, DamageEvent } from 'parser/core/Events';
+import React from 'react';
 
 import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from './constants';
 
@@ -24,7 +22,6 @@ import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from './constants';
 const debug = false;
 
 class AMurderOfCrows extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
@@ -44,7 +41,7 @@ class AMurderOfCrows extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+        spell: SPELLS.A_MURDER_OF_CROWS_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         gcd: {
@@ -58,18 +55,28 @@ class AMurderOfCrows extends Analyzer {
       });
     }
     this.addEventListener(Events.any, this.checkForReset);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_DEBUFF), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_DEBUFF),
+      this.onDamage,
+    );
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
   }
 
   checkForReset(event: AnyEvent) {
     // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
-    if (this.lastDamageTick && this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id)
+    if (
+      this.lastDamageTick &&
+      this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
       // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
-      && this.applicationTimestamp && event.timestamp < this.crowsEndingTimestamp
+      this.applicationTimestamp &&
+      event.timestamp < this.crowsEndingTimestamp &&
       // Checks to see if more than 1 second has passed since last tick
-      && event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER) {
+      event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER
+    ) {
       // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
       this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, false, event.timestamp);
       this.maxCasts += 1;
@@ -110,9 +117,10 @@ class AMurderOfCrows extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.A_MURDER_OF_CROWS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.A_MURDER_OF_CROWS_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             {this.resets} <small>resets</small>
           </>
         </BoringSpellValueText>

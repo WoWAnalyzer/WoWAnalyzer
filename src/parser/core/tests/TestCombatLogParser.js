@@ -28,6 +28,7 @@ class TestCombatLogParser extends CombatLogParser {
   }
 
   constructor(
+    config = {},
     report = {
       friendlyPets: [],
     },
@@ -36,19 +37,19 @@ class TestCombatLogParser extends CombatLogParser {
     },
     selectedFight = {
       // use fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       start_time: 0,
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       offset_time: 0,
       filtered: false,
     },
     combatantInfoEvents = [],
   ) {
-    super(report, selectedPlayer, selectedFight, combatantInfoEvents);
+    super(config, report, selectedPlayer, selectedFight, combatantInfoEvents);
   }
 
   processEvents(events) {
-    events.forEach(event => this.getModule(EventEmitter).triggerEvent(event));
+    events.forEach((event) => this.getModule(EventEmitter).triggerEvent(event));
   }
 }
 

@@ -3,64 +3,64 @@ export type Language = {
   localName: string;
   region: string | null;
   locale: string;
-}
+};
 
 const LANGUAGES: { [code: string]: Language } = {
-  'en': {
+  en: {
     englishName: 'English',
     localName: 'English',
     region: 'us',
     locale: 'en_US', // en_GB should be the same
   },
-  'de': {
+  de: {
     englishName: 'German',
     localName: 'Deutsch',
     region: 'eu',
     locale: 'de_DE',
   },
-  'es': {
+  es: {
     englishName: 'Spanish',
     localName: 'Español',
     region: 'eu',
     locale: 'es_ES', // Spanish (Spain). Spanish (Mexico) doesn't seems that different, don't think we'll gain any users by supporting that.
   },
-  'fr': {
+  fr: {
     englishName: 'French',
     localName: 'Français',
     region: 'eu',
     locale: 'fr_FR',
   },
-  'it': {
+  it: {
     englishName: 'Italian',
     localName: 'Italiano',
     region: 'eu',
     locale: 'it_IT',
   },
-  'pl': {
+  pl: {
     englishName: 'Polish',
     localName: 'Polskie',
     region: 'eu',
     locale: 'pl_PL',
   },
-  'pt': {
+  pt: {
     englishName: 'Portuguese',
     localName: 'Português',
     region: 'eu',
     locale: 'pt_PT', // Portuguese (Portugal). pt_BR (Portuguese (Brazil)) looks exactly the same
   },
-  'ru': {
+  ru: {
     englishName: 'Russian',
     localName: 'Pусский',
     region: 'eu',
     locale: 'ru_RU',
   },
-  'ko': {
+  ko: {
     englishName: 'Korean',
     localName: '한국어',
     region: 'kr',
     locale: 'ko_KR',
   },
-  'zh': {
+  zh: {
     englishName: 'Chinese', // Chinese (Simplified)
     localName: '中文',
     region: null, // it has no working API :(

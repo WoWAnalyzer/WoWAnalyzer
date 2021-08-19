@@ -1,13 +1,12 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Crash Lightning also electrifies the ground, leaving an electrical
@@ -27,8 +26,7 @@ class CrashingStorm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.CRASHING_STORM_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRASHING_STORM_DAMAGE),
       this.onDamage,
     );
   }
@@ -44,7 +42,7 @@ class CrashingStorm extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CRASHING_STORM_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CRASHING_STORM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

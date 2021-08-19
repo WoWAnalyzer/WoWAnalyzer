@@ -14,11 +14,20 @@
 
 import indexById from 'common/indexById';
 
-import OTHERS from './others';
-import RACIALS from './racials';
-import SHADOWLANDS from './shadowlands';
+import DEATH_KNIGHT from './deathknight';
+import DEMON_HUNTER from './demonhunter';
+import DRUID from './druid';
 import ENCOUNTER from './encounter';
-
+import HUNTER from './hunter';
+import MAGE from './mage';
+import MONK from './monk';
+import OTHERS from './others';
+import PALADIN from './paladin';
+import PRIEST from './priest';
+import RACIALS from './racials';
+import ROGUE from './rogue';
+import SHADOWLANDS from './shadowlands';
+import SHAMAN from './shaman';
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
 import TALENTS_DEMON_HUNTER from './talents/demonhunter';
 import TALENTS_DRUID from './talents/druid';
@@ -31,17 +40,6 @@ import TALENTS_ROGUE from './talents/rogue';
 import TALENTS_SHAMAN from './talents/shaman';
 import TALENTS_WARLOCK from './talents/warlock';
 import TALENTS_WARRIOR from './talents/warrior';
-
-import DEATH_KNIGHT from './deathknight';
-import DEMON_HUNTER from './demonhunter';
-import DRUID from './druid';
-import HUNTER from './hunter';
-import MAGE from './mage';
-import MONK from './monk';
-import PALADIN from './paladin';
-import PRIEST from './priest';
-import ROGUE from './rogue';
-import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
@@ -83,4 +81,18 @@ const ABILITIES = {
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-export default indexById(ABILITIES);
+const SPELLS = indexById(ABILITIES);
+
+export default SPELLS;
+
+export const registerSpell = (id: number, name: string, icon: string) => {
+  if (SPELLS[id]) {
+    return;
+  }
+
+  SPELLS[id] = {
+    id,
+    name,
+    icon,
+  };
+};

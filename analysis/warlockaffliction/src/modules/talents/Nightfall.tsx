@@ -1,13 +1,10 @@
-import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-
-import SPELLS from 'common/SPELLS';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const BUFF_DURATION = 12000;
 const BUFFER = 100;
@@ -52,7 +49,7 @@ class Nightfall extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.NIGHTFALL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NIGHTFALL_TALENT.id}>
           {this.wastedProcs} <small>wasted procs</small>
         </BoringSpellValueText>
       </Statistic>

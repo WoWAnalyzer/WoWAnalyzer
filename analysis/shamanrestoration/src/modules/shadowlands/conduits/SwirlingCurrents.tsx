@@ -1,16 +1,20 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, CastEvent, HasTarget, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HasTarget,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { SWIRLING_CURRENTS_RANKS } from '../../../constants';
 
@@ -35,11 +39,23 @@ class SwirlingCurrents extends Analyzer {
     this.healingBoost = SWIRLING_CURRENTS_RANKS[this.conduitRank] / 100;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE]), this.notRiptideHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE]),
+      this.notRiptideHeal,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.pandemicRiptide);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.trackRiptide,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.removeRiptide,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.pandemicRiptide,
+    );
   }
 
   riptideHeal(event: HealEvent) {
@@ -84,8 +100,9 @@ class SwirlingCurrents extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.SWIRLING_CURRENTS} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+        <ConduitSpellText spellId={SPELLS.SWIRLING_CURRENTS.id} rank={this.conduitRank}>
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

@@ -1,10 +1,9 @@
-import React from 'react';
-
 import Icon from 'interface/icons/Warning';
+import React from 'react';
 
 import Alert, { Props as AlertProps } from './Alert';
 
-type Props = Omit<AlertProps, 'kind'>
+type Props = Omit<AlertProps, 'kind'>;
 
 const AlertDanger = ({ children, ...otherProps }: Props) => (
   <Alert kind="danger" {...otherProps}>
@@ -12,9 +11,7 @@ const AlertDanger = ({ children, ...otherProps }: Props) => (
       <div className="icon-container">
         <Icon />
       </div>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   </Alert>
 );

@@ -1,15 +1,14 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import Component from './Component';
 import InsanityUsage from '../resources/InsanityUsage';
 import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -34,7 +33,6 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
-
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
@@ -42,7 +40,6 @@ class Checklist extends BaseChecklist {
           shadowWordPain: this.shadowWordPain.suggestionThresholds,
           vampiricTouch: this.vampiricTouch.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
-
         }}
       />
     );

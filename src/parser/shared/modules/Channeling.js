@@ -1,7 +1,7 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const debug = false;
 
@@ -42,7 +42,10 @@ class Channeling extends Analyzer {
     const currentChannel = this._currentChannel;
     const start = currentChannel ? currentChannel.timestamp : this.owner.fight.start_time;
     if (!this.isChanneling()) {
-      this.warn(event.ability.name, '`endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
+      this.warn(
+        event.ability.name,
+        "`endChannel` was called while we weren't channeling, assuming it was a pre-combat channel.",
+      );
     }
 
     const duration = event.timestamp - start;
@@ -50,24 +53,30 @@ class Channeling extends Analyzer {
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
     debug && this.log('Ending channel of', ability.name);
-    return this.eventEmitter.fabricateEvent({
-      type: EventType.EndChannel,
-      timestamp: event.timestamp,
-      ability,
-      sourceID: event.sourceID,
-      duration: duration,
-      start,
-      beginChannel: currentChannel,
-    }, event); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
+    return this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.EndChannel,
+        timestamp: event.timestamp,
+        ability,
+        sourceID: event.sourceID,
+        duration: duration,
+        start,
+        beginChannel: currentChannel,
+      },
+      event,
+    ); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
   }
 
   cancelChannel(event, ability) {
-    this.eventEmitter.fabricateEvent({
-      type: EventType.CancelChannel,
-      ability,
-      sourceID: event.sourceID,
-      timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
-    }, event);
+    this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.CancelChannel,
+        ability,
+        sourceID: event.sourceID,
+        timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
+      },
+      event,
+    );
     debug && this.warn('Canceled channel of', ability.name);
   }
 

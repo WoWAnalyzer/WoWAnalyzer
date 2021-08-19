@@ -1,15 +1,24 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { AFFECTED_BY_GUERRILLA_TACTICS, FLAME_INFUSION_WFB_DAMAGE_INCREASE } from '@wowanalyzer/hunter-survival/src/constants';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  DamageEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import {
+  AFFECTED_BY_GUERRILLA_TACTICS,
+  FLAME_INFUSION_WFB_DAMAGE_INCREASE,
+} from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Carve/Butchery increases the damage of your next Wildfire Bomb explosion by 10.0%, stacks up to 2 times.
@@ -18,7 +27,6 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
  *
  */
 class FlameInfusion extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
   flameInfusionStacks: number = 0;
@@ -28,16 +36,24 @@ class FlameInfusion extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FLAME_INFUSION_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.FLAME_INFUSION_CONDUIT.id,
+    );
 
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS), this.onBombImpact);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS),
+      this.onBombImpact,
+    );
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyFlameInfusion);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER), this.onApplyStackFlameInfusion);
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER),
+      this.onApplyStackFlameInfusion,
+    );
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveFlameInfusion);
   }
 
@@ -45,7 +61,10 @@ class FlameInfusion extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.FLAME_INFUSION_BUFF.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, FLAME_INFUSION_WFB_DAMAGE_INCREASE[this.conduitRank] * this.flameInfusionStacks);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      FLAME_INFUSION_WFB_DAMAGE_INCREASE[this.conduitRank] * this.flameInfusionStacks,
+    );
     this.spentStacks += this.flameInfusionStacks;
   }
 
@@ -70,7 +89,7 @@ class FlameInfusion extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.FLAME_INFUSION_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.FLAME_INFUSION_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>
@@ -78,7 +97,6 @@ class FlameInfusion extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default FlameInfusion;

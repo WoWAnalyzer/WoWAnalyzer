@@ -1,14 +1,14 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbsorbedEvent, DamageEvent} from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatNumber, formatPercentage } from 'common/format';
-import BoringSpellValue from 'parser/ui/BoringSpellValue';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const PHYSICAL_DAMAGE = MAGIC_SCHOOLS.ids.PHYSICAL;
 
@@ -26,7 +26,10 @@ class HolyShieldSpellBlock extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHIELD_TALENT), this.trackHolyShieldAbsorbs);
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHIELD_TALENT),
+      this.trackHolyShieldAbsorbs,
+    );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.trackSpellsHitPlayer);
   }
 
@@ -51,18 +54,22 @@ class HolyShieldSpellBlock extends Analyzer {
         position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            Holy Shield blocked {formatNumber(this.holyShieldProcsCount)} out of {formatNumber(this.spellsHitPlayerCount)} spells.<br />
-            This represents <em>{formatPercentage(this.holyShieldProcsCount/this.spellsHitPlayerCount)} %</em> of spells blocked.
+            Holy Shield blocked {formatNumber(this.holyShieldProcsCount)} out of{' '}
+            {formatNumber(this.spellsHitPlayerCount)} spells.
+            <br />
+            This represents{' '}
+            <em>{formatPercentage(this.holyShieldProcsCount / this.spellsHitPlayerCount)} %</em> of
+            spells blocked.
           </>
-        )}
-        >
-          <BoringSpellValue
-            spell={SPELLS.HOLY_SHIELD_TALENT}
-            value={this.holyShieldProcsCount}
-            label="Spells Blocked"
-          />
+        }
+      >
+        <BoringSpellValue
+          spellId={SPELLS.HOLY_SHIELD_TALENT.id}
+          value={this.holyShieldProcsCount}
+          label="Spells Blocked"
+        />
       </Statistic>
     );
   }

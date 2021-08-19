@@ -1,20 +1,19 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { formatDuration } from 'common/format';
+import React from 'react';
 
 import { STORMSTOUTS_LK_MODIFIER } from '../../../constants';
-import BrewCDR from '../../core/BrewCDR';
 import Abilities from '../../Abilities';
+import BrewCDR from '../../core/BrewCDR';
 
 /**
  * Keg Smash deals 30% additional damage, and has 1 additional charge.
@@ -39,7 +38,10 @@ class StormstoutsLastKeg extends Analyzer {
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.STORMSTOUTS_LAST_KEG.bonusID);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH), this.onDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH), this.trackExtraCD);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH),
+      this.trackExtraCD,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -63,7 +65,9 @@ class StormstoutsLastKeg extends Analyzer {
   // them "preventing" n wasted casts. As long as players are trying to keep it
   // at 0 charges, this doesn't occur.
   trackExtraCD(_event: CastEvent) {
-    const { expectedDuration, chargesOnCooldown } = this.spellUsable._currentCooldowns[SPELLS.KEG_SMASH.id];
+    const { expectedDuration, chargesOnCooldown } = this.spellUsable._currentCooldowns[
+      SPELLS.KEG_SMASH.id
+    ];
     const remaining = this.spellUsable.cooldownRemaining(SPELLS.KEG_SMASH.id);
     // if we ever get a 3rd charge this will need revisiting
     if (chargesOnCooldown === 1) {
@@ -83,15 +87,22 @@ class StormstoutsLastKeg extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-          <p>This statistic shows the damage gained from the increased Keg Smash damage. It does not reflect the potential damage gain from having 2 charges of Keg Smashs.</p>
-            <p>This legendary prevented {formatDuration(this.extraCD / 1000)} of wasted cooldown time, equal to about {(this.extraCD / 1000 / this.avgCooldown()).toFixed(1)} extra casts of Keg Smash. This includes the initial extra cast.</p>
+            <p>
+              This statistic shows the damage gained from the increased Keg Smash damage. It does
+              not reflect the potential damage gain from having 2 charges of Keg Smashs.
+            </p>
+            <p>
+              This legendary prevented {formatDuration(this.extraCD)} of wasted cooldown time, equal
+              to about {(this.extraCD / 1000 / this.avgCooldown()).toFixed(1)} extra casts of Keg
+              Smash. This includes the initial extra cast.
+            </p>
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.STORMSTOUTS_LAST_KEG}>
+        <BoringSpellValueText spellId={SPELLS.STORMSTOUTS_LAST_KEG.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

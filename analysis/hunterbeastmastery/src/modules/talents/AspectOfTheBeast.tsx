@@ -1,16 +1,20 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { AOTB_ABILITIES_NOT_AFFECTED, AOTB_MULTIPLIER } from '@wowanalyzer/hunter-beastmastery/src/constants';
+import React from 'react';
+
+import {
+  AOTB_ABILITIES_NOT_AFFECTED,
+  AOTB_MULTIPLIER,
+} from '@wowanalyzer/hunter-beastmastery/src/constants';
 
 /**
  * Increases the damage of your pet's abilities by 30%.
@@ -49,7 +53,7 @@ class AspectOfTheBeast extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_BEAST_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
  * Shuriken Storm Energize events reporting overcaping of CPs.
@@ -9,7 +9,6 @@ import { EventType } from 'parser/core/Events';
  * @returns {Array} Events possibly with some reordered.
  */
 class ShurikenStormNormalizer extends EventsNormalizer {
-
   /**
    * Shuriken Storm should never provide less then 3CP.
    * If less then 3 CPs were generated, it most likely was a mistake to cast this spell.

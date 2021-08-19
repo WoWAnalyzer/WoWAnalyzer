@@ -1,22 +1,17 @@
-import React from 'react';
-
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
-
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
-
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Combatants from 'parser/shared/modules/Combatants';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticBox from 'parser/ui/StatisticBox';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-import Combatants from 'parser/shared/modules/Combatants';
-
-import { t, Trans } from '@lingui/macro';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
@@ -39,9 +34,18 @@ class Wellspring extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
 
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT), this._onBegincast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT), this._onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_HEAL), this._onHeal);
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT),
+      this._onBegincast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT),
+      this._onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_HEAL),
+      this._onHeal,
+    );
     this.addEventListener(Events.fightend, this._onFightend);
   }
 
@@ -84,7 +88,12 @@ class Wellspring extends Analyzer {
   }
 
   _onFightend() {
-    if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && (this.castEvent && !this.castEvent.meta)) {
+    if (
+      this.wellspringCasts[this.castNumber] &&
+      this.wellspringCasts[this.castNumber] < 6 &&
+      this.castEvent &&
+      !this.castEvent.meta
+    ) {
       this.registerInefficientCast();
     }
   }
@@ -96,7 +105,11 @@ class Wellspring extends Analyzer {
     }
     this.castEvent.meta = this.castEvent.meta || {};
     this.castEvent.meta.isInefficientCast = true;
-    this.castEvent.meta.inefficientCastReason = <Trans id="shaman.restoration.wellspring.inefficientCast.reason">This Wellspring cast hit less than 6 targets.</Trans>;
+    this.castEvent.meta.inefficientCastReason = (
+      <Trans id="shaman.restoration.wellspring.inefficientCast.reason">
+        This Wellspring cast hit less than 6 targets.
+      </Trans>
+    );
   }
 
   get averageHitsPerCast() {
@@ -114,20 +127,34 @@ class Wellspring extends Analyzer {
   }
 
   get inefficientCasts() {
-    return this.wellspringCasts.reduce((total, hits) => hits < 6 ? total + 1 : total, 0);
+    return this.wellspringCasts.reduce((total, hits) => (hits < 6 ? total + 1 : total), 0);
   }
 
   suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
-    when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
-      .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.wellSpring.label">You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</Trans>)
-        .icon(SPELLS.WELLSPRING_TALENT.icon)
-        .actual(`${formatPercentage(suggestionThreshold.actual)}% ${t({
-          id: "shared.suggestions.efficiency",
-          message: `efficiency`
-        })}`)
-        .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
-        .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
+    when(suggestionThreshold.actual)
+      .isLessThan(suggestionThreshold.isLessThan.minor)
+      .addSuggestion((suggest, _actual, _recommended) =>
+        suggest(
+          <Trans id="shaman.restoration.suggestions.wellSpring.label">
+            You're not making full use of the potential of{' '}
+            <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured
+            players with 6 people or more.
+          </Trans>,
+        )
+          .icon(SPELLS.WELLSPRING_TALENT.icon)
+          .actual(
+            `${formatPercentage(suggestionThreshold.actual)}% ${t({
+              id: 'shared.suggestions.efficiency',
+              message: `efficiency`,
+            })}`,
+          )
+          .recommended(
+            `>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`,
+          )
+          .regular(suggestionThreshold.isLessThan.average)
+          .major(suggestionThreshold.isLessThan.average),
+      );
   }
 
   get suggestionThreshold() {
@@ -150,30 +177,44 @@ class Wellspring extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WELLSPRING_TALENT.id} />}
-        label={<Trans id="shaman.restoration.wellspring.statistic.label">Wellspring target efficiency</Trans>}
+        label={
+          <Trans id="shaman.restoration.wellspring.statistic.label">
+            Wellspring target efficiency
+          </Trans>
+        }
         value={`${formatPercentage(this.wellspringEfficiency)} %`}
-        tooltip={<Trans id="shaman.restoration.wellspring.statistic.tooltip">The average number of targets healed by Wellspring out of the minimum amount of 6 targets to archive the maximum potential healing.</Trans>}
+        tooltip={
+          <Trans id="shaman.restoration.wellspring.statistic.tooltip">
+            The average number of targets healed by Wellspring out of the minimum amount of 6
+            targets to archive the maximum potential healing.
+          </Trans>
+        }
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(100)}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th><Trans id="common.cast">Cast</Trans></th>
-              <th><Trans id="common.time">Time</Trans></th>
+              <th>
+                <Trans id="common.cast">Cast</Trans>
+              </th>
+              <th>
+                <Trans id="common.time">Time</Trans>
+              </th>
               <th />
             </tr>
           </thead>
           <tbody>
-            {
-              this.wellspringCasts.map((hits, index) => (
-                <tr key={index}>
-                  <th scope="row">{formatNth(index)}</th>
-                  <td>{formatDuration((this.wellspringTimestamps[index] - this.owner.fight.start_time) / 1000) || 0}</td>
-                  <td style={hits < 6 ? { color: 'red', fontWeight: 'bold' } : {}}>{hits} hits</td>
-                </tr>
-              ))
-            }
+            {this.wellspringCasts.map((hits, index) => (
+              <tr key={index}>
+                <th scope="row">{formatNth(index)}</th>
+                <td>
+                  {formatDuration(this.wellspringTimestamps[index] - this.owner.fight.start_time) ||
+                    0}
+                </td>
+                <td style={hits < 6 ? { color: 'red', fontWeight: 'bold' } : {}}>{hits} hits</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </StatisticBox>
@@ -185,12 +226,12 @@ class Wellspring extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.WELLSPRING_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + feeding),
+        )} %`}
       />
     );
   }
-
 }
 
 export default Wellspring;
-

@@ -1,11 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
-import { POWER_WORD_RADIANCE_ATONEMENT_DUR, POWER_WORD_SHIELD_ATONEMENT_DUR, SHADOW_MEND_ATONEMENT_DUR } from '@wowanalyzer/priest-discipline/src/constants';
+
+import {
+  POWER_WORD_RADIANCE_ATONEMENT_DUR,
+  POWER_WORD_SHIELD_ATONEMENT_DUR,
+  SHADOW_MEND_ATONEMENT_DUR,
+} from '@wowanalyzer/priest-discipline/src/constants';
 
 class AtonementApplicationSource extends Analyzer {
   // Spells that apply atonement
-  atonementApplicators = new Map([
+  atonementApplicators = new Map<number, number>([
     [SPELLS.POWER_WORD_RADIANCE.id, POWER_WORD_RADIANCE_ATONEMENT_DUR],
     [SPELLS.POWER_WORD_SHIELD.id, POWER_WORD_SHIELD_ATONEMENT_DUR],
     [SPELLS.SHADOW_MEND.id, SHADOW_MEND_ATONEMENT_DUR],

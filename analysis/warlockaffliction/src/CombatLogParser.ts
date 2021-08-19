@@ -7,34 +7,29 @@ import {
   GrimoireOfSacrifice,
 } from '@wowanalyzer/warlock';
 
+import Channeling from './modules/core/Channeling';
+import GlobalCooldown from './modules/core/GlobalCooldown';
+import ScouringTitheUptime from './modules/covenants/ScouringTithe';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Darkglare from './modules/features/Darkglare';
-
+import DotUptimes from './modules/features/DotUptimes';
 import AgonyUptime from './modules/features/DotUptimes/AgonyUptime';
 import CorruptionUptime from './modules/features/DotUptimes/CorruptionUptime';
 import UnstableAfflictionUptime from './modules/features/DotUptimes/UnstableAfflictionUptime';
-import DotUptimes from './modules/features/DotUptimes';
 import ShadowEmbrace from './modules/features/ShadowEmbrace';
-
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import Channeling from './modules/core/Channeling';
-import GlobalCooldown from './modules/core/GlobalCooldown';
-
-import Nightfall from './modules/talents/Nightfall';
-import DrainSoul from './modules/talents/DrainSoul';
+import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
-import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
-import PhantomSingularity from './modules/talents/PhantomSingularity';
-import VileTaint from './modules/talents/VileTaint';
+import DrainSoul from './modules/talents/DrainSoul';
 import Haunt from './modules/talents/Haunt';
+import Nightfall from './modules/talents/Nightfall';
+import PhantomSingularity from './modules/talents/PhantomSingularity';
+import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import SoulConduit from './modules/talents/SoulConduit';
-
-import ScouringTitheUptime from './modules/covenants/ScouringTithe';
-
-import Checklist from './modules/features/Checklist/Module';
+import VileTaint from './modules/talents/VileTaint';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

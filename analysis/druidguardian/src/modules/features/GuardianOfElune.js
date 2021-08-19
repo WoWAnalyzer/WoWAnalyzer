@@ -1,12 +1,14 @@
-import React from 'react';
-import { formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const GOE_DURATION = 15000;
 const debug = false;
@@ -20,15 +22,26 @@ class GuardianOfElune extends Analyzer {
   GoEIronFur = 0;
   nonGoEFRegen = 0;
   GoEFRegen = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE), this.onRefreshBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onCastIronfur);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION), this.onCastFrenziedRegen);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR),
+      this.onCastIronfur,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION),
+      this.onCastFrenziedRegen,
+    );
   }
 
   onApplyBuff(event) {
@@ -82,29 +95,52 @@ class GuardianOfElune extends Analyzer {
   }
 
   suggestions(when) {
-    const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
+    const unusedGoEProcs = 1 - this.consumedGoEProc / this.GoEProcsTotal;
 
-    when(unusedGoEProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-        .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
-        .actual(t({
-      id: "druid.guardian.suggestions.guardianOfElune.unused",
-      message: `${formatPercentage(unusedGoEProcs)}% unused`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-        .regular(recommended + 0.15).major(recommended + 0.3));
+    when(unusedGoEProcs)
+      .isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            You wasted {formatPercentage(unusedGoEProcs)}% of your{' '}
+            <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as
+            you get them so they are not overwritten.
+          </span>,
+        )
+          .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
+          .actual(
+            t({
+              id: 'druid.guardian.suggestions.guardianOfElune.unused',
+              message: `${formatPercentage(unusedGoEProcs)}% unused`,
+            }),
+          )
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.15)
+          .major(recommended + 0.3),
+      );
   }
 
   statistic() {
-    const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
+    const unusedGoEProcs = 1 - this.consumedGoEProc / this.GoEProcsTotal;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
-        value={`${formatPercentage(unusedGoEProcs)}%`}
-        label="Unused Guardian of Elune"
-        tooltip={<>You got total <strong>{this.GoEProcsTotal}</strong> guardian of elune procs and <strong>used {this.consumedGoEProc}</strong> of them.</>}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(7)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={
+          <>
+            You got total <strong>{this.GGProcsTotal}</strong> galactic guardian procs and{' '}
+            <strong>used {this.consumedGGProc}</strong> of them.
+          </>
+        }
+      >
+        <BoringSpellValue
+          spellId={SPELLS.GUARDIAN_OF_ELUNE.id}
+          value={`${formatPercentage(unusedGoEProcs)}%`}
+          label="Unused Guardian of Elune"
+        />
+      </Statistic>
     );
   }
 }

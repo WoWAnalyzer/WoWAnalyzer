@@ -1,7 +1,7 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 
 class DivineToll extends Analyzer {
   static dependencies = {
@@ -19,7 +19,7 @@ class DivineToll extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.DIVINE_TOLL,
+      spell: SPELLS.DIVINE_TOLL.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 60,
       gcd: {

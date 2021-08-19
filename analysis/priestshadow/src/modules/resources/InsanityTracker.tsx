@@ -1,9 +1,13 @@
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { EnergizeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import { SHADOW_SPELLS_WITHOUT_WASTE, VOID_TORRENT_INSANITY_PER_TICK } from '@wowanalyzer/priest-shadow/src/constants';
+
+import {
+  SHADOW_SPELLS_WITHOUT_WASTE,
+  VOID_TORRENT_INSANITY_PER_TICK,
+} from '@wowanalyzer/priest-shadow/src/constants';
 
 class InsanityTracker extends ResourceTracker {
   constructor(options: Options) {

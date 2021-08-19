@@ -14,119 +14,162 @@ describe('Druid/Feral/Normalizers/BleedDebuffEvents', () => {
       it: 'creates debuffEvents array with one matched applydebuff',
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.ApplyDebuff },
+        {
+          testid: 2,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.ApplyDebuff,
+        },
       ],
-      result: [
-        [2],
-        null,
-      ],
+      result: [[2], null],
     },
     {
       it: 'creates debuffEvents array with one matched refreshdebuff',
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.RefreshDebuff },
+        {
+          testid: 2,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.RefreshDebuff,
+        },
       ],
-      result: [
-        [2],
-        null,
-      ],
+      result: [[2], null],
     },
     {
       it: 'skips over mismatched applydebuff events',
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
         { testid: 2, timestamp: 1, ability: { guid: SPELLS.RIP.id }, type: EventType.ApplyDebuff },
-        { testid: 3, timestamp: 1, ability: { guid: SPELLS.MOONFIRE_BEAR.id }, type: EventType.ApplyDebuff },
-        { testid: 4, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.ApplyDebuff },
+        {
+          testid: 3,
+          timestamp: 1,
+          ability: { guid: SPELLS.MOONFIRE_DEBUFF.id },
+          type: EventType.ApplyDebuff,
+        },
+        {
+          testid: 4,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.ApplyDebuff,
+        },
       ],
-      result: [
-        [4],
-        null,
-        null,
-        null,
-      ],
+      result: [[4], null, null, null],
     },
     {
       it: 'skips over damage events',
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.Damage },
-        { testid: 3, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.ApplyDebuff },
+        {
+          testid: 2,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.Damage,
+        },
+        {
+          testid: 3,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.ApplyDebuff,
+        },
       ],
-      result: [
-        [3],
-        null,
-        null,
-      ],
+      result: [[3], null, null],
     },
     {
-      it: 'copes when there\'s no matching debuff events',
+      it: "copes when there's no matching debuff events",
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.Damage },
+        {
+          testid: 2,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.Damage,
+        },
         { testid: 3, timestamp: 1, ability: { guid: SPELLS.RIP.id }, type: EventType.ApplyDebuff },
       ],
-      result: [
-        [],
-        null,
-        null,
-      ],
+      result: [[], null, null],
     },
 
     {
       it: 'ignores debuff events too far in the future',
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 10000, ability: { guid: SPELLS.RIP.id }, type: EventType.ApplyDebuff },
+        {
+          testid: 2,
+          timestamp: 10000,
+          ability: { guid: SPELLS.RIP.id },
+          type: EventType.ApplyDebuff,
+        },
       ],
-      result: [
-        [],
-        null,
-      ],
+      result: [[], null],
     },
     {
       it: 'handles abilities which create multiple debuffs',
       events: [
-        { testid: 1, timestamp: 1, ability: { guid: SPELLS.THRASH_FERAL.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 1, ability: { guid: SPELLS.THRASH_FERAL.id }, type: EventType.ApplyDebuff },
-        { testid: 3, timestamp: 1, ability: { guid: SPELLS.THRASH_FERAL.id }, type: EventType.ApplyDebuff },
-        { testid: 4, timestamp: 1, ability: { guid: SPELLS.THRASH_FERAL.id }, type: EventType.ApplyDebuff },
+        {
+          testid: 1,
+          timestamp: 1,
+          ability: { guid: SPELLS.THRASH_FERAL.id },
+          type: EventType.Cast,
+        },
+        {
+          testid: 2,
+          timestamp: 1,
+          ability: { guid: SPELLS.THRASH_FERAL.id },
+          type: EventType.ApplyDebuff,
+        },
+        {
+          testid: 3,
+          timestamp: 1,
+          ability: { guid: SPELLS.THRASH_FERAL.id },
+          type: EventType.ApplyDebuff,
+        },
+        {
+          testid: 4,
+          timestamp: 1,
+          ability: { guid: SPELLS.THRASH_FERAL.id },
+          type: EventType.ApplyDebuff,
+        },
       ],
-      result: [
-        [2, 3, 4],
-        null,
-        null,
-        null,
-      ],
+      result: [[2, 3, 4], null, null, null],
     },
     {
       it: 'ignores multiple debuffs on abilities meant to only create one',
       events: [
         { testid: 1, timestamp: 1, ability: { guid: SPELLS.RAKE.id }, type: EventType.Cast },
-        { testid: 2, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.ApplyDebuff },
-        { testid: 3, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.ApplyDebuff },
-        { testid: 4, timestamp: 1, ability: { guid: SPELLS.RAKE_BLEED.id }, type: EventType.ApplyDebuff },
+        {
+          testid: 2,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.ApplyDebuff,
+        },
+        {
+          testid: 3,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.ApplyDebuff,
+        },
+        {
+          testid: 4,
+          timestamp: 1,
+          ability: { guid: SPELLS.RAKE_BLEED.id },
+          type: EventType.ApplyDebuff,
+        },
       ],
-      result: [
-        [2],
-        null,
-        null,
-        null,
-      ],
+      result: [[2], null, null, null],
     },
   ];
 
-  scenarios.forEach(scenario => {
+  scenarios.forEach((scenario) => {
     it(scenario.it, () => {
       const parser = new BleedDebuffEvents({});
-      expect(parser.normalize(scenario.events).map(event => (
-        event.debuffEvents ?
-          event.debuffEvents.map(linkedEvent => (
-            linkedEvent.testid
-          ))
-          : null
-      ))).toEqual(scenario.result);
+      expect(
+        parser
+          .normalize(scenario.events)
+          .map((event) =>
+            event.debuffEvents ? event.debuffEvents.map((linkedEvent) => linkedEvent.testid) : null,
+          ),
+      ).toEqual(scenario.result);
     });
   });
 });

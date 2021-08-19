@@ -1,17 +1,15 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { formatDuration, formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
-
-import { t } from '@lingui/macro';
-
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
@@ -31,7 +29,10 @@ class ComboStrikes extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onMasteryCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY),
+      this.onMasteryCast,
+    );
   }
 
   onMasteryCast(event: CastEvent) {
@@ -72,20 +73,29 @@ class ComboStrikes extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.5 * hitComboMultiplier,
-        major: Number(hitComboMultiplier),
+        major: hitComboMultiplier,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
-      .icon(SPELLS.COMBO_STRIKES.icon)
-      .actual(t({
-      id: "monk.windwalker.comboStrikes.masteryBreaksPerMinute",
-      message: `${actual.toFixed(2)} mastery breaks per minute.`
-    }))
-      .recommended(`mastery should be broken ${recommended} times`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell
+          twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.
+        </span>,
+      )
+        .icon(SPELLS.COMBO_STRIKES.icon)
+        .actual(
+          t({
+            id: 'monk.windwalker.comboStrikes.masteryBreaksPerMinute',
+            message: `${actual.toFixed(2)} mastery breaks per minute.`,
+          }),
+        )
+        .recommended(`mastery should be broken ${recommended} times`),
+    );
   }
 
   statistic() {
@@ -94,7 +104,7 @@ class ComboStrikes extends Analyzer {
         position={STATISTIC_ORDER.CORE(2)}
         size="flexible"
         tooltip={`This is the number of times you incorrectly cast the same spell twice in a row, missing out on the damage increase from your mastery${HIT_COMBO_STRING}.`}
-        dropdown={(
+        dropdown={
           // only add a dropdown when there are any mastery breaks to show
           this.masteryDropEvents > 0 ? (
             <>
@@ -111,26 +121,31 @@ class ComboStrikes extends Analyzer {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    this.masteryDropSpellSequence
-                      .map((item, index) => (
-                        <tr key={index}>
-                          <th scope="row">{formatDuration((item[0].timestamp - this.owner.fight.start_time) / 1000)}</th>
-                          <td><SpellIcon id={item[0].ability} style={{ height: '2.4em' }} /></td>
-                          <td><SpellIcon id={item[1].ability} style={{ height: '2.4em' }} /></td>
-                          {item[2] && item[2].ability && (
-                            <td><SpellIcon id={item[2].ability} style={{ height: '2.4em' }} /></td>
-                          )}
-                        </tr>
-                      ))
-                  }
+                  {this.masteryDropSpellSequence.map((item, index) => (
+                    <tr key={index}>
+                      <th scope="row">
+                        {formatDuration(item[0].timestamp - this.owner.fight.start_time)}
+                      </th>
+                      <td>
+                        <SpellIcon id={item[0].ability} style={{ height: '2.4em' }} />
+                      </td>
+                      <td>
+                        <SpellIcon id={item[1].ability} style={{ height: '2.4em' }} />
+                      </td>
+                      {item[2] && item[2].ability && (
+                        <td>
+                          <SpellIcon id={item[2].ability} style={{ height: '2.4em' }} />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </>
           ) : null
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.COMBO_STRIKES}>
+        <BoringSpellValueText spellId={SPELLS.COMBO_STRIKES.id}>
           {formatNumber(this.masteryDropEvents)} <small>Mastery benefit mistakes</small>
         </BoringSpellValueText>
       </Statistic>

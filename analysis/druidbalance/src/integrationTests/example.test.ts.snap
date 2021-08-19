@@ -34,7 +34,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          26.10 %
+          25.24 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "73.9026149543354%",
+                  "width": "74.76363345998728%",
                 }
               }
             >
@@ -114,7 +114,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "73.90",
+            "0": "74.76",
           }
         }
       />
@@ -194,10 +194,46 @@ Array [
   Object {
     "details": null,
     "icon": "ability_druid_cresentburn",
-    "importance": "major",
-    "issue": "You overcapped 176 Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.",
+    "importance": "regular",
+    "issue": "You wasted 176 Astral Power. While some Astral Power waste is acceptable
+        while setting up Eclipse or due to movement, you should always try and set yourself up to be
+        able to spend it during Eclipse.",
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.astralPower.overcapped","message":"{0}% overcapped Astral Power","values":{"0":"15.08"}}
+       (
+      10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_druid_cresentburn",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You wasted 
+      176
+       Astral Power during 
+      <ForwardRef
+        id={79577}
+      />
+       or
+       
+      <ForwardRef
+        id={194223}
+      />
+      . Wasting Astral Power during Eclipse is very bad and should never happen. Always spend on
+      <ForwardRef
+        id={78674}
+      />
+       or
+       
+      <ForwardRef
+        id={191034}
+      />
+       before you overcap.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"druid.balance.suggestions.astralPower.overcapped","message":"{0}% overcapped Astral Power","values":{"0":"13.59"}}
        (
       0.00% is recommended
       )
@@ -236,7 +272,8 @@ Array [
       />
        buff for 
       5
-       times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
+       
+      times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
     </React.Fragment>,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.boat.efficiency","message":"{0} of your Balance of All Things openers were wrong","values":{"0":5}}
@@ -494,8 +531,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               37
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -580,8 +616,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -666,8 +701,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               45
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -752,8 +786,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               45
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -838,8 +871,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -924,8 +956,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               17
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1068,8 +1099,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1166,8 +1196,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1209,6 +1238,108 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
                 }
               }
             />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=108291"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_blessingofagility.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Heart of the Wild
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1322,8 +1453,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               3
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1425,8 +1555,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1511,8 +1640,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1655,8 +1783,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1758,8 +1885,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1856,8 +1982,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /11
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1954,8 +2079,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2040,8 +2164,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2138,8 +2261,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2236,8 +2358,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /39
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2334,8 +2455,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2420,8 +2540,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /39
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2518,8 +2637,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2604,8 +2722,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2690,8 +2807,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2776,8 +2892,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2862,8 +2977,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2948,8 +3062,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3034,8 +3147,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3120,8 +3232,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /31
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3154,6 +3265,188 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
               }
             >
               0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=310143"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_nightfae_flicker.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Soulshape
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.20
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=106898"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_druid_stamedingroar.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Stampeding Roar
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.20
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /3
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "39.13843263623436%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              39.14%
             </td>
             <td
               style={
@@ -3276,8 +3569,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3374,8 +3666,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3515,6 +3806,50 @@ Array [
       )
     </React.Fragment>,
   },
+  Object {
+    "details": null,
+    "icon": "spell_holy_blessingofagility",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={108291}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 2,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
 ]
 `;
 
@@ -3563,7 +3898,9 @@ exports[`Balance Druid integration test: example log ConvokeSpirits matches the 
         </label>
         <div
           className="value"
-        />
+        >
+          -
+        </div>
       </div>
       <div
         className="row"
@@ -3695,31 +4032,6 @@ exports[`Balance Druid integration test: example log DistanceMoved matches the s
     </div>
   </div>
 </div>
-`;
-
-exports[`Balance Druid integration test: example log EarlyDotRefreshesInstants matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_nature_starfall",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You refreshed 
-      <ForwardRef
-        id={164812}
-      />
-       early 
-      2
-       times when you had better spells to cast. See the highlighted casts on the timeline for more information.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      {"id":"shared.suggestions.dots.badRefreshes","message":"{0}% bad dot refreshes","values":{"0":"13.33"}}
-       (
-      &lt;10.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Balance Druid integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
@@ -3859,6 +4171,61 @@ Array [
 ]
 `;
 
+exports[`Balance Druid integration test: example log FillerUsage matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_druid_eclipseorange",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cast the wrong filler spell 
+      1
+       times -
+       
+      1.1
+      % of total filler casts. You should cast
+       
+      <ForwardRef
+        id={190984}
+      />
+       during and after
+       
+      <ForwardRef
+        id={48517}
+      />
+      , and you should cast
+       
+      <ForwardRef
+        id={194153}
+      />
+       during and after
+       
+      <ForwardRef
+        id={48518}
+      />
+      .
+      <br />
+      <br />
+      The only exceptions are during
+       
+      <ForwardRef
+        id={194223}
+      />
+       you should cast Wrath against single targets and Starfire against multiple targets, and when you can hit
+       
+      6
+       targets you can cast Starfire event during Solar Eclipse. These exception are excluded from this statistic.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"druid.balance.suggestions.filler.efficiency","message":"{0}% wrong filler spell casts","values":{"0":"1.1"}}
+       (
+      none are recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Balance Druid integration test: example log MoonfireUptime matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3977,7 +4344,7 @@ exports[`Balance Druid integration test: example log Starlord matches the statis
             />
           </svg>
            
-          4.78
+          6.37
            % 
           <small>
             average haste gained
@@ -4048,10 +4415,16 @@ exports[`Balance Druid integration test: example log StellarDrift matches the st
         <div
           className="value"
         >
-          0.76
+          0.50
            % 
           <small>
             of total damage
+          </small>
+          <br />
+          2
+           
+          <small>
+            seconds uptime gained
           </small>
         </div>
       </div>
@@ -4426,37 +4799,6 @@ exports[`Balance Druid integration test: example log ThroughputStatisticGroup ma
 </div>
 `;
 
-exports[`Balance Druid integration test: example log UnempoweredLunarStrike matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_arcane_starfire",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You cast 
-      17
-       unempowered and non instant cast 
-      <ForwardRef
-        id={194153}
-      />
-       that hit less than 
-      3
-       targets. Always prioritize 
-      <ForwardRef
-        id={5176}
-      />
-       as a filler when none of those conditions are met.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      {"id":"druid.balance.suggestions.starfire.efficiency","message":"{0} Unempowered Starfires per minute","values":{"0":"3.3"}}
-       (
-      0 is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Balance Druid integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -4487,7 +4829,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "23.85734537373469%",
+                  "width": "24.03654485022349%",
                 }
               }
             />
@@ -4549,7 +4891,10 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                 Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster
               </b>
             </em>
-            . There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.
+            . There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. It is particularly important that you plan your cooldowns to take place during time when you won't be interrupted by mechanics.
+            <br />
+            <br />
+            Some fights have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible, however you should still plan your cooldowns such that you have no downtime during them.
           </div>
         </div>
         <div
@@ -4585,7 +4930,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  73.90%
+                  74.76%
                    
                    
                 </div>
@@ -4607,7 +4952,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.76196347474211%",
+                        "width": "31.120362427719705%",
                       }
                     }
                   />
@@ -4692,7 +5037,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
         <div
           className="flex-main name"
         >
-          Maintain your DoTs on the boss
+          Maintain your DoTs
         </div>
         <div
           className="flex-sub perf"
@@ -4762,7 +5107,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
           <div
             className="col-md-12"
           >
-            DoTs are a big part of your damage. You should try to keep as high uptime on them as possible.
+            DoTs are a big part of your damage and do great damage per cast time if allowed to tick for their full duration. You should try to maximize their uptime on targets. However, your DoTs do very little direct damage, and should not be refreshed with more than 30% duration remaining unless you have nothing else to cast while moving.
           </div>
         </div>
         <div
@@ -4813,6 +5158,80 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                 >
                    
                   99.87%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=164812"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_nature_starfall.jpg"
+                  />
+                   
+                  Moonfire
+                </a>
+                 good refreshes
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
                    
                    
                 </div>
@@ -4916,173 +5335,6 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable  passed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Avoid refreshing your DoTs too early
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "94.39999999999999%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            DoTs do very little direct damage, and you should avoid ever refreshing them with more than 30% duration remaining unless you have nothing else to cast while moving.
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=164812"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_nature_starfall.jpg"
-                  />
-                   
-                  Moonfire
-                </a>
-                 good refreshes
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  86.67%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#a6c34c",
-                        "transition": "background-color 800ms",
-                        "width": "88.8%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
           <div
             className="col-md-6"
           >
@@ -5162,7 +5414,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5174,7 +5426,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
         <div
           className="flex-main name"
         >
-          Do not overcap your resources
+          Use Eclipse
         </div>
         <div
           className="flex-sub perf"
@@ -5186,8 +5438,8 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "29.766202137735082%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "96.25000000000001%",
                 }
               }
             />
@@ -5244,7 +5496,392 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
           <div
             className="col-md-12"
           >
-            While you sometimes cannot avoid overcapping, you should try to always avoid overcapping your Astral Power.
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=79577"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_druid_eclipseorange.jpg"
+              />
+               
+              Eclipse
+            </a>
+             is a major contributor to your damage and dictates which filler spell you should be using. You should cast
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=190984"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_nature_wrathv2.jpg"
+              />
+               
+              Wrath
+            </a>
+             during and after
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48517"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_druid_eclipseorange.jpg"
+              />
+               
+              Eclipse (Solar)
+            </a>
+             while you should cast
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=194153"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_starfire.jpg"
+              />
+               
+              Starfire
+            </a>
+             during and after
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48518"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_druid_eclipse.jpg"
+              />
+               
+              Eclipse (Lunar)
+            </a>
+            . You should also hold your Astral Power until the start of an Eclipse at which point you should dump it into
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=78674"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_arcane03.jpg"
+              />
+               
+              Starsurge
+            </a>
+             (in single target situations).
+            <br />
+            <br />
+            In multi target situations, you should use 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=191034"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_druid_starfall.jpg"
+              />
+               
+              Starfall
+            </a>
+             as your Astral Power spender and when you can hit 6 or more targets it's even correct to use
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=194153"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_starfire.jpg"
+              />
+               
+              Starfire
+            </a>
+             during 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48517"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_druid_eclipseorange.jpg"
+              />
+               
+              Eclipse (Solar)
+            </a>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Correct fillers used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  98.89%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "92.50000000000004%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Starsurge used during Eclipse
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Do not overcap your resources
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#df7102",
+                  "width": "39.98469517944384%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            While you sometimes cannot avoid overcapping, you should try to avoid overcapping your Astral Power. You should never overcap Astral Power during
+             
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=79577"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_druid_eclipseorange.jpg"
+              />
+               
+              Eclipse
+            </a>
+             or 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=194223"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_nature_natureguardian.jpg"
+              />
+               
+              Celestial Alignment
+            </a>
+            .
           </div>
         </div>
         <div
@@ -5300,9 +5937,69 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "49.67892030848328%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Astral Power efficiency during Eclipse
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  86.41%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "29.766202137735082%",
+                        "width": "30.290470050404412%",
                       }
                     }
                   />
@@ -5425,6 +6122,79 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   />
                    
                   Celestial Alignment
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=323764"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_druid.jpg"
+                  />
+                   
+                  Convoke the Spirits
                 </a>
               </div>
               <div

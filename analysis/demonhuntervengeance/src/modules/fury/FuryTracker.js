@@ -13,7 +13,6 @@ class FuryTracker extends ResourceTracker {
     }
     return this.getResource(event).cost / 10;
   }
-
 }
 
 export default FuryTracker;

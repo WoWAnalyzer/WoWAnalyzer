@@ -1,11 +1,10 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { t } from '@lingui/macro';
+import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
@@ -24,13 +23,24 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     const boss = this.owner.boss;
 
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
-      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or <SpellLink id={SPELLS.AVENGERS_SHIELD.id} icon />.</>)
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            Your downtime can be improved. Try to cast more, for example by reducing the delay
+            between casting spells. Even if you have to move, try to cast something instant with
+            range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or{' '}
+            <SpellLink id={SPELLS.AVENGERS_SHIELD.id} icon />.
+          </>,
+        )
           .icon('spell_mage_altertime')
-          .actual(t({
-        id: "paladin.protection.alwaysBeCasting.downtime",
-        message: `${formatPercentage(actual)}% downtime`
-      }))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+          .actual(
+            t({
+              id: 'paladin.protection.alwaysBeCasting.downtime',
+              message: `${formatPercentage(actual)}% downtime`,
+            }),
+          )
+          .recommended(`<${formatPercentage(recommended)}% is recommended`),
+      );
     }
   }
 

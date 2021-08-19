@@ -1,11 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
 const debug = false;
 
-const BERSERK_COST_MULTIPLIER = 0.6;
+const INCARN_COST_MULT = 0.8;
 
 class SpellEnergyCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.ENERGY;
@@ -15,10 +14,12 @@ class SpellEnergyCost extends SpellResourceCost {
 
     // no need to check for Clearcasting as the zero cost is already applied in the log
 
-    if (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
-      debug && console.log(`Cost of ${this.event.ability.name} reduced to ${cost * BERSERK_COST_MULTIPLIER} by Berserk/Incarnation`);
-      return cost * BERSERK_COST_MULTIPLIER;
+    if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
+      debug &&
+        console.log(
+          `Cost of ${this.event.ability.name} reduced to ${cost * INCARN_COST_MULT} by Incarnation`,
+        );
+      return cost * INCARN_COST_MULT;
     }
 
     return cost;

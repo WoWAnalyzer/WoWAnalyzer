@@ -1,11 +1,11 @@
-import React from 'react';
+import { formatPercentage, formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands } from 'common/format';
-import { SpellLink } from 'interface';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import Events from 'parser/core/Events';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 /**
  * Whirlwind deals 10% increased damage, and Slams your primary target.
@@ -17,9 +17,8 @@ const WHIRLWIND_DAMAGE_BONUS = 0.1;
 const MAX_DELAY = 30;
 
 class FervorOfBattle extends Analyzer {
-
   get dps() {
-    return this.bonusDamage / this.owner.fightDuration * 1000;
+    return (this.bonusDamage / this.owner.fightDuration) * 1000;
   }
 
   bonusDamage = 0;
@@ -29,8 +28,16 @@ class FervorOfBattle extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND), this._onWhirlwindCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WHIRLWIND_DAMAGE_1, SPELLS.WHIRLWIND_DAMAGE_2_3, SPELLS.SLAM]), this._onFobDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND),
+      this._onWhirlwindCast,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.WHIRLWIND_DAMAGE_1, SPELLS.WHIRLWIND_DAMAGE_2_3, SPELLS.SLAM]),
+      this._onFobDamage,
+    );
   }
 
   _onWhirlwindCast(event) {
@@ -49,9 +56,17 @@ class FervorOfBattle extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> bonus damage</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> bonus damage
+          </>
+        }
         value={`${formatThousands(this.dps)} DPS`}
-        valueTooltip={`Your Fervor of Battle contributed ${formatThousands(this.bonusDamage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))} %).`}
+        valueTooltip={`Your Fervor of Battle contributed ${formatThousands(
+          this.bonusDamage,
+        )} total damage (${formatPercentage(
+          this.owner.getPercentageOfTotalDamageDone(this.bonusDamage),
+        )} %).`}
       />
     );
   }

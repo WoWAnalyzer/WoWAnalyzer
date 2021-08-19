@@ -1,23 +1,23 @@
-import React from 'react';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber } from 'common/format';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
-
 import SPELLS from 'common/SPELLS';
+import { TooltipElement } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent } from 'parser/core/Events';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 class PowerWordShieldWasted extends Analyzer {
   wasted = 0;
   count = 0;
   totalCount = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD), this.onRemoveBuff);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
+      this.onRemoveBuff,
+    );
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
@@ -36,12 +36,16 @@ class PowerWordShieldWasted extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
-        value={`${formatNumber(wasted / this.owner.fightDuration * 1000)} HPS`}
-        label={(
-          <TooltipElement content={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(wasted)} unused Power Word: Shield absorb from ${count} shields with absorb remaining (a total of ${totalCount} shields were applied).`}>
+        value={`${formatNumber((wasted / this.owner.fightDuration) * 1000)} HPS`}
+        label={
+          <TooltipElement
+            content={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(
+              wasted,
+            )} unused Power Word: Shield absorb from ${count} shields with absorb remaining (a total of ${totalCount} shields were applied).`}
+          >
             Unused PW:S absorb
           </TooltipElement>
-        )}
+        }
       />
     );
   }

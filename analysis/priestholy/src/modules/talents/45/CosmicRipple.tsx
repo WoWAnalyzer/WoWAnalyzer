@@ -1,12 +1,12 @@
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Events, { HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 // Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
 class CosmicRipple extends Analyzer {
@@ -20,7 +20,10 @@ class CosmicRipple extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.COSMIC_RIPPLE_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.COSMIC_RIPPLE_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.COSMIC_RIPPLE_HEAL),
+      this.onHeal,
+    );
   }
 
   onHeal(event: HealEvent) {
@@ -41,7 +44,7 @@ class CosmicRipple extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spell={SPELLS.COSMIC_RIPPLE_HEAL}>
+        <BoringSpellValueText spellId={SPELLS.COSMIC_RIPPLE_HEAL.id}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

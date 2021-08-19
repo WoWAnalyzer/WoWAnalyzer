@@ -1,23 +1,22 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Buffs from 'parser/core/modules/Buffs';
-import ITEMS from 'common/ITEMS';
-import { calculateSecondaryStatDefault } from 'parser/core/stats';
-import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringItemValueText from 'parser/ui/BoringItemValueText';
-import Haste from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import Haste from 'interface/icons/Haste';
 import Uptime from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringItemValueText from 'parser/ui/BoringItemValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class OverchargedAnimaBattery extends Analyzer {
-
   static dependencies = {
     abilities: Abilities,
     statTracker: StatTracker,
@@ -51,7 +50,7 @@ class OverchargedAnimaBattery extends Analyzer {
     });
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF,
+      spell: SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: 90,
       gcd: null,
@@ -60,15 +59,26 @@ class OverchargedAnimaBattery extends Analyzer {
         recommendedEfficiency: 0.8,
       },
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF), this.applyHasteBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF),
+      this.applyHasteBuff,
+    );
   }
 
   applyHasteBuff(event: ApplyBuffEvent) {
-    this.hastePercentGained += this.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
+    this.hastePercentGained +=
+      this.haste /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
+      );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   statistic() {
@@ -79,14 +89,14 @@ class OverchargedAnimaBattery extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringItemValueText item={ITEMS.OVERCHARGED_ANIMA_BATTERY}>
-          <Haste /> {formatPercentage(this.hastePercentGained * this.uptime)}% <small>average Haste</small>
+          <Haste /> {formatPercentage(this.hastePercentGained * this.uptime)}%{' '}
+          <small>average Haste</small>
           <br />
           <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
         </BoringItemValueText>
       </Statistic>
     );
   }
-
 }
 
 export default OverchargedAnimaBattery;

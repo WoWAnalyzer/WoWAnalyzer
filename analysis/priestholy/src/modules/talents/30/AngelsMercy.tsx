@@ -1,11 +1,11 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const DESPERATE_PRAYER_BASE_COOLDOWN = 90000;
 
@@ -18,12 +18,15 @@ class AngelsMercy extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      this.onCast,
+    );
   }
 
   onCast(event: CastEvent) {
     if (this.desperatePrayersCast > 0) {
-      const timeSinceLastDP = (event.timestamp - this.lastDesperatePrayerTimestamp);
+      const timeSinceLastDP = event.timestamp - this.lastDesperatePrayerTimestamp;
       const timeReduced = DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
       if (timeReduced > 0) {
         this.desperatePrayerTimeReduced += DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
@@ -40,9 +43,10 @@ class AngelsMercy extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-      ><BoringSpellValueText spell={SPELLS.ANGELS_MERCY_TALENT}>
-        {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
-      </BoringSpellValueText>
+      >
+        <BoringSpellValueText spellId={SPELLS.ANGELS_MERCY_TALENT.id}>
+          {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
+        </BoringSpellValueText>
       </Statistic>
     );
   }

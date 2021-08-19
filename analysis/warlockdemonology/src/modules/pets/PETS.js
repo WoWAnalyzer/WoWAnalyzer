@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 const INNER_DEMON_NETHER_PORTAL_DURATION = 15000;
 
-const indexByGuid = obj => {
-  Object.keys(obj).forEach(key => {
+const indexByGuid = (obj) => {
+  Object.keys(obj).forEach((key) => {
     const pet = obj[key];
     obj[pet.guid] = pet;
   });

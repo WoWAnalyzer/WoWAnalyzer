@@ -1,6 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  ChangeBuffStackEvent,
+  HealEvent,
+} from 'parser/core/Events';
 
 class PrayerOfMending extends Analyzer {
   totalPoMHealing = 0;
@@ -17,10 +22,26 @@ class PrayerOfMending extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_HEAL, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onChangeBuffstack);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.PRAYER_OF_MENDING_HEAL, SPELLS.HOLY_WORD_SALVATION_TALENT]),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF),
+      this.onChangeBuffstack,
+    );
   }
 
   get pomTicksFromCast() {

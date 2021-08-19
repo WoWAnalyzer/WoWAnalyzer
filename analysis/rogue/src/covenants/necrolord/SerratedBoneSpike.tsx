@@ -1,16 +1,16 @@
-import React from 'react';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, EnergizeEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent, EnergizeEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { ResourceIcon } from 'interface';
+import React from 'react';
 
 class SerratedBoneSpike extends Analyzer {
   static dependencies = {
@@ -27,9 +27,20 @@ class SerratedBoneSpike extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SERRATED_BONE_SPIKE, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]), this.onDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE), this.onEnergize);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_DEBUFF), this.onSBSRemoveDebuff);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.SERRATED_BONE_SPIKE, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE),
+      this.onEnergize,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_DEBUFF),
+      this.onSBSRemoveDebuff,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -45,20 +56,24 @@ class SerratedBoneSpike extends Analyzer {
 
   onSBSRemoveDebuff(event: RemoveDebuffEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
-      const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.SERRATED_BONE_SPIKE.id, this.spellUsable.cooldownTriggerEvent(SPELLS.SERRATED_BONE_SPIKE.id));
+      const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
+        SPELLS.SERRATED_BONE_SPIKE.id,
+        this.spellUsable.cooldownTriggerEvent(SPELLS.SERRATED_BONE_SPIKE.id),
+      );
       if (expectedCooldownDuration) {
-        this.spellUsable.reduceCooldown(SPELLS.SERRATED_BONE_SPIKE.id, expectedCooldownDuration, event.timestamp);
+        this.spellUsable.reduceCooldown(
+          SPELLS.SERRATED_BONE_SPIKE.id,
+          expectedCooldownDuration,
+          event.timestamp,
+        );
       }
     }
   }
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
-      >
-        <BoringSpellValueText spell={SPELLS.SERRATED_BONE_SPIKE_DEBUFF}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
+        <BoringSpellValueText spellId={SPELLS.SERRATED_BONE_SPIKE_DEBUFF.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

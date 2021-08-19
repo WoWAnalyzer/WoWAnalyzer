@@ -1,16 +1,15 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import React from 'react';
 
 import { BM_CDR_PER_FOCUS, MM_SV_CDR_PER_FOCUS } from './constants';
 
@@ -41,7 +40,9 @@ class NaturalMending extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (!resource) {
       return;
     }
@@ -53,12 +54,18 @@ class NaturalMending extends Analyzer {
       return;
     }
     if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) < cooldownReductionMS) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(
+        SPELLS.EXHILARATION.id,
+        cooldownReductionMS,
+      );
       this.effectiveExhilReductionMs += effectiveReductionMs;
-      this.wastedExhilReductionMs += (cooldownReductionMS - effectiveReductionMs);
+      this.wastedExhilReductionMs += cooldownReductionMS - effectiveReductionMs;
       return;
     }
-    this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
+    this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(
+      SPELLS.EXHILARATION.id,
+      cooldownReductionMS,
+    );
   }
 
   statistic() {
@@ -68,9 +75,12 @@ class NaturalMending extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.NATURAL_MENDING_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.NATURAL_MENDING_TALENT.id}>
           <>
-            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/{formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s <small> cooldown reduction</small>
+            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/
+            {formatNumber(
+              (this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000,
+            )}s <small> cooldown reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

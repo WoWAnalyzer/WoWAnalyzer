@@ -1,13 +1,23 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import Events, { ApplyBuffEvent, CastEvent, FightEndEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-import { COORDINATED_ASSAULT_BASELINE_DURATION, DEADLY_TANDEM_CA_DURATION_INCREASE } from '@wowanalyzer/hunter-survival/src/constants';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  FightEndEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import {
+  COORDINATED_ASSAULT_BASELINE_DURATION,
+  DEADLY_TANDEM_CA_DURATION_INCREASE,
+} from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Coordinated Assault's duration is increased by x ms
@@ -16,7 +26,6 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
  *
  */
 class DeadlyTandem extends Analyzer {
-
   conduitRank: number = 0;
   increasedCAUptime: number = 0;
   caApplicationTimestamp: number = this.owner.fight.start_time;
@@ -32,10 +41,22 @@ class DeadlyTandem extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT), this.onCACast);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT), this.onCARemove);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT), this.onCARefresh);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT), this.onCAApply);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT),
+      this.onCACast,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT),
+      this.onCARemove,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT),
+      this.onCARefresh,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COORDINATED_ASSAULT),
+      this.onCAApply,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onGenericDamage);
   }
 
@@ -65,7 +86,10 @@ class DeadlyTandem extends Analyzer {
   }
 
   onCARefresh(event: RefreshBuffEvent) {
-    this.increasedCAUptime += Math.min(event.timestamp - this.caApplicationTimestamp, DEADLY_TANDEM_CA_DURATION_INCREASE[this.conduitRank]);
+    this.increasedCAUptime += Math.min(
+      event.timestamp - this.caApplicationTimestamp,
+      DEADLY_TANDEM_CA_DURATION_INCREASE[this.conduitRank],
+    );
     this.caApplicationTimestamp = event.timestamp;
   }
 
@@ -74,7 +98,10 @@ class DeadlyTandem extends Analyzer {
       return;
     }
     if (event.timestamp - this.caApplicationTimestamp > COORDINATED_ASSAULT_BASELINE_DURATION) {
-      this.increasedCAUptime += Math.min(event.timestamp - this.caApplicationTimestamp, DEADLY_TANDEM_CA_DURATION_INCREASE[this.conduitRank]);
+      this.increasedCAUptime += Math.min(
+        event.timestamp - this.caApplicationTimestamp,
+        DEADLY_TANDEM_CA_DURATION_INCREASE[this.conduitRank],
+      );
     }
   }
 
@@ -84,21 +111,23 @@ class DeadlyTandem extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            This doesn't account for any added Bird of Prey uptime that was enabled due to Coordinated Assault baseline having a longer duration.
+            This doesn't account for any added Bird of Prey uptime that was enabled due to
+            Coordinated Assault baseline having a longer duration.
           </>
-        )}
+        }
       >
-        <ConduitSpellText spell={SPELLS.DEADLY_TANDOM_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.DEADLY_TANDOM_CONDUIT.id} rank={this.conduitRank}>
           <>
-            {formatNumber(this.increasedCAUptime / 1000)}/{this.maximumAddedCoordinatedAssaultUptime / 1000}s <small>increased Coordinated Assault uptime</small>
+            {formatNumber(this.increasedCAUptime / 1000)}/
+            {this.maximumAddedCoordinatedAssaultUptime / 1000}s{' '}
+            <small>increased Coordinated Assault uptime</small>
           </>
         </ConduitSpellText>
       </Statistic>
     );
   }
-
 }
 
 export default DeadlyTandem;

@@ -1,16 +1,16 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { t } from '@lingui/macro';
-import Events from 'parser/core/Events';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const DURATION_WORTH_CASTING_MS = 8000;
 
@@ -23,13 +23,18 @@ class CrimsonScourge extends Analyzer {
   crimsonScourgeProcsCounter = 0;
   freeDeathAndDecayCounter = 0;
   endOfCombatCast = false;
-  
-  DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) ? SPELLS.DEATHS_DUE: SPELLS.DEATH_AND_DECAY;
+
+  DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
+    ? SPELLS.DEATHS_DUE
+    : SPELLS.DEATH_AND_DECAY;
 
   constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.DD_ABILITY), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE), this.onApplyBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE),
+      this.onApplyBuff,
+    );
   }
 
   onCast(event) {
@@ -88,16 +93,25 @@ class CrimsonScourge extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)){
+    if (this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)) {
       return;
     }
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always
+          use them.
+        </>,
+      )
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(t({
-      id: "deathknight.blood.suggestions.crimsonScourge.procsWasted",
-      message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.crimsonScourge.procsWasted',
+            message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -107,7 +121,7 @@ class CrimsonScourge extends Analyzer {
         size="flexible"
         tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
       >
-        <BoringSpellValueText spell={SPELLS.CRIMSON_SCOURGE}>
+        <BoringSpellValueText spellId={SPELLS.CRIMSON_SCOURGE.id}>
           <>
             {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
           </>

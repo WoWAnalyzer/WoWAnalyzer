@@ -482,8 +482,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               67
               /83
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -580,8 +579,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               41
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -666,8 +664,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -752,8 +749,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -850,8 +846,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               21
               /22
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -948,8 +943,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1046,8 +1040,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               7
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1202,8 +1195,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               22
               /51
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1358,8 +1350,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1456,8 +1447,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1554,8 +1544,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1710,8 +1699,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1808,8 +1796,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1906,8 +1893,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2004,8 +1990,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2102,8 +2087,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2200,8 +2184,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2298,8 +2281,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2396,8 +2378,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2494,8 +2475,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2580,8 +2560,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2678,8 +2657,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2764,8 +2742,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2862,8 +2839,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2960,8 +2936,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3046,8 +3021,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3132,8 +3106,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3230,8 +3203,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /23
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3342,6 +3314,103 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -3386,8 +3455,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3484,8 +3552,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -5678,7 +5745,8 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
           <div
             className="col-md-12"
           >
-            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use 
+            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=186270"
@@ -5693,7 +5761,8 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                
               Raptor Strike
             </a>
-             to stay off the focus cap and do some damage.
+             
+            to stay off the focus cap and do some damage.
           </div>
         </div>
         <div
@@ -7001,8 +7070,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               79
               /113
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7099,8 +7167,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               19
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7185,8 +7252,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7283,8 +7349,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               87
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7369,8 +7434,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               31
               /31
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7467,8 +7531,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7565,8 +7628,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7721,8 +7783,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /77
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -7877,8 +7938,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8033,8 +8093,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8131,8 +8190,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8229,8 +8287,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8385,8 +8442,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8483,8 +8539,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8581,8 +8636,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               1
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8679,8 +8733,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /20
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8777,8 +8830,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               1
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8875,8 +8927,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -8973,8 +9024,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9071,8 +9121,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9169,8 +9218,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9255,8 +9303,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9353,8 +9400,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9439,8 +9485,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9537,8 +9582,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9635,8 +9679,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9721,8 +9764,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9807,8 +9849,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9905,8 +9946,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10017,6 +10057,103 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.20
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -10061,8 +10198,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10159,8 +10295,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10363,7 +10498,8 @@ exports[`Survival Hunter integration test: Single Target DarkmoonDeckVoracity ma
           </svg>
            
           4.61
-          % 
+          %
+           
           <small>
             Haste
           </small>
@@ -10379,7 +10515,8 @@ exports[`Survival Hunter integration test: Single Target DarkmoonDeckVoracity ma
           </svg>
            
           20.04
-          % 
+          %
+           
           <small>
             Uptime
           </small>
@@ -10513,17 +10650,20 @@ Array [
       <ForwardRef
         id={259489}
       />
-      . 
+      .
+       
       <React.Fragment>
         Try to keep focus below max by using 
         <ForwardRef
           id={259491}
         />
-        , 
+        ,
+         
         <ForwardRef
           id={259387}
         />
-         or 
+         or
+         
         <ForwardRef
           id={186270}
         />
@@ -10981,7 +11121,7 @@ exports[`Survival Hunter integration test: Single Target NaturalMending matches 
         >
           93
           s/
-          152
+          151
           s 
           <small>
              cooldown reduction
@@ -11240,7 +11380,8 @@ Array [
       <ForwardRef
         id={259491}
       />
-       on enemies, but don't refresh the debuff unless it has less than 
+       on enemies, but don't refresh the debuff unless it has less than
+       
       30
       % duration remaining.
     </React.Fragment>,
@@ -12504,7 +12645,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                
               Mongoose Fury
             </a>
-             buff from as soon as possible and casting as much 
+             buff from as soon as possible and casting as much
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=259387"
@@ -12546,7 +12688,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                     src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
                   />
                 </a>
-                 Average focus on 
+                 Average focus on
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=259388"
@@ -12561,7 +12704,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                    
                   Mongoose Fury
                 </a>
-                 opening window 
+                 opening window
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -12635,7 +12779,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                    
                   Mongoose Bite
                 </a>
-                 hits on max stacks of 
+                 hits on max stacks of
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=259388"
@@ -12801,7 +12946,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
           <div
             className="col-md-12"
           >
-            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use 
+            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=259387"
@@ -12816,7 +12962,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                
               Mongoose Bite
             </a>
-             to stay off the focus cap and do some damage.
+             
+            to stay off the focus cap and do some damage.
           </div>
         </div>
         <div

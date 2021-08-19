@@ -1,12 +1,14 @@
-import React from 'react';
 import { Tyndi } from 'CONTRIBUTORS';
+import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Tyndi],
+  expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '9.0.1',
   isPartial: true,
@@ -15,15 +17,16 @@ export default {
   description: (
     <>
       Hey Subtlety Rogues! <br /> <br />
-
-      The Subtlety Rogue module is still being worked on.
-      Currently, it gives a good analysis of the single target rotation, and highlights major mistakes.
-
+      The Subtlety Rogue module is still being worked on. Currently, it gives a good analysis of the
+      single target rotation, and highlights major mistakes.
       <br /> <br />
-      All recommendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
-
+      All recommendations and analysis should be in line with{' '}
+      <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
       <br /> <br />
-      If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
+      If there is something missing, incorrect, or inaccurate, please report it on{' '}
+      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact{' '}
+      <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br />
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -35,7 +38,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "SubtletyRogue" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "SubtletyRogue" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

@@ -1,3 +1,6 @@
+import MainCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   BoonOfTheAscended,
   FaeGuardians,
@@ -7,50 +10,39 @@ import {
   UnholyNova,
 } from '@wowanalyzer/priest';
 
-import MainCombatLogParser from 'parser/core/CombatLogParser';
-
-// core
+import Abilities from './modules/Abilities';
+import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-// resources
-import InsanityTracker from './modules/resources/InsanityTracker';
-import InsanityUsage from './modules/resources/InsanityUsage';
-// features
-import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/checklist/Module';
+import Buffs from './modules/features/Buffs';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import DarkThoughts from './modules/features/DarkThoughts';
 import DotUptimes from './modules/features/DotUptimes';
 import SkippableCasts from './modules/features/SkippableCasts';
-import DarkThoughts from './modules/features/DarkThoughts';
-// spells:
-import Shadowfiend from './modules/spells/Shadowfiend';
-import VampiricTouch from './modules/spells/VampiricTouch';
-import ShadowWordDeath from './modules/spells/ShadowWordDeath';
-import ShadowWordPain from './modules/spells/ShadowWordPain';
-import DevouringPlague from './modules/spells/DevouringPlague';
-import Dispersion from './modules/spells/Dispersion';
-import VampiricEmbrace from './modules/spells/VampiricEmbrace';
-// talents
-import FortressOfTheMind from './modules/talents/FortressOfTheMind';
-import DeathAndMadness from './modules/talents/DeathAndMadness';
-import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
-import TwistOfFate from './modules/talents/TwistOfFate';
-import VoidTorrent from './modules/talents/VoidTorrent';
-import ShadowCrash from './modules/talents/ShadowCrash';
-import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
-import SearingNightmare from './modules/talents/SearingNightmare';
-// normalizers
-import Buffs from './modules/features/Buffs';
-
-// conduits
+import VoidBoltUsage from './modules/features/VoidBoltUsage';
+import InsanityTracker from './modules/resources/InsanityTracker';
+import InsanityUsage from './modules/resources/InsanityUsage';
 import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 import HauntingApparitions from './modules/shadowlands/conduits/HauntingApparitions';
-
-// legendaries
 import EternalCallToTheVoid from './modules/shadowlands/legendaries/EternalCallToTheVoid';
 import TalbadarsStratagem from './modules/shadowlands/legendaries/TalbadarsStratagem';
+import DevouringPlague from './modules/spells/DevouringPlague';
+import Dispersion from './modules/spells/Dispersion';
+import Shadowfiend from './modules/spells/Shadowfiend';
+import ShadowWordDeath from './modules/spells/ShadowWordDeath';
+import ShadowWordPain from './modules/spells/ShadowWordPain';
+import VampiricEmbrace from './modules/spells/VampiricEmbrace';
+import VampiricTouch from './modules/spells/VampiricTouch';
+import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
+import DeathAndMadness from './modules/talents/DeathAndMadness';
+import FortressOfTheMind from './modules/talents/FortressOfTheMind';
+import SearingNightmare from './modules/talents/SearingNightmare';
+import ShadowCrash from './modules/talents/ShadowCrash';
+import TwistOfFate from './modules/talents/TwistOfFate';
+import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
+import VoidTorrent from './modules/talents/VoidTorrent';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -72,6 +64,7 @@ class CombatLogParser extends MainCombatLogParser {
     dotUptimes: DotUptimes,
     skippableCasts: SkippableCasts,
     darkThoughts: DarkThoughts,
+    voidBoltUsage: VoidBoltUsage,
 
     // spells:
     shadowfiend: Shadowfiend,
@@ -109,6 +102,8 @@ class CombatLogParser extends MainCombatLogParser {
     eternalCallToTheVoid: EternalCallToTheVoid,
     talbadarsStratagem: TalbadarsStratagem,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+
+    arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
 }
 

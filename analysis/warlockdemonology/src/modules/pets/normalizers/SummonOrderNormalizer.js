@@ -1,11 +1,10 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MS_BUFFER = 100;
 
 class SummonOrderNormalizer extends EventsNormalizer {
-
   normalize(events) {
     const _events = [];
 
@@ -17,12 +16,14 @@ class SummonOrderNormalizer extends EventsNormalizer {
 
         for (let previousEventIndex = idx; previousEventIndex >= 0; previousEventIndex -= 1) {
           const previousEvent = _events[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > MS_BUFFER) {
+          if (castTimestamp - previousEvent.timestamp > MS_BUFFER) {
             break;
           }
-          if (this.isSharpenedDreadfangs(previousEvent, event) ||
+          if (
+            this.isSharpenedDreadfangs(previousEvent, event) ||
             this.isDemonicConsumption(previousEvent, event) ||
-            this.isDemonFire(previousEvent, event)) {
+            this.isDemonFire(previousEvent, event)
+          ) {
             this.swapEvents(_events, previousEventIndex, previousEvent);
           }
         }
@@ -33,29 +34,47 @@ class SummonOrderNormalizer extends EventsNormalizer {
 
   // helper
   isSharpenedDreadfangs(previousEvent, event) {
-    return previousEvent.type === EventType.Cast && previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id && previousEvent.sourceInstance === event.targetInstance;
+    return (
+      previousEvent.type === EventType.Cast &&
+      previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id &&
+      previousEvent.sourceInstance === event.targetInstance
+    );
   }
 
   isTyrantSummon(event) {
-    return event.type === EventType.Summon && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id;
+    return (
+      event.type === EventType.Summon && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id
+    );
   }
 
   isDogSummon(event) {
-    return event.type === EventType.Summon && (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id || event.ability.guid === SPELLS.DREADSTALKER_SUMMON_2.id);
+    return (
+      event.type === EventType.Summon &&
+      (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id ||
+        event.ability.guid === SPELLS.DREADSTALKER_SUMMON_2.id)
+    );
   }
 
   swapEvents(_events, previousEventIndex, previousEvent) {
     _events.splice(previousEventIndex, 1);
     _events.push(previousEvent);
-    previousEvent.__modified = true;
+    previousEvent.__reordered = true;
   }
 
   isDemonFire(previousEvent, event) {
-    return previousEvent.type === EventType.BeginCast && previousEvent.ability.guid === SPELLS.DEMONIC_TYRANT_DAMAGE.id && previousEvent.sourceInstance === event.targetInstance;
+    return (
+      previousEvent.type === EventType.BeginCast &&
+      previousEvent.ability.guid === SPELLS.DEMONIC_TYRANT_DAMAGE.id &&
+      previousEvent.sourceInstance === event.targetInstance
+    );
   }
 
   isDemonicConsumption(previousEvent, event) {
-    return previousEvent.type === EventType.Cast && previousEvent.ability.guid === SPELLS.DEMONIC_CONSUMPTION_CAST.id && previousEvent.sourceInstance === event.targetInstance;
+    return (
+      previousEvent.type === EventType.Cast &&
+      previousEvent.ability.guid === SPELLS.DEMONIC_CONSUMPTION_CAST.id &&
+      previousEvent.sourceInstance === event.targetInstance
+    );
   }
 }
 

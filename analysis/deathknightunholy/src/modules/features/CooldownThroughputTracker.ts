@@ -1,17 +1,16 @@
 import SPELLS from 'common/SPELLS';
-
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, {
+  BUILT_IN_SUMMARY_TYPES,
+} from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.UNHOLY_BLIGHT_TALENT,
+      spell: SPELLS.UNHOLY_BLIGHT_TALENT.id,
       duration: 20,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ]
-    }
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+    },
   ];
 }
 

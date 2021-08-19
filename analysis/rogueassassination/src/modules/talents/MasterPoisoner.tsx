@@ -1,20 +1,18 @@
-import React from 'react';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES } from '../../constants';
 
 const DAMAGE_BONUS = 0.3;
 
 class MasterPoisoner extends Analyzer {
-
   bonusDmg = 0;
 
   constructor(options: Options) {
@@ -23,7 +21,10 @@ class MasterPoisoner extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES), this.addBonusDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES),
+      this.addBonusDamage,
+    );
   }
 
   addBonusDamage(event: DamageEvent) {
@@ -32,17 +33,13 @@ class MasterPoisoner extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
-        <BoringSpellValueText spell={SPELLS.MASTER_POISONER_TALENT}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
+        <BoringSpellValueText spellId={SPELLS.MASTER_POISONER_TALENT.id}>
           <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default MasterPoisoner;

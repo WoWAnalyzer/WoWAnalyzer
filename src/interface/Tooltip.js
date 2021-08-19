@@ -1,5 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.scss';
@@ -38,14 +39,7 @@ export default class Tooltip extends React.Component {
   };
 
   render() {
-    const {
-      content,
-      children,
-      className,
-      direction,
-      hoverable,
-      ...others
-    } = this.props;
+    const { content, children, className, direction, hoverable, ...others } = this.props;
     return (
       <ReactTooltip
         className={className}

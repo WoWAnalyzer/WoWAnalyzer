@@ -34,13 +34,13 @@ const covenants = {
   //region Night Fae
   DEATHS_DUE: {
     id: 324128,
-    name: 'Death\'s Due',
+    name: "Death's Due",
     icon: 'ability_ardenweald_deathknight',
   },
 
   DEATHS_DUE_DAMAGE_TICK: {
     id: 341340,
-    name: 'Death\'s Due',
+    name: "Death's Due",
     icon: 'ability_ardenweald_deathknight',
   },
 
@@ -52,7 +52,7 @@ const covenants = {
 
   DEATHS_DUE_BUFF: {
     id: 324165,
-    name: 'Death\'s Due',
+    name: "Death's Due",
     icon: 'ability_ardenweald_deathknight',
   },
 
@@ -62,17 +62,17 @@ const covenants = {
   SWARMING_MIST: {
     id: 311648,
     name: 'Swarming Mist',
-    icon: 'ability_revendreth_deathknight'
+    icon: 'ability_revendreth_deathknight',
   },
   SWARMING_MIST_TICK: {
     id: 311730,
     name: 'Swarming Mist',
-    icon: 'ability_revendreth_deathknight'
+    icon: 'ability_revendreth_deathknight',
   },
   SWARMING_MIST_RUNIC_POWER_GAIN: {
     id: 312546,
     name: 'Swarming Mist',
-    icon: 'ability_revendreth_deathknight'
+    icon: 'ability_revendreth_deathknight',
   },
 
   //endregion

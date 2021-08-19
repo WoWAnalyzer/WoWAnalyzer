@@ -2,7 +2,19 @@ import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
 
 const legendaries: SpellList<LegendarySpell> = {
   //region Discipline
-
+  // https://www.warcraftlogs.com/reports/khGwRjZaqWvYbK3m#fight=33&type=healing&source=137
+  THE_PENITENT_ONE: {
+    id: 336011,
+    name: 'The Penitent One',
+    icon: 'spell_holy_penance',
+    bonusID: 6976,
+  },
+  CLARITY_OF_MIND: {
+    id: 336067,
+    name: 'Clarity of Mind',
+    icon: 'spell_holy_spiritualguidence',
+    bonusID: 6980,
+  },
   //endregion
 
   //region Holy
@@ -19,6 +31,12 @@ const legendaries: SpellList<LegendarySpell> = {
     name: 'Divine Image',
     icon: 'inv_pet_naaru',
     bonusID: 6973,
+  },
+  FLASH_CONCENTRATION: {
+    id: 336267,
+    name: 'Flash Concentration',
+    icon: 'ability_priest_flashoflight',
+    bonusID: 6974,
   },
   //endregion
   // https://www.warcraftlogs.com/reports/NKcbdPzMXRJ1Drk6#fight=9&type=damage-done&source=11

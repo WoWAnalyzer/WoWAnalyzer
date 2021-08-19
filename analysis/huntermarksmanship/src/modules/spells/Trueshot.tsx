@@ -1,19 +1,20 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
-import RapidFire from '@wowanalyzer/hunter-marksmanship/src/modules/spells/RapidFire';
-import SteadyShot from '@wowanalyzer/hunter-marksmanship/src/modules/spells/SteadyShot';
-import MarksmanshipFocusCapTracker from '@wowanalyzer/hunter-marksmanship/src/modules/resources/MarksmanshipFocusCapTracker';
-import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from '@wowanalyzer/hunter';
-import { TRUESHOT_FOCUS_INCREASE } from '@wowanalyzer/hunter-marksmanship/src/constants';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from '@wowanalyzer/hunter';
+import { TRUESHOT_FOCUS_INCREASE } from '@wowanalyzer/hunter-marksmanship/src/constants';
+import MarksmanshipFocusCapTracker from '@wowanalyzer/hunter-marksmanship/src/modules/resources/MarksmanshipFocusCapTracker';
+import RapidFire from '@wowanalyzer/hunter-marksmanship/src/modules/spells/RapidFire';
+import SteadyShot from '@wowanalyzer/hunter-marksmanship/src/modules/spells/SteadyShot';
 
 /**
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
@@ -24,7 +25,6 @@ import { SpellIcon } from 'interface';
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=auras&source=25&ability=288613
  */
 class Trueshot extends Analyzer {
-
   static dependencies = {
     rapidFire: RapidFire,
     steadyShot: SteadyShot,
@@ -46,29 +46,45 @@ class Trueshot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.onAimedShotCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT),
+      this.onTrueshotCast,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.focusCheck);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.focusCheck);
   }
 
   get averageAimedShots() {
-    const averageAimedShots = (this.aimedShotsPrTS / this.trueshotCasts);
-    return (isNaN(averageAimedShots) || !isFinite(averageAimedShots)) ? 0 : averageAimedShots;
+    const averageAimedShots = this.aimedShotsPrTS / this.trueshotCasts;
+    return isNaN(averageAimedShots) || !isFinite(averageAimedShots) ? 0 : averageAimedShots;
   }
 
   get effectiveFocus() {
-    return formatNumber(this.steadyShot.additionalFocusFromTrueshot + this.rapidFire.additionalFocusFromTrueshot + this.passiveFocusAttributedToTrueshot);
+    return formatNumber(
+      this.steadyShot.additionalFocusFromTrueshot +
+        this.rapidFire.additionalFocusFromTrueshot +
+        this.passiveFocusAttributedToTrueshot,
+    );
   }
 
   get possibleFocus() {
-    return formatNumber(this.steadyShot.possibleAdditionalFocusFromTrueshot + this.rapidFire.possibleAdditionalFocusFromTrueshot + this.possiblePassiveFocusAttributedToTrueshot);
+    return formatNumber(
+      this.steadyShot.possibleAdditionalFocusFromTrueshot +
+        this.rapidFire.possibleAdditionalFocusFromTrueshot +
+        this.possiblePassiveFocusAttributedToTrueshot,
+    );
   }
 
   onTrueshotCast(event: CastEvent) {
     this.trueshotCasts += 1;
     this.lastCheckedPassiveRegenTimestamp = event.timestamp;
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (!resource) {
       return;
     }
@@ -85,19 +101,30 @@ class Trueshot extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (!resource) {
       return;
     }
     if (event.timestamp >= this.lastCheckedPassiveRegenTimestamp + MS_BUFFER) {
       const timeSinceLastCheck = event.timestamp - this.lastCheckedPassiveRegenTimestamp;
-      const possibleTSGainSinceLastCheck = timeSinceLastCheck * this.marksmanshipFocusCapTracker.naturalRegenRate() * (1 - 1 / (1 + TRUESHOT_FOCUS_INCREASE));
-      const naturalRegenSinceLastCheck = timeSinceLastCheck * this.marksmanshipFocusCapTracker.naturalRegenRate() - possibleTSGainSinceLastCheck;
+      const possibleTSGainSinceLastCheck =
+        timeSinceLastCheck *
+        this.marksmanshipFocusCapTracker.naturalRegenRate() *
+        (1 - 1 / (1 + TRUESHOT_FOCUS_INCREASE));
+      const naturalRegenSinceLastCheck =
+        timeSinceLastCheck * this.marksmanshipFocusCapTracker.naturalRegenRate() -
+        possibleTSGainSinceLastCheck;
       this.possiblePassiveFocusAttributedToTrueshot += possibleTSGainSinceLastCheck;
-      if (HUNTER_BASE_FOCUS_MAX - this.focusAtLastCheck > (naturalRegenSinceLastCheck + possibleTSGainSinceLastCheck)) {
+      if (
+        HUNTER_BASE_FOCUS_MAX - this.focusAtLastCheck >
+        naturalRegenSinceLastCheck + possibleTSGainSinceLastCheck
+      ) {
         this.passiveFocusAttributedToTrueshot += possibleTSGainSinceLastCheck;
       } else if (HUNTER_BASE_FOCUS_MAX - this.focusAtLastCheck > naturalRegenSinceLastCheck) {
-        this.passiveFocusAttributedToTrueshot += HUNTER_BASE_FOCUS_MAX - this.focusAtLastCheck - naturalRegenSinceLastCheck;
+        this.passiveFocusAttributedToTrueshot +=
+          HUNTER_BASE_FOCUS_MAX - this.focusAtLastCheck - naturalRegenSinceLastCheck;
       }
       this.lastCheckedPassiveRegenTimestamp = event.timestamp;
       this.focusAtLastCheck = resource.amount;
@@ -106,14 +133,13 @@ class Trueshot extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
-        size="flexible"
-      >
-        <BoringSpellValueText spell={SPELLS.TRUESHOT}>
-          <SpellIcon id={SPELLS.AIMED_SHOT.id} noLink /> {this.averageAimedShots.toFixed(1)} <small>per Trueshot</small>
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size="flexible">
+        <BoringSpellValueText spellId={SPELLS.TRUESHOT.id}>
+          <SpellIcon id={SPELLS.AIMED_SHOT.id} noLink /> {this.averageAimedShots.toFixed(1)}{' '}
+          <small>per Trueshot</small>
           <br />
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>Focus gained</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/
+          {this.possibleFocus} <small>Focus gained</small>
         </BoringSpellValueText>
       </Statistic>
     );

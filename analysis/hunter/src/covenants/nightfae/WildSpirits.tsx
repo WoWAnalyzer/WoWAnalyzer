@@ -1,16 +1,16 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { WILD_MARK_DAMAGE_AMP } from '../../constants';
 
@@ -39,7 +39,7 @@ class WildSpirits extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.WILD_SPIRITS,
+      spell: SPELLS.WILD_SPIRITS.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 120,
       gcd: {
@@ -51,7 +51,12 @@ class WildSpirits extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]), this.onWildSpiritsDamage);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]),
+      this.onWildSpiritsDamage,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -74,10 +79,10 @@ class WildSpirits extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.WILD_SPIRITS}>
+        <BoringSpellValueText spellId={SPELLS.WILD_SPIRITS.id}>
           <>
-            <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
-            {formatNumber(this.damage)} <small> direct damage</small>
+            <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.damage)}{' '}
+            <small> direct damage</small>
             <br />
             <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
             {formatNumber(this.ampDamage)} <small> Wild Mark damage</small>
@@ -86,7 +91,6 @@ class WildSpirits extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default WildSpirits;

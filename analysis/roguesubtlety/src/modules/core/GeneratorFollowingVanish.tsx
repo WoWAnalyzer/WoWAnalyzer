@@ -1,15 +1,15 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
-import SpellLink from 'interface/SpellLink';
-import SpellIcon from 'interface/SpellIcon';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { formatNumber } from 'common/format';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class GeneratorFollowingVanish extends Analyzer {
   generatorSpells = [
@@ -52,59 +52,69 @@ class GeneratorFollowingVanish extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionsThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.suggestionsThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <>
-          Try to avoid casting non-generator spells as the cast following <SpellLink id={SPELLS.VANISH.id} />.
-        </>)
+          Try to avoid casting non-generator spells as the cast following{' '}
+          <SpellLink id={SPELLS.VANISH.id} />.
+        </>,
+      )
         .icon(SPELLS.SHADOWSTRIKE.icon)
-        .actual(`You cast ${this.badFollowingVanishCasts.length} non-generators following a Vanish.`)
-        .recommended(`Try to only cast generators following a Vanish.`)
-      );
+        .actual(
+          `You cast ${this.badFollowingVanishCasts.length} non-generators following a Vanish.`,
+        )
+        .recommended(`Try to only cast generators following a Vanish.`),
+    );
   }
 
   statistic(): React.ReactNode {
     const tableEntries: React.ReactNode[] = this.badFollowingVanishCasts.map((castPair, idx) => (
-        <>
-          <tr key={idx}>
-            <td>{this.owner.formatTimestamp(castPair[0].timestamp)}</td>
-            <td><SpellIcon id={castPair[1].ability.guid}/></td>
-            <td>{this.owner.formatTimestamp(castPair[1].timestamp)}</td>
-          </tr>
-        </>
-      ));
-   return (
-     <>
-       <Statistic
-         position={STATISTIC_ORDER.DEFAULT}
-         size="flexible"
-         category={STATISTIC_CATEGORY.GENERAL}
-         tooltip={(
-           <>
-             You cast non-generators following <SpellLink id={SPELLS.VANISH.id} /> {formatNumber(this.badFollowingVanishCasts.length)} times and generators {formatNumber(this.goodFollowingVanishCasts.length)} times.
-           </>
-         )}
-         dropdown={(
-           <>
-             <table className="table table-condensed">
-               <thead>
-                 <tr>
-                   <th>Vanish Timestamp</th>
-                   <th>Bad Spell Cast</th>
-                   <th>Bad Cast Timestamp</th>
-                 </tr>
-               </thead>
-               <tbody>
-                 {tableEntries}
-               </tbody>
-             </table>
-           </>
-         )}
-         >
-         <BoringSpellValue spell={SPELLS.VANISH} value={`${this.badFollowingVanishCasts.length} non-generators cast`} label="Non-generators Cast After Vanish" />
-       </Statistic>
-     </>
-   );
+      <>
+        <tr key={idx}>
+          <td>{this.owner.formatTimestamp(castPair[0].timestamp)}</td>
+          <td>
+            <SpellIcon id={castPair[1].ability.guid} />
+          </td>
+          <td>{this.owner.formatTimestamp(castPair[1].timestamp)}</td>
+        </tr>
+      </>
+    ));
+    return (
+      <>
+        <Statistic
+          position={STATISTIC_ORDER.DEFAULT}
+          size="flexible"
+          category={STATISTIC_CATEGORY.GENERAL}
+          tooltip={
+            <>
+              You cast non-generators following <SpellLink id={SPELLS.VANISH.id} />{' '}
+              {formatNumber(this.badFollowingVanishCasts.length)} times and generators{' '}
+              {formatNumber(this.goodFollowingVanishCasts.length)} times.
+            </>
+          }
+          dropdown={
+            <>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Vanish Timestamp</th>
+                    <th>Bad Spell Cast</th>
+                    <th>Bad Cast Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody>{tableEntries}</tbody>
+              </table>
+            </>
+          }
+        >
+          <BoringSpellValue
+            spellId={SPELLS.VANISH.id}
+            value={`${this.badFollowingVanishCasts.length} non-generators cast`}
+            label="Non-generators Cast After Vanish"
+          />
+        </Statistic>
+      </>
+    );
   }
 }
 

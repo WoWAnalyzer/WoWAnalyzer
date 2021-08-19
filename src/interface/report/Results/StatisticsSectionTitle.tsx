@@ -1,30 +1,15 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface Props {
-  rightAddon?: JSX.Element,
-  premium: boolean
+  children: ReactNode;
+  rightAddon?: ReactNode;
 }
 
-const StatisticsSectionTitle: React.FC<Props> = (props) => {
-  const { rightAddon, children } = props;
-
-  return (
-    <div className="statistics-section-title">
-      {rightAddon && (
-        <div className="pull-right">
-          {rightAddon}
-        </div>
-      )}
-      <h1>
-        {children}
-      </h1>
-    </div>
-  );
-};
-
-StatisticsSectionTitle.defaultProps = {
-  premium: false,
-};
+const StatisticsSectionTitle = ({ rightAddon, children }: Props) => (
+  <div className="statistics-section-title">
+    {rightAddon && <div className="pull-right">{rightAddon}</div>}
+    <h1>{children}</h1>
+  </div>
+);
 
 export default StatisticsSectionTitle;

@@ -1,16 +1,14 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { formatThousands } from 'common/format';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const DREADLASH_BONUS_DAMAGE = 0.25;
 const debug = false;
@@ -23,8 +21,14 @@ class Dreadlash extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DREADLASH_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DREADBITE), this.handleDreadbite);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS), this.handleDreadstalkerCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DREADBITE),
+      this.handleDreadbite,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS),
+      this.handleDreadstalkerCast,
+    );
   }
 
   handleDreadbite(event) {
@@ -49,15 +53,18 @@ class Dreadlash extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(total)} bonus damage<br />
-            Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} ({this.owner.formatItemDamageDone(this.bonusDamage)})<br />
-            Bonus cleaved damage: {formatThousands(this.cleavedDamage)} ({this.owner.formatItemDamageDone(this.cleavedDamage)})
+            {formatThousands(total)} bonus damage
+            <br />
+            Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} (
+            {this.owner.formatItemDamageDone(this.bonusDamage)})<br />
+            Bonus cleaved damage: {formatThousands(this.cleavedDamage)} (
+            {this.owner.formatItemDamageDone(this.cleavedDamage)})
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.DREADLASH_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DREADLASH_TALENT.id}>
           <ItemDamageDone amount={total} />
         </BoringSpellValueText>
       </Statistic>

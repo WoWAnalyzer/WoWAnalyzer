@@ -1,15 +1,15 @@
-import React from 'react';
-
 import { Vonn } from 'CONTRIBUTORS';
+import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
-
 import Config from 'parser/Config';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Vonn],
+  expansion: Expansion.Shadowlands,
   patchCompatibility: '9.0.1',
   isPartial: true,
   description: (

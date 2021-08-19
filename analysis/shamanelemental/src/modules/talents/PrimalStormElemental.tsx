@@ -1,20 +1,17 @@
-import React from 'react';
-
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatNumber } from 'common/format';
-
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
-const CALL_LIGHTNING_BUFF_DURATION: number = 15000;
+const CALL_LIGHTNING_BUFF_DURATION = 15000;
 
 class PrimalStormElemental extends Analyzer {
   eotsCasts = 0;
@@ -34,15 +31,22 @@ class PrimalStormElemental extends Analyzer {
       [SPELLS.WIND_GUST.id]: false,
       [SPELLS.CALL_LIGHTNING.id]: false,
     };
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
-      && this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+    this.active =
+      this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id) &&
+      this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT), this.onPSECast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
+      this.onPetDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT),
+      this.onPSECast,
+    );
   }
 
   get unusedSpells() {
-    return Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
+    return Object.keys(this.usedCasts).filter((key) => !this.usedCasts[Number(key)]);
   }
 
   get unusedSpellsSuggestionTresholds() {
@@ -86,19 +90,37 @@ class PrimalStormElemental extends Analyzer {
   }
 
   suggestions(when: When) {
-    const unusedSpellsString = this.unusedSpells.map(x=>(SPELLS[x].name)).join(', ');
+    const unusedSpellsString = this.unusedSpells.map((x) => SPELLS[x].name).join(', ');
 
-    when(this.unusedSpellsSuggestionTresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call Lightning are set to autocast and you are using Eye Of The Storm.</span>)
+    when(this.unusedSpellsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          {' '}
+          Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call
+          Lightning are set to autocast and you are using Eye Of The Storm.
+        </span>,
+      )
         .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(`${formatNumber(actual)} spells not used by your Storm Elemental (${unusedSpellsString})`)
-        .recommended(`You should be using all spells of your Storm Elemental.`));
+        .actual(
+          `${formatNumber(actual)} spells not used by your Storm Elemental (${unusedSpellsString})`,
+        )
+        .recommended(`You should be using all spells of your Storm Elemental.`),
+    );
 
-    when(this.badCastsSuggestionTresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.</span>)
+    when(this.badCastsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.
+        </span>,
+      )
         .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(`${formatNumber(actual)} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`)
-        .recommended(`You should be recasting "Call Lightning" before the buff drops off.`));
+        .actual(
+          `${formatNumber(
+            actual,
+          )} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`,
+        )
+        .recommended(`You should be recasting "Call Lightning" before the buff drops off.`),
+    );
   }
 
   statistic() {
@@ -106,16 +128,16 @@ class PrimalStormElemental extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Your Storm Elemental cast {formatNumber(this.badCasts)} spells without <SpellLink id={SPELLS.CALL_LIGHTNING.id} />
+            Your Storm Elemental cast {formatNumber(this.badCasts)} spells without{' '}
+            <SpellLink id={SPELLS.CALL_LIGHTNING.id} />
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.STORM_ELEMENTAL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.STORM_ELEMENTAL_TALENT.id}>
           <ItemDamageDone amount={this.damageGained} />
         </BoringSpellValueText>
-
       </Statistic>
     );
   }

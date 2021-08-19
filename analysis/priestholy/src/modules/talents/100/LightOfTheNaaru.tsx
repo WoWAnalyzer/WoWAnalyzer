@@ -1,13 +1,14 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import React from 'react';
-import HolyWordSanctify from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSanctify';
-import HolyWordChastise from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordChastise';
-import HolyWordSerenity from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSerenity';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import HolyWordChastise from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordChastise';
+import HolyWordSanctify from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSerenity';
 
 // Example Log: /report/Gvxt7CgLya2W1TYj/5-Normal+Zek'voz+-+Kill+(3:57)/13-弥砂丶
 class LightOfTheNaaru extends Analyzer {
@@ -28,19 +29,27 @@ class LightOfTheNaaru extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            Serenity: {Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
-            Sanctify: {Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
+            Serenity: {Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR
+            <br />
+            Sanctify: {Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR
+            <br />
             Chastise: {Math.ceil(this.chastise.lightOfTheNaaruCooldownReduction / 1000)}s CDR
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spell={SPELLS.LIGHT_OF_THE_NAARU_TALENT}>
-          {Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s <small>Cooldown Reduction</small>
+        <BoringSpellValueText spellId={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id}>
+          {Math.ceil(
+            (this.sanctify.lightOfTheNaaruCooldownReduction +
+              this.serenity.lightOfTheNaaruCooldownReduction +
+              this.chastise.lightOfTheNaaruCooldownReduction) /
+              1000,
+          )}
+          s <small>Cooldown Reduction</small>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,12 +1,12 @@
-import React from 'react';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { formatThousands } from 'common/format';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 class CollectiveAnguish extends Analyzer {
   damage = 0;
@@ -17,7 +17,10 @@ class CollectiveAnguish extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVESTATION_DAMAGE), this.onDamageEvent);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVESTATION_DAMAGE),
+      this.onDamageEvent,
+    );
   }
 
   onDamageEvent(event: DamageEvent) {
@@ -29,13 +32,9 @@ class CollectiveAnguish extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={(
-          <>
-            {formatThousands(this.damage)} Total damage
-          </>
-        )}
+        tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spell={SPELLS.COLLECTIVE_ANGUISH}>
+        <BoringSpellValueText spellId={SPELLS.COLLECTIVE_ANGUISH.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

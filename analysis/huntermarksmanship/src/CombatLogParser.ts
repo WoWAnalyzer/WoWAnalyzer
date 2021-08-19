@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   Channeling,
   DeathTracker,
@@ -28,67 +31,45 @@ import {
   CancelledCasts,
 } from '@wowanalyzer/hunter';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-//Overridden Racial
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
-//Overridden Core modules
-import SpellUsable from './modules/core/SpellUsable';
-import GlobalCooldown from './modules/core/GlobalCooldown';
-
-//Features
 import Abilities from './modules/Abilities';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
-
-//Checklist
 import Checklist from './modules/checklist/Module';
-
-//Normalizer
-import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
-
-//Focus
-import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
+import GlobalCooldown from './modules/core/GlobalCooldown';
+import SpellUsable from './modules/core/SpellUsable';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
+import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
+import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
+import SurgingShots from './modules/items/SurgingShots';
 import Focus from './modules/resources/Focus';
+import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
-
-//Spells
-import Trueshot from './modules/spells/Trueshot';
-import LoneWolf from './modules/spells/LoneWolf';
-import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
-import RapidFire from './modules/spells/RapidFire';
-import SteadyShot from './modules/spells/SteadyShot';
-
-//Talents
-import Volley from './modules/talents/Volley';
-import ExplosiveShot from './modules/talents/ExplosiveShot';
-import LockAndLoad from './modules/talents/LockAndLoad';
-import MasterMarksman from './modules/talents/MasterMarksman';
-import DoubleTap from './modules/talents/DoubleTap';
-import CallingTheShots from './modules/talents/CallingTheShots';
-import SerpentSting from './modules/talents/SerpentSting';
-import SteadyFocus from './modules/talents/SteadyFocus';
-import CarefulAim from './modules/talents/CarefulAim';
-import DeadEye from './modules/talents/DeadEye';
-import ChimaeraShot from './modules/talents/ChimaeraShot';
-import LethalShots from './modules/talents/LethalShots';
-import Streamline from './modules/talents/Streamline';
-
-//Conduits
 import BrutalProjectiles from './modules/spells/conduits/BrutalProjectiles';
 import DeadlyChain from './modules/spells/conduits/DeadlyChain';
 import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
 import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
-
-//Legendaries
-import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
-import SurgingShots from './modules/items/SurgingShots';
-import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
-import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
+import LoneWolf from './modules/spells/LoneWolf';
+import PreciseShots from './modules/spells/PreciseShots';
+import RapidFire from './modules/spells/RapidFire';
+import SteadyShot from './modules/spells/SteadyShot';
+import Trueshot from './modules/spells/Trueshot';
+import CallingTheShots from './modules/talents/CallingTheShots';
+import CarefulAim from './modules/talents/CarefulAim';
+import ChimaeraShot from './modules/talents/ChimaeraShot';
+import DeadEye from './modules/talents/DeadEye';
+import DoubleTap from './modules/talents/DoubleTap';
+import ExplosiveShot from './modules/talents/ExplosiveShot';
+import LethalShots from './modules/talents/LethalShots';
+import LockAndLoad from './modules/talents/LockAndLoad';
+import MasterMarksman from './modules/talents/MasterMarksman';
+import SerpentSting from './modules/talents/SerpentSting';
+import SteadyFocus from './modules/talents/SteadyFocus';
+import Streamline from './modules/talents/Streamline';
+import Volley from './modules/talents/Volley';
+import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

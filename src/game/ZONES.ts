@@ -6,7 +6,6 @@
 interface Encounter {
   id: number;
   name: string;
-  npcID: number;
 }
 
 interface Bracket {
@@ -33,67 +32,125 @@ interface Zone {
 
 const ZONES: Zone[] = [
   {
-    'id': 26,
-    'name': 'Castle Nathria',
-    'frozen': false,
-    'brackets': {
-      'min': 173,
-      'max': 230,
-      'bucket': 3,
-      'type': 'Item Level',
-    },
-    'encounters': [
+    id: 26,
+    name: 'Castle Nathria',
+    frozen: false,
+    encounters: [
       {
-        'id': 2398,
-        'name': 'Shriekwing',
-        'npcID': 164406,
+        id: 2398,
+        name: 'Shriekwing',
       },
       {
-        'id': 2418,
-        'name': 'Huntsman Altimor',
-        'npcID': 165066,
+        id: 2418,
+        name: 'Huntsman Altimor',
       },
       {
-        'id': 2383,
-        'name': 'Hungering Destroyer',
-        'npcID': 164261,
+        id: 2383,
+        name: 'Hungering Destroyer',
       },
       {
-        'id': 2402,
-        'name': 'Sun King\'s Salvation',
-        'npcID': 168973, //High Torturer Darithos
+        id: 2402,
+        name: "Sun King's Salvation",
       },
       {
-        'id': 2405,
-        'name': 'Artificer Xy\'mox',
-        'npcID': 166644,
+        id: 2405,
+        name: "Artificer Xy'mox",
       },
       {
-        'id': 2406,
-        'name': 'Lady Inerva Darkvein',
-        'npcID': 165521,
+        id: 2406,
+        name: 'Lady Inerva Darkvein',
       },
       {
-        'id': 2412,
-        'name': 'The Council of Blood',
-        'npcID': 166969,
+        id: 2412,
+        name: 'The Council of Blood',
       },
       {
-        'id': 2399,
-        'name': 'Sludgefist',
-        'npcID': 164407,
+        id: 2399,
+        name: 'Sludgefist',
       },
       {
-        'id': 2417,
-        'name': 'Stone Legion Generals',
-        'npcID': 168113,
+        id: 2417,
+        name: 'Stone Legion Generals',
       },
       {
-        'id': 2407,
-        'name': 'Sire Denathrius',
-        'npcID': 167406,
+        id: 2407,
+        name: 'Sire Denathrius',
       },
     ],
+    brackets: {
+      min: 173,
+      max: 230,
+      bucket: 3,
+      type: 'Item Level',
+    },
+    partitions: [
+      {
+        name: '9.0',
+        compact: '9.0',
+      },
+      {
+        name: '9.0.5',
+        compact: '9.0.5',
+        default: true,
+      },
+      {
+        name: '9.1',
+        compact: '9.1',
+      },
+    ],
+  },
+  {
+    id: 28,
+    name: 'Sanctum of Domination',
+    frozen: false,
+    encounters: [
+      {
+        id: 2423,
+        name: 'The Tarragrue',
+      },
+      {
+        id: 2433,
+        name: 'The Eye of the Jailer',
+      },
+      {
+        id: 2429,
+        name: 'The Nine',
+      },
+      {
+        id: 2432,
+        name: "Remnant of Ner'zhul",
+      },
+      {
+        id: 2434,
+        name: 'Soulrender Dormazain',
+      },
+      {
+        id: 2430,
+        name: 'Painsmith Raznal',
+      },
+      {
+        id: 2436,
+        name: 'Guardian of the First Ones',
+      },
+      {
+        id: 2431,
+        name: 'Fatescribe Roh-Kalo',
+      },
+      {
+        id: 2422,
+        name: "Kel'Thuzad",
+      },
+      {
+        id: 2435,
+        name: 'Sylvanas Windrunner',
+      },
+    ],
+    brackets: {
+      min: 203,
+      max: 260,
+      bucket: 3,
+      type: 'Item Level',
+    },
   },
 ];
 

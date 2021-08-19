@@ -14,7 +14,8 @@ import { ListOfHealerSpellInfo } from 'parser/shared/modules/features/BaseHealer
  * ignored: spell should be ignored for purpose of stat weights
  */
 
-const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this will mostly be trinkets)
+const DEFAULT_INFO = {
+  // we assume unlisted spells scale with vers only (this will mostly be trinkets)
   int: false,
   crit: false,
   hasteHpm: false,
@@ -88,7 +89,8 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.FRENZIED_REGENERATION.id]: { // it's weird this scles with anything, but confirmed on live that it does
+  [SPELLS.FRENZIED_REGENERATION.id]: {
+    // it's weird this scles with anything, but confirmed on live that it does
     int: false,
     crit: false,
     hasteHpm: false,
@@ -151,7 +153,17 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.YSERAS_GIFT_OTHERS.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.ADAPTIVE_SWARM_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: false,
+    mastery: true,
+    masteryStack: true,
+    vers: true,
+  },
+  [SPELLS.YSERAS_GIFT_OTHERS.id]: {
+    // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -160,7 +172,8 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.YSERAS_GIFT_SELF.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.YSERAS_GIFT_SELF.id]: {
+    // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -169,7 +182,7 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.RENEWAL_TALENT.id]: { 
+  [SPELLS.RENEWAL_TALENT.id]: {
     int: false,
     crit: false,
     hasteHpm: false,

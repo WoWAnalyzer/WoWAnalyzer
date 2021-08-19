@@ -1,14 +1,13 @@
-import React from 'react';
-
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import Events, { EventType } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
 
@@ -42,30 +41,48 @@ class Stagger extends Analyzer {
   }
 
   statistic() {
-    const damageAvoided = this.totalStaggered - this.totalStaggerTaken - this.staggerMissingFromFight;
+    const damageAvoided =
+      this.totalStaggered - this.totalStaggerTaken - this.staggerMissingFromFight;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(2)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             Incoming damage added to stagger:
             <ul>
-              <li>Total physical damage added to stagger: {formatThousands(this.totalPhysicalStaggered)}</li>
-              <li>Total magical damage added to stagger: {formatThousands(this.totalMagicalStaggered)}</li>
+              <li>
+                Total physical damage added to stagger:{' '}
+                {formatThousands(this.totalPhysicalStaggered)}
+              </li>
+              <li>
+                Total magical damage added to stagger: {formatThousands(this.totalMagicalStaggered)}
+              </li>
             </ul>
             Damage taken from stagger:
             <ul>
-              <li>Total damage from stagger dot: {formatThousands(this.totalStaggerTaken)} ({formatPercentage(this.totalStaggerTaken / this.totalStaggered)}% of total staggered)</li>
-              <li>Total damage removed from stagger dot before damaging you: {formatThousands(damageAvoided)} ({formatPercentage(damageAvoided / this.totalStaggered)}% of total staggered)</li>
+              <li>
+                Total damage from stagger dot: {formatThousands(this.totalStaggerTaken)} (
+                {formatPercentage(this.totalStaggerTaken / this.totalStaggered)}% of total
+                staggered)
+              </li>
+              <li>
+                Total damage removed from stagger dot before damaging you:{' '}
+                {formatThousands(damageAvoided)} (
+                {formatPercentage(damageAvoided / this.totalStaggered)}% of total staggered)
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.STAGGER.id} /> Damage staggered</>}>
-          <>
-            {formatNumber(this.totalStaggered)}
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.STAGGER.id} /> Damage staggered
+            </>
+          }
+        >
+          <>{formatNumber(this.totalStaggered)}</>
         </BoringValue>
       </Statistic>
     );
@@ -92,7 +109,11 @@ class Stagger extends Analyzer {
       console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
       console.log(`Total taken: ${formatNumber(this.totalStaggerTaken)}`);
       console.log(`Stagger taken after fight: ${formatNumber(this.staggerMissingFromFight)}`);
-      console.log(`Damage avoided: ${formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken)}`);
+      console.log(
+        `Damage avoided: ${formatNumber(
+          this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken,
+        )}`,
+      );
     }
   }
 }

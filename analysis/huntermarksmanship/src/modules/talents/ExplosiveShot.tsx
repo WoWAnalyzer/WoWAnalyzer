@@ -1,15 +1,13 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import React from 'react';
 
 /**
  * Fires a slow-moving munition directly forward.
@@ -20,7 +18,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  */
 
 class ExplosiveShot extends Analyzer {
-
   hits = 0;
   damage = 0;
   casts = 0;
@@ -28,8 +25,14 @@ class ExplosiveShot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onCast() {
@@ -48,9 +51,10 @@ class ExplosiveShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.EXPLOSIVE_SHOT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} unique />
           </>
         </BoringSpellValueText>

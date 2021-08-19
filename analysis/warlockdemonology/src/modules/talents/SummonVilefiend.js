@@ -1,16 +1,14 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-
-import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
+import SPELLS from 'common/SPELLS';
+import Analyzer from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
-import PETS from '../pets/PETS';
 import DemoPets from '../pets/DemoPets';
+import PETS from '../pets/PETS';
 
 class SummonVilefiend extends Analyzer {
   static dependencies = {
@@ -32,7 +30,7 @@ class SummonVilefiend extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spell={SPELLS.SUMMON_VILEFIEND_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SUMMON_VILEFIEND_TALENT.id}>
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

@@ -1,11 +1,14 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Fashathus, Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
-import { change, date } from 'common/changelog';
-
 export default [
+  change(date(2021, 7, 5), <>Fixed bug where <SpellLink id={SPELLS.FINAL_VERDICT.id} icon /> would sometimes not count toward consuming <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs. </>, Fashathus),
+  change(date(2021, 6, 27), <>Changed <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon /> statistics for Shadowlands. At least partially fixed bug with judgement debuff consumption tracking. </>, Fashathus),
+  change(date(2021, 4, 10), <>Added <SpellLink id={SPELLS.FINAL_VERDICT.id} icon />.</>, Juko8),
+  change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2020, 12, 1), <>Added <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION.id} icon /> module and minor housekeeping.</>, Skeletor),
   change(date(2020, 11, 8), <>Added <SpellLink id={SPELLS.EMPYREAN_POWER_TALENT.id} icon /> module.</>, Skeletor),
   change(date(2020, 11, 7), <>Added <SpellLink id={SPELLS.HOLY_AVENGER_TALENT.id} icon /> module from new Shared module.</>, Skeletor),

@@ -1,9 +1,7 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { AnyEvent, BeginCastEvent, EventType, CastEvent } from 'parser/core/Events';
-
-const MS_BUFFER = 100;
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
  * During analysis there's no way to know at a `begincast` event if it will end up being canceled. This marks all `begincast` events by the player with an `isCancelled` property whether it was cancelled.
@@ -20,7 +18,7 @@ class CancelledCasts extends EventsNormalizer {
     this.lastBeginCast = null;
   }
   handleBeginCast(event: BeginCastEvent) {
-    if (this.lastBeginCast !== null && event.timestamp - this.lastBeginCast.timestamp > MS_BUFFER) {
+    if (this.lastBeginCast !== null) {
       this.markLastBeginCastCancelled();
     }
     this.lastBeginCast = event;
@@ -29,7 +27,10 @@ class CancelledCasts extends EventsNormalizer {
     if (this.lastBeginCast === null) {
       return;
     }
-    if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) || CASTABLE_WHILE_CASTING_SPELLS.includes(event.ability.guid)) {
+    if (
+      CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) ||
+      CASTABLE_WHILE_CASTING_SPELLS.includes(event.ability.guid)
+    ) {
       return;
     }
     if (this.lastBeginCast.ability.guid !== event.ability.guid) {
@@ -44,7 +45,7 @@ class CancelledCasts extends EventsNormalizer {
   }
 
   normalize(events: AnyEvent[]) {
-    events.forEach(event => {
+    events.forEach((event) => {
       if (!this.owner.byPlayer(event)) {
         // We don't get `begincast` events from other players, but we do get `cast` events. This might confuse this method so just ignore all events from other players.
         return;

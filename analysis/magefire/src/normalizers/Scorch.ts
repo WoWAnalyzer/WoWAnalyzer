@@ -1,35 +1,25 @@
 import SPELLS from 'common/SPELLS';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
+import { EventType } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+const EVENT_ORDERS: EventOrder[] = [
+  {
+    beforeEventId: SPELLS.HOT_STREAK.id,
+    beforeEventType: EventType.RemoveBuff,
+    afterEventId: SPELLS.SCORCH.id,
+    afterEventType: EventType.Damage,
+    bufferMs: 50,
+    anyTarget: true,
+  },
+];
 
-class Scorch extends EventsNormalizer {
-
-  //Because Scorch has no travel time, ensures that the Scorch Damage event happens after Hot Streak is removed so the Scorch doesnt count as a direct damage crit during Hot Streak
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
-    events.forEach((event, eventIndex) => {
-      fixedEvents.push(event);
-
-      if (event.type === EventType.RemoveBuff && event.ability.guid === SPELLS.HOT_STREAK.id) {
-        const castTimestamp = event.timestamp;
-
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > 50) {
-            break;
-          }
-          if (previousEvent.type === EventType.Damage && previousEvent.ability.guid === SPELLS.SCORCH.id && previousEvent.sourceID === event.sourceID) {
-            fixedEvents.splice(previousEventIndex, 1);
-            fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
-            break;
-          }
-        }
-      }
-    });
-
-    return fixedEvents;
+/**
+ * Because Scorch has no travel time, ensures that the Scorch Damage event happens after Hot Streak is removed so the Scorch doesnt count as a direct damage crit during Hot Streak
+ */
+class Scorch extends EventOrderNormalizer {
+  constructor(options: Options) {
+    super(options, EVENT_ORDERS);
   }
 }
 

@@ -1,13 +1,13 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.SHRED,
+        spell: SPELLS.SHRED.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.380562,
       },
       {
-        spell: SPELLS.RAKE,
+        spell: SPELLS.RAKE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.1822, // initial damage, not DoT damage
       },
       {
-        spell: SPELLS.RIP,
+        spell: SPELLS.RIP.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.125, // damage per tick
       },
       {
-        spell: SPELLS.FEROCIOUS_BITE,
+        spell: SPELLS.FEROCIOUS_BITE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -42,7 +42,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 6,
       },
       {
-        spell: SPELLS.SAVAGE_ROAR_TALENT,
+        spell: SPELLS.SAVAGE_ROAR_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id),
         gcd: {
@@ -51,7 +51,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 7,
       },
       {
-        spell: SPELLS.MOONFIRE_FERAL,
+        spell: SPELLS.MOONFIRE_FERAL.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id),
         gcd: {
@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.THRASH_FERAL,
+        spell: SPELLS.THRASH_FERAL.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           static: 1000,
@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.055, // initial damage, not DoT damage
       },
       {
-        spell: SPELLS.PRIMAL_WRATH_TALENT,
+        spell: SPELLS.PRIMAL_WRATH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: combatant.hasTalent(SPELLS.PRIMAL_WRATH_TALENT.id),
         gcd: {
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 5,
       },
       {
-        spell: SPELLS.SWIPE_CAT,
+        spell: SPELLS.SWIPE_CAT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: !combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
         gcd: {
@@ -90,10 +90,10 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.25,
       },
       {
-        spell: SPELLS.BRUTAL_SLASH_TALENT,
+        spell: SPELLS.BRUTAL_SLASH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // when taken, still used on single target
         enabled: combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
-        cooldown: haste => 8 / (1 + haste),
+        cooldown: (haste) => 8 / (1 + haste),
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -105,24 +105,24 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.69,
       },
       {
-        spell: SPELLS.SWIPE_BEAR,
+        spell: SPELLS.SWIPE_BEAR.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         enabled: !combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id),
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 11,
-        primaryCoefficient: 0.30,
+        primaryCoefficient: 0.3,
       },
 
       {
-        spell: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT,
+        spell: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         // likely a Blizzard bug, probably intended to match Berserk's 1000 fixed
         gcd: {
@@ -131,13 +131,13 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: SPELLS.BERSERK,
+        spell: SPELLS.BERSERK.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         gcd: {
           static: 1000,
@@ -145,19 +145,19 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: SPELLS.TIGERS_FURY,
+        spell: SPELLS.TIGERS_FURY.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         castEfficiency: {
           suggestion: true,
           // Predator may reset the cooldown very frequently, more often than is useful to use the ability
-          recommendedEfficiency: (combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) ? 0.50 : 0.80),
+          recommendedEfficiency: combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) ? 0.5 : 0.8,
         },
         gcd: null,
         timelineSortIndex: 20,
       },
       {
-        spell: SPELLS.FERAL_FRENZY_TALENT,
+        spell: SPELLS.FERAL_FRENZY_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id),
         cooldown: 45,
@@ -170,23 +170,23 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 21,
       },
       {
-        spell: SPELLS.REGROWTH,
+        spell: SPELLS.REGROWTH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: (combatant => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500)),
+          base: (combatant) => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500),
         },
         timelineSortIndex: 30,
       },
       {
-        spell: SPELLS.ENTANGLING_ROOTS,
+        spell: SPELLS.ENTANGLING_ROOTS.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: (combatant => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500)),
+          base: (combatant) => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500),
         },
         timelineSortIndex: 31,
       },
       {
-        spell: SPELLS.MAIM,
+        spell: SPELLS.MAIM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
         gcd: {
@@ -196,11 +196,11 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.092, // damage per combo point
       },
       {
-        spell: SPELLS.DASH,
+        spell: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 120,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             // off the GCD if player is already in cat form
             return null;
@@ -208,16 +208,16 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
         isDefensive: true,
         timelineSortIndex: 43,
       },
       {
-        spell: SPELLS.TIGER_DASH_TALENT,
+        spell: SPELLS.TIGER_DASH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             // off the GCD if player is already in cat form
             return null;
@@ -225,48 +225,26 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
         isDefensive: true,
         timelineSortIndex: 43,
       },
       {
-        spell: [SPELLS.STAMPEDING_ROAR_HUMANOID, SPELLS.STAMPEDING_ROAR_CAT, SPELLS.STAMPEDING_ROAR_BEAR],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120,
-        gcd: (combatant => {
-          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
-            return {
-              base: 1000,
-            };
-          }
-          if (combatant.hasBuff(SPELLS.BEAR_FORM.id)) {
-            return {
-              base: 1500,
-            };
-          }
-          return {
-            static: 1500,
-          };
-        }),
-        isDefensive: true,
-        timelineSortIndex: 44,
-      },
-      {
-        spell: [SPELLS.SKULL_BASH, SPELLS.SKULL_BASH_FERAL],
+        spell: [SPELLS.SKULL_BASH.id, SPELLS.SKULL_BASH_FERAL.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 15,
         timelineSortIndex: 33,
       },
       {
-        spell: [SPELLS.PROWL, SPELLS.PROWL_INCARNATION],
+        spell: [SPELLS.PROWL.id, SPELLS.PROWL_INCARNATION.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // 6 second cooldown, but triggered by leaving stealth not by using Prowl.
         gcd: null,
         timelineSortIndex: 25,
       },
       {
-        spell: SPELLS.SHADOWMELD,
+        spell: SPELLS.SHADOWMELD.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         isUndetectable: true,
@@ -274,7 +252,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 24,
       },
       {
-        spell: SPELLS.SURVIVAL_INSTINCTS,
+        spell: SPELLS.SURVIVAL_INSTINCTS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         charges: 2,
@@ -283,7 +261,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 40,
       },
       {
-        spell: SPELLS.REBIRTH,
+        spell: SPELLS.REBIRTH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -292,7 +270,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 60,
       },
       {
-        spell: SPELLS.MIGHTY_BASH_TALENT,
+        spell: SPELLS.MIGHTY_BASH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
         cooldown: 50,
@@ -302,7 +280,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 34,
       },
       {
-        spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
+        spell: SPELLS.MASS_ENTANGLEMENT_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
         cooldown: 30,
@@ -312,7 +290,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 34,
       },
       {
-        spell: SPELLS.TYPHOON,
+        spell: SPELLS.TYPHOON.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
@@ -321,7 +299,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 35,
       },
       {
-        spell: SPELLS.HIBERNATE,
+        spell: SPELLS.HIBERNATE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -329,7 +307,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 36,
       },
       {
-        spell: SPELLS.SOOTHE,
+        spell: SPELLS.SOOTHE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
         gcd: {
@@ -338,7 +316,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 37,
       },
       {
-        spell: SPELLS.RENEWAL_TALENT,
+        spell: SPELLS.RENEWAL_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
         cooldown: 90,
@@ -347,7 +325,13 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
+        spell: [
+          SPELLS.WILD_CHARGE_TALENT.id,
+          SPELLS.WILD_CHARGE_MOONKIN.id,
+          SPELLS.WILD_CHARGE_CAT.id,
+          SPELLS.WILD_CHARGE_BEAR.id,
+          SPELLS.WILD_CHARGE_TRAVEL.id,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
@@ -355,7 +339,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: SPELLS.BEAR_FORM,
+        spell: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -364,7 +348,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 51,
       },
       {
-        spell: SPELLS.CAT_FORM,
+        spell: SPELLS.CAT_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -372,7 +356,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 50,
       },
       {
-        spell: SPELLS.MOONKIN_FORM_AFFINITY,
+        spell: SPELLS.MOONKIN_FORM_AFFINITY.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // only has a cooldown for feral spec
         cooldown: 90,
@@ -383,7 +367,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 54,
       },
       {
-        spell: SPELLS.TRAVEL_FORM,
+        spell: SPELLS.TRAVEL_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -391,7 +375,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 52,
       },
       {
-        spell: SPELLS.STAG_FORM,
+        spell: SPELLS.STAG_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -399,37 +383,37 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 53,
       },
       {
-        spell: SPELLS.GROWL,
+        spell: SPELLS.GROWL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
         cooldown: 8,
       },
       {
-        spell: SPELLS.MANGLE_BEAR,
+        spell: SPELLS.MANGLE_BEAR.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
       },
       {
-        spell: SPELLS.THRASH_BEAR,
+        spell: SPELLS.THRASH_BEAR.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
       },
       {
         // Moonfire from caster, bear, and moonkin forms. See MOONFIRE_FERAL for cat
-        spell: SPELLS.MOONFIRE,
+        spell: SPELLS.MOONFIRE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.REMOVE_CORRUPTION,
+        spell: SPELLS.REMOVE_CORRUPTION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -438,14 +422,14 @@ class Abilities extends CoreAbilities {
       },
       {
         // cannot be cast when player is in combat
-        spell: SPELLS.REVIVE,
+        spell: SPELLS.REVIVE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.STARFIRE_AFFINITY,
+        spell: SPELLS.STARFIRE_AFFINITY.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
@@ -453,7 +437,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WRATH,
+        spell: SPELLS.WRATH.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
@@ -461,7 +445,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STARSURGE_AFFINITY,
+        spell: SPELLS.STARSURGE_AFFINITY.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
@@ -470,7 +454,7 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
       },
       {
-        spell: SPELLS.SUNFIRE_AFFINITY,
+        spell: SPELLS.SUNFIRE_AFFINITY.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
@@ -478,7 +462,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLAP,
+        spell: SPELLS.FLAP.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         // only usable in Moonkin form so need Balance affinity, also need to learn from a tome
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
@@ -487,24 +471,24 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.IRONFUR,
+        spell: SPELLS.IRONFUR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_FERAL.id),
         gcd: null,
         cooldown: 0.5,
       },
       {
-        spell: SPELLS.FRENZIED_REGENERATION,
+        spell: SPELLS.FRENZIED_REGENERATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_FERAL.id),
         gcd: {
           base: 1500,
         },
         // unlike Guardian's version doesn't have charges
-        cooldown: haste => 36 / (1 + haste),
+        cooldown: (haste) => 36 / (1 + haste),
       },
       {
-        spell: SPELLS.REJUVENATION,
+        spell: SPELLS.REJUVENATION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         gcd: {
@@ -512,7 +496,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SWIFTMEND,
+        spell: SPELLS.SWIFTMEND.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         gcd: {
@@ -521,7 +505,7 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: SPELLS.WILD_GROWTH,
+        spell: SPELLS.WILD_GROWTH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         gcd: {
@@ -531,7 +515,7 @@ class Abilities extends CoreAbilities {
       },
       {
         // learnt from a tome
-        spell: SPELLS.TREANT_FORM,
+        spell: SPELLS.TREANT_FORM.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           static: 1500,
@@ -539,13 +523,13 @@ class Abilities extends CoreAbilities {
       },
       {
         // learnt from a tome
-        spell: SPELLS.CHARM_WOODLAND_CREATURE,
+        spell: SPELLS.CHARM_WOODLAND_CREATURE.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: null,
       },
       {
         // replaced by Dreamwalk early on in the Legion class hall quest line
-        spell: SPELLS.TELEPORT_MOONGLADE,
+        spell: SPELLS.TELEPORT_MOONGLADE.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
@@ -553,13 +537,14 @@ class Abilities extends CoreAbilities {
       },
       {
         // reward from early in the Legion class hall quest line
-        spell: SPELLS.TELEPORT_DREAMWALK,
+        spell: SPELLS.TELEPORT_DREAMWALK.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 60,
       },
+      ...super.spellbook(),
     ];
   }
 }

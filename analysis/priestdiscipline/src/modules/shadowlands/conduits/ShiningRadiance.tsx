@@ -1,21 +1,18 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { SHINING_RADIANCE_INCREASE } from '@wowanalyzer/priest-discipline/src/constants';
-
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { SHINING_RADIANCE_INCREASE } from '@wowanalyzer/priest-discipline/src/constants';
 
 class ShiningRadiance extends Analyzer {
-
   conduitRank: number = 0;
   conduitIncrease: number = 0;
   bonusRadianceHealing: number = 0;
@@ -30,7 +27,10 @@ class ShiningRadiance extends Analyzer {
     }
     this.conduitIncrease = SHINING_RADIANCE_INCREASE[this.conduitRank];
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.onRadianceHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE),
+      this.onRadianceHeal,
+    );
   }
 
   onRadianceHeal(event: HealEvent) {
@@ -44,7 +44,7 @@ class ShiningRadiance extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.SHINING_RADIANCE} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.SHINING_RADIANCE.id} rank={this.conduitRank}>
           <>
             <ItemHealingDone amount={this.bonusRadianceHealing} />
           </>
@@ -52,7 +52,6 @@ class ShiningRadiance extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default ShiningRadiance;

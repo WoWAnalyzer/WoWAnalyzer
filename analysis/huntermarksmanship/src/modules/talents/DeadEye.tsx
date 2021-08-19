@@ -1,14 +1,14 @@
-import React from 'react';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SPELLS from 'common/SPELLS';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class DeadEye extends Analyzer {
   static dependencies = {
@@ -51,25 +51,28 @@ class DeadEye extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
             {formatNumber(this.deadEyeEffectiveCDR / 1000)}s effective Aimed Shot CDR
             <br />
-            {formatNumber(this.deadEyePotentialCDR / 1000)}s potential Aimed Shot CDR, this include time where Aimed Shot was not on cooldown and Dead Eye buff was active
+            {formatNumber(this.deadEyePotentialCDR / 1000)}s potential Aimed Shot CDR, this include
+            time where Aimed Shot was not on cooldown and Dead Eye buff was active
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.DEAD_EYE_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DEAD_EYE_TALENT.id}>
           <>
-            {formatNumber(this.deadEyeEffectiveCDR / 1000)}/{formatNumber(this.deadEyePotentialCDR / 1000)}s <small> total Aimed Shot CDR</small>
+            {formatNumber(this.deadEyeEffectiveCDR / 1000)}/
+            {formatNumber(this.deadEyePotentialCDR / 1000)}s <small> total Aimed Shot CDR</small>
             <br />
-            <small>up to </small>{(this.deadEyeEffectiveCDR / this.averageAimedShotCD).toFixed(1)} <small>extra Aimed Shot casts</small>
+            <small>up to </small>
+            {(this.deadEyeEffectiveCDR / this.averageAimedShotCD).toFixed(1)}{' '}
+            <small>extra Aimed Shot casts</small>
           </>
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default DeadEye;

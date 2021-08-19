@@ -1,12 +1,15 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 8, 19), <> Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
+  change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),
+  change(date(2021, 3, 7), <>Added basic Frost specific suggestions to <SpellLink id={SPELLS.SUPERSTRAIN.id}/></>, Khazak),
   change(date(2021, 2, 17), <> Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
   change(date(2020, 12, 27), <> Fix a crash in the <SpellLink id={SPELLS.SWARMING_MIST.id} /> module.</>, Putro),
   change(date(2020, 12, 20), <> Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),

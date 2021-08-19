@@ -1,14 +1,12 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events from 'parser/core/Events';
+import React from 'react';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
@@ -18,7 +16,6 @@ import Events from 'parser/core/Events';
  */
 
 class DoubleTap extends Analyzer {
-
   activations = 0;
   aimedUsage = 0;
   RFUsage = 0;
@@ -26,9 +23,18 @@ class DoubleTap extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOUBLE_TAP_TALENT), this.onDoubleTapApplication);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOUBLE_TAP_TALENT),
+      this.onDoubleTapApplication,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.onAimedCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE),
+      this.onRapidFireCast,
+    );
   }
 
   get totalUsage() {
@@ -59,19 +65,29 @@ class DoubleTap extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            You used Double Tap a total of {this.activations} times, and utilised {this.totalUsage} of them.
+            You used Double Tap a total of {this.activations} times, and utilised {this.totalUsage}{' '}
+            of them.
             <ul>
-              {this.aimedUsage > 0 && <li>Out of the total activations, you used {this.aimedUsage} of them on Aimed Shots.</li>}
-              {this.RFUsage > 0 && <li>Out of the total activations, you used {this.RFUsage} of them on Rapid Fires.</li>}
+              {this.aimedUsage > 0 && (
+                <li>
+                  Out of the total activations, you used {this.aimedUsage} of them on Aimed Shots.
+                </li>
+              )}
+              {this.RFUsage > 0 && (
+                <li>
+                  Out of the total activations, you used {this.RFUsage} of them on Rapid Fires.
+                </li>
+              )}
             </ul>
           </>
-        )}
+        }
       >
-        <BoringSpellValueText spell={SPELLS.DOUBLE_TAP_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DOUBLE_TAP_TALENT.id}>
           <>
-            {this.aimedUsage}{'  '}
+            {this.aimedUsage}
+            {'  '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{
@@ -79,7 +95,9 @@ class DoubleTap extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            {'  '}{this.RFUsage}{'  '}
+            {'  '}
+            {this.RFUsage}
+            {'  '}
             <SpellIcon
               id={SPELLS.RAPID_FIRE.id}
               style={{

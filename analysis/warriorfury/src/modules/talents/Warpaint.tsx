@@ -1,17 +1,16 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 const REDUCTION_BONUS = 0.1;
 
 // Example Log: https://www.warcraftlogs.com/reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done
 class Warpaint extends Analyzer {
-
   damageMitigated: number = 0;
   damageTaken: number = 0;
 
@@ -36,7 +35,7 @@ class Warpaint extends Analyzer {
   }
 
   onPlayerDamageTaken(event: DamageEvent) {
-    const eventDamageTaken = ((event.amount || 0) + (event.absorbed || 0));
+    const eventDamageTaken = (event.amount || 0) + (event.absorbed || 0);
     if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
       const preMitigatedDamage = eventDamageTaken / (1 - REDUCTION_BONUS);
       this.damageMitigated += preMitigatedDamage * REDUCTION_BONUS;
@@ -50,9 +49,14 @@ class Warpaint extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<>Warpaint mitigated a total of <strong>{formatThousands(this.damageMitigated)}</strong> damage.</>}
+        tooltip={
+          <>
+            Warpaint mitigated a total of <strong>{formatThousands(this.damageMitigated)}</strong>{' '}
+            damage.
+          </>
+        }
       >
-        <BoringSpellValueText spell={SPELLS.WARPAINT_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.WARPAINT_TALENT.id}>
           <>
             {formatPercentage(this.damageMitigatedPercent)}% <small>damage mitigated</small>
           </>

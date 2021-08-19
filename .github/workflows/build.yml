@@ -21,8 +21,8 @@ jobs:
         id: cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
       - name: Get yarn cache directory path
         if: steps.cache.outputs.cache-hit != 'true'
         id: yarn-cache-dir-path
@@ -61,8 +61,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - run: yarn typecheck
   linting:
@@ -78,8 +78,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - run: yarn lint --max-warnings=0
   test-interface:
@@ -96,8 +96,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - run: yarn test:interface --runInBand
   test-parser:
@@ -113,8 +113,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - run: yarn test:parser --runInBand
   test-integration:
@@ -130,8 +130,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - run: yarn test:integration --runInBand
   build:
@@ -148,8 +148,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -187,8 +187,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - name: Extract messages
         run: yarn extract
@@ -253,8 +253,8 @@ jobs:
         uses: martijnhols/cache@read-only
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules3-
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - name: Extract messages
         run: yarn extract

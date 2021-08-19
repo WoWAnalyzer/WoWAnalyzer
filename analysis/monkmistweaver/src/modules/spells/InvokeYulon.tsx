@@ -1,12 +1,12 @@
-import React from 'react';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { formatNumber } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class InvokeYulon extends Analyzer {
   soothHealing: number = 0;
@@ -18,8 +18,14 @@ class InvokeYulon extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.handleSoothingBreath);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      this.handleEnvelopingBreath,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
+      this.handleSoothingBreath,
+    );
   }
 
   handleEnvelopingBreath(event: HealEvent) {
@@ -45,8 +51,9 @@ class InvokeYulon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT}>
-          <ItemHealingDone amount={this.soothHealing + this.envelopHealing} /><br />
+        <BoringSpellValueText spellId={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id}>
+          <ItemHealingDone amount={this.soothHealing + this.envelopHealing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

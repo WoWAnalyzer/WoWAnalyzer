@@ -1,24 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { i18n } from '@lingui/core';
 import { Trans, defineMessage } from '@lingui/macro';
-
-import ZONES from 'game/ZONES';
-import SPECS from 'game/SPECS';
-import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
-import ITEMS from 'common/ITEMS';
 import { captureException } from 'common/errorLogger';
+import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
+import ITEMS from 'common/ITEMS';
+import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
+import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import SPECS from 'game/SPECS';
+import ZONES from 'game/ZONES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './CharacterParses.scss';
 import ParsesList from './CharacterParsesList';
@@ -34,7 +33,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const ZONE_DEFAULT_NATHRIA = 26;
+const ZONE_DEFAULT_NATHRIA = 28;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
@@ -209,16 +208,16 @@ class CharacterParses extends React.Component {
         name: elem.encounterName,
         spec: elem.spec.replace(' ', ''),
         difficulty: elem.difficulty,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         report_code: elem.reportID,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         report_fight: elem.fightID,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         historical_percent: 100 - (elem.rank / elem.outOf) * 100,
         persecondamount: elem.total,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         start_time: elem.startTime,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,

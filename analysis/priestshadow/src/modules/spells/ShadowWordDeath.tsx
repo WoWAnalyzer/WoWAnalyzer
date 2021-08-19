@@ -1,8 +1,8 @@
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import Abilities from 'parser/core/modules/Abilities';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
 import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 
@@ -27,7 +27,7 @@ class ShadowWordDeath extends ExecuteHelper {
     ctor.executeSpells.push(SPELLS.SHADOW_WORD_DEATH);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.SHADOW_WORD_DEATH,
+      spell: SPELLS.SHADOW_WORD_DEATH.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: (haste: number) => 20 / (1 + haste),
       gcd: {
@@ -39,7 +39,6 @@ class ShadowWordDeath extends ExecuteHelper {
         maxCasts: () => this.maxCasts,
       },
     });
-
   }
 
   adjustMaxCasts() {

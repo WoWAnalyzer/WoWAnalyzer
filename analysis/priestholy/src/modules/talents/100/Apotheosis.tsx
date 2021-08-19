@@ -1,16 +1,17 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import React from 'react';
-import HolyWordSanctify from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSerenity';
-import HolyWordChastise from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordChastise';
 import { formatNumber } from 'common/format';
-import ItemManaGained from 'parser/ui/ItemManaGained';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import HolyWordChastise from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordChastise';
+import HolyWordSanctify from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSerenity';
 
 // Example Log: /report/NfFqTvxrQ8GLWDpY/12-Normal+Fetid+Devourer+-+Kill+(1:25)/6-Yrret
 class Apotheosis extends Analyzer {
@@ -28,8 +29,14 @@ class Apotheosis extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -44,21 +51,37 @@ class Apotheosis extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR | {this.sanctify.apotheosisManaReduction} Mana saved <br />
-            Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR | {this.serenity.apotheosisManaReduction} Mana saved <br />
-            Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR | {this.chastise.apotheosisManaReduction} Mana saved
+            Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR |{' '}
+            {this.sanctify.apotheosisManaReduction} Mana saved <br />
+            Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR |{' '}
+            {this.serenity.apotheosisManaReduction} Mana saved <br />
+            Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR |{' '}
+            {this.chastise.apotheosisManaReduction} Mana saved
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spell={SPELLS.APOTHEOSIS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.APOTHEOSIS_TALENT.id}>
           <>
-            <ItemManaGained amount={this.sanctify.apotheosisManaReduction + this.serenity.apotheosisManaReduction + this.chastise.apotheosisManaReduction} /><br />
-            {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
+            <ItemManaGained
+              amount={
+                this.sanctify.apotheosisManaReduction +
+                this.serenity.apotheosisManaReduction +
+                this.chastise.apotheosisManaReduction
+              }
+            />
+            <br />
+            {formatNumber(
+              (this.sanctify.apotheosisCooldownReduction +
+                this.serenity.apotheosisCooldownReduction +
+                this.chastise.apotheosisCooldownReduction) /
+                1000,
+            )}
+            s Cooldown Reduction
           </>
         </BoringSpellValueText>
       </Statistic>

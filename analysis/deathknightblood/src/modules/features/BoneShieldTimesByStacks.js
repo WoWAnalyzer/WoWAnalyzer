@@ -15,17 +15,31 @@ class BoneShieldStacksBySeconds extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.boneShieldStacks = Array.from({ length: MAX_BONE_SHIELD_STACKS + 1 }, x => []);
+    this.boneShieldStacks = Array.from({ length: MAX_BONE_SHIELD_STACKS + 1 }, (x) => []);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.handleStacks);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.handleStacks,
+    );
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
   handleStacks(event) {
-    this.boneShieldStacks[this.lastBoneShieldStack].push(event.timestamp - this.lastBoneShieldUpdate);
+    this.boneShieldStacks[this.lastBoneShieldStack].push(
+      event.timestamp - this.lastBoneShieldUpdate,
+    );
     if (event.type === EventType.FightEnd) {
       return;
     }
@@ -40,7 +54,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
   get averageBoneShieldStacks() {
     let avgStacks = 0;
     this.boneShieldStacks.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index;
+      avgStacks += (elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
     });
     return avgStacks;
   }

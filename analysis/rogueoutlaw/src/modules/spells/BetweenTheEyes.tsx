@@ -1,45 +1,41 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import { t } from '@lingui/macro';
-
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-
 import Events, { EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 
 class BetweenTheEyes extends Analyzer {
-
   timestampFromCD: number = 0;
   totalTimeOffCD: number = 0;
   isFirstCast: boolean = true;
 
   static dependencies = {
     spellUsable: SpellUsable,
-    alwaysBeCasting: AlwaysBeCasting
+    alwaysBeCasting: AlwaysBeCasting,
   };
   protected spellUsable!: SpellUsable;
   protected alwaysBeCasting!: AlwaysBeCasting;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.BETWEEN_THE_EYES), this.onBetweenTheEyesUsable);
+    this.addEventListener(
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.BETWEEN_THE_EYES),
+      this.onBetweenTheEyesUsable,
+    );
   }
 
   onBetweenTheEyesUsable(event: UpdateSpellUsableEvent) {
     switch (event.trigger) {
-
       case EventType.BeginCooldown: {
-
         if (!this.isFirstCast) {
           this.totalTimeOffCD += event.timestamp - this.timestampFromCD;
         } else {
@@ -61,7 +57,7 @@ class BetweenTheEyes extends Analyzer {
       actual: this.percentTimeOnCD,
       isLessThan: {
         minor: 0.9,
-        average: 0.80,
+        average: 0.8,
         major: 0.75,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -69,7 +65,7 @@ class BetweenTheEyes extends Analyzer {
   }
 
   get secondsOffCD(): number {
-    return (this.totalTimeOffCD / 1000);
+    return this.totalTimeOffCD / 1000;
   }
 
   get percentTimeOffCD(): number {
@@ -81,8 +77,13 @@ class BetweenTheEyes extends Analyzer {
   }
 
   get inefficientCastSuggestion(): JSX.Element {
-    return <>You should try to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> more often.
-      <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> should almost always be used as a finisher when it is available</>;
+    return (
+      <>
+        You should try to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> more often.
+        <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> should almost always be used as a finisher
+        when it is available
+      </>
+    );
   }
 
   statistic() {
@@ -90,27 +91,40 @@ class BetweenTheEyes extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
-        tooltip={<>This is the time of how much of the fight <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was on cooldown. <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> generally has to be used as soon as it comes off cooldown, cast should therefore only be delayed for a minimum amount of time in order to maximise debuff uptime </>}
+        tooltip={
+          <>
+            This is the time of how much of the fight <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} />{' '}
+            was on cooldown. <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> generally has to be used
+            as soon as it comes off cooldown, cast should therefore only be delayed for a minimum
+            amount of time in order to maximise debuff uptime{' '}
+          </>
+        }
       >
-        <BoringSpellValueText spell={SPELLS.BETWEEN_THE_EYES}>
-            <>
-            {formatPercentage(this.thresholds.actual)}% <small>time spent on cooldown</small><br />
+        <BoringSpellValueText spellId={SPELLS.BETWEEN_THE_EYES.id}>
+          <>
+            {formatPercentage(this.thresholds.actual)}% <small>time spent on cooldown</small>
+            <br />
             {formatNumber(this.secondsOffCD)}s <small>total seconds spent off cooldown</small>
-            </>
-          </BoringSpellValueText>
+          </>
+        </BoringSpellValueText>
       </Statistic>
-    )
+    );
   }
 
   suggestions(when: When) {
-    when(this.thresholds).isLessThan(this.thresholds.isLessThan!)
-      .addSuggestion((suggest, actual, recommended) => suggest(this.inefficientCastSuggestion)
-      .icon(SPELLS.BETWEEN_THE_EYES.icon)
-        .actual(t({
-        id: "rogue.outlaw.suggestions.betweentheEyes.timeoffCD",
-        message: `${formatPercentage(actual)}% time spent on cooldown`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.thresholds)
+      .isLessThan(this.thresholds.isLessThan!)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(this.inefficientCastSuggestion)
+          .icon(SPELLS.BETWEEN_THE_EYES.icon)
+          .actual(
+            t({
+              id: 'rogue.outlaw.suggestions.betweentheEyes.timeoffCD',
+              message: `${formatPercentage(actual)}% time spent on cooldown`,
+            }),
+          )
+          .recommended(`>${formatPercentage(recommended)}% is recommended`),
+      );
   }
 }
 

@@ -1,18 +1,15 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
-
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import conduitScaling from 'parser/core/conduitScaling';
+import Events, { HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import { LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_RANK_ONE } from '../../../constants';
 
@@ -62,7 +59,7 @@ class NourishingChi extends Analyzer {
       const boostedHeal = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
       const heal = boostedHeal / (1 + LIFE_COCOON_HEALING_BOOST + this.boost);
       const bonusHeal = heal * this.boost;
-      const effectiveHealing = Math.max(0, (bonusHeal - (event.overheal || 0)));
+      const effectiveHealing = Math.max(0, bonusHeal - (event.overheal || 0));
       this.healing += effectiveHealing;
     }
 
@@ -78,8 +75,9 @@ class NourishingChi extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.NOURISHING_CHI}>
-          <ItemHealingDone amount={this.healing} /><br />
+        <BoringSpellValueText spellId={SPELLS.NOURISHING_CHI.id}>
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

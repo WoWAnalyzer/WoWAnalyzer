@@ -1,10 +1,10 @@
-import React from 'react';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
-import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
+import React from 'react';
 
 class DeeperDaggers extends Analyzer {
   static dependencies = {
@@ -26,7 +26,9 @@ class DeeperDaggers extends Analyzer {
     return (
       <Statistic size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.DEEPER_DAGGERS.id} /> Uptime</label>
+          <label>
+            <SpellLink id={SPELLS.DEEPER_DAGGERS.id} /> Uptime
+          </label>
           <div className="value">{formatPercentage(this.percentUptime)}%</div>
         </div>
       </Statistic>

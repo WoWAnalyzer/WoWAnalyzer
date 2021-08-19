@@ -1,17 +1,17 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { formatPercentage } from 'common/format';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const MAX_STACKS = 30;
 
@@ -31,10 +31,22 @@ class JadeIgnition extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF), this.applyBuff);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF), this.applyBuffStack);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF),
+      this.applyBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF),
+      this.applyBuffStack,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE),
+      this.onFistsDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.castSpinningCraneKick,
+    );
   }
 
   applyBuff() {
@@ -61,7 +73,7 @@ class JadeIgnition extends Analyzer {
   }
 
   get stackUsage() {
-    return 1 - (this.stacksWasted / this.totalStacks);
+    return 1 - this.stacksWasted / this.totalStacks;
   }
 
   get suggestionThresholds() {
@@ -83,7 +95,7 @@ class JadeIgnition extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spell={SPELLS.JADE_IGNITION}>
+        <BoringSpellValueText spellId={SPELLS.JADE_IGNITION.id}>
           <ItemDamageDone amount={this.damageDone} />
           <br />
           {formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
@@ -93,11 +105,17 @@ class JadeIgnition extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of Fury at full stacks</Trans>)
-      .icon(SPELLS.JADE_IGNITION.icon)
-      .actual(`${formatPercentage(actual, 0)}% Stacks used`)
-      .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks">
+          {' '}
+          You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of
+          Fury at full stacks
+        </Trans>,
+      )
+        .icon(SPELLS.JADE_IGNITION.icon)
+        .actual(`${formatPercentage(actual, 0)}% Stacks used`)
+        .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
     );
   }
 }

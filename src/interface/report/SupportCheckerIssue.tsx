@@ -1,26 +1,25 @@
-import { t, Trans } from '@lingui/macro';
-import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-
-import Tooltip from 'interface/Tooltip';
-import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import Panel from 'interface/Panel';
-import GitHubButton from 'interface/GitHubButton';
-import DiscordButton from 'interface/DiscordButton';
-import Icon from 'interface/Icon';
-import Background from 'interface/report/images/weirdnelf.png';
-import Fight from 'parser/core/Fight';
-import { Player } from 'parser/core/CombatLogParser';
-import ReadableListing from 'interface/ReadableListing';
-import Contributor from 'interface/ContributorButton';
-import Config from 'parser/Config';
+import { Trans } from '@lingui/macro';
 import Changelog from 'interface/Changelog';
+import Contributor from 'interface/ContributorButton';
+import Icon from 'interface/Icon';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import Modal from 'interface/Modal';
+import Panel from 'interface/Panel';
+import ReadableListing from 'interface/ReadableListing';
+import Background from 'interface/report/images/weirdnelf.png';
+import { getBuild, getResultTab } from 'interface/selectors/url/report';
+import Tooltip from 'interface/Tooltip';
+import Config from 'parser/Config';
+import { WCLFight } from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
+import React, { ReactNode } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface Props {
   report: unknown;
-  fight: Fight;
+  fight: WCLFight;
   config: Config;
-  player: Player;
+  player: PlayerInfo;
   title: ReactNode;
   children: ReactNode;
   onContinueAnyway: () => void;
@@ -35,6 +34,10 @@ const SupportCheckerIssue = ({
   children,
   onContinueAnyway,
 }: Props) => {
+  const location = useLocation();
+  const selectedTab = getResultTab(location.pathname);
+  const build = getBuild(location.pathname) || undefined;
+
   const maintainers = (
     <ReadableListing>
       {contributors.map((contributor) => (
@@ -56,25 +59,7 @@ const SupportCheckerIssue = ({
     );
 
   return (
-    <div className="container offset">
-      <h1>
-        <div className="back-button">
-          <Tooltip
-            content={t({
-              id: 'interface.report.supportChecker.tooltip.backToPlayerSelection',
-              message: `Back to player selection`,
-            })}
-          >
-            <Link to={makeAnalyzerUrl(report, fight.id)}>
-              <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-            </Link>
-          </Tooltip>
-        </div>
-        <span className={spec.className.replace(' ', '')}>
-          {player.name} - {spec.specName} {spec.className}
-        </span>
-      </h1>
-
+    <Modal onClose={onContinueAnyway}>
       <Panel title={title}>
         <div className="flex wrapable">
           <div className="flex-main" style={{ minWidth: 400 }}>
@@ -85,9 +70,6 @@ const SupportCheckerIssue = ({
             <br />
             <br />
 
-            <div style={{ paddingBottom: '1.5em' }}>
-              <GitHubButton /> <DiscordButton />
-            </div>
             <Tooltip
               content={
                 <Trans id="interface.report.supportChecker.tooltip.khadgarApproves">
@@ -96,7 +78,7 @@ const SupportCheckerIssue = ({
               }
             >
               <Link
-                to={makeAnalyzerUrl(report, fight.id, player.id)}
+                to={makeAnalyzerUrl(report, fight.id, player.id, selectedTab, build)}
                 onClick={onContinueAnyway}
                 style={{ fontSize: '1.2em' }}
               >
@@ -121,11 +103,13 @@ const SupportCheckerIssue = ({
         </div>
       </Panel>
 
-      <h1>
-        <Trans id="supportCheckerIssue.specChangelog">Spec changelog</Trans>
-      </h1>
-      <Changelog includeCore={false} changelog={changelog} />
-    </div>
+      <Panel
+        title={<Trans id="supportCheckerIssue.specChangelog">Spec changelog</Trans>}
+        pad={false}
+      >
+        <Changelog includeCore={false} changelog={changelog} />
+      </Panel>
+    </Modal>
   );
 };
 

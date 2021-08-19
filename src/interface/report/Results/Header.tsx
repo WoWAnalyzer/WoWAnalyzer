@@ -1,60 +1,44 @@
 /* eslint-disable react/prop-types */
-import React, { ComponentType, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-
-import { Phase } from 'game/raids';
-import Fight from 'parser/core/Fight';
-import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
-import Config, { Build } from 'parser/Config';
-import { TooltipElement } from 'interface/Tooltip';
-import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import getBossName from 'common/getBossName';
+import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import { Boss, Phase } from 'game/raids';
+import Config from 'parser/Config';
+import { ParseResultsTab } from 'parser/core/Analyzer';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import Fight from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
+import React from 'react';
 
-import PhaseSelector from './PhaseSelector';
-import TimeFilter from './TimeFilter';
+import BuildSelection from './BuildSelection';
 import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
+import PhaseSelector from './PhaseSelector';
+import TimeFilter from './TimeFilter';
 
 import './Header.scss';
 
 interface Props {
   config: Config;
-  name: string;
-  characterProfile: {
-    region: string;
-    thumbnail: string;
-  };
-  boss: {
-    name: string;
-    headshot: string;
-    background: string;
-    backgroundPosition: string;
-  };
-  handlePhaseSelection: () => void;
-  applyFilter: () => void;
-  phases?: {
-    [key: string]: Phase;
-  };
-  makeBuildUrl: (selectedTab: string, buildName: string) => string;
-  build: string;
+  player: PlayerInfo;
+  characterProfile: CharacterProfile;
+  boss: Boss | null;
+  handlePhaseSelection: (phase: string, instance: number) => void;
+  applyFilter: (start: number, end: number) => void;
+  phases: { [key: string]: Phase } | null;
+  build?: string;
   selectedPhase: string;
   selectedInstance: number;
   isLoading: boolean;
   fight: Fight;
-  makeTabUrl: (url: string) => string;
+  makeTabUrl: (tab: string, build?: string) => string;
   selectedTab: string;
-  tabs: Array<{
-    title: ReactNode;
-    icon?: ComponentType;
-    url: string;
-    order?: number;
-  }>;
+  tabs: ParseResultsTab[];
 }
 
 const Header = ({
-  config: { spec, builds },
+  config: { spec, builds, expansion },
   build,
-  name,
+  player: { name, icon },
   fight,
   boss,
   handlePhaseSelection,
@@ -67,26 +51,17 @@ const Header = ({
   makeTabUrl,
   tabs,
   selectedTab,
-  makeBuildUrl,
 }: Props) => {
   let playerThumbnail;
   if (characterProfile?.thumbnail) {
     playerThumbnail = `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
   } else {
-    playerThumbnail = `/specs/${spec.className}-${spec.specName}.jpg`.replace(/ /, '');
+    playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');
   }
-
-  const renderBuild = (build: Build, active: boolean) => (
-    <Link to={makeBuildUrl(selectedTab, build.url)}>
-      <span className={'build ' + (active ? 'active' : '')}>
-        <TooltipElement content={build.name}>{build.icon}</TooltipElement>
-      </span>
-    </Link>
-  );
 
   return (
     <header>
-      <HeaderBackground boss={boss} />
+      <HeaderBackground boss={boss} expansion={expansion} />
 
       <div className="subnavigation container">
         {phases && Object.keys(phases).length > 0 && (
@@ -116,15 +91,14 @@ const Header = ({
             <img src={playerThumbnail} alt="" />
           </div>
           <div className="details">
-            <h2 className="builds">
-              {builds && (
-                <>
-                  Build:
-                  {Object.keys(builds).map((b) => renderBuild(builds[b], build === builds[b].url))}
-                  {renderBuild(DEFAULT_BUILD, !build)}
-                </>
-              )}
-            </h2>
+            {builds && (
+              <BuildSelection
+                builds={builds}
+                activeBuild={build}
+                makeUrl={(build: string) => makeTabUrl(selectedTab, build)}
+                className="builds"
+              />
+            )}
             <h2>
               {spec.specName} {spec.className}
             </h2>

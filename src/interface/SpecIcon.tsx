@@ -1,27 +1,21 @@
+import { Spec } from 'game/SPECS';
 import React from 'react';
 
-import SPECS from 'game/SPECS';
-
 interface Props extends Omit<React.HTMLAttributes<HTMLImageElement>, 'id'> {
-  id: number
-  className?: string
+  spec?: Spec;
+  icon?: string;
+  className?: string;
 }
 
-const SpecIcon = ({ id, className, ...others }: Props) => {
-  if (!SPECS[id]) {
-    throw new Error(`Unknown spec: ${id}`);
-  }
-
-  const spec = SPECS[id];
-
-  return (
-    <img
-      src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`}
-      alt={`${spec.specName} ${spec.className}`}
-      className={`icon ${className || ''}`}
-      {...others}
-    />
-  );
-};
+const SpecIcon = ({ spec, icon, className, ...others }: Props) => (
+  <img
+    src={`/specs/${
+      spec ? [spec.className, spec.specName].filter(Boolean).join('-').replace(' ', '') : icon
+    }.jpg`}
+    alt={spec ? `${spec.specName} ${spec.className}` : icon}
+    className={`icon ${className || ''}`}
+    {...others}
+  />
+);
 
 export default SpecIcon;

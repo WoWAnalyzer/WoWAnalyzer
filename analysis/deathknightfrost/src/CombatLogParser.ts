@@ -1,27 +1,32 @@
-import { RuneDetails, RuneOfHysteria, RuneOfTheFallenCrusader, Superstrain, SwarmingMist, DeathsDue } from '@wowanalyzer/deathknight';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import {
+  RuneDetails,
+  RuneOfHysteria,
+  RuneOfTheFallenCrusader,
+  Superstrain,
+  SwarmingMist,
+  DeathsDue
+} from '@wowanalyzer/deathknight';
+
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import SpellUsable from './modules/features/SpellUsable';
 import Checklist from './modules/features/checklist/Module';
-
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FrostFeverUptime from './modules/features/FrostFeverUptime';
-import RimeEfficiency from './modules/features/RimeEfficiency';
 import HardHowlingBlastCasts from './modules/features/HardHowlingBlastCasts';
 import KillingMachineEfficiency from './modules/features/KillingMachine';
-import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
-import HypothermicPresence from './modules/talents/HypothermicPresence';
-
+import RimeEfficiency from './modules/features/RimeEfficiency';
+import FrostRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/features/RuneTracker';
+import SpellUsable from './modules/features/SpellUsable';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
-
-import GatheringStorm from './modules/talents/GatheringStorm';
+import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
+import GatheringStorm from './modules/talents/GatheringStorm';
+import HypothermicPresence from './modules/talents/HypothermicPresence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -39,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     killingMachineEfficiency: KillingMachineEfficiency,
     breathofSindragoa: BreathOfSindragosa,
     hypothermicPresence: HypothermicPresence,
+    frostRuneForgeChecker: FrostRuneForgeChecker,
 
     //resource tracker
     runeTracker: RuneTracker,

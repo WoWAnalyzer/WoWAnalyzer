@@ -1,8 +1,8 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-import isAtonement from '../modules/core/isAtonement';
 import { ATONEMENT_DAMAGE_SOURCES } from '../constants';
+import isAtonement from '../modules/core/isAtonement';
 
 class AtonementSuccessiveDamage extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
@@ -33,7 +33,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
             _damageEventIndexes[_damageEventIndexes.length - 1],
             1,
           )[0];
-          lastDamageEvent.__modified = true;
+          lastDamageEvent.__reordered = true;
           fixedEvents.splice(fixedEvents.length - 1, 0, lastDamageEvent);
           _encounteredTargetIDs = [];
           return;

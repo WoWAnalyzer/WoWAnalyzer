@@ -1,20 +1,15 @@
-import React from 'react';
-
-import { SpellIcon, SpellLink, SpecIcon } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'interface';
-import SPECS, { Spec } from 'game/SPECS';
-import { formatNth, formatDuration } from 'common/format';
-
-import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-
-import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
 import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
+import { formatNth, formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon, SpellLink, SpecIcon } from 'interface';
+import { TooltipElement } from 'interface';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -23,14 +18,14 @@ const HEAL_WINDOW_MS = 250;
 
 interface ChainHealInfo {
   target: {
-    id: number | undefined,
-    name: string,
-    spec: Spec,
-    specClassName: string
-  }
-  timestamp: number,
-  castNo: number,
-  hits: number
+    id: number | undefined;
+    name: string;
+    specIcon: string;
+    specClassName: string;
+  };
+  timestamp: number;
+  castNo: number;
+  hits: number;
 }
 
 class ChainHeal extends Analyzer {
@@ -73,7 +68,7 @@ class ChainHeal extends Analyzer {
       return;
     }
     this.castIndex += 1;
-    const currentCast = this.buffer.find(event => event.type === EventType.Cast);
+    const currentCast = this.buffer.find((event) => event.type === EventType.Cast);
     if (!currentCast) {
       return;
     }
@@ -85,12 +80,12 @@ class ChainHeal extends Analyzer {
       target: {
         id: currentCast.targetID,
         name: combatant.name,
-        spec: SPECS[combatant.specId],
-        specClassName: SPECS[combatant.specId].className.replace(' ', ''),
+        specIcon: combatant.player.icon,
+        specClassName: combatant.player.type,
       },
       timestamp: currentCast.timestamp,
       castNo: this.castIndex,
-      hits: this.buffer.filter(event => event.type === EventType.Heal).length,
+      hits: this.buffer.filter((event) => event.type === EventType.Heal).length,
     };
     this.buffer = [];
   }
@@ -100,18 +95,31 @@ class ChainHeal extends Analyzer {
     if (isNaN(suggestedThreshold.actual)) {
       return;
     }
-    when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
-      .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.aoeTargets.label">Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</Trans>)
-        .icon(SPELLS.CHAIN_HEAL.icon)
-        .actual(`${suggestedThreshold.actual.toFixed(2)} ${t({
-          id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
-          message: `average targets healed`
-        })}`)
-        .recommended(`${suggestedThreshold.isLessThan.minor} ${t({
-          id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
-          message: `average targets healed`
-        })}`)
-        .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major));
+    when(suggestedThreshold.actual)
+      .isLessThan(suggestedThreshold.isLessThan.minor)
+      .addSuggestion((suggest, _actual, _recommended) =>
+        suggest(
+          <Trans id="shaman.restoration.suggestions.aoeTargets.label">
+            Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that
+            it heals all {this.maxTargets} potential targets.
+          </Trans>,
+        )
+          .icon(SPELLS.CHAIN_HEAL.icon)
+          .actual(
+            `${suggestedThreshold.actual.toFixed(2)} ${t({
+              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
+              message: `average targets healed`,
+            })}`,
+          )
+          .recommended(
+            `${suggestedThreshold.isLessThan.minor} ${t({
+              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
+              message: `average targets healed`,
+            })}`,
+          )
+          .regular(suggestedThreshold.isLessThan.average)
+          .major(suggestedThreshold.isLessThan.major),
+      );
   }
 
   get avgHits() {
@@ -129,9 +137,9 @@ class ChainHeal extends Analyzer {
     return {
       actual: this.avgHits,
       isLessThan: {
-        minor: this.suggestedTargets,//Missed 1 target
-        average: this.suggestedTargets - 1,//Missed 2-3 targets
-        major: this.suggestedTargets - 2,//Missed more than 3 targets
+        minor: this.suggestedTargets, //Missed 1 target
+        average: this.suggestedTargets - 1, //Missed 2-3 targets
+        major: this.suggestedTargets - 2, //Missed more than 3 targets
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -142,44 +150,64 @@ class ChainHeal extends Analyzer {
       return false;
     }
 
-    const singleHits = this.chainHealHistory.filter(cast => cast.hits === 1);
+    const singleHits = this.chainHealHistory.filter((cast) => cast.hits === 1);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
         value={this.avgHits.toFixed(2)}
         position={STATISTIC_ORDER.OPTIONAL(70)}
-        label={(
-          <TooltipElement content={<Trans id="shaman.restoration.chainHeal.averageTargets.tooltip">The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of {this.casts} Chain Heals, which healed an average of {this.avgHits.toFixed(2)} out of {this.maxTargets} targets.</Trans>}>
-            <Trans id="shaman.restoration.chainHeal.averageTargets">Average Chain Heal targets</Trans>
+        label={
+          <TooltipElement
+            content={
+              <Trans id="shaman.restoration.chainHeal.averageTargets.tooltip">
+                The average number of targets healed by Chain Heal out of the maximum amount of
+                targets. You cast a total of {this.casts} Chain Heals, which healed an average of{' '}
+                {this.avgHits.toFixed(2)} out of {this.maxTargets} targets.
+              </Trans>
+            }
+          >
+            <Trans id="shaman.restoration.chainHeal.averageTargets">
+              Average Chain Heal targets
+            </Trans>
           </TooltipElement>
-        )}
+        }
       >
         {singleHits.length > 0 && (
           <>
             <div>
-              <Trans id="shaman.restoration.chainHeal.averageTargets.title">Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.</Trans>
+              <Trans id="shaman.restoration.chainHeal.averageTargets.title">
+                Below are the casts that only hit the initial target. A large list indicates that
+                target selection is an area for improvement.
+              </Trans>
             </div>
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th><Trans id="common.cast">Cast</Trans></th>
-                  <th><Trans id="common.time">Time</Trans></th>
-                  <th><Trans id="common.target">Target</Trans></th>
+                  <th>
+                    <Trans id="common.cast">Cast</Trans>
+                  </th>
+                  <th>
+                    <Trans id="common.time">Time</Trans>
+                  </th>
+                  <th>
+                    <Trans id="common.target">Target</Trans>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {
-                  this.chainHealHistory
-                    .filter(cast => cast.hits === 1)
-                    .map(cast => (
-                      <tr key={cast.timestamp}>
-                        <th scope="row">{formatNth(cast.castNo)}</th>
-                        <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000, 0)}</td>
-                        <td className={cast.target.specClassName}> <SpecIcon id={cast.target.spec.id} />{' '}{cast.target.name}</td>
-                      </tr>
-                    ))
-                }
+                {this.chainHealHistory
+                  .filter((cast) => cast.hits === 1)
+                  .map((cast) => (
+                    <tr key={cast.timestamp}>
+                      <th scope="row">{formatNth(cast.castNo)}</th>
+                      <td>{formatDuration(cast.timestamp - this.owner.fight.start_time, 0)}</td>
+                      <td className={cast.target.specClassName.replace(' ', '')}>
+                        {' '}
+                        <SpecIcon icon={cast.target.specIcon} /> {cast.target.name}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </>

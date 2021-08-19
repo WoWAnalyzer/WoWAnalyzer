@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -23,7 +23,10 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
-    if (spellId === SPELLS.RAPID_FIRE.id && this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID)) {
+    if (
+      spellId === SPELLS.RAPID_FIRE.id &&
+      this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID)
+    ) {
       if (this.isOnCooldown(spellId)) {
         this.rapidFireResets += 1;
         this.endCooldown(

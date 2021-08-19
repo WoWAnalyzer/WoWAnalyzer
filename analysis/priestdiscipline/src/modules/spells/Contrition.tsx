@@ -1,17 +1,16 @@
-import React from 'react';
-
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import { TooltipElement } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
-import Penance from './Penance';
 import { calculateOverhealing, OffensivePenanceBoltEstimation } from '../../SpellCalculations';
+import Penance from './Penance';
 
 class Contrition extends Analyzer {
   static dependencies = {
@@ -21,19 +20,17 @@ class Contrition extends Analyzer {
   healing = 0;
   damagePenalty = 0;
   penanceBoltEstimation: any;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
   protected statTracker!: StatTracker;
   protected penance!: Penance;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      SPELLS.CONTRITION_TALENT.id,
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
+    this.penanceBoltEstimation = OffensivePenanceBoltEstimation(this.statTracker);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CONTRITION_HEAL, SPELLS.PENANCE_HEAL]),
+      this.onHeal,
     );
-    this.penanceBoltEstimation = OffensivePenanceBoltEstimation(
-      this.statTracker,
-    );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CONTRITION_HEAL, SPELLS.PENANCE_HEAL]), this.onHeal);
   }
 
   /**
@@ -76,17 +73,21 @@ class Contrition extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CONTRITION_TALENT.id} />}
-        value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
-        label={(
+        value={`${formatNumber((healing / this.owner.fightDuration) * 1000)} HPS`}
+        label={
           <TooltipElement
-            content={
-              `The effective healing contributed by Contrition (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done).
-              You lost roughly ${formatNumber(this.damagePenalty / this.owner.fightDuration * 1000)} DPS, or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damagePenalty))}% more damage.`
-            }
+            content={`The effective healing contributed by Contrition (${formatPercentage(
+              this.owner.getPercentageOfTotalHealingDone(healing),
+            )}% of total healing done).
+              You lost roughly ${formatNumber(
+                (this.damagePenalty / this.owner.fightDuration) * 1000,
+              )} DPS, or ${formatPercentage(
+              this.owner.getPercentageOfTotalDamageDone(this.damagePenalty),
+            )}% more damage.`}
           >
             Contrition healing
           </TooltipElement>
-        )}
+        }
       />
     );
   }

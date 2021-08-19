@@ -1,21 +1,17 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-
-import Statistic from 'parser/ui/Statistic';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
+import React from 'react';
 
-const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  SPELLS.AVATAR_TALENT.id,
-  SPELLS.SHIELD_WALL.id,
-];
+const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [SPELLS.AVATAR_TALENT.id, SPELLS.SHIELD_WALL.id];
 const RAGE_NEEDED_FOR_A_PROC = 10;
 const CDR_PER_PROC = 1000; // ms
 
@@ -33,7 +29,7 @@ class AngerManagement extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
+    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;
     });
@@ -50,11 +46,11 @@ class AngerManagement extends Analyzer {
           </tr>
         </thead>
         <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(value => (
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
             <tr key={value}>
               <td>{SPELLS[value].name}</td>
-              <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
-              <td>{formatDuration(this.wastedReduction[value] / 1000)}</td>
+              <td>{formatDuration(this.effectiveReduction[value])}</td>
+              <td>{formatDuration(this.wastedReduction[value])}</td>
             </tr>
           ))}
         </tbody>
@@ -63,13 +59,13 @@ class AngerManagement extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const classResources = event.classResources?.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+    const classResources = event.classResources?.find((e) => e.type === RESOURCE_TYPES.RAGE.id);
     if (!classResources || !classResources.cost) {
       return;
     }
     const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
-    const reduction = rageSpend / RAGE_NEEDED_FOR_A_PROC * CDR_PER_PROC;
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
+    const reduction = (rageSpend / RAGE_NEEDED_FOR_A_PROC) * CDR_PER_PROC;
+    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       if (!this.spellUsable.isOnCooldown(e)) {
         this.wastedReduction[e] += reduction;
       } else {
@@ -89,7 +85,14 @@ class AngerManagement extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         dropdown={this.tooltip}
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction
+            </>
+          }
+        >
+          -
         </BoringValueText>
       </Statistic>
     );

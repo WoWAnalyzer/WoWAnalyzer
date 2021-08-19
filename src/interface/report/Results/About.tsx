@@ -1,21 +1,19 @@
-import React from 'react';
 import { Trans, Plural } from '@lingui/macro';
-import { Link } from 'react-router-dom';
-
 import isLatestPatch from 'game/isLatestPatch';
-import ReadableListing from 'interface/ReadableListing';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
 import Panel from 'interface/Panel';
+import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   config: Config;
 }
 
-const About = ({
-  config: { spec, description, contributors, patchCompatibility, isPartial },
-}: Props) => {
+const About = ({ config }: Props) => {
+  const { spec, description, contributors, patchCompatibility, isPartial } = config;
   const contributorinfo =
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
@@ -52,15 +50,14 @@ const About = ({
         </div>
         <div className="col-lg-8">{patchCompatibility}</div>
       </div>
-      {!patchCompatibility ||
-        (!isLatestPatch(patchCompatibility) && (
-          <AlertWarning style={{ marginTop: '1em' }}>
-            <Trans id="interface.report.results.about.outdated">
-              The analysis for this spec is outdated. It may be inaccurate for spells that were
-              changed since patch {patchCompatibility}.
-            </Trans>
-          </AlertWarning>
-        ))}
+      {!isLatestPatch(config) && (
+        <AlertWarning style={{ marginTop: '1em' }}>
+          <Trans id="interface.report.results.about.outdated">
+            The analysis for this spec is outdated. It may be inaccurate for spells that were
+            changed since patch {patchCompatibility}.
+          </Trans>
+        </AlertWarning>
+      )}
       {isPartial && (
         <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.isPartial">

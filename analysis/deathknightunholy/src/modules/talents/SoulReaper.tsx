@@ -1,17 +1,16 @@
-import React from 'react';
-
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Abilities from 'parser/core/modules/Abilities';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
-const SOUL_REAPER_EXECUTE_RANGE = .35
+const SOUL_REAPER_EXECUTE_RANGE = 0.35;
 
 class SoulReaper extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
@@ -40,7 +39,7 @@ class SoulReaper extends ExecuteHelper {
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT_SECOND_HIT);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.SOUL_REAPER_TALENT,
+      spell: SPELLS.SOUL_REAPER_TALENT.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 6,
       gcd: {
@@ -50,13 +49,14 @@ class SoulReaper extends ExecuteHelper {
         suggestion: true,
         recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
-        extraSuggestion: " (This module only starts tracking possible casts once you damage a target with 35% or less health)",
+        extraSuggestion:
+          ' (This module only starts tracking possible casts once you damage a target with 35% or less health)',
       },
     });
   }
 
   adjustMaxCasts(event: FightEndEvent) {
-    super.onFightEnd(event)
+    super.onFightEnd(event);
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 6000);
   }
 
@@ -67,7 +67,7 @@ class SoulReaper extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.SOUL_REAPER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.SOUL_REAPER_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

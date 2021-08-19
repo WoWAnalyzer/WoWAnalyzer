@@ -1,8 +1,8 @@
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const RAGE_PER_MELEE_HIT = 25;
 

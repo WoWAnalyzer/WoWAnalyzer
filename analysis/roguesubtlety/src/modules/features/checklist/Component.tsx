@@ -1,15 +1,17 @@
-import React from 'react';
-
-
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import React from 'react';
 
 const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -19,16 +21,19 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
     />
   );
 
-
   return (
     <Checklist>
       <Rule
         name="Use your offensive cooldowns"
-        description={(
+        description={
           <>
-            Subtlety rotation revolves around using your cooldowns effectively. To maximize your damage, you need to stack your cooldowns. Your cooldowns dictate your rotation. A base rule of thumb is: use <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> on cooldown, and use <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when symbols are active. However you should never cap on <SpellLink id={SPELLS.SHADOW_DANCE.id} /> charges.
+            Subtlety rotation revolves around using your cooldowns effectively. To maximize your
+            damage, you need to stack your cooldowns. Your cooldowns dictate your rotation. A base
+            rule of thumb is: use <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> on cooldown, and use{' '}
+            <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when symbols are active. However you should
+            never cap on <SpellLink id={SPELLS.SHADOW_DANCE.id} /> charges.
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.SHADOW_DANCE.id} />
         <AbilityRequirement spell={SPELLS.SYMBOLS_OF_DEATH.id} />
@@ -36,75 +41,81 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         {combatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SECRET_TECHNIQUE_TALENT.id} />
         )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.SEPSIS.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <AbilityRequirement spell={SPELLS.FLAGELLATION.id} />
+        )}
       </Rule>
       <Rule
         name="Don't waste resources"
-        description={(
+        description={
           <>
-            Since all of Subtlety's damage is tied to resources, it is important to waste as little of them as possible. You should make sure you do not find yourself being Energy capped or casting Combo Point generating abilities when at maximum Combo Points.
+            Since all of Subtlety's damage is tied to resources, it is important to waste as little
+            of them as possible. You should make sure you do not find yourself being Energy capped
+            or casting Combo Point generating abilities when at maximum Combo Points.
           </>
-        )}
+        }
       >
-        <Requirement
-          name={(
-            <>
-              Wasted combo points
-            </>
-          )}
-          thresholds={thresholds.comboPoints}
-        />
-        <Requirement
-          name={(
-            <>
-              Wasted energy
-            </>
-          )}
-          thresholds={thresholds.energy}
-        />
+        <Requirement name={<>Wasted combo points</>} thresholds={thresholds.comboPoints} />
+        <Requirement name={<>Wasted energy</>} thresholds={thresholds.energy} />
       </Rule>
       <Rule
         name="Utilize Stealth and Shadow Dance to full potential"
-        description={(
+        description={
           <>
-            Stealth is a core mechanic for Subtlety. When using <SpellLink id={SPELLS.SHADOW_DANCE.id} />, <SpellLink id={SPELLS.VANISH.id} /> or <SpellLink id={SPELLS.SUBTERFUGE_TALENT.id} /> you need to make the most of your stealth abilities, using up every GCD. To achieve this you might need to pool some energy. Depending on your talents, the amount of energy required differs between 60 and 90. Its also important to use correct spells in stealth, for example <SpellLink id={SPELLS.BACKSTAB.id} /> should be replaced by <SpellLink id={SPELLS.SHADOWSTRIKE.id} />
+            Stealth is a core mechanic for Subtlety. When using{' '}
+            <SpellLink id={SPELLS.SHADOW_DANCE.id} />, <SpellLink id={SPELLS.VANISH.id} /> or{' '}
+            <SpellLink id={SPELLS.SUBTERFUGE_TALENT.id} /> you need to make the most of your stealth
+            abilities, using up every GCD. To achieve this you might need to pool some energy.
+            Depending on your talents, the amount of energy required differs between 60 and 90. Its
+            also important to use correct spells in stealth, for example{' '}
+            <SpellLink id={SPELLS.BACKSTAB.id} /> should be replaced by{' '}
+            <SpellLink id={SPELLS.SHADOWSTRIKE.id} />
           </>
-        )}
+        }
       >
         <Requirement
-          name={(
+          name={
             <>
-              <TooltipElement content="Includes Subterfuge if talented">Casts in Stealth/Vanish*</TooltipElement>
+              <TooltipElement content="Includes Subterfuge if talented">
+                Casts in Stealth/Vanish*
+              </TooltipElement>
             </>
-          )}
+          }
           thresholds={thresholds.castsInStealth}
         />
         <Requirement
-          name={(
+          name={
             <>
               Casts in <SpellLink id={SPELLS.SHADOW_DANCE.id} />
             </>
-          )}
+          }
           thresholds={thresholds.castsInShadowDance}
         />
         <Requirement
-          name={(
+          name={
             <>
-              <SpellLink id={SPELLS.BACKSTAB.id} /> used from <SpellLink id={SPELLS.SHADOW_DANCE.id} />
+              <SpellLink id={SPELLS.BACKSTAB.id} /> used from{' '}
+              <SpellLink id={SPELLS.SHADOW_DANCE.id} />
             </>
-          )}
+          }
           thresholds={thresholds.backstabInShadowDance}
         />
         <Requirement
-          name={(
+          name={
             <>
-              <SpellLink id={SPELLS.BACKSTAB.id} /> <TooltipElement content="Includes Vanish and Subterfuge if talented">used from Stealth*</TooltipElement>
+              <SpellLink id={SPELLS.BACKSTAB.id} />{' '}
+              <TooltipElement content="Includes Vanish and Subterfuge if talented">
+                used from Stealth*
+              </TooltipElement>
             </>
-          )}
+          }
           thresholds={thresholds.backstabInStealth}
         />
       </Rule>
       <PreparationRule thresholds={thresholds} />
-
     </Checklist>
   );
 };

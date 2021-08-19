@@ -34,7 +34,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          38.18 %
+          47.93 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "61.8228414537681%",
+                  "width": "52.06729374465091%",
                 }
               }
             >
@@ -103,20 +103,22 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics. If you do have to move, try casting filler spells, such as
+       
       <ForwardRef
         id={49184}
       />
-       or 
+       or
+       
       <ForwardRef
         id={196770}
       />
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"deathknight.frost.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"38.18"}}
+      {"id":"deathknight.frost.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"47.93"}}
        (
       &lt;30.00% is recommended
       )
@@ -178,7 +180,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
           className="value"
         >
           14.1
-          s  
+          s 
           <small>
             average duration
           </small>
@@ -213,11 +215,13 @@ Array [
     "icon": "spell_deathknight_breathofsindragosa",
     "importance": "major",
     "issue": <React.Fragment>
-       You are not getting good uptime from your 
+       
+      You are not getting good uptime from your
+       
       <ForwardRef
         id={152279}
       />
-       casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use 
+       casts. A good cast is one that lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast. Also make sure to use 
       <ForwardRef
         id={47568}
       />
@@ -373,7 +377,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              14.54
+              12.24
             </td>
             <td
               className="text-right"
@@ -385,8 +389,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               29
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -459,7 +462,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              1.50
+              1.27
             </td>
             <td
               className="text-right"
@@ -470,9 +473,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               3
-              /6
-               
-              casts
+              /8
+               casts
             </td>
             <td
               style={
@@ -489,7 +491,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "50.1353654868144%",
+                      "width": "42.22408320959331%",
                     }
                   }
                 />
@@ -504,7 +506,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              50.14%
+              42.22%
             </td>
             <td
               style={
@@ -557,7 +559,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              7.52
+              6.33
             </td>
             <td
               className="text-right"
@@ -569,8 +571,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -643,7 +644,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              12.03
+              10.13
             </td>
             <td
               className="text-right"
@@ -655,8 +656,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -729,7 +729,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              1.50
+              1.27
             </td>
             <td
               className="text-right"
@@ -741,8 +741,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -885,8 +884,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1017,7 +1015,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              1.50
+              1.27
             </td>
             <td
               className="text-right"
@@ -1029,8 +1027,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1047,7 +1044,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "97.74780797040899%",
+                      "width": "98.10320035092904%",
                     }
                   }
                 />
@@ -1062,7 +1059,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              97.75%
+              98.10%
             </td>
             <td
               style={
@@ -1115,7 +1112,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.50
+              0.42
             </td>
             <td
               className="text-right"
@@ -1126,9 +1123,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               1
-              /1
-               
-              casts
+              /2
+               casts
             </td>
             <td
               style={
@@ -1145,7 +1141,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "91.07172699622313%",
+                      "width": "84.44816641918662%",
                     }
                   }
                 />
@@ -1160,7 +1156,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              91.07%
+              84.45%
             </td>
             <td
               style={
@@ -1213,7 +1209,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.50
+              0.42
             </td>
             <td
               className="text-right"
@@ -1224,9 +1220,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               1
-              /1
-               
-              casts
+              /2
+               casts
             </td>
             <td
               style={
@@ -1242,8 +1237,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "91.88391991710952%",
+                      "backgroundColor": "#ff8000",
+                      "width": "84.44816641918662%",
                     }
                   }
                 />
@@ -1258,7 +1253,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              91.88%
+              84.45%
             </td>
             <td
               style={
@@ -1267,7 +1262,12 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
           <tr>
             <td
@@ -1323,8 +1323,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1425,9 +1424,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /1
-               
-              casts
+              /2
+               casts
             </td>
             <td
               style={
@@ -1523,9 +1521,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /1
-               
-              casts
+              /2
+               casts
             </td>
             <td
               style={
@@ -1668,7 +1665,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              1.00
+              0.84
             </td>
             <td
               className="text-right"
@@ -1679,9 +1676,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               2
-              /2
-               
-              casts
+              /3
+               casts
             </td>
             <td
               style={
@@ -1698,7 +1694,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "75.18466526287644%",
+                      "width": "79.10048628069163%",
                     }
                   }
                 />
@@ -1713,7 +1709,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              75.18%
+              79.10%
             </td>
             <td
               style={
@@ -1778,8 +1774,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1876,8 +1871,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1961,9 +1955,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /1
-               
-              casts
+              /2
+               casts
             </td>
             <td
               style={
@@ -2059,9 +2052,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /1
-               
-              casts
+              /2
+               casts
             </td>
             <td
               style={
@@ -2215,9 +2207,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /5
-               
-              casts
+              /6
+               casts
             </td>
             <td
               style={
@@ -2313,9 +2304,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /3
-               
-              casts
+              /4
+               casts
             </td>
             <td
               style={
@@ -2411,9 +2401,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /15
-               
-              casts
+              /18
+               casts
             </td>
             <td
               style={
@@ -2510,8 +2499,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2607,9 +2595,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /8
-               
-              casts
+              /10
+               casts
             </td>
             <td
               style={
@@ -2706,8 +2693,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2791,9 +2777,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /3
-               
-              casts
+              /4
+               casts
             </td>
             <td
               style={
@@ -2890,8 +2875,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2964,7 +2948,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.50
+              0.42
             </td>
             <td
               className="text-right"
@@ -2975,9 +2959,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               1
-              /2
-               
-              casts
+              /3
+               casts
             </td>
             <td
               style={
@@ -2994,7 +2977,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "50.1353654868144%",
+                      "width": "42.22408320959331%",
                     }
                   }
                 />
@@ -3009,7 +2992,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              50.14%
+              42.22%
             </td>
             <td
               style={
@@ -3073,9 +3056,8 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               0
-              /4
-               
-              casts
+              /5
+               casts
             </td>
             <td
               style={
@@ -3172,8 +3154,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3272,6 +3253,103 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -3316,8 +3394,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3414,8 +3491,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3469,6 +3545,50 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
+    "icon": "spell_deathknight_breathofsindragosa",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={152279}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 1,
+            "1": 2,
+            "2": "84",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "achievement_boss_sindragosa",
     "importance": "major",
     "issue": <React.Fragment>
@@ -3485,12 +3605,13 @@ Array [
       />
        
       <React.Fragment>
-        Although you normally want to use this off CD, you can save it to line it up with 
+        Although you normally want to use this off CD, you can save it to line it up with
+         
         <ForwardRef
           icon={true}
           id={51271}
         />
-        .  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
+        . You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
       </React.Fragment>
     </React.Fragment>,
     "stat": <React.Fragment>
@@ -3529,16 +3650,18 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You died during this fight and were dead for 
-      18.74
+      15.78
       % of the fight duration (
       22
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/TcCmAWp2RGzvkK69/1-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%222:22%22%7D%7D/Khazakk/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -3546,7 +3669,7 @@ Array [
         message="You were dead for {0}% of the fight"
         values={
           Object {
-            "0": "18.74",
+            "0": "15.78",
           }
         }
       />
@@ -3595,7 +3718,7 @@ exports[`Frost Death Knight integration test: example log DistanceMoved matches 
             }
           >
             ≈ 
-            54.98
+            46.30
             %
           </small>
         </div>
@@ -3939,7 +4062,7 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
             />
           </svg>
            
-          107.99
+          90.95
           % 
           <small>
             uptime
@@ -3949,6 +4072,34 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Death Knight integration test: example log FrostFeverUptime matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_frostfever",
+    "importance": "minor",
+    "issue": <span>
+      Your 
+      <ForwardRef
+        id={55095}
+      />
+       uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using
+       
+      <ForwardRef
+        id={49184}
+      />
+       to refresh Frost Fever. Using a debuff tracker can help.
+    </span>,
+    "stat": <React.Fragment>
+      {"id":"deathknight.frost.suggestions.frostFever.uptime","message":"{0}% Frost Fever uptime","values":{"0":"90.95"}}
+       (
+      &gt;95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Death Knight integration test: example log Frostscythe matches the statistic snapshot 1`] = `
@@ -4066,7 +4217,7 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
             src="/img/sword.png"
           />
            
-          181
+          153
            DPS
            
           <small>
@@ -4366,7 +4517,7 @@ exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusade
         <div
           className="value"
         >
-          10.33
+          8.70
            % 
           <small>
             average Strength
@@ -4434,7 +4585,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
           className="flex-main value"
         >
           <div>
-            21.10 %
+            33.55 %
           </div>
           <small>
             Runes overcapped
@@ -4487,14 +4638,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       You overcapped 
-      21.10
+      33.55
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"21.10"}}
+      {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"33.55"}}
        (
       &lt;10.00% is recommended
       )
@@ -4615,7 +4766,7 @@ exports[`Frost Death Knight integration test: example log ThroughputStatisticGro
               }
             }
           >
-            21,815
+            18,372
              DPS
           </div>
           <div
@@ -4704,7 +4855,7 @@ exports[`Frost Death Knight integration test: example log ThroughputStatisticGro
               }
             }
           >
-            4,102
+            3,455
              HPS
           </div>
           <div
@@ -4798,7 +4949,7 @@ exports[`Frost Death Knight integration test: example log ThroughputStatisticGro
               }
             }
           >
-            17,442
+            14,690
              DTPS
           </div>
           <div
@@ -4970,8 +5121,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "88.25413139196382%",
                 }
               }
             />
@@ -5158,7 +5309,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  100.00%
+                  84.45%
                    
                    
                 </div>
@@ -5178,9 +5329,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "64.76239417589146%",
                       }
                     }
                   />
@@ -5231,7 +5382,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  100.00%
+                  84.45%
                    
                    
                 </div>
@@ -5290,8 +5441,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "56.02006204104776%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "31.262578666373003%",
                 }
               }
             />
@@ -5348,7 +5499,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast 
+            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=49184"
@@ -5399,7 +5551,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  38.18%
+                  47.93%
                    
                    
                 </div>
@@ -5419,9 +5571,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "56.02006204104776%",
+                        "width": "31.262578666373003%",
                       }
                     }
                   />
@@ -5458,8 +5610,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "62.9304221397774%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "31.6102817653286%",
                 }
               }
             />
@@ -5552,7 +5704,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  78.90%
+                  66.45%
                    
                    
                 </div>
@@ -5572,9 +5724,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "62.9304221397774%",
+                        "width": "31.6102817653286%",
                       }
                     }
                   />

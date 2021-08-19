@@ -1,14 +1,12 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class FortifyingIngredients extends Analyzer {
   static dependencies = {
@@ -23,7 +21,9 @@ class FortifyingIngredients extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.FORTIFYING_INGREDIENTS.id,
+    );
     if (!conduitRank) {
       this.active = false;
       return;
@@ -38,7 +38,7 @@ class FortifyingIngredients extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.FORTIFYING_INGREDIENTS}>
+        <BoringSpellValueText spellId={SPELLS.FORTIFYING_INGREDIENTS.id}>
           <ItemHealingDone amount={shield} />
         </BoringSpellValueText>
       </Statistic>

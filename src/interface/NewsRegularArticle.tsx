@@ -1,17 +1,16 @@
+import Panel from 'interface/Panel';
 import React, { CSSProperties, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import Panel from 'interface/Panel';
-
-import makeNewsUrl from './makeNewsUrl';
 import Contributor, { ContributorType } from './ContributorButton';
+import makeNewsUrl from './makeNewsUrl';
 
 interface Props {
-  title: ReactNode;
+  title: string;
   bodyStyle?: CSSProperties;
-  children: ReactNode,
-  publishedAt: string,
-  publishedBy: ContributorType
+  children: ReactNode;
+  publishedAt: string;
+  publishedBy: ContributorType;
 }
 
 const NewsRegularArticle = (props: Props) => {
@@ -20,7 +19,11 @@ const NewsRegularArticle = (props: Props) => {
   return (
     <article>
       <Panel
-        title={<Link to={makeNewsUrl(title)} className="hidden-link">{title}</Link>}
+        title={
+          <Link to={makeNewsUrl(title)} className="hidden-link">
+            {title}
+          </Link>
+        }
         bodyStyle={bodyStyle}
       >
         {children}

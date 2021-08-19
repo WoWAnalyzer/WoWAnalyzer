@@ -1,16 +1,15 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import SPELLS from 'common/SPELLS';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
-import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
+import React from 'react';
+
 import { SURVIVAL_CHAKRAM_TYPES } from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
@@ -34,8 +33,14 @@ class Chakrams extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAKRAMS_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SURVIVAL_CHAKRAM_TYPES), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAKRAMS_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SURVIVAL_CHAKRAM_TYPES),
+      this.onDamage,
+    );
   }
 
   onCast() {
@@ -62,7 +67,7 @@ class Chakrams extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CHAKRAMS_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.CHAKRAMS_TALENT.id}>
           <>
             <AverageTargetsHit casts={this.casts} hits={this.targetsHit} unique />
           </>

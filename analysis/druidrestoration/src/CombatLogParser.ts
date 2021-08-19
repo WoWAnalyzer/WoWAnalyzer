@@ -1,78 +1,77 @@
-import { ConvokeSpirits } from '@wowanalyzer/druid';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 
-import WildGrowthNormalizer from './normalizers/WildGrowth';
-import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
-import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
-import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
+import { SinfulHysteria } from '@wowanalyzer/druid';
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
-import Checklist from './modules/features/Checklist/Module';
-
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import Abilities from './modules/Abilities';
+import HotAttributor from './modules/core/hottracking/HotAttributor';
+import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
-
-import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
-import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
-import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
 import SpellManaCost from './modules/core/SpellManaCost';
-
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
-import Abilities from './modules/Abilities';
+import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import WildGrowth from './modules/features/WildGrowth';
-import Lifebloom from './modules/features/Lifebloom';
 import Efflorescence from './modules/features/Efflorescence';
-import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
+import Lifebloom from './modules/features/Lifebloom';
+import LifebloomAndEffloUptime from './modules/features/LifebloomAndEffloUptime';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
-
+import RegrowthAndClearcasting from './modules/features/RegrowthAndClearcasting';
+import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
+import StatWeights from './modules/features/StatWeights';
+import WildGrowth from './modules/features/WildGrowth';
+import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
+import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
+import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
+import FieldOfBlossomsResto from './modules/shadowlands/conduits/FieldOfBlossomsResto';
+import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
+import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigorationResto';
+import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
+import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
+import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
+import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
+import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
+import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
+import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
+import Abundance from './modules/talents/Abundance';
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
 import Flourish from './modules/talents/Flourish';
-import SpringBlossoms from './modules/talents/SpringBlossoms';
-import SoulOfTheForest from './modules/talents/SoulOfTheForest';
-import TreeOfLife from './modules/talents/TreeOfLife';
 import Photosynthesis from './modules/talents/Photosynthesis';
-import Abundance from './modules/talents/Abundance';
-
-import StatWeights from './modules/features/StatWeights';
-
-// Mana Tracker
-import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
-
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-
-// Conduits
-
-// Potency
-import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
-
-//legos
-import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
-import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
+import SoulOfTheForest from './modules/talents/SoulOfTheForest';
+import SpringBlossoms from './modules/talents/SpringBlossoms';
+import TreeOfLife from './modules/talents/TreeOfLife';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
+import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
+import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
+import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
     // Normalizers
-    wildGrowthNormalizer: WildGrowthNormalizer,
     clearcastingNormalizer: ClearcastingNormalizer,
-    hotApplicationNormalizer: HotApplicationNormalizer, // this needs to be loaded after potaNormalizer, as potaNormalizer can sometimes unfix the events if loaded before...
+    hotApplicationNormalizer: HotApplicationNormalizer,
+    hotCastLinkNormalizer: CastLinkNormalizer,
+    soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core
     rejuvenation: Rejuvenation,
     mastery: Mastery,
     spellManaCost: SpellManaCost,
+    activeDruidForm: ActiveDruidForm,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -83,8 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hot Tracking
     hotTracker: HotTrackerRestoDruid,
-    rejuvenationAttributor: RejuvenationAttributor,
-    regrowthAttributor: RegrowthAttributor,
+    hotAttributor: HotAttributor,
 
     // Features
     lowHealthHealing: LowHealthHealing,
@@ -95,12 +93,13 @@ class CombatLogParser extends CoreCombatLogParser {
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
-    clearcasting: Clearcasting,
+    clearcasting: RegrowthAndClearcasting,
     innervate: Innervate,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     ironbark: Ironbark,
     prematureRejuvenations: PrematureRejuvenations,
+    lifebloomAndEffloUptime: LifebloomAndEffloUptime,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
@@ -119,15 +118,26 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     // Covenants
-    convokeSpirits: ConvokeSpirits,
+    convokeSpirits: ConvokeSpiritsResto,
+    adaptiveSwarm: AdaptiveSwarmResto,
+    kindredSpirits: KindredSpiritsResto,
+    sinfulHysteria: SinfulHysteria,
 
     // Conduits
     // Potency
     flashOfClarity: FlashOfClarity,
+    evolvedSwarmResto: EvolvedSwarmResto,
+    confluxOfElementsResto: ConfluxOfElementsResto,
+    adaptiveArmorFragment: AdaptiveArmorFragment,
+    // Soulbind
+    groveInvigoration: GroveInvigorationResto,
+    fieldOfBlossoms: FieldOfBlossomsResto,
 
     //legos
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
     memoryoftheMotherTree: MemoryoftheMotherTree,
+    verdantInfusion: VerdantInfusion,
+    lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
   };
 }
 

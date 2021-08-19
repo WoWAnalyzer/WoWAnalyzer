@@ -1,15 +1,15 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import { ResourceIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { ResourceIcon } from 'interface';
+import React from 'react';
 
 class EchoingReprimand extends Analyzer {
   static dependencies = {
@@ -23,8 +23,14 @@ class EchoingReprimand extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND), this.onDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -40,11 +46,8 @@ class EchoingReprimand extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
-      >
-        <BoringSpellValueText spell={SPELLS.ECHOING_REPRIMAND}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
+        <BoringSpellValueText spellId={SPELLS.ECHOING_REPRIMAND.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

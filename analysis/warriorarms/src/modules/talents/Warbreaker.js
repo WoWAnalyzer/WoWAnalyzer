@@ -1,12 +1,12 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 /**
  * Smash the ground and shatter the armor of all enemies within 8 yds,
@@ -18,7 +18,7 @@ const WARBREAKER_BONUS_DAMAGES = 0.3;
 
 class Warbreaker extends Analyzer {
   get dps() {
-    return this.totalDamages / this.owner.fightDuration * 1000;
+    return (this.totalDamages / this.owner.fightDuration) * 1000;
   }
 
   static dependencies = {
@@ -48,14 +48,21 @@ class Warbreaker extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> bonus damage</>}
-        value={`${formatThousands(this.dps)} DPS`}
-        valueTooltip={(
+        title={
           <>
-            Your Warbreaker contributed {formatThousands(this.totalDamages)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).<br />
-            This accounts for the damage dealt by Warbreaker and the 30% increased damage from Colossus Smash debuff.
+            <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> bonus damage
           </>
-        )}
+        }
+        value={`${formatThousands(this.dps)} DPS`}
+        valueTooltip={
+          <>
+            Your Warbreaker contributed {formatThousands(this.totalDamages)} total damage (
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).
+            <br />
+            This accounts for the damage dealt by Warbreaker and the 30% increased damage from
+            Colossus Smash debuff.
+          </>
+        }
       />
     );
   }

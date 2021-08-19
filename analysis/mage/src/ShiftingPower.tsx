@@ -1,15 +1,15 @@
-import React from 'react';
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Channeling from 'parser/shared/modules/Channeling';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Channeling from 'parser/shared/modules/Channeling';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import { formatNumber } from 'common/format';
+import React from 'react';
 
 import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS } from './constants';
 
@@ -92,7 +92,7 @@ class ShiftingPower extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.SHIFTING_POWER}>
+        <BoringSpellValueText spellId={SPELLS.SHIFTING_POWER.id}>
           <>
             <small>Cooldown Reduction by Spell</small>
             <br />

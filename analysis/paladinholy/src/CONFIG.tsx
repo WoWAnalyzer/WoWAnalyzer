@@ -1,15 +1,17 @@
-import React from 'react';
-
-import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
+import { acornellier } from 'CONTRIBUTORS';
+import Expansion from 'game/Expansion';
+import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config from 'parser/Config';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [],
-  patchCompatibility: '9.0.2',
+  contributors: [acornellier],
+  expansion: Expansion.Shadowlands,
+  patchCompatibility: '9.0.5',
   isPartial: false,
   description: (
     <>

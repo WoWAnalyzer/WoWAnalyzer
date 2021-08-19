@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
-
-import Combatants from 'parser/shared/modules/Combatants';
-import Events, { Class, DeathEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { Class, DeathEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
 
 import Potion from './Potion';
 
@@ -20,9 +19,7 @@ class Healthstone extends Potion {
 
   protected combatants!: Combatants;
 
-  static spells = [
-    SPELLS.HEALTHSTONE,
-  ];
+  static spells = [SPELLS.HEALTHSTONE.id];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
     isDefensive: true,
@@ -38,7 +35,7 @@ class Healthstone extends Potion {
 
   get isAvailable() {
     const players = Object.values(this.combatants.players);
-    return players.some(combatant => (combatant.spec.className === Class.Warlock));
+    return players.some((combatant) => combatant.player.type === Class.Warlock);
   }
 
   onDeath(event: DeathEvent) {
@@ -46,7 +43,8 @@ class Healthstone extends Potion {
       // If the healthstone was not on cooldown, only increase maxCasts if it would have been ready again since the previous death.
       if (this.lastDeathWithHealthstoneReady) {
         const timeSince = event.timestamp - this.lastDeathWithHealthstoneReady;
-        if (timeSince < COOLDOWN_MS) { // The healthstone would not have been ready if used on previous death
+        if (timeSince < COOLDOWN_MS) {
+          // The healthstone would not have been ready if used on previous death
           return;
         }
       }
@@ -71,7 +69,6 @@ class Healthstone extends Potion {
       this.maxCasts += 1;
     }
   }
-
 }
 
 export default Healthstone;

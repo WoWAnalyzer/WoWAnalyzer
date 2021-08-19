@@ -1,12 +1,11 @@
-import React from 'react';
-import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import { SpellIcon } from 'interface';
-import BoringValue from 'parser/ui/BoringValueText';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import Mastery from '../core/Mastery';
 
@@ -25,32 +24,33 @@ class CenarionWard extends Analyzer {
 
   statistic() {
     const directHealing = this.mastery.getDirectHealing(SPELLS.CENARION_WARD_HEAL.id);
-    const directPercent = this.owner.getPercentageOfTotalHealingDone(directHealing);
-
     const masteryHealing = this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id);
-    const masteryPercent = this.owner.getPercentageOfTotalHealingDone(masteryHealing);
-
-    const totalPercent = directPercent + masteryPercent;
+    const totalHealing = directHealing + masteryHealing;
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)}
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack.
+            This is the sum of the direct healing from Cenarion Ward and the healing enabled by
+            Cenarion Ward's extra mastery stack.
             <ul>
-              <li>Direct: <strong>{formatPercentage(directPercent)}%</strong></li>
-              <li>Mastery: <strong>{formatPercentage(masteryPercent)}%</strong></li>
+              <li>
+                Direct: <strong>{this.owner.formatItemHealingDone(directHealing)}</strong>
+              </li>
+              <li>
+                Mastery: <strong>{this.owner.formatItemHealingDone(masteryHealing)}</strong>
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} /> Cenarion Ward healing</>}>
-          <>
-            {formatPercentage(totalPercent)} %
-          </>
-        </BoringValue>
+        <BoringSpellValueText spellId={SPELLS.CENARION_WARD_TALENT.id}>
+          <ItemPercentHealingDone amount={totalHealing} />
+          <br />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

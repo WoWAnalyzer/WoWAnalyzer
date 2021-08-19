@@ -1,16 +1,16 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import { BLOODSEEKER_ATTACK_SPEED_GAIN } from '@wowanalyzer/hunter-survival/src/constants';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import React from 'react';
+
 import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { BLOODSEEKER_ATTACK_SPEED_GAIN } from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Kill Command causes the target to bleed for X damage over 8 sec.
@@ -21,7 +21,6 @@ import { MS_BUFFER } from '@wowanalyzer/hunter';
  */
 
 class Bloodseeker extends Analyzer {
-
   averageStacks: number = 0;
   kcCastTimestamp: number = 0;
   damage: number = 0;
@@ -31,21 +30,31 @@ class Bloodseeker extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSEEKER_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      this.onPetDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      this.onCast,
+    );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   get averageAttackSpeedGain() {
-    this.averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) / this.owner.fightDuration;
+    this.averageStacks =
+      this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) /
+      this.owner.fightDuration;
     return this.averageStacks * BLOODSEEKER_ATTACK_SPEED_GAIN;
   }
 
   onPetDamage(event: DamageEvent) {
-    if (event.timestamp > (this.kcCastTimestamp + MS_BUFFER)) {
+    if (event.timestamp > this.kcCastTimestamp + MS_BUFFER) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }
@@ -59,14 +68,15 @@ class Bloodseeker extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of {(this.averageStacks).toFixed(2)} stacks.
+            You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of{' '}
+            {this.averageStacks.toFixed(2)} stacks.
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.BLOODSEEKER_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.BLOODSEEKER_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             {formatPercentage(this.averageAttackSpeedGain)}% <small>atk speed gain</small>
@@ -75,7 +85,6 @@ class Bloodseeker extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default Bloodseeker;

@@ -1,34 +1,25 @@
 import SPELLS from 'common/SPELLS';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
+import { EventType } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+const EVENT_ORDERS: EventOrder[] = [
+  {
+    beforeEventId: SPELLS.FLAMESTRIKE.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.HOT_STREAK.id,
+    afterEventType: EventType.RemoveBuff,
+    bufferMs: 50,
+    anyTarget: true,
+  },
+];
 
-class Flamestrike extends EventsNormalizer {
-
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
-    events.forEach((event, eventIndex) => {
-      fixedEvents.push(event);
-
-      if (event.type === EventType.Cast && event.ability.guid === SPELLS.FLAMESTRIKE.id) {
-        const castTimestamp = event.timestamp;
-
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > 50) {
-            break;
-          }
-          if (previousEvent.type === EventType.RemoveBuff && previousEvent.ability.guid === SPELLS.HOT_STREAK.id && previousEvent.sourceID === event.sourceID) {
-            fixedEvents.splice(previousEventIndex, 1);
-            fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
-            break;
-          }
-        }
-      }
-    });
-
-    return fixedEvents;
+/**
+ * Ensures the hot-streak flamestrike cast comes before the hot-streak removal
+ */
+class Flamestrike extends EventOrderNormalizer {
+  constructor(options: Options) {
+    super(options, EVENT_ORDERS);
   }
 }
 

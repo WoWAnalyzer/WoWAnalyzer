@@ -1,16 +1,16 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import React from 'react';
 
 const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
 
@@ -36,9 +36,18 @@ class Siegebreaker extends Analyzer {
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SIEGEBREAKER_TALENT), this.siegeTurnOn);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.playerCastedRecklessness);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.buffCheck);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SIEGEBREAKER_TALENT),
+      this.siegeTurnOn,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS),
+      this.playerCastedRecklessness,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS),
+      this.buffCheck,
+    );
     this.addEventListener(Events.fightend, this.buffCheck);
   }
 
@@ -52,11 +61,11 @@ class Siegebreaker extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: (this.goodRecklessness / this.recklessnessCasted),
+      actual: this.goodRecklessness / this.recklessnessCasted,
       isLessThan: {
-        minor: .9,
-        average: .8,
-        major: .7,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -96,13 +105,24 @@ class Siegebreaker extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
-      .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(t({
-      id: "warrior.fury.suggestions.siegeBreaker.efficiency",
-      message: `${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`
-    }))
-      .recommended(`${formatPercentage(recommended)}+% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and{' '}
+          <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.
+        </>,
+      )
+        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+        .actual(
+          t({
+            id: 'warrior.fury.suggestions.siegeBreaker.efficiency',
+            message: `${formatPercentage(
+              actual,
+            )}% of Recklessnesses casts without a Siegebreaker cast`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}+% is recommended`),
+    );
   }
 
   statistic() {
@@ -110,12 +130,17 @@ class Siegebreaker extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<><strong>{formatThousands(this.damage)} ({formatPercentage(this.damagePercent)}%)</strong> of your damage can be attributed to Siegebreaker's damage bonus.</>}
-      >
-        <BoringSpellValueText spell={SPELLS.SIEGEBREAKER_TALENT}>
+        tooltip={
           <>
-            {formatThousands(this.dpsValue)} DPS
+            <strong>
+              {formatThousands(this.damage)} ({formatPercentage(this.damagePercent)}%)
+            </strong>{' '}
+            of your damage can be attributed to Siegebreaker's damage bonus.
           </>
+        }
+      >
+        <BoringSpellValueText spellId={SPELLS.SIEGEBREAKER_TALENT.id}>
+          <>{formatThousands(this.dpsValue)} DPS</>
         </BoringSpellValueText>
       </Statistic>
     );

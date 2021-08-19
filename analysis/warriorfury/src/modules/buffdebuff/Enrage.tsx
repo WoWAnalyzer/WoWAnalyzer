@@ -1,18 +1,16 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Events, { DamageEvent } from 'parser/core/Events';
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { t } from '@lingui/macro';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import React from 'react';
 
 class Enrage extends Analyzer {
   static dependencies = {
@@ -60,23 +58,39 @@ class Enrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.
+        </>,
+      )
         .icon(SPELLS.ENRAGE.icon)
-        .actual(t({
-      id: "warrior.fury.suggestions.enrage.uptime",
-      message: `${formatPercentage(actual)}% Enrage uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warrior.fury.suggestions.enrage.uptime',
+            message: `${formatPercentage(actual)}% Enrage uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        tooltip={<>You did <strong>{formatThousands(this.damage)} ({formatPercentage(this.damageTotalPercent)}%)</strong> damage while enraged, contributing <strong>{formatNumber(this.dpsIncrease)}</strong> DPS.</>}
+        tooltip={
+          <>
+            You did{' '}
+            <strong>
+              {formatThousands(this.damage)} ({formatPercentage(this.damageTotalPercent)}%)
+            </strong>{' '}
+            damage while enraged, contributing <strong>{formatNumber(this.dpsIncrease)}</strong>{' '}
+            DPS.
+          </>
+        }
       >
-        <BoringSpellValueText spell={SPELLS.ENRAGE}>
+        <BoringSpellValueText spellId={SPELLS.ENRAGE.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

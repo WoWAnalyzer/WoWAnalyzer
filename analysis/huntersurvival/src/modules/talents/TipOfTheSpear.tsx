@@ -1,16 +1,20 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { RAPTOR_MONGOOSE_VARIANTS, TIP_DAMAGE_INCREASE, TIP_MAX_STACKS } from '@wowanalyzer/hunter-survival/src/constants';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events';
+import React from 'react';
+
 import { MS_BUFFER } from '@wowanalyzer/hunter';
+import {
+  RAPTOR_MONGOOSE_VARIANTS,
+  TIP_DAMAGE_INCREASE,
+  TIP_MAX_STACKS,
+} from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
@@ -32,10 +36,22 @@ class TipOfTheSpear extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onKillCommandCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onSpenderCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onDamage);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TIP_OF_THE_SPEAR_CAST), this.onChangeBuffStack);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      this.onKillCommandCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS),
+      this.onSpenderCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TIP_OF_THE_SPEAR_CAST),
+      this.onChangeBuffStack,
+    );
   }
 
   onSpenderCast() {
@@ -43,7 +59,10 @@ class TipOfTheSpear extends Analyzer {
   }
 
   onKillCommandCast(event: CastEvent) {
-    if (this.stacks === TIP_MAX_STACKS && event.timestamp > this.lastApplicationTimestamp + MS_BUFFER) {
+    if (
+      this.stacks === TIP_MAX_STACKS &&
+      event.timestamp > this.lastApplicationTimestamp + MS_BUFFER
+    ) {
       this.wastedStacks += 1;
     }
   }
@@ -67,10 +86,11 @@ class TipOfTheSpear extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.TIP_OF_THE_SPEAR_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <small>Used</small> {this.usedStacks}/{this.usedStacks + this.wastedStacks} <small>possible stacks</small>
+            <small>Used</small> {this.usedStacks}/{this.usedStacks + this.wastedStacks}{' '}
+            <small>possible stacks</small>
           </>
         </BoringSpellValueText>
       </Statistic>

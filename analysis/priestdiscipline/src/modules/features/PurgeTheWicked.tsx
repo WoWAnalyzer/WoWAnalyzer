@@ -1,34 +1,40 @@
-import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { SuggestionFactory, When } from 'parser/core/ParseResults';
+import Events, {
+  ApplyDebuffEvent,
+  CastEvent,
+  DamageEvent,
+  RefreshDebuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-
-import { t } from '@lingui/macro';
+import { SuggestionFactory, When } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 class PurgeTheWicked extends Analyzer {
+  protected enemies!: Enemies;
+  protected abilityTracker!: AbilityTracker;
+
   static dependencies = {
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
+
+  ptwCleaveDamage = 0;
   dotSpell: any;
   ptwCasts = 0;
   ptwApplications = 0;
   lastCastTarget: number = 0;
   ptwCleaveTracker: any = {};
-  ptwCleaveDamage = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(10);
-  protected enemies!: Enemies;
-  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
@@ -38,11 +44,26 @@ class PurgeTheWicked extends Analyzer {
       this.dotSpell = SPELLS.SHADOW_WORD_PAIN;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]), this.onDotCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotApply);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotApply);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotRemove);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]),
+      this.onDotCast,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      this.onDotApply,
+    );
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      this.onDotApply,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      this.onDotRemove,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      this.onDotDamage,
+    );
   }
 
   get uptime() {
@@ -69,7 +90,7 @@ class PurgeTheWicked extends Analyzer {
   }
 
   onDotRemove(event: RemoveDebuffEvent) {
-    delete (this.ptwCleaveTracker[event.targetID]);
+    delete this.ptwCleaveTracker[event.targetID];
   }
 
   onDotDamage(event: DamageEvent) {
@@ -81,15 +102,25 @@ class PurgeTheWicked extends Analyzer {
   suggestions(when: When) {
     const uptime = this.uptime || 0;
 
-    when(uptime).isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
-      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
-        .icon(this.dotSpell.icon)
-        .actual(t({
-      id: "priest.discipline.suggestions.purgeTheWicked.uptime",
-      message: `${formatPercentage(uptime)}% uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
-        .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major));
+    when(uptime)
+      .isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
+      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) =>
+        suggest(
+          <span>
+            Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.
+          </span>,
+        )
+          .icon(this.dotSpell.icon)
+          .actual(
+            t({
+              id: 'priest.discipline.suggestions.purgeTheWicked.uptime',
+              message: `${formatPercentage(uptime)}% uptime`,
+            }),
+          )
+          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
+          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular)
+          .major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major),
+      );
   }
 
   statistic() {
@@ -99,13 +130,16 @@ class PurgeTheWicked extends Analyzer {
       return (
         <StatisticBox
           icon={<SpellIcon id={this.dotSpell.id} />}
-          value={(
+          value={
             <>
               {formatPercentage(uptime)}% Uptime <br />
-              {this.extraPTWs} Extra DOTs<br />
+              {this.extraPTWs} Extra DOTs
+              <br />
             </>
-          )}
-          tooltip={`The additional dots contributed ${formatThousands(this.ptwCleaveDamage)} damage.`}
+          }
+          tooltip={`The additional dots contributed ${formatThousands(
+            this.ptwCleaveDamage,
+          )} damage.`}
           label={`${this.dotSpell.name}`}
         />
       );
@@ -118,9 +152,7 @@ class PurgeTheWicked extends Analyzer {
         />
       );
     }
-
   }
-
 }
 
 export default PurgeTheWicked;

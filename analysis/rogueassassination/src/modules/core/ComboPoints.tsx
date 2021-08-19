@@ -1,12 +1,11 @@
-import React from 'react';
-
-import { ComboPointTracker } from '@wowanalyzer/rogue'
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
-
+import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
+import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
+import React from 'react';
+
+import { ComboPointTracker } from '@wowanalyzer/rogue';
 
 class ComboPoints extends Analyzer {
   static dependencies = {

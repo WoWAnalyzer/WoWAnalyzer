@@ -1,36 +1,31 @@
-import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter'
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import FuryTracker from './modules/fury/FuryTracker';
-import FuryDetails from './modules/fury/FuryDetails';
+import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
 
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
-
-import Checklist from './modules/features/Checklist/Module';
-
-import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
-import SoulsOvercap from './modules/statistics/SoulsOvercap';
-
-import SpiritBombFrailtyDebuff from './modules/talents/SpiritBombFrailtyDebuff';
-import SoulBarrier from './modules/talents/SoulBarrier';
-import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
-import VoidReaverDebuff from './modules/talents/VoidReaverDebuff';
-import FeedTheDemon from './modules/talents/FeedTheDemon';
-import BurningAlive from './modules/talents/BurningAlive';
-import FeastOfSouls from './modules/talents/FeastOfSouls';
-import AgonizingFlames from './modules/talents/AgonizingFlames';
-import ShearFracture from './modules/spells/ShearFracture';
-
-import ImmolationAura from './modules/spells/ImmolationAura';
+import FuryDetails from './modules/fury/FuryDetails';
+import FuryTracker from './modules/fury/FuryTracker';
 import DemonSpikes from './modules/spells/DemonSpikes';
+import ImmolationAura from './modules/spells/ImmolationAura';
+import InfernalStrike from './modules/spells/InfernalStrike';
+import ShearFracture from './modules/spells/ShearFracture';
 import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
-import InfernalStrike from './modules/spells/InfernalStrike';
+import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
+import SoulsOvercap from './modules/statistics/SoulsOvercap';
+import AgonizingFlames from './modules/talents/AgonizingFlames';
+import BurningAlive from './modules/talents/BurningAlive';
+import FeastOfSouls from './modules/talents/FeastOfSouls';
+import FeedTheDemon from './modules/talents/FeedTheDemon';
+import SoulBarrier from './modules/talents/SoulBarrier';
+import SpiritBombFrailtyDebuff from './modules/talents/SpiritBombFrailtyDebuff';
+import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
+import VoidReaverDebuff from './modules/talents/VoidReaverDebuff';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -74,6 +69,9 @@ class CombatLogParser extends CoreCombatLogParser {
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
     elysianDecree: ElysianDecree,
+
+    // Conduits
+    felDefender: FelDefender,
   };
 }
 

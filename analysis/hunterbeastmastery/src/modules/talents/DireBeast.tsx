@@ -1,15 +1,16 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Haste from 'interface/icons/Haste';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Haste from 'interface/icons/Haste';
-import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
+import React from 'react';
+
 import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 
 /**
@@ -22,7 +23,6 @@ import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
  */
 
 class DireBeast extends Analyzer {
-
   damage = 0;
   activeDireBeasts: string[] = [];
   targetId = '';
@@ -31,11 +31,16 @@ class DireBeast extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON), this.onDireSummon);
+    this.addEventListener(
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      this.onDireSummon,
+    );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -60,11 +65,12 @@ class DireBeast extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
       >
-        <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DIRE_BEAST_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
-            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste<br />
+            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

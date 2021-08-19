@@ -1,13 +1,12 @@
-import React from 'react';
-
-import { Icon } from 'interface';
+import { t } from '@lingui/macro';
+import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { formatDuration, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import { t } from '@lingui/macro';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import SpellEnergyCost from './SpellEnergyCost';
 
@@ -26,7 +25,7 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  */
 class EnergyCapTracker extends RegenResourceCapTracker {
   get wastedPercent() {
-    return (this.missedRegen / this.naturalRegen) || 0;
+    return this.missedRegen / this.naturalRegen || 0;
   }
 
   get suggestionThresholds() {
@@ -71,17 +70,23 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
-      </>,
-    )
-      .icon('spell_shadow_shadowworddominate')
-      .actual(t({
-      id: "rogue.shared.suggestions.energy.capped",
-      message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`
-    }))
-      .recommended(`<${recommended} is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You're allowing your energy to reach its cap. While at its maximum value you miss out on
+          the energy that would have regenerated. Although it can be beneficial to let energy pool
+          ready to be used at the right time, try to spend some before it reaches the cap.
+        </>,
+      )
+        .icon('spell_shadow_shadowworddominate')
+        .actual(
+          t({
+            id: 'rogue.shared.suggestions.energy.capped',
+            message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`,
+          }),
+        )
+        .recommended(`<${recommended} is recommended.`),
+    );
   }
 
   statistic() {
@@ -91,15 +96,23 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Wasted energy from being capped"
-        tooltip={(
+        tooltip={
           <>
-            Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br />
-            You spent <strong>{formatPercentage(this.cappedProportion)}%</strong> of the fight at capped energy, causing you to miss out on a total of <strong>{this.missedRegen.toFixed(0)}</strong> energy from regeneration.
+            Although it can be beneficial to wait and let your energy pool ready to be used at the
+            right time, you should still avoid letting it reach the cap.
+            <br />
+            You spent <strong>{formatPercentage(this.cappedProportion)}%</strong> of the fight at
+            capped energy, causing you to miss out on a total of{' '}
+            <strong>{this.missedRegen.toFixed(0)}</strong> energy from regeneration.
           </>
-        )}
-        footer={(
+        }
+        footer={
           <div className="statistic-box-bar">
-            <Tooltip content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}>
+            <Tooltip
+              content={`Not at capped energy for ${formatDuration(
+                this.owner.fightDuration - this.atCap,
+              )}`}
+            >
               <div
                 className="stat-healing-bg"
                 style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
@@ -108,13 +121,13 @@ class EnergyCapTracker extends RegenResourceCapTracker {
               </div>
             </Tooltip>
 
-            <Tooltip content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}>
+            <Tooltip content={`At capped energy for ${formatDuration(this.atCap)}`}>
               <div className="remainder DeathKnight-bg">
                 <img src="/img/overhealing.png" alt="Capped Energy" />
               </div>
             </Tooltip>
           </div>
-        )}
+        }
       />
     );
   }

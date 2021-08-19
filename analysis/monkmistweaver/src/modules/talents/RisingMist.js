@@ -1,16 +1,17 @@
-import React from 'react';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HotTracker from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Statistic from 'parser/ui/Statistic';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellIcon } from 'interface';
+import React from 'react';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -18,20 +19,22 @@ const debug = false;
 
 const RISING_MIST_EXTENSION = 4000;
 
-const UNAFFECTED_SPELLS = [
-  SPELLS.ENVELOPING_MIST.id,
-];
+const UNAFFECTED_SPELLS = [SPELLS.ENVELOPING_MIST.id];
 
 class RisingMist extends Analyzer {
   get averageExtension() {
-    return this.risingMistCount === 0 ? 0 : (this.risingMists.reduce((acc, risingMist) => acc + risingMist.duration, 0) / this.risingMistCount) / 1000;
+    return this.risingMistCount === 0
+      ? 0
+      : this.risingMists.reduce((acc, risingMist) => acc + risingMist.totalExtension, 0) /
+          this.risingMistCount /
+          1000;
   }
 
   get hotHealing() {
     const array = this.hotTracker.hotHistory;
     let value = 0;
     for (let i = 0; i < array.length; i += 1) {
-      value += (array[i].healingAfterOriginalEnd || 0);
+      value += array[i].healingAfterOriginalEnd || 0;
     }
     return value;
   }
@@ -41,7 +44,13 @@ class RisingMist extends Analyzer {
   }
 
   get totalHealing() {
-    return this.hotHealing + this.directHealing + this.extraMasteryhealing + this.extraVivHealing + this.extraEnvBonusHealing;
+    return (
+      this.hotHealing +
+      this.directHealing +
+      this.extraMasteryhealing +
+      this.extraVivHealing +
+      this.extraEnvBonusHealing
+    );
   }
 
   get averageHealing() {
@@ -53,15 +62,21 @@ class RisingMist extends Analyzer {
   }
 
   get calculateVivOverHealing() {
-    return formatPercentage(this.extraVivOverhealing / (this.extraVivHealing + this.extraVivOverhealing));
+    return formatPercentage(
+      this.extraVivOverhealing / (this.extraVivHealing + this.extraVivOverhealing),
+    );
   }
 
   get calculateMasteryOverHealing() {
-    return formatPercentage(this.extraMasteryOverhealing / (this.extraMasteryhealing + this.extraMasteryOverhealing));
+    return formatPercentage(
+      this.extraMasteryOverhealing / (this.extraMasteryhealing + this.extraMasteryOverhealing),
+    );
   }
 
   get calculateEFOverHealing() {
-    return formatPercentage(this.extraEFOverhealing / (this.extraEFhealing + this.extraEFOverhealing));
+    return formatPercentage(
+      this.extraEFOverhealing / (this.extraEFhealing + this.extraEFOverhealing),
+    );
   }
 
   static dependencies = {
@@ -95,19 +110,30 @@ class RisingMist extends Analyzer {
   constructor(...options) {
     super(...options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id)
+      ? 0.4
+      : 0.3;
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK), this.extendHots);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
+      this.extendHots,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEvn);//gotta just look at all heals tbh
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleMastery);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEvn); //gotta just look at all heals tbh
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      this.handleMastery,
+    );
   }
 
   handleMastery(event) {
     const targetId = event.targetID;
-    if (!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]) {
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+    ) {
       return;
     }
 
@@ -127,7 +153,10 @@ class RisingMist extends Analyzer {
   calculateEvn(event) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
-    if (!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST.id]) {
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST.id]
+    ) {
       return;
     }
     const object = this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST.id];
@@ -140,12 +169,14 @@ class RisingMist extends Analyzer {
       this.extraEnvHits += 1;
       this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.evmHealingIncrease);
     }
-
   }
 
   handleVivify(event) {
     const targetId = event.targetID;
-    if (!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]) {
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
@@ -166,23 +197,24 @@ class RisingMist extends Analyzer {
     this.risingMistCount += 1;
     debug && console.log(`risingMist cast #: ${this.risingMistCount}`);
 
-    const newRisingMist = {
-      name: `RisingMist #${this.risingMistCount}`,
-      healing: 0,
-      procs: 0,
-      duration: 0,
-    };
+    const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
     this.risingMists.push(newRisingMist);
 
     let foundEf = false;
     let foundTarget = false;
 
-    Object.keys(this.hotTracker.hots).forEach(playerId => {
-      Object.keys(this.hotTracker.hots[playerId]).forEach(spellIdString => {
+    Object.keys(this.hotTracker.hots).forEach((playerId) => {
+      Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
-        this.hotTracker.addExtension(attribution, RISING_MIST_EXTENSION, playerId, spellId, event.timestamp);
+        this.hotTracker.addExtension(
+          attribution,
+          RISING_MIST_EXTENSION,
+          playerId,
+          spellId,
+          event.timestamp,
+        );
 
         if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
           foundEf = true;
@@ -212,7 +244,7 @@ class RisingMist extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
             Your {this.risingMistCount} Rising Sun Kick casts contributed the following healing:
             <ul>
@@ -227,7 +259,10 @@ class RisingMist extends Analyzer {
               Vivify
               <ul>
                 <li>Extra Cleaves: {this.extraVivCleaves}</li>
-                <li>Extra Healing: {formatNumber(this.extraVivHealing)} ({this.calculateVivOverHealing}% Overhealing)</li>
+                <li>
+                  Extra Healing: {formatNumber(this.extraVivHealing)} (
+                  {this.calculateVivOverHealing}% Overhealing)
+                </li>
               </ul>
               Enveloping Mist
               <ul>
@@ -237,17 +272,25 @@ class RisingMist extends Analyzer {
               Mastery
               <ul>
                 <li>Extra Hits: {this.extraMasteryHits}</li>
-                <li>Extra Healing: {formatNumber(this.extraMasteryhealing)} ({this.calculateMasteryOverHealing}% Overhealing)</li>
+                <li>
+                  Extra Healing: {formatNumber(this.extraMasteryhealing)} (
+                  {this.calculateMasteryOverHealing}% Overhealing)
+                </li>
               </ul>
             </ul>
           </>
-        )}
+        }
       >
         <BoringValueText
-          label={<><SpellIcon id={SPELLS.RISING_MIST_TALENT.id} /> Healing Contributed</>}
+          label={
+            <>
+              <SpellIcon id={SPELLS.RISING_MIST_TALENT.id} /> Healing Contributed
+            </>
+          }
         >
           <>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total healing
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total
+            healing
           </>
         </BoringValueText>
       </Statistic>

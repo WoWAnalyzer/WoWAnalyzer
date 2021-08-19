@@ -1,24 +1,27 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import Combatants from 'parser/shared/modules/Combatants';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import SPELLS from 'common/SPELLS';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
 import PRIEST_TALENTS from 'common/SPELLS/talents/priest';
+import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
+import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import isAtonement from '../core/isAtonement';
+import { SpiritShellEvent } from '../core/SpiritShell';
 
 // Use the priest spell list to whitelist abilities
 const PRIEST_WHITELIST: number[] = Object.values({
   ...PRIEST_SPELLS,
   ...PRIEST_TALENTS,
-}).map(ability => ability.id);
+})
+  .concat([SPELLS.MINDGAMES, SPELLS.MINDGAMES_HEAL, SPELLS.MINDGAMES_ABSORB])
+  .map((ability) => ability.id);
 
 class Grace extends Analyzer {
   static dependencies = {
@@ -26,9 +29,9 @@ class Grace extends Analyzer {
     statTracker: StatTracker,
   };
   applyAbsorbEvents: Array<{
-    applyBuffEvent: ApplyBuffEvent,
-    masteryBuffed: boolean,
-    eventsAssociated: ApplyBuffEvent[],
+    applyBuffEvent: ApplyBuffEvent;
+    masteryBuffed: boolean;
+    eventsAssociated: ApplyBuffEvent[];
   }> = [];
   graceHealing = 0;
   graceHealingToAtonement = 0;
@@ -36,7 +39,6 @@ class Grace extends Analyzer {
   healingUnbuffedByMastery = 0;
   healingBuffedByMastery = 0;
   atonement = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(3);
   private combatants!: Combatants;
   private statTracker!: StatTracker;
 
@@ -45,19 +47,21 @@ class Grace extends Analyzer {
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
   }
 
-  getGraceHealing(event: HealEvent | AbsorbedEvent) {
+  getGraceHealing(event: HealEvent | AbsorbedEvent | SpiritShellEvent) {
     const currentMastery = this.statTracker.currentMasteryPercentage;
-    const masteryContribution = calculateEffectiveHealing(
-      event,
-      currentMastery,
-    );
+    const masteryContribution = calculateEffectiveHealing(event, currentMastery);
     return masteryContribution;
   }
 
   onAbsorb(event: AbsorbedEvent) {
     const spellId = event.ability.guid;
+
+    if (event.ability.guid === SPELLS.SPIRIT_SHELL_TALENT_BUFF.id) {
+      return;
+    }
 
     if (!PRIEST_WHITELIST.includes(spellId)) {
       this.healingUnaffectedByMastery += event.amount;
@@ -81,7 +85,9 @@ class Grace extends Analyzer {
     const findRight = (arr: any, fn: any) => [...arr].reverse().find(fn);
     const applyEvent = findRight(
       this.applyAbsorbEvents,
-      (x: any) => x.applyBuffEvent.targetID === event.targetID && x.applyBuffEvent.ability.guid === event.ability.guid,
+      (x: any) =>
+        x.applyBuffEvent.targetID === event.targetID &&
+        x.applyBuffEvent.ability.guid === event.ability.guid,
     );
     return applyEvent ? applyEvent.masteryBuffed : false;
   }
@@ -103,10 +109,13 @@ class Grace extends Analyzer {
       masteryBuffed: target.hasBuff(SPELLS.ATONEMENT_BUFF.id),
       eventsAssociated: [],
     });
-
   }
 
   onHeal(event: HealEvent) {
+    if (isAtonement(event)) {
+      return;
+    } // Now handled by AtonementAnalyzer listener
+
     const spellId = event.ability.guid;
 
     if (!PRIEST_WHITELIST.includes(spellId)) {
@@ -124,47 +133,76 @@ class Grace extends Analyzer {
       return;
     }
 
-    if (isAtonement(event)) {
-      this.atonement += event.amount;
-      this.graceHealingToAtonement += this.getGraceHealing(event);
-    }
     this.healingBuffedByMastery += event.amount;
     this.graceHealing += this.getGraceHealing(event);
   }
 
+  onAtone(event: AtonementAnalyzerEvent) {
+    const { healEvent } = event;
+
+    this.atonement += healEvent.amount;
+    this.graceHealingToAtonement += this.getGraceHealing(healEvent);
+    this.healingBuffedByMastery += healEvent.amount;
+    this.graceHealing += this.getGraceHealing(healEvent);
+  }
+
   statistic() {
     const graceHealingPerc = this.owner.getPercentageOfTotalHealingDone(this.graceHealing);
-    const healingUnaffectedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingUnaffectedByMastery);
-    const healingUnbuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingUnbuffedByMastery);
-    const healingBuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(this.healingBuffedByMastery - this.graceHealing);
-    const atonementPerc = this.owner.getPercentageOfTotalHealingDone(this.atonement - this.graceHealingToAtonement);
-    const nonAtonementPerc = this.owner.getPercentageOfTotalHealingDone((this.healingBuffedByMastery - this.graceHealing) - (this.atonement - this.graceHealingToAtonement));
+    const healingUnaffectedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.healingUnaffectedByMastery,
+    );
+    const healingUnbuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.healingUnbuffedByMastery,
+    );
+    const healingBuffedByMasteryPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.healingBuffedByMastery - this.graceHealing,
+    );
+    const atonementPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.atonement - this.graceHealingToAtonement,
+    );
+    const nonAtonementPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.healingBuffedByMastery -
+        this.graceHealing -
+        (this.atonement - this.graceHealingToAtonement),
+    );
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRACE.id} />}
-        value={`${formatNumber(
-          this.graceHealing / this.owner.fightDuration * 1000,
-        )} HPS`}
+        value={`${formatNumber((this.graceHealing / this.owner.fightDuration) * 1000)} HPS`}
         label="Mastery Healing"
-        tooltip={(
+        tooltip={
           <>
             Your mastery provided <strong>{formatPercentage(graceHealingPerc)}%</strong> healing
             <ul>
-              <li><strong>{formatPercentage(healingBuffedByMasteryPerc)}%</strong> of your healing was buffed by mastery
+              <li>
+                <strong>{formatPercentage(healingBuffedByMasteryPerc)}%</strong> of your healing was
+                buffed by mastery
                 <ul>
-                  <li>Atonement: <strong>{formatPercentage(atonementPerc)}%</strong></li>
-                  <li>Non-Atonement: <strong>{formatPercentage(nonAtonementPerc)}%</strong></li>
+                  <li>
+                    Atonement: <strong>{formatPercentage(atonementPerc)}%</strong>
+                  </li>
+                  <li>
+                    Non-Atonement: <strong>{formatPercentage(nonAtonementPerc)}%</strong>
+                  </li>
                 </ul>
               </li>
-              <li><strong>{formatPercentage(healingUnbuffedByMasteryPerc)}%</strong> of your healing was spells unbuffed by mastery</li>
-              <li><strong>{formatPercentage(healingUnaffectedByMasteryPerc)}%</strong> of your healing was spells unaffected by mastery</li>
+              <li>
+                <strong>{formatPercentage(healingUnbuffedByMasteryPerc)}%</strong> of your healing
+                was spells unbuffed by mastery
+              </li>
+              <li>
+                <strong>{formatPercentage(healingUnaffectedByMasteryPerc)}%</strong> of your healing
+                was spells unaffected by mastery
+              </li>
             </ul>
             <br />
-            <strong>Unbuffed</strong> healing is healing done to targets without atonement with spells that can benefit from mastery. <br />
-            <strong>Unaffected</strong> healing is healing done with spells that can't benefit from mastery (Trinkets, procs, etc...)
+            <strong>Unbuffed</strong> healing is healing done to targets without atonement with
+            spells that can benefit from mastery. <br />
+            <strong>Unaffected</strong> healing is healing done with spells that can't benefit from
+            mastery (Trinkets, procs, etc...)
           </>
-        )}
+        }
       />
     );
   }

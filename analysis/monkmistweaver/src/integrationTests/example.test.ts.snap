@@ -436,8 +436,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               74
               /77
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -534,8 +533,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               2
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -678,8 +676,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               19
               /24
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -776,8 +773,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               2
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -879,8 +875,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               13
               /23
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -982,8 +977,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               1
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1085,8 +1079,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1183,8 +1176,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1286,8 +1278,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1447,8 +1438,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               2
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1545,8 +1535,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               2
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1701,8 +1690,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               2
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1787,8 +1775,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               88
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1873,8 +1860,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               31
               /57
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1971,8 +1957,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2115,8 +2100,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               /85
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2213,8 +2197,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               1
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2311,8 +2294,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               4
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2409,8 +2391,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2507,8 +2488,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               14
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2605,8 +2585,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               2
               /23
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2703,8 +2682,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               1
               /68
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2801,8 +2779,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               1
               /28
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2957,8 +2934,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               17
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3043,8 +3019,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               12
               /312
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3141,8 +3116,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               20
               /83
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3239,8 +3213,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3325,8 +3298,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3425,6 +3397,103 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
@@ -3469,8 +3538,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3567,8 +3635,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4353,7 +4420,9 @@ Array [
       <ForwardRef
         id={124682}
       />
-       during your Celestial cooldowns to apply the maximum number of 
+       
+      during your Celestial cooldowns to apply the maximum number of
+       
       <ForwardRef
         id={325209}
       />
@@ -4752,11 +4821,13 @@ Array [
       <ForwardRef
         id={191837}
       />
-       HOT buffs effectively. Casting into injured targets with the 
+       HOT buffs effectively. Casting into injured targets with the
+       
       <ForwardRef
         id={191837}
       />
-       allows you to take advantage of the double 
+       allows you to take advantage of the double
+       
       <ForwardRef
         id={191894}
       />
@@ -5057,7 +5128,8 @@ Array [
       <ForwardRef
         id={197908}
       />
-       usage. Consider using 
+       
+      usage. Consider using 
       <ForwardRef
         id={197908}
       />
@@ -5551,7 +5623,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Essence Font
       </a>
-       the second gust would not have happened. 
+       
+      the second gust would not have happened. 
       <br />
        
       <a
@@ -5568,7 +5641,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Renewing Mist
       </a>
-       is given the splash healing of 
+       is given the splash healing of
+       
       <a
         className="spell-link-text"
         href="http://wowhead.com/spell=116670"
@@ -5598,7 +5672,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Renewing Mist
       </a>
-      , 
+      ,
+       
       <a
         className="spell-link-text"
         href="http://wowhead.com/spell=116670"
@@ -5630,7 +5705,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Enveloping Mist
       </a>
-       is given the healing of 
+       is given the healing of
+       
       <a
         className="spell-link-text"
         href="http://wowhead.com/spell=325209"
@@ -5645,7 +5721,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Enveloping Breath
       </a>
-       since without casting 
+       since without casting
+       
       <a
         className="spell-link-text"
         href="http://wowhead.com/spell=124682"
@@ -5660,7 +5737,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
          
         Enveloping Mist
       </a>
-      , 
+      ,
+       
       <a
         className="spell-link-text"
         href="http://wowhead.com/spell=325209"
@@ -5683,6 +5761,11 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
   >
     <div
       className="pad"
+      style={
+        Object {
+          "paddingTop": 10,
+        }
+      }
     >
       <div
         className="pull-left"
@@ -5929,7 +6012,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             6,561
-             (1.63%)
+             (1.75%)
           </td>
           <td
             className="text-right"
@@ -5957,7 +6040,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            2080000
+            2.08m
           </td>
           <td
             width="20%"
@@ -5969,9 +6052,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#4ec04e",
+                    "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "100%",
+                    "width": "0%",
                   }
                 }
               />
@@ -5997,7 +6080,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             1,200
-             (0.30%)
+             (0.32%)
           </td>
           <td
             className="text-right"
@@ -6025,7 +6108,75 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            0
+            Infinitym
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "NaN%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=115151"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_renewingmists.jpg"
+              />
+               
+              Renewing Mist
+            </a>
+          </td>
+          <td>
+            67k
+             (17.76%)
+          </td>
+          <td
+            className="text-right"
+          >
+            233.17
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "24.058393700402668%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            206k
           </td>
           <td
             width="20%"
@@ -6065,7 +6216,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             112k
-             (27.69%)
+             (29.76%)
           </td>
           <td
             className="text-right"
@@ -6093,52 +6244,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            802000
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#df7102",
-                    "transition": "background-color 800ms",
-                    "width": "38.55769230769231%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=115151"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_renewingmists.jpg"
-              />
-               
-              Renewing Mist
-            </a>
-          </td>
-          <td>
-            81k
-             (20.20%)
-          </td>
-          <td
-            className="text-right"
-          >
-            190.78
+            803k
           </td>
           <td
             width="20%"
@@ -6152,30 +6258,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "19.684140300329453%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            205000
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "9.85576923076923%",
+                    "width": "0%",
                   }
                 }
               />
@@ -6201,7 +6284,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             2,400
-             (0.60%)
+             (0.64%)
           </td>
           <td
             className="text-right"
@@ -6229,7 +6312,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            293000
+            293k
           </td>
           <td
             width="20%"
@@ -6243,7 +6326,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "14.086538461538462%",
+                    "width": "0%",
                   }
                 }
               />
@@ -6269,7 +6352,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             6,000
-             (1.49%)
+             (1.60%)
           </td>
           <td
             className="text-right"
@@ -6297,7 +6380,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            336000
+            337k
           </td>
           <td
             width="20%"
@@ -6311,7 +6394,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "16.153846153846153%",
+                    "width": "0%",
                   }
                 }
               />
@@ -6336,13 +6419,13 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
             </a>
           </td>
           <td>
-            180k
-             (44.76%)
+            167k
+             (44.58%)
           </td>
           <td
             className="text-right"
           >
-            34.10
+            36.79
           </td>
           <td
             width="20%"
@@ -6356,7 +6439,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "3.518124579865698%",
+                    "width": "3.7958712572235163%",
                   }
                 }
               />
@@ -6365,7 +6448,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            60000
+            61k
           </td>
           <td
             width="20%"
@@ -6379,7 +6462,143 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "2.8846153846153846%",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=100780"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
+              />
+               
+              Tiger Palm
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=100784"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_roundhousekick.jpg"
+              />
+               
+              Blackout Kick
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
                   }
                 }
               />
@@ -6405,7 +6624,75 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             500
-             (0.12%)
+             (0.13%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=101643"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/monk_ability_transcendence.jpg"
+              />
+               
+              Transcendence
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
           </td>
           <td
             className="text-right"
@@ -6473,7 +6760,687 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           </td>
           <td>
             15k
-             (3.72%)
+             (4.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=109132"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_roll.jpg"
+              />
+               
+              Roll
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=115078"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_paralysis.jpg"
+              />
+               
+              Paralysis
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=116680"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_thunderfocustea.jpg"
+              />
+               
+              Thunder Focus Tea
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=116841"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerslust.jpg"
+              />
+               
+              Tiger's Lust
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=116844"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_ringofpeace.jpg"
+              />
+               
+              Ring of Peace
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=119996"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_spectraltransformation.jpg"
+              />
+               
+              Transcendence: Transfer
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=122783"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_diffusemagic.jpg"
+              />
+               
+              Diffuse Magic
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=123986"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_arcanetorrent.jpg"
+              />
+               
+              Chi Burst
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=197908"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
+              />
+               
+              Mana Tea
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=243435"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_fortifyingelixir.jpg"
+              />
+               
+              Fortifying Brew
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
           </td>
           <td
             className="text-right"
@@ -6619,7 +7586,8 @@ Array [
       <ForwardRef
         id={115175}
       />
-       without casting spells during it. Replace this channel time with damage abilities like 
+       without casting spells during it. Replace this channel time with damage abilities like
+       
       <ForwardRef
         id={107428}
       />
@@ -7777,11 +8745,13 @@ Array [
       <ForwardRef
         id={116680}
       />
-       to buff spells other than 
+       to buff spells other than
+       
       <ForwardRef
         id={116670}
       />
-       or 
+       
+      or 
       <ForwardRef
         id={115151}
       />
@@ -8139,7 +9109,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            As a Mistweaver you only have a single rotational spell that should be cast on CD 
+            As a Mistweaver you only have a single rotational spell that should be cast on CD
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=115151"
@@ -8154,7 +9125,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                
               Renewing Mist
             </a>
-            . The other piece is ensuring you have enough 
+            . The other piece is ensuring you have enough
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=115151"
@@ -8169,7 +9141,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                
               Renewing Mist
             </a>
-            's on the raid so that you maximize the cleave healing from 
+            's on the raid so that you maximize the cleave healing from
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=116670"
@@ -8607,7 +9580,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                    
                   Renewing Mist
                 </a>
-                 active during 
+                 active during
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
@@ -8987,7 +9961,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                    
                   Enveloping Breath
                 </a>
-                 applied per 
+                 applied per
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
@@ -9170,7 +10145,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                
               Essence Font
             </a>
-             and other spells such as 
+             and other spells such as
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=196725"
@@ -10045,7 +11021,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and 
+            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and
+             
             <dfn
               className=""
               onMouseEnter={[Function]}

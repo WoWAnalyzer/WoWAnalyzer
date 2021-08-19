@@ -1,3 +1,6 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   ComboPointDetails,
   ComboPointTracker,
@@ -10,50 +13,35 @@ import {
   Flagellation,
   InvigoratingShadowdust,
   Sepsis,
+  StealthAbilityFollowingSepsis,
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
 } from '@wowanalyzer/rogue';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
 import Abilities from './modules/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/features/Checklist/Module';
-
-//Normalizers
-import GarroteNormalizer from './normalizers/GarroteNormalizer';
-import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer';
-
 import ComboPoints from './modules/core/ComboPoints';
 import Energy from './modules/core/Energy';
-
-//Spells
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
+import GarroteSnapshot from './modules/features/GarroteSnapshot';
+import RuptureSnapshot from './modules/features/RuptureSnapshot';
+import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
 import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
 import RuptureUptime from './modules/spells/RuptureUptime';
-import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
-
-import GarroteSnapshot from './modules/features/GarroteSnapshot';
-import RuptureSnapshot from './modules/features/RuptureSnapshot';
-import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
-
-//Talents
+import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
+import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
+import MasterAssassin from './modules/talents/MasterAssassin';
 import MasterPoisoner from './modules/talents/MasterPoisoner';
 import Nightstalker from './modules/talents/Nightstalker';
 import Subterfuge from './modules/talents/Subterfuge';
-import MasterAssassin from './modules/talents/MasterAssassin';
-
-// Covenants
-
-// Legendaries
-import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
-import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
+import GarroteNormalizer from './normalizers/GarroteNormalizer';
+import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -106,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
     sepsis: Sepsis,
+    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
 
     // Legendaries
     dashingScoundrel: DashingScoundrel,
