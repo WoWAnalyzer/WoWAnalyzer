@@ -26,11 +26,13 @@ export const VOID_FORM_ACTIVATORS = [
   SPELLS.SURRENDER_TO_MADNESS_TALENT.id,
 ];
 
+export const TALBADARS_STRATAGEM_INCREASE = 0.55;
+
 // Abilities that don't show waste in resource gain
 export const SHADOW_SPELLS_WITHOUT_WASTE = [SPELLS.VOID_TORRENT_TALENT.id];
 
 // Shadowlands Conduits
-export const DISSONANT_ECHOES_DAMAGE_INCREASE = 0.35;
+export const DISSONANT_ECHOES_DAMAGE_INCREASE = 0.15;
 export const HAUNTING_APPARITIONS_DAMAGE_INCREASE = [
   0.31,
   0.341,

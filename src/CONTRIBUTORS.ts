@@ -1649,3 +1649,15 @@ export const Klex: Contributor = {
     },
   ],
 };
+
+export const Pink: Contributor = {
+  nickname: 'Pink',
+  github: 'marson',
+  mains: [
+    {
+      name: 'Pinklight',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://www.warcraftlogs.com/character/eu/azjolnerub/pinklight',
+    },
+  ],
+};
