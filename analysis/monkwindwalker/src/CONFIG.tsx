@@ -11,7 +11,7 @@ const config: Config = {
   contributors: [Juko8],
   expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '9.0.5',
+  patchCompatibility: '9.1',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
