@@ -74,6 +74,7 @@ class Suggestions extends React.PureComponent<Props> {
                 <Suggestion
                   key={i}
                   icon={issue.icon}
+                  spell={issue.spell}
                   importance={issue.importance}
                   stat={issue.stat}
                   details={issue.details}

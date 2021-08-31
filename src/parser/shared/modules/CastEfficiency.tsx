@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -374,7 +373,6 @@ class CastEfficiency extends Analyzer {
         return;
       }
       const ability = abilityInfo.ability;
-      const spellInfo = SPELLS[ability.primarySpell];
 
       const suggestionThresholds = {
         actual: abilityInfo.efficiency,
@@ -395,7 +393,7 @@ class CastEfficiency extends Analyzer {
             {ability.castEfficiency.extraSuggestion || ''}
           </>,
         )
-          .icon(spellInfo.icon)
+          .spell(ability.primarySpell)
           .actual(
             <Trans id="shared.modules.castEfficiency.actual">
               {abilityInfo.casts} out of {abilityInfo.maxCasts} possible casts. You kept it on
