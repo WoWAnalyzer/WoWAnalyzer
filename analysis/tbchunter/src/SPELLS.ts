@@ -3,6 +3,7 @@ export const MULTI_SHOT = 27021;
 export const STEADY_SHOT = 34120;
 export const AIMED_SHOT = 27065;
 export const ARCANE_SHOT = 27019;
+export const DISTRACTING_SHOT = 27020;
 export const KILL_COMMAND = 34026;
 export const SERPENT_STING = 27016;
 export const SCORPID_STING = 3043;
