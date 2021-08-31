@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 8, 31), 'Fixed an issue where Premium was immediately lost upon unsubscribing in Patreon, even if you were eligible for benefits for the remainder of the month.', Zerotorescue),
   change(date(2021, 8, 31), 'Fixed rare crash in Cast Efficiency module when an important spell was never cast.', Zerotorescue),
   change(date(2021, 8, 9), 'German translations for monk class', maestrohdude),
   change(date(2021, 8, 3), 'Update Game Version in constants to ensure correct warnings are triggering when modules are out of date.', Anomoly),
