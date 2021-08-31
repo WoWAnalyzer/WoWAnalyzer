@@ -7,6 +7,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4028,7 +4029,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
 Array [
   Object {
     "details": null,
-    "icon": "spell_shadow_unholyfrenzy",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4045,6 +4046,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 8092,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4072,7 +4074,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_demonicfortitude",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4089,6 +4091,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 32379,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4116,7 +4119,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_maldraxxus_priest",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -4133,6 +4136,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 324724,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4984,6 +4988,7 @@ Array [
       />
        when at risk of overcapping.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"priest.shadow.suggestions.insanity.usage","message":"You wasted {0}% of your Insanity due to overcapping.","values":{"0":"1.09"}}
        (
@@ -5636,6 +5641,7 @@ Array [
       />
        on the boss.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"priest.shadow.suggestions.vampiricTouch.uptime","message":"{0}% Vampiric Touch uptime","values":{"0":"91.17"}}
        (
@@ -5756,6 +5762,7 @@ Array [
       0.2
        channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"priest.shadow.suggestions.voidTorrent.secondsLost","message":"Lost {0} seconds of Void Torrent.","values":{"0":0.2}}
        (

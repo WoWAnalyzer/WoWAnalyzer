@@ -19,6 +19,7 @@ Array [
       />
        casts instant.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.alwaysBeCasting.downtime"
@@ -178,6 +179,7 @@ Array [
       />
        debuff is removed from the target.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.arcaneEcho.badTouchUses"
@@ -210,6 +212,7 @@ Array [
       84.39
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.arcaneIntellect.uptime"
@@ -264,6 +267,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime"
@@ -366,6 +370,7 @@ Array [
       1
        times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.arcaneOrb.badCasts"
@@ -573,6 +578,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -681,6 +687,7 @@ Array [
       </React.Fragment>
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.castsCancelled"
@@ -4082,7 +4089,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the su
 Array [
   Object {
     "details": null,
-    "icon": "spell_mage_arcaneorb",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4099,6 +4106,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 153626,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4126,7 +4134,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_nature_lightning",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4143,6 +4151,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 12042,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4170,7 +4179,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_nature_purge",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4187,6 +4196,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 12051,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4214,7 +4224,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_mage_runeofpower",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4231,6 +4241,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116011,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4258,7 +4269,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_ardenweald_mage",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4275,6 +4286,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 314791,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4324,6 +4336,7 @@ Array [
        
       to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -4557,6 +4570,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4569,6 +4583,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4660,6 +4675,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4756,6 +4772,7 @@ Array [
        
       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.runeOfPower.utilization"

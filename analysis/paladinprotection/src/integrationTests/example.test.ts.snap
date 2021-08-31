@@ -20,6 +20,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.protection.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"27.52"}}
        (
@@ -37,6 +38,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -2879,7 +2881,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
-    "icon": "spell_holy_avengersshield",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2896,6 +2898,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 31935,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -2923,7 +2926,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_ardentdefender",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2940,6 +2943,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 31850,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -2967,7 +2971,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_heroism",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2984,6 +2988,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 86659,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3011,7 +3016,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_layonhands",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3028,6 +3033,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 633,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3055,7 +3061,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_divineshield",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3072,6 +3078,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 642,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3153,6 +3160,7 @@ Array [
     "icon": "spell_holy_innerfire",
     "importance": "major",
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.protection.suggestions.consecration.hitsMitigated","message":"{0}% of hits were mitigated by Consecration","values":{"0":"55.93"}}
        (
@@ -3295,6 +3303,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3345,6 +3354,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3397,6 +3407,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3448,6 +3459,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3487,6 +3499,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3537,6 +3550,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3549,6 +3563,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3561,6 +3576,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3680,6 +3696,7 @@ Array [
        
       ability and should only be used when you have no better spells to cast.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.protection.suggestions.hammerOfTheRighteous.efficiency","message":"{0}% of casts while better spells were available","values":{"0":"38.89"}}
        (
@@ -4221,6 +4238,7 @@ Array [
     "icon": "inv_helmet_96",
     "importance": "major",
     "issue": "You wasted 11 Holy Power.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.shared.suggestions.holyPower.wasted","message":"{0}% Holy Power wasted","values":{"0":"16.42"}}
        (
@@ -4308,6 +4326,7 @@ Array [
       />
        debuffs.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.retribution.suggestions.judgement.consumed","message":"{0}% Judgments consumed","values":{"0":"39.47"}}
        (
@@ -4472,6 +4491,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4553,6 +4573,7 @@ Array [
       />
        while actively tanking
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       69.57% of hits mitigated by Shield of the Righteous
        (
@@ -4900,6 +4921,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4922,6 +4944,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       You let 2 free casts expire.
        (

@@ -112,6 +112,7 @@ Array [
       />
        
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.alwaysBeCasting.downtime"
@@ -152,6 +153,7 @@ Array [
       97.60
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.arcaneIntellect.uptime"
@@ -177,6 +179,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -279,6 +282,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.castsCancelled"
@@ -3481,7 +3485,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the sugg
 Array [
   Object {
     "details": null,
-    "icon": "artifactability_firemage_phoenixbolt",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3498,6 +3502,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 257541,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3525,7 +3530,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_fire_fireball",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3542,6 +3547,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 108853,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3569,7 +3575,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_mage_runeofpower",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3586,6 +3592,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116011,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3613,7 +3620,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_ardenweald_mage",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3630,6 +3637,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 314791,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3781,6 +3789,7 @@ Array [
       />
        when you are at a low risk of being interrupted or when the target is vulnerable.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.combustion.combustionActiveTime"
@@ -3829,6 +3838,7 @@ Array [
        
       procs as possible before Combustion ends.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.combustionCharges.flameOn.utilization"
@@ -3877,6 +3887,7 @@ Array [
        
       available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.combustion.charge.utilization"
@@ -3916,6 +3927,7 @@ Array [
        
       to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -4152,6 +4164,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4345,6 +4358,7 @@ Array [
       />
       . Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.heatingUp.fireBlastUtilization"
@@ -4495,6 +4509,7 @@ Array [
       />
        or you can use your procs while you move.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.hostStreak.precasts.utilization"
@@ -4531,6 +4546,7 @@ Array [
       />
        was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.hotStreak.wastedCrits"
@@ -4668,6 +4684,7 @@ Array [
       />
        instead of using all the charges of one, and then all the charges of the other.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.infernalCascade.maxStackPercent"
@@ -4833,6 +4850,7 @@ Array [
       />
        if you are capped or are about to cap on charges.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.phoenixFlames.phoenixFlamesCappedCharges"
@@ -5259,6 +5277,7 @@ Array [
       />
        are on cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.shiftingPowerUsage.usagePercent"

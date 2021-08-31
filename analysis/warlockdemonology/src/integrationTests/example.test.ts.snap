@@ -116,6 +116,7 @@ Array [
       />
        when you can.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"warlock.demonology.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"49.86"}}
        (
@@ -133,6 +134,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3631,7 +3633,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
-    "icon": "spell_warlock_calldreadstalkers",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3648,6 +3650,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 104316,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3675,7 +3678,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_polearm_2h_fellord_04",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3692,6 +3695,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 264057,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3719,7 +3723,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_summondemonictyrant",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3736,6 +3740,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 265187,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3763,7 +3768,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_warlock_demonicempowerment",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3780,6 +3785,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 267171,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3807,7 +3813,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_demonictactics",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3824,6 +3830,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 104773,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3873,6 +3880,7 @@ Array [
        
       to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -4232,6 +4240,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4276,6 +4285,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4320,6 +4330,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4363,6 +4374,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4402,6 +4414,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4453,6 +4466,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4471,6 +4485,7 @@ Array [
       />
        more often, preferably on cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"warlock.demonology.suggestions.felstorm.casts","message":"{0} out of {1} ({2} %) Felstorm casts.","values":{"0":7,"1":10,"2":"70.00"}}
        (
@@ -4488,6 +4503,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4500,6 +4516,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4599,6 +4616,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4749,6 +4767,7 @@ Array [
     "icon": "inv_misc_gem_amethyst_02",
     "importance": "minor",
     "issue": "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"warlock.demonology.suggestions.soulShards.wastedPerMinutes","message":"{shardsWasted} Soul Shards wasted ({0} per minute)","values":{"0":"1.65","shardsWasted":8}}
        (
@@ -5274,6 +5293,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]

@@ -251,6 +251,7 @@ Array [
     "icon": "petbattle_health-down",
     "importance": "regular",
     "issue": "Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"monk.mistweaver.suggestions.alwaysBeCasting.nonHealing","message":"{0}% non healing time","values":{"0":"51.82"}}
        (
@@ -263,6 +264,7 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "minor",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"monk.mistweaver.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"40.27"}}
        (
@@ -280,6 +282,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3689,7 +3692,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
 Array [
   Object {
     "details": null,
-    "icon": "monk_ability_cherrymanatea",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3706,6 +3709,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 197908,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3733,7 +3737,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_arcane_arcanetorrent",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3750,6 +3754,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 123986,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3777,7 +3782,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_chicocoon",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3794,6 +3799,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116849,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3821,7 +3827,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_dragonkick",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3838,6 +3844,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 322118,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3865,7 +3872,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_touchofdeath",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3882,6 +3889,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 322109,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4102,6 +4110,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4145,6 +4154,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4196,6 +4206,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4240,6 +4251,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4279,6 +4291,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4331,6 +4344,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4428,6 +4442,7 @@ Array [
       />
        possible.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       0.00{"id":"monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv","message":"Enveloping Breaths per Enveloping Mist during Celestial"}
        (
@@ -4833,6 +4848,7 @@ Array [
       />
        procs.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"monk.mistweaver.suggestions.essenceFontMastery.averageHots","message":"{0} average EF HoTs","values":{"0":"2.97"}}
        (
@@ -4850,6 +4866,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4862,6 +4879,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -5135,6 +5153,7 @@ Array [
       />
        during specific boss abilities or general periods of high damage to the raid. Also look to target low health raid members to avoid large amounts of overhealing.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       23.92{"id":"monk.mistweaver.suggestions.manaTea.avgOverHealing","message":"% average overhealing per Mana Tea cast"}
        (
@@ -5207,6 +5226,7 @@ Array [
       id="shared.manaValues.suggestions.label"
       message="You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       36.66% (37k) {"id":"shared.suggestions.mana.efficiency","message":"mana left"}
        (
@@ -7512,6 +7532,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -7593,6 +7614,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       50.00{"id":"monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells","message":"% of Soothing Mist casts with max spells casted"}
        (
@@ -8757,6 +8779,7 @@ Array [
       />
       . It is advised to limit the number of spells buffed to only these two.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       13{"id":"monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts","message":"incorrect casts with Thunder Focus Tea"}
        (
@@ -9017,6 +9040,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]

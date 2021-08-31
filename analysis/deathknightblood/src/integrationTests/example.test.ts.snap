@@ -115,6 +115,7 @@ Array [
         id={50842}
       />
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.blood.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"32.91"}}
        (
@@ -132,6 +133,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3491,7 +3493,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
-    "icon": "spell_deathknight_iceboundfortitude",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3508,6 +3510,7 @@ Array [
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
+    "spell": 48792,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3535,7 +3538,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_lifedrain",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3552,6 +3555,7 @@ Array [
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
+    "spell": 55233,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3579,7 +3583,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_deathknight_bloodboil",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3596,6 +3600,7 @@ Array [
        
       Should be casting it so you have at least one recharging.
     </React.Fragment>,
+    "spell": 50842,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3623,7 +3628,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_animusdraw",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3640,6 +3645,7 @@ Array [
        
       Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.
     </React.Fragment>,
+    "spell": 206931,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3667,7 +3673,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_antimagicshell",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3684,6 +3690,7 @@ Array [
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
+    "spell": 48707,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3711,7 +3718,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_deathknight_runetap",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3728,6 +3735,7 @@ Array [
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
+    "spell": 194679,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3838,6 +3846,7 @@ Array [
       />
        procs. Make sure you always use them.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.blood.suggestions.crimsonScourge.procsWasted","message":"{0}% Crimson Scourge procs wasted","values":{"0":"33.33"}}
        (
@@ -3979,6 +3988,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4028,6 +4038,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4069,6 +4080,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4110,6 +4122,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4150,6 +4163,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4162,6 +4176,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4169,6 +4184,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4181,6 +4197,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4405,6 +4422,7 @@ Array [
     "icon": "ability_deathknight_brittlebones",
     "importance": "regular",
     "issue": "Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.blood.suggestions.ossuary.efficiency","message":"{0}% Ossuary efficiency","values":{"0":"85.00"}}
        (
@@ -4432,6 +4450,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4604,6 +4623,7 @@ Array [
       18.09
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"18.09"}}
        (
@@ -5005,6 +5025,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]

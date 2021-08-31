@@ -251,6 +251,7 @@ Array [
     "icon": "petbattle_health-down",
     "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-49.89}}
        (
@@ -263,6 +264,7 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "regular",
     "issue": "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"62.25"}}
        (
@@ -280,6 +282,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -5031,7 +5034,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
 Array [
   Object {
     "details": null,
-    "icon": "spell_holy_searinglight",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -5051,6 +5054,7 @@ Array [
         message="Casting Holy Shock regularly is very important for performing well."
       />
     </React.Fragment>,
+    "spell": 20473,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5078,7 +5082,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_righteousfury",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -5105,6 +5109,7 @@ Array [
         message="You should cast it whenever <0/> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things."
       />
     </React.Fragment>,
+    "spell": 275773,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5132,7 +5137,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_paladin_blessedmending",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -5162,6 +5167,7 @@ Array [
         message="If you can't or don't want to cast it more consider using <0/> or <1/> instead."
       />
     </React.Fragment>,
+    "spell": 223306,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5189,7 +5195,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_divineprotection",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -5206,6 +5212,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 498,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5233,7 +5240,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_paladin_veneration",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -5250,6 +5257,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 216331,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5277,7 +5285,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_paladin_hammerofwrath",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -5294,6 +5302,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 24275,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5695,6 +5704,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5735,6 +5745,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5776,6 +5787,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5817,6 +5829,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5857,6 +5870,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5897,6 +5911,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -6029,6 +6044,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.fillerFlashOfLight.actualInefficient"
@@ -6067,6 +6083,7 @@ Array [
       id="paladin.holy.modules.fillerLightOfTheMatyrs.suggestion"
       message="You cast many <0/>s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.fillerLightOfTheMatyrs.actual"
@@ -6135,6 +6152,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.actual"
@@ -6163,6 +6181,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -6170,6 +6189,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -6182,6 +6202,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -8187,6 +8208,7 @@ Array [
       id="paladin.holy.modules.overhealing.bestowFaithSuggestion"
       message="Try to avoid overhealing with <0/>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.holy.modules.overhealing.bestowFaithSuggestion.actual","message":"{0}% overhealing","values":{"0":"45.94"}}
        (
@@ -8214,6 +8236,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -8308,6 +8331,7 @@ Array [
       id="paladin.holy.modules.talents.ruleOfLaw.suggestion"
       message="Your <0/> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.talents.ruleOfLaw.actual"
@@ -9193,6 +9217,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]

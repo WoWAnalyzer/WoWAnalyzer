@@ -120,6 +120,7 @@ Array [
         id={196840}
       />
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       5.32% downtime
        (
@@ -2846,7 +2847,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
 Array [
   Object {
     "details": null,
-    "icon": "spell_fire_elemental_totem",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2863,6 +2864,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 198067,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3137,6 +3139,7 @@ Array [
       />
        uptime can be improved.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shaman.elemental.suggestions.flameShock.uptime","message":"{0}% uptime","values":{"0":"98.93"}}
        (
@@ -3169,6 +3172,7 @@ Array [
       />
        buff expires. Pay attention to the remaining duration of the buff to ensure you have time to use all of the stacks.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <React.Fragment>
         On average, only 
@@ -6782,6 +6786,7 @@ Array [
         id={196840}
       />
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       5.77% downtime
        (
@@ -9648,6 +9653,7 @@ Array [
       />
        uptime can be improved.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shaman.elemental.suggestions.flameShock.uptime","message":"{0}% uptime","values":{"0":"98.39"}}
        (
@@ -10464,6 +10470,7 @@ Array [
     "icon": "spell_shadow_mindflay",
     "importance": "minor",
     "issue": "You overcapped 5 Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shaman.shared.suggestions.maelstrom.overcapped","message":"{0}% overcapped Maelstrom","values":{"0":"0.35"}}
        (

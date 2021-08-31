@@ -5137,6 +5137,7 @@ Array [
       />
        on.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting","message":"{actual} casts without {0} on","values":{"0":{"type":{},"key":null,"ref":null,"props":{"id":259491},"_owner":null,"_store":{}},"actual":8}}
        (
@@ -5189,6 +5190,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -6829,6 +6831,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -10670,6 +10673,7 @@ Array [
         .
       </React.Fragment>
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.resources.wasted"
@@ -10761,6 +10765,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -11068,6 +11073,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.survival.suggetsions.mongooseBite.maxStacksCasts","message":"{0}% casts on max stacks.","values":{"0":"9.20"}}
        (
@@ -11385,6 +11391,7 @@ Array [
       30
       % duration remaining.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.survival.suggestions.serpentSting.uptime","message":"{0}% Serpent Sting uptime","values":{"0":"92.24"}}
        (
