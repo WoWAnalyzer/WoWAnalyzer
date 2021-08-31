@@ -10,6 +10,7 @@ const DRUM_OF_BATTLE_BUFF = 35476;
 const HASTE_POTION_BUFF = 28507;
 const DRAGONSPINE_FLURRY_BUFF = 34775;
 const THUNDERING_SKYFIRE_DIAMOND_BUFF = 39959; // meta gem
+const BERSERKING_BUFF = 20554; // Troll racial
 const HASTE_RATING_PER_PERCENT = 15.7;
 const baseHaste = 0.15; // quiver
 const serpentSwiftnessHaste = 0.2;
@@ -23,6 +24,7 @@ const hasteBuffs = {
   [COMMON_SPELLS.BLOODLUST.id]: 0.3,
   [COMMON_SPELLS.HEROISM.id]: 0.3,
   [THUNDERING_SKYFIRE_DIAMOND_BUFF]: 240 / HASTE_RATING_PER_PERCENT / 100,
+  [BERSERKING_BUFF]: 0.1,
 };
 
 const weaponSpeeds: { [itemId: number]: number } = {
