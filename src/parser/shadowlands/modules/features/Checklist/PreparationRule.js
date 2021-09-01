@@ -1,9 +1,8 @@
 import { Trans } from '@lingui/macro';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Requirement from './Requirement';
-import Rule from './Rule';
 
 class PreparationRule extends React.PureComponent {
   static propTypes = {

@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import AugmentRuneChecker from 'parser/shared/modules/items/AugmentRuneChecker';
-import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
-import FlaskChecker from 'parser/shared/modules/items/FlaskChecker';
-import FoodChecker from 'parser/shared/modules/items/FoodChecker';
-import PotionChecker from 'parser/shared/modules/items/PotionChecker';
-import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
+import AugmentRuneChecker from 'parser/shadowlands/modules/items/AugmentRuneChecker';
+import EnchantChecker from 'parser/shadowlands/modules/items/EnchantChecker';
+import FlaskChecker from 'parser/shadowlands/modules/items/FlaskChecker';
+import FoodChecker from 'parser/shadowlands/modules/items/FoodChecker';
+import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
+import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
@@ -16,6 +16,13 @@ class PreparationRuleAnalyzer extends Analyzer {
     foodChecker: FoodChecker,
     augmentRuneChecker: AugmentRuneChecker,
   };
+
+  protected potionChecker!: PotionChecker;
+  protected enchantChecker!: EnchantChecker;
+  protected weaponEnhancementChecker!: WeaponEnhancementChecker;
+  protected flaskChecker!: FlaskChecker;
+  protected foodChecker!: FoodChecker;
+  protected augmentRuneChecker!: AugmentRuneChecker;
 
   get thresholds() {
     return {

@@ -266,9 +266,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
         gcd: {
           static: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: 'You should aim to use this off CD.',
+        },
+        enabled: this.selectedCombatant.talents[0] > 31,
       },
       {
         spell: SPELLS.PAIN_SUPPRESSION,
