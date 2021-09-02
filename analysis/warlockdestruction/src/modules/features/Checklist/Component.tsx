@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
   ChecklistProps,
 } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';

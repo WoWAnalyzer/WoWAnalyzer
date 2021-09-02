@@ -19,7 +19,6 @@ import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Haste from '../shared/modules/Haste';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
-import Healthstone from '../shared/modules/items/Healthstone';
 import ManaValues from '../shared/modules/ManaValues';
 import Pets from '../shared/modules/Pets';
 import SpellHistory from '../shared/modules/SpellHistory';
@@ -36,6 +35,9 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
+import EnchantChecker from './modules/items/EnchantChecker';
+import FoodChecker from './modules/items/FoodChecker';
 import ManaGained from './statistic/ManaGained';
 
 class CombatLogParser extends BaseCombatLogParser {
@@ -56,6 +58,10 @@ class CombatLogParser extends BaseCombatLogParser {
     damageTaken: DamageTaken,
     throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
+
+    foodChecker: FoodChecker,
+    enchantChecker: EnchantChecker,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     enemies: Enemies,
     enemyInstances: EnemyInstances,
@@ -85,7 +91,6 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Tabs
     raidHealthTab: RaidHealthTab,
-    healthstone: Healthstone,
   };
 
   static suggestions = [...BaseCombatLogParser.suggestions];
