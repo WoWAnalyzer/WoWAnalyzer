@@ -1,8 +1,8 @@
 import fetchWcl from 'common/fetchWclApi';
-import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
-import React from 'react';
 import { WCLBossResources } from 'common/WCL_TYPES';
 import { DeathEvent } from 'parser/core/Events';
+import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
+import React from 'react';
 
 interface Props {
   reportCode: string;
@@ -85,9 +85,7 @@ class ManaLevelChartComponent extends React.PureComponent<Props, State> {
     const bossData = this.state.bossHealth.series.map((series: any) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      const data = series.data.map(([timestamp, health]) => {
-        return { x: timestamp - start, y: health };
-      });
+      const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {
         id: series.id,
@@ -96,7 +94,7 @@ class ManaLevelChartComponent extends React.PureComponent<Props, State> {
       };
     });
 
-    let deaths: { x: number; name: string; ability: string }[] = [];
+    let deaths: Array<{ x: number; name: string; ability: string }> = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
         .filter((death: DeathEvent) => Boolean(death.targetIsFriendly))

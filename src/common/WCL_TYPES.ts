@@ -82,7 +82,7 @@ export interface BossSeries {
   guid: number;
   type: 'Boss';
   currentValues: number[];
-  data: Array<Array<number>>;
+  data: number[][];
   events: any[];
   maxValues: number[];
 }

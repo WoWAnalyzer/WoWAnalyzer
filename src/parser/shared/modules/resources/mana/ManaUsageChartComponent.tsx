@@ -67,7 +67,7 @@ class HealingDoneGraph extends React.PureComponent<Props> {
       manaLevelPerFrame[i] = manaLevelPerFrame[i] !== undefined ? manaLevelPerFrame[i] : null;
     }
 
-    let lastKnown: number = 0;
+    let lastKnown = 0;
     const mana = Object.values(manaLevelPerFrame).map((value, i) => {
       if (value !== null) {
         lastKnown = value;

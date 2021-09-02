@@ -1,22 +1,7 @@
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import React from 'react';
-import { AutoSizer } from 'react-virtualized';
 import { VisualizationSpec } from 'react-vega';
-
-const COLORS = {
-  MANA: {
-    background: 'rgba(2, 109, 215, 0.25)',
-    border: 'rgba(2, 109, 215, 0.6)',
-  },
-  HEALING: {
-    background: 'rgba(2, 217, 110, 0.2)',
-    border: 'rgba(2, 217, 110, 0.6)',
-  },
-  MANA_USED: {
-    background: 'rgba(215, 2, 6, 0.4)',
-    border: 'rgba(215, 2, 6, 0.6)',
-  },
-};
+import { AutoSizer } from 'react-virtualized';
 
 interface Vector2 {
   x: number;
