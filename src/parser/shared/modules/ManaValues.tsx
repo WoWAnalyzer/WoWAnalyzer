@@ -7,6 +7,8 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
 
 class ManaValues extends Analyzer {
   static propTypes = {
@@ -28,6 +30,10 @@ class ManaValues extends Analyzer {
     super(options);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+
+    this.active =
+      this.selectedCombatant.spec?.role === ROLES.HEALER &&
+      this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
   }
 
   onCast(event: CastEvent) {

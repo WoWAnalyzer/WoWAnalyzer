@@ -1,4 +1,4 @@
-import ManaValues from 'parser/shared/modules/ManaValues';
+import ManaValues from 'parser/tbc/modules/ManaValues';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
 import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';

@@ -2,7 +2,7 @@ import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checkli
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import ManaValues from 'parser/shared/modules/ManaValues';
+import ManaValues from 'parser/shadowlands/modules/ManaValues';
 import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
