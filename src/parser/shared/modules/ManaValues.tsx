@@ -15,7 +15,7 @@ class ManaValues extends Analyzer {
     owner: PropTypes.object.isRequired,
   };
 
-  lowestMana = Infinity; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
+  lowestMana = Infinity;
   maxMana = 0;
   endingMana = 0;
 
@@ -28,10 +28,8 @@ class ManaValues extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.active =
-      this.selectedCombatant.spec?.role === ROLES.HEALER &&
-      this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
   }
 
   onCast(event: CastEvent) {
