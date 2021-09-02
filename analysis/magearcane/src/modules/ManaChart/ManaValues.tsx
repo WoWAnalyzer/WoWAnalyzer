@@ -3,8 +3,8 @@ import { formatPercentage, formatNumber } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import DeathTracker from 'parser/shared/modules/DeathTracker';
 import ManaValues from 'parser/shadowlands/modules/ManaValues';
+import DeathTracker from 'parser/shared/modules/DeathTracker';
 import React from 'react';
 
 class ArcaneManaValues extends ManaValues {
