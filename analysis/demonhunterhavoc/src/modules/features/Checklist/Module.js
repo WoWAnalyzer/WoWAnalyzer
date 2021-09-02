@@ -1,5 +1,5 @@
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
-import ManaValues from 'parser/shadowlands/modules/ManaValues';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';

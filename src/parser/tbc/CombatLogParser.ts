@@ -39,7 +39,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
-import ManaValues from '../tbc/modules/ManaValues';
+import ManaValues from '../shared/modules/ManaValues';
 import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';

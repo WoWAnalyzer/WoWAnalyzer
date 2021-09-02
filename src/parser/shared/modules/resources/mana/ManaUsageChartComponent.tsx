@@ -1,19 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import ManaUsageGraph from './ManaUsageGraph';
 
-class HealingDoneGraph extends React.PureComponent {
-  static propTypes = {
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    offset: PropTypes.number.isRequired,
-    healingBySecond: PropTypes.object.isRequired,
-    manaUpdates: PropTypes.array.isRequired,
-  };
+interface Props {
+  start: number;
+  end: number;
+  offset: number;
+  healingBySecond: any;
+  manaUpdates: any[];
+}
 
-  groupHealingBySeconds(healingBySecond, interval) {
-    return Object.keys(healingBySecond).reduce((obj, second) => {
+class HealingDoneGraph extends React.PureComponent<Props> {
+  groupHealingBySeconds(healingBySecond: { [second: number]: any }, interval: number): any {
+    return Object.keys(healingBySecond).reduce((obj: any, second: any) => {
       const healing = healingBySecond[second];
 
       const index = Math.floor(second / interval);
@@ -46,10 +45,10 @@ class HealingDoneGraph extends React.PureComponent {
       });
     max /= interval;
 
-    const manaUsagePerFrame = {
+    const manaUsagePerFrame: { [frame: number]: number } = {
       0: 0,
     };
-    const manaLevelPerFrame = {
+    const manaLevelPerFrame: { [frame: number]: number | null } = {
       0: 1,
     };
     manaUpdates.forEach((item) => {
@@ -59,7 +58,7 @@ class HealingDoneGraph extends React.PureComponent {
       manaLevelPerFrame[frame] = item.current / item.max; // use the lowest value of the frame; likely to be more accurate
     });
     const fightDurationSec = Math.ceil((end - start) / 1000);
-    const labels = [];
+    const labels: number[] = [];
     for (let i = 0; i <= fightDurationSec / interval; i += 1) {
       labels.push(Math.ceil(offset / 1000) + i * interval);
 
@@ -68,7 +67,7 @@ class HealingDoneGraph extends React.PureComponent {
       manaLevelPerFrame[i] = manaLevelPerFrame[i] !== undefined ? manaLevelPerFrame[i] : null;
     }
 
-    let lastKnown = null;
+    let lastKnown: number = 0;
     const mana = Object.values(manaLevelPerFrame).map((value, i) => {
       if (value !== null) {
         lastKnown = value;
@@ -78,7 +77,7 @@ class HealingDoneGraph extends React.PureComponent {
         y: lastKnown * max,
       };
     });
-    const healing = Object.values(healingPerFrame).map((value, i) => ({
+    const healing = Object.values(healingPerFrame).map((value: any, i: number) => ({
       x: labels[i],
       y: value / interval,
     }));
