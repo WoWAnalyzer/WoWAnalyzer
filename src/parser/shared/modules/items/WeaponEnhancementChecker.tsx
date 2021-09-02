@@ -74,7 +74,7 @@ class WeaponEnhancementChecker extends Analyzer {
     if (!item.temporaryEnchant) {
       return false;
     }
-    return this.maxEnchantIds.includes(item.temporaryEnchant);
+    return this.MaxEnchantIds.includes(item.temporaryEnchant);
   }
 
   get weaponsEnhancedThreshold() {
