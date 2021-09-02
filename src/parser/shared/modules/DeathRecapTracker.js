@@ -6,7 +6,6 @@ import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
-import Healthstone from 'parser/shared/modules/items/Healthstone';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 
@@ -28,7 +27,6 @@ class DeathRecapTracker extends Analyzer {
     buffsModule: Buffs,
     spellUsable: SpellUsable,
     enemies: Enemies,
-    healthstone: Healthstone,
   };
 
   constructor(...args) {

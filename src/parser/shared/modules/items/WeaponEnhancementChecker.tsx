@@ -1,10 +1,9 @@
 import { Trans } from '@lingui/macro';
-import ITEMS from 'common/ITEMS';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
 // Example logs with missing enhancement:
@@ -13,15 +12,13 @@ import React from 'react';
 class WeaponEnhancementChecker extends Analyzer {
   static WEAPON_SLOTS = {
     15: <Trans id="common.slots.weapon">Weapon</Trans>,
-    16: <Trans id="common.slots.offhand">OffHand</Trans>,
+    // There isn't a good way to filter shield enchants Maybe trigger this by class?
+    // 16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
-  static MAX_ENHANCEMENT_IDS = [
-    ITEMS.SHADOWCORE_OIL.effectId,
-    ITEMS.EMBALMERS_OIL.effectId,
-    ITEMS.SHADED_SHARPENING_STONE.effectId,
-    ITEMS.SHADED_WEIGHTSTONE.effectId,
-  ];
+  get maxEnchantIds(): number[] {
+    return [];
+  }
 
   get enhanceableWeapons() {
     return Object.keys(WeaponEnhancementChecker.WEAPON_SLOTS).reduce(
@@ -41,18 +38,22 @@ class WeaponEnhancementChecker extends Analyzer {
       {},
     );
   }
+
   get numWeapons() {
     return Object.keys(this.enhanceableWeapons).length || 1;
   }
+
   get weaponsMissingEnhancement() {
     const gear = this.enhanceableWeapons;
     return Object.keys(gear).length > 0
       ? Object.keys(gear).filter((slot) => !this.hasEnhancement(gear[Number(slot)]))
       : null;
   }
+
   get numWeaponsMissingEnhancement() {
     return this.weaponsMissingEnhancement ? this.weaponsMissingEnhancement.length : 1;
   }
+
   get weaponsMissingMaxEnhancement() {
     const gear = this.enhanceableWeapons;
     return Object.keys(gear).filter(
@@ -60,14 +61,39 @@ class WeaponEnhancementChecker extends Analyzer {
         this.hasEnhancement(gear[Number(slot)]) && !this.hasMaxEnhancement(gear[Number(slot)]),
     );
   }
+
   get numWeaponsMissingMaxEnhancement() {
     return this.weaponsMissingMaxEnhancement.length;
   }
-  hasEnhancement(item: Item) {
-    return Boolean(item.temporaryEnchant);
+
+  hasEnhancement(item: Item): number | null {
+    return item.temporaryEnchant || null;
   }
+
   hasMaxEnhancement(item: Item) {
-    return WeaponEnhancementChecker.MAX_ENHANCEMENT_IDS.includes(item.temporaryEnchant);
+    if (!item.temporaryEnchant) {
+      return false;
+    }
+    return this.maxEnchantIds.includes(item.temporaryEnchant);
+  }
+
+  get weaponsEnhancedThreshold() {
+    return {
+      actual: this.numWeapons - this.numWeaponsMissingEnhancement,
+      max: this.numWeapons,
+      isLessThan: this.numWeapons,
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get bestWeaponEnhancementsThreshold() {
+    return {
+      actual:
+        this.numWeapons - this.numWeaponsMissingEnhancement - this.numWeaponsMissingMaxEnhancement,
+      max: this.numWeapons,
+      isLessThan: this.numWeapons,
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   suggestions(when: When) {
@@ -79,7 +105,7 @@ class WeaponEnhancementChecker extends Analyzer {
       const slotName = weaponSlots[Number(slot)];
       const hasEnhancement = this.hasEnhancement(item);
 
-      when(hasEnhancement)
+      when(Boolean(hasEnhancement))
         .isFalse()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
@@ -88,7 +114,7 @@ class WeaponEnhancementChecker extends Analyzer {
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an
+              is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an
               enhancement to very easily increase your throughput slightly.
             </Trans>,
           )
@@ -96,18 +122,19 @@ class WeaponEnhancementChecker extends Analyzer {
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
         );
 
-      const noMaxEnchant = hasEnhancement && !this.hasMaxEnhancement(item);
+      const noMaxEnchant = Boolean(hasEnhancement) && !this.hasMaxEnhancement(item);
       when(noMaxEnchant)
         .isTrue()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
             <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
-              Your{' '}
+              Your
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
-              </ItemLink>{' '}
-              has a cheap weapon enhancement (weapon oil/sharpening stone/weightstone). Apply a
-              strong enhancement to very easily increase your throughput slightly.
+              </ItemLink>
+              has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
+              stone/weightstone). Apply a strong enhancement to very easily increase your throughput
+              slightly.
             </Trans>,
           )
             .icon(item.icon)

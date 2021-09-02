@@ -19,14 +19,14 @@ const config: Config = {
   expansion: Expansion.TheBurningCrusade,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '2.5.1',
-  isPartial: true,
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: <>Proof of Concept analysis for TBCC Priests.</>,
   pages: {
     overview: {
-      hideChecklist: true,
-      text: <>Classic support is still a Work in Progress.</>,
+      hideChecklist: false,
+      text: <>TBC support is still a Work in Progress.</>,
       type: 'info',
     },
   },

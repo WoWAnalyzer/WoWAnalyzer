@@ -1,19 +1,20 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
+import { TooltipElement } from 'interface/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
   ChecklistProps,
 } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
 import React from 'react';
 
-import * as SPELLS from '../../SPELLS';
+import { POWER_INFUSION } from '../../SPELLS';
 
-const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -23,27 +24,31 @@ const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistPro
 
   return (
     <Checklist>
+      <Rule name="Use cooldowns effectively" description="blah blah blah">
+        {combatant.talents[0] >= 31 && <AbilityRequirement spell={POWER_INFUSION} />}
+      </Rule>
       <Rule
-        name="Use core abilities as often as possible"
+        name="Try to avoid being inactive for a large portion of the fight"
         description={
           <>
-            Using your core abilities as often as possible will typically result in better
-            performance, remember to as often as you can!
+            High downtime is inexcusable, while it may be tempting to not cast and save mana,
+            wanding is free. If you have a Paladin keeping <SpellLink id={20354} /> on an enemy,
+            wanding can even give mana back! You can reduce your downtime by reducing the delay
+            between casting spells, anticipating movement, moving during the GCD, and{' '}
+            <TooltipElement content="You can ignore this while learning Holy, but contributing DPS whilst healing is a major part of becoming a better than average player.">
+              when you're not healing try to contribute some damage.*
+            </TooltipElement>
+            .
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING} />
+        <Requirement
+          name="Non healing time"
+          thresholds={thresholds.nonHealingTimeSuggestionThresholds}
+        />
+        <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
-      <Rule
-        name="Use cooldowns effectively"
-        description={
-          <>
-            Cooldowns are an important part of healing, try to use them to counter fight mechanics.
-          </>
-        }
-      >
-        <AbilityRequirement spell={SPELLS.POWER_INFUSION} />
-      </Rule>
+
       <Rule
         name={
           <>
@@ -54,6 +59,7 @@ const PriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistPro
       >
         <Requirement name="Mana left" thresholds={thresholds.manaLeft} />
       </Rule>
+
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

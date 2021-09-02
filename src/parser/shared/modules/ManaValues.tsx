@@ -2,11 +2,9 @@ import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ROLES from 'game/ROLES';
-import SPECS from 'game/SPECS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -15,21 +13,23 @@ class ManaValues extends Analyzer {
     owner: PropTypes.object.isRequired,
   };
 
-  lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
+  lowestMana = Infinity; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
+  maxMana = 0;
   endingMana = 0;
 
-  maxMana = 50000;
-  manaUpdates = [];
+  manaUpdates: Array<{
+    timestamp: number;
+    current: number;
+    max: number;
+    used: number;
+  }> = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.active =
-      this.selectedCombatant.spec?.role === ROLES.HEALER &&
-      this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (event.prepull) {
       // These are fabricated by the PrePullCooldowns normalizer which guesses class resources which could introduce issues.
       return;
@@ -43,7 +43,7 @@ class ManaValues extends Analyzer {
           const currentMana = manaValue - manaCost;
           this.endingMana = currentMana;
 
-          if (this.lowestMana === null || currentMana < this.lowestMana) {
+          if (currentMana < this.lowestMana) {
             this.lowestMana = currentMana;
           }
           this.manaUpdates.push({
@@ -73,7 +73,7 @@ class ManaValues extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     const fight = this.owner.fight;
     const isWipe = !fight.kill;
     if (isWipe) {

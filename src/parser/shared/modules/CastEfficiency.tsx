@@ -230,7 +230,10 @@ class CastEfficiency extends Analyzer {
       .filter((item) => item !== null) as AbilityCastEfficiency[]; // getCastEfficiencyForAbility can return null, remove those from the result
   }
 
-  getCastEfficiencyForSpellId(spellId: number, includeNoCooldownEfficiency = false) {
+  getCastEfficiencyForSpellId(
+    spellId: number,
+    includeNoCooldownEfficiency = false,
+  ): AbilityCastEfficiency | null {
     const ability = this.abilities.getAbility(spellId);
     return ability ? this.getCastEfficiencyForAbility(ability, includeNoCooldownEfficiency) : null;
   }

@@ -15,7 +15,7 @@ import {
   AnyEvent,
 } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
-import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
+import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
 import React, { ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
