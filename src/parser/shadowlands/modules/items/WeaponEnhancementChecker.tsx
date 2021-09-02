@@ -12,7 +12,7 @@ const MAX_ENHANCEMENT_IDS = [
 ];
 
 class WeaponEnhancementChecker extends BaseWeaponEnhancementChecker {
-  get maxEnchantIds() {
+  get MaxEnchantIds() {
     return MAX_ENHANCEMENT_IDS;
   }
 }

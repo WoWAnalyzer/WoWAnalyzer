@@ -5283,7 +5283,7 @@ Array [
         }
       }
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans

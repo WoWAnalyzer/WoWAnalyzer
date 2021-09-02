@@ -2,6 +2,8 @@ import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -27,6 +29,9 @@ class ManaValues extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.active =
+      this.selectedCombatant.spec?.role === ROLES.HEALER &&
+      this.selectedCombatant.spec !== SPECS.HOLY_PALADIN;
   }
 
   onCast(event: CastEvent) {

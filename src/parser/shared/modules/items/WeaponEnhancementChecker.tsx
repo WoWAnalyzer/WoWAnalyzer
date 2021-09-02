@@ -9,34 +9,34 @@ import React from 'react';
 // Example logs with missing enhancement:
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
 
-class WeaponEnhancementChecker extends Analyzer {
-  static WEAPON_SLOTS = {
-    15: <Trans id="common.slots.weapon">Weapon</Trans>,
-    // There isn't a good way to filter shield enchants Maybe trigger this by class?
-    // 16: <Trans id="common.slots.offhand">OffHand</Trans>,
-  };
+const WEAPON_SLOTS = {
+  15: <Trans id="common.slots.weapon">Weapon</Trans>,
+  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+};
 
-  get maxEnchantIds(): number[] {
+class WeaponEnhancementChecker extends Analyzer {
+  get WeaponSlots(): any {
+    return WEAPON_SLOTS;
+  }
+
+  get MaxEnchantIds(): number[] {
     return [];
   }
 
   get enhanceableWeapons() {
-    return Object.keys(WeaponEnhancementChecker.WEAPON_SLOTS).reduce(
-      (obj: { [key: number]: Item }, slot) => {
-        const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+    return Object.keys(this.WeaponSlots).reduce((obj: { [key: number]: Item }, slot) => {
+      const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
-        // If there is no offhand, disregard the item.
-        // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enhancement.
-        // This is not an ideal way to determine if an offhand is a weapon.
-        if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
-          return obj;
-        }
-        obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
-
+      // If there is no offhand, disregard the item.
+      // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enhancement.
+      // This is not an ideal way to determine if an offhand is a weapon.
+      if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
         return obj;
-      },
-      {},
-    );
+      }
+      obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+
+      return obj;
+    }, {});
   }
 
   get numWeapons() {
@@ -98,7 +98,7 @@ class WeaponEnhancementChecker extends Analyzer {
 
   suggestions(when: When) {
     const gear = this.enhanceableWeapons;
-    const weaponSlots: { [key: number]: JSX.Element } = WeaponEnhancementChecker.WEAPON_SLOTS;
+    const weaponSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear).forEach((slot) => {
       const item = gear[Number(slot)];
