@@ -15,6 +15,7 @@ import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetail
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 import Haste from './modules/Haste';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
+import Shadowfiend from './modules/spells/Shadowfiend';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -32,6 +33,7 @@ class CombatLogParser extends BaseCombatLogParser {
     hpmDetails: HealingEfficiencyDetails,
 
     // Specific Spells
+    shadowfiend: Shadowfiend,
     prayerOfMending: PrayerOfMending,
 
     checklist: Checklist,
