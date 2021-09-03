@@ -13,9 +13,9 @@ import Checklist from './modules/checklist/Module';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 import Haste from './modules/Haste';
-import PrayerOfMending from './modules/spells/PrayerOfMending';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
+import PrayerOfMending from './modules/spells/PrayerOfMending';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {

@@ -1,3 +1,4 @@
+import { formatNumber, formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -7,7 +8,6 @@ import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import * as SPELLS from '../../SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
 
 class CircleOfHealing extends Analyzer {
   static dependencies = {
