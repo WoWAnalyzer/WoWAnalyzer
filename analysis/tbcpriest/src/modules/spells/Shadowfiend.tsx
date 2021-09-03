@@ -2,12 +2,12 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import StatisticBox from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import * as SPELLS from '../../SPELLS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ItemManaGained from 'parser/ui/ItemManaGained';
 
 class Shadowfiend extends Analyzer {
   static dependencies = {
