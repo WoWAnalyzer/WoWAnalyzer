@@ -62,9 +62,8 @@ class CircleOfHealing extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.CIRCLE_OF_HEALING} />}
+        icon={<SpellLink id={SPELLS.CIRCLE_OF_HEALING} />}
         value={<ItemHealingDone amount={this.effectiveHealing} />}
-        label="Circle of Healing"
         tooltip={
           <>
             Healing Done: {formatNumber(this.effectiveHealing)} (

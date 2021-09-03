@@ -84,9 +84,8 @@ class PrayerOfMending extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING} />}
+        icon={<SpellLink id={SPELLS.PRAYER_OF_MENDING} />}
         value={<ItemHealingDone amount={this.effectiveHealing} />}
-        label="Prayer of Mending"
         tooltip={
           <>
             Healing Done: {formatNumber(this.effectiveHealing)} (
