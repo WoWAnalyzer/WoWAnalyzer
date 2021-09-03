@@ -14,6 +14,7 @@ export const SMITE = 25364;
 export const HOLY_FIRE = 25384;
 export const MANA_BURN = 25380;
 export const SHADOW_FIEND = 34433;
+export const SHADOW_FIEND_MANA_LEECH = 34650;
 export const PSYCHIC_SCREAM = 10890;
 export const DISPEL_MAGIC = 988;
 export const MASS_DISPEL = 32375;
