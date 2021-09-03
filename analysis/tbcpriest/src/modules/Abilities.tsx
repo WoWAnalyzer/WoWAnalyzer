@@ -258,6 +258,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: this.selectedCombatant.talents[1] >= 41,
       },
       {
         spell: SPELLS.INNER_FOCUS,

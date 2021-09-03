@@ -16,4 +16,12 @@ export default [
     </>,
     Khadaj,
   ),
+  change(
+    date(2021, 9, 3),
+    <>
+      Adding card for <SpellLink id={SPELLS.CIRCLE_OF_HEALING} /> and{' '}
+      <SpellLink id={SPELLS.PRAYER_OF_HEALING} />
+    </>,
+    Khadaj,
+  ),
 ];

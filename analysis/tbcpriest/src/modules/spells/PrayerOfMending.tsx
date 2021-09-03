@@ -1,5 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -84,9 +84,8 @@ class PrayerOfMending extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING} />}
+        icon={<SpellLink id={SPELLS.PRAYER_OF_MENDING} />}
         value={<ItemHealingDone amount={this.effectiveHealing} />}
-        label="Prayer of Mending"
         tooltip={
           <>
             Healing Done: {formatNumber(this.effectiveHealing)} (

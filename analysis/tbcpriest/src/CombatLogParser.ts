@@ -14,6 +14,8 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 import Haste from './modules/Haste';
+import CircleOfHealing from './modules/spells/CircleOfHealing';
+import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Shadowfiend from './modules/spells/Shadowfiend';
 
@@ -35,6 +37,8 @@ class CombatLogParser extends BaseCombatLogParser {
     // Specific Spells
     shadowfiend: Shadowfiend,
     prayerOfMending: PrayerOfMending,
+    circleOfHealing: CircleOfHealing,
+    prayerOfHealing: PrayerOfHealing,
 
     checklist: Checklist,
   };
