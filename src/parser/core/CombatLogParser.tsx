@@ -16,6 +16,7 @@ import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import Haste from 'parser/shared/modules/Haste';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import React, { ComponentType } from 'react';
 
@@ -48,7 +49,6 @@ import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
-import ManaValues from '../shared/modules/ManaValues';
 import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';

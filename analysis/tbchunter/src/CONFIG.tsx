@@ -56,7 +56,7 @@ const config: Config = {
           },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/Dd4mA7LtyGqhCanN/10-Heroic+Hungering+Destroyer+-+Kill+(4:04)/Sucker',
+  exampleReport: '/report/8AaZGQvkzJdDYfMR/11-Normal+Magtheridon+-+Kill+(7:42)/Badmera',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',

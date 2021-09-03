@@ -10,6 +10,7 @@ import lowRankSpells from './lowRankSpells';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 import Haste from './modules/Haste';
@@ -24,7 +25,7 @@ class CombatLogParser extends BaseCombatLogParser {
     haste: Haste,
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
-
+    alwaysBeCasting: AlwaysBeCasting,
     // Mana Tab
     manaTracker: ManaTracker,
     hpmTracker: HealingEfficiencyTracker,

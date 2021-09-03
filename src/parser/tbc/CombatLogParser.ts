@@ -1,3 +1,8 @@
+import CombatPotionChecker from 'parser/tbc/modules/items/CombatPotionChecker';
+import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
+import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
+import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';
+
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
 import Buffs from '../core/modules/Buffs';
@@ -37,7 +42,6 @@ import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
 import EnchantChecker from './modules/items/EnchantChecker';
-import FoodChecker from './modules/items/FoodChecker';
 import ManaGained from './statistic/ManaGained';
 
 class CombatLogParser extends BaseCombatLogParser {
@@ -61,7 +65,10 @@ class CombatLogParser extends BaseCombatLogParser {
 
     foodChecker: FoodChecker,
     enchantChecker: EnchantChecker,
+    flaskChecker: FlaskChecker,
+    weaponEnhancementChecker: WeaponEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    combatPotionChecker: CombatPotionChecker,
 
     enemies: Enemies,
     enemyInstances: EnemyInstances,
@@ -77,7 +84,7 @@ class CombatLogParser extends BaseCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     abilitiesMissing: AbilitiesMissing,
-    CastEfficiency: CastEfficiency,
+    castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
     globalCooldown: GlobalCooldown,

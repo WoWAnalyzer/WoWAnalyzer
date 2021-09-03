@@ -275,7 +275,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
           extraSuggestion: 'You should aim to use this off CD.',
         },
-        enabled: this.selectedCombatant.talents[0] > 31,
+        enabled: this.selectedCombatant.talents[0] >= 31,
       },
       {
         spell: SPELLS.PAIN_SUPPRESSION,
