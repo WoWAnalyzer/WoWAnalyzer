@@ -18,7 +18,7 @@ class PrayerOfMending extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   currentStacks = 0;
-  completlyWastedCasts = 0;
+  completelyWastedCasts = 0;
   perfectCasts = 0;
 
   get castCount() {
@@ -43,7 +43,7 @@ class PrayerOfMending extends Analyzer {
 
   get prayerOfMendingThreshold() {
     return {
-      actual: this.completlyWastedCasts,
+      actual: this.completelyWastedCasts,
       isGreaterThan: {
         minor: 1,
         average: 5,
@@ -68,7 +68,7 @@ class PrayerOfMending extends Analyzer {
 
   onCast(event: CastEvent) {
     if (this.currentStacks === 5) {
-      this.completlyWastedCasts += 1;
+      this.completelyWastedCasts += 1;
     }
     if (this.currentStacks === 0) {
       this.perfectCasts += 1;
@@ -93,7 +93,7 @@ class PrayerOfMending extends Analyzer {
             <br />
             Overwritten Stacks: {this.wastedStacks}
             <br />
-            Completly Wasted Casts: {this.completlyWastedCasts}
+            Completely Wasted Casts: {this.completelyWastedCasts}
             <br />
             Perfect Casts: {this.perfectCasts}
             <br />

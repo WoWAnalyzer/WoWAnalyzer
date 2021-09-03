@@ -10,12 +10,14 @@ import lowRankSpells from './lowRankSpells';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 import Haste from './modules/Haste';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
+import Shadowfiend from './modules/spells/Shadowfiend';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -26,13 +28,14 @@ class CombatLogParser extends BaseCombatLogParser {
     haste: Haste,
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
-
+    alwaysBeCasting: AlwaysBeCasting,
     // Mana Tab
     manaTracker: ManaTracker,
     hpmTracker: HealingEfficiencyTracker,
     hpmDetails: HealingEfficiencyDetails,
 
     // Specific Spells
+    shadowfiend: Shadowfiend,
     prayerOfMending: PrayerOfMending,
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,

@@ -1,32 +1,26 @@
 import { captureException } from 'common/errorLogger';
 import { SpellLink } from 'interface';
-import PropTypes from 'prop-types';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import React from 'react';
 
-import Requirement from './Requirement';
+import Requirement, { RequirementThresholds } from './Requirement';
+
+interface Props {
+  name?: string | JSX.Element;
+  spell: number;
+  castEfficiency: AbilityCastEfficiency | null;
+  casts?: number;
+  isMaxCasts?: boolean;
+}
 
 /**
  * This is a common requirement for all checklists that uses settings for CastEfficiency to create a Requirement. It shows the spell and your efficiency as performance depending on the configured cast efficiency efficiency thresholds.
  *
  * This requirement is automatically disabled if the ability's CastEfficiency suggestion is disabled (i.e. if the ability's castEfficiency: { suggestion } is unset or false), or the ability is disabled completely. If you set `onlyWithSuggestion` to `false` in the object when creating this requirement you can change this behavior to always show if the ability is enabled, regardless of the CastEfficiency suggestion property being set.
  */
-class GenericCastEfficiencyRequirement extends React.PureComponent {
-  static propTypes = {
-    spell: PropTypes.number.isRequired,
-    name: PropTypes.node,
-    castEfficiency: PropTypes.shape({
-      efficiency: PropTypes.number.isRequired,
-      gotMaxCasts: PropTypes.bool.isRequired,
-      recommendedEfficiency: PropTypes.number.isRequired,
-      averageIssueEfficiency: PropTypes.number.isRequired,
-      majorIssueEfficiency: PropTypes.number.isRequired,
-      casts: PropTypes.any,
-      maxCasts: PropTypes.any,
-    }).isRequired,
-    isMaxCasts: PropTypes.bool,
-  };
-
-  get thresholds() {
+class GenericCastEfficiencyRequirement extends React.PureComponent<Props> {
+  get thresholds(): RequirementThresholds | null {
     if (!this.props.castEfficiency) {
       captureException(
         new Error(
@@ -47,7 +41,7 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
           average: maxCasts - 1,
           major: maxCasts - 2,
         },
-        style: 'number',
+        style: ThresholdStyle.NUMBER,
       };
     } else {
       const {
@@ -59,13 +53,13 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
       } = this.props.castEfficiency;
 
       return {
-        actual: gotMaxCasts ? 1 : efficiency,
+        actual: Number(gotMaxCasts ? 1 : efficiency),
         isLessThan: {
           minor,
           average,
           major,
         },
-        style: 'percentage',
+        style: ThresholdStyle.PERCENTAGE,
       };
     }
   }

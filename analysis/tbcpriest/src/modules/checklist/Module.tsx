@@ -5,6 +5,7 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import PrayerOfMending from '../spells/PrayerOfMending';
 import Component from './Component';
 
@@ -13,9 +14,8 @@ class Checklist extends BaseChecklist {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     manaValues: ManaValues,
-
+    alwaysBeCasting: AlwaysBeCasting,
     prayerOfMending: PrayerOfMending,
-
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
 
@@ -24,6 +24,7 @@ class Checklist extends BaseChecklist {
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected prayerOfMending!: PrayerOfMending;
   protected manaValues!: ManaValues;
+  protected alwaysBeCasting!: AlwaysBeCasting;
 
   render() {
     return (
@@ -35,6 +36,9 @@ class Checklist extends BaseChecklist {
 
           prayerOfMending: this.prayerOfMending.prayerOfMendingThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
+            .nonHealingTimeSuggestionThresholds,
+          downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
       />
     );

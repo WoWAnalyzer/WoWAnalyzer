@@ -26,7 +26,7 @@ const config: Config = {
   pages: {
     overview: {
       hideChecklist: false,
-      text: <>Classic support is still a Work in Progress.</>,
+      text: <>TBC support is still a Work in Progress.</>,
       type: 'info',
     },
   },

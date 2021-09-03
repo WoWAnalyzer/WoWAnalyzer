@@ -1,8 +1,6 @@
 import SPELLS from 'common/SPELLS';
-// import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-// import { ItemLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';

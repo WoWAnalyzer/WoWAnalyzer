@@ -1,20 +1,26 @@
 import fetchWcl from 'common/fetchWclApi';
+import { WCLBossResources } from 'common/WCL_TYPES';
+import { DeathEvent } from 'parser/core/Events';
 import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-class ManaLevelChartComponent extends React.PureComponent {
-  static propTypes = {
-    reportCode: PropTypes.string.isRequired,
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    offset: PropTypes.number.isRequired,
-    combatants: PropTypes.object.isRequired,
-    manaUpdates: PropTypes.array.isRequired,
-  };
+interface Props {
+  reportCode: string;
+  start: number;
+  end: number;
+  offset: number;
+  combatants: any;
+  manaUpdates: any[];
+}
 
-  constructor(props) {
+interface State {
+  bossHealth: WCLBossResources | null;
+}
+
+class ManaLevelChartComponent extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
+
     this.state = {
       bossHealth: null,
     };
@@ -24,7 +30,7 @@ class ManaLevelChartComponent extends React.PureComponent {
     this.load();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Readonly<Props>) {
     if (
       prevProps.reportCode !== this.props.reportCode ||
       prevProps.start !== this.props.start ||
@@ -45,7 +51,7 @@ class ManaLevelChartComponent extends React.PureComponent {
       abilityid: 1000,
     }).then((json) => {
       this.setState({
-        bossHealth: json,
+        bossHealth: json as WCLBossResources,
       });
     });
   }
@@ -76,7 +82,9 @@ class ManaLevelChartComponent extends React.PureComponent {
       }),
     );
 
-    const bossData = this.state.bossHealth.series.map((series) => {
+    const bossData = this.state.bossHealth.series.map((series: any) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {
@@ -86,11 +94,11 @@ class ManaLevelChartComponent extends React.PureComponent {
       };
     });
 
-    let deaths = [];
+    let deaths: Array<{ x: number; name: string; ability: string }> = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
-        .filter((death) => Boolean(death.targetIsFriendly))
-        .map(({ timestamp, targetID, killingAbility }) => ({
+        .filter((death: DeathEvent) => Boolean(death.targetIsFriendly))
+        .map(({ timestamp, targetID, killingAbility }: DeathEvent) => ({
           x: timestamp - start,
           name: combatants.players[targetID] ? combatants.players[targetID].name : 'Unknown Player',
           ability: killingAbility ? killingAbility.name : 'Unknown Ability',

@@ -13,9 +13,11 @@ class ManaLevelChart extends Analyzer {
     combatants: Combatants,
   };
 
+  protected manaValues!: ManaValues;
+  protected combatants!: Combatants;
+
   statistic() {
     const reportCode = this.owner.report.code;
-    const actorId = this.owner.playerId;
     const start = this.owner.fight.start_time;
     const end = this.owner.fight.end_time;
     const offset = this.owner.fight.offset_time;
@@ -34,7 +36,6 @@ class ManaLevelChart extends Analyzer {
       >
         <ManaLevelChartComponent
           reportCode={reportCode}
-          actorId={actorId}
           start={start}
           end={end}
           offset={offset}

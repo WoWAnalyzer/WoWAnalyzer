@@ -17,9 +17,10 @@ class ManaUsageChart extends Analyzer {
     healingDone: HealingDone,
   };
 
+  protected manaValues!: ManaValues;
+  protected healingDone!: HealingDone;
+
   statistic() {
-    const reportCode = this.owner.report.code;
-    const actorId = this.owner.playerId;
     const start = this.owner.fight.start_time;
     const end = this.owner.fight.end_time;
     const offset = this.owner.fight.offset_time;
@@ -37,8 +38,6 @@ class ManaUsageChart extends Analyzer {
         position={110}
       >
         <ManaUsageChartComponent
-          reportCode={reportCode}
-          actorId={actorId}
           start={start}
           end={end}
           offset={offset}
