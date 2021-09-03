@@ -1,8 +1,9 @@
 import { change, date } from 'common/changelog';
-import * as SPELLS from './SPELLS';
 import { Khadaj } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
+
+import * as SPELLS from './SPELLS';
 
 export default [
   change(date(2021, 9, 2), 'Adding more TBC checklist items', Khadaj),
