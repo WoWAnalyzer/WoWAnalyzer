@@ -41,6 +41,7 @@
     "@wowanalyzer/shaman-enhancement": "*",
     "@wowanalyzer/shaman-restoration": "*",
     "@wowanalyzer/tbc-mage": "*",
+    "@wowanalyzer/tbc-druid": "*",
     "@wowanalyzer/tbc-hunter": "*",
     "@wowanalyzer/tbc-priest": "*",
     "@wowanalyzer/warlock-affliction": "*",
