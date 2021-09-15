@@ -81,11 +81,6 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.healingDone = (ability.healingEffective || 0) + (ability.healingAbsorbed || 0);
     spellInfo.overhealingDone = ability.healingOverheal || 0;
 
-    if (ability.ability) {
-      console.log(ability.ability?.name, ability.ability);
-      console.log(spellInfo);
-    }
-
     if (healingSpellIds) {
       for (const healingSpellId in healingSpellIds) {
         const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
@@ -125,7 +120,6 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent || 0;
 
     const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);
-
     spellInfo.timeSpentCasting = timeSpentCasting.timeSpentCasting + timeSpentCasting.gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
