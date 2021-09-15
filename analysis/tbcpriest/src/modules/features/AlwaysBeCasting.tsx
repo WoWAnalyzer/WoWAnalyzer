@@ -2,9 +2,36 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
+import { Options } from 'parser/core/Analyzer';
+import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = [25235, 25213, 25222, 25218, 32546, 33076, 25308, 34866];
+  static HEALING_ABILITIES_ON_GCD: number[] = [
+    25235,
+    25213,
+    25222,
+    25218,
+    32546,
+    33076,
+    25308,
+    34866,
+  ];
+
+  constructor(options: Options) {
+    super(options);
+
+    const maxRankSpells: number[] = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD;
+
+    const lrs: LowRankSpells = lowRankSpells;
+    for (const spell_id of maxRankSpells) {
+      AlwaysBeCasting.HEALING_ABILITIES_ON_GCD = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.concat(
+        lrs[spell_id],
+      );
+    }
+    AlwaysBeCasting.HEALING_ABILITIES_ON_GCD = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.filter(
+      (id: number) => Boolean(id),
+    );
+  }
 
   suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

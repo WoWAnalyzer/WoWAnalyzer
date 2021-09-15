@@ -24,7 +24,7 @@ import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Haste from '../shared/modules/Haste';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
-import ManaValues from '../shared/modules/ManaValues';
+import ManaValues from '../tbc/modules/ManaValues';
 import Pets from '../shared/modules/Pets';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';

@@ -6,7 +6,7 @@ import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
 import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
 
-import lowRankSpells from './lowRankSpells';
+import lowRankSpells, { whitelist } from './lowRankSpells';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
@@ -43,7 +43,10 @@ class CombatLogParser extends BaseCombatLogParser {
     checklist: Checklist,
   };
 
-  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpellsSuggestion(lowRankSpells)];
+  static suggestions = [
+    ...BaseCombatLogParser.suggestions,
+    lowRankSpellsSuggestion(lowRankSpells, whitelist),
+  ];
 }
 
 export default CombatLogParser;

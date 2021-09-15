@@ -1,3 +1,5 @@
+export const SHOOT = 5019;
+export const RESTORE_MANA = 28499;
 export const FLASH_HEAL = 25235;
 export const GREATER_HEAL = 25213;
 export const RENEW = 25222;
