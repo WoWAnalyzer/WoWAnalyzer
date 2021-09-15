@@ -9,10 +9,10 @@ import Events, {
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Channeling from 'parser/shared/modules/Channeling';
 
 import SpellUsable from './SpellUsable';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 type SpellHistoryEvent =
   | BeginCastEvent

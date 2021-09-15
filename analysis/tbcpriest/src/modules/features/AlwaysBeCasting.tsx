@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { Options } from 'parser/core/Analyzer';
+
 import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {

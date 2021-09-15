@@ -8,8 +8,8 @@ import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
-import * as SPELLS from './SPELLS';
 import lowRankSpells from './lowRankSpells';
+import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
