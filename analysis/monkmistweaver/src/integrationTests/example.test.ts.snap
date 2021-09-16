@@ -854,7 +854,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Chi Burst
               </a>
             </td>
@@ -2176,7 +2176,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Paralysis
               </a>
             </td>
@@ -2273,7 +2273,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Ring of Peace
               </a>
             </td>
@@ -2467,7 +2467,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Roll
               </a>
             </td>
@@ -2564,7 +2564,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Tiger's Lust
               </a>
             </td>
@@ -2661,7 +2661,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Transcendence
               </a>
             </td>
@@ -2758,7 +2758,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Transcendence: Transfer
               </a>
             </td>
@@ -2913,7 +2913,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Tiger Palm
               </a>
             </td>
@@ -2998,7 +2998,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Blackout Kick
               </a>
             </td>
@@ -3095,7 +3095,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Rising Sun Kick
               </a>
             </td>
@@ -3192,7 +3192,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Spinning Crane Kick
               </a>
             </td>
@@ -8540,7 +8540,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_thunderfocustea.jpg"
             />
-             
+
             Thunder Focus Tea
           </a>
            usage
@@ -11516,7 +11516,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/spell_monk_diffusemagic.jpg"
                   />
-                   
+
                   Diffuse Magic
                 </a>
               </div>
