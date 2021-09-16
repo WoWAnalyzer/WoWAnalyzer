@@ -655,7 +655,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Thunder Focus Tea
               </a>
             </td>
@@ -1417,7 +1417,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                     }
                   }
                 />
-                 
+
                 Diffuse Magic
               </a>
             </td>
@@ -9455,7 +9455,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/ability_monk_thunderfocustea.jpg"
                   />
-                   
+
                   Thunder Focus Tea
                 </a>
               </div>
@@ -9690,7 +9690,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_arcanetorrent.jpg"
                   />
-                   
+
                   Chi Burst
                 </a>
               </div>
@@ -10285,7 +10285,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_arcanetorrent.jpg"
                   />
-                   
+
                   Chi Burst
                 </a>
                  targets hit
@@ -10830,7 +10830,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/ability_monk_thunderfocustea.jpg"
                   />
-                   
+
                   Thunder Focus Tea
                 </a>
                  incorrect casts
