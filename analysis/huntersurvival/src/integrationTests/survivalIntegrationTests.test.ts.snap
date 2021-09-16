@@ -567,7 +567,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              11.07
+              9.99
             </td>
             <td
               className="text-right"
@@ -577,7 +577,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              41
+              37
               
                casts
             </td>
@@ -834,7 +834,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              5.67
+              2.43
             </td>
             <td
               className="text-right"
@@ -844,7 +844,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              21
+              9
               /22
                casts
             </td>
@@ -863,7 +863,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "99.83005365384645%",
+                      "width": "104.00131397174961%",
                     }
                   }
                 />
@@ -878,7 +878,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              99.83%
+              104.00%
             </td>
             <td
               style={
@@ -5617,7 +5617,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  99.83%
+                  104.00%
                    
                    
                 </div>
@@ -7340,7 +7340,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              17.43
+              16.43
             </td>
             <td
               className="text-right"
@@ -7350,7 +7350,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              87
+              82
               
                casts
             </td>
@@ -7425,7 +7425,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              6.21
+              2.00
             </td>
             <td
               className="text-right"
@@ -7435,7 +7435,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              31
+              10
               /31
                casts
             </td>
@@ -12505,7 +12505,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  100.00%
+                  103.89%
                    
                    
                 </div>

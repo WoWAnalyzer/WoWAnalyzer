@@ -8,6 +8,13 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const baseSpells: SpellbookAbility[] = [
       {
+        spell: [SPELLS.SHOOT],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1500,
+        },
+      },
+      {
         spell: [SPELLS.FLASH_HEAL, ...lowRankSpells[SPELLS.FLASH_HEAL]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -153,7 +160,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.MIND_VISION, ...lowRankSpells[SPELLS.MIND_VISION]],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
         gcd: {
           static: 1500,
         },
@@ -167,7 +174,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.RESURRECTION, ...lowRankSpells[SPELLS.RESURRECTION]],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
         gcd: {
           static: 1500,
         },
@@ -263,6 +270,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INNER_FOCUS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        enabled: this.selectedCombatant.talents[0] >= 11,
+        cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: 'You should aim to use this off CD.',
+        },
       },
       {
         spell: SPELLS.POWER_INFUSION,
@@ -284,6 +298,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: this.selectedCombatant.talents[0] >= 41,
       },
       {
         spell: [SPELLS.MIND_FLAY, ...lowRankSpells[SPELLS.MIND_FLAY]],
@@ -291,6 +306,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: this.selectedCombatant.talents[2] >= 11,
       },
       {
         spell: SPELLS.SILENCE,
@@ -305,6 +321,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: this.selectedCombatant.talents[2] >= 21,
       },
       {
         spell: SPELLS.SHADOW_FORM,
@@ -312,6 +329,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: this.selectedCombatant.talents[2] >= 41,
       },
       {
         spell: SPELLS.SYMBOL_OF_HOPE,
@@ -320,6 +338,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.CHASTISE, ...lowRankSpells[SPELLS.CHASTISE]],
@@ -328,6 +347,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.DESPERATE_PRAYER, ...lowRankSpells[SPELLS.DESPERATE_PRAYER]],
@@ -336,6 +356,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: true,
       },
       {
         spell: [SPELLS.FEEDBACK, ...lowRankSpells[SPELLS.FEEDBACK]],
@@ -344,16 +365,19 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.STAR_SHARDS, ...lowRankSpells[SPELLS.STAR_SHARDS]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
+        enabled: false,
       },
       {
         spell: SPELLS.ELUNES_GRACE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        enabled: false,
       },
       {
         spell: SPELLS.CONSUME_MAGIC,
@@ -362,6 +386,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.TOUCH_OF_WEAKNESS, ...lowRankSpells[SPELLS.TOUCH_OF_WEAKNESS]],
@@ -369,6 +394,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.DEVOURING_PLAGUE, ...lowRankSpells[SPELLS.DEVOURING_PLAGUE]],
@@ -377,6 +403,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.SHADOW_GUARD, ...lowRankSpells[SPELLS.SHADOW_GUARD]],
@@ -384,6 +411,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
       {
         spell: [SPELLS.HEX_OF_WEAKNESS, ...lowRankSpells[SPELLS.HEX_OF_WEAKNESS]],
@@ -391,6 +419,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        enabled: false,
       },
     ];
 

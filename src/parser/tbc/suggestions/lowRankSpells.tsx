@@ -11,7 +11,7 @@ export interface LowRankSpells {
   [primarySpellId: number]: number[];
 }
 
-const lowRankSpells = (spells: LowRankSpells) => (
+const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) => (
   events: AnyEvent[],
   { playerId }: Pick<Info, 'playerId'>,
 ) => {
@@ -20,7 +20,9 @@ const lowRankSpells = (spells: LowRankSpells) => (
   return Object.entries<number[]>(spells as { [key: string]: number[] }).flatMap(
     ([primarySpellId, lowRankSpellIds]) =>
       lowRankSpellIds
-        .filter((spellId) => casts[spellId] > 0)
+        .filter(
+          (spellId) => casts[spellId] > 0 && !whitelist[Number(primarySpellId)]?.includes(spellId),
+        )
         .map((spellId) => ({
           text: (
             <Trans id="tbc.suggestions.lowRankSpells">

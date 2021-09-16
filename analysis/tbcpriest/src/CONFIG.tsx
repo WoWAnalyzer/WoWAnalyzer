@@ -8,6 +8,8 @@ import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
+import lowRankSpells from './lowRankSpells';
+import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
@@ -41,7 +43,40 @@ const config: Config = {
     },
   },
   timeline: {
-    separateCastBars: [],
+    separateCastBars: [
+      [
+        SPELLS.RENEW,
+        ...lowRankSpells[SPELLS.RENEW],
+        SPELLS.POWER_WORD_SHIELD,
+        ...lowRankSpells[SPELLS.POWER_WORD_SHIELD],
+        SPELLS.PRAYER_OF_MENDING,
+        SPELLS.CIRCLE_OF_HEALING,
+        ...lowRankSpells[SPELLS.CIRCLE_OF_HEALING],
+      ],
+      [
+        SPELLS.FLASH_HEAL,
+        ...lowRankSpells[SPELLS.FLASH_HEAL],
+        SPELLS.GREATER_HEAL,
+        ...lowRankSpells[SPELLS.GREATER_HEAL],
+
+        SPELLS.PRAYER_OF_HEALING,
+        ...lowRankSpells[SPELLS.PRAYER_OF_HEALING],
+      ],
+      [
+        SPELLS.SHOOT,
+        SPELLS.SMITE,
+        ...lowRankSpells[SPELLS.SMITE],
+        SPELLS.SHADOW_WORD_PAIN,
+        ...lowRankSpells[SPELLS.SHADOW_WORD_PAIN],
+        SPELLS.SHADOW_WORD_DEATH,
+        ...lowRankSpells[SPELLS.SHADOW_WORD_DEATH],
+        SPELLS.MIND_BLAST,
+        ...lowRankSpells[SPELLS.MIND_BLAST],
+        SPELLS.HOLY_FIRE,
+        ...lowRankSpells[SPELLS.HOLY_FIRE],
+      ],
+      [SPELLS.SHADOW_FIEND, SPELLS.RESTORE_MANA],
+    ],
   },
 
   // Don't change anything below this line;
