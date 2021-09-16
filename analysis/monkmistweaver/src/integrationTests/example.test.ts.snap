@@ -6493,85 +6493,17 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td>
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=122783"
+              href="http://wowhead.com/spell=100780"
               rel="noopener noreferrer"
               target="_blank"
             >
               <img
                 alt=""
                 className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_diffusemagic.jpg"
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
               />
-               
-              Diffuse Magic
-            </a>
-          </td>
-          <td>
-            0
-             (0.00%)
-          </td>
-          <td
-            className="text-right"
-          >
-            -
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "0%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            -
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "0%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=115078"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_paralysis.jpg"
-              />
-               
-              Paralysis
+
+              Tiger Palm
             </a>
           </td>
           <td>
@@ -6638,7 +6570,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/ability_monk_roundhousekick.jpg"
               />
-               
+
               Blackout Kick
             </a>
           </td>
@@ -6706,7 +6638,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/ability_monk_cranekick_new.jpg"
               />
-               
+
               Spinning Crane Kick
             </a>
           </td>
@@ -6774,8 +6706,212 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/monk_ability_transcendence.jpg"
               />
-               
+
               Transcendence
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=107428"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_risingsunkick.jpg"
+              />
+
+              Rising Sun Kick
+            </a>
+          </td>
+          <td>
+            15k
+             (4.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=109132"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_roll.jpg"
+              />
+
+              Roll
+            </a>
+          </td>
+          <td>
+            0
+             (0.00%)
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            -
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=115078"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_paralysis.jpg"
+              />
+
+              Paralysis
             </a>
           </td>
           <td>
@@ -6842,7 +6978,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/ability_monk_thunderfocustea.jpg"
               />
-               
+
               Thunder Focus Tea
             </a>
           </td>
@@ -6910,7 +7046,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerslust.jpg"
               />
-               
+
               Tiger's Lust
             </a>
           </td>
@@ -6978,81 +7114,13 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/spell_monk_ringofpeace.jpg"
               />
-               
+
               Ring of Peace
             </a>
           </td>
           <td>
             0
              (0.00%)
-          </td>
-          <td
-            className="text-right"
-          >
-            -
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "0%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            -
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "0%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=107428"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_risingsunkick.jpg"
-              />
-               
-              Rising Sun Kick
-            </a>
-          </td>
-          <td>
-            15k
-             (4.00%)
           </td>
           <td
             className="text-right"
@@ -7114,7 +7182,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_spectraltransformation.jpg"
               />
-               
+
               Transcendence: Transfer
             </a>
           </td>
@@ -7173,17 +7241,17 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td>
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=100780"
+              href="http://wowhead.com/spell=122783"
               rel="noopener noreferrer"
               target="_blank"
             >
               <img
                 alt=""
                 className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
+                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_diffusemagic.jpg"
               />
-               
-              Tiger Palm
+
+              Diffuse Magic
             </a>
           </td>
           <td>
@@ -7250,76 +7318,8 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="icon game "
                 src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_arcanetorrent.jpg"
               />
-               
+
               Chi Burst
-            </a>
-          </td>
-          <td>
-            0
-             (0.00%)
-          </td>
-          <td
-            className="text-right"
-          >
-            -
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "0%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            -
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#ac1f39",
-                    "transition": "background-color 800ms",
-                    "width": "0%",
-                  }
-                }
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=109132"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_roll.jpg"
-              />
-               
-              Roll
             </a>
           </td>
           <td>
