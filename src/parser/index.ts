@@ -28,6 +28,7 @@ import SubtletyRogue from '@wowanalyzer/rogue-subtlety';
 import ElementalShaman from '@wowanalyzer/shaman-elemental';
 import EnhancementShaman from '@wowanalyzer/shaman-enhancement';
 import RestorationShaman from '@wowanalyzer/shaman-restoration';
+import TbcDruid from '@wowanalyzer/tbc-druid';
 import TbcHunter from '@wowanalyzer/tbc-hunter';
 import TbcMage from '@wowanalyzer/tbc-mage';
 import TbcPriest from '@wowanalyzer/tbc-priest';
@@ -92,6 +93,7 @@ const configs: Config[] = [
   TbcMage,
   TbcHunter,
   TbcPriest,
+  TbcDruid,
 ];
 
 export default configs;
