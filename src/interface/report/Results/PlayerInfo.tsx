@@ -66,7 +66,6 @@ const PlayerInfo = ({ combatant }: Props) => {
   const talents: number[] = _parseTalents(combatant._combatantInfo.talents);
   const averageIlvl = getAverageItemLevel(gear);
   const conduits = combatant._combatantInfo.conduits;
-  console.log(conduits);
   const background =
     combatant.characterProfile && combatant.characterProfile.thumbnail
       ? `https://render-${
@@ -93,7 +92,7 @@ const PlayerInfo = ({ combatant }: Props) => {
         </div>
         <div className="player-details-talents">
           <h3>Conduits </h3>
-          {conduits!.map((conduit) => renderConduit(conduit))}
+          {conduits?.map((conduit) => renderConduit(conduit))}
         </div>
       </div>
     </div>
