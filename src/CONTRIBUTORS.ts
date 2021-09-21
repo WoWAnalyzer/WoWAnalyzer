@@ -1661,3 +1661,16 @@ export const Pink: Contributor = {
     },
   ],
 };
+
+export const Pirrang: Contributor = {
+  nickname: 'Pirrang',
+  discord: 'Pirrang#1818',
+  github: 'Pirrang',
+  mains: [
+    {
+      name: 'Sansukie',
+      spec: SPECS.AFFLICTION_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/eu/kazzak/sansukie',
+    },
+  ],
+};

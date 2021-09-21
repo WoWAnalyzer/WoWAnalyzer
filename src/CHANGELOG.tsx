@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Anomoly, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Sref, Ssabbar, Soulhealer95, wmavis, Zeboot, Zerotorescue, niko } from 'CONTRIBUTORS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Anomoly, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Sref, Ssabbar, Soulhealer95, wmavis, Zeboot, Zerotorescue, niko, Pirrang } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import React from 'react';
@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 9, 21), 'Added conduit view on character page', Pirrang),
   change(date(2021, 8, 31), 'Fixed an issue where Premium was immediately lost upon unsubscribing in Patreon, even if you were eligible for benefits for the remainder of the month.', Zerotorescue),
   change(date(2021, 8, 31), 'Fixed rare crash in Cast Efficiency module when an important spell was never cast.', Zerotorescue),
   change(date(2021, 8, 9), 'German translations for monk class', maestrohdude),
