@@ -8,6 +8,8 @@ import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
+import lowRankSpells from './lowRankSpells';
+import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
@@ -41,7 +43,15 @@ const config: Config = {
     },
   },
   timeline: {
-    separateCastBars: [],
+    separateCastBars: [
+      [
+        SPELLS.REGROWTH,
+        ...lowRankSpells[SPELLS.REGROWTH],
+        SPELLS.REJUVENATION,
+        ...lowRankSpells[SPELLS.REJUVENATION],
+        SPELLS.LIFEBLOOM,
+      ],
+    ],
   },
 
   // Don't change anything below this line;
