@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TooltipElement } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
@@ -25,10 +26,12 @@ const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) => 
         )
         .map((spellId) => ({
           text: (
-            <Trans id="tbc.suggestions.lowRankSpells">
-              You cast a lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
-              <SpellLink id={Number(primarySpellId)} /> instead.
-            </Trans>
+            <TooltipElement content="Healers can ignore this suggestion if they are running low on mana during a fight.">
+              <Trans id="tbc.suggestions.lowRankSpells">
+                You cast a lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
+                <SpellLink id={Number(primarySpellId)} /> instead.
+              </Trans>
+            </TooltipElement>
           ),
           importance: SuggestionImportance.Regular,
           icon: (SPELLS[primarySpellId] || SPELLS[spellId])?.icon,
