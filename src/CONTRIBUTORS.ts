@@ -1674,3 +1674,16 @@ export const Pirrang: Contributor = {
     },
   ],
 };
+
+export const Elodiel: Contributor = {
+  nickname: 'Elodiel',
+  discord: 'Elodiel#5981',
+  github: 'ElodielAirea',
+  mains: [
+    {
+      name: 'Yusun',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://www.warcraftlogs.com/character/eu/thrall/yusun',
+    },
+  ],
+};
