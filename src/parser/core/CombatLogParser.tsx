@@ -677,7 +677,7 @@ class CombatLogParser {
               }
             }
           } catch (e) {
-            //error occured during results generation of module, disable module and all modules depending on it
+            //error occurred during results generation of module, disable module and all modules depending on it
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }

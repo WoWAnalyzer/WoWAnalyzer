@@ -37,7 +37,7 @@ class ErrorBoundary extends React.Component {
         <div className="alert alert-danger">
           <h1 style={{ marginTop: 0 }}>
             <Trans id="interface.common.errorBoundary.error">
-              An error occured while trying to render this part of the page.
+              An error occurred while trying to render this part of the page.
             </Trans>
           </h1>
           <p className="text-muted">

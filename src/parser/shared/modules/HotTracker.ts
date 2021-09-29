@@ -817,7 +817,7 @@ export interface Tracker {
   extensions: Extension[];
   /** listing of boosts attached to this HoT */
   boosts: Boost[];
-  /** healing that occured after the original end (can be attributed to extensions) */
+  /** healing that occurred after the original end (can be attributed to extensions) */
   healingAfterOriginalEnd: number;
   /** if present, this is the 'true max duration' beyond which the HoT cannot be extended */
   maxDuration?: number;

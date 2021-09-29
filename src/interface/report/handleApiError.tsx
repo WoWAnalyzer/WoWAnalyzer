@@ -112,7 +112,7 @@ export default function handleApiError(error: Error, onBack: () => void) {
       <FullscreenError
         error={t({
           id: 'interface.report.handleApiError.analysisError',
-          message: `An error occured during analysis`,
+          message: `An error occurred during analysis`,
         })}
         details={t({
           id: 'interface.report.handleApiError.analysisErrorDetails',
@@ -133,7 +133,7 @@ export default function handleApiError(error: Error, onBack: () => void) {
       <FullscreenError
         error={t({
           id: 'interface.report.handleApiError.connectionError',
-          message: `A connection error occured.`,
+          message: `A connection error occurred.`,
         })}
         details={t({
           id: 'interface.report.handleApiError.connectionErrorDetails',

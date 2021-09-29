@@ -89,7 +89,7 @@ class GlobalCooldown extends Analyzer {
     this._currentChannel = null;
 
     if (isChannelingSameSpell) {
-      // The GCD occured already at the start of this channel
+      // The GCD occurred already at the start of this channel
       return;
     }
     event.globalCooldown = this.triggerGlobalCooldown(event);
@@ -151,7 +151,7 @@ class GlobalCooldown extends Analyzer {
     }
   }
 
-  /** @type {import('parser/core/Events').GlobalCooldownEvent} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
+  /** @type {import('parser/core/Events').GlobalCooldownEvent} The last GCD event that occurred, can be used to check if the player is affected by the GCD. */
   lastGlobalCooldown = null;
   onGlobalcooldown(event) {
     this._verifyAccuracy(event);
