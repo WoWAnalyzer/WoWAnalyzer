@@ -33,7 +33,8 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/8AaZGQvkzJdDYfMR/11-Normal+Magtheridon+-+Kill+(7:42)/RatherBeBelf',
+  exampleReport:
+    '/report/mDyrvWa7QHzN2jFM/50-Normal+Morogrim+Tidewalker+-+Kill+(6:25)/Ratherbebelf',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',

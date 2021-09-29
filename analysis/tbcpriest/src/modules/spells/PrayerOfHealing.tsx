@@ -50,6 +50,9 @@ class PrayerOfHealing extends Analyzer {
   }
 
   statistic() {
+    if (this.castCount === 0) {
+      return null;
+    }
     return (
       <StatisticBox
         icon={<SpellLink id={SPELLS.PRAYER_OF_HEALING} />}

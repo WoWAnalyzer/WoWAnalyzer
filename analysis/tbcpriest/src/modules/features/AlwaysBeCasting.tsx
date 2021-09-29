@@ -39,7 +39,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage)
-      .isGreaterThan(0.15)
+      .isGreaterThan(0.25)
       .addSuggestion((suggest, actual, recommended) =>
         suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')

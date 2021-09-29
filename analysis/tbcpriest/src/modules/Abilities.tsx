@@ -55,8 +55,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+          extraSuggestion: 'You should aim to use this off CD.',
+        },
         buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF,
         healSpellIds: [SPELLS.PRAYER_OF_MENDING_HEAL],
+        cooldown: 10,
       },
       {
         spell: [SPELLS.PRAYER_OF_HEALING, ...lowRankSpells[SPELLS.PRAYER_OF_HEALING]],
@@ -115,6 +121,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+          extraSuggestion: 'You should aim to use this any time you are below 70% mana.',
+        },
+        cooldown: 300,
       },
       {
         spell: [SPELLS.PSYCHIC_SCREAM, ...lowRankSpells[SPELLS.PSYCHIC_SCREAM]],

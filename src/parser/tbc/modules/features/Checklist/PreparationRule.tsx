@@ -62,6 +62,17 @@ const PreparationRule = ({
     </>
   );
 
+  const RenderPotionRequirements = () => (
+    <Requirement
+      name={
+        <Trans id="shared.modules.features.checklist.combatPotionEfficiency">
+          Combat Potion Efficiency
+        </Trans>
+      }
+      thresholds={thresholds.combatPotionThresholds}
+    />
+  );
+
   return (
     <Rule
       name={<Trans id="shared.modules.features.checklist.wellPrepared">Be well prepared</Trans>}
@@ -76,6 +87,7 @@ const PreparationRule = ({
       <RenderEnchantRequirements />
       <RenderFlaskRequirements />
       <RenderFoodRequirements />
+      <RenderPotionRequirements />
       {children}
     </Rule>
   );
