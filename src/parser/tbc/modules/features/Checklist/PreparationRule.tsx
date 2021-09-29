@@ -62,18 +62,16 @@ const PreparationRule = ({
     </>
   );
 
-  const RenderPotionRequirements = () => {
-    return (
-      <Requirement
-        name={
-          <Trans id="shared.modules.features.checklist.combatPotionEfficiency">
-            Combat Potion Efficiency
-          </Trans>
-        }
-        thresholds={thresholds.combatPotionThresholds}
-      />
-    );
-  };
+  const RenderPotionRequirements = () => (
+    <Requirement
+      name={
+        <Trans id="shared.modules.features.checklist.combatPotionEfficiency">
+          Combat Potion Efficiency
+        </Trans>
+      }
+      thresholds={thresholds.combatPotionThresholds}
+    />
+  );
 
   return (
     <Rule

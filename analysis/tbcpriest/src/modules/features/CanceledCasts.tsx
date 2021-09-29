@@ -1,9 +1,9 @@
+import { formatNumber } from 'common/format';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import React from 'react';
 import Events, { BeginCastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
-import { SpellIcon, SpellLink } from 'interface';
-import { formatNumber } from 'common/format';
+import React from 'react';
 
 class CanceledCasts extends Analyzer {
   canceledCasts: any = {};

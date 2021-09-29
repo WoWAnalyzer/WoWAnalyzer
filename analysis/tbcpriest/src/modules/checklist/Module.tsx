@@ -3,12 +3,12 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
+import CombatPotionChecker from 'parser/tbc/modules/items/CombatPotionChecker';
 import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import PrayerOfMending from '../spells/PrayerOfMending';
 import Component from './Component';
-import CombatPotionChecker from 'parser/tbc/modules/items/CombatPotionChecker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
