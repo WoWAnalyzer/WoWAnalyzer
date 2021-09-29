@@ -938,6 +938,7 @@
   "shared.modules.castEfficiency.recommended": ">{0}% é o recomendado",
   "shared.modules.castEfficiency.suggest": "Tente conjurar <0/> com mais frequência.",
   "shared.modules.features.checklist.augmentRune": "",
+  "shared.modules.features.checklist.combatPotionEfficiency": "",
   "shared.modules.features.checklist.combatPotionsUsed": "",
   "shared.modules.features.checklist.enchanted": "",
   "shared.modules.features.checklist.enchantedHigh": "",

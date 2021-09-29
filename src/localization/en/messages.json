@@ -938,6 +938,7 @@
   "shared.modules.castEfficiency.recommended": ">{0}% is recommended",
   "shared.modules.castEfficiency.suggest": "Try to cast <0/> more often.",
   "shared.modules.features.checklist.augmentRune": "Augment rune used",
+  "shared.modules.features.checklist.combatPotionEfficiency": "Combat Potion Efficiency",
   "shared.modules.features.checklist.combatPotionsUsed": "Combat potions used",
   "shared.modules.features.checklist.enchanted": "All items enchanted",
   "shared.modules.features.checklist.enchantedHigh": "Using high quality enchants",
