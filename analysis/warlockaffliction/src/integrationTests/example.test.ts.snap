@@ -1425,7 +1425,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               1
-              /1
+              /2
                casts
             </td>
             <td
@@ -1442,8 +1442,8 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "92.33218974826653%",
+                      "backgroundColor": "#ff8000",
+                      "width": "86.85456203587093%",
                     }
                   }
                 />
@@ -1458,7 +1458,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              92.33%
+              86.85%
             </td>
             <td
               style={
@@ -1467,7 +1467,12 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
           <tr>
             <td
@@ -4070,6 +4075,51 @@ Array [
         components={
           Object {
             "0": <ForwardRef
+              id={205180}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "spell": 205180,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 1,
+            "1": 2,
+            "2": "87",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": undefined,
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
               id={113860}
             />,
           }
@@ -5380,119 +5430,6 @@ Array [
 ]
 `;
 
-exports[`Affliction Warlock integration test: example log ShadowEmbrace matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="GENERAL"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=32388"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Shadow Embrace"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowembrace.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=32388"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Shadow Embrace
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          0.00
-           %
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            <small>
-              uptime 
-              <sup>
-                *
-              </sup>
-            </small>
-          </dfn>
-          <br />
-          0
-           DPS
-           
-          <small>
-            0.00
-             % of total
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Affliction Warlock integration test: example log ShadowEmbrace matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_shadow_shadowembrace",
-    "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ForwardRef
-        id={32390}
-      />
-       uptime can be improved. Try to pay more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
-    </React.Fragment>,
-    "spell": undefined,
-    "stat": <React.Fragment>
-      {"id":"warlock.affliction.suggestions.shadowembrace.uptime","message":"{0}% Shadow Embrace uptime","values":{"0":"0.00"}}
-       (
-      &gt;95.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Affliction Warlock integration test: example log SiphonLifeUptime matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -6684,7 +6621,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "78.9513831589004%",
+                  "width": "73.8151365787988%",
                 }
               }
             />
@@ -6790,7 +6727,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  100.00%
+                  86.85%
                    
                    
                 </div>
@@ -6810,9 +6747,9 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "78.9513831589004%",
                       }
                     }
                   />

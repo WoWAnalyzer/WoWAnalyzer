@@ -66,6 +66,7 @@ class ShadowEmbrace extends Analyzer {
       Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF),
       this.onChangeDebuffStack,
     );
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_EMBRACE_DEBUFF.id);
   }
 
   onDamage(event: DamageEvent) {
