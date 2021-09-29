@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 9, 29), 'Fixed typo in error page.', emallson),
   change(date(2021, 9, 21), 'Added conduit view on character page', Pirrang),
   change(date(2021, 8, 31), 'Fixed an issue where Premium was immediately lost upon unsubscribing in Patreon, even if you were eligible for benefits for the remainder of the month.', Zerotorescue),
   change(date(2021, 8, 31), 'Fixed rare crash in Cast Efficiency module when an important spell was never cast.', Zerotorescue),
