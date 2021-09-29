@@ -452,7 +452,7 @@
   "interface.reportSelecter.reportSelecter.tooltip.supportedLinks": "Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>",
   "interface.rootErrorBoundary.bug": "This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.",
   "interface.rootErrorBoundary.errorDuringAnalysis": "An error occurred during analysis",
-  "interface.rootErrorBoundary.errorDuringAnalysisDetails": "We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.",
+  "interface.rootErrorBoundary.errorDuringAnalysisDetails": "We fucked up and our code broke. Please let us know on Discord and we will fix it for you.",
   "interface.rootErrorBoundary.errorOccurred": "An error occurred.",
   "interface.rootErrorBoundary.errorOccurredDetails": "An unexpected error occurred in the app. Please try again.",
   "interface.search.goBackHome": "Go back home",
