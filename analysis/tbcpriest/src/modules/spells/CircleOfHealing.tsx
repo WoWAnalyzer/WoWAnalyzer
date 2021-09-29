@@ -60,6 +60,9 @@ class CircleOfHealing extends Analyzer {
   }
 
   statistic() {
+    if (this.castCount === 0) {
+      return null;
+    }
     return (
       <StatisticBox
         icon={<SpellLink id={SPELLS.CIRCLE_OF_HEALING} />}

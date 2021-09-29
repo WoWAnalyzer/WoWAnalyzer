@@ -108,8 +108,8 @@ class PrayerOfMending extends Analyzer {
     when(this.prayerOfMendingThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should not cast <SpellLink id={SPELLS.PRAYER_OF_MENDING} /> when there is already an
-          active prayer of mending with 5 stacks.
+          You should avoid casting <SpellLink id={SPELLS.PRAYER_OF_MENDING} /> when there is already
+          an active prayer of mending with 5 stacks.
         </>,
       )
         .icon('spell_holy_prayerofmendingtga')

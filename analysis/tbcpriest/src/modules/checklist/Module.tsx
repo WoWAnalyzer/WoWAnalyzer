@@ -8,6 +8,7 @@ import React from 'react';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import PrayerOfMending from '../spells/PrayerOfMending';
 import Component from './Component';
+import CombatPotionChecker from 'parser/tbc/modules/items/CombatPotionChecker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -17,6 +18,7 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     prayerOfMending: PrayerOfMending,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    combatPotionChecker: CombatPotionChecker,
   };
 
   protected combatants!: Combatants;
@@ -25,6 +27,7 @@ class Checklist extends BaseChecklist {
   protected prayerOfMending!: PrayerOfMending;
   protected manaValues!: ManaValues;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected combatPotionChecker!: CombatPotionChecker;
 
   render() {
     return (
@@ -39,6 +42,7 @@ class Checklist extends BaseChecklist {
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
             .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          combatPotionThresholds: this.combatPotionChecker.suggestionThresholds,
         }}
       />
     );

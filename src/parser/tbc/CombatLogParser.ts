@@ -1,4 +1,4 @@
-import CombatPotionChecker from 'parser/tbc/modules/items/CombatPotionChecker';
+import CombatPotionChecker from './modules/items/CombatPotionChecker';
 import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
 import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
 import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';

@@ -1,4 +1,4 @@
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import ManaTracker from 'parser/tbc/modules/resources/ManaTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
@@ -18,6 +18,7 @@ import CircleOfHealing from './modules/spells/CircleOfHealing';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Shadowfiend from './modules/spells/Shadowfiend';
+import CanceledCasts from './modules/features/CanceledCasts';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -29,6 +30,7 @@ class CombatLogParser extends BaseCombatLogParser {
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
     alwaysBeCasting: AlwaysBeCasting,
+    canceledCasts: CanceledCasts,
     // Mana Tab
     manaTracker: ManaTracker,
     hpmTracker: HealingEfficiencyTracker,
