@@ -1,5 +1,5 @@
 import { formatNumber } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
@@ -25,7 +25,7 @@ class CanceledCasts extends Analyzer {
   onPlayerCast(event: BeginCastEvent) {
     if (event.isCancelled) {
       this.canceledCasts[event.ability.guid] = this.canceledCasts[event.ability.guid] || 0;
-      this.canceledCasts[event.ability.guid]++;
+      this.canceledCasts[event.ability.guid] += 1;
     }
   }
 
