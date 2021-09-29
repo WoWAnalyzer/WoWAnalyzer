@@ -208,7 +208,7 @@ class SpellUsable extends Analyzer {
               : [];
           if (fullExplanation) {
             this.error(
-              "A cooldown error has occured. The most likely cause is missing a Haste buff, but the cooldown might also have multiple charges, can be reset early, cooldown can be reduced, the configured CD is invalid, the combatlog records multiple casts per player cast (e.g. ticks of a channel) or this is a latency issue. There's already handling for latency, but if it's extremely high, there might still be false positives. But usually it's a Haste issue.",
+              "A cooldown error has occurred. The most likely cause is missing a Haste buff, but the cooldown might also have multiple charges, can be reset early, cooldown can be reduced, the configured CD is invalid, the combatlog records multiple casts per player cast (e.g. ticks of a channel) or this is a latency issue. There's already handling for latency, but if it's extremely high, there might still be false positives. But usually it's a Haste issue.",
             );
           }
           this.error(

@@ -74,11 +74,11 @@ class RootErrorBoundary extends React.Component {
           <FullscreenError
             error={t({
               id: 'interface.rootErrorBoundary.errorDuringAnalysis',
-              message: `An error occured during analysis`,
+              message: `An error occurred during analysis`,
             })}
             details={t({
               id: 'interface.rootErrorBoundary.errorDuringAnalysisDetails',
-              message: `We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`,
+              message: `We fucked up and our code broke. Please let us know on Discord and we will fix it for you.`,
             })}
             background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
           />
@@ -87,10 +87,10 @@ class RootErrorBoundary extends React.Component {
 
       return (
         <FullscreenError
-          error={<Trans id="interface.rootErrorBoundary.errorOccured">An error occured.</Trans>}
+          error={<Trans id="interface.rootErrorBoundary.errorOccurred">An error occurred.</Trans>}
           details={
-            <Trans id="interface.rootErrorBoundary.errorOccuredDetails">
-              An unexpected error occured in the app. Please try again.
+            <Trans id="interface.rootErrorBoundary.errorOccurredDetails">
+              An unexpected error occurred in the app. Please try again.
             </Trans>
           }
           background={ApiDownBackground}

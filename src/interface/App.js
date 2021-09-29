@@ -135,7 +135,7 @@ class App extends React.Component {
         <FullscreenError
           error={t({
             id: 'fullScreenError.error',
-            message: `An API error occured.`,
+            message: `An API error occurred.`,
           })}
           details="Something went wrong talking to our servers, please try again."
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
@@ -174,7 +174,7 @@ class App extends React.Component {
       <FullscreenError
         error={t({
           id: 'home.unknown.error',
-          message: `An unknown error occured.`,
+          message: `An unknown error occurred.`,
         })}
         details={error.details.message || error.details}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"

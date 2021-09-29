@@ -331,7 +331,7 @@ class Cooldown extends React.Component {
                           <TooltipElement
                             content={
                               <Trans id="shared.cooldownThroughputTracker.cooldown.healing.tooltip">
-                                This includes all healing that occured while the buff was up, even
+                                This includes all healing that occurred while the buff was up, even
                                 if it was not triggered by spells cast inside the buff duration. Any
                                 delayed healing such as HOTs, Absorbs and Atonements will stop
                                 contributing to the healing done when the cooldown buff expires, so
@@ -362,7 +362,7 @@ class Cooldown extends React.Component {
                           <TooltipElement
                             content={
                               <Trans id="shared.cooldownThroughputTracker.cooldown.overhealing.tooltip">
-                                This includes all healing that occured while the buff was up, even
+                                This includes all healing that occurred while the buff was up, even
                                 if it was not triggered by spells cast inside the buff duration. Any
                                 delayed healing such as HOTs, Absorbs and Atonements will stop
                                 contributing to the healing done when the cooldown buff expires, so
@@ -386,7 +386,7 @@ class Cooldown extends React.Component {
                           <TooltipElement
                             content={
                               <Trans id="shared.cooldownThroughputTracker.cooldown.absorbed.tooltip">
-                                This includes all damage absorbed that occured while the buff was
+                                This includes all damage absorbed that occurred while the buff was
                                 up, even if it was not triggered by spells cast inside the buff
                                 duration.
                               </Trans>
