@@ -4,18 +4,61 @@ import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/EventParser';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component, ReactNode } from 'react';
 
-class RootErrorBoundary extends React.Component {
+interface HandledError {
+  message: string;
+  stack?: string;
+  filename?: string;
+}
+
+// Some errors are triggered by third party scripts, such as browser plug-ins. These errors should generally not affect the application, so we can safely ignore them for our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the app, that triggers a different error so those third party issues are still handled.
+const isTriggeredByExternalScript = (error: HandledError) => {
+  if (!error || error.message === 'Script error.') {
+    return true;
+  }
+
+  // The stack trace includes links to each script involved in the error. Find
+  // the first relevant link and check if it was one of our scripts.
+  if (!error.stack) {
+    return true;
+  }
+  const paths = error.stack
+    .split('\n')
+    // The first line may point to the page the error occurred on rather than
+    // the script that caused it, so ignore that to avoid false positives.
+    .splice(1)
+    .map((line) => line.match(/(https?:\/\/[^/]+)\//))
+    .filter((line) => line);
+  const firstPath = paths[0];
+  if (!firstPath) {
+    return true;
+  }
+  if (firstPath[1] !== window.location.origin) {
+    return true;
+  }
+
+  return false;
+};
+
+interface Props {
+  children: ReactNode;
+}
+interface State {
+  error?: Error;
+  errorDetails?: string;
+}
+
+class RootErrorBoundary extends Component<Props, State> {
   static propTypes = {
     children: PropTypes.node,
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      error: null,
-      errorDetails: null,
+      error: undefined,
+      errorDetails: undefined,
     };
 
     this.handleErrorEvent = this.handleErrorEvent.bind(this);
@@ -30,7 +73,7 @@ class RootErrorBoundary extends React.Component {
     window.removeEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
   }
 
-  handleErrorEvent(event) {
+  handleErrorEvent(event: ErrorEvent) {
     const { error } = event;
     // XXX Ignore errors that will be processed by componentDidCatch.
     // SEE: https://github.com/facebook/react/issues/10474
@@ -40,21 +83,17 @@ class RootErrorBoundary extends React.Component {
     console.log('Caught a global error');
     this.error(error, 'error');
   }
-  handleUnhandledrejectionEvent(event) {
+  handleUnhandledrejectionEvent(event: PromiseRejectionEvent) {
     console.log('Caught a global unhandledrejection');
     this.error(event.reason, 'unhandledrejection');
   }
 
-  error(error, details = null) {
-    // NOTE: These filters only prevent the error state from being triggered. Sentry automatically logs them regardless.
-    // filename may not be set, according to MDN its support is shitty but it doesn't specify how shitty. It works in Chromium
-    const isExternalFile = error.filename && !error.filename.includes(window.location.origin);
-    if (isExternalFile) {
+  error(error: Error | undefined, details?: string) {
+    if (!error) {
       return;
     }
-    // TODO: We could also check if location.origin is in stack, as the stack trace may only contain it for local files
-    if (error && error.message === 'Script error.') {
-      // Some errors are triggered by third party scripts, such as browser plug-ins. These errors should generally not affect the application, so we can safely ignore them for our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the app, that triggers a different error so those third party issues are still handled.
+    // NOTE: These filters only prevent the error state from being triggered. Sentry automatically logs them regardless.
+    if (isTriggeredByExternalScript(error)) {
       console.log('Ignored because it looks like a third party error.');
       return;
     }
@@ -78,13 +117,14 @@ class RootErrorBoundary extends React.Component {
             })}
             details={t({
               id: 'interface.rootErrorBoundary.errorDuringAnalysisDetails',
-              message: `We fucked up and our code broke. Please let us know on Discord and we will fix it for you.`,
+              message: `We ran into an error while looking at your gameplay and running our analysis. Please let us know on Discord and we will fix it for you.`,
             })}
             background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
           />
         );
       }
 
+      // TODO: Instead of hiding the entire app, show a small toaster instead. Not all uncaught errors are fatal.
       return (
         <FullscreenError
           error={<Trans id="interface.rootErrorBoundary.errorOccurred">An error occurred.</Trans>}
