@@ -45,6 +45,7 @@
     "@wowanalyzer/tbc-hunter": "*",
     "@wowanalyzer/tbc-priest": "*",
     "@wowanalyzer/tbc-shaman": "*",
+    "@wowanalyzer/tbc-warlock": "*",
     "@wowanalyzer/warlock-affliction": "*",
     "@wowanalyzer/warlock-demonology": "*",
     "@wowanalyzer/warlock-destruction": "*",
