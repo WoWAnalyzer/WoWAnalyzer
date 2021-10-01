@@ -32,6 +32,7 @@ import TbcDruid from '@wowanalyzer/tbc-druid';
 import TbcHunter from '@wowanalyzer/tbc-hunter';
 import TbcMage from '@wowanalyzer/tbc-mage';
 import TbcPriest from '@wowanalyzer/tbc-priest';
+import TbcRogue from '@wowanalyzer/tbc-rogue';
 import TbcShaman from '@wowanalyzer/tbc-shaman';
 import AfflictionWarlock from '@wowanalyzer/warlock-affliction';
 import DemonologyWarlock from '@wowanalyzer/warlock-demonology';
@@ -95,6 +96,7 @@ const configs: Config[] = [
   TbcHunter,
   TbcPriest,
   TbcDruid,
+  TbcRogue,
   TbcShaman,
 ];
 
