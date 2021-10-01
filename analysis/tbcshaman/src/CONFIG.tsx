@@ -31,7 +31,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/8AaZGQvkzJdDYfMR/11-Normal+Magtheridon+-+Kill+(7:42)/RatherBeBelf',
+  exampleReport: '/report/mDyrvWa7QHzN2jFM/50-Normal+Morogrim+Tidewalker+-+Kill+(6:25)/Primalheals',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
@@ -47,7 +47,7 @@ const config: Config = {
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: {
-    id: 264,
+    id: 0,
     type: 'Shaman',
     index: 27,
     className: t({
@@ -57,7 +57,7 @@ const config: Config = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     ranking: {
-      class: 9,
+      class: 10,
       spec: 3,
     },
   },
