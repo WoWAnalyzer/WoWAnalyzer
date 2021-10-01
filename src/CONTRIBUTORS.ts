@@ -1687,3 +1687,16 @@ export const Elodiel: Contributor = {
     },
   ],
 };
+
+export const Charurun: Contributor = {
+  nickname: 'char*',
+  discord: 'char *#7024',
+  github: 'mryanlam',
+  mains: [
+    {
+      name: 'Charurun',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://classic.warcraftlogs.com/character/id/40985537'
+    }
+  ]
+}
