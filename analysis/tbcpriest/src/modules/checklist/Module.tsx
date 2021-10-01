@@ -42,7 +42,6 @@ class Checklist extends BaseChecklist {
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
             .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          combatPotionThresholds: this.combatPotionChecker.suggestionThresholds,
         }}
       />
     );
