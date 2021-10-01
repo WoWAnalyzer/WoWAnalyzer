@@ -1,4 +1,4 @@
 import { change, date } from 'common/changelog';
 import { Khadaj } from 'CONTRIBUTORS';
 
-export default [change(date(2021, 9, 6), 'Stubbing out Resto Shaman Analyzer', Khadaj)];
+export default [change(date(2021, 10, 1), 'Stubbing out Resto Shaman Analyzer', Khadaj)];
