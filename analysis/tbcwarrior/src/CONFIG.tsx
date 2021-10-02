@@ -36,7 +36,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '12/5/44',
-      icon: <Icon icon="Warrior" />,
+      icon: <Icon icon="ability_defend" />,
       visible: true,
     },
   },
