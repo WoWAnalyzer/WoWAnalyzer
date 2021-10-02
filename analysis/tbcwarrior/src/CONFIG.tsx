@@ -31,12 +31,12 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/qWn63QayzZgfdmXc/12-Normal+Magtheridon+-+Kill+(5:30)/Slowfood',
+  exampleReport: '/report/gkA6QYBcVzdn4jJa/18-Normal+Morogrim+Tidewalker+-+Kill+(6:21)/Charurun',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '40/0/21',
-      icon: <Icon icon="spell_arcane_blast" />,
+      name: '12/5/44',
+      icon: <Icon icon="Warrior" />,
       visible: true,
     },
   },

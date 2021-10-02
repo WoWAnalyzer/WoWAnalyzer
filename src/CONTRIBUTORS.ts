@@ -1689,7 +1689,7 @@ export const Elodiel: Contributor = {
 };
 
 export const Charurun: Contributor = {
-  nickname: 'char*',
+  nickname: 'Charurun',
   discord: 'char *#7024',
   github: 'mryanlam',
   mains: [
