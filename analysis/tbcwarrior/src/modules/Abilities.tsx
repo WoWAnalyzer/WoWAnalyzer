@@ -8,15 +8,15 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     return [
       {
-        spell: SPELLS.ARCANE_BLAST,
+        spell: SPELLS.DEVASTATE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-          minimum: 750, // 0.75 seconds or 1 second?
+          minimum: 1000, // 0.75 seconds or 1 second?
         },
       },
       {
-        spell: SPELLS.ARCANE_EXPLOSION,
+        spell: SPELLS.SHIELD_SLAM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -24,22 +24,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.FROSTBOLT, ...lowRankSpells[SPELLS.FROSTBOLT]],
+        spell: [SPELLS.HEROIC_STRIKE, ...lowRankSpells[SPELLS.HEROIC_STRIKE]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1500, // haste interaction not accounted for
         },
       },
       {
-        spell: [SPELLS.FIRE_BLAST, ...lowRankSpells[SPELLS.FIRE_BLAST]],
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 8,
-        gcd: {
-          static: 1500, // haste interaction not accounted for
-        },
-      },
-      {
-        spell: SPELLS.ARCANE_POWER,
+        spell: SPELLS.SHIELD_WALL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
@@ -49,7 +41,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ICY_VEINS,
+        spell: SPELLS.LAST_STAND,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
@@ -59,59 +51,25 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PRESENCE_OF_MIND,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.COLD_SNAP,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 480,
-        gcd: {
-          static: 1500,
-        },
-      },
-      {
-        spell: [SPELLS.MAGE_ARMOR, ...lowRankSpells[SPELLS.MAGE_ARMOR]],
+        spell: [SPELLS.BATTLE_SHOUT, ...lowRankSpells[SPELLS.BATTLE_SHOUT]],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
-        spell: SPELLS.MOLTEN_ARMOR,
+        spell: SPELLS.COMMANDING_SHOUT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
-        spell: SPELLS.EVOCATION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 480,
-        gcd: {
-          static: 1500,
-        },
-      },
-      {
-        spell: SPELLS.REMOVE_CURSE,
+        spell: SPELLS.DEMORALIZING_SHOUT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           static: 1500,
         },
-      },
-      {
-        spell: SPELLS.BADGE_ICON,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: null,
-        cooldown: 120,
-      },
-      {
-        spell: SPELLS.MANA_EMERALD,
-        category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
-        gcd: null,
-        cooldown: 120,
       },
     ];
   }

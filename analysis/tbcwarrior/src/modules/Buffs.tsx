@@ -1,41 +1,29 @@
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreBuffs from 'parser/core/modules/Buffs';
 
-import * as SPELLS from '@wowanalyzer/tbc-mage/src/SPELLS';
+import * as SPELLS from '@wowanalyzer/tbc-warrior/src/SPELLS';
 
 class Buffs extends CoreBuffs {
   buffs() {
     return [
       {
-        spellId: SPELLS.ARCANE_POWER,
+        spellId: SPELLS.SHIELD_BLOCK,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.PRESENCE_OF_MIND,
+        spellId: SPELLS.SHIELD_WALL,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.ICY_VEINS,
+        spellId: SPELLS.LAST_STAND,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.ARCANE_BLAST_DEBUFF,
+        spellId: SPELLS.COMMANDING_SHOUT,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.MAGE_ARMOR,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.MOLTEN_ARMOR,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.ICE_ARMOR,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.FROST_ARMOR,
+        spellId: SPELLS.BATTLE_SHOUT,
         timelineHighlight: true,
       },
       {
