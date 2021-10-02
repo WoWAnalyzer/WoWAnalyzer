@@ -4616,7 +4616,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56377"
+            href="http://wowhead.com/spell=429385"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4629,7 +4629,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56377"
+            href="http://wowhead.com/spell=429385"
             rel="noopener noreferrer"
             target="_blank"
           >
