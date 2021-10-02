@@ -12,7 +12,24 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-          minimum: 1000, // 0.75 seconds or 1 second?
+          minimum: 1000, 
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.SHIELD_BLOCK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+          minimum: 1000, 
+        },
+        cooldown: 5,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -20,7 +37,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-          minimum: 1000, // is it actually 1 second for arcane explosion in classic?
+          minimum: 1000,
+        },
+        cooldown: 6,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -32,23 +54,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIELD_WALL,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 1800,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: SPELLS.LAST_STAND,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 480,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: [SPELLS.BATTLE_SHOUT, ...lowRankSpells[SPELLS.BATTLE_SHOUT]],
