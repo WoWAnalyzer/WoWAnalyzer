@@ -85,6 +85,14 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
       },
+      {
+        spell: SPELLS.THUNDER_CLAP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 4,
+        gcd: {
+          static: 1500,
+        },
+      },
     ];
   }
 }
