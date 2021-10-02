@@ -20,8 +20,21 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHIELD_BLOCK,
+        spell: SPELLS.REVENGE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+          minimum: 1000, 
+        },
+        cooldown: 5,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.SHIELD_BLOCK,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
           minimum: 1000, 
