@@ -1,11 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-
-import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
-import * as SPELLS from '../../SPELLS';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
