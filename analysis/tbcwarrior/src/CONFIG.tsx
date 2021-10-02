@@ -55,7 +55,7 @@ const config: Config = {
       message: `Warrior`,
     }),
     specName: t({
-      id: 'specs.warropr.protection',
+      id: 'specs.warrior.protection',
       message: `Protection`,
     }),
     role: ROLES.TANK,
@@ -69,7 +69,7 @@ const config: Config = {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "TBCMage" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "TBCWarrior" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
