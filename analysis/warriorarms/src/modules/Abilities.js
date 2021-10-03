@@ -243,6 +243,12 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DIE_BY_THE_SWORD.id,
       },
       {
+        spell: SPELLS.IGNORE_PAIN.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.IGNORE_PAIN.id,
+        gcd: null,
+      },
+      {
         spell: SPELLS.RALLYING_CRY.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
