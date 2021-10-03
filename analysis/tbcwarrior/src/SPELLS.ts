@@ -8,9 +8,7 @@ export const LAST_STAND = 12975;
 
 // Arms
 
-
 // Fury
-
 
 // All
 export const AUTO_ATTACK = 1;

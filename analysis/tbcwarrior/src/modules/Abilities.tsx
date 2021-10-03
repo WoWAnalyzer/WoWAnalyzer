@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-          minimum: 1000, 
+          minimum: 1000,
         },
         castEfficiency: {
           suggestion: true,
@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
-          minimum: 1000, 
+          minimum: 1000,
         },
         cooldown: 5,
         castEfficiency: {
@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
-          minimum: 1000, 
+          minimum: 1000,
         },
         cooldown: 5,
         castEfficiency: {
