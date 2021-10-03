@@ -24,3 +24,7 @@ export default {
 export const whitelist = {
   [SPELLS.HEROIC_STRIKE]: [29707], // Rank 11 isn't in the game yet
 };
+
+export interface LowRankSpells {
+  [primarySpellId: number]: number[];
+}

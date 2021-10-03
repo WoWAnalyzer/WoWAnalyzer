@@ -12,7 +12,7 @@ export const LAST_STAND = 12975;
 
 // All
 export const AUTO_ATTACK = 1;
-export const HEROIC_STRIKE = 29707;
+export const HEROIC_STRIKE = 30324;
 export const THUNDER_CLAP = 25264;
 export const SPELL_REFLECT = 23920;
 export const BLOOD_RAGE = 2687;
