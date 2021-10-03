@@ -1696,12 +1696,12 @@ export const Charurun: Contributor = {
     {
       name: 'Charurun',
       spec: SPECS.PROTECTION_WARRIOR,
-      link: 'https://classic.warcraftlogs.com/character/id/40985537'
+      link: 'https://classic.warcraftlogs.com/character/id/40985537',
     },
     {
       name: 'Charuru',
-      spec: SPECS.PROTECTION_PALADIN,
-      link: 'https://classic.warcraftlogs.com/character/id/42940009'
-    }
-  ]
-}
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://classic.warcraftlogs.com/character/id/42940009',
+    },
+  ],
+};
