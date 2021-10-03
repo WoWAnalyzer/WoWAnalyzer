@@ -32,6 +32,7 @@ class PreparationRuleAnalyzer extends Analyzer {
       combatPotionChecker: this.combatPotionChecker.suggestionThresholds,
       weaponsEnhanced: this.weaponEnhancementChecker.weaponsEnhancedThreshold,
       bestWeaponEnhancements: this.weaponEnhancementChecker.bestWeaponEnhancementsThreshold,
+      combatPotionThresholds: this.combatPotionChecker.suggestionThresholds,
     };
   }
 }

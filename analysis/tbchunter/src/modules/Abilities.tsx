@@ -78,6 +78,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: [SPELLS.DISTRACTING_SHOT, ...lowRankSpells[SPELLS.DISTRACTING_SHOT]],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
+        gcd: {
+          static: 1500,
+        },
+      },
+      {
         spell: SPELLS.RAPID_FIRE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 300 - (build === Build.DEFAULT ? 120 : 0),

@@ -4,6 +4,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
+import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
 import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
 
 import lowRankSpells from './lowRankSpells';
@@ -21,6 +22,7 @@ class CombatLogParser extends BaseCombatLogParser {
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
     alwaysBeCasting: AlwaysBeCasting,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Mana Tab
     manaTracker: ManaTracker,

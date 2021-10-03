@@ -30,7 +30,6 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-
           manaLeft: this.manaValues.suggestionThresholds,
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
             .nonHealingTimeSuggestionThresholds,
