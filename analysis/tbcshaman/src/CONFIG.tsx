@@ -8,8 +8,6 @@ import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
-import lowRankSpells from './lowRankSpells';
-import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
@@ -24,7 +22,7 @@ const config: Config = {
   isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Proof of Concept analysis for TBCC Resto Druids.</>,
+  description: <>Proof of Concept analysis for TBCC Resto Shamans.</>,
   pages: {
     overview: {
       hideChecklist: false,
@@ -33,41 +31,33 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/mDyrvWa7QHzN2jFM/50-Normal+Morogrim+Tidewalker+-+Kill+(6:25)/Dahno',
+  exampleReport: '/report/mDyrvWa7QHzN2jFM/50-Normal+Morogrim+Tidewalker+-+Kill+(6:25)/Primalheals',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '20/41/0',
-      icon: <Icon icon="spell_nature_healingtouch" />,
+      icon: <Icon icon="spell_nature_healingwavegreater" />,
       visible: true,
     },
   },
   timeline: {
-    separateCastBars: [
-      [
-        SPELLS.REGROWTH,
-        ...lowRankSpells[SPELLS.REGROWTH],
-        SPELLS.REJUVENATION,
-        ...lowRankSpells[SPELLS.REJUVENATION],
-        SPELLS.LIFEBLOOM,
-      ],
-    ],
+    separateCastBars: [[]],
   },
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: {
     id: 0,
-    type: 'Druid',
-    index: 35,
+    type: 'Shaman',
+    index: 27,
     className: t({
-      id: 'className.druid',
-      message: `Druid`,
+      id: 'className.shaman',
+      message: `Shaman`,
     }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     ranking: {
-      class: 11,
+      class: 10,
       spec: 3,
     },
   },
@@ -75,7 +65,7 @@ const config: Config = {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "TBCDruid" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "TBCShaman" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.

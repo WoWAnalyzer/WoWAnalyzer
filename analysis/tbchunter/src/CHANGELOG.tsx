@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2021, 9, 30), 'Added Distracting Shot and Berserking Haste tracking.', Zerotorescue),
   change(date(2021, 8, 15), 'Cleaned up info, disclaimers and about spec.', Zerotorescue),
   change(date(2021, 8, 15), 'Removed "partial" label.', Zerotorescue),
   change(date(2021, 8, 15), 'Add current attack speed to swing cooldown tooltip in the timeline.', Zerotorescue),
