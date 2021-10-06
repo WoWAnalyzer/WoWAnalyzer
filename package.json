@@ -43,6 +43,7 @@
     "@wowanalyzer/tbc-mage": "*",
     "@wowanalyzer/tbc-druid": "*",
     "@wowanalyzer/tbc-hunter": "*",
+    "@wowanalyzer/tbc-paladin": "*",
     "@wowanalyzer/tbc-priest": "*",
     "@wowanalyzer/tbc-warrior": "*",
     "@wowanalyzer/tbc-shaman": "*",
