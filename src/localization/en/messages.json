@@ -1014,6 +1014,7 @@
   "specs.vengeance": "Vengeance",
   "specs.warlock": "Warlock",
   "specs.warrior": "Warrior",
+  "specs.warrior.protection": "Protection",
   "specs.windwalker": "Windwalker",
   "supportCheckerIssue.specChangelog": "Spec changelog",
   "tbc.suggestions.hunter.growl": "Your pet cast <0/>. You should not cast it when playing with a tank to avoid your pet from taking aggro. In addition, casting <1/> costs energy, which may reduce your pet's DPS.",
