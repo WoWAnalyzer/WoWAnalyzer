@@ -4623,10 +4623,10 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
             <img
               alt="Splitting Ice"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_ice_shards.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshards.jpg"
             />
           </a>
-
+           
           <a
             className="spell-link-text"
             href="http://wowhead.com/spell=56377"
@@ -4639,7 +4639,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
         <div
           className="value"
         >
-
+          
           2.66
           %
         </div>
