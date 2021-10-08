@@ -1705,3 +1705,8 @@ export const Charurun: Contributor = {
     },
   ],
 };
+
+export const bandit: Contributor = {
+  nickname: 'bandit',
+  github: 'elasticspoon',
+};
