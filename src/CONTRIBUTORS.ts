@@ -1705,3 +1705,16 @@ export const Charurun: Contributor = {
     },
   ],
 };
+
+export const Talador12: Contributor = {
+  nickname: 'Talador12',
+  discord: 'Talador12#4269',
+  github: 'Talador12',
+  mains: [
+    {
+      name: 'Kikori',
+      spec: SPECS.DESTRUCTION_WARLOCK,
+      link: 'https://classic.warcraftlogs.com/character/id/60308170',
+    },
+  ],
+};

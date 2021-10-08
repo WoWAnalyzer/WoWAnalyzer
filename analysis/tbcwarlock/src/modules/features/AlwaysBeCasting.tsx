@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -22,6 +22,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .regular(recommended + 0.05)
           .major(recommended + 0.05),
       );
+  }
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.4,
+        average: 0.55,
+        major: 1,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 }
 
