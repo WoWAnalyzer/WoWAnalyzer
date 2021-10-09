@@ -1,7 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
 
 import { EventType } from '../../core/Events';
-import aplCheck, { Apl, buffPresent } from './apl';
+import aplCheck, { build, Apl, buffPresent } from './apl';
 
 // OK, i called this BOF but BOF is a debuff. oops.
 const BOF = { id: 3, name: 'Important Buff', icon: '' };
@@ -57,9 +57,7 @@ const applybuff = (timestamp: number, duration: number, spell: Spell) => [
 ];
 
 describe('Basic APL Check', () => {
-  const apl: Apl = {
-    rules: [SHORT_CD, FILLER],
-  };
+  const apl: Apl = build([SHORT_CD, FILLER]);
 
   const check = aplCheck(apl);
 
@@ -148,17 +146,14 @@ describe('Basic APL Check', () => {
 
 describe('APL with conditions', () => {
   const bofPresent = buffPresent(BOF);
-  const apl = {
-    rules: [
-      {
-        spell: FILLER,
-        condition: bofPresent,
-      },
-      SHORT_CD,
-      FILLER,
-    ],
-    conditions: [bofPresent],
-  };
+  const apl = build([
+    {
+      spell: FILLER,
+      condition: bofPresent,
+    },
+    SHORT_CD,
+    FILLER,
+  ]);
 
   const check = aplCheck(apl);
 

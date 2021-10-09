@@ -33,6 +33,22 @@ export interface Apl {
   rules: Rule[];
 }
 
+/**
+ * Build an APL from a list of Rule objects.
+ *
+ * Use this instead of direct construction because it will maintain the
+ * `conditions` key for you automatically.
+ */
+export function build(rules: Rule[]): Apl {
+  const conditionMap = rules
+    .filter((rule) => 'condition' in rule)
+    .map((rule) => (rule as ConditionalRule).condition)
+    .reduce((cnds, cnd) => ({ ...cnds, [cnd.key]: cnd }), {});
+  const conditions = Object.values<Condition<any>>(conditionMap);
+
+  return { rules, conditions };
+}
+
 interface Violation {
   actualCast: CastEvent;
   expectedCast: Spell;
