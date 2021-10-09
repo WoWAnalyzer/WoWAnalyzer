@@ -1,8 +1,10 @@
 import Spell from 'common/SPELLS/Spell';
 
 import { EventType } from '../../core/Events';
-import aplCheck, { Apl } from './apl';
+import aplCheck, { Apl, buffPresent } from './apl';
 
+// OK, i called this BOF but BOF is a debuff. oops.
+const BOF = { id: 3, name: 'Important Buff', icon: '' };
 const SHORT_CD = { id: 1, name: 'Cooldown Button', icon: '' };
 const FILLER = { id: 2, name: 'Filler', icon: '' };
 
@@ -19,21 +21,38 @@ const cast = (timestamp: number, cooldown: number, spell: Spell) => [
     ability: ability(spell),
     type: EventType.Cast,
   },
+  ...(cooldown > 0
+    ? [
+        {
+          timestamp,
+          ability: ability(spell),
+          type: EventType.UpdateSpellUsable,
+          trigger: EventType.BeginCooldown,
+          isOnCooldown: true,
+          isAvailable: false,
+        },
+        {
+          timestamp: timestamp + cooldown - 1,
+          ability: ability(spell),
+          type: EventType.UpdateSpellUsable,
+          trigger: EventType.EndCooldown,
+          isOnCooldown: false,
+          isAvailable: true,
+        },
+      ]
+    : []),
+];
+
+const applybuff = (timestamp: number, duration: number, spell: Spell) => [
   {
     timestamp,
     ability: ability(spell),
-    type: EventType.UpdateSpellUsable,
-    trigger: EventType.BeginCooldown,
-    isOnCooldown: true,
-    isAvailable: false,
+    type: EventType.ApplyBuff,
   },
   {
-    timestamp: timestamp + cooldown - 1,
+    timestamp: timestamp + duration - 1,
     ability: ability(spell),
-    type: EventType.UpdateSpellUsable,
-    trigger: EventType.EndCooldown,
-    isOnCooldown: false,
-    isAvailable: true,
+    type: EventType.RemoveBuff,
   },
 ];
 
@@ -66,8 +85,7 @@ describe('Basic APL Check', () => {
     });
 
     it('should have a complete list of successes', () => {
-      // cheaty
-      expect(result.successes.length).toEqual(events.length / 3);
+      expect(result.successes.length).toEqual(9);
     });
   });
 
@@ -124,6 +142,112 @@ describe('Basic APL Check', () => {
 
     it('should report a violation for each extra filler cast', () => {
       expect(result.violations.length).toEqual(4);
+    });
+  });
+});
+
+describe('APL with conditions', () => {
+  const bofPresent = buffPresent(BOF);
+  const apl = {
+    rules: [
+      {
+        spell: FILLER,
+        condition: bofPresent,
+      },
+      SHORT_CD,
+      FILLER,
+    ],
+    conditions: [bofPresent],
+  };
+
+  const check = aplCheck(apl);
+
+  describe('Perfect Play', () => {
+    const events = [
+      ...cast(0, 4000, SHORT_CD),
+      ...cast(1000, 0, FILLER),
+      ...cast(2000, 0, FILLER),
+      ...cast(3000, 0, FILLER),
+      ...applybuff(3500, 6000, BOF),
+      ...cast(4000, 0, FILLER),
+      ...cast(5000, 0, FILLER),
+      ...cast(6000, 0, FILLER),
+      ...cast(7000, 0, FILLER),
+      ...cast(8000, 0, FILLER),
+      ...cast(9000, 0, FILLER),
+      ...cast(10000, 4000, SHORT_CD),
+      ...cast(11000, 0, FILLER),
+    ];
+    events.sort((a, b) => a.timestamp - b.timestamp);
+
+    const result = check(events, { playerId: 0 });
+
+    it('should report no violations', () => {
+      expect(result.violations).toEqual([]);
+    });
+  });
+
+  describe('Cast Short CD during Buff', () => {
+    const events = [
+      ...cast(0, 4000, SHORT_CD),
+      ...cast(1000, 0, FILLER),
+      ...cast(2000, 0, FILLER),
+      ...cast(3000, 0, FILLER),
+      ...applybuff(3500, 6000, BOF),
+      ...cast(4000, 4000, SHORT_CD),
+      ...cast(5000, 0, FILLER),
+      ...cast(6000, 0, FILLER),
+      ...cast(7000, 0, FILLER),
+      ...cast(8000, 0, FILLER),
+      ...cast(9000, 0, FILLER),
+      ...cast(10000, 4000, SHORT_CD),
+      ...cast(11000, 0, FILLER),
+    ];
+
+    events.sort((a, b) => a.timestamp - b.timestamp);
+
+    const result = check(events, { playerId: 0 });
+
+    it('should report a violation', () => {
+      expect(result.violations).toEqual([
+        {
+          actualCast: cast(4000, 4000, SHORT_CD)[0],
+          expectedCast: FILLER,
+          rule: apl.rules[0],
+        },
+      ]);
+    });
+  });
+
+  describe('Cast extra filler after Buff', () => {
+    const events = [
+      ...cast(0, 4000, SHORT_CD),
+      ...cast(1000, 0, FILLER),
+      ...cast(2000, 0, FILLER),
+      ...cast(3000, 0, FILLER),
+      ...applybuff(3500, 6000, BOF),
+      ...cast(4000, 0, FILLER),
+      ...cast(5000, 0, FILLER),
+      ...cast(6000, 0, FILLER),
+      ...cast(7000, 0, FILLER),
+      ...cast(8000, 0, FILLER),
+      ...cast(9000, 0, FILLER),
+      ...cast(10000, 0, FILLER),
+      ...cast(11000, 4000, SHORT_CD),
+    ];
+
+    events.sort((a, b) => a.timestamp - b.timestamp);
+
+    const result = check(events, { playerId: 0 });
+
+    it('should report a violation', () => {
+      expect(result.violations).toEqual([
+        {
+          actualCast: cast(10000, 0, FILLER)[0],
+          expectedCast: SHORT_CD,
+          rule: apl.rules[1],
+        },
+      ]);
     });
   });
 });

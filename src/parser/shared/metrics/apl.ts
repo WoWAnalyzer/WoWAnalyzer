@@ -2,6 +2,17 @@ import type Spell from 'common/SPELLS/Spell';
 import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 
+/**
+ * A Condition can be used to determine whether a [[Rule]] can applies to the
+ * current fight situation. See [[buffPresent]] for a simple example.
+ *
+ * Each condition must have an `init` function that creates an initial state
+ * object, along with an `update` method that produces a *new* state object (it
+ * should avoid mutation unless absolutely needed), and a `validate` method that
+ * checks whether the condition applies to the current event.
+ *
+ * In the simplest case, T is `boolean` and `validate = (state, _event) => state`.
+ **/
 interface Condition<T> {
   key: string;
   // produce the initial state object
@@ -40,9 +51,9 @@ interface CheckState {
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
 
-export function buffPresent(spell: Spell, target: number): Condition<boolean> {
+export function buffPresent(spell: Spell): Condition<boolean> {
   return {
-    key: `buffPresent-${spell.id}-${target}`,
+    key: `buffPresent-${spell.id}`,
     init: () => false,
     update: (state, event) => {
       switch (event.type) {
