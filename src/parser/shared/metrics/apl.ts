@@ -1,11 +1,5 @@
 import type Spell from 'common/SPELLS/Spell';
-import {
-  AnyEvent,
-  EventType,
-  UpdateSpellUsableEvent,
-  CastEvent,
-  Ability,
-} from 'parser/core/Events';
+import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 
 interface Condition<T> {
@@ -29,7 +23,7 @@ export interface Apl {
 }
 
 interface Violation {
-  actualCast: Ability;
+  actualCast: CastEvent;
   expectedCast: Spell;
   rule: Rule;
 }
@@ -144,7 +138,7 @@ const aplCheck = (apl: Apl) =>
               result.violations.push({
                 rule,
                 expectedCast: spell(rule),
-                actualCast: event.ability,
+                actualCast: event,
               });
             }
           }
