@@ -1706,6 +1706,7 @@ export const Charurun: Contributor = {
   ],
 };
 
+
 export const Karahtar: Contributor = {
   nickname: 'Karahtar',
   discord: 'Karahtar#8859',
@@ -1717,4 +1718,9 @@ export const Karahtar: Contributor = {
       link: 'https://www.warcraftlogs.com/character/us/kelthuzad/karatar',
     },
   ],
+};
+
+export const bandit: Contributor = {
+  nickname: 'bandit',
+  github: 'elasticspoon',
 };
