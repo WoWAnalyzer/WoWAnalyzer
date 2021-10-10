@@ -1,7 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
+import { EventType } from 'parser/core/Events';
 
-import { EventType } from '../../core/Events';
-import aplCheck, { build, Apl, buffPresent } from './apl';
+import aplCheck, { build, Apl, buffPresent } from './index';
 
 // OK, i called this BOF but BOF is a debuff. oops.
 const BOF = { id: 3, name: 'Important Buff', icon: '' };
