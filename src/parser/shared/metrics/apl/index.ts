@@ -1,6 +1,8 @@
 import type Spell from 'common/SPELLS/Spell';
 import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
+import { ReactChild } from 'react';
+export { default as buffPresent } from './buffPresent';
 
 /**
  * A Condition can be used to determine whether a [[Rule]] can applies to the
@@ -13,7 +15,7 @@ import metric, { Info } from 'parser/core/metric';
  *
  * In the simplest case, T is `boolean` and `validate = (state, _event) => state`.
  **/
-interface Condition<T> {
+export interface Condition<T> {
   key: string;
   // produce the initial state object
   init: () => T;
@@ -21,6 +23,8 @@ interface Condition<T> {
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
   validate: (state: T, event: AnyEvent) => boolean;
+  // describe the condition. it should fit following "This rule was active because..."
+  describe: () => ReactChild;
 }
 export interface ConditionalRule {
   spell: Spell;
@@ -66,30 +70,6 @@ interface CheckState {
 }
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
-
-export function buffPresent(spell: Spell): Condition<boolean> {
-  return {
-    key: `buffPresent-${spell.id}`,
-    init: () => false,
-    update: (state, event) => {
-      switch (event.type) {
-        case EventType.ApplyBuff:
-          if (event.ability.guid === spell.id) {
-            return true;
-          }
-          break;
-        case EventType.RemoveBuff:
-          if (event.ability.guid === spell.id) {
-            return false;
-          }
-          break;
-      }
-
-      return state;
-    },
-    validate: (state, _event) => state,
-  };
-}
 
 function initState(apl: Apl): ConditionState {
   return (
