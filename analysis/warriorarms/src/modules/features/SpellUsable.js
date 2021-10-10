@@ -22,6 +22,15 @@ class SpellUsable extends CoreSpellUsable {
         }
       }
     }
+
+    // Battlelord legendary: overpower has a chance to reset mortal strike
+    if (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff) {
+      if (event.ability.guid === SPELLS.BATTLELORD_ENERGIZE.id) {
+        if (this.isOnCooldown(SPELLS.MORTAL_STRIKE.id)) {
+          this.endCooldown(SPELLS.MORTAL_STRIKE.id);
+        }
+      }
+    }
   }
 }
 
