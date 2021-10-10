@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import { RuleDescription } from './annotate';
-import buffPresent from './buffPresent';
+import { buffPresent } from './buffPresent';
 
 describe('RuleDescription', () => {
   it('should return no description for unconditional rules', () => {

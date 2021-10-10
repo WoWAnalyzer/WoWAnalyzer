@@ -2,22 +2,7 @@
 
 exports[`RuleDescription should return a description for a rule with a condition 1`] = `
 Array [
-  "The ",
-  <a
-    className="spell-link-text"
-    href="http://wowhead.com/spell=1"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    <img
-      alt=""
-      className="icon game "
-      src="//render-us.worldofwarcraft.com/icons/56/inv_axe_02.jpg"
-    />
-     
-    Auto attack
-  </a>,
-  " rule was active because ",
+  " because ",
   <a
     className="spell-link-text"
     href="http://wowhead.com/spell=2"
@@ -33,6 +18,5 @@ Array [
     Unknown spell: 2
   </a>,
   " was present",
-  ".",
 ]
 `;
