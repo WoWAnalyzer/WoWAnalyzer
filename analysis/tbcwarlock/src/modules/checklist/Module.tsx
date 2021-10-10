@@ -5,20 +5,28 @@ import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/Prepa
 import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import CurseOfAgony from '../spells/CurseOfAgony';
+import CurseOfDoom from '../spells/CurseOfDoom';
+import CurseOfTheElements from '../spells/CurseOfTheElements';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
-    combatants: Combatants,
-    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
+    combatants: Combatants,
+    curseOfAgony: CurseOfAgony,
+    curseOfDoom: CurseOfDoom,
+    curseOfTheElements: CurseOfTheElements,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
-
-  protected combatants!: Combatants;
-  protected castEfficiency!: CastEfficiency;
-  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected castEfficiency!: CastEfficiency;
+  protected combatants!: Combatants;
+  protected curseOfAgony!: CurseOfAgony;
+  protected curseOfDoom!: CurseOfDoom;
+  protected curseOfTheElements!: CurseOfTheElements;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
   render() {
     return (
@@ -27,7 +35,9 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-
+          curseOfAgony: this.curseOfAgony.suggestionThresholds,
+          curseOfDoom: this.curseOfDoom.suggestionThresholds,
+          curseOfTheElements: this.curseOfTheElements.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
       />

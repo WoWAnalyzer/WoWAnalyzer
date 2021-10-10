@@ -38,7 +38,9 @@ export default {
   [SPELLS.SOUL_FIRE]: [27211, 17924, 6353],
 };
 
-export const whitelist = {};
+export const whitelist = {
+  [SPELLS.DRAIN_SOUL]: [1120],
+};
 
 export interface LowRankSpells {
   [primarySpellId: number]: number[];
