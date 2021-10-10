@@ -1718,3 +1718,21 @@ export const Talador12: Contributor = {
     },
   ],
 };
+
+export const Karahtar: Contributor = {
+  nickname: 'Karahtar',
+  discord: 'Karahtar#8859',
+  github: 'npaganini',
+  mains: [
+    {
+      name: 'Karatar',
+      spec: SPECS.ARCANE_MAGE,
+      link: 'https://www.warcraftlogs.com/character/us/kelthuzad/karatar',
+    },
+  ],
+};
+
+export const bandit: Contributor = {
+  nickname: 'bandit',
+  github: 'elasticspoon',
+};

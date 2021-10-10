@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
-          base: 1500,
+          base: 750,
         },
         buffSpellId: SPELLS.SWEEPING_STRIKES.id,
       },
@@ -194,9 +194,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVATAR_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
