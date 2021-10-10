@@ -1706,7 +1706,6 @@ export const Charurun: Contributor = {
   ],
 };
 
-
 export const Karahtar: Contributor = {
   nickname: 'Karahtar',
   discord: 'Karahtar#8859',
