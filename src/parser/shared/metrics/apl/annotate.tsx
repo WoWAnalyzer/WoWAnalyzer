@@ -8,11 +8,7 @@ export function RuleDescription({ rule }: { rule: Rule }) {
     return null;
   }
 
-  return (
-    <>
-      The <SpellLink id={rule.spell.id} /> rule was active because {rule.condition.describe()}.
-    </>
-  );
+  return <> because {rule.condition.describe()}</>;
 }
 
 /**
@@ -27,8 +23,8 @@ export default function annotateTimeline(violations: CheckResult['violations']) 
       isInefficientCast: true,
       inefficientCastReason: (
         <>
-          <SpellLink id={violation.expectedCast.id} /> was available and higher priority.
-          <RuleDescription rule={violation.rule} />
+          <SpellLink id={violation.expectedCast.id} /> was available and higher priority
+          <RuleDescription rule={violation.rule} />.
         </>
       ),
     };

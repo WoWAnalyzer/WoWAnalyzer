@@ -2,7 +2,8 @@ import type Spell from 'common/SPELLS/Spell';
 import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
-export { default as buffPresent } from './buffPresent';
+
+export type PlayerInfo = Pick<Info, 'playerId' | 'combatant'>;
 
 /**
  * A Condition can be used to determine whether a [[Rule]] can applies to the
@@ -18,7 +19,7 @@ export { default as buffPresent } from './buffPresent';
 export interface Condition<T> {
   key: string;
   // produce the initial state object
-  init: () => T;
+  init: (info: PlayerInfo) => T;
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
@@ -71,12 +72,12 @@ interface CheckState {
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
 
-function initState(apl: Apl): ConditionState {
+function initState(apl: Apl, info: PlayerInfo): ConditionState {
   return (
     apl.conditions?.reduce(
       (state: ConditionState, cnd: Condition<any>) => ({
         ...state,
-        [cnd.key]: cnd.init(),
+        [cnd.key]: cnd.init(info),
       }),
       {},
     ) || {}
@@ -97,16 +98,22 @@ function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): Condi
 
 const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
 
+const cooldownEnd = (event: UpdateSpellUsableEvent): number => event.expectedDuration + event.start;
+
 /**
  * Check whether a rule applies to the given cast. There are two checks:
  *
  * 1. The spell the rule governs is available, and
  * 2. The condition for the rule is validated *or* the rule is unconditional.
+ *
+ * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway.
  **/
 function ruleApplies(rule: Rule, result: CheckState, event: CastEvent): boolean {
   return (
-    (result.abilityState[spell(rule).id] === undefined ||
-      result.abilityState[spell(rule).id].isAvailable) &&
+    (spell(rule).id === event.ability.guid ||
+      result.abilityState[spell(rule).id] === undefined ||
+      result.abilityState[spell(rule).id].isAvailable ||
+      cooldownEnd(result.abilityState[spell(rule).id]) <= event.timestamp + 100) &&
     (!('condition' in rule) ||
       rule.condition.validate(result.conditionState[rule.condition.key], event))
   );
@@ -131,7 +138,7 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
 }
 
 const aplCheck = (apl: Apl) =>
-  metric<[Info], CheckResult>((events, { playerId }) => {
+  metric<[PlayerInfo], CheckResult>((events, info) => {
     const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
     return events.reduce<CheckState>(
       (result, event) => {
@@ -157,7 +164,7 @@ const aplCheck = (apl: Apl) =>
           conditionState: updateState(apl, result.conditionState, event),
         };
       },
-      { successes: [], violations: [], abilityState: {}, conditionState: initState(apl) },
+      { successes: [], violations: [], abilityState: {}, conditionState: initState(apl, info) },
     );
   });
 

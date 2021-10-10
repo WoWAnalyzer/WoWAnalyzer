@@ -1,26 +1,38 @@
 import Spell from 'common/SPELLS/Spell';
-import { EventType } from 'parser/core/Events';
+import {
+  EventType,
+  CastEvent,
+  UpdateSpellUsableEvent,
+  AnyEvent,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 
-import aplCheck, { build, Apl, buffPresent } from './index';
+import { buffPresent } from './buffPresent';
+import aplCheck, { build, Apl, PlayerInfo } from './index';
 
 // OK, i called this BOF but BOF is a debuff. oops.
 const BOF = { id: 3, name: 'Important Buff', icon: '' };
 const SHORT_CD = { id: 1, name: 'Cooldown Button', icon: '' };
 const FILLER = { id: 2, name: 'Filler', icon: '' };
 
-const ability = (spell: Spell) => ({ guid: spell.id });
+const ability = (spell: Spell) => ({ guid: spell.id, name: spell.name, abilityIcon: spell.icon });
+
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 
 // Generate a cast event, along with cooldown start and end events.
 //
 // The end event uses `timestamp + cooldown - 1` as the timestamp, with the -1
 // preventing casting at exactly cd end from spurious failures due to unstable
 // sorting.
-const cast = (timestamp: number, cooldown: number, spell: Spell) => [
+const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => [
   {
     timestamp,
     ability: ability(spell),
     type: EventType.Cast,
-  },
+    sourceID: 1,
+    sourceIsFriendly: true,
+  } as CastEvent,
   ...(cooldown > 0
     ? [
         {
@@ -30,7 +42,17 @@ const cast = (timestamp: number, cooldown: number, spell: Spell) => [
           trigger: EventType.BeginCooldown,
           isOnCooldown: true,
           isAvailable: false,
-        },
+          chargesAvailable: 0,
+          maxCharges: 1,
+          sourceID: 1,
+          targetID: 2,
+          targetIsFriendly: false,
+          start: timestamp,
+          end: timestamp + cooldown - 1,
+          expectedDuration: cooldown,
+          totalReductionTime: 0,
+          __fabricated: true,
+        } as UpdateSpellUsableEvent,
         {
           timestamp: timestamp + cooldown - 1,
           ability: ability(spell),
@@ -38,23 +60,42 @@ const cast = (timestamp: number, cooldown: number, spell: Spell) => [
           trigger: EventType.EndCooldown,
           isOnCooldown: false,
           isAvailable: true,
-        },
+          chargesAvailable: 1,
+          maxCharges: 1,
+          sourceID: 1,
+          targetID: 2,
+          targetIsFriendly: false,
+          start: timestamp + cooldown - 1,
+          end: timestamp + cooldown - 1,
+          expectedDuration: 0,
+          totalReductionTime: 0,
+          __fabricated: true,
+        } as UpdateSpellUsableEvent,
       ]
     : []),
 ];
 
-const applybuff = (timestamp: number, duration: number, spell: Spell) => [
+const applybuff = (timestamp: number, duration: number, spell: Spell): AnyEvent[] => [
   {
     timestamp,
     ability: ability(spell),
     type: EventType.ApplyBuff,
-  },
+    targetID: 1,
+    targetIsFriendly: true,
+    sourceIsFriendly: true,
+  } as ApplyBuffEvent,
   {
     timestamp: timestamp + duration - 1,
     ability: ability(spell),
     type: EventType.RemoveBuff,
-  },
+    targetID: 1,
+    sourceID: 1,
+    targetIsFriendly: true,
+    sourceIsFriendly: true,
+  } as RemoveBuffEvent,
 ];
+
+/* eslint-enable */
 
 describe('Basic APL Check', () => {
   const apl: Apl = build([SHORT_CD, FILLER]);
@@ -76,7 +117,7 @@ describe('Basic APL Check', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, { playerId: 0 });
+    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
 
     it('should report no violations', () => {
       expect(result.violations).toEqual([]);
@@ -103,7 +144,7 @@ describe('Basic APL Check', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, { playerId: 0 });
+    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
 
     it('should report a single violation', () => {
       expect(result.violations).toEqual([
@@ -136,7 +177,7 @@ describe('Basic APL Check', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, { playerId: 0 });
+    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
 
     it('should report a violation for each extra filler cast', () => {
       expect(result.violations.length).toEqual(4);
@@ -175,7 +216,7 @@ describe('APL with conditions', () => {
     ];
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, { playerId: 0 });
+    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
 
     it('should report no violations', () => {
       expect(result.violations).toEqual([]);
@@ -201,7 +242,7 @@ describe('APL with conditions', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, { playerId: 0 });
+    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
 
     it('should report a violation', () => {
       expect(result.violations).toEqual([
@@ -233,7 +274,7 @@ describe('APL with conditions', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, { playerId: 0 });
+    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
 
     it('should report a violation', () => {
       expect(result.violations).toEqual([

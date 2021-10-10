@@ -108,7 +108,11 @@ class SpellUsable extends Analyzer {
   }
 
   /**
-   * Whether the spell is on cooldown. If a spell has multiple charges with 1 charge on cooldown and 1 available, this will return `true`. Use `isAvailable` if you just want to know if a spell is castable. Use this if you want to know if a spell is current cooling down, regardless of being able to cast it.
+   * Whether the spell is on cooldown. If a spell has multiple charges with 1
+   * charge on cooldown and 1 available, this will return `true`. Use
+   * `isAvailable` if you just want to know if a spell is castable. Use this if
+   * you want to know if a spell is current cooling down, regardless of being
+   * able to cast it.
    */
   isOnCooldown(spellId: number) {
     const canSpellId = this._getCanonicalId(spellId);

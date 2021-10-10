@@ -744,6 +744,7 @@ class CombatLogParser {
       fightDuration: this.fight.end_time - this.fight.start_time,
       fightId: this.fight.id,
       reportCode: this.report.code,
+      combatant: this.selectedCombatant,
     };
   }
 }

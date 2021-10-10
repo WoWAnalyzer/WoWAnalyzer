@@ -5,7 +5,7 @@ import React from 'react';
 
 import type { Condition } from './index';
 
-export default function buffPresent(spell: Spell): Condition<boolean> {
+export function buffPresent(spell: Spell): Condition<boolean> {
   return {
     key: `buffPresent-${spell.id}`,
     init: () => false,
@@ -29,6 +29,19 @@ export default function buffPresent(spell: Spell): Condition<boolean> {
     describe: () => (
       <>
         <SpellLink id={spell.id} /> was present
+      </>
+    ),
+  };
+}
+
+export function buffMissing(spell: Spell): Condition<boolean> {
+  return {
+    ...buffPresent(spell),
+    key: `buffMissing-${spell.id}`,
+    validate: (state, _event) => !state,
+    describe: () => (
+      <>
+        <SpellLink id={spell.id} /> was missing
       </>
     ),
   };
