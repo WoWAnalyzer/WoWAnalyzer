@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 10, 10), <>Fixed <SpellLink id={SPELLS.OVERPOWER.id} icon /> cooldown resets with Tactician</>, bandit),
   change(date(2021, 10, 7), <>adjusted gcds and added seasoned veteran passive</>, bandit),
   change(date(2021, 8, 10), <>reworked Dot Uptime Statistic Box</>, carglass),
   change(date(2021, 6, 22), <>Support for <SpellLink id={SPELLS.ENDURING_BLOW.id} icon /> Legendary for Arms Warriors</>, carglass),
