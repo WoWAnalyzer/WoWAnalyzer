@@ -8,6 +8,9 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CurseOfAgony from './modules/spells/CurseOfAgony';
+import CurseOfDoom from './modules/spells/CurseOfDoom';
+import CurseOfTheElements from './modules/spells/CurseOfTheElements';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -17,6 +20,9 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     checklist: Checklist,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    curseOfAgony: CurseOfAgony,
+    curseOfDoom: CurseOfDoom,
+    curseOfTheElements: CurseOfTheElements,
   };
 
   static suggestions = [
