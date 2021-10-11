@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -45,7 +44,6 @@ class CurseOfAgony extends Analyzer {
           to your <SpellLink id={CURSE_OF_AGONY} /> on the boss.
         </span>,
       )
-        .icon(SPELLS.CURSE_OF_AGONY.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.vampiricTouch.uptime',
