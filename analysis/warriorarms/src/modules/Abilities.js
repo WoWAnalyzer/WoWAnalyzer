@@ -29,6 +29,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         buffSpellId: SPELLS.OVERPOWER.id,
+        castEfficiency: {
+          suggestion: false, // Suggestions are in OverPower.js
+          recommendedEfficiency: 0.8,
+        },
       },
       {
         spell: SPELLS.SLAM.id,
@@ -156,7 +160,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANCIENT_AFTERSHOCK.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: 90,
+        cooldown:
+          90 -
+          (this.selectedCombatant.hasConduitBySpellID(SPELLS.DESTRUCTIVE_REVERBERATIONS.id)
+            ? 15
+            : 0),
         gcd: {
           base: 1500,
         },
@@ -241,6 +249,23 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.4,
         },
         buffSpellId: SPELLS.DIE_BY_THE_SWORD.id,
+      },
+      {
+        spell: SPELLS.SPELL_REFLECTION.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 25,
+        gcd: null,
+        castEfficiency: {
+          suggestion: false,
+          recommendedEfficiency: 0.4,
+        },
+        buffSpellId: SPELLS.SPELL_REFLECTION.id,
+      },
+      {
+        spell: SPELLS.IGNORE_PAIN.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.IGNORE_PAIN.id,
+        gcd: null,
       },
       {
         spell: SPELLS.RALLYING_CRY.id,
