@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import ArmoryIcon from 'interface/icons/Armory';
 import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
 import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
@@ -41,7 +42,9 @@ const CharacterTab = (props) => {
                   </Link>
                   <br />
                   <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
-                    <ArmoryIcon /> Armory
+                    <ArmoryIcon />
+                    &nbsp;
+                    <Trans id="interface.armory.text">Armory</Trans>
                   </a>
                 </>
               ) : (
