@@ -233,6 +233,8 @@
   "interface.aboutPage.introducingWOWABot": "Introducing the <0>WoWAnalyzer</0> <1/> bot",
   "interface.aboutPage.introducingWOWABotDetails": "Get users to analyze themselves without lifting a finger (even if they don't read the pins).",
   "interface.aboutPage.moreInfo": "More info",
+  "interface.armory.alt": "World of Warcraft Armory",
+  "interface.armory.text": "Armory",
   "interface.changelogPanel.heading": "Changelog",
   "interface.changelogPanel.option.core": "Core",
   "interface.characterParses.characterParses.errors.characterHidden": "We could find your character but he's very shy",
