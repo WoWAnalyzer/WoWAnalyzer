@@ -11,6 +11,11 @@ import MAX_SOUL_FRAGMENTS from '../features/SoulFragmentsTracker';
 
 const REMOVE_STACK_BUFFER = 100;
 
+export type SoulFragmentsConsumedEvent = {
+  spellId: number,
+  numberofSoulFragmentsConsumed: number,
+};
+
 class SoulFragmentsConsume extends Analyzer {
   static dependencies = {
     soulFragmentsTracker: SoulFragmentsTracker,
@@ -20,6 +25,7 @@ class SoulFragmentsConsume extends Analyzer {
   totalSoulsConsumedBySpells = 0;
 
   soulsConsumedBySpell = {};
+  soulFragmentsConsumedHandlers: Array<(SoulFragmentsConsumedEvent) => void> = [];
 
   constructor(options) {
     super(options);
@@ -62,6 +68,13 @@ class SoulFragmentsConsume extends Analyzer {
       const consumed = event.oldStacks - event.newStacks;
       this.soulsConsumedBySpell[this.trackedSpell].souls += consumed;
       this.totalSoulsConsumedBySpells += consumed;
+
+      this.soulFragmentsConsumedHandlers.forEach((handler) =>
+        handler({
+          spellId: this.trackedSpell,
+          numberofSoulFragmentsConsumed: consumed,
+        }),
+      );
     }
   }
 

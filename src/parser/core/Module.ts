@@ -46,6 +46,10 @@ class Module {
     });
   }
 
+  /** Invoked when a module has been initialized and dependencies are available. */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onLoad(): void {}
+
   get consoleMeta() {
     const fightDuration = formatMilliseconds(
       this.owner.currentTimestamp - this.owner.fight.start_time,
