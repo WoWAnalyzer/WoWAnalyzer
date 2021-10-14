@@ -28,7 +28,7 @@ export class EventsParseError extends ExtendableError {
   constructor(reason: ExtendableError) {
     super();
     this.reason = reason;
-    this.message = `An error occured while parsing events: ${reason.message}`;
+    this.message = `An error occurred while parsing events: ${reason.message}`;
   }
 }
 

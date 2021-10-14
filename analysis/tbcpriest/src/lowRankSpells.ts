@@ -1,8 +1,31 @@
 import * as SPELLS from './SPELLS';
 
 export default {
-  [SPELLS.FLASH_HEAL]: [25233, 10917, 10916, 10915, 9474, 9473, 9472, 2061],
-  [SPELLS.GREATER_HEAL]: [25210, 25314, 10965, 10964, 10963, 2060],
+  [SPELLS.FLASH_HEAL]: [
+    25233,
+    10917,
+    10916,
+    10915,
+    9474,
+    9473,
+    9472,
+    2061,
+    2050, // Lesser Heal
+    2052, // Lesser Heal
+    2053, // Lesser Heal
+  ],
+  [SPELLS.GREATER_HEAL]: [
+    25210,
+    25314,
+    10965,
+    10964,
+    10963,
+    2060,
+    6064, // Heal
+    6063, // Heal
+    2054, // Heal
+    2055, // Heal
+  ],
   [SPELLS.RENEW]: [25221, 25315, 10929, 10928, 10927, 6078, 6077, 6076, 6075, 6074, 139],
   [SPELLS.POWER_WORD_SHIELD]: [25217, 10901, 10900, 10899, 10898, 6066, 6065, 3747, 600, 592, 17],
   [SPELLS.PRAYER_OF_HEALING]: [25316, 10961, 10960, 996, 596],
@@ -41,3 +64,12 @@ export default {
   [SPELLS.SHADOW_GUARD]: [19312, 19311, 19310, 19309, 19308, 18137],
   [SPELLS.HEX_OF_WEAKNESS]: [19285, 19284, 19283, 19282, 19281, 9035],
 };
+
+export const whitelist = {
+  [SPELLS.GREATER_HEAL]: [10963],
+  [SPELLS.RENEW]: [6078, 10927, 10928, 10929, 25315, 25221],
+};
+
+export interface LowRankSpells {
+  [primarySpellId: number]: number[];
+}

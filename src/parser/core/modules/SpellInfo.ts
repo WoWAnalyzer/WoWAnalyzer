@@ -22,7 +22,7 @@ class SpellInfo extends Analyzer {
   }
 
   addSpellInfo(ability: Omit<Ability, 'type'>) {
-    if (SPELLS[ability.guid]) {
+    if (SPELLS[ability.guid] || !ability.name || !ability.abilityIcon) {
       return;
     }
 

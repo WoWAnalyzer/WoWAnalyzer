@@ -281,14 +281,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
-        spell: SPELLS.FLAGELLATION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1000,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
         spell: SPELLS.ECHOING_REPRIMAND.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {

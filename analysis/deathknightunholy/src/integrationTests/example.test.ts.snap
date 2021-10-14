@@ -116,6 +116,7 @@ Array [
       />
       .
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.unholy.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"31.05"}}
        (
@@ -288,6 +289,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3598,7 +3600,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
 Array [
   Object {
     "details": null,
-    "icon": "artifactability_unholydeathknight_deathsembrace",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3621,6 +3623,7 @@ Array [
          immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown.
       </span>
     </React.Fragment>,
+    "spell": 275699,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3648,7 +3651,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_contagion",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3665,6 +3668,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 115989,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3692,7 +3696,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_revendreth_deathknight",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3709,6 +3713,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 311648,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3736,7 +3741,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_deathknight_soulreaper",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3753,6 +3758,7 @@ Array [
        
        (This module only starts tracking possible casts once you damage a target with 35% or less health)
     </React.Fragment>,
+    "spell": 343294,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3802,6 +3808,7 @@ Array [
        
       to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -3956,6 +3963,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3998,6 +4006,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4042,6 +4051,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4086,6 +4096,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4178,6 +4189,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4635,6 +4647,7 @@ Array [
       </React.Fragment>
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.unholy.suggestions.suddendoom.wastedProcs","message":"{0} procs were refreshed or expired without being used","values":{"0":2}}
        (
@@ -4733,6 +4746,7 @@ Array [
       21
        RP by being RP capped.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.suggestions.swarmingmist.efficiency","message":"You wasted {0}% of RP from {1} by being RP capped.","values":{"0":"15.33","1":"Swarming Mist"}}
        (

@@ -8,6 +8,8 @@ import Config from 'parser/Config';
 import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
+import lowRankSpells from './lowRankSpells';
+import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
@@ -19,19 +21,20 @@ const config: Config = {
   expansion: Expansion.TheBurningCrusade,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '2.5.1',
-  isPartial: true,
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: <>Proof of Concept analysis for TBCC Priests.</>,
   pages: {
     overview: {
-      hideChecklist: true,
-      text: <>Classic support is still a Work in Progress.</>,
+      hideChecklist: false,
+      text: <>TBC support is still a Work in Progress.</>,
       type: 'info',
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/8AaZGQvkzJdDYfMR/11-Normal+Magtheridon+-+Kill+(7:42)/RatherBeBelf',
+  exampleReport:
+    '/report/mDyrvWa7QHzN2jFM/50-Normal+Morogrim+Tidewalker+-+Kill+(6:25)/Ratherbebelf',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
@@ -41,7 +44,40 @@ const config: Config = {
     },
   },
   timeline: {
-    separateCastBars: [],
+    separateCastBars: [
+      [
+        SPELLS.RENEW,
+        ...lowRankSpells[SPELLS.RENEW],
+        SPELLS.POWER_WORD_SHIELD,
+        ...lowRankSpells[SPELLS.POWER_WORD_SHIELD],
+        SPELLS.PRAYER_OF_MENDING,
+        SPELLS.CIRCLE_OF_HEALING,
+        ...lowRankSpells[SPELLS.CIRCLE_OF_HEALING],
+      ],
+      [
+        SPELLS.FLASH_HEAL,
+        ...lowRankSpells[SPELLS.FLASH_HEAL],
+        SPELLS.GREATER_HEAL,
+        ...lowRankSpells[SPELLS.GREATER_HEAL],
+
+        SPELLS.PRAYER_OF_HEALING,
+        ...lowRankSpells[SPELLS.PRAYER_OF_HEALING],
+      ],
+      [
+        SPELLS.SHOOT,
+        SPELLS.SMITE,
+        ...lowRankSpells[SPELLS.SMITE],
+        SPELLS.SHADOW_WORD_PAIN,
+        ...lowRankSpells[SPELLS.SHADOW_WORD_PAIN],
+        SPELLS.SHADOW_WORD_DEATH,
+        ...lowRankSpells[SPELLS.SHADOW_WORD_DEATH],
+        SPELLS.MIND_BLAST,
+        ...lowRankSpells[SPELLS.MIND_BLAST],
+        SPELLS.HOLY_FIRE,
+        ...lowRankSpells[SPELLS.HOLY_FIRE],
+      ],
+      [SPELLS.SHADOW_FIEND, SPELLS.RESTORE_MANA],
+    ],
   },
 
   // Don't change anything below this line;

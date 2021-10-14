@@ -8,6 +8,7 @@ import {
   RuneOfHysteria,
   Superstrain,
   SwarmingMist,
+  DeathsDue,
 } from '@wowanalyzer/deathknight';
 
 import SpellUsable from './modules/core/SpellUsable';
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     swarmingMist: SwarmingMist,
+    deathsDue: DeathsDue,
     convocationOfTheDead: ConvocationOfTheDead,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

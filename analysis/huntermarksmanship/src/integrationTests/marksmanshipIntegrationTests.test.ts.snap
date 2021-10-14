@@ -7,6 +7,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -167,6 +168,7 @@ Array [
       7.02
       % of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.marksmanship.suggestions.castsCanceled.efficiency","message":"{0}% casts cancelled","values":{"0":"7.02"}}
        (
@@ -4088,7 +4090,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
 Array [
   Object {
     "details": null,
-    "icon": "inv_spear_07",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4105,6 +4107,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 19434,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4132,7 +4135,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_efficiency",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4149,6 +4152,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 257044,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4176,7 +4180,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_trueshot",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -4193,6 +4197,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 288613,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4220,7 +4225,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_explosiveshot",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4237,6 +4242,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 212431,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4264,7 +4270,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_rapidkilling",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4281,6 +4287,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 260243,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4308,7 +4315,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_inscription_darkmooncard_voracity",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4325,6 +4332,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 331624,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4352,7 +4360,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_assassinate2",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4369,6 +4377,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 53351,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4806,6 +4815,7 @@ Array [
         .
       </React.Fragment>
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.resources.wasted"
@@ -8546,6 +8556,7 @@ Array [
        might take their place.
        
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.marksmanship.suggestions.alwaysBeCasting.downtime"
@@ -8579,6 +8590,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -8673,6 +8685,7 @@ Array [
       7.48
       % of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.marksmanship.suggestions.castsCanceled.efficiency","message":"{0}% casts cancelled","values":{"0":"7.48"}}
        (
@@ -12235,7 +12248,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
 Array [
   Object {
     "details": null,
-    "icon": "inv_spear_07",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -12252,6 +12265,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 19434,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -12279,7 +12293,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_efficiency",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -12296,6 +12310,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 257044,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -12323,7 +12338,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_trueshot",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -12340,6 +12355,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 288613,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -12367,7 +12383,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_bastion_hunter",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -12384,6 +12400,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 308491,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -12411,7 +12428,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_assassinate2",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -12428,6 +12445,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 53351,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -12749,6 +12767,7 @@ Array [
         .
       </React.Fragment>
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.resources.wasted"
@@ -12798,6 +12817,7 @@ Array [
         .
       </React.Fragment>
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.resources.wasted"
@@ -12889,6 +12909,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -13201,6 +13222,7 @@ Array [
     "issue": <React.Fragment>
       You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"10.25"}}
        (

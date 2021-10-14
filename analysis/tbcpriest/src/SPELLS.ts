@@ -1,3 +1,5 @@
+export const SHOOT = 5019;
+export const RESTORE_MANA = 28499;
 export const FLASH_HEAL = 25235;
 export const GREATER_HEAL = 25213;
 export const RENEW = 25222;
@@ -14,6 +16,7 @@ export const SMITE = 25364;
 export const HOLY_FIRE = 25384;
 export const MANA_BURN = 25380;
 export const SHADOW_FIEND = 34433;
+export const SHADOW_FIEND_MANA_LEECH = 34650;
 export const PSYCHIC_SCREAM = 10890;
 export const DISPEL_MAGIC = 988;
 export const MASS_DISPEL = 32375;

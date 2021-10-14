@@ -1,4 +1,4 @@
-import { AnyEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent, DeathEvent } from 'parser/core/Events';
 import { WCLReport } from 'parser/core/Report';
 
 export interface WCLGuildReport {
@@ -70,15 +70,40 @@ export interface WCLDamageTaken {
   overheal?: number;
 }
 
+export interface HeroismEvent {
+  startTime: number;
+  endTime: number;
+  startEvent: CastEvent;
+}
+
+export interface BossSeries {
+  name: string;
+  id: number;
+  guid: number;
+  type: 'Boss';
+  currentValues: number[];
+  data: number[][];
+  events: any[];
+  maxValues: number[];
+}
+
+export interface WCLBossResources {
+  deaths: DeathEvent[];
+  heroism: HeroismEvent[];
+  series: BossSeries[];
+}
+
 export type WCLResponseJSON =
   | WCLGuildReportsResponse
   | WCLFightsResponse
   | WCLEventsResponse
   | WCLHealingTableResponse
   | WCLDamageTakenTableResponse
-  | WCLRankingsResponse;
+  | WCLRankingsResponse
+  | WCLBossResources;
 
 export interface WclOptions {
   timeout: number;
+
   [key: string]: number | string | boolean;
 }

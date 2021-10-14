@@ -105,6 +105,7 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC).",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"55.56"}}
        (
@@ -122,6 +123,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -140,6 +142,7 @@ Array [
       />
        usage can be improved. The associated debuff is a key part of our damage mitigation.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"monk.brewmaster.suggestions.breathOfFire.hitsMitigated","message":"{0}% of hits mitigated with Breath of Fire","values":{"0":"45.95"}}
        (
@@ -3171,7 +3174,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
 Array [
   Object {
     "details": null,
-    "icon": "achievement_brewery_2",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3188,6 +3191,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 121253,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3215,7 +3219,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_roundhousekick",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3232,6 +3236,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 205523,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3259,7 +3264,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_misc_beer_06",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3276,6 +3281,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 119582,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3303,7 +3309,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_ironskinbrew",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3320,6 +3326,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 322507,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3347,7 +3354,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_monk_touchofdeath",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3364,6 +3371,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 322109,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3391,7 +3399,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_maldraxxus_monk",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3408,6 +3416,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 325216,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3573,6 +3582,7 @@ Array [
        
       to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -3692,6 +3702,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3841,6 +3852,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4366,6 +4378,7 @@ Array [
        
       available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       68.42% of casts while better spells were available
        (

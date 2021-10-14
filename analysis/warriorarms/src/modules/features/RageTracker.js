@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -24,7 +25,11 @@ class RageUsage extends ResourceTracker {
   }
 
   onDamage(event) {
-    this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+    if (event.hitType === HIT_TYPES.CRIT) {
+      this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT * 1.3);
+    } else if (event.hitType === HIT_TYPES.NORMAL) {
+      this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+    }
   }
 }
 

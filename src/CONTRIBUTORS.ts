@@ -1636,3 +1636,108 @@ export const ogunb: Contributor = {
     },
   ],
 };
+
+export const Klex: Contributor = {
+  nickname: 'Klex',
+  github: 'BjarkeM',
+  discord: 'Klex#3053',
+  mains: [
+    {
+      name: 'Slowfood',
+      spec: SPECS.ARCANE_MAGE,
+      link: 'https://classic.warcraftlogs.com/character/eu/earthshaker/slowfood',
+    },
+  ],
+};
+
+export const Pink: Contributor = {
+  nickname: 'Pink',
+  github: 'marson',
+  mains: [
+    {
+      name: 'Pinklight',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://www.warcraftlogs.com/character/eu/azjolnerub/pinklight',
+    },
+  ],
+};
+
+export const Pirrang: Contributor = {
+  nickname: 'Pirrang',
+  discord: 'Pirrang#1818',
+  github: 'Pirrang',
+  mains: [
+    {
+      name: 'Sansukie',
+      spec: SPECS.AFFLICTION_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/eu/kazzak/sansukie',
+    },
+  ],
+};
+
+export const Elodiel: Contributor = {
+  nickname: 'Elodiel',
+  discord: 'Elodiel#5981',
+  github: 'ElodielAirea',
+  mains: [
+    {
+      name: 'Yusun',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://www.warcraftlogs.com/character/eu/thrall/yusun',
+    },
+  ],
+};
+
+export const Charurun: Contributor = {
+  nickname: 'Charurun',
+  discord: 'char *#7024',
+  github: 'mryanlam',
+  mains: [
+    {
+      name: 'Charurun',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://classic.warcraftlogs.com/character/id/40985537',
+    },
+    {
+      name: 'Charuru',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://classic.warcraftlogs.com/character/id/42940009',
+    },
+  ],
+};
+
+export const Talador12: Contributor = {
+  nickname: 'Talador12',
+  discord: 'Talador12#4269',
+  github: 'Talador12',
+  mains: [
+    {
+      name: 'Kikori',
+      spec: SPECS.DESTRUCTION_WARLOCK,
+      link: 'https://classic.warcraftlogs.com/character/id/60308170',
+    },
+  ],
+};
+
+export const Karahtar: Contributor = {
+  nickname: 'Karahtar',
+  discord: 'Karahtar#8859',
+  github: 'npaganini',
+  mains: [
+    {
+      name: 'Karatar',
+      spec: SPECS.ARCANE_MAGE,
+      link: 'https://www.warcraftlogs.com/character/us/kelthuzad/karatar',
+    },
+  ],
+};
+
+export const bandit: Contributor = {
+  nickname: 'bandit',
+  github: 'elasticspoon',
+};
+
+export const ChrisKaczor: Contributor = {
+  nickname: 'Chris Kaczor',
+  github: 'ckaczor',
+};

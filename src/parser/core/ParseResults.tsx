@@ -46,6 +46,7 @@ abstract class SuggestionAssertion<T extends number | boolean> {
           </>
         ) : null,
         icon: suggestion._icon,
+        spell: suggestion._spell,
         importance: this._getIssueImportance(suggestion),
         details: suggestion._details,
       });
@@ -227,6 +228,7 @@ export type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
 class Suggestion {
   _text: React.ReactNode;
   _icon?: string;
+  _spell?: number;
   _actualText: React.ReactNode = null;
   _recommendedText: React.ReactNode = null;
   averageThreshold?: number;
@@ -239,6 +241,10 @@ class Suggestion {
   }
   icon(icon: string) {
     this._icon = icon;
+    return this;
+  }
+  spell(spellId: number) {
+    this._spell = spellId;
     return this;
   }
   actual(actualText: React.ReactNode) {

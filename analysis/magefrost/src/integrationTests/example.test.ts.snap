@@ -250,6 +250,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"mage.frost.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"36.82"}}
        (
@@ -267,6 +268,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -366,6 +368,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.brainFreeze.overwritten"
@@ -395,6 +398,7 @@ Array [
        
       procs to expire. Make sure you are using your procs as soon as possible to avoid this.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.brainFreeze.expired"
@@ -516,6 +520,7 @@ Array [
       </React.Fragment>
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.castsCancelled"
@@ -3737,7 +3742,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sug
 Array [
   Object {
     "details": null,
-    "icon": "spell_frost_frozenorb",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3754,6 +3759,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 84714,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3781,7 +3787,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_mage_runeofpower",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3798,6 +3804,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116011,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3825,7 +3832,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_revendreth_mage",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3842,6 +3849,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 314793,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4049,6 +4057,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4216,6 +4225,7 @@ Array [
       />
        proc, or if you are moving and you cant cast anything else.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.iceLance.nonShatterCasts"
@@ -4326,6 +4336,7 @@ Array [
       />
        when you are at a low risk of being interrupted or when the target is vulnerable.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.icyVeins.icyVeinsActiveTime"
@@ -4569,6 +4580,7 @@ Array [
        
       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.runeOfPower.utilization"
@@ -4611,7 +4623,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
             <img
               alt="Splitting Ice"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_ice_shards.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshards.jpg"
             />
           </a>
            
@@ -5195,6 +5207,7 @@ Array [
       />
        instead.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.wintersChill.notShattered"

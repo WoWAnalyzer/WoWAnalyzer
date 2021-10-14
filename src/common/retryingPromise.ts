@@ -22,7 +22,7 @@ export default async function retryingPromise<T>(
       throw err;
     }
 
-    console.error(`An error occured, trying again in ${delay}ms`, err);
+    console.error(`An error occurred, trying again in ${delay}ms`, err);
     await sleep(delay);
     return retryingPromise(retryable, attempt + 1, delay * 2);
   }

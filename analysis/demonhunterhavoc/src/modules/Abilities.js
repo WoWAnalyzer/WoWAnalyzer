@@ -285,7 +285,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ELYSIAN_DECREE.id,
+        spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,

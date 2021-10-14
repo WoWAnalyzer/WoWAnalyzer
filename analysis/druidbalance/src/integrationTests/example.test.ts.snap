@@ -108,6 +108,7 @@ Array [
       id="shared.suggestions.alwaysBeCasting.suggestion"
       message="Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.alwaysBeCasting.downtime"
@@ -198,6 +199,7 @@ Array [
     "issue": "You wasted 176 Astral Power. While some Astral Power waste is acceptable
         while setting up Eclipse or due to movement, you should always try and set yourself up to be
         able to spend it during Eclipse.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.astralPower.overcapped","message":"{0}% overcapped Astral Power","values":{"0":"15.08"}}
        (
@@ -232,6 +234,7 @@ Array [
       />
        before you overcap.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.astralPower.overcapped","message":"{0}% overcapped Astral Power","values":{"0":"13.59"}}
        (
@@ -249,6 +252,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -275,6 +279,7 @@ Array [
        
       times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.boat.efficiency","message":"{0} of your Balance of All Things openers were wrong","values":{"0":5}}
        (
@@ -370,6 +375,7 @@ Array [
     "icon": "inv_misc_map_01",
     "importance": "major",
     "issue": "You cancelled 19.64% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.castsCancelled","message":"{0}% casts cancelled","values":{"0":"19.64"}}
        (
@@ -3720,7 +3726,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
 Array [
   Object {
     "details": null,
-    "icon": "spell_nature_lightning",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3737,6 +3743,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 29166,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3764,7 +3771,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_nature_stoneclawtotem",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3781,6 +3788,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 22812,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3808,7 +3816,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_blessingofagility",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3825,6 +3833,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 108291,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4078,6 +4087,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4122,6 +4132,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4166,6 +4177,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4216,6 +4228,7 @@ Array [
       6
        targets you can cast Starfire event during Solar Eclipse. These exception are excluded from this statistic.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"druid.balance.suggestions.filler.efficiency","message":"{0}% wrong filler spell casts","values":{"0":"1.1"}}
        (

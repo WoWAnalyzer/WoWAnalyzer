@@ -111,6 +111,7 @@ Array [
       />
        to stay off the focus cap and do some damage.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.alwaysBeCasting.downtime"
@@ -283,6 +284,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -407,6 +409,7 @@ Array [
       , you should never be sitting on 2 stacks of this spell.
        
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.barbedShot.petBuff.uptime"
@@ -443,6 +446,7 @@ Array [
       . It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges.
        
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime"
@@ -663,6 +667,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.beastCleave.efficiency"
@@ -776,6 +781,7 @@ Array [
     "issue": <React.Fragment>
       You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"23.98"}}
        (
@@ -1087,6 +1093,7 @@ Array [
       />
        as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency"
@@ -4679,7 +4686,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
 Array [
   Object {
     "details": null,
-    "icon": "ability_hunter_killcommand",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4696,6 +4703,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 34026,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4723,7 +4731,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_fire_flare",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4740,6 +4748,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 1543,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4767,7 +4776,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_assassinate2",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4784,6 +4793,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 53351,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4927,6 +4937,7 @@ Array [
       />
       , if you'd be capping focus otherwise.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.cobraShot.efficiency"
@@ -4966,6 +4977,7 @@ Array [
       />
        is off cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.cobraShot.cooldown.wasted"
@@ -5409,6 +5421,7 @@ Array [
        is up.
        
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.killerCobra.efficiency"
@@ -5507,6 +5520,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -8786,6 +8800,7 @@ Array [
       />
        to stay off the focus cap and do some damage.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.alwaysBeCasting.downtime"
@@ -8958,6 +8973,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -9489,6 +9505,7 @@ Array [
       />
        as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency"
@@ -13270,7 +13287,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
 Array [
   Object {
     "details": null,
-    "icon": "ability_druid_primaltenacity",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -13287,6 +13304,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 321530,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -13314,7 +13332,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_assassinate2",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -13331,6 +13349,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 53351,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -13474,6 +13493,7 @@ Array [
       />
       , if you'd be capping focus otherwise.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.cobraShot.efficiency"
@@ -13513,6 +13533,7 @@ Array [
       />
        is off cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="hunter.beastmastery.suggestions.cobraShot.cooldown.wasted"
@@ -13669,6 +13690,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -13718,6 +13740,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -13793,6 +13816,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]

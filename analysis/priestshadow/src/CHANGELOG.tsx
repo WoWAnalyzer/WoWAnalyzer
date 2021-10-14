@@ -1,13 +1,16 @@
 
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot } from 'CONTRIBUTORS';
+import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot, Pink } from 'CONTRIBUTORS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 8, 27), <>Bump support to 9.1</>, Pink),
+  change(date(2021, 8, 27), <>Reduced <SpellLink id={SPELLS.TALBADARS_STRATAGEM.id} /> damage increase from 60% to 55%. </>, Pink),
+  change(date(2021, 8, 27), <>Reduced <SpellLink id={SPELLS.VOID_BOLT.id} /> damage increase from <SpellLink id={SPELLS.DISSONANT_ECHOES.id} /> from 35% to 15%. </>, Pink),
   change(date(2021, 4, 11), <>Updated <SpellLink id={SPELLS.GUARDIAN_FAERIE.id} /> damage reduction to 20% and corrected DR calculation.</>, Adoraci),
   change(date(2021, 4, 11), <>Removed <SpellLink id={SPELLS.ARCANE_TORRENT_MANA3.id} /> suggestion.</>, Adoraci),
   change(date(2021, 4, 11), <>Added <SpellLink id={SPELLS.VOID_BOLT.id} /> cast efficiency module.</>, Adoraci),

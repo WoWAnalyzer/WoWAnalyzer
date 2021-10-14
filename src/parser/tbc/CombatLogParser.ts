@@ -1,3 +1,7 @@
+import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
+import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
+import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';
+
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
 import Buffs from '../core/modules/Buffs';
@@ -19,8 +23,6 @@ import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Haste from '../shared/modules/Haste';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
-import Healthstone from '../shared/modules/items/Healthstone';
-import ManaValues from '../shared/modules/ManaValues';
 import Pets from '../shared/modules/Pets';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';
@@ -36,6 +38,10 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import ManaValues from '../tbc/modules/ManaValues';
+import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
+import CombatPotionChecker from './modules/items/CombatPotionChecker';
+import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
 
 class CombatLogParser extends BaseCombatLogParser {
@@ -57,6 +63,13 @@ class CombatLogParser extends BaseCombatLogParser {
     throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
+    foodChecker: FoodChecker,
+    enchantChecker: EnchantChecker,
+    flaskChecker: FlaskChecker,
+    weaponEnhancementChecker: WeaponEnhancementChecker,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    combatPotionChecker: CombatPotionChecker,
+
     enemies: Enemies,
     enemyInstances: EnemyInstances,
     pets: Pets,
@@ -71,7 +84,7 @@ class CombatLogParser extends BaseCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     abilitiesMissing: AbilitiesMissing,
-    CastEfficiency: CastEfficiency,
+    castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
     globalCooldown: GlobalCooldown,
@@ -85,7 +98,6 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Tabs
     raidHealthTab: RaidHealthTab,
-    healthstone: Healthstone,
   };
 
   static suggestions = [...BaseCombatLogParser.suggestions];

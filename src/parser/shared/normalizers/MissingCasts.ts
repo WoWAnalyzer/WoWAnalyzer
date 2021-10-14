@@ -3,7 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /*
  * Some on use items (e.g. trinkets) provide a buff when used but do not trigger a cast event, making it more annoying to check for automatically using e.g. usage suggestions.
- * This normalizer adds cast events at the same timestamp as the applybuff event occured
+ * This normalizer adds cast events at the same timestamp as the applybuff event occurred
  */
 class MissingCasts extends EventsNormalizer {
   /*

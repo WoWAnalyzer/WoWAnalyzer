@@ -1,6 +1,7 @@
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
+
+import { RequirementThresholds } from './Requirement';
 
 export interface ChecklistProps {
   combatant: Combatant;

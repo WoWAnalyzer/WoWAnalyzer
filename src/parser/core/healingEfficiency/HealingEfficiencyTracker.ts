@@ -148,11 +148,23 @@ class HealingEfficiencyTracker extends Analyzer {
     for (const index in this.abilities.abilities) {
       const ability = (this.abilities.abilities[index] as unknown) as SpellbookAbility;
 
-      if (ability.spell instanceof Array) {
+      if (ability.category === 'Cooldown' && !includeCooldowns) {
         continue;
       }
 
-      if (includeCooldowns || ability.category !== 'Cooldown') {
+      if (ability.spell instanceof Array) {
+        for (const lowerRankSpell of ability.spell) {
+          spells[lowerRankSpell] = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
+          if (spells[lowerRankSpell].hpm !== Infinity) {
+            topHpm = Math.max(topHpm, spells[lowerRankSpell].hpm);
+          }
+          if (spells[lowerRankSpell].dpm !== Infinity) {
+            topDpm = Math.max(topDpm, spells[lowerRankSpell].dpm);
+          }
+          topHpet = Math.max(topHpet, spells[lowerRankSpell].hpet);
+          topDpet = Math.max(topDpet, spells[lowerRankSpell].dpet);
+        }
+      } else {
         spells[ability.spell] = this.getSpellStats(ability.spell, ability.healSpellIds);
         if (spells[ability.spell].hpm !== Infinity) {
           topHpm = Math.max(topHpm, spells[ability.spell].hpm);

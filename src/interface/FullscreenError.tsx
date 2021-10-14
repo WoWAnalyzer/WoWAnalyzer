@@ -7,7 +7,7 @@ import AppBackgroundImage from './FullscreenErrorBackgroundImage';
 type Props = {
   error: React.ReactNode;
   details: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   background: string;
   errorDetails?: React.ReactNode;
 };

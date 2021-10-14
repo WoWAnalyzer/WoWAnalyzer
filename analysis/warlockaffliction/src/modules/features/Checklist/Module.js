@@ -1,14 +1,14 @@
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
 import ScouringTitheUptime from '../../covenants/ScouringTithe';
-import ShadowEmbrace from '../../features/ShadowEmbrace';
 import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 import Haunt from '../../talents/Haunt';
+import ShadowEmbrace from '../../talents/ShadowEmbrace';
 import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import AgonyUptime from '../DotUptimes/AgonyUptime';

@@ -119,7 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUMMON_DARKGLARE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasTalent(SPELLS.DARK_CALLER_TALENT.id) ? 120 : 180,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },

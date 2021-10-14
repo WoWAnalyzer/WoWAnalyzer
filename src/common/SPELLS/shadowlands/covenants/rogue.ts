@@ -55,12 +55,12 @@ const covenants = {
 
   //region Venthyr
   FLAGELLATION: {
-    id: 345285,
+    id: 323654,
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
   },
   FLAGELLATION_LASH: {
-    id: 345390,
+    id: 345316,
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
   },

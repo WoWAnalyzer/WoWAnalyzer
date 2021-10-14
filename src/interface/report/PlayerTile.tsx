@@ -37,7 +37,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
         );
       } catch (err) {
         // No biggy, just show less info
-        console.error('An error occured fetching', player, '. The error:', err);
+        console.error('An error occurred fetching', player, '. The error:', err);
         return null;
       }
     };

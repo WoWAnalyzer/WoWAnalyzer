@@ -584,7 +584,9 @@ class CharacterParses extends React.Component {
                 className="btn"
                 style={{ fontSize: 22 }}
               >
-                <ArmoryIcon /> Armory
+                <ArmoryIcon />
+                &nbsp;
+                <Trans id="interface.armory.text">Armory</Trans>
               </a>
               <br />
               {this.props.region !== 'CN' && (
