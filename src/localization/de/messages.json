@@ -233,6 +233,8 @@
   "interface.aboutPage.introducingWOWABot": "Wir stellen den <0>WoWAnalyzer</0> <1/> Bot vor",
   "interface.aboutPage.introducingWOWABotDetails": "Bringe die Benutzer dazu, sich selbst zu analysieren ohne einen Finger zu heben (auch wenn sie die angepinnten Nachrichten nicht lesen).",
   "interface.aboutPage.moreInfo": "Weitere Infos",
+  "interface.armory.alt": "",
+  "interface.armory.text": "",
   "interface.changelogPanel.heading": "Änderungsverlauf",
   "interface.changelogPanel.option.core": "Kern",
   "interface.characterParses.characterParses.errors.characterHidden": "Wir konnten deinen Charakter finden aber er ist sehr schüchtern",

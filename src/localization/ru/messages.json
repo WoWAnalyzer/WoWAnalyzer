@@ -233,6 +233,8 @@
   "interface.aboutPage.introducingWOWABot": "",
   "interface.aboutPage.introducingWOWABotDetails": "",
   "interface.aboutPage.moreInfo": "",
+  "interface.armory.alt": "",
+  "interface.armory.text": "",
   "interface.changelogPanel.heading": "Обновления",
   "interface.changelogPanel.option.core": "Основа",
   "interface.characterParses.characterParses.errors.characterHidden": "Мы могли бы найти Вашего персонажа, но он очень застенчивый",
