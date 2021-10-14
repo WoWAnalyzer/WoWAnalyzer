@@ -1,9 +1,11 @@
 import React from 'react';
 
+type Props = Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
+
 // https://thenounproject.com/search/?q=abilities&i=1553895
 // abilities by sachin modgekar from the Noun Project
-const Icon = ({ ...other }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="30 25 150 150" className="icon" {...other}>
+const Icon = (props: Props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="30 25 150 150" className="icon" {...props}>
     {/* note the icon was modified, see the link above for the original */}
     <circle cx="104.492" cy="82.7" r="18.794" />
     <circle cx="103.881" cy="37.187" r="13.903" />
