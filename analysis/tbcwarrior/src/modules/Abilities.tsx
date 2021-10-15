@@ -140,6 +140,18 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: SPELLS.RECKLESSNESS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 1800 - (build === Build.ARMS ? 420 : 0),
+        gcd: null,
+      },
+      {
+        spell: SPELLS.DEATH_WISH,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: null,
+      },
+      {
         spell: [SPELLS.BATTLE_SHOUT, ...lowRankSpells[SPELLS.BATTLE_SHOUT]],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
