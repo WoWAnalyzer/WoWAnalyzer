@@ -2,7 +2,7 @@ import React from 'react';
 
 import BAD_ICONS from './BAD_ICONS';
 
-interface Props extends React.HTMLAttributes<HTMLImageElement> {
+export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
   icon?: string;
   className?: string;
   /**
@@ -13,7 +13,7 @@ interface Props extends React.HTMLAttributes<HTMLImageElement> {
   alt?: string;
 }
 
-const Icon = ({ icon, className, alt = '', ...others }: Props) => {
+const Icon = ({ icon, className, alt = '', ...others }: IconProps) => {
   if (!icon) {
     return null;
   }
