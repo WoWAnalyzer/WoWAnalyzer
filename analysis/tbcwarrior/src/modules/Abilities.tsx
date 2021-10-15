@@ -128,6 +128,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: [SPELLS.EXECUTE, ...lowRankSpells[SPELLS.EXECUTE]],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1500, // haste interaction not accounted for
+        },
+      },
+      {
         spell: SPELLS.SHIELD_WALL,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 1800,
