@@ -61,10 +61,6 @@ const config: Config = {
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
-      id: 'specs.warrior.protection',
-      message: `Protection`,
-    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     ranking: {
