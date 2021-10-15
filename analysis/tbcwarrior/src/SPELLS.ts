@@ -7,6 +7,8 @@ export const SHIELD_WALL = 871;
 export const LAST_STAND = 12975;
 
 // Arms
+export const MORTAL_STRIKE = 30330;
+export const DEATH_WISH = 12292;
 
 // Fury
 

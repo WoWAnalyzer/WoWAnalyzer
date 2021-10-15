@@ -10,7 +10,8 @@ import React from 'react';
 import CHANGELOG from './CHANGELOG';
 
 export enum Build {
-  DEFAULT = 'default',
+  DEFAULT = 'Protection',
+  ARMS = 'Arms',
 }
 
 const config: Config = {
@@ -39,6 +40,12 @@ const config: Config = {
       icon: <Icon icon="ability_defend" />,
       visible: true,
     },
+    [Build.ARMS]: {
+      url: 'arms',
+      name: '33/28/0',
+      icon: <Icon icon="ability_warrior_savageblow" />,
+      visible: true,
+    },
   },
   timeline: {
     separateCastBars: [],
@@ -53,10 +60,6 @@ const config: Config = {
     className: t({
       id: 'specs.warrior',
       message: `Warrior`,
-    }),
-    specName: t({
-      id: 'specs.warrior.protection',
-      message: `Protection`,
     }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
