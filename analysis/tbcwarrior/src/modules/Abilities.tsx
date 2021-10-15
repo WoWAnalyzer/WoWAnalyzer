@@ -1,34 +1,42 @@
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
+import { Build } from '../CONFIG';
 import lowRankSpells from '../lowRankSpells';
 import * as SPELLS from '../SPELLS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
+    const build = this.owner.build;
     return [
       {
         spell: SPELLS.DEVASTATE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category:
+          build === Build.DEFAULT
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.9,
         },
       },
       {
         spell: SPELLS.REVENGE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category:
+          build === Build.DEFAULT
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
         },
         cooldown: 5,
         castEfficiency: {
-          suggestion: true,
+          suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.7,
         },
       },
@@ -41,25 +49,79 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 5,
         castEfficiency: {
-          suggestion: true,
+          suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.9,
         },
       },
       {
         spell: SPELLS.SHIELD_SLAM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category:
+          build === Build.DEFAULT
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
         },
         cooldown: 6,
         castEfficiency: {
-          suggestion: true,
+          suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.9,
         },
       },
       {
+        spell: [SPELLS.MORTAL_STRIKE, ...lowRankSpells[SPELLS.MORTAL_STRIKE]],
+        category:
+          build === Build.ARMS
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+          minimum: 1000,
+        },
+        cooldown: 6,
+        castEfficiency: {
+          suggestion: build === Build.ARMS ? true : false,
+          recommendedEfficiency: 0.6,
+        },
+      },
+      {
+        spell: SPELLS.WHIRLWIND,
+        category:
+          build === Build.ARMS
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+          minimum: 1000,
+        },
+        cooldown: 10,
+        castEfficiency: {
+          suggestion: build === Build.ARMS ? true : false,
+          recommendedEfficiency: 0.5,
+        },
+      },
+      {
+        spell: [SPELLS.SLAM, ...lowRankSpells[SPELLS.SLAM]],
+        category:
+          build === Build.ARMS
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+          minimum: 1000,
+        },
+        cooldown: 0,
+      },
+      {
         spell: [SPELLS.HEROIC_STRIKE, ...lowRankSpells[SPELLS.HEROIC_STRIKE]],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1500, // haste interaction not accounted for
+        },
+      },
+      {
+        spell: [SPELLS.CLEAVE, ...lowRankSpells[SPELLS.CLEAVE]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           static: 1500, // haste interaction not accounted for

@@ -41,7 +41,7 @@ const config: Config = {
       visible: true,
     },
     [Build.ARMS]: {
-      url: 'standard',
+      url: 'arms',
       name: '33/28/0',
       icon: <Icon icon="ability_warrior_savageblow" />,
       visible: true,
