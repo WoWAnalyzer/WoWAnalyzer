@@ -392,7 +392,6 @@ class CombatLogParser {
     // TODO: Remove module naming
     module.key = desiredModuleName;
     this._modules[desiredModuleName] = module;
-    module.onLoad();
     return module;
   }
   initializeModules(modules: DependenciesDefinition, iteration = 1) {

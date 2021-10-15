@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import SoulFragmentsConsume, {
-  SoulFragmentsConsumedEvent,
-} from '../../statistics/SoulFragmentsConsume';
+import { ConsumeSoulFragmentsEvent } from '../../statistics/SoulFragmentsConsume';
 
 const COOLDOWN_REDUCTION = 2000;
 
@@ -15,27 +14,20 @@ const COOLDOWN_REDUCTION = 2000;
 class FierySoul extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    soulFragmentsConsume: SoulFragmentsConsume,
   };
   protected spellUsable!: SpellUsable;
-  protected soulFragmentsConsume!: SoulFragmentsConsume;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIERY_SOUL.bonusID);
-  }
-
-  onLoad() {
     if (!this.active) {
       return;
     }
 
-    this.soulFragmentsConsume.soulFragmentsConsumedHandlers.push(
-      this.onSoulFragmentsConsumed.bind(this),
-    );
+    this.addEventListener(EventType.ConsumeSoulFragments, this.onSoulFragmentsConsumed);
   }
 
-  onSoulFragmentsConsumed(event: SoulFragmentsConsumedEvent) {
+  onSoulFragmentsConsumed(event: ConsumeSoulFragmentsEvent) {
     if (event.spellId !== SPELLS.SOUL_CLEAVE.id) {
       return;
     }
