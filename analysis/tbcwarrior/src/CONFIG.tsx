@@ -10,7 +10,8 @@ import React from 'react';
 import CHANGELOG from './CHANGELOG';
 
 export enum Build {
-  DEFAULT = 'default',
+  DEFAULT = 'Protection',
+  ARMS = 'Arms',
 }
 
 const config: Config = {
@@ -37,6 +38,12 @@ const config: Config = {
       url: 'standard',
       name: '12/5/44',
       icon: <Icon icon="ability_defend" />,
+      visible: true,
+    },
+    [Build.ARMS]: {
+      url: 'standard',
+      name: '33/28/0',
+      icon: <Icon icon="ability_warrior_savageblow" />,
       visible: true,
     },
   },
