@@ -6,13 +6,6 @@ class FuryTracker extends ResourceTracker {
     super(...args);
     this.resource = RESOURCE_TYPES.FURY;
   }
-
-  getReducedCost(event) {
-    if (!this.getResource(event).cost) {
-      return 0;
-    }
-    return this.getResource(event).cost / 10;
-  }
 }
 
 export default FuryTracker;

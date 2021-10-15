@@ -10,6 +10,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/fury/FuryDetails';
 import FuryTracker from './modules/fury/FuryTracker';
+import FierySoul from './modules/shadowlands/legendaries/FierySoul';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import ImmolationAura from './modules/spells/ImmolationAura';
 import InfernalStrike from './modules/spells/InfernalStrike';
@@ -72,6 +73,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     felDefender: FelDefender,
+
+    // Legendaries
+    fierySoul: FierySoul,
   };
 }
 

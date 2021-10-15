@@ -1741,3 +1741,28 @@ export const ChrisKaczor: Contributor = {
   nickname: 'Chris Kaczor',
   github: 'ckaczor',
 };
+
+export const Yax: Contributor = {
+  nickname: 'Yax',
+  github: 'WarcraftYax',
+  avatar: avatar('Yax-avatar.jpg'),
+  mains: [
+    {
+      name: 'Xyä',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Xy%C3%A4',
+    },
+  ],
+  alts: [
+    {
+      name: 'Blodhgärm',
+      spec: SPECS.GUARDIAN_DRUID,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Blodhg%C3%A4rm',
+    },
+    {
+      name: 'Äxy',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/%C3%84xy',
+    },
+  ],
+};

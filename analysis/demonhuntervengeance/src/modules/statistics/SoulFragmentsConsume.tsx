@@ -1,27 +1,42 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { Event, EventType, CastEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
-import MAX_SOUL_FRAGMENTS from '../features/SoulFragmentsTracker';
+import { MAX_SOUL_FRAGMENTS } from '../features/SoulFragmentsTracker';
 
 const REMOVE_STACK_BUFFER = 100;
+
+export interface ConsumeSoulFragmentsEvent extends Event<EventType.ConsumeSoulFragments> {
+  spellId: number;
+  numberofSoulFragmentsConsumed: number;
+}
 
 class SoulFragmentsConsume extends Analyzer {
   static dependencies = {
     soulFragmentsTracker: SoulFragmentsTracker,
+    eventEmitter: EventEmitter,
   };
+  protected soulFragmentsTracker!: SoulFragmentsTracker;
+  protected eventEmitter!: EventEmitter;
 
-  castTimestamp = undefined;
+  castTimestamp?: number;
+  trackedSpell?: number;
   totalSoulsConsumedBySpells = 0;
 
-  soulsConsumedBySpell = {};
+  soulsConsumedBySpell: {
+    [spellId: number]: {
+      name: string;
+      souls: number;
+    };
+  } = {};
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.cast
@@ -35,7 +50,7 @@ class SoulFragmentsConsume extends Analyzer {
     );
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (!this.soulsConsumedBySpell[spellId]) {
       this.soulsConsumedBySpell[spellId] = {
@@ -47,7 +62,7 @@ class SoulFragmentsConsume extends Analyzer {
     this.trackedSpell = spellId;
   }
 
-  onChangeBuffStack(event) {
+  onChangeBuffStack(event: ChangeBuffStackEvent) {
     if (
       event.oldStacks < event.newStacks || // not interested in soul gains
       event.oldStacks > MAX_SOUL_FRAGMENTS
@@ -60,8 +75,20 @@ class SoulFragmentsConsume extends Analyzer {
       event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER
     ) {
       const consumed = event.oldStacks - event.newStacks;
-      this.soulsConsumedBySpell[this.trackedSpell].souls += consumed;
-      this.totalSoulsConsumedBySpells += consumed;
+      if (this.trackedSpell) {
+        this.soulsConsumedBySpell[this.trackedSpell].souls += consumed;
+        this.totalSoulsConsumedBySpells += consumed;
+
+        this.eventEmitter.fabricateEvent(
+          {
+            type: EventType.ConsumeSoulFragments,
+            timestamp: event.timestamp,
+            spellId: this.trackedSpell,
+            numberofSoulFragmentsConsumed: consumed,
+          },
+          event,
+        );
+      }
     }
   }
 

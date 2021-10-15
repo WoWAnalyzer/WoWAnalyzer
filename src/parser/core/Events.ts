@@ -60,6 +60,9 @@ export enum EventType {
   Test = 'test',
   SpendResource = 'spendresource',
 
+  // Demon Hunter
+  ConsumeSoulFragments = 'consumesoulfragments',
+
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
