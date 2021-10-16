@@ -1,5 +1,8 @@
+import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
@@ -14,6 +17,9 @@ interface Props {
   name?: React.ReactNode;
   description?: React.ReactNode;
   checkResults: CheckResult;
+  castEfficiency: CastEfficiency;
+  cooldowns?: Spell[];
+  otherRequirements?: React.ReactNode[];
 }
 
 export type AplRuleProps = Pick<Props, 'apl' | 'checkResults'>;
@@ -99,6 +105,30 @@ const Description = () => (
   </div>
 );
 
+function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency' | 'cooldowns'>) {
+  if (!cooldowns || cooldowns.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <p className="col-md-12 text-muted">
+        In addition to your rotational abilities, ensure that you're using your major cooldowns:
+      </p>
+
+      {cooldowns
+        .filter((spell) => castEfficiency.getCastEfficiencyForSpellId(spell.id))
+        .map((spell) => (
+          <GenericCastEfficiencyRequirement
+            key={spell.id}
+            spell={spell.id}
+            castEfficiency={castEfficiency.getCastEfficiencyForSpellId(spell.id)}
+          />
+        ))}
+    </>
+  );
+}
+
 export default function ChecklistRule(props: Props) {
   return (
     <Rule
@@ -109,28 +139,38 @@ export default function ChecklistRule(props: Props) {
         </>
       }
     >
-      {props.apl.rules.map((rule, ix) => {
-        const thresh = threshold(rule, props.checkResults);
+      <>
+        {props.apl.rules
+          .map<[AplRule, RequirementThresholds | null]>((rule) => [
+            rule,
+            threshold(rule, props.checkResults),
+          ])
+          .filter(([_, t]) => t)
+          .map(([rule, thresh], ix) => {
+            if (thresh) {
+              return (
+                <Requirement
+                  fullWidth
+                  key={ix}
+                  name={
+                    <>
+                      <strong>{ix + 1}.</strong> Cast <SpellLink id={spell(rule).id} />
+                      <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
+                    </>
+                  }
+                  thresholds={thresh}
+                  tooltip={<Tooltip rule={rule} checkResults={props.checkResults} />}
+                />
+              );
+            } else {
+              return null;
+            }
+          })}
 
-        if (thresh) {
-          return (
-            <Requirement
-              fullWidth
-              key={ix}
-              name={
-                <>
-                  <strong>{ix + 1}.</strong> Cast <SpellLink id={spell(rule).id} />
-                  <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
-                </>
-              }
-              thresholds={thresh}
-              tooltip={<Tooltip rule={rule} checkResults={props.checkResults} />}
-            />
-          );
-        } else {
-          return null;
-        }
-      })}
+        <CooldownList {...props} />
+
+        {props.otherRequirements}
+      </>
     </Rule>
   );
 }

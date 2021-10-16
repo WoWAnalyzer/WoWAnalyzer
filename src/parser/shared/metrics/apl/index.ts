@@ -3,7 +3,7 @@ import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/c
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
 
-export type PlayerInfo = Pick<Info, 'playerId' | 'combatant'>;
+export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities'>;
 export enum Tense {
   Past,
   Present,
@@ -130,8 +130,14 @@ const cooldownEnd = (event: UpdateSpellUsableEvent): number => event.expectedDur
  *
  * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway.
  **/
-function ruleApplies(rule: Rule, result: CheckState, event: CastEvent): boolean {
+function ruleApplies(
+  rule: Rule,
+  abilities: Set<number>,
+  result: CheckState,
+  event: CastEvent,
+): boolean {
   return (
+    abilities.has(spell(rule).id) &&
     (spell(rule).id === event.ability.guid ||
       result.abilityState[spell(rule).id] === undefined ||
       result.abilityState[spell(rule).id].isAvailable ||
@@ -144,9 +150,14 @@ function ruleApplies(rule: Rule, result: CheckState, event: CastEvent): boolean 
 /**
  * Find the first applicable rule. See also: `ruleApplies`
  **/
-function applicableRule(apl: Apl, result: CheckState, event: CastEvent): Rule | undefined {
+function applicableRule(
+  apl: Apl,
+  abilities: Set<number>,
+  result: CheckState,
+  event: CastEvent,
+): Rule | undefined {
   for (const rule of apl.rules) {
-    if (ruleApplies(rule, result, event)) {
+    if (ruleApplies(rule, abilities, result, event)) {
       return rule;
     }
   }
@@ -161,11 +172,17 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
 
 const aplCheck = (apl: Apl) =>
   metric<[PlayerInfo], CheckResult>((events, info) => {
+    // rules for spells that aren't known are automatically ignored
+    const abilities = new Set(
+      info.abilities.flatMap((ability) =>
+        typeof ability.spell === 'number' ? [ability.spell] : ability.spell,
+      ),
+    );
     const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
     return events.reduce<CheckState>(
       (result, event) => {
         if (event.type === EventType.Cast && applicableSpells.has(event.ability.guid)) {
-          const rule = applicableRule(apl, result, event);
+          const rule = applicableRule(apl, abilities, result, event);
           if (rule) {
             if (spell(rule).id === event.ability.guid) {
               // the player cast the correct spell

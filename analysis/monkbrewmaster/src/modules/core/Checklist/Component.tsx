@@ -129,7 +129,9 @@ const Component = ({
       <AplRule
         apl={apl}
         checkResults={checkResults}
+        castEfficiency={castEfficiency}
         name="Top the Damage Charts"
+        cooldowns={[SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL, SPELLS.INVOKE_NIUZAO_THE_BLACK_OX]}
         description={
           <>
             While the <em>primary</em> role of a tank is to get hit in the face a bunch and not die

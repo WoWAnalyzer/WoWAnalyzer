@@ -6,6 +6,7 @@ import { buffPresent, buffMissing } from 'parser/shared/metrics/apl/buffPresent'
 import hasLegendary from 'parser/shared/metrics/apl/conditions/hasLegendary';
 
 export const apl = build([
+  SPELLS.BONEDUST_BREW_CAST,
   { spell: SPELLS.KEG_SMASH, condition: buffPresent(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL) },
   { spell: SPELLS.BREATH_OF_FIRE, condition: hasLegendary(SPELLS.CHARRED_PASSIONS) },
   SPELLS.KEG_SMASH,
