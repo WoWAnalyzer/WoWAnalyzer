@@ -12,13 +12,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-const Component = ({
-  combatant,
-  castEfficiency,
-  thresholds,
-  apl,
-  checkResults,
-}: ChecklistProps & AplRuleProps) => {
+const Component = (props: ChecklistProps & AplRuleProps) => {
+  const { castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -94,12 +89,6 @@ const Component = ({
                 <SpellLink id={SPELLS.STAGGER.id} />.
               </li>
             </ul>
-            For more information on effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} />,
-            see the{' '}
-            <a href="https://www.peakofserenity.com/bfa/brewmaster/purifying/">
-              Peak of Serenity guide
-            </a>
-            .
           </>
         }
       >
@@ -127,9 +116,7 @@ const Component = ({
         />
       </Rule>
       <AplRule
-        apl={apl}
-        checkResults={checkResults}
-        castEfficiency={castEfficiency}
+        {...props}
         name="Top the Damage Charts"
         cooldowns={[SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL, SPELLS.INVOKE_NIUZAO_THE_BLACK_OX]}
         description={
@@ -137,7 +124,7 @@ const Component = ({
             While the <em>primary</em> role of a tank is to get hit in the face a bunch and not die
             in the process, once that is under control we get to spend some energy dealing damage!
             Maintaining a{' '}
-            <a href="https://www.peakofserenity.com/bfa/brewmaster/guide/">correct DPS rotation</a>{' '}
+            <a href="https://www.peakofserenity.com/sl/brewmaster/guide/">correct DPS rotation</a>{' '}
             also provides optimal brew generation.{' '}
             <strong>However, if you are dying, ignore this checklist item!</strong> As much as we
             may enjoy padding for those sweet orange parses, not-wiping takes precedence.
