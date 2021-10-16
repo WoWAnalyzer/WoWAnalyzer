@@ -5033,29 +5033,6 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 .
               </li>
             </ul>
-            For more information on effective use of 
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=119582"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
-              />
-               
-              Purifying Brew
-            </a>
-            , see the
-             
-            <a
-              href="https://www.peakofserenity.com/bfa/brewmaster/purifying/"
-            >
-              Peak of Serenity guide
-            </a>
-            .
           </div>
         </div>
         <div
@@ -5424,7 +5401,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
              role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a
              
             <a
-              href="https://www.peakofserenity.com/bfa/brewmaster/guide/"
+              href="https://www.peakofserenity.com/sl/brewmaster/guide/"
             >
               correct DPS rotation
             </a>
