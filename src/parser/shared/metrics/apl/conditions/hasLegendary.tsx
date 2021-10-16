@@ -2,7 +2,7 @@ import type { LegendarySpell } from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import React from 'react';
 
-import type { Condition } from '../index';
+import { Condition, tenseAlt } from '../index';
 
 export default function hasLegendary(legendary: LegendarySpell): Condition<boolean> {
   return {
@@ -10,9 +10,10 @@ export default function hasLegendary(legendary: LegendarySpell): Condition<boole
     init: ({ combatant }) => combatant.hasLegendaryByBonusID(legendary.bonusID!),
     update: (state, _event) => state,
     validate: (state, _event) => state,
-    describe: () => (
+    describe: (tense) => (
       <>
-        you have <SpellLink id={legendary.id} /> equipped
+        you {tenseAlt(tense, 'have', 'had')}
+        <SpellLink id={legendary.id} /> equipped
       </>
     ),
   };

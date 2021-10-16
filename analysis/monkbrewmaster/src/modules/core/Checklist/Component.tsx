@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -11,7 +12,13 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const Component = ({
+  combatant,
+  castEfficiency,
+  thresholds,
+  apl,
+  checkResults,
+}: ChecklistProps & AplRuleProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -119,7 +126,9 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
           tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized."
         />
       </Rule>
-      <Rule
+      <AplRule
+        apl={apl}
+        checkResults={checkResults}
         name="Top the Damage Charts"
         description={
           <>
@@ -132,59 +141,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
             may enjoy padding for those sweet orange parses, not-wiping takes precedence.
           </>
         }
-      >
-        <AbilityRequirement spell={SPELLS.KEG_SMASH.id} />
-        <AbilityRequirement spell={SPELLS.BLACKOUT_KICK_BRM.id} />
-        <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} />
-        <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.TIGER_PALM.id} /> casts while better abilities were available
-            </>
-          }
-          tooltip="Tiger Palm is a filler ability and should only be used when other spells are on cooldown."
-          thresholds={thresholds.badTp}
-        />
-        {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) && (
-          <>
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} />
-                  -empowered <SpellLink id={SPELLS.TIGER_PALM.id}>Tiger Palms</SpellLink>
-                </>
-              }
-              thresholds={thresholds.bocTp}
-            />
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent
-                  on <SpellLink id={SPELLS.TIGER_PALM.id} />
-                </>
-              }
-              thresholds={thresholds.bocDpsWaste}
-            />
-          </>
-        )}
-        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime
-              </>
-            }
-            thresholds={thresholds.rjw}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
-        )}
-      </Rule>
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

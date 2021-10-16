@@ -4,6 +4,10 @@ import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
 
 export type PlayerInfo = Pick<Info, 'playerId' | 'combatant'>;
+export enum Tense {
+  Past,
+  Present,
+}
 
 /**
  * A Condition can be used to determine whether a [[Rule]] can applies to the
@@ -25,7 +29,7 @@ export interface Condition<T> {
   // validate whether the condition applies for the supplied event.
   validate: (state: T, event: AnyEvent) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
-  describe: () => ReactChild;
+  describe: (tense?: Tense) => ReactChild;
 }
 export interface ConditionalRule {
   spell: Spell;
@@ -54,7 +58,13 @@ export function build(rules: Rule[]): Apl {
   return { rules, conditions };
 }
 
-interface Violation {
+export enum ResultKind {
+  Success,
+  Violation,
+}
+
+export interface Violation {
+  kind: ResultKind.Violation;
   actualCast: CastEvent;
   expectedCast: Spell;
   rule: Rule;
@@ -63,8 +73,14 @@ interface Violation {
 type ConditionState = { [key: string]: any };
 type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 
+export interface Success {
+  kind: ResultKind.Success;
+  rule: Rule;
+  actualCast: CastEvent;
+}
+
 interface CheckState {
-  successes: Rule[];
+  successes: Success[];
   violations: Violation[];
   conditionState: ConditionState;
   abilityState: AbilityState;
@@ -96,7 +112,13 @@ function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): Condi
   );
 }
 
-const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
+/**
+ * If `tense` is `Tense.Present`, return `a`. Otherwise `b`.
+ **/
+export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
+  return tense === Tense.Present ? a : b;
+}
+export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
 
 const cooldownEnd = (event: UpdateSpellUsableEvent): number => event.expectedDuration + event.start;
 
@@ -147,9 +169,10 @@ const aplCheck = (apl: Apl) =>
           if (rule) {
             if (spell(rule).id === event.ability.guid) {
               // the player cast the correct spell
-              result.successes.push(rule);
+              result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
             } else {
               result.violations.push({
+                kind: ResultKind.Violation,
                 rule,
                 expectedCast: spell(rule),
                 actualCast: event,

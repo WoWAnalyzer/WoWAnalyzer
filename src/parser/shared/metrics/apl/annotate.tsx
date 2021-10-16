@@ -1,14 +1,27 @@
 import { SpellLink } from 'interface';
 import React from 'react';
 
-import type { CheckResult, Rule } from './index';
+import type { Tense, CheckResult, Rule } from './index';
 
-export function RuleDescription({ rule }: { rule: Rule }) {
+export function ConditionDescription({
+  tense,
+  rule,
+  prefix,
+}: {
+  rule: Rule;
+  prefix?: string;
+  tense?: Tense;
+}) {
   if (!('condition' in rule)) {
     return null;
   }
 
-  return <> because {rule.condition.describe()}</>;
+  return (
+    <>
+      {' '}
+      {prefix || 'because'} {rule.condition.describe(tense)}
+    </>
+  );
 }
 
 /**
@@ -24,7 +37,7 @@ export default function annotateTimeline(violations: CheckResult['violations']) 
       inefficientCastReason: (
         <>
           <SpellLink id={violation.expectedCast.id} /> was available and higher priority
-          <RuleDescription rule={violation.rule} />.
+          <ConditionDescription rule={violation.rule} />.
         </>
       ),
     };

@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { RuleDescription } from './annotate';
+import { ConditionDescription } from './annotate';
 import { buffPresent } from './buffPresent';
 
-describe('RuleDescription', () => {
+describe('ConditionDescription', () => {
   it('should return no description for unconditional rules', () => {
     const content = renderer
-      .create(<RuleDescription rule={{ id: 1, name: 'Test', icon: '' }} />)
+      .create(<ConditionDescription rule={{ id: 1, name: 'Test', icon: '' }} />)
       .toJSON();
     expect(content).toBeNull();
   });
@@ -18,7 +18,7 @@ describe('RuleDescription', () => {
       condition: buffPresent({ id: 2, name: 'Buff', icon: '' }),
     };
 
-    const content = renderer.create(<RuleDescription rule={rule} />).toJSON();
+    const content = renderer.create(<ConditionDescription rule={rule} />).toJSON();
 
     expect(content).toMatchSnapshot();
   });
