@@ -122,7 +122,8 @@ export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
 }
 export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
 
-const cooldownEnd = (event: UpdateSpellUsableEvent): number => event.expectedDuration + event.start;
+export const cooldownEnd = (event: UpdateSpellUsableEvent): number =>
+  event.expectedDuration + event.start;
 
 /**
  * Check whether a rule applies to the given cast. There are two checks:
