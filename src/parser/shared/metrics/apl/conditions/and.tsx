@@ -17,8 +17,8 @@ export default function and(...conditions: Array<Condition<any>>): Condition<any
         (nextState, key) => ({ ...nextState, [key]: cndMap[key]!.update(state[key], event) }),
         {},
       ),
-    validate: (state, event) =>
-      Object.keys(state).every((key) => cndMap[key]!.validate(state[key], event)),
+    validate: (state, event, spell) =>
+      Object.keys(state).every((key) => cndMap[key]!.validate(state[key], event, spell)),
     describe: () =>
       conditions
         .map((cnd) => cnd.describe())

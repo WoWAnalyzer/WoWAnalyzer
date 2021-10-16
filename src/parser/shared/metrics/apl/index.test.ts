@@ -8,7 +8,7 @@ import {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 
-import { buffPresent } from './buffPresent';
+import { buffPresent } from './conditions';
 import aplCheck, { build, Apl, PlayerInfo, ResultKind } from './index';
 
 // OK, i called this BOF but BOF is a debuff. oops.

@@ -3,12 +3,11 @@ import { SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
 import React from 'react';
 
-import { Condition, tenseAlt } from './index';
+import { Condition, tenseAlt } from '../index';
 
 export interface PandemicData {
   timeRemaining: number;
   duration: number;
-  castSpell?: Spell;
   pandemicCap?: number;
 }
 
@@ -89,7 +88,7 @@ export function buffMissing(
 
       return state;
     },
-    validate: (state, event) => {
+    validate: (state, event, ruleSpell) => {
       if (state === null) {
         // buff is missing
         return true;
@@ -99,7 +98,7 @@ export function buffMissing(
       } else {
         // otherwise, return true if we can pandemic this buff
         return (
-          (pandemic.castSpell || spell).id === event.ability.guid &&
+          ruleSpell.id === event.ability.guid &&
           state.referenceTime + state.timeRemaining < event.timestamp + pandemic.timeRemaining
         );
       }

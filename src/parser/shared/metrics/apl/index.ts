@@ -27,9 +27,11 @@ export interface Condition<T> {
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (state: T, event: CastEvent) => boolean;
+  validate: (state: T, event: CastEvent, spell: Spell) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
+  // tooltip description for checklist
+  tooltip?: () => ReactChild | undefined;
 }
 export interface ConditionalRule {
   spell: Spell;
@@ -143,7 +145,7 @@ function ruleApplies(
       result.abilityState[spell(rule).id].isAvailable ||
       cooldownEnd(result.abilityState[spell(rule).id]) <= event.timestamp + 100) &&
     (!('condition' in rule) ||
-      rule.condition.validate(result.conditionState[rule.condition.key], event))
+      rule.condition.validate(result.conditionState[rule.condition.key], event, rule.spell))
   );
 }
 

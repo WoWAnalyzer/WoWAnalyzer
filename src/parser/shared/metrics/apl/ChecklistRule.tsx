@@ -77,7 +77,7 @@ const Tooltip = ({
 
   const mistakeText =
     numFailure > 0 ? (
-      <>
+      <div>
         The most common mistakes you made were:
         <ul>
           {mistakes.map(([spellId, count]) => (
@@ -86,13 +86,18 @@ const Tooltip = ({
             </li>
           ))}
         </ul>
-      </>
+      </div>
     ) : null;
+
+  const extraText = 'condition' in rule && rule.condition.tooltip && (
+    <div style={{ marginTop: '1em' }}>{rule.condition.tooltip()}</div>
+  );
 
   return (
     <>
       This rule applied {numSuccess + numFailure} times, and you cast the matching spell{' '}
       {numSuccess} times. {mistakeText}
+      {extraText}
     </>
   );
 };
