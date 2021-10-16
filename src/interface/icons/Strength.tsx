@@ -1,6 +1,11 @@
 import React from 'react';
 
-const icon = (props: any) => (
+type Props = Omit<
+  React.ComponentPropsWithoutRef<'svg'>,
+  'xmlns' | 'version' | 'viewBox' | 'className'
+>;
+
+const icon = (props: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     version="1.1"

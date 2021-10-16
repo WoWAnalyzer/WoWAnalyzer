@@ -1,5 +1,5 @@
-import Icon from 'interface/Icon';
+import { default as Icon, IconProps } from 'interface/Icon';
 import React from 'react';
 
-const icon = (props: any) => <Icon icon="petbattle_speed" {...props} />;
+const icon = (props: IconProps) => <Icon icon="petbattle_speed" {...props} />;
 export default icon;
