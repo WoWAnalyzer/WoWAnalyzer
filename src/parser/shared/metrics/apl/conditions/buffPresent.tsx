@@ -93,8 +93,8 @@ export function buffMissing(
         // buff is missing
         return true;
       } else if (state.referenceTime + 200 > event.timestamp) {
-        // buff was *just* applied, possibly by this very spell. treat it as if missing
-        return true;
+        // buff was *just* applied, possibly by this very spell. treat it as optional
+        return event.ability.guid === ruleSpell.id;
       } else {
         // otherwise, return true if we can pandemic this buff
         return (
