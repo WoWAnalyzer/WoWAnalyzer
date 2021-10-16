@@ -1,9 +1,9 @@
-import { getIcon } from 'parser/shared/modules/features/STAT';
+import { default as STAT, getIcon } from 'parser/shared/modules/features/STAT';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const PrimaryStat = ({ stat }) => {
-  const Icon = getIcon(stat.toLowerCase());
+const PrimaryStat = (stat: STAT) => {
+  const Icon = getIcon(stat);
   return <Icon />;
 };
 PrimaryStat.propTypes = {

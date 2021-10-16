@@ -9,6 +9,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 10, 15), 'Another batch of basic TypeScript conversions and improvements.', ChrisKaczor),
   change(date(2021, 10, 14), 'Batch of basic TypeScript conversions and improvements.', ChrisKaczor),
   change(date(2021, 10, 13), 'Localization and TypeScript changes.', ChrisKaczor),
   change(date(2021, 9, 29), 'Fixed typo in error page.', emallson),
