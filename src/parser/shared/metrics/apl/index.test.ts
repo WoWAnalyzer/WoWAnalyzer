@@ -9,7 +9,7 @@ import {
 } from 'parser/core/Events';
 
 import { buffPresent } from './buffPresent';
-import aplCheck, { build, Apl, PlayerInfo } from './index';
+import aplCheck, { build, Apl, PlayerInfo, ResultKind } from './index';
 
 // OK, i called this BOF but BOF is a debuff. oops.
 const BOF = { id: 3, name: 'Important Buff', icon: '' };
@@ -17,6 +17,21 @@ const SHORT_CD = { id: 1, name: 'Cooldown Button', icon: '' };
 const FILLER = { id: 2, name: 'Filler', icon: '' };
 
 const ability = (spell: Spell) => ({ guid: spell.id, name: spell.name, abilityIcon: spell.icon });
+
+const info: PlayerInfo = ({
+  playerId: 0,
+  abilities: [
+    {
+      spell: BOF.id,
+      enabled: true,
+    },
+    {
+      spell: SHORT_CD.id,
+      enabled: true,
+    },
+    { spell: FILLER.id, enabled: true },
+  ],
+} as unknown) as PlayerInfo;
 
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 
@@ -117,7 +132,7 @@ describe('Basic APL Check', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
+    const result = check(events, info);
 
     it('should report no violations', () => {
       expect(result.violations).toEqual([]);
@@ -144,11 +159,12 @@ describe('Basic APL Check', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
+    const result = check(events, info);
 
     it('should report a single violation', () => {
       expect(result.violations).toEqual([
         {
+          kind: ResultKind.Violation,
           actualCast: cast(4000, 0, FILLER)[0],
           expectedCast: SHORT_CD,
           rule: apl.rules[0],
@@ -177,7 +193,7 @@ describe('Basic APL Check', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
+    const result = check(events, info);
 
     it('should report a violation for each extra filler cast', () => {
       expect(result.violations.length).toEqual(4);
@@ -216,7 +232,7 @@ describe('APL with conditions', () => {
     ];
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
+    const result = check(events, info);
 
     it('should report no violations', () => {
       expect(result.violations).toEqual([]);
@@ -242,11 +258,12 @@ describe('APL with conditions', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
+    const result = check(events, info);
 
     it('should report a violation', () => {
       expect(result.violations).toEqual([
         {
+          kind: ResultKind.Violation,
           actualCast: cast(4000, 4000, SHORT_CD)[0],
           expectedCast: FILLER,
           rule: apl.rules[0],
@@ -274,11 +291,12 @@ describe('APL with conditions', () => {
 
     events.sort((a, b) => a.timestamp - b.timestamp);
 
-    const result = check(events, ({ playerId: 0 } as unknown) as PlayerInfo);
+    const result = check(events, info);
 
     it('should report a violation', () => {
       expect(result.violations).toEqual([
         {
+          kind: ResultKind.Violation,
           actualCast: cast(10000, 0, FILLER)[0],
           expectedCast: SHORT_CD,
           rule: apl.rules[1],

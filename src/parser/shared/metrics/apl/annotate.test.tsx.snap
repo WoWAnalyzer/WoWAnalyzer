@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RuleDescription should return a description for a rule with a condition 1`] = `
+exports[`ConditionDescription should return a description for a rule with a condition 1`] = `
 Array [
-  " because ",
+  " ",
+  "because",
+  " ",
   <a
     className="spell-link-text"
     href="http://wowhead.com/spell=2"
@@ -17,6 +19,8 @@ Array [
      
     Unknown spell: 2
   </a>,
-  " was present",
+  " ",
+  "was",
+  " present",
 ]
 `;

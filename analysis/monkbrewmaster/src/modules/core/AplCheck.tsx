@@ -20,6 +20,8 @@ export const apl = build([
     }),
   },
   { spell: SPELLS.SPINNING_CRANE_KICK_BRM, condition: buffPresent(SPELLS.CHARRED_PASSIONS_BUFF) },
+  SPELLS.CHI_WAVE_TALENT,
+  SPELLS.CHI_BURST_TALENT,
   SPELLS.TIGER_PALM,
 ]);
 

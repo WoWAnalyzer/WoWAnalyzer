@@ -27,7 +27,7 @@ export interface Condition<T> {
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (state: T, event: AnyEvent) => boolean;
+  validate: (state: T, event: CastEvent) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
 }
@@ -174,9 +174,11 @@ const aplCheck = (apl: Apl) =>
   metric<[PlayerInfo], CheckResult>((events, info) => {
     // rules for spells that aren't known are automatically ignored
     const abilities = new Set(
-      info.abilities.flatMap((ability) =>
-        typeof ability.spell === 'number' ? [ability.spell] : ability.spell,
-      ),
+      info.abilities
+        .filter((ability) => ability.enabled)
+        .flatMap((ability) =>
+          typeof ability.spell === 'number' ? [ability.spell] : ability.spell,
+        ),
     );
     const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
     return events.reduce<CheckState>(

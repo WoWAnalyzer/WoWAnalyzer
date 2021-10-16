@@ -8,6 +8,7 @@ import { Condition, tenseAlt } from './index';
 export interface PandemicData {
   timeRemaining: number;
   duration: number;
+  castSpell?: Spell;
   pandemicCap?: number;
 }
 
@@ -51,6 +52,11 @@ const buffDuration = (timeRemaining: number | undefined, pandemic: PandemicData)
     pandemic.duration * (pandemic.pandemicCap || 3),
   );
 
+/**
+   The rule applies when the buff `spell` is missing. The `optPandemic`
+   parameter gives the ability to allow early refreshes to prevent a buff
+   dropping, but this will not *require* early refreshes.
+ **/
 export function buffMissing(
   spell: Spell,
   optPandemic?: PandemicData,
@@ -83,9 +89,21 @@ export function buffMissing(
 
       return state;
     },
-    validate: (state, event) =>
-      state === null ||
-      state.referenceTime + state.timeRemaining < event.timestamp + pandemic.timeRemaining,
+    validate: (state, event) => {
+      if (state === null) {
+        // buff is missing
+        return true;
+      } else if (state.referenceTime + 200 > event.timestamp) {
+        // buff was *just* applied, possibly by this very spell. treat it as if missing
+        return true;
+      } else {
+        // otherwise, return true if we can pandemic this buff
+        return (
+          (pandemic.castSpell || spell).id === event.ability.guid &&
+          state.referenceTime + state.timeRemaining < event.timestamp + pandemic.timeRemaining
+        );
+      }
+    },
     describe: (tense) => (
       <>
         <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} missing{' '}
