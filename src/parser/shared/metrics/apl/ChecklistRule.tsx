@@ -64,13 +64,10 @@ const Tooltip = ({
   const mistakes = Object.entries(
     violations
       .filter((v) => v.rule === rule)
-      .reduce(
-        (counts: { [spellId: number]: number }, v) => ({
-          ...counts,
-          [v.actualCast.ability.guid]: (counts[v.actualCast.ability.guid] || 0) + 1,
-        }),
-        {},
-      ),
+      .reduce((counts: { [spellId: number]: number }, v) => {
+        counts[v.actualCast.ability.guid] = (counts[v.actualCast.ability.guid] || 0) + 1;
+        return counts;
+      }, {}),
   )
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3);
