@@ -1,7 +1,50 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Anomoly, Barry, Barter, Buudha, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, maestrohdude, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Sref, Ssabbar, Soulhealer95, wmavis, Zeboot, Zerotorescue, niko, Pirrang, ChrisKaczor } from 'CONTRIBUTORS';
+import {
+  Abelito75,
+  acornellier,
+  AdamKelly,
+  Adoraci,
+  Amani,
+  Anomoly,
+  Barry,
+  Barter,
+  Buudha,
+  ChagriAli,
+  ChristopherKiss,
+  Dambroda,
+  emallson,
+  flurreN,
+  Guyius,
+  Haelrail,
+  HolySchmidt,
+  Jafowler,
+  jos3p,
+  joshinator,
+  Juko8,
+  Kartarn,
+  Keraldi,
+  Khazak,
+  Kruzershtern,
+  Mae,
+  maestrohdude,
+  Maldark,
+  Moonrabbit,
+  niseko,
+  Procyon,
+  Putro,
+  Sharrq,
+  Sref,
+  Ssabbar,
+  Soulhealer95,
+  wmavis,
+  Zeboot,
+  Zerotorescue,
+  niko,
+  Pirrang,
+  ChrisKaczor,
+} from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import React from 'react';
@@ -9,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 10, 16), 'Add support for automatic checklist generation & timeline annotation from an APL.', emallson),
   change(date(2021, 10, 15), 'Another batch of basic TypeScript conversions and improvements.', ChrisKaczor),
   change(date(2021, 10, 14), 'Batch of basic TypeScript conversions and improvements.', ChrisKaczor),
   change(date(2021, 10, 13), 'Localization and TypeScript changes.', ChrisKaczor),

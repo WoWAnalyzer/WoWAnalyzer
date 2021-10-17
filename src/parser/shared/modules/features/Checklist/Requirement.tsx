@@ -24,7 +24,9 @@ interface Props {
   setPerformance: (performance: number) => void;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
+  fullWidth?: boolean;
 }
+
 class Requirement extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
@@ -59,7 +61,7 @@ class Requirement extends React.PureComponent<Props> {
   }
 
   render() {
-    const { name, thresholds, tooltip, valueTooltip, prefix, suffix } = this.props;
+    const { name, thresholds, tooltip, valueTooltip, prefix, suffix, fullWidth } = this.props;
 
     const performance = this.performance;
     let max = undefined;
@@ -74,7 +76,7 @@ class Requirement extends React.PureComponent<Props> {
     );
 
     return (
-      <div className="col-md-6">
+      <div className={fullWidth ? 'col-md-12' : 'col-md-6'}>
         <div className="flex">
           <div className="flex-main">{name}</div>
           {tooltip && (

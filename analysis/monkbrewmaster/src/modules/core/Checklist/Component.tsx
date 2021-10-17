@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -11,7 +12,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const Component = (props: ChecklistProps & AplRuleProps) => {
+  const { castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -87,12 +89,6 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
                 <SpellLink id={SPELLS.STAGGER.id} />.
               </li>
             </ul>
-            For more information on effective use of <SpellLink id={SPELLS.PURIFYING_BREW.id} />,
-            see the{' '}
-            <a href="https://www.peakofserenity.com/bfa/brewmaster/purifying/">
-              Peak of Serenity guide
-            </a>
-            .
           </>
         }
       >
@@ -119,72 +115,22 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
           tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized."
         />
       </Rule>
-      <Rule
+      <AplRule
+        {...props}
         name="Top the Damage Charts"
+        cooldowns={[SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL, SPELLS.INVOKE_NIUZAO_THE_BLACK_OX]}
         description={
           <>
             While the <em>primary</em> role of a tank is to get hit in the face a bunch and not die
             in the process, once that is under control we get to spend some energy dealing damage!
             Maintaining a{' '}
-            <a href="https://www.peakofserenity.com/bfa/brewmaster/guide/">correct DPS rotation</a>{' '}
+            <a href="https://www.peakofserenity.com/sl/brewmaster/guide/">correct DPS rotation</a>{' '}
             also provides optimal brew generation.{' '}
             <strong>However, if you are dying, ignore this checklist item!</strong> As much as we
             may enjoy padding for those sweet orange parses, not-wiping takes precedence.
           </>
         }
-      >
-        <AbilityRequirement spell={SPELLS.KEG_SMASH.id} />
-        <AbilityRequirement spell={SPELLS.BLACKOUT_KICK_BRM.id} />
-        <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} />
-        <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.TIGER_PALM.id} /> casts while better abilities were available
-            </>
-          }
-          tooltip="Tiger Palm is a filler ability and should only be used when other spells are on cooldown."
-          thresholds={thresholds.badTp}
-        />
-        {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) && (
-          <>
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} />
-                  -empowered <SpellLink id={SPELLS.TIGER_PALM.id}>Tiger Palms</SpellLink>
-                </>
-              }
-              thresholds={thresholds.bocTp}
-            />
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent
-                  on <SpellLink id={SPELLS.TIGER_PALM.id} />
-                </>
-              }
-              thresholds={thresholds.bocDpsWaste}
-            />
-          </>
-        )}
-        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime
-              </>
-            }
-            thresholds={thresholds.rjw}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
-        )}
-      </Rule>
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

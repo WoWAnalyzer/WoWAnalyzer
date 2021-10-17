@@ -4,6 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import React from 'react';
 
+import { apl, check as aplCheck } from '../../core/AplCheck';
 import BlackoutCombo from '../../spells/BlackoutCombo';
 import CelestialBrew from '../../spells/CelestialBrew';
 import PurifyingBrew from '../../spells/PurifyingBrew';
@@ -36,8 +37,11 @@ export default class Checklist extends BaseChecklist {
   protected cb!: CelestialBrew;
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
