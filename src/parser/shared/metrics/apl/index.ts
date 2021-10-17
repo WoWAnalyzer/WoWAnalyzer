@@ -54,7 +54,10 @@ export function build(rules: Rule[]): Apl {
   const conditionMap = rules
     .filter((rule) => 'condition' in rule)
     .map((rule) => (rule as ConditionalRule).condition)
-    .reduce((cnds, cnd) => ({ ...cnds, [cnd.key]: cnd }), {});
+    .reduce((cnds: { [k: string]: Condition<any> }, cnd) => {
+      cnds[cnd.key] = cnd;
+      return cnds;
+    }, {});
   const conditions = Object.values<Condition<any>>(conditionMap);
 
   return { rules, conditions };
@@ -92,25 +95,19 @@ export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
 
 function initState(apl: Apl, info: PlayerInfo): ConditionState {
   return (
-    apl.conditions?.reduce(
-      (state: ConditionState, cnd: Condition<any>) => ({
-        ...state,
-        [cnd.key]: cnd.init(info),
-      }),
-      {},
-    ) || {}
+    apl.conditions?.reduce((state: ConditionState, cnd: Condition<any>) => {
+      state[cnd.key] = cnd.init(info);
+      return state;
+    }, {}) || {}
   );
 }
 
 function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): ConditionState {
   return (
-    apl.conditions?.reduce(
-      (state: ConditionState, cnd: Condition<any>) => ({
-        ...state,
-        [cnd.key]: cnd.update(oldState[cnd.key], event),
-      }),
-      {},
-    ) || {}
+    apl.conditions?.reduce((state: ConditionState, cnd: Condition<any>) => {
+      state[cnd.key] = cnd.update(oldState[cnd.key], event);
+      return state;
+    }, {}) || {}
   );
 }
 
@@ -203,11 +200,10 @@ const aplCheck = (apl: Apl) =>
           }
         }
 
-        return {
-          ...result,
-          abilityState: updateAbilities(result.abilityState, event),
-          conditionState: updateState(apl, result.conditionState, event),
-        };
+        result.abilityState = updateAbilities(result.abilityState, event);
+        result.conditionState = updateState(apl, result.conditionState, event);
+
+        return result;
       },
       { successes: [], violations: [], abilityState: {}, conditionState: initState(apl, info) },
     );
