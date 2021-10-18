@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Icon, SpellIcon, SpellLink } from 'interface';
 import { Tooltip, TooltipElement } from 'interface';
@@ -102,7 +103,8 @@ class DeathRecap extends React.PureComponent {
                   className="btn"
                   style={{ fontSize: 24 }}
                 >
-                  <WarcraftLogsIcon /> Warcraft Logs
+                  <WarcraftLogsIcon style={{ marginRight: '0.3em' }} />
+                  <Trans id="interface.warcraftLogs">Warcraft Logs</Trans>
                 </a>
               </Tooltip>
             </div>

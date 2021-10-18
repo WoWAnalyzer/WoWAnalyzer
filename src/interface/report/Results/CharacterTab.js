@@ -42,8 +42,7 @@ const CharacterTab = (props) => {
                   </Link>
                   <br />
                   <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
-                    <ArmoryIcon />
-                    &nbsp;
+                    <ArmoryIcon style={{ marginRight: '0.3em' }} />
                     <Trans id="interface.armory.text">Armory</Trans>
                   </a>
                 </>
