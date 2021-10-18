@@ -489,10 +489,8 @@ class Results extends React.PureComponent<Props, State> {
                   className="btn"
                   style={{ fontSize: 20, padding: '6px 0' }}
                 >
-                  <WarcraftLogsIcon
-                    style={{ height: '1.2em', marginTop: '-0.1em', marginRight: '0.3em' }}
-                  />
-                  <Trans id="interface.warcraftLogs">Warcraft Logs</Trans>
+                  <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft
+                  Logs
                 </a>
               </Tooltip>
               <br />
@@ -509,10 +507,7 @@ class Results extends React.PureComponent<Props, State> {
                   className="btn"
                   style={{ fontSize: 20, padding: '6px 0' }}
                 >
-                  <WipefestIcon
-                    style={{ height: '1.2em', marginTop: '-0.1em', marginRight: '0.3em' }}
-                  />
-                  <Trans id="interface.wipefest">Wipefest</Trans>
+                  <WipefestIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Wipefest
                 </a>
               </Tooltip>
             </div>

@@ -103,8 +103,7 @@ class DeathRecap extends React.PureComponent {
                   className="btn"
                   style={{ fontSize: 24 }}
                 >
-                  <WarcraftLogsIcon style={{ marginRight: '0.3em' }} />
-                  <Trans id="interface.warcraftLogs">Warcraft Logs</Trans>
+                  <WarcraftLogsIcon /> Warcraft Logs
                 </a>
               </Tooltip>
             </div>

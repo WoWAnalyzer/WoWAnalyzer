@@ -268,10 +268,8 @@ class Timeline extends React.PureComponent {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <WarcraftLogsIcon
-                        style={{ height: '1.2em', marginTop: '-0.1em', marginRight: '0.3em' }}
-                      />
-                      <Trans id="interface.warcraftLogs.timeline">Warcraft Logs timeline</Trans>
+                      <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft
+                      Logs timeline
                     </a>{' '}
                     shows similar information but with less detail.
                   </Trans>

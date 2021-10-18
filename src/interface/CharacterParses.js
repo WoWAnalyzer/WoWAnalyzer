@@ -574,8 +574,7 @@ class CharacterParses extends React.Component {
                 className="btn"
                 style={{ fontSize: 22 }}
               >
-                <WarcraftLogsIcon style={{ marginRight: '0.3em' }} />
-                <Trans id="interface.warcraftLogs">Warcraft Logs</Trans>
+                <WarcraftLogsIcon /> Warcraft Logs
               </a>
               <br />
               <a
@@ -597,8 +596,7 @@ class CharacterParses extends React.Component {
                   className="btn"
                   style={{ fontSize: 22 }}
                 >
-                  <WipefestIcon style={{ marginRight: '0.3em' }} />
-                  <Trans id="interface.wipefest">Wipefest</Trans>
+                  <WipefestIcon /> Wipefest
                 </a>
               )}
             </div>
