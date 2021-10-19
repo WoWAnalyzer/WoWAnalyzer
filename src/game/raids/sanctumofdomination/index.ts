@@ -10,4 +10,5 @@ export default {
   TheNine: require('./TheNine').default, // 3
   RemnantOfNerzhul: require('./RemnantOfNerzhul').default, // 4
   SoulrenderDormazain: require('./SoulrenderDormazain').default, // 5
+  PainsmithRaznal: require('./PainsmithRaznal').default, // 6
 };
