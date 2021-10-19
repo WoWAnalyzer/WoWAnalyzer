@@ -8,4 +8,5 @@ export default {
   TheTarragrue: require('./TheTarragrue').default, // 1
   EyeOfTheJailer: require('./EyeOfTheJailer').default, // 2
   TheNine: require('./TheNine').default, // 3
+  RemnantOfNerzhul: require('./RemnantOfNerzhul').default, // 4
 };
