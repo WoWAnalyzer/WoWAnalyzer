@@ -11,6 +11,9 @@ export const MORTAL_STRIKE = 30330;
 export const DEATH_WISH = 12292;
 
 // Fury
+export const BLOODTHIRST = 30335;
+export const SWEEPING_STRIKES = 12328;
+export const RAMPAGE = 30033;
 
 // All
 export const AUTO_ATTACK = 1;
