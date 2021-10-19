@@ -91,20 +91,17 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.BLOODTHIRST, ...lowRankSpells[SPELLS.BLOODTHIRST]],
-        category:
-          build === Build.FURY
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
           minimum: 1000,
         },
         cooldown: 6,
         castEfficiency: {
-          suggestion: build === Build.FURY ? true : false,
-          recommendedEfficiency: 0.6,
+          suggestion: true,
+          recommendedEfficiency: 0.6 + (build === Build.DEATHWISH_FURY ? 0.2 : 0),
         },
-        enabled: build === Build.FURY ? true : false,
+        enabled: build === Build.FURY || build === Build.DEATHWISH_FURY ? true : false,
       },
       {
         spell: [SPELLS.RAMPAGE, ...lowRankSpells[SPELLS.RAMPAGE]],
@@ -133,10 +130,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
           minimum: 1000,
         },
-        cooldown: 10 - (build === Build.FURY ? 1 : 0),
+        cooldown: 10 - (build === Build.FURY || build === Build.DEATHWISH_FURY ? 1 : 0),
         castEfficiency: {
           suggestion: build !== Build.DEFAULT ? true : false,
-          recommendedEfficiency: 0.5,
+          recommendedEfficiency: 0.5 + (build === Build.DEATHWISH_FURY ? 0.3 : 0),
         },
         enabled: build !== Build.DEFAULT ? true : false,
       },
@@ -197,14 +194,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
-        enabled: build === Build.ARMS ? true : false,
+        enabled: build === Build.ARMS || build === Build.DEATHWISH_FURY ? true : false,
       },
       {
         spell: SPELLS.SWEEPING_STRIKES,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         gcd: null,
-        enabled: build === Build.FURY ? true : false,
+        enabled: build === Build.FURY || build === Build.DEATHWISH_FURY ? true : false,
       },
       {
         spell: [SPELLS.BATTLE_SHOUT, ...lowRankSpells[SPELLS.BATTLE_SHOUT]],
