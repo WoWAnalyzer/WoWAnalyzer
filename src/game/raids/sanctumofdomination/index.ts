@@ -14,4 +14,5 @@ export default {
   GuardianOfTheFirstOnes: require('./GuardianOfTheFirstOnes').default, // 7
   FatescribeRohKalo: require('./FatescribeRohKalo').default, // 8
   KelThuzad: require('./KelThuzad').default, // 9
+  SylvanasWindrunner: require('./SylvanasWindrunner').default, // 10
 };
