@@ -23,6 +23,7 @@ class Abilities extends CoreAbilities {
           suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.9,
         },
+        enabled: build === Build.DEFAULT ? true : false,
       },
       {
         spell: SPELLS.REVENGE,
@@ -39,6 +40,7 @@ class Abilities extends CoreAbilities {
           suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.7,
         },
+        enabled: build === Build.DEFAULT ? true : false,
       },
       {
         spell: SPELLS.SHIELD_BLOCK,
@@ -68,6 +70,7 @@ class Abilities extends CoreAbilities {
           suggestion: build === Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.9,
         },
+        enabled: build === Build.DEFAULT ? true : false,
       },
       {
         spell: [SPELLS.MORTAL_STRIKE, ...lowRankSpells[SPELLS.MORTAL_STRIKE]],
@@ -84,6 +87,7 @@ class Abilities extends CoreAbilities {
           suggestion: build === Build.ARMS ? true : false,
           recommendedEfficiency: 0.6,
         },
+        enabled: build === Build.ARMS ? true : false,
       },
       {
         spell: [SPELLS.BLOODTHIRST, ...lowRankSpells[SPELLS.BLOODTHIRST]],
@@ -100,6 +104,7 @@ class Abilities extends CoreAbilities {
           suggestion: build === Build.FURY ? true : false,
           recommendedEfficiency: 0.6,
         },
+        enabled: build === Build.FURY ? true : false,
       },
       {
         spell: [SPELLS.RAMPAGE, ...lowRankSpells[SPELLS.RAMPAGE]],
@@ -116,6 +121,7 @@ class Abilities extends CoreAbilities {
           suggestion: build === Build.FURY ? true : false,
           recommendedEfficiency: 0.6,
         },
+        enabled: build === Build.FURY ? true : false,
       },
       {
         spell: SPELLS.WHIRLWIND,
@@ -132,6 +138,7 @@ class Abilities extends CoreAbilities {
           suggestion: build !== Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.5,
         },
+        enabled: build !== Build.DEFAULT ? true : false,
       },
       {
         spell: [SPELLS.SLAM, ...lowRankSpells[SPELLS.SLAM]],
@@ -144,6 +151,7 @@ class Abilities extends CoreAbilities {
           minimum: 1000,
         },
         cooldown: 0,
+        enabled: build === Build.ARMS ? true : false,
       },
       {
         spell: [SPELLS.HEROIC_STRIKE, ...lowRankSpells[SPELLS.HEROIC_STRIKE]],
@@ -189,12 +197,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: null,
+        enabled: build === Build.ARMS ? true : false,
       },
       {
         spell: SPELLS.SWEEPING_STRIKES,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         gcd: null,
+        enabled: build === Build.FURY ? true : false,
       },
       {
         spell: [SPELLS.BATTLE_SHOUT, ...lowRankSpells[SPELLS.BATTLE_SHOUT]],
