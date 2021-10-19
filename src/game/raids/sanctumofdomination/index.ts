@@ -13,4 +13,5 @@ export default {
   PainsmithRaznal: require('./PainsmithRaznal').default, // 6
   GuardianOfTheFirstOnes: require('./GuardianOfTheFirstOnes').default, // 7
   FatescribeRohKalo: require('./FatescribeRohKalo').default, // 8
+  KelThuzad: require('./KelThuzad').default, // 9
 };
