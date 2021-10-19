@@ -12,4 +12,5 @@ export default {
   SoulrenderDormazain: require('./SoulrenderDormazain').default, // 5
   PainsmithRaznal: require('./PainsmithRaznal').default, // 6
   GuardianOfTheFirstOnes: require('./GuardianOfTheFirstOnes').default, // 7
+  FatescribeRohKalo: require('./FatescribeRohKalo').default, // 8
 };
