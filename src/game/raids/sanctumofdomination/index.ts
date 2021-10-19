@@ -6,4 +6,5 @@ export default {
   background: SanctumOfDomination,
   bosses: {},
   TheTarragrue: require('./TheTarragrue').default, // 1
+  EyeOfTheJailer: require('./EyeOfTheJailer').default, // 2
 };
