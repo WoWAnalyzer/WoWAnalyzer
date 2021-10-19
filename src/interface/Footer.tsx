@@ -37,7 +37,7 @@ const Footer = () => (
         <br />
 
         <div className="attribution">
-          Log data from <a href="https://www.warcraftlogs.com">Warcaft Logs</a>.{' '}
+          Log data from <a href="https://www.warcraftlogs.com">Warcraft Logs</a>.{' '}
           <TooltipElement
             content={
               <>
