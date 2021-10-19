@@ -52,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 10, 19), 'Added Sanctum of Domination boss phases and details.', Adoraci),
   change(date(2021, 10, 18), 'Another batch of basic TypeScript conversions/improvements.', ChrisKaczor),
   change(date(2021, 10, 17), 'Improved APL checker performance.', emallson),
   change(date(2021, 10, 16), 'Add support for automatic checklist generation & timeline annotation from an APL.', emallson),
