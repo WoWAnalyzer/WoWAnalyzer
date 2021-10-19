@@ -86,18 +86,50 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WHIRLWIND,
+        spell: [SPELLS.BLOODTHIRST, ...lowRankSpells[SPELLS.BLOODTHIRST]],
         category:
-          build === Build.ARMS
+          build === Build.FURY
             ? Abilities.SPELL_CATEGORIES.ROTATIONAL
             : Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
         },
-        cooldown: 10,
+        cooldown: 6,
         castEfficiency: {
-          suggestion: build === Build.ARMS ? true : false,
+          suggestion: build === Build.FURY ? true : false,
+          recommendedEfficiency: 0.6,
+        },
+      },
+      {
+        spell: [SPELLS.RAMPAGE, ...lowRankSpells[SPELLS.RAMPAGE]],
+        category:
+          build === Build.FURY
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+          minimum: 1000,
+        },
+        cooldown: 0,
+        castEfficiency: {
+          suggestion: build === Build.FURY ? true : false,
+          recommendedEfficiency: 0.6,
+        },
+      },
+      {
+        spell: SPELLS.WHIRLWIND,
+        category:
+          build !== Build.DEFAULT
+            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+            : Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+          minimum: 1000,
+        },
+        cooldown: 10 - (build === Build.FURY ? 1 : 0),
+        castEfficiency: {
+          suggestion: build !== Build.DEFAULT ? true : false,
           recommendedEfficiency: 0.5,
         },
       },
@@ -156,6 +188,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_WISH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.SWEEPING_STRIKES,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
         gcd: null,
       },
       {
