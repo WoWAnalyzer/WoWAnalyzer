@@ -11,4 +11,5 @@ export default {
   RemnantOfNerzhul: require('./RemnantOfNerzhul').default, // 4
   SoulrenderDormazain: require('./SoulrenderDormazain').default, // 5
   PainsmithRaznal: require('./PainsmithRaznal').default, // 6
+  GuardianOfTheFirstOnes: require('./GuardianOfTheFirstOnes').default, // 7
 };
