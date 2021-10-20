@@ -8,6 +8,7 @@ import { ResourceLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 10, 19), <>Fixed <SpellLink id={SPELLS.DISSONANT_ECHOES.id} />, <SpellLink id={SPELLS.DARK_THOUGHTS.id} />, and <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> proc usage calculation.</>, Adoraci),
   change(date(2021, 8, 27), <>Bump support to 9.1</>, Pink),
   change(date(2021, 8, 27), <>Reduced <SpellLink id={SPELLS.TALBADARS_STRATAGEM.id} /> damage increase from 60% to 55%. </>, Pink),
   change(date(2021, 8, 27), <>Reduced <SpellLink id={SPELLS.VOID_BOLT.id} /> damage increase from <SpellLink id={SPELLS.DISSONANT_ECHOES.id} /> from 35% to 15%. </>, Pink),
