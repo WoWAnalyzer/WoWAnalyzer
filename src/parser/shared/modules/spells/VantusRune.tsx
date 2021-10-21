@@ -1,6 +1,8 @@
 import { formatNumber } from 'common/format';
 import ITEMS from 'common/ITEMS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { TrackedBuffEvent } from 'parser/core/Entity';
+import { Item } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
@@ -19,7 +21,7 @@ const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION =
   VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-const runes = [ITEMS.VANTUS_RUNE_CASTLE_NATHRIA];
+const runes = [ITEMS.VANTUS_RUNE_CASTLE_NATHRIA, ITEMS.VANTUS_RUNE_SANCTUM_OF_DOMINATION];
 
 /**
  * @property {HealingDone} healingDone
@@ -34,12 +36,18 @@ class VantusRune extends Analyzer {
     statTracker: StatTracker,
   };
 
-  activeRune = null;
-  constructor(...args) {
-    super(...args);
-    const boss = this.owner.boss;
+  protected healingDone!: HealingDone;
+  protected damageDone!: DamageDone;
+  protected damageTaken!: DamageTaken;
+  protected statTracker!: StatTracker;
 
-    /** @var {number|null} */
+  activeRune: TrackedBuffEvent | null = null;
+  masterRune: Item | undefined;
+
+  constructor(options: Options) {
+    super(options);
+
+    const boss = this.owner.boss;
     const vantusRuneBuffId = boss ? boss.fight.vantusRuneBuffId : null;
     if (vantusRuneBuffId) {
       const match = this.selectedCombatant.getBuff(vantusRuneBuffId);
@@ -50,16 +58,13 @@ class VantusRune extends Analyzer {
     this.active = this.activeRune !== null;
     if (this.active) {
       runes.forEach((rune) => {
-        if (this.activeRune.ability.abilityIcon === rune.icon) {
+        if (this.activeRune?.ability.abilityIcon === rune.icon) {
           this.masterRune = rune;
         }
       });
       // StatTracker ignores the buff because its active on pull, but the stats aren't actually in the pull stats
-      this.statTracker.forceChangeStats(
-        { versatility: VANTUS_RUNE_VERSATILITY },
-        vantusRuneBuffId,
-        true,
-      );
+      const statTracker = options.statTracker as StatTracker;
+      statTracker.forceChangeStats({ versatility: VANTUS_RUNE_VERSATILITY }, null, true);
     }
     if (this.masterRune === null) {
       //default to the icon to current tier
@@ -79,6 +84,15 @@ class VantusRune extends Analyzer {
     const damageReduced =
       this.damageTaken.total.effective / (1 - VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION) -
       this.damageTaken.total.effective;
+
+    if (!this.masterRune) {
+      console.warn(
+        'Vantus rune module active but no rune selected',
+        this.activeRune,
+        this.masterRune,
+      );
+      return null;
+    }
 
     return (
       <Statistic position={STATISTIC_ORDER.UNIMPORTANT()} size="flexible">

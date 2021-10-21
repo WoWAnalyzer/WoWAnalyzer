@@ -37,7 +37,10 @@ class DarkThoughts extends Analyzer {
   }
 
   onBuffRemoved() {
-    if (!this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))) {
+    if (
+      this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))
+        .length === 0
+    ) {
       // If MB is not instant, it's not a proc
       return;
     }

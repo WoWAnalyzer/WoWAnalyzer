@@ -116,7 +116,7 @@ const talents: SpellList = {
   UNFURLING_DARKNESS_TALENT: {
     id: 341273,
     name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow_mend',
+    icon: 'spell_priest_shadow-mend',
   },
   SANLAYN_TALENT: { id: 199855, name: "San'layn", icon: 'achievement_boss_lanathel' },
   INTANGIBILITY_TALENT: { id: 288733, name: 'Intangibility', icon: 'spell_shadow_dispersion' },

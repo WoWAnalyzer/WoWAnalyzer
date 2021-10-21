@@ -12,6 +12,8 @@ import CHANGELOG from './CHANGELOG';
 export enum Build {
   DEFAULT = 'Protection',
   ARMS = 'Arms',
+  FURY = 'Fury',
+  DEATHWISH_FURY = 'Deathwish Fury',
 }
 
 const config: Config = {
@@ -44,6 +46,18 @@ const config: Config = {
       url: 'arms',
       name: '33/28/0',
       icon: <Icon icon="ability_warrior_savageblow" />,
+      visible: true,
+    },
+    [Build.FURY]: {
+      url: 'fury',
+      name: '17/44/0',
+      icon: <Icon icon="ability_warrior_rampage" />,
+      visible: true,
+    },
+    [Build.DEATHWISH_FURY]: {
+      url: 'deathwishfury',
+      name: '21/40/0',
+      icon: <Icon icon="spell_shadow_deathpact" />,
       visible: true,
     },
   },
