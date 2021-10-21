@@ -31,7 +31,6 @@ class Timeline extends React.PureComponent {
       }),
     ),
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
-    premium: PropTypes.bool.isRequired,
     config: PropTypes.shape({
       separateCastBars: PropTypes.array,
     }),
@@ -166,7 +165,7 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { parser, abilities, buffs, premium, movement } = this.props;
+    const { parser, abilities, buffs, movement } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -230,53 +229,6 @@ class Timeline extends React.PureComponent {
               abilities={abilities}
             />
           </div>
-          {!premium && (
-            <div
-              className="spell-timeline-premium-box"
-              style={{
-                left: this.state.padding + 10 * this.secondWidth,
-                width: this.totalWidth + this.state.padding - 10 * this.secondWidth,
-              }}
-            >
-              <div>
-                <Trans id="timeline.premium.description">
-                  The timeline shows your casts, channel times, GCD, active buffs, and cooldowns for
-                  a quick overview of what you did. It even incorporates some of our suggestions to
-                  give you specific examples of casts that you could improve. All in one easy to use
-                  overview.
-                </Trans>
-                <br />
-                <br />
-                <strong>
-                  <Trans id="timeline.premium.unlock">
-                    You need to unlock <Link to="/premium">WoWAnalyzer Premium</Link> to access the
-                    full WoWAnalyzer timeline.
-                  </Trans>
-                </strong>
-                <br />
-                <br />
-                <div style={{ fontSize: 14 }}>
-                  <Trans id="timeline.premium.wclTimeline">
-                    Not yet ready to join? The{' '}
-                    <a
-                      href={makeWclUrl(parser.report.code, {
-                        fight: parser.fight.id,
-                        source: parser ? parser.playerId : undefined,
-                        view: 'timeline',
-                        type: 'casts',
-                      })}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft
-                      Logs timeline
-                    </a>{' '}
-                    shows similar information but with less detail.
-                  </Trans>
-                </div>
-              </div>
-            </div>
-          )}
         </DragScroll>
       </>
     );
