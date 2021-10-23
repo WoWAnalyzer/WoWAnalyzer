@@ -26,9 +26,9 @@ export default function and(...conditions: Array<Condition<any>>): Condition<any
       }, {}),
     validate: (state, event, spell) =>
       Object.keys(state).every((key) => cndMap[key]!.validate(state[key], event, spell)),
-    describe: () =>
+    describe: (tense) =>
       conditions
-        .map((cnd) => cnd.describe())
+        .map((cnd) => cnd.describe(tense))
         .reduce((cur, next) =>
           cur ? (
             <>

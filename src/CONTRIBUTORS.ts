@@ -915,13 +915,6 @@ export const Adoraci: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
     },
   ],
-  alts: [
-    {
-      name: 'Zenavi',
-      spec: SPECS.FURY_WARRIOR,
-      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/zenavi',
-    },
-  ],
 };
 export const TheJigglr: Contributor = {
   nickname: 'TheJigglr',

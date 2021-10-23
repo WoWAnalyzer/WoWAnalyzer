@@ -43,6 +43,7 @@ const legendaries = {
     id: 337594,
     name: 'The Mad Paragon',
     icon: 'ability_paladin_conviction',
+    bonusID: 7054,
   },
 
   //endregion

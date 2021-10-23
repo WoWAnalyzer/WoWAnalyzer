@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -8,7 +9,8 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
+const ProtectionPaladinChecklist = (props) => {
+  const { castEfficiency, thresholds, extras } = props;
   const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -21,29 +23,6 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
 
   return (
     <Checklist>
-      <Rule
-        name="Use core abilities as often as possible."
-        description="These should generally always be recharging to maximize efficiency."
-      >
-        <AbilityRequirement spell={SPELLS.AVENGERS_SHIELD.id} />
-        <AbilityRequirement spell={SPELLS.JUDGMENT_CAST_PROTECTION.id} />
-        <Requirement
-          name={
-            <>
-              Bad <SpellLink id={extras.hotrAbility.id} /> casts
-            </>
-          }
-          tooltip={
-            <>
-              This is a <em>filler</em> ability and should only be cast while your other spells are
-              on cooldown.
-            </>
-          }
-          thresholds={thresholds.hotrBadCasts}
-        />
-        <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
-      </Rule>
-
       <Rule
         name={
           <>
@@ -137,6 +116,15 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
           tooltip="Shining Light stacks up to 5 times. Casting Shield of the Righteous while at 5 stacks loses a stack."
         />
       </Rule>
+      <AplRule
+        {...props}
+        cooldowns={[
+          SPELLS.AVENGING_WRATH,
+          SPELLS.ASHEN_HALLOW,
+          SPELLS.DIVINE_TOLL,
+          SPELLS.SERAPHIM_TALENT,
+        ]}
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
