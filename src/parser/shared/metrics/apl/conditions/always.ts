@@ -1,11 +1,14 @@
 import type { Condition } from '../index';
 
-// A condition that should apply if the correct spell is cast, even if the other underlying condition doesn't match.
+// A condition that should apply if the correct spell is cast, even if the other
+// underlying condition doesn't match.
 //
-// This is useful for untrackable things like Ashen Hallow or Grand Crusader.
+// This is useful for untrackable things like Ashen Hallow or Grand Crusader,
+// spells that are supposed to be only castable during other buffs, etc.
+// Basically any time that the condition is used to prevent being marked wrong
+// for casting a spell that is off cooldown but otherwise uncastable.
 //
-// This behavior is present for unconditional spells, but adding a condition
-// disables it because we can't automatically tell if it is correct.
+// This behavior is already present for unconditional spells.
 export default function always<T>(cnd: Condition<T>): Condition<T> {
   return {
     ...cnd,
