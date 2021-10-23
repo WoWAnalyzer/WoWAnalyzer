@@ -19,13 +19,18 @@ import { Condition } from '../index';
 export default function optional<T>(
   interior: Condition<T>,
   description?: React.ReactChild,
+  showOptional: boolean = true,
 ): Condition<T> {
   return {
     ...interior,
     key: `optional-${interior.key}`,
     validate: (state, event, spell) =>
       spell.id === event.ability.guid && interior.validate(state, event, spell),
-    describe: (tense) => <>{interior.describe(tense)} (optional)</>,
+    describe: (tense) => (
+      <>
+        {interior.describe(tense)} {showOptional && '(optional)'}
+      </>
+    ),
     tooltip: () => description,
   };
 }

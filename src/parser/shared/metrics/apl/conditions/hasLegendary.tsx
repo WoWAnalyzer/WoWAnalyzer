@@ -12,7 +12,7 @@ export default function hasLegendary(legendary: LegendarySpell): Condition<boole
     validate: (state, _event) => state,
     describe: (tense) => (
       <>
-        you {tenseAlt(tense, 'have', 'had')}
+        you {tenseAlt(tense, 'have ', 'had ')}
         <SpellLink id={legendary.id} /> equipped
       </>
     ),
