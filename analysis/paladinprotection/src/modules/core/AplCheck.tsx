@@ -7,6 +7,8 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import React from 'react';
 
+const howCastable = cnd.always(cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AVENGING_WRATH)));
+
 export const apl = build([
   {
     spell: SPELLS.CONSECRATION_CAST,
@@ -34,15 +36,12 @@ export const apl = build([
   },
   {
     spell: SPELLS.HAMMER_OF_WRATH,
-    condition: cnd.and(
-      cnd.hasLegendary(SPELLS.THE_MAD_PARAGON),
-      cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AVENGING_WRATH)),
-    ),
+    condition: cnd.and(cnd.hasLegendary(SPELLS.THE_MAD_PARAGON), howCastable),
   },
   SPELLS.JUDGMENT_CAST_PROTECTION,
   {
     spell: SPELLS.HAMMER_OF_WRATH,
-    condition: cnd.always(cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AVENGING_WRATH))),
+    condition: howCastable,
   },
   SPELLS.AVENGERS_SHIELD,
   SPELLS.HAMMER_OF_THE_RIGHTEOUS,
