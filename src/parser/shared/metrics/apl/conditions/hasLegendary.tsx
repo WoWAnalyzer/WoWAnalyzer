@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
 
-export default function hasLegendary(legendary: LegendarySpell): Condition<boolean> {
+export function hasLegendary(legendary: LegendarySpell): Condition<boolean> {
   return {
     key: `hasLegendary-${legendary.id}`,
     init: ({ combatant }) => combatant.hasLegendaryByBonusID(legendary.bonusID!),
@@ -13,6 +13,21 @@ export default function hasLegendary(legendary: LegendarySpell): Condition<boole
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have ', 'had ')}
+        <SpellLink id={legendary.id} /> equipped
+      </>
+    ),
+  };
+}
+
+export function hasNoLegendary(legendary: LegendarySpell): Condition<boolean> {
+  return {
+    key: `hasNoLegendary-${legendary.id}`,
+    init: ({ combatant }) => !combatant.hasLegendaryByBonusID(legendary.bonusID!),
+    update: (state, _event) => state,
+    validate: (state, _event) => state,
+    describe: (tense) => (
+      <>
+        you did not {tenseAlt(tense, 'have ', 'had ')}
         <SpellLink id={legendary.id} /> equipped
       </>
     ),
