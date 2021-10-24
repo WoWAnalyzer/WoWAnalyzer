@@ -1,0 +1,88 @@
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import aplCheck, { build } from 'parser/shared/metrics/apl';
+import annotateTimeline from 'parser/shared/metrics/apl/annotate';
+import * as cnd from 'parser/shared/metrics/apl/conditions';
+
+import { inExecute, outsideExecute } from './inExecuteWarrior';
+
+export const apl = build([
+  //Ashen Juggernaut
+  {
+    spell: SPELLS.EXECUTE,
+    condition: cnd.and(
+      cnd.buffMissing(SPELLS.ASHEN_JUGGERNAUT, {
+        timeRemaining: 2400,
+        duration: 8000,
+      }),
+      cnd.hasConduit(SPELLS.ASHEN_JUGGERNAUT),
+    ),
+  },
+  //2 Overpower Charges
+  {
+    spell: SPELLS.OVERPOWER,
+    condition: cnd.spellCharges(SPELLS.OVERPOWER, { atLeast: 2, atMost: 2 }),
+  },
+  //Mortal Strike Conditions:
+  // Execute: Deep Wounds < 1 GCD || Enduring Blow || (2 Overpower Stacks && 2 Exploiter Stacks) || Battlelord Buff
+  // Non-Execute: Enduring BLow || 2 Overpower Stacks || Battlelord
+  { spell: SPELLS.MORTAL_STRIKE, condition: cnd.hasLegendary(SPELLS.ENDURING_BLOW) },
+  {
+    spell: SPELLS.MORTAL_STRIKE,
+    condition: cnd.and(cnd.hasLegendary(SPELLS.BATTLELORD), cnd.buffPresent(SPELLS.BATTLELORD)),
+  },
+  {
+    spell: SPELLS.MORTAL_STRIKE,
+    condition: cnd.and(
+      cnd.buffStacks(SPELLS.OVERPOWER, { atLeast: 2 }),
+      cnd.buffStacks(SPELLS.EXPLOITER, { atLeast: 2 }),
+      inExecute(),
+    ),
+  },
+  {
+    spell: SPELLS.MORTAL_STRIKE,
+    condition: cnd.and(cnd.buffStacks(SPELLS.OVERPOWER, { atLeast: 2 }), outsideExecute()),
+  },
+  // Execute /w Sudden Death
+  { spell: SPELLS.EXECUTE, condition: cnd.buffPresent(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF) },
+  // Skull Splitter No Execute: <55 rage and no sudden death
+  {
+    spell: SPELLS.SKULLSPLITTER_TALENT,
+    condition: cnd.and(
+      cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 55 }),
+      cnd.buffMissing(SPELLS.DEADLY_CALM_TALENT),
+      outsideExecute(),
+    ),
+  },
+  // Skull Splitter Execute: <45 rage
+  {
+    spell: SPELLS.SKULLSPLITTER_TALENT,
+    condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 45 }), inExecute()),
+  },
+  SPELLS.OVERPOWER,
+  SPELLS.MORTAL_STRIKE,
+  { spell: SPELLS.WHIRLWIND, condition: cnd.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT) },
+  { spell: SPELLS.EXECUTE, condition: inExecute() },
+  //not fervor + (rage > 50 / cs debuff / not eb lego)
+  // this might be a bit much
+  SPELLS.SLAM,
+  /* {
+    spell: SPELLS.SLAM,
+    condition: and(
+      hasNoTalent(SPELLS.FERVOR_OF_BATTLE_TALENT),
+      or(hasResource(RESOURCE_TYPES.RAGE, { atLeast: 50 }), hasNoLegendary(SPELLS.ENDURING_BLOW)),
+    ),
+  }, */
+]);
+
+export const check = aplCheck(apl);
+
+const armsApl = (): WIPSuggestionFactory => (events, info) => {
+  const { violations } = check(events, info);
+  annotateTimeline(violations);
+
+  return undefined;
+};
+
+export default armsApl;

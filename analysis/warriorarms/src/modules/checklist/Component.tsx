@@ -1,20 +1,27 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+//import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
   ChecklistProps,
-  DotUptimeProps,
+  //DotUptimeProps,
 } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
-  const DotUptime = (props: DotUptimeProps) => (
+const ArmsWarriorChecklist = ({
+  combatant,
+  castEfficiency,
+  thresholds,
+  apl,
+  checkResults,
+}: ChecklistProps & AplRuleProps) => {
+  /* const DotUptime = (props: DotUptimeProps) => (
     <Requirement
       name={
         <>
@@ -23,7 +30,7 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       }
       thresholds={props.thresholds}
     />
-  );
+  ); */
 
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -34,7 +41,20 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
 
   return (
     <Checklist>
-      <Rule
+      <AplRule
+        apl={apl}
+        checkResults={checkResults}
+        castEfficiency={castEfficiency}
+        name="Rotation Efficiency"
+        cooldowns={[
+          SPELLS.COLOSSUS_SMASH,
+          SPELLS.WARBREAKER_TALENT,
+          SPELLS.AVATAR_TALENT,
+          SPELLS.DEADLY_CALM_TALENT,
+        ]}
+        description={<>Do big dam.</>}
+      />
+      {/* <Rule
         name="Use core abilities and offensive cooldowns as often as possible"
         description={
           <>
@@ -101,7 +121,7 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         {combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
           <AbilityRequirement spell={SPELLS.MORTAL_STRIKE.id} />
         )}
-      </Rule>
+      </Rule> */}
 
       {!combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
         <Rule
@@ -174,4 +194,4 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
   );
 };
 
-export default ArmWarriorChecklist;
+export default ArmsWarriorChecklist;
