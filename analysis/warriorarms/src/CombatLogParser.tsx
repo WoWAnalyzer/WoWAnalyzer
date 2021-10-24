@@ -1,8 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
-import AplCheck from './modules/core/AplCheck';
 import Checklist from './modules/checklist/Module';
+import AplCheck from './modules/core/AplCheck';
 import DeepWoundsUptime from './modules/core/Dots/DeepWoundsUptime';
 import DotUptime from './modules/core/Dots/DotUptime';
 import RendUptime from './modules/core/Dots/RendUptime';
@@ -35,9 +35,8 @@ import StormBolt from './modules/talents/StormBolt';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warbreaker from './modules/talents/Warbreaker';
 import WarMachine from './modules/talents/WarMachine';
+import BattlelordBuff from './normalizers/BattlelordBuff';
 import OverpowerStacks from './normalizers/OverpowerStacks';
-
-import BattlelordBuff from '/home/bandito/Documents/projects/WoWAnalyzer/WoWAnalyzer/analysis/warriorarms/src/normalizers/BattlelordBuff';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

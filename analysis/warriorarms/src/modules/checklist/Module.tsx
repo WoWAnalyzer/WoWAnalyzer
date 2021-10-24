@@ -4,11 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import React from 'react';
 
-import {
-  apl,
-  check as aplCheck,
-} from '/home/bandito/Documents/projects/WoWAnalyzer/WoWAnalyzer/analysis/warriorarms/src/modules/core/AplCheck';
-
+import { apl, check as aplCheck } from '../core/AplCheck';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
