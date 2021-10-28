@@ -158,7 +158,7 @@ class CharacterStats extends React.PureComponent<Props, { expanded?: boolean }> 
           return (
             <div
               key={stat}
-              className={`row ${getClassNameColor(stat)}`}
+              className={`row ${getClassNameColor(stat)} stat-row`}
               style={{ marginBottom: '0.5em' }}
             >
               <div className="col-xs-2 text-right">
