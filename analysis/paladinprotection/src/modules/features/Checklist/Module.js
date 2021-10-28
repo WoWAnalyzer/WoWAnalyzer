@@ -54,7 +54,6 @@ class Checklist extends BaseChecklist {
           hpWaste: this.hp.suggestionThresholds,
           wogOverheal: this.wog.overhealSuggestion,
           wogSlWaste: this.wog.wastedSlSuggestion,
-          wogSotrCasts: this.wog.sotrSuggestion,
         }}
       />
     );

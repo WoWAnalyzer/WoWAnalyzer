@@ -106,15 +106,6 @@ const ProtectionPaladinChecklist = (props) => {
           tooltip="A cast is wasted if the Shining Light buff expires without being used."
           thresholds={thresholds.wogSlWaste}
         />
-        <Requirement
-          name={
-            <>
-              Stacks of <SpellLink id={SPELLS.SHINING_LIGHT_DESC.id} /> lost to overcapping
-            </>
-          }
-          thresholds={thresholds.wogSotrCasts}
-          tooltip="Shining Light stacks up to 5 times. Casting Shield of the Righteous while at 5 stacks loses a stack."
-        />
       </Rule>
       <AplRule
         {...props}
