@@ -12,7 +12,6 @@ import PlayerInfoEnchants from './PlayerInfoEnchants';
 import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
 import PlayerInfoTalents from './PlayerInfoTalents';
-import PlayerTalentsClassic from './PlayerInfoTalentsClassic';
 
 function _parseTalents(talents: TalentsType[]): number[] {
   return talents.reduce(
@@ -91,11 +90,7 @@ const PlayerInfo = ({ combatant }: Props) => {
       </div>
       <div className="player-details">
         <div className="player-details-talents">
-          {isRetail ? (
-            <PlayerInfoTalents talents={talents} />
-          ) : (
-            <PlayerTalentsClassic talents={talents} />
-          )}
+          {isRetail && <PlayerInfoTalents talents={talents} />}
         </div>
         {isRetail && (
           <div className="player-details-talents">
