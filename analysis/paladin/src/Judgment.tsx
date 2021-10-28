@@ -43,8 +43,11 @@ class Judgment extends Analyzer {
   totalJudgmentConsumptions: number = 0;
   totalJudgmentCasts: number = 0;
 
+  suggest: boolean = true;
+
   constructor(options: Options) {
     super(options);
+    this.suggest = this.selectedCombatant.specId === SPECS.RETRIBUTION_PALADIN.id;
     this.active = this.supportedSpecIds.includes(this.selectedCombatant.specId);
     if (!this.active) {
       return;
@@ -126,21 +129,23 @@ class Judgment extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.
-        </>,
-      )
-        .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-        .actual(
-          t({
-            id: 'paladin.retribution.suggestions.judgement.consumed',
-            message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`,
-          }),
+    if (this.suggest) {
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.
+          </>,
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
+          .icon(SPELLS.JUDGMENT_DEBUFF.icon)
+          .actual(
+            t({
+              id: 'paladin.retribution.suggestions.judgement.consumed',
+              message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`,
+            }),
+          )
+          .recommended(`>${formatPercentage(recommended)}% is recommended`),
+      );
+    }
   }
 
   statistic(): React.ReactNode {

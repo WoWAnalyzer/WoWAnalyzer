@@ -15,6 +15,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 10, 28), <>Bump supported version to 9.1.5.</>, emallson),
   change(date(2021, 10, 16), <>Added APL support.</>, emallson),
   change(
     date(2021, 5, 23),
