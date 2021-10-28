@@ -6,6 +6,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 10, 28), <>Clean up outdated suggestions and bump supported version to 9.1.5.</>, emallson),
   change(date(2021, 10, 23), <>Tweak <SpellLink id={SPELLS.HAMMER_OF_WRATH.id} /> handling in APL.</>, emallson),
   change(date(2021, 10, 23), 'Added APL-based rotation analysis.', emallson),
   change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
