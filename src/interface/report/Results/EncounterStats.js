@@ -49,6 +49,7 @@ class EncounterStats extends React.PureComponent {
       mostUsedCovenants: [],
       similiarKillTimes: [],
       closestKillTimes: [],
+      rankingsCount: 0,
       items: ITEMS,
       spells: SPELLS,
       loaded: false,
@@ -229,6 +230,7 @@ class EncounterStats extends React.PureComponent {
           similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
           closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
           loaded: true,
+          rankingsCount: stats.rankings.length,
         });
 
         //fetch all missing icons from bnet-api and display them
@@ -457,9 +459,10 @@ class EncounterStats extends React.PureComponent {
     }
     // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
     // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
-    this.amountOfParses = Object.values(
-      this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX],
-    ).reduce((total, parses) => total + parses, 0);
+    this.amountOfParses = this.state.rankingsCount;
+
+    // HACK: don't want to convert to ts, so this flags retail as Shadowlands or later.
+    const isRetail = this.props.config.expansion >= 9;
     return (
       <>
         <h1>
@@ -479,70 +482,80 @@ class EncounterStats extends React.PureComponent {
                 <div className="row" style={{ marginBottom: '2em' }}>
                   {this.state.mostUsedTrinkets.map((trinket) => this.singleItem(trinket))}
                 </div>
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Talents</h2>
-                  </div>
-                </div>
-                {this.state.mostUsedTalents.map((row, index) => (
-                  <div key={index} className="row" style={{ marginBottom: 15, paddingLeft: 20 }}>
-                    <div
-                      className="col-lg-1 col-xs-2"
-                      style={{ lineHeight: '3em', textAlign: 'right' }}
-                    >
-                      {rows[index]}
+                {isRetail && (
+                  <>
+                    <div className="row" style={{ marginBottom: '1em' }}>
+                      <div className="col-md-12">
+                        <h2>Most used Talents</h2>
+                      </div>
                     </div>
-                    {Object.keys(row)
-                      .sort((a, b) => row[b] - row[a])
-                      .map((talent, talentIndex) => (
+                    {this.state.mostUsedTalents.map((row, index) => (
+                      <div
+                        key={index}
+                        className="row"
+                        style={{ marginBottom: 15, paddingLeft: 20 }}
+                      >
                         <div
-                          key={talentIndex}
-                          className="col-lg-3 col-xs-4"
-                          style={{ textAlign: 'center' }}
+                          className="col-lg-1 col-xs-2"
+                          style={{ lineHeight: '3em', textAlign: 'right' }}
                         >
-                          <SpellLink id={Number(talent)} icon={false}>
-                            <SpellIcon
-                              style={{ width: '3em', height: '3em' }}
-                              id={Number(talent)}
-                              noLink
-                            />
-                          </SpellLink>
-                          <span style={{ textAlign: 'center', display: 'block' }}>
-                            {formatPercentage(row[talent] / this.amountOfParses, 0)}%
-                          </span>
+                          {rows[index]}
                         </div>
-                      ))}
-                  </div>
-                ))}
+                        {Object.keys(row)
+                          .sort((a, b) => row[b] - row[a])
+                          .map((talent, talentIndex) => (
+                            <div
+                              key={talentIndex}
+                              className="col-lg-3 col-xs-4"
+                              style={{ textAlign: 'center' }}
+                            >
+                              <SpellLink id={Number(talent)} icon={false}>
+                                <SpellIcon
+                                  style={{ width: '3em', height: '3em' }}
+                                  id={Number(talent)}
+                                  noLink
+                                />
+                              </SpellLink>
+                              <span style={{ textAlign: 'center', display: 'block' }}>
+                                {formatPercentage(row[talent] / this.amountOfParses, 0)}%
+                              </span>
+                            </div>
+                          ))}
+                      </div>
+                    ))}
+                  </>
+                )}
               </div>
-              <div className="col-md-4">
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Legendaries</h2>
+              {isRetail && (
+                <div className="col-md-4">
+                  <div className="row" style={{ marginBottom: '1em' }}>
+                    <div className="col-md-12">
+                      <h2>Most used Legendaries</h2>
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: '1em' }}>
+                    {this.state.mostUsedLegendaries.map((legendary) => this.singleSpell(legendary))}
+                  </div>
+                  <div className="row" style={{ marginBottom: '1em' }}>
+                    <div className="col-md-12">
+                      <h2>Most used Conduits</h2>
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: '1em' }}>
+                    {this.state.mostUsedConduits.map((conduit) => this.singleSpell(conduit))}
+                  </div>
+                  <div className="row" style={{ marginBottom: '1em' }}>
+                    <div className="col-md-12">
+                      <h2>Most used Covenants</h2>
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: '1em' }}>
+                    {this.state.mostUsedCovenants.map((covenant) =>
+                      this.renderCovenant(covenant.id, covenant.amount, covenant.soulbinds),
+                    )}
                   </div>
                 </div>
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  {this.state.mostUsedLegendaries.map((legendary) => this.singleSpell(legendary))}
-                </div>
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Conduits</h2>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  {this.state.mostUsedConduits.map((conduit) => this.singleSpell(conduit))}
-                </div>
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Covenants</h2>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  {this.state.mostUsedCovenants.map((covenant) =>
-                    this.renderCovenant(covenant.id, covenant.amount, covenant.soulbinds),
-                  )}
-                </div>
-              </div>
+              )}
               <div className="col-md-4">
                 <div className="row" style={{ marginBottom: '1em' }}>
                   <div className="col-md-12">
