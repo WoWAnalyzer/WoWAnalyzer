@@ -60,14 +60,6 @@ const ProtectionPaladinChecklist = (props) => {
           }
           thresholds={thresholds.consecration}
         />
-        <AbilityRequirement
-          spell={SPELLS.ARDENT_DEFENDER.id}
-          name={
-            <>
-              <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> cast efficiency
-            </>
-          }
-        />
       </Rule>
       <Rule
         name={
