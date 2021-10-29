@@ -1,8 +1,8 @@
 export { default as hasConduit } from './hasConduit';
-export { hasLegendary, hasNoLegendary } from './hasLegendary';
+export { default as hasLegendary } from './hasLegendary';
 export { default as optional } from './optional';
 export { buffPresent, buffMissing } from './buffPresent';
-export { hasTalent, hasNoTalent } from './hasTalent';
+export { default as hasTalent } from './hasTalent';
 export { default as spellAvailable } from './spellAvailable';
 export { default as hasResource } from './hasResource';
 export { default as inExecute } from './inExecute';
