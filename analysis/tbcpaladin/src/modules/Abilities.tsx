@@ -1,16 +1,34 @@
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
+import { Build } from '../CONFIG';
 import lowRankSpells from '../lowRankSpells';
 import * as SPELLS from '../SPELLS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
+    const build = this.owner.build;
     const baseSpells: SpellbookAbility[] = [
+      {
+        spell: [SPELLS.CRUSADER_STRIKE],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: { static: 1500 },
+        cooldown: 6,
+        castEfficiency: {
+          suggestion: build === Build.RET ? true : false,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: build === Build.RET ? true : false,
+      },
       {
         spell: [SPELLS.AVENGING_WRATH],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: { static: 1500 },
+        cooldown: 180,
+        castEfficiency: {
+          suggestion: build === Build.RET ? true : false,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: [SPELLS.BLESSING_OF_FREEDOM],
@@ -66,6 +84,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.CONSECRATION, ...lowRankSpells[SPELLS.CONSECRATION]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: { static: 1500 },
+        cooldown: 8,
       },
       {
         spell: [SPELLS.CRUSADER_AURA],
@@ -86,11 +105,13 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.DIVINE_PROTECTION, ...lowRankSpells[SPELLS.DIVINE_PROTECTION]],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: { static: 1500 },
+        cooldown: 300,
       },
       {
         spell: [SPELLS.DIVINE_SHIELD, ...lowRankSpells[SPELLS.DIVINE_SHIELD]],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: { static: 1500 },
+        cooldown: 300,
       },
       {
         spell: [SPELLS.EXORCISM, ...lowRankSpells[SPELLS.EXORCISM]],
@@ -106,6 +127,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.FLASH_OF_LIGHT, ...lowRankSpells[SPELLS.FLASH_OF_LIGHT]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: { static: 1500 },
+        enabled: build === Build.DEFAULT ? true : false,
       },
       {
         spell: [SPELLS.FROST_RESISTANCE_AURA, ...lowRankSpells[SPELLS.FROST_RESISTANCE_AURA]],
@@ -168,11 +190,13 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.HOLY_LIGHT, ...lowRankSpells[SPELLS.HOLY_LIGHT]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: { static: 1500 },
+        enabled: build === Build.DEFAULT ? true : false,
       },
       {
         spell: [SPELLS.HOLY_SHOCK, ...lowRankSpells[SPELLS.HOLY_SHOCK]],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: { static: 1500 },
+        enabled: build === Build.DEFAULT ? true : false,
       },
       {
         spell: [SPELLS.HOLY_WRATH, ...lowRankSpells[SPELLS.HOLY_WRATH]],
@@ -225,6 +249,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.SEAL_OF_COMMAND, ...lowRankSpells[SPELLS.SEAL_OF_COMMAND]],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.SEAL_OF_BLOOD],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: { static: 1500 },
@@ -241,7 +270,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SEAL_OF_LIGHT, ...lowRankSpells[SPELLS.SEAL_OF_LIGHT]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: { static: 1500 },
       },
       {
