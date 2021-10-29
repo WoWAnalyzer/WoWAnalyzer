@@ -26,6 +26,7 @@ export default {
   [SPELLS.LAY_ON_HANDS]: [10310, 2800, 633],
   [SPELLS.REDEMPTION]: [20772, 10324, 10322, 7328],
   [SPELLS.RETRIBUTION_AURA]: [10301, 10300, 10299, 10298, 7294],
+  [SPELLS.SEAL_OF_COMMAND]: [20920, 20919, 20918, 20915, 20375],
   [SPELLS.SEAL_OF_JUSTICE]: [20164],
   [SPELLS.SEAL_OF_LIGHT]: [20349, 20348, 20347, 20165],
   [SPELLS.SEAL_OF_RIGHTEOUSNESS]: [20293, 20292, 20291, 20290, 20289, 20288, 20287, 20154, 21084],
@@ -39,7 +40,9 @@ export default {
   [SPELLS.TURN_UNDEAD]: [2878],
 };
 
-export const whitelist = {};
+export const whitelist = {
+  [SPELLS.SEAL_OF_COMMAND]: [20375], // You only want to cast Rank 1
+};
 
 export interface LowRankSpells {
   [primarySpellId: number]: number[];
