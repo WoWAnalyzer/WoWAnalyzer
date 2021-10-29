@@ -1,3 +1,4 @@
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -62,6 +63,7 @@ function renderConduit(conduit: Conduit) {
 }
 
 const PlayerInfo = ({ combatant }: Props) => {
+  const isRetail = combatant.owner.config.expansion === RETAIL_EXPANSION;
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents: number[] = _parseTalents(combatant._combatantInfo.talents);
   const averageIlvl = getAverageItemLevel(gear);
@@ -88,12 +90,14 @@ const PlayerInfo = ({ combatant }: Props) => {
       </div>
       <div className="player-details">
         <div className="player-details-talents">
-          <PlayerInfoTalents talents={talents} />
+          {isRetail && <PlayerInfoTalents talents={talents} />}
         </div>
-        <div className="player-details-talents">
-          <h3>Conduits </h3>
-          {conduits?.map((conduit) => renderConduit(conduit))}
-        </div>
+        {isRetail && (
+          <div className="player-details-talents">
+            <h3>Conduits </h3>
+            {conduits?.map((conduit) => renderConduit(conduit))}
+          </div>
+        )}
       </div>
     </div>
   );

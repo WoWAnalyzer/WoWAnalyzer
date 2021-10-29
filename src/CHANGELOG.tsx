@@ -52,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 10, 27), 'Clean up character page for TBC characters.', emallson),
   change(date(2021, 10, 21), 'Remove paywall on timeline.', emallson),
   change(date(2021, 10, 20), 'Fix a crashing issue with Sanctum of Domination Vantus Runes.', emallson),
   change(date(2021, 10, 19), 'Fix issue with loading in boss data', Adoraci),
