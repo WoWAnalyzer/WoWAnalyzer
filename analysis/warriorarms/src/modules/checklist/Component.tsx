@@ -7,7 +7,6 @@ import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
   ChecklistProps,
-  //DotUptimeProps,
 } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -21,17 +20,6 @@ const ArmsWarriorChecklist = ({
   apl,
   checkResults,
 }: ChecklistProps & AplRuleProps) => {
-  /* const DotUptime = (props: DotUptimeProps) => (
-    <Requirement
-      name={
-        <>
-          <SpellLink id={props.id} icon /> uptime
-        </>
-      }
-      thresholds={props.thresholds}
-    />
-  ); */
-
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -52,77 +40,17 @@ const ArmsWarriorChecklist = ({
           SPELLS.AVATAR_TALENT,
           SPELLS.DEADLY_CALM_TALENT,
         ]}
-        description={<>Do big dam.</>}
-      />
-      {/* <Rule
-        name="Use core abilities and offensive cooldowns as often as possible"
         description={
-          <>
-            Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or{' '}
-            <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented),{' '}
-            <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} />{' '}
-            are your most efficient spells available, try to cast them as much as possible. Keep in
-            mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} />{' '}
-            (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets
-            are present in the fight. &nbsp;
-            <a
-              href="https://www.wowhead.com/arms-warrior-rotation-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              More info.
-            </a>
+          <div style={{ color: 'white' }}>
+            Warrior has a simple rotation. That does not mean the class is trivial to play. Small
+            mistakes will compound themselves and result in a large final DPS loss. Use the graphic
+            below to see if you are making small rotational mistakes.
+            <strong> NOTE:</strong> The priority list below does not include{' '}
+            <SpellLink id={SPELLS.REND_TALENT.id} icon />
             <br />
-            {combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
-              <>
-                Note: When using <SpellLink id={SPELLS.ENDURING_BLOW.id} />,{' '}
-                <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> should be used on cooldown at any time
-              </>
-            )}
-          </>
+          </div>
         }
-      >
-        <AbilityRequirement
-          spell={
-            combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id)
-              ? SPELLS.WARBREAKER_TALENT.id
-              : SPELLS.COLOSSUS_SMASH.id
-          }
-        />
-        <AbilityRequirement
-          spell={
-            combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id)
-              ? SPELLS.RAVAGER_TALENT_ARMS.id
-              : SPELLS.BLADESTORM.id
-          }
-        />
-        {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />
-        )}
-        <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
-        {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.REND_TALENT.id) && (
-          <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />
-        )}
-        {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={SPELLS.ANCIENT_AFTERSHOCK.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-          <AbilityRequirement spell={SPELLS.SPEAR_OF_BASTION.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={SPELLS.CONQUERORS_BANNER.id} />
-        )}
-        {combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
-          <AbilityRequirement spell={SPELLS.MORTAL_STRIKE.id} />
-        )}
-      </Rule> */}
-
+      />
       {!combatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.bonusID) && (
         <Rule
           name={
