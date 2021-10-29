@@ -4,19 +4,7 @@ import { EventType } from 'parser/core/Events';
 import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
-import { Range } from './index';
-
-function formatRange(range: Range): string {
-  if (range.atLeast !== undefined && range.atMost !== undefined) {
-    return `${range.atLeast}-${range.atMost}`;
-  } else if (range.atLeast !== undefined) {
-    return `at least ${range.atLeast}`;
-  } else if (range.atMost !== undefined) {
-    return `at most ${range.atMost}`;
-  } else {
-    return '';
-  }
-}
+import { Range, formatRange } from './index';
 
 export default function buffStacks(spell: Spell, range: Range): Condition<number> {
   return {

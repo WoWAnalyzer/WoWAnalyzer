@@ -4,19 +4,7 @@ import { EventType } from 'parser/core/Events';
 import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
-import type { Range } from './index';
-
-function formatRange(range: Range): string {
-  if (range.atLeast !== undefined && range.atMost !== undefined) {
-    return `${range.atLeast}-${range.atMost}`;
-  } else if (range.atLeast !== undefined) {
-    return `at least ${range.atLeast}`;
-  } else if (range.atMost !== undefined) {
-    return `at most ${range.atMost}`;
-  } else {
-    return '';
-  }
-}
+import { Range, formatRange } from './index';
 
 // TODO: this doesn't handle natural regen (mana, energy)
 export default function hasResource(resource: Resource, range: Range): Condition<number> {
