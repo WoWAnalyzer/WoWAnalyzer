@@ -7,6 +7,7 @@ export { default as spellAvailable } from './spellAvailable';
 export { default as hasResource } from './hasResource';
 export { default as inExecute } from './inExecute';
 export { default as or } from './or';
+export { default as not } from './not';
 export { default as always } from './always';
 export { default as and } from './and';
 export { default as spellCharges } from './spellCharges';
