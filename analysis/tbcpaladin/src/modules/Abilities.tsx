@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.BLESSING_OF_LIGHT, ...lowRankSpells[SPELLS.BLESSING_OF_LIGHT]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: { static: 1500 },
       },
       {
@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.CLEANSE],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: { static: 1500 },
       },
       {
