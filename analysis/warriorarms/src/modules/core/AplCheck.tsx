@@ -5,8 +5,6 @@ import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
-import { inExecute, outsideExecute } from './inExecuteWarrior';
-
 export const apl = build([
   //Ashen Juggernaut
   {
@@ -37,12 +35,12 @@ export const apl = build([
     condition: cnd.and(
       cnd.buffStacks(SPELLS.OVERPOWER, { atLeast: 2 }),
       cnd.buffStacks(SPELLS.EXPLOITER, { atLeast: 2 }),
-      inExecute(),
+      cnd.inExecute(),
     ),
   },
   {
     spell: SPELLS.MORTAL_STRIKE,
-    condition: cnd.and(cnd.buffStacks(SPELLS.OVERPOWER, { atLeast: 2 }), outsideExecute()),
+    condition: cnd.and(cnd.buffStacks(SPELLS.OVERPOWER, { atLeast: 2 }), cnd.not(cnd.inExecute())),
   },
   // Execute /w Sudden Death
   { spell: SPELLS.EXECUTE, condition: cnd.buffPresent(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF) },
@@ -52,26 +50,27 @@ export const apl = build([
     condition: cnd.and(
       cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 55 }),
       cnd.buffMissing(SPELLS.DEADLY_CALM_TALENT),
-      outsideExecute(),
+      cnd.not(cnd.inExecute()),
     ),
   },
   // Skull Splitter Execute: <45 rage
   {
     spell: SPELLS.SKULLSPLITTER_TALENT,
-    condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 45 }), inExecute()),
+    condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 45 }), cnd.inExecute()),
   },
   SPELLS.OVERPOWER,
   SPELLS.MORTAL_STRIKE,
   { spell: SPELLS.WHIRLWIND, condition: cnd.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT) },
-  { spell: SPELLS.EXECUTE, condition: inExecute() },
+  { spell: SPELLS.EXECUTE, condition: cnd.inExecute() },
   //not fervor + (rage > 50 / cs debuff / not eb lego)
   // this might be a bit much
-  SPELLS.SLAM,
+  //SPELLS.SLAM,
+  { spell: SPELLS.SLAM, condition: cnd.not(cnd.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT)) },
   /* {
     spell: SPELLS.SLAM,
-    condition: and(
-      hasNoTalent(SPELLS.FERVOR_OF_BATTLE_TALENT),
-      or(hasResource(RESOURCE_TYPES.RAGE, { atLeast: 50 }), hasNoLegendary(SPELLS.ENDURING_BLOW)),
+    condition: cnd.and(
+      cnd.hasNoTalent(SPELLS.FERVOR_OF_BATTLE_TALENT),
+      cnd.or(cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 50 }), cnd.hasNoLegendary(SPELLS.ENDURING_BLOW)),
     ),
   }, */
 ]);
