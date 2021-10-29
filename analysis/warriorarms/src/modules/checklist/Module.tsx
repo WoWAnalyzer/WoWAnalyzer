@@ -4,6 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import React from 'react';
 
+import { apl, check as aplCheck } from '../core/AplCheck';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
@@ -32,8 +33,11 @@ class Checklist extends BaseChecklist {
   protected sweepingStrikes!: SweepingStrikes;
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

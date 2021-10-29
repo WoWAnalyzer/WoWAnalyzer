@@ -12,7 +12,7 @@ export default function or(...conditions: Array<Condition<any>>): Condition<any>
   }, {});
 
   return {
-    key: `and-${conditions.map((cnd) => cnd.key).join('-')}`,
+    key: `or-${conditions.map((cnd) => cnd.key).join('-')}`,
     init: (info) => Object.fromEntries(conditions.map(({ key, init }) => [key, init(info)])),
     update: (state, event) =>
       Object.keys(state).reduce((nextState: ConditionMap, key) => {

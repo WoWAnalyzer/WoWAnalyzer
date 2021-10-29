@@ -6,6 +6,14 @@ import { Condition, tenseAlt } from '../index';
 
 export type TargetHealth = { [targetId: number]: number };
 
+/**
+ * This function expects a health treshold as a decimal ex. 80% = .8
+ * It defaults to assuming excute is below 20%
+ * If you need to execute above a threshold aka venthyr use the negative
+ * Ex. execute above 80 = inExecute(-.8)
+ *
+ * If you need above and below a threshold use and()
+ */
 export default function inExecute(threshold = 0.2): Condition<TargetHealth> {
   return {
     key: `inExecute-${threshold}`,
@@ -25,10 +33,17 @@ export default function inExecute(threshold = 0.2): Condition<TargetHealth> {
 
       return state;
     },
-    validate: (state, event) => (event.targetID ? state[event.targetID] <= threshold : false),
+    validate: (state, event) => {
+      if (threshold < 0) {
+        return event.targetID ? state[event.targetID] >= 1 + threshold : false;
+      } else {
+        return event.targetID ? state[event.targetID] <= threshold : false;
+      }
+    },
     describe: (tense) => (
       <>
-        your target {tenseAlt(tense, 'is', 'was')} below {formatPercentage(threshold, 0)}% HP
+        your target {tenseAlt(tense, 'is', 'was')} {threshold < 0 ? 'above' : 'below'}{' '}
+        {formatPercentage(threshold, 0)}% HP
       </>
     ),
   };

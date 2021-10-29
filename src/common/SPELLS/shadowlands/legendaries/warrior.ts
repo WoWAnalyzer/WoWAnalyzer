@@ -10,7 +10,7 @@ const legendaries = {
     id: 346369,
     name: 'Battlelord',
     icon: 'ability_pvp_hardiness',
-    bonusID: '6960',
+    bonusID: 6960,
   },
   BATTLELORD_ENERGIZE: {
     id: 346370,
