@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
@@ -14,22 +14,26 @@ class BloodFury extends Analyzer {
   castEfficiency = 0.8;
   extraSuggestion = null;
 
-  constructor(options: any) {
+  constructor(
+    options: Options & {
+      castEfficiency?: number;
+      abilities: Abilities;
+    },
+  ) {
     super(options);
     this.active = this.selectedCombatant.race === RACES.Orc;
     if (!this.active) {
       return;
     }
 
-    this.castEfficiency = options.castEfficiency === undefined
-      ? this.castEfficiency
-      : options.castEfficiency;
+    this.castEfficiency =
+      options.castEfficiency === undefined ? this.castEfficiency : options.castEfficiency;
 
     options.abilities.add({
       spell: [
-        SPELLS.BLOOD_FURY_PHYSICAL,
-        SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
-        SPELLS.BLOOD_FURY_SPELL,
+        SPELLS.BLOOD_FURY_PHYSICAL.id,
+        SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL.id,
+        SPELLS.BLOOD_FURY_SPELL.id,
       ],
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 120,

@@ -1,11 +1,11 @@
 import { formatMilliseconds } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
-import EventEmitter from 'parser/core/modules/EventEmitter';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import Events, { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from '../../core/modules/Abilities';
-import Haste from './Haste';
 import Channeling from './Channeling';
 
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
@@ -23,9 +23,16 @@ class GlobalCooldown extends Analyzer {
     channeling: Channeling,
   };
 
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
+    this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
+  }
+
   _errors = 0;
   get errorsPerMinute() {
-    const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
+    const minutesElapsed = this.owner.fightDuration / 1000 / 60;
     return this._errors / minutesElapsed;
   }
   get isAccurate() {
@@ -38,7 +45,7 @@ class GlobalCooldown extends Analyzer {
    * @return {boolean} Whether this ability has a GCD.
    */
   isOnGlobalCooldown(spellId) {
-    return !!this.getGlobalCooldownDuration(spellId);
+    return Boolean(this.getGlobalCooldownDuration(spellId));
   }
 
   _currentChannel = null;
@@ -47,7 +54,7 @@ class GlobalCooldown extends Analyzer {
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    * @param event
    */
-  on_byPlayer_beginchannel(event) {
+  onBeginChannel(event) {
     this._currentChannel = event;
 
     const spellId = event.ability.guid;
@@ -62,7 +69,7 @@ class GlobalCooldown extends Analyzer {
    * `cast` events only trigger a GCD if the spell is instant and doesn't have a channeling/casting time.
    * @param event
    */
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
     const isOnGCD = this.isOnGlobalCooldown(spellId);
     if (!isOnGCD) {
@@ -74,14 +81,15 @@ class GlobalCooldown extends Analyzer {
       return;
     }
     // We can't rely on `this.channeling` here since it will have been executed first so will already have marked the channel as ended. This is annoying since it will be more reliable and work with changes.
-    const isChanneling = !!this._currentChannel;
-    const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;
+    const isChanneling = Boolean(this._currentChannel);
+    const isChannelingSameSpell =
+      isChanneling && this._currentChannel.ability.guid === event.ability.guid;
 
     // Reset the current channel prior to returning if `isChannelingSameSpell`, since the player might cast the same ability again and the second `cast` event might be an instant (e.g. channeled Aimed Shot into proc into instant Aimed Shot).
     this._currentChannel = null;
 
     if (isChannelingSameSpell) {
-      // The GCD occured already at the start of this channel
+      // The GCD occurred already at the start of this channel
       return;
     }
     event.globalCooldown = this.triggerGlobalCooldown(event);
@@ -92,14 +100,17 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   triggerGlobalCooldown(event) {
-    return this.eventEmitter.fabricateEvent({
-      type: EventType.GlobalCooldown,
-      ability: event.ability,
-      sourceID: event.sourceID,
-      targetID: event.sourceID, // no guarantees the original targetID is the player
-      timestamp: event.timestamp,
-      duration: this.getGlobalCooldownDuration(event.ability.guid),
-    }, event);
+    return this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.GlobalCooldown,
+        ability: event.ability,
+        sourceID: event.sourceID,
+        targetID: event.sourceID, // no guarantees the original targetID is the player
+        timestamp: event.timestamp,
+        duration: this.getGlobalCooldownDuration(event.ability.guid),
+      },
+      event,
+    );
   }
 
   /**
@@ -128,7 +139,9 @@ class GlobalCooldown extends Analyzer {
       const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || MIN_GCD;
       return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
-    throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);
+    throw new Error(
+      `Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`,
+    );
   }
   _resolveAbilityGcdField(value) {
     if (typeof value === 'function') {
@@ -138,9 +151,9 @@ class GlobalCooldown extends Analyzer {
     }
   }
 
-  /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
+  /** @type {import('parser/core/Events').GlobalCooldownEvent} The last GCD event that occurred, can be used to check if the player is affected by the GCD. */
   lastGlobalCooldown = null;
-  on_toPlayer_globalcooldown(event) {
+  onGlobalcooldown(event) {
     this._verifyAccuracy(event);
   }
   _verifyAccuracy(event) {
@@ -152,14 +165,20 @@ class GlobalCooldown extends Analyzer {
         console.error(
           formatMilliseconds(this.owner.fightDuration),
           'GlobalCooldown',
-          event.trigger.ability.name, event.trigger.ability.guid,
+          event.trigger.ability.name,
+          event.trigger.ability.guid,
           `was cast while the Global Cooldown from`,
-          this.lastGlobalCooldown.ability.name, this.lastGlobalCooldown.ability.guid,
+          this.lastGlobalCooldown.ability.name,
+          this.lastGlobalCooldown.ability.guid,
           `was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
-          'time passed:', timeSince,
-          'cooldown remaining:', remainingDuration,
-          'expectedDuration:', this.lastGlobalCooldown.duration,
-          'errors:', this._errors,
+          'time passed:',
+          timeSince,
+          'cooldown remaining:',
+          remainingDuration,
+          'expectedDuration:',
+          this.lastGlobalCooldown.duration,
+          'errors:',
+          this._errors,
         );
       }
     }

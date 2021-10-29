@@ -1,7 +1,7 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
-import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import SpellUsable from './SpellUsable';
 
@@ -18,7 +18,7 @@ describe('core/Modules/SpellUsable', () => {
     abilitiesMock = {
       getExpectedCooldownDuration: jest.fn(() => 7500),
       getMaxCharges: jest.fn(),
-      getAbility: jest.fn((id) => ({spell: {id: id}})),
+      getAbility: jest.fn((id) => ({ spell: id, primarySpell: id })),
     };
 
     eventEmitter = parser.getModule(EventEmitter);
@@ -44,10 +44,11 @@ describe('core/Modules/SpellUsable', () => {
       });
     };
   });
-  const triggerTestEvent = () => eventEmitter.triggerEvent({
-    type: EventType.Test,
-    timestamp: parser.currentTimestamp,
-  });
+  const triggerTestEvent = () =>
+    eventEmitter.triggerEvent({
+      type: EventType.Test,
+      timestamp: parser.currentTimestamp,
+    });
 
   describe('regular spell status tracking', () => {
     it('a spell starts off cooldown', () => {
@@ -58,7 +59,7 @@ describe('core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       expect(module.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
     });
-    it('even if a spell has another charge left it\'s still considered on cooldown', () => {
+    it("even if a spell has another charge left it's still considered on cooldown", () => {
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
       expect(module.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
@@ -230,9 +231,12 @@ describe('core/Modules/SpellUsable', () => {
           type: EventType.Cast,
         },
         maxCharges: 1,
+        name: undefined,
         timePassed: 0,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
+        __fabricated: true,
       });
     });
     it('casting a spell already on cooldown before the cooldown runs out restarts the cooldown and fires both endcooldown and begincooldown events', () => {
@@ -268,8 +272,12 @@ describe('core/Modules/SpellUsable', () => {
             type: EventType.Cast,
           },
           maxCharges: 1,
+          name: undefined,
+          timePassed: undefined,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
+          __fabricated: true,
         });
       }
       {
@@ -289,6 +297,7 @@ describe('core/Modules/SpellUsable', () => {
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
+          name: undefined,
           chargesOnCooldown: 1,
           cooldownTriggerEvent: {
             ability: {
@@ -301,6 +310,8 @@ describe('core/Modules/SpellUsable', () => {
           timePassed: 0,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
+          __fabricated: true,
         });
       }
     });
@@ -336,9 +347,12 @@ describe('core/Modules/SpellUsable', () => {
           type: EventType.Cast,
         },
         maxCharges: 2,
+        name: undefined,
         timePassed: 0,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
+        __fabricated: true,
       });
     });
     it('a spell going off cooldown triggers an `updatespellusable` event indicating the spell going off cooldown', () => {
@@ -374,12 +388,16 @@ describe('core/Modules/SpellUsable', () => {
           timestamp: 0,
           type: EventType.Cast,
         },
+        timePassed: undefined,
         maxCharges: 1,
+        name: undefined,
         sourceID: parser.playerId,
         targetID: parser.playerId,
+        targetIsFriendly: true,
+        __fabricated: true,
       });
     });
-    it('a spell having a charge restored while there\'s still another charge recharging, triggers an `updatespellusable` event indicating the charge being available again and another `updatespellusable` event to indicate the cooldown starting to recharge the next charge', () => {
+    it("a spell having a charge restored while there's still another charge recharging, triggers an `updatespellusable` event indicating the charge being available again and another `updatespellusable` event to indicate the cooldown starting to recharge the next charge", () => {
       // We want begincooldown -> endcooldown to really be about spells going on cooldown to be as simple as possible, so adding/restoring charges are handled differently. Since all events we fire are with type `updatespellusable` this only matters for the `trigger` property which might not even be used much as the other properties of the event should give enough information.
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
@@ -415,9 +433,12 @@ describe('core/Modules/SpellUsable', () => {
             type: EventType.Cast,
           },
           maxCharges: 2,
+          name: undefined,
           timePassed: 7500,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
+          __fabricated: true,
         });
       }
       {
@@ -446,9 +467,12 @@ describe('core/Modules/SpellUsable', () => {
             type: EventType.Cast,
           },
           maxCharges: 2,
+          name: undefined,
           timePassed: 0,
           sourceID: parser.playerId,
           targetID: parser.playerId,
+          targetIsFriendly: true,
+          __fabricated: true,
         });
       }
     });

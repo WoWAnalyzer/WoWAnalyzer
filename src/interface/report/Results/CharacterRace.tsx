@@ -1,0 +1,23 @@
+import { Trans } from '@lingui/macro';
+import { Race } from 'game/RACES';
+import React from 'react';
+
+const CharacterRace = ({ race }: { race: Race }) => (
+  <>
+    <div className="row">
+      <div className="col-md-12">
+        <h2>
+          <Trans id="common.race">Race</Trans>
+        </h2>
+      </div>
+    </div>
+    <div className="row">
+      <div className="col-md-12 hpadding-lg-30">
+        {/* some bonus padding so it looks to be aligned with the icon for stats */}
+        {race ? race.name : 'Unknown'}
+      </div>
+    </div>
+  </>
+);
+
+export default CharacterRace;

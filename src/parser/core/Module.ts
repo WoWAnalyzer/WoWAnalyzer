@@ -1,10 +1,10 @@
 import { formatMilliseconds } from 'common/format';
 
-import CombatLogParser from './CombatLogParser';
 import Combatant from './Combatant';
+import CombatLogParser from './CombatLogParser';
 
 export interface Options {
-  [prop: string]: any;
+  [prop: string]: unknown;
   owner: CombatLogParser;
   priority: number;
 }
@@ -22,6 +22,9 @@ class Module {
   get selectedCombatant(): Combatant {
     return this.owner.selectedCombatant;
   }
+  get config() {
+    return this.owner.config;
+  }
   constructor(options: Options) {
     if (!options) {
       throw new Error(
@@ -36,7 +39,8 @@ class Module {
     // since a parent constructor can't override the values of a child's class
     // properties.
     // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-    Object.keys(others).forEach(key => {
+    Object.keys(others).forEach((key) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this[key] = others[key];
     });
@@ -48,16 +52,16 @@ class Module {
     );
     return [fightDuration, `(module: ${this.constructor.name})`];
   }
-  debug(...args: any[]) {
+  debug(...args: unknown[]) {
     console.debug(...this.consoleMeta, ...args);
   }
-  log(...args: any[]) {
+  log(...args: unknown[]) {
     console.log(...this.consoleMeta, ...args);
   }
-  warn(...args: any[]) {
+  warn(...args: unknown[]) {
     console.warn(...this.consoleMeta, ...args);
   }
-  error(...args: any[]) {
+  error(...args: unknown[]) {
     console.error(...this.consoleMeta, ...args);
   }
 }

@@ -1,17 +1,22 @@
+import { t } from '@lingui/macro';
 import indexById from 'common/indexById';
 
-import ROLES from './ROLES';
 import PRIMARY_STATS from './PRIMARY_STATS';
+import ROLES from './ROLES';
 
 export interface Spec {
   id: number;
+  /**
+   * The "type" as provided in the player object by WCL. Used for expansions without specs, such as TBC.
+   */
+  type?: string;
   index: number;
   className: string;
-  specName: string;
+  specName?: string;
   role: number;
   primaryStat: string;
-  masterySpellId: number;
-  masteryCoefficient: number;
+  masterySpellId?: number;
+  masteryCoefficient?: number;
   ranking: {
     class: number;
     spec: number;
@@ -25,12 +30,18 @@ const SPECS: {
   ARCANE_MAGE: {
     id: 62,
     index: 0,
-    className: 'Mage',
-    specName: 'Arcane',
+    className: t({
+      id: 'specs.mage',
+      message: `Mage`,
+    }),
+    specName: t({
+      id: 'specs.mage.arcane',
+      message: `Arcane`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 190740,
-    masteryCoefficient: 1.2, // might be 0.6, Wowhead is unclear
+    masteryCoefficient: 1.2, //Max mana and mana regen is 1.2. Arcane Charge damage increase on Arcane Blast is 0.6, and on Arcane Barrage it is 0.3. Coefficient of 1 on all other arcane damage.
     ranking: {
       class: 4,
       spec: 1,
@@ -39,8 +50,14 @@ const SPECS: {
   FIRE_MAGE: {
     id: 63,
     index: 1,
-    className: 'Mage',
-    specName: 'Fire',
+    className: t({
+      id: 'specs.mage',
+      message: `Mage`,
+    }),
+    specName: t({
+      id: 'specs.fire',
+      message: `Fire`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 12846,
@@ -53,12 +70,18 @@ const SPECS: {
   FROST_MAGE: {
     id: 64,
     index: 2,
-    className: 'Mage',
-    specName: 'Frost',
+    className: t({
+      id: 'specs.mage',
+      message: `Mage`,
+    }),
+    specName: t({
+      id: 'specs.frost',
+      message: `Frost`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 76613,
-    masteryCoefficient: 1.9, // this is the coefficient for Frozen orb only, the icicle coeff. is 0.0165
+    masteryCoefficient: 1, //This is the value shown on the character sheet. The coefficient for frozen orb is 1.9, and for icicles it is 0.019.
     ranking: {
       class: 4,
       spec: 3,
@@ -67,8 +90,14 @@ const SPECS: {
   HOLY_PALADIN: {
     id: 65,
     index: 3,
-    className: 'Paladin',
-    specName: 'Holy',
+    className: t({
+      id: 'specs.paladin',
+      message: `Paladin`,
+    }),
+    specName: t({
+      id: 'specs.holy',
+      message: `Holy`,
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 183997,
@@ -81,8 +110,14 @@ const SPECS: {
   PROTECTION_PALADIN: {
     id: 66,
     index: 4,
-    className: 'Paladin',
-    specName: 'Protection',
+    className: t({
+      id: 'specs.paladin',
+      message: `Paladin`,
+    }),
+    specName: t({
+      id: 'specs.protection',
+      message: `Protection`,
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76671,
@@ -95,8 +130,14 @@ const SPECS: {
   RETRIBUTION_PALADIN: {
     id: 70,
     index: 5,
-    className: 'Paladin',
-    specName: 'Retribution',
+    className: t({
+      id: 'specs.paladin',
+      message: `Paladin`,
+    }),
+    specName: t({
+      id: 'specs.retribution',
+      message: `Retribution`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 267316,
@@ -109,12 +150,18 @@ const SPECS: {
   ARMS_WARRIOR: {
     id: 71,
     index: 6,
-    className: 'Warrior',
-    specName: 'Arms',
+    className: t({
+      id: 'specs.warrior',
+      message: `Warrior`,
+    }),
+    specName: t({
+      id: 'specs.arms',
+      message: `Arms`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76838,
-    masteryCoefficient: 1.6,
+    masteryCoefficient: 1.1,
     ranking: {
       class: 11,
       spec: 1,
@@ -123,8 +170,14 @@ const SPECS: {
   FURY_WARRIOR: {
     id: 72,
     index: 7,
-    className: 'Warrior',
-    specName: 'Fury',
+    className: t({
+      id: 'specs.warrior',
+      message: `Warrior`,
+    }),
+    specName: t({
+      id: 'specs.fury',
+      message: `Fury`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76856,
@@ -137,12 +190,18 @@ const SPECS: {
   PROTECTION_WARRIOR: {
     id: 73,
     index: 8,
-    className: 'Warrior',
-    specName: 'Protection',
+    className: t({
+      id: 'specs.warrior',
+      message: `Warrior`,
+    }),
+    specName: t({
+      id: 'specs.protection',
+      message: `Protection`,
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76857,
-    masteryCoefficient: 1, // or 1.5 or 0.5, unclear which the character panel uses
+    masteryCoefficient: 1.5, //0.5 for increase block chance, 1.5 for chance to critically block and 1 for increased attack power.
     ranking: {
       class: 11,
       spec: 3,
@@ -151,12 +210,18 @@ const SPECS: {
   BALANCE_DRUID: {
     id: 102,
     index: 9,
-    className: 'Druid',
-    specName: 'Balance',
+    className: t({
+      id: 'specs.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.balance',
+      message: `Balance`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77492,
-    masteryCoefficient: 1.4, // or 0.7 for starsurge & solar empowerment
+    masteryCoefficient: 1.1,
     ranking: {
       class: 2,
       spec: 1,
@@ -165,8 +230,14 @@ const SPECS: {
   FERAL_DRUID: {
     id: 103,
     index: 10,
-    className: 'Druid',
-    specName: 'Feral',
+    className: t({
+      id: 'specs.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.feral',
+      message: `Feral`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77493,
@@ -179,12 +250,18 @@ const SPECS: {
   GUARDIAN_DRUID: {
     id: 104,
     index: 11,
-    className: 'Druid',
-    specName: 'Guardian',
+    className: t({
+      id: 'specs.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.guardian',
+      message: `Guardian`,
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 155783,
-    masteryCoefficient: 0.5,
+    masteryCoefficient: 0.5, //1 is the coef for increased attack power
     ranking: {
       class: 2,
       spec: 3,
@@ -193,12 +270,18 @@ const SPECS: {
   RESTORATION_DRUID: {
     id: 105,
     index: 12,
-    className: 'Druid',
-    specName: 'Restoration',
+    className: t({
+      id: 'specs.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.restoration',
+      message: `Restoration`,
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77495,
-    masteryCoefficient: 0.546,
+    masteryCoefficient: 0.5,
     ranking: {
       class: 2,
       spec: 4,
@@ -207,8 +290,14 @@ const SPECS: {
   BLOOD_DEATH_KNIGHT: {
     id: 250,
     index: 13,
-    className: 'Death Knight',
-    specName: 'Blood',
+    className: t({
+      id: 'specs.deathKnight',
+      message: `Death Knight`,
+    }),
+    specName: t({
+      id: 'specs.blood',
+      message: `Blood`,
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77513,
@@ -221,8 +310,14 @@ const SPECS: {
   FROST_DEATH_KNIGHT: {
     id: 251,
     index: 14,
-    className: 'Death Knight',
-    specName: 'Frost',
+    className: t({
+      id: 'specs.deathKnight',
+      message: `Death Knight`,
+    }),
+    specName: t({
+      id: 'specs.frost',
+      message: `Frost`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77514,
@@ -235,12 +330,18 @@ const SPECS: {
   UNHOLY_DEATH_KNIGHT: {
     id: 252,
     index: 15,
-    className: 'Death Knight',
-    specName: 'Unholy',
+    className: t({
+      id: 'specs.deathKnight',
+      message: `Death Knight`,
+    }),
+    specName: t({
+      id: 'specs.unholy',
+      message: `Unholy`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77515,
-    masteryCoefficient: 2.25,
+    masteryCoefficient: 1.8,
     ranking: {
       class: 1,
       spec: 3,
@@ -249,8 +350,14 @@ const SPECS: {
   BEAST_MASTERY_HUNTER: {
     id: 253,
     index: 16,
-    className: 'Hunter',
-    specName: 'Beast Mastery',
+    className: t({
+      id: 'specs.hunter',
+      message: `Hunter`,
+    }),
+    specName: t({
+      id: 'specs.beastMastery',
+      message: `Beast Mastery`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76657,
@@ -263,8 +370,14 @@ const SPECS: {
   MARKSMANSHIP_HUNTER: {
     id: 254,
     index: 17,
-    className: 'Hunter',
-    specName: 'Marksmanship',
+    className: t({
+      id: 'specs.hunter',
+      message: `Hunter`,
+    }),
+    specName: t({
+      id: 'specs.marksmanship',
+      message: `Marksmanship`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 193468,
@@ -277,12 +390,18 @@ const SPECS: {
   SURVIVAL_HUNTER: {
     id: 255,
     index: 18,
-    className: 'Hunter',
-    specName: 'Survival',
+    className: t({
+      id: 'specs.hunter',
+      message: `Hunter`,
+    }),
+    specName: t({
+      id: 'specs.survival',
+      message: `Survival`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 191334,
-    masteryCoefficient: 0.5,
+    masteryCoefficient: 1.65, //And a 0.1 coef for % max hp per 5 seconds
     ranking: {
       class: 3,
       spec: 3,
@@ -291,12 +410,18 @@ const SPECS: {
   DISCIPLINE_PRIEST: {
     id: 256,
     index: 19,
-    className: 'Priest',
-    specName: 'Discipline',
+    className: t({
+      id: 'specs.priest',
+      message: `Priest`,
+    }),
+    specName: t({
+      id: 'specs.discipline',
+      message: `Discipline`,
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 271534,
-    masteryCoefficient: 1.2,
+    masteryCoefficient: 1.35,
     ranking: {
       class: 7,
       spec: 1,
@@ -305,8 +430,14 @@ const SPECS: {
   HOLY_PRIEST: {
     id: 257,
     index: 20,
-    className: 'Priest',
-    specName: 'Holy',
+    className: t({
+      id: 'specs.priest',
+      message: `Priest`,
+    }),
+    specName: t({
+      id: 'specs.holy',
+      message: `Holy`,
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77485,
@@ -319,12 +450,18 @@ const SPECS: {
   SHADOW_PRIEST: {
     id: 258,
     index: 21,
-    className: 'Priest',
-    specName: 'Shadow',
+    className: t({
+      id: 'specs.priest',
+      message: `Priest`,
+    }),
+    specName: t({
+      id: 'specs.shadow',
+      message: `Shadow`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77486,
-    masteryCoefficient: 1.2,
+    masteryCoefficient: 0.5,
     ranking: {
       class: 7,
       spec: 3,
@@ -333,8 +470,14 @@ const SPECS: {
   ASSASSINATION_ROGUE: {
     id: 259,
     index: 22,
-    className: 'Rogue',
-    specName: 'Assassination',
+    className: t({
+      id: 'specs.rogue',
+      message: `Rogue`,
+    }),
+    specName: t({
+      id: 'specs.assassination',
+      message: `Assassination`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76803,
@@ -347,12 +490,18 @@ const SPECS: {
   OUTLAW_ROGUE: {
     id: 260,
     index: 23,
-    className: 'Rogue',
-    specName: 'Outlaw',
+    className: t({
+      id: 'specs.rogue',
+      message: `Rogue`,
+    }),
+    specName: t({
+      id: 'specs.outlaw',
+      message: `Outlaw`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76806,
-    masteryCoefficient: 0.026, // this is only the damage part, the proc chance coef is 1.3
+    masteryCoefficient: 1.45,
     ranking: {
       class: 8,
       spec: 4,
@@ -361,8 +510,14 @@ const SPECS: {
   SUBTLETY_ROGUE: {
     id: 261,
     index: 24,
-    className: 'Rogue',
-    specName: 'Subtlety',
+    className: t({
+      id: 'specs.rogue',
+      message: `Rogue`,
+    }),
+    specName: t({
+      id: 'specs.subtlety',
+      message: `Subtlety`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76808,
@@ -375,8 +530,14 @@ const SPECS: {
   ELEMENTAL_SHAMAN: {
     id: 262,
     index: 25,
-    className: 'Shaman',
-    specName: 'Elemental',
+    className: t({
+      id: 'specs.shaman',
+      message: `Shaman`,
+    }),
+    specName: t({
+      id: 'specs.elemental',
+      message: `Elemental`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 168534,
@@ -389,8 +550,14 @@ const SPECS: {
   ENHANCEMENT_SHAMAN: {
     id: 263,
     index: 26,
-    className: 'Shaman',
-    specName: 'Enhancement',
+    className: t({
+      id: 'specs.shaman',
+      message: `Shaman`,
+    }),
+    specName: t({
+      id: 'specs.enhancement',
+      message: `Enhancement`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77223,
@@ -403,8 +570,14 @@ const SPECS: {
   RESTORATION_SHAMAN: {
     id: 264,
     index: 27,
-    className: 'Shaman',
-    specName: 'Restoration',
+    className: t({
+      id: 'specs.shaman',
+      message: `Shaman`,
+    }),
+    specName: t({
+      id: 'specs.restoration',
+      message: `Restoration`,
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77226,
@@ -417,8 +590,14 @@ const SPECS: {
   AFFLICTION_WARLOCK: {
     id: 265,
     index: 28,
-    className: 'Warlock',
-    specName: 'Affliction',
+    className: t({
+      id: 'specs.warlock',
+      message: `Warlock`,
+    }),
+    specName: t({
+      id: 'specs.affliction',
+      message: `Affliction`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77215,
@@ -431,8 +610,14 @@ const SPECS: {
   DEMONOLOGY_WARLOCK: {
     id: 266,
     index: 29,
-    className: 'Warlock',
-    specName: 'Demonology',
+    className: t({
+      id: 'specs.warlock',
+      message: `Warlock`,
+    }),
+    specName: t({
+      id: 'specs.demonology',
+      message: `Demonology`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77219,
@@ -445,8 +630,14 @@ const SPECS: {
   DESTRUCTION_WARLOCK: {
     id: 267,
     index: 30,
-    className: 'Warlock',
-    specName: 'Destruction',
+    className: t({
+      id: 'specs.warlock',
+      message: `Warlock`,
+    }),
+    specName: t({
+      id: 'specs.destruction',
+      message: `Destruction`,
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77220,
@@ -459,8 +650,14 @@ const SPECS: {
   BREWMASTER_MONK: {
     id: 268,
     index: 31,
-    className: 'Monk',
-    specName: 'Brewmaster',
+    className: t({
+      id: 'specs.monk',
+      message: `Monk`,
+    }),
+    specName: t({
+      id: 'specs.brewmaster',
+      message: `Brewmaster`,
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 117906,
@@ -473,8 +670,14 @@ const SPECS: {
   WINDWALKER_MONK: {
     id: 269,
     index: 32,
-    className: 'Monk',
-    specName: 'Windwalker',
+    className: t({
+      id: 'specs.monk',
+      message: `Monk`,
+    }),
+    specName: t({
+      id: 'specs.windwalker',
+      message: `Windwalker`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 115636,
@@ -487,12 +690,18 @@ const SPECS: {
   MISTWEAVER_MONK: {
     id: 270,
     index: 33,
-    className: 'Monk',
-    specName: 'Mistweaver',
+    className: t({
+      id: 'specs.monk',
+      message: `Monk`,
+    }),
+    specName: t({
+      id: 'specs.mistweaver',
+      message: `Mistweaver`,
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 117907,
-    masteryCoefficient: 3,
+    masteryCoefficient: 4.2,
     ranking: {
       class: 5,
       spec: 2,
@@ -501,12 +710,18 @@ const SPECS: {
   HAVOC_DEMON_HUNTER: {
     id: 577,
     index: 34,
-    className: 'Demon Hunter',
-    specName: 'Havoc',
+    className: t({
+      id: 'specs.demonHunter',
+      message: `Demon Hunter`,
+    }),
+    specName: t({
+      id: 'specs.havoc',
+      message: `Havoc`,
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 185164,
-    masteryCoefficient: 1.5, // or 0.6 for run speed coef. part
+    masteryCoefficient: 1.8, //0.6 coefficient for movement speed
     ranking: {
       class: 12,
       spec: 1,
@@ -515,12 +730,18 @@ const SPECS: {
   VENGEANCE_DEMON_HUNTER: {
     id: 581,
     index: 35,
-    className: 'Demon Hunter',
-    specName: 'Vengeance',
+    className: t({
+      id: 'specs.demonHunter',
+      message: `Demon Hunter`,
+    }),
+    specName: t({
+      id: 'specs.vengeance',
+      message: `Vengeance`,
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 203747,
-    masteryCoefficient: 2.5,
+    masteryCoefficient: 3, //1 for increased atk power
     ranking: {
       class: 12,
       spec: 2,

@@ -27,7 +27,7 @@ class Buffs extends CoreBuffs {
     return [
       {
         spellId: SPELLS.BESTIAL_WRATH.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       },
     ];
   }

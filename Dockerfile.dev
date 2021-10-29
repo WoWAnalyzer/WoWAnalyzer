@@ -1,12 +1,7 @@
-FROM node:12.10.0-alpine
+FROM node:14-alpine
 
 WORKDIR /usr/src/wowanalyzer/
 
-# By doing this separate we allow Docker to cache this
-COPY package.json yarn.lock /usr/src/wowanalyzer/
-RUN yarn
-
-# Note that several files (including node_modules) are ignored in .dockerignore
 COPY . /usr/src/wowanalyzer/
 
 EXPOSE 3000

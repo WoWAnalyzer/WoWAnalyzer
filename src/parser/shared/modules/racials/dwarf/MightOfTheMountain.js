@@ -1,15 +1,15 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
-import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
-import StatisticBox from 'interface/others/StatisticBox';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import RACES from 'game/RACES';
 import ROLES from 'game/ROLES';
+import { SpellIcon } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 export const CRIT_EFFECT = 0.02;
 
@@ -29,6 +29,8 @@ class MightOfTheMountain extends Analyzer {
     }
 
     this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   isApplicableHeal(event) {
@@ -66,7 +68,7 @@ class MightOfTheMountain extends Analyzer {
     return critEffectModifier + CRIT_EFFECT;
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (!this.isApplicableHeal(event)) {
       return;
     }
@@ -82,7 +84,7 @@ class MightOfTheMountain extends Analyzer {
 
     this.healing += effectiveHealing;
   }
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (!this.isApplicableDamage(event)) {
       return;
     }
@@ -98,7 +100,7 @@ class MightOfTheMountain extends Analyzer {
 
   statistic() {
     let value;
-    switch (this.selectedCombatant.spec.role) {
+    switch (this.selectedCombatant.spec?.role) {
       case ROLES.HEALER:
         value = <ItemHealingDone amount={this.healing} />;
         break;
@@ -108,7 +110,8 @@ class MightOfTheMountain extends Analyzer {
       default:
         value = (
           <>
-            <ItemHealingDone amount={this.healing} /><br />
+            <ItemHealingDone amount={this.healing} />
+            <br />
             <ItemDamageDone amount={this.damage} />
           </>
         );
@@ -120,11 +123,12 @@ class MightOfTheMountain extends Analyzer {
         icon={<SpellIcon id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} />}
         value={value}
         label="Dwarf crit racial"
-        tooltip={(
+        tooltip={
           <>
-            The racial contributed {this.owner.formatItemDamageDone(this.damage)} and {this.owner.formatItemHealingDone(this.healing)}.
+            The racial contributed {this.owner.formatItemDamageDone(this.damage)} and{' '}
+            {this.owner.formatItemHealingDone(this.healing)}.
           </>
-        )}
+        }
       />
     );
   }

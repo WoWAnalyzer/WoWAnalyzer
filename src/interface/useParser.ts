@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-
-import CombatLogParser from 'parser/core/CombatLogParser';
 import Config from 'parser/Config';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import { useEffect, useState } from 'react';
 
 import retryingPromise from '../common/retryingPromise';
 

@@ -1,8 +1,12 @@
+import { ChangelogEntry } from 'common/changelog';
+import { Contributor } from 'common/contributor';
+import Expansion from 'game/Expansion';
+import { Spec } from 'game/SPECS';
+import { AlertKind } from 'interface/Alert';
+import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
-import { change, Contributor } from 'common/changelog';
-import { Spec } from 'game/SPECS';
-import CombatLogParser from 'parser/core/CombatLogParser';
+import { Stats } from './shared/modules/StatTracker';
 
 export type Build = {
   url: string;
@@ -15,7 +19,7 @@ export type Build = {
    */
   visible: boolean;
   active?: boolean;
-}
+};
 export type Builds = { [name: string]: Build };
 
 interface Config {
@@ -27,22 +31,28 @@ interface Config {
    * they may be removed after major changes or during a new expansion.
    */
   contributors: Contributor[];
+  expansion: Expansion;
   /**
-   * The WoW client patch this spec was last updated to be fully compatible
-   * with.
+   * The WoW client patch this spec is compatible with.
    */
   patchCompatibility:
-    | '7.3'
+    | null
     | '8.0.1'
     | '8.1'
     | '8.1.5'
     | '8.2.5'
     | '8.3'
+    | '9.0.1'
+    | '9.0.2'
+    | '9.0.5'
     | string;
   /**
-   * If set to `false`, the spec will show up as unsupported.
+   * Whether support for the spec is only partial and some important elements
+   * are still missing. Note: you do not need to support every possible
+   * statistic to stop marking it as partial. Only the important issues need to
+   * be covered with decent accuracy.
    */
-  isSupported: boolean;
+  isPartial: boolean;
   /**
    * Explain the status of this spec's analysis here. Try to mention how
    * complete it is, and perhaps show links to places users can learn more.
@@ -50,12 +60,43 @@ interface Config {
    * this in the `<Warning>` component.
    */
   description: ReactNode;
+  pages?: {
+    overview?: {
+      hideChecklist?: boolean;
+      text: ReactNode;
+      type: AlertKind;
+    };
+    timeline?:
+      | {
+          text: ReactNode;
+          type: AlertKind;
+        }
+      | ((
+          parser: CombatLogParser,
+        ) => {
+          text: ReactNode;
+          type: AlertKind;
+        } | null);
+  };
   /**
    * A recent example report to see interesting parts of the spec. Will be shown
    * on the homepage.
    */
   exampleReport: string;
   builds?: Builds;
+  /**
+   * These are multipliers to the stats applied *on pull* that are not
+   * included in the stats reported by WCL. These are *baked in* and do
+   * not multiply temporary buffs.
+   *
+   * In general, it looks like armor is the only one that isn't applied
+   * by WCL.
+   */
+  statMultipliers?: Partial<Stats>;
+  timeline?: {
+    separateCastBars: number[][];
+  };
+
   // Don't change values for props below this line;
   /**
    * The spec this config is for . This is the only place (in code) that
@@ -65,7 +106,7 @@ interface Config {
   /**
    * The contents of your changelog.
    */
-  changelog: ReturnType<typeof change>[];
+  changelog: ChangelogEntry[];
   /**
    * The CombatLogParser class for your spec.
    */

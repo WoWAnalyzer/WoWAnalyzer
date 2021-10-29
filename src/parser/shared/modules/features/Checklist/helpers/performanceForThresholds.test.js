@@ -5,7 +5,7 @@ const MARGIN = 0.01;
 
 function lessThanThreshold(offset, from, thresholds = { minor: 0.9, average: 0.8, major: 0.7 }) {
   return {
-    actual: (from === 'absolute') ? offset : thresholds[from] + offset,
+    actual: from === 'absolute' ? offset : thresholds[from] + offset,
     isLessThan: thresholds,
     style: 'percentage',
   };
@@ -13,14 +13,13 @@ function lessThanThreshold(offset, from, thresholds = { minor: 0.9, average: 0.8
 
 function greaterThanThreshold(offset, from, thresholds = { minor: 0.1, average: 0.2, major: 0.3 }) {
   return {
-    actual: (from === 'absolute') ? offset : thresholds[from] + offset,
+    actual: from === 'absolute' ? offset : thresholds[from] + offset,
     isGreaterThan: thresholds,
     style: 'percentage',
   };
 }
 
 describe('performanceForThresholds', () => {
-
   describe('isLessThan', () => {
     it('should report 1.0 for >= minor', () => {
       expect(performanceForThresholds(lessThanThreshold(0, 'minor'))).toBe(1.0);
@@ -31,19 +30,27 @@ describe('performanceForThresholds', () => {
     });
 
     it('should report *almost* 0.666 for ~ average (above)', () => {
-      expect(Math.abs(performanceForThresholds(lessThanThreshold(EPS, 'average')) - 0.666)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(lessThanThreshold(EPS, 'average')) - 0.666),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report *almost* 0.666 for ~ average (below)', () => {
-      expect(Math.abs(performanceForThresholds(lessThanThreshold(-EPS, 'average')) - 0.666)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(lessThanThreshold(-EPS, 'average')) - 0.666),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report *almost* 0.333 for ~ major (above)', () => {
-      expect(Math.abs(performanceForThresholds(lessThanThreshold(EPS, 'major')) - 0.333)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(lessThanThreshold(EPS, 'major')) - 0.333),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report *almost* 0.333 for ~ major (below)', () => {
-      expect(Math.abs(performanceForThresholds(lessThanThreshold(-EPS, 'major')) - 0.333)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(lessThanThreshold(-EPS, 'major')) - 0.333),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report 0 for 0', () => {
@@ -61,19 +68,27 @@ describe('performanceForThresholds', () => {
     });
 
     it('should report *almost* 0.666 for ~ average (above)', () => {
-      expect(Math.abs(performanceForThresholds(greaterThanThreshold(EPS, 'average')) - 0.666)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(greaterThanThreshold(EPS, 'average')) - 0.666),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report *almost* 0.666 for ~ average (below)', () => {
-      expect(Math.abs(performanceForThresholds(greaterThanThreshold(-EPS, 'average')) - 0.666)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(greaterThanThreshold(-EPS, 'average')) - 0.666),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report *almost* 0.333 for ~ major (above)', () => {
-      expect(Math.abs(performanceForThresholds(greaterThanThreshold(EPS, 'major')) - 0.333)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(greaterThanThreshold(EPS, 'major')) - 0.333),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report *almost* 0.333 for ~ major (below)', () => {
-      expect(Math.abs(performanceForThresholds(greaterThanThreshold(-EPS, 'major')) - 0.333)).toBeLessThan(MARGIN);
+      expect(
+        Math.abs(performanceForThresholds(greaterThanThreshold(-EPS, 'major')) - 0.333),
+      ).toBeLessThan(MARGIN);
     });
 
     it('should report 0 for ∞', () => {
@@ -82,7 +97,7 @@ describe('performanceForThresholds', () => {
   });
 
   describe('the yajinni test-case', () => {
-    it('should report the DK\'s performance to be better than the Paladin\'s', () => {
+    it("should report the DK's performance to be better than the Paladin's", () => {
       const pallyThresh = greaterThanThreshold(0.3109, 'absolute', {
         minor: 0.15,
         average: 0.25,
@@ -94,7 +109,9 @@ describe('performanceForThresholds', () => {
         major: 0.4,
       });
 
-      expect(performanceForThresholds(dkThresh)).toBeGreaterThan(performanceForThresholds(pallyThresh));
+      expect(performanceForThresholds(dkThresh)).toBeGreaterThan(
+        performanceForThresholds(pallyThresh),
+      );
     });
   });
 });

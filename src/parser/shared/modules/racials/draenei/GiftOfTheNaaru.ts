@@ -1,6 +1,6 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
@@ -11,23 +11,23 @@ class GiftOfTheNaaru extends Analyzer {
     abilities: Abilities,
   };
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.race === RACES.Draenei;
     if (!this.active) {
       return;
     }
 
-    options.abilities.add({
+    (options.abilities as Abilities).add({
       spell: [
-        SPELLS.GIFT_OF_THE_NAARU_DK,
-        SPELLS.GIFT_OF_THE_NAARU_HUNTER,
-        SPELLS.GIFT_OF_THE_NAARU_MONK,
-        SPELLS.GIFT_OF_THE_NAARU_MAGE,
-        SPELLS.GIFT_OF_THE_NAARU_PRIEST,
-        SPELLS.GIFT_OF_THE_NAARU_PALADIN,
-        SPELLS.GIFT_OF_THE_NAARU_SHAMAN,
-        SPELLS.GIFT_OF_THE_NAARU_WARRIOR,
+        SPELLS.GIFT_OF_THE_NAARU_DK.id,
+        SPELLS.GIFT_OF_THE_NAARU_HUNTER.id,
+        SPELLS.GIFT_OF_THE_NAARU_MONK.id,
+        SPELLS.GIFT_OF_THE_NAARU_MAGE.id,
+        SPELLS.GIFT_OF_THE_NAARU_PRIEST.id,
+        SPELLS.GIFT_OF_THE_NAARU_PALADIN.id,
+        SPELLS.GIFT_OF_THE_NAARU_SHAMAN.id,
+        SPELLS.GIFT_OF_THE_NAARU_WARRIOR.id,
       ],
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       cooldown: 180,

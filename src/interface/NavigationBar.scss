@@ -1,0 +1,74 @@
+@import 'interface/Theme.scss';
+
+nav.global {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  line-height: 80px;
+  border: 0;
+  margin-bottom: 24px;
+  display: flex;
+
+  > .container {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  > div {
+    display: flex;
+    flex-flow: row;
+  }
+  .menu-item {
+    flex: 0 1 auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .menu-item.required {
+    flex: 0 0 auto;
+  }
+  .menu-item a {
+    display: inline-block;
+    padding: 0 15px;
+    color: #fff;
+  }
+  .menu-item:first-child a {
+    padding-left: 0;
+  }
+  .menu-item:last-child a {
+    padding-right: 0;
+  }
+  .menu-item a:hover {
+    color: $primaryColor;
+    text-decoration: none;
+  }
+  .menu-item img, .menu-item svg {
+    height: 2.1em;
+    margin: -0.4em 0 -0.2em 0;
+    vertical-align: middle;
+  }
+  .menu-item span.optional {
+    margin-left: 6px;
+  }
+  .menu-item.logo img, .menu-item.logo svg {
+    font-size: 1.2em;
+    margin-top: -0.2em;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .report-title {
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Mobile nav bar */
+@media (max-width: 600px) {
+  nav.global > div.container {
+    padding: 0;
+  }
+  nav.global .optional {
+    display: none;
+  }
+}

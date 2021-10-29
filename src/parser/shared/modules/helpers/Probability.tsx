@@ -1,6 +1,5 @@
-import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
+import OneVariableBinomialChart from 'parser/ui/OneVariableBinomialChart';
 import React from 'react';
-import { formatNumber, formatPercentage } from 'common/format';
 
 /**
  * pn is the mean value of procs
@@ -29,7 +28,7 @@ export function binomialPMF(k: number, n: number, p: number) {
  */
 export function binomialCDF(k: number, n: number, p: number) {
   let probability = 0;
-  for (let i = 0; i <= k; i++) {
+  for (let i = 0; i <= k; i += 1) {
     probability += binomialPMF(i, n, p);
   }
   return probability;
@@ -44,7 +43,7 @@ export function binomialCDF(k: number, n: number, p: number) {
 export function findMax(n: number, pmf: (i: number, n: any) => any) {
   let max = -1;
   let maxP = 0;
-  for (let i = 0; i <= n; i++) {
+  for (let i = 0; i <= n; i += 1) {
     const probability = pmf(i, n);
     if (probability > maxP) {
       max = i;
@@ -67,28 +66,40 @@ function binomialDistribution(n: number, k: number) {
   // (n - k + 1) * (n - k + 2) * ... n / k!
   let numerator = 1;
   let denominator = 1;
-  for (let i = n - k + 1; i <= n; i++) {
+  for (let i = n - k + 1; i <= n; i += 1) {
     numerator *= i;
   }
-  for (let i = 1; i <= k; i++) {
+  for (let i = 1; i <= k; i += 1) {
     denominator *= i;
   }
   return numerator / denominator;
 }
 
-function resetProbabilityArray(actualProcs: number, procAttempts: number, procChance: number | number[]) {
-  const procProbabilities: { x: number; y: number; }[] = Array.from({ length: procAttempts }, (_x, i: number) => {
-    if (typeof procChance === 'number') {
-      return { x: i, y: binomialPMF(i, procAttempts, procChance) };
-    } else {
-      return { x: i, y: poissonBinomialPMF(i, procAttempts, procChance) };
-    }
-  });
+function resetProbabilityArray(
+  actualProcs: number,
+  procAttempts: number,
+  procChance: number | number[],
+) {
+  const procProbabilities: Array<{ x: number; y: number }> = Array.from(
+    { length: procAttempts },
+    (_x, i: number) => {
+      if (typeof procChance === 'number') {
+        return { x: i, y: binomialPMF(i, procAttempts, procChance) };
+      } else {
+        return { x: i, y: poissonBinomialPMF(i, procAttempts, procChance) };
+      }
+    },
+  );
 
   return procProbabilities;
 }
 
-function setMinMaxProbabilities(actualProcs: number, procAttempts: number, procChance: number | number[], threshold: number = 0.001) {
+export function setMinMaxProbabilities(
+  actualProcs: number,
+  procAttempts: number,
+  procChance: number | number[],
+  threshold: number = 0.001,
+) {
   const procProbabilities = resetProbabilityArray(actualProcs, procAttempts, procChance);
   const rangeMin = procProbabilities.findIndex(({ y }) => y >= threshold);
   const rangeMax = rangeMin + procProbabilities.slice(rangeMin).findIndex(({ y }) => y < threshold);
@@ -122,7 +133,8 @@ function Ekj(k: number, j: number, p: number[], lookup: any[][]) {
     return lookup[k][j];
   }
   // literature uses 1-based indices for probabilities, as we're using an array, we have to use 0 based
-  const value: number = (1 - p[j - 1]) * Ekj(k, j - 1, p, lookup) + p[j - 1] * Ekj(k - 1, j - 1, p, lookup);
+  const value: number =
+    (1 - p[j - 1]) * Ekj(k, j - 1, p, lookup) + p[j - 1] * Ekj(k - 1, j - 1, p, lookup);
   lookup[k][j] = value;
   return value;
 }
@@ -141,12 +153,14 @@ export function poissonBinomialPMF(k: number, n: number, p: any[]) {
   // denoted in the paper as ξk, I'll call it Ek for simplicity
   // using the recursive formula in chapter 2.5
   if (p.length !== n) {
-    throw new Error('You must supply a probability vector with the same length as the number of total tries into Poisson Binomial PMF');
+    throw new Error(
+      'You must supply a probability vector with the same length as the number of total tries into Poisson Binomial PMF',
+    );
   }
   // Using a lookup table to simplify recursion a little bit
   // construct an (n+1) x (n+1) lookup table (because Ek,j uses indexes from 0 to n INCLUSIVE, with this we don't have to subtract indexes all the time)
   // intentionally set tu nulls so we know which values are computed or not
-  const lookup = [...Array(n + 1)].map(_ => Array(n + 1).fill(null));
+  const lookup = [...Array(n + 1)].map((_) => Array(n + 1).fill(null));
   return Ekj(k, n, p, lookup);
 }
 
@@ -159,14 +173,16 @@ export function poissonBinomialPMF(k: number, n: number, p: any[]) {
 export function poissonBinomialCDF(k: number, n: number, p: number[]) {
   // While technically equal to summing Ei from i = 0 to k, since we use recursion, a better solution is a lookup table
   if (p.length !== n) {
-    throw new Error('You must supply a probability vector with the same length as the number of total tries into Poisson Binomial CDF');
+    throw new Error(
+      'You must supply a probability vector with the same length as the number of total tries into Poisson Binomial CDF',
+    );
   }
   // see comments in poissonBinomialPMF
-  const lookup = [...Array(n + 1)].map(_ => Array(n + 1).fill(null));
+  const lookup = [...Array(n + 1)].map((_) => Array(n + 1).fill(null));
   let probability = 0;
   // since Ekj uses the values from "previous row" (Ekj(k - 1, j - 1, ...)), it's better to iterate from 0
   // this way, it produces the least necessary amount of calculations with the lookup table (only the Ekj(k, j - 1) parts)
-  for (let i = 0; i <= k; i++) {
+  for (let i = 0; i <= k; i += 1) {
     probability += Ekj(i, n, p, lookup);
   }
   return probability;
@@ -177,28 +193,25 @@ export function plotOneVariableBinomChart(
   procAttempts: number,
   procChance: number | number[],
   trackedName: string = 'Procs',
-  tooltipText: string = `${trackedName}: `,
-  tooltipFormula: (point: { x: number }) => string = (point: { x: number; }) => `${tooltipText} ${formatNumber(point.x)}`,
+  tooltipText: string = trackedName,
   yDomain: number[] = [0, 0.4],
   xAxis: any = {
     title: trackedName,
-    tickFormat: (value: number) => formatNumber(value),
-    style: {
-      fill: 'white',
-    },
+    tickFormat: '~k',
   },
   yAxis: any = {
     title: 'Likelihood',
-    tickFormat: (value: number) => `${formatPercentage(value, 0)}%`,
-    style: {
-      fill: 'white',
-    },
   },
-  curve: string = 'curveMonotoneX',
 ) {
-
-  const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(actualProcs, procAttempts, procChance);
-  const actualEventY = typeof procChance === 'number' ? binomialPMF(actualProcs, procAttempts, procChance) : poissonBinomialPMF(actualProcs, procAttempts, procChance);
+  const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(
+    actualProcs,
+    procAttempts,
+    procChance,
+  );
+  const actualEventY =
+    typeof procChance === 'number'
+      ? binomialPMF(actualProcs, procAttempts, procChance)
+      : poissonBinomialPMF(actualProcs, procAttempts, procChance);
   return (
     <OneVariableBinomialChart
       probabilities={procProbabilities.slice(rangeMin, rangeMax + 1)}
@@ -206,8 +219,7 @@ export function plotOneVariableBinomChart(
       yDomain={yDomain}
       xAxis={xAxis}
       yAxis={yAxis}
-      curve={curve}
-      tooltip={tooltipFormula}
+      tooltip={tooltipText}
     />
   );
 }

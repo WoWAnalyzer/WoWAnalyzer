@@ -1,0 +1,8 @@
+.character-tab > .row:not(:first-child) {
+  margin-top: 2em;
+}
+
+.stat-row svg.icon {
+  height: 2em;
+  margin-top: 0.5em;
+}

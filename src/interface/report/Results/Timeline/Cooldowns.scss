@@ -1,7 +1,9 @@
 .spell-timeline .cooldowns {
+  margin-top: -32px;
+
   .lane {
     position: relative;
-    height: 16px;
+    height: 24px;
     margin-bottom: 2px;
 
     > * {
@@ -25,9 +27,11 @@
       left: 0;
     }
     > .legend {
-      left: -20px;
-      filter: grayscale(100%);
-      display: none;
+      left: 0;
+      // TODO filter: grayscale(100%); when spell is on cooldown in scroll
+      position: sticky;
+      width: 24px;
+      z-index: 6;
     }
     > .cooldown {
       height: 60%;
@@ -44,6 +48,10 @@
     }
     > .cast {
       z-index: 3;
+    }
+    > .castable {
+      background: rgba(248, 183, 0, 0.6);
+      border-radius: 3px;
     }
   }
 }

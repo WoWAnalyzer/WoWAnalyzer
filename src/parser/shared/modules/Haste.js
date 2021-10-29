@@ -1,11 +1,11 @@
-import SPELLS from 'common/SPELLS/index';
 import { formatMilliseconds, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Analyzer from 'parser/core/Analyzer';
+import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import EventFilter from 'parser/core/EventFilter';
-import { EventType } from 'parser/core/Events';
 
 const debug = false;
 
@@ -15,33 +15,56 @@ class Haste extends Analyzer {
     statTracker: StatTracker,
   };
 
-  /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = {
-
     // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
 
     ...BLOODLUST_BUFFS,
-    [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.1,
-    [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
-    [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
-    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
-    [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
-    [SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id]: 0.1, // Essence
-    [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
-      hastePerStack: 0.02,
-    },
+    [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
+    [SPELLS.FIELD_OF_BLOSSOMS_BUFF.id]: 0.15, // Buff from Field of Blossoms (Dreamweaver Soulbind Night Fae)
 
-    // Boss abilities:
-    [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
+    //region Druid Haste Buffs
+    [SPELLS.STARLORD.id]: {
+      hastePerStack: 0.04,
+    },
+    [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
+    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.1,
+    [SPELLS.RAVENOUS_FRENZY.id]: {
+      hastePerStack: 0.01,
+    },
+    // Sinful Hysteria legendary has to be handled dynamically in a different module
+    //endregion
+
+    //region Hunter Haste Buffs
+    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
+    [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
+    //endregion
+
+    //region Paladin
+    [SPELLS.CRUSADE_TALENT.id]: {
+      hastePerStack: 0.03,
+    },
+    //endregion
+
+    //region Priest
+    [SPELLS.POWER_INFUSION.id]: 0.25,
+    //endregion
+
+    //region Mage
+    [SPELLS.ICY_VEINS.id]: 0.3,
+
+    //endregion
+
+    //region Monk
+    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
+    //endregion
   };
 
   get changehaste() {
@@ -49,47 +72,72 @@ class Haste extends Analyzer {
   }
 
   current = null;
+
   constructor(...args) {
     super(...args);
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this._triggerChangeHaste(null, null, this.current);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.changebuffstack.to(SELECTED_PLAYER), this.onChangeBuffStack);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
+    this.addEventListener(Events.applydebuff.to(SELECTED_PLAYER), this.onApplyDebuff);
+    this.addEventListener(Events.changedebuffstack.to(SELECTED_PLAYER), this.onChangeDebuffStack);
+    this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
+    this.addEventListener(Events.ChangeStats.to(SELECTED_PLAYER), this.onChangeStats);
   }
-  on_toPlayer_applybuff(event) {
+
+  onApplyBuff(event) {
     this._applyActiveBuff(event);
   }
-  on_toPlayer_changebuffstack(event) {
+
+  onChangeBuffStack(event) {
     this._changeBuffStack(event);
   }
-  on_toPlayer_removebuff(event) {
-    this._removeActiveBuff(event);
-  }
-  on_toPlayer_applydebuff(event) {
-    this._applyActiveBuff(event);
-  }
-  on_toPlayer_changedebuffstack(event) {
-    this._changeBuffStack(event);
-  }
-  on_toPlayer_removedebuff(event) {
+
+  onRemoveBuff(event) {
     this._removeActiveBuff(event);
   }
 
-  on_toPlayer_changestats(event) { // fabbed event from StatTracker
+  onApplyDebuff(event) {
+    this._applyActiveBuff(event);
+  }
+
+  onChangeDebuffStack(event) {
+    this._changeBuffStack(event);
+  }
+
+  onRemoveDebuff(event) {
+    this._removeActiveBuff(event);
+  }
+
+  onChangeStats(event) {
+    // fabbed event from StatTracker
     if (!event.delta.haste) {
       return;
     }
 
     // Calculating the Haste percentage difference form a rating change is hard because all rating (from gear + buffs) is additive while Haste percentage buffs are both multiplicative and additive (see the applyHaste function).
     // 1. Calculate the total Haste percentage without any rating (since the total percentage from the total rating multiplies like any other Haste buff)
-    const remainingHasteBuffs = this.constructor.removeHaste(this.current, this.statTracker.hastePercentage(event.before.haste, true));
+    const remainingHasteBuffs = this.constructor.removeHaste(
+      this.current,
+      this.statTracker.hastePercentage(event.before.haste, true),
+    );
     // 2. Calculate the new total Haste percentage with the new rating and the old total buff percentage
-    const newHastePercentage = this.constructor.addHaste(this.statTracker.hastePercentage(event.after.haste, true), remainingHasteBuffs);
+    const newHastePercentage = this.constructor.addHaste(
+      this.statTracker.hastePercentage(event.after.haste, true),
+      remainingHasteBuffs,
+    );
 
     this._setHaste(event, newHastePercentage);
 
     if (debug) {
       const spellName = event.trigger.ability ? event.trigger.ability.name : 'unknown';
-      console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
+      console.log(
+        `Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${
+          event.delta.haste
+        } from ${spellName})`,
+      );
     }
   }
 
@@ -100,11 +148,24 @@ class Haste extends Analyzer {
     if (hasteGain) {
       this._applyHasteGain(event, hasteGain);
 
-      debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Haste:', 'Current haste:', `${formatPercentage(this.current)}%`, `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`);
+      debug &&
+        console.log(
+          formatMilliseconds(this.owner.fightDuration),
+          'Haste:',
+          'Current haste:',
+          `${formatPercentage(this.current)}%`,
+          `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`,
+        );
     } else {
-      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Applied not recognized buff:', event.ability.name);
+      debug &&
+        console.warn(
+          formatMilliseconds(this.owner.fightDuration),
+          'Haste: Applied not recognized buff:',
+          event.ability.name,
+        );
     }
   }
+
   _removeActiveBuff(event) {
     const spellId = event.ability.guid;
     const haste = this._getBaseHasteGain(spellId);
@@ -112,11 +173,22 @@ class Haste extends Analyzer {
     if (haste) {
       this._applyHasteLoss(event, haste);
 
-      debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(haste)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      debug &&
+        console.log(
+          `Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(
+            haste,
+          )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
+        );
     } else {
-      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Removed not recognized buff:', event.ability.name);
+      debug &&
+        console.warn(
+          formatMilliseconds(this.owner.fightDuration),
+          'Haste: Removed not recognized buff:',
+          event.ability.name,
+        );
     }
   }
+
   /**
    * Gets the base Haste gain for the provided spell.
    */
@@ -148,9 +220,15 @@ class Haste extends Analyzer {
 
       this._setHaste(event, newHastePercentage);
 
-      debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(haste * event.stacksGained)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      debug &&
+        console.log(
+          `Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(
+            haste * event.stacksGained,
+          )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
+        );
     }
   }
+
   _getHastePerStackGain(spellId) {
     const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
 
@@ -163,6 +241,7 @@ class Haste extends Analyzer {
     }
     return null;
   }
+
   /**
    * Get the actual Haste value from a prop allowing various formats.
    */
@@ -185,9 +264,11 @@ class Haste extends Analyzer {
   _applyHasteGain(event, haste) {
     this._setHaste(event, this.constructor.addHaste(this.current, haste));
   }
+
   _applyHasteLoss(event, haste) {
     this._setHaste(event, this.constructor.removeHaste(this.current, haste));
   }
+
   _setHaste(event, haste) {
     if (isNaN(haste)) {
       throw new Error('Attempted to set an invalid Haste value. Something broke.');
@@ -197,6 +278,7 @@ class Haste extends Analyzer {
 
     this._triggerChangeHaste(event, oldHaste, this.current);
   }
+
   _triggerChangeHaste(event, oldHaste, newHaste) {
     const fabricatedEvent = {
       type: EventType.ChangeHaste,
@@ -212,6 +294,7 @@ class Haste extends Analyzer {
   static addHaste(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
   }
+
   static removeHaste(baseHaste, hasteLoss) {
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
   }

@@ -1,5 +1,6 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 /**
  * This analyzer adds the cost of a specific resource type to cast events, and allows that cost to
@@ -7,9 +8,9 @@ import Analyzer from 'parser/core/Analyzer';
  * cost reductions so we need to check for conditions and apply it ourselves. Using SpellResourceCost
  * allows you to apply that reduction just once and have the information available wherever the cast
  * event gets processed.
- * 
+ *
  * If you're dealing with mana you should use parser/core/Modules/SpellManaCost instead.
- * 
+ *
  * An example implementation can be found at parser/Druid/Feral/Modules/Features/SpellEnergyCost
  * Check the "IMPLEMENTME" comments for what typically needs to be customised.
  */
@@ -20,11 +21,14 @@ class SpellResourceCost extends Analyzer {
   constructor(...args) {
     super(...args);
     if (!this.constructor.resourceType || !RESOURCE_TYPES[this.constructor.resourceType.id]) {
-      throw new Error('Attempting to use SpellResourceCost without providing a valid resourceType.');
+      throw new Error(
+        'Attempting to use SpellResourceCost without providing a valid resourceType.',
+      );
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     if (!event.resourceCost) {
       event.resourceCost = {};
     }
@@ -41,7 +45,7 @@ class SpellResourceCost extends Analyzer {
       return 0;
     }
     return event.classResources
-      .filter(resource => resource.type === this.constructor.resourceType.id)
+      .filter((resource) => resource.type === this.constructor.resourceType.id)
       .reduce((totalCost, resource) => totalCost + (resource.cost || 0), 0);
   }
 

@@ -1,25 +1,20 @@
-import React from 'react';
-
 import ROLES from 'game/ROLES';
 import Analyzer from 'parser/core/Analyzer';
+import React from 'react';
 
 import TabComponent from './TabComponent';
 
 class RaidHealthTab extends Analyzer {
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.spec.role === ROLES.HEALER;
+    this.active = this.selectedCombatant.spec?.role === ROLES.HEALER;
   }
 
   tab() {
     return {
       title: 'Raid health',
       url: 'raid-health',
-      render: () => (
-        <TabComponent
-          parser={this.owner}
-        />
-      ),
+      render: () => <TabComponent parser={this.owner} />,
     };
   }
 }

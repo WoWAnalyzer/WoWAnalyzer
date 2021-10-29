@@ -1,0 +1,15 @@
+.mtt-value {
+  > .icon {
+    padding: 15px 18px;
+    > svg {
+      font-size: 40px;
+    }
+  }
+  > .value {
+    padding: 15px 8px;
+    line-height: 1;
+    > small {
+      display: block;
+    }
+  }
+}

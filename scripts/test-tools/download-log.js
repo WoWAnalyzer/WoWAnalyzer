@@ -15,18 +15,18 @@
  *  node download-log.js <filename> <log-id> <fight-id> <player-id>
  *
  **/
-const argv = require('process').argv;
-const fs = require('fs');
 const archiver = require('archiver');
+const fs = require('fs');
 const https = require('https');
+const argv = require('process').argv;
 
 function requestFight(reportCode, cb) {
   const url = `https://wowanalyzer.com/i/v1/report/fights/${reportCode}?translate=true`;
   console.info(`Requesting fights from: ${url}`);
   https
-    .get(url, res => {
+    .get(url, (res) => {
       let data = '';
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         data += chunk.toString();
       });
       res.on('end', () => cb(JSON.parse(data)));
@@ -39,9 +39,9 @@ function requestCombatants(reportCode, fightId, cb, report) {
   const url = `https://wowanalyzer.com/i/v1/report/events/${reportCode}?start=${fight.start_time}&end=${fight.end_time}&filter=type%3D%22combatantinfo%22&translate=true`;
   console.info(`Requesting events from: ${url}`);
   https
-    .get(url, res => {
+    .get(url, (res) => {
       let data = '';
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         data += chunk.toString();
       });
       res.on('end', () => cb(report, fight, JSON.parse(data)));
@@ -52,9 +52,9 @@ function requestCombatants(reportCode, fightId, cb, report) {
 function requestEvents(reportCode, playerId, cb, report, fight, combatants) {
   const url = `https://wowanalyzer.com/i/v1/report/events/${reportCode}?start=${fight.start_time}&end=${fight.end_time}&actorid=${playerId}&translate=true`;
   https
-    .get(url, res => {
+    .get(url, (res) => {
       let data = '';
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         data += chunk.toString();
       });
       res.on('end', () => cb(report, combatants, JSON.parse(data)));
@@ -62,25 +62,14 @@ function requestEvents(reportCode, playerId, cb, report, fight, combatants) {
     .on('error', console.error);
 }
 
-function writeLog(
-  filename,
-  reportCode,
-  fightId,
-  playerId,
-  cb,
-  report,
-  combatants,
-  events,
-) {
+function writeLog(filename, reportCode, fightId, playerId, cb, report, combatants, events) {
   const fight = report.fights.find(({ id }) => id === Number(fightId));
-  const combatant = combatants.events.find(
-    ({ sourceID }) => sourceID === Number(playerId),
-  );
+  const combatant = combatants.events.find(({ sourceID }) => sourceID === Number(playerId));
 
   const path = `${filename}.zip`;
   const out = fs.createWriteStream(path);
   const compress = archiver('zip');
-  compress.on('warning', err => console.warn(err));
+  compress.on('warning', (err) => console.warn(err));
   compress.pipe(out);
 
   compress.append(JSON.stringify(report), { name: 'report.json' });
@@ -120,10 +109,8 @@ requestFight(
       null,
       reportCode,
       playerId,
-      writeLog.bind(null, filename, reportCode, fightId, playerId, path =>
-        console.log(
-          `Wrote ${path}. Please move it to your spec directory/integrationTests.`,
-        ),
+      writeLog.bind(null, filename, reportCode, fightId, playerId, (path) =>
+        console.log(`Wrote ${path}. Please move it to your spec directory/integrationTests.`),
       ),
     ),
   ),

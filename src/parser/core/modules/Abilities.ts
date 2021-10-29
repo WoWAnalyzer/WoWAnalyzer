@@ -1,9 +1,10 @@
-import Module from 'parser/core/Module';
+import { t } from '@lingui/macro';
+import Module, { Options } from 'parser/core/Module';
+import Haste from 'parser/shared/modules/Haste';
 
-import { Event } from '../Events';
-import Ability, { SpellbookAbility } from './Ability';
 import AbilityTracker from '../../shared/modules/AbilityTracker';
-import Haste from '../../shared/modules/Haste';
+import { AnyEvent } from '../Events';
+import Ability, { SpellbookAbility } from './Ability';
 
 class Abilities extends Module {
   static dependencies = {
@@ -15,17 +16,50 @@ class Abilities extends Module {
 
   // TODO - Enum?
   static SPELL_CATEGORIES = {
-    ROTATIONAL: 'Rotational Spell',
-    ROTATIONAL_AOE: 'Spell (AOE)',
-    ITEMS: 'Item',
-    COOLDOWNS: 'Cooldown',
-    DEFENSIVE: 'Defensive Cooldown',
-    SEMI_DEFENSIVE: 'Offensive & Defensive Cooldown',
-    OTHERS: 'Spell',
-    UTILITY: 'Utility',
-    HEALER_DAMAGING_SPELL: 'Damaging Spell',
-    CONSUMABLE: 'Consumable',
-    HIDDEN: 'Hidden',
+    ROTATIONAL: t({
+      id: 'core.abilities.spellCategories.rotational',
+      message: `Rotational Spell`,
+    }),
+    ROTATIONAL_AOE: t({
+      id: 'core.abilities.spellCategories.rotationalAoe',
+      message: `Spell (AOE)`,
+    }),
+    ITEMS: t({
+      id: 'core.abilities.spellCategories.items',
+      message: `Item`,
+    }),
+    COOLDOWNS: t({
+      id: 'core.abilities.spellCategories.cooldowns',
+      message: `Cooldown`,
+    }),
+    DEFENSIVE: t({
+      id: 'core.abilities.spellCategories.defensive',
+      message: `Defensive Cooldown`,
+    }),
+    SEMI_DEFENSIVE: t({
+      id: 'core.abilities.spellCategories.semiDefensive',
+      message: `Offensive & Defensive Cooldown`,
+    }),
+    OTHERS: t({
+      id: 'core.abilities.spellCategories.others',
+      message: `Spell`,
+    }),
+    UTILITY: t({
+      id: 'core.abilities.spellCategories.utility',
+      message: `Utility`,
+    }),
+    HEALER_DAMAGING_SPELL: t({
+      id: 'core.abilities.spellCategories.healerDamagingSpell',
+      message: `Damaging Spell`,
+    }),
+    CONSUMABLE: t({
+      id: 'core.abilities.spellCategories.consumable',
+      message: `Consumable`,
+    }),
+    HIDDEN: t({
+      id: 'core.abilities.spellCategories.hidden',
+      message: `Hidden`,
+    }),
   };
   static ABILITY_CLASS = Ability;
 
@@ -33,21 +67,23 @@ class Abilities extends Module {
    * This will be called *once* during initialization. See the Ability class for the available properties. This should contain ALL spells available to a player of your spec, including utility such as interrupts, dispells, etc
    * @returns {object[]}
    */
-  spellbook(): Array<SpellbookAbility> {
+  spellbook(): SpellbookAbility[] {
     // This list will NOT be recomputed during the fight. If a cooldown changes based on something like Haste or a Buff you need to put it in a function.
     // While you can put checks for talents/traits outside of the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
     return [];
   }
 
-  abilities: Array<Ability> = [];
-  activeAbilities: Array<Ability> = [];
-  constructor(args: any) {
+  abilities: Ability[] = [];
+  activeAbilities: Ability[] = [];
+  constructor(args: Options) {
     super(args);
     this.loadSpellbook(this.spellbook());
   }
-  loadSpellbook(spellbook: Array<SpellbookAbility>) {
-    this.abilities = spellbook.map(options => new Ability(this, options));
-    this.activeAbilities = this.abilities.filter(ability => ability.enabled);
+  loadSpellbook(spellbook: SpellbookAbility[]) {
+    // Abilities subtypes may want to construct a particular subtype of Ability
+    const abilityClass = (this.constructor as typeof Abilities).ABILITY_CLASS;
+    this.abilities = spellbook.map((options) => new abilityClass(this, options));
+    this.activeAbilities = this.abilities.filter((ability) => ability.enabled);
   }
 
   /**
@@ -66,16 +102,16 @@ class Abilities extends Module {
    * @return {Ability}
    */
   getAbility(spellId: number) {
-    const ability = this.activeAbilities.find(ability => {
+    const ability = this.activeAbilities.find((ability) => {
       if (ability.spell instanceof Array) {
-        return ability.spell.some(spell => spell.id === spellId);
+        return ability.spell.includes(spellId);
       } else {
-        return ability.spell.id === spellId;
+        return ability.spell === spellId;
       }
     });
 
-    if(ability && ability.spell instanceof Array && ability.primaryOverride === undefined) {
-      ability.primaryOverride = ability.spell.findIndex((spell) => { return spell.id === spellId; });
+    if (ability && ability.spell instanceof Array && ability.primaryOverride === undefined) {
+      ability.primaryOverride = ability.spell.findIndex((spell) => spell === spellId);
     }
 
     return ability;
@@ -84,9 +120,11 @@ class Abilities extends Module {
   /**
    * Returns the expected cooldown (in seconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
-  getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent: Event<any> | undefined) {
+  getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent?: AnyEvent) {
     const ability = this.getAbility(spellId);
-    return ability ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000) : undefined;
+    return ability
+      ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000)
+      : undefined;
   }
 
   /**
@@ -94,7 +132,7 @@ class Abilities extends Module {
    */
   getMaxCharges(spellId: number) {
     const ability = this.getAbility(spellId);
-    return ability ? (ability.charges || 1) : undefined;
+    return ability ? ability.charges || 1 : undefined;
   }
 
   /**

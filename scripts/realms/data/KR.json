@@ -1,201 +1,115 @@
 {
-	"realms": [{
-		"type": "pvp",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "가로나",
-		"slug": "가로나",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["가로나", "줄진", "굴단"]
-	}, {
-		"type": "pvp",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "굴단",
-		"slug": "굴단",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["가로나", "줄진", "굴단"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "노르간논",
-		"slug": "노르간논",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["달라란", "말퓨리온", "세나리우스", "노르간논"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "달라란",
-		"slug": "달라란",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["달라란", "말퓨리온", "세나리우스", "노르간논"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "데스윙",
-		"slug": "데스윙",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["알렉스트라자", "데스윙"]
-	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "듀로탄",
-		"slug": "듀로탄",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["듀로탄"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "렉사르",
-		"slug": "렉사르",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["와일드해머", "렉사르", "윈드러너"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "말퓨리온",
-		"slug": "말퓨리온",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["달라란", "말퓨리온", "세나리우스", "노르간논"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "불타는 군단",
-		"slug": "불타는-군단",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["불타는-군단", "스톰레이지"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "세나리우스",
-		"slug": "세나리우스",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["달라란", "말퓨리온", "세나리우스", "노르간논"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "스톰레이지",
-		"slug": "스톰레이지",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["불타는-군단", "스톰레이지"]
-	}, {
-		"type": "pvp",
-		"population": "full",
-		"queue": false,
-		"status": true,
-		"name": "아즈샤라",
-		"slug": "아즈샤라",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["아즈샤라"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "알렉스트라자",
-		"slug": "알렉스트라자",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["알렉스트라자", "데스윙"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "와일드해머",
-		"slug": "와일드해머",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["와일드해머", "렉사르", "윈드러너"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "윈드러너",
-		"slug": "윈드러너",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["와일드해머", "렉사르", "윈드러너"]
-	}, {
-		"type": "pvp",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "줄진",
-		"slug": "줄진",
-		"battlegroup": "징벌의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["가로나", "줄진", "굴단"]
-	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "하이잘",
-		"slug": "하이잘",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["하이잘"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "헬스크림",
-		"slug": "헬스크림",
-		"battlegroup": "격노의 전장",
-		"locale": "ko_KR",
-		"timezone": "Asia/Seoul",
-		"connected_realms": ["헬스크림"]
-	}]
+  "_links": {
+    "self": { "href": "https://kr.api.blizzard.com/data/wow/realm/?namespace=dynamic-kr" }
+  },
+  "realms": [
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/201?namespace=dynamic-kr" },
+      "name": "불타는 군단",
+      "id": 201,
+      "slug": "burning-legion"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/205?namespace=dynamic-kr" },
+      "name": "아즈샤라",
+      "id": 205,
+      "slug": "azshara"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/207?namespace=dynamic-kr" },
+      "name": "달라란",
+      "id": 207,
+      "slug": "dalaran"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/210?namespace=dynamic-kr" },
+      "name": "듀로탄",
+      "id": 210,
+      "slug": "durotan"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/211?namespace=dynamic-kr" },
+      "name": "노르간논",
+      "id": 211,
+      "slug": "norgannon"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/212?namespace=dynamic-kr" },
+      "name": "가로나",
+      "id": 212,
+      "slug": "garona"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/214?namespace=dynamic-kr" },
+      "name": "윈드러너",
+      "id": 214,
+      "slug": "windrunner"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/215?namespace=dynamic-kr" },
+      "name": "굴단",
+      "id": 215,
+      "slug": "guldan"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/258?namespace=dynamic-kr" },
+      "name": "알렉스트라자",
+      "id": 258,
+      "slug": "alexstrasza"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/264?namespace=dynamic-kr" },
+      "name": "말퓨리온",
+      "id": 264,
+      "slug": "malfurion"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/293?namespace=dynamic-kr" },
+      "name": "헬스크림",
+      "id": 293,
+      "slug": "hellscream"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2079?namespace=dynamic-kr" },
+      "name": "와일드해머",
+      "id": 2079,
+      "slug": "wildhammer"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2106?namespace=dynamic-kr" },
+      "name": "렉사르",
+      "id": 2106,
+      "slug": "rexxar"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2107?namespace=dynamic-kr" },
+      "name": "하이잘",
+      "id": 2107,
+      "slug": "hyjal"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2108?namespace=dynamic-kr" },
+      "name": "데스윙",
+      "id": 2108,
+      "slug": "deathwing"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2110?namespace=dynamic-kr" },
+      "name": "세나리우스",
+      "id": 2110,
+      "slug": "cenarius"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2111?namespace=dynamic-kr" },
+      "name": "스톰레이지",
+      "id": 2111,
+      "slug": "stormrage"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2116?namespace=dynamic-kr" },
+      "name": "줄진",
+      "id": 2116,
+      "slug": "zuljin"
+    }
+  ]
 }

@@ -1,6 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import Channeling from 'parser/shared/modules/Channeling';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   BeginCastEvent,
@@ -10,31 +8,37 @@ import Events, {
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import SpellUsable from './SpellUsable';
+
+type SpellHistoryEvent =
+  | BeginCastEvent
+  | CastEvent
+  | BeginChannelEvent
+  | EndChannelEvent
+  | ApplyBuffEvent
+  | RemoveBuffEvent
+  | UpdateSpellUsableEvent;
 
 class SpellHistory extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
+    abilityTracker: AbilityTracker,
     channeling: Channeling,
   };
   // necessary for the UpdateSpellUsable event
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
+  protected abilityTracker!: AbilityTracker;
   // necessary for the channeling events
   protected channeling!: Channeling;
 
   public historyBySpellId: {
-    [spellId: number]: Array<
-      | BeginCastEvent
-      | CastEvent
-      | BeginChannelEvent
-      | EndChannelEvent
-      | ApplyBuffEvent
-      | RemoveBuffEvent
-      | UpdateSpellUsableEvent
-    >;
+    [spellId: number]: SpellHistoryEvent[];
   } = {
     // This contains the raw event to have all information one might ever need and so that we don't construct additional objects that take their own memory.
     // [spellId]: [
@@ -47,7 +51,7 @@ class SpellHistory extends Analyzer {
     // ]
   };
 
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.append);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.append);
@@ -59,29 +63,13 @@ class SpellHistory extends Analyzer {
   }
 
   private getAbility(spellId: number) {
-    const ability = this.abilities.getAbility(spellId);
-    if (!ability) {
-      // We're only interested in abilities in Abilities since that's the only place we'll show the spell history, besides we only really want to track *casts* and the best source of info for that is Abilities.
-      return null;
+    if (!this.historyBySpellId[spellId]) {
+      this.historyBySpellId[spellId] = [];
     }
-
-    const primarySpellUd = ability.primarySpell.id;
-    if (!this.historyBySpellId[primarySpellUd]) {
-      this.historyBySpellId[primarySpellUd] = [];
-    }
-    return this.historyBySpellId[primarySpellUd];
+    return this.historyBySpellId[spellId];
   }
 
-  private append(
-    event:
-      & BeginCastEvent
-      & CastEvent
-      & BeginChannelEvent
-      & EndChannelEvent
-      & ApplyBuffEvent
-      & RemoveBuffEvent
-      & UpdateSpellUsableEvent,
-  ) {
+  private append(event: SpellHistoryEvent) {
     const spellId = event.ability.guid;
     const history = this.getAbility(spellId);
     if (history && event.timestamp > this.owner.fight.start_time) {

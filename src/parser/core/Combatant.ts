@@ -1,82 +1,71 @@
-import SPECS from 'game/SPECS';
-import RACES from 'game/RACES';
-import TALENT_ROWS from 'game/TALENT_ROWS';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
-import traitIdMap from 'common/TraitIdMap';
-import corruptionIdMap from 'common/corruptionIdMap';
+import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
-import { findByBossId } from 'raids';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import RACES from 'game/RACES';
+import { findByBossId } from 'game/raids';
+import SPECS, { Spec } from 'game/SPECS';
+import TALENT_ROWS from 'game/TALENT_ROWS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, EventType, Item, Trait } from 'parser/core/Events';
+import {
+  Buff,
+  CombatantInfoEvent,
+  Conduit,
+  EventType,
+  Item,
+  SoulbindTrait,
+} from 'parser/core/Events';
+
 import Entity from './Entity';
+import { PlayerInfo } from './Player';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
 }
 
-type Essence = {
-  icon: string;
-  isMajor: boolean;
-  rank: number;
-  spellID: number;
-  traitID: number;
-};
-
 type Spell = {
   id: number;
 };
 
-type Player = {
-  id: number;
-  name: string;
-  talents: Array<Talent>;
-  artifact: any;
-  heartOfAzeroth: any;
-  gear: any;
-  auras: any;
-};
-
 export type Race = {
-  id: number,
-  mask?: number,
-  side: string,
-  name: string,
-}
-
-type Talent = {
   id: number;
-};
-
-type Corruption = {
+  mask?: number;
+  side: string;
   name: string;
-  /** The amount of Corruption gained by using this effect */
-  corruption?: number;
-  /** The rank of the effect */
-  rank: string;
-  /** How often someone has this corruption effect of that exact rank */
-  count: number;
-}
+};
 
 class Combatant extends Entity {
   get id() {
     return this._combatantInfo.sourceID;
   }
+
   get name() {
     return this._combatantInfo.name;
   }
+
   get specId() {
     return this._combatantInfo.specID;
   }
-  get spec() {
+  get player() {
+    return this._combatantInfo.player;
+  }
+
+  /** @deprecated Use player.icon instead. */
+  get spec(): Spec | undefined {
     return SPECS[this.specId];
   }
+
   get race(): Race | null {
-    if (!this.owner.characterProfile) {
+    if (!this.owner.characterProfile || !this.owner.characterProfile.race) {
       return null;
     }
     const raceId = this.owner.characterProfile.race;
-    let race = Object.values(RACES).find(race => race.id === raceId);
-    if(race === undefined) {
+    if (raceId === null) {
+      // When it is an anonymous report we won't have any race.
+      return raceId;
+    }
+
+    let race = Object.values(RACES).find((race) => race.id === raceId);
+    if (race === undefined) {
       throw new Error(`Unknown race id ${raceId}`);
     }
     if (!this.owner.boss) {
@@ -88,67 +77,84 @@ class Combatant extends Entity {
     }
     return race;
   }
+
   get characterProfile() {
     return this.owner.characterProfile;
   }
 
   _combatantInfo: CombatantInfo;
+
   constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
     const playerInfo = parser.players.find(
-      (player: Player) => player.id === combatantInfo.sourceID,
+      (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
+
+    if (combatantInfo.expansion === 'shadowlands') {
+      combatantInfo.soulbindTraits = combatantInfo.customPowerSet;
+      combatantInfo.conduits = combatantInfo.secondaryCustomPowerSet;
+    }
+
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this
       // into account would cause the log to be unparsable
-      name: (
-        playerInfo && playerInfo.name
-      ) || 'undefined',
+      name: (playerInfo && playerInfo.name) || 'undefined',
       ...combatantInfo,
     };
 
     this._parseTalents(combatantInfo.talents);
-    this._parseTraits(combatantInfo.artifact);
-    this._parseEssences(combatantInfo.heartOfAzeroth);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
-    this._parseCorruption(combatantInfo.gear);
+    this._parseCovenant(combatantInfo.covenantID);
+    this._parseSoulbind(combatantInfo.soulbindID);
+    this._parseSoulbindTraits(combatantInfo.soulbindTraits);
+    this._parseConduits(combatantInfo.conduits);
   }
 
   // region Talents
   _talentsByRow: { [key: number]: number } = {};
-  _parseTalents(talents: Array<Talent>) {
+
+  _parseTalents(talents: Spell[]) {
     talents.forEach(({ id }, index: number) => {
       this._talentsByRow[index] = id;
     });
   }
+
   get talents() {
     return Object.values(this._talentsByRow);
   }
+
   _getTalent(row: number) {
     return this._talentsByRow[row];
   }
+
   get lv15Talent() {
     return this._getTalent(TALENT_ROWS.LV15);
   }
+
+  get lv25Talent() {
+    return this._getTalent(TALENT_ROWS.LV25);
+  }
+
   get lv30Talent() {
     return this._getTalent(TALENT_ROWS.LV30);
   }
+
+  get lv35Talent() {
+    return this._getTalent(TALENT_ROWS.LV35);
+  }
+
+  get lv40Talent() {
+    return this._getTalent(TALENT_ROWS.LV40);
+  }
+
   get lv45Talent() {
     return this._getTalent(TALENT_ROWS.LV45);
   }
-  get lv60Talent() {
-    return this._getTalent(TALENT_ROWS.LV60);
-  }
-  get lv75Talent() {
-    return this._getTalent(TALENT_ROWS.LV75);
-  }
-  get lv90Talent() {
-    return this._getTalent(TALENT_ROWS.LV90);
-  }
-  get lv100Talent() {
-    return this._getTalent(TALENT_ROWS.LV100);
+
+  get lv50Talent() {
+    return this._getTalent(TALENT_ROWS.LV50);
   }
 
   hasTalent(spell: number | Spell) {
@@ -166,177 +172,226 @@ class Combatant extends Entity {
 
   // endregion
 
-  // region Traits
-  traitsBySpellId: { [key: number]: Array<number> } = {};
-  _parseTraits(traits: Array<Trait>) {
-    traits.forEach(({ traitID, rank }) => {
-      const spellId = traitIdMap[traitID];
-      if (spellId === undefined) {
-        return;
-      }
-      if (!this.traitsBySpellId[spellId]) {
-        this.traitsBySpellId[spellId] = [];
-      }
-      this.traitsBySpellId[spellId].push(rank);
-    });
-  }
-  hasTrait(spellId: number) {
-    return Boolean(this.traitsBySpellId[spellId]);
-  }
-  traitRanks(spellId: number) {
-    return this.traitsBySpellId[spellId];
-  }
-  // endregion
+  hasWeaponEnchant(enchant: Enchant) {
+    if (this.mainHand && this.mainHand.permanentEnchant === enchant.effectId) {
+      return true;
+    }
 
-  // region Essences
-  essencesByTraitID: { [key: number]: Essence } = {};
-  _parseEssences(essences: Array<Essence>) {
-    if (essences === undefined) {
+    if (this.offHand && this.offHand.permanentEnchant === enchant.effectId) {
+      return true;
+    }
+
+    return false;
+  }
+
+  //region Shadowlands Systems
+
+  //region Covenants
+  covenantsByCovenantID: { [key: number]: CombatantInfo['covenantID'] } = {};
+
+  _parseCovenant(covenantID: CombatantInfo['covenantID']) {
+    if (!covenantID) {
       return;
     }
-    essences.forEach((essence: Essence) => {
-      if (Boolean(this.essencesByTraitID[essence.traitID])) {
-        essence.isMajor = true;
-      }
-      this.essencesByTraitID[essence.traitID] = essence;
-      //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int,
-      // traitID:int}
-    });
+    this.covenantsByCovenantID[covenantID] = covenantID;
   }
-  hasEssence(traitId: number) {
-    return Boolean(this.essencesByTraitID[traitId]);
-  }
-  hasMajor(traitId: number) {
-    return this.essencesByTraitID[traitId] &&
-      this.essencesByTraitID[traitId].isMajor;
-  }
-  essenceRank(traitId: number) {
-    return (
-      this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank
-    );
-  }
-  // endregion
 
-  // region Corruption effects
-  corruptionBySpellId: { [key: number]: Corruption } = {};
-  _parseCorruption(gear: Array<Item>) {
-    gear.forEach((item) => {
-      const bonusId = item.bonusIDs?.find(x => Object.keys(corruptionIdMap)
-        .includes(x.toString()));
-      if (bonusId === undefined) {
-        return;
-      }
-      const corr = corruptionIdMap[bonusId];
+  hasCovenant(covenantID: CombatantInfo['covenantID']) {
+    return Boolean(this.covenantsByCovenantID[covenantID]);
+  }
 
-      if (!this.corruptionBySpellId[corr.spellId]) {
-        this.corruptionBySpellId[corr.spellId] = {
-          name: corr.name,
-          corruption: corr.corruption,
-          rank: corr.rank,
-          count: 1,
-        };
-      } else {
-        this.corruptionBySpellId[corr.spellId].count += 1;
+  //endregion
+
+  //region Soulbinds
+  soulbindsBySoulbindID: { [key: number]: CombatantInfo['soulbindID'] } = {};
+
+  _parseSoulbind(soulbindID: CombatantInfo['soulbindID']) {
+    if (!soulbindID) {
+      return;
+    }
+    this.soulbindsBySoulbindID[soulbindID] = soulbindID;
+  }
+
+  hasSoulbind(soulbindID: CombatantInfo['soulbindID']) {
+    return Boolean(this.soulbindsBySoulbindID[soulbindID]);
+  }
+
+  soulbindTraitsByID: { [key: number]: SoulbindTrait } = {};
+
+  _parseSoulbindTraits(soulbindTraits: SoulbindTrait[] | undefined) {
+    if (soulbindTraits === undefined) {
+      return;
+    }
+    soulbindTraits.forEach((soulbindTrait: SoulbindTrait) => {
+      if (soulbindTrait.spellID !== 0) {
+        this.soulbindTraitsByID[soulbindTrait.spellID] = soulbindTrait;
       }
     });
   }
-  hasCorruption(spellId: number) {
-    return Boolean(this.corruptionBySpellId[spellId]);
+
+  hasSoulbindTrait(soulbindTraitID: number) {
+    return Boolean(this.soulbindTraitsByID[soulbindTraitID]);
   }
-  hasCorruptionByName(spell: string) {
-    return Boolean(Object.values(this.corruptionBySpellId).find(p => p.name ===
-      spell));
+
+  //endregion
+
+  //region Conduits
+  conduitsByConduitID: { [key: number]: Conduit } = {};
+
+  _parseConduits(conduits: Conduit[] | undefined) {
+    if (!conduits) {
+      return;
+    }
+
+    const ilvlToRankMapping: { [key: number]: number } = {
+      145: 1,
+      158: 2,
+      171: 3,
+      184: 4,
+      200: 5,
+      213: 6,
+      226: 7,
+      239: 8,
+      252: 9,
+      265: 10,
+      278: 11,
+      291: 12,
+      304: 13,
+      317: 14,
+      330: 15,
+    };
+
+    conduits.forEach((conduit: Conduit) => {
+      conduit.itemLevel = conduit.rank; // conduit "rank" passed in is actually its ilvl
+      conduit.rank = ilvlToRankMapping[conduit.rank];
+      this.conduitsByConduitID[conduit.spellID] = conduit;
+    });
   }
-  getCorruptionCount(spellId: number) {
-    return Number(this.corruptionBySpellId[spellId]?.count || 0);
+
+  hasConduitBySpellID(spellId: number) {
+    return Boolean(this.conduitsByConduitID[spellId]);
   }
-  // endregion
+
+  conduitRankBySpellID(spellId: number) {
+    return this.conduitsByConduitID[spellId] && this.conduitsByConduitID[spellId].rank;
+  }
+
+  //endregion
+
+  //endregion
 
   // region Gear
   _gearItemsBySlotId: { [key: number]: Item } = {};
-  _parseGear(gear: Array<Item>) {
+
+  _parseGear(gear: Item[]) {
     gear.forEach((item, index) => {
       this._gearItemsBySlotId[index] = item;
     });
   }
+
   _getGearItemBySlotId(slotId: number) {
     return this._gearItemsBySlotId[slotId];
   }
+
   _getGearItemGemsBySlotId(slotId: number) {
     if (this._gearItemsBySlotId[slotId]) {
       return this._gearItemsBySlotId[slotId].gems;
     }
     return undefined;
   }
+
   get gear() {
     return Object.values(this._gearItemsBySlotId);
   }
+
   get head() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);
   }
+
   hasHead(itemId: number) {
     return this.head && this.head.id === itemId;
   }
+
   get neck() {
     return this._getGearItemBySlotId(GEAR_SLOTS.NECK);
   }
+
   hasNeck(itemId: number) {
     return this.neck && this.neck.id === itemId;
   }
+
   get shoulder() {
     return this._getGearItemBySlotId(GEAR_SLOTS.SHOULDER);
   }
+
   hasShoulder(itemId: number) {
     return this.shoulder && this.shoulder.id === itemId;
   }
+
   get back() {
     return this._getGearItemBySlotId(GEAR_SLOTS.BACK);
   }
+
   hasBack(itemId: number) {
     return this.back && this.back.id === itemId;
   }
+
   get chest() {
     return this._getGearItemBySlotId(GEAR_SLOTS.CHEST);
   }
+
   hasChest(itemId: number) {
     return this.chest && this.chest.id === itemId;
   }
+
   get wrists() {
     return this._getGearItemBySlotId(GEAR_SLOTS.WRISTS);
   }
+
   hasWrists(itemId: number) {
     return this.wrists && this.wrists.id === itemId;
   }
+
   get hands() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HANDS);
   }
+
   hasHands(itemId: number) {
     return this.hands && this.hands.id === itemId;
   }
+
   get waist() {
     return this._getGearItemBySlotId(GEAR_SLOTS.WAIST);
   }
+
   hasWaist(itemId: number) {
     return this.waist && this.waist.id === itemId;
   }
+
   get legs() {
     return this._getGearItemBySlotId(GEAR_SLOTS.LEGS);
   }
+
   hasLegs(itemId: number) {
     return this.legs && this.legs.id === itemId;
   }
+
   get feet() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FEET);
   }
+
   hasFeet(itemId: number) {
     return this.feet && this.feet.id === itemId;
   }
+
   get finger1() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FINGER1);
   }
+
   get finger2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FINGER2);
   }
+
   getFinger(itemId: number) {
     if (this.finger1 && this.finger1.id === itemId) {
       return this.finger1;
@@ -347,15 +402,19 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasFinger(itemId: number) {
     return this.getFinger(itemId) !== undefined;
   }
+
   get trinket1() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET1);
   }
+
   get trinket2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
   }
+
   getTrinket(itemId: number) {
     if (this.trinket1 && this.trinket1.id === itemId) {
       return this.trinket1;
@@ -366,34 +425,40 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasTrinket(itemId: number) {
     return this.getTrinket(itemId) !== undefined;
   }
+
   hasMainHand(itemId: number) {
     return this.mainHand && this.mainHand.id === itemId;
   }
+
   get mainHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.MAINHAND);
   }
+
   hasOffHand(itemId: number) {
     return this.offHand && this.offHand.id === itemId;
   }
+
   get offHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
+
   // Punchcards are insertable items for the Pocket Sized Computation Device
   // trinket The PSCD never has actual gems in it, since it is a one-time quest
   // reward
   get trinket1Punchcard() {
-    const punchcard =
-      this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
+    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
     return punchcard;
   }
+
   get trinket2Punchcard() {
-    const punchcard =
-      this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
+    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
     return punchcard;
   }
+
   // Red punchcard is always the first in the array
   getRedPunchcard(id: number) {
     if (this.trinket1Punchcard && this.trinket1Punchcard[0].id === id) {
@@ -405,9 +470,11 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasRedPunchcard(id: number) {
     return this.getRedPunchcard(id) !== undefined;
   }
+
   // Yellow punchcard is always second
   getYellowPunchcard(id: number) {
     if (this.trinket1Punchcard && this.trinket1Punchcard[1].id === id) {
@@ -419,17 +486,34 @@ class Combatant extends Entity {
 
     return undefined;
   }
+
   hasYellowPunchcard(id: number) {
     return this.getYellowPunchcard(id) !== undefined;
   }
+
+  //Each legendary is given a specific bonusID that is the same regardless which slot it appears on.
+  hasLegendaryByBonusID(legendaryBonusID: number) {
+    const foundLegendaryMatch = Object.keys(this._gearItemsBySlotId)
+      .map((key: any) => this._gearItemsBySlotId[key])
+      .find((item: Item) => {
+        if (typeof item.bonusIDs === 'number') {
+          return item.bonusIDs === legendaryBonusID;
+        } else {
+          return item?.bonusIDs?.includes(legendaryBonusID);
+        }
+      });
+    return typeof foundLegendaryMatch === 'object';
+  }
+
   getItem(itemId: number) {
     return Object.keys(this._gearItemsBySlotId)
       .map((key: any) => this._gearItemsBySlotId[key])
       .find((item: Item) => item.id === itemId);
   }
+
   // endregion
 
-  _parsePrepullBuffs(buffs: Array<Buff>) {
+  _parsePrepullBuffs(buffs: Buff[]) {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo,
     // but not all prepull buffs are in there and ApplyBuff finds more. We
     // should update ApplyBuff to add the other buffs to the auras prop of the
@@ -447,7 +531,9 @@ class Combatant extends Entity {
           type: 0,
         },
         sourceID: buff.source,
+        sourceIsFriendly: true,
         targetID: this.id,
+        targetIsFriendly: true,
         start: timestamp,
       });
     });

@@ -11,8 +11,8 @@ const Hotkeys = () => {
         e.key === 'l' &&
         // eslint-disable-next-line no-restricted-globals
         confirm(
-          "Open this page in your development environment?\n\n" +
-          "See https://github.com/WoWAnalyzer/WoWAnalyzer#getting-started for information on how to set this up.",
+          'Open this page in your development environment?\n\n' +
+            'See https://github.com/WoWAnalyzer/WoWAnalyzer#getting-started for information on how to set this up.',
         )
       ) {
         const newUrl = `http://localhost:3000${window.location.pathname}`;
