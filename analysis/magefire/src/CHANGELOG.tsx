@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Fire Mage. Spec updates for Fire will be coming soon', Sharrq),
   change(date(2021, 4, 3), 'Verified changes and bumped support to 9.0.5.', Adoraci),
   change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Fire Mage has not been fully tested/updated for 9.0.5.', Sharrq),
   change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Fire Mage. Marked Fire Mage as Unsupported/Unmaintained.', Sharrq),
