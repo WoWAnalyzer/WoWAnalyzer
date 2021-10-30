@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Frost Mage. Spec updates for Frost will be coming soon', Sharrq),
   change(date(2021, 10, 1), 'Fixed frost mage talent image icon on character page.', Karahtar),
   change(date(2021, 6, 29), <>Bumped to 9.1 to remove error.</>, Zea),
   change(date(2021, 5, 27), <>Fixed a bug where <SpellLink id={SPELLS.SHIVERING_CORE.id} /> damage contribution would always show as zero.</>, Sref),
