@@ -323,7 +323,7 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
            HPS
            
           <small>
-            14.01
+            6.00
             % of total
           </small>
         </div>
@@ -4835,7 +4835,7 @@ exports[`Blood Death Knight integration test: example log ThroughputStatisticGro
               }
             }
           >
-            8,013
+            18,717
              HPS
           </div>
           <div
@@ -5082,7 +5082,7 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
            HPS
            
           <small>
-            1.32
+            0.57
             % of total
           </small>
         </div>

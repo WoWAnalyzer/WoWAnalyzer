@@ -5230,7 +5230,7 @@ exports[`Shadow Priest integration test: example log ThroughputStatisticGroup ma
               }
             }
           >
-            702
+            1,340
              HPS
           </div>
           <div
@@ -5520,7 +5520,7 @@ exports[`Shadow Priest integration test: example log UnholyNova matches the stat
            HPS
            
           <small>
-            38.61
+            20.25
             % of total
           </small>
         </div>

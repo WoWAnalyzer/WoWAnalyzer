@@ -6023,7 +6023,7 @@ exports[`Marksmanship Hunter integration test: Multi Target ThroughputStatisticG
               }
             }
           >
-            75
+            928
              HPS
           </div>
           <div
@@ -8748,11 +8748,11 @@ exports[`Marksmanship Hunter integration test: Single Target CarefulAim matches 
             src="/img/sword.png"
           />
            
-          787
+          349
            DPS
            
           <small>
-            12.41
+            5.51
              % of total
           </small>
           <br />
@@ -8762,7 +8762,7 @@ exports[`Marksmanship Hunter integration test: Single Target CarefulAim matches 
             hits for
           </small>
            ≈ 
-          17k
+          7,380
            
           <small>
             each
@@ -13787,7 +13787,7 @@ exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune m
            HPS
            
           <small>
-            8.33
+            0.91
             % of total
           </small>
         </div>
@@ -14114,7 +14114,7 @@ exports[`Marksmanship Hunter integration test: Single Target ThroughputStatistic
               }
             }
           >
-            162
+            1,491
              HPS
           </div>
           <div

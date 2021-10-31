@@ -4390,11 +4390,11 @@ exports[`Survival Hunter integration test: Multi Target StrengthOfThePack matche
             src="/img/sword.png"
           />
            
-          290
+          314
            DPS
            
           <small>
-            1.88
+            2.03
              % of total
           </small>
         </div>
@@ -4812,7 +4812,7 @@ exports[`Survival Hunter integration test: Multi Target ThroughputStatisticGroup
               }
             }
           >
-            206
+            1,061
              HPS
           </div>
           <div
@@ -11536,11 +11536,11 @@ exports[`Survival Hunter integration test: Single Target StrengthOfThePack match
             src="/img/sword.png"
           />
            
-          83
+          102
            DPS
            
           <small>
-            2.11
+            2.59
              % of total
           </small>
         </div>
@@ -11910,7 +11910,7 @@ exports[`Survival Hunter integration test: Single Target ThroughputStatisticGrou
               }
             }
           >
-            502
+            1,519
              HPS
           </div>
           <div

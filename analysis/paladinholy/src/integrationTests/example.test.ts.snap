@@ -343,7 +343,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
            HPS
            
           <small>
-            18.75
+            15.62
             % of total
           </small>
           <br />
@@ -5970,7 +5970,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
               message="Up to {lostBeaconHealing}"
               values={
                 Object {
-                  "lostBeaconHealing": "1.07 % / 164 HPS",
+                  "lostBeaconHealing": "0.89 % / 164 HPS",
                 }
               }
             />
@@ -9028,7 +9028,7 @@ exports[`Holy Paladin integration test: example log ThroughputStatisticGroup mat
               }
             }
           >
-            15,433
+            18,525
              HPS
           </div>
           <div
