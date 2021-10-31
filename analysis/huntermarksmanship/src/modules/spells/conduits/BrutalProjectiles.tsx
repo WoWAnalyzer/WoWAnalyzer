@@ -30,6 +30,7 @@ class BrutalProjectiles extends Analyzer {
   procs = 0;
   overwrittenProcs = 0;
   usedProcs = 0;
+  targetID?: number;
 
   constructor(options: Options) {
     super(options);
@@ -72,6 +73,7 @@ class BrutalProjectiles extends Analyzer {
     this.currentTick = 0;
     if (this.selectedCombatant.hasBuff(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF.id)) {
       this.usedProcs += 1;
+      this.targetID = event.targetID;
     }
   }
 
@@ -83,7 +85,9 @@ class BrutalProjectiles extends Analyzer {
       event,
       BRUTAL_PROJECTILES_RAMP_DAMAGE[this.conduitRank] * this.currentTick,
     );
-    this.currentTick += 1;
+    if (this.targetID === event.targetID) {
+      this.currentTick += 1;
+    }
   }
 
   statistic() {

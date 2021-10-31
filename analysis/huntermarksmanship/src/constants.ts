@@ -125,21 +125,21 @@ export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
 //Each Shot of Rapid Fire increases damage more and more over its duration
 export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [
   0,
-  0.01,
-  1.25,
-  0.015,
-  0.02,
-  0.0225,
-  0.025,
-  0.0275,
+  0.03,
   0.0325,
   0.035,
-  0.0375,
   0.04,
   0.0425,
   0.045,
   0.0475,
-  0.05,
+  0.0525,
+  0.055,
+  0.0575,
+  0.06,
+  0.0625,
+  0.065,
+  0.0675,
+  0.07,
 ];
 /** Deadly Chain */
 //With Deadly Chain your trickshots damage is increased

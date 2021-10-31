@@ -710,8 +710,8 @@
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
-    "specSet": 40,
-    "specUsable": [71],
+    "specSet": 47,
+    "specUsable": [71, 72],
     "itemId": 180944,
     "ranks": [
       {
@@ -10033,7 +10033,7 @@
   },
   {
     "id": 120,
-    "name": "Nature's Reach",
+    "name": "Nature's Focus",
     "icon": "spell_shaman_blessingofeternals",
     "typeId": 1,
     "type": "potency",
@@ -13025,7 +13025,7 @@
   },
   {
     "id": 157,
-    "name": "Markman's Advantage",
+    "name": "Marksman's Advantage",
     "icon": "ability_argus_soulbombdebuffsmall",
     "typeId": 2,
     "type": "endurance",
@@ -17073,8 +17073,8 @@
   },
   {
     "id": 203,
-    "name": "Cold Embrace",
-    "icon": "spell_shadow_burningspirit",
+    "name": "Withering Bolt",
+    "icon": "spell_shadow_shadowbolt",
     "typeId": 1,
     "type": "potency",
     "covenant": 0,
@@ -17085,77 +17085,77 @@
       {
         "rank": 1,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 2,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 3,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 4,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 5,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 6,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 7,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 8,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 9,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 10,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 11,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 12,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 13,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 14,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       },
       {
         "rank": 15,
         "spellId": 339576,
-        "icon": "spell_shadow_burningspirit"
+        "icon": "spell_shadow_shadowbolt"
       }
     ]
   },
@@ -24112,357 +24112,215 @@
     ]
   },
   {
-    "id": 0,
-    "typeId": 0,
-    "type": "finesse",
+    "id": 283,
+    "name": "Condensed Anima Sphere",
+    "icon": "spell_animarevendreth_orb",
+    "typeId": 2,
+    "type": "endurance",
     "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 0,
+    "specSet": 2,
+    "specUsable": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      70,
+      71,
+      72,
+      73,
+      102,
+      103,
+      104,
+      105,
+      250,
+      251,
+      252,
+      253,
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265,
+      266,
+      267,
+      268,
+      269,
+      270,
+      577,
+      581
+    ],
+    "itemId": 187506,
     "ranks": [
       {
         "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 2,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 3,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 4,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 5,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 6,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 7,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 8,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 9,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 10,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 11,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 12,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
+      },
+      {
+        "rank": 13,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
+      },
+      {
+        "rank": 14,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
+      },
+      {
+        "rank": 15,
+        "spellId": 357888,
+        "icon": "spell_animarevendreth_orb"
       }
     ]
   },
   {
-    "id": 0,
-    "typeId": 0,
-    "type": "finesse",
+    "id": 284,
+    "name": "Adaptive Armor Fragment",
+    "icon": "inv_belt_plate_ardenweald_d_01",
+    "typeId": 1,
+    "type": "potency",
     "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 0,
+    "specSet": 1,
+    "specUsable": [66, 73, 104, 581, 268, 250],
+    "itemId": 187507,
     "ranks": [
       {
         "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 2,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 3,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 4,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 5,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 6,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 7,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 8,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 9,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 10,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 11,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      }
-    ]
-  },
-  {
-    "id": 0,
-    "typeId": 0,
-    "type": "finesse",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 0,
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 12,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 13,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 14,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       },
       {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      }
-    ]
-  },
-  {
-    "id": 0,
-    "typeId": 0,
-    "type": "finesse",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 0,
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      }
-    ]
-  },
-  {
-    "id": 0,
-    "typeId": 0,
-    "type": "finesse",
-    "covenant": 0,
-    "specSet": 0,
-    "specUsable": [],
-    "itemId": 0,
-    "ranks": [
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
-      },
-      {
-        "rank": 1,
-        "spellId": 0,
-        "icon": ""
+        "rank": 15,
+        "spellId": 357902,
+        "icon": "inv_belt_plate_ardenweald_d_01"
       }
     ]
   }

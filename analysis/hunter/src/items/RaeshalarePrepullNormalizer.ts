@@ -2,15 +2,13 @@ import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const debug = true;
-
+const debug = false;
+/**
+ * Wailing Arrow can begin casting before combat AND has travel time.
+ * This means we don't see the begincast event, and might not even see the cast success event - but we will see the damage event.
+ * This means our regular PrepullNormalizer won't fix it properly, and thus this normalizer will fabricate begincast events for any cast success events of Aimed Shot that don't have a preceding begincast event.
+ */
 class RaeshalarePrepullNormalizer extends EventsNormalizer {
-  /**
-   * Wailing Arrow can begin casting before combat AND has travel time.
-   * This means we don't see the begincast event, and might not even see the cast success event - but we will see the damage event.
-   * This means our regular PrepullNormalizer won't fix it properly, and thus this normalizer will fabricate begincast events for any cast success events of Aimed Shot that don't have a preceding begincast event.
-   */
-
   normalize(events: AnyEvent[]) {
     const fixedEvents: any[] = [];
     let lastBeginCastTimestamp: number | null = null;
