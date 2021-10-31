@@ -198,18 +198,18 @@ const tests = [
         beforeEventId: 50,
         beforeEventType: EventType.ApplyBuff,
         afterEventId: null,
-        afterEventType: EventType.Energize,
+        afterEventType: EventType.ResourceChange,
       },
     ],
     events: [
       // matches any ID
-      fakeEvent(1337, EventType.Energize, 100, 1, 1),
+      fakeEvent(1337, EventType.ResourceChange, 100, 1, 1),
       fakeEvent(50, EventType.ApplyBuff, 100, 1, 1),
       // matches any ID
-      fakeEvent(1, EventType.Energize, 200, 1, 1),
+      fakeEvent(1, EventType.ResourceChange, 200, 1, 1),
       fakeEvent(50, EventType.ApplyBuff, 200, 1, 1),
       // even an undefined ID!
-      fakeEvent(undefined, EventType.Energize, 300, 1, 1),
+      fakeEvent(undefined, EventType.ResourceChange, 300, 1, 1),
       fakeEvent(50, EventType.ApplyBuff, 300, 1, 1),
       // still needs to match type - won't swap
       fakeEvent(1337, EventType.Damage, 400, 1, 1),

@@ -452,7 +452,10 @@ class EventsTab extends React.Component {
                           </>
                         );
                       }
-                      if (rowData.type === EventType.Energize || rowData.type === EventType.Drain) {
+                      if (
+                        rowData.type === EventType.ResourceChange ||
+                        rowData.type === EventType.Drain
+                      ) {
                         const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                         const change = rowData.resourceChange - (rowData.waste || 0);
                         if (resource) {
@@ -516,7 +519,7 @@ class EventsTab extends React.Component {
                           </span>
                         );
                       }
-                      if (rowData.type === EventType.Energize) {
+                      if (rowData.type === EventType.ResourceChange) {
                         const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                         if (resource) {
                           return (

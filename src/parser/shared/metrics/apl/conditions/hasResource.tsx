@@ -12,7 +12,7 @@ export default function hasResource(resource: Resource, range: Range): Condition
     key: `hasResource-${resource.id}`,
     init: () => 0,
     update: (state, event) => {
-      if (event.type === EventType.Energize && event.resourceChangeType === resource.id) {
+      if (event.type === EventType.ResourceChange && event.resourceChangeType === resource.id) {
         return event.resourceChange - event.waste + state;
       } else if (
         event.type === EventType.SpendResource &&
