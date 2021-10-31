@@ -109,10 +109,15 @@ class EventEmitter extends Module {
   }
 
   createByCheck<ET extends EventType, E extends MappedEvent<ET>>(
-    by: number,
+    by: number | number[],
   ): ((event: E) => boolean) | null {
-    const requiresSelectedPlayer = by & SELECTED_PLAYER;
-    const requiresSelectedPlayerPet = by & SELECTED_PLAYER_PET;
+    const requiresSelectedPlayer =
+      by && (Array.isArray(by) && by.includes(SELECTED_PLAYER) ? SELECTED_PLAYER : SELECTED_PLAYER);
+    const requiresSelectedPlayerPet =
+      by &&
+      (Array.isArray(by) && by.includes(SELECTED_PLAYER_PET)
+        ? SELECTED_PLAYER_PET
+        : SELECTED_PLAYER_PET);
 
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
       return (event) => this.owner.byPlayer(event) || this.owner.byPlayerPet(event);
@@ -126,7 +131,7 @@ class EventEmitter extends Module {
   }
   _prependByCheck<ET extends EventType, E extends MappedEvent<ET>>(
     listener: EventListener<ET, E>,
-    by: number,
+    by: number | number[],
   ): EventListener<ET, E> {
     const check = this.createByCheck(by);
     if (!check) {
@@ -140,9 +145,17 @@ class EventEmitter extends Module {
     };
   }
 
-  createToCheck<ET extends EventType>(to: number): ((event: MappedEvent<ET>) => boolean) | null {
-    const requiresSelectedPlayer = to & SELECTED_PLAYER;
-    const requiresSelectedPlayerPet = to & SELECTED_PLAYER_PET;
+  createToCheck<ET extends EventType>(
+    to: number | number[],
+  ): ((event: MappedEvent<ET>) => boolean) | null {
+    const requiresSelectedPlayer =
+      to && (Array.isArray(to) && to.includes(SELECTED_PLAYER) ? SELECTED_PLAYER : SELECTED_PLAYER);
+    const requiresSelectedPlayerPet =
+      to &&
+      (Array.isArray(to) && to.includes(SELECTED_PLAYER_PET)
+        ? SELECTED_PLAYER_PET
+        : SELECTED_PLAYER_PET);
+
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
       return (event) => this.owner.toPlayer(event) || this.owner.toPlayerPet(event);
     } else if (requiresSelectedPlayer) {
@@ -155,7 +168,7 @@ class EventEmitter extends Module {
   }
   _prependToCheck<ET extends EventType, E extends MappedEvent<ET>>(
     listener: EventListener<ET, E>,
-    to: number,
+    to: number | number[],
   ): EventListener<ET, E> {
     const check = this.createToCheck(to);
     if (!check) {

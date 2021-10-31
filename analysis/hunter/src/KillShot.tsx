@@ -19,6 +19,7 @@ class KillShot extends ExecuteHelper {
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
   static executeOutsideRangeEnablers = [SPELLS.FLAYERS_MARK];
   static modifiesDamage = false;
+  static countCooldownAsExecuteTime = true;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,

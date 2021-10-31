@@ -9,6 +9,7 @@ import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 class ShadowWordDeath extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
+  static countCooldownAsExecuteTime = true;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,
@@ -43,6 +44,12 @@ class ShadowWordDeath extends ExecuteHelper {
 
   adjustMaxCasts() {
     const cooldown = this.abilities.getAbility(SPELLS.SHADOW_WORD_DEATH.id)!.cooldown * 1000;
+    console.log(
+      'NonExecuteCasts',
+      this.totalNonExecuteCasts,
+      'Total Execute casts',
+      this.totalExecuteCasts,
+    );
     this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown) + this.totalNonExecuteCasts;
   }
 }

@@ -15,6 +15,7 @@ const SOUL_REAPER_EXECUTE_RANGE = 0.35;
 class SoulReaper extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = SOUL_REAPER_EXECUTE_RANGE;
+  static countCooldownAsExecuteTime = true;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,

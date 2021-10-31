@@ -1,6 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -18,8 +18,8 @@ import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../con
  * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
  */
 class KillerInstinct extends ExecuteHelper {
-  static executeSpells = [SPELLS.KILL_COMMAND_DAMAGE_BM];
-  static executeSources = SELECTED_PLAYER_PET;
+  static executeSpells = [SPELLS.KILL_COMMAND_DAMAGE_BM, SPELLS.KILL_COMMAND_CAST_BM];
+  static executeSources = [SELECTED_PLAYER_PET, SELECTED_PLAYER];
   static lowerThreshold = KILLER_INSTINCT_THRESHOLD;
   static modifiesDamage = true;
   static damageModifier = KILLER_INSTINCT_MULTIPLIER;
