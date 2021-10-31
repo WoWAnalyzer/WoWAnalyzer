@@ -16,7 +16,7 @@ import {
   BORN_TO_BE_WILD_AFFECTED_SPELLS,
   CALL_OF_THE_WILD_CD_REDUCTION,
   HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
-} from './constants';
+} from '../constants';
 
 /**
  * Reduces the cooldowns of Aspect of the Cheetah and Aspect of the Turtle by 20%.

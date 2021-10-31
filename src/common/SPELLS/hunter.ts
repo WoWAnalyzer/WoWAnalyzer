@@ -602,6 +602,16 @@ const spells = {
     name: 'Tranquilizing Shot',
     icon: 'spell_nature_drowsy',
   },
+  WAILING_ARROW_CAST: {
+    id: 355589,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  WAILING_ARROW_DAMAGE: {
+    id: 354831,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
   //endregion
 
   //region Pets

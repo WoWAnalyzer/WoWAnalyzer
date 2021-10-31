@@ -19,11 +19,8 @@ import { BRUTAL_PROJECTILES_RAMP_DAMAGE } from '@wowanalyzer/hunter-marksmanship
 /**
  * Your auto attacks have a 10% chance to cause your next Rapid Fire to deal 1.0% increased damage for each shot.
  *
- * Example log
- *
- * TODO: If the buff goes live with 15 seconds despite Rapid Fire being 20 seconds cooldown, make some check for unlucky procs(?)
- * TODO: Verify these two buffs work like indicated in the spell data
- * TODO: Maybe even add a Binom chart to this, even it ends up being impactful?
+ * Example log:
+ * https://www.warcraftlogs.com/reports/Mwf9KAbVP8JNhdHG#fight=26&type=damage-done&source=37
  *
  */
 class BrutalProjectiles extends Analyzer {

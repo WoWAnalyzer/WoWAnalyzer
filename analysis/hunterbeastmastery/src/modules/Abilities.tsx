@@ -1,3 +1,4 @@
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -99,6 +100,22 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
+        },
+      },
+      //endregion
+
+      //region Items
+      {
+        spell: SPELLS.WAILING_ARROW_CAST.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasMainHand(ITEMS.RAESHALARE_DEATHS_WHISPER.id),
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       //endregion

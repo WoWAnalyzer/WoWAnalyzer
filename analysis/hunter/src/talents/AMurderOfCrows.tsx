@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from './constants';
+import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from '../constants';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
