@@ -10,7 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const debug = true;
+const debug = false;
 
 const MS_BUFFER = 500;
 
@@ -40,7 +40,9 @@ class ExecuteHelper extends Analyzer {
   static executeOutsideRangeEnablers: Spell[] = [];
 
   /**
-   *
+   * Whether cooldown of the executeSpells should count as time in execute.
+   * For spells such as Execute this should be set to true,
+   * but for spells like Aimed Shot that also function outside of execute this shouldn't be set.
    */
   static countCooldownAsExecuteTime: boolean;
 

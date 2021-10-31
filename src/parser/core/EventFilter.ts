@@ -28,7 +28,6 @@ class EventFilter<T extends EventType> {
     return this._by;
   }
   static validateBy(value: number) {
-    console.log(value);
     return (value & VALID_BY_FLAGS) === value;
   }
   private _to: number | number[] | undefined;
