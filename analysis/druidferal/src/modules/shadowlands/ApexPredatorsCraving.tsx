@@ -7,7 +7,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  EnergizeEvent,
+  ResourceChangeEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -42,7 +42,7 @@ class ApexPredatorsCraving extends Analyzer {
 
   damageDone: number = 0;
 
-  lastSotf?: EnergizeEvent;
+  lastSotf?: ResourceChangeEvent;
   sotfEnergyGained: number = 0;
   sotfEnergyEffective: number = 0;
   sotfEnergyWasted: number = 0;
@@ -71,7 +71,7 @@ class ApexPredatorsCraving extends Analyzer {
 
     if (this.hasSotf) {
       this.addEventListener(
-        Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY),
+        Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY),
         this.onSotfEnergize,
       );
     }
@@ -106,7 +106,7 @@ class ApexPredatorsCraving extends Analyzer {
     }
   }
 
-  onSotfEnergize(event: EnergizeEvent) {
+  onSotfEnergize(event: ResourceChangeEvent) {
     this.lastSotf = event;
   }
 

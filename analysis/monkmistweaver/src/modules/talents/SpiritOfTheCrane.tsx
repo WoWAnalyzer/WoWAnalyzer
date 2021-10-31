@@ -7,7 +7,7 @@ import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
-  EnergizeEvent,
+  ResourceChangeEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -58,7 +58,7 @@ class SpiritOfTheCrane extends Analyzer {
       this.lostStacks,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_THE_CRANE_BUFF),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_THE_CRANE_BUFF),
       this.stacksToMana,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.tigerPalm);
@@ -106,7 +106,7 @@ class SpiritOfTheCrane extends Analyzer {
     this.buffTotm = 0;
   }
 
-  stacksToMana(event: EnergizeEvent) {
+  stacksToMana(event: ResourceChangeEvent) {
     this.manaReturnSotc += event.resourceChange - event.waste;
     this.sotcWasted += event.waste;
     debug &&

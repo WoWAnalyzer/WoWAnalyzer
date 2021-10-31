@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -47,7 +47,7 @@ class KillCommand extends Analyzer {
       SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
     ) &&
       this.addEventListener(
-        Events.energize.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+        Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
         this.checkNesingwaryFocusGain,
       );
   }
@@ -70,7 +70,7 @@ class KillCommand extends Analyzer {
     }
   }
 
-  checkNesingwaryFocusGain(event: EnergizeEvent) {
+  checkNesingwaryFocusGain(event: ResourceChangeEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
       this.additionalFocusFromNesingwary +=
         event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - event.waste;

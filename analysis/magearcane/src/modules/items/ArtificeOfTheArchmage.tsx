@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
@@ -24,12 +24,12 @@ class ArtificeOfTheArchmage extends Analyzer {
       SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ARTIFICE_OF_THE_ARCHMAGE_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.ARTIFICE_OF_THE_ARCHMAGE_ENERGIZE),
       this.onEnergize,
     );
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.freeCharges += 2;
   }
 

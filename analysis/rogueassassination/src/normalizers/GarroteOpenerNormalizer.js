@@ -30,7 +30,7 @@ class GarroteNormalizer extends EventsNormalizer {
             break;
           }
           if (
-            previousEvent.type === EventType.Energize &&
+            previousEvent.type === EventType.ResourceChange &&
             previousEvent.ability.guid === SPELLS.GARROTE.id
           ) {
             event.timestamp = previousEvent.timestamp;

@@ -2,7 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -30,7 +30,7 @@ class ShadowCrash extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT),
       this.onEnergize,
     );
   }
@@ -46,7 +46,7 @@ class ShadowCrash extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.insanityGained += event.resourceChange;
   }
 

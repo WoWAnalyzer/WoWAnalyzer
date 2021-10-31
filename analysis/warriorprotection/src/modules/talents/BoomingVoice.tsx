@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -36,7 +36,7 @@ class BoomingVoice extends Analyzer {
       this.onShoutCast,
     );
     this.addEventListener(
-      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
       this.onShoutEnergize,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
@@ -65,7 +65,7 @@ class BoomingVoice extends Analyzer {
     this.nextCastWasted = 0;
   }
 
-  onShoutEnergize(event: EnergizeEvent) {
+  onShoutEnergize(event: ResourceChangeEvent) {
     this.rageGenerated += event.resourceChange;
     const waste = event.waste || 0;
     this.rageWasted += waste;

@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -25,11 +25,11 @@ class RecklessAbandon extends Analyzer {
     }
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS),
       this.onRecklessAbandonEnergize,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).to(SELECTED_PLAYER),
+      Events.resourcechange.by(SELECTED_PLAYER).to(SELECTED_PLAYER),
       this.onPlayerEnergize,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
@@ -39,16 +39,16 @@ class RecklessAbandon extends Analyzer {
     return this.owner.getPercentageOfTotalDamageDone(this.damage);
   }
 
-  hasLast4SecondsOfRecklessness(event: EnergizeEvent | DamageEvent) {
+  hasLast4SecondsOfRecklessness(event: ResourceChangeEvent | DamageEvent) {
     const reck = this.selectedCombatant.getBuff(SPELLS.RECKLESSNESS.id);
     return reck && event.timestamp - reck.start > BASE_RECKLESSNESS_DURATION;
   }
 
-  onRecklessAbandonEnergize(event: EnergizeEvent) {
+  onRecklessAbandonEnergize(event: ResourceChangeEvent) {
     this.instantRageGained += event.resourceChange;
   }
 
-  onPlayerEnergize(event: EnergizeEvent) {
+  onPlayerEnergize(event: ResourceChangeEvent) {
     if (this.hasLast4SecondsOfRecklessness(event)) {
       this.rageGained += event.resourceChange / 2;
     }

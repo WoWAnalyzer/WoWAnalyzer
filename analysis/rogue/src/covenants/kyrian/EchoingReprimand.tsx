@@ -3,7 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -28,7 +28,7 @@ class EchoingReprimand extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE),
       this.onEnergize,
     );
   }
@@ -37,7 +37,7 @@ class EchoingReprimand extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) {
       this.comboPointsGained += event.resourceChange;
       this.comboPointsWasted += event.waste;

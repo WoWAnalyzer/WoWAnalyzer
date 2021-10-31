@@ -3,7 +3,7 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -36,7 +36,7 @@ class Bladestorm extends Analyzer {
       this.onBladestormDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT),
       this.onBladestormEnergize,
     );
   }
@@ -72,7 +72,7 @@ class Bladestorm extends Analyzer {
     this.totalDamage += event.amount + (event.absorbed || 0);
   }
 
-  onBladestormEnergize(event: EnergizeEvent) {
+  onBladestormEnergize(event: ResourceChangeEvent) {
     this.rageGained += event.resourceChange;
   }
 

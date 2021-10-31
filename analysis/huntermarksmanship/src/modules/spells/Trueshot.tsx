@@ -4,7 +4,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -55,7 +55,7 @@ class Trueshot extends Analyzer {
       this.onTrueshotCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.focusCheck);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.focusCheck);
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.focusCheck);
   }
 
   get averageAimedShots() {
@@ -97,7 +97,7 @@ class Trueshot extends Analyzer {
     }
   }
 
-  focusCheck(event: EnergizeEvent | CastEvent) {
+  focusCheck(event: ResourceChangeEvent | CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }

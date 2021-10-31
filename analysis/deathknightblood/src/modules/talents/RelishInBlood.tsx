@@ -3,7 +3,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, HealEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -21,14 +21,14 @@ class RelishInBlood extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RELISH_IN_BLOOD_TALENT.id);
 
-    this.addEventListener(Events.energize.spell(SPELLS.RELISH_IN_BLOOD), this._relishBuffed);
+    this.addEventListener(Events.resourcechange.spell(SPELLS.RELISH_IN_BLOOD), this._relishBuffed);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RELISH_IN_BLOOD),
       this._onHeal,
     );
   }
 
-  _relishBuffed(event: EnergizeEvent) {
+  _relishBuffed(event: ResourceChangeEvent) {
     if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) {
       return;
     }

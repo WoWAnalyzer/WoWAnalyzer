@@ -1,6 +1,6 @@
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
@@ -28,7 +28,7 @@ class Shadowfiend extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onShadowfiendDamage);
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER_PET).spell({ id: SPELLS.SHADOW_FIEND_MANA_LEECH }),
+      Events.resourcechange.by(SELECTED_PLAYER_PET).spell({ id: SPELLS.SHADOW_FIEND_MANA_LEECH }),
       this.onShadowfiendRegen,
     );
   }
@@ -37,7 +37,7 @@ class Shadowfiend extends Analyzer {
     this.damageFromShadowfiend += event.amount + (event.absorb || 0);
   }
 
-  onShadowfiendRegen(event: EnergizeEvent) {
+  onShadowfiendRegen(event: ResourceChangeEvent) {
     this.manaFromShadowFiend += event.resourceChange;
   }
 

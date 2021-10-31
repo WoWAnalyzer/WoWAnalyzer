@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, InterruptEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, InterruptEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -27,7 +27,7 @@ class ReversalOfFortune extends Analyzer {
     );
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.REVERSAL_OF_FORTUNE_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.REVERSAL_OF_FORTUNE_ENERGIZE),
       this.onEnergize,
     );
     this.addEventListener(
@@ -36,7 +36,7 @@ class ReversalOfFortune extends Analyzer {
     );
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.focusGained += event.resourceChange;
     this.focusWasted += event.waste;
   }
