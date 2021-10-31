@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, CastEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, CastEvent } from 'parser/core/Events';
 
 class CrusaderStrike extends Analyzer {
   wasteHP = false;
@@ -12,12 +12,12 @@ class CrusaderStrike extends Analyzer {
       this.onCrusaderStrikeCast,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE),
       this.onCrusaderStrikeEnergize,
     );
   }
 
-  onCrusaderStrikeEnergize(event: EnergizeEvent) {
+  onCrusaderStrikeEnergize(event: ResourceChangeEvent) {
     if (event.waste > 0) {
       this.wasteHP = true;
     }

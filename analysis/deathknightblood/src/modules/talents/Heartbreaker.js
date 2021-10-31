@@ -16,7 +16,7 @@ class Heartbreaker extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEART_STRIKE), this.onCast);
-    this.addEventListener(Events.energize.spell(SPELLS.HEARTBREAKER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.spell(SPELLS.HEARTBREAKER), this.onEnergize);
   }
 
   onCast(event) {

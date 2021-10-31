@@ -4,7 +4,12 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbsorbedEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  AbsorbedEvent,
+  DamageEvent,
+  ResourceChangeEvent,
+  HealEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -88,7 +93,7 @@ class Mindgames extends Analyzer {
       this.onMindgamesAbsorbed,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_HEAL),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_HEAL),
       this.onEnergize,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES), this.onDamage);
@@ -118,7 +123,7 @@ class Mindgames extends Analyzer {
     this.preventedDamage += event.amount;
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.MANA.id) {
       this.manaGenerated += event.resourceChange || 0;
     }

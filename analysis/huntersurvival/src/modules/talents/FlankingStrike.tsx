@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -51,11 +51,11 @@ class FlankingStrike extends Analyzer {
       this.onPlayerDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET),
+      Events.resourcechange.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET),
       this.onPetEnergize,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER),
       this.onPlayerEnergize,
     );
   }
@@ -103,7 +103,7 @@ class FlankingStrike extends Analyzer {
     this.flankingStrikesPlayer.damage += event.amount + (event.absorbed || 0);
   }
 
-  onPetEnergize(event: EnergizeEvent) {
+  onPetEnergize(event: ResourceChangeEvent) {
     const effectiveFocus = event.resourceChange - event.waste || 0;
     const pet = this.getOrInitializePet(event.sourceID);
     if (!pet) {
@@ -113,7 +113,7 @@ class FlankingStrike extends Analyzer {
     pet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }
 
-  onPlayerEnergize(event: EnergizeEvent) {
+  onPlayerEnergize(event: ResourceChangeEvent) {
     const foundPlayer = this.flankingStrikesPlayer;
     foundPlayer.effectiveFocus += event.resourceChange - event.waste || 0;
     foundPlayer.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;

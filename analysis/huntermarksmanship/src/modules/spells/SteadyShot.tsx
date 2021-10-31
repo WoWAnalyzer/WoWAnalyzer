@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -23,12 +23,12 @@ class SteadyShot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.STEADY_SHOT_FOCUS),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.STEADY_SHOT_FOCUS),
       this.onEnergize,
     );
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.effectiveFocusGain += event.resourceChange - event.waste;
     this.focusWasted += event.waste;
     const hasTrueshot = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);

@@ -33,7 +33,7 @@ class Tombstone extends Analyzer {
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
       this.onEnergize,
     );
     this.addEventListener(

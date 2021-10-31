@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -33,7 +33,7 @@ class MeatCleaver extends Analyzer {
     }
 
     this.addEventListener(
-      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY_ENERGIZE),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY_ENERGIZE),
       this.onWhirlwindEnergize,
     );
     this.addEventListener(
@@ -66,7 +66,7 @@ class MeatCleaver extends Analyzer {
   }
 
   // The Energize event ligns up with the cast, so using it for both the rage gain, and timings of the cast.
-  onWhirlwindEnergize(event: EnergizeEvent) {
+  onWhirlwindEnergize(event: ResourceChangeEvent) {
     this.lastWhirlwindCast = event.timestamp;
     this.whirlwindEvents[this.lastWhirlwindCast] = {
       resourceChange: event.resourceChange,

@@ -29,7 +29,6 @@ import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
-import StatValues from './modules/features/StatValues';
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
@@ -86,7 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
-    statValues: StatValues,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
     buffs: Buffs,

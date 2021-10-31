@@ -6,7 +6,7 @@ import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
   DamageEvent,
   EventType,
-  EnergizeEvent,
+  ResourceChangeEvent,
   CastEvent,
   AnyEvent,
   ClassResources,
@@ -57,7 +57,7 @@ class SoulShardTracker extends ResourceTracker {
   }
 
   // this accounts for Soul Conduit and possibly Feretory of Souls (they grant whole Soul Shards and appear as energize events, but their resourceChange field is in values 0 - 5 and we want 0 - 50
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -22,14 +22,14 @@ class TheRotten extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_ROTTEN.bonusID);
     this.addEventListener(
-      Events.energize
+      Events.resourcechange
         .by(SELECTED_PLAYER)
         .spell([SPELLS.SHADOWSTRIKE, SPELLS.BACKSTAB, SPELLS.GLOOMBLADE_TALENT]),
       this.onDamage,
     );
   }
 
-  onDamage(event: EnergizeEvent) {
+  onDamage(event: ResourceChangeEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id)) {
       this.cpGained += event.resourceChange;
       this.cpWasted += event.waste;

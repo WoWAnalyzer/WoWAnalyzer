@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
@@ -32,7 +32,7 @@ class SignetOfTormentedKings extends Analyzer {
     );
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_TALENT),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_TALENT),
       this.onByPlayerSignetTriggeredBuff,
     );
     this.addEventListener(
@@ -44,7 +44,7 @@ class SignetOfTormentedKings extends Analyzer {
       this.onByPlayerSignetTriggeredBuff,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SIGNET_OF_TORMENTED_KINGS_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SIGNET_OF_TORMENTED_KINGS_ENERGIZE),
       this.onByPlayerSignetTriggeredBuff,
     );
 
@@ -62,7 +62,7 @@ class SignetOfTormentedKings extends Analyzer {
     );
   }
 
-  onByPlayerSignetTriggeredBuff(event: ApplyBuffEvent | EnergizeEvent) {
+  onByPlayerSignetTriggeredBuff(event: ApplyBuffEvent | ResourceChangeEvent) {
     if (this._signetIsUp === true && event.ability.guid !== this._lastSignetTrigger) {
       if (
         event.ability.guid === SPELLS.AVATAR_TALENT.id ||

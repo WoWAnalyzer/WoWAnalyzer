@@ -73,7 +73,7 @@ class RageWasted extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -32,7 +32,7 @@ class DeathAndMadness extends Analyzer {
       this.onBuff,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
       this.onEnergize,
     );
   }
@@ -46,7 +46,7 @@ class DeathAndMadness extends Analyzer {
     this.casts += 1;
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.insanityGained += event.resourceChange;
   }
 

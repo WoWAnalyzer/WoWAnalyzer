@@ -2,7 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -25,14 +25,14 @@ class BrynadaorsMight extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.energize, this._onEnergize);
+    this.addEventListener(Events.resourcechange, this._onEnergize);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE_HEAL),
       this._onHeal,
     );
   }
 
-  _onEnergize(event: EnergizeEvent) {
+  _onEnergize(event: ResourceChangeEvent) {
     if (
       event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id ||
       event.ability.guid !== SPELLS.BRYNDAORS_MIGHT_RUNIC_POWER_GAIN.id

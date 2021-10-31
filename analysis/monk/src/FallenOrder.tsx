@@ -28,8 +28,6 @@ class FallenOrder extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    // In my testing this line always returns false but its what putput uses so I have faith
-    // it will work in the future. (might just be a bad log too)
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
     if (!this.active) {

@@ -14,7 +14,7 @@ interface ResourcesGained {
  */
 const resourceGained = (events: AnyEvent[]) =>
   events.reduce<ResourcesGained>((obj, event) => {
-    if (event.type === EventType.Energize) {
+    if (event.type === EventType.ResourceChange) {
       obj[event.targetID] = obj[event.targetID] || {};
       obj[event.targetID][event.resourceChangeType] =
         obj[event.targetID][event.resourceChangeType] || {};

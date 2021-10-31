@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -23,12 +23,12 @@ class DashingScoundrel extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID);
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
       this.onEnergize,
     );
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.critCount += 1;
     this.comboPointsGained += event.resourceChange;
     this.comboPointsWasted += event.waste;

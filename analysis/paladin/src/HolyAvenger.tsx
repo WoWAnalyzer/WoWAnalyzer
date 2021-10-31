@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -22,10 +22,10 @@ class HolyAvenger extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.getHolyPower);
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.getHolyPower);
   }
 
-  getHolyPower(event: EnergizeEvent) {
+  getHolyPower(event: ResourceChangeEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id)) {
       return;
     }

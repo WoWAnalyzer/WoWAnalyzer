@@ -13,7 +13,7 @@ const EVENT_ORDERS: EventOrder[] = [
     ],
     beforeEventType: EventType.Cast,
     afterEventId: null, // FIXME could this be acccidentally matching other kinds of energizes?
-    afterEventType: EventType.Energize,
+    afterEventType: EventType.ResourceChange,
     bufferMs: 50,
   },
 ];

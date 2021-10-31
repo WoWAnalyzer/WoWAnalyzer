@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ResourceGenerated from 'parser/ui/ResourceGenerated';
 import Statistic from 'parser/ui/Statistic';
@@ -16,10 +16,10 @@ class Aftershock extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
 
-    this.addEventListener(Events.energize.spell(SPELLS.AFTERSHOCK), this.onAftershock);
+    this.addEventListener(Events.resourcechange.spell(SPELLS.AFTERSHOCK), this.onAftershock);
   }
 
-  onAftershock(event: EnergizeEvent) {
+  onAftershock(event: ResourceChangeEvent) {
     this.refund += event.resourceChange;
   }
 

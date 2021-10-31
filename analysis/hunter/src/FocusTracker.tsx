@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
-import { CastEvent, EnergizeEvent } from 'parser/core/Events';
+import { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 import {
@@ -19,7 +19,7 @@ class FocusTracker extends ResourceTracker {
   }
 
   //Because energize events associated with certain spells don't provide a waste number, but instead a lower resourceChange number we can calculate the waste ourselves.
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }

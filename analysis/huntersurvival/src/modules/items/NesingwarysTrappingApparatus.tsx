@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -37,12 +37,14 @@ class NesingwarysTrappingApparatus extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE),
+      Events.resourcechange
+        .by(SELECTED_PLAYER)
+        .spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE),
       this.onEnergize,
     );
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.focusGained += event.resourceChange;
     this.focusWasted += event.waste;
   }

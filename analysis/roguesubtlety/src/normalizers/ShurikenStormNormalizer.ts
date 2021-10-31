@@ -33,7 +33,10 @@ class ShurikenStormNormalizer extends EventsNormalizer {
       fixedEvents.push(event);
 
       // Find Shuriken Storm CP Events
-      if (event.type === EventType.Energize && event.ability.guid === SPELLS.SHURIKEN_STORM_CP.id) {
+      if (
+        event.type === EventType.ResourceChange &&
+        event.ability.guid === SPELLS.SHURIKEN_STORM_CP.id
+      ) {
         //Remove excess waste from Shuriken Storm.
         if (event.waste > 0) {
           if (event.resourceChange - event.waste >= this.minCPs) {

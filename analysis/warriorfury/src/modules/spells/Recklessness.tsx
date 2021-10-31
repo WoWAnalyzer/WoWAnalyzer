@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import React from 'react';
@@ -17,7 +17,7 @@ class Recklessness extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).to(SELECTED_PLAYER),
+      Events.resourcechange.by(SELECTED_PLAYER).to(SELECTED_PLAYER),
       this.onPlayerEnergize,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
@@ -35,7 +35,7 @@ class Recklessness extends Analyzer {
     return this.owner.getPercentageOfTotalDamageDone(this.reckDamage);
   }
 
-  onPlayerEnergize(event: EnergizeEvent) {
+  onPlayerEnergize(event: ResourceChangeEvent) {
     const resource =
       event.classResources &&
       event.classResources.find((classResources) => classResources.type === RESOURCE_TYPES.RAGE.id);

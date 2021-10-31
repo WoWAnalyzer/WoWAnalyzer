@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import ManaIcon from 'interface/icons/Mana';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, HealEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -62,7 +62,7 @@ class Resurgence extends Analyzer {
       this.onRelevantHeal,
     );
     this.addEventListener(
-      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE),
       this.onResurgenceProc,
     );
   }
@@ -88,7 +88,7 @@ class Resurgence extends Analyzer {
     }
   }
 
-  onResurgenceProc(event: EnergizeEvent) {
+  onResurgenceProc(event: ResourceChangeEvent) {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.RESURGENCE.id) {

@@ -3,7 +3,7 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -35,7 +35,7 @@ class DragonRoar extends Analyzer {
       this.onDragonRoarDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT),
       this.onDragonRoarEnergize,
     );
     this.addEventListener(
@@ -75,7 +75,7 @@ class DragonRoar extends Analyzer {
     this.totalDamage += event.amount + (event.absorbed || 0);
   }
 
-  onDragonRoarEnergize(event: EnergizeEvent) {
+  onDragonRoarEnergize(event: ResourceChangeEvent) {
     this.rageGained += event.resourceChange;
   }
 

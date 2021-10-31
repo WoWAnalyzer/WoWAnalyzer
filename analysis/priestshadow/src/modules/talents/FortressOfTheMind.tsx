@@ -2,7 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -28,7 +28,7 @@ class FortressOfTheMind extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(FORTRESS_ABILITIES),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(FORTRESS_ABILITIES),
       this.onEnergize,
     );
   }
@@ -38,7 +38,7 @@ class FortressOfTheMind extends Analyzer {
     this.damage += raw - raw / FORTRESS_OF_THE_MIND_DAMAGE_INCREASE;
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.insanity +=
       event.resourceChange - event.resourceChange / FORTRESS_OF_THE_MIND_INSANITY_INCREASE;
   }

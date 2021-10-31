@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
@@ -52,12 +52,12 @@ class ConvocationOfTheDead extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND_BURST),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND_BURST),
       this.onWoundBurst,
     );
   }
 
-  onWoundBurst(event: EnergizeEvent) {
+  onWoundBurst(event: ResourceChangeEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
       this.cooldownReduction += CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10;
       this.spellUsable.reduceCooldown(
