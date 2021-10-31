@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 10, 31), <>Removing healer stat weights. Adding Abelito75 as a contributor. </>, Abelito75),
   change(date(2021, 5, 17), <>Removing Anomoly as a contributor to this spec.</>, Anomoly),
   change(date(2021, 4, 1), <>Updated Mana Costs for <SpellLink id={SPELLS.RENEWING_MIST.id} /> and <SpellLink id={SPELLS.VIVIFY.id} /> to the correct values for 9.0.5.</>, Anomoly),
   change(date(2021, 1, 16), <>Re-enabling module support, as it is currently still going to be updated and supported moving forward.</>, Anomoly),
