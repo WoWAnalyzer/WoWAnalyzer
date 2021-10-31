@@ -3,7 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -34,7 +34,7 @@ class SerratedBoneSpike extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE),
       this.onEnergize,
     );
     this.addEventListener(
@@ -47,7 +47,7 @@ class SerratedBoneSpike extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) {
       this.comboPointsGained += event.resourceChange;
       this.comboPointsWasted += event.waste;

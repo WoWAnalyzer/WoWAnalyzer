@@ -33,7 +33,7 @@ class PetSummonHandler extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
     this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.onAbsorb);
   }

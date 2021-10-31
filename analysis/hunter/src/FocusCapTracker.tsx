@@ -3,7 +3,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Tooltip } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import FlushLineChart from 'parser/ui/FlushLineChart';
@@ -30,7 +30,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergizeByPlayer);
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onEnergizeByPlayer);
   }
 
   get wastedPercent() {
@@ -53,7 +53,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
     return HUNTER_BASE_FOCUS_MAX;
   }
 
-  onEnergizeByPlayer(event: EnergizeEvent) {
+  onEnergizeByPlayer(event: ResourceChangeEvent) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight] || this.current;
   }

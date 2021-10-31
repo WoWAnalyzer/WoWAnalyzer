@@ -180,7 +180,7 @@ class RegenResourceCapTracker extends Analyzer {
       timestamp: this.owner.fight.start_time,
     };
     this.addEventListener(Events.fightend, this.onFightend);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.drain.by(SELECTED_PLAYER), this.onDrain);

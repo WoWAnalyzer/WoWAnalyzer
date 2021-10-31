@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, CastEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, CastEvent } from 'parser/core/Events';
 
 // TODO: Needs updating with ExecuteHelper
 
@@ -14,12 +14,12 @@ class HammerofWrath extends Analyzer {
       this.onHammerofWrathCast,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH),
       this.onHammerofWrathEnergize,
     );
   }
 
-  onHammerofWrathEnergize(event: EnergizeEvent) {
+  onHammerofWrathEnergize(event: ResourceChangeEvent) {
     if (event.waste > 0) {
       this.wasteHP = true;
     }

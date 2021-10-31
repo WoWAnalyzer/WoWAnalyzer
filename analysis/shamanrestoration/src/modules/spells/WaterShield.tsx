@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import ManaIcon from 'interface/icons/Mana';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -27,7 +27,7 @@ class WaterShield extends Analyzer {
     this.active = false;
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE),
       this.waterShield,
     );
     this.addEventListener(
@@ -36,7 +36,7 @@ class WaterShield extends Analyzer {
     );
   }
 
-  waterShield(event: EnergizeEvent) {
+  waterShield(event: ResourceChangeEvent) {
     this.manaGain += event.resourceChange;
   }
 

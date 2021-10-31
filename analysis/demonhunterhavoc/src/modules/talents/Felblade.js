@@ -41,7 +41,7 @@ class Felblade extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
       this.onEnergizeEvent,
     );
     this.addEventListener(

@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
   ApplyBuffEvent,
-  EnergizeEvent,
+  ResourceChangeEvent,
   EventType,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -70,7 +70,7 @@ class RapidFire extends Analyzer {
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_FOCUS),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_FOCUS),
       this.onEnergize,
     );
   }
@@ -128,7 +128,7 @@ class RapidFire extends Analyzer {
     this.currentFocusTicks = 0;
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.effectiveFocusGain += event.resourceChange - event.waste;
     this.focusWasted += event.waste;
     const hasTrueshot = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);

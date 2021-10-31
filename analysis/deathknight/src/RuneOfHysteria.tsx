@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -32,10 +32,10 @@ class RuneOfHysteria extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.energize, this._onEnergize);
+    this.addEventListener(Events.resourcechange, this._onEnergize);
   }
 
-  _onEnergize(event: EnergizeEvent) {
+  _onEnergize(event: ResourceChangeEvent) {
     const hysteriaUp = this.selectedCombatant.hasBuff(
       SPELLS.RUNE_OF_HYSTERIA_BUFF.id,
       event.timestamp,

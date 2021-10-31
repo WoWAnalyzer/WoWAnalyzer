@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -36,7 +36,7 @@ class Superstrain extends Analyzer {
     if (
       [SPECS.BLOOD_DEATH_KNIGHT, SPECS.UNHOLY_DEATH_KNIGHT].includes(this.selectedCombatant.spec)
     ) {
-      this.addEventListener(Events.energize, this._onFrostFeverEnergize);
+      this.addEventListener(Events.resourcechange, this._onFrostFeverEnergize);
     }
 
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
@@ -99,7 +99,7 @@ class Superstrain extends Analyzer {
     this.virulentPlagueDamage += event.amount + (event.absorb || 0);
   }
 
-  _onFrostFeverEnergize(event: EnergizeEvent) {
+  _onFrostFeverEnergize(event: ResourceChangeEvent) {
     if (
       event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id ||
       event.ability.guid !== SPELLS.FROST_FEVER_RP_GAIN.id

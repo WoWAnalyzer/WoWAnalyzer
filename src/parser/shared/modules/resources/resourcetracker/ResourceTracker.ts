@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
   EventType,
   ClassResources,
-  EnergizeEvent,
+  ResourceChangeEvent,
   CastEvent,
   HealEvent,
   SpendResourceEvent,
@@ -58,7 +58,7 @@ class ResourceTracker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
@@ -77,7 +77,7 @@ class ResourceTracker extends Analyzer {
   }
 
   // BUILDERS - Handled on energize, using the 'resourceChange' field
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     const spellId = event.ability.guid;
 
     if (event.resourceChangeType !== this.resource.id) {
@@ -193,7 +193,7 @@ class ResourceTracker extends Analyzer {
     return this.getResource(event)?.cost;
   }
 
-  getResource(event: CastEvent | HealEvent | EnergizeEvent) {
+  getResource(event: CastEvent | HealEvent | ResourceChangeEvent) {
     if (!event.classResources) {
       return undefined;
     } else {

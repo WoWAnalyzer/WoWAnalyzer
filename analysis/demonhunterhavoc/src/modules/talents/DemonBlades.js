@@ -39,7 +39,7 @@ class DemonBlades extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
       this.onEnergizeEvent,
     );
     this.addEventListener(

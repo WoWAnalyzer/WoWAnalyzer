@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
@@ -28,12 +28,12 @@ class TigersFuryEnergy extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY),
       this.onTigersFuryEnergize,
     );
   }
 
-  onTigersFuryEnergize(event: EnergizeEvent) {
+  onTigersFuryEnergize(event: ResourceChangeEvent) {
     const total = event.resourceChange;
     const waste = event.waste;
 

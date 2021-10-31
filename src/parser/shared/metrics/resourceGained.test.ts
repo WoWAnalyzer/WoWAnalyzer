@@ -1,8 +1,8 @@
-import { EnergizeEvent, EventType } from 'parser/core/Events';
+import { ResourceChangeEvent, EventType } from 'parser/core/Events';
 
 import resourceGained from './resourceGained';
 
-const energizeEvent = (id: number, amount: number = 100): EnergizeEvent => ({
+const energizeEvent = (id: number, amount: number = 100): ResourceChangeEvent => ({
   type: EventType.ResourceChange,
   ability: {
     guid: id,

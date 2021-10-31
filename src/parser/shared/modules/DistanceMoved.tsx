@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -28,7 +28,7 @@ class DistanceMoved extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.updatePlayerPosition);
     // These coordinates are for the target, so they are only accurate when done TO player
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.updatePlayerPosition);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.updatePlayerPosition);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.updatePlayerPosition);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.updatePlayerPosition);
     /* I couldn't find any instances of absorbed events containing location,
      * if it can actually happen we can update the AbsorbedEvent shape and
@@ -72,7 +72,7 @@ class DistanceMoved extends Analyzer {
     }
   }
 
-  updatePlayerPosition(event: CastEvent | HealEvent | DamageEvent | EnergizeEvent) {
+  updatePlayerPosition(event: CastEvent | HealEvent | DamageEvent | ResourceChangeEvent) {
     if (!event.x || !event.y) {
       return;
     }
