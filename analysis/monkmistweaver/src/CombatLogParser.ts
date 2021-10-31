@@ -11,6 +11,7 @@ import {
   GroundingBreath,
   HarmDenial,
   ImbuedReflections,
+  SinisterTeachings,
   TouchOfDeath,
 } from '@wowanalyzer/monk';
 
@@ -143,6 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tearofMorning: TearofMorning,
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
+    sinisterTeachings: SinisterTeachings,
   };
 }
 
