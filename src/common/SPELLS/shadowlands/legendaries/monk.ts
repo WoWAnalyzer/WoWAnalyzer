@@ -174,5 +174,33 @@ const legendaries = {
   },
 
   //endregion
+
+  // Covenant
+  CALL_TO_ARMS: {
+    id: 356684,
+    name: 'Call to Arms',
+    icon: 'ability_bastion_monk',
+    bonusID: 7718,
+  },
+  BOUNTIFUL_BREW: {
+    id: 356592,
+    name: 'Bountiful Brew',
+    icon: 'ability_maldraxxus_monk',
+    bonusID: 7707,
+  },
+  FAELINE_HARMONY: {
+    id: 356705,
+    name: 'Faeline Harmony',
+    icon: 'ability_ardenweald_monk',
+    bonusID: 7721,
+  },
+  SINISTER_TEACHINGS: {
+    id: 356818,
+    name: 'Sinister Teachings',
+    icon: 'ability_revendreth_monk',
+    bonusID: 7726,
+  },
+
+  // end region
 } as const;
 export default legendaries;

@@ -77,6 +77,7 @@ const covenants = {
 
   //region Venthyr
   FALLEN_ORDER_CAST: {
+    // this is also the buff :)
     id: 326860,
     name: 'Fallen Order',
     icon: 'ability_revendreth_monk',
