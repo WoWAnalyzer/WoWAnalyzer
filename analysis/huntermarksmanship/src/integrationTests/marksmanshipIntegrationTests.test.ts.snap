@@ -6023,7 +6023,7 @@ exports[`Marksmanship Hunter integration test: Multi Target ThroughputStatisticG
               }
             }
           >
-            928
+            75
              HPS
           </div>
           <div
@@ -13787,7 +13787,7 @@ exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune m
            HPS
            
           <small>
-            0.91
+            8.33
             % of total
           </small>
         </div>
@@ -14114,7 +14114,7 @@ exports[`Marksmanship Hunter integration test: Single Target ThroughputStatistic
               }
             }
           >
-            1,491
+            162
              HPS
           </div>
           <div

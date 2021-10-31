@@ -31,7 +31,7 @@ class ExecuteHelper extends Analyzer {
   /**
    * SELECTED_PLAYER or SELECTED_PLAYER_PET for usage in the eventfilter
    */
-  static executeSources: number | number[];
+  static executeSources: number;
 
   /**
    * Array of objects from common/SPELLS

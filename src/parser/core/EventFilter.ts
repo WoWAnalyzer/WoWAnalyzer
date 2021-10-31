@@ -12,13 +12,9 @@ class EventFilter<T extends EventType> {
   constructor(eventType: T) {
     this.eventType = eventType;
   }
-  private _by: number | number[] | undefined;
-  by(value: number | number[]) {
-    if (
-      Array.isArray(value)
-        ? !value.every((elem) => EventFilter.validateBy(elem))
-        : !EventFilter.validateBy(value)
-    ) {
+  private _by: number | undefined;
+  by(value: number) {
+    if (!EventFilter.validateBy(value)) {
       throw new Error(`by filter not recognized: ${value}`);
     }
     this._by = value;
@@ -30,8 +26,8 @@ class EventFilter<T extends EventType> {
   static validateBy(value: number) {
     return (value & VALID_BY_FLAGS) === value;
   }
-  private _to: number | number[] | undefined;
-  to(value: number | number[]) {
+  private _to: number | undefined;
+  to(value: number) {
     // TODO: Allow `this.selectedCombatant` (i.e. instances of Combatant) as value instead
     this._to = value;
     return this;

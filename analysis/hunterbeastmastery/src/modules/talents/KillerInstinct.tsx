@@ -19,7 +19,7 @@ import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../con
  */
 class KillerInstinct extends ExecuteHelper {
   static executeSpells = [SPELLS.KILL_COMMAND_DAMAGE_BM, SPELLS.KILL_COMMAND_CAST_BM];
-  static executeSources = [SELECTED_PLAYER_PET, SELECTED_PLAYER];
+  static executeSources = SELECTED_PLAYER_PET | SELECTED_PLAYER;
   static lowerThreshold = KILLER_INSTINCT_THRESHOLD;
   static modifiesDamage = true;
   static damageModifier = KILLER_INSTINCT_MULTIPLIER;
