@@ -52,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 10, 31), 'Fix some bugs with the execute helper module and allow .by and .to to filter by an array.', Putro),
   change(date(2021, 10, 27), 'Clean up character page for TBC characters.', emallson),
   change(date(2021, 10, 21), 'Remove paywall on timeline.', emallson),
   change(date(2021, 10, 20), 'Fix a crashing issue with Sanctum of Domination Vantus Runes.', emallson),
