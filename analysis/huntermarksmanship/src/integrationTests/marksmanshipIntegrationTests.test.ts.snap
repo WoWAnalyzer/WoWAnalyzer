@@ -8748,11 +8748,11 @@ exports[`Marksmanship Hunter integration test: Single Target CarefulAim matches 
             src="/img/sword.png"
           />
            
-          787
+          349
            DPS
            
           <small>
-            12.41
+            5.51
              % of total
           </small>
           <br />
@@ -8762,7 +8762,7 @@ exports[`Marksmanship Hunter integration test: Single Target CarefulAim matches 
             hits for
           </small>
            ≈ 
-          17k
+          7,380
            
           <small>
             each

@@ -190,7 +190,7 @@ class DeathsDue extends Analyzer {
           .icon(SPELLS.DEATHS_DUE.icon)
           .actual(
             t({
-              id: 'deathknight.suggestions.deathsDue.efficency',
+              id: 'deathknight.blood.suggestions.deathsDue.efficiency',
               message: `${formatPercentage(actual)}% Death's Due uptime`,
             }),
           )
@@ -210,7 +210,7 @@ class DeathsDue extends Analyzer {
         .icon(SPELLS.DEATHS_DUE.icon)
         .actual(
           t({
-            id: 'deathknight.suggestions.deathsDue.efficency',
+            id: 'deathknight.shared.suggestions.deathsDue.efficiency',
             message: `${this.wastedCasts} out of ${this.casts} casts were wasted`,
           }),
         )

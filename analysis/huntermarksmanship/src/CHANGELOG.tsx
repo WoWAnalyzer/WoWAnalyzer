@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 10, 31), <> Fix a bug with <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id}/> that showed it's contribution as much larger than it actually was. </>, Putro),
   change(date(2021, 4, 3), <>Update <SpellLink id={SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.id} /> and other legendaries to 9.0.5. Bump support to 9.0.5.</>, Adoraci),
   change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Putro),

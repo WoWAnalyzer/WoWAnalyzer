@@ -33,6 +33,7 @@ temp
 /.idea/markdown-navigator/profiles_settings.xml
 # Visual Studio code
 /.vscode
+**.code-workspace
 
 .vs/ProjectSettings.json
 .vs/slnx.sqlite
