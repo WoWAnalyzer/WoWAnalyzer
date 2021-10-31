@@ -82,8 +82,8 @@ const FILTERABLE_TYPES = {
     explanation:
       'Triggered at the start of the fight with advanced combat logging on. This includes gear, talents, etc.',
   },
-  energize: {
-    name: 'Energize',
+  resourcechange: {
+    name: 'Resource Change',
   },
   drain: {
     name: 'Drain',
