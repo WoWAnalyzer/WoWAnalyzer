@@ -10,6 +10,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const ENVELOPING_BREATH_INCREASE = 0.1;
@@ -127,8 +128,9 @@ class EnvelopingBreath extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(0)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.SPECIFIC}
         tooltip={<>This is the effective healing contributed by the Enveloping Breath buff.</>}
       >
         <BoringSpellValueText spellId={SPELLS.ENVELOPING_BREATH.id}>

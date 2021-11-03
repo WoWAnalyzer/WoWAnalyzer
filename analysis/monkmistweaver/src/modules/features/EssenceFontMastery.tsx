@@ -3,12 +3,14 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 const debug = false;
@@ -132,30 +134,37 @@ class EssenceFontMastery extends Analyzer {
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(0)}
-        icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
-        value={efMasteryCasts}
-        label={
-          <TooltipElement
-            content={
-              <>
-                You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence
-                Font cast.
-                <ul>
-                  <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-                  <li>
-                    {formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (
-                    {formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)
-                  </li>
-                </ul>
-              </>
-            }
-          >
+        size="flexible"
+        category={STATISTIC_CATEGORY.SPECIFIC}
+        tooltip={
+          <>
+            <>
+              You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence
+              Font cast.
+              <ul>
+                <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
+                <li>
+                  {formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (
+                  {formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)
+                </li>
+              </ul>
+            </>
             Mastery Buffs utilized
-          </TooltipElement>
+          </>
         }
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} /> Mastery Buffs Utilized
+            </>
+          }
+        >
+          {efMasteryCasts}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

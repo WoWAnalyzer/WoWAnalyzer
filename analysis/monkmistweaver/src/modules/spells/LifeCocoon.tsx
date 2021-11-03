@@ -6,6 +6,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
@@ -44,6 +45,7 @@ class LifeCocoon extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
+        category={STATISTIC_CATEGORY.SPECIFIC}
         size="flexible"
         tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}
       >

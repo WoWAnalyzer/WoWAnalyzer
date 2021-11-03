@@ -3,11 +3,13 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 class EssenceFont extends Analyzer {
@@ -131,16 +133,22 @@ class EssenceFont extends Analyzer {
   statistic() {
     const averageHits = this.total / this.castEF;
     return (
-      <StatisticBox
-        postion={STATISTIC_ORDER.OPTIONAL(50)}
-        icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
-        value={`${formatNumber(averageHits)}`}
-        label={
-          <TooltipElement content="This is the average unique targets hit per essences font cast.">
-            Average Unique Targets Hit
-          </TooltipElement>
-        }
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(0)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.SPECIFIC}
+        tooltip={<>This is the average unique targets hit per essences font cast.</>}
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.ESSENCE_FONT.id} /> Average Unique Targets Hit
+            </>
+          }
+        >
+          ${formatNumber(averageHits)}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

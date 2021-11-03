@@ -47,6 +47,11 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
         id: 'interface.report.results.statistics.items',
         message: `Items`,
       });
+    case STATISTIC_CATEGORY.SPECIFIC:
+      return t({
+        id: 'interface.report.results.statistics.specific',
+        message: `Specific`,
+      });
     default:
       throw new Error(`Unknown category: ${key}`);
   }

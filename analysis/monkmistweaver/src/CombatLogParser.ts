@@ -33,6 +33,7 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import CloneAbilityAverage from './modules/shadowlands/covenant/CloneAbilityAverage';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
 import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
@@ -126,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+    cloneAbilityAverage: CloneAbilityAverage,
     faelineStomp: FaelineStomp,
 
     // Conduits
