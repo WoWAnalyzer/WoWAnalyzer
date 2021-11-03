@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, SummonEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, SummonEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -36,7 +36,17 @@ class CloneAbilityAverage extends Analyzer {
     );
 
     this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_ENVELOPING_MIST),
+      this.envBuffApplied,
+    );
+
+    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_SOOTHING_MIST),
+      this.soomBuffApplied,
+    );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_SOOTHING_MIST),
       this.soomBuffApplied,
     );
   }
@@ -45,11 +55,11 @@ class CloneAbilityAverage extends Analyzer {
     this.mwClones += 1;
   }
 
-  envBuffApplied(event: ApplyBuffEvent) {
+  envBuffApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.envCasts += 1;
   }
 
-  soomBuffApplied(event: ApplyBuffEvent) {
+  soomBuffApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.soomCasts += 1;
   }
 
