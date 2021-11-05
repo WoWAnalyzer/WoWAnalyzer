@@ -1759,6 +1759,7 @@ export const Yax: Contributor = {
     },
   ],
 };
+
 export const darkpsy3934: Contributor = {
   nickname: 'Terise',
   github: 'darkpsy3934',
