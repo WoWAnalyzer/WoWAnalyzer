@@ -6,7 +6,7 @@ const debug = false;
 /**
  * Wailing Arrow can begin casting before combat AND has travel time.
  * This means we don't see the begincast event, and might not even see the cast success event - but we will see the damage event.
- * This means our regular PrepullNormalizer won't fix it properly, and thus this normalizer will fabricate begincast events for any cast success events of Aimed Shot that don't have a preceding begincast event.
+ * This normalizer can fabricate both begin cast and cast success events for Wailing Arrow if it's necessary.
  */
 class RaeshalarePrepullNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
@@ -26,8 +26,6 @@ class RaeshalarePrepullNormalizer extends EventsNormalizer {
         }
         if (event.type === EventType.Cast) {
           lastCastSuccessTimestamp = event.timestamp;
-        }
-        if (event.type === EventType.Cast) {
           if (!lastBeginCastTimestamp) {
             debug &&
               console.log(
@@ -37,12 +35,6 @@ class RaeshalarePrepullNormalizer extends EventsNormalizer {
               );
             const fabricatedEvent = {
               ...event,
-              ability: {
-                name: event.ability.name,
-                type: event.ability.type,
-                abilityIcon: event.ability.abilityIcon,
-                guid: SPELLS.WAILING_ARROW_CAST.id,
-              },
               timestamp: event.timestamp - 1500,
               type: EventType.BeginCast,
               __fabricated: true,
@@ -53,7 +45,7 @@ class RaeshalarePrepullNormalizer extends EventsNormalizer {
           }
         }
         if (event.type === EventType.Damage) {
-          if (!lastCastSuccessTimestamp || !lastBeginCastTimestamp) {
+          if (!lastCastSuccessTimestamp) {
             debug &&
               console.log(
                 'Wailing Arrow Damage event without a Cast success registered',

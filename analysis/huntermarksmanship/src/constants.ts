@@ -120,7 +120,7 @@ export const LIST_OF_FOCUS_SPENDERS_MM = [
 
 //region Conduits
 /** Brutal Projectiles */
-//With Brutal Projectiles your auto attacks have a 10%
+//With Brutal Projectiles your auto attacks have a 10% chance to proc the buff that amplifies the damage of your next Rapid Fire
 export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
 //Each Shot of Rapid Fire increases damage more and more over its duration
 export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [
@@ -141,6 +141,10 @@ export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [
   0.0675,
   0.07,
 ];
+//Rapid Fire fires off 7 shots, but the first shot is unbuffed
+export const BRUTAL_PROJECTILES_RAMP_CAP = 6;
+//During Double Tap Rapid Fire shoots off 14 shots, but in-game it seems they just doubled the regular cap
+export const BRUTAL_PROJECTILES_DOUBLE_TAP_RAMP_CAP = 12;
 /** Deadly Chain */
 //With Deadly Chain your trickshots damage is increased
 export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [
