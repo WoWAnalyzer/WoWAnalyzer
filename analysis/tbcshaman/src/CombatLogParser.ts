@@ -7,12 +7,16 @@ import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
 import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
 import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
 
-import lowRankSpells from './lowRankSpells';
+import lowRankSpells, { whitelist } from './lowRankSpells';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
+import ChainHeal from './modules/spells/ChainHeal';
+import EarthShield from './modules/spells/EarthShield';
+import ManaTideTotem from './modules/spells/ManaTideTotem';
+import WaterShield from './modules/spells/WaterShield';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -24,6 +28,11 @@ class CombatLogParser extends BaseCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
+    earthShield: EarthShield,
+    waterShield: WaterShield,
+    chainHeal: ChainHeal,
+    manaTideTotem: ManaTideTotem,
+
     // Mana Tab
     manaTracker: ManaTracker,
     hpmTracker: HealingEfficiencyTracker,
@@ -32,7 +41,10 @@ class CombatLogParser extends BaseCombatLogParser {
     checklist: Checklist,
   };
 
-  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpellsSuggestion(lowRankSpells)];
+  static suggestions = [
+    ...BaseCombatLogParser.suggestions,
+    lowRankSpellsSuggestion(lowRankSpells, whitelist),
+  ];
 }
 
 export default CombatLogParser;
