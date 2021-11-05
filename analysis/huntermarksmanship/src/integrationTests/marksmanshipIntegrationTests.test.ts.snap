@@ -794,7 +794,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              0.73
+              0.97
             </td>
             <td
               className="text-right"
@@ -804,7 +804,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              3
+              4
               /5
                casts
             </td>
@@ -9306,7 +9306,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              0.81
+              1.01
             </td>
             <td
               className="text-right"
@@ -9316,7 +9316,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              4
+              5
               /5
                casts
             </td>
@@ -14771,7 +14771,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  90.15%
+                  100.00%
                    
                    
                 </div>

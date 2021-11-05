@@ -1983,7 +1983,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1.38
+              1.55
             </td>
             <td
               className="text-right"
@@ -1993,7 +1993,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              8
+              9
               /14
                casts
             </td>
@@ -2177,7 +2177,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.17
+              0.34
             </td>
             <td
               className="text-right"
@@ -2187,7 +2187,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1
+              2
               /3
                casts
             </td>
