@@ -1,4 +1,6 @@
+import { Trans } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -8,8 +10,73 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
 import React from 'react';
 
-const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
+import * as SPELLS from '../../SPELLS';
+
+const ShamanChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>
+    <Rule
+      name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
+      description={
+        <Trans id="shaman.restoration.checklist.buffUptime.description">
+          Water Shield and Earth Shield should be applied prior to the fight starting and
+          maintained.
+        </Trans>
+      }
+    >
+      <Requirement
+        name={
+          <Trans id="shaman.restoration.checklist.appliedPrepull">
+            <SpellLink id={SPELLS.EARTH_SHIELD} /> applied prepull
+          </Trans>
+        }
+        thresholds={thresholds.earthShieldPrepull}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.restoration.checklist.uptime">
+            <SpellLink id={SPELLS.EARTH_SHIELD} /> Uptime
+          </Trans>
+        }
+        thresholds={thresholds.earthShieldUptime}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.restoration.checklist.appliedPrepull">
+            <SpellLink id={SPELLS.WATER_SHIELD} /> applied prepull
+          </Trans>
+        }
+        thresholds={thresholds.waterShieldPrepull}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.restoration.checklist.uptime">
+            <SpellLink id={SPELLS.WATER_SHIELD} /> Uptime
+          </Trans>
+        }
+        thresholds={thresholds.waterShieldUptime}
+      />
+    </Rule>
+    <Rule
+      name={<Trans id="shaman.restoration.checklist.aoeSpell">Target AOE spells effectively</Trans>}
+      description={
+        <Trans id="shaman.restoration.checklist.aoeSpell.description">
+          As a resto shaman our core AOE spells rely on not just who we target but where they are on
+          the ground to maximize healing potential. You should plan you AOE spells ahead of time in
+          preparation for where you expect raid members to be for the spells duration.
+        </Trans>
+      }
+    >
+      {thresholds.chainHealTargetThresholds.actual > 0 && (
+        <Requirement
+          name={
+            <Trans id="shaman.restoration.checklist.aoeSpell.targets">
+              Average <SpellLink id={SPELLS.CHAIN_HEAL} /> targets
+            </Trans>
+          }
+          thresholds={thresholds.chainHealTargetThresholds}
+        />
+      )}
+    </Rule>
     <Rule
       name="Try to avoid being inactive for a large portion of the fight"
       description={
@@ -47,4 +114,4 @@ const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProp
   </Checklist>
 );
 
-export default DruidChecklist;
+export default ShamanChecklist;
