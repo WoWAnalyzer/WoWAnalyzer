@@ -430,6 +430,7 @@
   "interface.report.results.statistics.items": "Предметы",
   "interface.report.results.statistics.statistics": "Статистика",
   "interface.report.results.statistics.talents": "Таланты",
+  "interface.report.results.statistics.theorycraft": "",
   "interface.report.results.timeFilter.filter": "Фильтр",
   "interface.report.results.timeFilter.reset": "Сбросить фильтр",
   "interface.report.results.timeline.buffs.tooltip.gainedAbilityForXSec": "{0}: получено {1} за {2}",
