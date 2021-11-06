@@ -101,7 +101,7 @@ class ChainHeal extends Analyzer {
 
   suggestions(when: When) {
     const suggestedThreshold = this.suggestionThreshold;
-    if (isNaN(suggestedThreshold.actual)) {
+    if (this.casts === 0) {
       return;
     }
     when(suggestedThreshold.actual)
