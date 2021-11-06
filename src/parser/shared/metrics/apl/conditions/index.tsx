@@ -12,6 +12,7 @@ export { default as always } from './always';
 export { default as and } from './and';
 export { default as spellCharges } from './spellCharges';
 export { default as buffStacks } from './buffStacks';
+export { default as targetsHit } from './targetsHit';
 
 export interface Range {
   atLeast?: number;

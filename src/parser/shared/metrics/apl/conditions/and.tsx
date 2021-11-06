@@ -16,6 +16,11 @@ export default function and(...conditions: Array<Condition<any>>): Condition<any
     return map;
   }, {});
 
+  const lookahead = conditions.reduce(
+    (val: number | undefined, cnd) => (!val || (cnd.lookahead || 0) > val ? cnd.lookahead : val),
+    undefined,
+  );
+
   return {
     key: `and-${conditions.map((cnd) => cnd.key).join('-')}`,
     init: (info) => Object.fromEntries(conditions.map(({ key, init }) => [key, init(info)])),
@@ -24,8 +29,9 @@ export default function and(...conditions: Array<Condition<any>>): Condition<any
         nextState[key] = cndMap[key]!.update(state[key], event);
         return nextState;
       }, {}),
-    validate: (state, event, spell) =>
-      Object.keys(state).every((key) => cndMap[key]!.validate(state[key], event, spell)),
+    lookahead,
+    validate: (state, event, spell, lookahead) =>
+      Object.keys(state).every((key) => cndMap[key]!.validate(state[key], event, spell, lookahead)),
     describe: (tense) =>
       conditions
         .map((cnd) => cnd.describe(tense))

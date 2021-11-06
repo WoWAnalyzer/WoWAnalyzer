@@ -23,6 +23,10 @@ export const apl = build([
     ),
   },
   {
+    spell: SPELLS.AVENGERS_SHIELD,
+    condition: cnd.targetsHit({ atLeast: 3 }, 1000),
+  },
+  {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
     condition: cnd.optional(
       cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }),

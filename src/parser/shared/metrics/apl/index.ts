@@ -22,12 +22,13 @@ export enum Tense {
  **/
 export interface Condition<T> {
   key: string;
+  lookahead?: number;
   // produce the initial state object
   init: (info: PlayerInfo) => T;
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (state: T, event: CastEvent, spell: Spell) => boolean;
+  validate: (state: T, event: CastEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
   // tooltip description for checklist
@@ -122,6 +123,25 @@ export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule
 export const cooldownEnd = (event: UpdateSpellUsableEvent): number =>
   event.expectedDuration + event.start;
 
+export function lookaheadSlice(
+  events: AnyEvent[],
+  startIx: number,
+  duration: number | undefined,
+): AnyEvent[] {
+  if (!duration) {
+    return [];
+  }
+
+  const event = events[startIx];
+  const future = events.slice(startIx);
+  const laterIndex = future.findIndex(({ timestamp }) => timestamp > event.timestamp + duration);
+  if (laterIndex > 0) {
+    return future.slice(0, laterIndex);
+  } else {
+    return future;
+  }
+}
+
 /**
  * Check whether a rule applies to the given cast. There are two checks:
  *
@@ -134,8 +154,14 @@ function ruleApplies(
   rule: Rule,
   abilities: Set<number>,
   result: CheckState,
-  event: CastEvent,
+  events: AnyEvent[],
+  eventIndex: number,
 ): boolean {
+  const event = events[eventIndex];
+  if (event.type !== EventType.Cast) {
+    console.error('attempted to apply APL rule to non-cast event, ignoring', event);
+    return false;
+  }
   return (
     abilities.has(spell(rule).id) &&
     (spell(rule).id === event.ability.guid ||
@@ -143,7 +169,12 @@ function ruleApplies(
       result.abilityState[spell(rule).id].isAvailable ||
       cooldownEnd(result.abilityState[spell(rule).id]) <= event.timestamp + 100) &&
     (!('condition' in rule) ||
-      rule.condition.validate(result.conditionState[rule.condition.key], event, rule.spell))
+      rule.condition.validate(
+        result.conditionState[rule.condition.key],
+        event,
+        rule.spell,
+        lookaheadSlice(events, eventIndex, rule.condition.lookahead),
+      ))
   );
 }
 
@@ -154,10 +185,11 @@ function applicableRule(
   apl: Apl,
   abilities: Set<number>,
   result: CheckState,
-  event: CastEvent,
+  events: AnyEvent[],
+  eventIndex: number,
 ): Rule | undefined {
   for (const rule of apl.rules) {
-    if (ruleApplies(rule, abilities, result, event)) {
+    if (ruleApplies(rule, abilities, result, events, eventIndex)) {
       return rule;
     }
   }
@@ -182,9 +214,9 @@ const aplCheck = (apl: Apl) =>
     );
     const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
     return events.reduce<CheckState>(
-      (result, event) => {
+      (result, event, eventIndex) => {
         if (event.type === EventType.Cast && applicableSpells.has(event.ability.guid)) {
-          const rule = applicableRule(apl, abilities, result, event);
+          const rule = applicableRule(apl, abilities, result, events, eventIndex);
           if (rule) {
             if (spell(rule).id === event.ability.guid) {
               // the player cast the correct spell
