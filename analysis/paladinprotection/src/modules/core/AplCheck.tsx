@@ -24,7 +24,12 @@ export const apl = build([
   },
   {
     spell: SPELLS.AVENGERS_SHIELD,
-    condition: cnd.targetsHit({ atLeast: 3 }, 1000),
+    condition: cnd.targetsHit(
+      { atLeast: 3 },
+      {
+        lookahead: 1000,
+      },
+    ),
   },
   {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
