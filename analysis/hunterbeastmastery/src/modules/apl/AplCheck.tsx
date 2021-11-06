@@ -4,17 +4,19 @@ import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import {
-  buffPresent,
-  buffMissing,
-  hasConduit,
-  or,
-  inExecute,
   and,
-  spellCharges,
-  not,
-  spellAvailable,
-  hasResource,
+  buffMissing,
+  buffPresent,
+  hasConduit,
   hasLegendary,
+  hasResource,
+  inExecute,
+  not,
+  or,
+  spellAvailable,
+  spellCharges,
+  spellCooldownRemaining,
+  spellFractionalCharges,
 } from 'parser/shared/metrics/apl/conditions';
 
 export const apl = build([
@@ -27,19 +29,24 @@ export const apl = build([
     condition: and(
       buffPresent(SPELLS.WILD_SPIRITS_BUFF),
       hasLegendary(SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS),
+      spellFractionalCharges(SPELLS.BARBED_SHOT, { atLeast: 1.4 }),
     ),
-  },
-  {
-    spell: SPELLS.TAR_TRAP,
-    condition: and(hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT), spellAvailable(SPELLS.FLARE)),
   },
   {
     spell: SPELLS.FLARE,
     condition: and(
       hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-      not(spellAvailable(SPELLS.TAR_TRAP)),
+      not(spellAvailable(SPELLS.TAR_TRAP, true), false),
     ),
   },
+  {
+    spell: SPELLS.TAR_TRAP,
+    condition: and(
+      hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
+      spellCooldownRemaining(SPELLS.FLARE, { atMost: 1500 }),
+    ),
+  },
+
   SPELLS.BLOODSHED_TALENT,
   SPELLS.WILD_SPIRITS,
   SPELLS.FLAYED_SHOT,
@@ -69,9 +76,12 @@ export const apl = build([
     spell: SPELLS.COBRA_SHOT,
     condition: or(
       hasResource(RESOURCE_TYPES.FOCUS, { atLeast: 50 }),
-      not(spellAvailable(SPELLS.KILL_COMMAND_CAST_BM)),
       buffPresent(SPELLS.BESTIAL_WRATH),
     ),
+  },
+  {
+    spell: SPELLS.COBRA_SHOT,
+    condition: spellCooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM, { atLeast: 2500 }),
   },
   {
     spell: SPELLS.BARBED_SHOT,
