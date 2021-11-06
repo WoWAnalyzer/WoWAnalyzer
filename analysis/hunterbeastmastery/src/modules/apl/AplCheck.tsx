@@ -48,7 +48,6 @@ export const apl = build([
   },
 
   SPELLS.BLOODSHED_TALENT,
-  SPELLS.WILD_SPIRITS,
   SPELLS.FLAYED_SHOT,
   {
     spell: SPELLS.KILL_SHOT_MM_BM,

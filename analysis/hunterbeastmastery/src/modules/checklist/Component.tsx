@@ -206,7 +206,7 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
       <AplRule
         {...props}
         name="APL checker (beta)"
-        cooldowns={[SPELLS.BESTIAL_WRATH, SPELLS.ASPECT_OF_THE_WILD]}
+        cooldowns={[SPELLS.BESTIAL_WRATH, SPELLS.ASPECT_OF_THE_WILD, SPELLS.WILD_SPIRITS]}
       />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
