@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
@@ -25,7 +26,8 @@ class CastRatio extends Analyzer {
 
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(10)}
+        position={STATISTIC_ORDER.OPTIONAL(0)}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         icon={
           <>
             <SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} />{' '}
