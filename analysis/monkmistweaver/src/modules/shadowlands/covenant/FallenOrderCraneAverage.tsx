@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-class CloneAbilityAverage extends Analyzer {
+class FallenOrderCraneAverage extends Analyzer {
   soomCasts: number = 0;
   envCasts: number = 0;
   mwClones: number = 0;
@@ -97,4 +97,4 @@ class CloneAbilityAverage extends Analyzer {
   }
 }
 
-export default CloneAbilityAverage;
+export default FallenOrderCraneAverage;

@@ -27,7 +27,7 @@ class CastRatio extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(0)}
-        category={STATISTIC_CATEGORY.SPECIFIC}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         icon={
           <>
             <SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} />{' '}

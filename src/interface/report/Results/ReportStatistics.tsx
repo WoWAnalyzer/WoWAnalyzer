@@ -47,10 +47,10 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
         id: 'interface.report.results.statistics.items',
         message: `Items`,
       });
-    case STATISTIC_CATEGORY.SPECIFIC:
+    case STATISTIC_CATEGORY.THEORYCRAFT:
       return t({
-        id: 'interface.report.results.statistics.specific',
-        message: `Specific`,
+        id: 'interface.report.results.statistics.theorycraft',
+        message: `Theorycraft`,
       });
     default:
       throw new Error(`Unknown category: ${key}`);

@@ -136,7 +136,7 @@ class EssenceFont extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(0)}
         size="flexible"
-        category={STATISTIC_CATEGORY.SPECIFIC}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={<>This is the average unique targets hit per essences font cast.</>}
       >
         <BoringValueText

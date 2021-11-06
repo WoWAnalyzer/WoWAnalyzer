@@ -137,7 +137,7 @@ class EssenceFontMastery extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(0)}
         size="flexible"
-        category={STATISTIC_CATEGORY.SPECIFIC}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <>
             <>
