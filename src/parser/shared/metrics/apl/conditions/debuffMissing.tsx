@@ -67,7 +67,7 @@ export function debuffMissing(
         // debuff is missing
         return true;
       } else if (state[encodedTargetString]?.referenceTime + 200 > event.timestamp) {
-        // buff was *just* applied, possibly by this very spell. treat it as optional
+        // debuff was *just* applied, possibly by this very spell. treat it as optional
         return event.ability.guid === ruleSpell.id;
       } else {
         // otherwise, return true if we can pandemic this debuff
