@@ -2342,7 +2342,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.70
+              0.87
             </td>
             <td
               className="text-right"
@@ -2352,7 +2352,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              4
+              5
               /14
                casts
             </td>
@@ -4023,7 +4023,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.00
+              0.17
             </td>
             <td
               className="text-right"
@@ -4033,7 +4033,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0
+              1
               /1
                casts
             </td>
@@ -4052,7 +4052,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "100%",
                     }
                   }
                 />
@@ -4067,7 +4067,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.00%
+              100.00%
             </td>
             <td
               style={

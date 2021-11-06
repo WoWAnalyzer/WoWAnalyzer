@@ -1464,7 +1464,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.63
+              0.78
             </td>
             <td
               className="text-right"
@@ -1474,7 +1474,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              4
+              5
               /6
                casts
             </td>
@@ -3419,7 +3419,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.16
+              0.31
             </td>
             <td
               className="text-right"
@@ -3429,7 +3429,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1
+              2
               /1
                casts
             </td>

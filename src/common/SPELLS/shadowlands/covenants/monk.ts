@@ -107,6 +107,11 @@ const covenants = {
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
   },
+  FALLEN_ORDER_TIGER_PALM: {
+    id: 346602,
+    name: 'Tiger Palm',
+    icon: 'ability_monk_tigerpalm',
+  },
   FALLEN_ORDER_OX_CLONE: {
     id: 327005,
     name: 'Fallen Order',

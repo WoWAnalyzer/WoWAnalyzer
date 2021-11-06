@@ -430,6 +430,7 @@
   "interface.report.results.statistics.items": "Gegenstände",
   "interface.report.results.statistics.statistics": "Statistiken",
   "interface.report.results.statistics.talents": "Talente",
+  "interface.report.results.statistics.theorycraft": "",
   "interface.report.results.timeFilter.filter": "Filter",
   "interface.report.results.timeFilter.reset": "Filter zurücksetzen",
   "interface.report.results.timeline.buffs.tooltip.gainedAbilityForXSec": "{0}: {1} für {2}s erhalten",

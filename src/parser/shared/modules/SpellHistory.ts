@@ -72,8 +72,7 @@ class SpellHistory extends Analyzer {
   private append(event: SpellHistoryEvent) {
     const spellId = event.ability.guid;
     const history = this.getAbility(spellId);
-    if (history && event.timestamp > this.owner.fight.start_time) {
-      //don't save prephase events in history
+    if (history) {
       history.push(event);
     }
   }

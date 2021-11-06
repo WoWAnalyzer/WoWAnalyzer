@@ -7,6 +7,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const UNAFFECTED_SPELLS: number[] = [SPELLS.ENVELOPING_MIST.id];
@@ -83,7 +84,8 @@ class EnvelopingMists extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        position={STATISTIC_ORDER.OPTIONAL(0)}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={<>This is the effective healing contributed by the Enveloping Mist buff.</>}
       >
         <BoringSpellValueText spellId={SPELLS.ENVELOPING_MIST.id}>

@@ -546,9 +546,9 @@ export default {
     name: 'Holy Oration',
     icon: 'ability_priest_bindingprayers',
   },
-  NATURES_REACH: {
+  NATURES_FOCUS: {
     id: 338346,
-    name: "Nature's Reach",
+    name: "Nature's Focus",
     icon: 'spell_shaman_blessingofeternals',
   },
   EMBRACE_OF_EARTH: {
@@ -741,9 +741,9 @@ export default {
     name: 'Piercing Verdict',
     icon: 'spell_animabastion_missile',
   },
-  MARKMANS_ADVANTAGE: {
+  MARKSMANS_ADVANTAGE: {
     id: 339264,
-    name: "Markman's Advantage",
+    name: "Marksman's Advantage",
     icon: 'ability_argus_soulbombdebuffsmall',
   },
   VETERANS_REPUTE: {
@@ -971,10 +971,10 @@ export default {
     name: 'Focused Malignancy',
     icon: 'spell_shadow_unstableaffliction_3_purple',
   },
-  COLD_EMBRACE: {
+  WITHERING_BOLT: {
     id: 339576,
-    name: 'Cold Embrace',
-    icon: 'spell_shadow_burningspirit',
+    name: 'Withering Bolt',
+    icon: 'spell_shadow_shadowbolt',
   },
   BORNE_OF_BLOOD: {
     id: 339578,
@@ -1370,5 +1370,15 @@ export default {
     id: 346747,
     name: 'Ambuscade',
     icon: 'ability_rogue_feint',
+  },
+  CONDENSED_ANIMA_SPHERE: {
+    id: 357888,
+    name: 'Condensed Anima Sphere',
+    icon: 'spell_animarevendreth_orb',
+  },
+  ADAPTIVE_ARMOR_FRAGMENT: {
+    id: 357902,
+    name: 'Adaptive Armor Fragment',
+    icon: 'inv_belt_plate_ardenweald_d_01',
   },
 };

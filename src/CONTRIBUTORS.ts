@@ -1760,6 +1760,18 @@ export const Yax: Contributor = {
   ],
 };
 
+export const darkpsy3934: Contributor = {
+  nickname: 'Terise',
+  github: 'darkpsy3934',
+  mains: [
+    {
+      name: 'Terise',
+      spec: SPECS.FROST_DEATH_KNIGHT,
+      link: 'https://www.warcraftlogs.com/character/us/blades-edge/terise',
+    },
+  ],
+};
+
 export const Arbixal: Contributor = {
   nickname: 'Arbixal',
   discord: 'Arbixal#0565',
