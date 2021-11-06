@@ -4,12 +4,7 @@ import { EventType } from 'parser/core/Events';
 import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
-
-export interface PandemicData {
-  timeRemaining: number;
-  duration: number;
-  pandemicCap?: number;
-}
+import { buffDuration, DurationData, PandemicData } from './util';
 
 export function buffPresent(spell: Spell): Condition<boolean> {
   return {
@@ -39,17 +34,6 @@ export function buffPresent(spell: Spell): Condition<boolean> {
     ),
   };
 }
-
-interface DurationData {
-  timeRemaining: number;
-  referenceTime: number;
-}
-
-const buffDuration = (timeRemaining: number | undefined, pandemic: PandemicData): number =>
-  Math.min(
-    (timeRemaining || 0) + pandemic.duration,
-    pandemic.duration * (pandemic.pandemicCap || 3),
-  );
 
 /**
    The rule applies when the buff `spell` is missing. The `optPandemic`

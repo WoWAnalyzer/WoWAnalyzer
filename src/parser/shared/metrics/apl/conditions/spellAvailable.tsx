@@ -5,7 +5,10 @@ import React from 'react';
 
 import { Condition, cooldownEnd, tenseAlt } from '../index';
 
-export default function spellAvailable(spell: Spell): Condition<UpdateSpellUsableEvent | null> {
+export default function spellAvailable(
+  spell: Spell,
+  inverse: boolean = false,
+): Condition<UpdateSpellUsableEvent | null> {
   return {
     key: `spellAvailable-${spell.id}`,
     init: () => null,
@@ -20,7 +23,7 @@ export default function spellAvailable(spell: Spell): Condition<UpdateSpellUsabl
       state === null || state.isAvailable || cooldownEnd(state) <= event.timestamp + 100,
     describe: (tense) => (
       <>
-        <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} off cooldown
+        <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} {inverse ? 'on' : 'off'} cooldown
       </>
     ),
   };
