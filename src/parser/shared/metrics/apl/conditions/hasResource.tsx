@@ -42,7 +42,6 @@ export default function hasResource(resource: Resource, range: Range): Condition
     validate: (state, event) => {
       const res = castResource(resource, event);
       if (res) {
-        console.log(res, rangeSatisfied(res.amount, range));
         return rangeSatisfied(res.amount, range);
       } else {
         return rangeSatisfied(state, range);
