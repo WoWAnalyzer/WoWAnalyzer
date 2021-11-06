@@ -14,7 +14,9 @@ import {
 import { SpellLink } from 'interface';
 import React from 'react';
 
+// prettier-ignore
 export default [
+  change(date(2021, 11, 6), <>Add AoE condition for <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} /> to APL.</>, emallson),
   change(date(2021, 10, 28), <>Bump supported version to 9.1.5.</>, emallson),
   change(date(2021, 10, 16), <>Added APL support.</>, emallson),
   change(
