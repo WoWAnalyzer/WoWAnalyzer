@@ -52,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 11, 5), 'Correctly adjust spell history to include prepull casts as they should count as casts related to the encounter.', Putro),
   change(date(2021, 10, 31), 'Prepare for "energize" event rename.', emallson),
   change(date(2021, 10, 27), 'Clean up character page for TBC characters.', emallson),
   change(date(2021, 10, 21), 'Remove paywall on timeline.', emallson),

@@ -13221,7 +13221,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                 }
               }
             >
-              0.00
+              0.19
             </td>
             <td
               className="text-right"
@@ -13231,7 +13231,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                 }
               }
             >
-              0
+              1
               /1
                casts
             </td>
@@ -13250,7 +13250,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "100%",
                     }
                   }
                 />
@@ -13265,7 +13265,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                 }
               }
             >
-              0.00%
+              100.00%
             </td>
             <td
               style={

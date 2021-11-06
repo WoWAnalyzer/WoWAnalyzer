@@ -1433,7 +1433,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
                 }
               }
             >
-              0.73
+              1.10
             </td>
             <td
               className="text-right"
@@ -1443,7 +1443,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
                 }
               }
             >
-              2
+              3
               /3
                casts
             </td>
@@ -4901,7 +4901,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                   }
                 >
                    
-                  99.04%
+                  100.00%
                    
                    
                 </div>
@@ -8094,7 +8094,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                 }
               }
             >
-              0.87
+              1.17
             </td>
             <td
               className="text-right"
@@ -8104,7 +8104,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                 }
               }
             >
-              3
+              4
               /4
                casts
             </td>
@@ -9345,7 +9345,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                 }
               }
             >
-              0.00
+              0.29
             </td>
             <td
               className="text-right"
@@ -9355,7 +9355,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                 }
               }
             >
-              0
+              1
               /1
                casts
             </td>
@@ -9374,7 +9374,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "100%",
                     }
                   }
                 />
@@ -9389,7 +9389,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                 }
               }
             >
-              0.00%
+              100.00%
             </td>
             <td
               style={
@@ -11182,7 +11182,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                   }
                 >
                    
-                  95.50%
+                  100.00%
                    
                    
                 </div>
