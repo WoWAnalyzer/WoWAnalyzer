@@ -32,6 +32,7 @@ import {
 } from '@wowanalyzer/hunter';
 
 import Abilities from './modules/Abilities';
+import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -159,6 +160,8 @@ class CombatLogParser extends CoreCombatLogParser {
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;
