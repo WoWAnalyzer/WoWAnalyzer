@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
+import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon, darkpsy3934 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
