@@ -29,6 +29,8 @@ import {
   HarmonyOfTheTortollan,
   SoulforgeEmbers,
   CancelledCasts,
+  RaeshalareDeathsWhisper,
+  RaeshalarePrepullNormalizer,
 } from '@wowanalyzer/hunter';
 
 import Abilities from './modules/Abilities';
@@ -96,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     aimedShotPrepullNormalizer: AimedShotPrepullNormalizer,
+    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -154,6 +157,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
+    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
 
     //Marksmanship Legendaries
     surgingShots: SurgingShots,

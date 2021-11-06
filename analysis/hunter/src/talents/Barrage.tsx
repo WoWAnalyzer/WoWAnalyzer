@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { BARRAGE_HITS_PER_CAST } from './constants';
+import { BARRAGE_HITS_PER_CAST } from '../constants';
 
 /**
  * Rapidly fires a spray of shots for 3 sec, dealing an average of (80% * 10)

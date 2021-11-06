@@ -10,8 +10,9 @@ let fullOutput = `\t"CONDUIT_NAME": {
 \t\t"covenantID": "The ID of the covenant, as defined in src/game/shadowlands/COVENANTS.ts",
 \t\t"soulbindConduitID": "The unique ID of that conduit that is the same regardless of the rank",
 \t\t"conduitItemID": "The item ID of the item giving you access to the conduit. Used when searching wowhead with item= searches",
-\t\t"spellModifierByRanks": {
-\t\t\t"rankInteger": "The effect it has on the spell it affects, the value can be in milliseconds, percentage numbers etc - that's up to the maintainer to figure out. Note rank 1 is index 0 - this is also the case in the game data."
+\t\t"AuraPointsOverride": "[An array of the effects on the spell it affects, this can be milliseconds, percentage numbers etc.]",
+\t\t"AuraPointsOverrideKeyed": {
+\t\t\t"rankInteger": "The effect it has on the spell it affects, the value can be in milliseconds, percentage numbers etc - that's up to the maintainer to figure out. In the game data rank 1 is index 0, here we've made it index 1 to make it easier to map rank to correct index."
 \t\t}
   },\n`;
 

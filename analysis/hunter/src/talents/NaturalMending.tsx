@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-import { BM_CDR_PER_FOCUS, MM_SV_CDR_PER_FOCUS } from './constants';
+import { BM_CDR_PER_FOCUS, MM_SV_CDR_PER_FOCUS } from '../constants';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reduces the remaining cooldown of Exhilaration by 1 sec.

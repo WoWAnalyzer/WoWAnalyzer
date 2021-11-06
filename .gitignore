@@ -6,6 +6,11 @@
 # production
 /build
 
+# scripts
+raidbotsConduitsInfo.json
+soulbindconduititem.json
+soulbindconduitrank.json
+
 # misc
 .DS_Store
 .env.local
