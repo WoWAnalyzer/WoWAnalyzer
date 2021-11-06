@@ -36,7 +36,9 @@ export default function targetsHit(range: Range, options?: Partial<Options>): Co
   };
 
   return {
-    key: `targets-hit-${range.atLeast}-${range.atMost}-${lookahead}`,
+    key: `targets-hit-${range.atLeast}-${range.atMost}-${lookahead}-${type}-${
+      targetSpell?.id || 'default'
+    }`,
     lookahead,
     init: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
     update: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
