@@ -1,5 +1,6 @@
 import type Spell from 'common/SPELLS/Spell';
 import { HasAbility, HasTarget, EventType } from 'parser/core/Events';
+import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import { tenseAlt, Condition } from '../index';
 import { Range, formatRange } from './index';
@@ -56,7 +57,7 @@ export default function targetsHit(range: Range, options?: Partial<Options>): Co
           HasTarget(fwdEvent) &&
           fwdEvent.ability.guid === targetSpellId
         ) {
-          targets.add(`${fwdEvent.targetID}-${fwdEvent.targetInstance || 'none'}`);
+          targets.add(encodeEventTargetString(fwdEvent));
         }
       }
       return (
