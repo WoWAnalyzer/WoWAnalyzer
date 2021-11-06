@@ -577,6 +577,11 @@ const spells = {
     name: 'Tar Trap',
     icon: 'spell_yorsahj_bloodboil_black',
   },
+  TAR_TRAP_DEBUFF: {
+    id: 135299,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
+  },
   COUNTER_SHOT: {
     id: 147362,
     name: 'Counter Shot',

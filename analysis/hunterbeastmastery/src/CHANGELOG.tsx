@@ -6,6 +6,7 @@ import { ItemLink, SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 6), <> Update APL checker with the new fractional spell charges and cooldown remaining logic as well as moving <SpellLink id={SPELLS.WILD_SPIRITS.id} /> into the major cooldown category instead of an APL item. </>, Putro),
   change(date(2021, 11, 6), 'Implement an initial version of the APL checker', Putro),
   change(date(2021, 11, 5), <> Added support for <SpellLink id={SPELLS.WAILING_ARROW_CAST.id}/> as provided by <ItemLink id={ITEMS.RAESHALARE_DEATHS_WHISPER.id} />. </>, Putro),
   change(date(2021, 10, 31), <> Fix a bug with <SpellLink id={SPELLS.KILLER_INSTINCT_TALENT.id}/> that showed there were 0 casts in execute. </>, Putro),
