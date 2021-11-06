@@ -473,7 +473,7 @@ Array [
 ]
 `;
 
-exports[`Beast Mastery Hunter integration test: Multi Target BasicAttacksTracker matches the statistic snapshot 1`] = `
+exports[`Beast Mastery Hunter integration test: Multi Target BasicAttacks matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -10257,7 +10257,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BarbedShot matches
 </div>
 `;
 
-exports[`Beast Mastery Hunter integration test: Single Target BasicAttacksTracker matches the statistic snapshot 1`] = `
+exports[`Beast Mastery Hunter integration test: Single Target BasicAttacks matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
