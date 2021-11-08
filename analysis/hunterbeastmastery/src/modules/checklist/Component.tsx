@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { ResourceIcon } from 'interface';
 import { SpellIcon } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -14,7 +15,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
+  const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -201,6 +203,11 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           thresholds={thresholds.focusNaturalRegenWasteThresholds}
         />
       </Rule>
+      <AplRule
+        {...props}
+        name="APL checker (beta)"
+        cooldowns={[SPELLS.BESTIAL_WRATH, SPELLS.ASPECT_OF_THE_WILD, SPELLS.WILD_SPIRITS]}
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

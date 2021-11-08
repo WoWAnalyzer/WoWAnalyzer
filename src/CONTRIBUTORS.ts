@@ -1771,3 +1771,11 @@ export const darkpsy3934: Contributor = {
     },
   ],
 };
+
+export const Arbixal: Contributor = {
+  nickname: 'Arbixal',
+  discord: 'Arbixal#0565',
+  github: 'Arbixal',
+  about: 'TBC healer theorycrafter, but mostly resto shaman.',
+  avatar: avatar('arbixal-avatar.png'),
+};

@@ -6,6 +6,9 @@ import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/Prepa
 import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import ChainHeal from '../spells/ChainHeal';
+import EarthShield from '../spells/EarthShield';
+import WaterShield from '../spells/WaterShield';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -15,6 +18,9 @@ class Checklist extends BaseChecklist {
     manaValues: ManaValues,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    earthShield: EarthShield,
+    waterShield: WaterShield,
+    chainHeal: ChainHeal,
   };
 
   protected combatants!: Combatants;
@@ -22,10 +28,14 @@ class Checklist extends BaseChecklist {
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected manaValues!: ManaValues;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected earthShield!: EarthShield;
+  protected waterShield!: WaterShield;
+  protected chainHeal!: ChainHeal;
 
   render() {
     return (
       <Component
+        build={this.owner.build}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
@@ -35,6 +45,11 @@ class Checklist extends BaseChecklist {
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
             .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          earthShieldPrepull: this.earthShield.suggestionThresholdsPrepull,
+          earthShieldUptime: this.earthShield.suggestionThresholds,
+          waterShieldPrepull: this.waterShield.suggestionThresholdsPrepull,
+          waterShieldUptime: this.waterShield.suggestionThresholds,
+          chainHealTargetThresholds: this.chainHeal.suggestionThreshold,
         }}
       />
     );

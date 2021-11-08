@@ -6,6 +6,7 @@ import React from 'react';
 
 import { FocusDetails } from '@wowanalyzer/hunter';
 
+import { apl, check as aplCheck } from '../apl/AplCheck';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import QaplaEredunWarOrder from '../items/QaplaEredunWarOrder';
 import BasicAttacks from '../pets/basicAttacksTracker';
@@ -67,8 +68,11 @@ class Checklist extends BaseChecklist {
   //endregion
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

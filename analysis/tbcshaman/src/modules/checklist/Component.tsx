@@ -1,36 +1,133 @@
+import { Trans } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import { ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
+import { ChecklistProps as BackChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
 import React from 'react';
 
-const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
+import { Build } from '../../CONFIG';
+import * as SPELLS from '../../SPELLS';
+
+export interface ChecklistProps extends BackChecklistProps {
+  build?: string;
+}
+
+const ShamanChecklist = ({ thresholds, castEfficiency, combatant, build }: ChecklistProps) => (
   <Checklist>
     <Rule
-      name="Try to avoid being inactive for a large portion of the fight"
+      name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
       description={
-        <>
-          High downtime is something to avoid. While it may be tempting to not cast and save mana,
-          there is usually something you can do to contribute to the raid. You can reduce your
-          downtime by reducing the delay between casting spells, anticipating movement, moving
-          during the GCD, and{' '}
-          <TooltipElement content="You can ignore this while learning Resto, but contributing DPS whilst healing is a major part of becoming a better than average player.">
-            when you're not healing try to contribute some damage.*
-          </TooltipElement>
-          .
-        </>
+        <Trans id="shaman.restoration.checklist.buffUptime.description">
+          Water Shield and Earth Shield should be applied prior to the fight starting and
+          maintained.
+        </Trans>
       }
     >
+      {build === Build.DEFAULT && (
+        <>
+          <Requirement
+            name={
+              <Trans id="shaman.restoration.checklist.appliedPrepull">
+                <SpellLink id={SPELLS.EARTH_SHIELD} /> applied prepull
+              </Trans>
+            }
+            thresholds={thresholds.earthShieldPrepull}
+          />
+          <Requirement
+            name={
+              <Trans id="shaman.restoration.checklist.uptime">
+                <SpellLink id={SPELLS.EARTH_SHIELD} /> Uptime
+              </Trans>
+            }
+            thresholds={thresholds.earthShieldUptime}
+          />
+        </>
+      )}
       <Requirement
-        name="Non healing time"
-        thresholds={thresholds.nonHealingTimeSuggestionThresholds}
+        name={
+          <Trans id="shaman.restoration.checklist.appliedPrepull">
+            <SpellLink id={SPELLS.WATER_SHIELD} /> applied prepull
+          </Trans>
+        }
+        thresholds={thresholds.waterShieldPrepull}
       />
-      <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+      <Requirement
+        name={
+          <Trans id="shaman.restoration.checklist.uptime">
+            <SpellLink id={SPELLS.WATER_SHIELD} /> Uptime
+          </Trans>
+        }
+        thresholds={thresholds.waterShieldUptime}
+      />
     </Rule>
+    {build === Build.DEFAULT && (
+      <Rule
+        name={
+          <Trans id="shaman.restoration.checklist.aoeSpell">Target AOE spells effectively</Trans>
+        }
+        description={
+          <Trans id="shaman.restoration.checklist.aoeSpell.description">
+            As a resto shaman our core AOE spells rely on not just who we target but where they are
+            on the ground to maximize healing potential. You should plan you AOE spells ahead of
+            time in preparation for where you expect raid members to be for the spells duration.
+          </Trans>
+        }
+      >
+        {thresholds.chainHealTargetThresholds.actual > 0 && (
+          <Requirement
+            name={
+              <Trans id="shaman.restoration.checklist.aoeSpell.targets">
+                Average <SpellLink id={SPELLS.CHAIN_HEAL} /> targets
+              </Trans>
+            }
+            thresholds={thresholds.chainHealTargetThresholds}
+          />
+        )}
+      </Rule>
+    )}
+    {build === Build.DEFAULT && (
+      <Rule
+        name="Try to avoid being inactive for a large portion of the fight"
+        description={
+          <>
+            High downtime is something to avoid. While it may be tempting to not cast and save mana,
+            there is usually something you can do to contribute to the raid. You can reduce your
+            downtime by reducing the delay between casting spells, anticipating movement, moving
+            during the GCD, and{' '}
+            <TooltipElement content="You can ignore this while learning Resto, but contributing DPS whilst healing is a major part of becoming a better than average player.">
+              when you're not healing try to contribute some damage.*
+            </TooltipElement>
+            .
+          </>
+        }
+      >
+        <Requirement
+          name="Non healing time"
+          thresholds={thresholds.nonHealingTimeSuggestionThresholds}
+        />
+        <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+      </Rule>
+    )}
+    {build !== Build.DEFAULT && (
+      <Rule
+        name="Try to avoid being inactive for a large portion of the fight"
+        description={
+          <>
+            High downtime is something to avoid. While it may be tempting to not cast and save mana,
+            there is usually something you can do to contribute to the raid. You can reduce your
+            downtime by reducing the delay between casting spells, anticipating movement, moving
+            during the GCD.
+          </>
+        }
+      >
+        <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+      </Rule>
+    )}
 
     <Rule
       name={
@@ -47,4 +144,4 @@ const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProp
   </Checklist>
 );
 
-export default DruidChecklist;
+export default ShamanChecklist;

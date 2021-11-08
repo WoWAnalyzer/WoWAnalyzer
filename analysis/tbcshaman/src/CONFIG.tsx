@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { Khadaj } from 'CONTRIBUTORS';
+import { Arbixal, Khadaj } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
@@ -11,11 +11,13 @@ import CHANGELOG from './CHANGELOG';
 
 export enum Build {
   DEFAULT = 'default',
+  ELEMENTAL = 'elemental',
+  ENHANCEMENT = 'enhancement',
 }
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Khadaj],
+  contributors: [Khadaj, Arbixal],
   expansion: Expansion.TheBurningCrusade,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '2.5.1',
@@ -35,8 +37,20 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '20/41/0',
+      name: '0/5/56',
       icon: <Icon icon="spell_nature_healingwavegreater" />,
+      visible: true,
+    },
+    [Build.ENHANCEMENT]: {
+      url: 'enhancement',
+      name: '2/45/14',
+      icon: <Icon icon="spell_nature_lightningshield" />,
+      visible: true,
+    },
+    [Build.ELEMENTAL]: {
+      url: 'elemental',
+      name: '41/0/20',
+      icon: <Icon icon="spell_nature_lightning" />,
       visible: true,
     },
   },
@@ -57,7 +71,7 @@ const config: Config = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     ranking: {
-      class: 10,
+      class: 9,
       spec: 3,
     },
   },
