@@ -21,7 +21,7 @@ class BloodFury extends Analyzer {
     },
   ) {
     super(options);
-    this.active = this.selectedCombatant.race === RACES.Orc || this.selectedCombatant.race === null;
+    this.active = this.selectedCombatant.race === RACES.Orc;
     if (!this.active) {
       return;
     }
@@ -39,7 +39,6 @@ class BloodFury extends Analyzer {
       cooldown: 120,
       gcd: null,
       timelineSortIndex: 35,
-      isUndetectable: this.selectedCombatant.race === null ? true : undefined,
       castEfficiency: {
         suggestion: this.castEfficiency !== null,
         recommendedEfficiency: this.castEfficiency,
