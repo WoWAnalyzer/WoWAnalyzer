@@ -149,12 +149,12 @@ class SignetOfTormentedKings extends Analyzer {
         <>
           Try not to use{' '}
           {this.selectedCombatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS) ? (
-            <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS} />
+            <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />
           ) : (
-            <SpellLink id={SPELLS.BLADESTORM} />
+            <SpellLink id={SPELLS.BLADESTORM.id} />
           )}{' '}
-          right before using <SpellLink id={SPELLS.AVATAR_TALENT} />, potentially wasting{' '}
-          <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS} /> Procs
+          right before using <SpellLink id={SPELLS.AVATAR_TALENT.id} />, potentially wasting{' '}
+          <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS.id} /> Procs
         </>,
       )
         .icon(SPELLS.SIGNET_OF_TORMENTED_KINGS.icon)
