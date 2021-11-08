@@ -52,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 11, 8), 'Manual internationalization update to satisfy CI.', emallson),
   change(date(2021, 11, 6), 'Add additional functionality to APL checker to check for present/missing debuffs, fractional charges and remaining time of spell cooldowns', Putro),
   change(date(2021, 11, 5), 'Correctly adjust spell history to include prepull casts as they should count as casts related to the encounter.', Putro),
   change(date(2021, 10, 31), 'Prepare for "energize" event rename.', emallson),
