@@ -14,6 +14,7 @@ export { default as and } from './and';
 export { default as spellCharges } from './spellCharges';
 export { spellFractionalCharges } from './spellFractionalCharges';
 export { default as buffStacks } from './buffStacks';
+export { default as targetsHit } from './targetsHit';
 export { debuffPresent } from './debuffPresent';
 export { debuffMissing } from './debuffMissing';
 export * from './util';

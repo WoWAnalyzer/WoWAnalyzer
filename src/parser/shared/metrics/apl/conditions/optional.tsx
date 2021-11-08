@@ -24,8 +24,8 @@ export default function optional<T>(
   return {
     ...interior,
     key: `optional-${interior.key}`,
-    validate: (state, event, spell) =>
-      spell.id === event.ability.guid && interior.validate(state, event, spell),
+    validate: (state, event, spell, lookahead) =>
+      spell.id === event.ability.guid && interior.validate(state, event, spell, lookahead),
     describe: (tense) => (
       <>
         {interior.describe(tense)} {showOptional && '(optional)'}

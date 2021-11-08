@@ -13,7 +13,7 @@ export default function always<T>(cnd: Condition<T>): Condition<T> {
   return {
     ...cnd,
     key: `always-${cnd.key}`,
-    validate: (state, event, spell) =>
-      event.ability.guid === spell.id || cnd.validate(state, event, spell),
+    validate: (state, event, spell, lookahead) =>
+      event.ability.guid === spell.id || cnd.validate(state, event, spell, lookahead),
   };
 }

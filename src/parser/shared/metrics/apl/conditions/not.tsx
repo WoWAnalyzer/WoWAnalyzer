@@ -6,7 +6,7 @@ export default function not(cnd: Condition<any>, showDont: boolean = true): Cond
   return {
     ...cnd,
     key: `not-${cnd.key}`,
-    validate: (state, event, spell) => !cnd.validate(state, event, spell),
+    validate: (state, event, spell, lookahead) => !cnd.validate(state, event, spell, lookahead),
     describe: (tense) => (
       <>
         {showDont && "don't"} {cnd.describe(tense)}

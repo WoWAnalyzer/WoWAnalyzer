@@ -9,7 +9,7 @@ import {
 } from 'parser/core/Events';
 
 import { buffPresent } from './conditions';
-import aplCheck, { build, Apl, PlayerInfo, ResultKind } from './index';
+import aplCheck, { build, Apl, PlayerInfo, ResultKind, lookaheadSlice } from './index';
 
 // OK, i called this BOF but BOF is a debuff. oops.
 const BOF = { id: 3, name: 'Important Buff', icon: '' };
@@ -303,5 +303,45 @@ describe('APL with conditions', () => {
         },
       ]);
     });
+  });
+});
+
+describe('lookaheadSlice', () => {
+  it('should produce an empty array when the lookahead is undefined', () => {
+    expect(lookaheadSlice(cast(0, 4000, SHORT_CD), 0, undefined)).toEqual([]);
+  });
+
+  it('should produce a list spanning the duration when present', () => {
+    const events = [
+      ...cast(0, 4000, SHORT_CD),
+      // unrealistic, but humor me
+      ...cast(100, 0, FILLER),
+      ...cast(200, 0, FILLER),
+      ...cast(1000, 0, FILLER),
+    ];
+
+    events.sort((a, b) => a.timestamp - b.timestamp);
+
+    expect(lookaheadSlice(events, 0, 300)).toEqual(events.filter((ev) => ev.timestamp <= 300));
+  });
+
+  it('should only include events that occur after the given event index', () => {
+    const events = [
+      ...cast(0, 4000, SHORT_CD),
+      // unrealistic, but humor me
+      ...cast(100, 0, FILLER),
+      ...cast(200, 0, FILLER),
+      ...cast(400, 0, FILLER),
+      ...cast(500, 0, FILLER),
+      ...cast(1000, 0, FILLER),
+    ];
+
+    events.sort((a, b) => a.timestamp - b.timestamp);
+
+    const start = events.findIndex((ev) => ev.timestamp === 200);
+
+    expect(lookaheadSlice(events, start, 300)).toEqual(
+      events.filter((ev, ix) => ix >= start && ev.timestamp <= events[start].timestamp + 300),
+    );
   });
 });

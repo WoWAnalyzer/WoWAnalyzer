@@ -1,9 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import { EventType } from 'parser/core/Events';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import {
+  targetsHit,
   buffPresent,
   buffMissing,
   hasLegendary,
@@ -30,6 +32,17 @@ export const apl = build([
   { spell: SPELLS.SPINNING_CRANE_KICK_BRM, condition: buffPresent(SPELLS.CHARRED_PASSIONS_BUFF) },
   SPELLS.CHI_WAVE_TALENT,
   SPELLS.CHI_BURST_TALENT,
+  {
+    spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+    condition: targetsHit(
+      { atLeast: 2 },
+      {
+        lookahead: 500,
+        targetType: EventType.Damage,
+        targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
+      },
+    ),
+  },
   {
     spell: SPELLS.SPINNING_CRANE_KICK_BRM,
     condition: optional(
