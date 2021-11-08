@@ -11,6 +11,8 @@ import CHANGELOG from './CHANGELOG';
 
 export enum Build {
   DEFAULT = 'default',
+  ELEMENTAL = 'elemental',
+  ENHANCEMENT = 'enhancement',
 }
 
 const config: Config = {
@@ -39,6 +41,18 @@ const config: Config = {
       icon: <Icon icon="spell_nature_healingwavegreater" />,
       visible: true,
     },
+    [Build.ENHANCEMENT]: {
+      url: 'enhancement',
+      name: '2/45/14',
+      icon: <Icon icon="spell_nature_lightningshield" />,
+      visible: true,
+    },
+    [Build.ELEMENTAL]: {
+      url: 'elemental',
+      name: '41/0/20',
+      icon: <Icon icon="spell_nature_lightning" />,
+      visible: true,
+    },
   },
   timeline: {
     separateCastBars: [[]],
@@ -57,7 +71,7 @@ const config: Config = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     ranking: {
-      class: 10,
+      class: 9,
       spec: 3,
     },
   },

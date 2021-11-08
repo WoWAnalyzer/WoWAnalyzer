@@ -14,6 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
+import { Build } from '../../CONFIG';
 import lowRankSpells from '../../lowRankSpells';
 import * as SPELLS from '../../SPELLS';
 
@@ -50,6 +51,9 @@ class ChainHeal extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.owner.build === Build.DEFAULT;
+
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
     const chainHealSpells: SpellInfo[] = [
