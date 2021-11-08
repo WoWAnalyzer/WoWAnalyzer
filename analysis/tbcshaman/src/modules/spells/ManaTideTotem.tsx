@@ -15,6 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
+import { Build } from '../../CONFIG';
 import * as SPELL_EFFECTS from '../../SPELL_EFFECTS';
 import * as SPELLS from '../../SPELLS';
 
@@ -31,7 +32,7 @@ class ManaTideTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = true;
+    this.active = this.owner.build === Build.DEFAULT;
 
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell({ id: SPELLS.MANA_TIDE_TOTEM }),

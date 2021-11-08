@@ -24,6 +24,8 @@ import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import Haste from '../shared/modules/Haste';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
 import Pets from '../shared/modules/Pets';
+import BloodFury from '../shared/modules/racials/orc/BloodFury';
+import Berserking from '../shared/modules/racials/troll/Berserking';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';
 import VantusRune from '../shared/modules/spells/VantusRune';
@@ -69,6 +71,9 @@ class CombatLogParser extends BaseCombatLogParser {
     weaponEnhancementChecker: WeaponEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     combatPotionChecker: CombatPotionChecker,
+
+    berserking: Berserking,
+    bloodFury: BloodFury,
 
     enemies: Enemies,
     enemyInstances: EnemyInstances,

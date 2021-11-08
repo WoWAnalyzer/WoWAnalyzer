@@ -16,7 +16,8 @@ class Berserking extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.active = this.selectedCombatant.race === RACES.Troll;
+    this.active =
+      this.selectedCombatant.race === RACES.Troll || this.selectedCombatant.race === null;
     if (!this.active) {
       return;
     }
@@ -31,6 +32,7 @@ class Berserking extends Analyzer {
       cooldown: 180,
       gcd: null,
       timelineSortIndex: 35,
+      isUndetectable: this.selectedCombatant.race === null ? true : undefined,
       castEfficiency: {
         suggestion: this.castEfficiency !== null,
         recommendedEfficiency: this.castEfficiency,

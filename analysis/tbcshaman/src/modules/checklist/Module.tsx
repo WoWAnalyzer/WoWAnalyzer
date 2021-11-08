@@ -35,6 +35,7 @@ class Checklist extends BaseChecklist {
   render() {
     return (
       <Component
+        build={this.owner.build}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

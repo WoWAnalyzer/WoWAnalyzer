@@ -1,7 +1,8 @@
 import { Panel } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import React from 'react';
 
+import { Build } from '../../CONFIG';
 import HealingEfficiencyBreakdown from './HealingEfficiencyBreakdown';
 import HealingEfficiencyTracker from './HealingEfficiencyTracker';
 
@@ -11,6 +12,12 @@ class HealingEfficiencyDetails extends Analyzer {
   };
 
   protected healingEfficiencyTracker!: HealingEfficiencyTracker;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.active = this.owner.build === Build.DEFAULT;
+  }
 
   tab() {
     return {
