@@ -2,8 +2,8 @@ import Expansion from './Expansion';
 
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
 const VERSIONS: Partial<{ [expansion in Expansion]: string }> = {
-  [Expansion.TheBurningCrusade]: '2.5.1',
-  [Expansion.Shadowlands]: '9.1',
+  [Expansion.TheBurningCrusade]: '2.5.2',
+  [Expansion.Shadowlands]: '9.1.5',
 };
 
 export default VERSIONS;
