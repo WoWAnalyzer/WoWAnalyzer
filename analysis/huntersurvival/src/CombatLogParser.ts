@@ -26,6 +26,7 @@ import {
   SoulforgeEmbers,
   EnfeebledMark,
   MarkmansAdvantage,
+  FragmentsOfTheElderAntlers,
 } from '@wowanalyzer/hunter';
 
 import Abilities from './modules/Abilities';
@@ -150,6 +151,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
+    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
 
     //Survival Legendaries
     wildfireCluster: WildfireCluster,
