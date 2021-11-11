@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 11), <>Corrected Aura Mastery's Active DR.</>, Abelito75),
   change(date(2021, 8, 1), <>Fixed a bug that caused the 'Inefficient Light of the Martyr' module to crash when used with Maraad's legendary.</>, Sref),
   change(date(2021, 3, 11), <>Fix <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/> cooldown, reduce recommended uptime of <SpellLink id={SPELLS.JUDGMENT_CAST_HOLY.id}/> and <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/>, and increase recommended uptime of <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/></>, acornellier),
   change(date(2021, 3, 10), <>Update <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> mana cost</>, acornellier),

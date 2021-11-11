@@ -29,7 +29,6 @@ import CastBehavior from './modules/features/CastBehavior';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
-import StatValues from './modules/features/StatValues';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
@@ -83,7 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    statValues: StatValues,
 
     // Racials
     mightOfTheMountain: MightOfTheMountain,
