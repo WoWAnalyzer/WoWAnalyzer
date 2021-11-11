@@ -29,7 +29,6 @@ import CastBehavior from './modules/features/CastBehavior';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
-import StatValues from './modules/features/StatValues';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
@@ -37,7 +36,6 @@ import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
 import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
 import LightOfDawn from './modules/spells/LightOfDawn';
-import LightOfDawnIndexer from './modules/spells/LightOfDawnIndexer';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
@@ -73,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     inefficientLightOfTheMartyrs: InefficientLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
-    lightOfDawnIndexer: LightOfDawnIndexer,
     hammerOfWrath: HammerOfWrath,
 
     // Features
@@ -83,7 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    statValues: StatValues,
 
     // Racials
     mightOfTheMountain: MightOfTheMountain,
