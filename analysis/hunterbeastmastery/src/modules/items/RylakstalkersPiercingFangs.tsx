@@ -10,16 +10,18 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
+import { MS_BUFFER } from '@wowanalyzer/hunter';
 import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from '@wowanalyzer/hunter-beastmastery/src/constants';
 
 /**
- * While Bestial Wrath is active, your pet's critical damage dealt is increased by 20%.
+ * While Bestial Wrath is active, your pet's critical damage dealt is increased by 35%.
  *
  * Example log:
- *
+ * https://www.warcraftlogs.com/reports/TqAf9F8tKkL4NWCj#fight=50&type=damage-done
  */
 class RylakstalkersPiercingFangs extends Analyzer {
-  damage: number = 0;
+  damage = 0;
+  lastCritTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
@@ -36,9 +38,20 @@ class RylakstalkersPiercingFangs extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
+    if (
+      event.ability.guid === SPELLS.BEAST_CLEAVE_DAMAGE.id &&
+      event.timestamp < this.lastCritTimestamp + MS_BUFFER
+    ) {
+      this.damage += calculateEffectiveDamage(
+        event,
+        RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE,
+      );
+    }
     if (event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
+
+    this.lastCritTimestamp = event.timestamp;
     this.damage += calculateEffectiveDamage(event, RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE);
   }
 
