@@ -36,7 +36,6 @@ import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
 import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
 import LightOfDawn from './modules/spells/LightOfDawn';
-import LightOfDawnIndexer from './modules/spells/LightOfDawnIndexer';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
@@ -72,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     inefficientLightOfTheMartyrs: InefficientLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
-    lightOfDawnIndexer: LightOfDawnIndexer,
     hammerOfWrath: HammerOfWrath,
 
     // Features
