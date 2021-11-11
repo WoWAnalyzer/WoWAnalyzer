@@ -31,6 +31,7 @@ import {
   CancelledCasts,
   RaeshalareDeathsWhisper,
   RaeshalarePrepullNormalizer,
+  FragmentsOfTheElderAntlers,
 } from '@wowanalyzer/hunter';
 
 import Abilities from './modules/Abilities';
@@ -158,6 +159,7 @@ class CombatLogParser extends CoreCombatLogParser {
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
     raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
+    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
 
     //Marksmanship Legendaries
     surgingShots: SurgingShots,

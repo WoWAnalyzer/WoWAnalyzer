@@ -11,6 +11,7 @@ export { default as FocusTracker } from './FocusTracker';
 export { default as FocusUsage } from './FocusUsage';
 export { default as KillShot } from './spells/KillShot';
 export { default as NaturalMending } from './talents/NaturalMending';
+export { default as FragmentsOfTheElderAntlers } from './items/FragmentsOfTheElderAntlers';
 export { default as SoulforgeEmbers } from './items/SoulforgeEmbers';
 export { default as RaeshalareDeathsWhisper } from './items/RaeshalareDeathsWhisper';
 export { default as RaeshalarePrepullNormalizer } from './items/RaeshalarePrepullNormalizer';

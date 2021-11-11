@@ -6,6 +6,7 @@ import { ItemLink, SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),
   change(date(2021, 11, 11), <> Correct an issue where damage done by <SpellLink id={SPELLS.BEAST_CLEAVE_DAMAGE.id}/> wasn't correctly attributed to <SpellLink id={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id}/>.  </>, Putro),
   change(date(2021, 11, 6), <> Update APL checker with the new fractional spell charges and cooldown remaining logic as well as moving <SpellLink id={SPELLS.WILD_SPIRITS.id} /> into the major cooldown category instead of an APL item. </>, Putro),
   change(date(2021, 11, 6), 'Implement an initial version of the APL checker', Putro),
