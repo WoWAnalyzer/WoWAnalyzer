@@ -65,7 +65,7 @@ class FallenOrderMistWrap extends Analyzer {
         event.sourceID,
       )
     ) {
-      this.mistwrapHealing += event.amount;
+      this.mistwrapHealing += event.amount + (event.absorbed || 0);
       this.mistwrapOverhealing += event.overheal || 0;
     } else {
       this.mistwrapBonus(event);
@@ -73,7 +73,7 @@ class FallenOrderMistWrap extends Analyzer {
   }
 
   mistwrapBonus(event: HealEvent) {
-    const healing = event.amount;
+    const healing = event.amount + (event.absorbed || 0);
 
     const target = this.combatants.players[event.targetID];
 

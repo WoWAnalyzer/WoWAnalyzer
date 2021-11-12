@@ -52,6 +52,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 11, 11), 'Added an Icon to more easily display which cooldown is which in the cooldown tab.', Abelito75),
   change(date(2021, 11, 8), 'Bumping current version of wow from 9.1 -> 9.1.5', Abelito75),
   change(date(2021, 11, 8), 'Manual internationalization update to satisfy CI.', emallson),
   change(date(2021, 11, 6), 'Add additional functionality to APL checker to check for present/missing debuffs, fractional charges and remaining time of spell cooldowns', Putro),
