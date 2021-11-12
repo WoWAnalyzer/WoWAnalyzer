@@ -1329,7 +1329,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               0
-              /1
+              /0
                casts
             </td>
             <td
@@ -1346,7 +1346,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
+                      "backgroundColor": "#70b570",
                       "width": "0%",
                     }
                   }
@@ -1371,12 +1371,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
         </tbody>
         <tbody>
@@ -3443,51 +3438,6 @@ Array [
         values={
           Object {
             "0": "70",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={322109}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 322109,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 0,
-            "1": 1,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
           }
         }
       />
