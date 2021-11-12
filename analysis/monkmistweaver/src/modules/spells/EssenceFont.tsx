@@ -146,7 +146,7 @@ class EssenceFont extends Analyzer {
             </>
           }
         >
-          ${formatNumber(averageHits)}
+          {formatNumber(averageHits)}
         </BoringValueText>
       </Statistic>
     );
