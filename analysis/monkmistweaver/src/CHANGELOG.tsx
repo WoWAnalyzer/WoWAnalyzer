@@ -6,7 +6,8 @@ import React from 'react';
 
 
 export default [
-  change(date(2021, 11, 3), <>Added a Average Casts for Crane Clones infographic. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added an infographic to show the gain from Mist Wrap for Fallen Order. </>, Abelito75),
+  change(date(2021, 11, 3), <>Added an Average Casts for Crane Clones infographic. </>, Abelito75),
   change(date(2021, 11, 3), <>Rearranged some infographics on the Statistics Tab. </>, Abelito75),
   change(date(2021, 10, 31), <>Added a breakdown for Sinister Teachings Legendary Cooldown effect. </>, Abelito75),
   change(date(2021, 10, 31), <>Removing healer stat weights. Adding Abelito75 as a contributor. </>, Abelito75),
