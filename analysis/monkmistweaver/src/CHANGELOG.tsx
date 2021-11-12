@@ -12,7 +12,6 @@ export default [
   change(date(2021, 11, 12), <>Added Covenants to Timeline. </>, Abelito75),
   change(date(2021, 11, 12), <>Added Covenants to ABC. </>, Abelito75),
   change(date(2021, 11, 12), <>Fixed Cooldown times of general spells. </>, Abelito75),
-  change(date(2021, 11, 12), <>Harm Denial bug fix when it comes to healing all. </>, Abelito75),
   change(date(2021, 11, 12), <>Touch of Death cooldown now works with Fatal Touch and correct scales GCD. </>, Abelito75),
   change(date(2021, 11, 12), <>Updated Gust Of Mist infographic to include Revival. </>, Abelito75),
   change(date(2021, 11, 12), <>Added an infographic breakdown Revivals true healing. </>, Abelito75),
