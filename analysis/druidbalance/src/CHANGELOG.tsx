@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
   change(date(2021, 8, 2), <>Fixed a bug that was causing <SpellLink id={SPELLS.HALF_MOON.id}/> casts to be missed by the analyzer.</>, Sref),
   change(date(2021, 7, 28), <>Fixed incorrect haste number for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/>.</>, Sref),

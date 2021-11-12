@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 11, 11), <>Removed healer stat weights in favor of QElive.</>, Abelito75),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
   change(date(2021, 7, 28), <>Added <SpellLink id={SPELLS.ADAPTIVE_ARMOR_FRAGMENT.id}/> statistic for the benefit of very particular and demanding raiders who must know the difference between 1.0% and 1.5% and are willing to bother developers on Discord to find out.</>, Sref),
