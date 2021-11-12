@@ -31,8 +31,11 @@ class HarmDenial extends Analyzer {
 
     this.healingBoost = conduitScaling(0.25, conduitRank);
 
+    /*currently targeted healing us bugged but hopefully blizzard will fix it?*/
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.EXPEL_HARM_TARGET_HEAL]),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.EXPEL_HARM /*, SPELLS.EXPEL_HARM_TARGET_HEAL*/]),
       this.extraHealing,
     );
   }

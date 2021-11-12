@@ -53,8 +53,16 @@ class RisingSunRevival extends Analyzer {
     }
   }
 
+  get rsrHealing() {
+    return this.healingDone.byAbility(SPELLS.RISING_SUN_REVIVAL_HEAL.id).effective;
+  }
+
+  get rsrOverHealing() {
+    return this.healingDone.byAbility(SPELLS.RISING_SUN_REVIVAL_HEAL.id).overheal;
+  }
+
   statistic() {
-    const healing = this.healingDone.byAbility(SPELLS.RISING_SUN_REVIVAL_HEAL.id).effective;
+    const healing = this.rsrHealing;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

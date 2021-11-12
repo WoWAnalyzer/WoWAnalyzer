@@ -98,7 +98,7 @@ const spells = {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 3000,
+    manaCost: 2800,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,

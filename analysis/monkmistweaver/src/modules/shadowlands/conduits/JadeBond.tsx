@@ -48,7 +48,11 @@ class JadeBond extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.EXPEL_HARM, SPELLS.VIVIFY, SPELLS.RENEWING_MIST, SPELLS.ENVELOPING_MIST]),
+        .spell([
+          SPELLS.GUSTS_OF_MISTS,
+          SPELLS.GUST_OF_MISTS_CHIJI,
+          SPELLS.BONEDUST_BREW_GUST_OF_MIST,
+        ]),
       this.gustProcingSpell,
     );
 

@@ -171,6 +171,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        cooldown: 15,
       },
 
       // Utility Spells
@@ -192,7 +193,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FORTIFYING_BREW.id,
         buffSpellId: SPELLS.FORTIFYING_BREW.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 90,
+        cooldown: 180,
       },
       {
         spell: SPELLS.HEALING_ELIXIR_TALENT.id,
@@ -212,7 +213,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PARALYSIS.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -270,7 +271,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TRANSCENDENCE_TRANSFER.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 25,
+        cooldown: 45,
         gcd: {
           base: 1500,
         },

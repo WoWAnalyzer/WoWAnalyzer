@@ -6,6 +6,16 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 11, 12), <>Re-enabled MW and bumped to patch 9.1.5 </>, Abelito75),
+  change(date(2021, 11, 12), <>Updated Mana Costs so Tier 30 comparison is accurate again. </>, Abelito75),
+  change(date(2021, 11, 12), <>Jade bond works correctly now with all Gust of Mist Healing. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added Covenants to Timeline. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added Covenants to ABC. </>, Abelito75),
+  change(date(2021, 11, 12), <>Fixed Cooldown times of general spells. </>, Abelito75),
+  change(date(2021, 11, 12), <>Harm Denial bug fix when it comes to healing all. </>, Abelito75),
+  change(date(2021, 11, 12), <>Touch of Death cooldown now works with Fatal Touch and correct scales GCD. </>, Abelito75),
+  change(date(2021, 11, 12), <>Updated Gust Of Mist infographic to include Revival. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added an infographic breakdown Revivals true healing. </>, Abelito75),
   change(date(2021, 11, 12), <>Added an infographic to show the gain from Mist Wrap for Fallen Order. </>, Abelito75),
   change(date(2021, 11, 3), <>Added an Average Casts for Crane Clones infographic. </>, Abelito75),
   change(date(2021, 11, 3), <>Rearranged some infographics on the Statistics Tab. </>, Abelito75),
