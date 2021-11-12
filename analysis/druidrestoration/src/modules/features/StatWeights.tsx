@@ -8,6 +8,7 @@ import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import React from 'react';
 
 import { DRUID_HEAL_INFO } from '../../SpellInfo';
 import Mastery from '../core/Mastery';
@@ -176,16 +177,7 @@ class StatWeights extends BaseHealerStatValues {
   }
 
   _prepareResults() {
-    return [
-      STAT.INTELLECT,
-      STAT.CRITICAL_STRIKE,
-      STAT.HASTE_HPCT, // TODO implement
-      STAT.HASTE_HPM,
-      STAT.MASTERY,
-      STAT.VERSATILITY,
-      STAT.VERSATILITY_DR,
-      STAT.LEECH,
-    ];
+    return [];
   }
 
   statistic() {
@@ -193,7 +185,7 @@ class StatWeights extends BaseHealerStatValues {
       this.totalOneHasteHpct = this.totalOneHasteHpm + this.totalOneHasteHpct;
       this.done = true;
     }
-    return super.statistic();
+    return <></>;
   }
 }
 
