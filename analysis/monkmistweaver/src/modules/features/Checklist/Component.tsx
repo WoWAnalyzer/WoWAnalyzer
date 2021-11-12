@@ -38,14 +38,16 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={SPELLS.RENEWING_MIST.id} />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.RENEWING_MIST.id} /> avg per Vivify cast
-            </>
-          }
-          thresholds={thresholds.vivify}
-        />
+        {!combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.RENEWING_MIST.id} /> avg per Vivify cast
+              </>
+            }
+            thresholds={thresholds.vivify}
+          />
+        )}
         {combatant.hasTalent(SPELLS.RISING_MIST_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.RISING_SUN_KICK.id} />
         )}
@@ -74,17 +76,18 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.MANA_TEA_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RENEWING_MIST.id} /> active during{' '}
-                <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />
-              </>
-            }
-            thresholds={thresholds.renewingMistDuringManaTea}
-          />
-        )}
+        {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) &&
+          !combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && (
+            <Requirement
+              name={
+                <>
+                  <SpellLink id={SPELLS.RENEWING_MIST.id} /> active during{' '}
+                  <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />
+                </>
+              }
+              thresholds={thresholds.renewingMistDuringManaTea}
+            />
+          )}
         {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
         )}
