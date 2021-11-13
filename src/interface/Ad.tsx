@@ -43,7 +43,14 @@ const Ad = ({ style, location }: Props) => {
 
 export default Ad;
 
+declare global {
+  interface Window {
+    ramp?: any;
+  }
+}
+
 export function initAds() {
+  const ramp = window.ramp;
   if (!ramp) {
     return;
   }
@@ -55,6 +62,7 @@ export function initAds() {
 }
 
 export function refreshAds() {
+  const ramp = window.ramp;
   try {
     if (ramp && ramp.initCallbackHappened) {
       ramp.destroyUnits('all');
