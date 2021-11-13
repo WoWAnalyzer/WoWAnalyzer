@@ -17,4 +17,5 @@ export { default as buffStacks } from './buffStacks';
 export { default as targetsHit } from './targetsHit';
 export { debuffPresent } from './debuffPresent';
 export { debuffMissing } from './debuffMissing';
+export { hasCovenant } from './hasCovenant';
 export * from './util';
