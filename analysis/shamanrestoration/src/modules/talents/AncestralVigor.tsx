@@ -63,7 +63,9 @@ class AncestralVigor extends Analyzer {
       filter: `(
         IN RANGE
         WHEN type='${EventType.Damage}'
+          AND source.disposition='enemy'
           AND target.disposition='friendly'
+          AND target.type='player'
           AND resources.hitPoints>0
           AND 100*resources.hpPercent<=${Math.ceil(10000 * HP_THRESHOLD)}
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(
