@@ -46,6 +46,7 @@ import InvokeYulon from './modules/spells/InvokeYulon';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
+import RisingSunKick from './modules/spells/RisingSunKick';
 import SoothingMist from './modules/spells/SoothingMist';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -109,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     expelHarm: ExpelHarm,
     envelopingBreath: EnvelopingBreath,
     revival: Revival,
+    risingSunKick: RisingSunKick,
 
     // Talents
     chiBurst: ChiBurst,
