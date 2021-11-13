@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 import './Ad.scss';
+import usePremium from './usePremium';
 
 export enum Location {
   Top = 'top',
@@ -18,10 +20,20 @@ const units = {
 // TODO: this will not work well with
 const Ad = ({ style, location }: Props) => {
   const { selectorId, type: adType } = units[location || Location.Top];
+  const pageLoc = useLocation();
+  const premium = usePremium();
 
   useEffect(() => {
-    refreshAds();
-  }, [location]);
+    if (!premium) {
+      refreshAds();
+
+      return destroyAds;
+    }
+  }, [location, pageLoc.pathname, premium]);
+
+  if (premium) {
+    return null;
+  }
 
   return (
     <div
@@ -50,18 +62,6 @@ declare global {
   }
 }
 
-export function initAds() {
-  const ramp = window.ramp;
-  if (!ramp) {
-    return;
-  }
-
-  ramp.onReady = function () {
-    ramp.initCallbackHappened = true;
-    refreshAds();
-  };
-}
-
 export function refreshAds() {
   const ramp = window.ramp;
   try {
@@ -70,6 +70,7 @@ export function refreshAds() {
       ramp
         .addUnits(Object.values(units))
         .then(() => {
+          console.log('ads refreshed');
           ramp.displayUnits();
         })
         .catch((e: Error) => {
@@ -82,9 +83,19 @@ export function refreshAds() {
   }
 }
 
+export function destroyAds() {
+  console.log('destroying ads');
+  const destroy = window.ramp?.destroyUnits;
+
+  if (destroy) {
+    destroy('all');
+  }
+}
+
 window.ramp = {
   mode: 'ramp',
   config: '//config.playwire.com/1024476/v2/websites/73270/banner.json',
-  initCallbackHappened: false,
+  // not sure if this is needed?
+  initCallbackHappened: true,
   passiveMode: true,
 };

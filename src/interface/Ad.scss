@@ -3,4 +3,8 @@
   grid-auto-flow: column;
   justify-items: center;
   align-items: end;
+
+  a:not(:only-child) {
+    display: none;
+  }
 }
