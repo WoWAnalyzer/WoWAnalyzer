@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Ad.scss';
 
 export enum Location {
   Top = 'top',
