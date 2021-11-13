@@ -34,7 +34,7 @@ const Ad = ({ style, location }: Props) => {
         <img
           src="/img/ad-fallback.jpg"
           alt="WoWAnalyzer Premium - Did we help? Support us and unlock cool perks."
-          style={{ maxWidth: '100%', marginTop: 250 / 2 - 90 / 2 }}
+          style={{ maxWidth: '100%' }}
         />
       </Link>
     </div>
