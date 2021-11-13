@@ -16,7 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 /** Health percent below which we consider a heal to be 'triage' */
-const TRIAGE_THRESHOLD = 0.4;
+const TRIAGE_THRESHOLD = 0.5;
 /** Max time from cast to heal event to consider the events linked */
 const MS_BUFFER = 100;
 /** Min stacks required to consider a regrowth efficient */
@@ -260,10 +260,10 @@ class RegrowthAndClearcasting extends Analyzer {
         position={STATISTIC_ORDER.CORE(20)}
         tooltip={
           <>
-            <SpellLink id={SPELLS.REGROWTH.id} /> is very mana inefficient and should only be cast
-            when free due to <SpellLink id={SPELLS.INNERVATE.id} />,{' '}
-            <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> or{' '}
-            <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />,{' '}
+            <SpellLink id={SPELLS.REGROWTH.id} /> is mana inefficient relative to{' '}
+            <SpellLink id={SPELLS.REJUVENATION.id} /> and should only be cast when free due to{' '}
+            <SpellLink id={SPELLS.INNERVATE.id} />, <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
+            or <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />,{' '}
             {this.hasAbundance && (
               <>
                 cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}

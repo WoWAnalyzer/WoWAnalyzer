@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 13), <>Updated wording of <SpellLink id={SPELLS.REGROWTH.id}/> statistic and made it more permissive of triage casts.</>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 11, 11), <>Removed healer stat weights in favor of QElive.</>, Abelito75),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
