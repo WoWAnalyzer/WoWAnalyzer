@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -46,6 +46,15 @@ class FallenOrderMistWrap extends Analyzer {
   }
 
   healing(event: HealEvent) {
+    const target = this.combatants.players[event.targetID];
+
+    // If its a pet or something
+    // https://www.warcraftlogs.com/reports/w1PjmFCfMrpvKxGa/#fight=15&type=healing&source=53&pins=2%24Off%24%23244F4B%24expression%24ability.id%20%3D%20344008%20or%20ability.id%20%3D%20328283&options=44&target=54
+    // example for why Kevin is terrible. Fuck kevin and everything he stands for
+    if (!target) {
+      return;
+    }
+
     if (event.ability.guid === SPELLS.FALLEN_ORDER_SOOTHING_MIST.id) {
       this.mistwrapBonus(event);
     } else {
@@ -120,7 +129,8 @@ class FallenOrderMistWrap extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.FALLEN_ORDER_CRANE_CLONE.id} /> Mist Wrap Healing Increase
+              <SpellLink id={SPELLS.MIST_WRAP_TALENT.id} /> Increase on{' '}
+              <SpellLink id={SPELLS.FALLEN_ORDER_CRANE_CLONE.id} /> healing
             </>
           }
         >
