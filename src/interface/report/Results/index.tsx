@@ -6,7 +6,6 @@ import retryingPromise from 'common/retryingPromise';
 import { findByBossId, Phase } from 'game/raids';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { appendReportHistory } from 'interface/actions/reportHistory';
-import Ad from 'interface/Ad';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
 import ErrorBoundary from 'interface/ErrorBoundary';
@@ -185,7 +184,7 @@ class Results extends React.PureComponent<Props, State> {
   }
 
   renderContent(selectedTab: string, results: ParseResults | null) {
-    const { parser, premium, config } = this.props;
+    const { parser, config } = this.props;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
@@ -229,12 +228,6 @@ class Results extends React.PureComponent<Props, State> {
         return (
           <div className="container">
             <Character statTracker={statTracker} combatant={parser.selectedCombatant} />
-
-            {premium === false && (
-              <div style={{ margin: '40px 0' }}>
-                <Ad />
-              </div>
-            )}
 
             <EncounterStats
               config={config}
@@ -364,7 +357,6 @@ class Results extends React.PureComponent<Props, State> {
       characterProfile,
       makeTabUrl,
       selectedTab,
-      premium,
       handlePhaseSelection,
       selectedPhase,
       selectedInstance,
@@ -524,12 +516,6 @@ class Results extends React.PureComponent<Props, State> {
             </div>
           </div>
         </div>
-
-        {premium === false && (
-          <div className="container" style={{ marginTop: 40 }}>
-            <Ad />
-          </div>
-        )}
       </div>
     );
   }

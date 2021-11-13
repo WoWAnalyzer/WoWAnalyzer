@@ -126,6 +126,8 @@ class Home extends React.PureComponent {
 
         <ReportSelectionHeader />
 
+        {premium === false && <Ad location="top" style={{ marginTop: '-20px' }} />}
+
         <main className="container">
           <nav>
             <ul>
@@ -186,12 +188,6 @@ class Home extends React.PureComponent {
               <Route component={NotFound} />
             </Switch>
           </ErrorBoundary>
-
-          {premium === false && (
-            <div style={{ marginTop: 40 }}>
-              <Ad />
-            </div>
-          )}
         </main>
       </div>
     );

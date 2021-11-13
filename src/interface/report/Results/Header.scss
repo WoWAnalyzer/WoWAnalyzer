@@ -45,6 +45,15 @@
     }
   }
 
+  .display-ad {
+    flex: 0 0 auto;
+    margin-top: 85px;
+
+    & + .subnavigation {
+      margin-top: 10px;
+    }
+  }
+
   .subnavigation {
     flex: 0 0 auto;
     margin-top: 85px;
@@ -71,8 +80,20 @@
       }
 
       .time-input input {
-        width: auto;
+        width: 4em;
         display: inline-block;
+
+        -moz-appearance: textfield;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          appearance: none;
+          margin: 0;
+        }
+      }
+
+      .end {
+        margin-left: 0.5em;
       }
 
       .time-input input:last-child {
