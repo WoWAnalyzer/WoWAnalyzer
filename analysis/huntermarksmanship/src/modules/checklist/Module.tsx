@@ -12,6 +12,7 @@ import LethalShots from '@wowanalyzer/hunter-marksmanship/src/modules/talents/Le
 import SerpentSting from '@wowanalyzer/hunter-marksmanship/src/modules/talents/SerpentSting';
 import SteadyFocus from '@wowanalyzer/hunter-marksmanship/src/modules/talents/SteadyFocus';
 
+import { apl, check as aplCheck } from '../apl/AplCheck';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
 
@@ -71,8 +72,11 @@ class Checklist extends BaseChecklist {
   //endregion
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
