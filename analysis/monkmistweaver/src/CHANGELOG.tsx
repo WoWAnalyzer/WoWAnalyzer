@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 11, 13), <>Added A Cool And Interesting Infographic For RSK Reset .</>, Abelito75),
   change(date(2021, 11, 12), <>Fixed Fallen Order Mist Wrap stat from crashing.</>, Abelito75),
   change(date(2021, 11, 12), <>Updated Checklist so it no longer assumes you will Vivify with Refreshing Jade Wind </>, Abelito75),
   change(date(2021, 11, 12), <>Re-enabled MW and bumped to patch 9.1.5 </>, Abelito75),
