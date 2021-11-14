@@ -10,6 +10,8 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import { SpellbookAbility } from '../modules/Ability';
 import ManaTracker from './ManaTracker';
 
+const SPELLS_TO_IGNORE: number[] = [SPELLS.HEALTHSTONE.id, SPELLS.SPIRITUAL_HEALING_POTION.id];
+
 export interface SpellInfoDetails {
   spell: Spell;
   casts: number;
@@ -154,6 +156,10 @@ class HealingEfficiencyTracker extends Analyzer {
 
       if (ability.spell instanceof Array) {
         for (const lowerRankSpell of ability.spell) {
+          if (SPELLS_TO_IGNORE.includes(lowerRankSpell)) {
+            continue;
+          }
+
           spells[lowerRankSpell] = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
           if (spells[lowerRankSpell].hpm !== Infinity) {
             topHpm = Math.max(topHpm, spells[lowerRankSpell].hpm);
@@ -165,6 +171,10 @@ class HealingEfficiencyTracker extends Analyzer {
           topDpet = Math.max(topDpet, spells[lowerRankSpell].dpet);
         }
       } else {
+        if (SPELLS_TO_IGNORE.includes(ability.spell)) {
+          continue;
+        }
+
         spells[ability.spell] = this.getSpellStats(ability.spell, ability.healSpellIds);
         if (spells[ability.spell].hpm !== Infinity) {
           topHpm = Math.max(topHpm, spells[ability.spell].hpm);
