@@ -65,7 +65,10 @@ class DissonantEchoes extends Analyzer {
   }
 
   onBuffRemoved() {
-    if (!this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT))) {
+    if (
+      this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT))
+        .length === 0
+    ) {
       return;
     }
 

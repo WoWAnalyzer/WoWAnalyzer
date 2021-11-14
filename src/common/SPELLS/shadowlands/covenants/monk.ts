@@ -77,6 +77,7 @@ const covenants = {
 
   //region Venthyr
   FALLEN_ORDER_CAST: {
+    // this is also the buff :)
     id: 326860,
     name: 'Fallen Order',
     icon: 'ability_revendreth_monk',
@@ -105,6 +106,11 @@ const covenants = {
     id: 330903,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
+  },
+  FALLEN_ORDER_TIGER_PALM: {
+    id: 346602,
+    name: 'Tiger Palm',
+    icon: 'ability_monk_tigerpalm',
   },
   FALLEN_ORDER_OX_CLONE: {
     id: 327005,

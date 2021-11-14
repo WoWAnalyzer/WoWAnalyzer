@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import conduitScaling from 'parser/core/conduitScaling';
-import Events, { EnergizeEvent, HealEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
@@ -34,7 +34,7 @@ class GroundingBreath extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyBoost);
     this.addEventListener(
-      Events.energize
+      Events.resourcechange
         .by(SELECTED_PLAYER)
         .spell([SPELLS.GROUNDING_BREATH_MANA_RETURN, SPELLS.GROUNDING_BREATH_ENERGY_RETURN]),
       this.onResourceRefund,
@@ -48,7 +48,7 @@ class GroundingBreath extends Analyzer {
     this.healing += calculateEffectiveHealing(event, this.healingBoost) || 0;
   }
 
-  onResourceRefund(event: EnergizeEvent) {
+  onResourceRefund(event: ResourceChangeEvent) {
     this.resourceReturned += event.resourceChange;
   }
 
@@ -61,6 +61,7 @@ class GroundingBreath extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.GROUNDING_BREATH.id}>
           <ItemManaGained amount={this.resourceReturned} />
+          <br />
           <ItemHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

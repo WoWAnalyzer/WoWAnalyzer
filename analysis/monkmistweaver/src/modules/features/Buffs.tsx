@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
@@ -32,6 +33,23 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.MANA_TEA_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT),
+        timelineHighlight: true,
+      },
+
+      //Covenants
+      {
+        spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.BONEDUST_BREW_CAST.id,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FALLEN_ORDER_CAST.id,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         timelineHighlight: true,
       },
 

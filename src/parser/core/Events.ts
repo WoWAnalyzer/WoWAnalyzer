@@ -27,7 +27,11 @@ export enum EventType {
   RemoveBuff = 'removebuff',
   RemoveDebuff = 'removedebuff',
   Summon = 'summon',
-  Energize = 'energize',
+  /**
+   * @deprecated Use `EventType.ResourceChange` instead. This enum variant will be removed soon.
+   */
+  Energize = 'resourcechange',
+  ResourceChange = 'resourcechange',
   Interrupt = 'interrupt',
   Death = 'death',
   Resurrect = 'resurrect',
@@ -59,6 +63,9 @@ export enum EventType {
   Time = 'time',
   Test = 'test',
   SpendResource = 'spendresource',
+
+  // Demon Hunter
+  ConsumeSoulFragments = 'consumesoulfragments',
 
   // Monk
   AddStagger = 'addstagger',
@@ -108,7 +115,7 @@ type MappedEventTypes = {
   [EventType.RemoveBuff]: RemoveBuffEvent;
   [EventType.RemoveDebuff]: RemoveDebuffEvent;
   [EventType.Summon]: SummonEvent;
-  [EventType.Energize]: EnergizeEvent;
+  [EventType.ResourceChange]: ResourceChangeEvent;
   [EventType.Drain]: DrainEvent;
   [EventType.Death]: DeathEvent;
   [EventType.CombatantInfo]: CombatantInfoEvent;
@@ -540,7 +547,7 @@ export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
 }
 
-export interface EnergizeEvent extends Event<EventType.Energize> {
+export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
   ability: Ability;
   sourceID: number;
   sourceIsFriendly: boolean;
@@ -1059,8 +1066,8 @@ const Events = {
   get summon() {
     return new EventFilter(EventType.Summon);
   },
-  get energize() {
-    return new EventFilter(EventType.Energize);
+  get resourcechange() {
+    return new EventFilter(EventType.ResourceChange);
   },
   get drain() {
     return new EventFilter(EventType.Drain);

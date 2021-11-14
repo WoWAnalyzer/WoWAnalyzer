@@ -1,7 +1,7 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -29,7 +29,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_PROTECTION),
       this.trackJudgmentCasts,
     );
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.trackedWastedJudgmentHP);
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.trackedWastedJudgmentHP);
   }
 
   trackJudgmentCasts(event: CastEvent) {
@@ -38,7 +38,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
     }
   }
 
-  trackedWastedJudgmentHP(event: EnergizeEvent) {
+  trackedWastedJudgmentHP(event: ResourceChangeEvent) {
     const hasAW: boolean = this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id);
 
     const judgementSource: boolean = event.ability.guid === SPELLS.JUDGMENT_HP_ENERGIZE.id;
@@ -66,7 +66,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
    * @param event
    * @returns Number of wasted Holy Power due to Sanctified Wrath talent.
    */
-  wasteDueToSanctifiedWrath(event: EnergizeEvent): number {
+  wasteDueToSanctifiedWrath(event: ResourceChangeEvent): number {
     const hasHA: boolean = this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id);
     const hpChange: number = event.resourceChange;
     const preCastHP = this.MAX_HOLY_POWER - (hpChange - event.waste);

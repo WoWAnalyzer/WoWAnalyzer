@@ -358,7 +358,8 @@ class GuildReports extends React.Component<Props, State> {
                 className="btn"
                 style={{ fontSize: 22 }}
               >
-                <ArmoryIcon /> Armory
+                <ArmoryIcon style={{ marginRight: '0.3em' }} />
+                <Trans id="interface.armory.text">Armory</Trans>
               </a>
               <br />
               {this.props.region !== 'CN' && (

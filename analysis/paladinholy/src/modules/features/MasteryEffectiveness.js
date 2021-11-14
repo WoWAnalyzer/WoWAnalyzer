@@ -85,7 +85,7 @@ class MasteryEffectiveness extends Analyzer {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealToPlayer);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbedByPlayer);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHealByPlayer);

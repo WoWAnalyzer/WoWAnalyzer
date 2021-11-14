@@ -577,6 +577,11 @@ const spells = {
     name: 'Tar Trap',
     icon: 'spell_yorsahj_bloodboil_black',
   },
+  TAR_TRAP_DEBUFF: {
+    id: 135299,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
+  },
   COUNTER_SHOT: {
     id: 147362,
     name: 'Counter Shot',
@@ -601,6 +606,16 @@ const spells = {
     id: 19801,
     name: 'Tranquilizing Shot',
     icon: 'spell_nature_drowsy',
+  },
+  WAILING_ARROW_CAST: {
+    id: 355589,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  WAILING_ARROW_DAMAGE: {
+    id: 354831,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
   },
   //endregion
 

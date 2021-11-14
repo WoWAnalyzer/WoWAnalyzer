@@ -6,6 +6,23 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 11, 13), <>Added A Cool And Interesting Infographic For RSK Reset .</>, Abelito75),
+  change(date(2021, 11, 12), <>Fixed Fallen Order Mist Wrap stat from crashing.</>, Abelito75),
+  change(date(2021, 11, 12), <>Updated Checklist so it no longer assumes you will Vivify with Refreshing Jade Wind </>, Abelito75),
+  change(date(2021, 11, 12), <>Re-enabled MW and bumped to patch 9.1.5 </>, Abelito75),
+  change(date(2021, 11, 12), <>Updated Mana Costs so Tier 30 comparison is accurate again. </>, Abelito75),
+  change(date(2021, 11, 12), <>Jade bond works correctly now with all Gust of Mist Healing. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added Covenants to Timeline. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added Covenants to ABC. </>, Abelito75),
+  change(date(2021, 11, 12), <>Fixed Cooldown times of general spells. </>, Abelito75),
+  change(date(2021, 11, 12), <>Touch of Death cooldown now works with Fatal Touch and correct scales GCD. </>, Abelito75),
+  change(date(2021, 11, 12), <>Updated Gust Of Mist infographic to include Revival. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added an infographic breakdown Revivals true healing. </>, Abelito75),
+  change(date(2021, 11, 12), <>Added an infographic to show the gain from Mist Wrap for Fallen Order. </>, Abelito75),
+  change(date(2021, 11, 3), <>Added an Average Casts for Crane Clones infographic. </>, Abelito75),
+  change(date(2021, 11, 3), <>Rearranged some infographics on the Statistics Tab. </>, Abelito75),
+  change(date(2021, 10, 31), <>Added a breakdown for Sinister Teachings Legendary Cooldown effect. </>, Abelito75),
+  change(date(2021, 10, 31), <>Removing healer stat weights. Adding Abelito75 as a contributor. </>, Abelito75),
   change(date(2021, 5, 17), <>Removing Anomoly as a contributor to this spec.</>, Anomoly),
   change(date(2021, 4, 1), <>Updated Mana Costs for <SpellLink id={SPELLS.RENEWING_MIST.id} /> and <SpellLink id={SPELLS.VIVIFY.id} /> to the correct values for 9.0.5.</>, Anomoly),
   change(date(2021, 1, 16), <>Re-enabling module support, as it is currently still going to be updated and supported moving forward.</>, Anomoly),

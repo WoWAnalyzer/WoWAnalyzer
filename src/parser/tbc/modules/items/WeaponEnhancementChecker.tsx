@@ -8,6 +8,7 @@ const MAX_ENHANCEMENT_IDS = [
   2713, // https://tbc.wowhead.com/spell=29453/sharpen-blade
   2955, // https://tbc.wowhead.com/spell=34340/weight-weapon
   2629, // https://tbc.wowhead.com/spell=25123/brilliant-mana-oil
+  2639, // https://tbc.wowhead.com/spell=25587/windfury-totem
 ];
 
 const WEAPON_SLOTS = {

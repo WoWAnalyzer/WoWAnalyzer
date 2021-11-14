@@ -4,7 +4,12 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, RemoveBuffEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  RemoveBuffEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -45,7 +50,7 @@ class VoidTorrent extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_BUFF),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_BUFF),
       this.onEnergize,
     );
   }
@@ -138,7 +143,7 @@ class VoidTorrent extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.insanityGained += event.resourceChange;
   }
 

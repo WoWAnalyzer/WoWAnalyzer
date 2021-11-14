@@ -1,4 +1,4 @@
-import { formatDuration } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -38,6 +38,13 @@ class ExecuteHelper extends Analyzer {
    * This should contain any SPELLS object that allows execute to be used outside normal execute range
    */
   static executeOutsideRangeEnablers: Spell[] = [];
+
+  /**
+   * Whether cooldown of the executeSpells should count as time in execute.
+   * For spells such as Execute this should be set to true,
+   * but for spells like Aimed Shot that also function outside of execute this shouldn't be set.
+   */
+  static countCooldownAsExecuteTime: boolean;
 
   /**
    * The lower threshold where execute is enabled, shown in decimals.
@@ -225,6 +232,10 @@ class ExecuteHelper extends Analyzer {
     return ctor.damageModifier;
   }
 
+  get countCooldownAsExecuteTime() {
+    const ctor = this.constructor as typeof ExecuteHelper;
+    return ctor.countCooldownAsExecuteTime;
+  }
   //endregion
 
   //region Generic Getters
@@ -256,7 +267,7 @@ class ExecuteHelper extends Analyzer {
       return;
     }
     if (
-      this.areExecuteSpellsOnCD ||
+      (this.areExecuteSpellsOnCD && this.countCooldownAsExecuteTime) ||
       this.isExecuteUsableOutsideExecuteRange ||
       this.isTargetInHealthExecuteWindow(event)
     ) {
@@ -265,14 +276,27 @@ class ExecuteHelper extends Analyzer {
         this.inExecuteWindow = true;
         this.inHealthExecuteWindow = true;
         this.executeWindowStart = event.timestamp;
-        debug && console.log('Execute window started');
+        debug &&
+          console.log(
+            'Execute window started at timestamp:',
+            event.timestamp,
+            'with ability',
+            event.ability.name,
+            `at ${formatPercentage((event.hitPoints ?? 1) / (event.maxHitPoints ?? 1))}%`,
+          );
       }
     } else {
       if (this.inExecuteWindow && event.timestamp > this.lastExecuteHitTimestamp + MS_BUFFER) {
         this.inExecuteWindow = false;
         this.inHealthExecuteWindow = false;
         this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
-        debug && console.log('Execute window ended, current total: ', this.totalExecuteDuration);
+        debug &&
+          console.log(
+            'Execute window ended, current total time in execute: ',
+            this.totalExecuteDuration,
+            'at timestamp:',
+            event.timestamp,
+          );
       }
     }
   }

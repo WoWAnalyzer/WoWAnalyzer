@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink, Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
@@ -50,10 +50,10 @@ class AstralPowerDetails extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onEnergize);
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType !== RESOURCE_TYPES.ASTRAL_POWER.id) {
       return;
     }

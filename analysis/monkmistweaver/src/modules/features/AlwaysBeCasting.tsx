@@ -20,6 +20,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
     SPELLS.EXPEL_HARM.id,
     SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
+    //covenants
+    SPELLS.WEAPONS_OF_ORDER_CAST.id,
+    SPELLS.BONEDUST_BREW_CAST.id,
+    SPELLS.FAELINE_STOMP_CAST.id,
+    SPELLS.FALLEN_ORDER_CAST.id,
   ];
 
   constructor(options: Options) {

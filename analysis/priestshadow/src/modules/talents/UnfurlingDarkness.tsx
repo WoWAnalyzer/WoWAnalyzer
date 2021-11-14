@@ -41,7 +41,8 @@ class UnfurlingDarkness extends Analyzer {
 
   onBuffRemoved() {
     if (
-      !this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_TOUCH))
+      this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_TOUCH))
+        .length === 0
     ) {
       // If VT is not instant, it's not a proc
       return;

@@ -39,7 +39,7 @@ class DemonBite extends Analyzer {
     this.active = !this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
 
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE),
       this.onEnergizeEvent,
     );
     this.addEventListener(

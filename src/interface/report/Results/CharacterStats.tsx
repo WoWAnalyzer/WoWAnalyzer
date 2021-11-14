@@ -158,13 +158,13 @@ class CharacterStats extends React.PureComponent<Props, { expanded?: boolean }> 
           return (
             <div
               key={stat}
-              className={`row ${getClassNameColor(stat)}`}
+              className={`row ${getClassNameColor(stat)} stat-row`}
               style={{ marginBottom: '0.5em' }}
             >
-              <div className="col-xs-2 col-md-3 text-center">
+              <div className="col-xs-2 text-right">
                 <Icon />
               </div>
-              <div className="col-xs-10 col-md-9">
+              <div className="col-xs-10">
                 <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>
                   {getNameTranslated(stat)}
                 </div>
@@ -183,13 +183,13 @@ class CharacterStats extends React.PureComponent<Props, { expanded?: boolean }> 
               className={`row ${getClassNameColor(stat)}`}
               style={{ marginBottom: '0.5em' }}
             >
-              <div className="col-xs-2 col-md-3 text-center">
+              <div className="col-xs-2 text-right">
                 <SpellIcon
                   id={this.getTertiarySpell(stat)}
-                  style={{ height: '3em', borderRadius: 2 }}
+                  style={{ height: '2em', borderRadius: 2, marginTop: '0.5em' }}
                 />
               </div>
-              <div className="col-xs-10 col-md-9">
+              <div className="col-xs-10">
                 <div style={{ fontWeight: 700, textTransform: 'uppercase' }}>
                   {getNameTranslated(stat)}
                 </div>

@@ -1,3 +1,4 @@
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import { makeCharacterUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import React from 'react';
@@ -18,7 +19,8 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
       </Link>
     </div>
     <div>
-      {player.race && player.race.name} {player.player.type}
+      {player.race && player.race.name} {player.player.type}{' '}
+      {player.owner.config.expansion !== RETAIL_EXPANSION && `(${player.talents.join('/')})`}
     </div>
     <div>
       <b>Average ilvl:</b> {Math.round(averageIlvl)}

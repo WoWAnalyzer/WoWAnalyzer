@@ -12,6 +12,7 @@ import {
 } from '@wowanalyzer/monk';
 
 import Abilities from './modules/Abilities';
+import AplCheck from './modules/core/AplCheck';
 import BrewCDR from './modules/core/BrewCDR';
 import Channeling from './modules/core/Channeling';
 import Checklist from './modules/core/Checklist/Module';
@@ -106,6 +107,8 @@ class CombatLogParser extends CoreCombatLogParser {
     walkWithTheOx: WalkWithTheOx,
     /// Finesse
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;

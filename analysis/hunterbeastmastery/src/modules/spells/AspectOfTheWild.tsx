@@ -2,7 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -36,7 +36,7 @@ class AspectOfTheWild extends Analyzer {
       SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
     ) &&
       this.addEventListener(
-        Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD),
+        Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD),
         this.checkNesingwaryFocusGain,
       );
   }
@@ -47,7 +47,7 @@ class AspectOfTheWild extends Analyzer {
     );
   }
 
-  checkNesingwaryFocusGain(event: EnergizeEvent) {
+  checkNesingwaryFocusGain(event: ResourceChangeEvent) {
     const waste = ASPECT_OF_THE_WILD_FOCUS - event.resourceChange;
     if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
       this.additionalFocusFromNesingwary +=

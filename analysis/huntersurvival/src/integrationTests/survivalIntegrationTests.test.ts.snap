@@ -10286,7 +10286,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              0.00
+              0.20
             </td>
             <td
               className="text-right"
@@ -10296,7 +10296,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              0
+              1
               /1
                casts
             </td>
@@ -10315,7 +10315,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "100%",
                     }
                   }
                 />
@@ -10330,7 +10330,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              0.00%
+              100.00%
             </td>
             <td
               style={

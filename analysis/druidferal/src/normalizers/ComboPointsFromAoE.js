@@ -65,7 +65,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
       const eventComboResource = this.getResource(event, RESOURCE_TYPES.COMBO_POINTS.id);
 
       if (
-        event.type === EventType.Energize &&
+        event.type === EventType.ResourceChange &&
         event.targetID === this.playerId &&
         event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id
       ) {
@@ -96,7 +96,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
       }
 
       if (
-        event.type === EventType.Energize &&
+        event.type === EventType.ResourceChange &&
         event.sourceID === this.playerId &&
         event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id &&
         INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid) &&
@@ -127,7 +127,7 @@ class ComboPointsFromAoE extends EventsNormalizer {
         // We now know that the last castEvent hit and so did produce a combo point.
         const fabricatedEnergize = {
           __fabricated: true,
-          type: EventType.Energize,
+          type: EventType.ResourceChange,
           timestamp: castEvent.timestamp,
           ability: castEvent.ability,
           sourceID: this.playerId,

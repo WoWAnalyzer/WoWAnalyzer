@@ -18,6 +18,7 @@ import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
 import React, { ComponentType } from 'react';
 
 import Config from '../Config';
@@ -140,6 +141,7 @@ class CombatLogParser {
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
     spellInfo: SpellInfo,
+    energizeCompat: EnergizeCompat,
   };
   static defaultModules: DependenciesDefinition = {
     // Normalizers
@@ -744,6 +746,7 @@ class CombatLogParser {
       fightDuration: this.fight.end_time - this.fight.start_time,
       fightId: this.fight.id,
       reportCode: this.report.code,
+      combatant: this.selectedCombatant,
     };
   }
 }

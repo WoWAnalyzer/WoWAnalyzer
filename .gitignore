@@ -6,6 +6,11 @@
 # production
 /build
 
+# scripts
+raidbotsConduitsInfo.json
+soulbindconduititem.json
+soulbindconduitrank.json
+
 # misc
 .DS_Store
 .env.local
@@ -33,6 +38,7 @@ temp
 /.idea/markdown-navigator/profiles_settings.xml
 # Visual Studio code
 /.vscode
+**.code-workspace
 
 .vs/ProjectSettings.json
 .vs/slnx.sqlite

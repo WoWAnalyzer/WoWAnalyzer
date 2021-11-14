@@ -4,7 +4,12 @@ import { Adoraci, emallson, Hordehobbs, Zeboot, HolySchmidt } from 'CONTRIBUTORS
 import { SpellLink } from 'interface';
 import React from 'react';
 
+// prettier-ignore
 export default [
+  change(date(2021, 11, 6), <>Added AoE condition for <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />.</>, emallson),
+  change(date(2021, 10, 28), <>Clean up outdated suggestions and bump supported version to 9.1.5.</>, emallson),
+  change(date(2021, 10, 23), <>Tweak <SpellLink id={SPELLS.HAMMER_OF_WRATH.id} /> handling in APL.</>, emallson),
+  change(date(2021, 10, 23), 'Added APL-based rotation analysis.', emallson),
   change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 2, 20), <>Fixed overlapping GCDs caused by <SpellLink id={SPELLS.FINAL_STAND_TALENT.id} />.  Added GCD tracking for <SpellLink id={SPELLS.DIVINE_PROTECTION.id} /> and removed GDC tracking from <SpellLink id={SPELLS.FINAL_STAND_TALENT.id} /> taunt cast.</>, HolySchmidt),
   change(date(2021, 2, 20), <>Removed <SpellLink id={SPELLS.AVENGING_WRATH.id} /> from the GCD.</>, HolySchmidt),

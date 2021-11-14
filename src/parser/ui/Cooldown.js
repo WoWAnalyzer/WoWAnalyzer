@@ -134,16 +134,15 @@ class Cooldown extends React.Component {
     return (
       <article>
         <figure>
-          <SpellLink id={cooldown.spell.id} icon={false}>
+          <SpellLink id={cooldown.spell} icon>
             <Icon icon={cooldown.spell.icon} alt={cooldown.spell.name} />
           </SpellLink>
         </figure>
         <div className="row" style={{ width: '100%' }}>
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
-              <SpellLink id={cooldown.spell.id} icon={false} /> (
-              {formatDuration(cdStart - fightStart)} -&gt; {formatDuration(end - fightStart)})
-              &nbsp;
+              <SpellLink id={cooldown.spell} icon={false} /> ({formatDuration(cdStart - fightStart)}{' '}
+              -&gt; {formatDuration(end - fightStart)}) &nbsp;
               <TooltipElement
                 content={
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">
@@ -422,7 +421,7 @@ class Cooldown extends React.Component {
                     }
                     case BUILT_IN_SUMMARY_TYPES.MANA: {
                       let manaUsed = 0;
-                      if (cooldown.spell.id === SPELLS.INNERVATE.id) {
+                      if (cooldown.spell === SPELLS.INNERVATE.id) {
                         manaUsed = cooldown.events
                           .filter((event) => event.type === EventType.Cast)
                           .reduce(

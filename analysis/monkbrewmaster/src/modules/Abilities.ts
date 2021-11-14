@@ -48,10 +48,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND.id,
+        spell: SPELLS.RUSHING_JADE_WIND_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
+        buffSpellId: SPELLS.RUSHING_JADE_WIND_TALENT.id,
         gcd: {
           static: 1000,
         },

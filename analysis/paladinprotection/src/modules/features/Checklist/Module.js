@@ -7,6 +7,7 @@ import React from 'react';
 
 import { HolyPowerDetails } from '@wowanalyzer/paladin';
 
+import { apl, check as aplCheck } from '../../core/AplCheck';
 import Consecration from '../../spells/Consecration';
 import HammerOfTheRighteous from '../../spells/HammerOfTheRighteous';
 import LightOfTheProtector from '../../spells/LightOfTheProtector';
@@ -31,8 +32,12 @@ class Checklist extends BaseChecklist {
   };
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
+
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         extras={{
@@ -49,7 +54,6 @@ class Checklist extends BaseChecklist {
           hpWaste: this.hp.suggestionThresholds,
           wogOverheal: this.wog.overhealSuggestion,
           wogSlWaste: this.wog.wastedSlSuggestion,
-          wogSotrCasts: this.wog.sotrSuggestion,
         }}
       />
     );

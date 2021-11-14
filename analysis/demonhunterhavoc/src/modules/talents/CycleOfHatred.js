@@ -28,7 +28,7 @@ class CycleOfHatred extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_STRIKE_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_STRIKE_ENERGIZE),
       this.onEnergizeEvent,
     );
   }

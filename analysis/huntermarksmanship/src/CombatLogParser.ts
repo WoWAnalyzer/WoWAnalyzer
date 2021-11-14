@@ -29,9 +29,13 @@ import {
   HarmonyOfTheTortollan,
   SoulforgeEmbers,
   CancelledCasts,
+  RaeshalareDeathsWhisper,
+  RaeshalarePrepullNormalizer,
+  FragmentsOfTheElderAntlers,
 } from '@wowanalyzer/hunter';
 
 import Abilities from './modules/Abilities';
+import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -96,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     aimedShotPrepullNormalizer: AimedShotPrepullNormalizer,
+    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -154,6 +159,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
+    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
+    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
 
     //Marksmanship Legendaries
     surgingShots: SurgingShots,
@@ -164,6 +171,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;

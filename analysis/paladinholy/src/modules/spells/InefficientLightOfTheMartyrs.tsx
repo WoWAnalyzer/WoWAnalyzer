@@ -36,6 +36,10 @@ class InefficientLightOfTheMartyrs extends Analyzer {
     this.lastHeal = event;
   }
   protected handleDamage(event: DamageEvent) {
+    //This is most likely a precast and should be ignored.
+    if (!this.lastCast || !this.lastHeal) {
+      return;
+    }
     this.damageTakenSinceLast += event.amount + (event.absorbed || 0);
     this.check();
   }

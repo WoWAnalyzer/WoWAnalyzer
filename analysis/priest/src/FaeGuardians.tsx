@@ -8,7 +8,7 @@ import calculateEffectiveDamageReduction from 'parser/core/calculateEffectiveDam
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  EnergizeEvent,
+  ResourceChangeEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -83,7 +83,7 @@ class FaeGuardians extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAE_GUARDIANS), this.onCast);
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WRATHFUL_FAERIE_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.WRATHFUL_FAERIE_ENERGIZE),
       this.onEnergize,
     );
     this.addEventListener(
@@ -112,7 +112,7 @@ class FaeGuardians extends Analyzer {
     this.damageReduced += calculateEffectiveDamageReduction(event, GUARDIAN_DAMAGE_REDUCTION);
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.MANA.id) {
       this.manaGenerated += event.resourceChange || 0;
     }

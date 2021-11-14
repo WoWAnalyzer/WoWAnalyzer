@@ -45,7 +45,7 @@ class ImmolationAura extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
       this.onEnergizeEvent,
     );
     this.addEventListener(

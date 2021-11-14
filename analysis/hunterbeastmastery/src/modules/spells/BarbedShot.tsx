@@ -7,7 +7,7 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
-  EnergizeEvent,
+  ResourceChangeEvent,
   EventType,
   FightEndEvent,
   RemoveBuffEvent,
@@ -61,7 +61,7 @@ class BarbedShot extends Analyzer {
       SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
     ) &&
       this.addEventListener(
-        Events.energize.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS),
+        Events.resourcechange.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS),
         this.checkNesingwaryFocusGain,
       );
   }
@@ -142,7 +142,7 @@ class BarbedShot extends Analyzer {
     return avgStacks;
   }
 
-  checkNesingwaryFocusGain(event: EnergizeEvent) {
+  checkNesingwaryFocusGain(event: ResourceChangeEvent) {
     const waste = BARBED_SHOT_REGEN - event.resourceChange;
     if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
       this.additionalFocusFromNesingwary +=

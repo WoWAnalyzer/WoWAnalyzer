@@ -9,6 +9,7 @@ import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 class ShadowWordDeath extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
+  static countCooldownAsExecuteTime = true;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,

@@ -151,6 +151,12 @@ const legendaries = {
     icon: 'ability_rogue_feigndeath',
     bonusID: 7006,
   },
+  FRAGMENTS_OF_THE_ELDER_ANTLERS: {
+    id: 356375,
+    name: 'Fragments of the Elder Antlers',
+    icon: 'trade_archaeology_antleredcloakclasp',
+    bonusID: 7716,
+  },
   //endregion
 } as const;
 export default legendaries;

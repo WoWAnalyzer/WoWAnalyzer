@@ -3,7 +3,12 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent, CastEvent, EnergizeEvent, FightEndEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  CastEvent,
+  ResourceChangeEvent,
+  FightEndEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -34,7 +39,7 @@ class WakeofAshes extends Analyzer {
       this.onWakeofAshesCast,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES),
       this.onWakeofAshesEnergize,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -45,7 +50,7 @@ class WakeofAshes extends Analyzer {
     this.wakeCast = false;
   }
 
-  onWakeofAshesEnergize(event: EnergizeEvent) {
+  onWakeofAshesEnergize(event: ResourceChangeEvent) {
     if (event.waste > 0) {
       this.wasteHP = true;
     }

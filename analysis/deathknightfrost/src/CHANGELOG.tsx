@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
+import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon, darkpsy3934 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 
 export default [
+  change(date(2021, 11, 5), 'Verified 9.1.5 patch changes and bumped support to 9.1.5', darkpsy3934),
   change(date(2021, 8, 19), <> Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
   change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),

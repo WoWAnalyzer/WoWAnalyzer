@@ -27,9 +27,13 @@ import {
   RejuvenatingWind,
   HarmonyOfTheTortollan,
   SoulforgeEmbers,
+  RaeshalareDeathsWhisper,
+  RaeshalarePrepullNormalizer,
+  FragmentsOfTheElderAntlers,
 } from '@wowanalyzer/hunter';
 
 import Abilities from './modules/Abilities';
+import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -87,6 +91,9 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusCapTracker: BeastMasteryFocusCapTracker,
     focus: Focus,
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
+
+    //Normalizers
+    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -146,6 +153,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
+    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
+    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
 
     //Beast Mastery Legendaries
     direCommand: DireCommand,
@@ -153,6 +162,8 @@ class CombatLogParser extends CoreCombatLogParser {
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;

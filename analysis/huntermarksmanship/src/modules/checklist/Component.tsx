@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -11,7 +12,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import React from 'react';
 
-const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
+  const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -189,6 +191,11 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         />
       </Rule>
 
+      <AplRule
+        {...props}
+        name="APL checker (beta)"
+        cooldowns={[SPELLS.TRUESHOT, SPELLS.WILD_SPIRITS]}
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

@@ -1,9 +1,16 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import { Judgment, HolyPowerTracker, HolyPowerDetails, DivineToll } from '@wowanalyzer/paladin';
+import {
+  Judgment,
+  HolyPowerTracker,
+  HolyPowerDetails,
+  DivineToll,
+  AshenHallow,
+} from '@wowanalyzer/paladin';
 
 import Abilities from './modules/Abilities';
+import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/core/GrandCrusader';
 import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -72,8 +79,11 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerDetails: HolyPowerDetails,
 
     // Covenant Abilities
-    devineToll: DivineToll,
+    divineToll: DivineToll,
+    ashenHallow: AshenHallow,
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;

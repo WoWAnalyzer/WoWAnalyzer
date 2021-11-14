@@ -1,3 +1,4 @@
+import Combatant from './Combatant';
 import { AnyEvent } from './Events';
 import Ability from './modules/Ability';
 import { PetInfo } from './Pet';
@@ -11,6 +12,7 @@ export interface Info {
   fightDuration: number;
   fightId: number;
   reportCode: string;
+  combatant: Combatant;
 }
 export interface FunctionalStatisticProps {
   events: AnyEvent[];

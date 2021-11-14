@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, CastEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, CastEvent } from 'parser/core/Events';
 
 class BladeofJustice extends Analyzer {
   wastedHP = 0;
@@ -12,12 +12,12 @@ class BladeofJustice extends Analyzer {
       this.onBladeOfJusticeCast,
     );
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE),
       this.onBladeOfJusticeEnergize,
     );
   }
 
-  onBladeOfJusticeEnergize(event: EnergizeEvent) {
+  onBladeOfJusticeEnergize(event: ResourceChangeEvent) {
     if (event.waste > 0) {
       this.wastedHP = event.waste;
     }

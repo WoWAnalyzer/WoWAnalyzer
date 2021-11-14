@@ -56,6 +56,11 @@ const covenants = {
     name: 'Wild Mark',
     icon: 'ability_ardenweald_hunter',
   },
+  WILD_SPIRITS_BUFF: {
+    id: 328837,
+    name: 'Wild Spirits',
+    icon: 'ability_ardenweald_hunter',
+  },
   //endregion
 
   //region Venthyr

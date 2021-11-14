@@ -10,6 +10,7 @@ import React from 'react';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
+import Revival from '../spells/Revival';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
 import EssenceFontMastery from './EssenceFontMastery';
@@ -22,6 +23,7 @@ class MasteryStats extends Analyzer {
     renewingMist: RenewingMist,
     vivify: Vivify,
     expelHarm: ExpelHarm,
+    revival: Revival,
   };
 
   protected essenceFontMastery!: EssenceFontMastery;
@@ -30,6 +32,7 @@ class MasteryStats extends Analyzer {
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   protected expelHarm!: ExpelHarm;
+  protected revival!: Revival;
 
   get totalMasteryHealing() {
     return (
@@ -38,7 +41,8 @@ class MasteryStats extends Analyzer {
       (this.envelopingMists.gustsHealing || 0) +
       (this.soothingMist.gustsHealing || 0) +
       (this.essenceFontMastery.healing || 0) +
-      (this.expelHarm.gustsHealing || 0)
+      (this.expelHarm.gustsHealing || 0) +
+      this.revival.gustsHealing
     );
   }
 
@@ -85,6 +89,13 @@ class MasteryStats extends Analyzer {
         spellId: SPELLS.EXPEL_HARM.id,
         value: this.expelHarm.gustsHealing,
         valueTooltip: formatThousands(this.expelHarm.gustsHealing),
+      },
+      {
+        color: '#ccccff',
+        label: 'Revival',
+        spellId: SPELLS.REVIVAL.id,
+        value: this.revival.gustsHealing,
+        valueTooltip: formatThousands(this.revival.gustsHealing),
       },
     ];
 

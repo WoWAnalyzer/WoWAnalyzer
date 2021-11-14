@@ -1,10 +1,16 @@
 import { change, date } from 'common/changelog';
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
-import { SpellLink } from 'interface';
+import { ItemLink, SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 11, 13), 'Implemented an initial version of the APL checker module.', Putro),
+  change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),
+  change(date(2021, 11, 5), <> Correct an issue where the increased damage attributed to <SpellLink id={SPELLS.BRUTAL_PROJECTILES_CONDUIT.id}/> was ramping up too fast. </>, Putro),
+  change(date(2021, 11, 5), <> Added support for <SpellLink id={SPELLS.WAILING_ARROW_CAST.id}/> as provided by <ItemLink id={ITEMS.RAESHALARE_DEATHS_WHISPER.id} />. </>, Putro),
+  change(date(2021, 10, 31), <> Fix a bug with <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id}/> that showed it's contribution as much larger than it actually was. </>, Putro),
   change(date(2021, 4, 3), <>Update <SpellLink id={SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.id} /> and other legendaries to 9.0.5. Bump support to 9.0.5.</>, Adoraci),
   change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Putro),

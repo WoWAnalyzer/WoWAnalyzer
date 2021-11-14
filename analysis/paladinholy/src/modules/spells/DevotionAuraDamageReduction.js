@@ -13,7 +13,7 @@ import React from 'react';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.03;
-const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.15;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.12;
 
 /**
  * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {

@@ -11,6 +11,7 @@ import {
   GroundingBreath,
   HarmDenial,
   ImbuedReflections,
+  SinisterTeachings,
   TouchOfDeath,
 } from '@wowanalyzer/monk';
 
@@ -29,10 +30,11 @@ import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
-import StatValues from './modules/features/StatValues';
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
+import FallenOrderMistWrap from './modules/shadowlands/covenant/FallenOrderMistWrap';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
 import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
@@ -43,6 +45,8 @@ import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import RenewingMist from './modules/spells/RenewingMist';
+import Revival from './modules/spells/Revival';
+import RisingSunKick from './modules/spells/RisingSunKick';
 import SoothingMist from './modules/spells/SoothingMist';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -86,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
-    statValues: StatValues,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
     buffs: Buffs,
@@ -106,6 +109,8 @@ class CombatLogParser extends CoreCombatLogParser {
     invokeYulon: InvokeYulon,
     expelHarm: ExpelHarm,
     envelopingBreath: EnvelopingBreath,
+    revival: Revival,
+    risingSunKick: RisingSunKick,
 
     // Talents
     chiBurst: ChiBurst,
@@ -127,6 +132,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+    fallenOrderCraneAverage: FallenOrderCraneAverage,
+    fallenOrderMistWrap: FallenOrderMistWrap,
     faelineStomp: FaelineStomp,
 
     // Conduits
@@ -145,6 +152,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tearofMorning: TearofMorning,
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
+    sinisterTeachings: SinisterTeachings,
   };
 }
 

@@ -1983,7 +1983,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1.38
+              1.55
             </td>
             <td
               className="text-right"
@@ -1993,7 +1993,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              8
+              9
               /14
                casts
             </td>
@@ -2177,7 +2177,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.17
+              0.34
             </td>
             <td
               className="text-right"
@@ -2187,7 +2187,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1
+              2
               /3
                casts
             </td>
@@ -4623,7 +4623,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
             <img
               alt="Splitting Ice"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_ice_shards.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshards.jpg"
             />
           </a>
            
