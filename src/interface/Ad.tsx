@@ -98,4 +98,5 @@ window.ramp = {
   // not sure if this is needed?
   initCallbackHappened: true,
   passiveMode: true,
+  onReady: refreshAds,
 };
