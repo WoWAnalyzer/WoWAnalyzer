@@ -10,8 +10,6 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import { SpellbookAbility } from '../modules/Ability';
 import ManaTracker from './ManaTracker';
 
-const SPELLS_TO_IGNORE: number[] = [SPELLS.HEALTHSTONE.id, SPELLS.SPIRITUAL_HEALING_POTION.id];
-
 export interface SpellInfoDetails {
   spell: Spell;
   casts: number;
@@ -156,34 +154,30 @@ class HealingEfficiencyTracker extends Analyzer {
 
       if (ability.spell instanceof Array) {
         for (const lowerRankSpell of ability.spell) {
-          if (SPELLS_TO_IGNORE.includes(lowerRankSpell)) {
+          const spellData = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
+          if (spellData.manaSpent === 0) {
             continue;
           }
-
-          spells[lowerRankSpell] = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
-          if (spells[lowerRankSpell].hpm !== Infinity) {
-            topHpm = Math.max(topHpm, spells[lowerRankSpell].hpm);
+          topHpm = Math.max(topHpm, spellData.hpm);
+          topDpm = Math.max(topDpm, spellData.dpm);
+          if (spellData.timeSpentCasting !== 0) {
+            topHpet = Math.max(topHpet, spellData.hpet);
+            topDpet = Math.max(topDpet, spellData.dpet);
           }
-          if (spells[lowerRankSpell].dpm !== Infinity) {
-            topDpm = Math.max(topDpm, spells[lowerRankSpell].dpm);
-          }
-          topHpet = Math.max(topHpet, spells[lowerRankSpell].hpet);
-          topDpet = Math.max(topDpet, spells[lowerRankSpell].dpet);
+          spells[lowerRankSpell] = spellData;
         }
       } else {
-        if (SPELLS_TO_IGNORE.includes(ability.spell)) {
+        const spellData = this.getSpellStats(ability.spell, ability.healSpellIds);
+        if (spellData.manaSpent === 0) {
           continue;
         }
-
-        spells[ability.spell] = this.getSpellStats(ability.spell, ability.healSpellIds);
-        if (spells[ability.spell].hpm !== Infinity) {
-          topHpm = Math.max(topHpm, spells[ability.spell].hpm);
+        topHpm = Math.max(topHpm, spellData.hpm);
+        topDpm = Math.max(topDpm, spellData.dpm);
+        if (spellData.timeSpentCasting !== 0) {
+          topHpet = Math.max(topHpet, spellData.hpet);
+          topDpet = Math.max(topDpet, spellData.dpet);
         }
-        if (spells[ability.spell].dpm !== Infinity) {
-          topDpm = Math.max(topDpm, spells[ability.spell].dpm);
-        }
-        topHpet = Math.max(topHpet, spells[ability.spell].hpet);
-        topDpet = Math.max(topDpet, spells[ability.spell].dpet);
+        spells[ability.spell] = spellData;
       }
     }
 
