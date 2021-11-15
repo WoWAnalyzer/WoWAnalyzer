@@ -367,31 +367,51 @@ export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo>
 }
 
 export interface HealEvent extends Event<EventType.Heal> {
+  /** Unique Identifier for the source. Nobody else will have this ID */
   sourceID: number;
+  /** If the person who is doing the healing friendly */
   sourceIsFriendly: boolean;
+  /** Unique Identifier for the target. Nobody else will have this ID */
   targetID: number;
   targetInstance?: number;
+  /** Is the target you're healing a friendly */
   targetIsFriendly: boolean;
+  /** The ability that is healing the target */
   ability: Ability;
+  /** This describes if the spell Hit/Missed/Crit/etc. Look at {@link HIT_TYPES} all types of hits */
   hitType: number;
+  /** The effective healing the event did */
   amount: number;
+  /** The overheal the event did */
   overheal?: number;
+  /** If the event is a tick of a HoT or HoT like object */
   tick?: boolean;
   resourceActor: number;
+  /** A list of resource that changed when this event happened */
   classResources: ClassResources[];
+  /** Hit points of the target AFTER the heal is done if you want hp before you need to do (hitpoints - amount) */
   hitPoints: number;
+  /** The max hitpoints of the target */
   maxHitPoints: number;
+  /** How much attack power the target has */
   attackPower: number;
+  /** How much Spell power the target has */
   spellPower: number;
+  /** How much Armor the target has */
   armor: number;
-  /** The current total absorb shields on the target I think? */
+  /** The current total absorb shields on the target */
   absorb: number;
   /** The amount of healing absorbed by a healing taken-debuff. */
   absorbed?: number;
+  /** The x location of the player */
   x: number;
+  /** The y location of the player */
   y: number;
+  /** The direction the plaeyr is facing */
   facing: number;
+  /** The map they are in. This is a unique ID for every zone in wow */
   mapID: number;
+  /** The Item level of the target */
   itemLevel: number;
 }
 

@@ -12,8 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
-// the Real ICD is 750 but lmao server stuff is making it more
-const ICD = 800;
+const ICD = 750;
 const CDR = 5000;
 
 export default class SinisterTeachings extends Analyzer {
