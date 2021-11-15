@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, SummonEvent } from 'parser/core/Events';
+import Events, { CastEvent, SummonEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -11,7 +11,7 @@ import React from 'react';
 
 class FallenOrderCraneAverage extends Analyzer {
   soomCasts: number = 0;
-  envCasts: number = 0;
+  enmCasts: number = 0;
   mwClones: number = 0;
 
   constructor(options: Options) {
@@ -31,36 +31,26 @@ class FallenOrderCraneAverage extends Analyzer {
 
     //mistweaver spells
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_ENVELOPING_MIST),
-      this.envBuffApplied,
+      Events.cast.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_ENVELOPING_MIST),
+      this.enmCast,
     );
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_ENVELOPING_MIST),
-      this.envBuffApplied,
+      Events.cast.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_SOOTHING_MIST),
+      this.soomCast,
     );
+  }
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_SOOTHING_MIST),
-      this.soomBuffApplied,
-    );
+  enmCast(event: CastEvent) {
+    this.enmCasts += 1;
+  }
 
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.FALLEN_ORDER_SOOTHING_MIST),
-      this.soomBuffApplied,
-    );
+  soomCast(event: CastEvent) {
+    this.soomCasts += 1;
   }
 
   trackSummons(event: SummonEvent) {
     this.mwClones += 1;
-  }
-
-  envBuffApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.envCasts += 1;
-  }
-
-  soomBuffApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.soomCasts += 1;
   }
 
   statistic() {
@@ -74,7 +64,7 @@ class FallenOrderCraneAverage extends Analyzer {
             This is the average number of casts a Crane Clone does.
             <br />
             Number of MW clones: {this.mwClones} <br />
-            Total Enveloping Mist Casts from Clones: {this.envCasts} <br />
+            Total Enveloping Mist Casts from Clones: {this.enmCasts} <br />
             Total Soothing Mist Casts from Clones: {this.soomCasts}
           </>
         }
@@ -87,7 +77,7 @@ class FallenOrderCraneAverage extends Analyzer {
           }
         >
           <SpellLink id={SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id} />{' '}
-          {(this.envCasts / this.mwClones).toFixed(2)}
+          {(this.enmCasts / this.mwClones).toFixed(2)}
           <br />
           <SpellLink id={SPELLS.FALLEN_ORDER_SOOTHING_MIST.id} />{' '}
           {(this.soomCasts / this.mwClones).toFixed(2)}

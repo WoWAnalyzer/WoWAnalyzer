@@ -3,12 +3,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, {
-  HealEvent,
-  ApplyBuffEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -31,69 +26,22 @@ class FallenOrderAverageHPOfTargetOnCast extends Analyzer {
       return;
     }
 
-    //mistweaver spells
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER_PET)
-        .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
-      this.pairingMapping,
-    );
-
-    this.addEventListener(
-      Events.refreshbuff
-        .by(SELECTED_PLAYER_PET)
-        .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
-      this.pairingMapping,
-    );
-
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER_PET)
-        .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
-      this.fixMapping,
-    );
-
-    this.addEventListener(
-      Events.heal
+      Events.cast
         .by(SELECTED_PLAYER_PET)
         .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
       this.healListener,
     );
   }
 
-  pairingMapping(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const paring = this.makingParringStat(event);
-    this.foHealsToListenFor.push(paring);
-  }
-
-  healListener(event: HealEvent) {
-    const paring = this.makingParringStat(event);
-    if (!this.foHealsToListenFor.includes(paring)) {
-      return;
-    }
-
-    const hpPercent = (event.hitPoints - event.amount) / event.maxHitPoints;
+  healListener(event: CastEvent) {
+    const hpPercent = event.hitPoints! / event.maxHitPoints!;
     this.hpOfTargetOnCast.push(hpPercent);
     if (event.ability.guid === SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id) {
       this.hpOfTargetWhenENMCast.push(hpPercent);
     } else {
       this.hpOfTargetWhenSOOMCast.push(hpPercent);
     }
-
-    this.removeOldData(paring);
-  }
-
-  fixMapping(event: RemoveBuffEvent) {
-    this.removeOldData(this.makingParringStat(event));
-  }
-
-  removeOldData(paring: string) {
-    const index = this.foHealsToListenFor.indexOf(paring);
-    this.foHealsToListenFor.splice(index, 1);
-  }
-
-  makingParringStat(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {
-    return event.targetID + '|' + event.sourceID + '|' + event.ability.guid;
   }
 
   getAverage(toAverage: number[]) {

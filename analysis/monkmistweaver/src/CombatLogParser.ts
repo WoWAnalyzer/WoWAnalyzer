@@ -64,6 +64,7 @@ import RisingMist from './modules/talents/RisingMist';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import Tier30Comparison from './modules/talents/Tier30Comparison';
 import Upwelling from './modules/talents/Upwelling';
+import FallenOrderCraneCloneNormalizer from './normalizers/FallenOrderCraneCloneNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizer
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
+    fallenOrderCraneCloneNormalizer: FallenOrderCraneCloneNormalizer,
 
     // Core
     lowHealthHealing: LowHealthHealing,

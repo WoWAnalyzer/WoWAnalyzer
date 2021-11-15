@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 11, 15), <>Added Cast events directly into the log and normalized other stats that needed it. My sanity is now back intact :)</>, Abelito75),
   change(date(2021, 11, 14), <>Added A Cool And Interesting Infographic For Average Health of a Target When Fallen Order Crane Clones Cast A Healing Spell On Them.</>, Abelito75),
   change(date(2021, 11, 13), <>Added A Cool And Interesting Infographic For RSK Reset.</>, Abelito75),
   change(date(2021, 11, 12), <>Fixed Fallen Order Mist Wrap stat from crashing.</>, Abelito75),
