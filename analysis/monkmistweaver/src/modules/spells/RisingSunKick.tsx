@@ -43,6 +43,7 @@ class RisingSunKick extends Analyzer {
       this.rskResets += 1;
 
       this.spellUsable.endCooldown(SPELLS.RISING_SUN_KICK.id);
+      this.spellUsable.beginCooldown(SPELLS.RISING_SUN_KICK.id, event);
     }
 
     this.lastRSK = event.timestamp;
