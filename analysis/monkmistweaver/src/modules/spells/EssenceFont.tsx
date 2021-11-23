@@ -62,22 +62,10 @@ class EssenceFont extends Analyzer {
     );
     this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.handleEndChannel);
     this.upwelling = Number(this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id));
-    this.spells = this.spellGuids;
   }
 
   get efHotHealing() {
     return this.efHotHeal;
-  }
-
-  get spellGuids() {
-    const result: any = {};
-    for (const value of Object.values(baseSpells)) {
-      result[value['id']] = value['name'];
-    }
-    for (const value of Object.values(talents)) {
-      result[value['id']] = value['name'];
-    }
-    return result;
   }
 
   get efHotOverhealing() {
