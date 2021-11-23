@@ -48,6 +48,7 @@ class Channeling extends Analyzer {
       );
     }
 
+
     const duration = event.timestamp - start;
     this._currentChannel = null;
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
