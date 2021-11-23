@@ -35,8 +35,9 @@ class EssenceFont extends Analyzer {
   total: number = 0;
   expected_duration: number = 0;
   cancelled_ef: number = 0;
-  upwelling: number = 0;
+  hasUpwelling: boolean = false;
   cancelDelta: number = 100;
+  last_ef: number = 0;
   protected haste!: Haste;
   constructor(options: Options) {
     super(options);
@@ -61,7 +62,7 @@ class EssenceFont extends Analyzer {
       this.refreshEssenceFontBuff,
     );
     this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.handleEndChannel);
-    this.upwelling = Number(this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id));
+    this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
   get efHotHealing() {
@@ -102,10 +103,18 @@ class EssenceFont extends Analyzer {
     };
   }
   castEssenceFont(event: CastEvent) {
+    let extra_secs = 0;
+    if (this.hasUpwelling) {
+      extra_secs = Math.max(
+        (event.timestamp - (this.last_ef + SPELLS.ESSENCE_FONT.cooldown * 1000)) / 6000,
+        3,
+      );
+    }
+    this.expected_duration = (3 + extra_secs) / (1 + this.haste.current);
+    this.last_ef = event.timestamp;
     this.castEF += 1;
     this.total += this.uniqueTargets.size || 0;
     this.uniqueTargets.clear();
-    this.expected_duration = Math.floor(((3 + this.upwelling) / (1 + this.haste.current)) * 1000);
   }
 
   handleEssenceFont(event: HealEvent) {
