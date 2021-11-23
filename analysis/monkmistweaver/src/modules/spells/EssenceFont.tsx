@@ -6,6 +6,7 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Haste from 'parser/shared/modules/Haste';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -13,6 +14,9 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 class EssenceFont extends Analyzer {
+  static dependencies = {
+    haste: Haste,
+  };
   totalHealing: number = 0;
   totalOverhealing: number = 0;
   totalAbsorbs: number = 0;
@@ -23,7 +27,10 @@ class EssenceFont extends Analyzer {
   targetOverlap: number = 0;
   uniqueTargets: Set<number> = new Set<number>();
   total: number = 0;
-
+  last_ef_cast: number = 0;
+  expected_duration: number = 0;
+  cancelled_ef: number = 0;
+  protected haste!: Haste;
   constructor(options: Options) {
     super(options);
     this.addEventListener(
@@ -46,6 +53,7 @@ class EssenceFont extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.refreshEssenceFontBuff,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.non_ef);
   }
 
   get efHotHealing() {
@@ -76,10 +84,21 @@ class EssenceFont extends Analyzer {
     };
   }
 
+  get suggestionThresholdsCancel() {
+    return {
+      actual: this.cancelled_ef,
+      isGreaterThan: {
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
   castEssenceFont(event: CastEvent) {
     this.castEF += 1;
     this.total += this.uniqueTargets.size || 0;
     this.uniqueTargets.clear();
+    this.last_ef_cast = event.timestamp;
+    this.expected_duration = 3 / (1 + this.haste.current);
   }
 
   handleEssenceFont(event: HealEvent) {
@@ -109,6 +128,16 @@ class EssenceFont extends Analyzer {
     this.targetOverlap += 1;
   }
 
+  non_ef(event: CastEvent) {
+    if (event.ability.guid === SPELLS.ESSENCE_FONT.id) {
+      return;
+    }
+    if (event.timestamp > this.last_ef_cast + this.expected_duration) {
+      return;
+    }
+    this.cancelled_ef += 1;
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -127,6 +156,17 @@ class EssenceFont extends Analyzer {
           })}`,
         )
         .recommended(`${recommended} targets hit is recommended`),
+    );
+    when(this.suggestionThresholdsCancel).addSuggestion((suggest, actual, recommended) =>
+      suggest(<>You cancelled too many essence fonts</>)
+        .icon(SPELLS.ESSENCE_FONT.icon)
+        .actual(
+          `${this.cancelled_ef.toFixed(2)}${t({
+            id: 'monk.mistweaver.suggestions.essenceFont.averageTargetsHit',
+            message: `cancelled casts`,
+          })}`,
+        )
+        .recommended(`0 cancelled casts is recommended`),
     );
   }
 
