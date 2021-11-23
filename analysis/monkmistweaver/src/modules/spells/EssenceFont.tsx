@@ -1,8 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import baseSpells from 'common/SPELLS/monk';
-import talents from 'common/SPELLS/talents/monk';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
