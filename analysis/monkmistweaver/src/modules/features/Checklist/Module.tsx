@@ -96,6 +96,7 @@ class Checklist extends BaseChecklist {
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
           tier30Comparison: this.tier30Comparison.suggestionThresholds,
+          essenceFontCancel: this.essenceFont.suggestionThresholdsCancel,
         }}
       />
     );

@@ -246,6 +246,14 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.essenceFontMastery}
         />
+        <Requirement
+          name={
+            <>
+              <SpellLink id={SPELLS.ESSENCE_FONT.id} /> Cancelled Casts
+            </>
+          }
+          thresholds={thresholds.essenceFontCancel}
+        />
       </Rule>
 
       <Rule
