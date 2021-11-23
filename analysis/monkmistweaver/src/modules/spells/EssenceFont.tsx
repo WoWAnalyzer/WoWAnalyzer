@@ -33,11 +33,9 @@ class EssenceFont extends Analyzer {
   targetOverlap: number = 0;
   uniqueTargets: Set<number> = new Set<number>();
   total: number = 0;
-  last_ef_cast: number = 0;
   expected_duration: number = 0;
   cancelled_ef: number = 0;
   upwelling: number = 0;
-  spells: any = {};
   cancelDelta: number = 100;
   protected haste!: Haste;
   constructor(options: Options) {
