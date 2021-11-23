@@ -6,7 +6,13 @@ import talents from 'common/SPELLS/talents/monk';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  EndChannelEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -34,6 +40,7 @@ class EssenceFont extends Analyzer {
   cancelled_ef: number = 0;
   upwelling: number = 0;
   spells: any = {};
+  cancelDelta: number = 100;
   protected haste!: Haste;
   constructor(options: Options) {
     super(options);
@@ -57,7 +64,7 @@ class EssenceFont extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.refreshEssenceFontBuff,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.non_ef);
+    this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.handleEndChannel);
     this.upwelling = Number(this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id));
     this.spells = this.spellGuids;
   }
@@ -114,7 +121,6 @@ class EssenceFont extends Analyzer {
     this.castEF += 1;
     this.total += this.uniqueTargets.size || 0;
     this.uniqueTargets.clear();
-    this.last_ef_cast = event.timestamp;
     this.expected_duration = Math.floor(((3 + this.upwelling) / (1 + this.haste.current)) * 1000);
   }
 
@@ -145,26 +151,20 @@ class EssenceFont extends Analyzer {
     this.targetOverlap += 1;
   }
 
-  non_ef(event: CastEvent) {
-    if (event.ability.guid === SPELLS.ESSENCE_FONT.id) {
-      return;
-    }
-    if (event.timestamp > this.last_ef_cast + this.expected_duration) {
-      return;
-    }
-    console.log(this.spellGuids);
-    if (event.ability.guid in this.spells) {
-      this.cancelled_ef += 1;
+  handleEndChannel(event: EndChannelEvent) {
+    if (
+      event.ability.guid === SPELLS.ESSENCE_FONT.id &&
+      event.duration < this.expected_duration - this.cancelDelta
+    ) {
       console.log(
         'Cancelled ef at timestamp ' +
           event.timestamp +
-          ' by casting ' +
-          event.ability.name +
-          'when start of ef is ' +
-          this.last_ef_cast +
-          ' with duration ' +
-          this.expected_duration,
+          ' with expected duration ' +
+          this.expected_duration +
+          ' and actual duration' +
+          event.duration,
       );
+      this.cancelled_ef += 1;
     }
   }
 
