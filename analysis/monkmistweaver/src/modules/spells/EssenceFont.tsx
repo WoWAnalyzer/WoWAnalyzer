@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import baseSpells from 'common/SPELLS/monk';
+import talents from 'common/SPELLS/talents/monk';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -30,6 +32,8 @@ class EssenceFont extends Analyzer {
   last_ef_cast: number = 0;
   expected_duration: number = 0;
   cancelled_ef: number = 0;
+  upwelling: number = 0;
+  spells: any = {};
   protected haste!: Haste;
   constructor(options: Options) {
     super(options);
@@ -54,10 +58,23 @@ class EssenceFont extends Analyzer {
       this.refreshEssenceFontBuff,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.non_ef);
+    this.upwelling = Number(this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id));
+    this.spells = this.spellGuids;
   }
 
   get efHotHealing() {
     return this.efHotHeal;
+  }
+
+  get spellGuids() {
+    const result: any = {};
+    for (const value of Object.values(baseSpells)) {
+      result[value['id']] = value['name'];
+    }
+    for (const value of Object.values(talents)) {
+      result[value['id']] = value['name'];
+    }
+    return result;
   }
 
   get efHotOverhealing() {
@@ -98,7 +115,7 @@ class EssenceFont extends Analyzer {
     this.total += this.uniqueTargets.size || 0;
     this.uniqueTargets.clear();
     this.last_ef_cast = event.timestamp;
-    this.expected_duration = 3 / (1 + this.haste.current);
+    this.expected_duration = Math.floor(((3 + this.upwelling) / (1 + this.haste.current)) * 1000);
   }
 
   handleEssenceFont(event: HealEvent) {
@@ -135,7 +152,20 @@ class EssenceFont extends Analyzer {
     if (event.timestamp > this.last_ef_cast + this.expected_duration) {
       return;
     }
-    this.cancelled_ef += 1;
+    console.log(this.spellGuids);
+    if (event.ability.guid in this.spells) {
+      this.cancelled_ef += 1;
+      console.log(
+        'Cancelled ef at timestamp ' +
+          event.timestamp +
+          ' by casting ' +
+          event.ability.name +
+          'when start of ef is ' +
+          this.last_ef_cast +
+          ' with duration ' +
+          this.expected_duration,
+      );
+    }
   }
 
   suggestions(when: When) {
@@ -158,12 +188,12 @@ class EssenceFont extends Analyzer {
         .recommended(`${recommended} targets hit is recommended`),
     );
     when(this.suggestionThresholdsCancel).addSuggestion((suggest, actual, recommended) =>
-      suggest(<>You cancelled too many essence fonts</>)
+      suggest(<>You cancelled Essence Font</>)
         .icon(SPELLS.ESSENCE_FONT.icon)
         .actual(
-          `${this.cancelled_ef.toFixed(2)}${t({
-            id: 'monk.mistweaver.suggestions.essenceFont.averageTargetsHit',
-            message: `cancelled casts`,
+          `${this.cancelled_ef} ${t({
+            id: 'monk.mistweaver.suggestions.essenceFont.cancelledCasts',
+            message: ` cancelled casts`,
           })}`,
         )
         .recommended(`0 cancelled casts is recommended`),
