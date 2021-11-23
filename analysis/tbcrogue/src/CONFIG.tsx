@@ -35,7 +35,7 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '20/41/0',
+      name: '19/42/0',
       icon: <Icon icon="inv_throwingknife_04" />,
       visible: true,
     },

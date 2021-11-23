@@ -36,7 +36,7 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '20/41/0',
+      name: '45/11/5',
       icon: <Icon icon="spell_holy_holybolt" />,
       visible: true,
     },
