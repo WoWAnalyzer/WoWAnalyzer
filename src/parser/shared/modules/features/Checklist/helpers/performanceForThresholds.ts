@@ -47,6 +47,44 @@ function performanceForGreaterThanThresholds(
   }
 }
 
+function performanceForGreaterThanOrEqualThresholds(
+  actual: number,
+  { minor, average, major }: { minor: number; average: number; major: number },
+) {
+  if (actual >= major) {
+    // major issue
+    return (0.333 * major) / actual;
+  } else if (actual >= average) {
+    // average issue (between major and average issue)
+    return 0.666 - 0.333 * ((actual - average) / (major - average));
+  } else if (actual >= minor) {
+    // minor issue (between average and minor issue)
+    return 1 - 0.333 * ((actual - minor) / (average - minor));
+  } else {
+    // no issue
+    return 1;
+  }
+}
+
+function performanceForLessThanOrEqualThresholds(
+  actual: number,
+  { minor, average, major }: { minor: number; average: number; major: number },
+) {
+  if (actual <= major) {
+    // major issue
+    return (0.333 * actual) / major;
+  } else if (actual <= average) {
+    // average issue (between major and average issue)
+    return 0.333 + 0.333 * ((actual - major) / (average - major));
+  } else if (actual <= minor) {
+    // minor issue (between average and minor issue)
+    return 0.666 + 0.333 * ((actual - average) / (minor - average));
+  } else {
+    // no issue
+    return 1;
+  }
+}
+
 export default function performanceForThresholds(thresholds: any) {
   if (thresholds.isGreaterThan || thresholds.isGreaterThan === 0) {
     if (typeof thresholds.isGreaterThan === 'object') {
@@ -59,6 +97,24 @@ export default function performanceForThresholds(thresholds: any) {
       return performanceForLessThanThresholds(thresholds.actual, thresholds.isLessThan);
     } else {
       return thresholds.actual / thresholds.isLessThan;
+    }
+  } else if (thresholds.isGreaterThanOrEqual || thresholds.isGreaterThanOrEqual === 0) {
+    if (typeof thresholds.isGreaterThanOrEqual === 'object') {
+      return performanceForGreaterThanOrEqualThresholds(
+        thresholds.actual,
+        thresholds.isGreaterThanOrEqual,
+      );
+    } else {
+      return thresholds.isGreaterThanOrEqual / thresholds.actual;
+    }
+  } else if (thresholds.isLessThanOrEqual || thresholds.isLessThanOrEqual === 0) {
+    if (typeof thresholds.isLessThanOrEqual === 'object') {
+      return performanceForLessThanOrEqualThresholds(
+        thresholds.actual,
+        thresholds.isLessThanOrEqual,
+      );
+    } else {
+      return thresholds.actual / thresholds.isLessThanOrEqual;
     }
   } else if (thresholds.isEqual !== undefined) {
     return thresholds.actual !== thresholds.isEqual ? 1 : 0;
