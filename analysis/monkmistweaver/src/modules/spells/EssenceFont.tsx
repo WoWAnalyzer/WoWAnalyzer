@@ -99,8 +99,8 @@ class EssenceFont extends Analyzer {
   get suggestionThresholdsCancel() {
     return {
       actual: this.cancelled_ef,
-      isGreaterThanOrEqual: {
-        major: 1,
+      isGreaterThan: {
+        major: 0,
       },
       style: ThresholdStyle.NUMBER,
     };
