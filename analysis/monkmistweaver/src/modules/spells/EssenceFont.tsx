@@ -61,7 +61,10 @@ class EssenceFont extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.refreshEssenceFontBuff,
     );
-    this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.handleEndChannel);
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      this.handleEndChannel,
+    );
     this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
@@ -96,8 +99,8 @@ class EssenceFont extends Analyzer {
   get suggestionThresholdsCancel() {
     return {
       actual: this.cancelled_ef,
-      isGreaterThan: {
-        major: 0,
+      isGreaterThanOrEqual: {
+        major: 1,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -105,8 +108,8 @@ class EssenceFont extends Analyzer {
   castEssenceFont(event: CastEvent) {
     let extra_secs = 0;
     if (this.hasUpwelling) {
-      extra_secs = Math.max(
-        (event.timestamp - (this.last_ef + SPELLS.ESSENCE_FONT.cooldown * 1000)) / 6000,
+      extra_secs = Math.min(
+        (event.timestamp - (this.last_ef + 12000)) / 6000, //12000 is the cooldown of EF in MS and 6000 corresponds to the number of MS for UW to get a full second in channels
         3,
       );
     }
@@ -145,18 +148,7 @@ class EssenceFont extends Analyzer {
   }
 
   handleEndChannel(event: EndChannelEvent) {
-    if (
-      event.ability.guid === SPELLS.ESSENCE_FONT.id &&
-      event.duration < this.expected_duration - this.cancelDelta
-    ) {
-      console.log(
-        'Cancelled ef at timestamp ' +
-          event.timestamp +
-          ' with expected duration ' +
-          this.expected_duration +
-          ' and actual duration' +
-          event.duration,
-      );
+    if (event.duration < this.expected_duration - this.cancelDelta) {
       this.cancelled_ef += 1;
     }
   }
