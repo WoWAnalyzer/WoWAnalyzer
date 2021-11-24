@@ -42,7 +42,7 @@ function sortPlayers(a: Player, b: Player) {
 interface Props {
   report: Report;
   combatants: CombatantInfoEvent[];
-  makeUrl: (playerId: number) => string;
+  makeUrl: (playerId: number, build?: string) => string;
 }
 
 const PlayerSelection = ({ report, combatants, makeUrl }: Props) => (

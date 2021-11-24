@@ -36,6 +36,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '20/41/0',
+      talents: [20, 41, 0],
       icon: <Icon icon="inv_throwingknife_04" />,
       visible: true,
     },

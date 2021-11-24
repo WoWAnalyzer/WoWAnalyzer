@@ -8,6 +8,7 @@ import {
   Adoraci,
   Amani,
   Anomoly,
+  Arbixal,
   Barry,
   Barter,
   Buudha,
@@ -52,6 +53,7 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 11, 23), 'Have relevant TBC build selected for the selected character.', Arbixal),
   change(date(2021, 11, 14), 'Clean up caching in GitHub actions CI.', Zerotorescue),
   change(date(2021, 11, 13), 'Removed Healthstone and Healing Pot from Mana Efficiency Tracker.', Abelito75),
   change(date(2021, 11, 11), 'Added an Icon to more easily display which cooldown is which in the cooldown tab.', Abelito75),
