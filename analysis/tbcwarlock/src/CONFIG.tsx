@@ -36,6 +36,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '0/21/40',
+      talents: [0, 21, 40],
       icon: <Icon icon="spell_shadow_shadowbolt" />,
       visible: true,
     },

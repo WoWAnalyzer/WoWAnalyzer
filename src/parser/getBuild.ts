@@ -36,14 +36,10 @@ export default function getBuild(
     return null;
   }
 
-  let buildComparison = Object.values(config.builds).map((build) => {
-    const buildTalents = build.name.split('/').map((num) => parseInt(num));
-    if (buildTalents.length !== 3) {
-      return { build: build, score: 999 };
-    }
-
-    return { build: build, score: compareBuilds(talents, buildTalents) };
-  });
+  let buildComparison = Object.values(config.builds).map((build) => ({
+    build: build,
+    score: compareBuilds(talents, build.talents),
+  }));
 
   buildComparison = buildComparison.sort((a, b) => a.score - b.score);
 

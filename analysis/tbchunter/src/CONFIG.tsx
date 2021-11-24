@@ -61,6 +61,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '41/20/0',
+      talents: [41, 20, 0],
       icon: <Icon icon="ability_hunter_mendpet" />,
       visible: true,
     },
