@@ -4,8 +4,15 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  EndChannelEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Haste from 'parser/shared/modules/Haste';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -13,6 +20,9 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 class EssenceFont extends Analyzer {
+  static dependencies = {
+    haste: Haste,
+  };
   totalHealing: number = 0;
   totalOverhealing: number = 0;
   totalAbsorbs: number = 0;
@@ -23,7 +33,12 @@ class EssenceFont extends Analyzer {
   targetOverlap: number = 0;
   uniqueTargets: Set<number> = new Set<number>();
   total: number = 0;
-
+  expected_duration: number = 0;
+  cancelled_ef: number = 0;
+  hasUpwelling: boolean = false;
+  cancelDelta: number = 100;
+  last_ef: number = 0;
+  protected haste!: Haste;
   constructor(options: Options) {
     super(options);
     this.addEventListener(
@@ -46,6 +61,11 @@ class EssenceFont extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.refreshEssenceFontBuff,
     );
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      this.handleEndChannel,
+    );
+    this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
   get efHotHealing() {
@@ -76,7 +96,25 @@ class EssenceFont extends Analyzer {
     };
   }
 
+  get suggestionThresholdsCancel() {
+    return {
+      actual: this.cancelled_ef,
+      isGreaterThan: {
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
   castEssenceFont(event: CastEvent) {
+    let extra_secs = 0;
+    if (this.hasUpwelling) {
+      extra_secs = Math.min(
+        (event.timestamp - (this.last_ef + 12000)) / 6000, //12000 is the cooldown of EF in MS and 6000 corresponds to the number of MS for UW to get a full second in channels
+        3,
+      );
+    }
+    this.expected_duration = (3000 + extra_secs * 1000) / (1 + this.haste.current);
+    this.last_ef = event.timestamp;
     this.castEF += 1;
     this.total += this.uniqueTargets.size || 0;
     this.uniqueTargets.clear();
@@ -109,6 +147,12 @@ class EssenceFont extends Analyzer {
     this.targetOverlap += 1;
   }
 
+  handleEndChannel(event: EndChannelEvent) {
+    if (event.duration < this.expected_duration - this.cancelDelta) {
+      this.cancelled_ef += 1;
+    }
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -127,6 +171,17 @@ class EssenceFont extends Analyzer {
           })}`,
         )
         .recommended(`${recommended} targets hit is recommended`),
+    );
+    when(this.suggestionThresholdsCancel).addSuggestion((suggest, actual, recommended) =>
+      suggest(<>You cancelled Essence Font</>)
+        .icon(SPELLS.ESSENCE_FONT.icon)
+        .actual(
+          `${this.cancelled_ef} ${t({
+            id: 'monk.mistweaver.suggestions.essenceFont.cancelledCasts',
+            message: ` cancelled casts`,
+          })}`,
+        )
+        .recommended(`0 cancelled casts is recommended`),
     );
   }
 
