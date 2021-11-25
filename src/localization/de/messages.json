@@ -545,6 +545,7 @@
   "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo": "% der Raidgruppe getroffen",
   "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv": "Einsätze von 'Einhüllender Atem' pro Einsatz von 'Einhüllender Nebel' während 'Erhabener'",
   "monk.mistweaver.suggestions.essenceFont.averageTargetsHit": "durchschnittliche Menge getroffener Ziele pro Einsatz",
+  "monk.mistweaver.suggestions.essenceFont.cancelledCasts": "",
   "monk.mistweaver.suggestions.essenceFontMastery.averageHots": "{0} durchschnittliche Heilung über Zeit durch Essenzborn",
   "monk.mistweaver.suggestions.lifecycles.manaSaved": "Mana gespart durch Lebenszyklus",
   "monk.mistweaver.suggestions.manaTea.avgManaSaved": "durchschnittliche Menge gesparter Mana pro Einsatz von Manatee",

@@ -545,6 +545,7 @@
   "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo": "% of raid hit",
   "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv": "Enveloping Breaths per Enveloping Mist during Celestial",
   "monk.mistweaver.suggestions.essenceFont.averageTargetsHit": "average targets hit per cast",
+  "monk.mistweaver.suggestions.essenceFont.cancelledCasts": "cancelled casts",
   "monk.mistweaver.suggestions.essenceFontMastery.averageHots": "{0} average EF HoTs",
   "monk.mistweaver.suggestions.lifecycles.manaSaved": "mana saved through Lifecycles",
   "monk.mistweaver.suggestions.manaTea.avgManaSaved": "average mana saved per Mana Tea cast",
