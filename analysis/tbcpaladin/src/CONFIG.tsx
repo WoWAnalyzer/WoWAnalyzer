@@ -36,13 +36,15 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '20/41/0',
+      name: '45/11/5',
+      talents: [45, 11, 5],
       icon: <Icon icon="spell_holy_holybolt" />,
       visible: true,
     },
     [Build.RET]: {
       url: 'ret',
       name: '5/11/45',
+      talents: [5, 11, 45],
       icon: <Icon icon="spell_holy_crusaderstrike" />,
       visible: true,
     },
