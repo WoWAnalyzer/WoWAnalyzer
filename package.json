@@ -126,6 +126,7 @@
     "react-app-rewired": "^2.1.6",
     "react-scripts": "^4.0.3",
     "react-test-renderer": "^16.8.6",
+    "sass-loader": "12.3.0",
     "typescript": "^3.9.7"
   },
   "scripts": {
