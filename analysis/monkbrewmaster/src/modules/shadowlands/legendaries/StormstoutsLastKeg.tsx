@@ -65,9 +65,8 @@ class StormstoutsLastKeg extends Analyzer {
   // them "preventing" n wasted casts. As long as players are trying to keep it
   // at 0 charges, this doesn't occur.
   trackExtraCD(_event: CastEvent) {
-    const { expectedDuration, chargesOnCooldown } = this.spellUsable._currentCooldowns[
-      SPELLS.KEG_SMASH.id
-    ];
+    const { expectedDuration, chargesOnCooldown } =
+      this.spellUsable._currentCooldowns[SPELLS.KEG_SMASH.id];
     const remaining = this.spellUsable.cooldownRemaining(SPELLS.KEG_SMASH.id);
     // if we ever get a 3rd charge this will need revisiting
     if (chargesOnCooldown === 1) {

@@ -13,20 +13,7 @@ const BASE_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic e
 
 // the amount Evolved Swarm adds to the base periodic boost
 const EVOLVED_SWARM_EFFECT_BY_RANK = [
-  0.06,
-  0.066,
-  0.072,
-  0.078,
-  0.084,
-  0.09,
-  0.096,
-  0.102,
-  0.108,
-  0.114,
-  0.12,
-  0.126,
-  0.132,
-  0.138,
+  0.06, 0.066, 0.072, 0.078, 0.084, 0.09, 0.096, 0.102, 0.108, 0.114, 0.12, 0.126, 0.132, 0.138,
   0.144,
 ];
 

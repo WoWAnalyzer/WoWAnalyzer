@@ -107,8 +107,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
           while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
           <TooltipElement
             content={t({
-              id:
-                'paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin',
+              id: 'paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin',
               message: `It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`,
             })}
           >

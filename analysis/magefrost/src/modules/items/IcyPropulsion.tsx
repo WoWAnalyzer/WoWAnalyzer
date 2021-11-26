@@ -13,22 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const COOLDOWN_REDUCTION_MS = [
-  0,
-  750,
-  830,
-  900,
-  980,
-  1005,
-  1130,
-  1200,
-  1280,
-  1350,
-  1430,
-  1500,
-  1580,
-  1650,
-  1730,
-  1800,
+  0, 750, 830, 900, 980, 1005, 1130, 1200, 1280, 1350, 1430, 1500, 1580, 1650, 1730, 1800,
 ];
 
 class IcyPropulsion extends Analyzer {

@@ -87,10 +87,10 @@ class Checklist extends BaseChecklist {
           phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
           fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
           firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
-          scorchSpellUsageDuringCombustion: this.combustionSpellUsage
-            .scorchDuringCombustionThresholds,
-          fireballSpellUsageDuringCombustion: this.combustionSpellUsage
-            .fireballDuringCombustionThresholds,
+          scorchSpellUsageDuringCombustion:
+            this.combustionSpellUsage.scorchDuringCombustionThresholds,
+          fireballSpellUsageDuringCombustion:
+            this.combustionSpellUsage.fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,
           combustionPreCastDelay: this.combustionPreCastDelay.combustionCastDelayThresholds,
           fireBlastHeatingUpUsage: this.heatingUp.fireBlastUtilSuggestionThresholds,

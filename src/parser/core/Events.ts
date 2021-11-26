@@ -141,9 +141,8 @@ type MappedEventTypes = {
   [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
 };
 
-export type AnyEvent<
-  ET extends keyof MappedEventTypes = keyof MappedEventTypes
-> = MappedEventTypes[ET];
+export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> =
+  MappedEventTypes[ET];
 
 export interface Ability {
   name: string;

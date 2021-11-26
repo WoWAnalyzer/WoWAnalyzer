@@ -52,9 +52,8 @@ class EarthShield extends Analyzer {
       this.onEarthShieldHeal,
     );
 
-    const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED = HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter(
-      (p) => p !== SPELLS.EARTH_SHIELD_HEAL,
-    );
+    const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED =
+      HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter((p) => p !== SPELLS.EARTH_SHIELD_HEAL);
     // event listener for healing being buffed by having earth shield on the target
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED),

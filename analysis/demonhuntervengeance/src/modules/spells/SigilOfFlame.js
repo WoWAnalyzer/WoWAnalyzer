@@ -51,8 +51,9 @@ class SigilOfFlame extends Analyzer {
   statistic() {
     const sigilOfFlameUptime = this.enemies.getBuffUptime(SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
     const sigilOfFlameUptimePercentage = sigilOfFlameUptime / this.owner.fightDuration;
-    const sigilOfFlameDamage = this.abilityTracker.getAbility(SPELLS.SIGIL_OF_FLAME_DEBUFF.id)
-      .damageEffective;
+    const sigilOfFlameDamage = this.abilityTracker.getAbility(
+      SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
+    ).damageEffective;
 
     return (
       <Statistic

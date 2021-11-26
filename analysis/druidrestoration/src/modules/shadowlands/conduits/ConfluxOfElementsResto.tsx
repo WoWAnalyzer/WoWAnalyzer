@@ -10,21 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const CONFLUX_OF_ELEMENTS_EFFECT_BY_RANK = [
-  0.15,
-  0.165,
-  0.18,
-  0.195,
-  0.21,
-  0.225,
-  0.24,
-  0.255,
-  0.27,
-  0.285,
-  0.3,
-  0.315,
-  0.33,
-  0.345,
-  0.36,
+  0.15, 0.165, 0.18, 0.195, 0.21, 0.225, 0.24, 0.255, 0.27, 0.285, 0.3, 0.315, 0.33, 0.345, 0.36,
 ];
 
 /**

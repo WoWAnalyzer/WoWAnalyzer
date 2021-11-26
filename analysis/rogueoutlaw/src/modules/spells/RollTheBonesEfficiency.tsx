@@ -36,9 +36,9 @@ class RollTheBonesEfficiency extends Analyzer {
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[
       ROLL_THE_BONES_CATEGORIES.LOW_VALUE
     ].filter((cast: RTBCast) => cast.RTBIsDelayed).length;
-    const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[
-      ROLL_THE_BONES_CATEGORIES.LOW_VALUE
-    ].length;
+    const totalRolls =
+      this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
+        .length;
 
     return totalRolls - delayedRolls;
   }

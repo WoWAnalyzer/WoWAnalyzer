@@ -62,8 +62,9 @@ class SpiritBombFrailtyDebuff extends Analyzer {
 
   statistic() {
     const spiritBombUptime = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id);
-    const spiritBombDamage = this.abilityTracker.getAbility(SPELLS.SPIRIT_BOMB_DAMAGE.id)
-      .damageEffective;
+    const spiritBombDamage = this.abilityTracker.getAbility(
+      SPELLS.SPIRIT_BOMB_DAMAGE.id,
+    ).damageEffective;
 
     return (
       <Statistic

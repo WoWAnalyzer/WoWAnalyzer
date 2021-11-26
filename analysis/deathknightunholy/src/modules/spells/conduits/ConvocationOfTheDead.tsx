@@ -14,22 +14,7 @@ import React from 'react';
  */
 
 const CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK = [
-  0,
-  5,
-  5.5,
-  6,
-  6.5,
-  7,
-  7.5,
-  8,
-  8.5,
-  9,
-  9.5,
-  10,
-  10.5,
-  11,
-  11.5,
-  12,
+  0, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12,
 ];
 
 class ConvocationOfTheDead extends Analyzer {

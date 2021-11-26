@@ -20,21 +20,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const DAMAGE_BONUS = [
-  0,
-  0.09,
-  0.099,
-  0.108,
-  0.117,
-  0.126,
-  0.135,
-  0.144,
-  0.153,
-  0.162,
-  0.171,
-  0.18,
-  0.189,
-  0.198,
-  0.207,
+  0, 0.09, 0.099, 0.108, 0.117, 0.126, 0.135, 0.144, 0.153, 0.162, 0.171, 0.18, 0.189, 0.198, 0.207,
   0.216,
 ];
 const MAX_STACKS = 2;

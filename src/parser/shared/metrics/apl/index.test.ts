@@ -18,7 +18,7 @@ const FILLER = { id: 2, name: 'Filler', icon: '' };
 
 const ability = (spell: Spell) => ({ guid: spell.id, name: spell.name, abilityIcon: spell.icon });
 
-const info: PlayerInfo = ({
+const info: PlayerInfo = {
   playerId: 0,
   abilities: [
     {
@@ -31,7 +31,7 @@ const info: PlayerInfo = ({
     },
     { spell: FILLER.id, enabled: true },
   ],
-} as unknown) as PlayerInfo;
+} as unknown as PlayerInfo;
 
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 

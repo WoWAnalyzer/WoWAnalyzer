@@ -84,9 +84,8 @@ class MarkmansAdvantage extends Analyzer {
         this.damageReductionObj[event.targetID] = this.damageReductionObj[event.targetID] || {
           damageMitigated: 0,
         };
-        this.damageReductionObj[event.targetID].damageMitigated += this.potentialDR[
-          event.targetID
-        ].damageMitigated;
+        this.damageReductionObj[event.targetID].damageMitigated +=
+          this.potentialDR[event.targetID].damageMitigated;
         this.totalDamageReduction += this.potentialDR[event.targetID].damageMitigated;
       }
       this.hmApplied = true;

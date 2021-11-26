@@ -10,22 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const DAMAGE_BONUS = [
-  0,
-  0.04,
-  0.04,
-  0.05,
-  0.05,
-  0.06,
-  0.06,
-  0.06,
-  0.07,
-  0.07,
-  0.08,
-  0.08,
-  0.08,
-  0.09,
-  0.09,
-  0.1,
+  0, 0.04, 0.04, 0.05, 0.05, 0.06, 0.06, 0.06, 0.07, 0.07, 0.08, 0.08, 0.08, 0.09, 0.09, 0.1,
 ];
 
 class ControlledDestruction extends Analyzer {

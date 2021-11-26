@@ -155,6 +155,7 @@ const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   // Because fightId comes from the URL we can't use local state
   fightId: getFightId(props.location.pathname),
 });
-export default compose(withRouter, connect(mapStateToProps))(FightSelection) as React.ComponentType<
-  PassedProps
->;
+export default compose(
+  withRouter,
+  connect(mapStateToProps),
+)(FightSelection) as React.ComponentType<PassedProps>;

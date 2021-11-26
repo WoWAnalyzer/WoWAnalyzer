@@ -584,8 +584,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it:
-        "generated event doesn't show waste if player was at full combo points earlier but spent them",
+      it: "generated event doesn't show waste if player was at full combo points earlier but spent them",
       events: [
         {
           // generate 5 combo points

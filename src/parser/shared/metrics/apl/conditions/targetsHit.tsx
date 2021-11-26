@@ -30,7 +30,11 @@ export interface Options {
  * then load times will suffer.
  **/
 export default function targetsHit(range: Range, options?: Partial<Options>): Condition<void> {
-  const { lookahead, targetType: type, targetSpell } = {
+  const {
+    lookahead,
+    targetType: type,
+    targetSpell,
+  } = {
     lookahead: 100,
     targetType: EventType.Damage,
     ...options,

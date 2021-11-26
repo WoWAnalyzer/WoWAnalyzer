@@ -10,22 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const DAMAGE_BONUS = [
-  0,
-  0.02,
-  0.02,
-  0.02,
-  0.03,
-  0.03,
-  0.03,
-  0.03,
-  0.03,
-  0.04,
-  0.04,
-  0.04,
-  0.04,
-  0.04,
-  0.05,
-  0.05,
+  0, 0.02, 0.02, 0.02, 0.03, 0.03, 0.03, 0.03, 0.03, 0.04, 0.04, 0.04, 0.04, 0.04, 0.05, 0.05,
 ];
 
 class SiphonedMalice extends Analyzer {

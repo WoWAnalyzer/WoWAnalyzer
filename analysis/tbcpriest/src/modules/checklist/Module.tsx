@@ -39,8 +39,8 @@ class Checklist extends BaseChecklist {
 
           prayerOfMending: this.prayerOfMending.prayerOfMendingThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds:
+            this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
       />

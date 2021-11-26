@@ -7,7 +7,7 @@
     "src"
   ],
   "dependencies": {
-    "@lingui/macro": "^3.3.0",
+    "@lingui/macro": "^3.12.1",
     "common": "link:../../src/common",
     "interface": "link:../../src/interface",
     "parser": "link:../../src/parser",

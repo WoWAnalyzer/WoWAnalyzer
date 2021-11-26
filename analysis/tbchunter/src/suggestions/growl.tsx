@@ -8,22 +8,24 @@ import React from 'react';
 import growlCasts from '../metrics/growlCasts';
 import * as SPELLS from '../SPELLS_PET';
 
-const growl = () => (events: AnyEvent[], { pets }: Pick<Info, 'pets'>) => {
-  const casts = growlCasts(events, pets);
+const growl =
+  () =>
+  (events: AnyEvent[], { pets }: Pick<Info, 'pets'>) => {
+    const casts = growlCasts(events, pets);
 
-  if (casts > 0) {
-    return {
-      text: (
-        <Trans id="tbc.suggestions.hunter.growl">
-          Your pet cast <SpellLink id={SPELLS.GROWL} />. You should not cast it when playing with a
-          tank to avoid your pet from taking aggro. In addition, casting{' '}
-          <SpellLink id={SPELLS.GROWL} /> costs energy, which may reduce your pet's DPS.
-        </Trans>
-      ),
-      importance: SuggestionImportance.Regular,
-      spell: SPELLS.GROWL,
-    };
-  }
-};
+    if (casts > 0) {
+      return {
+        text: (
+          <Trans id="tbc.suggestions.hunter.growl">
+            Your pet cast <SpellLink id={SPELLS.GROWL} />. You should not cast it when playing with
+            a tank to avoid your pet from taking aggro. In addition, casting{' '}
+            <SpellLink id={SPELLS.GROWL} /> costs energy, which may reduce your pet's DPS.
+          </Trans>
+        ),
+        importance: SuggestionImportance.Regular,
+        spell: SPELLS.GROWL,
+      };
+    }
+  };
 
 export default growl;

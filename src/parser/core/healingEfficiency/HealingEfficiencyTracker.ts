@@ -146,7 +146,7 @@ class HealingEfficiencyTracker extends Analyzer {
     let topDpet = 0;
 
     for (const index in this.abilities.abilities) {
-      const ability = (this.abilities.abilities[index] as unknown) as SpellbookAbility;
+      const ability = this.abilities.abilities[index] as unknown as SpellbookAbility;
 
       if (ability.category === 'Cooldown' && !includeCooldowns) {
         continue;

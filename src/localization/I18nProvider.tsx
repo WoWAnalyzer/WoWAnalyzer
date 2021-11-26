@@ -39,11 +39,16 @@ const I18nProvider = ({ children }: Props) => {
       return;
     }
 
-    loadCatalog(locale).then(({ messages }) => {
-      i18n.load(locale, messages);
-      i18n.activate(locale);
-      setActiveLocale(locale);
-    });
+    loadCatalog(locale)
+      .then(({ messages }) => {
+        i18n.load(locale, messages);
+        i18n.activate(locale);
+        setActiveLocale(locale);
+      })
+      .catch((error) => {
+        console.log('Unable to load locale');
+        return;
+      });
   }, [locale, activeLocale, setActiveLocale]);
 
   if (!activeLocale && process.env.NODE_ENV !== 'test') {

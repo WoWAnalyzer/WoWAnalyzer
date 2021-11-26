@@ -10,22 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
 const COOLDOWN_REDUCTION_MS = [
-  0,
-  200,
-  200,
-  200,
-  200,
-  200,
-  200,
-  200,
-  300,
-  300,
-  300,
-  300,
-  300,
-  300,
-  300,
-  400,
+  0, 200, 200, 200, 200, 200, 200, 200, 300, 300, 300, 300, 300, 300, 300, 400,
 ];
 
 class ArcaneProdigy extends Analyzer {

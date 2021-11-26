@@ -21,11 +21,12 @@ jest.mock('react-router-dom', () => ({
   Link: (props) => <link {...props} />,
   Route: (props) => <route {...props} />,
   Switch: (props) => <switch {...props} />,
-  withRouter: (Component) => (props) => (
-    <routerified>
-      <Component {...props} />
-    </routerified>
-  ),
+  withRouter: (Component) => (props) =>
+    (
+      <routerified>
+        <Component {...props} />
+      </routerified>
+    ),
 }));
 
 jest.mock('@lingui/core', () => ({

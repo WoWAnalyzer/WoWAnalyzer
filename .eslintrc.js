@@ -1,7 +1,6 @@
 const CHECK_CODESTYLE = process.env.CODE_STYLE === 'true';
 
 module.exports = {
-  extends: '@emico/eslint-config',
   rules: {
     'no-use-before-define': 'off',
     'import/order': [
@@ -48,4 +47,5 @@ module.exports = {
       },
     },
   ],
+  extends: ['@emico/eslint-config', 'prettier'],
 };

@@ -145,9 +145,8 @@ class SerpentSting extends Analyzer {
         Math.min(SERPENT_STING_MM_BASE_DURATION * SERPENT_STING_MM_PANDEMIC, timeRemaining) +
         SERPENT_STING_MM_BASE_DURATION;
       this.serpentStingTargets[serpentStingTarget].timestamp = event.timestamp;
-      this.serpentStingTargets[
-        serpentStingTarget
-      ].serpentStingDuration = pandemicSerpentStingDuration;
+      this.serpentStingTargets[serpentStingTarget].serpentStingDuration =
+        pandemicSerpentStingDuration;
     }
   }
 

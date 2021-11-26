@@ -32,8 +32,8 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds:
+            this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
       />

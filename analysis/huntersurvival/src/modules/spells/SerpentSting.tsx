@@ -225,9 +225,8 @@ class SerpentSting extends Analyzer {
         Math.min(SERPENT_STING_SV_BASE_DURATION * SERPENT_STING_SV_PANDEMIC, timeRemaining) +
         SERPENT_STING_SV_BASE_DURATION;
       this.serpentStingTargets[serpentStingTarget].timestamp = event.timestamp;
-      this.serpentStingTargets[
-        serpentStingTarget
-      ].serpentStingDuration = pandemicSerpentStingDuration;
+      this.serpentStingTargets[serpentStingTarget].serpentStingDuration =
+        pandemicSerpentStingDuration;
     }
     if (this.hasBoP && this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
       if (this.vipersVenomBuffUp) {

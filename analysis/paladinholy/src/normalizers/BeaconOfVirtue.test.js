@@ -299,8 +299,7 @@ describe('Paladin/Holy/Normalizers/BeaconOfVirtue', () => {
       result: [1, 3, 2, 4],
     },
     {
-      it:
-        "even moves when the event in-between is something irrelevant (it shouldn't know the difference)",
+      it: "even moves when the event in-between is something irrelevant (it shouldn't know the difference)",
       events: [
         {
           testid: 1,

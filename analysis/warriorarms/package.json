@@ -7,7 +7,7 @@
     "src"
   ],
   "dependencies": {
-    "@lingui/macro": "^3.3.0",
+    "@lingui/macro": "^3.12.1",
     "@wowanalyzer/warrior": "*",
     "common": "link:../../src/common",
     "game": "link:../../src/game",
@@ -15,6 +15,6 @@
     "parser": "link:../../src/parser",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-toggle": "^4.0.2"
+    "react-toggle": "^4.1.2"
   }
 }

@@ -15,22 +15,7 @@ import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS }
 
 const debug = false;
 const COOLDOWN_REDUCTION_MS = [
-  0,
-  1000,
-  1100,
-  1200,
-  1300,
-  1400,
-  1500,
-  1600,
-  1700,
-  1800,
-  1900,
-  2000,
-  2100,
-  2200,
-  2300,
-  2400,
+  0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400,
 ];
 
 class ShiftingPower extends Analyzer {
