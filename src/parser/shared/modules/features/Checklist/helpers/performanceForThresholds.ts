@@ -1,3 +1,5 @@
+const minorReturn = 0.99; // fixed percentage for when actual == minor (need to differentiate from no issues)
+
 /**
  *   0 - 33% major This is different from the *minor* threshold which is at 100% instead of 66%. The reason for this is that the minor threshold being at 75% and then 75%-100% being minor - max is that this would suggest going for max is best while this is not always the case. Something like Crusader Strike (with the Crusader's Might talent) has a recommended cast efficiency of 35% *because* you should only cast it enough to benefit you, more than that would be good but not 100% cast efficiency as then you're losing healing.
  * 33% - 66% average
@@ -47,11 +49,15 @@ function performanceForGreaterThanThresholds(
   }
 }
 
+//  Essentially same as greaterThan, but if bounds are changed
+//  and manually return minorReturn to force different color when actual = minor
 function performanceForGreaterThanOrEqualThresholds(
   actual: number,
   { minor, average, major }: { minor: number; average: number; major: number },
 ) {
-  if (actual >= major) {
+  if (actual === minor) {
+    return minorReturn;
+  } else if (actual >= major) {
     // major issue
     return (0.333 * major) / actual;
   } else if (actual >= average) {
@@ -66,10 +72,15 @@ function performanceForGreaterThanOrEqualThresholds(
   }
 }
 
+//  Essentially same as lessThan, but if bounds are changed
+//  and manually return minorReturn to force different color when actual = minor
 function performanceForLessThanOrEqualThresholds(
   actual: number,
   { minor, average, major }: { minor: number; average: number; major: number },
 ) {
+  if (actual === minor) {
+    return minorReturn;
+  }
   if (actual <= major) {
     // major issue
     return (0.333 * actual) / major;
