@@ -105,6 +105,7 @@ class EssenceFont extends Analyzer {
       style: ThresholdStyle.NUMBER,
     };
   }
+
   castEssenceFont(event: CastEvent) {
     let extra_secs = 0;
     if (this.hasUpwelling) {
