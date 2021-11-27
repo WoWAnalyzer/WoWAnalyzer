@@ -281,11 +281,7 @@ class RuneTracker extends ResourceTracker {
 
   // total runes generated with passive regeneration
   get runesMaxCasts() {
-    let totalCasts = 0;
-    for (const spender of this.spendersObj) {
-      //add runes spent
-      totalCasts += this.spendersObj[spender].spent;
-    }
+    const totalCasts = Object.values(this.spendersObj).reduce((a, b) => a + b.spent, 0);
     // subtract starting runes and add end runes
     return totalCasts - MAX_RUNES + this.runesReady[this.runesReady.length - 1].y;
   }

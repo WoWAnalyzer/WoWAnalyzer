@@ -1,13 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  Ability,
+  AddStaggerEvent,
+  RemoveStaggerEvent,
   AbsorbedEvent,
   AnyEvent,
   CastEvent,
   DamageEvent,
   DeathEvent,
-  Event,
   EventType,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -24,21 +24,6 @@ const STAGGER_THRESHOLDS = {
   MODERATE: 0.3,
   LIGHT: 0.0,
 };
-
-export interface AddStaggerEvent extends Event<EventType.AddStagger> {
-  amount: number;
-  overheal: number;
-  newPooledDamage: number;
-  extraAbility?: Ability;
-  trigger?: AbsorbedEvent;
-}
-
-export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
-  amount: number;
-  overheal: number;
-  newPooledDamage: number;
-  trigger?: CastEvent | DeathEvent;
-}
 
 export type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 

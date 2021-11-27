@@ -684,7 +684,7 @@ class CombatLogParser {
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }
-            this.deepDisable(module, ModuleError.RESULTS, e);
+            this.deepDisable(module, ModuleError.RESULTS, e as Error);
             //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
             return false;
           }

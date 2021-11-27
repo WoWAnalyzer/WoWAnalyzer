@@ -88,9 +88,9 @@ class ReportLoader extends React.PureComponent<Props, State> {
     } catch (err) {
       const isCommonError = err instanceof LogNotFoundError;
       if (!isCommonError) {
-        captureException(err);
+        captureException(err as Error);
       }
-      this.updateState(err, null);
+      this.updateState(err as Error, null);
     }
   }
   handleRefresh() {

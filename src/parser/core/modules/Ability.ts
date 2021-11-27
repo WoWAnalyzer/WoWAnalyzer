@@ -332,7 +332,7 @@ class Ability {
   }
   /** @return {number} */
   get cooldown() {
-    return this.getCooldown(this.owner?.haste.current);
+    return this.getCooldown(this.owner?.haste.current || 0);
   }
   getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
@@ -359,7 +359,7 @@ class Ability {
       return 0;
     }
     if (typeof this._channel === 'function') {
-      return this._channel.call(this.owner, this.owner?.haste.current);
+      return this._channel.call(this.owner, this.owner?.haste.current || 0);
     }
 
     return this._channel;

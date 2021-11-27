@@ -3,12 +3,12 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
-import Events, { EventType } from 'parser/core/Events';
+import Events, { EventType, AddStaggerEvent, RemoveStaggerEvent } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
+import StaggerFabricator from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;

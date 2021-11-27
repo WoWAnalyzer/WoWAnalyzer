@@ -6,15 +6,16 @@ import Combatant from 'parser/core/Combatant';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
   Item,
+  AnyEvent,
   ApplyBuffEvent,
   ApplyDebuffEvent,
   ChangeBuffStackEvent,
   ChangeDebuffStackEvent,
   ChangeStatsEvent,
   EventType,
+  SourcedEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
-  SourcedEvent,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -98,8 +99,9 @@ class Haste extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.current = this.statTracker.currentHastePercentage;
+    this.current = (options.statTracker as StatTracker).currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
+    this.eventEmitter = options.eventEmitter as EventEmitter;
     this._triggerChangeHaste(null, null, this.current);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.changebuffstack.to(SELECTED_PLAYER), this.onChangeBuffStack);
@@ -287,15 +289,15 @@ class Haste extends Analyzer {
     return value;
   }
 
-  _applyHasteGain(event: SourcedEvent<any>, haste: number) {
+  _applyHasteGain(event: AnyEvent, haste: number) {
     this._setHaste(event, Haste.addHaste(this.current, haste));
   }
 
-  _applyHasteLoss(event: SourcedEvent<any>, haste: number) {
+  _applyHasteLoss(event: AnyEvent, haste: number) {
     this._setHaste(event, Haste.removeHaste(this.current, haste));
   }
 
-  _setHaste(event: SourcedEvent<any>, haste: number) {
+  _setHaste(event: AnyEvent, haste: number) {
     if (isNaN(haste)) {
       throw new Error('Attempted to set an invalid Haste value. Something broke.');
     }
@@ -305,10 +307,10 @@ class Haste extends Analyzer {
     this._triggerChangeHaste(event, oldHaste, this.current);
   }
 
-  _triggerChangeHaste(event: SourcedEvent<any>, oldHaste: number, newHaste: number) {
+  _triggerChangeHaste(event: AnyEvent | null, oldHaste: number | null, newHaste: number) {
     const fabricatedEvent = {
       type: EventType.ChangeHaste,
-      sourceID: event ? event.sourceID : this.owner.playerId,
+      sourceID: event ? (event as SourcedEvent<any>).sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       oldHaste,
       newHaste,

@@ -18,5 +18,6 @@
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "./types/*.d.ts"]
+  "include": ["src", "./types/*.d.ts"],
+  "exclude": ["src/parser/core/tests", "**/*.test.ts", "**/*.test.tsx"]
 }

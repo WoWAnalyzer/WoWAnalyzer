@@ -29,10 +29,9 @@ class SurgeOfPower extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_POWER_TALENT.id);
 
-    for (const key of SURGE_OF_POWER.AFFECTED_CASTS) {
-      const spellid = SURGE_OF_POWER.AFFECTED_CASTS[key].id;
+    Object.values(SURGE_OF_POWER.AFFECTED_CASTS).forEach(({ id: spellid }) => {
       this.sopBuffedAbilities[spellid] = 0;
-    }
+    });
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SURGE_OF_POWER.AFFECTED_CASTS),

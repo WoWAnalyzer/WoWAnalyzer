@@ -95,6 +95,21 @@ export enum EventType {
   FilterBuffInfo = 'filterbuffinfo',
 }
 
+export interface AddStaggerEvent extends Event<EventType.AddStagger> {
+  amount: number;
+  overheal: number;
+  newPooledDamage: number;
+  extraAbility?: Ability;
+  trigger?: AbsorbedEvent;
+}
+
+export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
+  amount: number;
+  overheal: number;
+  newPooledDamage: number;
+  trigger?: CastEvent | DeathEvent;
+}
+
 type MappedEventTypes = {
   [EventType.Event]: Event<EventType.Event>;
   [EventType.Heal]: HealEvent;
@@ -132,6 +147,8 @@ type MappedEventTypes = {
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
+  [EventType.AddStagger]: AddStaggerEvent;
+  [EventType.RemoveStagger]: RemoveStaggerEvent;
   // Phases:
   [EventType.PhaseStart]: PhaseStartEvent;
   [EventType.PhaseEnd]: PhaseEndEvent;

@@ -47,15 +47,14 @@ class MasterOfTheElements extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
 
-    for (const key of MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
-      const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
+    Object.values(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS).forEach(({ id: spellid }) => {
       if (
         this.selectedCombatant.hasTalent(spellid) ||
         !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)
       ) {
         this.moteBuffedAbilities[spellid] = 0;
       }
-    }
+    });
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS),

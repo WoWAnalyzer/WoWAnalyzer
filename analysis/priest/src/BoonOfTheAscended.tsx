@@ -88,43 +88,26 @@ class BoonOfTheAscended extends Analyzer {
   };
 
   get totalDamage() {
-    let total = 0;
-    for (const spellId of this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].damageDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.damageDone, 0);
   }
 
   get totalDirectHealing() {
-    let total = 0;
-    for (const spellId of this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].healingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.healingDone, 0);
   }
 
   get totalDirectOverHealing() {
-    let total = 0;
-    for (const spellId of this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].overHealingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.overHealingDone, 0);
   }
 
   get totalAtonementHealing() {
-    let total = 0;
-    for (const spellId of this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].atonmentHealingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.atonmentHealingDone, 0);
   }
 
   get totalAtonementOverHealing() {
-    let total = 0;
-    for (const spellId of this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].atonementOverHealingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce(
+      (a, b) => a + b.atonementOverHealingDone,
+      0,
+    );
   }
 
   get averageStacks() {
@@ -289,48 +272,40 @@ class BoonOfTheAscended extends Analyzer {
   }
 
   spellTable() {
-    const rows = [];
-
-    for (const spellId of this.ascendedSpellTracker) {
-      rows.push(
-        <tr key={'bota_' + spellId}>
-          <td>
-            <SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} />
-          </td>
+    return Object.entries(this.ascendedSpellTracker).map(([spellId, data]) => (
+      <tr key={'bota_' + spellId}>
+        <td>
+          <SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} />
+        </td>
+        <td>
+          <TooltipElement
+            content={`${this.getOverhealingPercent(
+              data.healingDone,
+              data.overHealingDone,
+            )}% Overhealing`}
+          >
+            {formatNumber(data.healingDone)}
+          </TooltipElement>
+        </td>
+        {this.isDisc && (
           <td>
             <TooltipElement
               content={`${this.getOverhealingPercent(
-                this.ascendedSpellTracker[spellId].healingDone,
-                this.ascendedSpellTracker[spellId].overHealingDone,
+                data.atonmentHealingDone,
+                data.atonementOverHealingDone,
               )}% Overhealing`}
             >
-              {formatNumber(this.ascendedSpellTracker[spellId].healingDone)}
+              {formatNumber(data.atonmentHealingDone)}
             </TooltipElement>
           </td>
-          {this.isDisc && (
-            <td>
-              <TooltipElement
-                content={`${this.getOverhealingPercent(
-                  this.ascendedSpellTracker[spellId].atonmentHealingDone,
-                  this.ascendedSpellTracker[spellId].atonementOverHealingDone,
-                )}% Overhealing`}
-              >
-                {formatNumber(this.ascendedSpellTracker[spellId].atonmentHealingDone)}
-              </TooltipElement>
-            </td>
-          )}
-          <td>{formatNumber(this.ascendedSpellTracker[spellId].damageDone)}</td>
-          <td>
-            <span style={{ color: 'green' }}>
-              {this.ascendedSpellTracker[spellId].friendlyHits}
-            </span>{' '}
-            |<span style={{ color: 'red' }}> {this.ascendedSpellTracker[spellId].enemyHits}</span>
-          </td>
-        </tr>,
-      );
-    }
-
-    return rows;
+        )}
+        <td>{formatNumber(data.damageDone)}</td>
+        <td>
+          <span style={{ color: 'green' }}>{data.friendlyHits}</span> |
+          <span style={{ color: 'red' }}> {data.enemyHits}</span>
+        </td>
+      </tr>
+    ));
   }
 
   statistic() {

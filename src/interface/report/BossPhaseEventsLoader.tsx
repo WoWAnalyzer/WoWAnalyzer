@@ -47,7 +47,7 @@ class BossPhaseEventsLoader extends React.PureComponent<Props, State> {
     } catch (err) {
       // The boss events are very nice, but we can still continue without it and just provide the entire fight for analysis.
       // We still want to log the error though, so we can potentially improve this.
-      captureException(err);
+      captureException(err as Error);
     }
 
     this.setState({
