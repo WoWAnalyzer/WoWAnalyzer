@@ -46,6 +46,7 @@ import {
   Pirrang,
   ChrisKaczor,
   Jeff,
+  Trevor
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
@@ -55,6 +56,7 @@ import React from 'react';
 // prettier-ignore
 export default [
   change(date(2021, 11, 25), 'Fix compatibility issue with nodejs 16', Jeff),
+  change(date(2021, 11, 25), 'Added greaterThanOrEqual & lessThanOrEqual option for checklist conditions', Trevor),
   change(date(2021, 11, 25), 'Force-update translations for Mistweaver', emallson),
   change(date(2021, 11, 23), 'Have relevant TBC build selected for the selected character.', Arbixal),
   change(date(2021, 11, 14), 'Clean up caching in GitHub actions CI.', Zerotorescue),

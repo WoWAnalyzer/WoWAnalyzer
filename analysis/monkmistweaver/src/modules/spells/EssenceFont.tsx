@@ -99,12 +99,13 @@ class EssenceFont extends Analyzer {
   get suggestionThresholdsCancel() {
     return {
       actual: this.cancelled_ef,
-      isGreaterThan: {
-        major: 0,
+      isGreaterThanOrEqual: {
+        major: 1,
       },
       style: ThresholdStyle.NUMBER,
     };
   }
+
   castEssenceFont(event: CastEvent) {
     let extra_secs = 0;
     if (this.hasUpwelling) {
