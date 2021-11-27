@@ -90,7 +90,7 @@
     "vega-lite": "^4.15.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.5",
+    "@babel/core": "^7.16.0",
     "@emico/eslint-config": "~4.0.1",
     "@lingui/cli": "^3.3.0",
     "@lingui/loader": "^3.3.0",
@@ -100,8 +100,8 @@
     "@types/lingui__core": "^2.7.0",
     "@types/lingui__macro": "^2.7.3",
     "@types/lingui__react": "^2.8.1",
-    "@types/react": "^16.9.16",
-    "@types/react-dom": "^16.9.4",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.2",
     "@types/react-helmet": "^6.1.0",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.2",
@@ -125,9 +125,9 @@
     "prettier": "~2.1.2",
     "react-app-rewired": "^2.1.6",
     "react-scripts": "^4.0.3",
-    "react-test-renderer": "^16.8.6",
+    "react-test-renderer": "^17.0.2",
     "sass-loader": "12.3.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.5.2"
   },
   "scripts": {
     "start": "react-app-rewired start",
