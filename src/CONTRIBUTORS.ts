@@ -1792,3 +1792,29 @@ export const Trevor: Contributor = {
     },
   ],
 };
+
+export const Jeff: Contributor = {
+  nickname: 'Jeff',
+  discord: 'muhnameizjeff#8143',
+  github: 'jander99',
+  about: 'Software Engineer and WoW player. Recovering EverCrack addict.',
+  mains: [
+    {
+      name: 'Theragrin',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/Theragrin',
+    },
+  ],
+  alts: [
+    {
+      name: 'Wörgrin',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/W%C3%B6rgrin',
+    },
+    {
+      name: 'Jeffortless',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/Jeffortless',
+    },
+  ],
+};
