@@ -13,7 +13,6 @@ import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import BrewCDR from '../core/BrewCDR';
 import SharedBrews from '../core/SharedBrews';

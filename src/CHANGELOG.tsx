@@ -50,7 +50,6 @@ import {
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
-import React from 'react';
 // prettier-ignore
 
 // prettier-ignore

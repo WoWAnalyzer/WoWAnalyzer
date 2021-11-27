@@ -4,7 +4,6 @@ import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

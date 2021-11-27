@@ -3,7 +3,6 @@ import GitHubIcon from 'interface/icons/GitHub';
 import PatreonIcon from 'interface/icons/Patreon';
 import PremiumIcon from 'interface/icons/Premium';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default (

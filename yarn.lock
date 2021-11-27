@@ -1234,15 +1234,16 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
-"@emico/eslint-config@~4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@emico/eslint-config/-/eslint-config-4.0.1.tgz#004e0eb8866ce7ccdc29a21681942184956de379"
-  integrity sha512-+iL8hR1f+mczqKSz77OQdyDgS98o77kouE75wkF0vZ//3iqKux9xz0zkbzDtvYPkoRAoN+tMGfGnNP9yLBsjmg==
+"@emico/eslint-config@~4.2":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@emico/eslint-config/-/eslint-config-4.2.0.tgz#8d225eb02679d822127dbb1c12c7cf94fb8802b0"
+  integrity sha512-1iWi9w+m8nfC7csepMQxAj7fsPXaJXooWaUK5NCiX4698RFnX2UlcrcCzx6yPtHLSD50nA9vM08vTMTqtsrfCQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "4.x"
     "@typescript-eslint/parser" "4.x"
     babel-eslint "10.x"
     confusing-browser-globals "^1.0.9"
+    dotenv-flow "^3.2.0"
     eslint "7.x"
     eslint-config-prettier "^6.9.0"
     eslint-config-react-app "^6.0.0"
@@ -5751,6 +5752,13 @@ dotenv-expand@5.1.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
 
+dotenv-flow@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv-flow/-/dotenv-flow-3.2.0.tgz#a5d79dd60ddb6843d457a4874aaf122cf659a8b7"
+  integrity sha512-GEB6RrR4AbqDJvNSFrYHqZ33IKKbzkvLYiD5eo4+9aFXr4Y4G+QaFrB/fNp0y6McWBmvaPn3ZNjIufnj8irCtg==
+  dependencies:
+    dotenv "^8.0.0"
+
 dotenv@8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
@@ -5760,6 +5768,11 @@ dotenv@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
   integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
+
+dotenv@^8.0.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
 duplexer@^0.1.1:
   version "0.1.2"

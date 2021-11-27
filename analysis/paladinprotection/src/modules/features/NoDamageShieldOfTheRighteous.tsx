@@ -7,7 +7,6 @@ import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults'
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 /**
  * Analyzer to determine which, if any, SOTR casts did not result in a subsequent hit

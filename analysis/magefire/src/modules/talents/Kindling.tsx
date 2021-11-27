@@ -7,7 +7,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const REDUCTION_MS = 1500;
 const COMBUST_REDUCTION_SPELLS = [

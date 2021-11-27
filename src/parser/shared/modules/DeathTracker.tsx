@@ -3,7 +3,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { makeAnalyzerUrl } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Events, {

@@ -11,7 +11,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import './ManaTideTotem.scss';
 import ManaTideTotem, { MANA_REGEN_PER_SECOND } from './ManaTideTotem';

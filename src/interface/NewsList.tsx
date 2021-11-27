@@ -5,7 +5,7 @@ import NewsArticleLoader from 'interface/NewsArticleLoader';
 import ReadableListing from 'interface/ReadableListing';
 import SpecIcon from 'interface/SpecIcon';
 import mergeAllChangelogs, { ChangeLogItem } from 'mergeAllChangelogs';
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import 'interface/NewsPage.scss';
 
 type ArticleItem = { article: string; date: Date };

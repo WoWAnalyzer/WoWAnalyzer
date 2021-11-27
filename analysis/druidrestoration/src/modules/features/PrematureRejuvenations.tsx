@@ -10,7 +10,6 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const debug = false;
 

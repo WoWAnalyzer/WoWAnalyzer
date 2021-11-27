@@ -6,11 +6,11 @@ import Tooltip from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
 import BuffsModule from 'parser/core/modules/Buffs';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import './Buffs.scss';
 
-class Buffs extends React.PureComponent {
+class Buffs extends PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,

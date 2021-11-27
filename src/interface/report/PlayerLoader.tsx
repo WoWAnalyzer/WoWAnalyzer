@@ -27,7 +27,7 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';

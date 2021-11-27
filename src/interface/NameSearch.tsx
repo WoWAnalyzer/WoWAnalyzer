@@ -3,7 +3,7 @@ import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import REALMS from 'game/RealmList';
-import React, { FormEvent, RefObject } from 'react';
+import { createRef, PureComponent, FormEvent, RefObject } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore react-select-search has a broken import so we need to manually do it. See https://github.com/tbleckert/react-select-search/issues/120
@@ -24,7 +24,7 @@ interface Props extends RouteComponentProps {
   type: SearchType;
 }
 
-class NameSearch extends React.PureComponent<Props, State> {
+class NameSearch extends PureComponent<Props, State> {
   state = {
     loading: false,
     currentRegion: 'EU',
@@ -36,8 +36,8 @@ class NameSearch extends React.PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.regionInput = React.createRef();
-    this.nameInput = React.createRef();
+    this.regionInput = createRef();
+    this.nameInput = createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeRegion = this.changeRegion.bind(this);
   }

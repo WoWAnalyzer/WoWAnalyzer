@@ -5,7 +5,7 @@ import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
 import calculateMedian from 'parser/shared/modules/features/Checklist/helpers/calculateMedian';
 import PropTypes from 'prop-types';
-import React, { ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
@@ -24,7 +24,7 @@ interface State {
   medianDuration: number | null;
 }
 
-class ThroughputPerformance extends React.PureComponent<Props, State> {
+class ThroughputPerformance extends PureComponent<Props, State> {
   static contextTypes = {
     parser: PropTypes.object.isRequired, // unable to use instanceof CombatLogParser as that would cause a circular import
   };

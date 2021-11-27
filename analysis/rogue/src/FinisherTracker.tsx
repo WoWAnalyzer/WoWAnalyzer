@@ -5,7 +5,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
+import * as React from 'react';
 
 import ComboPointTracker from './ComboPointTracker';
 

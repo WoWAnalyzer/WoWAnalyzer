@@ -1,13 +1,33 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { EventType } from 'parser/core/Events';
+import Events, {
+  Item,
+  ApplyBuffEvent,
+  ApplyDebuffEvent,
+  ChangeBuffStackEvent,
+  ChangeDebuffStackEvent,
+  ChangeStatsEvent,
+  EventType,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+  SourcedEvent,
+} from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const debug = false;
+
+interface HasteBuff {
+  itemId?: number;
+  hastePerStack?: number;
+  haste?: number;
+}
+
+type HasteBuffMap = { [spellId: number]: number | HasteBuff };
 
 class Haste extends Analyzer {
   static dependencies = {
@@ -15,7 +35,10 @@ class Haste extends Analyzer {
     statTracker: StatTracker,
   };
 
-  static HASTE_BUFFS = {
+  protected statTracker!: StatTracker;
+  protected eventEmitter!: EventEmitter;
+
+  static HASTE_BUFFS: HasteBuffMap = {
     // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
 
     ...BLOODLUST_BUFFS,
@@ -71,10 +94,10 @@ class Haste extends Analyzer {
     return new EventFilter(EventType.ChangeHaste);
   }
 
-  current = null;
+  current: number;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this._triggerChangeHaste(null, null, this.current);
@@ -87,31 +110,31 @@ class Haste extends Analyzer {
     this.addEventListener(Events.ChangeStats.to(SELECTED_PLAYER), this.onChangeStats);
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this._applyActiveBuff(event);
   }
 
-  onChangeBuffStack(event) {
+  onChangeBuffStack(event: ChangeBuffStackEvent) {
     this._changeBuffStack(event);
   }
 
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     this._removeActiveBuff(event);
   }
 
-  onApplyDebuff(event) {
+  onApplyDebuff(event: ApplyDebuffEvent) {
     this._applyActiveBuff(event);
   }
 
-  onChangeDebuffStack(event) {
+  onChangeDebuffStack(event: ChangeDebuffStackEvent) {
     this._changeBuffStack(event);
   }
 
-  onRemoveDebuff(event) {
+  onRemoveDebuff(event: RemoveDebuffEvent) {
     this._removeActiveBuff(event);
   }
 
-  onChangeStats(event) {
+  onChangeStats(event: ChangeStatsEvent) {
     // fabbed event from StatTracker
     if (!event.delta.haste) {
       return;
@@ -119,29 +142,29 @@ class Haste extends Analyzer {
 
     // Calculating the Haste percentage difference form a rating change is hard because all rating (from gear + buffs) is additive while Haste percentage buffs are both multiplicative and additive (see the applyHaste function).
     // 1. Calculate the total Haste percentage without any rating (since the total percentage from the total rating multiplies like any other Haste buff)
-    const remainingHasteBuffs = this.constructor.removeHaste(
+    const remainingHasteBuffs = Haste.removeHaste(
       this.current,
       this.statTracker.hastePercentage(event.before.haste, true),
     );
     // 2. Calculate the new total Haste percentage with the new rating and the old total buff percentage
-    const newHastePercentage = this.constructor.addHaste(
+    const newHastePercentage = Haste.addHaste(
       this.statTracker.hastePercentage(event.after.haste, true),
       remainingHasteBuffs,
     );
 
     this._setHaste(event, newHastePercentage);
 
-    if (debug) {
+    if (debug && 'ability' in event.trigger) {
       const spellName = event.trigger.ability ? event.trigger.ability.name : 'unknown';
       console.log(
-        `Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${
+        `Haste: Current haste: ${formatPercentage(this.current!)}% (haste RATING changed by ${
           event.delta.haste
         } from ${spellName})`,
       );
     }
   }
 
-  _applyActiveBuff(event) {
+  _applyActiveBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     const spellId = event.ability.guid;
     const hasteGain = this._getBaseHasteGain(spellId);
 
@@ -153,7 +176,7 @@ class Haste extends Analyzer {
           formatMilliseconds(this.owner.fightDuration),
           'Haste:',
           'Current haste:',
-          `${formatPercentage(this.current)}%`,
+          `${formatPercentage(this.current!)}%`,
           `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`,
         );
     } else {
@@ -166,7 +189,7 @@ class Haste extends Analyzer {
     }
   }
 
-  _removeActiveBuff(event) {
+  _removeActiveBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
     const spellId = event.ability.guid;
     const haste = this._getBaseHasteGain(spellId);
 
@@ -175,7 +198,7 @@ class Haste extends Analyzer {
 
       debug &&
         console.log(
-          `Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(
+          `Haste: Current haste: ${formatPercentage(this.current!)}% (lost ${formatPercentage(
             haste,
           )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
         );
@@ -192,8 +215,8 @@ class Haste extends Analyzer {
   /**
    * Gets the base Haste gain for the provided spell.
    */
-  _getBaseHasteGain(spellId) {
-    const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
+  _getBaseHasteGain(spellId: number) {
+    const hasteBuff = Haste.HASTE_BUFFS[spellId] || undefined;
 
     if (typeof hasteBuff === 'number') {
       // A regular number is a static Haste percentage
@@ -207,30 +230,30 @@ class Haste extends Analyzer {
     return null;
   }
 
-  _changeBuffStack(event) {
+  _changeBuffStack(event: ChangeBuffStackEvent | ChangeDebuffStackEvent) {
     const spellId = event.ability.guid;
     const haste = this._getHastePerStackGain(spellId);
 
     if (haste) {
       // Haste stacks are additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
       // 1. Calculate the total Haste percentage without the buff
-      const baseHaste = this.constructor.removeHaste(this.current, event.oldStacks * haste);
+      const baseHaste = Haste.removeHaste(this.current, event.oldStacks * haste);
       // 2. Calculate the new total Haste percentage with the Haste from the new amount of stacks
-      const newHastePercentage = this.constructor.addHaste(baseHaste, event.newStacks * haste);
+      const newHastePercentage = Haste.addHaste(baseHaste, event.newStacks * haste);
 
       this._setHaste(event, newHastePercentage);
 
       debug &&
         console.log(
-          `Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(
+          `Haste: Current haste: ${formatPercentage(this.current!)}% (gained ${formatPercentage(
             haste * event.stacksGained,
           )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
         );
     }
   }
 
-  _getHastePerStackGain(spellId) {
-    const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
+  _getHastePerStackGain(spellId: number) {
+    const hasteBuff = Haste.HASTE_BUFFS[spellId] || undefined;
 
     if (typeof hasteBuff === 'number') {
       // hasteBuff being a number is shorthand for static haste only
@@ -245,12 +268,15 @@ class Haste extends Analyzer {
   /**
    * Get the actual Haste value from a prop allowing various formats.
    */
-  _getHasteValue(value, hasteBuff) {
-    const { itemId } = hasteBuff;
+  _getHasteValue(
+    value: number | ((combatant: Combatant, item?: Item) => number),
+    hasteBuff: HasteBuff | number,
+  ) {
     if (typeof value === 'function') {
       const selectedCombatant = this.selectedCombatant;
       let itemDetails;
-      if (itemId) {
+      if (typeof hasteBuff === 'object' && hasteBuff.itemId) {
+        const { itemId } = hasteBuff;
         itemDetails = selectedCombatant.getItem(itemId);
         if (!itemDetails) {
           console.error('Failed to retrieve item information for item with ID:', itemId);
@@ -261,15 +287,15 @@ class Haste extends Analyzer {
     return value;
   }
 
-  _applyHasteGain(event, haste) {
-    this._setHaste(event, this.constructor.addHaste(this.current, haste));
+  _applyHasteGain(event: SourcedEvent<any>, haste: number) {
+    this._setHaste(event, Haste.addHaste(this.current, haste));
   }
 
-  _applyHasteLoss(event, haste) {
-    this._setHaste(event, this.constructor.removeHaste(this.current, haste));
+  _applyHasteLoss(event: SourcedEvent<any>, haste: number) {
+    this._setHaste(event, Haste.removeHaste(this.current, haste));
   }
 
-  _setHaste(event, haste) {
+  _setHaste(event: SourcedEvent<any>, haste: number) {
     if (isNaN(haste)) {
       throw new Error('Attempted to set an invalid Haste value. Something broke.');
     }
@@ -279,7 +305,7 @@ class Haste extends Analyzer {
     this._triggerChangeHaste(event, oldHaste, this.current);
   }
 
-  _triggerChangeHaste(event, oldHaste, newHaste) {
+  _triggerChangeHaste(event: SourcedEvent<any>, oldHaste: number, newHaste: number) {
     const fabricatedEvent = {
       type: EventType.ChangeHaste,
       sourceID: event ? event.sourceID : this.owner.playerId,
@@ -291,11 +317,11 @@ class Haste extends Analyzer {
     this.eventEmitter.fabricateEvent(fabricatedEvent, event);
   }
 
-  static addHaste(baseHaste, hasteGain) {
+  static addHaste(baseHaste: number, hasteGain: number) {
     return baseHaste * (1 + hasteGain) + hasteGain;
   }
 
-  static removeHaste(baseHaste, hasteLoss) {
+  static removeHaste(baseHaste: number, hasteLoss: number) {
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
   }
 }

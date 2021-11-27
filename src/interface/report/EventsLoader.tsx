@@ -3,7 +3,7 @@ import { AnyEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 
 interface Props {
   report: Report;

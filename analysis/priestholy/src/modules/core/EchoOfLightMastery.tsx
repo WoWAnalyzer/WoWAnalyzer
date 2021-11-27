@@ -12,7 +12,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
@@ -252,7 +251,7 @@ class EchoOfLightMastery extends Analyzer {
       this.precastValues.rawHealing += tickEffectiveHealing + tickOverhealing;
       return;
     }
-    for (const spellId in this.targetMasteryPool[targetId].pendingHealingBySpell) {
+    for (const spellId of this.targetMasteryPool[targetId].pendingHealingBySpell) {
       // The percent of the pool that should be drained by this spell
       const tickHealingBySpell =
         this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] * poolDrainPercent;

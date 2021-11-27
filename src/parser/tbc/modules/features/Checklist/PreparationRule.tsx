@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
+import * as React from 'react';
 
 const PreparationRule = ({
   thresholds,

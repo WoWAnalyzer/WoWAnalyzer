@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
-import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 

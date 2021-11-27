@@ -1,7 +1,8 @@
 import getItemQualityLabel from 'common/getItemQualityLabel';
 import ITEMS from 'common/ITEMS';
 import TooltipProvider from 'interface/TooltipProvider';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import * as React from 'react';
 
 import ItemIcon from './ItemIcon';
 

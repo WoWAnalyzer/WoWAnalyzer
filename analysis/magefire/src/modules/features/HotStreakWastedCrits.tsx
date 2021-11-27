@@ -12,7 +12,6 @@ import Events, {
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import React from 'react';
 
 import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from '@wowanalyzer/mage';
 

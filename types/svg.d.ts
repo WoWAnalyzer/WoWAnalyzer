@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 declare module '*.svg' {
   export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;

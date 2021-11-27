@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import React from 'react';
 
 class ArcaneIntellect extends Analyzer {
   get uptime() {

@@ -6,7 +6,6 @@ import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import React from 'react';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import SPELL_INFO from './StatValuesSpellInfo';

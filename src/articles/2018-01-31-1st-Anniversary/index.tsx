@@ -9,7 +9,7 @@ import Icon from 'interface/Icon';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
 import SpellLink from 'interface/SpellLink';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import DiscordBotGif from '../2017-10-21-DiscordBot/discord-bot.gif';
 import AntorusImage from '../2017-11-26-Updated-for-Antorus/antorus.jpg';

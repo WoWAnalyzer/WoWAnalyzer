@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {

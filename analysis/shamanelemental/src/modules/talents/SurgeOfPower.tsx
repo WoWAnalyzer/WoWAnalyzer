@@ -8,7 +8,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -30,7 +29,7 @@ class SurgeOfPower extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_POWER_TALENT.id);
 
-    for (const key in SURGE_OF_POWER.AFFECTED_CASTS) {
+    for (const key of SURGE_OF_POWER.AFFECTED_CASTS) {
       const spellid = SURGE_OF_POWER.AFFECTED_CASTS[key].id;
       this.sopBuffedAbilities[spellid] = 0;
     }

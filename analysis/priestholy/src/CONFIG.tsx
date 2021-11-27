@@ -2,7 +2,6 @@ import { Khadaj } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

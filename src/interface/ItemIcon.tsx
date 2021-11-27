@@ -1,6 +1,5 @@
 import ITEMS from 'common/ITEMS';
 import { Item } from 'parser/core/Events';
-import React from 'react';
 
 import Icon from './Icon';
 import ItemLink from './ItemLink';

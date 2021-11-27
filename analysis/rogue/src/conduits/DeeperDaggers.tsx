@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 class DeeperDaggers extends Analyzer {
   static dependencies = {

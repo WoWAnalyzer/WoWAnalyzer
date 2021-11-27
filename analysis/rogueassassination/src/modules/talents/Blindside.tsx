@@ -9,7 +9,6 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const BLINDSIDE_EXECUTE = 0.3;
 const MS_BUFFER = 100;

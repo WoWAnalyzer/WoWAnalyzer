@@ -14,7 +14,6 @@ import Events, {
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import React from 'react';
 
 import SharedBrews from '../core/SharedBrews';
 import BlackoutCombo from './BlackoutCombo';

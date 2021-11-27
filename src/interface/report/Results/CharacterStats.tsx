@@ -10,14 +10,14 @@ import STAT, {
 } from 'parser/shared/modules/features/STAT';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface Props extends RouteComponentProps {
   statTracker: StatTracker;
 }
 
-class CharacterStats extends React.PureComponent<Props, { expanded?: boolean }> {
+class CharacterStats extends PureComponent<Props, { expanded?: boolean }> {
   static propTypes = {
     statTracker: PropTypes.instanceOf(StatTracker).isRequired,
   };

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import React from 'react';
 
 // the buff events all use this spell
 export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND;

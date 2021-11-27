@@ -1,7 +1,6 @@
 import { change, date } from 'common/changelog';
 import { Khadaj } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 import * as SPELLS from './SPELLS';
 

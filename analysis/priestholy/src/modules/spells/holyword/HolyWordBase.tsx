@@ -62,7 +62,7 @@ class HolyWordBase extends Analyzer {
   get baseCooldownReduction() {
     let totalCDR = 0;
 
-    for (const spellID in this.baseHolyWordReductionBySpell) {
+    for (const spellID of this.baseHolyWordReductionBySpell) {
       totalCDR += this.baseHolyWordReductionBySpell[spellID];
     }
     return totalCDR;
@@ -71,7 +71,7 @@ class HolyWordBase extends Analyzer {
   get lightOfTheNaaruCooldownReduction() {
     let lotnCDR = 0;
 
-    for (const spellID in this.lightOfTheNaruReductionBySpell) {
+    for (const spellID of this.lightOfTheNaruReductionBySpell) {
       lotnCDR += this.lightOfTheNaruReductionBySpell[spellID];
     }
     return lotnCDR;
@@ -80,7 +80,7 @@ class HolyWordBase extends Analyzer {
   get apotheosisCooldownReduction() {
     let apothCDR = 0;
 
-    for (const spellID in this.apotheosisReductionBySpell) {
+    for (const spellID of this.apotheosisReductionBySpell) {
       apothCDR += this.apotheosisReductionBySpell[spellID];
     }
     return apothCDR;
@@ -88,17 +88,17 @@ class HolyWordBase extends Analyzer {
 
   get totalHolyWordReductionPerSpell() {
     const totalReduction: any = {};
-    for (const key in this.baseHolyWordReductionBySpell) {
+    for (const key of this.baseHolyWordReductionBySpell) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += this.baseHolyWordReductionBySpell[key];
     }
 
-    for (const key in this.apotheosisReductionBySpell) {
+    for (const key of this.apotheosisReductionBySpell) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += this.apotheosisReductionBySpell[key];
     }
 
-    for (const key in this.lightOfTheNaruReductionBySpell) {
+    for (const key of this.lightOfTheNaruReductionBySpell) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += this.lightOfTheNaruReductionBySpell[key];
     }
@@ -108,19 +108,19 @@ class HolyWordBase extends Analyzer {
 
   get totalHolyWordReductionPerSpellPerTalent() {
     const totalReduction: any = {};
-    for (const key in this.baseHolyWordReductionBySpell) {
+    for (const key of this.baseHolyWordReductionBySpell) {
       totalReduction[key] = totalReduction[key] || {};
       totalReduction[key].base = totalReduction[key].base || 0;
       totalReduction[key].base += this.baseHolyWordReductionBySpell[key];
     }
 
-    for (const key in this.apotheosisReductionBySpell) {
+    for (const key of this.apotheosisReductionBySpell) {
       totalReduction[key] = totalReduction[key] || {};
       totalReduction[key].apotheosis = totalReduction[key].apotheosis || 0;
       totalReduction[key].apotheosis += this.apotheosisReductionBySpell[key];
     }
 
-    for (const key in this.lightOfTheNaruReductionBySpell) {
+    for (const key of this.lightOfTheNaruReductionBySpell) {
       totalReduction[key] = totalReduction[key] || {};
       totalReduction[key].lightOfTheNaaru = totalReduction[key].lightOfTheNaaru || 0;
       totalReduction[key].lightOfTheNaaru += this.lightOfTheNaruReductionBySpell[key];

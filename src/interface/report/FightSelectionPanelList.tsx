@@ -10,7 +10,7 @@ import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import ProgressBar from 'interface/report/ProgressBar';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
-import React from 'react';
+import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -35,7 +35,7 @@ const groupByFight = (fights: WCLFight[]) => {
   }, [] as WCLFight[][]);
 };
 
-class FightSelectionPanelList extends React.PureComponent<Props> {
+class FightSelectionPanelList extends PureComponent<Props> {
   render() {
     const { fights, report, killsOnly, playerId, resultTab } = this.props;
 

@@ -8,7 +8,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import React from 'react';
 
 class MeteorCombustion extends Analyzer {
   static dependencies = {

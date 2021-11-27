@@ -12,7 +12,7 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
+import * as React from 'react';
 
 import { HOLY_POWER_FINISHERS } from '../../paladinretribution/src/constants';
 

@@ -2,7 +2,6 @@ import { SpellIcon } from 'interface';
 import { Tooltip } from 'interface';
 import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const KeyCastsRow = (props) => {
   const { className, events, start, totalWidth, secondWidth } = props;

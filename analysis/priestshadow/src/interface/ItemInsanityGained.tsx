@@ -2,7 +2,6 @@ import { formatNumber } from 'common/format';
 import InsanityIcon from 'interface/icons/Insanity';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 interface Props {
   amount: number;

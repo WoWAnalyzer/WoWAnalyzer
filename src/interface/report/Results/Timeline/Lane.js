@@ -4,11 +4,11 @@ import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent, Fragment } from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
-class Lane extends React.PureComponent {
+class Lane extends PureComponent {
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.object).isRequired,
     fightStartTimestamp: PropTypes.number.isRequired,
@@ -31,10 +31,10 @@ class Lane extends React.PureComponent {
       case EventType.UpdateSpellUsable:
         if (event.trigger === EventType.RestoreCharge) {
           return (
-            <React.Fragment key={`restorecharge-${event.timestamp}`}>
+            <Fragment key={`restorecharge-${event.timestamp}`}>
               {this.renderCooldown(event)}
               {this.renderRecharge(event)}
-            </React.Fragment>
+            </Fragment>
           );
         } else {
           return this.renderCooldown(event);

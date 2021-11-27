@@ -3,7 +3,7 @@ import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import PerformanceBar from 'parser/ui/PerformanceBar';
-import React from 'react';
+import { Component } from 'react';
 import Toggle from 'react-toggle';
 
 import HolyPriestHealingEfficiencyTracker from '@wowanalyzer/priest-holy/src/modules/features/HolyPriestHealingEfficiencyTracker';
@@ -20,7 +20,7 @@ export interface State {
   showEchoOfLight?: boolean;
 }
 
-class HealingEfficiencyBreakdown extends React.Component<Props, State> {
+class HealingEfficiencyBreakdown extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 

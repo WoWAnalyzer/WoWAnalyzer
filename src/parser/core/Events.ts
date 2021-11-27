@@ -1,6 +1,6 @@
 import Spell from 'common/SPELLS/Spell';
 import { PhaseConfig } from 'game/raids';
-import React from 'react';
+import * as React from 'react';
 
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';

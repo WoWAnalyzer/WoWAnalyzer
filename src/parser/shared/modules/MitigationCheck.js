@@ -9,7 +9,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const debug = false;
 

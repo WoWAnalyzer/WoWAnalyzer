@@ -4,7 +4,7 @@ import UpArrow from 'interface/icons/UpArrow';
 import SpellIcon from 'interface/SpellIcon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
-import React, { ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
 function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   switch (importance) {
@@ -31,7 +31,7 @@ interface Props extends Omit<Issue, 'issue'> {
   children: ReactNode;
 }
 
-class Suggestion extends React.PureComponent<Props, { expanded: boolean }> {
+class Suggestion extends PureComponent<Props, { expanded: boolean }> {
   constructor(props: Props) {
     super(props);
     this.state = {

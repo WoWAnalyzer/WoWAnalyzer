@@ -3,7 +3,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
-import React from 'react';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14

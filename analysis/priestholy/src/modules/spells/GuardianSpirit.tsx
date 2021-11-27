@@ -8,7 +8,6 @@ import { EventType } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-import React from 'react';
 
 const GUARDIAN_SPIRIT_HEALING_INCREASE = 0.6;
 

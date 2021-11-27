@@ -1,6 +1,5 @@
 import { formatPercentage } from 'common/format';
 import { EventType } from 'parser/core/Events';
-import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
 

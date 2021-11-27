@@ -3,7 +3,6 @@ import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import React from 'react';
 
 import LowHealthHealingComponent from './Component';
 

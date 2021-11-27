@@ -8,7 +8,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -48,7 +47,7 @@ class MasterOfTheElements extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
 
-    for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
+    for (const key of MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
       const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
       if (
         this.selectedCombatant.hasTalent(spellid) ||

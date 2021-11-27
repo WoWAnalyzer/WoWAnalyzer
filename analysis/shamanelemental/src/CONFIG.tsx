@@ -1,7 +1,6 @@
 import { HawkCorrigan } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

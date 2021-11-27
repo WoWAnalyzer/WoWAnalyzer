@@ -5,7 +5,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import * as SPELLS from '../../SPELLS';
 

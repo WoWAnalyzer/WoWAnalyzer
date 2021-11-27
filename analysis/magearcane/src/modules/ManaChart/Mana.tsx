@@ -1,5 +1,4 @@
 import Analyzer from 'parser/core/Analyzer';
-import React from 'react';
 
 import TabComponent from './TabComponent';
 

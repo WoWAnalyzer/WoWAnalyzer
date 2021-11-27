@@ -6,7 +6,6 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
-import React from 'react';
 
 class CancelledCasts extends CoreCancelledCasts {
   constructor(options: Options) {

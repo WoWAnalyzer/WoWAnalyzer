@@ -4,7 +4,6 @@ import { Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, DeathEvent, EventType, HealEvent } from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';

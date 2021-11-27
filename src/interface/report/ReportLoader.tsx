@@ -8,7 +8,7 @@ import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { RootState } from 'interface/reducers';
 import { getReportCode } from 'interface/selectors/url/report';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';

@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 class EnvenomUptime extends Analyzer {
   get percentUptime() {

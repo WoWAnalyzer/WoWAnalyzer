@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 const ROOT_ELEMENT_ID = 'portal-target';
 

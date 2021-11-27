@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import React from 'react';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 import SoulFragmentsConsume from '../statistics/SoulFragmentsConsume';

@@ -19,7 +19,8 @@ import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
-import React, { ComponentType } from 'react';
+import { ComponentType } from 'react';
+import * as React from 'react';
 
 import Config from '../Config';
 import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';

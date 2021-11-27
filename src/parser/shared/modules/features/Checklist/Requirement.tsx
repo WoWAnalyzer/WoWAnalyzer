@@ -9,7 +9,7 @@ import {
   Threshold,
   ThresholdStyle,
 } from 'parser/core/ParseResults';
-import React from 'react';
+import * as React from 'react';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';

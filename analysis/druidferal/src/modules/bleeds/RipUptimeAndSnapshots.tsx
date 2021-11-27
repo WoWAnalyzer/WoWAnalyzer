@@ -7,7 +7,6 @@ import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent } from 'parse
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
-import React from 'react';
 
 import {
   PRIMAL_WRATH_RIP_DURATION_BASE,

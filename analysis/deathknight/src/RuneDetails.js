@@ -1,7 +1,6 @@
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import RuneBreakdown from './RuneBreakdown';

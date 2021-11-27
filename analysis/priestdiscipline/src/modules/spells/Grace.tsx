@@ -9,7 +9,6 @@ import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Ev
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import isAtonement from '../core/isAtonement';

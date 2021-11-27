@@ -3,7 +3,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import React from 'react';
 
 class InitialMarrowrendCast extends Analyzer {
   static dependencies = {

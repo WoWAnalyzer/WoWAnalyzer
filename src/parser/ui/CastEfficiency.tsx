@@ -3,7 +3,6 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
-import React from 'react';
 
 interface Props {
   abilities: AbilityCastEfficiency[];

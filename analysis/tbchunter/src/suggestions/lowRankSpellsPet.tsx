@@ -5,7 +5,6 @@ import { SuggestionImportance } from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
-import React from 'react';
 
 export interface LowRankSpells {
   [primarySpellId: number]: number[];

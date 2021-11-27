@@ -1,7 +1,7 @@
 import App from 'interface/App';
 import createReducers from 'interface/reducers';
 import RootErrorBoundary from 'interface/RootErrorBoundary';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';

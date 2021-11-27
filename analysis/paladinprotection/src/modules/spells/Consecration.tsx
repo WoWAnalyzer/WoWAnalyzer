@@ -9,7 +9,6 @@ import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 class Consecration extends Analyzer {
   static dependencies = {

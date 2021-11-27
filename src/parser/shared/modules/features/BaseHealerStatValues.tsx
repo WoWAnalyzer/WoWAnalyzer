@@ -18,7 +18,6 @@ import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticWrapper from 'parser/ui/StatisticWrapper';
-import React from 'react';
 
 import QELiveLogo from './images/QE-Logo-New-Small.png';
 import CORE_SPELL_INFO from './SpellInfo';

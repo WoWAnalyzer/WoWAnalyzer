@@ -4,7 +4,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 import { AnyEvent } from '../Events';
 import Abilities from './Abilities';

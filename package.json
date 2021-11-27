@@ -91,7 +91,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@emico/eslint-config": "~4.0.1",
+    "@emico/eslint-config": "~4.2",
     "@lingui/cli": "^3.3.0",
     "@lingui/loader": "^3.3.0",
     "@sentry/browser": "^5.19.1",

@@ -6,7 +6,6 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const NEMESIS_BUFF_IDS = [
   SPELLS.NEMESIS_DEMON.id,

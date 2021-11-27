@@ -11,7 +11,6 @@ import { ApplyDebuffEvent, CastEvent, EventType, HasSource } from 'parser/core/E
 import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
 

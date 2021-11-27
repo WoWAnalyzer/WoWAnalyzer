@@ -1,6 +1,5 @@
 import { change, date } from 'common/changelog';
 import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea } from 'CONTRIBUTORS';
-import React from 'react';
 
 
 export default [

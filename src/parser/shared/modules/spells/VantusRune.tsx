@@ -10,7 +10,6 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 // https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
 const VANTUS_RUNE_VERSATILITY = 100;

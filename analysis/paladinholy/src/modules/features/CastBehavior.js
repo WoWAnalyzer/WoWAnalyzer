@@ -7,7 +7,6 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticGroup from 'parser/ui/StatisticGroup';
-import React from 'react';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
 

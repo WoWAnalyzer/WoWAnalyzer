@@ -11,7 +11,7 @@ import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';

@@ -2,9 +2,9 @@ import { Trans } from '@lingui/macro';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
-class PreparationRule extends React.PureComponent {
+class PreparationRule extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     thresholds: PropTypes.object.isRequired,

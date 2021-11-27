@@ -1,7 +1,7 @@
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import React from 'react';
+import { Component } from 'react';
 
 import ResourceTracker, { BuilderObj, SpenderObj } from './ResourceTracker';
 
@@ -10,7 +10,7 @@ interface Props {
   showSpenders: boolean;
 }
 
-class ResourceBreakdown extends React.Component<Props> {
+class ResourceBreakdown extends Component<Props> {
   prepareGenerated(buildersObj: { [index: number]: BuilderObj }) {
     return Object.keys(buildersObj)
       .map((abilityId) => ({

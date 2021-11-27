@@ -8,7 +8,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Enemies from 'parser/shared/modules/Enemies';
 import DualStatisticBox from 'parser/ui/DualStatisticBox';
-import React from 'react';
 
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,

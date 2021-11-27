@@ -11,7 +11,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { ONE_SECOND_IN_MS } from '@wowanalyzer/hunter';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from '@wowanalyzer/hunter-survival/src/constants';

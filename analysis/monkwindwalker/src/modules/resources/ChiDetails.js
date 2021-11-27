@@ -10,7 +10,6 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import ChiTracker from './ChiTracker';
 

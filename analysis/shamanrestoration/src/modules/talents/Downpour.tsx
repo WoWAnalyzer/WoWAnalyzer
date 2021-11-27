@@ -10,7 +10,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

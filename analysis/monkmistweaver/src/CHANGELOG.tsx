@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 
 export default [

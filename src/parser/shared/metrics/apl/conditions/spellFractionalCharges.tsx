@@ -1,7 +1,6 @@
 import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
-import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
 import { Range, formatRange } from './index';

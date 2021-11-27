@@ -6,7 +6,6 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import PlayerHits from 'parser/ui/PlayerHits';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import './LightOfDawn.scss';
 

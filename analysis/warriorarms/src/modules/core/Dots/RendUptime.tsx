@@ -7,7 +7,6 @@ import { Options } from 'parser/core/EventSubscriber';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-import React from 'react';
 
 /**
  * Example report: /report/gXbFvNaJTBf39jYV/1-LFR+Taloc+-+Kill+(4:06)/4-Dimentionz

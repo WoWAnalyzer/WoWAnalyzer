@@ -1,6 +1,5 @@
 import DocumentTitle from 'interface/DocumentTitle';
 import NavigationBar from 'interface/NavigationBar';
-import React from 'react';
 
 import CharacterParses from './CharacterParses';
 

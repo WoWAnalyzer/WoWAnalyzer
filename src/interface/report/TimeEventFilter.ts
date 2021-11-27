@@ -16,7 +16,7 @@ import {
 } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
 import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
-import React, { ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';
@@ -53,7 +53,7 @@ export interface Filter {
   end: number;
 }
 
-class TimeEventFilter extends React.PureComponent<Props, State> {
+class TimeEventFilter extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

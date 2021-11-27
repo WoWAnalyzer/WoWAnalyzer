@@ -6,7 +6,6 @@ import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 /*
   example report: https://www.warcraftlogs.com/reports/QxHJ9MTtmVYNXPLd/#fight=1&source=2

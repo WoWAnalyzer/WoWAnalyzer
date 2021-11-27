@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 /**
  * Strikes all enemies in front of you with a sweeping attack for [ 45% of Attack Power ] Physical damage.

@@ -14,7 +14,7 @@ import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import Combatant from 'parser/core/Combatant';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
@@ -23,7 +23,7 @@ import React from 'react';
 // TODO: Clean this file up and split it into multiple files to make it much more maintainable in the future
 const LEVEL_15_TALENT_ROW_INDEX = 0;
 
-class EncounterStats extends React.PureComponent {
+class EncounterStats extends PureComponent {
   static propTypes = {
     config: PropTypes.object.isRequired,
     currentBoss: PropTypes.number.isRequired,

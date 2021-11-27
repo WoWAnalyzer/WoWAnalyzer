@@ -13,7 +13,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 import AtonementDamageSource from '@wowanalyzer/priest-discipline/src/modules/features/AtonementDamageSource';
 
@@ -90,7 +89,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalDamage() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
+    for (const spellId of this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].damageDone;
     }
     return total;
@@ -98,7 +97,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalDirectHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
+    for (const spellId of this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].healingDone;
     }
     return total;
@@ -106,7 +105,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalDirectOverHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
+    for (const spellId of this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].overHealingDone;
     }
     return total;
@@ -114,7 +113,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalAtonementHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
+    for (const spellId of this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].atonmentHealingDone;
     }
     return total;
@@ -122,7 +121,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalAtonementOverHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
+    for (const spellId of this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].atonementOverHealingDone;
     }
     return total;
@@ -292,7 +291,7 @@ class BoonOfTheAscended extends Analyzer {
   spellTable() {
     const rows = [];
 
-    for (const spellId in this.ascendedSpellTracker) {
+    for (const spellId of this.ascendedSpellTracker) {
       rows.push(
         <tr key={'bota_' + spellId}>
           <td>
