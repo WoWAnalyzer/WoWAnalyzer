@@ -47,7 +47,6 @@ const I18nProvider = ({ children }: Props) => {
       })
       .catch((error) => {
         console.error('Unable to set locale', error);
-        return;
       });
   }, [locale, activeLocale, setActiveLocale]);
 
