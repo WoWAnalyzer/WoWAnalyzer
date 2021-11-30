@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 11, 29), <> Added Essence Font cancellation metadata in timeline</>, Abelito75),
   change(date(2021, 11, 23), <> Added Essence Font cancellation detection</>, Trevor),
   change(date(2021, 11, 17), <> Fixed bug in Rising Sun Kick cooldown tracking</>, Trevor),
   change(date(2021, 11, 15), <>Added Cast events directly into the log and normalized other stats that needed it. My sanity is now back intact :)</>, Abelito75),
