@@ -37,7 +37,8 @@ class EssenceFont extends Analyzer {
   cancelled_ef: number = 0;
   hasUpwelling: boolean = false;
   cancelDelta: number = 100;
-  last_ef: number = 0;
+  last_ef_time: number = 0;
+  last_ef: any = null;
   protected haste!: Haste;
   constructor(options: Options) {
     super(options);
@@ -66,6 +67,7 @@ class EssenceFont extends Analyzer {
       this.handleEndChannel,
     );
     this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+    this.last_ef = null;
   }
 
   get efHotHealing() {
@@ -115,7 +117,8 @@ class EssenceFont extends Analyzer {
       );
     }
     this.expected_duration = (3000 + extra_secs * 1000) / (1 + this.haste.current);
-    this.last_ef = event.timestamp;
+    this.last_ef_time = event.timestamp;
+    this.last_ef = event;
     this.castEF += 1;
     this.total += this.uniqueTargets.size || 0;
     this.uniqueTargets.clear();
@@ -151,9 +154,9 @@ class EssenceFont extends Analyzer {
   handleEndChannel(event: EndChannelEvent) {
     if (event.duration < this.expected_duration - this.cancelDelta) {
       this.cancelled_ef += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
+      this.last_ef.meta = this.last_ef.meta || {};
+      this.last_ef.meta.isInefficientCast = true;
+      this.last_ef.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
     }
   }
 
