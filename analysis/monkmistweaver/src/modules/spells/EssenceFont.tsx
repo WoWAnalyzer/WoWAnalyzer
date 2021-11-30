@@ -151,6 +151,9 @@ class EssenceFont extends Analyzer {
   handleEndChannel(event: EndChannelEvent) {
     if (event.duration < this.expected_duration - this.cancelDelta) {
       this.cancelled_ef += 1;
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
     }
   }
 
