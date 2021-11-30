@@ -38,7 +38,7 @@ class EssenceFont extends Analyzer {
   hasUpwelling: boolean = false;
   cancelDelta: number = 100;
   last_ef_time: number = 0;
-  last_ef: any = null;
+  last_ef: CastEvent | null;
   protected haste!: Haste;
   constructor(options: Options) {
     super(options);
@@ -112,7 +112,7 @@ class EssenceFont extends Analyzer {
     let extra_secs = 0;
     if (this.hasUpwelling) {
       extra_secs = Math.min(
-        (event.timestamp - (this.last_ef + 12000)) / 6000, //12000 is the cooldown of EF in MS and 6000 corresponds to the number of MS for UW to get a full second in channels
+        (event.timestamp - (this.last_ef_time + 12000)) / 6000, //12000 is the cooldown of EF in MS and 6000 corresponds to the number of MS for UW to get a full second in channels
         3,
       );
     }
@@ -154,9 +154,16 @@ class EssenceFont extends Analyzer {
   handleEndChannel(event: EndChannelEvent) {
     if (event.duration < this.expected_duration - this.cancelDelta) {
       this.cancelled_ef += 1;
-      this.last_ef.meta = this.last_ef.meta || {};
-      this.last_ef.meta.isInefficientCast = true;
-      this.last_ef.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
+      if (this.last_ef != null) {
+        this.last_ef.meta = this.last_ef.meta || {};
+        this.last_ef.meta.isInefficientCast = true;
+        this.last_ef.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
+      } else {
+        console.log(
+          'Last Essence Font is null when detecting cancellation, which should never happen, when event is ' +
+            event,
+        );
+      }
     }
   }
 
