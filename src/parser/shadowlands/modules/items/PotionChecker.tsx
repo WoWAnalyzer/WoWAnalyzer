@@ -83,7 +83,7 @@ const SACRIFICIAL_ANIMA: number[] = [
   //Sacrificial Anima Potion Specs
 ];
 
-const WEAK_POTIONS: number[] = [];
+const WEAK_POTIONS: number[] = [SPELLS.SPIRITUAL_MANA_POTION.id];
 
 const STRONG_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
