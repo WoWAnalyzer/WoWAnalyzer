@@ -170,8 +170,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Pick the right tools for the fight"
         description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
       >
-        <Requirement name={<>Correct Tier 30 Talent </>} thresholds={thresholds.tier30Comparison} />
-
         {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) && (
           <Requirement
             name={

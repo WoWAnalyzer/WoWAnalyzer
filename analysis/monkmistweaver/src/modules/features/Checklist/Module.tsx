@@ -18,7 +18,6 @@ import ManaTea from '../../talents/ManaTea';
 import RefreshingJadeWind from '../../talents/RefreshingJadeWind';
 import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
 import SpiritOfTheCrane from '../../talents/SpiritOfTheCrane';
-import Tier30Comparison from '../../talents/Tier30Comparison';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import EssenceFontMastery from '../EssenceFontMastery';
 import Component from './Component';
@@ -43,7 +42,6 @@ class Checklist extends BaseChecklist {
     vivify: Vivify,
     jadeSerpentStatue: JadeSerpentStatue,
     soothingMist: SoothingMist,
-    tier30Comparison: Tier30Comparison,
     envelopingBreath: EnvelopingBreath,
   };
 
@@ -65,7 +63,6 @@ class Checklist extends BaseChecklist {
   protected vivify!: Vivify;
   protected jadeSerpentStatue!: JadeSerpentStatue;
   protected soothingMist!: SoothingMist;
-  protected tier30Comparison!: Tier30Comparison;
   protected envelopingBreath!: EnvelopingBreath;
 
   render() {
@@ -95,7 +92,6 @@ class Checklist extends BaseChecklist {
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
-          tier30Comparison: this.tier30Comparison.suggestionThresholds,
           essenceFontCancel: this.essenceFont.suggestionThresholdsCancel,
         }}
       />
