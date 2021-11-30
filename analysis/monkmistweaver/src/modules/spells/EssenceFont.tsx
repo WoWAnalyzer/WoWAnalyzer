@@ -160,8 +160,7 @@ class EssenceFont extends Analyzer {
         this.last_ef.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
       } else {
         console.log(
-          'Last Essence Font is null when detecting cancellation, which should never happen, when event is ' +
-            event,
+          'Last Essence Font is null when detecting cancellation, when event is ' + event,
         );
       }
     }
