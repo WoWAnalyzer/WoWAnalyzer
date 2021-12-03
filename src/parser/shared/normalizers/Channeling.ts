@@ -1,5 +1,5 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { Ability, AnyEvent, BeginCastEvent, BeginChannelEvent, CastEvent, EndChannelEvent, EventType } from 'parser/core/Events';
+import { Ability, AnyEvent, ApplyBuffEvent, BeginCastEvent, BeginChannelEvent, CastEvent, EndChannelEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 import { insertEvents } from 'parser/core/insertEvents';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
@@ -36,6 +36,12 @@ class Channeling extends EventsNormalizer {
         this.onBeginCast(event, channelState);
       } else if (event.type === EventType.Cast) {
         this.onCast(event, channelState);
+      } else if (event.type === EventType.ApplyBuff) {
+        // FIXME should be fine from any source because we'll only get the selected player's, but still a bit risky?
+        this.onApplyBuff(event, channelState);
+      } else if (event.type === EventType.RemoveBuff) {
+        // FIXME should be fine from any source because we'll only get the selected player's, but still a bit risky?
+        this.onRemoveBuff(event, channelState);
       }
       // TODO special casing
     });
@@ -54,7 +60,7 @@ class Channeling extends EventsNormalizer {
       // This can even occur while channeling. We need to ignore them or it will throw off this module.
       return;
     }
-    if (this.buffChannelSpecs.find(bcs => bcs.castId === event.ability.guid)) {
+    if (this.buffChannelSpecs.find(bcs => bcs.castAbility.guid === event.ability.guid)) {
       // This cast is a channel that will be delineated by the application of a buff,
       // and so we need to ignore the cast event for the purposes of this module.
       return;
@@ -70,6 +76,20 @@ class Channeling extends EventsNormalizer {
     } else {
       // we interrupted the current channel with an instant
       this.cancelChannel(channelState);
+    }
+  }
+
+  onApplyBuff(event: ApplyBuffEvent, channelState: ChannelState) {
+    const buffChannelSpec = this.buffChannelSpecs.find(bcs => bcs.buffId === event.ability.guid);
+    if (buffChannelSpec) {
+      this.beginChannel(event.timestamp, buffChannelSpec.castAbility, event.sourceID!, false, channelState);
+    }
+  }
+
+  onRemoveBuff(event: RemoveBuffEvent, channelState: ChannelState) {
+    const buffChannelSpec = this.buffChannelSpecs.find(bcs => bcs.buffId === event.ability.guid);
+    if (buffChannelSpec) {
+      this.endChannel(event.timestamp, channelState);
     }
   }
 
@@ -141,9 +161,8 @@ export type BuffChannelSpec = {
    */
   buffId: number,
   /**
-   * ID of the cast event for this channel. This ID will be used in the BeginChannel and EndChannel
+   * Ability of the cast event for this channel. This Ability will be used in the BeginChannel and EndChannel
    * events, and actual cast events with this ID will be ignored by this normalizer.
-   * TODO do we need the ability object instead (to populate in fabricated events) ?
    */
-  castId: number,
+  castAbility: Ability,
 }
