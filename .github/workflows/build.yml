@@ -257,7 +257,7 @@ jobs:
     needs: [prepare]
     name: 'Extract messages'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
+    if: github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - uses: actions/checkout@v2
         with:
@@ -278,7 +278,7 @@ jobs:
         run: yarn extract
       - name: Has changes
         id: has-changes
-        run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo "true"; else echo "false"; fi)"
+        run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo 'true'; else echo 'false'; fi)"
       - name: Commit changes
         if: steps.has-changes.outputs.changed == 'true'
         run: |
