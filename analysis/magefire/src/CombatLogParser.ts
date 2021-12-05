@@ -34,12 +34,11 @@ import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import PhoenixFlames from './modules/features/PhoenixFlames';
 import Pyroclasm from './modules/features/Pyroclasm';
 import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
-import ControlledDestruction from './modules/items/ControlledDestruction';
 import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
 import FeveredIncantation from './modules/items/FeveredIncantation';
 import Firestorm from './modules/items/Firestorm';
+import SunKingsBlessing from './modules/items/SunKingsBlessing';
 import InfernalCascade from './modules/items/InfernalCascade';
-import MasterFlame from './modules/items/MasterFlame';
 import FromTheAshes from './modules/talents/FromTheAshes';
 import Kindling from './modules/talents/Kindling';
 import Meteor from './modules/talents/Meteor';
@@ -50,15 +49,19 @@ import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
 import ScorchNormalizer from './normalizers/Scorch';
+import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
+import SunKingsBlessingRefreshNormalizer from './normalizers/SunKingBlessingRefresh';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
+    sunKingsBlessingRefreshNormalizer: SunKingsBlessingRefreshNormalizer,
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
     runeOfPowerNormalizer: RuneOfPowerNormalizer,
+    sunKingsBlessingNormalizer: SunKingsBlessingNormalizer,
 
     //Checklist
     checklist: Checklist,
@@ -97,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
     disciplinaryCommand: DisciplinaryCommand,
+    sunKingsBlessing: SunKingsBlessing,
 
     //Covenants
     shiftingPower: ShiftingPower,
@@ -104,8 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     mirrorsOfTorment: MirrorsOfTorment,
 
     //Conduits
-    masterFlame: MasterFlame,
-    controlledDestruction: ControlledDestruction,
     infernalCascade: InfernalCascade,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
