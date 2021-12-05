@@ -1818,3 +1818,9 @@ export const Jeff: Contributor = {
     },
   ],
 };
+
+
+export const Hursti: Contributor = {
+  nickname: 'Hursti',
+  github: 'Hurstilol',
+};
