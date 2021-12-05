@@ -85,7 +85,7 @@ PPBUFFS(event: BuffEvent) {
       }
   }
   
-castsPPOTHER = castsPP-(castsPPRSK+castsPPWDP+castsPPFOF+castsPPBOK+castsPPSCK)
+castsPPOTHER = castsPP-(castsPPRSK+castsPPWDP+castsPPFOF+castsPPBOK+castsPPSCK);
 
 
   renderCastRatioChart() {
