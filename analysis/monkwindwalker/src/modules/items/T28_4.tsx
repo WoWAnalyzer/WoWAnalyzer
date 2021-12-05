@@ -62,7 +62,7 @@ class T28_4 extends Analyzer {
 
   // yeppers
 
-PPBUFFS(event: BuffEvent<ApplyBuffEvent>) {
+PPBUFFS(event: ApplyBuffEvent) {
   this.castsPP +=3;
 }
 buffedCast(event: CastEvent) {
