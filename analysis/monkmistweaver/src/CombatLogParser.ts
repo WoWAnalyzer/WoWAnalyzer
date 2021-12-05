@@ -38,7 +38,6 @@ import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderC
 import FallenOrderMistWrap from './modules/shadowlands/covenant/FallenOrderMistWrap';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
-import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
@@ -151,7 +150,6 @@ class CombatLogParser extends CoreCombatLogParser {
     imbuedReflections: ImbuedReflections,
 
     // Legendaries
-    tearofMorning: TearofMorning,
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
     sinisterTeachings: SinisterTeachings,
