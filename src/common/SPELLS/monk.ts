@@ -604,5 +604,11 @@ const spells = {
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
   },
+
+  T28_PRIMORDIAL_POWER: {
+    id: 363734,
+    name: 'Monk T28 Windwalker 4P Bonus',
+    icon: 'inv_relics_totemofrage',
+  },
 } as const;
 export default spells;
