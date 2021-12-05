@@ -80,7 +80,8 @@ class MirrorsOfTormentUsage extends Analyzer {
     when(this.combustionWithoutMirrorsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.COMBUSTION.id} /> without casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> first {this.combustionWithoutMirrors} times. If you are Venthyr, you should ensure that you are using <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> before <SpellLink id={SPELLS.COMBUSTION.id} /> to get as many <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges as possible, allowing you to get more <SpellLink id={SPELLS.PYROBLAST.id} /> casts in before <SpellLink id={SPELLS.COMBUSTION.id} /> finishes.</>,
+          You cast <SpellLink id={SPELLS.COMBUSTION.id} /> without casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> first {this.combustionWithoutMirrors} times. If you are Venthyr, you should ensure that you are using <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> before <SpellLink id={SPELLS.COMBUSTION.id} /> to get as many <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges as possible, allowing you to get more <SpellLink id={SPELLS.PYROBLAST.id} /> casts in before <SpellLink id={SPELLS.COMBUSTION.id} /> finishes.
+        </>,
       )
         .icon(SPELLS.MIRRORS_OF_TORMENT.icon)
         .actual(
@@ -93,7 +94,8 @@ class MirrorsOfTormentUsage extends Analyzer {
     when(this.cappedChargesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You finished casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> while capped on <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges {this.cappedCharges} times. To avoid capping charges, you should use a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} /> during your <SpellLink id={SPELLS.MIRRORS_OF_TORMENT} /> cast, that way when <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> refunds a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} />, it will not be wasted.</>,
+          You finished casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> while capped on <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges {this.cappedCharges} times. To avoid capping charges, you should use a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} /> during your <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> cast, that way when <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> refunds a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} />, it will not be wasted.
+        </>,
       )
         .icon(SPELLS.MIRRORS_OF_TORMENT.icon)
         .actual(
