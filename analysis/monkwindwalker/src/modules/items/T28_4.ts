@@ -42,8 +42,9 @@ class T28_4 extends Analyzer {
     }
     this.addEventListener(
     Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.T28_PRIMORDIAL_POWER.id),
-    this.onPPBUFFS,
+    this.PPBUFFS,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
   }
   totalDamage = 0;
 
@@ -66,6 +67,8 @@ class T28_4 extends Analyzer {
 PPBUFFS(event: BuffEvent) {
   this.castsPP +=3;
 }
+buffedCast(event: CastEvent) {
+ const spellId: number = event.ability.guid;
 
  if (this.selectedCombatant.hasBuff(SPELLS.T28_PRIMORDIAL_POWER.id)) {
       if (SPELLS.RISING_SUN_KICK.id === spellId) {
@@ -83,7 +86,8 @@ PPBUFFS(event: BuffEvent) {
       if (SPELLS.SPINNING_CRANE_KICK.id === spellId) {
         this.castsPPSCK += 1;
       }
-  }
+   }
+ }
   
 castsPPOTHER = castsPP-(castsPPRSK+castsPPWDP+castsPPFOF+castsPPBOK+castsPPSCK);
 
