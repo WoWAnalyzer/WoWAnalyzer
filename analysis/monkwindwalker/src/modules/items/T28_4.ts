@@ -144,6 +144,7 @@ castsPPOTHER = castsPP-(castsPPRSK+castsPPWDP+castsPPFOF+castsPPBOK+castsPPSCK);
         }
       >
         <BoringSpellValueText spellId={SPELLS.T28_PRIMORDIAL_POWER.id}>
+          {this.renderCastRatioChart()}         
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of
