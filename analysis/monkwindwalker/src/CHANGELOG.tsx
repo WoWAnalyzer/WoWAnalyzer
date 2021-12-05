@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 12, 5), <>Added <SpellLink id={SPELLS.T28_PRIMORDIAL_POWER.id} /> module.</>, Hursti),
   change(date(2021, 8, 18), 'Marked as 9.1 compatible', Juko8),
   change(date(2021, 6, 17), <>Fixed <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> not counting marks applied/refreshed by <SpellLink id={SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id} />.</>, Juko8),
   change(date(2021, 5, 17), <>Added <SpellLink id={SPELLS.XUENS_BATTLEGEAR.id} /> module.</>, Juko8),
