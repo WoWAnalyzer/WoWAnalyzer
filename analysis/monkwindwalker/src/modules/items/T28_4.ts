@@ -20,14 +20,14 @@ const MOD_T28_4 = 0.2;
 
 class T28_4 extends Analyzer {
 
-  castsPPWDP: = 0;
-  castsPPRSK: = 0;
-  castsPPBOK: = 0;
-  castsPPFOF: = 0;
-  castsPPSCK: = 0;
-  castsPPOTHER: = 0;
+  castsPPWDP: number = 0;
+  castsPPRSK: number = 0;
+  castsPPBOK: number = 0;
+  castsPPFOF: number = 0;
+  castsPPSCK: number = 0;
+  castsPPOTHER: number = 0;
 
-  castsPP: = 0;
+  castsPP: number = 0;
   
   constructor(options: Options) {
     super(options);
