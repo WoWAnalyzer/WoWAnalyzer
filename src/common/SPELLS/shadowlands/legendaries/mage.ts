@@ -87,12 +87,12 @@ const legendaries = {
   },
   SUN_KINGS_BLESSING_BUFF: {
     id: 333315,
-    name: 'Sun King\'s Blessing',
+    name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
   },
   SUN_KINGS_BLESSING_BUFF_STACK: {
     id: 333314,
-    name: 'Sun King\'s Blessing',
+    name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
   },
   COLD_FRONT: {

@@ -7,8 +7,8 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 
 class MirrorsOfTormentUsage extends Analyzer {
@@ -27,12 +27,22 @@ class MirrorsOfTormentUsage extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT), this.onMirrorsCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      this.onCombustionCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT),
+      this.onMirrorsCast,
+    );
   }
 
   onCombustionCast(event: CastEvent) {
-    const lastMirrorsCast = this.eventHistory.last(1, 4000, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT));
+    const lastMirrorsCast = this.eventHistory.last(
+      1,
+      4000,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT),
+    );
     if (lastMirrorsCast.length === 0) {
       this.combustionWithoutMirrors += 1;
     }
@@ -47,11 +57,15 @@ class MirrorsOfTormentUsage extends Analyzer {
   }
 
   get percentCombustionWithoutMirrors() {
-    return 1 - (this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts / this.combustionWithoutMirrors);
+    return (
+      1 - this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts / this.combustionWithoutMirrors
+    );
   }
 
   get percentCappedCharges() {
-    return 1 - (this.abilityTracker.getAbility(SPELLS.MIRRORS_OF_TORMENT.id).casts / this.cappedCharges);
+    return (
+      1 - this.abilityTracker.getAbility(SPELLS.MIRRORS_OF_TORMENT.id).casts / this.cappedCharges
+    );
   }
 
   get combustionWithoutMirrorsThresholds() {
@@ -80,7 +94,14 @@ class MirrorsOfTormentUsage extends Analyzer {
     when(this.combustionWithoutMirrorsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.COMBUSTION.id} /> without casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> first {this.combustionWithoutMirrors} times. If you are Venthyr, you should ensure that you are using <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> before <SpellLink id={SPELLS.COMBUSTION.id} /> to get as many <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges as possible, allowing you to get more <SpellLink id={SPELLS.PYROBLAST.id} /> casts in before <SpellLink id={SPELLS.COMBUSTION.id} /> finishes.
+          You cast <SpellLink id={SPELLS.COMBUSTION.id} /> without casting{' '}
+          <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> first {this.combustionWithoutMirrors}{' '}
+          times. If you are Venthyr, you should ensure that you are using{' '}
+          <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> before{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> to get as many{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges as possible, allowing you to get more{' '}
+          <SpellLink id={SPELLS.PYROBLAST.id} /> casts in before{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> finishes.
         </>,
       )
         .icon(SPELLS.MIRRORS_OF_TORMENT.icon)
@@ -94,7 +115,12 @@ class MirrorsOfTormentUsage extends Analyzer {
     when(this.cappedChargesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You finished casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> while capped on <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges {this.cappedCharges} times. To avoid capping charges, you should use a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} /> during your <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> cast, that way when <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> refunds a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} />, it will not be wasted.
+          You finished casting <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> while capped on{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> charges {this.cappedCharges} times. To avoid
+          capping charges, you should use a charge of <SpellLink id={SPELLS.FIRE_BLAST.id} /> during
+          your <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> cast, that way when{' '}
+          <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> refunds a charge of{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} />, it will not be wasted.
         </>,
       )
         .icon(SPELLS.MIRRORS_OF_TORMENT.icon)
