@@ -10,6 +10,11 @@ const talents: SpellList = {
   },
   CHI_WAVE_TALENT: { id: 115098, name: 'Chi Wave', icon: 'ability_monk_chiwave' },
   CHI_BURST_TALENT: { id: 123986, name: 'Chi Burst', icon: 'spell_arcane_arcanetorrent' },
+  CHI_BURST_HEAL: {
+    id: 130654,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
   CELERITY_TALENT: { id: 115173, name: 'Celerity', icon: 'ability_monk_quipunch' },
   CHI_TORPEDO_TALENT: { id: 115008, name: 'Chi Torpedo', icon: 'ability_monk_quitornado' },
   TIGERS_LUST_TALENT: { id: 116841, name: "Tiger's Lust", icon: 'ability_monk_tigerslust' },
@@ -44,8 +49,23 @@ const talents: SpellList = {
   //Level 50: Focused Thunder || Upwelling || Rising Mist
   MIST_WRAP_TALENT: { id: 197900, name: 'Mist Wrap', icon: 'ability_monk_pathofmists' },
   LIFECYCLES_TALENT: { id: 197915, name: 'Lifecycles', icon: 'ability_monk_souldance' },
+  LIFECYCLES_VIVIFY_BUFF: {
+    id: 197916,
+    name: 'Lifecycles (Vivify)',
+    icon: 'ability_monk_uplift',
+  },
+  LIFECYCLES_ENVELOPING_MIST_BUFF: {
+    id: 197919,
+    name: 'Lifecycles (Enveloping Mist)',
+    icon: 'spell_monk_envelopingmist',
+  },
   SPIRIT_OF_THE_CRANE_TALENT: {
     id: 210802,
+    name: 'Spirit of the Crane',
+    icon: 'monk_stance_redcrane',
+  },
+  SPIRIT_OF_THE_CRANE_BUFF: {
+    id: 210803,
     name: 'Spirit of the Crane',
     icon: 'monk_stance_redcrane',
   },
@@ -56,11 +76,21 @@ const talents: SpellList = {
     name: 'Summon Jade Serpent Statue',
     icon: 'ability_monk_summonserpentstatue',
   },
+  SOOTHING_MIST_STATUE: {
+    id: 198533,
+    name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
+  },
   REFRESHING_JADE_WIND_TALENT: {
     id: 196725,
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
     manaCost: 1750,
+  },
+  REFRESHING_JADE_WIND_HEAL: {
+    id: 162530,
+    name: 'Refreshing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
   },
   INVOKE_CHI_JI_THE_RED_CRANE_TALENT: {
     id: 325197,
@@ -68,10 +98,24 @@ const talents: SpellList = {
     icon: 'inv_pet_cranegod',
     manaCost: 2500,
   },
+  INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
+    id: 343820,
+    name: 'Invoke Chi-Ji, the Red Crane',
+    icon: 'monk_stance_redcrane',
+  },
+  GUST_OF_MISTS_CHIJI: {
+    id: 343819,
+    name: 'Gust of Mists',
+    icon: 'monk_stance_redcrane',
+  },
   FOCUSED_THUNDER_TALENT: { id: 197895, name: 'Focused Thunder', icon: 'spell_monk_nimblebrew' },
   UPWELLING_TALENT: { id: 274963, name: 'Upwelling', icon: 'ability_monk_surgingmist' },
   RISING_MIST_TALENT: { id: 274909, name: 'Rising Mist', icon: 'ability_monk_effuse' },
-
+  RISING_MIST_HEAL: {
+    id: 274912,
+    name: 'Rising Mist',
+    icon: 'ability_monk_effuse',
+  },
   //Windwalker
   //Level 15: Eye of the Tiger || Chi Wave || Chi Burst
   //Level 25: Celerity || Chi Torpedo || Tiger's Lust
