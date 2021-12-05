@@ -89,7 +89,7 @@ buffedCast(event: CastEvent) {
    }
  }
   
-castsPPOTHER = castsPP-(castsPPRSK+castsPPWDP+castsPPFOF+castsPPBOK+castsPPSCK);
+  castsPPOTHER: number = this.castsPP-(this.castsPPRSK+this.castsPPWDP+this.castsPPFOF+this.castsPPBOK+this.castsPPSCK);
 
 
   renderCastRatioChart() {
