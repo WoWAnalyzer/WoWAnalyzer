@@ -34,6 +34,7 @@ import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import PhoenixFlames from './modules/features/PhoenixFlames';
 import Pyroclasm from './modules/features/Pyroclasm';
 import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
+import MirrorsOfTormentUsage from './modules/features/MirrorsOfTormentUsage';
 import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
 import FeveredIncantation from './modules/items/FeveredIncantation';
 import Firestorm from './modules/items/Firestorm';
@@ -50,12 +51,10 @@ import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
-import SunKingsBlessingRefreshNormalizer from './normalizers/SunKingBlessingRefresh';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
-    sunKingsBlessingRefreshNormalizer: SunKingsBlessingRefreshNormalizer,
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
@@ -106,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPower: ShiftingPower,
     shiftingPowerUsage: ShiftingPowerUsage,
     mirrorsOfTorment: MirrorsOfTorment,
+    mirrorsOfTormentUsage: MirrorsOfTormentUsage,
 
     //Conduits
     infernalCascade: InfernalCascade,
