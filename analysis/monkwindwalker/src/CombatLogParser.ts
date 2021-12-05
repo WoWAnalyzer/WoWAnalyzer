@@ -67,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lastEmperorsCapacitor: LastEmperorsCapacitor,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
+    T28_4: T28_4,
 
     // Covenants
     fallenOrder: FallenOrder,
