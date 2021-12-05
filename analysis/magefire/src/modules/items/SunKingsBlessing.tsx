@@ -8,6 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
+
 import { MS_BUFFER_100, MS_BUFFER_250 } from '@wowanalyzer/mage';
 
 const debug = false;
