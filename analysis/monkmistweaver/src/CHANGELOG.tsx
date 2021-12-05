@@ -6,6 +6,7 @@ import React from 'react';
 
 
 export default [
+  change(date(2021, 12, 5), <> Cleaning up some files.</>, Abelito75),
   change(date(2021, 11, 29), <> Added Essence Font cancellation metadata in timeline</>, Trevor),
   change(date(2021, 11, 23), <> Added Essence Font cancellation detection</>, Trevor),
   change(date(2021, 11, 17), <> Fixed bug in Rising Sun Kick cooldown tracking</>, Trevor),
