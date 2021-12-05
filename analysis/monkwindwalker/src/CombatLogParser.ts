@@ -14,6 +14,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import JadeIgnition from './modules/items/JadeIgnition';
 import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
 import XuensBattlegear from './modules/items/XuensBattlegear';
+import T28_4 from '.modules/items/T28_4';
 // Resources
 import ChiDetails from './modules/resources/ChiDetails';
 import ChiTracker from './modules/resources/ChiTracker';
