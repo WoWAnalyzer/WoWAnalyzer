@@ -58,13 +58,13 @@ class MirrorsOfTormentUsage extends Analyzer {
 
   get percentCombustionWithoutMirrors() {
     return (
-      1 - this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts / this.combustionWithoutMirrors
+      1 - this.combustionWithoutMirrors / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts
     );
   }
 
   get percentCappedCharges() {
     return (
-      1 - this.abilityTracker.getAbility(SPELLS.MIRRORS_OF_TORMENT.id).casts / this.cappedCharges
+      1 - this.cappedCharges / this.abilityTracker.getAbility(SPELLS.MIRRORS_OF_TORMENT.id).casts
     );
   }
 
