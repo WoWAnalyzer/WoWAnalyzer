@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Abelito75, Talby } from 'CONTRIBUTORS';
+import { Juko8, Abelito75, Talby, Hursti } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
