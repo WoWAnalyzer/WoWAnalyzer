@@ -5,22 +5,19 @@ import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: [SPELLS.COMBUSTION.id, SPELLS.PYROBLAST.id],
-    beforeEventType: EventType.Cast,
-    afterEventId: SPELLS.COMBUSTION.id,
-    afterEventType: EventType.ApplyBuff,
+    beforeEventId: SPELLS.PYROBLAST.id,
+    beforeEventType: [EventType.Cast, EventType.BeginCast],
+    afterEventId: [SPELLS.SUN_KINGS_BLESSING_BUFF.id, SPELLS.SUN_KINGS_BLESSING_BUFF_STACK.id],
+    afterEventType: EventType.RemoveBuff,
     bufferMs: 50,
     anyTarget: true,
   },
 ];
 
-/**
- * Ensures that the apply buff event for Combustion is sorted after the Combustion cast.
- */
-class Combustion extends EventOrderNormalizer {
+class SunKingsBlessing extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, EVENT_ORDERS);
   }
 }
 
-export default Combustion;
+export default SunKingsBlessing;
