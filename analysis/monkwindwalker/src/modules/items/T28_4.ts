@@ -64,7 +64,7 @@ class T28_4 extends Analyzer {
   // yeppers
 
 PPBUFFS(event: BuffEvent) {
-  this.castsPP +=3
+  this.castsPP +=3;
 }
 
  if (this.selectedCombatant.hasBuff(SPELLS.T28_PRIMORDIAL_POWER.id)) {
