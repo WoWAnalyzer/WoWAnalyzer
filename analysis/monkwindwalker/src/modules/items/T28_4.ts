@@ -31,7 +31,7 @@ class T28_4 extends Analyzer {
   
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasBUFF(SPELLS.T28_PRIMORDIAL_POWER.id);
+    this.active = this.selectedCombatant.hasBuff(SPELLS.T28_PRIMORDIAL_POWER.id);
     if (this.active) {
       this.addEventListener(
         Events.damage
