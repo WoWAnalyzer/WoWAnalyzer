@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
-import Events, { DamageEvent, CastEvent, BuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent, CastEvent, BuffEvent, ApplyBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
