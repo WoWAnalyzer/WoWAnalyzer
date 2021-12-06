@@ -1,9 +1,8 @@
 const CHECK_CODESTYLE = process.env.CODE_STYLE === 'true';
 
 module.exports = {
-  extends: '@emico/eslint-config',
+  extends: ['@emico/eslint-config', 'plugin:react/jsx-runtime'],
   rules: {
-    'react/react-in-jsx-scope': 'off',
     'no-use-before-define': 'off',
     'import/order': [
       // This is an annoying code style rule that can be fixed automatically.
