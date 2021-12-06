@@ -96,10 +96,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone =
-      this.essenceFont.totalHealing + this.essenceFont.gomEFHealing + this.essenceFont.totalAbsorbs;
+    spellInfo.healingDone = this.essenceFont.totalHealing;
     spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
-    spellInfo.healingHits = this.essenceFont.targetsEF;
     return spellInfo;
   }
 
