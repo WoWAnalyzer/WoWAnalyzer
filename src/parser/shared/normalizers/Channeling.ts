@@ -24,45 +24,20 @@ import SPELLS from 'common/SPELLS';
  * Spells with a cast time have a BeginCast event when they are started and and a Cast event when
  * they finish. If they are cancelled before finishing, there will be a BeginCast without the linked
  * Cast. For completed casts, this normalizer fabricates a BeginChannel for the start of the spell
- * and an EndChannel for the finish.
+ * and an EndChannel for the finish. For cancelled casts, there will only be a BeginChannel event
+ * with the 'isCancelled' flag set.
  *
- * Channelled spells are handled inconsistently in the events - they often appear as a Cast event
- * for each channeled tick, but it can vary based on spell. This normalizer contains special case
- * handling to try and place a BeginChannel at the beginning of the channel and an EndChannel at
- * the end.
- */
-/*
-
- Channel types:
-   > Cast Only
-     > Examples
-       * Arcane Missiles - 5143 (7268 damage) - (Arcane Mage)
-     > Handling
-       * Start on Cast
-       * End hoping for an interrupt (via another cast or begincast), but use damage events as last resort
-   > Buff on Self
-     > Examples
-       > Convoke the Spirits (Druid)
-       > Eye Beam (Havoc DH)
-       > Void Torrent - 263165 - (Shadow Priest)
-       > Mind Flay - ??? - (Shadow Priest)
-       > Mind Sear - ??? - (Shadow Priest)
-       > Essence Font - 191837 - (Mistweaver Monk)
-       > Soothing Mist - 115175 - (Mistweaver Monk) (Cast while casting)
-       > Evocation - 12051 - (Arcane Mage)
-     > Handling
-       * Start on Cast
-       * End on buffremove or interrupt (via another cast or begincast), whichever comes first
-   > Debuff on Target
-     > Examples
-       > Blooddrinker - 206931 - (Blood DK)
-       > Crackling Jade Lightning - 117952 - (Monk)
-     > Handling
-       * Same as buff, but for debuff and allow any target
-   > Other?
+ * Channelled spells are handled inconsistently in the events, but this normalizer aims to uniformly
+ * represent them with a BeginChannel when started and and EndChannel when stopped (regardless of if
+ * the spell finished or it was stopped early). There are a variety of ways channeled spells show
+ * in events, and this normalizer allows special case handling to be registered for each.
  */
 
 // TODO go through everything and fill it out
+// TODO Arcane Missiles - only a cast followed be nothing - have to delineate with damage events?
+/**
+ * Listing of all special case handlers for channels
+ */
 const CHANNEL_SPECS: ChannelSpec[] = [
   // General
   // Mage
@@ -93,6 +68,11 @@ class Channeling extends EventsNormalizer {
   // registered special case handlers, mapped by guid
   channelSpecMap: { [key: number]: ChannelHandler } = {};
 
+  /**
+   * Constructs a Channeling normalizer that deals with normal hardcasts and instants by default,
+   * and then allows special case functions to be registered by spellId for channels.
+   * @param channelSpecs special case functions that handle specific spells
+   */
   constructor(options: Options, channelSpecs: ChannelSpec[]) {
     super(options);
 
@@ -117,6 +97,8 @@ class Channeling extends EventsNormalizer {
       newEvents: [],
     };
 
+    // for each event, check if there is a special case handler for that GUID -
+    // if so - call the handler, if not - call the default handling
     events.forEach((event: AnyEvent, index: number) => {
       const handler = HasAbility(event) ? this.channelSpecMap[event.ability.guid] : undefined;
       if (handler) {
@@ -129,6 +111,9 @@ class Channeling extends EventsNormalizer {
     return insertEvents(events, channelState.newEvents);
   }
 
+  /**
+   * Handles the default cases of regular cast time spells, instants, and 'fake' casts
+   */
   defaultHandler(
     event: AnyEvent,
     events: AnyEvent[],
@@ -208,7 +193,7 @@ export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: Chann
 }
 
 /**
- * Creates a channel spec handling the common case of a channeled spell that can be delimited by a buff.
+ * Helper to create a channel spec handler for the common case of a channeled spell that can be delimited by a buff.
  * These cases involve a channeled spell that produces a Cast and ApplyBuff event (with the same guid)
  * when it starts, and then a RemoveBuff event when it finishes. Some instead put a Debuff on the target, but the
  * principle is the same.
@@ -259,7 +244,10 @@ export type ChannelSpec = {
   guids: number[];
 };
 
-/** A handling function for a channel. Given an applicable event, this function should appropriately handle the event by updating the channel state as required */
+/**
+ * A handling function for a channel. Given an applicable event, this function should appropriately
+ * handle the event by updating the channel state as required. Keep in mind that this function will
+ * be called *instead of* the default handling code for any events that trigger it. */
 export type ChannelHandler = (
   /** The event to handle */
   event: AnyEvent,
