@@ -105,7 +105,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // Vivify splashes due to ReM should be attributed to ReM's value, because without casting ReM, you wouldn't get the splash.
     spellInfo.healingDone =
       this.renewingMist.totalHealing +
-      this.vivify.remVivifyHealing +
+      this.vivify.cleaveHealing +
       this.renewingMist.gustsHealing +
       this.renewingMist.totalAbsorbs;
     spellInfo.overhealingDone = this.renewingMist.totalOverhealing;
@@ -115,8 +115,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getVivifyDetails(spellInfo: SpellInfoDetails) {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
-    spellInfo.healingDone =
-      spellInfo.healingDone + this.vivify.gustsHealing - this.vivify.remVivifyHealing;
+    spellInfo.healingDone = this.vivify.mainTargetHealing + this.vivify.gomHealing;
     return spellInfo;
   }
 

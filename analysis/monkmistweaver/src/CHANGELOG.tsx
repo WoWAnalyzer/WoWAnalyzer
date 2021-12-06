@@ -6,7 +6,8 @@ import React from 'react';
 
 
 export default [
-  change(date(2021, 12, 5), <> Cleaning up the Essence Font File.</>, Abelito75),
+  change(date(2021, 12, 5), <> Cleaning up the Vivify Files.</>, Abelito75),
+  change(date(2021, 12, 5), <> Cleaning up the Essence Font Files.</>, Abelito75),
   change(date(2021, 12, 5), <> Cleaning up some files.</>, Abelito75),
   change(date(2021, 11, 29), <> Added Essence Font cancellation metadata in timeline</>, Trevor),
   change(date(2021, 11, 23), <> Added Essence Font cancellation detection</>, Trevor),
