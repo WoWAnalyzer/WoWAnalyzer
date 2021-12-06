@@ -25,7 +25,6 @@ import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
-import EssenceFontMastery from './modules/features/EssenceFontMastery';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
@@ -33,14 +32,16 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import FallenOrderAverageHPOfTargetOnCast from './modules/shadowlands/covenant/FallenOrderAverageHPOfTargetOnCast';
 import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
 import FallenOrderMistWrap from './modules/shadowlands/covenant/FallenOrderMistWrap';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
-import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
+import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
+import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import LifeCocoon from './modules/spells/LifeCocoon';
@@ -61,8 +62,8 @@ import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
 import RisingMist from './modules/talents/RisingMist';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
-import Tier30Comparison from './modules/talents/Tier30Comparison';
 import Upwelling from './modules/talents/Upwelling';
+import FallenOrderCraneCloneNormalizer from './normalizers/FallenOrderCraneCloneNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizer
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
+    fallenOrderCraneCloneNormalizer: FallenOrderCraneCloneNormalizer,
 
     // Core
     lowHealthHealing: LowHealthHealing,
@@ -88,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
@@ -112,6 +113,9 @@ class CombatLogParser extends CoreCombatLogParser {
     revival: Revival,
     risingSunKick: RisingSunKick,
 
+    essenceFontUniqueTargets: EssenceFontUniqueTargets,
+    essenceFontTargetsHit: EssenceFontTargetsHit,
+
     // Talents
     chiBurst: ChiBurst,
     manaTea: ManaTea,
@@ -121,7 +125,6 @@ class CombatLogParser extends CoreCombatLogParser {
     risingMist: RisingMist,
     jadeSerpentStatue: JadeSerpentStatue,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
-    tier30Comparison: Tier30Comparison,
     upwelling: Upwelling,
     invokeChiJi: InvokeChiJi,
 
@@ -134,6 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fallenOrder: FallenOrder,
     fallenOrderCraneAverage: FallenOrderCraneAverage,
     fallenOrderMistWrap: FallenOrderMistWrap,
+    fallenOrderAverageHPOfTargetOnCast: FallenOrderAverageHPOfTargetOnCast,
     faelineStomp: FaelineStomp,
 
     // Conduits
@@ -149,7 +153,6 @@ class CombatLogParser extends CoreCombatLogParser {
     imbuedReflections: ImbuedReflections,
 
     // Legendaries
-    tearofMorning: TearofMorning,
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
     sinisterTeachings: SinisterTeachings,

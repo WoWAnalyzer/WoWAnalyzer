@@ -89,11 +89,6 @@ const spells = {
   },
 
   // Mistweaver Monk Spells
-  RISING_MIST_HEAL: {
-    id: 274912,
-    name: 'Rising Mist',
-    icon: 'ability_monk_effuse',
-  },
   ENVELOPING_MIST: {
     id: 124682,
     name: 'Enveloping Mist',
@@ -156,11 +151,6 @@ const spells = {
     icon: 'ability_monk_soothingmists',
     manaCost: 200,
   },
-  SOOTHING_MIST_STATUE: {
-    id: 198533,
-    name: 'Soothing Mist',
-    icon: 'ability_monk_soothingmists',
-  },
   INVOKE_YULON_THE_JADE_SERPENT: {
     id: 322118,
     name: "Invoke Yu'lon, the Jade Serpent",
@@ -177,46 +167,10 @@ const spells = {
     name: 'Soothing Breath',
     icon: 'ability_monk_soothingmists',
   },
-  SPIRIT_OF_THE_CRANE_BUFF: {
-    id: 210803,
-    name: 'Spirit of the Crane',
-    icon: 'monk_stance_redcrane',
-  },
-  CHI_BURST_HEAL: {
-    id: 130654,
-    name: 'Chi Burst',
-    icon: 'spell_arcane_arcanetorrent',
-  },
-  REFRESHING_JADE_WIND_HEAL: {
-    id: 162530,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-  },
-  GUST_OF_MISTS_CHIJI: {
-    id: 343819,
-    name: 'Gust of Mists',
-    icon: 'monk_stance_redcrane',
-  },
   EXPEL_HARM_TARGET_HEAL: {
     id: 344939,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
-  },
-  // Lifecycles buffs
-  LIFECYCLES_VIVIFY_BUFF: {
-    id: 197916,
-    name: 'Lifecycles (Vivify)',
-    icon: 'ability_monk_uplift',
-  },
-  LIFECYCLES_ENVELOPING_MIST_BUFF: {
-    id: 197919,
-    name: 'Lifecycles (Enveloping Mist)',
-    icon: 'spell_monk_envelopingmist',
-  },
-  INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
-    id: 343820,
-    name: 'Invoke Chi-Ji, the Red Crane',
-    icon: 'monk_stance_redcrane',
   },
   // Mastery
   GUSTS_OF_MISTS: {

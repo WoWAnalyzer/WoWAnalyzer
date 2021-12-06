@@ -36,6 +36,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '40/0/21',
+      talents: [40, 0, 21],
       icon: <Icon icon="spell_arcane_blast" />,
       visible: true,
     },

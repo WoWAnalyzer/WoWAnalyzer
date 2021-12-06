@@ -39,24 +39,28 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '12/5/44',
+      talents: [12, 5, 44],
       icon: <Icon icon="ability_defend" />,
       visible: true,
     },
     [Build.ARMS]: {
       url: 'arms',
       name: '33/28/0',
+      talents: [33, 28, 0],
       icon: <Icon icon="ability_warrior_savageblow" />,
       visible: true,
     },
     [Build.FURY]: {
       url: 'fury',
       name: '17/44/0',
+      talents: [17, 44, 0],
       icon: <Icon icon="ability_warrior_rampage" />,
       visible: true,
     },
     [Build.DEATHWISH_FURY]: {
       url: 'deathwishfury',
       name: '21/40/0',
+      talents: [21, 40, 0],
       icon: <Icon icon="spell_shadow_deathpact" />,
       visible: true,
     },

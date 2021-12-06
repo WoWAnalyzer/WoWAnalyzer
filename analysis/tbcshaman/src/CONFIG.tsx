@@ -38,18 +38,21 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '0/5/56',
+      talents: [0, 5, 56],
       icon: <Icon icon="spell_nature_healingwavegreater" />,
       visible: true,
     },
     [Build.ENHANCEMENT]: {
       url: 'enhancement',
       name: '2/45/14',
+      talents: [2, 45, 14],
       icon: <Icon icon="spell_nature_lightningshield" />,
       visible: true,
     },
     [Build.ELEMENTAL]: {
       url: 'elemental',
       name: '41/0/20',
+      talents: [41, 0, 20],
       icon: <Icon icon="spell_nature_lightning" />,
       visible: true,
     },

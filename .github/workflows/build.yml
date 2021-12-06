@@ -16,8 +16,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         id: cache
         with:
           path: node_modules
@@ -35,7 +35,7 @@ jobs:
         id: week-number
         run: echo "::set-output name=value::$(date +%W)"
       - name: Cache "yarn-cache"
-        uses: martijnhols/cache@read-only
+        uses: martijnhols/actions-cache@v3
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -43,6 +43,12 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-
       - run: yarn --frozen-lockfile --prefer-offline
         if: steps.cache.outputs.cache-hit != 'true'
+      - name: Save "node_modules" in cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: martijnhols/actions-cache/save@v3
+        with:
+          path: node_modules
+          key: ${{ steps.cache.outputs.primary-key }}
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
   #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
@@ -57,13 +63,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - run: yarn typecheck
   linting:
     needs: [prepare]
@@ -74,13 +79,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - run: yarn lint --max-warnings=0
   test-interface:
     needs: [prepare]
@@ -92,13 +96,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - run: yarn test:interface --runInBand
   test-parser:
     needs: [prepare]
@@ -109,13 +112,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - run: yarn test:parser --runInBand
   test-integration:
     needs: [prepare]
@@ -126,13 +128,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - run: yarn test:integration --runInBand
   build:
     needs: [prepare]
@@ -144,13 +145,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         run: |
@@ -183,13 +183,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - name: Extract messages
         run: yarn extract
       - name: Compile messages
@@ -249,13 +248,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Cache "node_modules"
-        uses: martijnhols/cache@read-only
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node_modules-
-          read-only: true
+          required: true
       - name: Extract messages
         run: yarn extract
       - name: Has changes

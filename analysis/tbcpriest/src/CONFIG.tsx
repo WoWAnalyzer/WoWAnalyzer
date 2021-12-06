@@ -39,6 +39,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '20/41/0',
+      talents: [20, 41, 0],
       icon: <Icon icon="spell_holy_summonlightwell" />,
       visible: true,
     },

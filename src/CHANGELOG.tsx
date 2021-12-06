@@ -8,6 +8,7 @@ import {
   Adoraci,
   Amani,
   Anomoly,
+  Arbixal,
   Barry,
   Barter,
   Buudha,
@@ -44,6 +45,8 @@ import {
   niko,
   Pirrang,
   ChrisKaczor,
+  Jeff,
+  Trevor
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
@@ -52,6 +55,14 @@ import React from 'react';
 
 // prettier-ignore
 export default [
+  change(date(2021, 12, 4), 'Fixed an issue with stat tracking in Mythic+ dungeons. Mythic+ still not officially supported, but at least it shouldn\'t crash', emallson),
+  change(date(2021, 11, 30), 'Fixed Spiritual Mana Potion not being tracked issue.', Jeff),
+  change(date(2021, 11, 25), 'Fix compatibility issue with nodejs 16', Jeff),
+  change(date(2021, 11, 25), 'Added greaterThanOrEqual & lessThanOrEqual option for checklist conditions', Trevor),
+  change(date(2021, 11, 25), 'Force-update translations for Mistweaver', emallson),
+  change(date(2021, 11, 23), 'Have relevant TBC build selected for the selected character.', Arbixal),
+  change(date(2021, 11, 14), 'Clean up caching in GitHub actions CI.', Zerotorescue),
+  change(date(2021, 11, 13), 'Removed Healthstone and Healing Pot from Mana Efficiency Tracker.', Abelito75),
   change(date(2021, 11, 11), 'Added an Icon to more easily display which cooldown is which in the cooldown tab.', Abelito75),
   change(date(2021, 11, 8), 'Bumping current version of wow from 9.1 -> 9.1.5', Abelito75),
   change(date(2021, 11, 8), 'Manual internationalization update to satisfy CI.', emallson),

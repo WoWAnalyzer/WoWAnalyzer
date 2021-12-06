@@ -11,6 +11,7 @@ import { Stats } from './shared/modules/StatTracker';
 export type Build = {
   url: string;
   name: string;
+  talents: [number, number, number];
   icon: ReactNode;
   /**
    * Whether the build should be visible. Using `false` can allow you to

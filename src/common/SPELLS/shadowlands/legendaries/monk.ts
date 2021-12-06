@@ -44,21 +44,16 @@ const legendaries = {
     icon: 'ability_monk_uplift',
     bonusID: 7072,
   },
-  TEAR_OF_MORNING_BUFF: {
-    id: 337993,
-    name: 'Tear of Morning',
-    icon: 'ability_monk_pathofmists',
-  },
-  TEAR_OF_MORNING_HEAL: {
-    id: 337992,
-    name: 'Tear of Morning',
-    icon: 'ability_monk_pathofmists',
-  },
   YULONS_WHISPER: {
     id: 337225,
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_dragonkick',
     bonusID: 7073,
+  },
+  YULON_WHISPER_HEAL: {
+    id: 337268,
+    name: "Yu'lon's Whisper",
+    icon: 'ability_monk_chiexplosion',
   },
   CLOUDED_FOCUS: {
     id: 337343,
