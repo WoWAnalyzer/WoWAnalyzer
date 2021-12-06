@@ -5,7 +5,6 @@ import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parse
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 //const BUFF_DURATION = 18000;
 const LAST_SHIELD = 12000;

@@ -8,7 +8,6 @@ import { ChecklistProps as BackChecklistProps } from 'parser/shared/modules/feat
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
-import React from 'react';
 
 import { Build } from '../../CONFIG';
 import * as SPELLS from '../../SPELLS';

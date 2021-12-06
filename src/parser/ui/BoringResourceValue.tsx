@@ -2,7 +2,7 @@
  * A simple component that shows the resource icon left and a value right.
  */
 import { ResourceIcon } from 'interface';
-import React from 'react';
+import * as React from 'react';
 
 import './BoringValue.scss';
 

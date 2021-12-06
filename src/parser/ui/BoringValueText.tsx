@@ -2,7 +2,7 @@
  * A simple component that shows a value in the most plain way possible.
  * Use this only as the very last resort.
  */
-import React from 'react';
+import * as React from 'react';
 
 type Props = {
   label: React.ReactNode;

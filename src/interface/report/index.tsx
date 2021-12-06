@@ -11,7 +11,7 @@ import Fight, { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import ReportObject from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
@@ -60,7 +60,7 @@ interface State {
   parser: CombatLogParser | null;
 }
 
-class ResultsLoader extends React.PureComponent<Props, State> {
+class ResultsLoader extends PureComponent<Props, State> {
   state: State = {
     isLoadingParser: true,
     parserClass: null,

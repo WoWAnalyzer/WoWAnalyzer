@@ -8,7 +8,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const MARK_OF_THE_CRANE_DURATION = 20000;
 const MOD_PER_STACK = 0.15;

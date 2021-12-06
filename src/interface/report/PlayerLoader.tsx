@@ -27,7 +27,7 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -171,11 +171,11 @@ class PlayerLoader extends React.PureComponent<Props, State> {
     } catch (error) {
       const isCommonError = error instanceof LogNotFoundError;
       if (!isCommonError) {
-        captureException(error);
+        captureException(error as Error);
       }
       this.setState({
         ...defaultState,
-        error,
+        error: error as Error,
       });
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
       this.props.setCombatants(null);

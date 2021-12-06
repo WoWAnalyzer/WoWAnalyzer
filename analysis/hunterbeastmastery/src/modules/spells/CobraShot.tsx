@@ -10,7 +10,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import GlobalCooldown from '@wowanalyzer/hunter-beastmastery/src/modules/core/GlobalCooldown';
 

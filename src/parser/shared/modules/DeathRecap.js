@@ -6,14 +6,14 @@ import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
-import React from 'react';
+import { PureComponent, Fragment } from 'react';
 
 import 'rc-slider/assets/index.css';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;
 
-class DeathRecap extends React.PureComponent {
+class DeathRecap extends PureComponent {
   static propTypes = {
     events: PropTypes.array.isRequired,
     enemies: PropTypes.object.isRequired,
@@ -110,7 +110,7 @@ class DeathRecap extends React.PureComponent {
           </div>
         </div>
         {events.map((death, i) => (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             <div style={{ display: 'block' }}>
               <h2
                 onClick={() => this.handleClick(i)}
@@ -312,7 +312,7 @@ class DeathRecap extends React.PureComponent {
                 </tr>
               </tbody>
             </table>
-          </React.Fragment>
+          </Fragment>
         ))}
       </>
     );

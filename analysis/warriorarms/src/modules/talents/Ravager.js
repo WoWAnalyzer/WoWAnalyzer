@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 /**
  * Throws a whirling weapon at the target location that inflicts [ 309.6% of Attack Power ] damage

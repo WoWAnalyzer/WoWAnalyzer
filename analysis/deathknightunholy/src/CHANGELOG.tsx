@@ -4,7 +4,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
 import { Adoraci, joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 8, 19), <>Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),

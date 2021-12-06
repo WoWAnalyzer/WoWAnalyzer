@@ -74,7 +74,7 @@ export async function toJson(response: string | Response) {
         // Ignore the error since we're more interested in the original error.
       }
     }
-    captureException(error, {
+    captureException(error as Error, {
       extra: {
         text,
       },

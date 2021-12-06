@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import React from 'react';
 
 import { TrackedPaladinAbility } from '../core/PaladinAbilityTracker';
 

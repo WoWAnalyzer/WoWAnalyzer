@@ -3,14 +3,13 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 class CanceledCasts extends Analyzer {
   canceledCasts: any = {};
 
   get TotalCanceledCastCount() {
     let total = 0;
-    for (const spellId in this.canceledCasts) {
+    for (const spellId of this.canceledCasts) {
       total += this.canceledCasts[spellId];
     }
     return total;
@@ -31,7 +30,7 @@ class CanceledCasts extends Analyzer {
 
   get CanceledCastTable() {
     const rows = [];
-    for (const spellId in this.canceledCasts) {
+    for (const spellId of this.canceledCasts) {
       rows.push(
         <tr>
           <td>

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  AbilityEvent,
   ApplyBuffEvent,
   ApplyDebuffEvent,
   CastEvent,
@@ -58,7 +59,7 @@ class Channeling extends CoreChanneling {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       this.log(
         'Marking',
-        this._currentChannel.ability.name,
+        ((this._currentChannel as unknown) as AbilityEvent<any> | null)?.ability.name,
         'as ended since we started casting something else',
       );
       this.endChannel(event);

@@ -1,5 +1,4 @@
 import NewsImageArticle from 'interface/NewsImageArticle';
-import React from 'react';
 
 import AntorusImage from './antorus.jpg';
 

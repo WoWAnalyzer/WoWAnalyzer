@@ -3,7 +3,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Panel from 'parser/ui/Panel';
-import React from 'react';
 
 import BeaconHealingBreakdown from './BeaconHealingBreakdown';
 import BeaconHealSource from './BeaconHealSource';

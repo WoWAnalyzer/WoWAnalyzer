@@ -1,7 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import React from 'react';
 
 import DeepWoundsUptime from './DeepWoundsUptime';
 import RendUptime from './RendUptime';

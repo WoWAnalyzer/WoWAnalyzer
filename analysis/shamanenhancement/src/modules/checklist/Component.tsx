@@ -6,7 +6,6 @@ import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklis
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
 
 const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: any) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (

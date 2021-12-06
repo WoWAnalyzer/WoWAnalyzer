@@ -4,7 +4,7 @@ import { SpellLink } from 'interface';
 import { Icon } from 'interface';
 import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 
 import 'gemini-scrollbar/gemini-scrollbar.css';
@@ -21,7 +21,7 @@ const NETHER_PORTAL_DURATION = 15000;
 const NEARBY_CASTS_BUFFER = 250;
 const NEARBY_CAST_COUNT = 3;
 
-class PetTimeline extends React.PureComponent {
+class PetTimeline extends PureComponent {
   get pets() {
     const { petTimeline } = this.props;
     return petTimeline.groupPetsBySummonAbility();

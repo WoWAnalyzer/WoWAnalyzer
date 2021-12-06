@@ -9,7 +9,6 @@ import BoringValue from 'parser/ui/BoringValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const FLASH_CONCENTRATION_DURATION = 20000; // 20 s buff duration
 const FLASH_CONCENTRATION_CAST_TIME_REDUCTION = 200; // 0.2 seconds per stack

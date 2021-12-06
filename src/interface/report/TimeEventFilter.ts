@@ -16,14 +16,13 @@ import {
 } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
 import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
-import React, { ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';
 
-const TIME_AVAILABLE = console.time && console.timeEnd;
-const bench = (id: string) => TIME_AVAILABLE && console.time(id);
-const benchEnd = (id: string) => TIME_AVAILABLE && console.timeEnd(id);
+const bench = (id: string) => console.time(id);
+const benchEnd = (id: string) => console.timeEnd(id);
 
 //returns whether e2 follows e and the events are associated
 const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
@@ -53,7 +52,7 @@ export interface Filter {
   end: number;
 }
 
-class TimeEventFilter extends React.PureComponent<Props, State> {
+class TimeEventFilter extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -139,8 +138,8 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
         isLoading: false,
       });
     } catch (err) {
-      captureException(err);
-      throw new EventsParseError(err);
+      captureException(err as Error);
+      throw new EventsParseError(err as Error);
     }
   }
 

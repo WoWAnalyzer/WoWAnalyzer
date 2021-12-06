@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import React from 'react';
+import { Fragment } from 'react';
 
 // Talents
 import AngerManagement from './AngerManagement';
@@ -53,7 +53,7 @@ class TalentStatisticBox extends Analyzer {
           if (!module.active) {
             return null;
           }
-          return <React.Fragment key={name}>{module.subStatistic()}</React.Fragment>;
+          return <Fragment key={name}>{module.subStatistic()}</Fragment>;
         })}
       </StatisticsListBox>
     );

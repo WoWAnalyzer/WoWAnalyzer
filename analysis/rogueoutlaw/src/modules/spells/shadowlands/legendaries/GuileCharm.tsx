@@ -5,7 +5,6 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 class GuileCharm extends Analyzer {
   static dependencies = {

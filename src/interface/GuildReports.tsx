@@ -10,7 +10,7 @@ import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-import React from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './GuildReports.scss';
@@ -71,7 +71,7 @@ interface State {
   factionImage: string;
 }
 
-class GuildReports extends React.Component<Props, State> {
+class GuildReports extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import { Class, CombatantInfoEvent } from 'parser/core/Events';
-import React from 'react';
 
 import './ReportRaidBuffList.scss';
 

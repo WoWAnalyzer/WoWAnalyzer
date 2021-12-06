@@ -6,7 +6,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 /**
  * Scorches your target, dealing (14.742% of Attack power) Fire damage,

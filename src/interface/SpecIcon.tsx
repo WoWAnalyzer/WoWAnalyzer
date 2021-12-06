@@ -1,5 +1,5 @@
 import { Spec } from 'game/SPECS';
-import React from 'react';
+import * as React from 'react';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLImageElement>, 'id'> {
   spec?: Spec;

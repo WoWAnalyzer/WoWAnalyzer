@@ -4,7 +4,6 @@ import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-import React from 'react';
 
 class DevouringPlague extends Analyzer {
   static dependencies = {

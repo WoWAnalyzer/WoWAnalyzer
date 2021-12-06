@@ -7,7 +7,6 @@ import { Options } from 'parser/core/Module';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import React from 'react';
 
 import {
   POWER_WORD_RADIANCE_ATONEMENT_DUR,

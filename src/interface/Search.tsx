@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import { constructURL } from 'interface/ReportSelecter';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 interface Props {

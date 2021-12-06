@@ -2,7 +2,6 @@ import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checkli
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import React from 'react';
 
 import { FocusDetails, FocusCapTracker, CancelledCasts } from '@wowanalyzer/hunter';
 import PreciseShots from '@wowanalyzer/hunter-marksmanship/src/modules/spells/PreciseShots';

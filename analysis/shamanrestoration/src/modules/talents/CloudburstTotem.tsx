@@ -11,7 +11,6 @@ import Events, {
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 

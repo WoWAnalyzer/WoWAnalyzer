@@ -7,7 +7,8 @@ import DropdownIcon from 'interface/icons/Dropdown';
 import Panel from 'interface/Panel';
 import SpecIcon from 'interface/SpecIcon';
 import AVAILABLE_CONFIGS from 'parser';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
+import * as React from 'react';
 
 type ContributorProps = {
   contributorId: string;

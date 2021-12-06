@@ -8,7 +8,6 @@ import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 /**
  * Tracks the amount of cancelled casts in %.

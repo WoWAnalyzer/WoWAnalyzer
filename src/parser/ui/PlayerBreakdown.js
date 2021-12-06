@@ -6,12 +6,12 @@ import { TooltipElement } from 'interface';
 import { SpecIcon } from 'interface';
 import { SpellLink } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 import Toggle from 'react-toggle';
 
 import PerformanceBar from './PerformanceBar';
 
-class PlayerBreakdown extends React.Component {
+class PlayerBreakdown extends Component {
   static propTypes = {
     report: PropTypes.object.isRequired,
     spellreport: PropTypes.object,

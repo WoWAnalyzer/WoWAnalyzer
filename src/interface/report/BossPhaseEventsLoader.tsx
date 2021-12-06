@@ -6,7 +6,7 @@ import BossPhasesState from 'interface/report/BOSS_PHASES_STATE';
 import { PhaseEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 
 interface Props {
   report: Report;
@@ -47,7 +47,7 @@ class BossPhaseEventsLoader extends React.PureComponent<Props, State> {
     } catch (err) {
       // The boss events are very nice, but we can still continue without it and just provide the entire fight for analysis.
       // We still want to log the error though, so we can potentially improve this.
-      captureException(err);
+      captureException(err as Error);
     }
 
     this.setState({

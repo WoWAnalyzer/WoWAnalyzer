@@ -7,7 +7,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 /*Purpose of this module is to track the sigil of flame debuff and see when 2 of them overlap for a damage increase.
  * This is important for damage and also squeezing extra fire damage during Fiery Brand because of the

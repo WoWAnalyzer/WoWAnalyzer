@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { Ability, CastEvent, EndChannelEvent } from 'parser/core/Events';
+import { AbilityEvent, Ability, CastEvent, EndChannelEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 
@@ -60,7 +60,7 @@ class Channeling extends CoreChanneling {
       debug &&
         this.debug(
           'Marking',
-          this._currentChannel.ability.name,
+          ((this._currentChannel as unknown) as AbilityEvent<any> | null)?.ability.name,
           'as ended since we started casting something else:',
           event.ability.name,
         );

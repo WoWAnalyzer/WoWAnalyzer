@@ -2,7 +2,7 @@ import fetchWcl from 'common/fetchWclApi';
 import { WCLBossResources } from 'common/WCL_TYPES';
 import { DeathEvent } from 'parser/core/Events';
 import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
-import React from 'react';
+import { PureComponent } from 'react';
 
 interface Props {
   reportCode: string;
@@ -17,7 +17,7 @@ interface State {
   bossHealth: WCLBossResources | null;
 }
 
-class ManaLevelChartComponent extends React.PureComponent<Props, State> {
+class ManaLevelChartComponent extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 

@@ -5,7 +5,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 import RainOfFire from '../features/RainOfFire';
 import SoulShardTracker from '../soulshards/SoulShardTracker';

@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import React from 'react';
 
 const OVERHEAL_THRESHOLD = 0.75;
 

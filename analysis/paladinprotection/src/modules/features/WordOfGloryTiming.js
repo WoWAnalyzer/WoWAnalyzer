@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import SelfHealTimingGraph from 'parser/shared/modules/features/SelfHealTimingGraph';
-import React from 'react';
 
 class WordOfGloryTiming extends SelfHealTimingGraph {
   constructor(...args) {

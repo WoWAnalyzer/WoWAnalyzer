@@ -7,11 +7,11 @@ import { SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
-import React from 'react';
+import { Component } from 'react';
 
 import 'rc-slider/assets/index.css';
 
-class LowHealthHealing extends React.Component {
+class LowHealthHealing extends Component {
   static propTypes = {
     healEvents: PropTypes.array.isRequired,
     fightStart: PropTypes.number.isRequired,

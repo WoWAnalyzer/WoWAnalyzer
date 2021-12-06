@@ -8,7 +8,6 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import React from 'react';
 
 class SoothingMist extends Analyzer {
   static dependencies = {

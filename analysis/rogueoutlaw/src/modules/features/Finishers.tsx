@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import React from 'react';
+import * as React from 'react';
 
 import { FinisherTracker } from '@wowanalyzer/rogue';
 

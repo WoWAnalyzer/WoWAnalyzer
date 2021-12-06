@@ -4,7 +4,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
@@ -332,7 +332,7 @@ class Ability {
   }
   /** @return {number} */
   get cooldown() {
-    return this.getCooldown(this.owner?.haste.current);
+    return this.getCooldown(this.owner?.haste.current || 0);
   }
   getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
     if (this._cooldown === undefined) {
@@ -359,7 +359,7 @@ class Ability {
       return 0;
     }
     if (typeof this._channel === 'function') {
-      return this._channel.call(this.owner, this.owner?.haste.current);
+      return this._channel.call(this.owner, this.owner?.haste.current || 0);
     }
 
     return this._channel;

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import StatisticBox from './StatisticBox';
 
@@ -8,7 +8,7 @@ export { STATISTIC_ORDER } from './StatisticBox';
 /**
  * @deprecated Use `parser/ui/Statistic` instead.
  */
-class LazyLoadStatisticBox extends React.PureComponent {
+class LazyLoadStatisticBox extends PureComponent {
   static propTypes = {
     loader: PropTypes.func.isRequired,
     value: PropTypes.node.isRequired,

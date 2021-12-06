@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { Panel } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import Graph from './Graph';
 

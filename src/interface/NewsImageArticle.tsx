@@ -1,4 +1,5 @@
-import React, { ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties } from 'react';
+import * as React from 'react';
 
 interface Props {
   title: React.ReactNode;

@@ -4,7 +4,6 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Combatant from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
-import React from 'react';
 
 import './PlayerInfo.scss';
 import PlayerGearHeader from './PlayerGearHeader';

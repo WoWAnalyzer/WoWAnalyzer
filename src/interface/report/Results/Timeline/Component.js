@@ -10,7 +10,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Timeline.scss';
@@ -19,7 +19,7 @@ import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
 
-class Timeline extends React.PureComponent {
+class Timeline extends PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,

@@ -8,7 +8,6 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import '@wowanalyzer/warlock/src/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';

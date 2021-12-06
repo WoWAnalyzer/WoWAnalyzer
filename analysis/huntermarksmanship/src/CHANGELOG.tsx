@@ -3,7 +3,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
 import { ItemLink, SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 11, 13), 'Implemented an initial version of the APL checker module.', Putro),

@@ -6,7 +6,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 import { DISPERSION_BASE_CD, DISPERSION_UPTIME_MS } from '../../constants';
 

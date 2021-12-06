@@ -7,7 +7,6 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { calculateOverhealing, OffensivePenanceBoltEstimation } from '../../SpellCalculations';
 import Penance from './Penance';

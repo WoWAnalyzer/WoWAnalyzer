@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import React from 'react';
+import * as React from 'react';
 
 import ArmoryLogo from './images/Armory-logo.png';
 

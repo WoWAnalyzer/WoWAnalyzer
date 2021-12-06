@@ -8,7 +8,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore, magic } from 'parser/shared/modules/hit-tracking/utilities';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {
