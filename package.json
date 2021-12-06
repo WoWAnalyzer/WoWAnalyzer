@@ -86,7 +86,7 @@
     "sass-text-stroke": "1.0.1",
     "swr": "^0.5.6",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.15.0",
+    "vega": "~5.17.3",
     "vega-lite": "^4.15.0"
   },
   "devDependencies": {
