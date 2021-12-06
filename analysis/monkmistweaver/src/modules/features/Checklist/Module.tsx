@@ -6,7 +6,7 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import React from 'react';
 
 import EnvelopingBreath from '../../spells/EnvelopingBreath';
-import EssenceFont from '../../spells/EssenceFont';
+import EssenceFontTargetsHit from '../../spells/EssenceFontTargetsHit';
 import SoothingMist from '../../spells/SoothingMist';
 import SpinningCraneKick from '../../spells/SpinningCraneKick';
 import ThunderFocusTea from '../../spells/ThunderFocusTea';
@@ -19,7 +19,6 @@ import RefreshingJadeWind from '../../talents/RefreshingJadeWind';
 import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
 import SpiritOfTheCrane from '../../talents/SpiritOfTheCrane';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import EssenceFontMastery from '../EssenceFontMastery';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -29,14 +28,13 @@ class Checklist extends BaseChecklist {
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    essenceFont: EssenceFont,
+    EssenceFontTargetsHit: EssenceFontTargetsHit,
     refreshingJadeWind: RefreshingJadeWind,
     chiBurst: ChiBurst,
     spiritOfTheCrane: SpiritOfTheCrane,
     manaTea: ManaTea,
     lifecycles: Lifecycles,
     thunderFocusTea: ThunderFocusTea,
-    essenceFontMastery: EssenceFontMastery,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     spinningCraneKick: SpinningCraneKick,
     vivify: Vivify,
@@ -50,14 +48,13 @@ class Checklist extends BaseChecklist {
   protected manaValues!: ManaValues;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
-  protected essenceFont!: EssenceFont;
+  protected EssenceFontTargetsHit!: EssenceFontTargetsHit;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected chiBurst!: ChiBurst;
   protected spiritOfTheCrane!: SpiritOfTheCrane;
   protected manaTea!: ManaTea;
   protected lifecycles!: Lifecycles;
   protected thunderFocusTea!: ThunderFocusTea;
-  protected essenceFontMastery!: EssenceFontMastery;
   protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
   protected spinningCraneKick!: SpinningCraneKick;
   protected vivify!: Vivify;
@@ -77,7 +74,7 @@ class Checklist extends BaseChecklist {
             .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
-          essenceFont: this.essenceFont.suggestionThresholds,
+          essenceFont: this.EssenceFontTargetsHit.suggestionThresholds,
           envelopingBreath: this.envelopingBreath.suggestionThresholds,
           refreshingJadeWind: this.refreshingJadeWind.suggestionThresholds,
           chiBurst: this.chiBurst.suggestionThresholds,
@@ -87,12 +84,10 @@ class Checklist extends BaseChecklist {
           spinningCraneKick: this.spinningCraneKick.suggestionThresholds,
           lifecycles: this.lifecycles.suggestionThresholds,
           thunderFocusTea: this.thunderFocusTea.suggestionThresholds,
-          essenceFontMastery: this.essenceFontMastery.suggestionThresholds,
           renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
-          essenceFontCancel: this.essenceFont.suggestionThresholdsCancel,
         }}
       />
     );

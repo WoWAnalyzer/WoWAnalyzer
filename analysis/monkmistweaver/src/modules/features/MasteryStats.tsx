@@ -8,16 +8,16 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import React from 'react';
 
 import EnvelopingMists from '../spells/EnvelopingMists';
+import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import Revival from '../spells/Revival';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import EssenceFontMastery from './EssenceFontMastery';
 
 class MasteryStats extends Analyzer {
   static dependencies = {
-    essenceFontMastery: EssenceFontMastery,
+    essenceFont: EssenceFont,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
@@ -26,7 +26,7 @@ class MasteryStats extends Analyzer {
     revival: Revival,
   };
 
-  protected essenceFontMastery!: EssenceFontMastery;
+  protected essenceFont!: EssenceFont;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
@@ -40,7 +40,7 @@ class MasteryStats extends Analyzer {
       (this.renewingMist.gustsHealing || 0) +
       (this.envelopingMists.gustsHealing || 0) +
       (this.soothingMist.gustsHealing || 0) +
-      (this.essenceFontMastery.healing || 0) +
+      (this.essenceFont.gomHealing || 0) +
       (this.expelHarm.gustsHealing || 0) +
       this.revival.gustsHealing
     );
@@ -80,8 +80,8 @@ class MasteryStats extends Analyzer {
         color: '#00bbcc',
         label: 'Essence font',
         spellId: SPELLS.ESSENCE_FONT.id,
-        value: this.essenceFontMastery.healing,
-        valueTooltip: formatThousands(this.essenceFontMastery.healing),
+        value: this.essenceFont.gomHealing,
+        valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },
       {
         color: '#03fcad',
