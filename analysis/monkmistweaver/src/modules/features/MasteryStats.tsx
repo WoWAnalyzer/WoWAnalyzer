@@ -36,7 +36,7 @@ class MasteryStats extends Analyzer {
 
   get totalMasteryHealing() {
     return (
-      (this.vivify.gustsHealing || 0) +
+      (this.vivify.gomHealing || 0) +
       (this.renewingMist.gustsHealing || 0) +
       (this.envelopingMists.gustsHealing || 0) +
       (this.soothingMist.gustsHealing || 0) +
@@ -52,8 +52,8 @@ class MasteryStats extends Analyzer {
         color: '#00b159',
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
-        value: this.vivify.gustsHealing,
-        valueTooltip: formatThousands(this.vivify.gustsHealing),
+        value: this.vivify.gomHealing,
+        valueTooltip: formatThousands(this.vivify.gomHealing),
       },
       {
         color: '#db00db',
