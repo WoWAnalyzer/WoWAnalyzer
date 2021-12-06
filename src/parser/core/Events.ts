@@ -146,9 +146,17 @@ export type AnyEvent<
 > = MappedEventTypes[ET];
 
 export interface Ability {
+  /** The ability's name */
   name: string;
+  /**
+   * The ability's ID - this uniquely identifies the ability,
+   * as there are sometimes multiple different abilities with the same name,
+   * but they'll have different guids
+   */
   guid: number;
+  /** The ability's spell school. See {@link MAGIC_SCHOOLS}. */
   type: number;
+  /** The resource name for the ability's icon */
   abilityIcon: string;
 }
 

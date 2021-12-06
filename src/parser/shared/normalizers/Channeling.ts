@@ -1,7 +1,17 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { Ability, AnyEvent, ApplyBuffEvent, BeginCastEvent, BeginChannelEvent, CastEvent, EndChannelEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
+import {
+  AnyEvent,
+  BeginCastEvent,
+  BeginChannelEvent,
+  CastEvent,
+  EndChannelEvent,
+  EventType,
+  HasAbility,
+} from 'parser/core/Events';
 import { insertEvents } from 'parser/core/insertEvents';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import { Options } from 'parser/core/Module';
+import SPELLS from 'common/SPELLS';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -21,148 +31,252 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
  * handling to try and place a BeginChannel at the beginning of the channel and an EndChannel at
  * the end.
  */
-class Channeling extends EventsNormalizer {
+/*
 
-  // registered special case handlers
-  buffChannelSpecs: BuffChannelSpec[] = [];
+ Channel types:
+   > Cast Only
+     > Examples
+       * Arcane Missiles - 5143 (7268 damage) - (Arcane Mage)
+     > Handling
+       * Start on Cast
+       * End hoping for an interrupt (via another cast or begincast), but use damage events as last resort
+   > Buff on Self
+     > Examples
+       > Convoke the Spirits (Druid)
+       > Eye Beam (Havoc DH)
+       > Void Torrent - 263165 - (Shadow Priest)
+       > Mind Flay - ??? - (Shadow Priest)
+       > Mind Sear - ??? - (Shadow Priest)
+       > Essence Font - 191837 - (Mistweaver Monk)
+       > Soothing Mist - 115175 - (Mistweaver Monk) (Cast while casting)
+       > Evocation - 12051 - (Arcane Mage)
+     > Handling
+       * Start on Cast
+       * End on buffremove or interrupt (via another cast or begincast), whichever comes first
+   > Debuff on Target
+     > Examples
+       > Blooddrinker - 206931 - (Blood DK)
+       > Crackling Jade Lightning - 117952 - (Monk)
+     > Handling
+       * Same as buff, but for debuff and allow any target
+   > Other?
+ */
+
+// TODO go through everything and fill it out
+const CHANNEL_SPECS: ChannelSpec[] = [
+  // General
+  // Mage
+  buffChannelSpec(SPELLS.EVOCATION.id),
+  // Warlock
+  // Priest
+  buffChannelSpec(SPELLS.VOID_TORRENT_TALENT.id),
+  buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
+  buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
+  buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
+  // Rogue
+  // Druid
+  buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
+  // Monk
+  buffChannelSpec(SPELLS.ESSENCE_FONT.id),
+  buffChannelSpec(SPELLS.SOOTHING_MIST.id),
+  // Demon Hunter
+  buffChannelSpec(SPELLS.EYE_BEAM.id), // TODO special handling because of the two buffs?
+  // Shaman
+  // Hunter
+  // Paladin
+  // Warrior
+  // Death Knight
+  buffChannelSpec(SPELLS.BLOODDRINKER_TALENT.id),
+];
+
+class Channeling extends EventsNormalizer {
+  // registered special case handlers, mapped by guid
+  channelSpecMap: { [key: number]: ChannelHandler } = {};
+
+  constructor(options: Options, channelSpecs: ChannelSpec[]) {
+    super(options);
+
+    // populate the specs into a mapping for quick handling
+    channelSpecs.forEach((spec) => {
+      spec.guids.forEach((guid) => {
+        if (this.channelSpecMap[guid]) {
+          console.error(
+            'Channeling module trying to add more than one handler for spell guid ' +
+              guid +
+              ' - only the latest handler will apply!',
+          );
+        }
+        this.channelSpecMap[guid] = spec.handler;
+      });
+    });
+  }
 
   normalize(events: AnyEvent[]) {
     const channelState: ChannelState = {
-      currentChannel: null,
+      unresolvedChannel: null,
       newEvents: [],
-    }
-    events.forEach((event) => {
-      if (event.type === EventType.BeginCast) {
-        this.onBeginCast(event, channelState);
-      } else if (event.type === EventType.Cast) {
-        this.onCast(event, channelState);
-      } else if (event.type === EventType.ApplyBuff) {
-        // FIXME should be fine from any source because we'll only get the selected player's, but still a bit risky?
-        this.onApplyBuff(event, channelState);
-      } else if (event.type === EventType.RemoveBuff) {
-        // FIXME should be fine from any source because we'll only get the selected player's, but still a bit risky?
-        this.onRemoveBuff(event, channelState);
+    };
+
+    events.forEach((event: AnyEvent, index: number) => {
+      const handler = HasAbility(event) ? this.channelSpecMap[event.ability.guid] : undefined;
+      if (handler) {
+        handler(event, events, index, channelState);
+      } else {
+        this.defaultHandler(event, events, index, channelState);
       }
-      // TODO special casing
     });
 
     return insertEvents(events, channelState.newEvents);
   }
 
-  onBeginCast(event: BeginCastEvent, channelState: ChannelState) {
-    this.cancelChannel(channelState);
-    this.beginChannelFromEvent(event, channelState);
-  }
-
-  onCast(event: CastEvent, channelState: ChannelState) {
-    if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
-      // Some things such as boss mechanics are marked as cast-events even though they're usually just "ticks".
-      // This can even occur while channeling. We need to ignore them or it will throw off this module.
-      return;
-    }
-    if (this.buffChannelSpecs.find(bcs => bcs.castAbility.guid === event.ability.guid)) {
-      // This cast is a channel that will be delineated by the application of a buff,
-      // and so we need to ignore the cast event for the purposes of this module.
-      return;
-    }
-
-    // TODO account for pre-pull begincast
-    if (!channelState.currentChannel) {
-      // no current channel, meaning this is an instant and it interrupted nothing
-      return;
-    } else if (channelState.currentChannel.ability.guid === event.ability.guid) {
-      // we just finished casting the current channel
-      this.endChannel(event.timestamp, channelState);
-    } else {
-      // we interrupted the current channel with an instant
-      this.cancelChannel(channelState);
-    }
-  }
-
-  onApplyBuff(event: ApplyBuffEvent, channelState: ChannelState) {
-    const buffChannelSpec = this.buffChannelSpecs.find(bcs => bcs.buffId === event.ability.guid);
-    if (buffChannelSpec) {
-      this.beginChannel(event.timestamp, buffChannelSpec.castAbility, event.sourceID!, false, channelState);
+  defaultHandler(
+    event: AnyEvent,
+    events: AnyEvent[],
+    eventIndex: number,
+    channelState: ChannelState,
+  ): void {
+    if (event.type === EventType.BeginCast) {
+      // we're starting a new generic hardcast
+      cancelCurrentChannel(event, channelState);
+      beginCurrentChannel(event, channelState);
+    } else if (event.type === EventType.Cast) {
+      // TODO this won't catch pre-cast channels
+      // this could be a few things: an instant cast, a hardcast finishing, or a "fake" cast
+      if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
+        // Several things like trinket procs and boss mechanics will show up as cast events
+        // even though they don't interact with the cast process at all. These are "fake" casts,
+        // and for the purpose of channel tracking we need to ignore them.
+        return;
+      } else if (!channelState.unresolvedChannel) {
+        // there's no current channel, meaning this is an instant cast
+        // TODO anything else to do here?
+      } else if (channelState.unresolvedChannel.ability.guid === event.ability.guid) {
+        // this is a hardcast finishing
+        endCurrentChannel(event, channelState);
+      } else {
+        // this is an unresolved channel and it doesn't match this cast,
+        // meaning this is an instant cast interrupting an ongoing hardcast
+        cancelCurrentChannel(event, channelState);
+      }
     }
   }
-
-  onRemoveBuff(event: RemoveBuffEvent, channelState: ChannelState) {
-    const buffChannelSpec = this.buffChannelSpecs.find(bcs => bcs.buffId === event.ability.guid);
-    if (buffChannelSpec) {
-      this.endChannel(event.timestamp, channelState);
-    }
-  }
-
-  /** Handles cancellation of the current channel (if there is one) */
-  // FIXME this modifies state weirdly
-  cancelChannel(channelState: ChannelState) {
-    if (channelState.currentChannel) {
-      channelState.currentChannel.isCancelled = true;
-      channelState.currentChannel = null;
-    }
-  }
-
-
-  /** Updates the ChannelState with a BeginChannelEvent */
-  beginChannelFromEvent(event: BeginCastEvent, channelState: ChannelState) {
-    this.beginChannel(event.timestamp, event.ability, event.sourceID, event.isCancelled, channelState);
-  }
-
-  /** Updates the ChannelState with a BeginChannelEvent */
-  beginChannel(timestamp: number, ability: Ability, sourceID: number, isCancelled: boolean = false, channelState: ChannelState) {
-    const beginChannel: BeginChannelEvent = {
-      type: EventType.BeginChannel,
-      ability,
-      timestamp,
-      sourceID,
-      isCancelled,
-    };
-    channelState.newEvents.push(beginChannel);
-    channelState.currentChannel = beginChannel;
-  }
-
-  /** Updates the ChannelState with a EndChannelEvent tied to the current channel */
-  endChannel(timestamp: number, channelState: ChannelState) {
-    if (!channelState.currentChannel) {
-      // TODO log error?
-      return;
-    }
-    const endChannel: EndChannelEvent = {
-      type: EventType.EndChannel,
-      ability: channelState.currentChannel.ability,
-      timestamp,
-      sourceID: channelState.currentChannel.sourceID,
-      start: channelState.currentChannel.timestamp,
-      duration: timestamp - channelState.currentChannel.timestamp,
-      beginChannel: channelState.currentChannel,
-    };
-    channelState.newEvents.push(endChannel);
-    channelState.currentChannel = null;
-  }
-
 }
 
-// TODO docs
-export type ChannelState = {
-  currentChannel: BeginChannelEvent | null;
-  newEvents: AnyEvent[];
-};
+/** Updates the ChannelState with a BeginChannelEvent */
+export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {
+  const beginChannel: BeginChannelEvent = {
+    type: EventType.BeginChannel,
+    ability: event.ability,
+    timestamp: event.timestamp,
+    sourceID: event.sourceID,
+    isCancelled: false,
+  };
+  channelState.newEvents.push(beginChannel);
+  channelState.unresolvedChannel = beginChannel;
+}
+
+/** Updates the ChannelState with a EndChannelEvent tied to the current channel */
+export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
+  if (!channelState.unresolvedChannel) {
+    // TODO log error?
+    return;
+  }
+  const endChannel: EndChannelEvent = {
+    type: EventType.EndChannel,
+    ability: channelState.unresolvedChannel.ability,
+    timestamp: event.timestamp,
+    sourceID: channelState.unresolvedChannel.sourceID,
+    start: channelState.unresolvedChannel.timestamp,
+    duration: event.timestamp - channelState.unresolvedChannel.timestamp,
+    beginChannel: channelState.unresolvedChannel,
+  };
+  channelState.newEvents.push(endChannel);
+  channelState.unresolvedChannel = null;
+}
 
 /**
- * Specification for a channel that we detect using a buff on the player (a common special case).
- * These channels typically have a Cast event at the start, sometimes but not always have an
- * additional Cast event for each tick, and their channel time can instead be delineated by the
- * application of a buff on the channeling player.
+ * Cancels the current channel (if there is one), and updates the channel state appropriately
+ * @param channelState the current channel state
+ * @param currentEvent the current event being handled
  */
-export type BuffChannelSpec = {
-  /**
-   * ID of the buff that indicates this spell is being channeled.
-   * BeginChannel will be time matched with the ApplyBuff and EndChannel with the RemoveBuff.
-   */
-  buffId: number,
-  /**
-   * Ability of the cast event for this channel. This Ability will be used in the BeginChannel and EndChannel
-   * events, and actual cast events with this ID will be ignored by this normalizer.
-   */
-  castAbility: Ability,
+export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState) {
+  if (channelState.unresolvedChannel !== null) {
+    channelState.unresolvedChannel.isCancelled = true;
+    channelState.unresolvedChannel = null;
+    // TODO also push a cancel channel event, or just stop using those?
+  }
 }
+
+/**
+ * Creates a channel spec handling the common case of a channeled spell that can be delimited by a buff.
+ * These cases involve a channeled spell that produces a Cast and ApplyBuff event (with the same guid)
+ * when it starts, and then a RemoveBuff event when it finishes. Some instead put a Debuff on the target, but the
+ * principle is the same.
+ *
+ * This handler works by handling cast events with the given guid, and then scanning forward for the
+ * matched removebuff (or removedebuff) event, and then making the pair of beginchannel and endchannel
+ * events based on them. We rely on the buff to show early cancellation and won't change the cancel time
+ * even if there are other spell casts in the middle, as some channels of this type actually allow
+ * some instants to be used during them.
+ */
+export function buffChannelSpec(spellId: number): ChannelSpec {
+  const guids = [spellId];
+  const handler: ChannelHandler = (
+    event: AnyEvent,
+    events: AnyEvent[],
+    eventIndex: number,
+    state: ChannelState,
+  ) => {
+    if (event.type === EventType.Cast) {
+      // do standard start channel stuff
+      cancelCurrentChannel(event, state);
+      beginCurrentChannel(event, state);
+      // now scan ahead for the matched removebuff and end the channel at it
+      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
+        const laterEvent = events[idx];
+        if (
+          HasAbility(laterEvent) &&
+          laterEvent.ability.guid === spellId &&
+          (laterEvent.type === EventType.RemoveBuff || laterEvent.type === EventType.RemoveDebuff)
+        ) {
+          endCurrentChannel(laterEvent, state);
+          break;
+        }
+      }
+    }
+  };
+  return {
+    handler,
+    guids,
+  };
+}
+
+/** Specification of special handling for a spell */
+export type ChannelSpec = {
+  /** The handling function for this spell */
+  handler: ChannelHandler;
+  /** The guid or guids of the spells to handle */
+  guids: number[];
+};
+
+/** A handling function for a channel. Given an applicable event, this function should appropriately handle the event by updating the channel state as required */
+export type ChannelHandler = (
+  /** The event to handle */
+  event: AnyEvent,
+  /** All events in the encounter */
+  events: AnyEvent[],
+  /** The event to handle's index */
+  eventIndex: number,
+  /** The channel state, to be updated depending on handling */
+  state: ChannelState,
+) => void;
+
+/** A state holder during channel handling, to be updated */
+export type ChannelState = {
+  /** The current 'unresolved' channel. This represents a spell that has been started but isn't yet finished
+   * and we're not sure when or if it will be finished. Depending on follow on events, it could be finished or cancelled.
+   */
+  unresolvedChannel: BeginChannelEvent | null;
+  /** New fabricated channel events to add. Handlers should push to this list. */
+  newEvents: AnyEvent[];
+};
