@@ -10,7 +10,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
-    channeling: CoreChanneling,
     statTracker: StatTracker,
   };
   soomTicks: number = 0;
@@ -25,7 +24,6 @@ class SoothingMist extends Analyzer {
   totalSoomCasts = 0;
   assumedGCD: number = 0;
   startGCD: number = 0;
-  protected channeling!: CoreChanneling;
   protected statTracker!: StatTracker;
 
   constructor(options: Options) {
