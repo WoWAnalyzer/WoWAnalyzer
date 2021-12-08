@@ -7,7 +7,6 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import FilteredActiveTime from 'parser/shared/modules/FilteredActiveTime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -24,10 +23,8 @@ const debug = false;
 class SunKingsBlessing extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
-    filteredActiveTime: FilteredActiveTime,
   };
   protected eventHistory!: EventHistory;
-  protected filteredActiveTime!: FilteredActiveTime;
 
   expiredBuffs = 0;
   sunKingApplied = 0;
