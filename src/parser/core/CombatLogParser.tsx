@@ -59,7 +59,6 @@ import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';
-import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 import VantusRune from '../shared/modules/spells/VantusRune';
 import SpellUsable from '../shared/modules/SpellUsable';
 import DamageDone from '../shared/modules/throughput/DamageDone';
@@ -218,9 +217,6 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Shadowlands
-
-    // Castle Nathria
-    soulInfusion: SoulInfusion,
 
     // Dungeons
     overchargedAnimaBattery: OverchargedAnimaBattery,
