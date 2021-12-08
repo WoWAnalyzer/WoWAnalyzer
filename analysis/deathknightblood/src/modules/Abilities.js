@@ -3,7 +3,6 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import React from 'react';
 
 class Abilities extends CoreAbilities {
   spellbook() {

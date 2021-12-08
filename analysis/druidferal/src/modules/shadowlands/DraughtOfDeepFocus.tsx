@@ -10,7 +10,6 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const BUFFED_DOTS = [SPELLS.RIP, SPELLS.RAKE_BLEED, SPELLS.MOONFIRE_FERAL]; // TODO also caster moonfire?
 

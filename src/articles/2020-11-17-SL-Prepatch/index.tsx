@@ -1,6 +1,5 @@
 import { Dambroda } from 'CONTRIBUTORS';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ShadowlandsBackground from './sl-bg-wide.jpg';

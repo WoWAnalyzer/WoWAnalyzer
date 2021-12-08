@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 //Need to extend this class to change how passive rune regeneration is displayed.
 //The only new lines are 44, 49-54 and 78.

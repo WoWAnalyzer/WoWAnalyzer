@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 // Example logs with missing enhancement:
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard

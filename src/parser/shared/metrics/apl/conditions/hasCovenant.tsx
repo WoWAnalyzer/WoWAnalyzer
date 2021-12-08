@@ -1,5 +1,4 @@
 import { Covenant } from 'parser/core/Events';
-import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
 

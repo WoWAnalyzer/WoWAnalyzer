@@ -4,7 +4,7 @@ import Panel from 'interface/Panel';
 import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
-import React, { CSSProperties } from 'react';
+import { PureComponent, CSSProperties } from 'react';
 import Toggle from 'react-toggle';
 
 import Suggestion from './Suggestion';
@@ -15,7 +15,7 @@ interface Props {
   style?: CSSProperties;
 }
 
-class Suggestions extends React.PureComponent<Props> {
+class Suggestions extends PureComponent<Props> {
   state = {
     showMinorIssues: false,
   };

@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Fashathus, Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 7, 5), <>Fixed bug where <SpellLink id={SPELLS.FINAL_VERDICT.id} icon /> would sometimes not count toward consuming <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs. </>, Fashathus),

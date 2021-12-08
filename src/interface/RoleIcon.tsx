@@ -1,6 +1,5 @@
 import ROLES from 'game/ROLES';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 interface Props {
   id: number;

@@ -1,6 +1,6 @@
 import { AnyEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import './Cooldowns.scss';
 import Lane from './Lane';
@@ -13,7 +13,7 @@ interface Props {
   abilities: Abilities;
 }
 
-class Cooldowns extends React.PureComponent<Props> {
+class Cooldowns extends PureComponent<Props> {
   getSortIndex([spellId, events]: [number, AnyEvent[]]) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability?.timelineSortIndex) {

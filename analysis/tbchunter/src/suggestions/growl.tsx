@@ -3,7 +3,6 @@ import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import React from 'react';
 
 import growlCasts from '../metrics/growlCasts';
 import * as SPELLS from '../SPELLS_PET';

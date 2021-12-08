@@ -2,7 +2,6 @@ import { Tyndi } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

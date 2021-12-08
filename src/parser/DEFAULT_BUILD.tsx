@@ -1,6 +1,5 @@
 import ArmoryIcon from 'interface/icons/Armory';
 import { Build } from 'parser/Config';
-import React from 'react';
 
 const DEFAULT_BUILD: Build = {
   name: 'Standard Build',

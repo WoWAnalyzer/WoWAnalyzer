@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import Icon from 'interface/Icon';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
-import React from 'react';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 

@@ -7,7 +7,6 @@ import Buffs from 'parser/core/modules/Buffs';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 import DeathRecap from './DeathRecap';
 import DEFENSIVE_BUFFS from './DEFENSIVE_BUFFS';

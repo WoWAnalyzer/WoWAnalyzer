@@ -5,7 +5,6 @@ import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const BASE_ENERGY_REGEN = 10;
 const ASCENSION_REGEN_MULTIPLIER = 1.1;

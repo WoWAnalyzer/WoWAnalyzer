@@ -3,7 +3,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Putro, Kartarn } from 'CONTRIBUTORS';
 import { ItemLink, SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),

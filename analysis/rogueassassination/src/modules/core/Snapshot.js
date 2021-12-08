@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import React from 'react';
 
 const debug = false;
 

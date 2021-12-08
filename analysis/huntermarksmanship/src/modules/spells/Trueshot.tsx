@@ -8,7 +8,6 @@ import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from '@wowanalyzer/hunter';
 import { TRUESHOT_FOCUS_INCREASE } from '@wowanalyzer/hunter-marksmanship/src/constants';

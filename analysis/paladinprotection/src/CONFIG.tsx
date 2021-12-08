@@ -5,7 +5,6 @@ import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { AlertWarning } from 'interface';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

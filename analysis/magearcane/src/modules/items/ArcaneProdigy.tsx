@@ -7,7 +7,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const COOLDOWN_REDUCTION_MS = [
   0,

@@ -1,5 +1,6 @@
 import TooltipProvider from 'interface/TooltipProvider';
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
+import * as React from 'react';
 
 import SpellIcon from './SpellIcon';
 import useSpellInfo from './useSpellInfo';

@@ -1,7 +1,7 @@
 import './UptimeBar.scss';
 import { formatDuration } from 'common/format';
 import { Tooltip } from 'interface';
-import React from 'react';
+import * as React from 'react';
 
 export type Uptime = {
   /** Timestamp in milliseconds of the uptime start */

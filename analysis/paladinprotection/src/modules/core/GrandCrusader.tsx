@@ -7,7 +7,6 @@ import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probabi
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import Abilities from '../Abilities';
 import SpellUsable from '../features/SpellUsable';

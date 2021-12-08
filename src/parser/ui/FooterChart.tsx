@@ -1,4 +1,3 @@
-import React from 'react';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 import { TopLevelSpec, Config } from 'vega-lite';

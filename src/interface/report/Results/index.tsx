@@ -33,7 +33,7 @@ import Report from 'parser/core/Report';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';

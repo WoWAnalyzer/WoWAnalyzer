@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const TimelineItemImage = ({ source, description, wide }) => (
   <figure style={wide ? { maxWidth: 800 } : undefined}>

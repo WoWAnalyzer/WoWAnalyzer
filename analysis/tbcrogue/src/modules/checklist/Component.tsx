@@ -3,7 +3,6 @@ import { ChecklistProps } from 'parser/shared/modules/features/Checklist/Checkli
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
-import React from 'react';
 
 const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>

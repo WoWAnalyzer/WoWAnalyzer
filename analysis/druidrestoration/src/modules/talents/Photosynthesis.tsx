@@ -10,7 +10,6 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { HOTS_INCREASED_RATE } from '../../constants';
 

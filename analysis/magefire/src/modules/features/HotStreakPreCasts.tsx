@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import React from 'react';
 
 import {
   COMBUSTION_END_BUFFER,

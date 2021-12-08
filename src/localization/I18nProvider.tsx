@@ -3,7 +3,7 @@ import { I18nProvider as LinguiI18nProvider } from '@lingui/react';
 import { getLanguage } from 'interface/selectors/language';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { en, de, es, fr, it, ko, pl, pt, ru, zh } from 'make-plural/plurals';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 i18n.loadLocaleData('en', { plurals: en });

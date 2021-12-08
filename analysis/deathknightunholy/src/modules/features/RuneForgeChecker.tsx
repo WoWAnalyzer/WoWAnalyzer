@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import React from 'react';
 
 import { RuneForgeChecker } from '@wowanalyzer/deathknight';
 

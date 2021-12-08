@@ -9,7 +9,6 @@ import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 export const CRIT_EFFECT = 0.02;
 

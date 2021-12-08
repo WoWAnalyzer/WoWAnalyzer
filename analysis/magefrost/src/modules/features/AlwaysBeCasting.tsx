@@ -7,7 +7,6 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get deadTimePercentage() {

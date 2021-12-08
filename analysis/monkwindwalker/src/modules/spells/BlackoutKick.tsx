@@ -8,7 +8,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { BLACKOUT_KICK_COOLDOWN_REDUCTION_MS } from '../../constants';
 

@@ -7,7 +7,7 @@ import {
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
-import React from 'react';
+import { Fragment } from 'react';
 
 import { CURSE_OF_AGONY, CURSE_OF_DOOM, CURSE_OF_THE_ELEMENTS } from '../../SPELLS';
 
@@ -38,13 +38,13 @@ const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPr
     <Rule
       name="Maintain a curse on the primary target"
       description={
-        <React.Fragment>
+        <Fragment>
           It is important to maintain one curse on the primary target. Priority order should be{' '}
           <SpellLink id={CURSE_OF_THE_ELEMENTS} /> over other curses. If elements is on the target
           from another warlock, use <SpellLink id={CURSE_OF_DOOM} /> on a target that lives at least
           a minute. If the target will live for less than a minute, use{' '}
           <SpellLink id={CURSE_OF_AGONY} />
-        </React.Fragment>
+        </Fragment>
       }
     >
       <DotUptime id={CURSE_OF_THE_ELEMENTS} thresholds={thresholds.curseOfTheElements} />

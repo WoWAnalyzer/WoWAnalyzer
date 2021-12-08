@@ -11,7 +11,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 import { DIRE_COMMAND_PROC_CHANCE } from '@wowanalyzer/hunter-beastmastery/src/constants';

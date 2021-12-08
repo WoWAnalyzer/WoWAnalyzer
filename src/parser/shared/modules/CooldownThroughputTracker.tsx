@@ -20,7 +20,6 @@ import Events, {
 } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownOverview from 'parser/ui/CooldownOverview';
-import React from 'react';
 
 const debug = false;
 

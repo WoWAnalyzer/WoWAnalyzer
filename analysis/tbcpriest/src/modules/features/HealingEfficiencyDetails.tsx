@@ -1,6 +1,5 @@
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import React from 'react';
 
 import HealingEfficiencyBreakdown from './HealingEfficiencyBreakdown';
 import HealingEfficiencyTracker from './HealingEfficiencyTracker';

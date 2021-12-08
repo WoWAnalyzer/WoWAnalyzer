@@ -6,7 +6,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 

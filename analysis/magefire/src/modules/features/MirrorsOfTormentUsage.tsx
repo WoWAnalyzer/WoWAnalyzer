@@ -9,7 +9,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 class MirrorsOfTormentUsage extends Analyzer {
   static dependencies = {

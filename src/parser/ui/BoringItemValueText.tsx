@@ -6,7 +6,7 @@
 import { ItemIcon } from 'interface';
 import { ItemLink } from 'interface';
 import { Item } from 'parser/core/Events';
-import React from 'react';
+import * as React from 'react';
 
 type Props = {
   item: Item;

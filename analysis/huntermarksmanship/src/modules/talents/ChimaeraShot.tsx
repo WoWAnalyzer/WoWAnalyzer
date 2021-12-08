@@ -7,7 +7,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 /**
  * A two-headed shot that hits your primary target for (65% of Attack power)% Nature damage and another nearby target for  [(65% of Attack power)% * 0.5] Frost damage.

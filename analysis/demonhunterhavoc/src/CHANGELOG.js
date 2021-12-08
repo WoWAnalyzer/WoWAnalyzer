@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { LeoZhekov, flurreN, Elodiel } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 9, 26), <>Fixed the issue, that the Analyzer would show 0 uses of <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> in the suggestions and statistics instead of the actual number of uses.</>, Elodiel),

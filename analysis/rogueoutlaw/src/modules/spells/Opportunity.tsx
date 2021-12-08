@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import React from 'react';
 
 import OpportunityDamageTracker from './OpportunityDamageTracker';
 

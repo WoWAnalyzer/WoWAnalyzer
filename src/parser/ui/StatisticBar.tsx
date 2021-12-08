@@ -1,5 +1,5 @@
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
+import * as React from 'react';
 
 import './Statistic.scss';
 import './StatisticBar.scss';

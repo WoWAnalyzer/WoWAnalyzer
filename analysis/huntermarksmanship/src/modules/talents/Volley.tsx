@@ -6,7 +6,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 /**
  * Rain a volley of arrows down over 6 sec, dealing up to [(35% of Attack power) * 12] Physical damage to any enemy in the area, and gain the effects of Trick Shots for as long as Volley is active.

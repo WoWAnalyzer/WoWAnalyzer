@@ -12,11 +12,12 @@ import Tooltip from 'interface/Tooltip';
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
-import React, { ReactNode } from 'react';
+import Report from 'parser/core/Report';
+import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface Props {
-  report: unknown;
+  report: Report;
   fight: WCLFight;
   config: Config;
   player: PlayerInfo;

@@ -3,7 +3,6 @@ import { SpellIcon } from 'interface';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const PetRow = (props) => {
   const { className, pets, start, totalWidth, secondWidth } = props;

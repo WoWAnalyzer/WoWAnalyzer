@@ -5,7 +5,6 @@ import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
-import React from 'react';
 
 const howCastable = cnd.always(cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AVENGING_WRATH)));
 

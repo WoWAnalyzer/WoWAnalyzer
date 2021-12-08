@@ -7,7 +7,7 @@ import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpec
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { connect } from 'react-redux';
 
 import { useConfig } from './ConfigContext';

@@ -5,7 +5,6 @@ import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const UNHOLY_STRENGTH_STRENGTH = 0.15; // 15% Str buff while active
 

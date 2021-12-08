@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import PropTypes from 'prop-types';
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 declare global {
   interface Window {

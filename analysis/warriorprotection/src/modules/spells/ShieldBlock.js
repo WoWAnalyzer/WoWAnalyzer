@@ -6,7 +6,6 @@ import Events from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 const debug = false;
 

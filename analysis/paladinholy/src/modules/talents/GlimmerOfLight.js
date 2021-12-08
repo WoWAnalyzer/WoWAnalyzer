@@ -9,7 +9,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
-import React from 'react';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
 

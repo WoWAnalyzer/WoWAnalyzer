@@ -1,5 +1,4 @@
 import SpellIcon from 'interface/SpellIcon';
-import React from 'react';
 
 interface Props {
   spellId: number;

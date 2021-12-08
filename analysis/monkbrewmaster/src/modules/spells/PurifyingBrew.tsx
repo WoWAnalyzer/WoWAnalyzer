@@ -5,7 +5,13 @@ import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
-import Events, { CastEvent, EventType, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, {
+  AddStaggerEvent,
+  RemoveStaggerEvent,
+  CastEvent,
+  EventType,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -13,11 +19,9 @@ import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import BrewCDR from '../core/BrewCDR';
 import SharedBrews from '../core/SharedBrews';
-import { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
 const PURIFY_DELAY_THRESHOLD = 750; // with the removal of ISB, i'm cutting the delay threshold.
 

@@ -4,7 +4,7 @@
  */
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 interface Props {
   spellId: number;

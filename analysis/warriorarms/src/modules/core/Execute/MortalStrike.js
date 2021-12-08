@@ -7,7 +7,6 @@ import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import React from 'react';
 
 import ExecuteRange from './ExecuteRange';
 

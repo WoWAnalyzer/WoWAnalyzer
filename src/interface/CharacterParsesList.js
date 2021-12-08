@@ -7,7 +7,7 @@ import Icon from 'interface/Icon';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import SpellIcon from 'interface/SpellIcon';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-class CharacterParsesList extends React.PureComponent {
+class CharacterParsesList extends PureComponent {
   static propTypes = {
     parses: PropTypes.array.isRequired,
     class: PropTypes.string.isRequired,

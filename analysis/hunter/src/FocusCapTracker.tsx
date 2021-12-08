@@ -9,7 +9,6 @@ import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetra
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from './constants';

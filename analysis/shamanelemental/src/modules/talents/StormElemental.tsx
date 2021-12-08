@@ -8,7 +8,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 import Abilities from '../Abilities';
 

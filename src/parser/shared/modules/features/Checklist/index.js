@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import './Checklist.scss';
 

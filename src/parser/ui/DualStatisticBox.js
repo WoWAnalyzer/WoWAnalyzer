@@ -1,6 +1,5 @@
 import Statistic from 'parser/ui/Statistic';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 

@@ -1,7 +1,6 @@
 import type { Resource } from 'game/RESOURCE_TYPES';
 import { ResourceLink } from 'interface';
 import { ClassResources, EventType, CastEvent } from 'parser/core/Events';
-import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
 import { Range, formatRange } from './index';

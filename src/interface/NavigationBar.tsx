@@ -11,7 +11,7 @@ import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/ur
 import { getUser } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
 import { useWaSelector } from 'interface/utils/useWaSelector';
-import React, { HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 

@@ -9,7 +9,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const ART_OF_WAR_DURATION = 10000;
 

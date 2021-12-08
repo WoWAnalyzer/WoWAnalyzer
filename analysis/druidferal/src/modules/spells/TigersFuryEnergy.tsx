@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
 

@@ -9,7 +9,6 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) => {
   const AbilityRequirement = (props) => (

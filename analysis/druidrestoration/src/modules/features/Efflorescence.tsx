@@ -7,7 +7,6 @@ import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import UptimeStackBar from 'parser/ui/UptimeStackBar';
-import React from 'react';
 
 const DURATION_MS = 30000;
 const TICK_MS = 2000;

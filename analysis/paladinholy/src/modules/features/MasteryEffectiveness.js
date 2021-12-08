@@ -11,7 +11,6 @@ import Panel from 'parser/ui/Panel';
 import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import BeaconTargets from '../beacons/BeaconTargets';

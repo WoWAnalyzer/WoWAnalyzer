@@ -7,7 +7,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 /**
  * Removes all poison, disease, curse, magic, and bleed effects and reduces all physical damage taken by 10% for 8 sec.

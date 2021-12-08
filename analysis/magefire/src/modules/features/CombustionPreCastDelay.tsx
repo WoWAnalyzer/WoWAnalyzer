@@ -5,7 +5,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import React from 'react';
 
 const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,

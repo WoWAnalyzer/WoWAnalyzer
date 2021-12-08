@@ -1,6 +1,5 @@
 import { Zerotorescue } from 'CONTRIBUTORS';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 
 import ChecklistItem from './checklist-item.png';
 import ChecklistOverview from './checklist-overview.png';

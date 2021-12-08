@@ -5,7 +5,6 @@ import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './CharacterTab.css';

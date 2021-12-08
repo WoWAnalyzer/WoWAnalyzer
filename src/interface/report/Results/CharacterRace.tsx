@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { Race } from 'game/RACES';
-import React from 'react';
 
 const CharacterRace = ({ race }: { race: Race }) => (
   <>

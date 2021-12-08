@@ -11,7 +11,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
+import { Fragment } from 'react';
 
 const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const DotUptime = (props: DotUptimeProps) => (
@@ -37,13 +37,13 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Rule
         name="Maintain your DoTs on the boss"
         description={
-          <React.Fragment>
+          <Fragment>
             When not in <SpellLink id={SPELLS.VOIDFORM.id} />, it's important to keep your DoTs up
             on the boss. While in <SpellLink id={SPELLS.VOIDFORM.id} />, your{' '}
             <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> and{' '}
             <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> durations are extended when the target or
             a nearby target gets hit by <SpellLink id={SPELLS.VOID_BOLT.id} />.
-          </React.Fragment>
+          </Fragment>
         }
       >
         <DotUptime id={SPELLS.SHADOW_WORD_PAIN.id} thresholds={thresholds.shadowWordPain} />
@@ -53,11 +53,11 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Rule
         name="Use core spells as often as possible"
         description={
-          <React.Fragment>
+          <Fragment>
             Spells such as <SpellLink id={SPELLS.VOID_BOLT.id} /> or{' '}
             <SpellLink id={SPELLS.MIND_BLAST.id} /> are your most important spells. Try to cast them
             as much as possible.
-          </React.Fragment>
+          </Fragment>
         }
       >
         <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
@@ -76,10 +76,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Rule
         name="Use cooldowns effectively"
         description={
-          <React.Fragment>
+          <Fragment>
             Cooldowns are an important part of your rotation, you should be using them as often as
             possible.
-          </React.Fragment>
+          </Fragment>
         }
       >
         <AbilityRequirement spell={SPELLS.VOID_ERUPTION.id} />
@@ -130,14 +130,14 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Rule
         name="Minimize casting downtime"
         description={
-          <React.Fragment>
+          <Fragment>
             Try to minimize your time not casting. Use your core spells on cooldown and fillers when
             they are not available. If you know you have an upcoming position requirement,
             stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or{' '}
             <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> cast towards that location. During high
             movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
             <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} /> as a filler.
-          </React.Fragment>
+          </Fragment>
         }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtime} />

@@ -3,7 +3,6 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import RunicPowerTracker from '../runicpower/RunicPowerTracker';
 

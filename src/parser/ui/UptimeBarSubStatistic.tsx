@@ -3,7 +3,7 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { WCLFight } from 'parser/core/Fight';
 import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
-import React from 'react';
+import * as React from 'react';
 import './UptimeBarSubStatistic.scss';
 
 /** Specifies what should be rendered in the uptime bar */

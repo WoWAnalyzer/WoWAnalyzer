@@ -1,6 +1,5 @@
 import { Zeboot } from 'CONTRIBUTORS';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 
 import ExampleResults from './exampleresults.jpg';
 import FilterExample from './filter.jpg';

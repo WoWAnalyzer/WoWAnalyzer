@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {

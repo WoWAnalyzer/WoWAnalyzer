@@ -19,7 +19,8 @@ import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
-import React, { ComponentType } from 'react';
+import { ComponentType } from 'react';
+import * as React from 'react';
 
 import Config from '../Config';
 import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';
@@ -680,7 +681,7 @@ class CombatLogParser {
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }
-            this.deepDisable(module, ModuleError.RESULTS, e);
+            this.deepDisable(module, ModuleError.RESULTS, e as Error);
             //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
             return false;
           }

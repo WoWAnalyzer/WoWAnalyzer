@@ -4,7 +4,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import React from 'react';
 
 import { FIRESTARTER_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from '@wowanalyzer/mage';
 

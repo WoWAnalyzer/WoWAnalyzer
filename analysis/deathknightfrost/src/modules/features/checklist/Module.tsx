@@ -2,7 +2,6 @@ import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checkli
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
-import React from 'react';
 
 import RunicPowerDetails from '../../runicpower/RunicPowerDetails';
 import AlwaysBeCasting from '../AlwaysBeCasting';

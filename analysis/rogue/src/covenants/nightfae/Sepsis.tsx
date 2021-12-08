@@ -9,7 +9,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const COOLDOWN_REDUCTION_MS = 30_000;
 const DOT_END_BUFFER_MS = 300;

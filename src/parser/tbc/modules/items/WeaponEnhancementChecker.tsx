@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import BaseWeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
-import React from 'react';
 
 const MAX_ENHANCEMENT_IDS = [
   2678, // https://tbc.wowhead.com/spell=28017/superior-wizard-oil

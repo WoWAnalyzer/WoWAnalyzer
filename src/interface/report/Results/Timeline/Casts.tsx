@@ -14,7 +14,7 @@ import {
   EventType,
   GlobalCooldownEvent,
 } from 'parser/core/Events';
-import React, { CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import { Fragment, CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import './Casts.scss';
 
@@ -94,7 +94,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     );
 
     return (
-      <React.Fragment
+      <Fragment
         // It's possible this complains about "encountered two children with the same key". This is probably caused by fabricating a channel event at a cast time. If you can fix it by removing one of the events that would be great, otherwise you may just have to ignore this as while it's showing a warning, deduplicting the icons is correct behavior.
         key={`cast-${left}-${event.ability.guid}`}
       >
@@ -107,7 +107,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
         ) : (
           linkIcon(icon)
         )}
-      </React.Fragment>
+      </Fragment>
     );
   };
 

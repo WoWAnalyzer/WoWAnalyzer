@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';
-import React from 'react';
 
 const FELSTORM_COOLDOWN = 30;
 // when Demonic Strength is cast, then AFTER the cast, Felguard charges at the target, and after he arrives, does the Felstorm

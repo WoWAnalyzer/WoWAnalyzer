@@ -50,13 +50,13 @@ import {
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
-import React from 'react';
 // prettier-ignore
 
 // prettier-ignore
 export default [
   change(date(2021, 12, 4), 'Fixed an issue with stat tracking in Mythic+ dungeons. Mythic+ still not officially supported, but at least it shouldn\'t crash', emallson),
   change(date(2021, 11, 30), 'Fixed Spiritual Mana Potion not being tracked issue.', Jeff),
+  change(date(2021, 11, 27), 'Internal dependency updates.', emallson),
   change(date(2021, 11, 25), 'Fix compatibility issue with nodejs 16', Jeff),
   change(date(2021, 11, 25), 'Added greaterThanOrEqual & lessThanOrEqual option for checklist conditions', Trevor),
   change(date(2021, 11, 25), 'Force-update translations for Mistweaver', emallson),

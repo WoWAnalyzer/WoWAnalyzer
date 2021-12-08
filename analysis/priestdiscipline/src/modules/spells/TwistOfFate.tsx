@@ -10,7 +10,6 @@ import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Event
 import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 

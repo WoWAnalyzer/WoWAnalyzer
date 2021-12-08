@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { TooltipElement } from 'interface/Tooltip';
-import React, { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import Toggle from 'react-toggle';
 
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {

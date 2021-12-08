@@ -2,7 +2,6 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
-import React from 'react';
 
 import Efflorescence from './Efflorescence';
 import Lifebloom from './Lifebloom';

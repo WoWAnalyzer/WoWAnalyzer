@@ -8,7 +8,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';

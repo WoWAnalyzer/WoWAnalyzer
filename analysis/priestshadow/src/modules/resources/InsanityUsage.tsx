@@ -8,7 +8,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 import InsanityTracker from './InsanityTracker';
 

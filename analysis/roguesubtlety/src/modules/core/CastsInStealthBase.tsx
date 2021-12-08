@@ -4,7 +4,6 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 class CastsInStealthBase extends Analyzer {
   backstabSpell: Spell;

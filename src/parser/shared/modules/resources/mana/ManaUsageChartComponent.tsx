@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import ManaUsageGraph from './ManaUsageGraph';
 
@@ -10,7 +10,7 @@ interface Props {
   manaUpdates: any[];
 }
 
-class HealingDoneGraph extends React.PureComponent<Props> {
+class HealingDoneGraph extends PureComponent<Props> {
   groupHealingBySeconds(healingBySecond: { [second: number]: any }, interval: number): any {
     return Object.keys(healingBySecond).reduce((obj: any, second: any) => {
       const healing = healingBySecond[second];

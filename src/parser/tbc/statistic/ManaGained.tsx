@@ -6,7 +6,6 @@ import resourceGained, {
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 const ManaGained = ({ events, info }: FunctionalStatisticProps) => {
   const manaGainedBySpell = sumResourceGainedByPlayerPerSpell(

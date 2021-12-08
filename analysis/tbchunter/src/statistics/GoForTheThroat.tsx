@@ -6,7 +6,6 @@ import resourceGained, { sumResourceGainedBySpell } from 'parser/shared/metrics/
 import resourceWasted, { sumResourceWastedBySpell } from 'parser/shared/metrics/resourceWasted';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 const INVIGORATION = 34953;
 const GO_FOR_THE_THROAT = 34954;

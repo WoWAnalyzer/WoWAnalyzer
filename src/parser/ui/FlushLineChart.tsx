@@ -1,4 +1,3 @@
-import React from 'react';
 import { Config } from 'vega-lite';
 
 import FooterChart from './FooterChart';

@@ -7,7 +7,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 /**
  * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (150% of Attack power) Fire damage over 12 sec.

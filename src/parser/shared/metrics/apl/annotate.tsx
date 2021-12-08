@@ -1,5 +1,4 @@
 import { SpellLink } from 'interface';
-import React from 'react';
 
 import type { Tense, CheckResult, Rule } from './index';
 

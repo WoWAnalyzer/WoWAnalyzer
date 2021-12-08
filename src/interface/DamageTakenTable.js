@@ -3,14 +3,14 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 
 export const MITIGATED_NONE = 0;
 export const MITIGATED_MAGICAL = 1;
 export const MITIGATED_PHYSICAL = 2;
 export const MITIGATED_UNKNOWN = 99;
 
-class DamageTakenTable extends React.Component {
+class DamageTakenTable extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     spec: PropTypes.object.isRequired,

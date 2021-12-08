@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 class EssenceFontTargetsHit extends Analyzer {
   efCasts: number = 0;

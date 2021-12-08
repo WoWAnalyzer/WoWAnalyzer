@@ -1,14 +1,16 @@
 import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
+import Combatant from 'parser/core/Combatant';
+import Report from 'parser/core/Report';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 
 export function makePlainUrl(
-  reportCode = undefined,
-  fightId = undefined,
-  fightName = undefined,
-  playerId = undefined,
-  playerName = undefined,
-  tab = DEFAULT_BUILD.url,
+  reportCode?: string,
+  fightId?: string,
+  fightName?: string,
+  playerId?: string,
+  playerName?: string,
+  tab: string = DEFAULT_BUILD.url,
 ) {
   const parts = [];
   if (reportCode) {
@@ -27,10 +29,10 @@ export function makePlainUrl(
 }
 
 export default function makeReportUrl(
-  report = undefined,
-  fightId = undefined,
-  playerId = undefined,
-  tab = undefined,
+  report?: Report,
+  fightId?: number,
+  playerId?: number,
+  tab?: string,
   build = DEFAULT_BUILD.url,
 ) {
   const parts = [];
@@ -67,12 +69,12 @@ export default function makeReportUrl(
   return `/${parts.join('/')}`;
 }
 
-export function makeCharacterUrl(player) {
+export function makeCharacterUrl(player: Combatant) {
   const profile = player.characterProfile;
   return profile ? `/character/${profile.region}/${profile.realm}/${player.name}` : '#';
 }
 
-export function makeArmoryUrl(player) {
+export function makeArmoryUrl(player: Combatant) {
   const profile = player.characterProfile;
   if (!profile) {
     return '#';

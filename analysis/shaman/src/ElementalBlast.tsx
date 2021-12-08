@@ -4,7 +4,6 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ELEMENTAL_BLAST_BUFFS } from './constants';
 
