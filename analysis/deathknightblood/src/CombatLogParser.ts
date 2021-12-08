@@ -11,7 +11,7 @@ import {
 } from '@wowanalyzer/deathknight';
 
 import Abilities from './modules/Abilities';
-import Channeling from './modules/core/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import DeathsCaress from './modules/core/DeathsCaress';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import RuneForgeChecker from './modules/core/RuneForgeChecker';

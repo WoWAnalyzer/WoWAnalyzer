@@ -3,7 +3,7 @@ export { default as Barrage } from './talents/Barrage';
 export { default as BindingShot } from './talents/BindingShot';
 export { default as BornToBeWild } from './talents/BornToBeWild';
 export { default as CancelledCasts } from './CancelledCasts';
-export { default as Channeling } from './Channeling';
+export { default as Channeling } from 'parser/shared/normalizers/Channeling';
 export { default as DeathTracker } from './DeathTracker';
 export { default as FocusCapTracker } from './FocusCapTracker';
 export { default as FocusDetails } from './FocusDetails';

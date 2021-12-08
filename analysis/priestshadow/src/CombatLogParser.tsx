@@ -13,7 +13,7 @@ import {
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
-import Channeling from './modules/core/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';

@@ -5,7 +5,7 @@ import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/d
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Channeling from './modules/core/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';

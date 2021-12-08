@@ -34,37 +34,48 @@ import SPELLS from 'common/SPELLS';
  */
 
 // TODO go through everything and fill it out
-// TODO Arcane Missiles - only a cast followed be nothing - have to delineate with damage events?
-/**
- * Listing of all special case handlers for channels
- */
-const CHANNEL_SPECS: ChannelSpec[] = [
-  // General
-  // Mage
-  buffChannelSpec(SPELLS.EVOCATION.id),
-  // Warlock
-  // Priest
-  buffChannelSpec(SPELLS.VOID_TORRENT_TALENT.id),
-  buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
-  buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
-  buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
-  // Rogue
-  // Druid
-  buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
-  // Monk
-  buffChannelSpec(SPELLS.ESSENCE_FONT.id),
-  buffChannelSpec(SPELLS.SOOTHING_MIST.id),
-  // Demon Hunter
-  buffChannelSpec(SPELLS.EYE_BEAM.id), // TODO special handling because of the two buffs?
-  // Shaman
-  // Hunter
-  // Paladin
-  // Warrior
-  // Death Knight
-  buffChannelSpec(SPELLS.BLOODDRINKER_TALENT.id),
-];
 
 class Channeling extends EventsNormalizer {
+
+  /**
+   * Listing of all special case handlers for channels
+   */
+  static CHANNEL_SPECS: ChannelSpec[] = [
+    // General
+    // Mage
+    buffChannelSpec(SPELLS.EVOCATION.id),
+    // TODO Arcane Missiles - only a cast - have to delineate with damage events?
+    // Warlock
+    buffChannelSpec(SPELLS.DRAIN_SOUL_TALENT.id),
+    // Priest
+    buffChannelSpec(SPELLS.DIVINE_HYMN_CAST.id),
+    // TODO Penance - only a cast - have to delineate with damage/heal events? See existing impl
+    buffChannelSpec(SPELLS.VOID_TORRENT_TALENT.id),
+    buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
+    buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
+    // Rogue
+    // Druid
+    buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
+    // Monk
+    buffChannelSpec(SPELLS.ZEN_MEDITATION.id),
+    buffChannelSpec(SPELLS.ESSENCE_FONT.id),
+    buffChannelSpec(SPELLS.SOOTHING_MIST.id),
+    buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
+    buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
+    // Demon Hunter
+    buffChannelSpec(SPELLS.EYE_BEAM.id), // TODO special handling because of the two buffs?
+    // Shaman
+    // Hunter
+    buffChannelSpec(SPELLS.RAPID_FIRE.id),
+    // TODO Barrage - can't find a single log with someone taking the talent...
+    // Paladin
+    // Warrior
+    buffChannelSpec(SPELLS.BLADESTORM_TALENT.id),
+    buffChannelSpec(SPELLS.BLADESTORM.id),
+    // Death Knight
+    buffChannelSpec(SPELLS.BLOODDRINKER_TALENT.id),
+  ];
+
   // registered special case handlers, mapped by guid
   channelSpecMap: { [key: number]: ChannelHandler } = {};
 
@@ -73,11 +84,11 @@ class Channeling extends EventsNormalizer {
    * and then allows special case functions to be registered by spellId for channels.
    * @param channelSpecs special case functions that handle specific spells
    */
-  constructor(options: Options, channelSpecs: ChannelSpec[]) {
+  constructor(options: Options) {
     super(options);
 
     // populate the specs into a mapping for quick handling
-    channelSpecs.forEach((spec) => {
+    Channeling.CHANNEL_SPECS.forEach((spec) => {
       spec.guids.forEach((guid) => {
         if (this.channelSpecMap[guid]) {
           console.error(
@@ -146,6 +157,8 @@ class Channeling extends EventsNormalizer {
     }
   }
 }
+
+export default Channeling;
 
 /** Updates the ChannelState with a BeginChannelEvent */
 export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {

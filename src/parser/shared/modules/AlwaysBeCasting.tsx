@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
 
 import Abilities from '../../core/modules/Abilities';
-import Channeling from './Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './GlobalCooldown';
 
 class AlwaysBeCasting extends Analyzer {

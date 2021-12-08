@@ -5,7 +5,7 @@ import { FallenOrder, TouchOfDeath, FaelineStomp } from '@wowanalyzer/monk';
 // Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Channeling from './modules/core/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';

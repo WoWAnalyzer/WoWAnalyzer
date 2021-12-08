@@ -7,7 +7,7 @@ import {
   GrimoireOfSacrifice,
 } from '@wowanalyzer/warlock';
 
-import Channeling from './modules/core/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import ScouringTitheUptime from './modules/covenants/ScouringTithe';
 import Abilities from './modules/features/Abilities';

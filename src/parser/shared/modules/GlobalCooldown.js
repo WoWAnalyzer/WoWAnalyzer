@@ -6,21 +6,20 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from '../../core/modules/Abilities';
-import Channeling from './Channeling';
-
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 
 /**
  * This triggers a fabricated `globalcooldown` event when appropriate.
+ *
+ * This module depends on the beginchannel events fabricated by the ChannelingNormalizer
+ * TODO make this also a normalizer that builds off of Channeling
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
     abilities: Abilities,
     haste: Haste,
-    // For the `beginchannel` event among other things
-    channeling: Channeling,
   };
 
   constructor(options) {

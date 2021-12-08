@@ -36,7 +36,7 @@ import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
-import Channeling from '../shared/modules/Channeling';
+import Channeling from '../shared/normalizers/Channeling';
 import Combatants from '../shared/modules/Combatants';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
@@ -150,6 +150,7 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
+    channeling: Channeling,
 
     // Enhancers
     spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
@@ -165,7 +166,7 @@ class CombatLogParser {
     enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
-    channeling: Channeling,
+
     eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     haste: Haste,

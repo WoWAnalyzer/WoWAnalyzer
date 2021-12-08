@@ -1,5 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Channeling from 'parser/shared/modules/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import {

@@ -16,7 +16,7 @@ import {
 } from '@wowanalyzer/monk';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-import CoreChanneling from './modules/core/Channeling';
+import CoreChanneling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import HotTrackerMW from './modules/core/HotTrackerMW';
 import Abilities from './modules/features/Abilities';
