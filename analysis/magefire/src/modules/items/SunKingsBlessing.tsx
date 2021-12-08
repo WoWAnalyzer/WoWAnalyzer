@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import FilteredActiveTime from 'parser/shared/modules/FilteredActiveTime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
