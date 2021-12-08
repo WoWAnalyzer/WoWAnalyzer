@@ -14,7 +14,7 @@ import {
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
 import BrewCDR from './modules/core/BrewCDR';
-import Channeling from './modules/core/Channeling';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import Checklist from './modules/core/Checklist/Module';
 import DamageTaken from './modules/core/DamageTaken';
 import GlobalCooldown from './modules/core/GlobalCooldown';

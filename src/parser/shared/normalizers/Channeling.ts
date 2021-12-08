@@ -171,6 +171,7 @@ export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelSt
     timestamp: event.timestamp,
     sourceID: event.sourceID,
     isCancelled: false,
+    trigger: event,
   };
   channelState.newEvents.push(beginChannel);
   channelState.unresolvedChannel = beginChannel;
@@ -190,6 +191,7 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
     start: channelState.unresolvedChannel.timestamp,
     duration: event.timestamp - channelState.unresolvedChannel.timestamp,
     beginChannel: channelState.unresolvedChannel,
+    trigger: event,
   };
   channelState.newEvents.push(endChannel);
   channelState.unresolvedChannel = null;

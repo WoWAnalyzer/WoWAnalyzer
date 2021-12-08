@@ -285,17 +285,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
     isEnhancedCast?: boolean;
     enhancedCastReason?: React.ReactNode;
   };
-  trigger?: {
-    timestamp: number;
-    type: EventType;
-    castEvent: CastEvent;
-    meta?: {
-      isInefficientCast?: boolean;
-      inefficientCastReason?: React.ReactNode;
-      isEnhancedCast?: boolean;
-      enhancedCastReason?: React.ReactNode;
-    };
-  };
+  trigger?: AnyEvent;
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
@@ -304,9 +294,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
-  trigger?: {
-    timestamp: number;
-  };
+  trigger?: AnyEvent;
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
