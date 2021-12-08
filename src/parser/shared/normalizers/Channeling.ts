@@ -1,4 +1,5 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
+import SPELLS from 'common/SPELLS';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
   AnyEvent,
   BeginCastEvent,
@@ -8,10 +9,9 @@ import {
   EventType,
   HasAbility,
 } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { insertEvents } from 'parser/core/insertEvents';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { Options } from 'parser/core/Module';
-import SPELLS from 'common/SPELLS';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -36,7 +36,6 @@ import SPELLS from 'common/SPELLS';
 // TODO go through everything and fill it out
 
 class Channeling extends EventsNormalizer {
-
   /**
    * Listing of all special case handlers for channels
    */

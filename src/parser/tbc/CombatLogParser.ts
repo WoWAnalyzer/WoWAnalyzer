@@ -1,3 +1,4 @@
+import Channeling from 'parser/shared/normalizers/Channeling';
 import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
 import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
 import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';
@@ -10,7 +11,6 @@ import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
-import Channeling from 'parser/shared/normalizers/Channeling';
 import DeathRecapTracker from '../shared/modules/DeathRecapTracker';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';

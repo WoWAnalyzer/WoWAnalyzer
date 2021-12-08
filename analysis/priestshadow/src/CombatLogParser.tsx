@@ -1,5 +1,6 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   BoonOfTheAscended,
@@ -13,7 +14,6 @@ import {
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
-import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';

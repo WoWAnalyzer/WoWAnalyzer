@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   GrimoireOfSacrificeNormalizer,
@@ -7,7 +8,6 @@ import {
   GrimoireOfSacrifice,
 } from '@wowanalyzer/warlock';
 
-import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import ScouringTitheUptime from './modules/covenants/ScouringTithe';
 import Abilities from './modules/features/Abilities';

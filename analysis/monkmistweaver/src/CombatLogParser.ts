@@ -3,6 +3,7 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import CoreChanneling from 'parser/shared/normalizers/Channeling';
 
 import {
   FaelineStomp,
@@ -16,7 +17,6 @@ import {
 } from '@wowanalyzer/monk';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-import CoreChanneling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import HotTrackerMW from './modules/core/HotTrackerMW';
 import Abilities from './modules/features/Abilities';

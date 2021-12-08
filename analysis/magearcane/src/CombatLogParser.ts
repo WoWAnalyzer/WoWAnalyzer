@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   ArcaneIntellect,
@@ -22,7 +23,6 @@ import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import ArcanePower from './modules/features/ArcanePower';
 import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
 import Buffs from './modules/features/Buffs';
-import Channeling from 'parser/shared/normalizers/Channeling';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ArcaneBombardment from './modules/items/ArcaneBombardment';
 import ArcaneHarmony from './modules/items/ArcaneHarmony';

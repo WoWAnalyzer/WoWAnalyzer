@@ -6,8 +6,8 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import CoreChanneling from 'parser/shared/normalizers/Channeling';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import CoreChanneling from 'parser/shared/normalizers/Channeling';
 import React from 'react';
 
 class SoothingMist extends Analyzer {
