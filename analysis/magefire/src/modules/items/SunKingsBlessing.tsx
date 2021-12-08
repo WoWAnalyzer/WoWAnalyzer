@@ -1,14 +1,23 @@
+import { Trans } from '@lingui/macro';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { SpellLink } from 'interface';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import FilteredActiveTime from 'parser/shared/modules/FilteredActiveTime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER_100, MS_BUFFER_250 } from '@wowanalyzer/mage';
+import {
+  MS_BUFFER_100,
+  MS_BUFFER_250,
+  COMBUSTION_DURATION,
+  SKB_COMBUST_DURATION,
+} from '@wowanalyzer/mage';
 
 const debug = false;
 
@@ -24,6 +33,7 @@ class SunKingsBlessing extends Analyzer {
   sunKingApplied = 0;
   sunKingTotalDelay = 0;
   totalSunKingBuffs = 0;
+  combustionCastDuringCombustion = 0;
 
   constructor(options: Options) {
     super(options);
@@ -39,6 +49,10 @@ class SunKingsBlessing extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
       this.onCombustionStart,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      this.onCombustionCast,
     );
   }
 
@@ -82,8 +96,57 @@ class SunKingsBlessing extends Analyzer {
     }
   }
 
+  onCombustionCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
+      this.combustionCastDuringCombustion += 1;
+    }
+  }
+
   get averageSunKingDelaySeconds() {
     return this.sunKingTotalDelay / this.totalSunKingBuffs / 1000;
+  }
+
+  get combustionDuringCombustionThresholds() {
+    return {
+      actual: this.combustionCastDuringCombustion,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 2,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.combustionDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You used <SpellLink id={SPELLS.COMBUSTION.id} /> while{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> was already active{' '}
+          {this.combustionCastDuringCombustion} times. When using{' '}
+          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> and{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> at the same time, you want to ensure that{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> is activated first by using{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> just before your hard cast{' '}
+          <SpellLink id={SPELLS.PYROBLAST.id} /> finishes casting. This is due to an odd interaction
+          where if <SpellLink id={SPELLS.COMBUSTION.id} /> is used while{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> is already active (via{' '}
+          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />) then the time remaining on{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> will be reset to {COMBUSTION_DURATION / 1000}sec
+          instead of adding to it. But if <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> is
+          activated after <SpellLink id={SPELLS.COMBUSTION.id} /> it will add{' '}
+          {SKB_COMBUST_DURATION / 1000}sec to your <SpellLink id={SPELLS.COMBUSTION.id} />.
+        </>,
+      )
+        .icon(SPELLS.SUN_KINGS_BLESSING.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.sunKingsBlessing.combustionDuringCombustion">
+            {formatNumber(actual)} bad uses
+          </Trans>,
+        )
+        .recommended(`${formatNumber(recommended)} is recommended`),
+    );
   }
 
   statistic() {
