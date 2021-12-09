@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -103,6 +103,10 @@ class SunKingsBlessing extends Analyzer {
     return this.sunKingTotalDelay / this.totalSunKingBuffs / 1000;
   }
 
+  get percentSunKingBuffExpired() {
+    return this.expiredBuffs / this.totalSunKingBuffs;
+  }
+
   get combustionDuringCombustionThresholds() {
     return {
       actual: this.combustionCastDuringCombustion,
@@ -112,6 +116,18 @@ class SunKingsBlessing extends Analyzer {
         major: 2,
       },
       style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get sunKingExpireThresholds() {
+    return {
+      actual: this.percentSunKingBuffExpired,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.2,
+        major: 0.3,
+      },
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -143,6 +159,24 @@ class SunKingsBlessing extends Analyzer {
           </Trans>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
+    );
+    when(this.sunKingExpireThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You let <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> expire {this.expiredBuffs} times (
+          {formatPercentage(this.percentSunKingBuffExpired)}% of total{' '}
+          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> buffs). While this is sometimes
+          unavoidable, try to ensure you are using your{' '}
+          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> procs instead of letting them expire.
+        </>,
+      )
+        .icon(SPELLS.SUN_KINGS_BLESSING.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.sunKingsBlessing.expiredProcs">
+            {formatPercentage(actual)}% expired procs
+          </Trans>,
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }
 
