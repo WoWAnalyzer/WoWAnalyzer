@@ -7,7 +7,7 @@ import {
   CastEvent,
   EndChannelEvent,
   EventType,
-  HasAbility,
+  HasAbility, HasSource,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { insertEvents } from 'parser/core/insertEvents';
@@ -113,6 +113,9 @@ class Channeling extends EventsNormalizer {
     // for each event, check if there is a special case handler for that GUID -
     // if so - call the handler, if not - call the default handling
     events.forEach((event: AnyEvent, index: number) => {
+      if (!HasSource(event) || event.sourceID !== this.selectedCombatant.id) {
+        return; // only concerned with events coming from selected player
+      }
       const handler = HasAbility(event) ? this.channelSpecMap[event.ability.guid] : undefined;
       if (handler) {
         handler(event, events, index, channelState);
@@ -139,20 +142,16 @@ class Channeling extends EventsNormalizer {
       beginCurrentChannel(event, channelState);
     } else if (event.type === EventType.Cast) {
       // TODO this won't catch pre-cast channels
-      // this could be a few things: an instant cast, a hardcast finishing, or a "fake" cast
-      if (!isRealCast(event)) {
-        return;
-      } else if (!channelState.unresolvedChannel) {
-        // there's no current channel, meaning this is an instant cast
-        // TODO anything else to do here?
-      } else if (channelState.unresolvedChannel.ability.guid === event.ability.guid) {
-        // this is a hardcast finishing
+      if (isRealCast(event) && channelState.unresolvedChannel && channelState.unresolvedChannel.ability.guid === event.ability.guid) {
+        // this is the current hardcast finishing
         endCurrentChannel(event, channelState);
-      } else {
-        // this is an unresolved channel and it doesn't match this cast,
-        // meaning this is an instant cast interrupting an ongoing hardcast
-        cancelCurrentChannel(event, channelState);
       }
+      // if we had a begincast with another ID and then a cast with a different ID,
+      // *usually* that means the first cast was just cancelled, but some instants can be cast while
+      // others are casting and we don't want to spuriously mark a cancel.
+      // This is why we only mark cancels when a new spell with a cast time is started.
+      // This has the possible side effect of missing the last spell to be cancelled in an encounter,
+      // as long as all follow on spells are instants.
     }
   }
 }
@@ -165,8 +164,8 @@ export default Channeling;
  * even though they don't interact with the cast process at all. These are "fake" casts,
  * and for the purpose of channel tracking we need to ignore them.
  */
-export function isRealCast(event: CastEvent) {
-  return CASTS_THAT_ARENT_CASTS.includes(event.ability.guid);
+export function isRealCast(event: CastEvent): boolean {
+  return !CASTS_THAT_ARENT_CASTS.includes(event.ability.guid);
 }
 
 /** Updates the ChannelState with a BeginChannelEvent */
