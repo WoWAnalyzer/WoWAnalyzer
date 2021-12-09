@@ -46,12 +46,12 @@ class Channeling extends EventsNormalizer {
     // Mage
     buffChannelSpec(SPELLS.EVOCATION.id),
     buffChannelSpec(SPELLS.SHIFTING_POWER.id),
-    // TODO Arcane Missiles - only a cast - have to delineate with damage events?
+    nextCastChannelSpec(SPELLS.ARCANE_MISSILES.id),
     // Warlock
     buffChannelSpec(SPELLS.DRAIN_SOUL_TALENT.id),
     // Priest
     buffChannelSpec(SPELLS.DIVINE_HYMN_CAST.id),
-    // TODO Penance - only a cast - have to delineate with damage/heal events? See existing impl
+    nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     buffChannelSpec(SPELLS.VOID_TORRENT_TALENT.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
     buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
@@ -140,10 +140,7 @@ class Channeling extends EventsNormalizer {
     } else if (event.type === EventType.Cast) {
       // TODO this won't catch pre-cast channels
       // this could be a few things: an instant cast, a hardcast finishing, or a "fake" cast
-      if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
-        // Several things like trinket procs and boss mechanics will show up as cast events
-        // even though they don't interact with the cast process at all. These are "fake" casts,
-        // and for the purpose of channel tracking we need to ignore them.
+      if (!isRealCast(event)) {
         return;
       } else if (!channelState.unresolvedChannel) {
         // there's no current channel, meaning this is an instant cast
@@ -161,6 +158,16 @@ class Channeling extends EventsNormalizer {
 }
 
 export default Channeling;
+
+/**
+ * Returns true iff this event is a 'real cast' - meaning it's not on our list of fake casts.
+ * Several things like trinket procs and boss mechanics will show up as cast events
+ * even though they don't interact with the cast process at all. These are "fake" casts,
+ * and for the purpose of channel tracking we need to ignore them.
+ */
+export function isRealCast(event: CastEvent) {
+  return CASTS_THAT_ARENT_CASTS.includes(event.ability.guid);
+}
 
 /** Updates the ChannelState with a BeginChannelEvent */
 export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {
@@ -220,6 +227,8 @@ export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: Chann
  * events based on them. We rely on the buff to show early cancellation and won't change the cancel time
  * even if there are other spell casts in the middle, as some channels of this type actually allow
  * some instants to be used during them.
+ *
+ * @param spellId the guid for the tracked Cast and RemoveBuff/RemoveDebuff events.
  */
 export function buffChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
@@ -240,6 +249,51 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === spellId &&
           (laterEvent.type === EventType.RemoveBuff || laterEvent.type === EventType.RemoveDebuff)
+        ) {
+          endCurrentChannel(laterEvent, state);
+          break;
+        }
+      }
+    }
+  };
+  return {
+    handler,
+    guids,
+  };
+}
+
+/**
+ * Helper to create a channel spec handler for a channeled spell that has no clear delimiters in the events.
+ * These cases involve a channeled spell that produces a Cast event when it starts, but provides no
+ * indication in events when it finishes.
+ *
+ * This handler works by assuming the spell is channeled until the next cast.
+ * We handle cast events with the given guid, and then scan forward for another cast or begincast to
+ * make the endchannel.
+ *
+ * TODO this handling involves guesswork and can obviously be very wrong if the player doesn't
+ *      quickly follow the channel with another cast - should there be a max duration?
+ *
+ * @param spellId the guid for the tracked Cast events
+ */
+export function nextCastChannelSpec(spellId: number): ChannelSpec {
+  const guids = [spellId];
+  const handler: ChannelHandler = (
+    event: AnyEvent,
+    events: AnyEvent[],
+    eventIndex: number,
+    state: ChannelState,
+  ) => {
+    if (event.type === EventType.Cast) {
+      // do standard start channel stuff
+      cancelCurrentChannel(event, state);
+      beginCurrentChannel(event, state);
+      // now scan ahead for another cast or begincast and end the channel at it
+      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
+        const laterEvent = events[idx];
+        if (
+          laterEvent.type === EventType.BeginCast ||
+          (laterEvent.type === EventType.Cast && isRealCast(laterEvent))
         ) {
           endCurrentChannel(laterEvent, state);
           break;
