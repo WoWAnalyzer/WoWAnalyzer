@@ -4,6 +4,7 @@ import { Adoraci, Sharrq } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 8), <>Fixed the number rounding for one of the <SpellLink id={SPELLS.COMBUSTION.id} /> modules.</>, Sharrq),
   change(date(2021, 12, 8), <>Changed the <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> module to consider capping charges a minor issue.</>, Sharrq),
   change(date(2021, 12, 8), <>Added a check to ensure the player is not using <SpellLink id={SPELLS.COMBUSTION.id} /> while it is already active (via <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />).</>, Sharrq),
   change(date(2021, 12, 8), <>Added a check for <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> to ensure the player is not using it during <SpellLink id={SPELLS.COMBUSTION.id} /> if they are capped or about to cap on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />.</>, Sharrq),
