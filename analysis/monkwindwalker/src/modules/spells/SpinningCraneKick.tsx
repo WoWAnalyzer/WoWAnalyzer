@@ -10,8 +10,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 const MARK_OF_THE_CRANE_DURATION = 20000;
-const MOD_PER_STACK = 0.15;
-const MAX_STACKS = 6;
+const MOD_PER_STACK = 0.18;
+const MAX_STACKS = 5;
 const MARKING_SPELLS = [
   SPELLS.TIGER_PALM,
   SPELLS.BLACKOUT_KICK,
