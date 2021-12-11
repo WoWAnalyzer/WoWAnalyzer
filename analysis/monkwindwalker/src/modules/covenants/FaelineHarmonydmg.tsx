@@ -5,11 +5,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const MOD = 0.08;
+const amp_exposure = 0.08;
 
 class FaelineHarmonydmg extends Analyzer {
   static dependencies = {
@@ -36,11 +37,8 @@ class FaelineHarmonydmg extends Analyzer {
     }
     const target = this.enemies.getEntity(event);
     if (target !== null && target.hasBuff(SPELLS.FAELINE_HARMONY_DEBUFF.id, event.timestamp)) {
-      this.totalDamage += calculateEffectiveDamage(event, MOD);
+      this.totalDamage += calculateEffectiveDamage(event, amp_exposure);
     }
-  }
-  get dps() {
-    return (this.totalDamage / this.owner.fightDuration) * 1000;
   }
 
   statistic() {
@@ -51,17 +49,12 @@ class FaelineHarmonydmg extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            Total damage done by the 8% increase: {formatNumber(this.totalDamage)}
-            <br />
+            Total damage done by the {formatPercentage(MOD)}% increase from  Faeline Harmony: {formatNumber(this.totalDamage)}
           </>
         }
       >
         <BoringSpellValueText spellId={SPELLS.FAELINE_HARMONY_DEBUFF.id}>
-          <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of
-            total
-          </small>
+          <ItemDamageDone amount={this.totalDamage}/>
         </BoringSpellValueText>
       </Statistic>
     );
