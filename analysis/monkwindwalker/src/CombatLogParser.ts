@@ -7,7 +7,7 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import FaelineStompWindwalker from './modules/covenants/FaelineStomp';
+import FaelineHarmonydmg from './modules/covenants/FaelineHarmonydmg';
 import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -72,7 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fallenOrder: FallenOrder,
     weaponsOfOrder: WeaponsOfOrderWindwalker,
     faelineStomp: FaelineStomp,
-    faeexposure: FaelineStompWindwalker,
+    faelineHarmonydmg: FaelineHarmonydmg,
   };
 }
 
