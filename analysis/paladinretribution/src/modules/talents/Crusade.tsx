@@ -7,7 +7,6 @@ import Events, { CastEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import React from 'react';
 
 import { HolyPowerTracker } from '@wowanalyzer/paladin';
 

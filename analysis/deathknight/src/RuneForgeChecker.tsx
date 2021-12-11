@@ -3,7 +3,7 @@ import { Enchant } from 'common/SPELLS/Spell';
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
+import * as React from 'react';
 
 export interface RuneForgeCheckItem {
   forge: Enchant;

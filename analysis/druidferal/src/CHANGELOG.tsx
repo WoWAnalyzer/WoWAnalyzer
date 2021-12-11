@@ -2,9 +2,9 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
+  change(date(2021, 12, 3), <>Fixed a bug where <SpellLink id={SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id}/> was giving Moonkin form a cooldown.</>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 8, 4), <>Combined AoE spell statistic box and suggestions into a single unified element with visual improvements.</>, Sref),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),

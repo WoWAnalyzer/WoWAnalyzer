@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from 'react-dom';
 
 import 'interface/static/bootstrap/css/bootstrap.css';

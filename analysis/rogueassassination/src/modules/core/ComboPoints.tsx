@@ -3,7 +3,6 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
-import React from 'react';
 
 import { ComboPointTracker } from '@wowanalyzer/rogue';
 

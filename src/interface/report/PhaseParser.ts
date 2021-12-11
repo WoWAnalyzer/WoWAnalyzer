@@ -1,7 +1,7 @@
 import { findByBossId, Phase } from 'game/raids';
 import { EventType, PhaseEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
-import React, { ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
 export const SELECTION_ALL_PHASES = 'ALL';
 export const SELECTION_CUSTOM_PHASE = 'CUSTOM';
@@ -17,7 +17,7 @@ interface State {
   phases: { [key: string]: Phase } | null;
 }
 
-class PhaseParser extends React.PureComponent<Props, State> {
+class PhaseParser extends PureComponent<Props, State> {
   state: State = {
     isLoading: true,
     phases: null,

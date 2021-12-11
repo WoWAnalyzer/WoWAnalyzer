@@ -2,7 +2,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import makeContributorUrl from 'common/makeContributorUrl';
 import retryingPromise from 'common/retryingPromise';
 import Modal from 'interface/Modal';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ContributorDetails = lazyLoadComponent(() =>

@@ -4,7 +4,6 @@ import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import ComboPointTracker from './ComboPointTracker';
 

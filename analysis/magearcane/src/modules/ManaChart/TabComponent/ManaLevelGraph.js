@@ -2,9 +2,9 @@ import fetchWcl from 'common/fetchWclApi';
 import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
 import ManaStyles from 'parser/ui/ManaStyles.js';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
-class Mana extends React.PureComponent {
+class Mana extends PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
     actorId: PropTypes.number.isRequired,

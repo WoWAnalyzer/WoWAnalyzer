@@ -11,7 +11,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import Panel from 'parser/ui/Panel';
 import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';

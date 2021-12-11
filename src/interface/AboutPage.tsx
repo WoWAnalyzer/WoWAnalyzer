@@ -8,7 +8,6 @@ import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import Panel from 'interface/Panel';
 import PatreonButton from 'interface/PatreonButton';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AboutPage = () => (

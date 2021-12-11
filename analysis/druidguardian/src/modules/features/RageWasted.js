@@ -9,7 +9,6 @@ import Events from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 // NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).
 // We deal with raw rage here to prevent accuracy loss.

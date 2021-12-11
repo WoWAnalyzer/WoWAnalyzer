@@ -47,12 +47,7 @@ export const sumResourceWastedBySpell = (
   resourcesWasted: ResourcesWasted,
   resourceId: number,
   spellId: number,
-) => {
-  let sum = 0;
-  for (const targetId in resourcesWasted) {
-    const resourcesWastedBySpell = resourcesWasted[targetId][resourceId]?.[spellId] || 0;
-    sum += resourcesWastedBySpell;
-  }
-
-  return sum;
-};
+) =>
+  Object.values(resourcesWasted)
+    .map((obj) => obj[resourceId]?.[spellId] || 0)
+    .reduce((a, b) => a + b);

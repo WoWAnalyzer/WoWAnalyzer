@@ -5,10 +5,10 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 import Toggle from 'react-toggle';
 
-class BeaconHealingBreakdown extends React.Component {
+class BeaconHealingBreakdown extends Component {
   static propTypes = {
     totalHealingDone: PropTypes.instanceOf(HealingValue).isRequired,
     totalBeaconHealing: PropTypes.instanceOf(HealingValue).isRequired,

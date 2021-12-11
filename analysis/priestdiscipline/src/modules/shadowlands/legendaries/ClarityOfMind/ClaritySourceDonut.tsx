@@ -2,7 +2,6 @@ import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
-import React from 'react';
 
 interface ClaritySourceDonutProps {
   abilityMap: Map<number, Ability>;

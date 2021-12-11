@@ -3,7 +3,6 @@ import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ReportHistory = (props) => {

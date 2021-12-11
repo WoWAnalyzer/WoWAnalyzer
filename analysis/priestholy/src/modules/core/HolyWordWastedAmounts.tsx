@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 // dependencies
 import HolyWordChastise from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordChastise';

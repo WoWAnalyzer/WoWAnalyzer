@@ -1,7 +1,7 @@
 import articles from 'articles';
 import DocumentTitle from 'interface/DocumentTitle';
 import NotFound from 'interface/NotFound';
-import React from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import makeNewsUrl from './makeNewsUrl';
@@ -53,10 +53,10 @@ const Breadcrumbs = ({ title }: { title?: string }) => {
   return (
     <>
       {breadcrumbs.map((item, index) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           {item}
           {index !== breadcrumbs.length - 1 && <> &gt; </>}
-        </React.Fragment>
+        </Fragment>
       ))}
     </>
   );

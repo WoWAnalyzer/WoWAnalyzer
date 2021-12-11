@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, emallson, Hordehobbs, Zeboot, HolySchmidt } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 // prettier-ignore
 export default [

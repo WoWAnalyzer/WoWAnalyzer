@@ -9,7 +9,6 @@ import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
-import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import DamageValue from '../DamageValue';

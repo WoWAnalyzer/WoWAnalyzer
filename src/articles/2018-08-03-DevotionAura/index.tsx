@@ -3,7 +3,6 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import AlertWarning from 'interface/AlertWarning';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
 import SpellLink from 'interface/SpellLink';
-import React from 'react';
 
 import DevotionAuraPassiveDR from './DevotionAuraPassiveDR.png';
 import DevotionAuraPassiveDRTotal from './DevotionAuraPassiveDRTotal.png';

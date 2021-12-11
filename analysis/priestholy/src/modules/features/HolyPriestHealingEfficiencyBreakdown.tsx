@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
-import React from 'react';
 import Toggle from 'react-toggle';
 
 import HolyPriestHealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';

@@ -12,7 +12,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
@@ -252,32 +251,33 @@ class EchoOfLightMastery extends Analyzer {
       this.precastValues.rawHealing += tickEffectiveHealing + tickOverhealing;
       return;
     }
-    for (const spellId in this.targetMasteryPool[targetId].pendingHealingBySpell) {
-      // The percent of the pool that should be drained by this spell
-      const tickHealingBySpell =
-        this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] * poolDrainPercent;
-      const spellContributionPercent = tickHealingBySpell / poolDrainTotal;
+    Object.entries(this.targetMasteryPool[targetId].pendingHealingBySpell).forEach(
+      ([spellId, amount]) => {
+        // The percent of the pool that should be drained by this spell
+        const tickHealingBySpell = amount * poolDrainPercent;
+        const spellContributionPercent = tickHealingBySpell / poolDrainTotal;
 
-      // Make sure the values are initialized
-      if (!this.masteryHealingBySpell[spellId]) {
-        this.masteryHealingBySpell[spellId] = {
-          effectiveHealing: 0,
-          overHealing: 0,
-          rawHealing: 0,
-        };
-      }
+        // Make sure the values are initialized
+        if (!this.masteryHealingBySpell[spellId]) {
+          this.masteryHealingBySpell[spellId] = {
+            effectiveHealing: 0,
+            overHealing: 0,
+            rawHealing: 0,
+          };
+        }
 
-      const effectiveHealing = tickEffectiveHealing * spellContributionPercent;
-      const overHealing = tickOverhealing * spellContributionPercent;
+        const effectiveHealing = tickEffectiveHealing * spellContributionPercent;
+        const overHealing = tickOverhealing * spellContributionPercent;
 
-      this.masteryHealingBySpell[spellId].effectiveHealing += effectiveHealing;
-      this.masteryHealingBySpell[spellId].overHealing += overHealing;
-      this.masteryHealingBySpell[spellId].rawHealing += effectiveHealing + overHealing;
+        this.masteryHealingBySpell[spellId].effectiveHealing += effectiveHealing;
+        this.masteryHealingBySpell[spellId].overHealing += overHealing;
+        this.masteryHealingBySpell[spellId].rawHealing += effectiveHealing + overHealing;
 
-      this.testValues.effectiveHealing += effectiveHealing;
-      this.testValues.overhealing += overHealing;
-      this.testValues.rawHealing += effectiveHealing + overHealing;
-    }
+        this.testValues.effectiveHealing += effectiveHealing;
+        this.testValues.overhealing += overHealing;
+        this.testValues.rawHealing += effectiveHealing + overHealing;
+      },
+    );
 
     this.targetMasteryPool[targetId].remainingTicks -= 1;
   }

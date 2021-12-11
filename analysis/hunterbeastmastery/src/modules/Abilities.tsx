@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import React from 'react';
 
 import {
   BORN_TO_BE_WILD_CD_REDUCTION,

@@ -6,7 +6,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 class ResourceUsage extends Analyzer {
   //region IMPLEMENTME statics

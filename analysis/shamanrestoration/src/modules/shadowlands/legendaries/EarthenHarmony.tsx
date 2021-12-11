@@ -6,7 +6,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const HEAL_INCREASE = 1.5;
 const TRIGGER_HEALTH_PERCENTAGE = 0.75;

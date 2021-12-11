@@ -5,7 +5,6 @@ import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 import lowRankSpells from './lowRankSpells';
@@ -37,7 +36,8 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '20/41/0',
+      name: '0/0/61',
+      talents: [0, 0, 61],
       icon: <Icon icon="spell_nature_healingtouch" />,
       visible: true,
     },

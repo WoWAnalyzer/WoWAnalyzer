@@ -15,7 +15,6 @@ import Events, {
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 import { CHAIN_HEAL_COEFFICIENT, HIGH_TIDE_COEFFICIENT } from '../../constants';
 

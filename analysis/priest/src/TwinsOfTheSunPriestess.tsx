@@ -9,7 +9,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 class TwinsOfTheSunPriestess extends Analyzer {
   // More could probably be done with this to analyze what the person you used it on did.

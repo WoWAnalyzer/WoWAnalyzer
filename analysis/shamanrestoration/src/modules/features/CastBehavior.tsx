@@ -6,7 +6,6 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticGroup from 'parser/ui/StatisticGroup';
-import React from 'react';
 
 import { RESTORATION_COLORS } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';

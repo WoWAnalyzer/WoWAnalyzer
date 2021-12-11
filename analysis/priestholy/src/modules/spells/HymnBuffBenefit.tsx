@@ -6,7 +6,6 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-import React from 'react';
 
 const DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
 

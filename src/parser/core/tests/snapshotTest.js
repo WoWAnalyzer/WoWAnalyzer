@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent, cloneElement } from 'react';
 import renderer from 'react-test-renderer';
 
 import { loadLog, parseLog } from './log-tools';
 
-class ParserContextProvider extends React.PureComponent {
+class ParserContextProvider extends PureComponent {
   static propTypes = {
     parser: PropTypes.object,
     children: PropTypes.node,
@@ -29,7 +29,7 @@ function renderWithParser(output, parser) {
   let sanitizedOutput = output;
   if (Array.isArray(output)) {
     sanitizedOutput = output.map((item, index) =>
-      React.cloneElement(item, {
+      cloneElement(item, {
         key: `statistic-output-${index}`,
       }),
     );

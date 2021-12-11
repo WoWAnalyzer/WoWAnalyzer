@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { Condition } from '../index';
 
 type ConditionMap = { [k: string]: Condition<any> };

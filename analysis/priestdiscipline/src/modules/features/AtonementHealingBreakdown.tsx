@@ -4,7 +4,7 @@ import { Icon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
 
 import AtonementHealingDone from '@wowanalyzer/priest-discipline/src/modules/features/AtonementHealingDone';

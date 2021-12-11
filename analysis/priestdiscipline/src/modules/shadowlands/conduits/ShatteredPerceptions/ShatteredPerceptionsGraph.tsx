@@ -2,7 +2,7 @@ import './style.scss';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import DonutChart from 'parser/ui/DonutChart';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
 
 interface ShatteredPerceptionsGraphProps {

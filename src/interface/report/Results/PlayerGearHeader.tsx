@@ -1,7 +1,6 @@
 import { RETAIL_EXPANSION } from 'game/Expansion';
 import { makeCharacterUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {

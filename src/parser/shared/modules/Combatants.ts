@@ -39,7 +39,9 @@ class Combatants extends Entities<Combatant> {
         return;
       }
 
-      this.players[combatantInfo.sourceID] = new Combatant(this.owner, combatantInfo);
+      if (!this.players[combatantInfo.sourceID]) {
+        this.players[combatantInfo.sourceID] = new Combatant(this.owner, combatantInfo);
+      }
     });
     this._selected = this.players[this.owner.playerId];
   }

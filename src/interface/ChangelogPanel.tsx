@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import Changelog from './Changelog';
 

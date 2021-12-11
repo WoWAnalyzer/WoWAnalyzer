@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 import { EventType, MappedEvent } from './Events';

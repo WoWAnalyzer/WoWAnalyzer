@@ -4,7 +4,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import React from 'react';
 
 import { SpiritWolf, StaticCharge, AstralShift } from '@wowanalyzer/shaman';
 

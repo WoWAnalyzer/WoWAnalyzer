@@ -1779,3 +1779,42 @@ export const Arbixal: Contributor = {
   about: 'TBC healer theorycrafter, but mostly resto shaman.',
   avatar: avatar('arbixal-avatar.png'),
 };
+
+export const Trevor: Contributor = {
+  nickname: 'Trevor',
+  discord: 'Trevor#9816',
+  github: 'trevorm4',
+  mains: [
+    {
+      name: 'Sardent',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/Sardent',
+    },
+  ],
+};
+
+export const Jeff: Contributor = {
+  nickname: 'Jeff',
+  discord: 'muhnameizjeff#8143',
+  github: 'jander99',
+  about: 'Software Engineer and WoW player. Recovering EverCrack addict.',
+  mains: [
+    {
+      name: 'Theragrin',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/Theragrin',
+    },
+  ],
+  alts: [
+    {
+      name: 'Wörgrin',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/W%C3%B6rgrin',
+    },
+    {
+      name: 'Jeffortless',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/Jeffortless',
+    },
+  ],
+};

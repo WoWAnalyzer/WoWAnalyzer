@@ -13,7 +13,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
 
 const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -170,8 +169,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Pick the right tools for the fight"
         description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
       >
-        <Requirement name={<>Correct Tier 30 Talent </>} thresholds={thresholds.tier30Comparison} />
-
         {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) && (
           <Requirement
             name={
@@ -237,14 +234,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             </>
           }
           thresholds={thresholds.thunderFocusTea}
-        />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used per Cast
-            </>
-          }
-          thresholds={thresholds.essenceFontMastery}
         />
       </Rule>
 

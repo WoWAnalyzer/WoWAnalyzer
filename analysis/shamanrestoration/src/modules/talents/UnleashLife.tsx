@@ -10,7 +10,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import React from 'react';
 
 import { RESTORATION_COLORS } from '../../constants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

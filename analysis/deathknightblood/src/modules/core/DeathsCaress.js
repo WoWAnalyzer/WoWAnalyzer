@@ -6,7 +6,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 const RANGE_WHERE_YOU_SHOULDNT_DC = 12; // yrd
 

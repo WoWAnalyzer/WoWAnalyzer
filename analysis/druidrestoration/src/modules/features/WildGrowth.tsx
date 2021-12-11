@@ -11,7 +11,6 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;

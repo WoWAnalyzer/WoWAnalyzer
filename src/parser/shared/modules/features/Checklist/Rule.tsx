@@ -2,7 +2,8 @@ import colorForPerformance from 'common/colorForPerformance';
 import { ControlledExpandable } from 'interface';
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import * as React from 'react';
 
 import average from './helpers/average';
 import calculateMedian from './helpers/calculateMedian';

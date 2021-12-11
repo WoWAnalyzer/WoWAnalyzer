@@ -11,7 +11,7 @@ import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import NavigationBar from 'interface/NavigationBar';
 import { hasPremium } from 'interface/selectors/user';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
 
@@ -71,7 +71,7 @@ const Search = lazyLoadComponent(() =>
   ),
 );
 
-class Home extends React.PureComponent {
+class Home extends PureComponent {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,

@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, memo } from 'react';
+import { useRef, useEffect, memo } from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import { newElement, removeElement } from './PortalTarget';

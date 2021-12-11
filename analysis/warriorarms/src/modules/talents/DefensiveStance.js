@@ -7,7 +7,6 @@ import { Tooltip } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,

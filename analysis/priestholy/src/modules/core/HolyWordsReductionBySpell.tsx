@@ -5,7 +5,6 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import HolyWordChastise from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordChastise';
 import HolyWordSalvation from '@wowanalyzer/priest-holy/src/modules/spells/holyword/HolyWordSalvation';
@@ -66,11 +65,11 @@ class HolyWordsReductionBySpell extends Analyzer {
   }
 
   sumCooldown(currentList: any, newList: any) {
-    for (const spellId in newList) {
+    for (const spellId of newList) {
       if (currentList[spellId] == null) {
         currentList[spellId] = newList[spellId];
       } else {
-        for (const cooldownType in newList[spellId]) {
+        for (const cooldownType of newList[spellId]) {
           currentList[spellId][cooldownType] = currentList[spellId][cooldownType] || 0;
           currentList[spellId][cooldownType] += newList[spellId][cooldownType];
         }

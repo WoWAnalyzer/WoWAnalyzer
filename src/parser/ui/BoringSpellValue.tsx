@@ -1,5 +1,5 @@
 import { SpellIcon } from 'interface';
-import React from 'react';
+import * as React from 'react';
 
 import './BoringValue.scss';
 

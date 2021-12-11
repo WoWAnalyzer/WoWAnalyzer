@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React, { ReactElement } from 'react';
+import { Fragment, ReactElement } from 'react';
 import Masonry from 'react-masonry-component';
 
 import FightDowntimeToggle from './FightDowntimeToggle';
@@ -97,7 +97,7 @@ const ReportStatistics = ({
         .map((name) => {
           const statistics = groups[name];
           return (
-            <React.Fragment key={name}>
+            <Fragment key={name}>
               <StatisticsSectionTitle
                 rightAddon={
                   name === STATISTIC_CATEGORY.GENERAL &&
@@ -120,7 +120,7 @@ const ReportStatistics = ({
                 <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
                 {statistics.sort(sortByPosition)}
               </Masonry>
-            </React.Fragment>
+            </Fragment>
           );
         })}
 

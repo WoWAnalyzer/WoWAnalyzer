@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import GuardianOfElune from './GuardianOfElune';
 

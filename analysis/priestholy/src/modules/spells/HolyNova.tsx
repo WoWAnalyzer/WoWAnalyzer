@@ -8,7 +8,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 class HolyNova extends Analyzer {
   static dependencies = {

@@ -5,7 +5,6 @@ import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-import React from 'react';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.25;
 

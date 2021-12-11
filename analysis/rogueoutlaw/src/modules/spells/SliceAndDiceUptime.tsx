@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 class SliceAndDiceUptime extends Analyzer {
   get percentUptime(): number {

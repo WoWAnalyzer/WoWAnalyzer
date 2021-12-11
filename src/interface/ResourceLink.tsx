@@ -1,6 +1,7 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import TooltipProvider from 'interface/TooltipProvider';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import * as React from 'react';
 
 import ResourceIcon from './ResourceIcon';
 

@@ -1,7 +1,6 @@
 import { WCLGuildReport } from 'common/WCL_TYPES';
 import ZONES from 'game/ZONES';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {

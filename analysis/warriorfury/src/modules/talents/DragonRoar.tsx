@@ -8,7 +8,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 // Example log: /reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done&source=19
 class DragonRoar extends Analyzer {

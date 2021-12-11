@@ -10,7 +10,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 const RECOMMENDED_EFFICIENCY = 0.8;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;

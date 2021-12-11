@@ -5,7 +5,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import * as SPELLS from '../../SPELLS';
 

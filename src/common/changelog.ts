@@ -1,5 +1,5 @@
 import { Contributor } from 'common/contributor';
-import React from 'react';
+import * as React from 'react';
 
 export type ChangelogEntry = {
   date: Date;

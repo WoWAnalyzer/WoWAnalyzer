@@ -8,7 +8,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 class ManaValues extends Analyzer {
   static propTypes = {

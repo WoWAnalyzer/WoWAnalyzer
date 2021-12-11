@@ -82,7 +82,7 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.overhealingDone = ability.healingOverheal || 0;
 
     if (healingSpellIds) {
-      for (const healingSpellId in healingSpellIds) {
+      for (const healingSpellId of healingSpellIds) {
         const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
 
         spellInfo.healingHits += healingAbility.healingHits || 0;
@@ -145,8 +145,8 @@ class HealingEfficiencyTracker extends Analyzer {
     let topHpet = 0;
     let topDpet = 0;
 
-    for (const index in this.abilities.abilities) {
-      const ability = (this.abilities.abilities[index] as unknown) as SpellbookAbility;
+    for (const rawAbility of this.abilities.abilities) {
+      const ability = (rawAbility as unknown) as SpellbookAbility;
 
       if (ability.category === 'Cooldown' && !includeCooldowns) {
         continue;

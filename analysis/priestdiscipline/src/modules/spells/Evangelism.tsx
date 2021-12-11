@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';

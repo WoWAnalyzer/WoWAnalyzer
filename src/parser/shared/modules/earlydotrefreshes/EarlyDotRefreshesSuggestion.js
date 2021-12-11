@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 function suggest(when, suggestion) {
   when(suggestion).addSuggestion((suggest, actual, recommended) =>

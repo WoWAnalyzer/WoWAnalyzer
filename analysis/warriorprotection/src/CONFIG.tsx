@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { AlertWarning } from 'interface';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

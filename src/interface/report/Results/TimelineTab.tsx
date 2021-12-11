@@ -3,7 +3,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { useConfig } from '../ConfigContext';
 import Component from './Timeline/Component';

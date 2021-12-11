@@ -1,7 +1,8 @@
 import { openModal, closeModal } from 'interface/actions/modals';
 import CloseIcon from 'interface/icons/Cross';
 import Portal from 'interface/Portal';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import './Modal.scss';

@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/analysis/*/node_modules
 
 # production
 /build

@@ -11,7 +11,6 @@ import Events, {
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 const MS_BUFFER = 100;
 

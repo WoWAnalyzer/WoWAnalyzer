@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 // https://stormearthandlava.com/guide/general/priority_list.html
 const TARGETS_FOR_GOOD_CAST = 3;

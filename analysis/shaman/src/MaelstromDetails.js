@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import MaelstromTracker from './MaelstromTracker.js';
 

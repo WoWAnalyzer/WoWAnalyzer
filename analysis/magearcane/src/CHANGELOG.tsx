@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Putro, Sharrq, Soulhealer95 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Arcane Mage. Spec updates for Arcane will be coming soon', Sharrq),

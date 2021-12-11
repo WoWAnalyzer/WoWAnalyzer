@@ -4,7 +4,7 @@ import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/EventParser';
 import PropTypes from 'prop-types';
-import React, { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 
 interface HandledError {
   message: string;

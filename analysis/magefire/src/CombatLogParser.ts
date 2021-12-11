@@ -31,15 +31,15 @@ import HeatingUp from './modules/features/HeatingUp';
 import HotStreak from './modules/features/HotStreak';
 import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
 import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
+import MirrorsOfTormentUsage from './modules/features/MirrorsOfTormentUsage';
 import PhoenixFlames from './modules/features/PhoenixFlames';
 import Pyroclasm from './modules/features/Pyroclasm';
 import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
-import ControlledDestruction from './modules/items/ControlledDestruction';
 import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
 import FeveredIncantation from './modules/items/FeveredIncantation';
 import Firestorm from './modules/items/Firestorm';
 import InfernalCascade from './modules/items/InfernalCascade';
-import MasterFlame from './modules/items/MasterFlame';
+import SunKingsBlessing from './modules/items/SunKingsBlessing';
 import FromTheAshes from './modules/talents/FromTheAshes';
 import Kindling from './modules/talents/Kindling';
 import Meteor from './modules/talents/Meteor';
@@ -50,6 +50,7 @@ import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
 import ScorchNormalizer from './normalizers/Scorch';
+import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
     runeOfPowerNormalizer: RuneOfPowerNormalizer,
+    sunKingsBlessingNormalizer: SunKingsBlessingNormalizer,
 
     //Checklist
     checklist: Checklist,
@@ -97,15 +99,15 @@ class CombatLogParser extends CoreCombatLogParser {
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
     disciplinaryCommand: DisciplinaryCommand,
+    sunKingsBlessing: SunKingsBlessing,
 
     //Covenants
     shiftingPower: ShiftingPower,
     shiftingPowerUsage: ShiftingPowerUsage,
     mirrorsOfTorment: MirrorsOfTorment,
+    mirrorsOfTormentUsage: MirrorsOfTormentUsage,
 
     //Conduits
-    masterFlame: MasterFlame,
-    controlledDestruction: ControlledDestruction,
     infernalCascade: InfernalCascade,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,

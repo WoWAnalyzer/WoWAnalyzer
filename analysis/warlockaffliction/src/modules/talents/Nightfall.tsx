@@ -4,7 +4,6 @@ import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parse
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const BUFF_DURATION = 12000;
 const BUFFER = 100;

@@ -2,7 +2,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
-import React from 'react';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import CurseOfAgony from '../spells/CurseOfAgony';

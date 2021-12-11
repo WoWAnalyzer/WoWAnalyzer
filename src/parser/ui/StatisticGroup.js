@@ -1,6 +1,5 @@
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const StatisticGroup = ({ children, large, wide, style, ...others }) => (
   <div

@@ -1,6 +1,5 @@
 import { ItemIcon } from 'interface';
 import { Item } from 'parser/core/Events';
-import React from 'react';
 
 interface Props {
   gear: Item[];

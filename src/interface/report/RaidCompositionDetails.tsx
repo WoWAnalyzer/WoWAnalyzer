@@ -1,5 +1,4 @@
 import Icon from 'interface/Icon';
-import React from 'react';
 
 interface Props {
   tanks: number;

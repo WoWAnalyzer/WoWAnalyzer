@@ -16,7 +16,6 @@ import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
 import RefreshingJadeWind from '../talents/RefreshingJadeWind';
-import EssenceFontMastery from './EssenceFontMastery';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -29,7 +28,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // Custom dependencies
     abilities: Abilities,
     essenceFont: EssenceFont,
-    essenceFontMastery: EssenceFontMastery,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
@@ -45,7 +43,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected castEfficiency!: CastEfficiency;
   protected abilities!: Abilities;
   protected essenceFont!: EssenceFont;
-  protected essenceFontMastery!: EssenceFontMastery;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
@@ -99,12 +96,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone =
-      this.essenceFont.totalHealing +
-      this.essenceFontMastery.healing +
-      this.essenceFont.totalAbsorbs;
+    spellInfo.healingDone = this.essenceFont.totalHealing;
     spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
-    spellInfo.healingHits = this.essenceFont.targetsEF;
     return spellInfo;
   }
 
@@ -112,7 +105,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // Vivify splashes due to ReM should be attributed to ReM's value, because without casting ReM, you wouldn't get the splash.
     spellInfo.healingDone =
       this.renewingMist.totalHealing +
-      this.vivify.remVivifyHealing +
+      this.vivify.cleaveHealing +
       this.renewingMist.gustsHealing +
       this.renewingMist.totalAbsorbs;
     spellInfo.overhealingDone = this.renewingMist.totalOverhealing;
@@ -122,8 +115,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getVivifyDetails(spellInfo: SpellInfoDetails) {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
-    spellInfo.healingDone =
-      spellInfo.healingDone + this.vivify.gustsHealing - this.vivify.remVivifyHealing;
+    spellInfo.healingDone = this.vivify.mainTargetHealing + this.vivify.gomHealing;
     return spellInfo;
   }
 

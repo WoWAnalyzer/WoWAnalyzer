@@ -9,7 +9,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 

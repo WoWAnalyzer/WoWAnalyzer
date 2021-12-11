@@ -5,7 +5,6 @@ import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon, SpellLink } from 'interface';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 import * as SPELLS from './SPELLS';
@@ -61,6 +60,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '41/20/0',
+      talents: [41, 20, 0],
       icon: <Icon icon="ability_hunter_mendpet" />,
       visible: true,
     },

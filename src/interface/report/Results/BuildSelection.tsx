@@ -1,7 +1,7 @@
 import { TooltipElement } from 'interface';
 import { Builds } from 'parser/Config';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
-import React, { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

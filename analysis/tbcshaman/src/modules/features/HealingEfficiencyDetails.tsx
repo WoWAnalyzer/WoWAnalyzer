@@ -1,6 +1,5 @@
 import { Panel } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import React from 'react';
 
 import { Build } from '../../CONFIG';
 import HealingEfficiencyBreakdown from './HealingEfficiencyBreakdown';

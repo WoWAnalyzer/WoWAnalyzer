@@ -358,8 +358,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MOONKIN_FORM_AFFINITY.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        // only has a cooldown for feral spec
-        cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
           base: 1500,

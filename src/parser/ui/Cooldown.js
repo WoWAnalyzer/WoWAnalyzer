@@ -7,11 +7,11 @@ import { TooltipElement } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 
 import './Cooldown.css';
 
-class Cooldown extends React.Component {
+class Cooldown extends Component {
   static propTypes = {
     fightStart: PropTypes.number.isRequired,
     fightEnd: PropTypes.number.isRequired,

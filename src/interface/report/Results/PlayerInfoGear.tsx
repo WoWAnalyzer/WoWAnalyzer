@@ -2,7 +2,6 @@ import { ITEM_QUALITIES } from 'game/ITEM_QUALITIES';
 import Icon from 'interface/Icon';
 import ItemLink, { EPIC_ITEMS_ILVL } from 'interface/ItemLink';
 import { Item } from 'parser/core/Events';
-import React from 'react';
 
 interface Props {
   gear: Item[];
