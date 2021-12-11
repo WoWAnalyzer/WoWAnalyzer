@@ -49,7 +49,7 @@ class FaelineHarmonydmg extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            Total damage done by the {formatPercentage(MOD)}% increase from  Faeline Harmony: {formatNumber(this.totalDamage)}
+            Total damage done by the {formatPercentage(amp_exposure)}% increase from  Faeline Harmony: {formatNumber(this.totalDamage)}
           </>
         }
       >
