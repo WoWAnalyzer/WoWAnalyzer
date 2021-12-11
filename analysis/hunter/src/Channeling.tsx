@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
+  BeginChannelEvent,
   CastEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
@@ -38,11 +39,16 @@ class Channeling extends CoreChanneling {
       this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id) ||
       this.isChannelingSpell(SPELLS.RAPID_FIRE.id)
     ) {
+      // this works around the underlying Channeling class being js. I expect the
+      // base class to be removed in the relatively near future so rather than
+      // migrate it we're going to use this hack. - emallson
+      const channel = (this._currentChannel as unknown) as BeginChannelEvent | null;
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       debug &&
+        channel &&
         this.log(
           'Marking',
-          this._currentChannel.ability.name,
+          channel.ability.name,
           'as ended since we started casting something else',
         );
       this.endChannel(event);

@@ -50,6 +50,10 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.SUN_KINGS_BLESSING_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.MIRROR_IMAGE.id,
         triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
         timelineHighlight: true,

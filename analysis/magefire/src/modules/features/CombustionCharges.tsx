@@ -7,7 +7,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 import { PHOENIX_FLAMES_MAX_CHARGES } from '@wowanalyzer/mage';
 

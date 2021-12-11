@@ -25,7 +25,6 @@ import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
-import EssenceFontMastery from './modules/features/EssenceFontMastery';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
@@ -38,10 +37,11 @@ import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderC
 import FallenOrderMistWrap from './modules/shadowlands/covenant/FallenOrderMistWrap';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
-import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
+import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
+import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import LifeCocoon from './modules/spells/LifeCocoon';
@@ -90,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
@@ -113,6 +112,9 @@ class CombatLogParser extends CoreCombatLogParser {
     envelopingBreath: EnvelopingBreath,
     revival: Revival,
     risingSunKick: RisingSunKick,
+
+    essenceFontUniqueTargets: EssenceFontUniqueTargets,
+    essenceFontTargetsHit: EssenceFontTargetsHit,
 
     // Talents
     chiBurst: ChiBurst,
@@ -151,7 +153,6 @@ class CombatLogParser extends CoreCombatLogParser {
     imbuedReflections: ImbuedReflections,
 
     // Legendaries
-    tearofMorning: TearofMorning,
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
     sinisterTeachings: SinisterTeachings,

@@ -8,7 +8,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { FINISHERS, MAX_CPS } from '../../constants';
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';

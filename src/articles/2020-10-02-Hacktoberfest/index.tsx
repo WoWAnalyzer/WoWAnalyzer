@@ -1,6 +1,5 @@
 import { Zerotorescue } from 'CONTRIBUTORS';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 
 import Hacktoberfest from './hacktoberfest.png';
 

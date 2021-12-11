@@ -2,7 +2,7 @@ import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 
 const CHINESE_REGION = 'cn';
 

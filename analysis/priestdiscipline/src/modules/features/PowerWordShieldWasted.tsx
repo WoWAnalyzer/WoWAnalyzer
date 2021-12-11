@@ -5,7 +5,6 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent } from 'parser/core/Events';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 class PowerWordShieldWasted extends Analyzer {
   wasted = 0;

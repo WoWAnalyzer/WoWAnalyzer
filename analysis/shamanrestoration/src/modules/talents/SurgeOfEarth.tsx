@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

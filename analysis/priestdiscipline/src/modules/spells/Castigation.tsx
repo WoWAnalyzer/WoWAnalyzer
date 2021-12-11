@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import {
   IsPenanceDamageEvent,

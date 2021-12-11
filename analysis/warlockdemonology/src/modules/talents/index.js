@@ -1,6 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import React from 'react';
 
 import BilescourgeBombers from './BilescourgeBombers';
 import DemonicCalling from './DemonicCalling';

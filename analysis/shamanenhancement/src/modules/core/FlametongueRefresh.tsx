@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 // Don't refresh with more than 4.5 seconds left on Flametongue buff
 const PANDEMIC_THRESHOLD = 11500;

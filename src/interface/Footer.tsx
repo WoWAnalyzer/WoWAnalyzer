@@ -3,7 +3,6 @@ import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import Logo from 'interface/images/logo.svg';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
-import React from 'react';
 
 import './Footer.scss';
 

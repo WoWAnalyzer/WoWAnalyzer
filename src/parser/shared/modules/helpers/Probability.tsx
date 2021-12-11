@@ -1,5 +1,4 @@
 import OneVariableBinomialChart from 'parser/ui/OneVariableBinomialChart';
-import React from 'react';
 
 /**
  * pn is the mean value of procs

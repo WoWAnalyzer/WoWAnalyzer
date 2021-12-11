@@ -4,7 +4,7 @@ import ReadableListing from 'interface/ReadableListing';
 import { getLanguage } from 'interface/selectors/language';
 import { TooltipElement } from 'interface/Tooltip';
 import { useWaSelector } from 'interface/utils/useWaSelector';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import languages from './languages';

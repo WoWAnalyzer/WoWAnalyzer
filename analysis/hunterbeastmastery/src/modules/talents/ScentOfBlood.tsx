@@ -5,7 +5,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE } from '@wowanalyzer/hunter-beastmastery/src/constants';
 

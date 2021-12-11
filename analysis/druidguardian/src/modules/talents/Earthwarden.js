@@ -11,7 +11,6 @@ import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const EARTHWARDEN_REDUCTION_MODIFIER = 0.3;
 

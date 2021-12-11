@@ -1,7 +1,6 @@
 import { formatPercentage, formatNumber } from 'common/format';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 interface Props {
   amount: number;

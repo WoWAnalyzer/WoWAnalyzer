@@ -6,7 +6,6 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent, BeginCastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 import HealingRainLocation from '../core/HealingRainLocation';
 

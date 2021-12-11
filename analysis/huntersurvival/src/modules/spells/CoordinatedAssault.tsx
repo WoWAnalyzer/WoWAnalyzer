@@ -9,7 +9,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { COORDINATED_ASSAULT_DMG_MOD } from '@wowanalyzer/hunter-survival/src/constants';
 

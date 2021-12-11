@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { HawkCorrigan, Mae, MusicMeister, Vonn } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 
 export default [

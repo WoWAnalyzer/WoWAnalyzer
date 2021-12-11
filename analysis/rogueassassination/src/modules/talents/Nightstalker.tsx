@@ -10,7 +10,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES, NIGHTSTALKER_BLACKLIST } from '../../constants';
 import GarroteSnapshot from '../features/GarroteSnapshot';

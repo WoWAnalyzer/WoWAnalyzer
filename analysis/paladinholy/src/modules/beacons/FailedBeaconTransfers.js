@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import BeaconHealSource from './BeaconHealSource';
 import BeaconTransferFactor from './BeaconTransferFactor';

@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
 
 const BETTER_SPELLS = [SPELLS.JUDGMENT_CAST_PROTECTION.id, SPELLS.AVENGERS_SHIELD.id];
 

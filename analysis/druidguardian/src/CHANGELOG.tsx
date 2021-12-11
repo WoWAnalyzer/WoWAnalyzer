@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Kettlepaw, Zeboot, g3neral, Tiboonn, Buudha, Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),

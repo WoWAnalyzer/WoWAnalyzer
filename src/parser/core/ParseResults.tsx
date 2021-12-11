@@ -1,7 +1,7 @@
 import { captureException } from 'common/errorLogger';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
-import React from 'react';
+import * as React from 'react';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 

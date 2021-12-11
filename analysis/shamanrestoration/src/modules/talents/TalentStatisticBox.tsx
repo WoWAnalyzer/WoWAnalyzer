@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import React from 'react';
 
 import Ascendance from './Ascendance';
 import CloudburstTotem from './CloudburstTotem';

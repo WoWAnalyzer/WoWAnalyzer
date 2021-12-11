@@ -6,7 +6,7 @@ import EventsIcon from 'interface/icons/Events';
 import OtherIcon from 'interface/icons/More';
 import StatisticsIcon from 'interface/icons/Statistics';
 import TimelineIcon from 'interface/icons/Timeline';
-import React, { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {

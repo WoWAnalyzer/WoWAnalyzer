@@ -16,7 +16,6 @@ import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 

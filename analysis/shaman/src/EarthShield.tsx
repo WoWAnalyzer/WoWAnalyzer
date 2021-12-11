@@ -12,7 +12,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { EMBRACE_OF_EARTH_RANKS } from '@wowanalyzer/shaman-restoration/src/constants';
 

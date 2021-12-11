@@ -2,9 +2,9 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Juko8, Abelito75, Talby } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
+  change(date(2021, 12, 9), <>Updated constants for <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> and marked as 9.1.5 compatible</>, Juko8),
   change(date(2021, 8, 18), 'Marked as 9.1 compatible', Juko8),
   change(date(2021, 6, 17), <>Fixed <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> not counting marks applied/refreshed by <SpellLink id={SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id} />.</>, Juko8),
   change(date(2021, 5, 17), <>Added <SpellLink id={SPELLS.XUENS_BATTLEGEAR.id} /> module.</>, Juko8),

@@ -3,7 +3,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Abelito75, carglass, Carrottopp, Otthopsy, bandit } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 11, 8), <>Fixed SpellLink issue for Signet Of Tormented Kings.</>, Abelito75),

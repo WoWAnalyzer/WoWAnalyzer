@@ -3,7 +3,6 @@
 
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 const COLORS = {

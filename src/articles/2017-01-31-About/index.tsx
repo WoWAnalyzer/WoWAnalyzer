@@ -1,7 +1,6 @@
 import { Zerotorescue } from 'CONTRIBUTORS';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 
 export const title = 'About WoWAnalyzer the World of Warcraft analyzer';
 

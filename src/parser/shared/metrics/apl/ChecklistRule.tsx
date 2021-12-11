@@ -7,7 +7,7 @@ import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
+import * as React from 'react';
 
 import { ConditionDescription } from './annotate';
 import { Rule as AplRule, Apl, CheckResult, spell, Tense, Violation } from './index';

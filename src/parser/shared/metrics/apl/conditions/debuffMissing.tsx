@@ -2,7 +2,6 @@ import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import React from 'react';
 
 import { Condition, tenseAlt } from '../index';
 import { buffDuration, DurationData, PandemicData } from './util';

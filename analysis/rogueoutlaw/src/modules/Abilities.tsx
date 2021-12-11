@@ -5,7 +5,6 @@ import Combatant from 'parser/core/Combatant';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import React from 'react';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {

@@ -17,7 +17,7 @@ class SpellInfo extends Analyzer {
       this.addSpellInfo(event.ability);
     }
     if ('extraAbility' in event) {
-      this.addSpellInfo(event.extraAbility);
+      this.addSpellInfo(event.extraAbility!);
     }
   }
 

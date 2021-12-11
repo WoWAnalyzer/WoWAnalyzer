@@ -7,7 +7,6 @@ import UpArrowIcon from 'interface/icons/UpArrow';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';

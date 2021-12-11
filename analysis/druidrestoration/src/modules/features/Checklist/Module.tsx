@@ -3,7 +3,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import React from 'react';
 
 import Cultivation from '../../talents/Cultivation';
 import SpringBlossoms from '../../talents/SpringBlossoms';

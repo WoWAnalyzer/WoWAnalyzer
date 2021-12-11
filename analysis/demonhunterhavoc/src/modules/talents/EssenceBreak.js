@@ -6,7 +6,6 @@ import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 /*
   example report: https://www.warcraftlogs.com/reports/LvmF6W4C3TgcZxj8/#fight=last

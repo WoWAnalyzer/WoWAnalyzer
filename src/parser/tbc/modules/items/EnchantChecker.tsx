@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
-import React from 'react';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14

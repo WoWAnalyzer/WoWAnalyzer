@@ -8,7 +8,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 //Worms last 15 sec. But sometimes lag and such makes them expire a little bit early.
 const WORMLIFESPAN = 14900;

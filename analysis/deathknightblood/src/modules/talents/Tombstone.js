@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;

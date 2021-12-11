@@ -1,11 +1,11 @@
 import AlertDanger from 'interface/AlertDanger';
 import ModuleError from 'parser/core/ModuleError';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component, Fragment } from 'react';
 
 const toTitleCase = (s) => s.substr(0, 1).toUpperCase() + s.substr(1);
 
-class DegradedExperience extends React.Component {
+class DegradedExperience extends Component {
   static propTypes = {
     disabledModules: PropTypes.object.isRequired,
   };
@@ -101,13 +101,13 @@ class DegradedExperience extends React.Component {
                       {disabledModules[state]
                         .sort((a, b) => a.key.localeCompare(b.key))
                         .map((m) => (
-                          <React.Fragment key={m.key}>
+                          <Fragment key={m.key}>
                             {toTitleCase(m.key)}
                             <br />
                             {m.error && (
                               <pre>{m.error.stack ? m.error.stack : m.error.toString()}</pre>
                             )}
-                          </React.Fragment>
+                          </Fragment>
                         ))}
                     </div>
                     <br />

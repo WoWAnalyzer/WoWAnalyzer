@@ -12,7 +12,6 @@ import SpeedIcon from 'interface/icons/Speed';
 import StaminaIcon from 'interface/icons/Stamina';
 import StrengthIcon from 'interface/icons/Strength';
 import VersatilityIcon from 'interface/icons/Versatility';
-import React from 'react';
 
 enum STAT {
   HEALTH = 'health',

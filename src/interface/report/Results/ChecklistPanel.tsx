@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
+import * as React from 'react';
 
 interface Props {
   children?: React.ReactNode;

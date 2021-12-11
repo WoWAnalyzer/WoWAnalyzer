@@ -5,7 +5,6 @@ import Contributor from 'interface/ContributorButton';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {

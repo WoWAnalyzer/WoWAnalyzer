@@ -10,7 +10,7 @@ import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Player from 'parser/core/Player';
 import getBuild from 'parser/getBuild';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 

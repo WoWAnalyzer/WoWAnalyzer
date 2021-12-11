@@ -10,7 +10,6 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import React from 'react';
 
 class BalanceOfAllThingsOpener extends Analyzer {
   /*

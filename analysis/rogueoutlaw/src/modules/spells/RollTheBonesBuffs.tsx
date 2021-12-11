@@ -7,7 +7,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 

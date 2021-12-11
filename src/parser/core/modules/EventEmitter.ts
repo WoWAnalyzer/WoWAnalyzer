@@ -212,7 +212,7 @@ class EventEmitter extends Module {
         this.numListenersCalled += 1;
         options.listener(event);
       } catch (err) {
-        this._handleError(err, options.module);
+        this._handleError(err as Error, options.module);
       }
     };
     if (PROFILE) {

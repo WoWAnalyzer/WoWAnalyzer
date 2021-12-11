@@ -1,7 +1,7 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 const Hotkeys = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (document.activeElement && document.activeElement !== document.body) {
         return;

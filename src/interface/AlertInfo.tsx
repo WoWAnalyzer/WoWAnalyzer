@@ -1,5 +1,4 @@
 import Icon from 'interface/icons/Information';
-import React from 'react';
 
 import Alert, { Props as AlertProps } from './Alert';
 

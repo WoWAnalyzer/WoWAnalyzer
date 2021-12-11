@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get downtimeSuggestionThresholds() {

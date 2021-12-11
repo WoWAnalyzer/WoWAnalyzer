@@ -9,7 +9,6 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';

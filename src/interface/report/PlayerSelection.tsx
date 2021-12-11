@@ -4,7 +4,6 @@ import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import Report from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
-import React from 'react';
 
 import Player from '../../parser/core/Player';
 import PlayerTile from './PlayerTile';

@@ -6,7 +6,6 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { ECHOING_CALL_INCREASED_WILD_CALL_CHANCE } from '@wowanalyzer/hunter-beastmastery/src/constants';
 

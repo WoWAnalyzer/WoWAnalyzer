@@ -2,7 +2,6 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 12, 3), <>Fixed a bug where <SpellLink id={SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id}/> was giving Moonkin form a cooldown.</>, Sref),

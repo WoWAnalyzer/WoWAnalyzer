@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
+import * as React from 'react';
 
 import RollTheBonesCastTracker, {
   ROLL_THE_BONES_CATEGORIES,

@@ -7,7 +7,6 @@ import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import Abilities from '../../core/modules/Abilities';
 import Channeling from './Channeling';

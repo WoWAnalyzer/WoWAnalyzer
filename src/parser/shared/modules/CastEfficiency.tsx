@@ -8,7 +8,6 @@ import Haste from 'parser/shared/modules/Haste';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import CastEfficiencyComponent from 'parser/ui/CastEfficiency';
 import Panel from 'parser/ui/Panel';
-import React from 'react';
 
 import Combatant from '../../core/Combatant';
 import { EventType, UpdateSpellUsableEvent } from '../../core/Events';

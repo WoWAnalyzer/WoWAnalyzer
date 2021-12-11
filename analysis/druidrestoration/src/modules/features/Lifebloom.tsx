@@ -9,7 +9,6 @@ import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
-import React from 'react';
 
 const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL];
 const LB_COLOR = '#00bb44';

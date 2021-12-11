@@ -1,6 +1,5 @@
 import { TooltipElement } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 /**
  * @deprecated Use `parser/ui/Statistic` instead.

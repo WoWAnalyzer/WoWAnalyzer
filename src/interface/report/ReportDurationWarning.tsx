@@ -1,6 +1,5 @@
 import { Trans, t } from '@lingui/macro';
 import AlertWarning from 'interface/AlertWarning';
-import React from 'react';
 
 import { formatNumber } from '../../common/format';
 

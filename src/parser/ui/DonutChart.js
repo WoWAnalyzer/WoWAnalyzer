@@ -3,11 +3,11 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import BaseChart from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import 'parser/ui/DonutChart.scss';
 
-class DonutChart extends React.PureComponent {
+class DonutChart extends PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(
       PropTypes.shape({

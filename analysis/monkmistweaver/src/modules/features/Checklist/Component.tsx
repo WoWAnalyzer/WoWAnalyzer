@@ -13,7 +13,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
 
 const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -235,22 +234,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             </>
           }
           thresholds={thresholds.thunderFocusTea}
-        />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used per Cast
-            </>
-          }
-          thresholds={thresholds.essenceFontMastery}
-        />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.ESSENCE_FONT.id} /> Cancelled Casts
-            </>
-          }
-          thresholds={thresholds.essenceFontCancel}
         />
       </Rule>
 

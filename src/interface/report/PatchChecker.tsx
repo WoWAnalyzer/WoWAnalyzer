@@ -8,7 +8,7 @@ import { RootState } from 'interface/reducers';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
 import Tooltip from 'interface/Tooltip';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 

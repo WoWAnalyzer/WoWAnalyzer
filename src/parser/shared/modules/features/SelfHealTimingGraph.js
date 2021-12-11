@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 const DEATH_BUFFER = 200;

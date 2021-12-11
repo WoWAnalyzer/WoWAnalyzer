@@ -5,7 +5,6 @@ import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot, Pink } from 'CONTRIBUTORS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
-import React from 'react';
 
 export default [
   change(date(2021, 10, 21), <>Updated <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> to TypeScript.</>, Adoraci),

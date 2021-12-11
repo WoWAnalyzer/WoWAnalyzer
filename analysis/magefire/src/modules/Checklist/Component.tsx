@@ -10,7 +10,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
 
 const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -83,11 +82,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             tooltip="If you are talented into Firestarter, you should ensure that you do not cast Combustion while the boss is above 90% Health. This would be a waste considering every spell is guaranteed to crit while the boss is above 90% Health, which defeats the purpose of using Combustion. Instead, you should use Combustion when the boss gets to 89% so you can continue the streak of guaranteed crits once Firestarter finishes."
           />
         )}
-        <Requirement
-          name="Scorch used with instants available"
-          thresholds={thresholds.scorchSpellUsageDuringCombustion}
-          tooltip="It is very important to use your time during Combustion wisely to get as many Hot Streak procs as possible before Combustion ends. To accomplish this, you should be stringing your guaranteed crit spells (Fireblast and Phoenix Flames) together to perpetually convert Heating Up to Hot Streak as many times as possible. If you run out of instant spells, cast Scorch instead."
-        />
         <Requirement
           name="Fireball casts during Combustion"
           thresholds={thresholds.fireballSpellUsageDuringCombustion}

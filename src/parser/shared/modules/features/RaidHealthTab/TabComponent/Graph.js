@@ -1,6 +1,6 @@
 import fetchWcl from 'common/fetchWclApi';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import RaidHealthChart from './RaidHealthChart';
 
@@ -19,7 +19,7 @@ const CLASS_CHART_LINE_COLORS = {
   DemonHunter: 'rgba(163, 48, 201, 0.6)',
 };
 
-class Graph extends React.PureComponent {
+class Graph extends PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
     start: PropTypes.number.isRequired,
