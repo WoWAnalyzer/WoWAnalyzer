@@ -11,7 +11,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const MOD = 0.08;
 
-class FaelineStompWindwalker extends Analyzer {
+class FaelineHarmonydmg extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
@@ -68,4 +68,4 @@ class FaelineStompWindwalker extends Analyzer {
   }
 }
 
-export default FaelineStompWindwalker;
+export default FaelineHarmonydmg;
