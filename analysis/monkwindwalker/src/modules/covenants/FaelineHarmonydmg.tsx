@@ -35,8 +35,8 @@ class FaelineHarmonydmg extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    const target = this.enemies.getEntity(event);
-    if (target !== null && target.hasBuff(SPELLS.FAELINE_HARMONY_DEBUFF.id, event.timestamp)) {
+    const enemy = this.enemies.getEntity(event);
+    if (enemy && enemy.hasBuff(SPELLS.FAELINE_HARMONY_DEBUFF.id)) {
       this.totalDamage += calculateEffectiveDamage(event, amp_exposure);
     }
   }
