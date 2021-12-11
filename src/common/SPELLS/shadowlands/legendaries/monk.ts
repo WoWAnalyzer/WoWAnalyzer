@@ -194,12 +194,12 @@ const legendaries = {
     id: 356774,
     name: 'Faeline Exposure',
     icon: 'ability_ardenweald_monk',
-  },  
+  },
   FAELINE_HARMONY_DEBUFF: {
     id: 356773,
     name: 'Faeline Exposure',
     icon: 'ability_ardenweald_monk',
-  },  
+  },
   SINISTER_TEACHINGS: {
     id: 356818,
     name: 'Sinister Teachings',
