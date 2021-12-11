@@ -16,6 +16,7 @@ import {
   hasResource,
   hasTalent,
   inExecute,
+  lastSpellCast,
   not,
   or,
   spellAvailable,
@@ -24,6 +25,14 @@ import {
 } from 'parser/shared/metrics/apl/conditions';
 
 export const apl = build([
+  {
+    spell: SPELLS.STEADY_SHOT,
+    condition: and(
+      hasTalent(SPELLS.STEADY_FOCUS_TALENT),
+      lastSpellCast(SPELLS.STEADY_SHOT),
+      buffMissing(SPELLS.STEADY_FOCUS_BUFF, { timeRemaining: 5000, duration: 15000 }),
+    ),
+  },
   {
     spell: SPELLS.STEADY_SHOT,
     condition: and(hasTalent(SPELLS.STEADY_FOCUS_TALENT), buffMissing(SPELLS.STEADY_FOCUS_BUFF)),
