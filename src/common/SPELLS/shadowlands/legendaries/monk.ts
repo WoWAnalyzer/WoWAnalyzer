@@ -205,7 +205,7 @@ const legendaries = {
     icon: 'ability_revendreth_monk',
     bonusID: 7726,
   },
-  
+
   // end region
 } as const;
 export default legendaries;
