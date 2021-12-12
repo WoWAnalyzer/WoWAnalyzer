@@ -188,7 +188,6 @@ class EncounterStats extends PureComponent {
               (this.state.filterByCovenant &&
                 rank.covenantID === this.props.combatant._combatantInfo.covenantID))
           ) {
-            console.log(this.props.combatant._combatantInfo);
             if (
               this.props.duration > rank.duration * (1 - this.durationVariancePercentage) &&
               this.props.duration < rank.duration * (1 + this.durationVariancePercentage)
