@@ -1,12 +1,12 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { 
+import {
   FallenOrder,
   TouchOfDeath,
   FaelineStomp,
   FaelineHarmony,
   SinisterTeachings,
-  ImbuedReflections
+  ImbuedReflections,
 } from '@wowanalyzer/monk';
 
 // Features
