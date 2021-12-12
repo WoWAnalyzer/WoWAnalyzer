@@ -1,6 +1,13 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { FallenOrder, TouchOfDeath, FaelineStomp } from '@wowanalyzer/monk';
+import {
+  FallenOrder,
+  TouchOfDeath,
+  FaelineStomp,
+  FaelineHarmony,
+  SinisterTeachings,
+  ImbuedReflections,
+} from '@wowanalyzer/monk';
 
 // Features
 import Abilities from './modules/Abilities';
@@ -71,6 +78,9 @@ class CombatLogParser extends CoreCombatLogParser {
     fallenOrder: FallenOrder,
     weaponsOfOrder: WeaponsOfOrderWindwalker,
     faelineStomp: FaelineStomp,
+    faelineHarmony: FaelineHarmony,
+    sinisterTeachings: SinisterTeachings,
+    imbuedReflections: ImbuedReflections,
   };
 }
 

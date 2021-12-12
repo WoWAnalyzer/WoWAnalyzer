@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Abelito75, Talby } from 'CONTRIBUTORS';
+import { Juko8, Abelito75, Talby, Hursti } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 12), <>Added <SpellLink id={SPELLS.FAELINE_HARMONY_BUFF.id} /> module and added existing Venthyr modules to the statistics</>, Hursti),
   change(date(2021, 12, 9), <>Updated constants for <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> and marked as 9.1.5 compatible</>, Juko8),
   change(date(2021, 8, 18), 'Marked as 9.1 compatible', Juko8),
   change(date(2021, 6, 17), <>Fixed <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> not counting marks applied/refreshed by <SpellLink id={SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id} />.</>, Juko8),
