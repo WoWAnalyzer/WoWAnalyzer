@@ -72,8 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     weaponsOfOrder: WeaponsOfOrderWindwalker,
     faelineStomp: FaelineStomp,
     faelineHarmony: FaelineHarmony,
-	  sinisterTeachings: SinisterTeachings,
-	  imbuedReflections: ImbuedReflections,
+    sinisterTeachings: SinisterTeachings,
+    imbuedReflections: ImbuedReflections,
   };
 }
 
