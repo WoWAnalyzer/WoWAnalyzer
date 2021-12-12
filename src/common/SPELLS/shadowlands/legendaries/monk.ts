@@ -189,13 +189,23 @@ const legendaries = {
     icon: 'ability_ardenweald_monk',
     bonusID: 7721,
   },
+  FAELINE_HARMONY_DEBUFF: {
+    id: 356773,
+    name: 'Faeline Exposure Damage',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_HARMONY_BUFF: {
+    id: 356774,
+    name: 'Faeline Exposure Healing',
+    icon: 'ability_ardenweald_monk',
+  },
   SINISTER_TEACHINGS: {
     id: 356818,
     name: 'Sinister Teachings',
     icon: 'ability_revendreth_monk',
     bonusID: 7726,
   },
-
+  
   // end region
 } as const;
 export default legendaries;
