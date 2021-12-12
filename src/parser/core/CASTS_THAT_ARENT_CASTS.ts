@@ -48,7 +48,7 @@ const spells: number[] = [
   SPELLS.DIRE_BEAST_SUMMON.id, //A secondary cast event from Dire Beast talent
   SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits
   SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect
-  SPELLS.RESONATING_ARROW_DAMAGE.id, //The damage event from the Kyrian Hunter Ability also has a cast event tied to it which we shouldn't track
+  SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id, //The damage event from the Kyrian Hunter Ability also has a cast event tied to it which we shouldn't track
   //endregion
 
   //region Mage
