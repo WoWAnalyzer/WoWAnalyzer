@@ -10,7 +10,7 @@ const covenants = {
     name: 'Resonating Arrow',
     icon: 'ability_bastion_hunter',
   },
-  RESONATING_ARROW_DAMAGE: {
+  RESONATING_ARROW_DAMAGE_AND_BUFF: {
     id: 308495,
     name: 'Resonating Arrow',
     icon: 'ability_bastion_hunter',
