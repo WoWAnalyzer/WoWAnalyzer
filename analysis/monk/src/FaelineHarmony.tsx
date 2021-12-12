@@ -36,9 +36,8 @@ class FaelineHarmony extends Analyzer {
         this.onAffectedDamage,
       );
       this.addEventListener(
-      Events.heal
-		  .by(SELECTED_PLAYER | SELECTED_PLAYER_PET),
-      this.onAffectedHealing,
+      Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET),
+        this.onAffectedHealing,
       );
     }
   }
@@ -70,15 +69,15 @@ class FaelineHarmony extends Analyzer {
         tooltip={
           <>
             This shows the HPS and DPS provided by the {formatPercentage(amp_exposure)}% increase
-            from  Faeline Harmony.
+           from  Faeline Harmony.
           </>
         }
       >
         <BoringSpellValueText spellId={SPELLS.FAELINE_HARMONY_DEBUFF.id}>
-           <ItemDamageDone amount={this.totalDamage}/>
+          <ItemDamageDone amount={this.totalDamage}/> 
         </BoringSpellValueText>
         <BoringSpellValueText spellId={SPELLS.FAELINE_HARMONY_BUFF.id}>
-          <ItemHealingDone amount={this.totalHealing}/>
+          <ItemHealingDone amount={this.totalHealing}/> 
         </BoringSpellValueText>
       </Statistic>
     );
