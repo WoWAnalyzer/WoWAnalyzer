@@ -6,6 +6,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -20,9 +21,11 @@ class FaelineHarmony extends Analyzer {
  
   static dependencies = {
     enemies: Enemies,
+	combatants: Combatants,
   }
   
   protected enemies!: Enemies;
+  protected combatants!: Combatants;
   
   totalDamage = 0;
   totalHealing = 0;
@@ -53,7 +56,8 @@ class FaelineHarmony extends Analyzer {
     }
   }
   onAffectedHealing(event: HealEvent) {
-	if (event.targetIsFriendly) {
+	const combatant = this.combatants.getEntity(event);
+	if (combatant && combatant.hasBuff(SPELLS.FAELINE_HARMONY_BUFF.id)) {
 		this.totalHealing += calculateEffectiveHealing(event, amp_exposure);
 	}
 	if (!event.targetIsFriendly) {
@@ -83,6 +87,5 @@ class FaelineHarmony extends Analyzer {
     );
   }
 }
-
 
 export default FaelineHarmony;
