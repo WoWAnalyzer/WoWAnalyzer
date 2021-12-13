@@ -43,8 +43,7 @@ class XuensBond extends Analyzer {
     this.XB_MOD = conduitScaling(0.1, conduitRank);
     //summon events (need to track this to get melees)
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER)
-        .spell(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER),
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER),
       this.trackSummons,
     );
     this.addEventListener(
