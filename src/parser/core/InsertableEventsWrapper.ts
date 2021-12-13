@@ -63,6 +63,7 @@ class InsertableEventsWrapper {
    *   considered by this index.
    */
   addAfterIndex(newEvent: AnyEvent, index: number): void {
+    newEvent.__fabricated = true;
     this.toAdd.push({ event: newEvent, index });
   }
 
