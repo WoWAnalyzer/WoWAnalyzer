@@ -42,7 +42,7 @@ class InnerFury extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            The {formatPercentage(this.IF_MOD)}% increase from  Inner Fury was worth ~
+            The {formatPercentage(this.IF_MOD)}% increase from Inner Fury was worth ~
             {formatNumber(this.totalDamage)} raw Damage.
           </>
         }
