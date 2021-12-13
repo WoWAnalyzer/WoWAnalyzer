@@ -15,6 +15,7 @@ import Buffs from './modules/Buffs';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
+import XuensBond from './modules/covenants/XuensBond';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     faelineHarmony: FaelineHarmony,
     sinisterTeachings: SinisterTeachings,
     imbuedReflections: ImbuedReflections,
+    xuensBond: XuensBond,
   };
 }
 
