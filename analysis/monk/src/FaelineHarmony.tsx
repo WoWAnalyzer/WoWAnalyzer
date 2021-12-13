@@ -51,12 +51,12 @@ class FaelineHarmony extends Analyzer {
     }
   }
   onAffectedHealing(event: HealEvent) {
+    if (!event.targetIsFriendly) {
+      return;
+    }
     const combatant = this.combatants.getEntity(event);
     if (combatant && combatant.hasBuff(SPELLS.FAELINE_HARMONY_BUFF.id)) {
       this.totalHealing += calculateEffectiveHealing(event, amp_exposure);
-    }
-    if (!event.targetIsFriendly) {
-      return;
     }
   }
 
