@@ -18,4 +18,5 @@ export { default as targetsHit } from './targetsHit';
 export { debuffPresent } from './debuffPresent';
 export { debuffMissing } from './debuffMissing';
 export { hasCovenant } from './hasCovenant';
+export { lastSpellCast } from './lastSpellCast';
 export * from './util';

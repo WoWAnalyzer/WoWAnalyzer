@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -88,9 +89,9 @@ class CombustionPreCastDelay extends Analyzer {
     when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with {this.averageCastDelay}{' '}
-          seconds left on your pre-cast ability (The spell you were casting when you used{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} />
+          On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with{' '}
+          {formatNumber(this.averageCastDelay)} seconds left on your pre-cast ability (The spell you
+          were casting when you used <SpellLink id={SPELLS.COMBUSTION.id} />
           ). In order to maximize the number of casts you can get in during{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} />, it is recommended that you are activating{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} /> closer to the end of your pre-cast (preferably
@@ -100,7 +101,7 @@ class CombustionPreCastDelay extends Analyzer {
         .icon(SPELLS.COMBUSTION.icon)
         .actual(
           <Trans id="mage.fire.suggestions.combustion.castDelay">
-            {actual}s Avg. Pre-Cast Delay
+            {formatNumber(actual)}s Avg. Pre-Cast Delay
           </Trans>,
         )
         .recommended(`${recommended} is recommended`),

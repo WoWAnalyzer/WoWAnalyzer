@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
+  CastEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   RemoveBuffEvent,
@@ -11,11 +12,12 @@ import Events, {
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import { MS_BUFFER_250 } from '@wowanalyzer/mage';
+import { MS_BUFFER_250, PHOENIX_FLAMES_MAX_CHARGES } from '@wowanalyzer/mage';
 
 const DAMAGE_MODIFIER = 240;
 const FIGHT_END_BUFFER = 5000;
@@ -25,13 +27,16 @@ const debug = false;
 class Pyroclasm extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
+    spellUsable: SpellUsable,
   };
   protected eventHistory!: EventHistory;
+  protected spellUsable!: SpellUsable;
 
   totalProcs = 0;
   usedProcs = 0;
   unusedProcs = 0;
   overwrittenProcs = 0;
+  badPyroclasmDuringCombustion = 0;
   buffAppliedEvent?: ApplyBuffEvent | ApplyBuffStackEvent;
 
   constructor(options: Options) {
@@ -57,6 +62,10 @@ class Pyroclasm extends Analyzer {
       Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF),
       this.onPyroclasmRefresh,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+      this.onPyroblastCast,
+    );
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
@@ -65,6 +74,32 @@ class Pyroclasm extends Analyzer {
     this.totalProcs += 1;
     this.buffAppliedEvent = event;
     debug && this.log('Buff Applied');
+  }
+
+  //Checks Pyroblast casts during Combustion to see if the player hard casted Pyroblast during Combustion while they were capped or near capped on charges of Phoenix Flames or Fire Blast
+  onPyroblastCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
+      return;
+    }
+
+    const pyroblastBeginCast = this.eventHistory.last(
+      1,
+      MS_BUFFER_250,
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+    );
+    if (pyroblastBeginCast.length > 0) {
+      return;
+    }
+
+    const currentFireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
+    const maxFireBlastCharges = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2;
+    const currentPhoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id);
+    if (
+      currentFireBlastCharges === maxFireBlastCharges ||
+      currentPhoenixFlamesCharges === PHOENIX_FLAMES_MAX_CHARGES
+    ) {
+      this.badPyroclasmDuringCombustion += 1;
+    }
   }
 
   //Checks to see if Pyroclasm was removed because it was used (there was a non instant pyroblast within 250ms) or because it expired.
@@ -139,6 +174,18 @@ class Pyroclasm extends Analyzer {
     };
   }
 
+  get pyroclasmCombustionUsage() {
+    return {
+      actual: this.badPyroclasmDuringCombustion,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 2,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   suggestions(when: When) {
     when(this.procUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -157,6 +204,29 @@ class Pyroclasm extends Analyzer {
           </Trans>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
+    when(this.pyroclasmCombustionUsage).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You used your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc during{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> {this.badPyroclasmDuringCombustion} times while
+          you were capped or close to capping on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
+          <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. While you do want to use your{' '}
+          <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs during{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> if they are available, you should use some of your{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />{' '}
+          charges first to ensure you are not capping them and therefore wasting them. The only
+          exception to this is if your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc will
+          expire before you can use your other charges.
+        </>,
+      )
+        .icon(SPELLS.PYROCLASM_TALENT.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.pyroclasm.pyroclasmCombustionUsage">
+            {formatNumber(actual)} bad uses
+          </Trans>,
+        )
+        .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }
 
