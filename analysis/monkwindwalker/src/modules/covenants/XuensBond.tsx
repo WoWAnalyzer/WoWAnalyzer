@@ -1,6 +1,7 @@
 import { formatNumber, formatPercentage, formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
@@ -8,19 +9,18 @@ import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events'
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
-import React from 'react';
 
 const XUENS_BOND_REDUCTION = 100;
 
 class XuensBond extends Analyzer {
- static dependencies = {
-	 spellUsable: SpellUsable,
- };
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
   XB_MOD = 0;
   totalDamage = 0;
   XB_CDR_Used = 0;
@@ -40,11 +40,10 @@ class XuensBond extends Analyzer {
       return;
     }
 
-    this.XB_MOD = conduitScaling(0.10, conduitRank);
+    this.XB_MOD = conduitScaling(0.1, conduitRank);
     //summon events (need to track this to get melees)
     this.addEventListener(
-      Events.summon
-        .by(SELECTED_PLAYER)
+      Events.summon.by(SELECTED_PLAYER)
         .spell(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER),
       this.trackSummons,
     );
@@ -56,12 +55,12 @@ class XuensBond extends Analyzer {
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.XUEN_CRACKLING_TIGER_LIGHTNING),
       this.onXCTLDamage,
     );
-	this.addEventListener(
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY),
-    this.XBCDRSpell,
-	);
+      this.XBCDRSpell,
+    );
   }
-   XBCDRSpell(event: CastEvent) {
+  XBCDRSpell(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
       this.XB_CDR_Used += this.spellUsable.reduceCooldown(
         this.spellToReduce.id,
@@ -86,30 +85,31 @@ class XuensBond extends Analyzer {
     }
 
     if (cloneType === SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id) {
-      this.totalDamage+= calculateEffectiveDamage(event, this.XB_MOD);
+      this.totalDamage += calculateEffectiveDamage(event, this.XB_MOD);
     }
   }
   onXCTLDamage(event: DamageEvent) {
     this.totalDamage += calculateEffectiveDamage(event, this.XB_MOD);
   }
 
-	statistic() {
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-		tooltip={
+        tooltip={
           <>
-            The {formatPercentage(this.XB_MOD)}% increase from Xuens Bond was worth ~{formatNumber(this.totalDamage)} raw Damage.
+            The {formatPercentage(this.XB_MOD)}% increase from Xuens Bond was worth ~
+            {formatNumber(this.totalDamage)} raw Damage.
           </>
         }
       >
         <BoringSpellValueText spellId={SPELLS.XUENS_BOND.id}>
           <ItemDamageDone amount={this.totalDamage} />
-		  <br />
-		  <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Used)} <small>Effective CDR</small>
-		  <br />
+          <br />
+          <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Used)} <small>Effective CDR</small>
+          <br />
           <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Wasted)} <small>Wasted CDR</small>
         </BoringSpellValueText>
       </Statistic>
