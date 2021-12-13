@@ -9,7 +9,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 class InnerFury extends Analyzer {
   IF_MOD = 0;
@@ -26,29 +25,25 @@ class InnerFury extends Analyzer {
     }
 
     this.IF_MOD = conduitScaling(0.04, conduitRank);
-	
+
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
-        .spell(SPELLS.FISTS_OF_FURY_DAMAGE),
-        this.onFOFDamage,
-	);
+      Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.FISTS_OF_FURY_DAMAGE),
+      this.onFOFDamage,
+    );
   }
   onFOFDamage(event: DamageEvent) {
-    if (event.targetIsFriendly) {
-      return;
-    }
     this.totalDamage += calculateEffectiveDamage(event, this.IF_MOD);
   }
-	statistic() {
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-		tooltip={
+        tooltip={
           <>
-            The {formatPercentage(this.IF_MOD)}% increase from  Inner Fury was worth ~{formatNumber(this.totalDamage)} raw Damage.
+            The {formatPercentage(this.IF_MOD)}% increase from  Inner Fury was worth ~
+            {formatNumber(this.totalDamage)} raw Damage.
           </>
         }
       >
