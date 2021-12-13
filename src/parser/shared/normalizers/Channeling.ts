@@ -7,11 +7,12 @@ import {
   CastEvent,
   EndChannelEvent,
   EventType,
-  HasAbility, HasSource,
+  HasAbility,
+  HasSource,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { Options } from 'parser/core/Module';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
+import { Options } from 'parser/core/Module';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -141,7 +142,11 @@ class Channeling extends EventsNormalizer {
       beginCurrentChannel(event, channelState);
     } else if (event.type === EventType.Cast) {
       // TODO this won't catch pre-cast channels
-      if (isRealCast(event) && channelState.unresolvedChannel && channelState.unresolvedChannel.ability.guid === event.ability.guid) {
+      if (
+        isRealCast(event) &&
+        channelState.unresolvedChannel &&
+        channelState.unresolvedChannel.ability.guid === event.ability.guid
+      ) {
         // this is the current hardcast finishing
         endCurrentChannel(event, channelState);
       }
