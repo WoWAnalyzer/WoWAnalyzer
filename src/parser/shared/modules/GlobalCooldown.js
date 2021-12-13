@@ -99,6 +99,22 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   triggerGlobalCooldown(event) {
+    if (
+      this.lastGlobalCooldown &&
+      this.lastGlobalCooldown.timestamp === event.timestamp &&
+      this.lastGlobalCooldown.ability.guid === event.ability.guid
+    ) {
+      console.warn(
+        'GlobalCooldown module attempted to trigger duplicate GCDs for ability ' +
+          event.ability.name +
+          '(' +
+          event.ability.guid +
+          ') @ ' +
+          event.timestamp +
+          ' - duplicate will be ignored. This is probably due to an event ordering issue not being handled correctly by this module.',
+      );
+      return undefined;
+    }
     return this.eventEmitter.fabricateEvent(
       {
         type: EventType.GlobalCooldown,

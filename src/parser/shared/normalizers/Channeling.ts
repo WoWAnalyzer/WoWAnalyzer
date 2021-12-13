@@ -10,8 +10,8 @@ import {
   HasAbility, HasSource,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { insertEvents } from 'parser/core/insertEvents';
 import { Options } from 'parser/core/Module';
+import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -32,9 +32,6 @@ import { Options } from 'parser/core/Module';
  * the spell finished or it was stopped early). There are a variety of ways channeled spells show
  * in events, and this normalizer allows special case handling to be registered for each.
  */
-
-// TODO go through everything and fill it out
-
 class Channeling extends EventsNormalizer {
   /**
    * Listing of all special case handlers for channels
@@ -105,9 +102,11 @@ class Channeling extends EventsNormalizer {
   }
 
   normalize(events: AnyEvent[]) {
+    const eventsInserter: InsertableEventsWrapper = new InsertableEventsWrapper(events);
+
     const channelState: ChannelState = {
       unresolvedChannel: null,
-      newEvents: [],
+      eventsInserter,
     };
 
     // for each event, check if there is a special case handler for that GUID -
@@ -124,7 +123,7 @@ class Channeling extends EventsNormalizer {
       }
     });
 
-    return insertEvents(events, channelState.newEvents);
+    return eventsInserter.build();
   }
 
   /**
@@ -178,7 +177,7 @@ export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelSt
     isCancelled: false,
     trigger: event,
   };
-  channelState.newEvents.push(beginChannel);
+  channelState.eventsInserter.addAfterEvent(beginChannel, event);
   channelState.unresolvedChannel = beginChannel;
 }
 
@@ -198,7 +197,7 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
     beginChannel: channelState.unresolvedChannel,
     trigger: event,
   };
-  channelState.newEvents.push(endChannel);
+  channelState.eventsInserter.addAfterEvent(endChannel, event);
   channelState.unresolvedChannel = null;
 }
 
@@ -335,6 +334,6 @@ export type ChannelState = {
    * and we're not sure when or if it will be finished. Depending on follow on events, it could be finished or cancelled.
    */
   unresolvedChannel: BeginChannelEvent | null;
-  /** New fabricated channel events to add. Handlers should push to this list. */
-  newEvents: AnyEvent[];
+  /** Inserter for new events */
+  eventsInserter: InsertableEventsWrapper;
 };

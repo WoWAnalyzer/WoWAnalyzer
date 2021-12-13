@@ -12,6 +12,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 
+const DEBUG = false;
+
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     haste: Haste,
@@ -47,6 +49,7 @@ class AlwaysBeCasting extends Analyzer {
     super(options);
     this.addEventListener(Events.GlobalCooldown, this.onGCD);
     this.addEventListener(Events.EndChannel, this.onEndChannel);
+    DEBUG && this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onGCD(event: GlobalCooldownEvent) {
@@ -60,6 +63,7 @@ class AlwaysBeCasting extends Analyzer {
       return false;
     }
     this.activeTime += event.duration;
+    DEBUG && console.log("Active Time: added " + event.duration + " from GCD for " + event.trigger.ability.name + " @ " + this.owner.formatTimestamp(event.trigger.timestamp));
     return true;
   }
 
@@ -70,7 +74,16 @@ class AlwaysBeCasting extends Analyzer {
       amount = Math.max(amount, this._lastGlobalCooldownDuration);
     }
     this.activeTime += amount;
+    DEBUG && console.log("Active Time: added " + amount + " from Channel for " + event.ability.name + " @ " + this.owner.formatTimestamp(event.timestamp));
     return true;
+  }
+
+  /** This should only be called with DEBUG flag is set */
+  onFightEnd() {
+    console.log("ABC Stats:\n" +
+      "Active Time = " + this.activeTime + "\n" +
+      "Total Fight Time = " + this.owner.fightDuration + "\n" +
+      "Active Time Percentage = " + formatPercentage(this.activeTimePercentage));
   }
 
   showStatistic = true;
