@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   FallenOrder,
@@ -12,7 +13,6 @@ import {
 // Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import InnerFury from './modules/covenants/InnerFury';
 import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';

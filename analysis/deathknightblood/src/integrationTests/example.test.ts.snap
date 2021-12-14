@@ -34,7 +34,7 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          32.91 %
+          32.89 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "67.08834097878609%",
+                  "width": "67.10985915806123%",
                 }
               }
             >
@@ -117,7 +117,7 @@ Array [
     </React.Fragment>,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.blood.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"32.91"}}
+      {"id":"deathknight.blood.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"32.89"}}
        (
       &lt;20.00% is recommended
       )

@@ -55,6 +55,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2021, 12, 14), 'Fixed translations.', emallson),
+  change(date(2021, 12, 13), 'Refactored handling of player channel detection', Sref),
   change(date(2021, 12, 13), 'Added a filter by covenant toggle to the Similiar Kill Times module under the Character tab.', Putro),
   change(date(2021, 12, 12), 'Added a last spell cast condition to the APL checker module.', Putro),
   change(date(2021, 12, 4), 'Fixed an issue with stat tracking in Mythic+ dungeons. Mythic+ still not officially supported, but at least it shouldn\'t crash', emallson),

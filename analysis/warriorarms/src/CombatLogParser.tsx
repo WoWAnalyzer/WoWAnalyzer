@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
@@ -15,7 +16,6 @@ import Slam from './modules/core/Slam';
 import SweepingStrikes from './modules/core/SweepingStrikes';
 import TacticianProc from './modules/core/TacticianProc';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Channeling from './modules/features/Channeling';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RageDetail from './modules/features/RageDetails';
 import RageTracker from './modules/features/RageTracker';
