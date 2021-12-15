@@ -58,7 +58,7 @@ class ResonatingArrow extends Analyzer {
       this.onDebuff,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF),
       this.onDamage,
     );
   }

@@ -4,6 +4,7 @@ import { Adoraci, Putro, Kartarn } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 12), <> Added <SpellLink id={SPELLS.WILD_SPIRITS_BUFF.id} />, <SpellLink id={SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id}/> and <SpellLink id={SPELLS.FLAYERS_MARK.id} /> to the timeline to better show when these covenant specifics buffs were active.</>, Putro),
   change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),
   change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),

@@ -1,12 +1,20 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
-import { FallenOrder, TouchOfDeath, FaelineStomp } from '@wowanalyzer/monk';
+import {
+  FallenOrder,
+  TouchOfDeath,
+  FaelineStomp,
+  FaelineHarmony,
+  SinisterTeachings,
+  ImbuedReflections,
+} from '@wowanalyzer/monk';
 
 // Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+import InnerFury from './modules/covenants/InnerFury';
 import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -71,6 +79,10 @@ class CombatLogParser extends CoreCombatLogParser {
     fallenOrder: FallenOrder,
     weaponsOfOrder: WeaponsOfOrderWindwalker,
     faelineStomp: FaelineStomp,
+    faelineHarmony: FaelineHarmony,
+    sinisterTeachings: SinisterTeachings,
+    imbuedReflections: ImbuedReflections,
+    innerFury: InnerFury,
   };
 }
 

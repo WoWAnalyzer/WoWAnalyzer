@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   BonedustBrew,
@@ -14,7 +15,6 @@ import {
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
 import BrewCDR from './modules/core/BrewCDR';
-import Channeling from './modules/core/Channeling';
 import Checklist from './modules/core/Checklist/Module';
 import DamageTaken from './modules/core/DamageTaken';
 import GlobalCooldown from './modules/core/GlobalCooldown';

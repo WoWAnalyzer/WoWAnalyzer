@@ -1,3 +1,4 @@
+import Channeling from 'parser/shared/normalizers/Channeling';
 import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
 import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
 import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';
@@ -10,7 +11,6 @@ import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
-import Channeling from '../shared/modules/Channeling';
 import DeathRecapTracker from '../shared/modules/DeathRecapTracker';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
@@ -52,6 +52,7 @@ class CombatLogParser extends BaseCombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
+    channeling: Channeling,
 
     // Enhancers
     spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
@@ -74,7 +75,6 @@ class CombatLogParser extends BaseCombatLogParser {
     enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
-    channeling: Channeling,
     eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     haste: Haste,
