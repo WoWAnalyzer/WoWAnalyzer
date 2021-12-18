@@ -21,12 +21,18 @@ class ManaTea extends Analyzer {
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
   effectiveHealing: number = 0;
+  manaPerManaTeaGoal: number = 0;
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    this.manaPerManaTeaGoal = this.selectedCombatant.hasTalent(
+      SPELLS.REFRESHING_JADE_WIND_TALENT.id,
+    )
+      ? 6700
+      : 7500;
     if (!this.active) {
       return;
     }
@@ -85,9 +91,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 7500,
-        average: 6500,
-        major: 5500,
+        minor: this.manaPerManaTeaGoal,
+        average: this.manaPerManaTeaGoal - 1000,
+        major: this.manaPerManaTeaGoal - 2000,
       },
       style: ThresholdStyle.NUMBER,
     };

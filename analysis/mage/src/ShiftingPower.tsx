@@ -3,8 +3,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Channeling from 'parser/shared/modules/Channeling';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -35,10 +34,8 @@ const COOLDOWN_REDUCTION_MS = [
 class ShiftingPower extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    channeling: Channeling,
   };
   protected spellUsable!: SpellUsable;
-  protected channeling!: Channeling;
   conduitRank: number;
 
   spellReductions: { [key: number]: number } = {};
@@ -53,22 +50,6 @@ class ShiftingPower extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER_TICK),
       this.onShiftingPowerTick,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER),
-      this.onChannelStart,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER),
-      this.onChannelEnd,
-    );
-  }
-
-  onChannelStart(event: CastEvent) {
-    this.channeling.beginChannel(event);
-  }
-
-  onChannelEnd(event: RemoveBuffEvent) {
-    this.channeling.endChannel(event);
   }
 
   onShiftingPowerTick(event: CastEvent) {

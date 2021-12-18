@@ -10,7 +10,6 @@ import Events, {
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Channeling from 'parser/shared/modules/Channeling';
 
 import SpellUsable from './SpellUsable';
 
@@ -28,14 +27,11 @@ class SpellHistory extends Analyzer {
     spellUsable: SpellUsable,
     abilities: Abilities,
     abilityTracker: AbilityTracker,
-    channeling: Channeling,
   };
   // necessary for the UpdateSpellUsable event
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
   protected abilityTracker!: AbilityTracker;
-  // necessary for the channeling events
-  protected channeling!: Channeling;
 
   public historyBySpellId: {
     [spellId: number]: SpellHistoryEvent[];
