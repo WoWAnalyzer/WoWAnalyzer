@@ -11,7 +11,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const MARK_OF_THE_CRANE_DURATION = 20000;
 const MAX_STACKS = 5;
@@ -48,8 +47,8 @@ class CalculatedStrikes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-	
-	const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.CALCULATED_STRIKES.id);
+
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.CALCULATED_STRIKES.id);
     if (!conduitRank) {
       this.active = false;
       return;
@@ -131,20 +130,21 @@ class CalculatedStrikes extends Analyzer {
     // Spinning Crane Kick is usually not used outside aoe, so we're avoiding rendering it when it's not used
     if (this.totalDamage > 0) {
       return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
-		tooltip={
-          <>
-            The {formatPercentage(this.CS_MOD)}% increase from Calculated Strikes was worth ~{formatNumber(this.totalDamage)} raw Damage.
-          </>
-        }
-      >
-        <BoringSpellValueText spellId={SPELLS.CALCULATED_STRIKES.id}>
-          <ItemDamageDone amount={this.totalDamage} />
-        </BoringSpellValueText>
-      </Statistic>
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(13)}
+          size="flexible"
+          category={STATISTIC_CATEGORY.COVENANTS}
+          tooltip={
+            <>
+              The {formatPercentage(this.CS_MOD)}% increase from Calculated Strikes was worth 
+              ~{formatNumber(this.totalDamage)} raw Damage.
+            </>
+          }
+        >
+          <BoringSpellValueText spellId={SPELLS.CALCULATED_STRIKES.id}>
+            <ItemDamageDone amount={this.totalDamage} />
+          </BoringSpellValueText>
+        </Statistic>
       );
     }
   }
