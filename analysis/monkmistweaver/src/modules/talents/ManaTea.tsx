@@ -21,22 +21,18 @@ class ManaTea extends Analyzer {
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
   effectiveHealing: number = 0;
-  manaPerManaTeaGoal: number = 7500;
+  manaPerManaTeaGoal: number = 0;
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
-    if (this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id)) {
-      this.manaPerManaTeaGoal =
-        ((2 * SPELLS.REFRESHING_JADE_WIND_TALENT.manaCost +
-          3 * SPELLS.VIVIFY.manaCost +
-          SPELLS.ESSENCE_FONT.manaCost) *
-          0.5 +
-          SPELLS.ENVELOPING_MIST.manaCost * 5 * 0.5) /
-        2;
-    }
+    this.manaPerManaTeaGoal = this.selectedCombatant.hasTalent(
+      SPELLS.REFRESHING_JADE_WIND_TALENT.id,
+    )
+      ? 6700
+      : 7500;
     if (!this.active) {
       return;
     }
