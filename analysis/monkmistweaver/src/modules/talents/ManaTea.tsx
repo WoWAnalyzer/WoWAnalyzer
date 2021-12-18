@@ -21,14 +21,22 @@ class ManaTea extends Analyzer {
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
   effectiveHealing: number = 0;
-  hasRjw: boolean = false;
+  manaPerManaTeaGoal: number = 7500;
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
-    this.hasRjw = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
+    if (this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id)) {
+      this.manaPerManaTeaGoal =
+        ((2 * SPELLS.REFRESHING_JADE_WIND_TALENT.manaCost +
+          3 * SPELLS.VIVIFY.manaCost +
+          SPELLS.ESSENCE_FONT.manaCost) *
+          0.5 +
+          SPELLS.ENVELOPING_MIST.manaCost * 5 * 0.5) /
+        2;
+    }
     if (!this.active) {
       return;
     }
@@ -84,19 +92,12 @@ class ManaTea extends Analyzer {
   }
 
   get suggestionThresholds() {
-    const major =
-      ((2 * SPELLS.REFRESHING_JADE_WIND_TALENT.manaCost +
-        3 * SPELLS.VIVIFY.manaCost +
-        SPELLS.ESSENCE_FONT.manaCost) *
-        0.5 +
-        SPELLS.ENVELOPING_MIST.manaCost * 5 * 0.5) /
-      2;
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: this.hasRjw ? major : 7500,
-        average: this.hasRjw ? major - 1000 : 6500,
-        major: this.hasRjw ? major - 2000 : 5500,
+        minor: this.manaPerManaTeaGoal,
+        average: this.manaPerManaTeaGoal - 1000,
+        major: this.manaPerManaTeaGoal - 2000,
       },
       style: ThresholdStyle.NUMBER,
     };
