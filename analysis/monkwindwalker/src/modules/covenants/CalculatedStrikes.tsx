@@ -136,8 +136,8 @@ class CalculatedStrikes extends Analyzer {
           category={STATISTIC_CATEGORY.COVENANTS}
           tooltip={
             <>
-              The {formatPercentage(this.CS_MOD)}% increase from Calculated Strikes was worth 
-              ~{formatNumber(this.totalDamage)} raw Damage.
+              The {formatPercentage(this.CS_MOD)}% increase from Calculated Strikes was worth ~
+              {formatNumber(this.totalDamage)} raw Damage.
             </>
           }
         >
