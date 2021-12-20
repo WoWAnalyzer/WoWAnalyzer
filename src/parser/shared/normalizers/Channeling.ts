@@ -181,9 +181,20 @@ export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelSt
     sourceID: event.sourceID,
     isCancelled: false,
     trigger: event,
+    targetIsFriendly: event.targetIsFriendly,
+    sourceIsFriendly: event.sourceIsFriendly,
+    targetID: event.target?.id,
   };
   channelState.eventsInserter.addAfterEvent(beginChannel, event);
   channelState.unresolvedChannel = beginChannel;
+}
+
+function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEvent) {
+  if (source.type === EventType.Cast && target?.ability.guid === source.ability.guid) {
+    target.targetID = source.targetID;
+    target.targetInstance = source.targetInstance;
+    target.targetIsFriendly = source.targetIsFriendly;
+  }
 }
 
 /** Updates the ChannelState with a EndChannelEvent tied to the current channel */
@@ -192,6 +203,7 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
     // TODO log error?
     return;
   }
+  copyTargetData(channelState.unresolvedChannel, event);
   const endChannel: EndChannelEvent = {
     type: EventType.EndChannel,
     ability: channelState.unresolvedChannel.ability,

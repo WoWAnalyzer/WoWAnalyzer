@@ -1,5 +1,11 @@
 import type Spell from 'common/SPELLS/Spell';
-import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
+import {
+  AnyEvent,
+  EventType,
+  UpdateSpellUsableEvent,
+  CastEvent,
+  BeginChannelEvent,
+} from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
 
@@ -28,12 +34,18 @@ export interface Condition<T> {
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (state: T, event: CastEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
+  validate: (
+    state: T,
+    event: CastEvent | BeginChannelEvent,
+    spell: Spell,
+    lookahead: AnyEvent[],
+  ) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
   // tooltip description for checklist
   tooltip?: () => ReactChild | undefined;
 }
+export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
 export interface ConditionalRule {
   spell: Spell;
   condition: Condition<any>;
@@ -71,7 +83,7 @@ export enum ResultKind {
 
 export interface Violation {
   kind: ResultKind.Violation;
-  actualCast: CastEvent;
+  actualCast: CastEvent | BeginChannelEvent;
   expectedCast: Spell;
   rule: Rule;
 }
@@ -82,7 +94,7 @@ type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 export interface Success {
   kind: ResultKind.Success;
   rule: Rule;
-  actualCast: CastEvent;
+  actualCast: CastEvent | BeginChannelEvent;
 }
 
 interface CheckState {
@@ -90,6 +102,7 @@ interface CheckState {
   violations: Violation[];
   conditionState: ConditionState;
   abilityState: AbilityState;
+  mostRecentBeginCast?: BeginChannelEvent;
 }
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
@@ -158,7 +171,7 @@ function ruleApplies(
   eventIndex: number,
 ): boolean {
   const event = events[eventIndex];
-  if (event.type !== EventType.Cast) {
+  if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
     return false;
   }
@@ -215,7 +228,12 @@ const aplCheck = (apl: Apl) =>
     const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
     return events.reduce<CheckState>(
       (result, event, eventIndex) => {
-        if (event.type === EventType.Cast && applicableSpells.has(event.ability.guid)) {
+        if (
+          (event.type === EventType.BeginChannel ||
+            (event.type === EventType.Cast &&
+              event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
+          applicableSpells.has(event.ability.guid)
+        ) {
           const rule = applicableRule(apl, abilities, result, events, eventIndex);
           if (rule) {
             if (spell(rule).id === event.ability.guid) {
@@ -230,6 +248,12 @@ const aplCheck = (apl: Apl) =>
               });
             }
           }
+        }
+
+        if (event.type === EventType.BeginChannel) {
+          result.mostRecentBeginCast = event;
+        } else if (event.type === EventType.EndChannel) {
+          result.mostRecentBeginCast = undefined;
         }
 
         result.abilityState = updateAbilities(result.abilityState, event);

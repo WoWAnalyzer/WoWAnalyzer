@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -10,7 +11,13 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 
-const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const FrostMageChecklist = ({
+  combatant,
+  castEfficiency,
+  thresholds,
+  apl,
+  checkResults,
+}: ChecklistProps & AplRuleProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -178,6 +185,12 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
           thresholds={thresholds.icyVeinsActiveTime}
         />
       </Rule>
+      <AplRule
+        apl={apl}
+        checkResults={checkResults}
+        cooldowns={[SPELLS.ICY_VEINS, SPELLS.RUNE_OF_POWER_TALENT, SPELLS.MIRRORS_OF_TORMENT]}
+        castEfficiency={castEfficiency}
+      />
       <PreparationRule thresholds={thresholds}>
         <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />
       </PreparationRule>

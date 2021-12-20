@@ -295,6 +295,11 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   ability: Ability;
   sourceID: number;
   isCancelled: boolean;
+  targetID?: number;
+  targetInstance?: number;
+  sourceIsFriendly: boolean;
+  targetIsFriendly: boolean;
+  classResources?: Array<ClassResources & { cost: number }>;
   // Added by any module, used in the timeline
   meta?: {
     isInefficientCast?: boolean;
