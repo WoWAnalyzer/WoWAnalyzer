@@ -459,14 +459,14 @@ const spells = {
     icon: 'spell_nature_giftofthewild',
   },
   STORM_EARTH_AND_FIRE_EARTH_SPIRIT: {
-	  id: 138121,
-	  name: 'Storm, Earth, and Fire',
-	  icon: 'inv_elemental_primal_earth',
+    id: 138121,
+    name: 'Storm, Earth, and Fire',
+    icon: 'inv_elemental_primal_earth',
   },
   STORM_EARTH_AND_FIRE_FIRE_SPIRIT: {
-	  id: 138123,
-	  name: 'Storm, Earth, and Fire',
-	  icon: 'inv_summerfest_firespirit',
+    id: 138123,
+    name: 'Storm, Earth, and Fire',
+    icon: 'inv_summerfest_firespirit',
   },
   FLYING_SERPENT_KICK: {
     id: 101545,
