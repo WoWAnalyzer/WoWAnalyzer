@@ -66,7 +66,7 @@ class CoordinatedOffensive extends Analyzer {
   }
   handleMelee(event: DamageEvent) {
     //if CO is not active we cant add the dmg
-    if ((this.CO_Active = false)) {
+    if (!this.CO_Active) {
       return;
     }
     //if we don't know who its from then we can't add it
@@ -87,7 +87,7 @@ class CoordinatedOffensive extends Analyzer {
   }
 
   onSEFDamage(event: DamageEvent) {
-    if ((this.CO_Active = false)) {
+    if (!this.CO_Active) {
       return;
     }
     this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
