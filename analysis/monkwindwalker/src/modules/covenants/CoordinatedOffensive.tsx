@@ -51,8 +51,7 @@ class CoordinatedOffensive extends Analyzer {
       this.handleMelee,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET)
-		.spell(ABILITIES_CLONED_BY_SEF),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(ABILITIES_CLONED_BY_SEF),
       this.onSEFDamage,
     );
   }
