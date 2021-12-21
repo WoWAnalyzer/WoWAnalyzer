@@ -4,6 +4,7 @@ import { Juko8, Abelito75, Talby, Hursti } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 21), <>Added <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> module, added Data for <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> Clones and the ticks of <SpellLink id={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />. </>, Hursti),
   change(date(2021, 12, 18), <>Added <SpellLink id={SPELLS.CALCULATED_STRIKES.id} /> module. </>, Hursti),
   change(date(2021, 12, 13), <>Added <SpellLink id={SPELLS.INNER_FURY.id} /> module. </>, Hursti),
   change(date(2021, 12, 12), <>Added <SpellLink id={SPELLS.FAELINE_HARMONY_BUFF.id} /> module and added existing Venthyr modules to the statistics</>, Hursti),
