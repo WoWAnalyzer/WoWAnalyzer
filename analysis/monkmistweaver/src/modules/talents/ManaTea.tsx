@@ -28,14 +28,14 @@ class ManaTea extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.manaPerManaTeaGoal = this.selectedCombatant.hasTalent(
       SPELLS.REFRESHING_JADE_WIND_TALENT.id,
     )
       ? 6700
       : 7500;
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
