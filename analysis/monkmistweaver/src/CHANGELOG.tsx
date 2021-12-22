@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2021, 12, 22), <> Re-added EF cancellation.</>, Trevor),
   change(date(2021, 12, 18), <> Updated mana tea thresholds for RJW.</>, Trevor),
   change(date(2021, 12, 5), <> Cleaning up the Vivify Files.</>, Abelito75),
   change(date(2021, 12, 5), <> Cleaning up the Essence Font Files.</>, Abelito75),
