@@ -32,6 +32,7 @@ import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
 import FoodChecker from '../shadowlands/modules/items/FoodChecker';
 import HealthPotion from '../shadowlands/modules/items/HealthPotion';
 import Healthstone from '../shadowlands/modules/items/Healthstone';
+import WastelandPropriety from '../shadowlands/modules/soulbinds/WastelandPropriety';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -218,6 +219,7 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Shadowlands
+    wastelandPropriety: WastelandPropriety,
 
     // Castle Nathria
     soulInfusion: SoulInfusion,

@@ -12,6 +12,21 @@ import { DamageEvent } from 'parser/core/Events';
  * @return the amount of damage attributable on the given damage event from the given boost
  */
 export default function calculateEffectiveDamage(event: DamageEvent, increase: number): number {
+  const overKill = event.overkill || 0;
   const raw = (event.amount || 0) + (event.absorbed || 0);
-  return raw - raw / (1 + increase);
+  const damageIncrease = raw - raw / (1 + increase);
+  const effectiveDamage = damageIncrease - overKill;
+
+  return Math.max(0, effectiveDamage);
+}
+
+export function calculateOverkillDamage(event: DamageEvent, increase: number): number {
+  const overKill = event.overkill || 0;
+  const raw = (event.amount || 0) + (event.absorbed || 0);
+  const damageIncrease = raw - raw / (1 + increase);
+  const effectiveDamage = damageIncrease - overKill;
+
+  const effectiveOverkill = damageIncrease - effectiveDamage;
+
+  return Math.max(0, effectiveOverkill);
 }

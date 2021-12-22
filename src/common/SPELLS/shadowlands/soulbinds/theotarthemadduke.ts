@@ -41,5 +41,15 @@ const soulbindPowers = {
     name: 'Wasteland Propriety',
     icon: 'inv_drink_23',
   },
+  WASTELAND_PROPRIETY_FRIEND_BUFF: {
+    id: 333251,
+    name: 'Wasteland Propriety',
+    icon: 'inv_drink_23',
+  },
+  WASTELAND_PROPRIETY_SELF_BUFF: {
+    id: 333218,
+    name: 'Wasteland Propriety',
+    icon: 'inv_drink_23',
+  },
 } as const;
 export default soulbindPowers;
