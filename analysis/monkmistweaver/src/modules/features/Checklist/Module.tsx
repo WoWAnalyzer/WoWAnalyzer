@@ -5,6 +5,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
 
 import EnvelopingBreath from '../../spells/EnvelopingBreath';
+import EssenceFontCancelled from '../../spells/EssenceFontCancelled';
 import EssenceFontTargetsHit from '../../spells/EssenceFontTargetsHit';
 import SoothingMist from '../../spells/SoothingMist';
 import SpinningCraneKick from '../../spells/SpinningCraneKick';
@@ -40,6 +41,7 @@ class Checklist extends BaseChecklist {
     jadeSerpentStatue: JadeSerpentStatue,
     soothingMist: SoothingMist,
     envelopingBreath: EnvelopingBreath,
+    EssenceFontCancelled: EssenceFontCancelled,
   };
 
   protected combatants!: Combatants;
@@ -60,6 +62,7 @@ class Checklist extends BaseChecklist {
   protected jadeSerpentStatue!: JadeSerpentStatue;
   protected soothingMist!: SoothingMist;
   protected envelopingBreath!: EnvelopingBreath;
+  protected EssenceFontCancelled!: EssenceFontCancelled;
 
   render() {
     return (
@@ -87,6 +90,7 @@ class Checklist extends BaseChecklist {
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
+          EssenceFontCancelled: this.EssenceFontCancelled.suggestionThresholds,
         }}
       />
     );
