@@ -57,12 +57,6 @@ class AntlerVersusRylak extends Analyzer {
     !this.hasAntlers && this.addEventListener(Events.fightend.by(SELECTED_PLAYER), this.onFightEnd);
   }
 
-  calculateTheoreticEffectiveDamage(event: DamageEvent, increase: number): number {
-    const raw = (event.amount || 0) + (event.absorbed || 0);
-
-    return raw;
-  }
-
   onPetDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
