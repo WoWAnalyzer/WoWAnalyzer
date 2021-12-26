@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import { SV_KILL_COMMAND_FOCUS_GAIN } from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
@@ -64,7 +64,7 @@ class PheromoneBomb extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.PHEROMONE_BOMB_WFI_DOT.id)) {
       return;
     }
-    if (event.timestamp < this.kcCastTimestamp + MS_BUFFER) {
+    if (event.timestamp < this.kcCastTimestamp + MS_BUFFER_100) {
       this.focusGained += SV_KILL_COMMAND_FOCUS_GAIN;
       this.resets += 1;
     }

@@ -11,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import { CTS_CDR_MS } from '@wowanalyzer/hunter-marksmanship/src/constants';
 
 /**
@@ -68,7 +68,7 @@ class CallingTheShots extends Analyzer {
   }
 
   onCTSPotentialProc(event: DamageEvent) {
-    if (event.timestamp > this.reductionTimestamp + MS_BUFFER) {
+    if (event.timestamp > this.reductionTimestamp + MS_BUFFER_100) {
       if (this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id)) {
         if (this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id) < CTS_CDR_MS) {
           const effectiveReductionMs = this.spellUsable.reduceCooldown(

@@ -14,7 +14,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from '@wowanalyzer/hunter';
 import {
   RAPID_FIRE_FOCUS_PER_TICK,
   TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE,
@@ -140,7 +140,7 @@ class RapidFire extends Analyzer {
      *  However if Nesingwary is also active - the focus amount goes up to 3 because 1.5 * 2 = 3, and that works despite 1.5 focus not working.. In this case we can attribute 2 focus to Nesingwary, since that isn't possible otherwise and only 1 to Trueshot (if it was in excess of the regular 7 energize events).
      *
      */
-    if (hasTrueshot && this.lastFocusTickTimestamp + MS_BUFFER / 2 > event.timestamp) {
+    if (hasTrueshot && this.lastFocusTickTimestamp + MS_BUFFER_100 / 2 > event.timestamp) {
       this.additionalFocusFromTrueshot += event.resourceChange - event.waste;
       this.possibleAdditionalFocusFromTrueshot += RAPID_FIRE_FOCUS_PER_TICK;
     }
