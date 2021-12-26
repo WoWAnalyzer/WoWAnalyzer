@@ -6,12 +6,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import CoreChanneling from 'parser/shared/modules/Channeling';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
-    channeling: CoreChanneling,
     statTracker: StatTracker,
   };
   soomTicks: number = 0;
@@ -26,7 +24,6 @@ class SoothingMist extends Analyzer {
   totalSoomCasts = 0;
   assumedGCD: number = 0;
   startGCD: number = 0;
-  protected channeling!: CoreChanneling;
   protected statTracker!: StatTracker;
 
   constructor(options: Options) {

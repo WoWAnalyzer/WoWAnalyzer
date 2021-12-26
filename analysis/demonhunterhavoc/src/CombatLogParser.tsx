@@ -1,11 +1,11 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';

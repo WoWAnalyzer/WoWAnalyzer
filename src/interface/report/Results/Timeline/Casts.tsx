@@ -182,7 +182,8 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     // This is kind of an ugly hack, but it's the only way to render an icon on the beginchannel event while allowing maintainers to mark the cast events bad. We could have forced everyone to modify meta on the beginchannel/begincast event instead, but that would be inconvenient and unexpected with no real gain.
     const meta =
       event.meta ||
-      event.trigger?.meta ||
+      ((event.trigger?.type === EventType.Cast || event.trigger?.type === EventType.BeginChannel) &&
+        event.trigger?.meta) ||
       (event.trigger?.type === EventType.BeginCast && event.trigger.castEvent?.meta);
     if (meta) {
       if (meta.isInefficientCast) {
