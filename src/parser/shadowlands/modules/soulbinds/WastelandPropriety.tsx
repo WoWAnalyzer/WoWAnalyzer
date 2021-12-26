@@ -85,8 +85,12 @@ class WastelandPropriety extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.damageDoneEvent);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET),
+      this.damageDoneEvent,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.healEvent);
+    // we don't care about pets taking damage
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTakenEvent);
   }
 
