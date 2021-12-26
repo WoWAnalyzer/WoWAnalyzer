@@ -163,9 +163,17 @@ export type AnyEvent<
 > = MappedEventTypes[ET];
 
 export interface Ability {
+  /** The ability's name */
   name: string;
+  /**
+   * The ability's ID - this uniquely identifies the ability,
+   * as there are sometimes multiple different abilities with the same name,
+   * but they'll have different guids
+   */
   guid: number;
+  /** The ability's spell school. See {@link MAGIC_SCHOOLS}. */
   type: number;
+  /** The resource name for the ability's icon */
   abilityIcon: string;
 }
 
@@ -294,17 +302,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
     isEnhancedCast?: boolean;
     enhancedCastReason?: React.ReactNode;
   };
-  trigger?: {
-    timestamp: number;
-    type: EventType;
-    castEvent: CastEvent;
-    meta?: {
-      isInefficientCast?: boolean;
-      inefficientCastReason?: React.ReactNode;
-      isEnhancedCast?: boolean;
-      enhancedCastReason?: React.ReactNode;
-    };
-  };
+  trigger?: AnyEvent;
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
@@ -313,9 +311,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
-  trigger?: {
-    timestamp: number;
-  };
+  trigger?: AnyEvent;
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {

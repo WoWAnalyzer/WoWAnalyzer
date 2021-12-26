@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   BoonOfTheAscended,
@@ -16,7 +17,6 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
 import AbilityTracker from './modules/core/AbilityTracker';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
-import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellManaCost from './modules/core/SpellManaCost';
 import SpellUsable from './modules/core/SpellUsable';
