@@ -1,10 +1,10 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 import { AdaptiveSwarmDamageDealer, ConvokeSpirits, SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import Abilities from './modules/Abilities';
-import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener';

@@ -34,7 +34,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          25.24 %
+          25.64 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.76363345998728%",
+                  "width": "74.35724606778105%",
                 }
               }
             >
@@ -115,7 +115,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "74.76",
+            "0": "74.36",
           }
         }
       />
@@ -4842,7 +4842,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "24.03654485022349%",
+                  "width": "23.951965474220568%",
                 }
               }
             />
@@ -4943,7 +4943,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  74.76%
+                  74.36%
                    
                    
                 </div>
@@ -4965,7 +4965,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.120362427719705%",
+                        "width": "30.951203675713863%",
                       }
                     }
                   />

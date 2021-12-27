@@ -253,45 +253,6 @@ jobs:
 
   # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
 
-  extract-messages:
-    needs: [prepare]
-    name: 'Extract messages'
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
-          required: true
-      - name: Extract messages
-        run: yarn extract
-      - name: Has changes
-        id: has-changes
-        run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo 'true'; else echo 'false'; fi)"
-      - name: Commit changes
-        if: steps.has-changes.outputs.changed == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "[skip ci] Update i18n messages" -a
-      - name: Push changes
-        if: steps.has-changes.outputs.changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_TOKEN_BOT }}
-          branch: ${{ github.ref }}
-
   require-changelog-entry:
     name: 'Has new changelog entry'
     runs-on: ubuntu-latest

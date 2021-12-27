@@ -58,9 +58,7 @@ class PhoenixFlames extends Analyzer {
     return {
       actual: this.percentCapped,
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.2,
+        minor: 0.1,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -72,10 +70,10 @@ class PhoenixFlames extends Analyzer {
         <>
           You spent {formatNumber(this.cappedSeconds)}s ({formatPercentage(this.percentCapped)}% of
           the fight) capped on <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> charges. While it is
-          important to pool charges for your next <SpellLink id={SPELLS.COMBUSTION.id} />, it is
-          also important that you avoid capping on charges whenever possible. To avoid this, you
-          should use a charge of <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> if you are capped or
-          are about to cap on charges.
+          important to pool charges for your next <SpellLink id={SPELLS.COMBUSTION.id} />, you
+          should also try to avoid capping on charges whenever possible. To avoid this, you should
+          use a charge of <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> if you are capped or are about
+          to cap on charges.
         </>,
       )
         .icon(SPELLS.PHOENIX_FLAMES.icon)

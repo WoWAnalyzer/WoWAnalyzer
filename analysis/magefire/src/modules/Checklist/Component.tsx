@@ -83,11 +83,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           />
         )}
         <Requirement
-          name="Scorch used with instants available"
-          thresholds={thresholds.scorchSpellUsageDuringCombustion}
-          tooltip="It is very important to use your time during Combustion wisely to get as many Hot Streak procs as possible before Combustion ends. To accomplish this, you should be stringing your guaranteed crit spells (Fireblast and Phoenix Flames) together to perpetually convert Heating Up to Hot Streak as many times as possible. If you run out of instant spells, cast Scorch instead."
-        />
-        <Requirement
           name="Fireball casts during Combustion"
           thresholds={thresholds.fireballSpellUsageDuringCombustion}
           tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
