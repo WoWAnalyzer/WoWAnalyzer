@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2021, 12, 13), <>Added <SpellLink id={SPELLS.CALCULATED_STRIKES.id} /> module. </>, Hursti),
+  change(date(2021, 12, 13), <>Added <SpellLink id={SPELLS.XUENS_BOND.id} /> module. </>, Hursti),
   change(date(2021, 12, 13), <>Added <SpellLink id={SPELLS.INNER_FURY.id} /> module. </>, Hursti),
   change(date(2021, 12, 12), <>Added <SpellLink id={SPELLS.FAELINE_HARMONY_BUFF.id} /> module and added existing Venthyr modules to the statistics</>, Hursti),
   change(date(2021, 12, 9), <>Updated constants for <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> and marked as 9.1.5 compatible</>, Juko8),
