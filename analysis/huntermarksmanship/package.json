@@ -7,7 +7,7 @@
     "src"
   ],
   "dependencies": {
-    "@lingui/macro": "^3.3.0",
+    "@lingui/macro": "^3.13.0",
     "@wowanalyzer/hunter": "*",
     "common": "link:../../src/common",
     "game": "link:../../src/game",
