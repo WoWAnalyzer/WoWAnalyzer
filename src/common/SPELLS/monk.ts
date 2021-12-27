@@ -553,6 +553,16 @@ const spells = {
     name: 'Invoke Xuen, the White Tiger',
     icon: 'ability_monk_summontigerstatue',
   },
+  XUEN_CRACKLING_TIGER_LIGHTNING: {
+    id: 123996,
+    name: 'Crackling Tiger Lightning',
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  EMPOWERED_TIGER_LIGHTNING: {
+    id: 335913,
+    name: 'Empowered Tiger Lightning',
+    icon: 'ability_monk_summontigerstatue',
+  },
   DANCE_OF_CHI_JI_BUFF: {
     id: 325202,
     name: 'Dance of Chi-Ji',
