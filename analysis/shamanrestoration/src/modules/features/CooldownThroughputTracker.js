@@ -66,7 +66,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
           feed = this.cbtFeed;
           totals = this.cbtTotals;
-          feedingFactor = 0.25;
+          feedingFactor = 0.3;
         } else if (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
           feed = this.ascFeed;
           totals = this.ascTotals;
