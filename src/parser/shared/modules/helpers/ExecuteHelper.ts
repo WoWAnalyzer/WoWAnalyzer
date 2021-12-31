@@ -6,6 +6,7 @@ import Events, {
   ApplyBuffEvent,
   DamageEvent,
   FightEndEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -38,6 +39,12 @@ class ExecuteHelper extends Analyzer {
    * This should contain any SPELLS object that allows execute to be used outside normal execute range
    */
   static executeOutsideRangeEnablers: Spell[] = [];
+
+  /**
+   * Array of objects from common/SPELLS
+   * This should contain any SPELLS object that allows an execute to be used once, even outside normal execute range
+   */
+  static singleExecuteEnablers: Spell[] = [];
 
   /**
    * Whether cooldown of the executeSpells should count as time in execute.
@@ -108,6 +115,11 @@ class ExecuteHelper extends Analyzer {
    * returns the amount of casts of the executes listed in executeSpells that were cast whilst being in an execute window
    */
   castsWithExecute: number = 0;
+
+  /**
+   * returns the amount of times a buff was applied that allows for a single cast of a given execute spell
+   */
+  singleExecuteEnablerApplications: number = 0;
   //endregion
 
   //region Execute helpers
@@ -193,6 +205,14 @@ class ExecuteHelper extends Analyzer {
       Events.removebuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers),
       this.removeExecuteEnablerBuff,
     );
+    this.addEventListener(
+      Events.applybuff.to(this.executeSources).spell(this.singleExecuteEnablers),
+      this.applySingleExecuteEnablerBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(this.executeSources).spell(this.singleExecuteEnablers),
+      this.refreshSingleExecuteEnablerBuff,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -235,6 +255,11 @@ class ExecuteHelper extends Analyzer {
   get countCooldownAsExecuteTime() {
     const ctor = this.constructor as typeof ExecuteHelper;
     return ctor.countCooldownAsExecuteTime;
+  }
+
+  get singleExecuteEnablers() {
+    const ctor = this.constructor as typeof ExecuteHelper;
+    return ctor.singleExecuteEnablers;
   }
   //endregion
 
@@ -316,6 +341,14 @@ class ExecuteHelper extends Analyzer {
         this.damage += event.amount + (event.absorbed || 0);
       }
     }
+  }
+
+  applySingleExecuteEnablerBuff(event: ApplyBuffEvent) {
+    this.singleExecuteEnablerApplications += 1;
+  }
+
+  refreshSingleExecuteEnablerBuff(event: RefreshBuffEvent) {
+    this.singleExecuteEnablerApplications += 1;
   }
 
   applyExecuteEnablerBuff(event: ApplyBuffEvent) {
