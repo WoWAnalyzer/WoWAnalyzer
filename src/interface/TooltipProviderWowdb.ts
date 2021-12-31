@@ -29,7 +29,7 @@ class TooltipProviderWowdb extends Base {
   }
   static resource(id: number) {
     // Wowdb doesn't have nice pages for resources
-    return `http://www.wowhead.com/${RESOURCE_TYPES[id].url}`;
+    return `https://www.wowhead.com/${RESOURCE_TYPES[id].url}`;
   }
   static refresh(elem: any) {
     // They haven't figured out you can use a document listener yet

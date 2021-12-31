@@ -36,7 +36,7 @@ export default {
       </a>{' '}
       <br />
       <a
-        href="http://www.wowhead.com/unholy-death-knight-guide"
+        href="https://www.wowhead.com/unholy-death-knight-guide"
         target="_blank"
         rel="noopener noreferrer"
       >
