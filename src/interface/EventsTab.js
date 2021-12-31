@@ -137,6 +137,10 @@ class EventsTab extends Component {
     if (enemy) {
       return enemy;
     }
+    const enemyPet = this.props.parser.report.enemyPets.find((enemyPet) => enemyPet.id === id);
+    if (enemyPet) {
+      return enemyPet;
+    }
     const pet = this.props.parser.playerPets.find((pet) => pet.id === id);
     if (pet) {
       return pet;
