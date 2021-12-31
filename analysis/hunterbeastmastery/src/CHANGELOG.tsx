@@ -5,6 +5,8 @@ import { Adoraci, Putro, Kartarn } from 'CONTRIBUTORS';
 import { ItemLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 26), <> Correct an error that was attributing too much damage to <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/> on rare occasions. </>, Putro),
+  change(date(2021, 12, 26), <> Added a module that aims to simulate either <SpellLink id={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id} /> or <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id} />, to provide a better comparison between the two for different bosses or dungeons, as it is a highly debated topic. </>, Putro),
   change(date(2021, 12, 12), <> Added <SpellLink id={SPELLS.WILD_SPIRITS_BUFF.id} />, <SpellLink id={SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id}/> and <SpellLink id={SPELLS.FLAYERS_MARK.id} /> to the timeline to better show when these covenant specifics buffs were active.</>, Putro),
   change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),
   change(date(2021, 11, 11), <> Correct an issue where damage done by <SpellLink id={SPELLS.BEAST_CLEAVE_DAMAGE.id}/> wasn't correctly attributed to <SpellLink id={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id}/>.  </>, Putro),

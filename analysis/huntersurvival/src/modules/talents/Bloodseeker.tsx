@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import { BLOODSEEKER_ATTACK_SPEED_GAIN } from '@wowanalyzer/hunter-survival/src/constants';
 
 /**
@@ -53,7 +53,7 @@ class Bloodseeker extends Analyzer {
   }
 
   onPetDamage(event: DamageEvent) {
-    if (event.timestamp > this.kcCastTimestamp + MS_BUFFER) {
+    if (event.timestamp > this.kcCastTimestamp + MS_BUFFER_100) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }

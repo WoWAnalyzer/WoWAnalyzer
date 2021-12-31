@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
   LETHAL_SHOTS_CHANCE,
@@ -80,7 +80,7 @@ class LethalShots extends Analyzer {
     if (this.shotInFlight > event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
       this.shotInFlight = null;
     }
-    if (event.timestamp < this.lastDamageEvent + MS_BUFFER) {
+    if (event.timestamp < this.lastDamageEvent + MS_BUFFER_100) {
       return;
     }
     this.procChances += 1;
