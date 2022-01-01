@@ -170,7 +170,7 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=100780"
+            href="https://wowhead.com/spell=100780"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -318,7 +318,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=121253"
+                href="https://wowhead.com/spell=121253"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -420,7 +420,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=205523"
+                href="https://wowhead.com/spell=205523"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -522,7 +522,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115181"
+                href="https://wowhead.com/spell=115181"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -619,7 +619,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=100780"
+                href="https://wowhead.com/spell=100780"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -704,7 +704,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116847"
+                href="https://wowhead.com/spell=116847"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -801,7 +801,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=117952"
+                href="https://wowhead.com/spell=117952"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -886,7 +886,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=325216"
+                href="https://wowhead.com/spell=325216"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1046,7 +1046,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=322729"
+                href="https://wowhead.com/spell=322729"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1189,7 +1189,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=132578"
+                href="https://wowhead.com/spell=132578"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1286,7 +1286,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=322109"
+                href="https://wowhead.com/spell=322109"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1441,7 +1441,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=119582"
+                href="https://wowhead.com/spell=119582"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1543,7 +1543,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=322507"
+                href="https://wowhead.com/spell=322507"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1645,7 +1645,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=322101"
+                href="https://wowhead.com/spell=322101"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1742,7 +1742,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115203"
+                href="https://wowhead.com/spell=115203"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1839,7 +1839,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115176"
+                href="https://wowhead.com/spell=115176"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1994,7 +1994,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115008"
+                href="https://wowhead.com/spell=115008"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2091,7 +2091,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=101643"
+                href="https://wowhead.com/spell=101643"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2176,7 +2176,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=119996"
+                href="https://wowhead.com/spell=119996"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2261,7 +2261,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115315"
+                href="https://wowhead.com/spell=115315"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2346,7 +2346,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115078"
+                href="https://wowhead.com/spell=115078"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2443,7 +2443,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=119381"
+                href="https://wowhead.com/spell=119381"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2540,7 +2540,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=115546"
+                href="https://wowhead.com/spell=115546"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2637,7 +2637,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116705"
+                href="https://wowhead.com/spell=116705"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2734,7 +2734,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=218164"
+                href="https://wowhead.com/spell=218164"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2831,7 +2831,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116670"
+                href="https://wowhead.com/spell=116670"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2974,7 +2974,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3071,7 +3071,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3168,7 +3168,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3509,7 +3509,7 @@ exports[`Brewmaster Monk integration test: example log CelestialBrew matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=322507"
+            href="https://wowhead.com/spell=322507"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3584,7 +3584,7 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=216521"
+            href="https://wowhead.com/spell=216521"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3772,7 +3772,7 @@ exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the s
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=124507"
+            href="https://wowhead.com/spell=124507"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3830,7 +3830,7 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=196737"
+            href="https://wowhead.com/spell=196737"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3922,7 +3922,7 @@ exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=119582"
+            href="https://wowhead.com/spell=119582"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3998,7 +3998,7 @@ exports[`Brewmaster Monk integration test: example log Stagger matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=115069"
+            href="https://wowhead.com/spell=115069"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4056,7 +4056,7 @@ exports[`Brewmaster Monk integration test: example log StormstoutsLastKeg matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=337288"
+            href="https://wowhead.com/spell=337288"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4069,7 +4069,7 @@ exports[`Brewmaster Monk integration test: example log StormstoutsLastKeg matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=337288"
+            href="https://wowhead.com/spell=337288"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4456,7 +4456,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           Use 
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=322507"
+            href="https://wowhead.com/spell=322507"
             onClick={[Function]}
             rel="noopener noreferrer"
             target="_blank"
@@ -4542,7 +4542,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=322507"
+              href="https://wowhead.com/spell=322507"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -4558,7 +4558,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=325092"
+              href="https://wowhead.com/spell=325092"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -4587,7 +4587,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=322507"
+                  href="https://wowhead.com/spell=322507"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4661,7 +4661,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=322507"
+                  href="https://wowhead.com/spell=322507"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4774,7 +4774,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           Use 
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=119582"
+            href="https://wowhead.com/spell=119582"
             onClick={[Function]}
             rel="noopener noreferrer"
             target="_blank"
@@ -4861,7 +4861,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
             Effective use of 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=119582"
+              href="https://wowhead.com/spell=119582"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -4883,7 +4883,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 Spend all of your charges of 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=119582"
+                  href="https://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4901,7 +4901,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 Avoid casting 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=119582"
+                  href="https://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4917,7 +4917,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=124273"
+                  href="https://wowhead.com/spell=124273"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4933,7 +4933,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=124273"
+                  href="https://wowhead.com/spell=124273"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4948,7 +4948,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  is not dangerous in itself. While not every fight will put you into 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=124273"
+                  href="https://wowhead.com/spell=124273"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4968,7 +4968,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=115069"
+                  href="https://wowhead.com/spell=115069"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4999,7 +4999,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=119582"
+                  href="https://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5074,7 +5074,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 Maintain 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=215479"
+                  href="https://wowhead.com/spell=215479"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5391,7 +5391,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=325216"
+                  href="https://wowhead.com/spell=325216"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5499,7 +5499,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=121253"
+                  href="https://wowhead.com/spell=121253"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5607,7 +5607,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=205523"
+                  href="https://wowhead.com/spell=205523"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5715,7 +5715,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=115181"
+                  href="https://wowhead.com/spell=115181"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5823,7 +5823,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=116847"
+                  href="https://wowhead.com/spell=116847"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5840,7 +5840,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=116847"
+                  href="https://wowhead.com/spell=116847"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5953,7 +5953,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=100780"
+                  href="https://wowhead.com/spell=100780"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6061,7 +6061,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=132578"
+                  href="https://wowhead.com/spell=132578"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

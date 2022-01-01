@@ -284,7 +284,7 @@ exports[`Destruction Warlock integration test: example log Backdraft matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=117828"
+            href="https://wowhead.com/spell=117828"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -297,7 +297,7 @@ exports[`Destruction Warlock integration test: example log Backdraft matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=117828"
+            href="https://wowhead.com/spell=117828"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -426,7 +426,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116858"
+                href="https://wowhead.com/spell=116858"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -511,7 +511,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=17962"
+                href="https://wowhead.com/spell=17962"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -608,7 +608,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=172"
+                href="https://wowhead.com/spell=172"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -693,7 +693,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=348"
+                href="https://wowhead.com/spell=348"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -778,7 +778,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=29722"
+                href="https://wowhead.com/spell=29722"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -863,7 +863,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=80240"
+                href="https://wowhead.com/spell=80240"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1018,7 +1018,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5740"
+                href="https://wowhead.com/spell=5740"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1103,7 +1103,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=152108"
+                href="https://wowhead.com/spell=152108"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1258,7 +1258,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1122"
+                href="https://wowhead.com/spell=1122"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1355,7 +1355,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=113858"
+                href="https://wowhead.com/spell=113858"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1510,7 +1510,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=104773"
+                href="https://wowhead.com/spell=104773"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1670,7 +1670,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=111400"
+                href="https://wowhead.com/spell=111400"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1755,7 +1755,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=234153"
+                href="https://wowhead.com/spell=234153"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1840,7 +1840,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6789"
+                href="https://wowhead.com/spell=6789"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1937,7 +1937,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48018"
+                href="https://wowhead.com/spell=48018"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2034,7 +2034,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48020"
+                href="https://wowhead.com/spell=48020"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2131,7 +2131,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=20707"
+                href="https://wowhead.com/spell=20707"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2216,7 +2216,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=111771"
+                href="https://wowhead.com/spell=111771"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2313,7 +2313,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=710"
+                href="https://wowhead.com/spell=710"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2398,7 +2398,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6201"
+                href="https://wowhead.com/spell=6201"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2483,7 +2483,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=29893"
+                href="https://wowhead.com/spell=29893"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2580,7 +2580,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1098"
+                href="https://wowhead.com/spell=1098"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2665,7 +2665,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=126"
+                href="https://wowhead.com/spell=126"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2750,7 +2750,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5782"
+                href="https://wowhead.com/spell=5782"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2835,7 +2835,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1714"
+                href="https://wowhead.com/spell=1714"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2920,7 +2920,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=702"
+                href="https://wowhead.com/spell=702"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3005,7 +3005,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=334275"
+                href="https://wowhead.com/spell=334275"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3090,7 +3090,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=755"
+                href="https://wowhead.com/spell=755"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3175,7 +3175,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=688"
+                href="https://wowhead.com/spell=688"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3260,7 +3260,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30283"
+                href="https://wowhead.com/spell=30283"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3357,7 +3357,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=333889"
+                href="https://wowhead.com/spell=333889"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3454,7 +3454,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5697"
+                href="https://wowhead.com/spell=5697"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3597,7 +3597,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3694,7 +3694,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3791,7 +3791,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3952,7 +3952,7 @@ exports[`Destruction Warlock integration test: example log Cataclysm matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=152108"
+            href="https://wowhead.com/spell=152108"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3965,7 +3965,7 @@ exports[`Destruction Warlock integration test: example log Cataclysm matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=152108"
+            href="https://wowhead.com/spell=152108"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4395,7 +4395,7 @@ exports[`Destruction Warlock integration test: example log Eradication matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=196412"
+            href="https://wowhead.com/spell=196412"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4408,7 +4408,7 @@ exports[`Destruction Warlock integration test: example log Eradication matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=196412"
+            href="https://wowhead.com/spell=196412"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4528,7 +4528,7 @@ exports[`Destruction Warlock integration test: example log Havoc matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=80240"
+            href="https://wowhead.com/spell=80240"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4541,7 +4541,7 @@ exports[`Destruction Warlock integration test: example log Havoc matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=80240"
+            href="https://wowhead.com/spell=80240"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4601,7 +4601,7 @@ exports[`Destruction Warlock integration test: example log ImmolateUptime matche
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=348"
+            href="https://wowhead.com/spell=348"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4689,7 +4689,7 @@ exports[`Destruction Warlock integration test: example log InternalCombustion ma
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=266134"
+            href="https://wowhead.com/spell=266134"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4702,7 +4702,7 @@ exports[`Destruction Warlock integration test: example log InternalCombustion ma
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=266134"
+            href="https://wowhead.com/spell=266134"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4783,7 +4783,7 @@ exports[`Destruction Warlock integration test: example log SoulShardDetails matc
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=246985"
+            href="https://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4796,7 +4796,7 @@ exports[`Destruction Warlock integration test: example log SoulShardDetails matc
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=246985"
+            href="https://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5281,7 +5281,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=348"
+              href="https://wowhead.com/spell=348"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5297,7 +5297,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=17962"
+              href="https://wowhead.com/spell=17962"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5312,7 +5312,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              and 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=117828"
+              href="https://wowhead.com/spell=117828"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5328,7 +5328,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
             stacks. Use 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=80240"
+              href="https://wowhead.com/spell=80240"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5357,7 +5357,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=348"
+                  href="https://wowhead.com/spell=348"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5431,7 +5431,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=17962"
+                  href="https://wowhead.com/spell=17962"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5505,7 +5505,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                 Wasted 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=117828"
+                  href="https://wowhead.com/spell=117828"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5833,7 +5833,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=196412"
+                  href="https://wowhead.com/spell=196412"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5907,7 +5907,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=152108"
+                  href="https://wowhead.com/spell=152108"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5980,7 +5980,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=1122"
+                  href="https://wowhead.com/spell=1122"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6053,7 +6053,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=113858"
+                  href="https://wowhead.com/spell=113858"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6205,7 +6205,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
             Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=111771"
+              href="https://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6221,7 +6221,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=268358"
+              href="https://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6237,7 +6237,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=111400"
+              href="https://wowhead.com/spell=111400"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6253,7 +6253,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=104773"
+              href="https://wowhead.com/spell=104773"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6268,7 +6268,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
             /
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=108416"
+              href="https://wowhead.com/spell=108416"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6299,7 +6299,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=48020"
+                  href="https://wowhead.com/spell=48020"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6372,7 +6372,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=104773"
+                  href="https://wowhead.com/spell=104773"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6524,7 +6524,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
             You should try to avoid doing nothing during the fight. When you have to move, try to save some 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=17962"
+              href="https://wowhead.com/spell=17962"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6540,7 +6540,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=268358"
+              href="https://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6557,7 +6557,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=111771"
+              href="https://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
             >
