@@ -51,7 +51,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Build
-if [ $1 == 'build' ]; then
+if [ $1 = 'build' ]; then
   yarn build
   if [ $? -ne 0 ]; then
     echo "Build failed."

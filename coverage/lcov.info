@@ -7250,7 +7250,7 @@ BRF:4
 BRH:1
 end_of_record
 TN:
-SF:src/interface/TooltipProviderBase.ts
+SF:src/interface/BaseTooltipProvider.ts
 FN:7,(anonymous_0)
 FN:11,(anonymous_1)
 FN:14,(anonymous_2)

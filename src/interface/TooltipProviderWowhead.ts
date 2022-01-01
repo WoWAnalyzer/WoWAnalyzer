@@ -1,6 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import Base from './TooltipProviderBase';
+import Base from 'interface/BaseTooltipProvider';
 
 class TooltipProviderWowhead extends Base {
   static libraryUrl = '//wow.zamimg.com/widgets/power.js';

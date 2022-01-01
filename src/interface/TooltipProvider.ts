@@ -1,4 +1,5 @@
-import Base from './TooltipProviderBase';
+import Base from 'interface/BaseTooltipProvider';
+
 import Wowdb from './TooltipProviderWowdb';
 import Wowhead from './TooltipProviderWowhead';
 
