@@ -55,6 +55,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2021, 12, 31), 'Begin Sonar Scan fixes.', Jeff),
+  change(date(2021, 12, 31), 'Added names to event tab for mobs classified as enemy pets', Putro),
   change(date(2021, 12, 27), 'Removed unnecessary build step.', emallson),
   change(date(2021, 12, 14), 'Fixed translations.', emallson),
   change(date(2021, 12, 13), 'Refactored handling of player channel detection', Sref),
