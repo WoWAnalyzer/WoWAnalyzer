@@ -9,62 +9,61 @@ export CI=true
 export GITHUB_BASE_REF=shadowlands
 
 # Check for changelog
-node scripts/require-changelog-entry.js
-if [ $? -ne 0 ]; then
+if ! node scripts/require-changelog-entry.js;
+then
   echo "New changelog entry has not been added."
   exit 1
 fi
 
 # Run Typecheck
-yarn typecheck
-if [ $? -ne 0 ]; then
+if ! yarn typecheck;
+then
   echo "Typecheck failed."
   exit 1
 fi
 
 # ESLint
-yarn lint --max-warnings=0
-if [ $? -ne 0 ]; then
+if ! yarn lint --max-warnings=0;
+then
   echo "ESLint failed."
   exit 1
 fi
 
 # Interface tests
-yarn test:interface --runInBand
-if [ $? -ne 0 ]; then
+if ! yarn test:interface --runInBand;
+then
   echo "Interface tests failed."
   exit 1
 fi
 
 # Parser tests
-yarn test:parser --runInBand
-if [ $? -ne 0 ]; then
+if ! yarn test:parser --runInBand;
+then
   echo "Parser tests failed."
   exit 1
 fi
 
 # Integration tests
-yarn test:integration --runInBand
-if [ $? -ne 0 ]; then
+if ! yarn test:integration --runInBand;
+then
   echo "Interface tests failed."
   exit 1
 fi
 
 # Build
-if [ $1 = 'build' ]; then
-  yarn build
-  if [ $? -ne 0 ]; then
+if [ "$1" = "build" ]; then
+  if ! yarn build;
+  then
     echo "Build failed."
     exit 1
   fi
 fi
 
 # Verify i18n
-yarn extract
-yarn lingui compile
-if [ $? -ne 0 ]; then
+if ! yarn extract && yarn lingui compile;
+then
   echo "i18n verification failed."
   exit 1
 fi
 
-echo "All steps "
+echo "All steps completed."

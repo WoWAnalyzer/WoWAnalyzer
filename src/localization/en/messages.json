@@ -1,6 +1,6 @@
 {
-  "All weapons enhanced (oils/stones)": "",
-  "Using high quality weapon enhancements": "",
+  "All weapons enhanced (oils/stones)": "All weapons enhanced (oils/stones)",
+  "Using high quality weapon enhancements": "Using high quality weapon enhancements",
   "className.druid": "Druid",
   "className.hunter": "Hunter",
   "className.paladin": "Paladin",
@@ -1079,10 +1079,10 @@
   "warrior.protection.suggestions.shieldBlock.goodCasts": "{0} good casts of shield block",
   "warrior.protection.suggestions.shieldSlam.casts": "{0} shield slam casts",
   "warrior.protection.suggestions.spellReflect.efficiency": "{0} % magic damage With Spell Reflect Up",
-  "{0, plural, one {Contributor} other {Contributors}}": "",
-  "{0} {1}": "",
-  "{num, plural, one {Healer} other {Healers}}": "",
-  "{num, plural, one {Melee DPS} other {Melee DPS}}": "",
-  "{num, plural, one {Ranged DPS} other {Ranged DPS}}": "",
-  "{num, plural, one {Tank} other {Tanks}}": ""
+  "{0, plural, one {Contributor} other {Contributors}}": "{0, plural, one {Contributor} other {Contributors}}",
+  "{0} {1}": "{0} {1}",
+  "{num, plural, one {Healer} other {Healers}}": "{num, plural, one {Healer} other {Healers}}",
+  "{num, plural, one {Melee DPS} other {Melee DPS}}": "{num, plural, one {Melee DPS} other {Melee DPS}}",
+  "{num, plural, one {Ranged DPS} other {Ranged DPS}}": "{num, plural, one {Ranged DPS} other {Ranged DPS}}",
+  "{num, plural, one {Tank} other {Tanks}}": "{num, plural, one {Tank} other {Tanks}}"
 }
