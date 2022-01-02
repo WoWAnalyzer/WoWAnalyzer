@@ -60,7 +60,7 @@ class CoordinatedOffensive extends Analyzer {
         Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES),
         this.onSERDamage,
       );
-    };
+    }
   }
   CO_Deactivator(event: CastEvent) {
     this.CO_Active = false;
@@ -103,7 +103,9 @@ class CoordinatedOffensive extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
-    this.totalDamage += (calculateEffectiveDamage(event, (this.CO_MOD+this.SER_MOD))-calculateEffectiveDamage(event, this.SER_MOD));
+    this.totalDamage += (
+      calculateEffectiveDamage(event, (this.CO_MOD+this.SER_MOD))-
+      calculateEffectiveDamage(event, this.SER_MOD));
   }
   statistic() {
     return (
