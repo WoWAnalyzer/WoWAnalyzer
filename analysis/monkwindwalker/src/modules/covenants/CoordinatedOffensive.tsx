@@ -104,7 +104,7 @@ class CoordinatedOffensive extends Analyzer {
       return;
     }
     this.totalDamage +=
-      calculateEffectiveDamage(event, (this.CO_MOD+this.SER_MOD)-
+      calculateEffectiveDamage(event, this.CO_MOD+this.SER_MOD)-
       calculateEffectiveDamage(event, this.SER_MOD);
   }
   statistic() {
