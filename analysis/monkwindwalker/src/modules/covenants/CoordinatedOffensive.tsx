@@ -103,9 +103,9 @@ class CoordinatedOffensive extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
-    this.totalDamage += (
-      calculateEffectiveDamage(event, (this.CO_MOD+this.SER_MOD))-
-      calculateEffectiveDamage(event, this.SER_MOD));
+    this.totalDamage +=
+      calculateEffectiveDamage(event, (this.CO_MOD+this.SER_MOD)-
+      calculateEffectiveDamage(event, this.SER_MOD);
   }
   statistic() {
     return (
