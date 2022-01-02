@@ -10,10 +10,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { ABILITIES_CLONED_BY_SEF } from '../../constants';
+import { ABILITIES_CLONED_BY_SEF, ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 class CoordinatedOffensive extends Analyzer {
   CO_MOD = 0;
+  SER_MOD = 0.2;
   totalDamage = 0;
   CO_Active: boolean = false;
   cloneIDs = new Set();
@@ -54,6 +55,12 @@ class CoordinatedOffensive extends Analyzer {
       Events.damage.by(SELECTED_PLAYER_PET).spell(ABILITIES_CLONED_BY_SEF),
       this.onSEFDamage,
     );
+    if (this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES),
+        this.onSERDamage,
+      );
+    };
   }
   CO_Deactivator(event: CastEvent) {
     this.CO_Active = false;
@@ -91,6 +98,12 @@ class CoordinatedOffensive extends Analyzer {
       return;
     }
     this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
+  }
+  onSERDamage(event: DamageEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
+      return;
+    }
+    this.totalDamage += (calculateEffectiveDamage(event, (this.CO_MOD+this.SER_MOD))-calculateEffectiveDamage(event, this.SER_MOD));
   }
   statistic() {
     return (
