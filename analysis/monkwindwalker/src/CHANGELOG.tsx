@@ -4,6 +4,7 @@ import { Juko8, Abelito75, Talby, Hursti } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 01, 02), <>Changed the <SpellLink id={SPELLS.COORDINATED_OFFENSICE.id} /> module to work with <SpellLink id={SPELLS.SERENITY.id} />.</>, Hursti),
   change(date(2021, 12, 21), <>Added <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> module.</>, Hursti),
   change(date(2021, 12, 21), <>Added Data for <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> Clones for further usage.</>, Hursti),
   change(date(2021, 12, 21), <>Added missing ticks of <SpellLink id={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} /> for calculations in the statistics.</>, Hursti),
