@@ -1,11 +1,8 @@
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
-  DamageEvent,
   DeathEvent,
   FightEndEvent,
-  HealEvent,
-  ResourceChangeEvent,
   SummonEvent,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -58,16 +55,16 @@ class TotemTracker extends Analyzer {
   public totemEvents(totemSpellId: number) {
     const events: TotemEvent[] = [];
     const totemElement = GetTotemElement(totemSpellId);
-    if (totemElement == null) {
+    if (totemElement === null) {
       return events;
     }
     return this.totemElementEvents[totemElement].filter(
-      (e: TotemEvent) => e.totemSpellId == totemSpellId,
+      (e: TotemEvent) => e.totemSpellId === totemSpellId,
     );
   }
 
   activeTotem(element: TotemElements) {
-    if (this.totemElementEvents[element].length == 0) {
+    if (this.totemElementEvents[element].length === 0) {
       return null;
     }
     const lastTotemSummoned = this.totemElementEvents[element][
@@ -82,7 +79,7 @@ class TotemTracker extends Analyzer {
   totalTotemUptime(totemIdOrElement: TotemElements | number) {
     if (Number.isInteger(totemIdOrElement)) {
       const totemId = totemIdOrElement as number;
-      if (this.totemEvents(totemId).length == 0) {
+      if (this.totemEvents(totemId).length === 0) {
         return 0;
       }
       return this.totemEvents(totemId)
@@ -90,7 +87,7 @@ class TotemTracker extends Analyzer {
         .reduce((a: number, b: number) => a + b);
     }
     const totemElement = totemIdOrElement as TotemElements;
-    if (this.totemElementEvents[totemElement].length == 0) {
+    if (this.totemElementEvents[totemElement].length === 0) {
       return 0;
     }
     return this.totemElementEvents[totemElement]
@@ -104,7 +101,7 @@ class TotemTracker extends Analyzer {
 
   // Duration is hard to get perfect, but we can do a few things to make the number we get not look so outlandish.
   markTotemAsDismissed(element: TotemElements, timestamp: number, reason = '') {
-    if (this.totemElementEvents[element].length == 0) {
+    if (this.totemElementEvents[element].length === 0) {
       return;
     }
     if (this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissedAt) {
@@ -148,7 +145,7 @@ class TotemTracker extends Analyzer {
   // Returns the ID of the totem that has the highest uptime for each element.
   primaryTotemUsed(element: TotemElements) {
     let primaryTotemId = TOTEMS_BY_ELEMENT[element][0];
-    if (TOTEMS_BY_ELEMENT[element].length == 0) {
+    if (TOTEMS_BY_ELEMENT[element].length === 0) {
       return primaryTotemId;
     }
     for (const totemId of TOTEMS_BY_ELEMENT[element]) {
@@ -202,7 +199,7 @@ class TotemTracker extends Analyzer {
 
   getTotemElementByTargetId(targetId: number) {
     for (const element of TotemElementsList) {
-      if (this.activeTotem(element as TotemElements)?.targetID == targetId) {
+      if (this.activeTotem(element as TotemElements)?.targetID === targetId) {
         return element;
       }
     }

@@ -30,7 +30,7 @@ export default class BaseTotem extends Analyzer {
     if (!this.totemTracker.totemEvents(spellId)) {
       return null;
     }
-    if (this.totemTracker.totemEvents(spellId).length == 0) {
+    if (this.totemTracker.totemEvents(spellId).length === 0) {
       return null;
     }
 

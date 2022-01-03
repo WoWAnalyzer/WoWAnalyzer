@@ -20,10 +20,6 @@ class GroundingTotem extends Analyzer {
   protected totemTracker!: TotemTracker;
   protected abilityTracker!: AbilityTracker;
 
-  constructor(options: Options) {
-    super(options);
-  }
-
   get groundedSpells() {
     return this.totemTracker
       .totemEvents(SPELLS.GROUNDING_TOTEM)
@@ -62,7 +58,7 @@ class GroundingTotem extends Analyzer {
             </thead>
             <tbody>
               {this.groundedSpells.map((ability: Ability, index: number) => (
-                <tr>
+                <tr key={index}>
                   <td>{index}</td>
                   <td>{ability ? <SpellLink id={ability.guid} /> : 'N/A'}</td>
                 </tr>
