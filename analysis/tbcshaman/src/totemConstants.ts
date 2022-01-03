@@ -88,8 +88,8 @@ export const TotemDurations = {
 };
 
 export const GetTotemElement = (totemSpellId: number): TotemElements | null => {
-  for (const element in TOTEMS_BY_ELEMENT) {
-    if (TOTEMS_BY_ELEMENT[element as TotemElements].includes(totemSpellId)) {
+  for (const element of TotemElementsList) {
+    if (TOTEMS_BY_ELEMENT[element].includes(totemSpellId)) {
       return element as TotemElements;
     }
   }

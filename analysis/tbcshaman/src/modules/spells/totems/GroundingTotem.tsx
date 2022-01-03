@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { Ability } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringValue from 'parser/ui/BoringValueText';

@@ -1,4 +1,5 @@
 import { Options } from 'parser/core/Analyzer';
+
 import { TotemElements } from '../../../totemConstants';
 import TotemTracker from '../../features/TotemTracker';
 import BaseTotem from './BaseTotem';

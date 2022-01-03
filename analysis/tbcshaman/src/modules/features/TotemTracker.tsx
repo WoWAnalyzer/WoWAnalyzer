@@ -1,10 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, {
-  CastEvent,
-  DeathEvent,
-  FightEndEvent,
-  SummonEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, DeathEvent, FightEndEvent, SummonEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import * as SPELLS from '../../SPELLS';
@@ -112,8 +107,7 @@ class TotemTracker extends Analyzer {
       this.totemElementEvents[element].length - 1
     ];
     const possibleDuration: number = timestamp - totemEvent.summonedAt;
-    /// @ts-ignore
-    const maxDuration: number = TotemDurations[totemEvent.totemSpellId] as number;
+    const maxDuration: number = (TotemDurations as any)[totemEvent.totemSpellId] as number;
     const duration = Math.min(possibleDuration, maxDuration);
     this.totemElementEvents[element][
       this.totemElementEvents[element].length - 1
