@@ -6,9 +6,14 @@ import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/Prepa
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ChainHeal from '../spells/ChainHeal';
-import EarthShield from '../spells/EarthShield';
-import WaterShield from '../spells/WaterShield';
+import EarthShield from '../spells/shields/EarthShield';
+import WaterShield from '../spells/shields/WaterShield';
 import Component from './Component';
+import FireTotems from "../spells/totems/FireTotems";
+import WaterTotems from "../spells/totems/WaterTotems";
+import EarthTotems from "../spells/totems/EarthTotems";
+import AirTotems from "../spells/totems/AirTotems";
+import TotemTracker from '../features/TotemTracker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -20,6 +25,11 @@ class Checklist extends BaseChecklist {
     earthShield: EarthShield,
     waterShield: WaterShield,
     chainHeal: ChainHeal,
+    totemTracker: TotemTracker,
+    fireTotems: FireTotems,
+    waterTotems: WaterTotems,
+    earthTotems: EarthTotems,
+    airtotems: AirTotems,
   };
 
   protected combatants!: Combatants;
@@ -30,6 +40,11 @@ class Checklist extends BaseChecklist {
   protected earthShield!: EarthShield;
   protected waterShield!: WaterShield;
   protected chainHeal!: ChainHeal;
+  protected totemTracker!: TotemTracker;
+  protected fireTotems!: FireTotems;
+  protected waterTotems!: WaterTotems;
+  protected earthTotems!: EarthTotems;
+  protected airtotems!: AirTotems;
 
   render() {
     return (
@@ -37,18 +52,22 @@ class Checklist extends BaseChecklist {
         build={this.owner.build}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
+        totemTracker={this.totemTracker}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
           manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           earthShieldPrepull: this.earthShield.suggestionThresholdsPrepull,
           earthShieldUptime: this.earthShield.suggestionThresholds,
           waterShieldPrepull: this.waterShield.suggestionThresholdsPrepull,
           waterShieldUptime: this.waterShield.suggestionThresholds,
           chainHealTargetThresholds: this.chainHeal.suggestionThreshold,
+          fireTotemUptime: this.fireTotems.suggestionThreshold,
+          waterTotemUptime: this.fireTotems.suggestionThreshold,
+          earthTotemUptime: this.fireTotems.suggestionThreshold,
+          airTotemUptime: this.fireTotems.suggestionThreshold,
         }}
       />
     );

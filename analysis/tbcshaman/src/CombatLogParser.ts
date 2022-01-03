@@ -15,9 +15,15 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 import ChainHeal from './modules/spells/ChainHeal';
-import EarthShield from './modules/spells/EarthShield';
-import ManaTideTotem from './modules/spells/ManaTideTotem';
-import WaterShield from './modules/spells/WaterShield';
+import EarthShield from './modules/spells/shields/EarthShield';
+import ManaTideTotem from './modules/spells/totems/ManaTideTotem';
+import WaterShield from './modules/spells/shields/WaterShield';
+import TotemTracker from "./modules/features/TotemTracker";
+
+import FireTotems from "./modules/spells/totems/FireTotems";
+import WaterTotems from "./modules/spells/totems/WaterTotems";
+import EarthTotems from "./modules/spells/totems/EarthTotems";
+import AirTotems from "./modules/spells/totems/AirTotems";
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -34,6 +40,12 @@ class CombatLogParser extends BaseCombatLogParser {
     waterShield: WaterShield,
     chainHeal: ChainHeal,
     manaTideTotem: ManaTideTotem,
+
+    totemTracker: TotemTracker,
+    fireTotems: FireTotems,
+    waterTotems: WaterTotems,
+    earthTotems: EarthTotems,
+    airTotems: AirTotems,
 
     // Mana Tab
     manaTracker: ManaTracker,
