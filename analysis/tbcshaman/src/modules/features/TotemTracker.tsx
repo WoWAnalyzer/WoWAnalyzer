@@ -1,16 +1,8 @@
-import { Trans } from '@lingui/macro';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, FightEndEvent, HealEvent, ResourceChangeEvent, SummonEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, DeathEvent, FightEndEvent, HealEvent, ResourceChangeEvent, SummonEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringValue from 'parser/ui/BoringValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { AllTotemsFilter, GetTotemElement, TotemDurations, TotemElements, TotemElementsList, TOTEMS_BY_ELEMENT } from "../../totemConstants";
-import UptimeIcon from 'interface/icons/Uptime';
-import { Build } from '../../CONFIG';
-import { formatPercentage } from 'common/format';
-import * as SPELL_EFFECTS from '../../SPELL_EFFECTS';
+import * as SPELLS from "../../SPELLS";
 
 export interface TotemEventTracker {
   [TotemElements.Fire]: TotemEvent[],
@@ -24,11 +16,13 @@ export interface TotemEvent {
   totemName: string;    // This is just to make debugging easier
   summonedAt: number;
   dismissedAt?: number;
+  dismissReason?: string;
   duration?: number;
   targetID?: number;
   damageDone: number;
   healingDone: number;
-  manaRestored: number
+  manaRestored: number;
+  spellsGrounded?: any;
 }
 
 class TotemTracker extends Analyzer {
@@ -77,7 +71,8 @@ class TotemTracker extends Analyzer {
   }
 
   // Duration is hard to get perfect, but we can do a few things to make the number we get not look so outlandish.
-  markTotemAsDismissed(element: TotemElements, timestamp: number) {
+  markTotemAsDismissed(element: TotemElements, timestamp: number, reason = "") {
+
     if (this.totemElementEvents[element].length == 0) return;
     if (this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissedAt) return;
 
@@ -87,8 +82,14 @@ class TotemTracker extends Analyzer {
     const maxDuration: number = TotemDurations[totemEvent.totemSpellId] as number;
     const duration = Math.min(possibleDuration, maxDuration);
     this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissedAt = timestamp;
-
+    this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissReason = reason;
     this.totemElementEvents[element][this.totemElementEvents[element].length - 1].duration = duration
+  }
+
+  markAllTotemsDismissed(timestamp: number, reason = "") {
+    for (const element of TotemElementsList) {
+      this.markTotemAsDismissed(element, timestamp, reason);
+    }
   }
 
   allTotemUptimePercentage() {
@@ -120,7 +121,15 @@ class TotemTracker extends Analyzer {
       this.totemSummoned,
     );
 
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.totemDeathEvent);
+
+
+    this.addEventListener(Events.cast, this.totemCastEvent);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL }), this.totemPurgeEvent)
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.totemPurgeEvent);
+    this.addEventListener(Events.fightend, this.totemPurgeEvent);
+
   }
 
   totemSummoned(event: SummonEvent) {
@@ -129,7 +138,7 @@ class TotemTracker extends Analyzer {
     const totemElement = GetTotemElement(totemSpellId);
     if (!totemElement) return;
 
-    this.markTotemAsDismissed(totemElement, event.timestamp);
+    this.markTotemAsDismissed(totemElement, event.timestamp, event.type);
 
     this.totemElementEvents[totemElement].push({
       totemSpellId,
@@ -142,22 +151,37 @@ class TotemTracker extends Analyzer {
     })
   }
 
-  petDeath(event: any) {
-    if (event.sourceID == 37) return;
-    if (event.sourceID == 241) return;
-
-  }
-
-  petAny(event: any) {
-    if (event.sourceID == 37) return;
-    if (event.sourceID == 241) return;
-
-  }
-
-  onFightEnd(event: FightEndEvent) {
+  getTotemElementByTargetId(targetId: number) {
     for (const element of TotemElementsList) {
-      this.markTotemAsDismissed(element, event.timestamp);
+      if (this.activeTotem(element as TotemElements)?.targetID == targetId) {
+        return element;
+      }
     }
+    return null;
+  }
+
+  totemDeathEvent(event: any) {
+    const targetId = event?.targetID || event.target?.id;
+    const targetTotemelement = this.getTotemElementByTargetId(targetId);
+    if (targetTotemelement) {
+      this.markTotemAsDismissed(targetTotemelement as TotemElements, event.timestamp, event.type);
+    }
+  }
+
+  // Used to track what spells are absorbed by grounding totem.
+  totemCastEvent(event: any) {
+    const targetId = event?.targetID || event?.target?.id;
+    const targetTotemelement = this.getTotemElementByTargetId(targetId);
+
+    if (targetTotemelement !== TotemElements.Air) return;
+    if (this.activeTotem(TotemElements.Air)?.totemSpellId !== SPELLS.GROUNDING_TOTEM) return;
+
+    this.totemElementEvents[TotemElements.Air][this.totemElementEvents[TotemElements.Air].length - 1].spellsGrounded = event.ability
+    this.markTotemAsDismissed(TotemElements.Air, event.timestamp, event.type);
+  }
+
+  totemPurgeEvent(event: FightEndEvent | DeathEvent | CastEvent) {
+    this.markAllTotemsDismissed(event.timestamp, event.type);
   }
 }
 

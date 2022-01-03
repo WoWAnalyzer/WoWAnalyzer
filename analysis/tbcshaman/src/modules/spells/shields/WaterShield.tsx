@@ -22,8 +22,6 @@ class WaterShield extends Analyzer {
     super(options);
     this.active = true;
 
-    console.log('Spec: ' + this.selectedCombatant.specId);
-
     this.category = STATISTIC_CATEGORY.GENERAL;
 
     this.addEventListener(

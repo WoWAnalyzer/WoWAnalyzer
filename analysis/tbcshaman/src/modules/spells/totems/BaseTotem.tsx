@@ -58,7 +58,6 @@ export default class BaseTotem extends Analyzer {
     }
 
     statistic() {
-        console.log(this.totemTracker.totemElementEvents);
         return (
             <Statistic
                 size="flexible"

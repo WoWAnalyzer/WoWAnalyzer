@@ -65,9 +65,9 @@ class Checklist extends BaseChecklist {
           waterShieldUptime: this.waterShield.suggestionThresholds,
           chainHealTargetThresholds: this.chainHeal.suggestionThreshold,
           fireTotemUptime: this.fireTotems.suggestionThreshold,
-          waterTotemUptime: this.fireTotems.suggestionThreshold,
-          earthTotemUptime: this.fireTotems.suggestionThreshold,
-          airTotemUptime: this.fireTotems.suggestionThreshold,
+          waterTotemUptime: this.waterTotems.suggestionThreshold,
+          earthTotemUptime: this.earthTotems.suggestionThreshold,
+          airTotemUptime: this.airtotems.suggestionThreshold,
         }}
       />
     );

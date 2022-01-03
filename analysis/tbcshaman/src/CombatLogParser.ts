@@ -17,6 +17,7 @@ import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracke
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/shields/EarthShield';
 import ManaTideTotem from './modules/spells/totems/ManaTideTotem';
+import GroundingTotem from './modules/spells/totems/GroundingTotem';
 import WaterShield from './modules/spells/shields/WaterShield';
 import TotemTracker from "./modules/features/TotemTracker";
 
@@ -40,6 +41,7 @@ class CombatLogParser extends BaseCombatLogParser {
     waterShield: WaterShield,
     chainHeal: ChainHeal,
     manaTideTotem: ManaTideTotem,
+    groundingTotem: GroundingTotem,
 
     totemTracker: TotemTracker,
     fireTotems: FireTotems,
