@@ -111,7 +111,7 @@ class TotemTracker extends Analyzer {
     const duration = Math.min(possibleDuration, maxDuration);
     totemEvent.dismissedAt = timestamp;
     totemEvent.dismissReason = reason;
-    totemEvent.duration = duration;    
+    totemEvent.duration = duration;
   }
 
   markAllTotemsDismissed(timestamp: number, reason = '') {
