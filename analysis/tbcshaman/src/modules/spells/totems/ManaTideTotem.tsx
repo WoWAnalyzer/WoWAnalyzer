@@ -14,9 +14,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { Build } from '../../CONFIG';
-import * as SPELL_EFFECTS from '../../SPELL_EFFECTS';
-import * as SPELLS from '../../SPELLS';
+import { Build } from '../../../CONFIG';
+import * as SPELL_EFFECTS from '../../../SPELL_EFFECTS';
+import * as SPELLS from '../../../SPELLS';
 
 class ManaTideTotem extends Analyzer {
   static dependencies = {
