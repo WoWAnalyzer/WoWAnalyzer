@@ -151,7 +151,7 @@ class BeaconHealSource extends Analyzer {
     const index = this._matchByHealSize(beaconTransferEvent);
 
     if (index === -1) {
-      // Here's a fun fact for you. Fury Warriors with the legendary "Kazzalax, Fujieda's Fury" (http://www.wowhead.com/item=137053/kazzalax-fujiedas-fury)
+      // Here's a fun fact for you. Fury Warriors with the legendary "Kazzalax, Fujieda's Fury" (https://www.wowhead.com/item=137053/kazzalax-fujiedas-fury)
       // get a 8% healing received increase for almost the entire fight (tooltip states it's 1%, this is a tooltip bug). What's messed up
       // is that this healing increase doesn't beacon transfer. So we won't be able to recognize the heal in here since it's off by 8%, so
       // this will be triggered. While I could implement code to track it, I chose not to because things would get way more complicated and
