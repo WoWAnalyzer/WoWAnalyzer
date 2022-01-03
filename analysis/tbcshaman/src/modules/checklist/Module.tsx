@@ -5,15 +5,15 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import TotemTracker from '../features/TotemTracker';
 import ChainHeal from '../spells/ChainHeal';
 import EarthShield from '../spells/shields/EarthShield';
 import WaterShield from '../spells/shields/WaterShield';
+import AirTotems from '../spells/totems/AirTotems';
+import EarthTotems from '../spells/totems/EarthTotems';
+import FireTotems from '../spells/totems/FireTotems';
+import WaterTotems from '../spells/totems/WaterTotems';
 import Component from './Component';
-import FireTotems from "../spells/totems/FireTotems";
-import WaterTotems from "../spells/totems/WaterTotems";
-import EarthTotems from "../spells/totems/EarthTotems";
-import AirTotems from "../spells/totems/AirTotems";
-import TotemTracker from '../features/TotemTracker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -57,7 +57,8 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
+            .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           earthShieldPrepull: this.earthShield.suggestionThresholdsPrepull,
           earthShieldUptime: this.earthShield.suggestionThresholds,

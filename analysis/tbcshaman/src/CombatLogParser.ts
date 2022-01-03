@@ -14,17 +14,16 @@ import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
+import TotemTracker from './modules/features/TotemTracker';
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/shields/EarthShield';
-import ManaTideTotem from './modules/spells/totems/ManaTideTotem';
-import GroundingTotem from './modules/spells/totems/GroundingTotem';
 import WaterShield from './modules/spells/shields/WaterShield';
-import TotemTracker from "./modules/features/TotemTracker";
-
-import FireTotems from "./modules/spells/totems/FireTotems";
-import WaterTotems from "./modules/spells/totems/WaterTotems";
-import EarthTotems from "./modules/spells/totems/EarthTotems";
-import AirTotems from "./modules/spells/totems/AirTotems";
+import AirTotems from './modules/spells/totems/AirTotems';
+import EarthTotems from './modules/spells/totems/EarthTotems';
+import FireTotems from './modules/spells/totems/FireTotems';
+import GroundingTotem from './modules/spells/totems/GroundingTotem';
+import ManaTideTotem from './modules/spells/totems/ManaTideTotem';
+import WaterTotems from './modules/spells/totems/WaterTotems';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {

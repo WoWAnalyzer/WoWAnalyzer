@@ -1,18 +1,19 @@
-import * as SPELLS from '../../../SPELLS';
 import { SpellLink } from 'interface';
-import { TotemElements } from "../../../totemConstants";
-import TotemTracker from "../../features/TotemTracker";
 import { Options } from 'parser/core/Analyzer';
-import BaseTotem from "./BaseTotem";
+
+import * as SPELLS from '../../../SPELLS';
+import { TotemElements } from '../../../totemConstants';
+import TotemTracker from '../../features/TotemTracker';
+import BaseTotem from './BaseTotem';
 
 export default class FireTotems extends BaseTotem {
-    static dependencies = {
-        totemTracker: TotemTracker,
-    };
+  static dependencies = {
+    totemTracker: TotemTracker,
+  };
 
-    protected totemTracker!: TotemTracker;
+  protected totemTracker!: TotemTracker;
 
-    constructor(options: Options) {
-        super(options, TotemElements.Fire);
-    }
+  constructor(options: Options) {
+    super(options, TotemElements.Fire);
+  }
 }

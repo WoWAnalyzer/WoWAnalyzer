@@ -1,19 +1,35 @@
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, DeathEvent, FightEndEvent, HealEvent, ResourceChangeEvent, SummonEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  DeathEvent,
+  FightEndEvent,
+  HealEvent,
+  ResourceChangeEvent,
+  SummonEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { AllTotemsFilter, GetTotemElement, TotemDurations, TotemElements, TotemElementsList, TOTEMS_BY_ELEMENT } from "../../totemConstants";
-import * as SPELLS from "../../SPELLS";
+
+import * as SPELLS from '../../SPELLS';
+import {
+  AllTotemsFilter,
+  GetTotemElement,
+  TotemDurations,
+  TotemElements,
+  TotemElementsList,
+  TOTEMS_BY_ELEMENT,
+} from '../../totemConstants';
 
 export interface TotemEventTracker {
-  [TotemElements.Fire]: TotemEvent[],
-  [TotemElements.Water]: TotemEvent[]
-  [TotemElements.Earth]: TotemEvent[]
-  [TotemElements.Air]: TotemEvent[]
+  [TotemElements.Fire]: TotemEvent[];
+  [TotemElements.Water]: TotemEvent[];
+  [TotemElements.Earth]: TotemEvent[];
+  [TotemElements.Air]: TotemEvent[];
 }
 
 export interface TotemEvent {
   totemSpellId: number;
-  totemName: string;    // This is just to make debugging easier
+  totemName: string; // This is just to make debugging easier
   summonedAt: number;
   dismissedAt?: number;
   dismissReason?: string;
@@ -36,34 +52,50 @@ class TotemTracker extends Analyzer {
     [TotemElements.Fire]: [],
     [TotemElements.Water]: [],
     [TotemElements.Earth]: [],
-    [TotemElements.Air]: []
-  }
+    [TotemElements.Air]: [],
+  };
 
   public totemEvents(totemSpellId: number) {
     const events: TotemEvent[] = [];
-    const totemElement = GetTotemElement(totemSpellId)
-    if (totemElement == null) return events;
-    return this.totemElementEvents[totemElement].filter((e: TotemEvent) => {
-      return e.totemSpellId == totemSpellId
-    })
+    const totemElement = GetTotemElement(totemSpellId);
+    if (totemElement == null) {
+      return events;
+    }
+    return this.totemElementEvents[totemElement].filter(
+      (e: TotemEvent) => e.totemSpellId == totemSpellId,
+    );
   }
 
   activeTotem(element: TotemElements) {
-    if (this.totemElementEvents[element].length == 0) return null;
-    const lastTotemSummoned = this.totemElementEvents[element][this.totemElementEvents[element].length - 1]
-    if (lastTotemSummoned.dismissedAt) return null;
+    if (this.totemElementEvents[element].length == 0) {
+      return null;
+    }
+    const lastTotemSummoned = this.totemElementEvents[element][
+      this.totemElementEvents[element].length - 1
+    ];
+    if (lastTotemSummoned.dismissedAt) {
+      return null;
+    }
     return lastTotemSummoned;
   }
 
   totalTotemUptime(totemIdOrElement: TotemElements | number) {
     if (Number.isInteger(totemIdOrElement)) {
-      const totemId = totemIdOrElement as number
-      if (this.totemEvents(totemId).length == 0) return 0;
-      return this.totemEvents(totemId).map(event => event.duration || 0).reduce((a: number, b: number) => (a + b));
+      const totemId = totemIdOrElement as number;
+      if (this.totemEvents(totemId).length == 0) {
+        return 0;
+      }
+      return this.totemEvents(totemId)
+        .map((event) => event.duration || 0)
+        .reduce((a: number, b: number) => a + b);
     }
     const totemElement = totemIdOrElement as TotemElements;
-    if (this.totemElementEvents[totemElement].length == 0) return 0;
-    return this.totemElementEvents[totemElement].map(event => event.duration || 0).reduce((a: number, b: number) => (a + b));
+    if (this.totemElementEvents[totemElement].length == 0) {
+      return 0;
+    }
+    return this.totemElementEvents[totemElement]
+      .map((event) => event.duration || 0)
+      .reduce((a: number, b: number) => a + b);
   }
 
   totemUptimePercentage(totemIdOrElement: TotemElements | number): number {
@@ -71,22 +103,33 @@ class TotemTracker extends Analyzer {
   }
 
   // Duration is hard to get perfect, but we can do a few things to make the number we get not look so outlandish.
-  markTotemAsDismissed(element: TotemElements, timestamp: number, reason = "") {
+  markTotemAsDismissed(element: TotemElements, timestamp: number, reason = '') {
+    if (this.totemElementEvents[element].length == 0) {
+      return;
+    }
+    if (this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissedAt) {
+      return;
+    }
 
-    if (this.totemElementEvents[element].length == 0) return;
-    if (this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissedAt) return;
-
-    const totemEvent: TotemEvent = this.totemElementEvents[element][this.totemElementEvents[element].length - 1]
-    const possibleDuration: number = timestamp - totemEvent.summonedAt
+    const totemEvent: TotemEvent = this.totemElementEvents[element][
+      this.totemElementEvents[element].length - 1
+    ];
+    const possibleDuration: number = timestamp - totemEvent.summonedAt;
     /// @ts-ignore
     const maxDuration: number = TotemDurations[totemEvent.totemSpellId] as number;
     const duration = Math.min(possibleDuration, maxDuration);
-    this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissedAt = timestamp;
-    this.totemElementEvents[element][this.totemElementEvents[element].length - 1].dismissReason = reason;
-    this.totemElementEvents[element][this.totemElementEvents[element].length - 1].duration = duration
+    this.totemElementEvents[element][
+      this.totemElementEvents[element].length - 1
+    ].dismissedAt = timestamp;
+    this.totemElementEvents[element][
+      this.totemElementEvents[element].length - 1
+    ].dismissReason = reason;
+    this.totemElementEvents[element][
+      this.totemElementEvents[element].length - 1
+    ].duration = duration;
   }
 
-  markAllTotemsDismissed(timestamp: number, reason = "") {
+  markAllTotemsDismissed(timestamp: number, reason = '') {
     for (const element of TotemElementsList) {
       this.markTotemAsDismissed(element, timestamp, reason);
     }
@@ -94,20 +137,23 @@ class TotemTracker extends Analyzer {
 
   allTotemUptimePercentage() {
     return (
-      this.totemUptimePercentage(TotemElements.Fire) +
-      this.totemUptimePercentage(TotemElements.Water) +
-      this.totemUptimePercentage(TotemElements.Earth) +
-      this.totemUptimePercentage(TotemElements.Air)
-    ) / 4
+      (this.totemUptimePercentage(TotemElements.Fire) +
+        this.totemUptimePercentage(TotemElements.Water) +
+        this.totemUptimePercentage(TotemElements.Earth) +
+        this.totemUptimePercentage(TotemElements.Air)) /
+      4
+    );
   }
 
   // Returns the ID of the totem that has the highest uptime for each element.
   primaryTotemUsed(element: TotemElements) {
     let primaryTotemId = TOTEMS_BY_ELEMENT[element][0];
-    if (TOTEMS_BY_ELEMENT[element].length == 0) return primaryTotemId;
+    if (TOTEMS_BY_ELEMENT[element].length == 0) {
+      return primaryTotemId;
+    }
     for (const totemId of TOTEMS_BY_ELEMENT[element]) {
       if (this.totalTotemUptime(totemId) > this.totalTotemUptime(primaryTotemId)) {
-        primaryTotemId = totemId
+        primaryTotemId = totemId;
       }
     }
     return primaryTotemId;
@@ -123,20 +169,23 @@ class TotemTracker extends Analyzer {
 
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.totemDeathEvent);
 
-
     this.addEventListener(Events.cast, this.totemCastEvent);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL }), this.totemPurgeEvent)
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL }),
+      this.totemPurgeEvent,
+    );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.totemPurgeEvent);
     this.addEventListener(Events.fightend, this.totemPurgeEvent);
-
   }
 
   totemSummoned(event: SummonEvent) {
     const totemSpellId = event.ability.guid;
     const totemName = event.ability.name;
     const totemElement = GetTotemElement(totemSpellId);
-    if (!totemElement) return;
+    if (!totemElement) {
+      return;
+    }
 
     this.markTotemAsDismissed(totemElement, event.timestamp, event.type);
 
@@ -148,7 +197,7 @@ class TotemTracker extends Analyzer {
       damageDone: 0,
       healingDone: 0,
       manaRestored: 0,
-    })
+    });
   }
 
   getTotemElementByTargetId(targetId: number) {
@@ -173,10 +222,16 @@ class TotemTracker extends Analyzer {
     const targetId = event?.targetID || event?.target?.id;
     const targetTotemelement = this.getTotemElementByTargetId(targetId);
 
-    if (targetTotemelement !== TotemElements.Air) return;
-    if (this.activeTotem(TotemElements.Air)?.totemSpellId !== SPELLS.GROUNDING_TOTEM) return;
+    if (targetTotemelement !== TotemElements.Air) {
+      return;
+    }
+    if (this.activeTotem(TotemElements.Air)?.totemSpellId !== SPELLS.GROUNDING_TOTEM) {
+      return;
+    }
 
-    this.totemElementEvents[TotemElements.Air][this.totemElementEvents[TotemElements.Air].length - 1].spellsGrounded = event.ability
+    this.totemElementEvents[TotemElements.Air][
+      this.totemElementEvents[TotemElements.Air].length - 1
+    ].spellsGrounded = event.ability;
     this.markTotemAsDismissed(TotemElements.Air, event.timestamp, event.type);
   }
 

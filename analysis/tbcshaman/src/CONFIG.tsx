@@ -5,6 +5,7 @@ import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
 import Config from 'parser/Config';
+
 import CHANGELOG from './CHANGELOG';
 import { TotemElements, TOTEMS_BY_ELEMENT } from './totemConstants';
 
