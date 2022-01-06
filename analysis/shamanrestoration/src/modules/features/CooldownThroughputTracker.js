@@ -151,6 +151,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     const cooldown = {
       ...spell,
       start: timestamp,
+      cdStart: timestamp,
       end: null,
       processed: false,
       healing: 0,
@@ -267,7 +268,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
             BUILT_IN_SUMMARY_TYPES.MANA,
           ],
         },
-        event.timestamp
+        event.timestamp,
       );
     }
 
