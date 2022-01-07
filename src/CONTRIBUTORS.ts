@@ -1823,6 +1823,7 @@ export const Hursti: Contributor = {
   nickname: 'Hursti',
   github: 'Hurstilol',
 };
+
 export const Shamorisse: Contributor = {
   nickname: 'Shamorisse',
   github: 'Amorisse',
