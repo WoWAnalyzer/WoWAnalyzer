@@ -27,12 +27,6 @@ const talents: SpellList = {
     name: 'Wind Rush Totem',
     icon: 'ability_shaman_windwalktotem',
   },
-  CLOUDBURST_TOTEM_TALENT: {
-    id: 157153,
-    name: 'Cloudburst Totem',
-    icon: 'ability_shaman_condensationtotem',
-    manaCost: 860,
-  },
   ECHO_OF_THE_ELEMENTS_TALENT_SHARED: {
     id: 108283,
     name: 'Echo of the Elements',
@@ -92,6 +86,12 @@ const talents: SpellList = {
   },
   FLASH_FLOOD_TALENT: { id: 280614, name: 'Flash Flood', icon: 'spell_frost_summonwaterelemental' },
   DOWNPOUR_TALENT: { id: 207778, name: 'Downpour', icon: 'ability_mage_waterjet', manaCost: 1500 },
+  CLOUDBURST_TOTEM_TALENT: {
+    id: 157153,
+    name: 'Cloudburst Totem',
+    icon: 'ability_shaman_condensationtotem',
+    manaCost: 860,
+  },
   HIGH_TIDE_TALENT: { id: 157154, name: 'High Tide', icon: 'spell_shaman_hightide', manaCost: 100 },
   WELLSPRING_TALENT: {
     id: 197995,

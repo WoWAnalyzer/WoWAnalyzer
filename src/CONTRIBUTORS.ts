@@ -1823,3 +1823,16 @@ export const Hursti: Contributor = {
   nickname: 'Hursti',
   github: 'Hurstilol',
 };
+export const Shamorisse: Contributor = {
+  nickname: 'Shamorisse',
+  github: 'Amorisse',
+  discord: 'Amorisse#8013',
+  avatar: avatar('Shamorisse-avatar.jpg'),
+  mains: [
+    {
+      name: 'Shamorisse',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Shamorisse',
+    },
+  ],
+};
