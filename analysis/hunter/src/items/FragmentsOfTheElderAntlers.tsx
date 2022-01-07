@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER } from '../constants';
+import { MS_BUFFER_100 } from '../constants';
 
 /**
  * When Wild Spirits hits fewer than 5 targets, there is a 100% chance to cause Wild Spirits damage a second time.
@@ -40,17 +40,18 @@ class FragmentsOfTheElderAntlers extends Analyzer {
   }
 
   onWildSpiritsDamage(event: DamageEvent) {
-    if (event.timestamp > this.lastWSTimestamp + MS_BUFFER) {
+    if (event.timestamp > this.lastWSTimestamp + MS_BUFFER_100) {
       this.targetsHit = [];
     }
     this.lastWSTimestamp = event.timestamp;
     const targetHit = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this.targetsHit.includes(targetHit)) {
-      this.wildSpiritsHits += 1;
-      this.targetsHit.push(targetHit);
-    } else {
+    this.targetsHit.push(targetHit);
+    const isAntlersHit = this.targetsHit.filter((x) => x === targetHit).length % 2 === 0;
+    if (isAntlersHit) {
       this.antlerHits += 1;
       this.damage += event.amount + (event.absorb || 0);
+    } else {
+      this.wildSpiritsHits += 1;
     }
   }
 

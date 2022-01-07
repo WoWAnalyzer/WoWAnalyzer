@@ -291,7 +291,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=190446"
+            href="https://wowhead.com/spell=190446"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -304,7 +304,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=190446"
+            href="https://wowhead.com/spell=190446"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -646,7 +646,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116"
+                href="https://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -731,7 +731,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=108853"
+                href="https://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -828,7 +828,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1449"
+                href="https://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -913,7 +913,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30455"
+                href="https://wowhead.com/spell=30455"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -998,7 +998,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=44614"
+                href="https://wowhead.com/spell=44614"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1083,7 +1083,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=120"
+                href="https://wowhead.com/spell=120"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1180,7 +1180,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=84714"
+                href="https://wowhead.com/spell=84714"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1340,7 +1340,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190356"
+                href="https://wowhead.com/spell=190356"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1495,7 +1495,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116011"
+                href="https://wowhead.com/spell=116011"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1597,7 +1597,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=12472"
+                href="https://wowhead.com/spell=12472"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1694,7 +1694,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=80353"
+                href="https://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1791,7 +1791,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=314793"
+                href="https://wowhead.com/spell=314793"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1951,7 +1951,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=11426"
+                href="https://wowhead.com/spell=11426"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2048,7 +2048,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=45438"
+                href="https://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2145,7 +2145,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=55342"
+                href="https://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2300,7 +2300,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1459"
+                href="https://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2385,7 +2385,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=122"
+                href="https://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2482,7 +2482,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212653"
+                href="https://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2579,7 +2579,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2139"
+                href="https://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2676,7 +2676,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=475"
+                href="https://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2773,7 +2773,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=130"
+                href="https://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2858,7 +2858,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30449"
+                href="https://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2943,7 +2943,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=321358"
+                href="https://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3028,7 +3028,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=342247"
+                href="https://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3113,7 +3113,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=66"
+                href="https://wowhead.com/spell=66"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3210,7 +3210,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=235219"
+                href="https://wowhead.com/spell=235219"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3307,7 +3307,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=118"
+                href="https://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3450,7 +3450,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3547,7 +3547,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3644,7 +3644,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307497"
+                href="https://wowhead.com/spell=307497"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3986,7 +3986,7 @@ exports[`Frost Mage integration test: example log ElementalBarrier matches the s
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=11426"
+            href="https://wowhead.com/spell=11426"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3999,7 +3999,7 @@ exports[`Frost Mage integration test: example log ElementalBarrier matches the s
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=11426"
+            href="https://wowhead.com/spell=11426"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4080,7 +4080,7 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336569"
+            href="https://wowhead.com/spell=336569"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4093,7 +4093,7 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336569"
+            href="https://wowhead.com/spell=336569"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4142,7 +4142,7 @@ exports[`Frost Mage integration test: example log IceLance matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30455"
+            href="https://wowhead.com/spell=30455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4155,7 +4155,7 @@ exports[`Frost Mage integration test: example log IceLance matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30455"
+            href="https://wowhead.com/spell=30455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4261,7 +4261,7 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12472"
+            href="https://wowhead.com/spell=12472"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4274,7 +4274,7 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12472"
+            href="https://wowhead.com/spell=12472"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4372,7 +4372,7 @@ exports[`Frost Mage integration test: example log LonelyWinter matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205024"
+            href="https://wowhead.com/spell=205024"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4385,7 +4385,7 @@ exports[`Frost Mage integration test: example log LonelyWinter matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205024"
+            href="https://wowhead.com/spell=205024"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4437,7 +4437,7 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4450,7 +4450,7 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4506,7 +4506,7 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4519,7 +4519,7 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4616,7 +4616,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56377"
+            href="https://wowhead.com/spell=56377"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4629,7 +4629,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56377"
+            href="https://wowhead.com/spell=56377"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4688,7 +4688,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=155149"
+            href="https://wowhead.com/spell=155149"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4701,7 +4701,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=155149"
+            href="https://wowhead.com/spell=155149"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4713,7 +4713,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12472"
+            href="https://wowhead.com/spell=12472"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5073,7 +5073,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=228358"
+            href="https://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5086,7 +5086,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=228358"
+            href="https://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5098,7 +5098,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=228358"
+            href="https://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5118,7 +5118,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
           <br />
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116"
+            href="https://wowhead.com/spell=116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5330,7 +5330,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=12472"
+                  href="https://wowhead.com/spell=12472"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5403,7 +5403,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=84714"
+                  href="https://wowhead.com/spell=84714"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5476,7 +5476,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=116011"
+                  href="https://wowhead.com/spell=116011"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5628,7 +5628,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             The most important element of maximizing the damage of your rotation is ensuring that you are 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=12982"
+              href="https://wowhead.com/spell=12982"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5643,7 +5643,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             ing as many of your spells as possible. The key aspect of this is taking advantage of the 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=228358"
+              href="https://wowhead.com/spell=228358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5658,7 +5658,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              debuff. Winter's Chill is applied to the target when you use a 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190446"
+              href="https://wowhead.com/spell=190446"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5673,7 +5673,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=116"
+              href="https://wowhead.com/spell=116"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5689,7 +5689,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=257537"
+              href="https://wowhead.com/spell=257537"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5705,7 +5705,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=199786"
+              href="https://wowhead.com/spell=199786"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5720,7 +5720,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             , followed immediately by the Brain Freeze buffed Flurry and then end with two 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=30455"
+              href="https://wowhead.com/spell=30455"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5736,7 +5736,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=122"
+              href="https://wowhead.com/spell=122"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5752,7 +5752,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=33395"
+              href="https://wowhead.com/spell=33395"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6040,7 +6040,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             Frost Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that when you get a proc, you use it quickly and efficiently to prevent them from expiring and to lessen the likelyhood of overwriting them or wasting them. You should aim to use your 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=44544"
+              href="https://wowhead.com/spell=44544"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6055,7 +6055,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              as quickly as possible to ensure that you do not overcap and to avoid wasting them. Additionally, you should try to ensure that you use all of your Fingers of Frost procs before you use your 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190446"
+              href="https://wowhead.com/spell=190446"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6070,7 +6070,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              proc, but sometimes this is not possible. If you are already casting 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=116"
+              href="https://wowhead.com/spell=116"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6086,7 +6086,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=257537"
+              href="https://wowhead.com/spell=257537"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6102,7 +6102,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=199786"
+              href="https://wowhead.com/spell=199786"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6118,7 +6118,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190446"
+              href="https://wowhead.com/spell=190446"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6134,7 +6134,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=44544"
+              href="https://wowhead.com/spell=44544"
               rel="noopener noreferrer"
               target="_blank"
             >

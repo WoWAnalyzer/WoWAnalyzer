@@ -4,7 +4,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import * as SPELLS from '../../SPELLS';
+import * as SPELLS from '../../../SPELLS';
 
 class WaterShield extends Analyzer {
   static dependencies = {
@@ -21,8 +21,6 @@ class WaterShield extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = true;
-
-    console.log('Spec: ' + this.selectedCombatant.specId);
 
     this.category = STATISTIC_CATEGORY.GENERAL;
 
