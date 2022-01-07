@@ -14,8 +14,11 @@ import {
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+import CalculatedStrikes from './modules/covenants/CalculatedStrikes';
+import CoordinatedOffensive from './modules/covenants/CoordinatedOffensive';
 import InnerFury from './modules/covenants/InnerFury';
 import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
+import XuensBond from './modules/covenants/XuensBond';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -82,7 +85,10 @@ class CombatLogParser extends CoreCombatLogParser {
     faelineHarmony: FaelineHarmony,
     sinisterTeachings: SinisterTeachings,
     imbuedReflections: ImbuedReflections,
+    xuensBond: XuensBond,
     innerFury: InnerFury,
+    coordinatedOffensive: CoordinatedOffensive,
+    calculatedStrikes: CalculatedStrikes,
   };
 }
 

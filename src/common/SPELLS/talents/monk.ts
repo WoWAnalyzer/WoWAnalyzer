@@ -154,6 +154,11 @@ const talents: SpellList = {
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
   },
+  WHIRLING_DRAGON_PUNCH_TALENT_TICK: {
+    id: 158221,
+    name: 'Whirling Dragon Punch',
+    icon: 'ability_monk_hurricanestrike',
+  },
   SERENITY_TALENT: { id: 152173, name: 'Serenity', icon: 'ability_monk_serenity' },
 
   //Brewmaster

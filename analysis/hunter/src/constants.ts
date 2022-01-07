@@ -11,7 +11,7 @@ export const MIN_GCD = 750;
 export const MAX_GCD = 1500;
 /** MS Buffers */
 //A 100ms buffer is standard to use since logs aren't precise to the millisecond for events
-export const MS_BUFFER = 100;
+export const MS_BUFFER_100 = 100;
 //Whenever we ned to use 1 second buffers
 export const ONE_SECOND_IN_MS = 1000;
 //Whenever we need to use a buffer that is slightly above that of the maximum GCD
@@ -112,6 +112,10 @@ export const RESONATING_ARROW_CRIT_INCREASE = 0.3;
 export const WILD_MARK_DAMAGE_AMP = 0.05;
 //Wild Spirits lasts 15 seconds baseline
 export const WILD_SPIRITS_BASELINE_DURATION = 15000;
+
+/** Fragment of the Elder Antlers */
+//When Wild Spirits hits fewer than 5 targets, there is a 100% chance to cause Wild Spirits damage a second time.
+export const MAX_TARGETS_FOR_ANTLERS_TRIGGER = 4;
 //endregion
 
 //region Venthyr

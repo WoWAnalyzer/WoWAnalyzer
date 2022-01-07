@@ -49,3 +49,8 @@ temp
 
 # VIM
 *.swp
+
+
+# Coverage Reports 
+coverage/*
+!coverage/lcov.info

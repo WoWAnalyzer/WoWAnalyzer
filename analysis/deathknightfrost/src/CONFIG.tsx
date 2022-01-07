@@ -28,7 +28,7 @@ export default {
       </a>{' '}
       <br />
       <a
-        href="http://www.wowhead.com/frost-death-knight-guide"
+        href="https://www.wowhead.com/frost-death-knight-guide"
         target="_blank"
         rel="noopener noreferrer"
       >

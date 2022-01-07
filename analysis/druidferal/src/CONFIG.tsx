@@ -29,7 +29,7 @@ export default {
       <br />
       If you have questions about playing Feral check out the{' '}
       <a href="https://www.discord.gg/dreamgrove">Dreamgrove</a> Discord for an active community,
-      and the <a href="http://www.wowhead.com/feral-druid-guide">Feral guide</a> on Wowhead is an
+      and the <a href="https://www.wowhead.com/feral-druid-guide">Feral guide</a> on Wowhead is an
       excellent resource.
     </>
   ),

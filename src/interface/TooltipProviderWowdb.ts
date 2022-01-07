@@ -1,6 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import Base from './TooltipProviderBase';
+import Base from 'interface/BaseTooltipProvider';
 
 class TooltipProviderWowdb extends Base {
   static libraryUrl = '//static-azeroth.cursecdn.com/current/js/syndication/tt.js';
@@ -29,7 +28,7 @@ class TooltipProviderWowdb extends Base {
   }
   static resource(id: number) {
     // Wowdb doesn't have nice pages for resources
-    return `http://www.wowhead.com/${RESOURCE_TYPES[id].url}`;
+    return `https://www.wowhead.com/${RESOURCE_TYPES[id].url}`;
   }
   static refresh(elem: any) {
     // They haven't figured out you can use a document listener yet

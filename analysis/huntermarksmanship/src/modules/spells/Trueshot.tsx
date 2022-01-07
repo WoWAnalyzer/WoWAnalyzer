@@ -9,7 +9,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from '@wowanalyzer/hunter';
+import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import { TRUESHOT_FOCUS_INCREASE } from '@wowanalyzer/hunter-marksmanship/src/constants';
 import MarksmanshipFocusCapTracker from '@wowanalyzer/hunter-marksmanship/src/modules/resources/MarksmanshipFocusCapTracker';
 import RapidFire from '@wowanalyzer/hunter-marksmanship/src/modules/spells/RapidFire';
@@ -106,7 +106,7 @@ class Trueshot extends Analyzer {
     if (!resource) {
       return;
     }
-    if (event.timestamp >= this.lastCheckedPassiveRegenTimestamp + MS_BUFFER) {
+    if (event.timestamp >= this.lastCheckedPassiveRegenTimestamp + MS_BUFFER_100) {
       const timeSinceLastCheck = event.timestamp - this.lastCheckedPassiveRegenTimestamp;
       const possibleTSGainSinceLastCheck =
         timeSinceLastCheck *

@@ -40,6 +40,7 @@ import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
+import EssenceFontCancelled from './modules/spells/EssenceFontCancelled';
 import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
 import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     essenceFontUniqueTargets: EssenceFontUniqueTargets,
     essenceFontTargetsHit: EssenceFontTargetsHit,
+    EssenceFontCancelled: EssenceFontCancelled,
 
     // Talents
     chiBurst: ChiBurst,
