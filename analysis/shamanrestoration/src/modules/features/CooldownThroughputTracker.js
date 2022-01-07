@@ -63,11 +63,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         let feed = null;
         let totals = null;
         let feedingFactor = 0;
-        if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+        if (cooldown.spell === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
           feed = this.cbtFeed;
           totals = this.cbtTotals;
           feedingFactor = 0.3;
-        } else if (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
+        } else if (cooldown.spell === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
           feed = this.ascFeed;
           totals = this.ascTotals;
           feedingFactor = 1.0;
@@ -148,11 +148,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   }
 
   addNewCooldown(spell, timestamp) {
-    const cooldown = {
-      ...spell,
-      start: timestamp,
-      cdStart: timestamp,
-      end: null,
+    //call addCooldown from the core module. It adjusts spells for buffer ms and adds the cdStart property, and this felt cleaner than copy/pasting code that might be updated in the future
+    let cooldown = this.addCooldown(spell, timestamp);
+    //this.addCooldown performs its own 'this.pastCooldowns.push(cooldown);', but we want to add properties to cooldown before pushing
+    this.pastCooldowns.pop(cooldown);
+    cooldown = {
+      ...cooldown,
       processed: false,
       healing: 0,
       overheal: 0,
@@ -162,13 +163,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
     this.pastCooldowns.push(cooldown);
     this.activeCooldowns.push(cooldown);
-
     return cooldown;
   }
 
   popCBT(event) {
     const index = this.activeCooldowns.findIndex(
-      (cooldown) => cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+      (cooldown) => cooldown.spell === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
     );
     if (index === -1) {
       return;
@@ -208,7 +208,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   onApplyBuffToPlayer(event) {
     const spellId = event.ability.guid;
     const spell = this.constructor.cooldownSpells.find(
-      (cooldownSpell) => cooldownSpell.spell.id === spellId,
+      (cooldownSpell) => cooldownSpell.spell === spellId,
     );
     if (!spell) {
       return;
@@ -216,7 +216,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
     // If the Asc we stored on pull is still up, discard all data in it.
     if (spellId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
-      if (this.activeCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId) !== -1) {
+      if (this.activeCooldowns.findIndex((cooldown) => cooldown.spell === spellId) !== -1) {
         this.removeLastCooldown(spellId);
       }
     }
@@ -242,7 +242,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       cooldown.end = this.owner.fight.end_time;
 
       // If cloudburst is still up at the end of the fight, it didn't do any healing, so dont process it.
-      if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+      if (cooldown.spell === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
         cooldown.processed = true;
       }
     });
@@ -277,12 +277,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   removeLastCooldown(spellId) {
     const indexactiveCooldowns = this.activeCooldowns.findIndex(
-      (cooldown) => cooldown.spell.id === spellId,
+      (cooldown) => cooldown.spell === spellId,
     );
 
     const reverseIndexCooldowns = [...this.pastCooldowns]
       .reverse()
-      .findIndex((cooldown) => cooldown.spell.id === spellId);
+      .findIndex((cooldown) => cooldown.spell === spellId);
     const indexCooldowns = this.pastCooldowns.length - reverseIndexCooldowns - 1;
 
     if (indexactiveCooldowns !== -1 && indexCooldowns !== -1) {
@@ -307,7 +307,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     const healingDone = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
-      const cooldownId = cooldown.spell.id;
+      const cooldownId = cooldown.spell;
 
       if (
         (cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id &&
