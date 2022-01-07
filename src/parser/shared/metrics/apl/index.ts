@@ -16,6 +16,14 @@ export enum Tense {
 }
 
 /**
+ * An event that triggers checking the APL. For instant cast spells and
+ * abilities, this is `CastEvent`. For abilities with cast times,
+ * `BeginChannelEvent` is used. This should be largely automatic because the
+ * `BeginChannelEvent` comes first for cast-time spells and channels.
+ */
+export type AplTriggerEvent = CastEvent | BeginChannelEvent;
+
+/**
  * A Condition can be used to determine whether a [[Rule]] can applies to the
  * current fight situation. See [[buffPresent]] for a simple example.
  *
@@ -34,12 +42,7 @@ export interface Condition<T> {
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (
-    state: T,
-    event: CastEvent | BeginChannelEvent,
-    spell: Spell,
-    lookahead: AnyEvent[],
-  ) => boolean;
+  validate: (state: T, event: AplTriggerEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
   // tooltip description for checklist
@@ -83,7 +86,7 @@ export enum ResultKind {
 
 export interface Violation {
   kind: ResultKind.Violation;
-  actualCast: CastEvent | BeginChannelEvent;
+  actualCast: AplTriggerEvent;
   expectedCast: Spell;
   rule: Rule;
 }
@@ -94,7 +97,7 @@ type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 export interface Success {
   kind: ResultKind.Success;
   rule: Rule;
-  actualCast: CastEvent | BeginChannelEvent;
+  actualCast: AplTriggerEvent;
 }
 
 interface CheckState {
