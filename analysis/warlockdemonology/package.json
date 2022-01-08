@@ -15,7 +15,7 @@
     "interface": "link:../../src/interface",
     "parser": "link:../../src/parser",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
+    "react": "^17.0.2",
     "react-gemini-scrollbar": "^2.3.4",
     "react-toggle": "^4.0.2"
   }
