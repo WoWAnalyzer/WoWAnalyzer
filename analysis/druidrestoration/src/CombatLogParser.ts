@@ -31,6 +31,7 @@ import StatWeights from './modules/features/StatWeights';
 import WildGrowth from './modules/features/WildGrowth';
 import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
+import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FieldOfBlossomsResto from './modules/shadowlands/conduits/FieldOfBlossomsResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
@@ -138,6 +139,7 @@ class CombatLogParser extends CoreCombatLogParser {
     memoryoftheMotherTree: MemoryoftheMotherTree,
     verdantInfusion: VerdantInfusion,
     lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
+    draughtOfDeepFocus: DraughtOfDeepFocus,
   };
 }
 
