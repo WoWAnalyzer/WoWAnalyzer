@@ -7,6 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
@@ -31,7 +32,6 @@ import StatWeights from './modules/features/StatWeights';
 import WildGrowth from './modules/features/WildGrowth';
 import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
-import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
 import FieldOfBlossomsResto from './modules/shadowlands/conduits/FieldOfBlossomsResto';
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
