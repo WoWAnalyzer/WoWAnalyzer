@@ -55,6 +55,12 @@ class DraughtOfDeepFocus extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(BUFFED_DOTS),
       this.onDdfDotDamage,
     );
+
+    // special case - Rake direct damage has a different ID from the debuff, but is still buffed
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAKE),
+      this.onRakeDirectDamage,
+    );
   }
 
   onDdfDotApply(event: ApplyDebuffEvent) {
@@ -69,6 +75,18 @@ class DraughtOfDeepFocus extends Analyzer {
     const dot: DdfDot = this.ddfDotsOnById[event.ability.guid];
 
     if (dot.targetsOn === 1) {
+      dot.buffedAmount += calculateEffectiveDamage(event, DDF_BOOST);
+      dot.buffedTicks += 1;
+    }
+    dot.totalTicks += 1;
+  }
+
+  onRakeDirectDamage(event: DamageEvent) {
+    // special case - we look up the DoT from the debuff's ID (which is different from damage ID)
+    const dot: DdfDot = this.ddfDotsOnById[SPELLS.RAKE_BLEED.id];
+
+    // direct damage hits before debuff application, but is still buffed
+    if (dot.targetsOn <= 1) {
       dot.buffedAmount += calculateEffectiveDamage(event, DDF_BOOST);
       dot.buffedTicks += 1;
     }
