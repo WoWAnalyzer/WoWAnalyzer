@@ -23,12 +23,12 @@ const Ad = ({ style, location }: Props) => {
   const premium = usePremium();
 
   useEffect(() => {
-    if (!premium) {
+    if (!premium && pageLoc.search.includes('enableAds=true')) {
       refreshAds();
 
       return destroyAds;
     }
-  }, [location, pageLoc.pathname, premium]);
+  }, [location, pageLoc.pathname, pageLoc.search, premium]);
 
   if (premium) {
     return null;
@@ -57,23 +57,23 @@ export default Ad;
 
 declare global {
   interface Window {
-    ramp?: any;
+    tyche?: any;
   }
 }
 
 export function refreshAds() {
-  const ramp = window.ramp;
+  const tyche = window.tyche;
   try {
-    if (ramp && ramp.initCallbackHappened) {
-      ramp.destroyUnits('all');
-      ramp
+    if (tyche && tyche.initCallbackHappened) {
+      tyche.destroyUnits('all');
+      tyche
         .addUnits(Object.values(units))
         .then(() => {
           console.log('ads refreshed');
-          ramp.displayUnits();
+          tyche.displayUnits();
         })
         .catch((e: Error) => {
-          ramp.displayUnits();
+          tyche.displayUnits();
           console.log('displayUnits error: ', e);
         });
     }
@@ -84,18 +84,16 @@ export function refreshAds() {
 
 export function destroyAds() {
   console.log('destroying ads');
-  const destroy = window.ramp?.destroyUnits;
+  const destroy = window.tyche?.destroyUnits;
 
   if (destroy) {
     destroy('all');
   }
 }
 
-window.ramp = {
-  mode: 'ramp',
+window.tyche = {
+  mode: 'tyche',
   config: '//config.playwire.com/1024476/v2/websites/73270/banner.json',
-  // not sure if this is needed?
-  initCallbackHappened: true,
   passiveMode: true,
   onReady: refreshAds,
 };
