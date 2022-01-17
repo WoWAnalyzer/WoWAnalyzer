@@ -48,12 +48,7 @@ export const sumResourceGainedBySpell = (
   resourcesGained: ResourcesGained,
   resourceId: number,
   spellId: number,
-) => {
-  let sum = 0;
-  for (const targetId in resourcesGained) {
-    const resourcesGainedBySpell = resourcesGained[targetId][resourceId]?.[spellId] || 0;
-    sum += resourcesGainedBySpell;
-  }
-
-  return sum;
-};
+) =>
+  Object.values(resourcesGained)
+    .map((obj) => obj[resourceId]?.[spellId] || 0)
+    .reduce((a, b) => a + b);

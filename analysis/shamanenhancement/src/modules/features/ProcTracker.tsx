@@ -4,7 +4,6 @@ import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 import CooldownOverview from 'parser/ui/CooldownOverview';
-import React from 'react';
 
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [

@@ -19,7 +19,8 @@ import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
-import React, { ComponentType } from 'react';
+import { ComponentType } from 'react';
+import * as React from 'react';
 
 import Config from '../Config';
 import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';
@@ -36,7 +37,6 @@ import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
-import Channeling from '../shared/modules/Channeling';
 import Combatants from '../shared/modules/Combatants';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
@@ -59,7 +59,6 @@ import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';
-import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 import VantusRune from '../shared/modules/spells/VantusRune';
 import SpellUsable from '../shared/modules/SpellUsable';
 import DamageDone from '../shared/modules/throughput/DamageDone';
@@ -68,6 +67,7 @@ import HealingDone from '../shared/modules/throughput/HealingDone';
 import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
+import Channeling from '../shared/normalizers/Channeling';
 import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
@@ -150,6 +150,7 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
+    channeling: Channeling,
 
     // Enhancers
     spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
@@ -165,7 +166,7 @@ class CombatLogParser {
     enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
-    channeling: Channeling,
+
     eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     haste: Haste,
@@ -217,9 +218,6 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Shadowlands
-
-    // Castle Nathria
-    soulInfusion: SoulInfusion,
 
     // Dungeons
     overchargedAnimaBattery: OverchargedAnimaBattery,
@@ -683,7 +681,7 @@ class CombatLogParser {
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }
-            this.deepDisable(module, ModuleError.RESULTS, e);
+            this.deepDisable(module, ModuleError.RESULTS, e as Error);
             //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
             return false;
           }

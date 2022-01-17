@@ -7,7 +7,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import SpellEnergyCost from './SpellEnergyCost';
 

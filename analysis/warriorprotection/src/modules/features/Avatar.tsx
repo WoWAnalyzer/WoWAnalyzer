@@ -6,7 +6,6 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import EventFilter from 'parser/core/EventFilter';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 

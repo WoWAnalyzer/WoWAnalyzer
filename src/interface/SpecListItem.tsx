@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
-import React from 'react';
 
 import SpecIcon from './SpecIcon';
 

@@ -4,7 +4,6 @@ import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEff
 import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import Panel from 'parser/ui/Panel';
-import React from 'react';
 
 class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
   static dependencies = {

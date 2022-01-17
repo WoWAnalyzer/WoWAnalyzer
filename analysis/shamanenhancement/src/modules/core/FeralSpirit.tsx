@@ -6,7 +6,6 @@ import ResourceGenerated from 'parser/ui/ResourceGenerated';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const FERAL_SPIRIT = {
   INITIAL_MAELSTROM_WEAPON_GAIN: 1,

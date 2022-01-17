@@ -15,7 +15,7 @@ import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -68,7 +68,7 @@ const ERRORS = {
   }),
 };
 
-class CharacterParses extends React.Component {
+class CharacterParses extends Component {
   static propTypes = {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,

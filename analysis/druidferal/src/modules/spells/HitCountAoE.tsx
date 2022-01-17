@@ -8,7 +8,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { getHitCount } from '../../normalizers/CastLinkNormalizer';
 

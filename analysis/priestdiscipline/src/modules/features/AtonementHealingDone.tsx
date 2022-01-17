@@ -4,7 +4,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { Ability, AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import Panel from 'parser/ui/Panel';
-import React from 'react';
 
 import { IsPenanceDamageEvent } from '@wowanalyzer/priest-discipline/src/modules/spells/Helper';
 

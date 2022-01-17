@@ -6,7 +6,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import ResourceBreakdown from './ComboPointBreakdown';
 import ComboPointTracker from './ComboPointTracker';

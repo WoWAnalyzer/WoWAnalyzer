@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import { SpellLink } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import PetTimeline from './PetTimeline';
 

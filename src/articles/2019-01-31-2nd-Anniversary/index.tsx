@@ -1,7 +1,6 @@
 import { Zerotorescue } from 'CONTRIBUTORS';
 import makeNewsUrl from 'interface/makeNewsUrl';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Logo from './logo.png';

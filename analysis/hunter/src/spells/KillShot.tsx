@@ -9,22 +9,18 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { KILL_SHOT_EXECUTE_RANGE } from '../constants';
-import FlayedShot from '../covenants/venthyr/FlayedShot';
 
 class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
-  static executeOutsideRangeEnablers = [SPELLS.FLAYERS_MARK];
+  static singleExecuteEnablers = [SPELLS.FLAYERS_MARK];
   static modifiesDamage = false;
-  static countCooldownAsExecuteTime = true;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,
     abilities: Abilities,
-    flayedShot: FlayedShot,
   };
 
   maxCasts: number = 0;
@@ -34,7 +30,6 @@ class KillShot extends ExecuteHelper {
       : SPELLS.KILL_SHOT_MM_BM;
 
   protected abilities!: Abilities;
-  protected flayedShot!: FlayedShot;
 
   constructor(options: Options) {
     super(options);
@@ -64,7 +59,7 @@ class KillShot extends ExecuteHelper {
     if (this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id)) {
       this.maxCasts += 1;
     }
-    this.maxCasts += this.flayedShot.totalProcs;
+    this.maxCasts += this.singleExecuteEnablerApplications;
   }
 
   statistic() {

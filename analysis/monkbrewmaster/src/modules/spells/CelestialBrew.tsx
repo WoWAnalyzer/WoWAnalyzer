@@ -15,7 +15,6 @@ import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;

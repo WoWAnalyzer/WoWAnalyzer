@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'parser/ui/Panel';
-import React from 'react';
 
 import HealingEfficiencyBreakdown from './HealingEfficiencyBreakdown';
 import HealingEfficiencyTracker from './HealingEfficiencyTracker';

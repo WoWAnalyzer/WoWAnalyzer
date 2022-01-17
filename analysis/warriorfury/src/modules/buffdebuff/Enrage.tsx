@@ -10,7 +10,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import React from 'react';
 
 class Enrage extends Analyzer {
   static dependencies = {

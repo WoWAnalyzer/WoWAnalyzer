@@ -3,7 +3,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import React from 'react';
 
 import FuryDetails from '../../resourcetracker/FuryDetails';
 import DemonBite from '../../spells/DemonBite';

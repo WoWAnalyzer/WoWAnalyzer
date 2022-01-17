@@ -14,7 +14,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
@@ -63,7 +62,9 @@ class AncestralVigor extends Analyzer {
       filter: `(
         IN RANGE
         WHEN type='${EventType.Damage}'
+          AND source.disposition='enemy'
           AND target.disposition='friendly'
+          AND target.type='player'
           AND resources.hitPoints>0
           AND 100*resources.hpPercent<=${Math.ceil(10000 * HP_THRESHOLD)}
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(

@@ -11,7 +11,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 5000;
 

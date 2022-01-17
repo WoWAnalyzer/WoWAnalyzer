@@ -9,7 +9,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 class FocusMagic extends Analyzer {
   buffStack = 0;

@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import React from 'react';
 
 import ExecuteRange from './ExecuteRange';
 

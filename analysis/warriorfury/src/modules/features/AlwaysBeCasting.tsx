@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   statisticOrder = STATISTIC_ORDER.CORE(1);

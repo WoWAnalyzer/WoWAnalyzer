@@ -1,5 +1,5 @@
 import { Trans, t } from '@lingui/macro';
-import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import REGION_CODES from './REGION_CODES';

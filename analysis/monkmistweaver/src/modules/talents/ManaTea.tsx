@@ -12,7 +12,6 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 class ManaTea extends Analyzer {
   static dependencies = {
@@ -22,6 +21,7 @@ class ManaTea extends Analyzer {
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
   effectiveHealing: number = 0;
+  manaPerManaTeaGoal: number = 0;
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
 
@@ -31,6 +31,11 @@ class ManaTea extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.manaPerManaTeaGoal = this.selectedCombatant.hasTalent(
+      SPELLS.REFRESHING_JADE_WIND_TALENT.id,
+    )
+      ? 6700
+      : 7500;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
@@ -86,9 +91,9 @@ class ManaTea extends Analyzer {
     return {
       actual: this.avgMtSaves,
       isLessThan: {
-        minor: 7500,
-        average: 6500,
-        major: 5500,
+        minor: this.manaPerManaTeaGoal,
+        average: this.manaPerManaTeaGoal - 1000,
+        major: this.manaPerManaTeaGoal - 2000,
       },
       style: ThresholdStyle.NUMBER,
     };

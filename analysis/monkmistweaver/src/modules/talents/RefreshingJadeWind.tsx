@@ -3,9 +3,13 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 const TARGETSPERCAST = 78;
 
@@ -14,6 +18,7 @@ class RefreshingJadeWind extends Analyzer {
   healingRJW: number = 0;
   overhealingRJW: number = 0;
   castRJW: number = 0;
+  precast: boolean = true;
 
   constructor(options: Options) {
     super(options);
@@ -24,7 +29,15 @@ class RefreshingJadeWind extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
-      this.rjwBuff,
+      this.rjwBuffApplied,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
+      this.rjwBuffRefreshed,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
+      this.rjwBuffRemoved,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_HEAL),
@@ -53,8 +66,29 @@ class RefreshingJadeWind extends Analyzer {
     };
   }
 
-  rjwBuff(event: ApplyBuffEvent) {
+  rjwBuffApplied(event: ApplyBuffEvent) {
+    // no matter what we want to add 1 if buff applied
     this.castRJW += 1;
+    this.precast = false;
+  }
+
+  rjwBuffRefreshed(event: RefreshBuffEvent) {
+    // if we get a REFRESH event before a buff applied event then there was a pre-cast
+    if (this.precast) {
+      this.castRJW += 1;
+      // we set this to false since at this point we have heard the precast and no longer care
+      this.precast = false;
+    }
+    this.castRJW += 1;
+  }
+
+  rjwBuffRemoved(event: RemoveBuffEvent) {
+    // if we get a removed event before a buff applied event then there was a pre-cast
+    if (this.precast) {
+      this.castRJW += 1;
+      // we set this to false since at this point we have heard the precast and no longer care
+      this.precast = false;
+    }
   }
 
   rjwHeal(event: HealEvent) {

@@ -11,7 +11,7 @@ import { getFightId } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import Toggle from 'react-toggle';
@@ -155,6 +155,7 @@ const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   // Because fightId comes from the URL we can't use local state
   fightId: getFightId(props.location.pathname),
 });
-export default compose(withRouter, connect(mapStateToProps))(FightSelection) as React.ComponentType<
-  PassedProps
->;
+export default compose(
+  withRouter,
+  connect(mapStateToProps),
+)(FightSelection) as React.ComponentType<PassedProps>;

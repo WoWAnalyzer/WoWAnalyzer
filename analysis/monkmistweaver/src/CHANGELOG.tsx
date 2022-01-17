@@ -1,12 +1,22 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr } from 'CONTRIBUTORS';
+import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 
 export default [
-  change(date(2021, 11, 13), <>Added A Cool And Interesting Infographic For RSK Reset .</>, Abelito75),
+  change(date(2021, 12, 27), <> Listening for RJW refresh events due to haste change and precast RJWs.</>, Abelito75),
+  change(date(2021, 12, 22), <> Re-added EF cancellation.</>, Trevor),
+  change(date(2021, 12, 18), <> Updated mana tea thresholds for RJW.</>, Trevor),
+  change(date(2021, 12, 5), <> Cleaning up the Vivify Files.</>, Abelito75),
+  change(date(2021, 12, 5), <> Cleaning up the Essence Font Files.</>, Abelito75),
+  change(date(2021, 12, 5), <> Cleaning up some files.</>, Abelito75),
+  change(date(2021, 11, 29), <> Added Essence Font cancellation metadata in timeline</>, Trevor),
+  change(date(2021, 11, 23), <> Added Essence Font cancellation detection</>, Trevor),
+  change(date(2021, 11, 17), <> Fixed bug in Rising Sun Kick cooldown tracking</>, Trevor),
+  change(date(2021, 11, 15), <>Added Cast events directly into the log and normalized other stats that needed it. My sanity is now back intact :)</>, Abelito75),
+  change(date(2021, 11, 14), <>Added A Cool And Interesting Infographic For Average Health of a Target When Fallen Order Crane Clones Cast A Healing Spell On Them.</>, Abelito75),
+  change(date(2021, 11, 13), <>Added A Cool And Interesting Infographic For RSK Reset.</>, Abelito75),
   change(date(2021, 11, 12), <>Fixed Fallen Order Mist Wrap stat from crashing.</>, Abelito75),
   change(date(2021, 11, 12), <>Updated Checklist so it no longer assumes you will Vivify with Refreshing Jade Wind </>, Abelito75),
   change(date(2021, 11, 12), <>Re-enabled MW and bumped to patch 9.1.5 </>, Abelito75),

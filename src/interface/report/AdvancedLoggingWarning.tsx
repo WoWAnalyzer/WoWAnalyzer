@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import AlertWarning from 'interface/AlertWarning';
-import React from 'react';
 
 const AdvancedLoggingWarning = () => (
   <div className="container">

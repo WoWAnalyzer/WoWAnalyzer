@@ -17,7 +17,6 @@ const units = {
   [Location.Top]: { selectorId: 'top-banner-atf', type: 'leaderboard_atf' },
 };
 
-// TODO: this will not work well with
 const Ad = ({ style, location }: Props) => {
   const { selectorId, type: adType } = units[location || Location.Top];
   const pageLoc = useLocation();

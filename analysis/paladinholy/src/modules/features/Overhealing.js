@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import React from 'react';
 
 class Overhealing extends Analyzer {
   static dependencies = {

@@ -4,7 +4,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 const JUDGEMENT_HEALS = 25;
 

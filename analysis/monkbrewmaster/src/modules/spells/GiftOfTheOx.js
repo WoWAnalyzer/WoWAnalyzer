@@ -8,7 +8,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';

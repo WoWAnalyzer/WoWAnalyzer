@@ -5,7 +5,6 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 import { MAX_SOUL_FRAGMENTS } from '../features/SoulFragmentsTracker';

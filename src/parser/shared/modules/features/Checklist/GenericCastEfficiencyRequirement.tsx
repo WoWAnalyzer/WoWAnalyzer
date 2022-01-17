@@ -2,7 +2,7 @@ import { captureException } from 'common/errorLogger';
 import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
-import React from 'react';
+import { PureComponent } from 'react';
 
 import Requirement, { RequirementThresholds } from './Requirement';
 
@@ -19,7 +19,7 @@ interface Props {
  *
  * This requirement is automatically disabled if the ability's CastEfficiency suggestion is disabled (i.e. if the ability's castEfficiency: { suggestion } is unset or false), or the ability is disabled completely. If you set `onlyWithSuggestion` to `false` in the object when creating this requirement you can change this behavior to always show if the ability is enabled, regardless of the CastEfficiency suggestion property being set.
  */
-class GenericCastEfficiencyRequirement extends React.PureComponent<Props> {
+class GenericCastEfficiencyRequirement extends PureComponent<Props> {
   get thresholds(): RequirementThresholds | null {
     if (!this.props.castEfficiency) {
       captureException(

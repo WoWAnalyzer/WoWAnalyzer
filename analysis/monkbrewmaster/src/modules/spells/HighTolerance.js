@@ -7,7 +7,6 @@ import Events from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,

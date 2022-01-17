@@ -7,7 +7,6 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 const SPLITTING_ICE_DAMAGE_BONUS = 0.05;
 const GLACIAL_SPIKE_DAMAGE_BONUS = 0.65;

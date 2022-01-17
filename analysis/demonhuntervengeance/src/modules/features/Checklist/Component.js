@@ -7,7 +7,6 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) => {
   const AbilityRequirement = (props) => (
@@ -29,7 +28,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
             These should generally always be on recharge to maximize DPS, HPS and efficiency.
             <br />
             <a
-              href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -72,7 +71,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
             required.
             <br />
             <a
-              href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -123,7 +122,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
             Use these to mitigate large damage spikes or in emergency situations.
             <br />
             <a
-              href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -146,7 +145,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
               HPS.
               <br />
               <a
-                href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
+                href="https://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
                 target="_blank"
                 rel="noopener noreferrer"
               >

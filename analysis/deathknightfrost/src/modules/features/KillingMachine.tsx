@@ -14,7 +14,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
+import { Fragment } from 'react';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_MS = 10000;
@@ -108,14 +108,14 @@ class KillingMachineEfficiency extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <React.Fragment>
+        <Fragment>
           {' '}
           You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting{' '}
           <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or{' '}
           <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing
           Machine proc to avoid wasting it. See one of the guides on the About tab for more
           information on when another ability takes precedence over spending Killing Machine
-        </React.Fragment>,
+        </Fragment>,
       )
         .icon(SPELLS.KILLING_MACHINE.icon)
         .actual(

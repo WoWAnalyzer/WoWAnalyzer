@@ -9,7 +9,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
-import React from 'react';
 
 const SPIRIT_LINK_TOTEM_DAMAGE_REDUCTION = 0.1;
 

@@ -11,7 +11,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const DAMAGE_AMP_PER_RANK = 0.0075;
 const BASE_DAMAGE_AMP = 0.075;

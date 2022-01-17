@@ -9,7 +9,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 
 import AtonementAnalyzer from '@wowanalyzer/priest-discipline/src/modules/core/AtonementAnalyzer';
 import AtonementDamageSource from '@wowanalyzer/priest-discipline/src/modules/features/AtonementDamageSource';

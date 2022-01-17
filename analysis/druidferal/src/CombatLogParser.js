@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 
 import Abilities from './modules/Abilities';
 import RakeUptimeAndSnapshots from './modules/bleeds/RakeUptimeAndSnapshots';
@@ -23,7 +24,6 @@ import Shadowmeld from './modules/racials/Shadowmeld';
 import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 import ApexPredatorsCraving from './modules/shadowlands/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
-import DraughtOfDeepFocus from './modules/shadowlands/DraughtOfDeepFocus';
 import Frenzyband from './modules/shadowlands/Frenzyband';
 import FerociousBite from './modules/spells/FerociousBite';
 import HitCountAoE from './modules/spells/HitCountAoE';

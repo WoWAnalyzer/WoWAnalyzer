@@ -8,7 +8,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 const debug = false;
 
@@ -83,7 +82,7 @@ const SACRIFICIAL_ANIMA: number[] = [
   //Sacrificial Anima Potion Specs
 ];
 
-const WEAK_POTIONS: number[] = [];
+const WEAK_POTIONS: number[] = [SPELLS.SPIRITUAL_MANA_POTION.id];
 
 const STRONG_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,

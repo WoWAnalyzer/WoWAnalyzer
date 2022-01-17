@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { When } from 'parser/core/ParseResults';
-import React from 'react';
 
 import ResourceTracker from './ResourceTracker';
 

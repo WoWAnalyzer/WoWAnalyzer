@@ -5,7 +5,6 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 const PERCENT_BUFF = 0.2;
 

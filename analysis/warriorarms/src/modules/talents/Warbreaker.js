@@ -6,7 +6,6 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import React from 'react';
 
 /**
  * Smash the ground and shatter the armor of all enemies within 8 yds,

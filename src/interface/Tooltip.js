@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 
 import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.scss';
 
-export default class Tooltip extends React.Component {
+export default class Tooltip extends Component {
   static propTypes = {
     /**
      * REQUIRED: Content of the tooltip
@@ -54,7 +54,7 @@ export default class Tooltip extends React.Component {
   }
 }
 
-export class TooltipElement extends React.Component {
+export class TooltipElement extends Component {
   static propTypes = {
     /**
      * REQUIRED: Content of the tooltip

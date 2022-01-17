@@ -1,5 +1,157 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Marksmanship Hunter integration test: Multi Target AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          21.46 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "78.53829635254154%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Marksmanship Hunter integration test: Multi Target AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. If you have to move, try casting something like 
+      <ForwardRef
+        id={56641}
+      />
+      , since it's castable while moving and doesn't cost any focus. Spells like 
+      <ForwardRef
+        id={257044}
+      />
+       and
+       
+      <ForwardRef
+        id={185358}
+      />
+       are also castable whilst moving and good for single target - for multiple targets 
+      <ForwardRef
+        id={257620}
+      />
+       might take their place.
+       
+    </React.Fragment>,
+    "spell": undefined,
+    "stat": <React.Fragment>
+      <Trans
+        id="hunter.marksmanship.suggestions.alwaysBeCasting.downtime"
+        message="{0}% downtime"
+        values={
+          Object {
+            "0": "21.46",
+          }
+        }
+      />
+       (
+      <Trans
+        id="hunter.marksmanship.suggestions.alwaysBeCasting.recommended"
+        message="<{0}% is recommended"
+        values={
+          Object {
+            "0": "5.00",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Marksmanship Hunter integration test: Multi Target AugmentRuneChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -31,7 +183,7 @@ exports[`Marksmanship Hunter integration test: Multi Target BindingShot matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=109248"
+            href="https://wowhead.com/spell=109248"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -44,7 +196,7 @@ exports[`Marksmanship Hunter integration test: Multi Target BindingShot matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=109248"
+            href="https://wowhead.com/spell=109248"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -286,7 +438,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19434"
+                href="https://wowhead.com/spell=19434"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -388,7 +540,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257044"
+                href="https://wowhead.com/spell=257044"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -490,7 +642,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=185358"
+                href="https://wowhead.com/spell=185358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -575,7 +727,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=56641"
+                href="https://wowhead.com/spell=56641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -660,7 +812,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212431"
+                href="https://wowhead.com/spell=212431"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -762,7 +914,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=260402"
+                href="https://wowhead.com/spell=260402"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -859,7 +1011,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=260243"
+                href="https://wowhead.com/spell=260243"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -961,7 +1113,109 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=328231"
+                href="https://wowhead.com/spell=53351"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_assassinate2.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Kill Shot
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              2.43
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              10
+              /13
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "76.92307692307693%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              76.92%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=328231"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1048,108 +1302,6 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
               }
             />
           </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=53351"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_assassinate2.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Kill Shot
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              2.43
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              10
-              /14
-               casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "71.42857142857143%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              71.43%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
-          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1218,7 +1370,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257620"
+                href="https://wowhead.com/spell=257620"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1361,7 +1513,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=331624"
+                href="https://wowhead.com/spell=331624"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1521,7 +1673,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=288613"
+                href="https://wowhead.com/spell=288613"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1681,7 +1833,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109304"
+                href="https://wowhead.com/spell=109304"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1778,7 +1930,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186265"
+                href="https://wowhead.com/spell=186265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1875,7 +2027,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=281195"
+                href="https://wowhead.com/spell=281195"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2030,7 +2182,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=781"
+                href="https://wowhead.com/spell=781"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2127,7 +2279,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186387"
+                href="https://wowhead.com/spell=186387"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2224,7 +2376,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5116"
+                href="https://wowhead.com/spell=5116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2321,7 +2473,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=147362"
+                href="https://wowhead.com/spell=147362"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2418,7 +2570,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34477"
+                href="https://wowhead.com/spell=34477"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2515,7 +2667,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186257"
+                href="https://wowhead.com/spell=186257"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2612,7 +2764,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187650"
+                href="https://wowhead.com/spell=187650"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2709,7 +2861,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187698"
+                href="https://wowhead.com/spell=187698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2806,7 +2958,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1543"
+                href="https://wowhead.com/spell=1543"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2903,7 +3055,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257284"
+                href="https://wowhead.com/spell=257284"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2988,7 +3140,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=199483"
+                href="https://wowhead.com/spell=199483"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3085,7 +3237,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264667"
+                href="https://wowhead.com/spell=264667"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3182,7 +3334,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272682"
+                href="https://wowhead.com/spell=272682"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3279,7 +3431,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19577"
+                href="https://wowhead.com/spell=19577"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3376,7 +3528,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=883"
+                href="https://wowhead.com/spell=883"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3461,7 +3613,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2641"
+                href="https://wowhead.com/spell=2641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3546,7 +3698,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=136"
+                href="https://wowhead.com/spell=136"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3643,7 +3795,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109248"
+                href="https://wowhead.com/spell=109248"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3798,7 +3950,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3895,7 +4047,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3992,7 +4144,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307159"
+                href="https://wowhead.com/spell=307159"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4385,8 +4537,8 @@ Array [
         values={
           Object {
             "0": 10,
-            "1": 14,
-            "2": "71",
+            "1": 13,
+            "2": "77",
           }
         }
       />
@@ -4429,7 +4581,7 @@ exports[`Marksmanship Hunter integration test: Multi Target DarkmoonDeckVoracity
         <label>
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=173087"
+            href="https://wowhead.com/item=173087"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4443,7 +4595,7 @@ exports[`Marksmanship Hunter integration test: Multi Target DarkmoonDeckVoracity
            
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=173087"
+            href="https://wowhead.com/item=173087"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4623,7 +4775,7 @@ exports[`Marksmanship Hunter integration test: Multi Target DoubleTap matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260402"
+            href="https://wowhead.com/spell=260402"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4636,7 +4788,7 @@ exports[`Marksmanship Hunter integration test: Multi Target DoubleTap matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260402"
+            href="https://wowhead.com/spell=260402"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4650,7 +4802,7 @@ exports[`Marksmanship Hunter integration test: Multi Target DoubleTap matches th
             
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=19434"
+            href="https://wowhead.com/spell=19434"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4671,7 +4823,7 @@ exports[`Marksmanship Hunter integration test: Multi Target DoubleTap matches th
             
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257044"
+            href="https://wowhead.com/spell=257044"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4729,7 +4881,7 @@ exports[`Marksmanship Hunter integration test: Multi Target ExplosiveShot matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=212431"
+            href="https://wowhead.com/spell=212431"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4742,7 +4894,7 @@ exports[`Marksmanship Hunter integration test: Multi Target ExplosiveShot matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=212431"
+            href="https://wowhead.com/spell=212431"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4855,7 +5007,7 @@ exports[`Marksmanship Hunter integration test: Multi Target FocusDetails matches
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4918,7 +5070,7 @@ exports[`Marksmanship Hunter integration test: Multi Target KillShot matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4931,7 +5083,7 @@ exports[`Marksmanship Hunter integration test: Multi Target KillShot matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4978,7 +5130,7 @@ exports[`Marksmanship Hunter integration test: Multi Target LoneWolf matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164273"
+            href="https://wowhead.com/spell=164273"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4991,7 +5143,7 @@ exports[`Marksmanship Hunter integration test: Multi Target LoneWolf matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164273"
+            href="https://wowhead.com/spell=164273"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5114,7 +5266,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
       >
         <label>
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5154,7 +5306,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19434"
+                  href="https://wowhead.com/spell=19434"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5202,7 +5354,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=185358"
+                  href="https://wowhead.com/spell=185358"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5250,7 +5402,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=257620"
+                  href="https://wowhead.com/spell=257620"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5298,7 +5450,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=212431"
+                  href="https://wowhead.com/spell=212431"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5357,7 +5509,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MasterMarksman match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260309"
+            href="https://wowhead.com/spell=260309"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5370,7 +5522,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MasterMarksman match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260309"
+            href="https://wowhead.com/spell=260309"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5417,7 +5569,7 @@ exports[`Marksmanship Hunter integration test: Multi Target PreciseShots matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260242"
+            href="https://wowhead.com/spell=260242"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5430,7 +5582,7 @@ exports[`Marksmanship Hunter integration test: Multi Target PreciseShots matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260242"
+            href="https://wowhead.com/spell=260242"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5500,7 +5652,7 @@ exports[`Marksmanship Hunter integration test: Multi Target RapidFire matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257044"
+            href="https://wowhead.com/spell=257044"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5513,7 +5665,7 @@ exports[`Marksmanship Hunter integration test: Multi Target RapidFire matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257044"
+            href="https://wowhead.com/spell=257044"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5555,7 +5707,7 @@ exports[`Marksmanship Hunter integration test: Multi Target ReversalOfFortune ma
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339495"
+            href="https://wowhead.com/spell=339495"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5568,7 +5720,7 @@ exports[`Marksmanship Hunter integration test: Multi Target ReversalOfFortune ma
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339495"
+            href="https://wowhead.com/spell=339495"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5624,7 +5776,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SerpentstalkersTrick
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336870"
+            href="https://wowhead.com/spell=336870"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5637,7 +5789,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SerpentstalkersTrick
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336870"
+            href="https://wowhead.com/spell=336870"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5685,7 +5837,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SpiritAttunement mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339109"
+            href="https://wowhead.com/spell=339109"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5698,7 +5850,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SpiritAttunement mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339109"
+            href="https://wowhead.com/spell=339109"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5770,7 +5922,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SteadyShot matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56641"
+            href="https://wowhead.com/spell=56641"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5783,7 +5935,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SteadyShot matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56641"
+            href="https://wowhead.com/spell=56641"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5825,7 +5977,7 @@ exports[`Marksmanship Hunter integration test: Multi Target Streamline matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260367"
+            href="https://wowhead.com/spell=260367"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5838,7 +5990,7 @@ exports[`Marksmanship Hunter integration test: Multi Target Streamline matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260367"
+            href="https://wowhead.com/spell=260367"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6189,7 +6341,7 @@ exports[`Marksmanship Hunter integration test: Multi Target Trueshot matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=288613"
+            href="https://wowhead.com/spell=288613"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6202,7 +6354,7 @@ exports[`Marksmanship Hunter integration test: Multi Target Trueshot matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=288613"
+            href="https://wowhead.com/spell=288613"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6262,7 +6414,7 @@ exports[`Marksmanship Hunter integration test: Multi Target Volley matches the s
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260243"
+            href="https://wowhead.com/spell=260243"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6275,7 +6427,7 @@ exports[`Marksmanship Hunter integration test: Multi Target Volley matches the s
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260243"
+            href="https://wowhead.com/spell=260243"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6323,7 +6475,7 @@ exports[`Marksmanship Hunter integration test: Multi Target WildSpirits matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6336,7 +6488,7 @@ exports[`Marksmanship Hunter integration test: Multi Target WildSpirits matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6405,8 +6557,8 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "38.05714285714288%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "55.000279724526244%",
                 }
               }
             />
@@ -6488,7 +6640,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19434"
+                  href="https://wowhead.com/spell=19434"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6561,7 +6713,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=257044"
+                  href="https://wowhead.com/spell=257044"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6634,7 +6786,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=288613"
+                  href="https://wowhead.com/spell=288613"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6707,7 +6859,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53351"
+                  href="https://wowhead.com/spell=53351"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6739,7 +6891,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  71.43%
+                  76.92%
                    
                    
                 </div>
@@ -6759,9 +6911,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "38.05714285714288%",
+                        "width": "56.353846153846185%",
                       }
                     }
                   />
@@ -6780,7 +6932,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260402"
+                  href="https://wowhead.com/spell=260402"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6853,7 +7005,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=212431"
+                  href="https://wowhead.com/spell=212431"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6926,7 +7078,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260243"
+                  href="https://wowhead.com/spell=260243"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7092,7 +7244,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7160,7 +7312,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -7184,8 +7336,8 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "76.58157894736843%",
+                  "backgroundColor": "#df7102",
+                  "width": "41.526294767594905%",
                 }
               }
             />
@@ -7245,7 +7397,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
             As a DPS, you should try to reduce the delay between casting spells. This is especially true as a Marksmanship that should be casting something all the time, because you can always be casting 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=56641"
+              href="https://wowhead.com/spell=56641"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7293,7 +7445,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  112.05%
+                  78.54%
                    
                    
                 </div>
@@ -7313,9 +7465,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "29.88943164045295%",
                       }
                     }
                   />
@@ -7474,7 +7626,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=185358"
+              href="https://wowhead.com/spell=185358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7729,7 +7881,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53351"
+                  href="https://wowhead.com/spell=53351"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7847,7 +7999,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260402"
+                  href="https://wowhead.com/spell=260402"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7870,7 +8022,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  and 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=328231"
+                  href="https://wowhead.com/spell=328231"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7984,7 +8136,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260402"
+                  href="https://wowhead.com/spell=260402"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8007,7 +8159,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  and 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=328231"
+                  href="https://wowhead.com/spell=328231"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8121,7 +8273,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=212431"
+                  href="https://wowhead.com/spell=212431"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8229,7 +8381,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260243"
+                  href="https://wowhead.com/spell=260243"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8253,7 +8405,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  and 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8365,7 +8517,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19434"
+                  href="https://wowhead.com/spell=19434"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8382,7 +8534,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8401,7 +8553,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  or 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=288613"
+                  href="https://wowhead.com/spell=288613"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8512,7 +8664,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=257044"
+                  href="https://wowhead.com/spell=257044"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8533,7 +8685,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                 at most 80
                  
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8641,7 +8793,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=185358"
+                  href="https://wowhead.com/spell=185358"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8658,7 +8810,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8680,7 +8832,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                 at least 55
                  
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8788,7 +8940,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=56641"
+                  href="https://wowhead.com/spell=56641"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8896,7 +9048,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=288613"
+                  href="https://wowhead.com/spell=288613"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8969,7 +9121,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=328231"
+                  href="https://wowhead.com/spell=328231"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9883,7 +10035,7 @@ exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting mat
         <div
           className="value"
         >
-          13.20 %
+          13.37 %
         </div>
         <div
           style={
@@ -9902,7 +10054,7 @@ exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting mat
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "86.8040964668255%",
+                  "width": "86.62699405160821%",
                 }
               }
             >
@@ -9981,7 +10133,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "13.20",
+            "0": "13.37",
           }
         }
       />
@@ -10137,7 +10289,7 @@ exports[`Marksmanship Hunter integration test: Single Target CarefulAim matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260228"
+            href="https://wowhead.com/spell=260228"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10150,7 +10302,7 @@ exports[`Marksmanship Hunter integration test: Single Target CarefulAim matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260228"
+            href="https://wowhead.com/spell=260228"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10318,7 +10470,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19434"
+                href="https://wowhead.com/spell=19434"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10420,7 +10572,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257044"
+                href="https://wowhead.com/spell=257044"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10522,7 +10674,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=185358"
+                href="https://wowhead.com/spell=185358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10607,7 +10759,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=56641"
+                href="https://wowhead.com/spell=56641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10692,7 +10844,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=260402"
+                href="https://wowhead.com/spell=260402"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10789,109 +10941,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=308491"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_bastion_hunter.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Resonating Arrow
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.81
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              4
-              /5
-               casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "69.88684372401765%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              69.89%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=53351"
+                href="https://wowhead.com/spell=53351"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10983,6 +11033,108 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
               />
             </td>
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=308491"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_bastion_hunter.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Resonating Arrow
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.81
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              4
+              /5
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "69.88684372401765%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              69.89%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -11051,7 +11203,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257620"
+                href="https://wowhead.com/spell=257620"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11194,7 +11346,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=288613"
+                href="https://wowhead.com/spell=288613"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11354,7 +11506,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109304"
+                href="https://wowhead.com/spell=109304"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11451,7 +11603,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186265"
+                href="https://wowhead.com/spell=186265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11548,7 +11700,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=281195"
+                href="https://wowhead.com/spell=281195"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11703,7 +11855,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=781"
+                href="https://wowhead.com/spell=781"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11800,7 +11952,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186387"
+                href="https://wowhead.com/spell=186387"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11897,7 +12049,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5116"
+                href="https://wowhead.com/spell=5116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11994,7 +12146,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=147362"
+                href="https://wowhead.com/spell=147362"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12091,7 +12243,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34477"
+                href="https://wowhead.com/spell=34477"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12188,7 +12340,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186257"
+                href="https://wowhead.com/spell=186257"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12285,7 +12437,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187650"
+                href="https://wowhead.com/spell=187650"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12382,7 +12534,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187698"
+                href="https://wowhead.com/spell=187698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12479,7 +12631,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1543"
+                href="https://wowhead.com/spell=1543"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12576,7 +12728,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257284"
+                href="https://wowhead.com/spell=257284"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12661,7 +12813,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264667"
+                href="https://wowhead.com/spell=264667"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12758,7 +12910,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272682"
+                href="https://wowhead.com/spell=272682"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12855,7 +13007,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19577"
+                href="https://wowhead.com/spell=19577"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12952,7 +13104,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=883"
+                href="https://wowhead.com/spell=883"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13037,7 +13189,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2641"
+                href="https://wowhead.com/spell=2641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13122,7 +13274,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=136"
+                href="https://wowhead.com/spell=136"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13219,7 +13371,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109248"
+                href="https://wowhead.com/spell=109248"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13374,7 +13526,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13471,7 +13623,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13568,7 +13720,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307159"
+                href="https://wowhead.com/spell=307159"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13802,51 +13954,6 @@ Array [
   Object {
     "details": null,
     "icon": undefined,
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={308491}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 308491,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 4,
-            "1": 5,
-            "2": "70",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -13883,6 +13990,51 @@ Array [
         values={
           Object {
             "0": "85",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": undefined,
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={308491}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "spell": 308491,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 4,
+            "1": 5,
+            "2": "70",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
           }
         }
       />
@@ -14001,7 +14153,7 @@ exports[`Marksmanship Hunter integration test: Single Target DoubleTap matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260402"
+            href="https://wowhead.com/spell=260402"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14014,7 +14166,7 @@ exports[`Marksmanship Hunter integration test: Single Target DoubleTap matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260402"
+            href="https://wowhead.com/spell=260402"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14028,7 +14180,7 @@ exports[`Marksmanship Hunter integration test: Single Target DoubleTap matches t
             
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=19434"
+            href="https://wowhead.com/spell=19434"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14049,7 +14201,7 @@ exports[`Marksmanship Hunter integration test: Single Target DoubleTap matches t
             
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257044"
+            href="https://wowhead.com/spell=257044"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14107,7 +14259,7 @@ exports[`Marksmanship Hunter integration test: Single Target EnfeebledMark match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339018"
+            href="https://wowhead.com/spell=339018"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14120,7 +14272,7 @@ exports[`Marksmanship Hunter integration test: Single Target EnfeebledMark match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339018"
+            href="https://wowhead.com/spell=339018"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14275,7 +14427,7 @@ exports[`Marksmanship Hunter integration test: Single Target FocusDetails matche
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14351,7 +14503,7 @@ exports[`Marksmanship Hunter integration test: Single Target KillShot matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14364,7 +14516,7 @@ exports[`Marksmanship Hunter integration test: Single Target KillShot matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14417,7 +14569,7 @@ exports[`Marksmanship Hunter integration test: Single Target LockAndLoad matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=194595"
+            href="https://wowhead.com/spell=194595"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14430,7 +14582,7 @@ exports[`Marksmanship Hunter integration test: Single Target LockAndLoad matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=194595"
+            href="https://wowhead.com/spell=194595"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14511,7 +14663,7 @@ exports[`Marksmanship Hunter integration test: Single Target LoneWolf matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164273"
+            href="https://wowhead.com/spell=164273"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14524,7 +14676,7 @@ exports[`Marksmanship Hunter integration test: Single Target LoneWolf matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164273"
+            href="https://wowhead.com/spell=164273"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14667,7 +14819,7 @@ exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusUs
       >
         <label>
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14707,7 +14859,7 @@ exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusUs
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=185358"
+                  href="https://wowhead.com/spell=185358"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -14755,7 +14907,7 @@ exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusUs
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19434"
+                  href="https://wowhead.com/spell=19434"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -14814,7 +14966,7 @@ exports[`Marksmanship Hunter integration test: Single Target MasterMarksman matc
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260309"
+            href="https://wowhead.com/spell=260309"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14827,7 +14979,7 @@ exports[`Marksmanship Hunter integration test: Single Target MasterMarksman matc
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260309"
+            href="https://wowhead.com/spell=260309"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14875,7 +15027,7 @@ exports[`Marksmanship Hunter integration test: Single Target NaturalMending matc
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14888,7 +15040,7 @@ exports[`Marksmanship Hunter integration test: Single Target NaturalMending matc
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14929,7 +15081,7 @@ exports[`Marksmanship Hunter integration test: Single Target PreciseShots matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260242"
+            href="https://wowhead.com/spell=260242"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14942,7 +15094,7 @@ exports[`Marksmanship Hunter integration test: Single Target PreciseShots matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260242"
+            href="https://wowhead.com/spell=260242"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15012,7 +15164,7 @@ exports[`Marksmanship Hunter integration test: Single Target RapidFire matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257044"
+            href="https://wowhead.com/spell=257044"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15025,7 +15177,7 @@ exports[`Marksmanship Hunter integration test: Single Target RapidFire matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257044"
+            href="https://wowhead.com/spell=257044"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15067,7 +15219,7 @@ exports[`Marksmanship Hunter integration test: Single Target ResonatingArrow mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=308491"
+            href="https://wowhead.com/spell=308491"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15080,7 +15232,7 @@ exports[`Marksmanship Hunter integration test: Single Target ResonatingArrow mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=308491"
+            href="https://wowhead.com/spell=308491"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15170,7 +15322,7 @@ exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune m
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339399"
+            href="https://wowhead.com/spell=339399"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15183,7 +15335,7 @@ exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune m
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339399"
+            href="https://wowhead.com/spell=339399"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15233,7 +15385,7 @@ exports[`Marksmanship Hunter integration test: Single Target SerpentstalkersTric
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336870"
+            href="https://wowhead.com/spell=336870"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15246,7 +15398,7 @@ exports[`Marksmanship Hunter integration test: Single Target SerpentstalkersTric
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336870"
+            href="https://wowhead.com/spell=336870"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15294,7 +15446,7 @@ exports[`Marksmanship Hunter integration test: Single Target SteadyFocus matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193533"
+            href="https://wowhead.com/spell=193533"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15307,7 +15459,7 @@ exports[`Marksmanship Hunter integration test: Single Target SteadyFocus matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193533"
+            href="https://wowhead.com/spell=193533"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15357,7 +15509,7 @@ exports[`Marksmanship Hunter integration test: Single Target SteadyShot matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56641"
+            href="https://wowhead.com/spell=56641"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15370,7 +15522,7 @@ exports[`Marksmanship Hunter integration test: Single Target SteadyShot matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56641"
+            href="https://wowhead.com/spell=56641"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15698,7 +15850,7 @@ exports[`Marksmanship Hunter integration test: Single Target Trueshot matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=288613"
+            href="https://wowhead.com/spell=288613"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15711,7 +15863,7 @@ exports[`Marksmanship Hunter integration test: Single Target Trueshot matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=288613"
+            href="https://wowhead.com/spell=288613"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15865,7 +16017,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19434"
+                  href="https://wowhead.com/spell=19434"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -15938,7 +16090,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=257044"
+                  href="https://wowhead.com/spell=257044"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16011,7 +16163,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=288613"
+                  href="https://wowhead.com/spell=288613"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16084,7 +16236,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53351"
+                  href="https://wowhead.com/spell=53351"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16157,7 +16309,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260402"
+                  href="https://wowhead.com/spell=260402"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16323,7 +16475,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16397,7 +16549,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193533"
+                  href="https://wowhead.com/spell=193533"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16490,7 +16642,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "41.570383237433695%",
+                  "width": "41.53668317785235%",
                 }
               }
             />
@@ -16550,7 +16702,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
             As a DPS, you should try to reduce the delay between casting spells. This is especially true as a Marksmanship that should be casting something all the time, because you can always be casting 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=56641"
+              href="https://wowhead.com/spell=56641"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -16598,7 +16750,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  86.80%
+                  86.63%
                    
                    
                 </div>
@@ -16620,7 +16772,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "33.03515899823188%",
+                        "width": "32.96775887906919%",
                       }
                     }
                   />
@@ -16779,7 +16931,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=185358"
+              href="https://wowhead.com/spell=185358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -16948,7 +17100,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "40.83214285714286%",
+                  "width": "49.95%",
                 }
               }
             />
@@ -17034,7 +17186,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=56641"
+                  href="https://wowhead.com/spell=56641"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17054,7 +17206,172 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193533"
+                  href="https://wowhead.com/spell=193533"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_improvedsteadyshot.jpg"
+                  />
+                   
+                  Steady Focus
+                </a>
+                 talented
+                 and 
+                your last cast was 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=56641"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_steadyshot.jpg"
+                  />
+                   
+                  Steady Shot
+                </a>
+                 and 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=193534"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_improvedsteadyshot.jpg"
+                  />
+                   
+                  Steady Focus
+                </a>
+                 
+                is
+                 missing
+                 
+                or about to expire
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  2
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=56641"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_steadyshot.jpg"
+                  />
+                   
+                  Steady Shot
+                </a>
+                 
+                when
+                 
+                you 
+                have
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=193533"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17070,7 +17387,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  and 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193534"
+                  href="https://wowhead.com/spell=193534"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17136,7 +17453,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  92.54%
+                  87.80%
                    
                    
                 </div>
@@ -17156,9 +17473,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "92.59024390243901%",
                       }
                     }
                   />
@@ -17176,13 +17493,13 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <strong>
-                  2
+                  3
                   .
                 </strong>
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53351"
+                  href="https://wowhead.com/spell=53351"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17294,13 +17611,13 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <strong>
-                  3
+                  4
                   .
                 </strong>
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260402"
+                  href="https://wowhead.com/spell=260402"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17323,7 +17640,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  and 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=308491"
+                  href="https://wowhead.com/spell=308491"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17431,13 +17748,13 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <strong>
-                  4
+                  5
                   .
                 </strong>
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19434"
+                  href="https://wowhead.com/spell=19434"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17454,7 +17771,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17473,7 +17790,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  or 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=288613"
+                  href="https://wowhead.com/spell=288613"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17578,13 +17895,13 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <strong>
-                  5
+                  6
                   .
                 </strong>
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=257044"
+                  href="https://wowhead.com/spell=257044"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17605,7 +17922,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 at most 80
                  
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17707,13 +18024,13 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <strong>
-                  6
+                  7
                   .
                 </strong>
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=185358"
+                  href="https://wowhead.com/spell=185358"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17730,7 +18047,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=260242"
+                  href="https://wowhead.com/spell=260242"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17752,7 +18069,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 at least 55
                  
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17854,13 +18171,13 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <strong>
-                  7
+                  8
                   .
                 </strong>
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=56641"
+                  href="https://wowhead.com/spell=56641"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17968,7 +18285,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=288613"
+                  href="https://wowhead.com/spell=288613"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

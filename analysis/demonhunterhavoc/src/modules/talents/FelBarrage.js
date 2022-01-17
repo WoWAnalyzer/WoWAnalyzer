@@ -5,7 +5,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/Mz8cTFgNkxXaJt3j/#fight=4&source=18

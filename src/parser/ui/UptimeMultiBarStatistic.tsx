@@ -1,6 +1,6 @@
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;

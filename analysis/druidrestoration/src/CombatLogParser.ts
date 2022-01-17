@@ -7,6 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
@@ -138,6 +139,7 @@ class CombatLogParser extends CoreCombatLogParser {
     memoryoftheMotherTree: MemoryoftheMotherTree,
     verdantInfusion: VerdantInfusion,
     lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
+    draughtOfDeepFocus: DraughtOfDeepFocus,
   };
 }
 

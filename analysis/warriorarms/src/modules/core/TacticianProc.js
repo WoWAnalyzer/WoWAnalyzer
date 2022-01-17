@@ -3,7 +3,6 @@ import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 class TacticianProc extends Analyzer {
   totalProcs = 0;

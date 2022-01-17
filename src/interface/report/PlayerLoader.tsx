@@ -25,8 +25,9 @@ import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
+import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -170,11 +171,11 @@ class PlayerLoader extends React.PureComponent<Props, State> {
     } catch (error) {
       const isCommonError = error instanceof LogNotFoundError;
       if (!isCommonError) {
-        captureException(error);
+        captureException(error as Error);
       }
       this.setState({
         ...defaultState,
-        error,
+        error: error as Error,
       });
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
       this.props.setCombatants(null);
@@ -258,7 +259,16 @@ class PlayerLoader extends React.PureComponent<Props, State> {
     const config =
       combatant &&
       getConfig(wclGameVersionToExpansion(report.gameVersion), combatant.specID, player.type);
-    if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
+    const build = combatant && getBuild(config, combatant);
+    const missingBuild = config?.builds && !build;
+    if (
+      !player ||
+      hasDuplicatePlayers ||
+      !combatant ||
+      !config ||
+      missingBuild ||
+      combatant.error
+    ) {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
@@ -282,7 +292,7 @@ class PlayerLoader extends React.PureComponent<Props, State> {
               message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
             }),
           );
-        } else if (!config) {
+        } else if (!config || missingBuild) {
           alert(
             t({
               id: 'interface.report.render.notSupported',
@@ -343,7 +353,9 @@ class PlayerLoader extends React.PureComponent<Props, State> {
           <PlayerSelection
             report={report}
             combatants={combatants}
-            makeUrl={(playerId) => makeAnalyzerUrl(report, fight.id, playerId)}
+            makeUrl={(playerId, build) =>
+              makeAnalyzerUrl(report, fight.id, playerId, undefined, build)
+            }
           />
           <ReportRaidBuffList combatants={combatants} />
         </div>

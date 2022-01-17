@@ -82,7 +82,7 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.overhealingDone = ability.healingOverheal || 0;
 
     if (healingSpellIds) {
-      for (const healingSpellId in healingSpellIds) {
+      for (const healingSpellId of healingSpellIds) {
         const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
 
         spellInfo.healingHits += healingAbility.healingHits || 0;
@@ -145,8 +145,8 @@ class HealingEfficiencyTracker extends Analyzer {
     let topHpet = 0;
     let topDpet = 0;
 
-    for (const index in this.abilities.abilities) {
-      const ability = (this.abilities.abilities[index] as unknown) as SpellbookAbility;
+    for (const rawAbility of this.abilities.abilities) {
+      const ability = (rawAbility as unknown) as SpellbookAbility;
 
       if (ability.category === 'Cooldown' && !includeCooldowns) {
         continue;
@@ -154,26 +154,30 @@ class HealingEfficiencyTracker extends Analyzer {
 
       if (ability.spell instanceof Array) {
         for (const lowerRankSpell of ability.spell) {
-          spells[lowerRankSpell] = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
-          if (spells[lowerRankSpell].hpm !== Infinity) {
-            topHpm = Math.max(topHpm, spells[lowerRankSpell].hpm);
+          const spellData = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
+          if (spellData.manaSpent === 0) {
+            continue;
           }
-          if (spells[lowerRankSpell].dpm !== Infinity) {
-            topDpm = Math.max(topDpm, spells[lowerRankSpell].dpm);
+          topHpm = Math.max(topHpm, spellData.hpm);
+          topDpm = Math.max(topDpm, spellData.dpm);
+          if (spellData.timeSpentCasting !== 0) {
+            topHpet = Math.max(topHpet, spellData.hpet);
+            topDpet = Math.max(topDpet, spellData.dpet);
           }
-          topHpet = Math.max(topHpet, spells[lowerRankSpell].hpet);
-          topDpet = Math.max(topDpet, spells[lowerRankSpell].dpet);
+          spells[lowerRankSpell] = spellData;
         }
       } else {
-        spells[ability.spell] = this.getSpellStats(ability.spell, ability.healSpellIds);
-        if (spells[ability.spell].hpm !== Infinity) {
-          topHpm = Math.max(topHpm, spells[ability.spell].hpm);
+        const spellData = this.getSpellStats(ability.spell, ability.healSpellIds);
+        if (spellData.manaSpent === 0) {
+          continue;
         }
-        if (spells[ability.spell].dpm !== Infinity) {
-          topDpm = Math.max(topDpm, spells[ability.spell].dpm);
+        topHpm = Math.max(topHpm, spellData.hpm);
+        topDpm = Math.max(topDpm, spellData.dpm);
+        if (spellData.timeSpentCasting !== 0) {
+          topHpet = Math.max(topHpet, spellData.hpet);
+          topDpet = Math.max(topDpet, spellData.dpet);
         }
-        topHpet = Math.max(topHpet, spells[ability.spell].hpet);
-        topDpet = Math.max(topDpet, spells[ability.spell].dpet);
+        spells[ability.spell] = spellData;
       }
     }
 

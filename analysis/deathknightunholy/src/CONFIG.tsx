@@ -1,7 +1,6 @@
 import { Khazak } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -37,7 +36,7 @@ export default {
       </a>{' '}
       <br />
       <a
-        href="http://www.wowhead.com/unholy-death-knight-guide"
+        href="https://www.wowhead.com/unholy-death-knight-guide"
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import React from 'react';
 
 import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
 

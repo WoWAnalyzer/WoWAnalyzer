@@ -1,13 +1,10 @@
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Icon, SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 // import Toggle from 'react-toggle';
-
-function formatThousands(number) {
-  return `${Math.round(number || 0)}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
 
 function formatNumber(number) {
   if (number > 1000000) {
@@ -19,7 +16,7 @@ function formatNumber(number) {
   return formatThousands(number);
 }
 
-class Feeding extends React.Component {
+class Feeding extends Component {
   static propTypes = {
     cooldownThroughputTracker: PropTypes.object,
   };

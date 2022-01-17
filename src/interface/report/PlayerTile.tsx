@@ -9,13 +9,14 @@ import SpecIcon from 'interface/SpecIcon';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Player from 'parser/core/Player';
-import React, { useEffect } from 'react';
+import getBuild from 'parser/getBuild';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 interface Props {
   player: Player;
-  makeUrl: (playerId: number) => string;
+  makeUrl: (playerId: number, build?: string) => string;
   config?: Config;
 }
 
@@ -54,13 +55,15 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
       }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
     : '/img/fallback-character.jpg';
   const spec = config?.spec;
+  const build = getBuild(config, player.combatant);
+  const missingBuild = config?.builds && !build;
   const covenant = player.combatant.covenantID || null;
   let covenantName: string | undefined = '';
   if (covenant !== null) {
     covenantName = getCovenantById(covenant)?.name;
   }
 
-  if (!config) {
+  if (!config || missingBuild) {
     return (
       <span
         className="player"
@@ -102,7 +105,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   }
 
   return (
-    <Link to={makeUrl(player.id)} className={`player ${getClassName(spec?.role)}`}>
+    <Link to={makeUrl(player.id, build?.url)} className={`player ${getClassName(spec?.role)}`}>
       <div className="role" />
       <div className="card">
         <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />

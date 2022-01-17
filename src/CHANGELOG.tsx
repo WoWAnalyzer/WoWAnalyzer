@@ -8,6 +8,7 @@ import {
   Adoraci,
   Amani,
   Anomoly,
+  Arbixal,
   Barry,
   Barter,
   Buudha,
@@ -44,14 +45,33 @@ import {
   niko,
   Pirrang,
   ChrisKaczor,
+  Jeff,
+  Trevor
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
-import React from 'react';
 // prettier-ignore
 
 // prettier-ignore
 export default [
+  change(date(2022, 1, 8), 'Synchronize package versions across all classes/specs.', emallson),
+  change(date(2021, 12, 31), 'Begin Sonar Scan fixes.', Jeff),
+  change(date(2021, 12, 31), 'Added names to event tab for mobs classified as enemy pets', Putro),
+  change(date(2021, 12, 27), 'Removed unnecessary build step.', emallson),
+  change(date(2021, 12, 14), 'Fixed translations.', emallson),
+  change(date(2021, 12, 13), 'Refactored handling of player channel detection', Sref),
+  change(date(2021, 12, 13), 'Added a filter by covenant toggle to the Similiar Kill Times module under the Character tab.', Putro),
+  change(date(2021, 12, 12), 'Added a last spell cast condition to the APL checker module.', Putro),
+  change(date(2021, 12, 4), 'Fixed an issue with stat tracking in Mythic+ dungeons. Mythic+ still not officially supported, but at least it shouldn\'t crash', emallson),
+  change(date(2021, 12, 6), 'Updated some internal dependencies', Jeff),
+  change(date(2021, 11, 30), 'Fixed Spiritual Mana Potion not being tracked issue.', Jeff),
+  change(date(2021, 11, 27), 'Internal dependency updates.', emallson),
+  change(date(2021, 11, 25), 'Fix compatibility issue with nodejs 16', Jeff),
+  change(date(2021, 11, 25), 'Added greaterThanOrEqual & lessThanOrEqual option for checklist conditions', Trevor),
+  change(date(2021, 11, 25), 'Force-update translations for Mistweaver', emallson),
+  change(date(2021, 11, 23), 'Have relevant TBC build selected for the selected character.', Arbixal),
+  change(date(2021, 11, 14), 'Clean up caching in GitHub actions CI.', Zerotorescue),
+  change(date(2021, 11, 13), 'Removed Healthstone and Healing Pot from Mana Efficiency Tracker.', Abelito75),
   change(date(2021, 11, 11), 'Added an Icon to more easily display which cooldown is which in the cooldown tab.', Abelito75),
   change(date(2021, 11, 8), 'Bumping current version of wow from 9.1 -> 9.1.5', Abelito75),
   change(date(2021, 11, 8), 'Manual internationalization update to satisfy CI.', emallson),

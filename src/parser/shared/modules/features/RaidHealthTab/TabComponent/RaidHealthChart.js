@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 const DEATH_COLOR = 'rgba(255, 0, 0, 0.8)';
 
-class RaidHealthChart extends React.Component {
+class RaidHealthChart extends Component {
   static propTypes = {
     players: PropTypes.arrayOf(
       PropTypes.shape({

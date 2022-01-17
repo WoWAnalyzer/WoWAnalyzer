@@ -9,7 +9,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
 import UptimeBar from 'parser/ui/UptimeBar';
-import React from 'react';
 
 class ImmolateUptime extends Analyzer {
   get uptime() {

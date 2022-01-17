@@ -1,5 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import React from 'react';
+import * as React from 'react';
 
 import Icon from './Icon';
 import ResourceLink from './ResourceLink';

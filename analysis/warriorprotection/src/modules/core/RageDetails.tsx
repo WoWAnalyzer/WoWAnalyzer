@@ -6,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import RageTracker from './RageTracker';
 

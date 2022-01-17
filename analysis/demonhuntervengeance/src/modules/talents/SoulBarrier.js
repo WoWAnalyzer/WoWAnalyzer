@@ -8,7 +8,6 @@ import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 class SoulBarrier extends Analyzer {
   get uptime() {

@@ -14,7 +14,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import React from 'react';
 
 const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -49,7 +48,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             you can often still cast these spells more even if you were overhealing by casting it
             quicker when it comes off cooldown and improving your target selection.
             <a
-              href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list"
+              href="https://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -94,7 +93,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             Your cooldowns are an important contributor to your healing throughput. Try to get in as
             many efficient casts as the fight allows.
             <a
-              href="http://www.wowhead.com/restoration-shaman-rotation-guide#throughput-cooldowns"
+              href="https://www.wowhead.com/restoration-shaman-rotation-guide#throughput-cooldowns"
               target="_blank"
               rel="noopener noreferrer"
             >

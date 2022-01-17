@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import React from 'react';
 
 class EnchantChecker extends Analyzer {
   get EnchantableSlots(): any {

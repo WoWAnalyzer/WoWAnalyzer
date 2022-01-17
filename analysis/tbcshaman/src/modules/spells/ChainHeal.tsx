@@ -12,7 +12,6 @@ import BoringValue from 'parser/ui/BoringValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { Build } from '../../CONFIG';
 import lowRankSpells from '../../lowRankSpells';

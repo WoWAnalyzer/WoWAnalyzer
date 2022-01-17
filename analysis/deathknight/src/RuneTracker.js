@@ -11,7 +11,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
@@ -282,11 +281,7 @@ class RuneTracker extends ResourceTracker {
 
   // total runes generated with passive regeneration
   get runesMaxCasts() {
-    let totalCasts = 0;
-    for (const spender in this.spendersObj) {
-      //add runes spent
-      totalCasts += this.spendersObj[spender].spent;
-    }
+    const totalCasts = Object.values(this.spendersObj).reduce((a, b) => a + b.spent, 0);
     // subtract starting runes and add end runes
     return totalCasts - MAX_RUNES + this.runesReady[this.runesReady.length - 1].y;
   }

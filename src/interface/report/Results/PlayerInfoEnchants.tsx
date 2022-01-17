@@ -1,5 +1,4 @@
 import { Item } from 'parser/core/Events';
-import React from 'react';
 
 import enchantIdMap from './enchantIdMap';
 

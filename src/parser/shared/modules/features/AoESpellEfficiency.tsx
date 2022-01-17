@@ -9,7 +9,6 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 /*
   Creates a suggestion for an AoE-Spell based on the amount of hits done and min. amount of hits possible

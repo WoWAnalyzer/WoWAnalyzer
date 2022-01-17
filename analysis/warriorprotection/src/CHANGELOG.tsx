@@ -1,6 +1,5 @@
 import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
-import React from 'react';
 
 export default [
   change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),

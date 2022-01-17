@@ -7,7 +7,7 @@ import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import NameSearch, { SearchType } from 'interface/NameSearch';
 import { getReportHistory } from 'interface/selectors/reportHistory';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import ReportHistory from './ReportHistory';
@@ -19,7 +19,7 @@ const STATE_SEARCH_REPORT = 0;
 const STATE_SEARCH_CHAR = 1;
 const STATE_SEARCH_GUILD = 2;
 
-class ReportSelectionHeader extends React.PureComponent {
+class ReportSelectionHeader extends PureComponent {
   static propTypes = {
     reportHistory: PropTypes.array.isRequired,
   };

@@ -15,9 +15,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
@@ -75,7 +74,7 @@ class BeastCleave extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    if (this.timestamp + MS_BUFFER > event.timestamp) {
+    if (this.timestamp + MS_BUFFER_100 > event.timestamp) {
       return;
     }
     this.casts += 1;
@@ -85,7 +84,7 @@ class BeastCleave extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    if (this.timestamp + MS_BUFFER > event.timestamp) {
+    if (this.timestamp + MS_BUFFER_100 > event.timestamp) {
       return;
     }
     this.checkAmountOfHits();
@@ -94,7 +93,7 @@ class BeastCleave extends Analyzer {
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    if (this.timestamp + MS_BUFFER > event.timestamp) {
+    if (this.timestamp + MS_BUFFER_100 > event.timestamp) {
       return;
     }
     this.casts += 1;

@@ -3,9 +3,12 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { Adoraci, Putro, Kartarn } from 'CONTRIBUTORS';
 import { ItemLink, SpellLink } from 'interface';
-import React from 'react';
 
 export default [
+  change(date(2021, 12, 31), <> Adjusted ExecuteHelper module to more accurately handle <SpellLink id={SPELLS.KILL_SHOT_MM_BM.id}/> when playing with <SpellLink id={SPELLS.FLAYED_SHOT.id}/>. </>, Putro),
+  change(date(2021, 12, 26), <> Correct an error that was attributing too much damage to <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/> on rare occasions. </>, Putro),
+  change(date(2021, 12, 26), <> Added a module that aims to simulate either <SpellLink id={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id} /> or <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id} />, to provide a better comparison between the two for different bosses or dungeons, as it is a highly debated topic. </>, Putro),
+  change(date(2021, 12, 12), <> Added <SpellLink id={SPELLS.WILD_SPIRITS_BUFF.id} />, <SpellLink id={SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id}/> and <SpellLink id={SPELLS.FLAYERS_MARK.id} /> to the timeline to better show when these covenant specifics buffs were active.</>, Putro),
   change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),
   change(date(2021, 11, 11), <> Correct an issue where damage done by <SpellLink id={SPELLS.BEAST_CLEAVE_DAMAGE.id}/> wasn't correctly attributed to <SpellLink id={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id}/>.  </>, Putro),
   change(date(2021, 11, 6), <> Update APL checker with the new fractional spell charges and cooldown remaining logic as well as moving <SpellLink id={SPELLS.WILD_SPIRITS.id} /> into the major cooldown category instead of an APL item. </>, Putro),

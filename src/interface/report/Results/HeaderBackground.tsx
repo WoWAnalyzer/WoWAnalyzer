@@ -1,5 +1,4 @@
 import Expansion from 'game/Expansion';
-import React from 'react';
 
 interface Props {
   boss: {

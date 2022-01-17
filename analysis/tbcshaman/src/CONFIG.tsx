@@ -5,9 +5,9 @@ import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
+import { TotemElements, TOTEMS_BY_ELEMENT } from './totemConstants';
 
 export enum Build {
   DEFAULT = 'default',
@@ -38,24 +38,32 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '0/5/56',
+      talents: [0, 5, 56],
       icon: <Icon icon="spell_nature_healingwavegreater" />,
       visible: true,
     },
     [Build.ENHANCEMENT]: {
       url: 'enhancement',
       name: '2/45/14',
+      talents: [2, 45, 14],
       icon: <Icon icon="spell_nature_lightningshield" />,
       visible: true,
     },
     [Build.ELEMENTAL]: {
       url: 'elemental',
       name: '41/0/20',
+      talents: [41, 0, 20],
       icon: <Icon icon="spell_nature_lightning" />,
       visible: true,
     },
   },
   timeline: {
-    separateCastBars: [[]],
+    separateCastBars: [
+      TOTEMS_BY_ELEMENT[TotemElements.Fire],
+      TOTEMS_BY_ELEMENT[TotemElements.Water],
+      TOTEMS_BY_ELEMENT[TotemElements.Earth],
+      TOTEMS_BY_ELEMENT[TotemElements.Air],
+    ],
   },
 
   // Don't change anything below this line;

@@ -7,7 +7,6 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import UptimeBar from 'parser/ui/UptimeBar';
-import React from 'react';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {

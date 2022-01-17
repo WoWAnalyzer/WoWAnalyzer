@@ -161,7 +161,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AnimalCompanion mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267116"
+            href="https://wowhead.com/spell=267116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -174,7 +174,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AnimalCompanion mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267116"
+            href="https://wowhead.com/spell=267116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -232,7 +232,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AspectOfTheWild mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193530"
+            href="https://wowhead.com/spell=193530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -245,7 +245,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AspectOfTheWild mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193530"
+            href="https://wowhead.com/spell=193530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -312,7 +312,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BarbedShot matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=272790"
+            href="https://wowhead.com/spell=272790"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -325,7 +325,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BarbedShot matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=272790"
+            href="https://wowhead.com/spell=272790"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -495,7 +495,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BasicAttacks matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=17253"
+            href="https://wowhead.com/spell=17253"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -508,7 +508,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BasicAttacks matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=17253"
+            href="https://wowhead.com/spell=17253"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -582,7 +582,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BeastCleave matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=268877"
+            href="https://wowhead.com/spell=268877"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -595,7 +595,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BeastCleave matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=268877"
+            href="https://wowhead.com/spell=268877"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -808,7 +808,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BeastMasteryFocusUs
       >
         <label>
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -848,7 +848,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BeastMasteryFocusUs
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=2643"
+                  href="https://wowhead.com/spell=2643"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -896,7 +896,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BeastMasteryFocusUs
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -944,7 +944,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BeastMasteryFocusUs
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -1007,7 +1007,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BestialWrath matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=19574"
+            href="https://wowhead.com/spell=19574"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -1020,7 +1020,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target BestialWrath matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=19574"
+            href="https://wowhead.com/spell=19574"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -1138,7 +1138,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target Bloodletting matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341440"
+            href="https://wowhead.com/spell=341440"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -1151,7 +1151,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target Bloodletting matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341440"
+            href="https://wowhead.com/spell=341440"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -1290,7 +1290,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34026"
+                href="https://wowhead.com/spell=34026"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1392,7 +1392,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=193455"
+                href="https://wowhead.com/spell=193455"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1477,7 +1477,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=185358"
+                href="https://wowhead.com/spell=185358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1562,7 +1562,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=217200"
+                href="https://wowhead.com/spell=217200"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1659,7 +1659,104 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=328231"
+                href="https://wowhead.com/spell=53351"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_assassinate2.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Kill Shot
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              2.09
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              12
+              /13
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "92.3076923076923%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              92.31%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=328231"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1746,108 +1843,6 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
               }
             />
           </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=53351"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_assassinate2.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Kill Shot
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              2.09
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              12
-              /16
-               casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "75%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              75.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
-          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1916,7 +1911,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2643"
+                href="https://wowhead.com/spell=2643"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2059,7 +2054,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=331624"
+                href="https://wowhead.com/spell=331624"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2214,7 +2209,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19574"
+                href="https://wowhead.com/spell=19574"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2311,7 +2306,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=193530"
+                href="https://wowhead.com/spell=193530"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2466,7 +2461,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186265"
+                href="https://wowhead.com/spell=186265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2563,7 +2558,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109304"
+                href="https://wowhead.com/spell=109304"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2660,7 +2655,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272679"
+                href="https://wowhead.com/spell=272679"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2815,7 +2810,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186257"
+                href="https://wowhead.com/spell=186257"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2912,7 +2907,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=781"
+                href="https://wowhead.com/spell=781"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3009,7 +3004,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5116"
+                href="https://wowhead.com/spell=5116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3106,7 +3101,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=147362"
+                href="https://wowhead.com/spell=147362"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3203,7 +3198,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34477"
+                href="https://wowhead.com/spell=34477"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3300,7 +3295,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187650"
+                href="https://wowhead.com/spell=187650"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3397,7 +3392,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187698"
+                href="https://wowhead.com/spell=187698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3494,7 +3489,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5384"
+                href="https://wowhead.com/spell=5384"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3591,7 +3586,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1543"
+                href="https://wowhead.com/spell=1543"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3693,7 +3688,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257284"
+                href="https://wowhead.com/spell=257284"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3778,7 +3773,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264667"
+                href="https://wowhead.com/spell=264667"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3875,7 +3870,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272682"
+                href="https://wowhead.com/spell=272682"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3972,7 +3967,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19577"
+                href="https://wowhead.com/spell=19577"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4069,7 +4064,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=883"
+                href="https://wowhead.com/spell=883"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4154,7 +4149,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2641"
+                href="https://wowhead.com/spell=2641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4239,7 +4234,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=136"
+                href="https://wowhead.com/spell=136"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4394,7 +4389,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4491,7 +4486,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4588,7 +4583,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4774,51 +4769,6 @@ Array [
       )
     </React.Fragment>,
   },
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={53351}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 53351,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 12,
-            "1": 16,
-            "2": "75",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
 ]
 `;
 
@@ -4839,7 +4789,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CobraShot matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193455"
+            href="https://wowhead.com/spell=193455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4852,7 +4802,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CobraShot matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193455"
+            href="https://wowhead.com/spell=193455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5022,7 +4972,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
         <label>
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=173087"
+            href="https://wowhead.com/item=173087"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5036,7 +4986,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
            
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=173087"
+            href="https://wowhead.com/item=173087"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5216,7 +5166,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target FocusDetails matche
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5279,7 +5229,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target KillShot matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5292,7 +5242,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target KillShot matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5340,7 +5290,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target KillerCobra matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=199532"
+            href="https://wowhead.com/spell=199532"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5353,7 +5303,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target KillerCobra matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=199532"
+            href="https://wowhead.com/spell=199532"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5466,7 +5416,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target NaturalMending matc
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5479,7 +5429,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target NaturalMending matc
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5544,7 +5494,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target ReversalOfFortune m
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339495"
+            href="https://wowhead.com/spell=339495"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5557,7 +5507,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target ReversalOfFortune m
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=339495"
+            href="https://wowhead.com/spell=339495"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5613,7 +5563,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target ScentOfBlood matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193532"
+            href="https://wowhead.com/spell=193532"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5626,7 +5576,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target ScentOfBlood matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193532"
+            href="https://wowhead.com/spell=193532"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5668,7 +5618,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target SoulforgeEmbers mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336745"
+            href="https://wowhead.com/spell=336745"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5681,7 +5631,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target SoulforgeEmbers mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336745"
+            href="https://wowhead.com/spell=336745"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5745,7 +5695,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target Stomp matches the s
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=199530"
+            href="https://wowhead.com/spell=199530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5758,7 +5708,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target Stomp matches the s
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=199530"
+            href="https://wowhead.com/spell=199530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5821,7 +5771,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target ThrillOfTheHunt mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257944"
+            href="https://wowhead.com/spell=257944"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5834,7 +5784,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target ThrillOfTheHunt mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257944"
+            href="https://wowhead.com/spell=257944"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6196,7 +6146,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target WildSpirits matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6209,7 +6159,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target WildSpirits matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6361,7 +6311,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6434,7 +6384,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=217200"
+                  href="https://wowhead.com/spell=217200"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6507,7 +6457,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6580,7 +6530,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193530"
+                  href="https://wowhead.com/spell=193530"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6732,7 +6682,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
             Using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=217200"
+              href="https://wowhead.com/spell=217200"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6747,7 +6697,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
              properly is a key to achieving high dps. This means maintaining the pet buff from 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=217200"
+              href="https://wowhead.com/spell=217200"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6763,7 +6713,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=19574"
+              href="https://wowhead.com/spell=19574"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6779,7 +6729,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=19574"
+              href="https://wowhead.com/spell=19574"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6809,7 +6759,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 Uptime of 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=272790"
+                  href="https://wowhead.com/spell=272790"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6884,7 +6834,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 3 stack uptime of 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=272790"
+                  href="https://wowhead.com/spell=272790"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6958,7 +6908,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7125,7 +7075,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7137,7 +7087,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 </a>
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7205,7 +7155,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7221,7 +7171,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7294,7 +7244,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 className="flex-main"
               >
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7309,7 +7259,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7442,7 +7392,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=268877"
+                  href="https://wowhead.com/spell=268877"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7518,7 +7468,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 Wasted 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=199532"
+                  href="https://wowhead.com/spell=199532"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7673,7 +7623,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=193455"
+              href="https://wowhead.com/spell=193455"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7987,7 +7937,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=217200"
+                  href="https://wowhead.com/spell=217200"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8004,7 +7954,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=272790"
+                  href="https://wowhead.com/spell=272790"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8117,7 +8067,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=1543"
+                  href="https://wowhead.com/spell=1543"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8136,7 +8086,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 have 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=336745"
+                  href="https://wowhead.com/spell=336745"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8153,7 +8103,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=187698"
+                  href="https://wowhead.com/spell=187698"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8266,7 +8216,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=187698"
+                  href="https://wowhead.com/spell=187698"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8285,7 +8235,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 have 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=336745"
+                  href="https://wowhead.com/spell=336745"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8301,7 +8251,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  and 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=1543"
+                  href="https://wowhead.com/spell=1543"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8415,7 +8365,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53351"
+                  href="https://wowhead.com/spell=53351"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8533,7 +8483,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8641,7 +8591,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8662,7 +8612,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                 at least 50
                  
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8677,7 +8627,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                  or 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8788,7 +8738,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8861,7 +8811,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193530"
+                  href="https://wowhead.com/spell=193530"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -8934,7 +8884,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=328231"
+                  href="https://wowhead.com/spell=328231"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9975,7 +9925,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AnimalCompanion ma
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267116"
+            href="https://wowhead.com/spell=267116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -9988,7 +9938,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AnimalCompanion ma
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267116"
+            href="https://wowhead.com/spell=267116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10029,6 +9979,104 @@ exports[`Beast Mastery Hunter integration test: Single Target AnimalCompanion ma
 </div>
 `;
 
+exports[`Beast Mastery Hunter integration test: Single Target AntlerVersusRylak matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="THEORYCRAFT"
+    className="panel statistic flexible "
+    position={0}
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=356375"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Fragments of the Elder Antlers"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/trade_archaeology_antleredcloakclasp.jpg"
+            />
+          </a>
+           Antlers &
+           
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=336844"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rylakstalker's Piercing Fangs"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_monsterfang_02.jpg"
+            />
+          </a>
+           Rylaks comparison
+        </label>
+        <div
+          className="value"
+        >
+          <strong>
+            !!EXPERIMENTAL!!
+          </strong>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Beast Mastery Hunter integration test: Single Target AspectOfTheWild matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -10046,7 +10094,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AspectOfTheWild ma
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193530"
+            href="https://wowhead.com/spell=193530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10059,7 +10107,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AspectOfTheWild ma
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193530"
+            href="https://wowhead.com/spell=193530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10126,7 +10174,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BarbedShot matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=272790"
+            href="https://wowhead.com/spell=272790"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10139,7 +10187,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BarbedShot matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=272790"
+            href="https://wowhead.com/spell=272790"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10230,7 +10278,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BasicAttacks match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=16827"
+            href="https://wowhead.com/spell=16827"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10243,7 +10291,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BasicAttacks match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=16827"
+            href="https://wowhead.com/spell=16827"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10393,7 +10441,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BeastMasteryFocusU
       >
         <label>
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10433,7 +10481,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BeastMasteryFocusU
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -10481,7 +10529,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BeastMasteryFocusU
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -10544,7 +10592,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BestialWrath match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=19574"
+            href="https://wowhead.com/spell=19574"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10557,7 +10605,7 @@ exports[`Beast Mastery Hunter integration test: Single Target BestialWrath match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=19574"
+            href="https://wowhead.com/spell=19574"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10675,7 +10723,7 @@ exports[`Beast Mastery Hunter integration test: Single Target Bloodletting match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341440"
+            href="https://wowhead.com/spell=341440"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10688,7 +10736,7 @@ exports[`Beast Mastery Hunter integration test: Single Target Bloodletting match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341440"
+            href="https://wowhead.com/spell=341440"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10827,7 +10875,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34026"
+                href="https://wowhead.com/spell=34026"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10924,7 +10972,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=193455"
+                href="https://wowhead.com/spell=193455"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11009,7 +11057,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=185358"
+                href="https://wowhead.com/spell=185358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11094,7 +11142,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=217200"
+                href="https://wowhead.com/spell=217200"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11191,7 +11239,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=321530"
+                href="https://wowhead.com/spell=321530"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11293,104 +11341,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=328231"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_hunter.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Wild Spirits
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.58
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              3
-              /3
-               casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "89.83257710180304%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              89.83%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=53351"
+                href="https://wowhead.com/spell=53351"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11482,6 +11433,103 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
               />
             </td>
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=328231"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_hunter.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Wild Spirits
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.58
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /3
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "89.83257710180304%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              89.83%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -11550,7 +11598,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2643"
+                href="https://wowhead.com/spell=2643"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11693,7 +11741,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=345530"
+                href="https://wowhead.com/spell=345530"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11848,7 +11896,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19574"
+                href="https://wowhead.com/spell=19574"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -11945,7 +11993,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=193530"
+                href="https://wowhead.com/spell=193530"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12100,7 +12148,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186265"
+                href="https://wowhead.com/spell=186265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12197,7 +12245,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109304"
+                href="https://wowhead.com/spell=109304"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12294,7 +12342,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272679"
+                href="https://wowhead.com/spell=272679"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12449,7 +12497,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186257"
+                href="https://wowhead.com/spell=186257"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12546,7 +12594,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=781"
+                href="https://wowhead.com/spell=781"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12643,7 +12691,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5116"
+                href="https://wowhead.com/spell=5116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12740,7 +12788,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=147362"
+                href="https://wowhead.com/spell=147362"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12837,7 +12885,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34477"
+                href="https://wowhead.com/spell=34477"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -12934,7 +12982,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187650"
+                href="https://wowhead.com/spell=187650"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13031,7 +13079,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187698"
+                href="https://wowhead.com/spell=187698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13128,7 +13176,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5384"
+                href="https://wowhead.com/spell=5384"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13225,7 +13273,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1543"
+                href="https://wowhead.com/spell=1543"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13322,7 +13370,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257284"
+                href="https://wowhead.com/spell=257284"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13407,7 +13455,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=199483"
+                href="https://wowhead.com/spell=199483"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13504,7 +13552,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264667"
+                href="https://wowhead.com/spell=264667"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13601,7 +13649,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272682"
+                href="https://wowhead.com/spell=272682"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13698,7 +13746,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19577"
+                href="https://wowhead.com/spell=19577"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13795,7 +13843,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=883"
+                href="https://wowhead.com/spell=883"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13880,7 +13928,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2641"
+                href="https://wowhead.com/spell=2641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -13965,7 +14013,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=136"
+                href="https://wowhead.com/spell=136"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -14120,7 +14168,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -14217,7 +14265,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -14314,7 +14362,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307159"
+                href="https://wowhead.com/spell=307159"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -14520,7 +14568,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CobraShot matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193455"
+            href="https://wowhead.com/spell=193455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14533,7 +14581,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CobraShot matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193455"
+            href="https://wowhead.com/spell=193455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14889,7 +14937,7 @@ exports[`Beast Mastery Hunter integration test: Single Target FocusDetails match
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14965,7 +15013,7 @@ exports[`Beast Mastery Hunter integration test: Single Target KillShot matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -14978,7 +15026,7 @@ exports[`Beast Mastery Hunter integration test: Single Target KillShot matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53351"
+            href="https://wowhead.com/spell=53351"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15026,7 +15074,7 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
         <label>
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=180116"
+            href="https://wowhead.com/item=180116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15040,7 +15088,7 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
            
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=180116"
+            href="https://wowhead.com/item=180116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15109,7 +15157,7 @@ exports[`Beast Mastery Hunter integration test: Single Target RylakstalkersPierc
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336844"
+            href="https://wowhead.com/spell=336844"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15122,7 +15170,7 @@ exports[`Beast Mastery Hunter integration test: Single Target RylakstalkersPierc
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336844"
+            href="https://wowhead.com/spell=336844"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15170,7 +15218,7 @@ exports[`Beast Mastery Hunter integration test: Single Target ScentOfBlood match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193532"
+            href="https://wowhead.com/spell=193532"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15183,7 +15231,7 @@ exports[`Beast Mastery Hunter integration test: Single Target ScentOfBlood match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193532"
+            href="https://wowhead.com/spell=193532"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15225,7 +15273,7 @@ exports[`Beast Mastery Hunter integration test: Single Target Stomp matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=199530"
+            href="https://wowhead.com/spell=199530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15238,7 +15286,7 @@ exports[`Beast Mastery Hunter integration test: Single Target Stomp matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=199530"
+            href="https://wowhead.com/spell=199530"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15301,7 +15349,7 @@ exports[`Beast Mastery Hunter integration test: Single Target ThrillOfTheHunt ma
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257944"
+            href="https://wowhead.com/spell=257944"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15314,7 +15362,7 @@ exports[`Beast Mastery Hunter integration test: Single Target ThrillOfTheHunt ma
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257944"
+            href="https://wowhead.com/spell=257944"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15676,7 +15724,7 @@ exports[`Beast Mastery Hunter integration test: Single Target WildSpirits matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15689,7 +15737,7 @@ exports[`Beast Mastery Hunter integration test: Single Target WildSpirits matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -15841,7 +15889,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -15914,7 +15962,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=217200"
+                  href="https://wowhead.com/spell=217200"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -15987,7 +16035,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16060,7 +16108,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193530"
+                  href="https://wowhead.com/spell=193530"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16133,7 +16181,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=321530"
+                  href="https://wowhead.com/spell=321530"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16285,7 +16333,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
             Using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=217200"
+              href="https://wowhead.com/spell=217200"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -16300,7 +16348,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
              properly is a key to achieving high dps. This means maintaining the pet buff from 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=217200"
+              href="https://wowhead.com/spell=217200"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -16316,7 +16364,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=19574"
+              href="https://wowhead.com/spell=19574"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -16332,7 +16380,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=19574"
+              href="https://wowhead.com/spell=19574"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -16362,7 +16410,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                 Uptime of 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=272790"
+                  href="https://wowhead.com/spell=272790"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16437,7 +16485,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                 3 stack uptime of 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=272790"
+                  href="https://wowhead.com/spell=272790"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16511,7 +16559,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16678,7 +16726,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16690,7 +16738,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                 </a>
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16758,7 +16806,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16774,7 +16822,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16847,7 +16895,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                 className="flex-main"
               >
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16862,7 +16910,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -16995,7 +17043,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=268877"
+                  href="https://wowhead.com/spell=268877"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17149,7 +17197,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=193455"
+              href="https://wowhead.com/spell=193455"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -17463,7 +17511,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=217200"
+                  href="https://wowhead.com/spell=217200"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17480,7 +17528,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=272790"
+                  href="https://wowhead.com/spell=272790"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17593,7 +17641,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=321530"
+                  href="https://wowhead.com/spell=321530"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17701,7 +17749,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53351"
+                  href="https://wowhead.com/spell=53351"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17819,7 +17867,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17927,7 +17975,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17948,7 +17996,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                 at least 50
                  
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -17963,7 +18011,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  or 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18074,7 +18122,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193455"
+                  href="https://wowhead.com/spell=193455"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18091,7 +18139,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34026"
+                  href="https://wowhead.com/spell=34026"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18205,7 +18253,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=217200"
+                  href="https://wowhead.com/spell=217200"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18222,7 +18270,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=328837"
+                  href="https://wowhead.com/spell=328837"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18246,7 +18294,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=217200"
+                  href="https://wowhead.com/spell=217200"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18264,7 +18312,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=341440"
+                  href="https://wowhead.com/spell=341440"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18373,7 +18421,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19574"
+                  href="https://wowhead.com/spell=19574"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18446,7 +18494,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=193530"
+                  href="https://wowhead.com/spell=193530"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -18519,7 +18567,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=328231"
+                  href="https://wowhead.com/spell=328231"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

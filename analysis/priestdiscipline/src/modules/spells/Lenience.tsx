@@ -6,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-import React from 'react';
 
 const LENIENCE_DR = 0.03;
 

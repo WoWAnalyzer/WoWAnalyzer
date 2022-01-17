@@ -3,7 +3,6 @@ import { Yajinni, joshinator } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -45,7 +44,7 @@ export default {
       Make sure to check out the <a href="https://goo.gl/qjTtNY">Death Knight Class Discord</a> if
       you need more specific advice or a more detailed guide than the ones available on{' '}
       <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and{' '}
-      <a href="http://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
+      <a href="https://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

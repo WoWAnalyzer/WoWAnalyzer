@@ -7,7 +7,6 @@ import Events, { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
-import React from 'react';
 
 class SpiritOfRedemption extends Analyzer {
   static dependencies = {

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import React from 'react';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get downtimeSuggestionThresholds() {

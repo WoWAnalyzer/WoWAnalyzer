@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import char1Active from './images/char1-active.png';
 import char1 from './images/char1.png';

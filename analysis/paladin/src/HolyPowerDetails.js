@@ -7,7 +7,6 @@ import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Panel from 'parser/ui/Panel';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import HolyPowerTracker from './HolyPowerTracker';
 

@@ -2,10 +2,10 @@ import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 
 // Copied from core breakdown, but with support for 'max CP casts' in spenders display
-class ResourceBreakdown extends React.Component {
+class ResourceBreakdown extends Component {
   static propTypes = {
     tracker: PropTypes.object.isRequired,
     showSpenders: PropTypes.bool,

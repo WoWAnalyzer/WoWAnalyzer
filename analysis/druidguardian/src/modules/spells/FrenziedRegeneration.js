@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import React from 'react';
 
 const FR_WINDOW_MS = 5000;
 const FR_MINIMUM_HP_HEAL = 0.05;

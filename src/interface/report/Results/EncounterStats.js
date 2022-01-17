@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 import ROLES from 'game/ROLES';
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
+import SPECS from 'game/SPECS';
 import { ItemLink } from 'interface';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import Icon from 'interface/Icon';
@@ -14,7 +15,9 @@ import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import Combatant from 'parser/core/Combatant';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
+
+import { FilterByCovenantToggle } from './FilterByCovenantToggle';
 
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
@@ -23,7 +26,7 @@ import React from 'react';
 // TODO: Clean this file up and split it into multiple files to make it much more maintainable in the future
 const LEVEL_15_TALENT_ROW_INDEX = 0;
 
-class EncounterStats extends React.PureComponent {
+class EncounterStats extends PureComponent {
   static propTypes = {
     config: PropTypes.object.isRequired,
     currentBoss: PropTypes.number.isRequired,
@@ -54,6 +57,7 @@ class EncounterStats extends React.PureComponent {
       spells: SPELLS,
       loaded: false,
       message: 'Loading statistics...',
+      filterByCovenant: false,
     };
 
     this.load = this.load.bind(this);
@@ -178,7 +182,12 @@ class EncounterStats extends React.PureComponent {
             }
           }
 
-          if (!rank.name.match(combatantName)) {
+          if (
+            !rank.name.match(combatantName) &&
+            (!this.state.filterByCovenant ||
+              (this.state.filterByCovenant &&
+                rank.covenantID === this.props.combatant._combatantInfo.covenantID))
+          ) {
             if (
               this.props.duration > rank.duration * (1 - this.durationVariancePercentage) &&
               this.props.duration < rank.duration * (1 + this.durationVariancePercentage)
@@ -348,7 +357,7 @@ class EncounterStats extends React.PureComponent {
         <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
           <div className="flex-column col-md-6">
             <a
-              href={`https://wowanalyzer.com/report/${log.reportID}/${log.fightID}/`}
+              href={`https://wowanalyzer.com/report/${log.reportID}/${log.fightID}/${log.name}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -366,6 +375,8 @@ class EncounterStats extends React.PureComponent {
           </div>
           <div className="col-md-6">
             {formatThousands(log.total)} {this.metric}
+            <br />
+            {getCovenantById(log.covenantID).name}
           </div>
         </div>
       </div>
@@ -422,7 +433,8 @@ class EncounterStats extends React.PureComponent {
         {this.state.similiarKillTimes.length} of the top {this.amountOfParses}{' '}
         {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that{' '}
         {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within{' '}
-        {formatPercentage(this.durationVariancePercentage, 0)}% variance.
+        {formatPercentage(this.durationVariancePercentage, 0)}% variance
+        {this.state.filterByCovenant ? ' using the same covenant as you' : ''}.
         {this.state.similiarKillTimes.map((log) => this.singleLog(log.rank))}
       </div>
     );
@@ -438,8 +450,9 @@ class EncounterStats extends React.PureComponent {
         {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'}{' '}
         {this.state.closestKillTimes.length} of the top {this.amountOfParses}{' '}
         {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that{' '}
-        {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large
-        differences won't be good for comparing.
+        {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time
+        {this.state.filterByCovenant ? ' using the same covenant as you' : ''}. Large differences
+        won't be good for comparing.
         {this.state.closestKillTimes.map((log) => this.singleLog(log.rank))}
       </div>
     );
@@ -560,8 +573,15 @@ class EncounterStats extends React.PureComponent {
                 <div className="row" style={{ marginBottom: '1em' }}>
                   <div className="col-md-12">
                     <h2>
-                      {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times
+                      {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times{' '}
                     </h2>
+                    <FilterByCovenantToggle
+                      initialValue={this.state.filterByCovenant}
+                      onChange={(val) => {
+                        this.setState({ filterByCovenant: val });
+                        this.load();
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="row" style={{ marginBottom: '2em' }}>
@@ -570,6 +590,14 @@ class EncounterStats extends React.PureComponent {
                   this.state.closestKillTimes.length > 0
                     ? this.closestLogs
                     : ''}
+                  {this.state.similiarKillTimes.length === 0 &&
+                    this.state.closestKillTimes.length === 0 &&
+                    this.state.filterByCovenant &&
+                    `No ${SPECS[this.props.combatant._combatantInfo.specID].specName} ${
+                      SPECS[this.props.combatant._combatantInfo.specID].className
+                    }s in the top ${this.amountOfParses} logs were ${
+                      getCovenantById(this.props.combatant._combatantInfo.covenantID).name
+                    }.`}
                 </div>
               </div>
             </div>

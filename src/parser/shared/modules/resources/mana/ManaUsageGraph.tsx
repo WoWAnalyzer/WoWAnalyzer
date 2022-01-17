@@ -1,5 +1,4 @@
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import React from 'react';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 

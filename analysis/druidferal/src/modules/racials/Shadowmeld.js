@@ -10,7 +10,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
+import { Fragment } from 'react';
 
 const BUFF_WINDOW_TIME = 60;
 
@@ -124,12 +124,12 @@ class Shadowmeld extends Analyzer {
   suggestions(when) {
     when(this.efficiencyThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <React.Fragment>
+        <Fragment>
           You could be using <SpellLink id={SPELLS.SHADOWMELD.id} /> to increase your{' '}
           <SpellLink id={SPELLS.RAKE.id} /> damage more often. Activating{' '}
           <SpellLink id={SPELLS.SHADOWMELD.id} /> and immediately using{' '}
           <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal double damage.
-        </React.Fragment>,
+        </Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
         .actual(
@@ -143,10 +143,10 @@ class Shadowmeld extends Analyzer {
 
     when(this.wastedDuringStealthThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <React.Fragment>
+        <Fragment>
           You are wasting <SpellLink id={SPELLS.SHADOWMELD.id} /> by using it when you already have
           a stealth effect active.
-        </React.Fragment>,
+        </Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
         .actual(

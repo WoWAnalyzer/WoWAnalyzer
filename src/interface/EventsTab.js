@@ -7,7 +7,7 @@ import SpellLink from 'interface/SpellLink';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { Component } from 'react';
 import Toggle from 'react-toggle';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Table, {
@@ -105,7 +105,7 @@ const FILTERABLE_TYPES = {
   },
 };
 
-class EventsTab extends React.Component {
+class EventsTab extends Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
   };
@@ -136,6 +136,10 @@ class EventsTab extends React.Component {
     const enemy = this.props.parser.report.enemies.find((enemy) => enemy.id === id);
     if (enemy) {
       return enemy;
+    }
+    const enemyPet = this.props.parser.report.enemyPets.find((enemyPet) => enemyPet.id === id);
+    if (enemyPet) {
+      return enemyPet;
     }
     const pet = this.props.parser.playerPets.find((pet) => pet.id === id);
     if (pet) {

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -8,23 +8,25 @@ import { ChecklistProps as BackChecklistProps } from 'parser/shared/modules/feat
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
-import React from 'react';
 
 import { Build } from '../../CONFIG';
 import * as SPELLS from '../../SPELLS';
+import { TotemElements } from '../../totemConstants';
+import TotemTracker from '../features/TotemTracker';
 
 export interface ChecklistProps extends BackChecklistProps {
   build?: string;
+  totemTracker: TotemTracker;
 }
 
-const ShamanChecklist = ({ thresholds, castEfficiency, combatant, build }: ChecklistProps) => (
+const ShamanChecklist = ({ thresholds, totemTracker, build }: ChecklistProps) => (
   <Checklist>
     <Rule
       name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
       description={
         <Trans id="shaman.restoration.checklist.buffUptime.description">
           Water Shield and Earth Shield should be applied prior to the fight starting and
-          maintained.
+          maintained. Your totems should be kept up as often as possible.
         </Trans>
       }
     >
@@ -63,6 +65,38 @@ const ShamanChecklist = ({ thresholds, castEfficiency, combatant, build }: Check
           </Trans>
         }
         thresholds={thresholds.waterShieldUptime}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.checklist.totemuptime.fire">
+            <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem Uptime
+          </Trans>
+        }
+        thresholds={thresholds.fireTotemUptime}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.checklist.totemuptime.water">
+            <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem Uptime
+          </Trans>
+        }
+        thresholds={thresholds.waterTotemUptime}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.checklist.totemuptime.earth">
+            <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem Uptime
+          </Trans>
+        }
+        thresholds={thresholds.earthTotemUptime}
+      />
+      <Requirement
+        name={
+          <Trans id="shaman.checklist.totemuptime.air">
+            <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem Uptime
+          </Trans>
+        }
+        thresholds={thresholds.airTotemUptime}
       />
     </Rule>
     {build === Build.DEFAULT && (

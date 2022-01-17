@@ -9,7 +9,6 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
 

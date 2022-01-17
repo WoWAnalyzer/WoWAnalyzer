@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import React from 'react';
+import { Fragment } from 'react';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,
@@ -68,22 +68,22 @@ class DancingRuneWeapon extends Analyzer {
   spellLinks(id, index) {
     if (id === SPELLS.CONSUMPTION_TALENT.id) {
       return (
-        <React.Fragment key={id}>
+        <Fragment key={id}>
           and (if in AoE)
           <SpellLink id={id} />
-        </React.Fragment>
+        </Fragment>
       );
     } else if (index + 2 === ALLOWED_CASTS_DURING_DRW.length) {
       return (
-        <React.Fragment key={id}>
+        <Fragment key={id}>
           <SpellLink id={id} />{' '}
-        </React.Fragment>
+        </Fragment>
       );
     } else {
       return (
-        <React.Fragment key={id}>
+        <Fragment key={id}>
           <SpellLink id={id} />,{' '}
-        </React.Fragment>
+        </Fragment>
       );
     }
   }

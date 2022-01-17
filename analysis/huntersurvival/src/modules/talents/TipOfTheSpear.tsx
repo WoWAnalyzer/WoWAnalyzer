@@ -7,9 +7,8 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import {
   RAPTOR_MONGOOSE_VARIANTS,
   TIP_DAMAGE_INCREASE,
@@ -61,7 +60,7 @@ class TipOfTheSpear extends Analyzer {
   onKillCommandCast(event: CastEvent) {
     if (
       this.stacks === TIP_MAX_STACKS &&
-      event.timestamp > this.lastApplicationTimestamp + MS_BUFFER
+      event.timestamp > this.lastApplicationTimestamp + MS_BUFFER_100
     ) {
       this.wastedStacks += 1;
     }

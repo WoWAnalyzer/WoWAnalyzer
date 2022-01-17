@@ -1,6 +1,5 @@
 import Panel from 'interface/Panel';
 import Report from 'parser/core/Report';
-import React from 'react';
 
 import './FightSelection.scss';
 import FightSelectionPanelList from './FightSelectionPanelList';

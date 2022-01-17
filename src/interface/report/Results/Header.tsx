@@ -8,7 +8,6 @@ import { ParseResultsTab } from 'parser/core/Analyzer';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import Fight from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
-import React from 'react';
 
 import BuildSelection from './BuildSelection';
 import HeaderBackground from './HeaderBackground';

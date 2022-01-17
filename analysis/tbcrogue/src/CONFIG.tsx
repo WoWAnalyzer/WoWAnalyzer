@@ -5,7 +5,6 @@ import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
 import Config from 'parser/Config';
-import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -36,6 +35,7 @@ const config: Config = {
     [Build.DEFAULT]: {
       url: 'standard',
       name: '20/41/0',
+      talents: [20, 41, 0],
       icon: <Icon icon="inv_throwingknife_04" />,
       visible: true,
     },

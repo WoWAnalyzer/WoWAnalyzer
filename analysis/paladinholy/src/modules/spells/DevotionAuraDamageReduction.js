@@ -9,7 +9,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
-import React from 'react';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.03;

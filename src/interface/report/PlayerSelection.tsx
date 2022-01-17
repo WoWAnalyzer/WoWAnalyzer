@@ -4,7 +4,6 @@ import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import Report from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
-import React from 'react';
 
 import Player from '../../parser/core/Player';
 import PlayerTile from './PlayerTile';
@@ -42,7 +41,7 @@ function sortPlayers(a: Player, b: Player) {
 interface Props {
   report: Report;
   combatants: CombatantInfoEvent[];
-  makeUrl: (playerId: number) => string;
+  makeUrl: (playerId: number, build?: string) => string;
 }
 
 const PlayerSelection = ({ report, combatants, makeUrl }: Props) => (

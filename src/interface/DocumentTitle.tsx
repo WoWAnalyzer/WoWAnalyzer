@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 const siteName = 'WoWAnalyzer';
 
@@ -7,7 +7,7 @@ interface DocumentTitleProps {
 }
 
 const DocumentTitle = ({ title }: DocumentTitleProps) => {
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = title ? `${title} - ${siteName}` : siteName;
   }, [title]);
   return null;

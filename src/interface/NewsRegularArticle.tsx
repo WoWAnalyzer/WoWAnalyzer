@@ -1,5 +1,5 @@
 import Panel from 'interface/Panel';
-import React, { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import Contributor, { ContributorType } from './ContributorButton';

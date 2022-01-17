@@ -10,9 +10,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
-import { MS_BUFFER } from '@wowanalyzer/hunter';
+import { MS_BUFFER_100 } from '@wowanalyzer/hunter';
 import {
   BOP_CA_EXTENSION_PER_CAST,
   RAPTOR_MONGOOSE_VARIANTS,
@@ -91,7 +90,7 @@ class BirdOfPrey extends Analyzer {
     if (
       !this.aoeChecked &&
       this.timestampAoE > 0 &&
-      event.timestamp > this.timestampAoE + MS_BUFFER
+      event.timestamp > this.timestampAoE + MS_BUFFER_100
     ) {
       this.aoeCheck();
     }

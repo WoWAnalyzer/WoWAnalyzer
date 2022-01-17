@@ -12,7 +12,6 @@ import {
   hasConduit,
   optional,
 } from 'parser/shared/metrics/apl/conditions';
-import React from 'react';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,

@@ -1,7 +1,6 @@
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 import StatisticBox from './StatisticBox';

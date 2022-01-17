@@ -2,7 +2,6 @@ import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checkli
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import React from 'react';
 
 import { ArcaneIntellect, CancelledCasts, RuneOfPower } from '@wowanalyzer/mage';
 
@@ -87,8 +86,6 @@ class Checklist extends BaseChecklist {
           phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
           fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
           firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
-          scorchSpellUsageDuringCombustion: this.combustionSpellUsage
-            .scorchDuringCombustionThresholds,
           fireballSpellUsageDuringCombustion: this.combustionSpellUsage
             .fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,

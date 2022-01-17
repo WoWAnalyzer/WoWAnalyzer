@@ -34,7 +34,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          25.24 %
+          25.64 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.76363345998728%",
+                  "width": "74.35724606778105%",
                 }
               }
             >
@@ -115,7 +115,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "74.76",
+            "0": "74.36",
           }
         }
       />
@@ -145,7 +145,7 @@ exports[`Balance Druid integration test: example log AstralPowerDetails matches 
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/astral-power"
+            href="https://wowhead.com/astral-power"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -493,7 +493,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=78674"
+                href="https://wowhead.com/spell=78674"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -578,7 +578,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=191034"
+                href="https://wowhead.com/spell=191034"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -663,7 +663,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190984"
+                href="https://wowhead.com/spell=190984"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -748,7 +748,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=194153"
+                href="https://wowhead.com/spell=194153"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -833,7 +833,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=8921"
+                href="https://wowhead.com/spell=8921"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -918,7 +918,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=93402"
+                href="https://wowhead.com/spell=93402"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1061,7 +1061,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=194223"
+                href="https://wowhead.com/spell=194223"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1158,7 +1158,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=323764"
+                href="https://wowhead.com/spell=323764"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1255,7 +1255,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=108291"
+                href="https://wowhead.com/spell=108291"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1415,7 +1415,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=22812"
+                href="https://wowhead.com/spell=22812"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1517,7 +1517,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5487"
+                href="https://wowhead.com/spell=5487"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1602,7 +1602,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=18562"
+                href="https://wowhead.com/spell=18562"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1745,7 +1745,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=29166"
+                href="https://wowhead.com/spell=29166"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1847,7 +1847,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=102401"
+                href="https://wowhead.com/spell=102401"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1944,7 +1944,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=61391"
+                href="https://wowhead.com/spell=61391"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2041,7 +2041,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=339"
+                href="https://wowhead.com/spell=339"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2126,7 +2126,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1850"
+                href="https://wowhead.com/spell=1850"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2223,7 +2223,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=78675"
+                href="https://wowhead.com/spell=78675"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2320,7 +2320,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2782"
+                href="https://wowhead.com/spell=2782"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2417,7 +2417,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=20484"
+                href="https://wowhead.com/spell=20484"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2502,7 +2502,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6795"
+                href="https://wowhead.com/spell=6795"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2599,7 +2599,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=768"
+                href="https://wowhead.com/spell=768"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2684,7 +2684,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=24858"
+                href="https://wowhead.com/spell=24858"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2769,7 +2769,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=783"
+                href="https://wowhead.com/spell=783"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2854,7 +2854,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=8936"
+                href="https://wowhead.com/spell=8936"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2939,7 +2939,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=774"
+                href="https://wowhead.com/spell=774"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3024,7 +3024,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48438"
+                href="https://wowhead.com/spell=48438"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3109,7 +3109,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2637"
+                href="https://wowhead.com/spell=2637"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3194,7 +3194,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2908"
+                href="https://wowhead.com/spell=2908"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3291,7 +3291,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=310143"
+                href="https://wowhead.com/spell=310143"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3376,7 +3376,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=106898"
+                href="https://wowhead.com/spell=106898"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3531,7 +3531,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3628,7 +3628,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3885,7 +3885,7 @@ exports[`Balance Druid integration test: example log ConvokeSpirits matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=323764"
+            href="https://wowhead.com/spell=323764"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3898,7 +3898,7 @@ exports[`Balance Druid integration test: example log ConvokeSpirits matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=323764"
+            href="https://wowhead.com/spell=323764"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4256,7 +4256,7 @@ exports[`Balance Druid integration test: example log MoonfireUptime matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164812"
+            href="https://wowhead.com/spell=164812"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4269,7 +4269,7 @@ exports[`Balance Druid integration test: example log MoonfireUptime matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164812"
+            href="https://wowhead.com/spell=164812"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4323,7 +4323,7 @@ exports[`Balance Druid integration test: example log Starlord matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=202345"
+            href="https://wowhead.com/spell=202345"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4336,7 +4336,7 @@ exports[`Balance Druid integration test: example log Starlord matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=202345"
+            href="https://wowhead.com/spell=202345"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4405,7 +4405,7 @@ exports[`Balance Druid integration test: example log StellarDrift matches the st
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=202354"
+            href="https://wowhead.com/spell=202354"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4418,7 +4418,7 @@ exports[`Balance Druid integration test: example log StellarDrift matches the st
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=202354"
+            href="https://wowhead.com/spell=202354"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4480,7 +4480,7 @@ exports[`Balance Druid integration test: example log SunfireUptime matches the s
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164815"
+            href="https://wowhead.com/spell=164815"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4493,7 +4493,7 @@ exports[`Balance Druid integration test: example log SunfireUptime matches the s
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=164815"
+            href="https://wowhead.com/spell=164815"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4842,7 +4842,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "24.03654485022349%",
+                  "width": "23.951965474220568%",
                 }
               }
             />
@@ -4943,7 +4943,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  74.76%
+                  74.36%
                    
                    
                 </div>
@@ -4965,7 +4965,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.120362427719705%",
+                        "width": "30.951203675713863%",
                       }
                     }
                   />
@@ -5137,7 +5137,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=164812"
+                  href="https://wowhead.com/spell=164812"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5211,7 +5211,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=164812"
+                  href="https://wowhead.com/spell=164812"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5285,7 +5285,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=164815"
+                  href="https://wowhead.com/spell=164815"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5359,7 +5359,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=164815"
+                  href="https://wowhead.com/spell=164815"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5511,7 +5511,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=79577"
+              href="https://wowhead.com/spell=79577"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5527,7 +5527,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190984"
+              href="https://wowhead.com/spell=190984"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5543,7 +5543,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48517"
+              href="https://wowhead.com/spell=48517"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5558,7 +5558,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              while you should cast
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=194153"
+              href="https://wowhead.com/spell=194153"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5574,7 +5574,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48518"
+              href="https://wowhead.com/spell=48518"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5590,7 +5590,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=78674"
+              href="https://wowhead.com/spell=78674"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5608,7 +5608,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
             In multi target situations, you should use 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=191034"
+              href="https://wowhead.com/spell=191034"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5624,7 +5624,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=194153"
+              href="https://wowhead.com/spell=194153"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5639,7 +5639,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              during 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48517"
+              href="https://wowhead.com/spell=48517"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5867,7 +5867,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=79577"
+              href="https://wowhead.com/spell=79577"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5882,7 +5882,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
              or 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=194223"
+              href="https://wowhead.com/spell=194223"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6124,7 +6124,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=194223"
+                  href="https://wowhead.com/spell=194223"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6197,7 +6197,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=323764"
+                  href="https://wowhead.com/spell=323764"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6363,7 +6363,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=29166"
+                  href="https://wowhead.com/spell=29166"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6436,7 +6436,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=22812"
+                  href="https://wowhead.com/spell=22812"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

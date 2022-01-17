@@ -1,6 +1,6 @@
 import Spell from 'common/SPELLS/Spell';
 import { PhaseConfig } from 'game/raids';
-import React from 'react';
+import * as React from 'react';
 
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';
@@ -95,6 +95,21 @@ export enum EventType {
   FilterBuffInfo = 'filterbuffinfo',
 }
 
+export interface AddStaggerEvent extends Event<EventType.AddStagger> {
+  amount: number;
+  overheal: number;
+  newPooledDamage: number;
+  extraAbility?: Ability;
+  trigger?: AbsorbedEvent;
+}
+
+export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
+  amount: number;
+  overheal: number;
+  newPooledDamage: number;
+  trigger?: CastEvent | DeathEvent;
+}
+
 type MappedEventTypes = {
   [EventType.Event]: Event<EventType.Event>;
   [EventType.Heal]: HealEvent;
@@ -132,6 +147,8 @@ type MappedEventTypes = {
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
+  [EventType.AddStagger]: AddStaggerEvent;
+  [EventType.RemoveStagger]: RemoveStaggerEvent;
   // Phases:
   [EventType.PhaseStart]: PhaseStartEvent;
   [EventType.PhaseEnd]: PhaseEndEvent;
@@ -146,9 +163,17 @@ export type AnyEvent<
 > = MappedEventTypes[ET];
 
 export interface Ability {
+  /** The ability's name */
   name: string;
+  /**
+   * The ability's ID - this uniquely identifies the ability,
+   * as there are sometimes multiple different abilities with the same name,
+   * but they'll have different guids
+   */
   guid: number;
+  /** The ability's spell school. See {@link MAGIC_SCHOOLS}. */
   type: number;
+  /** The resource name for the ability's icon */
   abilityIcon: string;
 }
 
@@ -277,17 +302,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
     isEnhancedCast?: boolean;
     enhancedCastReason?: React.ReactNode;
   };
-  trigger?: {
-    timestamp: number;
-    type: EventType;
-    castEvent: CastEvent;
-    meta?: {
-      isInefficientCast?: boolean;
-      inefficientCastReason?: React.ReactNode;
-      isEnhancedCast?: boolean;
-      enhancedCastReason?: React.ReactNode;
-    };
-  };
+  trigger?: AnyEvent;
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
@@ -296,9 +311,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
-  trigger?: {
-    timestamp: number;
-  };
+  trigger?: AnyEvent;
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
@@ -367,31 +380,51 @@ export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo>
 }
 
 export interface HealEvent extends Event<EventType.Heal> {
+  /** Unique Identifier for the source. Nobody else will have this ID */
   sourceID: number;
+  /** If the person who is doing the healing friendly */
   sourceIsFriendly: boolean;
+  /** Unique Identifier for the target. Nobody else will have this ID */
   targetID: number;
   targetInstance?: number;
+  /** Is the target you're healing a friendly */
   targetIsFriendly: boolean;
+  /** The ability that is healing the target */
   ability: Ability;
+  /** This describes if the spell Hit/Missed/Crit/etc. Look at {@link HIT_TYPES} all types of hits */
   hitType: number;
+  /** The effective healing the event did */
   amount: number;
+  /** The overheal the event did */
   overheal?: number;
+  /** If the event is a tick of a HoT or HoT like object */
   tick?: boolean;
   resourceActor: number;
+  /** A list of resource that changed when this event happened */
   classResources: ClassResources[];
+  /** Hit points of the target AFTER the heal is done if you want hp before you need to do (hitpoints - amount) */
   hitPoints: number;
+  /** The max hitpoints of the target */
   maxHitPoints: number;
+  /** How much attack power the target has */
   attackPower: number;
+  /** How much Spell power the target has */
   spellPower: number;
+  /** How much Armor the target has */
   armor: number;
-  /** The current total absorb shields on the target I think? */
+  /** The current total absorb shields on the target */
   absorb: number;
   /** The amount of healing absorbed by a healing taken-debuff. */
   absorbed?: number;
+  /** The x location of the player */
   x: number;
+  /** The y location of the player */
   y: number;
+  /** The direction the plaeyr is facing */
   facing: number;
+  /** The map they are in. This is a unique ID for every zone in wow */
   mapID: number;
+  /** The Item level of the target */
   itemLevel: number;
 }
 

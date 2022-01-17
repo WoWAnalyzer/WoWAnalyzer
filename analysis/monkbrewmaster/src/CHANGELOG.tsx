@@ -12,7 +12,6 @@ import {
   carglass,
 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import React from 'react';
 
 // prettier-ignore
 export default [

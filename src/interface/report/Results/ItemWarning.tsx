@@ -1,7 +1,7 @@
 import { ItemLink } from 'interface';
 import AlertWarning from 'interface/AlertWarning';
 import { Item } from 'parser/core/Events';
-import React from 'react';
+import { Component } from 'react';
 
 const WARNING_ITEMS: number[] = [];
 
@@ -9,7 +9,7 @@ interface Props {
   gear: Item[];
 }
 
-class ItemWarning extends React.Component<Props> {
+class ItemWarning extends Component<Props> {
   badItems: number[] = [];
   checkItems() {
     this.props.gear.forEach((item) => {

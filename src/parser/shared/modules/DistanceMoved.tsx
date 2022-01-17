@@ -5,7 +5,6 @@ import Events, { CastEvent, DamageEvent, ResourceChangeEvent, HealEvent } from '
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 const debug = false;
 

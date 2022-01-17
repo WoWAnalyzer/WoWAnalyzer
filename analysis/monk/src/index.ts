@@ -8,4 +8,5 @@ export { default as ImbuedReflections } from './ImbuedReflections';
 export { default as TouchOfDeath } from './TouchOfDeath';
 export { default as WeaponsOfOrder } from './WeaponsOfOrder';
 export { default as SinisterTeachings } from './SinisterTeachings';
+export { default as FaelineHarmony } from './FaelineHarmony';
 export * from './constants';

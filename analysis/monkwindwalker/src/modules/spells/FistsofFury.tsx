@@ -8,7 +8,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 

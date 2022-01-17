@@ -12,7 +12,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
 
 import { SAVAGE_ROAR_DAMAGE_BONUS } from '../../constants';
 import getDamageBonus from '../core/getDamageBonus';

@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
 import { Tooltip } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import DistanceRadarRing from './DistanceRadarRing';
 

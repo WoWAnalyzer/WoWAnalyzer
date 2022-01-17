@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-import React from 'react';
 
 import { CURSE_OF_AGONY, CURSE_OF_DOOM, CURSE_OF_THE_ELEMENTS } from '../../SPELLS';
 

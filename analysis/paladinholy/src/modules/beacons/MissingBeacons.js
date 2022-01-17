@@ -4,7 +4,6 @@ import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 import BeaconTargets from './BeaconTargets';

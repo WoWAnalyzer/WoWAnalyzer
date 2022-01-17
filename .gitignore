@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/analysis/*/node_modules
 
 # production
 /build
@@ -48,3 +49,8 @@ temp
 
 # VIM
 *.swp
+
+
+# Coverage Reports 
+coverage/*
+!coverage/lcov.info

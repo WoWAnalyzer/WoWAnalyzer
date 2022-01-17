@@ -1,4 +1,3 @@
-import React from 'react';
 import { VegaLite, VisualizationSpec } from 'react-vega';
 import { Config } from 'vega-lite';
 

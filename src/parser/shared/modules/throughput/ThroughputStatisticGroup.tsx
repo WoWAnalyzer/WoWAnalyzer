@@ -1,6 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
 import StatisticGroup from 'parser/ui/StatisticGroup';
-import React from 'react';
 
 import DamageDone from './DamageDone';
 import DamageTaken from './DamageTaken';

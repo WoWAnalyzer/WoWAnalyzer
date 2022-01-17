@@ -9,7 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import React from 'react';
+import * as React from 'react';
 
 const RP_BUFF_BY_HYSTERIA = 0.2;
 const DEATH_STRIKE_COST = 45;

@@ -2,7 +2,6 @@ import { formatThousands } from 'common/format';
 import ManaIcon from 'interface/icons/Mana';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 interface Props {
   amount: number;

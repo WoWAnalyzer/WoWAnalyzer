@@ -1,7 +1,6 @@
 import { formatDuration } from 'common/format';
 import { Tooltip } from 'interface';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const DeathEvents = (props) => {
   const { start, secondWidth, deaths, resurrections } = props;

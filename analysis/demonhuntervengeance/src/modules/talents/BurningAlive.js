@@ -4,7 +4,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import React from 'react';
 
 //WCL: https://www.warcraftlogs.com/reports/JxyY7HCDcjqMA9tf/#fight=1&source=15
 class BurningAlive extends Analyzer {
