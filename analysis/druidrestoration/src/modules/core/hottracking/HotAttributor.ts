@@ -35,6 +35,12 @@ class HotAttributor extends Analyzer {
   hasVisionOfUnendingGrowth: boolean;
   hasLycarasFleetingGlimpse: boolean;
 
+  // track hardcast attributions for mana effic tracking
+  rejuvHardcastAttrib = HotTracker.getNewAttribution('Rejuvenation Hardcast');
+  regrowthHardcastAttrib = HotTracker.getNewAttribution('Regrowth Hardcast');
+  wgHardcastAttrib = HotTracker.getNewAttribution('Wild Growth Hardcast');
+  lbHardcastAttrib = HotTracker.getNewAttribution('Lifebloom Hardcast');
+  // track various talent / legendary attributions
   overgrowthAttrib = HotTracker.getNewAttribution('Overgrowth');
   memoryOfTheMotherTreeAttrib = HotTracker.getNewAttribution('Memory of the Mother Tree');
   visionOfUnendingGrowthAttrib = HotTracker.getNewAttribution('Vision of Unending Growth');
@@ -95,8 +101,10 @@ class HotAttributor extends Analyzer {
 
   onApplyRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      this.hotTracker.addAttributionFromApply(this.rejuvHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+      // convoke module adds the attribution
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
     } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
@@ -121,8 +129,10 @@ class HotAttributor extends Analyzer {
 
   onApplyRegrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      this.hotTracker.addAttributionFromApply(this.regrowthHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+      // convoke module adds the attribution
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
     } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
@@ -157,14 +167,18 @@ class HotAttributor extends Analyzer {
       )
     ) {
       this.memoryOfTheMotherTreeAttrib.healing += event.amount + (event.absorbed || 0);
+    } else if (isFromHardcast(event)) {
+      this.regrowthHardcastAttrib.healing += event.amount + (event.absorbed || 0);
     }
   }
 
   onApplyWg(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      this.hotTracker.addAttributionFromApply(this.wgHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
       // don't clear pending because it hits many targets
     } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+      // convoke module adds the attribution
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
     } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
@@ -179,6 +193,7 @@ class HotAttributor extends Analyzer {
 
   onApplyLb(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      this.hotTracker.addAttributionFromApply(this.lbHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
     } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
