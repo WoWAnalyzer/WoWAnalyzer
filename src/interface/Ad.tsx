@@ -58,6 +58,7 @@ export default Ad;
 declare global {
   interface Window {
     tyche?: any;
+    refreshAds?: () => void;
   }
 }
 
@@ -82,6 +83,8 @@ export function refreshAds() {
   }
 }
 
+window.refreshAds = refreshAds;
+
 export function destroyAds() {
   console.log('destroying ads');
   const destroy = window.tyche?.destroyUnits;
@@ -90,10 +93,3 @@ export function destroyAds() {
     destroy('all');
   }
 }
-
-window.tyche = {
-  mode: 'tyche',
-  config: '//config.playwire.com/1024476/v2/websites/73270/banner.json',
-  passiveMode: true,
-  onReady: refreshAds,
-};
