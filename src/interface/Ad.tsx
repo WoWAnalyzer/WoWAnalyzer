@@ -64,7 +64,7 @@ declare global {
 export function refreshAds() {
   const tyche = window.tyche;
   try {
-    if (tyche && tyche.initCallbackHappened) {
+    if (tyche && tyche.destroyUnits) {
       tyche.destroyUnits('all');
       tyche
         .addUnits(Object.values(units))
