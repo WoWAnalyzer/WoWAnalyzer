@@ -155,7 +155,7 @@ export default function PrivacyPage() {
           <li>
             <strong>Different Devices:</strong> You may access the Service through different devices
             (e.g., your mobile phone or desktop computer) and different platforms (e.g., the
-            Warcraft Logs website or Warcraft Logs desktop app). The information that we collect and
+            WoWAnalyzer website or the Warcraft Logs website). The information that we collect and
             store through those different uses may be cross-referenced and combined, and your
             contributions through one Warcraft Logs platform will typically be similarly visible and
             accessible through all other Warcraft Logs platforms.
@@ -219,8 +219,7 @@ export default function PrivacyPage() {
                 Intended to make advertising more relevant to users and more valuable to
                 advertisers. For example, we may use Cookies to serve you interest-based ads, such
                 as ads that are displayed to you based on your visits to other websites, or to tell
-                us if you have recently clicked on an ad. We use Freestar.io and Google AdSense for
-                this purpose.
+                us if you have recently clicked on an ad.
               </td>
             </tr>
             <tr>
