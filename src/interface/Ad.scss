@@ -7,4 +7,8 @@
   a:not(:only-child) {
     display: none;
   }
+
+  iframe {
+    max-width: 970px;
+  }
 }
