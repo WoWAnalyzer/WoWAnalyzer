@@ -27,10 +27,14 @@ class SealOfCommand extends Analyzer {
     const highRankSpells: SpellInfo[] = [
       SPELLS.SEAL_OF_COMMAND,
       ...lowRankSpells[SPELLS.SEAL_OF_COMMAND],
-    ].filter(spell => !whitelist[SPELLS.SEAL_OF_COMMAND].includes(spell))
-    .map((spell) => ({ id: spell }));
+    ]
+      .filter((spell) => !whitelist[SPELLS.SEAL_OF_COMMAND].includes(spell))
+      .map((spell) => ({ id: spell }));
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(highRankSpells), this.onHighRankCasts);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(highRankSpells),
+      this.onHighRankCasts,
+    );
   }
 
   onHighRankCasts(event: CastEvent) {
@@ -38,19 +42,20 @@ class SealOfCommand extends Analyzer {
   }
 
   suggestions(when: When) {
-      when(this.isHighRankUsed)
+    when(this.isHighRankUsed)
       .isTrue()
-      .addSuggestion((suggest, _actual, _recommended) => 
-          suggest(
-            <>
-              You should only use rank 1 <SpellLink id={whitelist[SPELLS.SEAL_OF_COMMAND][0]} /> for mana efficiency.
-              As you always want to SealTwist out from this seal, the <SpellLink id={SPELLS.JUDGEMENT} /> damage effect from higher {' '}
-              rank (<SpellLink id={SPELLS.SEAL_OF_COMMAND} />) is not used.
-           </>,
-          )
+      .addSuggestion((suggest, _actual, _recommended) =>
+        suggest(
+          <>
+            You should only use rank 1 <SpellLink id={whitelist[SPELLS.SEAL_OF_COMMAND][0]} /> for
+            mana efficiency. As you always want to SealTwist out from this seal, the{' '}
+            <SpellLink id={SPELLS.JUDGEMENT} /> damage effect from higher rank (
+            <SpellLink id={SPELLS.SEAL_OF_COMMAND} />) is not used.
+          </>,
+        )
           .icon('ability_warrior_innerrage')
-          .staticImportance(ISSUE_IMPORTANCE.MAJOR)
-      )
+          .staticImportance(ISSUE_IMPORTANCE.MAJOR),
+      );
   }
 }
 
