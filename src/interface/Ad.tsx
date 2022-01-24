@@ -23,12 +23,12 @@ const Ad = ({ style, location }: Props) => {
   const premium = usePremium();
 
   useEffect(() => {
-    if (!premium && pageLoc.search.includes('enableAds=true')) {
+    if (!premium) {
       refreshAds();
 
       return destroyAds;
     }
-  }, [location, pageLoc.pathname, pageLoc.search, premium]);
+  }, [location, pageLoc.pathname, premium]);
 
   if (premium) {
     return null;
