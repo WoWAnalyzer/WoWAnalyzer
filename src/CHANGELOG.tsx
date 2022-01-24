@@ -54,6 +54,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 1, 24), 'Enable ads. Premium users have ads disabled.', emallson),
   change(date(2022, 1, 22), 'Version bumps', emallson),
   change(date(2022, 1, 18), 'Enable ad test system.', emallson),
   change(date(2022, 1, 8), 'Synchronize package versions across all classes/specs.', emallson),
