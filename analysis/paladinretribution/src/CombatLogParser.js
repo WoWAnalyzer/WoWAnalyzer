@@ -11,6 +11,7 @@ import {
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import ArtOfWar from './modules/core/ArtOfWar';
+import ArtOfWarProbability from './modules/core/ArtOfWarProbability';
 import BladeofJustice from './modules/core/BladeofJustice';
 import Consecration from './modules/core/Consecration';
 import CrusaderStrike from './modules/core/CrusaderStrike';
@@ -31,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // PaladinCore
     artOfWar: ArtOfWar,
+    artOfWarProbability: ArtOfWarProbability,
 
     // Features
     abilities: Abilities,

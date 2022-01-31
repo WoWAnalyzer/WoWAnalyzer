@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Fashathus, Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
+import { Abelito75, Fashathus, Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 1, 31), <>Added a cool probability graph for Art Of War. </>, Abelito75),
   change(date(2021, 7, 5), <>Fixed bug where <SpellLink id={SPELLS.FINAL_VERDICT.id} icon /> would sometimes not count toward consuming <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs. </>, Fashathus),
   change(date(2021, 6, 27), <>Changed <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon /> statistics for Shadowlands. At least partially fixed bug with judgement debuff consumption tracking. </>, Fashathus),
   change(date(2021, 4, 10), <>Added <SpellLink id={SPELLS.FINAL_VERDICT.id} icon />.</>, Juko8),
