@@ -48,8 +48,8 @@ class ArtOfWarProbability extends Analyzer {
         tooltip={
           <>
             Reset Chance: {this.chance * 100} % <br />
-            Total Chance: {this.totalChances} <br />
-            Total Procs : {this.procsGained}
+            Total Swings: {this.totalChances} <br />
+            Total Art of War Procs : {this.procsGained}
           </>
         }
       >
