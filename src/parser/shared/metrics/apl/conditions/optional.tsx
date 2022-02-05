@@ -19,7 +19,7 @@ import { Condition } from '../index';
 export default function optional<T>(
   interior: Condition<T>,
   description?: React.ReactChild,
-  showOptional: boolean = true,
+  showOptional: boolean | string = true,
 ): Condition<T> {
   return {
     ...interior,
@@ -28,7 +28,7 @@ export default function optional<T>(
       spell.id === event.ability.guid && interior.validate(state, event, spell, lookahead),
     describe: (tense) => (
       <>
-        {interior.describe(tense)} {showOptional && '(optional)'}
+        {interior.describe(tense)} {showOptional === true ? '(optional)' : showOptional}
       </>
     ),
     tooltip: () => description,
