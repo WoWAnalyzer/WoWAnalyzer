@@ -18,7 +18,7 @@ export const apl = build([
         maintain as often as possible. We cannot automatically determine if it is safe for you to
         drop the buff.
       </>,
-      false,
+      '(if actively tanking)',
     ),
   },
   {
@@ -46,12 +46,19 @@ export const apl = build([
     spell: SPELLS.HAMMER_OF_WRATH,
     condition: cnd.and(cnd.hasLegendary(SPELLS.THE_MAD_PARAGON), howCastable),
   },
-  SPELLS.JUDGMENT_CAST_PROTECTION,
+  {
+    spell: SPELLS.JUDGMENT_CAST_PROTECTION,
+    condition: cnd.and(
+      cnd.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT),
+      cnd.spellCooldownRemaining(SPELLS.JUDGMENT_CAST_PROTECTION, { atMost: 1500 }),
+    ),
+  },
   {
     spell: SPELLS.HAMMER_OF_WRATH,
     condition: howCastable,
   },
   SPELLS.AVENGERS_SHIELD,
+  SPELLS.JUDGMENT_CAST_PROTECTION,
   SPELLS.HAMMER_OF_THE_RIGHTEOUS,
   SPELLS.CONSECRATION_CAST,
 ]);

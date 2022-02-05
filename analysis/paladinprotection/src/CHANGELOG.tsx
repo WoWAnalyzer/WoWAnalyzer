@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 2, 5), <>Improved APL handling of <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> when <SpellLink id={SPELLS.CRUSADERS_JUDGMENT_TALENT.id} /> is used.</>, emallson),
   change(date(2021, 11, 6), <>Added AoE condition for <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />.</>, emallson),
   change(date(2021, 10, 28), <>Clean up outdated suggestions and bump supported version to 9.1.5.</>, emallson),
   change(date(2021, 10, 23), <>Tweak <SpellLink id={SPELLS.HAMMER_OF_WRATH.id} /> handling in APL.</>, emallson),
