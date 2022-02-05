@@ -17453,7 +17453,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  84.62%
+                  86.84%
                    
                    
                 </div>
@@ -17475,7 +17475,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "81.96923076923076%",
+                        "width": "89.3842105263158%",
                       }
                     }
                   />
