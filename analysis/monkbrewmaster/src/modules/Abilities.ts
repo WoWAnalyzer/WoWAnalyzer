@@ -12,6 +12,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 8 / (1 + haste),
         charges: combatant.hasLegendaryByBonusID(SPELLS.STORMSTOUTS_LAST_KEG.bonusID) ? 2 : 1,
+        damageSpellIds: [SPELLS.KEG_SMASH.id],
         castEfficiency: {
           suggestion: true,
         },
