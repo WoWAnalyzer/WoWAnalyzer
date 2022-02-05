@@ -7795,7 +7795,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "30.272727272727273%",
+                  "width": "33.300000000000004%",
                 }
               }
             />
@@ -7953,7 +7953,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  71.43%
+                  83.33%
                    
                    
                 </div>
@@ -7973,9 +7973,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "38.05714285714287%",
+                        "width": "77.7%",
                       }
                     }
                   />
@@ -8090,7 +8090,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  50.00%
+                  66.67%
                    
                    
                 </div>
@@ -8112,7 +8112,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.78571428571429%",
+                        "width": "31.714285714285715%",
                       }
                     }
                   />
@@ -8471,7 +8471,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  50.00%
+                  45.45%
                    
                    
                 </div>
@@ -8493,7 +8493,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.78571428571429%",
+                        "width": "21.623376623376625%",
                       }
                     }
                   />
@@ -8618,7 +8618,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  63.33%
+                  61.11%
                    
                    
                 </div>
@@ -8640,7 +8640,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.128571428571433%",
+                        "width": "29.071428571428577%",
                       }
                     }
                   />
@@ -8747,7 +8747,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  88.89%
+                  100.00%
                    
                    
                 </div>
@@ -8767,9 +8767,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "96.19999999999997%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -8894,7 +8894,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  63.64%
+                  59.09%
                    
                    
                 </div>
@@ -8916,7 +8916,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.272727272727273%",
+                        "width": "28.110389610389614%",
                       }
                     }
                   />
@@ -9002,7 +9002,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  50.00%
+                  70.00%
                    
                    
                 </div>
@@ -9024,7 +9024,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.78571428571429%",
+                        "width": "33.300000000000004%",
                       }
                     }
                   />
@@ -17099,8 +17099,8 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "49.95%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "31.962053571428577%",
                 }
               }
             />
@@ -17453,7 +17453,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  87.80%
+                  84.62%
                    
                    
                 </div>
@@ -17475,7 +17475,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "92.59024390243901%",
+                        "width": "81.96923076923076%",
                       }
                     }
                   />
@@ -17571,7 +17571,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  38.46%
+                  45.45%
                    
                    
                 </div>
@@ -17593,7 +17593,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "18.2967032967033%",
+                        "width": "21.623376623376625%",
                       }
                     }
                   />
@@ -17708,7 +17708,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  100.00%
+                  50.00%
                    
                    
                 </div>
@@ -17728,9 +17728,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "23.78571428571429%",
                       }
                     }
                   />
@@ -17855,7 +17855,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  66.67%
+                  67.19%
                    
                    
                 </div>
@@ -17877,7 +17877,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.714285714285715%",
+                        "width": "31.962053571428577%",
                       }
                     }
                   />
@@ -17984,7 +17984,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  75.00%
+                  85.71%
                    
                    
                 </div>
@@ -18004,9 +18004,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "49.95%",
+                        "width": "85.6285714285714%",
                       }
                     }
                   />
@@ -18131,7 +18131,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  94.44%
+                  90.00%
                    
                    
                 </div>

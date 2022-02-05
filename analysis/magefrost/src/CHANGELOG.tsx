@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Sharrq, Sref, Zea, Karahtar } from 'CONTRIBUTORS';
+import { Adoraci, Sharrq, Sref, Zea, Karahtar, emallson } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 2, 5), 'Added beta APL', emallson),
   change(date(2021, 11, 13), 'Bumped Frost Mage to supported for 9.1.5.', Sharrq),
   change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Frost Mage. Spec updates for Frost will be coming soon', Sharrq),
   change(date(2021, 10, 1), 'Fixed frost mage talent image icon on character page.', Karahtar),

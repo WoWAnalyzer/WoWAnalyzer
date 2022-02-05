@@ -6,6 +6,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import { ArcaneIntellect, CancelledCasts, RuneOfPower } from '@wowanalyzer/mage';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import { apl, check } from '../features/apl';
 import BrainFreeze from '../features/BrainFreeze';
 import IceLance from '../features/IceLance';
 import IcyVeins from '../features/IcyVeins';
@@ -48,10 +49,13 @@ class Checklist extends BaseChecklist {
   protected waterElemental!: WaterElemental;
 
   render() {
+    const checkResults = check(this.owner.eventHistory, this.owner.info);
     return (
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
+        checkResults={checkResults}
+        apl={apl}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 

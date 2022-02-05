@@ -5,25 +5,22 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import { Condition, tenseAlt } from '../index';
 
-export function debuffPresent(spell: Spell): Condition<number[]> {
+export function debuffPresent(spell: Spell): Condition<Set<string>> {
   return {
     key: `debuffPresent-${spell.id}`,
-    init: () => [],
+    init: () => new Set(),
     update: (state, event) => {
       switch (event.type) {
         case EventType.ApplyDebuff:
         case EventType.ApplyDebuffStack:
           if (event.ability.guid === spell.id) {
-            state.push(Number(encodeTargetString(event.targetID, event.targetInstance ?? 1)));
+            state.add(encodeTargetString(event.targetID, event.targetInstance ?? 1));
             return state;
           }
           break;
         case EventType.RemoveDebuff:
           if (event.ability.guid === spell.id) {
-            const index = state.indexOf(
-              Number(encodeTargetString(event.targetID, event.targetInstance ?? 1)),
-            );
-            state.splice(index, 1);
+            state.delete(encodeTargetString(event.targetID, event.targetInstance ?? 1));
             return state;
           }
           break;
@@ -32,9 +29,7 @@ export function debuffPresent(spell: Spell): Condition<number[]> {
     },
     validate: (state, event) => {
       if (event.targetID) {
-        return state.includes(
-          Number(encodeTargetString(event.targetID, event.targetInstance ?? 1)),
-        );
+        return state.has(encodeTargetString(event.targetID, event.targetInstance ?? 1));
       } else {
         return false;
       }
