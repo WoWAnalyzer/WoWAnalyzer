@@ -4,6 +4,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AplCheck from './modules/core/AplCheck';
+import Bladestorm from './modules/core/Bladestorm';
 import DeepWoundsUptime from './modules/core/Dots/DeepWoundsUptime';
 import DotUptime from './modules/core/Dots/DotUptime';
 import RendUptime from './modules/core/Dots/RendUptime';
@@ -63,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     overpower: Overpower,
     slam: Slam,
     sweepingStrikes: SweepingStrikes,
+    bladestorm: Bladestorm,
 
     // Execute range
     executeRange: ExecuteRange,

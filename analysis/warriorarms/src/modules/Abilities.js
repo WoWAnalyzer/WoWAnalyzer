@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: false, // Suggestions are in Bladestorm.js
           recommendedEfficiency: 0.7,
         },
         enabled: !combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id),
