@@ -701,6 +701,25 @@ class CombatLogParser {
     const ctor = this.constructor as typeof CombatLogParser;
     const info = this.info;
 
+    // sort event history. this is a workaround for event dispatch happening
+    // out of order, mostly due to SpellUsable. eventually that will be made a
+    // normalizer and this can go away.
+    this.eventHistory.sort((a, b) => {
+      if (a.timestamp === b.timestamp) {
+        if (
+          a.type === EventType.Cast &&
+          b.type === EventType.UpdateSpellUsable &&
+          b.trigger === EventType.EndCooldown
+        ) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else {
+        return a.timestamp - b.timestamp;
+      }
+    });
+
     console.time('functional suggestions');
     ctor.suggestions.forEach((suggestionFactory) => {
       const suggestions = suggestionFactory(this.eventHistory, info);

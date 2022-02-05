@@ -5287,7 +5287,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "22.555418719211826%",
+                  "width": "22.93622448979592%",
                 }
               }
             />
@@ -5516,7 +5516,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                  
                 you 
                 have
-                 2 charges or the 2nd charge 
+                 2 charges or the 2nd charge
+                 
                 is
                  about to come off cooldown.
               </div>
@@ -5677,7 +5678,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  44.83%
+                  46.43%
                    
                    
                 </div>
@@ -5699,7 +5700,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.325123152709363%",
+                        "width": "22.086734693877553%",
                       }
                     }
                   />
@@ -5785,7 +5786,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  35.71%
+                  42.86%
                    
                    
                 </div>
@@ -5807,7 +5808,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "16.98979591836735%",
+                        "width": "20.387755102040817%",
                       }
                     }
                   />
@@ -5893,7 +5894,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  33.33%
+                  28.57%
                    
                    
                 </div>
@@ -5915,7 +5916,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "15.857142857142858%",
+                        "width": "13.591836734693876%",
                       }
                     }
                   />
