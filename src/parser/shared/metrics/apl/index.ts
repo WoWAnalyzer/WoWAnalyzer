@@ -242,7 +242,8 @@ const aplCheck = (apl: Apl) =>
             if (spell(rule).id === event.ability.guid) {
               // the player cast the correct spell
               result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
-            } else {
+            } else if (event.timestamp >= info.combatant.owner.fight.start_time) {
+              // condition prevents punishing precast spells
               result.violations.push({
                 kind: ResultKind.Violation,
                 rule,
