@@ -4,6 +4,8 @@ import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn,
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 1, 17), <>Fixed many issues with the Mana Efficiency chart, and added explanation text.</>, Sref),
+  change(date(2022, 1, 16), <>Added a damage statistic for <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id}/> for Resto players who are a healer, but...</>, Sref),
   change(date(2021, 11, 13), <>Updated wording of <SpellLink id={SPELLS.REGROWTH.id}/> statistic and made it more permissive of triage casts.</>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 11, 11), <>Removed healer stat weights in favor of QElive.</>, Abelito75),

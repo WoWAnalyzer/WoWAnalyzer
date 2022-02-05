@@ -17,6 +17,7 @@ import HomePage from 'interface/Home';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import PortalTarget from 'interface/PortalTarget';
+import PrivacyPage from 'interface/PrivacyPage';
 import ReportPage from 'interface/report';
 import { getError } from 'interface/selectors/error';
 import { getOpenModals } from 'interface/selectors/openModals';
@@ -224,6 +225,7 @@ class App extends Component {
           )}
         />
         <Route path="/report/:reportCode?/:fightId?/:player?/:resultTab?" component={ReportPage} />
+        <Route path="/privacy" component={PrivacyPage} />
         <Route component={HomePage} />
       </Switch>
     );

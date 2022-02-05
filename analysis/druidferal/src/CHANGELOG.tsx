@@ -4,6 +4,8 @@ import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 1, 16), <>Fixed a bug where <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/> statistic wasn't counting boost to Feral Moonfire or Feral Thrash.</>, Sref),
+  change(date(2022, 1, 16), <>Fixed a bug where <SpellLink id={SPELLS.RAKE.id}/> direct damage wasn't being counted by the <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id}/> statistic.</>, Sref),
   change(date(2021, 12, 3), <>Fixed a bug where <SpellLink id={SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id}/> was giving Moonkin form a cooldown.</>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 8, 4), <>Combined AoE spell statistic box and suggestions into a single unified element with visual improvements.</>, Sref),

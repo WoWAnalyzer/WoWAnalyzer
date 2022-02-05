@@ -54,6 +54,10 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 1, 24), 'Enable ads. Premium users have ads disabled.', emallson),
+  change(date(2022, 1, 22), 'Version bumps', emallson),
+  change(date(2022, 1, 18), 'Enable ad test system.', emallson),
+  change(date(2022, 1, 8), 'Synchronize package versions across all classes/specs.', emallson),
   change(date(2021, 12, 31), 'Begin Sonar Scan fixes.', Jeff),
   change(date(2021, 12, 31), 'Added names to event tab for mobs classified as enemy pets', Putro),
   change(date(2021, 12, 27), 'Removed unnecessary build step.', emallson),

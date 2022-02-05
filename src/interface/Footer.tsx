@@ -3,6 +3,7 @@ import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import Logo from 'interface/images/logo.svg';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
+import { Link } from 'react-router-dom';
 
 import './Footer.scss';
 
@@ -74,6 +75,8 @@ const Footer = () => (
           World of Warcraft and related artwork is copyright of Blizzard Entertainment, Inc.
           <br />
           This is a fan site and we are not affiliated.
+          <br />
+          <Link to="/">Home</Link> &ndash; <Link to="/privacy">Privacy Policy</Link>
         </div>
       </div>
     </div>

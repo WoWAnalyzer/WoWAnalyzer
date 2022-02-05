@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
@@ -7,6 +6,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
@@ -26,8 +26,10 @@ import Lifebloom from './modules/features/Lifebloom';
 import LifebloomAndEffloUptime from './modules/features/LifebloomAndEffloUptime';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import RegrowthAndClearcasting from './modules/features/RegrowthAndClearcasting';
+import RestoDruidHealingEfficiencyDetails from './modules/features/RestoDruidHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
+import Swiftmend from './modules/features/Swiftmend';
 import WildGrowth from './modules/features/WildGrowth';
 import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
@@ -100,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
     prematureRejuvenations: PrematureRejuvenations,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
+    swiftmend: Swiftmend,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
@@ -114,7 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Mana Tab
     manaTracker: ManaTracker,
-    hpmDetails: HealingEfficiencyDetails,
+    hpmDetails: RestoDruidHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
 
     // Covenants
@@ -138,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     memoryoftheMotherTree: MemoryoftheMotherTree,
     verdantInfusion: VerdantInfusion,
     lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
+    draughtOfDeepFocus: DraughtOfDeepFocus,
   };
 }
 
