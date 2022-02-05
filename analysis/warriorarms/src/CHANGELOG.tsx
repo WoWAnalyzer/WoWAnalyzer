@@ -5,6 +5,7 @@ import { Abelito75, carglass, Carrottopp, Otthopsy, bandit } from 'CONTRIBUTORS'
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 2, 5), <>Added a module for better suggestions of <SpellLink id={SPELLS.BLADESTORM.id} icon /> usage.</>, Carrottopp),
   change(date(2021, 11, 8), <>Fixed SpellLink issue for Signet Of Tormented Kings.</>, Abelito75),
   change(date(2021, 10, 29), <>Initial Arms APL added. (Still WIP)</>, bandit),
   change(date(2021, 10, 10), <>Fixed <SpellLink id={SPELLS.OVERPOWER.id} icon /> cooldown resets with Tactician</>, bandit),
