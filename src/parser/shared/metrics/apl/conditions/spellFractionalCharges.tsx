@@ -5,13 +5,10 @@ import { EventType } from 'parser/core/Events';
 import { Condition, tenseAlt } from '../index';
 import { Range, formatRange } from './index';
 
-interface State {
-  chargesAvailable: number;
-  expectedDuration: number;
-  start: number;
-}
-
-export function spellFractionalCharges(spell: Spell, range: Range): Condition<State | null> {
+export function spellFractionalCharges(
+  spell: Spell,
+  range: Range,
+): Condition<Record<string, number> | null> {
   return {
     key: `spellCharges-${spell.id}`,
     init: () => null,
@@ -23,6 +20,11 @@ export function spellFractionalCharges(spell: Spell, range: Range): Condition<St
           start: event.start,
         };
       }
+      if (event.type === EventType.GlobalCooldown && event.ability.guid === spell.id && state) {
+        const timeTillOffCd = state.expectedDuration + state.start - event.timestamp;
+        const fractional = (state.expectedDuration - timeTillOffCd) / state.expectedDuration;
+        return { ...state, chargesAvailable: state.chargesAvailable + fractional };
+      }
       return state;
     },
     validate: (state, event) => {
@@ -30,10 +32,9 @@ export function spellFractionalCharges(spell: Spell, range: Range): Condition<St
         //UpdateSpellUsable hasn't been called for the correct spellId so assume full charges available for use
         return true;
       }
-      const fractional = (event.timestamp - state.start) / state.expectedDuration;
-      const charges = state.chargesAvailable + fractional;
       return (
-        charges >= (range.atLeast || 0) && (range.atMost === undefined || charges <= range.atMost)
+        state.chargesAvailable >= (range.atLeast || 0) &&
+        (range.atMost === undefined || state.chargesAvailable <= range.atMost)
       );
     },
     describe: (tense) => (
