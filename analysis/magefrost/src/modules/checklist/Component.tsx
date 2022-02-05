@@ -186,6 +186,7 @@ const FrostMageChecklist = ({
         />
       </Rule>
       <AplRule
+        name="Use your damaging abilities effectively (Beta APL Check)"
         apl={apl}
         checkResults={checkResults}
         cooldowns={[SPELLS.ICY_VEINS, SPELLS.RUNE_OF_POWER_TALENT, SPELLS.MIRRORS_OF_TORMENT]}

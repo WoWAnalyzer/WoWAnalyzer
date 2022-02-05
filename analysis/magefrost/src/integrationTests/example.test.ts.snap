@@ -6775,7 +6775,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
         <div
           className="flex-main name"
         >
-          Use your damaging abilities effectively
+          Use your damaging abilities effectively (Beta APL Check)
         </div>
         <div
           className="flex-sub perf"
