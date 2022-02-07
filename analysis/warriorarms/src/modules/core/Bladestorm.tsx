@@ -94,7 +94,7 @@ class Bladestorm extends Analyzer {
   }
 
   wasValidBladestorm() {
-    if (this.currentCast.enemiesHit.length > 3) {
+    if (this.currentCast.enemiesHit.length > 1) {
       this.checkMultiTargetRequirements();
     } else {
       this.checkSingleTargetRequirements();
