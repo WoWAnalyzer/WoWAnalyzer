@@ -210,6 +210,7 @@ const spells = {
     manaCost: 1700,
   },
   LIFEBLOOM_HOT_HEAL: {
+    // also the cast ID
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',

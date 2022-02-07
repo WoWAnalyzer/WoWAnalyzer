@@ -26,7 +26,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
           <>
             These should generally always be on recharge to maximize DPS and efficiency.
             <a
-              href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -58,7 +58,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
           <>
             Ineffectively or improperly casting these spells will lead to DPS loss.
             <a
-              href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -115,7 +115,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
           <>
             It is important to maintain these as they contribute a large amount to your DPS and HPS.
             <a
-              href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -143,7 +143,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
             You should aim to use these cooldowns as often as you can to maximize your damage output
             unless you are saving them for their defensive value.
             <a
-              href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
+              href="https://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list"
               target="_blank"
               rel="noopener noreferrer"
             >

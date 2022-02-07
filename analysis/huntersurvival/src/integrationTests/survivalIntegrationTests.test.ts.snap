@@ -18,7 +18,7 @@ exports[`Survival Hunter integration test: Multi Target AlphaPredator matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=269737"
+            href="https://wowhead.com/spell=269737"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -31,7 +31,7 @@ exports[`Survival Hunter integration test: Multi Target AlphaPredator matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=269737"
+            href="https://wowhead.com/spell=269737"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -194,7 +194,7 @@ exports[`Survival Hunter integration test: Multi Target Bloodseeker matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260248"
+            href="https://wowhead.com/spell=260248"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -207,7 +207,7 @@ exports[`Survival Hunter integration test: Multi Target Bloodseeker matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260248"
+            href="https://wowhead.com/spell=260248"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -278,7 +278,7 @@ exports[`Survival Hunter integration test: Multi Target ButcheryCarve matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=187708"
+            href="https://wowhead.com/spell=187708"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -291,7 +291,7 @@ exports[`Survival Hunter integration test: Multi Target ButcheryCarve matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=187708"
+            href="https://wowhead.com/spell=187708"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -438,7 +438,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=259489"
+                href="https://wowhead.com/spell=259489"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -535,7 +535,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186270"
+                href="https://wowhead.com/spell=186270"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -620,7 +620,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=259491"
+                href="https://wowhead.com/spell=259491"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -705,7 +705,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=266779"
+                href="https://wowhead.com/spell=266779"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -802,7 +802,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=270335"
+                href="https://wowhead.com/spell=270335"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -899,7 +899,104 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=328231"
+                href="https://wowhead.com/spell=320976"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_assassinate2.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Kill Shot
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.89
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              7
+              /6
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=328231"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -986,103 +1083,6 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
               }
             />
           </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=320976"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_assassinate2.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Kill Shot
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              1.89
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              7
-              /8
-               casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "87.5%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              87.50%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1151,7 +1151,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187708"
+                href="https://wowhead.com/spell=187708"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1306,7 +1306,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109304"
+                href="https://wowhead.com/spell=109304"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1403,7 +1403,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272679"
+                href="https://wowhead.com/spell=272679"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1500,7 +1500,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186265"
+                href="https://wowhead.com/spell=186265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1655,7 +1655,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186289"
+                href="https://wowhead.com/spell=186289"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1752,7 +1752,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186257"
+                href="https://wowhead.com/spell=186257"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1849,7 +1849,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190925"
+                href="https://wowhead.com/spell=190925"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1946,7 +1946,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187707"
+                href="https://wowhead.com/spell=187707"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2043,7 +2043,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=781"
+                href="https://wowhead.com/spell=781"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2140,7 +2140,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187650"
+                href="https://wowhead.com/spell=187650"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2237,7 +2237,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187698"
+                href="https://wowhead.com/spell=187698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2334,7 +2334,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1543"
+                href="https://wowhead.com/spell=1543"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2431,7 +2431,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=195645"
+                href="https://wowhead.com/spell=195645"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2516,7 +2516,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34477"
+                href="https://wowhead.com/spell=34477"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2613,7 +2613,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257284"
+                href="https://wowhead.com/spell=257284"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2698,7 +2698,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264667"
+                href="https://wowhead.com/spell=264667"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2795,7 +2795,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272682"
+                href="https://wowhead.com/spell=272682"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2892,7 +2892,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=883"
+                href="https://wowhead.com/spell=883"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2977,7 +2977,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2641"
+                href="https://wowhead.com/spell=2641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3062,7 +3062,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19577"
+                href="https://wowhead.com/spell=19577"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3159,7 +3159,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=136"
+                href="https://wowhead.com/spell=136"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3314,7 +3314,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3411,7 +3411,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3508,7 +3508,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307495"
+                href="https://wowhead.com/spell=307495"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3619,7 +3619,7 @@ exports[`Survival Hunter integration test: Multi Target CoordinatedAssault match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=266779"
+            href="https://wowhead.com/spell=266779"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3632,7 +3632,7 @@ exports[`Survival Hunter integration test: Multi Target CoordinatedAssault match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=266779"
+            href="https://wowhead.com/spell=266779"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3804,7 +3804,7 @@ exports[`Survival Hunter integration test: Multi Target FocusDetails matches the
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3867,7 +3867,7 @@ exports[`Survival Hunter integration test: Multi Target GuerrillaTactics matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=264332"
+            href="https://wowhead.com/spell=264332"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3880,7 +3880,7 @@ exports[`Survival Hunter integration test: Multi Target GuerrillaTactics matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=264332"
+            href="https://wowhead.com/spell=264332"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3927,7 +3927,7 @@ exports[`Survival Hunter integration test: Multi Target KillCommand matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259489"
+            href="https://wowhead.com/spell=259489"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3940,7 +3940,7 @@ exports[`Survival Hunter integration test: Multi Target KillCommand matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259489"
+            href="https://wowhead.com/spell=259489"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3980,7 +3980,7 @@ exports[`Survival Hunter integration test: Multi Target KillShot matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=320976"
+            href="https://wowhead.com/spell=320976"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3993,7 +3993,7 @@ exports[`Survival Hunter integration test: Multi Target KillShot matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=320976"
+            href="https://wowhead.com/spell=320976"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4041,7 +4041,7 @@ exports[`Survival Hunter integration test: Multi Target NaturalMending matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4054,7 +4054,7 @@ exports[`Survival Hunter integration test: Multi Target NaturalMending matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4101,7 +4101,7 @@ exports[`Survival Hunter integration test: Multi Target PheromoneBomb matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270323"
+            href="https://wowhead.com/spell=270323"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4114,7 +4114,7 @@ exports[`Survival Hunter integration test: Multi Target PheromoneBomb matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270323"
+            href="https://wowhead.com/spell=270323"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4180,7 +4180,7 @@ exports[`Survival Hunter integration test: Multi Target SerpentSting matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259491"
+            href="https://wowhead.com/spell=259491"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4193,7 +4193,7 @@ exports[`Survival Hunter integration test: Multi Target SerpentSting matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259491"
+            href="https://wowhead.com/spell=259491"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4279,7 +4279,7 @@ exports[`Survival Hunter integration test: Multi Target ShrapnelBomb matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270335"
+            href="https://wowhead.com/spell=270335"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4292,7 +4292,7 @@ exports[`Survival Hunter integration test: Multi Target ShrapnelBomb matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270335"
+            href="https://wowhead.com/spell=270335"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4359,7 +4359,7 @@ exports[`Survival Hunter integration test: Multi Target StrengthOfThePack matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341222"
+            href="https://wowhead.com/spell=341222"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4372,7 +4372,7 @@ exports[`Survival Hunter integration test: Multi Target StrengthOfThePack matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341222"
+            href="https://wowhead.com/spell=341222"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4497,7 +4497,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
       >
         <label>
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4537,7 +4537,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=186270"
+                  href="https://wowhead.com/spell=186270"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4585,7 +4585,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=187708"
+                  href="https://wowhead.com/spell=187708"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4633,7 +4633,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259491"
+                  href="https://wowhead.com/spell=259491"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -4979,7 +4979,7 @@ exports[`Survival Hunter integration test: Multi Target TipOfTheSpear matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260285"
+            href="https://wowhead.com/spell=260285"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4992,7 +4992,7 @@ exports[`Survival Hunter integration test: Multi Target TipOfTheSpear matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260285"
+            href="https://wowhead.com/spell=260285"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5058,7 +5058,7 @@ exports[`Survival Hunter integration test: Multi Target VolatileBomb matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=271045"
+            href="https://wowhead.com/spell=271045"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5071,7 +5071,7 @@ exports[`Survival Hunter integration test: Multi Target VolatileBomb matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=271045"
+            href="https://wowhead.com/spell=271045"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5214,7 +5214,7 @@ exports[`Survival Hunter integration test: Multi Target WildSpirits matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5227,7 +5227,7 @@ exports[`Survival Hunter integration test: Multi Target WildSpirits matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5284,7 +5284,7 @@ exports[`Survival Hunter integration test: Multi Target WildfireCluster matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336895"
+            href="https://wowhead.com/spell=336895"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5297,7 +5297,7 @@ exports[`Survival Hunter integration test: Multi Target WildfireCluster matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336895"
+            href="https://wowhead.com/spell=336895"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5439,7 +5439,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259489"
+                  href="https://wowhead.com/spell=259489"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5512,7 +5512,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=266779"
+                  href="https://wowhead.com/spell=266779"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5585,7 +5585,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=271014"
+                  href="https://wowhead.com/spell=271014"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5666,7 +5666,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
         >
           Downtime & 
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5751,7 +5751,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=186270"
+              href="https://wowhead.com/spell=186270"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6666,7 +6666,7 @@ exports[`Survival Hunter integration test: Single Target AlphaPredator matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=269737"
+            href="https://wowhead.com/spell=269737"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6679,7 +6679,7 @@ exports[`Survival Hunter integration test: Single Target AlphaPredator matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=269737"
+            href="https://wowhead.com/spell=269737"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6855,7 +6855,7 @@ exports[`Survival Hunter integration test: Single Target Bloodseeker matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260248"
+            href="https://wowhead.com/spell=260248"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6868,7 +6868,7 @@ exports[`Survival Hunter integration test: Single Target Bloodseeker matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=260248"
+            href="https://wowhead.com/spell=260248"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -7029,7 +7029,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=259489"
+                href="https://wowhead.com/spell=259489"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7126,7 +7126,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=259491"
+                href="https://wowhead.com/spell=259491"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7211,7 +7211,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=266779"
+                href="https://wowhead.com/spell=266779"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7308,7 +7308,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=259387"
+                href="https://wowhead.com/spell=259387"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7393,7 +7393,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=270323"
+                href="https://wowhead.com/spell=270323"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7490,104 +7490,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=328231"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_hunter.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Wild Spirits
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.60
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              3
-              /3
-               casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "90.0328952861222%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              90.03%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=320976"
+                href="https://wowhead.com/spell=320976"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7674,6 +7577,103 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=328231"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_hunter.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Wild Spirits
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.60
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /3
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "90.0328952861222%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              90.03%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -7742,7 +7742,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187708"
+                href="https://wowhead.com/spell=187708"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -7897,7 +7897,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=331624"
+                href="https://wowhead.com/spell=331624"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8052,7 +8052,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=109304"
+                href="https://wowhead.com/spell=109304"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8149,7 +8149,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272679"
+                href="https://wowhead.com/spell=272679"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8246,7 +8246,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186265"
+                href="https://wowhead.com/spell=186265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8401,7 +8401,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186289"
+                href="https://wowhead.com/spell=186289"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8498,7 +8498,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186257"
+                href="https://wowhead.com/spell=186257"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8595,7 +8595,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190925"
+                href="https://wowhead.com/spell=190925"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8692,7 +8692,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187707"
+                href="https://wowhead.com/spell=187707"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8789,7 +8789,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=781"
+                href="https://wowhead.com/spell=781"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8886,7 +8886,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187650"
+                href="https://wowhead.com/spell=187650"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -8983,7 +8983,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=187698"
+                href="https://wowhead.com/spell=187698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9080,7 +9080,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1543"
+                href="https://wowhead.com/spell=1543"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9177,7 +9177,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=195645"
+                href="https://wowhead.com/spell=195645"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9262,7 +9262,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34477"
+                href="https://wowhead.com/spell=34477"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9359,7 +9359,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257284"
+                href="https://wowhead.com/spell=257284"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9444,7 +9444,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264667"
+                href="https://wowhead.com/spell=264667"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9541,7 +9541,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=272682"
+                href="https://wowhead.com/spell=272682"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9638,7 +9638,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=883"
+                href="https://wowhead.com/spell=883"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9723,7 +9723,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2641"
+                href="https://wowhead.com/spell=2641"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9808,7 +9808,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19577"
+                href="https://wowhead.com/spell=19577"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -9905,7 +9905,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=136"
+                href="https://wowhead.com/spell=136"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10060,7 +10060,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10157,7 +10157,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10254,7 +10254,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307495"
+                href="https://wowhead.com/spell=307495"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -10365,7 +10365,7 @@ exports[`Survival Hunter integration test: Single Target CoordinatedAssault matc
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=266779"
+            href="https://wowhead.com/spell=266779"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10378,7 +10378,7 @@ exports[`Survival Hunter integration test: Single Target CoordinatedAssault matc
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=266779"
+            href="https://wowhead.com/spell=266779"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10464,7 +10464,7 @@ exports[`Survival Hunter integration test: Single Target DarkmoonDeckVoracity ma
         <label>
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=173087"
+            href="https://wowhead.com/item=173087"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10478,7 +10478,7 @@ exports[`Survival Hunter integration test: Single Target DarkmoonDeckVoracity ma
            
           <a
             className="unknownitem-link-text"
-            href="http://wowhead.com/item=173087"
+            href="https://wowhead.com/item=173087"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10713,7 +10713,7 @@ exports[`Survival Hunter integration test: Single Target FocusDetails matches th
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10789,7 +10789,7 @@ exports[`Survival Hunter integration test: Single Target GuerrillaTactics matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=264332"
+            href="https://wowhead.com/spell=264332"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10802,7 +10802,7 @@ exports[`Survival Hunter integration test: Single Target GuerrillaTactics matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=264332"
+            href="https://wowhead.com/spell=264332"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10849,7 +10849,7 @@ exports[`Survival Hunter integration test: Single Target KillCommand matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259489"
+            href="https://wowhead.com/spell=259489"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10862,7 +10862,7 @@ exports[`Survival Hunter integration test: Single Target KillCommand matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259489"
+            href="https://wowhead.com/spell=259489"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10902,7 +10902,7 @@ exports[`Survival Hunter integration test: Single Target KillShot matches the st
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=320976"
+            href="https://wowhead.com/spell=320976"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10915,7 +10915,7 @@ exports[`Survival Hunter integration test: Single Target KillShot matches the st
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=320976"
+            href="https://wowhead.com/spell=320976"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10968,7 +10968,7 @@ exports[`Survival Hunter integration test: Single Target MongooseBite matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259387"
+            href="https://wowhead.com/spell=259387"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -10981,7 +10981,7 @@ exports[`Survival Hunter integration test: Single Target MongooseBite matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259387"
+            href="https://wowhead.com/spell=259387"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11102,7 +11102,7 @@ exports[`Survival Hunter integration test: Single Target NaturalMending matches 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11115,7 +11115,7 @@ exports[`Survival Hunter integration test: Single Target NaturalMending matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270581"
+            href="https://wowhead.com/spell=270581"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11162,7 +11162,7 @@ exports[`Survival Hunter integration test: Single Target PheromoneBomb matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270323"
+            href="https://wowhead.com/spell=270323"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11175,7 +11175,7 @@ exports[`Survival Hunter integration test: Single Target PheromoneBomb matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270323"
+            href="https://wowhead.com/spell=270323"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11242,7 +11242,7 @@ exports[`Survival Hunter integration test: Single Target RylakstalkersConfoundin
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336901"
+            href="https://wowhead.com/spell=336901"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11255,7 +11255,7 @@ exports[`Survival Hunter integration test: Single Target RylakstalkersConfoundin
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336901"
+            href="https://wowhead.com/spell=336901"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11299,7 +11299,7 @@ exports[`Survival Hunter integration test: Single Target SerpentSting matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259491"
+            href="https://wowhead.com/spell=259491"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11312,7 +11312,7 @@ exports[`Survival Hunter integration test: Single Target SerpentSting matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=259491"
+            href="https://wowhead.com/spell=259491"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11425,7 +11425,7 @@ exports[`Survival Hunter integration test: Single Target ShrapnelBomb matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270335"
+            href="https://wowhead.com/spell=270335"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11438,7 +11438,7 @@ exports[`Survival Hunter integration test: Single Target ShrapnelBomb matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=270335"
+            href="https://wowhead.com/spell=270335"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11505,7 +11505,7 @@ exports[`Survival Hunter integration test: Single Target StrengthOfThePack match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341222"
+            href="https://wowhead.com/spell=341222"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11518,7 +11518,7 @@ exports[`Survival Hunter integration test: Single Target StrengthOfThePack match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341222"
+            href="https://wowhead.com/spell=341222"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11643,7 +11643,7 @@ exports[`Survival Hunter integration test: Single Target SurvivalFocusUsage matc
       >
         <label>
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -11683,7 +11683,7 @@ exports[`Survival Hunter integration test: Single Target SurvivalFocusUsage matc
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259387"
+                  href="https://wowhead.com/spell=259387"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -11731,7 +11731,7 @@ exports[`Survival Hunter integration test: Single Target SurvivalFocusUsage matc
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259491"
+                  href="https://wowhead.com/spell=259491"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12082,7 +12082,7 @@ exports[`Survival Hunter integration test: Single Target VolatileBomb matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=271045"
+            href="https://wowhead.com/spell=271045"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -12095,7 +12095,7 @@ exports[`Survival Hunter integration test: Single Target VolatileBomb matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=271045"
+            href="https://wowhead.com/spell=271045"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -12162,7 +12162,7 @@ exports[`Survival Hunter integration test: Single Target WildSpirits matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -12175,7 +12175,7 @@ exports[`Survival Hunter integration test: Single Target WildSpirits matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=328231"
+            href="https://wowhead.com/spell=328231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -12327,7 +12327,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259489"
+                  href="https://wowhead.com/spell=259489"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12400,7 +12400,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=266779"
+                  href="https://wowhead.com/spell=266779"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12473,7 +12473,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=271014"
+                  href="https://wowhead.com/spell=271014"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12625,7 +12625,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
             Using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=259387"
+              href="https://wowhead.com/spell=259387"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -12640,7 +12640,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
              properly is a key to achieving high dps. Maintaining high stacks of 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=259388"
+              href="https://wowhead.com/spell=259388"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -12656,7 +12656,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=259387"
+              href="https://wowhead.com/spell=259387"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -12684,7 +12684,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                 className="flex-main"
               >
                 <a
-                  href="http://wowhead.com/focus"
+                  href="https://wowhead.com/focus"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12699,7 +12699,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259388"
+                  href="https://wowhead.com/spell=259388"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12774,7 +12774,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259387"
+                  href="https://wowhead.com/spell=259387"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12790,7 +12790,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                  
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=259388"
+                  href="https://wowhead.com/spell=259388"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -12872,7 +12872,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
         >
           Downtime & 
           <a
-            href="http://wowhead.com/focus"
+            href="https://wowhead.com/focus"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -12957,7 +12957,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
              
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=259387"
+              href="https://wowhead.com/spell=259387"
               rel="noopener noreferrer"
               target="_blank"
             >

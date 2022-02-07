@@ -7,6 +7,7 @@ import { Icon } from 'interface';
 import Config from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import { TotemElements, TOTEMS_BY_ELEMENT } from './totemConstants';
 
 export enum Build {
   DEFAULT = 'default',
@@ -57,7 +58,12 @@ const config: Config = {
     },
   },
   timeline: {
-    separateCastBars: [[]],
+    separateCastBars: [
+      TOTEMS_BY_ELEMENT[TotemElements.Fire],
+      TOTEMS_BY_ELEMENT[TotemElements.Water],
+      TOTEMS_BY_ELEMENT[TotemElements.Earth],
+      TOTEMS_BY_ELEMENT[TotemElements.Air],
+    ],
   },
 
   // Don't change anything below this line;

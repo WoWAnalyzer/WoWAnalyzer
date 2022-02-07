@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER } from '../constants';
+import { AMOC_BASE_DURATION, AMOC_TICK_RATE, MS_BUFFER_100 } from '../constants';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
@@ -74,7 +74,7 @@ class AMurderOfCrows extends Analyzer {
       this.applicationTimestamp &&
       event.timestamp < this.crowsEndingTimestamp &&
       // Checks to see if more than 1 second has passed since last tick
-      event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER
+      event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER_100
     ) {
       // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
       this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, false, event.timestamp);

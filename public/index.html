@@ -88,6 +88,14 @@
         color: #e45a5a;
       }
     </style>
+    <script>
+      var tyche = {
+        mode: 'tyche',
+        config: '//config.playwire.com/1024476/v2/websites/73270/banner.json',
+        passiveMode: true,
+        onReady: function() { window.refreshAds(); },
+      };
+    </script>
   </head>
 
   <body>
@@ -131,5 +139,6 @@
       gtag('js', new Date());
       gtag('config', 'UA-132937713-1');
     </script>
+    <script id="tyche" async src="//cdn.intergient.com/pageos/pageos.js" type="text/javascript"></script>
   </body>
 </html>

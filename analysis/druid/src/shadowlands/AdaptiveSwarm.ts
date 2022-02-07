@@ -13,6 +13,7 @@ const BASE_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic e
 
 // the amount Evolved Swarm adds to the base periodic boost
 const EVOLVED_SWARM_EFFECT_BY_RANK = [
+  0, // there is no rank 0 - ilvl 145 reports as rank 1
   0.06,
   0.066,
   0.072,
@@ -48,7 +49,9 @@ const PERIODIC_HEALS: SpellInfo[] = [
 
 const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.THRASH_BEAR_DOT,
+  SPELLS.THRASH_FERAL,
   SPELLS.MOONFIRE_DEBUFF,
+  SPELLS.MOONFIRE_FERAL,
   SPELLS.SUNFIRE,
   SPELLS.RIP,
   SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation
@@ -124,7 +127,7 @@ class AdaptiveSwarm extends Analyzer {
     if (this.hasEvolvedSwarm) {
       this._evolvedSwarmPeriodicBoost =
         EVOLVED_SWARM_EFFECT_BY_RANK[
-          this.selectedCombatant.conduitRankBySpellID(SPELLS.EVOLVED_SWARM.id)
+          this.selectedCombatant.conduitRankBySpellID(SPELLS.EVOLVED_SWARM.id) + 2 // +2 because we're assuming its empowered... TODO better handling?
         ];
       this._evolvedSwarmRelativeBoost = this._evolvedSwarmPeriodicBoost / (1 + BASE_PERIODIC_BOOST);
       this._totalPeriodicBoost += this._evolvedSwarmPeriodicBoost;

@@ -70,6 +70,7 @@ import SpittingCobra from './modules/talents/SpittingCobra';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
+import AntlerVersusRylak from './modules/theorycraft/AntlerVersusRylak';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -161,6 +162,9 @@ class CombatLogParser extends CoreCombatLogParser {
     flamewakersCobraSting: FlamewakersCobraSting,
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
+
+    //Theorycraft
+    antlerVersusRylak: AntlerVersusRylak,
   };
 
   static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];

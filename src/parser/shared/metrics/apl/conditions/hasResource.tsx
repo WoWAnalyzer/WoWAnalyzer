@@ -1,11 +1,11 @@
 import type { Resource } from 'game/RESOURCE_TYPES';
 import { ResourceLink } from 'interface';
-import { ClassResources, EventType, CastEvent } from 'parser/core/Events';
+import { ClassResources, EventType } from 'parser/core/Events';
 
-import { Condition, tenseAlt } from '../index';
+import { AplTriggerEvent, Condition, tenseAlt } from '../index';
 import { Range, formatRange } from './index';
 
-const castResource = (resource: Resource, event: CastEvent): ClassResources | undefined =>
+const castResource = (resource: Resource, event: AplTriggerEvent): ClassResources | undefined =>
   event.classResources?.find(({ type }) => type === resource.id);
 
 const rangeSatisfied = (actualAmount: number, range: Range): boolean =>

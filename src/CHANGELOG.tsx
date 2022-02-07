@@ -54,11 +54,21 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 2, 5), 'Fix issue where external absorbs were counted on Self-Healing Timing graphs.', emallson),
+  change(date(2022, 1, 26), 'Tweak header display on report page.', emallson),
+  change(date(2022, 1, 24), 'Enable ads. Premium users have ads disabled.', emallson),
+  change(date(2022, 1, 22), 'Version bumps', emallson),
+  change(date(2022, 1, 18), 'Enable ad test system.', emallson),
+  change(date(2022, 1, 8), 'Synchronize package versions across all classes/specs.', emallson),
+  change(date(2021, 12, 31), 'Begin Sonar Scan fixes.', Jeff),
+  change(date(2021, 12, 31), 'Added names to event tab for mobs classified as enemy pets', Putro),
+  change(date(2021, 12, 27), 'Removed unnecessary build step.', emallson),
   change(date(2021, 12, 14), 'Fixed translations.', emallson),
   change(date(2021, 12, 13), 'Refactored handling of player channel detection', Sref),
   change(date(2021, 12, 13), 'Added a filter by covenant toggle to the Similiar Kill Times module under the Character tab.', Putro),
   change(date(2021, 12, 12), 'Added a last spell cast condition to the APL checker module.', Putro),
   change(date(2021, 12, 4), 'Fixed an issue with stat tracking in Mythic+ dungeons. Mythic+ still not officially supported, but at least it shouldn\'t crash', emallson),
+  change(date(2021, 12, 6), 'Updated some internal dependencies', Jeff),
   change(date(2021, 11, 30), 'Fixed Spiritual Mana Potion not being tracked issue.', Jeff),
   change(date(2021, 11, 27), 'Internal dependency updates.', emallson),
   change(date(2021, 11, 25), 'Fix compatibility issue with nodejs 16', Jeff),

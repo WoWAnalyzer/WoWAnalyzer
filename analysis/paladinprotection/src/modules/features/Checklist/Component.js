@@ -105,6 +105,10 @@ const ProtectionPaladinChecklist = (props) => {
           SPELLS.ASHEN_HALLOW,
           SPELLS.DIVINE_TOLL,
           SPELLS.SERAPHIM_TALENT,
+          SPELLS.BLESSING_OF_SUMMER,
+          SPELLS.BLESSING_OF_AUTUMN,
+          SPELLS.BLESSING_OF_WINTER,
+          SPELLS.BLESSING_OF_SPRING,
         ]}
       />
       <PreparationRule thresholds={thresholds} />

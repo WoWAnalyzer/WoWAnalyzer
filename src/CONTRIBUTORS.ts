@@ -1,3 +1,6 @@
+import { Contributor } from 'common/contributor';
+import SPECS from 'game/SPECS';
+
 /**
  * This contains a listing of all contributors. Entries are used in configs and changelogs.
  * Feel free to add yourself if you're not yet in the list.
@@ -34,9 +37,6 @@
     },
   };
 */
-
-import { Contributor } from 'common/contributor';
-import SPECS from 'game/SPECS';
 
 function avatar(filename: string): string {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -1822,4 +1822,22 @@ export const Jeff: Contributor = {
 export const Hursti: Contributor = {
   nickname: 'Hursti',
   github: 'Hurstilol',
+};
+export const Shamorisse: Contributor = {
+  nickname: 'Shamorisse',
+  github: 'Amorisse',
+  discord: 'Amorisse#8013',
+  avatar: avatar('Shamorisse-avatar.jpg'),
+  mains: [
+    {
+      name: 'Shamorisse',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Shamorisse',
+    },
+  ],
+};
+
+export const Llanas: Contributor = {
+  nickname: 'Llanas',
+  github: 'llanas',
 };

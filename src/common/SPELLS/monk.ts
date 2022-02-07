@@ -458,6 +458,16 @@ const spells = {
     name: 'Storm, Earth, and Fire: Fixate',
     icon: 'spell_nature_giftofthewild',
   },
+  STORM_EARTH_AND_FIRE_EARTH_SPIRIT: {
+    id: 138121,
+    name: 'Storm, Earth, and Fire',
+    icon: 'inv_elemental_primal_earth',
+  },
+  STORM_EARTH_AND_FIRE_FIRE_SPIRIT: {
+    id: 138123,
+    name: 'Storm, Earth, and Fire',
+    icon: 'inv_summerfest_firespirit',
+  },
   FLYING_SERPENT_KICK: {
     id: 101545,
     name: 'Flying Serpent Kick',
@@ -551,6 +561,16 @@ const spells = {
   INVOKE_XUEN_THE_WHITE_TIGER: {
     id: 123904,
     name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  XUEN_CRACKLING_TIGER_LIGHTNING: {
+    id: 123996,
+    name: 'Crackling Tiger Lightning',
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  EMPOWERED_TIGER_LIGHTNING: {
+    id: 335913,
+    name: 'Empowered Tiger Lightning',
     icon: 'ability_monk_summontigerstatue',
   },
   DANCE_OF_CHI_JI_BUFF: {

@@ -8,6 +8,7 @@
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
+  padding-top: 85px;
 
   .background {
     position: absolute;
@@ -45,9 +46,14 @@
     }
   }
 
+  .display-ad {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex: 0 0 auto;
+  }
+
   .subnavigation {
     flex: 0 0 auto;
-    margin-top: 85px;
     padding: 15px;
     display: flex;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -71,8 +77,20 @@
       }
 
       .time-input input {
-        width: auto;
+        width: 4em;
         display: inline-block;
+
+        -moz-appearance: textfield;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          appearance: none;
+          margin: 0;
+        }
+      }
+
+      .end {
+        margin-left: 0.5em;
       }
 
       .time-input input:last-child {

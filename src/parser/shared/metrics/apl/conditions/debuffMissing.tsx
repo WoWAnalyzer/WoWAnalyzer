@@ -14,7 +14,7 @@ import { buffDuration, DurationData, PandemicData } from './util';
 export function debuffMissing(
   spell: Spell,
   optPandemic?: PandemicData,
-): Condition<{ [key: number]: DurationData } | null> {
+): Condition<{ [key: string]: DurationData } | null> {
   const pandemic: PandemicData = {
     timeRemaining: 0,
     duration: 0,
@@ -28,8 +28,9 @@ export function debuffMissing(
       switch (event.type) {
         case EventType.ApplyDebuff:
           if (event.ability.guid === spell.id) {
-            const encodedTargetString = Number(
-              encodeTargetString(event.targetID, event.targetInstance ?? 1),
+            const encodedTargetString = encodeTargetString(
+              event.targetID,
+              event.targetInstance ?? 1,
             );
             if (!state) {
               state = {};
@@ -44,8 +45,9 @@ export function debuffMissing(
           break;
         case EventType.RemoveDebuff:
           if (event.ability.guid === spell.id) {
-            const encodedTargetString = Number(
-              encodeTargetString(event.targetID, event.targetInstance ?? 1),
+            const encodedTargetString = encodeTargetString(
+              event.targetID,
+              event.targetInstance ?? 1,
             );
             if (!state) {
               state = {};
@@ -59,10 +61,8 @@ export function debuffMissing(
       return state;
     },
     validate: (state, event, ruleSpell) => {
-      const encodedTargetString = Number(
-        encodeTargetString(event.targetID, event.targetInstance ?? 1),
-      );
-      if (state === null) {
+      const encodedTargetString = encodeTargetString(event.targetID, event.targetInstance ?? 1);
+      if (state === null || state[encodedTargetString] === undefined) {
         // debuff is missing
         return true;
       } else if (state[encodedTargetString]?.referenceTime + 200 > event.timestamp) {

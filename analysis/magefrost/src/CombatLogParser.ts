@@ -21,6 +21,7 @@ import ColdSnap from './modules/cooldowns/ColdSnap';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import AplCheck from './modules/features/apl';
 import BrainFreeze from './modules/features/BrainFreeze';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -95,6 +96,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;
