@@ -35,10 +35,7 @@ class FaelineStomp extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.FAELINE_STOMP_CAST.id,
-      category:
-        this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK
-          ? Abilities.SPELL_CATEGORIES.COOLDOWNS
-          : Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 30,
       gcd:
         this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },

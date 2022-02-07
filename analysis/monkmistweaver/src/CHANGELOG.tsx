@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 2, 6), <> Added FLS into the Mana Efficiency Tracker.</>, Abelito75),
   change(date(2021, 12, 27), <> Listening for RJW refresh events due to haste change and precast RJWs.</>, Abelito75),
   change(date(2021, 12, 22), <> Re-added EF cancellation.</>, Trevor),
   change(date(2021, 12, 18), <> Updated mana tea thresholds for RJW.</>, Trevor),
