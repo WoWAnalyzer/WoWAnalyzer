@@ -2,7 +2,7 @@ import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { UpdateSpellUsableEvent, EventType } from 'parser/core/Events';
 
-import { Condition, cooldownEnd, tenseAlt } from '../index';
+import { Condition, tenseAlt } from '../index';
 
 export default function spellAvailable(
   spell: Spell,
@@ -18,8 +18,7 @@ export default function spellAvailable(
         return state;
       }
     },
-    validate: (state, event) =>
-      state === null || state.isAvailable || cooldownEnd(state) <= event.timestamp + 100,
+    validate: (state, _event) => state === null || state.isAvailable,
     describe: (tense) => (
       <>
         <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} {inverse ? 'on' : 'off'} cooldown

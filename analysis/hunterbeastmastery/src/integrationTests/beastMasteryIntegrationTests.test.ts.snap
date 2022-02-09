@@ -7826,7 +7826,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -7850,8 +7850,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "65.99851190476191%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "68.00542066629023%",
                 }
               }
             />
@@ -8170,7 +8170,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                   }
                 >
                    
-                  33.33%
+                  31.82%
                    
                    
                 </div>
@@ -8192,7 +8192,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "15.857142857142858%",
+                        "width": "15.136363636363637%",
                       }
                     }
                   />
@@ -8545,7 +8545,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                   }
                 >
                    
-                  70.00%
+                  76.09%
                    
                    
                 </div>
@@ -8565,9 +8565,9 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "33.300000000000004%",
+                        "width": "53.569565217391315%",
                       }
                     }
                   />
@@ -8692,7 +8692,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                   }
                 >
                    
-                  71.88%
+                  71.43%
                    
                    
                 </div>
@@ -8714,7 +8714,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                       Object {
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "39.54375000000001%",
+                        "width": "38.05714285714287%",
                       }
                     }
                   />
@@ -17425,7 +17425,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "76.31642857142857%",
+                  "width": "76.39415966386555%",
                 }
               }
             />
@@ -17703,7 +17703,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   }
                 >
                    
-                  27.78%
+                  29.41%
                    
                    
                 </div>
@@ -17725,7 +17725,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "13.214285714285717%",
+                        "width": "13.991596638655462%",
                       }
                     }
                   />
@@ -18076,7 +18076,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   }
                 >
                    
-                  94.74%
+                  94.81%
                    
                    
                 </div>

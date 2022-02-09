@@ -23,7 +23,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BrewCDR from '../core/BrewCDR';
 import SharedBrews from '../core/SharedBrews';
 
-const PURIFY_DELAY_THRESHOLD = 750; // with the removal of ISB, i'm cutting the delay threshold.
+const PURIFY_DELAY_THRESHOLD = 1000; // with the removal of ISB, i'm cutting the delay threshold.
 
 function markupPurify(event: CastEvent, delay: number, hasHeavyStagger: boolean) {
   const msgs = [];
@@ -121,9 +121,9 @@ class PurifyingBrew extends Analyzer {
     return {
       actual: this.avgPurifyDelay / 1000,
       isGreaterThan: {
-        minor: 1,
-        average: PURIFY_DELAY_THRESHOLD / 1000,
-        major: PURIFY_DELAY_THRESHOLD / 1000 + 1,
+        minor: PURIFY_DELAY_THRESHOLD / 1000,
+        average: (1.5 * PURIFY_DELAY_THRESHOLD) / 1000,
+        major: (2 * PURIFY_DELAY_THRESHOLD) / 1000,
       },
       style: ThresholdStyle.SECONDS,
     };

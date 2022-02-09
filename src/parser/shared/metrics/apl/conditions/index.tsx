@@ -19,4 +19,5 @@ export { debuffPresent } from './debuffPresent';
 export { debuffMissing } from './debuffMissing';
 export { hasCovenant } from './hasCovenant';
 export { lastSpellCast } from './lastSpellCast';
+export { default as describe } from './describe';
 export * from './util';

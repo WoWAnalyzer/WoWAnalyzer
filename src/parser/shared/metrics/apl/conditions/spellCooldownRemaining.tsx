@@ -2,8 +2,11 @@ import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { UpdateSpellUsableEvent, EventType } from 'parser/core/Events';
 
-import { Condition, cooldownEnd, tenseAlt } from '../index';
+import { Condition, tenseAlt } from '../index';
 import { formatTimestampRange, Range } from './util';
+
+export const cooldownEnd = (event: UpdateSpellUsableEvent): number =>
+  event.expectedDuration + event.start;
 
 export default function spellCooldownRemaining(
   spell: Spell,

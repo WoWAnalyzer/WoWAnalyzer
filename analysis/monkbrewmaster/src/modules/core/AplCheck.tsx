@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
 import { EventType } from 'parser/core/Events';
-import aplCheck, { build } from 'parser/shared/metrics/apl';
+import aplCheck, { build, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import {
   targetsHit,
@@ -12,13 +12,33 @@ import {
   hasConduit,
   optional,
 } from 'parser/shared/metrics/apl/conditions';
+import * as cnd from 'parser/shared/metrics/apl/conditions';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
   { spell: SPELLS.KEG_SMASH, condition: buffPresent(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL) },
   { spell: SPELLS.BREATH_OF_FIRE, condition: hasLegendary(SPELLS.CHARRED_PASSIONS) },
-  SPELLS.KEG_SMASH,
+  {
+    spell: SPELLS.KEG_SMASH,
+    condition: cnd.describe(
+      cnd.and(
+        hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG),
+        cnd.spellFractionalCharges(SPELLS.KEG_SMASH, { atLeast: 1.5 }),
+      ),
+      (tense) => (
+        <>
+          you {tenseAlt(tense, 'have', 'had')} 2 charges or the 2nd charge{' '}
+          {tenseAlt(tense, 'is', 'was')} about to come off cooldown.
+        </>
+      ),
+    ),
+  },
+  {
+    spell: SPELLS.KEG_SMASH,
+    condition: cnd.describe(cnd.not(cnd.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG)), () => ''),
+  },
   SPELLS.BLACKOUT_KICK_BRM,
+  SPELLS.KEG_SMASH,
   SPELLS.FAELINE_STOMP_CAST,
   SPELLS.BREATH_OF_FIRE,
   {

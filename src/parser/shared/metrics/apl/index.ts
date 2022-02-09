@@ -136,9 +136,6 @@ export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
 }
 export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
 
-export const cooldownEnd = (event: UpdateSpellUsableEvent): number =>
-  event.expectedDuration + event.start;
-
 export function lookaheadSlice(
   events: AnyEvent[],
   startIx: number,
@@ -182,8 +179,7 @@ function ruleApplies(
     abilities.has(spell(rule).id) &&
     (spell(rule).id === event.ability.guid ||
       result.abilityState[spell(rule).id] === undefined ||
-      result.abilityState[spell(rule).id].isAvailable ||
-      cooldownEnd(result.abilityState[spell(rule).id]) <= event.timestamp + 100) &&
+      result.abilityState[spell(rule).id].isAvailable) &&
     (!('condition' in rule) ||
       rule.condition.validate(
         result.conditionState[rule.condition.key],
@@ -239,10 +235,26 @@ const aplCheck = (apl: Apl) =>
         ) {
           const rule = applicableRule(apl, abilities, result, events, eventIndex);
           if (rule) {
+            if (
+              result.abilityState[spell(rule).id] !== undefined &&
+              !result.abilityState[spell(rule).id].isAvailable &&
+              process.env.NODE_ENV === 'development'
+            ) {
+              console.warn(
+                'inconsistent ability state in APL checker:',
+                result.abilityState[spell(rule).id],
+                rule,
+                event,
+              );
+            }
             if (spell(rule).id === event.ability.guid) {
               // the player cast the correct spell
               result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
-            } else {
+            } else if (
+              info.combatant === undefined ||
+              event.timestamp >= info.combatant.owner.fight.start_time
+            ) {
+              // condition prevents punishing precast spells
               result.violations.push({
                 kind: ResultKind.Violation,
                 rule,
