@@ -119,7 +119,7 @@
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "~2.2.1",
-    "react-app-rewired": "^2.1.6",
+    "react-app-rewired": "^2.1.11",
     "react-scripts": "^5.0.0",
     "react-test-renderer": "^17.0.2",
     "sass": "^1.49.7",
