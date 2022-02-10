@@ -5,6 +5,10 @@ const disablePlugins = (plugins) => (config) => ({
   ...config,
   plugins: config.plugins.filter((plugin) => !plugins.includes(plugin.constructor.name)),
 });
+const reportPlugins = () => (config) => {
+  console.log(config.plugins.map((plugin) => plugin.constructor.name));
+  process.exit();
+};
 const fixLingui = () => (config) => {
   config.module.rules = [
     ...config.module.rules,
