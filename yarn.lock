@@ -12302,10 +12302,10 @@ sass-loader@^12.3.0:
     klona "^2.0.4"
     neo-async "^2.6.2"
 
-sass-text-stroke@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/sass-text-stroke/-/sass-text-stroke-1.0.1.tgz#b38dbd9e88d1870d81ac8d4b64cd3b23b650f216"
-  integrity sha1-s429nojRhw2BrI1LZM07I7ZQ8hY=
+sass-text-stroke@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sass-text-stroke/-/sass-text-stroke-1.2.0.tgz#953f89e2c950598693dbe7db08556c4544a7fc38"
+  integrity sha512-ONTtMJFE6Xx8PcSrbwGtrh7okdVtGY8yQpMqKZ2mQLFtWweedtndi240JnNGzOQ7Er7TMN7e+UulMqYGKoPVAA==
 
 sass@^1.49.7:
   version "1.49.7"
