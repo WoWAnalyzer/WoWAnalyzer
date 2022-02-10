@@ -1,4 +1,5 @@
 const CHECK_CODESTYLE = process.env.CODE_STYLE === 'true';
+const CI = Boolean(process.env.CI);
 
 module.exports = {
   extends: ['@emico/eslint-config', 'plugin:react/jsx-runtime'],
@@ -25,6 +26,7 @@ module.exports = {
         },
       },
     ],
+    'import/no-extraneous-dependencies': [CI ? 'warn' : 'off'],
   },
   overrides: [
     // Disable some rules for .js files to not have to update all old files in one go
