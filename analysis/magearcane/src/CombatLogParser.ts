@@ -22,6 +22,7 @@ import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import ArcanePower from './modules/features/ArcanePower';
 import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
+import ArcanePowerMana from './modules/features/ArcanePowerMana';
 import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
     arcanePowerPreReqs: ArcanePowerPreReqs,
+    arcanePowerMana: ArcanePowerMana,
     arcanePowerActiveTime: ArcanePowerActiveTime,
     arcaneMissiles: ArcaneMissiles,
     mirrorImage: MirrorImage,
