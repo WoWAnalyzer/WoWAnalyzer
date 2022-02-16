@@ -25,14 +25,14 @@ class CanceledCasts extends Analyzer {
   }
 
   get CanceledCastTable() {
-    return Object.keys(this.canceledCasts).map((key) => {
-      return <tr key={`spell_${key}`}>
+    return Object.keys(this.canceledCasts).map((key) => (
+      <tr key={`spell_${key}`}>
         <td>
           <SpellLink id={Number(key)} style={{ height: '2.4em' }} />
         </td>
         <td>{formatNumber(this.canceledCasts[Number(key)])}</td>
       </tr>
-    });
+    ));
   }
 
   statistic() {
