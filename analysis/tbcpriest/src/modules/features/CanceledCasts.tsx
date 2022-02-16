@@ -5,14 +5,10 @@ import Events, { BeginCastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 
 class CanceledCasts extends Analyzer {
-  canceledCasts: any = {};
+  canceledCasts: { [spellId: number]: number } = {};
 
   get TotalCanceledCastCount() {
-    let total = 0;
-    for (const spellId in this.canceledCasts) {
-      total += this.canceledCasts[spellId];
-    }
-    return total;
+    return Object.values(this.canceledCasts).reduce((a, b) => a + b);
   }
 
   constructor(options: Options) {
@@ -29,18 +25,14 @@ class CanceledCasts extends Analyzer {
   }
 
   get CanceledCastTable() {
-    const rows = [];
-    for (const spellId in this.canceledCasts) {
-      rows.push(
-        <tr>
-          <td>
-            <SpellLink id={Number(spellId)} style={{ height: '2.4em' }} />
-          </td>
-          <td>{formatNumber(this.canceledCasts[spellId])}</td>
-        </tr>,
-      );
-    }
-    return rows;
+    return Object.keys(this.canceledCasts).map((key) => {
+      return <tr>
+        <td>
+          <SpellLink id={Number(key)} style={{ height: '2.4em' }} />
+        </td>
+        <td>{formatNumber(this.canceledCasts[Number(key)])}</td>
+      </tr>
+    });
   }
 
   statistic() {
