@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -20,7 +19,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 
-const MANA_THRESHOLD = 0.4;
 const ARCANE_POWER_SPELL_BLACKLIST = [
   SPELLS.ARCANE_BARRAGE,
   SPELLS.ARCANE_FAMILIAR_TALENT,
@@ -56,25 +54,17 @@ class ArcanePower extends Analyzer {
   protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
 
-  protected hasOverpowered: boolean;
+  hasOverpowered: boolean;
 
-  badUses = 0;
   totalCastsDuringAP = 0;
   badCastsDuringAP = 0;
   outOfMana = 0;
   buffEndTimestamp = 0;
   arcanePowerCasted = false;
-  lowManaCast = 0;
-  lowChargesCast = 0;
-  missingTouchOfTheMagi = 0;
 
   constructor(options: Options) {
     super(options);
     this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER),
-      this.onArcanePowerCast,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER),
@@ -84,42 +74,6 @@ class ArcanePower extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER),
       this.onRemoveBuff,
     );
-  }
-
-  onArcanePowerCast(event: CastEvent) {
-    const manaResource: any =
-      event.classResources &&
-      event.classResources.find((classResource) => classResource.type === RESOURCE_TYPES.MANA.id);
-    const currentManaPercent = manaResource.amount / manaResource.max;
-    const touchOfTheMagiCast = this.eventHistory.last(
-      1,
-      1000,
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_THE_MAGI),
-    );
-    this.arcanePowerCasted = true;
-
-    if (
-      this.arcaneChargeTracker.charges < 4 ||
-      (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD) ||
-      touchOfTheMagiCast.length === 0
-    ) {
-      this.badUses += 1;
-    }
-
-    if (this.arcaneChargeTracker.charges < 4) {
-      debug && this.log('Arcane Power Cast with Low Charges');
-      this.lowChargesCast += 1;
-    }
-
-    if (!this.hasOverpowered && currentManaPercent < MANA_THRESHOLD) {
-      debug && this.log('Arcane Power Cast with low mana');
-      this.lowManaCast += 1;
-    }
-
-    if (touchOfTheMagiCast.length === 0) {
-      debug && this.log('Arcane Power cast without Touch of the Magi');
-      this.missingTouchOfTheMagi += 1;
-    }
   }
 
   onCast(event: CastEvent) {
@@ -191,40 +145,12 @@ class ArcanePower extends Analyzer {
     return 0;
   }
 
-  get requiredChecks() {
-    return this.hasOverpowered ? 2 : 3;
-  }
-
-  get failedChecks() {
-    return this.lowChargesCast + this.lowManaCast;
-  }
-
-  get cooldownUtilization() {
-    return (
-      1 -
-      this.failedChecks /
-        (this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts * this.requiredChecks)
-    );
-  }
-
   get castUtilization() {
     return 1 - this.badCastsDuringAP / this.totalCastsDuringAP;
   }
 
   get totalArcanePowerCasts() {
     return this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts;
-  }
-
-  get arcanePowerCooldownThresholds() {
-    return {
-      actual: this.cooldownUtilization,
-      isLessThan: {
-        minor: 1,
-        average: 0.8,
-        major: 0.6,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   get arcanePowerCastThresholds() {
@@ -252,44 +178,6 @@ class ArcanePower extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.arcanePowerCooldownThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without proper setup {this.badUses}{' '}
-          times. Arcane Power has a short duration so you should get the most out of it by meeting
-          all requirements before casting it.
-          <ul>
-            <li>
-              You have 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> - You failed this{' '}
-              {this.lowChargesCast} times out of {this.totalArcanePowerCasts} casts.
-            </li>
-            <li>
-              <>
-                You cast <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} />{' '}
-                <TooltipElement content="Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.">
-                  immediately
-                </TooltipElement>{' '}
-                before Arcane Power - You failed this {this.missingTouchOfTheMagi} times out of{' '}
-                {this.totalArcanePowerCasts} casts
-              </>{' '}
-            </li>
-            {!this.hasOverpowered ? (
-              <li>
-                You have more than 40% mana - You failed this {this.lowManaCast} times out of{' '}
-                {this.totalArcanePowerCasts} casts.
-              </li>
-            ) : (
-              ''
-            )}
-          </ul>
-        </>,
-      )
-        .icon(SPELLS.ARCANE_POWER.icon)
-        .actual(
-          <Trans id="mage.arcane.suggestions.arcanePower.badCasts">{this.badUses} Bad Casts</Trans>,
-        )
-        .recommended(`0 is recommended`),
-    );
     when(this.arcanePowerCastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -339,23 +227,9 @@ class ArcanePower extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Before casting Arcane Power, you should ensure that you meet all of the following
-            requirements. If Arcane Power frequently comes off cooldown and these requirements are
-            not already met, then consider modifying your rotation to ensure that they are met
-            before Arcane Power comes off cooldown
-            <ul>
-              <li>You have 4 Arcane Charges - Missed {this.lowChargesCast} times</li>
-              <li>
-                You cast Touch of the Magi immediately before AP - Missed{' '}
-                {this.missingTouchOfTheMagi} times
-              </li>
-              {!this.hasOverpowered && (
-                <li>You have more than 40% mana - Missed {this.lowManaCast} times</li>
-              )}
-            </ul>
-            Additionally, you should only be casting Arcane Blast (Single Target), Arcane Explosion
-            (AOE), and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to
-            maximize the short cooldown duration.
+            You should only be casting Arcane Blast (Single Target), Arcane Explosion (AOE), and
+            Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the
+            short cooldown duration.
           </>
         }
       >
@@ -363,15 +237,6 @@ class ArcanePower extends Analyzer {
           <>
             <SpellIcon
               id={SPELLS.ARCANE_POWER.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />{' '}
-            {formatPercentage(this.cooldownUtilization, 0)}% <small> Cooldown utilization</small>
-            <br />
-            <SpellIcon
-              id={SPELLS.ARCANE_BLAST.id}
               style={{
                 height: '1.2em',
                 marginBottom: '.15em',

@@ -21,6 +21,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import ArcanePower from './modules/features/ArcanePower';
+import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
 import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -38,6 +39,7 @@ import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcanePowerNormalizer from './normalizers/ArcanePower';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
+    arcanePowerPreReqs: ArcanePowerPreReqs,
     arcanePowerActiveTime: ArcanePowerActiveTime,
     arcaneMissiles: ArcaneMissiles,
     mirrorImage: MirrorImage,

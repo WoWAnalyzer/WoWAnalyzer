@@ -8,6 +8,7 @@ import { ArcaneIntellect, CancelledCasts, MirrorImage, RuneOfPower } from '@wowa
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneMissiles from '../features/ArcaneMissiles';
 import ArcanePower from '../features/ArcanePower';
+import ArcanePowerPreReqs from '../features/ArcanePowerPreReqs';
 import ArcanePowerActiveTime from '../features/ArcanePowerActiveTime';
 import ManaValues from '../ManaChart/ManaValues';
 import ArcaneEcho from '../talents/ArcaneEcho';
@@ -25,6 +26,7 @@ class Checklist extends BaseChecklist {
     arcaneOrb: ArcaneOrb,
     arcaneEcho: ArcaneEcho,
     arcanePower: ArcanePower,
+    arcanePowerPreReqs: ArcanePowerPreReqs,
     arcanePowerActiveTime: ArcanePowerActiveTime,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
@@ -43,6 +45,7 @@ class Checklist extends BaseChecklist {
   protected arcaneOrb!: ArcaneOrb;
   protected arcaneEcho!: ArcaneEcho;
   protected arcanePower!: ArcanePower;
+  protected arcanePowerPreReqs!: ArcanePowerPreReqs;
   protected arcanePowerActiveTime!: ArcanePowerActiveTime;
   protected ruleOfThrees!: RuleOfThrees;
   protected timeAnomaly!: TimeAnomaly;
@@ -67,7 +70,7 @@ class Checklist extends BaseChecklist {
           arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
           arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
           arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
-          arcanePowerCooldown: this.arcanePower.arcanePowerCooldownThresholds,
+          arcanePowerCooldown: this.arcanePowerPreReqs.arcanePowerCooldownThresholds,
           arcanePowerActiveTime: this.arcanePowerActiveTime.arcanePowerActiveTimeThresholds,
           arcanePowerManaUtilization: this.arcanePower.arcanePowerManaUtilization,
           arcanePowerCasts: this.arcanePower.arcanePowerCastThresholds,
