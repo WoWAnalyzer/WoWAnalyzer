@@ -2,7 +2,7 @@ const CHECK_CODESTYLE = process.env.CODE_STYLE === 'true';
 const CI = Boolean(process.env.CI);
 
 module.exports = {
-  extends: ['@emico/eslint-config', 'plugin:react/jsx-runtime'],
+  extends: ['@martijnhols/eslint-config', 'plugin:react/jsx-runtime'],
   rules: {
     'no-use-before-define': 'off',
     'import/order': [

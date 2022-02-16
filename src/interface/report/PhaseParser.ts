@@ -43,7 +43,7 @@ class PhaseParser extends PureComponent<Props, State> {
     if (!bossPhaseEvents) {
       return {};
     }
-    const distinct = <T extends any>(items: T[]) => Array.from(new Set<T>(items));
+    const distinct = <T>(items: T[]) => Array.from(new Set<T>(items));
 
     const phaseStarts = distinct(
       bossPhaseEvents
