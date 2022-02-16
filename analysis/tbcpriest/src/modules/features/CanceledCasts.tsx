@@ -9,7 +9,7 @@ class CanceledCasts extends Analyzer {
 
   get TotalCanceledCastCount() {
     let total = 0;
-    for (const spellId of this.canceledCasts) {
+    for (const spellId in this.canceledCasts) {
       total += this.canceledCasts[spellId];
     }
     return total;
@@ -30,7 +30,7 @@ class CanceledCasts extends Analyzer {
 
   get CanceledCastTable() {
     const rows = [];
-    for (const spellId of this.canceledCasts) {
+    for (const spellId in this.canceledCasts) {
       rows.push(
         <tr>
           <td>
