@@ -57,6 +57,8 @@ import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
+import Tier29_2pc from './modules/shadowlands/items/Tier29_2pc';
+import Tier29_4pc from './modules/shadowlands/items/Tier29_4pc';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -142,6 +144,10 @@ class CombatLogParser extends CoreCombatLogParser {
     verdantInfusion: VerdantInfusion,
     lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
     draughtOfDeepFocus: DraughtOfDeepFocus,
+
+    // sets
+    tier29_2pc: Tier29_2pc,
+    tier29_4pc: Tier29_4pc,
   };
 }
 

@@ -368,7 +368,24 @@ const spells = {
     name: 'Astral Harmony',
     icon: 'talentspec_druid_restoration',
   },
-
+  RESTO_DRUID_TIER_29_2P_SET_BONUS: {
+    // presence of this buff indicates player has 2pc equipped FIXME not yet on PTR?
+    id: 364365,
+    name: 'Renewing Bloom',
+    icon: 'spell_unused',
+  },
+  RESTO_DRUID_TIER_29_4P_SET_BONUS: {
+    // presence of this buff indicates player has 4pc equipped FIXME not yet on PTR?
+    id: 363495,
+    name: 'Ephemeral Incarnation',
+    icon: 'spell_progenitor_orb2',
+  },
+  RENEWING_BLOOM: {
+    // HoT procced by T29 2pc
+    id: 364686,
+    name: 'Renewing Bloom',
+    icon: 'spell_unused',
+  },
   // Traits:
   NATURES_ESSENCE_TRAIT: {
     id: 189787,
