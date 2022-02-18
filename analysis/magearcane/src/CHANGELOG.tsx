@@ -4,6 +4,7 @@ import { Adoraci, Putro, Sharrq, Soulhealer95 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 2, 18), <>Refactored and updated <SpellLink id={SPELLS.ARCANE_POWER.id} /> to support 9.1.5 and <SpellLink id={SPELLS.ARCANE_HARMONY.id} /></>, Sharrq),
   change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Arcane Mage. Spec updates for Arcane will be coming soon', Sharrq),
   change(date(2021, 6, 26), 'Removed reference to StatisticBox in AlwaysBeCasting feature', Soulhealer95),
   change(date(2021, 4, 3), 'Verified changes and bumped support to 9.0.5.', Adoraci),
