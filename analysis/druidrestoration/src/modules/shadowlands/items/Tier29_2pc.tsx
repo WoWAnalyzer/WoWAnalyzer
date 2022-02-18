@@ -1,14 +1,14 @@
-import Analyzer from 'parser/core/Analyzer';
-import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
-import Mastery from '../../core/Mastery';
+import Analyzer from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import React from 'react';
-import Events from 'parser/core/Events';
+
+import Mastery from '../../core/Mastery';
 
 /**
  * Resto Druid Tier 29 - 2pc - Renewing Bloom
@@ -47,7 +47,6 @@ class Tier29_2pc extends Analyzer {
     return this.directHealing + this.masteryHealing;
   }
 
-  // TODO improve the wording?
   statistic() {
     return (
       <Statistic
@@ -56,27 +55,27 @@ class Tier29_2pc extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Renewing Bloom is the HoT procced by the Tier 29 2 pc bonus. The healing amount is the sum
-            of the direct healing from Renewing Bloom and the healing enabled by Renewing Bloom's extra mastery stack.
-          <ul>
-            <li>
-              Direct: <strong>{this.owner.formatItemHealingDone(this.directHealing)}</strong>
-            </li>
-            <li>
-              Mastery: <strong>{this.owner.formatItemHealingDone(this.masteryHealing)}</strong>
-            </li>
-          </ul>
+            Renewing Bloom is the HoT procced by the <strong>Tier 29 2-piece set bonus</strong>. The
+            healing amount is the sum of the direct healing from Renewing Bloom and the healing
+            enabled by Renewing Bloom's extra mastery stack.
+            <ul>
+              <li>
+                Direct: <strong>{this.owner.formatItemHealingDone(this.directHealing)}</strong>
+              </li>
+              <li>
+                Mastery: <strong>{this.owner.formatItemHealingDone(this.masteryHealing)}</strong>
+              </li>
+            </ul>
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RENEWING_BLOOM.id}>
+        <BoringSpellValueText spellId={SPELLS.RESTO_DRUID_TIER_29_2P_SET_BONUS.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default Tier29_2pc;

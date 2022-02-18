@@ -40,6 +40,8 @@ import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigora
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
+import Tier29_2pc from './modules/shadowlands/items/Tier29_2pc';
+import Tier29_4pc from './modules/shadowlands/items/Tier29_4pc';
 import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
@@ -57,8 +59,6 @@ import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
-import Tier29_2pc from './modules/shadowlands/items/Tier29_2pc';
-import Tier29_4pc from './modules/shadowlands/items/Tier29_4pc';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

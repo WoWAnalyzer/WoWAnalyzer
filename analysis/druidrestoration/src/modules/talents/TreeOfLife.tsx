@@ -8,11 +8,12 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   Event,
-  HealEvent, RefreshBuffEvent,
-  RemoveBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { Attribution } from 'parser/shared/modules/HotTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -21,10 +22,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
-import Rejuvenation from '../core/Rejuvenation';
-import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../../modules/core/hottracking/HotTrackerRestoDruid';
-import { Attribution } from 'parser/shared/modules/HotTracker';
+import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import Rejuvenation from '../core/Rejuvenation';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
@@ -78,7 +78,7 @@ class TreeOfLife extends Analyzer {
     rejuvBoostHealing: 0,
     rejuvManaSaved: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL from T29 4pc: Extra WGs'),
-  }
+  };
 
   constructor(options: Options) {
     super(options);
@@ -93,19 +93,19 @@ class TreeOfLife extends Analyzer {
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT),
-      this.onHardcastTol
+      this.onHardcastTol,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.onCastRejuv
+      this.onCastRejuv,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.onApplyWildGrowth
+      this.onApplyWildGrowth,
     );
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.onApplyWildGrowth
+      this.onApplyWildGrowth,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
@@ -136,10 +136,13 @@ class TreeOfLife extends Analyzer {
    */
   _getAccumulator(event: Event<any>) {
     if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
-      return null;  // ToL isn't active, no accumulator
+      return null; // ToL isn't active, no accumulator
     } else if (!this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT)) {
       return this.t29_4pc; // player doesn't have the ToL talent so this must be from the set 4pc
-    } else if (this.lastHardcastTimestamp !== null && this.lastHardcastTimestamp + TOL_DURATION + BUFFER >= event.timestamp) {
+    } else if (
+      this.lastHardcastTimestamp !== null &&
+      this.lastHardcastTimestamp + TOL_DURATION + BUFFER >= event.timestamp
+    ) {
       return this.hardcast; // player hardcast ToL within buff duration, so this is a hardcast
     } else {
       return this.t29_4pc; // player didn't hardcast within buff duration, so this is the set 4pc
@@ -177,7 +180,11 @@ class TreeOfLife extends Analyzer {
     }
     // ToL causes extra WG buffs to be applied - rather than arbitrarily deciding which HoTs
     // were the "extra" ones, we instead partially attribute every WG applied during ToL
-    this.hotTracker.addBoostFromApply(accumulator.extraWgsAttribution, WG_INCREASE / ALL_MULT, event);
+    this.hotTracker.addBoostFromApply(
+      accumulator.extraWgsAttribution,
+      WG_INCREASE / ALL_MULT,
+      event,
+    );
   }
 
   get suggestionThresholds() {
@@ -274,7 +281,9 @@ class TreeOfLife extends Analyzer {
                 Increased Wild Growths:{' '}
                 <strong>
                   {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgsAttribution.healing),
+                    this.owner.getPercentageOfTotalHealingDone(
+                      this.hardcast.extraWgsAttribution.healing,
+                    ),
                   )}
                   %
                 </strong>
