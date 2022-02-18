@@ -7,8 +7,8 @@ import { ArcaneIntellect, CancelledCasts, MirrorImage, RuneOfPower } from '@wowa
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneMissiles from '../features/ArcaneMissiles';
-import ArcanePower from '../features/ArcanePower';
 import ArcanePowerPreReqs from '../features/ArcanePowerPreReqs';
+import ArcanePowerMana from '../features/ArcanePowerMana';
 import ArcanePowerActiveTime from '../features/ArcanePowerActiveTime';
 import ManaValues from '../ManaChart/ManaValues';
 import ArcaneEcho from '../talents/ArcaneEcho';
@@ -25,8 +25,8 @@ class Checklist extends BaseChecklist {
     arcaneFamiliar: ArcaneFamiliar,
     arcaneOrb: ArcaneOrb,
     arcaneEcho: ArcaneEcho,
-    arcanePower: ArcanePower,
     arcanePowerPreReqs: ArcanePowerPreReqs,
+    arcanePowerMana: ArcanePowerMana,
     arcanePowerActiveTime: ArcanePowerActiveTime,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
@@ -44,8 +44,8 @@ class Checklist extends BaseChecklist {
   protected arcaneFamiliar!: ArcaneFamiliar;
   protected arcaneOrb!: ArcaneOrb;
   protected arcaneEcho!: ArcaneEcho;
-  protected arcanePower!: ArcanePower;
   protected arcanePowerPreReqs!: ArcanePowerPreReqs;
+  protected arcanePowerMana!: ArcanePowerMana;
   protected arcanePowerActiveTime!: ArcanePowerActiveTime;
   protected ruleOfThrees!: RuleOfThrees;
   protected timeAnomaly!: TimeAnomaly;
@@ -72,8 +72,7 @@ class Checklist extends BaseChecklist {
           arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
           arcanePowerCooldown: this.arcanePowerPreReqs.arcanePowerCooldownThresholds,
           arcanePowerActiveTime: this.arcanePowerActiveTime.arcanePowerActiveTimeThresholds,
-          arcanePowerManaUtilization: this.arcanePower.arcanePowerManaUtilization,
-          arcanePowerCasts: this.arcanePower.arcanePowerCastThresholds,
+          arcanePowerManaUtilization: this.arcanePowerMana.arcanePowerManaUtilization,
           ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
           arcaneMissilesUtilization: this.arcaneMissiles.arcaneMissileUsageThresholds,

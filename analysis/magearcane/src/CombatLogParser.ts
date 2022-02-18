@@ -20,7 +20,6 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
-import ArcanePower from './modules/features/ArcanePower';
 import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
 import ArcanePowerMana from './modules/features/ArcanePowerMana';
 import ArcanePowerCasts from './modules/features/ArcanePowerCasts';
@@ -60,7 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaValues: ManaValues,
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
-    arcanePower: ArcanePower,
     arcanePowerPreReqs: ArcanePowerPreReqs,
     arcanePowerMana: ArcanePowerMana,
     arcanePowerCasts: ArcanePowerCasts,
