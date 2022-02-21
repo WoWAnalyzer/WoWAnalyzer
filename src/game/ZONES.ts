@@ -1,5 +1,6 @@
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
 // only includes the raids from Shadowlands (showing older logs wouldn't make sense)
+import sepulcher from 'game/raids/sepulcher';
 
 // TODO: Refactor this (it's kind of strange and feels misplaced)
 
@@ -34,7 +35,7 @@ const ZONES: Zone[] = [
   {
     id: 26,
     name: 'Castle Nathria',
-    frozen: false,
+    frozen: true,
     encounters: [
       {
         id: 2398,
@@ -151,6 +152,48 @@ const ZONES: Zone[] = [
       bucket: 3,
       type: 'Item Level',
     },
+    partitions: [
+      {
+        name: '9.1',
+        compact: '9.1',
+      },
+      {
+        name: '9.1.5',
+        compact: '9.1.5',
+        default: true,
+      },
+    ],
+  },
+  {
+    id: 29,
+    name: 'Sepulcher of the First Ones',
+    frozen: false,
+    encounters: [
+      sepulcher.bosses.VigilantGuardian,
+      sepulcher.bosses.Dausegne,
+      sepulcher.bosses.Xymox,
+      sepulcher.bosses.PrototypePantheon,
+      sepulcher.bosses.Skolex,
+      sepulcher.bosses.Halondrus,
+      sepulcher.bosses.Lihuvim,
+      sepulcher.bosses.Anduin,
+      sepulcher.bosses.LordsOfDread,
+      sepulcher.bosses.Rygelon,
+      sepulcher.bosses.Jailer,
+    ],
+    brackets: {
+      min: 236,
+      max: 280,
+      bucket: 3,
+      type: 'Item Level',
+    },
+    partitions: [
+      {
+        name: '9.2',
+        compact: '9.2',
+        default: true,
+      },
+    ],
   },
 ];
 
