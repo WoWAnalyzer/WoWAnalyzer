@@ -191,6 +191,15 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: false,
     vers: false,
   },
+  [SPELLS.RENEWING_BLOOM.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true, // TODO double check this
+    hasteHpct: false,
+    mastery: true,
+    masteryStack: true,
+    vers: true,
+  },
 };
 
 export const getSpellInfo = (id: number) => DRUID_HEAL_INFO[id] || DEFAULT_INFO;

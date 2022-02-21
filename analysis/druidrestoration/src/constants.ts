@@ -40,6 +40,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
   SPELLS.SWIFTMEND,
   SPELLS.RENEWAL_TALENT,
   SPELLS.SPRING_BLOSSOMS,
+  SPELLS.RENEWING_BLOOM,
   // The following spells don't double dip in healing increases.
   SPELLS.LEECH,
   //TODO - blazyb double check if any non resto druid spells scales with healing increases.
