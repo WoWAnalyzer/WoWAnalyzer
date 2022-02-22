@@ -29,8 +29,12 @@ class ConvocationOfTheDead extends Analyzer {
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
       SPELLS.CONVOCATION_OF_THE_DEAD.id,
     );
+    if (!this.conduitRank) {
+      this.active = false;
+      return;
+    }
     this.addEventListener(
-      Events.resourceChange.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND_BURST),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_WOUND_BURST),
       this.onWoundBurst,
     );
   }
@@ -55,7 +59,7 @@ class ConvocationOfTheDead extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.CONVOCATION_OF_THE_DEAD} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.CONVOCATION_OF_THE_DEAD} rank={this.conduitRank.id}>
           <CooldownIcon /> {this.cooldownReduction.toFixed(1)}s <small> of Apocalypse CDR</small>
           <br />
           <CooldownIcon /> {this.wastedCooldownReduction.toFixed(1)}s{' '}
