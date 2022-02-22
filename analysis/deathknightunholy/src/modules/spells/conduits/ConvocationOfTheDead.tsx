@@ -7,7 +7,6 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import React from 'react';
 
 /**
  * When a Festering Wound bursts the cooldown of Apocalypse is reduced by 1.0 sec.
