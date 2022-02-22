@@ -20,10 +20,10 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
-import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
 import ArcanePowerMana from './modules/features/ArcanePowerMana';
 import ArcanePowerCasts from './modules/features/ArcanePowerCasts';
 import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
+import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ArcaneBombardment from './modules/items/ArcaneBombardment';
@@ -40,7 +40,6 @@ import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcanePowerNormalizer from './normalizers/ArcanePower';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

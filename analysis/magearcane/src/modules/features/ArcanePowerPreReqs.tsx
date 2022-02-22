@@ -15,6 +15,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';
+
 import {
   AP_MANA_THRESHOLD_PERCENT,
   ARCANE_CHARGE_MAX_STACKS,

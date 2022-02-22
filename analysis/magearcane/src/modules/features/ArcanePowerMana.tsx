@@ -11,6 +11,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';
+
 import {
   ARCANE_BLAST_BASE_MANA_COST,
   ARCANE_EXPLOSION_BASE_MANA_COST,
