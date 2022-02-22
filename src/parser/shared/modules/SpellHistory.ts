@@ -1,6 +1,4 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
   ApplyBuffEvent,
   BeginCastEvent,
@@ -10,6 +8,8 @@ import Events, {
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SpellUsable from './SpellUsable';
 
@@ -26,13 +26,12 @@ class SpellHistory extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
-    channeling: Channeling,
+    abilityTracker: AbilityTracker,
   };
   // necessary for the UpdateSpellUsable event
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
-  // necessary for the channeling events
-  protected channeling!: Channeling;
+  protected abilityTracker!: AbilityTracker;
 
   public historyBySpellId: {
     [spellId: number]: SpellHistoryEvent[];
@@ -60,24 +59,16 @@ class SpellHistory extends Analyzer {
   }
 
   private getAbility(spellId: number) {
-    const ability = this.abilities.getAbility(spellId);
-    if (!ability) {
-      // We're only interested in abilities in Abilities since that's the only place we'll show the spell history, besides we only really want to track *casts* and the best source of info for that is Abilities.
-      return null;
+    if (!this.historyBySpellId[spellId]) {
+      this.historyBySpellId[spellId] = [];
     }
-
-    const primarySpellUd = ability.primarySpell.id;
-    if (!this.historyBySpellId[primarySpellUd]) {
-      this.historyBySpellId[primarySpellUd] = [];
-    }
-    return this.historyBySpellId[primarySpellUd];
+    return this.historyBySpellId[spellId];
   }
 
   private append(event: SpellHistoryEvent) {
     const spellId = event.ability.guid;
     const history = this.getAbility(spellId);
-    if (history && event.timestamp > this.owner.fight.start_time) {
-      //don't save prephase events in history
+    if (history) {
       history.push(event);
     }
   }

@@ -1,18 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { i18n } from '@lingui/core';
 import { Trans, defineMessage } from '@lingui/macro';
-
-import ZONES from 'game/ZONES';
-import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { WCLGuildReport, WCLGuildReportsResponse } from 'common/WCL_TYPES';
 import { captureException } from 'common/errorLogger';
-import retryingPromise from 'common/retryingPromise';
+import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
+import retryingPromise from 'common/retryingPromise';
+import { WCLGuildReport, WCLGuildReportsResponse } from 'common/WCL_TYPES';
+import ZONES from 'game/ZONES';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './GuildReports.scss';
 import ReportsList from './GuildReportsList';
@@ -72,7 +71,7 @@ interface State {
   factionImage: string;
 }
 
-class GuildReports extends React.Component<Props, State> {
+class GuildReports extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -359,7 +358,8 @@ class GuildReports extends React.Component<Props, State> {
                 className="btn"
                 style={{ fontSize: 22 }}
               >
-                <ArmoryIcon /> Armory
+                <ArmoryIcon style={{ marginRight: '0.3em' }} />
+                <Trans id="interface.armory.text">Armory</Trans>
               </a>
               <br />
               {this.props.region !== 'CN' && (

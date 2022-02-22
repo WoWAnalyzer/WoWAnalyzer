@@ -1,7 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
-import { RAPTOR_MONGOOSE_VARIANTS, SURVIVAL_BOMB_TYPES } from '@wowanalyzer/hunter-survival/src/constants';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+
+import {
+  RAPTOR_MONGOOSE_VARIANTS,
+  SURVIVAL_BOMB_TYPES,
+} from '@wowanalyzer/hunter-survival/src/constants';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -13,7 +17,11 @@ class SpellUsable extends CoreSpellUsable {
 
   onCast(event: CastEvent) {
     const spell = event.ability;
-    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID)) {
+    if (
+      this.selectedCombatant.hasLegendaryByBonusID(
+        SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID,
+      )
+    ) {
       if (RAPTOR_MONGOOSE_VARIANTS.includes(spell)) {
         this.lastPotentialTriggerForBombReset = event;
       } else if (spell.guid === SPELLS.WILDFIRE_BOMB.id) {
@@ -24,7 +32,12 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
-    if (SURVIVAL_BOMB_TYPES.includes(spellId) && this.selectedCombatant.hasLegendaryByBonusID(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID)) {
+    if (
+      SURVIVAL_BOMB_TYPES.includes(spellId) &&
+      this.selectedCombatant.hasLegendaryByBonusID(
+        SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID,
+      )
+    ) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
         this.bombResets += 1;
         this.endCooldown(

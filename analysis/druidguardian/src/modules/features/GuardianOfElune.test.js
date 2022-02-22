@@ -1,5 +1,9 @@
-import { damageTaken, buffsApplied, SimpleFight } from 'parser/druid/guardian/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
+import {
+  damageTaken,
+  buffsApplied,
+  SimpleFight,
+} from 'parser/druid/guardian/test-fixtures/SimpleFight';
 
 import GuardianOfElune from './GuardianOfElune';
 

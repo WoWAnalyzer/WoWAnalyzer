@@ -1,17 +1,15 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
+import CoreCooldownThroughputTracker, {
+  BUILT_IN_SUMMARY_TYPES,
+} from 'parser/shared/modules/CooldownThroughputTracker';
 import CooldownOverview from 'parser/ui/CooldownOverview';
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     {
-      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
+      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
 

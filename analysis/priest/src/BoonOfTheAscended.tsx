@@ -1,24 +1,20 @@
-import React from 'react';
-
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-
-import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-
+import SPECS from 'game/SPECS';
+import { SpellIcon } from 'interface';
+import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AtonementDamageSource from '@wowanalyzer/priest-discipline/src/modules/features/AtonementDamageSource';
-import SPECS from 'game/SPECS';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
-import Abilities from 'parser/core/modules/Abilities';
 
 const DAMAGING_SPELL_IDS = [
   SPELLS.ASCENDED_BLAST.id,
@@ -92,43 +88,26 @@ class BoonOfTheAscended extends Analyzer {
   };
 
   get totalDamage() {
-    let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].damageDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.damageDone, 0);
   }
 
   get totalDirectHealing() {
-    let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].healingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.healingDone, 0);
   }
 
   get totalDirectOverHealing() {
-    let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].overHealingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.overHealingDone, 0);
   }
 
   get totalAtonementHealing() {
-    let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].atonmentHealingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce((a, b) => a + b.atonmentHealingDone, 0);
   }
 
   get totalAtonementOverHealing() {
-    let total = 0;
-    for (const spellId in this.ascendedSpellTracker) {
-      total += this.ascendedSpellTracker[spellId].atonementOverHealingDone;
-    }
-    return total;
+    return Object.values(this.ascendedSpellTracker).reduce(
+      (a, b) => a + b.atonementOverHealingDone,
+      0,
+    );
   }
 
   get averageStacks() {
@@ -151,19 +130,22 @@ class BoonOfTheAscended extends Analyzer {
       return;
     }
 
-    const castEfficiency = this.selectedCombatant.spec === SPECS.SHADOW_PRIEST ? {
-      suggestion: true,
-      recommendedEfficiency: 0.9,
-      averageIssueEfficiency: 0.8,
-      majorIssueEfficiency: 0.7,
-    } : {
-      suggestion: true,
-      recommendedEfficiency: 0.8,
-      averageIssueEfficiency: 0.6,
-      majorIssueEfficiency: 0.4,
-    };
+    const castEfficiency =
+      this.selectedCombatant.spec === SPECS.SHADOW_PRIEST
+        ? {
+            suggestion: true,
+            recommendedEfficiency: 0.9,
+            averageIssueEfficiency: 0.8,
+            majorIssueEfficiency: 0.7,
+          }
+        : {
+            suggestion: true,
+            recommendedEfficiency: 0.8,
+            averageIssueEfficiency: 0.6,
+            majorIssueEfficiency: 0.4,
+          };
     (options.abilities as Abilities).add({
-      spell: SPELLS.BOON_OF_THE_ASCENDED,
+      spell: SPELLS.BOON_OF_THE_ASCENDED.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 180,
       enabled: true,
@@ -173,7 +155,7 @@ class BoonOfTheAscended extends Analyzer {
       castEfficiency: castEfficiency,
     });
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_BLAST,
+      spell: SPELLS.ASCENDED_BLAST.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       enabled: true,
       gcd: {
@@ -181,7 +163,7 @@ class BoonOfTheAscended extends Analyzer {
       },
     });
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_NOVA,
+      spell: SPELLS.ASCENDED_NOVA.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       enabled: true,
       gcd: {
@@ -189,7 +171,7 @@ class BoonOfTheAscended extends Analyzer {
       },
     });
     (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_ERUPTION,
+      spell: SPELLS.ASCENDED_ERUPTION.id,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       enabled: true,
       gcd: {
@@ -199,13 +181,38 @@ class BoonOfTheAscended extends Analyzer {
 
     if (this.isDisc) {
       this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
-      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]), this.onAtonmentHeal);
+      this.addEventListener(
+        Events.heal
+          .by(SELECTED_PLAYER)
+          .spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]),
+        this.onAtonmentHeal,
+      );
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onCast);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onBuffRemove);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onNormalHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED),
+      this.onBuffRemove,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.ASCENDED_BLAST_HEAL,
+          SPELLS.ASCENDED_NOVA_HEAL,
+          SPELLS.ASCENDED_ERUPTION_HEAL,
+        ]),
+      this.onNormalHeal,
+    );
   }
 
   onCast() {
@@ -213,7 +220,8 @@ class BoonOfTheAscended extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.ascendedSpellTracker[event.ability.guid].damageDone += event.amount + (event.absorbed || 0);
+    this.ascendedSpellTracker[event.ability.guid].damageDone +=
+      event.amount + (event.absorbed || 0);
     this.ascendedSpellTracker[event.ability.guid].enemyHits += 1;
   }
 
@@ -222,27 +230,35 @@ class BoonOfTheAscended extends Analyzer {
       return;
     }
     const atonenementDamageEvent = this.atonementDamageSource.event;
-    if (!atonenementDamageEvent || !DAMAGING_SPELL_IDS.includes(atonenementDamageEvent.ability.guid)) {
+    if (
+      !atonenementDamageEvent ||
+      !DAMAGING_SPELL_IDS.includes(atonenementDamageEvent.ability.guid)
+    ) {
       return;
     }
 
-    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone += event.amount;
+    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone +=
+      event.amount;
     // TODO: Fix Spirit Shell
     if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT_BUFF.id)) {
-      this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone += event.absorb || 0;
+      this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone +=
+        event.absorb || 0;
     }
 
-    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonementOverHealingDone += (event.overheal || 0);
+    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonementOverHealingDone +=
+      event.overheal || 0;
   }
 
   onNormalHeal(event: HealEvent) {
     this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone += event.amount;
     // TODO: Fix Spirit Shell
     if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT_BUFF.id)) {
-      this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone += event.absorb || 0;
+      this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone +=
+        event.absorb || 0;
     }
 
-    this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].overHealingDone += (event.overheal || 0);
+    this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].overHealingDone +=
+      event.overheal || 0;
     this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].friendlyHits += 1;
   }
 
@@ -256,32 +272,40 @@ class BoonOfTheAscended extends Analyzer {
   }
 
   spellTable() {
-    const rows = [];
-
-    for (const spellId in this.ascendedSpellTracker) {
-      rows.push(
-        <tr key={'bota_' + spellId}>
-          <td><SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} /></td>
+    return Object.entries(this.ascendedSpellTracker).map(([spellId, data]) => (
+      <tr key={'bota_' + spellId}>
+        <td>
+          <SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} />
+        </td>
+        <td>
+          <TooltipElement
+            content={`${this.getOverhealingPercent(
+              data.healingDone,
+              data.overHealingDone,
+            )}% Overhealing`}
+          >
+            {formatNumber(data.healingDone)}
+          </TooltipElement>
+        </td>
+        {this.isDisc && (
           <td>
-            <TooltipElement content={`${this.getOverhealingPercent(this.ascendedSpellTracker[spellId].healingDone, this.ascendedSpellTracker[spellId].overHealingDone)}% Overhealing`}>
-              {formatNumber(this.ascendedSpellTracker[spellId].healingDone)}
+            <TooltipElement
+              content={`${this.getOverhealingPercent(
+                data.atonmentHealingDone,
+                data.atonementOverHealingDone,
+              )}% Overhealing`}
+            >
+              {formatNumber(data.atonmentHealingDone)}
             </TooltipElement>
           </td>
-          {this.isDisc && <td>
-            <TooltipElement content={`${this.getOverhealingPercent(this.ascendedSpellTracker[spellId].atonmentHealingDone, this.ascendedSpellTracker[spellId].atonementOverHealingDone)}% Overhealing`}>
-              {formatNumber(this.ascendedSpellTracker[spellId].atonmentHealingDone)}
-            </TooltipElement>
-          </td>}
-          <td>{formatNumber(this.ascendedSpellTracker[spellId].damageDone)}</td>
-          <td>
-            <span style={{ color: 'green' }}>{this.ascendedSpellTracker[spellId].friendlyHits}</span> |
-            <span style={{ color: 'red' }}> {this.ascendedSpellTracker[spellId].enemyHits}</span>
-          </td>
-        </tr>,
-      );
-    }
-
-    return rows;
+        )}
+        <td>{formatNumber(data.damageDone)}</td>
+        <td>
+          <span style={{ color: 'green' }}>{data.friendlyHits}</span> |
+          <span style={{ color: 'red' }}> {data.enemyHits}</span>
+        </td>
+      </tr>
+    ));
   }
 
   statistic() {
@@ -291,11 +315,12 @@ class BoonOfTheAscended extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Total Casts: {this.castCount}<br />
+            Total Casts: {this.castCount}
+            <br />
             Average Boon Stacks: {this.averageStacks}
           </>
         }
-        dropdown={(
+        dropdown={
           <table className={this.isDisc ? 'table' : 'table table-condensed'}>
             <thead>
               <tr>
@@ -305,21 +330,27 @@ class BoonOfTheAscended extends Analyzer {
                 <th>Damage</th>
 
                 <th>
-                  <TooltipElement content={(<><span style={{ color: 'green' }}>Friendly</span> | <span style={{ color: 'red' }}>Enemy</span></>)}>
+                  <TooltipElement
+                    content={
+                      <>
+                        <span style={{ color: 'green' }}>Friendly</span> |{' '}
+                        <span style={{ color: 'red' }}>Enemy</span>
+                      </>
+                    }
+                  >
                     Targets Hit
                   </TooltipElement>
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {this.spellTable()}
-            </tbody>
+            <tbody>{this.spellTable()}</tbody>
           </table>
-        )}
+        }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED}>
-          <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} /><br />
+        <BoringSpellValueText spellId={SPELLS.BOON_OF_THE_ASCENDED.id}>
+          <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
+          <br />
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

@@ -3,7 +3,7 @@ export default interface Spell {
   name: string;
   icon: string;
   //Death Knights
-  runesCost?: number
+  runesCost?: number;
   runicPowerCost?: number;
   //Demon Hunter
   furyCost?: number;
@@ -25,7 +25,7 @@ export default interface Spell {
   soulShardsCost?: number;
   //Warrior
   rageCost?: number;
-};
+}
 
 export interface LegendarySpell extends Spell {
   bonusID?: number;
@@ -36,5 +36,5 @@ export interface Enchant extends Spell {
 }
 
 export interface SpellList<T extends Spell = Spell> {
-  [key: string]: T
+  [key: string]: T;
 }

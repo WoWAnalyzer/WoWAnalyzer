@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SpellIcon from 'interface/SpellIcon';
 
 interface Props {

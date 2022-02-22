@@ -10,28 +10,28 @@ const covenants = {
   //region Necrolord
   VANQUISHERS_HAMMER: {
     id: 328204,
-    name: 'Vanquisher\'s Hammer',
+    name: "Vanquisher's Hammer",
     icon: 'ability_maldraxxus_paladin',
   },
   //endregion
 
   //region Night Fae
-  BLESSING_OF_SPRING:{
+  BLESSING_OF_SPRING: {
     id: 328282,
     name: 'Blessing of Spring',
     icon: 'ability_ardenweald_paladin_spring',
   },
-  BLESSING_OF_SUMMER:{
+  BLESSING_OF_SUMMER: {
     id: 328620,
     name: 'Blessing of Summer',
     icon: 'ability_ardenweald_paladin_summer',
   },
-  BLESSING_OF_AUTUMN:{
+  BLESSING_OF_AUTUMN: {
     id: 328622,
     name: 'Blessing of Autumn',
     icon: 'ability_ardenweald_paladin_autumn',
   },
-  BLESSING_OF_WINTER:{
+  BLESSING_OF_WINTER: {
     id: 328281,
     name: 'Blessing of Winter',
     icon: 'ability_ardenweald_paladin_winter',
@@ -53,7 +53,12 @@ const covenants = {
     id: 317221,
     name: 'Ashen Hallow',
     icon: 'ability_revendreth_paladin',
-  }
+  },
+  HALLOWED_DISCERNMENT: {
+    id: 340214,
+    name: 'Hallowed Discernment',
+    icon: 'ability_revendreth_paladin',
+  },
   //endregion
 } as const;
 export default covenants;

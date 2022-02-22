@@ -1,10 +1,10 @@
-import React from 'react';
-import { AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+import { AutoSizer } from 'react-virtualized';
 
 import BaseChart, { formatTime } from './BaseChart';
 
-class ManaLevelGraph extends React.PureComponent {
+class ManaLevelGraph extends PureComponent {
   static propTypes = {
     mana: PropTypes.arrayOf(
       PropTypes.shape({

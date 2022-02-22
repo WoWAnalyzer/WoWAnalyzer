@@ -1,3 +1,5 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import {
   AnkhNormalizer,
   AstralShift,
@@ -8,33 +10,31 @@ import {
   StaticCharge,
 } from '@wowanalyzer/shaman';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
 import Abilities from './modules/Abilities';
 // Features
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
-// Enhancement Core
+import Checklist from './modules/checklist/Module';
+import FeralSpirit from './modules/core/FeralSpirit';
+import MaelstromWeapon from './modules/core/MaelstromWeapon';
 import Stormbringer from './modules/core/Stormbringer';
+import WindfuryTotem from './modules/core/WindfuryTotem';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+// Enhancement Core
 // Talents
-import LashingFlames from './modules/talents/LashingFlames';
-import HotHand from './modules/talents/HotHand';
+import CrashingStorm from './modules/talents/CrashingStorm';
+import EarthenSpike from './modules/talents/EarthenSpike';
+import ElementalAssault from './modules/talents/ElementalAssault';
+import FireNova from './modules/talents/FireNova';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Hailstorm from './modules/talents/Hailstorm';
-import NaturesGuardian from './modules/talents/NaturesGuardian';
-import CrashingStorm from './modules/talents/CrashingStorm';
-import Sundering from './modules/talents/Sundering';
-import Stormkeeper from './modules/talents/Stormkeeper';
-import EarthenSpike from './modules/talents/EarthenSpike';
-import Stormflurry from './modules/talents/Stormflurry';
+import HotHand from './modules/talents/HotHand';
 import IceStrike from './modules/talents/IceStrike';
-import FireNova from './modules/talents/FireNova';
-import ElementalAssault from './modules/talents/ElementalAssault';
-import FeralSpirit from './modules/core/FeralSpirit';
-import WindfuryTotem from './modules/core/WindfuryTotem';
-import MaelstromWeapon from './modules/core/MaelstromWeapon';
+import LashingFlames from './modules/talents/LashingFlames';
+import NaturesGuardian from './modules/talents/NaturesGuardian';
+import Stormflurry from './modules/talents/Stormflurry';
+import Stormkeeper from './modules/talents/Stormkeeper';
+import Sundering from './modules/talents/Sundering';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

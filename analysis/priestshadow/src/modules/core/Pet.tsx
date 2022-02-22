@@ -7,7 +7,9 @@ class Pet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this._pets = this.owner.report.friendlyPets.filter((pet: any) => pet.petOwner === this.owner.player.id);
+    this._pets = this.owner.report.friendlyPets.filter(
+      (pet: any) => pet.petOwner === this.owner.player.id,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
 
     if (this._pets !== undefined) {

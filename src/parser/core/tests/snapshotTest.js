@@ -1,10 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { PureComponent, cloneElement } from 'react';
 import renderer from 'react-test-renderer';
 
 import { loadLog, parseLog } from './log-tools';
 
-class ParserContextProvider extends React.PureComponent {
+class ParserContextProvider extends PureComponent {
   static propTypes = {
     parser: PropTypes.object,
     children: PropTypes.node,
@@ -29,18 +29,14 @@ function renderWithParser(output, parser) {
   let sanitizedOutput = output;
   if (Array.isArray(output)) {
     sanitizedOutput = output.map((item, index) =>
-      React.cloneElement(item, {
+      cloneElement(item, {
         key: `statistic-output-${index}`,
       }),
     );
   }
 
   return renderer
-    .create(
-      <ParserContextProvider parser={parser}>
-        {sanitizedOutput}
-      </ParserContextProvider>,
-    )
+    .create(<ParserContextProvider parser={parser}>{sanitizedOutput}</ParserContextProvider>)
     .toJSON();
 }
 
@@ -80,7 +76,8 @@ export default function snapshotTest(
   suppressLog = true,
   suppressWarn = true,
 ) {
-  return () => loadLog(key).then(log => {
+  return () =>
+    loadLog(key).then((log) => {
       const parser = parseLog(parserClass, log, suppressLog, suppressWarn);
       expectSnapshot(parser, moduleClass, propFn);
     });

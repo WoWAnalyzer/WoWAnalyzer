@@ -1,4 +1,2 @@
-const soulbindPowers = {
-
-} as const;
+const soulbindPowers = {} as const;
 export default soulbindPowers;

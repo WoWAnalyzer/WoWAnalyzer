@@ -1,3 +1,5 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import {
   AnkhNormalizer,
   AstralShift,
@@ -10,34 +12,29 @@ import {
   SpiritWolf,
   StaticCharge,
 } from '@wowanalyzer/shaman';
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-import Buffs from './modules/Buffs';
 
 import Abilities from './modules/Abilities';
-
+import Buffs from './modules/Buffs';
+import Checklist from './modules/checklist/Module';
+import LavaSurge from './modules/core/LavaSurge';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CancelledCasts from './modules/features/CancelledCasts';
 import SubOptimalChainLightning from './modules/features/SubOptimalChainLightning';
-
 import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
 import EarthenRage from './modules/talents/EarthenRage';
+import EchoingShock from './modules/talents/EchoingShock';
+import Icefury from './modules/talents/Icefury';
 import LiquidMagmaTotem from './modules/talents/LiquidMagmaTotem';
 import MasterOfTheElements from './modules/talents/MasterOfTheElements';
 import PrimalFireElemental from './modules/talents/PrimalFireElemental';
 import PrimalStormElemental from './modules/talents/PrimalStormElemental';
+import StaticDischarge from './modules/talents/StaticDischarge';
 import StormElemental from './modules/talents/StormElemental';
 import Stormkeeper from './modules/talents/Stormkeeper';
+import SurgeOfPower from './modules/talents/SurgeOfPower';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
-import SurgeOfPower from './modules/talents/SurgeOfPower';
-import Icefury from './modules/talents/Icefury';
-import StaticDischarge from './modules/talents/StaticDischarge';
-import EchoingShock from './modules/talents/EchoingShock';
-
-import LavaSurge from './modules/core/LavaSurge';
-import CancelledCasts from './modules/features/CancelledCasts';
-import Checklist from './modules/checklist/Module';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

@@ -1,6 +1,5 @@
-import React from 'react';
-
 import { Khazak } from 'CONTRIBUTORS';
+import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 
 import CHANGELOG from './CHANGELOG';
@@ -8,6 +7,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Khazak],
+  expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '9.0.5',
   isPartial: false,
@@ -25,8 +25,8 @@ export default {
       <span role="img" aria-label="Muscle">
         💪
       </span>
-      #6318) on Discord. We are still working on full support for Battle For Azeroth. If you want to
-      help, check the Github link in the top right corner.
+      #6318) on Discord. We are still working on full support for Shadowlands. If you want to help,
+      check the Github link in the top right corner.
       <br />
       <br />
       More resources for Unholy:
@@ -36,7 +36,7 @@ export default {
       </a>{' '}
       <br />
       <a
-        href="http://www.wowhead.com/unholy-death-knight-guide"
+        href="https://www.wowhead.com/unholy-death-knight-guide"
         target="_blank"
         rel="noopener noreferrer"
       >

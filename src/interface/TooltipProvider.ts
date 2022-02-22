@@ -1,6 +1,7 @@
-import Wowhead from './TooltipProviderWowhead';
+import Base from 'interface/BaseTooltipProvider';
+
 import Wowdb from './TooltipProviderWowdb';
-import Base from './TooltipProviderBase';
+import Wowhead from './TooltipProviderWowhead';
 
 let TooltipProvider: typeof Base;
 if (process.env.REACT_APP_WOW_DATABASE === 'wowhead') {

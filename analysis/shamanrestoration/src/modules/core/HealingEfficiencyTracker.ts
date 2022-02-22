@@ -1,17 +1,20 @@
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Abilities from 'parser/core/modules/Abilities';
-import CoreHealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import { EarthShield } from '@wowanalyzer/shaman';
 import SPELLS from 'common/SPELLS';
+import CoreHealingEfficiencyTracker, {
+  SpellInfoDetails,
+} from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import Abilities from 'parser/core/modules/Abilities';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
+import { EarthShield } from '@wowanalyzer/shaman';
+
+import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import PrimordialWave from '../shadowlands/spells/PrimordialWave';
+import Resurgence from '../spells/Resurgence';
+import UnleashLife from '../talents/UnleashLife';
 import HealingDone from './HealingDone';
 import RestorationAbilityTracker from './RestorationAbilityTracker';
-import Resurgence from '../spells/Resurgence';
-import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import UnleashLife from '../talents/UnleashLife';
-import PrimordialWave from '../shadowlands/spells/PrimordialWave';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -78,7 +81,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
 
   // Remove Unleash Life's contribution to the affected spells
   getUnleashLifeBuffDetails(spellInfo: SpellInfoDetails, spellId: number) {
-    const unleashLifeContribution = (this.unleashLife.healingBuff[spellId].healing || 0);
+    const unleashLifeContribution = this.unleashLife.healingBuff[spellId].healing || 0;
     spellInfo.healingDone -= unleashLifeContribution;
   }
 
@@ -104,7 +107,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   }
   getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone += this.primordialWave.riptideHealing + this.primordialWave.waveHealing;
-    spellInfo.overhealingDone += this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
+    spellInfo.overhealingDone +=
+      this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
   }
 }
 

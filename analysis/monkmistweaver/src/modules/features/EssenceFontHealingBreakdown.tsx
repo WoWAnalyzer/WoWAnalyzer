@@ -1,23 +1,18 @@
-import React from 'react';
-
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import EssenceFont from '../spells/EssenceFont';
-import EssenceFontMastery from './EssenceFontMastery';
 
 class EssenceFontHealingBreakdown extends Analyzer {
   static dependencies = {
-    essenceFontMastery: EssenceFontMastery,
     essenceFont: EssenceFont,
   };
 
-  protected essenceFontMastery!: EssenceFontMastery;
   protected essenceFont!: EssenceFont;
 
   renderEssenceFontChart() {
@@ -26,40 +21,35 @@ class EssenceFontHealingBreakdown extends Analyzer {
         color: '#00bbcc',
         label: 'Bolt',
         spellId: SPELLS.ESSENCE_FONT.id,
-        value: (this.essenceFont.totalHealing + this.essenceFont.totalAbsorbs),
-        valueTooltip: formatThousands((this.essenceFont.totalHealing + this.essenceFont.totalAbsorbs)),
+        value: this.essenceFont.boltHealing,
+        valueTooltip: formatThousands(this.essenceFont.boltHealing),
       },
       {
         color: '#f37735',
         label: 'Hot',
         spellId: SPELLS.ESSENCE_FONT_BUFF.id,
-        value: this.essenceFont.efHotHeal,
-        valueTooltip: formatThousands(this.essenceFont.efHotHeal),
+        value: this.essenceFont.hotHealing,
+        valueTooltip: formatThousands(this.essenceFont.hotHealing),
       },
       {
         color: '#00b159',
         label: 'Mastery',
         spellId: SPELLS.GUSTS_OF_MISTS.id,
-        value: this.essenceFontMastery.healing,
-        valueTooltip: formatThousands(this.essenceFontMastery.healing),
+        value: this.essenceFont.gomHealing,
+        valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.ESSENCE_FONT.id}>Essence Font</SpellLink> breakdown</label>
+          <label>
+            <SpellLink id={SPELLS.ESSENCE_FONT.id}>Essence Font</SpellLink> breakdown
+          </label>
           {this.renderEssenceFontChart()}
         </div>
       </Statistic>

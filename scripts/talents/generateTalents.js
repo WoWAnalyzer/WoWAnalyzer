@@ -79,13 +79,19 @@ const talents = readJson('./talents.json');
 //Keyed json converted from the csv retrieved from here from https://wow.tools/dbc/?dbc=spellpower
 const spellpower = readJson('./spellpower.json');
 
-const toCamelCase = (str) => str.toLowerCase().replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\s+/g, '');
+const toCamelCase = (str) =>
+  str
+    .toLowerCase()
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr, idx) =>
+      idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase(),
+    )
+    .replace(/\s+/g, '');
 
 function flattenClassTalents(classTalents) {
   const flat = [];
-  classTalents.forEach(talentRow => {
-    talentRow.forEach(talentColumn => {
-      talentColumn.forEach(talent => {
+  classTalents.forEach((talentRow) => {
+    talentRow.forEach((talentColumn) => {
+      talentColumn.forEach((talent) => {
         flat.push(talent);
       });
     });
@@ -95,7 +101,7 @@ function flattenClassTalents(classTalents) {
 
 function findResource(spellPowerObj) {
   let resourceName = 'Mana';
-  Object.keys(resourceTypes).forEach(resourceTypeId => {
+  Object.keys(resourceTypes).forEach((resourceTypeId) => {
     if (Number(resourceTypeId) === spellPowerObj.PowerType) {
       resourceName = resourceTypes[resourceTypeId];
     }
@@ -105,7 +111,7 @@ function findResource(spellPowerObj) {
 
 function findResourceCost(spellPowerObj, classId, resourceName) {
   if (spellPowerObj.PowerCostPct > 0) {
-    return Math.round(spellPowerObj.PowerCostPct / 100 * baseMaxMana[classId]);
+    return Math.round((spellPowerObj.PowerCostPct / 100) * baseMaxMana[classId]);
   } else {
     if (['Runic Power', 'Rage', 'Soul Shards', 'Pain'].includes(resourceName)) {
       return spellPowerObj.ManaCost / 10;
@@ -115,11 +121,17 @@ function findResourceCost(spellPowerObj, classId, resourceName) {
 }
 
 function getTalentKeyName(talent) {
-  return talent.name.replace(/([,':])/g, '').replace(/([ -])/g, '_').toUpperCase() + '_TALENT';
+  return (
+    talent.name
+      .replace(/([,':])/g, '')
+      .replace(/([ -])/g, '_')
+      .toUpperCase() + '_TALENT'
+  );
 }
 
 function getSpecCategory(talent, spellList) {
-  const alreadyInShared = Object.values(spellList[SHARED]).find(spell => spell.id === talent.spell.id) !== undefined;
+  const alreadyInShared =
+    Object.values(spellList[SHARED]).find((spell) => spell.id === talent.spell.id) !== undefined;
   if (alreadyInShared) {
     return SHARED;
   }
@@ -130,8 +142,10 @@ function getSpecCategory(talent, spellList) {
 
   let category = talent.spec.name;
 
-  Object.keys(spellList).forEach(spec => {
-    const keyOfExisting = Object.keys(spellList[spec]).find(key => spellList[spec][key].id === talent.spell.id);
+  Object.keys(spellList).forEach((spec) => {
+    const keyOfExisting = Object.keys(spellList[spec]).find(
+      (key) => spellList[spec][key].id === talent.spell.id,
+    );
     if (keyOfExisting) {
       debugDelete && console.log('Deleting', spec, keyOfExisting);
       delete spellList[spec][keyOfExisting];
@@ -140,25 +154,25 @@ function getSpecCategory(talent, spellList) {
   });
 
   return category;
-
 }
 
 function checkForDuplicates(talentList) {
   const deduplicatedTalentList = talentList;
-  Object.keys(talentList).forEach(spec => {
-    Object.keys(talentList[spec]).forEach(talentKey => {
+  Object.keys(talentList).forEach((spec) => {
+    Object.keys(talentList[spec]).forEach((talentKey) => {
       const talent = talentList[spec][talentKey];
 
-      const hasDuplicate = Object.values(talentList).find(specTalents =>
-        Object.keys(specTalents).find(key => {
+      const hasDuplicate = Object.values(talentList).find((specTalents) =>
+        Object.keys(specTalents).find((key) => {
           const altTalent = specTalents[key];
           return key === talentKey && altTalent.id !== talent.id;
-        }));
+        }),
+      );
 
       if (hasDuplicate) {
-        Object.keys(talentList).forEach(duplicateSpecName => {
+        Object.keys(talentList).forEach((duplicateSpecName) => {
           const duplicateSpecTalents = talentList[duplicateSpecName];
-          Object.keys(duplicateSpecTalents).forEach(key => {
+          Object.keys(duplicateSpecTalents).forEach((key) => {
             if (key === talentKey) {
               debugDeduplicate && console.log('Deduplicating', talentKey, 'in', duplicateSpecName);
               const newKey = `${talentKey}_${duplicateSpecName.replace(' ', '_').toUpperCase()}`;
@@ -181,14 +195,14 @@ function visualizeTalentTree(talentTree, spec) {
     return '';
   }
   let visualizedTree = ``;
-  if(!talentTree[spec]) {
-    console.log(talentTree)
+  if (!talentTree[spec]) {
+    console.log(talentTree);
   }
-  Object.keys(talentTree[spec]).forEach(talentTier => {
+  Object.keys(talentTree[spec]).forEach((talentTier) => {
     visualizedTree += '\n';
     Object.values(talentTree[spec][talentTier]).forEach((talent, idx) => {
-      if(idx === 0) {
-        visualizedTree += `  //Level ${TALENT_TIERS[talentTier]}: `
+      if (idx === 0) {
+        visualizedTree += `  //Level ${TALENT_TIERS[talentTier]}: `;
       }
       visualizedTree += talent.name;
       if (idx < 2) {
@@ -203,10 +217,10 @@ function visualizeTalentTree(talentTree, spec) {
 
 function distributeTalentTreeObj(talentTree) {
   const talentObj = {};
-  const noSpecTalentObj = {}
-  Object.keys(talentTree).forEach(tTier => {
-    Object.keys(talentTree[tTier]).forEach(tColumn => {
-      Object.values(talentTree[tTier][tColumn]).forEach(talent => {
+  const noSpecTalentObj = {};
+  Object.keys(talentTree).forEach((tTier) => {
+    Object.keys(talentTree[tTier]).forEach((tColumn) => {
+      Object.values(talentTree[tTier][tColumn]).forEach((talent) => {
         if (talent.spec) {
           talentObj[talent.spec.name] = talentObj[talent.spec.name] || {};
           talentObj[talent.spec.name][tTier] = talentObj[talent.spec.name][tTier] || {};
@@ -219,24 +233,31 @@ function distributeTalentTreeObj(talentTree) {
       });
     });
   });
-  Object.keys(noSpecTalentObj).forEach(tTier => {
-    Object.keys(noSpecTalentObj[tTier]).forEach(tColumn => {
-      Object.keys(talentObj).forEach(spec => {
-        if(!talentObj[spec][tTier] || !talentObj[spec][tTier][tColumn]) {
+  Object.keys(noSpecTalentObj).forEach((tTier) => {
+    Object.keys(noSpecTalentObj[tTier]).forEach((tColumn) => {
+      Object.keys(talentObj).forEach((spec) => {
+        if (!talentObj[spec][tTier] || !talentObj[spec][tTier][tColumn]) {
           talentObj[spec][tTier] = talentObj[spec][tTier] || {};
           talentObj[spec][tTier][tColumn] = noSpecTalentObj[tTier][tColumn];
         }
-      })
-    })
-  })
+      });
+    });
+  });
   return talentObj;
 }
 
 function printTalents(spellList, spec) {
-  return Object.keys(spellList[spec]).map(talent => `  ${talent}: { ${Object.keys(spellList[spec][talent]).map(attribute => `${attribute}: ${JSON.stringify(spellList[spec][talent][attribute])}`).join(', ')} },`).join('\n');
+  return Object.keys(spellList[spec])
+    .map(
+      (talent) =>
+        `  ${talent}: { ${Object.keys(spellList[spec][talent])
+          .map((attribute) => `${attribute}: ${JSON.stringify(spellList[spec][talent][attribute])}`)
+          .join(', ')} },`,
+    )
+    .join('\n');
 }
 
-Object.keys(talents).forEach(classId => {
+Object.keys(talents).forEach((classId) => {
   const className = classes[classId].toUpperCase();
   let spellList = {
     [SHARED]: {},
@@ -244,7 +265,7 @@ Object.keys(talents).forEach(classId => {
 
   const flattened = flattenClassTalents(talents[classId].talents);
 
-  flattened.forEach(talent => {
+  flattened.forEach((talent) => {
     const spell = talent.spell;
 
     const talentSpellObject = {
@@ -253,7 +274,7 @@ Object.keys(talents).forEach(classId => {
       icon: spell.icon,
     };
 
-    Object.keys(spellpower).forEach(spellPowerID => {
+    Object.keys(spellpower).forEach((spellPowerID) => {
       if (spellpower[spellPowerID].SpellID === spell.id) {
         const resourceName = findResource(spellpower[spellPowerID]);
         if (resourceName) {
@@ -279,9 +300,13 @@ Object.keys(talents).forEach(classId => {
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
-${Object.keys(spellList).map(spec => `\n  //${spec}${visualizeTalentTree(talentTrees, spec)}
-${printTalents(spellList, spec)}`).join('\n')}
+${Object.keys(spellList)
+  .map(
+    (spec) => `\n  //${spec}${visualizeTalentTree(talentTrees, spec)}
+${printTalents(spellList, spec)}`,
+  )
+  .join('\n')}
 };
-export default talents;`);
-
+export default talents;`,
+  );
 });

@@ -1,15 +1,16 @@
 import SPELLS from 'common/SPELLS';
-import STAT from 'parser/shared/modules/features/STAT';
 import HIT_TYPES from 'game/HIT_TYPES';
-
-import BaseHealerStatValues, { HealerStatWeightEvents } from 'parser/shared/modules/features/BaseHealerStatValues';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseHealerStatValues, {
+  HealerStatWeightEvents,
+} from 'parser/shared/modules/features/BaseHealerStatValues';
+import STAT from 'parser/shared/modules/features/STAT';
+import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import HealingValue from 'parser/shared/modules/HealingValue';
 
-import Mastery from '../core/Mastery';
 import { DRUID_HEAL_INFO } from '../../SpellInfo';
+import Mastery from '../core/Mastery';
 
 /*
  * Resto Druid Stat Weights Methodology
@@ -99,7 +100,7 @@ class StatWeights extends BaseHealerStatValues {
   protected combatants!: Combatants;
   protected critEffectBonus!: CritEffectBonus;
   protected statTracker!: StatTracker;
-  protected mastery!: Mastery; 
+  protected mastery!: Mastery;
 
   spellInfo = DRUID_HEAL_INFO;
   qeLive = true;
@@ -119,7 +120,12 @@ class StatWeights extends BaseHealerStatValues {
   }
 
   _criticalStrike(event: HealerStatWeightEvents, healVal: HealingValue) {
-    const bonusFromOneCrit = 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
+    const bonusFromOneCrit =
+      1 /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE],
+      );
 
     if (healVal.overheal) {
       return 0;
@@ -127,11 +133,10 @@ class StatWeights extends BaseHealerStatValues {
     const critMult = this.critEffectBonus.getBonus(event);
 
     let noCritHealing = healVal.effective;
-    if("hitType" in event && event.hitType === HIT_TYPES.CRIT){
+    if ('hitType' in event && event.hitType === HIT_TYPES.CRIT) {
       noCritHealing = healVal.effective / critMult;
     }
     return noCritHealing * bonusFromOneCrit * (critMult - 1);
-
   }
 
   _hasteHpm(event: HealerStatWeightEvents, healVal: HealingValue) {
@@ -139,7 +144,7 @@ class StatWeights extends BaseHealerStatValues {
       return 0;
     }
     //tick is only included if its true
-    if (event.ability.guid === SPELLS.REGROWTH.id && ("tick" in event)) {
+    if (event.ability.guid === SPELLS.REGROWTH.id && 'tick' in event) {
       return 0;
     }
     return super._hasteHpm(event, healVal);
@@ -157,23 +162,21 @@ class StatWeights extends BaseHealerStatValues {
     if (target === null) {
       return 0;
     }
-    const bonusFromOneMastery = 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient);
+    const bonusFromOneMastery =
+      1 /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentMasteryRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
+        this.selectedCombatant.spec?.masteryCoefficient,
+      );
     const hotCount = this.mastery.getHotCount(target);
-    const noMasteryHealing = healVal.effective / (1 + (this.statTracker.currentMasteryPercentage * hotCount));
+    const noMasteryHealing =
+      healVal.effective / (1 + this.statTracker.currentMasteryPercentage * hotCount);
     return noMasteryHealing * bonusFromOneMastery * hotCount;
   }
 
   _prepareResults() {
-    return [
-      STAT.INTELLECT,
-      STAT.CRITICAL_STRIKE,
-      STAT.HASTE_HPCT, // TODO implement
-      STAT.HASTE_HPM,
-      STAT.MASTERY,
-      STAT.VERSATILITY,
-      STAT.VERSATILITY_DR,
-      STAT.LEECH,
-    ];
+    return [];
   }
 
   statistic() {
@@ -181,9 +184,8 @@ class StatWeights extends BaseHealerStatValues {
       this.totalOneHasteHpct = this.totalOneHasteHpm + this.totalOneHasteHpct;
       this.done = true;
     }
-    return super.statistic();
+    return <></>;
   }
-
 }
 
 export default StatWeights;

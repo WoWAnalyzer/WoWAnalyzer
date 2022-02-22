@@ -1,19 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import SPELLS from 'common/SPELLS';
-import { Icon, SpellLink } from 'interface';
+import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
-import { TooltipElement } from 'interface';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
+import { Icon, SpellLink } from 'interface';
+import { TooltipElement } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 
 import './Cooldown.css';
-import { Trans } from '@lingui/macro';
 
-class Cooldown extends React.Component {
+class Cooldown extends Component {
   static propTypes = {
     fightStart: PropTypes.number.isRequired,
     fightEnd: PropTypes.number.isRequired,
@@ -24,6 +22,7 @@ class Cooldown extends React.Component {
         icon: PropTypes.string.isRequired,
       }),
       start: PropTypes.number.isRequired,
+      cdStart: PropTypes.number.isRequired,
       end: PropTypes.number,
       events: PropTypes.arrayOf(
         PropTypes.shape({
@@ -116,12 +115,18 @@ class Cooldown extends React.Component {
     return { damageDone };
   }
 
+  formatRelativeTimestamp(event, cooldown) {
+    const relativeTimestamp = event.timestamp - cooldown.cdStart;
+    return (relativeTimestamp > 0 ? '+' : '') + (relativeTimestamp / 1000).toFixed(3);
+  }
+
   render() {
     const { cooldown, fightStart, fightEnd } = this.props;
 
     let healingStatistics = null;
 
     const start = cooldown.start;
+    const cdStart = cooldown.cdStart;
     const end = cooldown.end || fightEnd;
 
     /* eslint-disable no-script-url */
@@ -129,16 +134,15 @@ class Cooldown extends React.Component {
     return (
       <article>
         <figure>
-          <SpellLink id={cooldown.spell.id} icon={false}>
+          <SpellLink id={cooldown.spell} icon>
             <Icon icon={cooldown.spell.icon} alt={cooldown.spell.name} />
           </SpellLink>
         </figure>
         <div className="row" style={{ width: '100%' }}>
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
-              <SpellLink id={cooldown.spell.id} icon={false} /> (
-              {formatDuration((start - fightStart) / 1000)} -&gt;{' '}
-              {formatDuration((end - fightStart) / 1000)}) &nbsp;
+              <SpellLink id={cooldown.spell} icon={false} /> ({formatDuration(cdStart - fightStart)}{' '}
+              -&gt; {formatDuration(end - fightStart)}) &nbsp;
               <TooltipElement
                 content={
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">
@@ -194,7 +198,7 @@ class Cooldown extends React.Component {
                   .map((event, i) => (
                     <div className="row" key={i}>
                       <div className="col-xs-2 text-right" style={{ padding: 0 }}>
-                        +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                        {this.formatRelativeTimestamp(event, cooldown)}
                       </div>
                       <div className="col-xs-10">
                         <SpellLink
@@ -250,7 +254,7 @@ class Cooldown extends React.Component {
                   return (
                     <div className="row" key={i}>
                       <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                        +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                        {this.formatRelativeTimestamp(event, cooldown)}
                       </div>
                       <div
                         className={`col-xs-4 ${
@@ -326,7 +330,7 @@ class Cooldown extends React.Component {
                           <TooltipElement
                             content={
                               <Trans id="shared.cooldownThroughputTracker.cooldown.healing.tooltip">
-                                This includes all healing that occured while the buff was up, even
+                                This includes all healing that occurred while the buff was up, even
                                 if it was not triggered by spells cast inside the buff duration. Any
                                 delayed healing such as HOTs, Absorbs and Atonements will stop
                                 contributing to the healing done when the cooldown buff expires, so
@@ -357,7 +361,7 @@ class Cooldown extends React.Component {
                           <TooltipElement
                             content={
                               <Trans id="shared.cooldownThroughputTracker.cooldown.overhealing.tooltip">
-                                This includes all healing that occured while the buff was up, even
+                                This includes all healing that occurred while the buff was up, even
                                 if it was not triggered by spells cast inside the buff duration. Any
                                 delayed healing such as HOTs, Absorbs and Atonements will stop
                                 contributing to the healing done when the cooldown buff expires, so
@@ -381,7 +385,7 @@ class Cooldown extends React.Component {
                           <TooltipElement
                             content={
                               <Trans id="shared.cooldownThroughputTracker.cooldown.absorbed.tooltip">
-                                This includes all damage absorbed that occured while the buff was
+                                This includes all damage absorbed that occurred while the buff was
                                 up, even if it was not triggered by spells cast inside the buff
                                 duration.
                               </Trans>
@@ -417,7 +421,7 @@ class Cooldown extends React.Component {
                     }
                     case BUILT_IN_SUMMARY_TYPES.MANA: {
                       let manaUsed = 0;
-                      if (cooldown.spell.id === SPELLS.INNERVATE.id) {
+                      if (cooldown.spell === SPELLS.INNERVATE.id) {
                         manaUsed = cooldown.events
                           .filter((event) => event.type === EventType.Cast)
                           .reduce(

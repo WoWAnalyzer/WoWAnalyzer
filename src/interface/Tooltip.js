@@ -1,10 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { Component } from 'react';
+
 import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.scss';
 
-export default class Tooltip extends React.Component {
+export default class Tooltip extends Component {
   static propTypes = {
     /**
      * REQUIRED: Content of the tooltip
@@ -38,14 +39,7 @@ export default class Tooltip extends React.Component {
   };
 
   render() {
-    const {
-      content,
-      children,
-      className,
-      direction,
-      hoverable,
-      ...others
-    } = this.props;
+    const { content, children, className, direction, hoverable, ...others } = this.props;
     return (
       <ReactTooltip
         className={className}
@@ -60,7 +54,7 @@ export default class Tooltip extends React.Component {
   }
 }
 
-export class TooltipElement extends React.Component {
+export class TooltipElement extends Component {
   static propTypes = {
     /**
      * REQUIRED: Content of the tooltip

@@ -1,5 +1,6 @@
-import { Race } from 'parser/core/Combatant';
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Spec } from 'game/SPECS';
+import { Race } from 'parser/core/Combatant';
 
 export interface PhaseConfig {
   name: string;
@@ -17,7 +18,7 @@ interface EncounterConfig {
   };
   resultsWarning?: string;
   phases?: { [key: string]: PhaseConfig };
-  raceTranslation?: (race: Race, spec: Spec) => Race;
+  raceTranslation?: (race: Race, spec?: Spec) => Race;
   disableDeathSuggestion?: boolean;
   disableDowntimeSuggestion?: boolean;
   disableDowntimeStatistic?: boolean;
@@ -46,12 +47,16 @@ export interface Dungeon {
   headshot?: string;
   icon?: string;
   fight: unknown;
-};
+}
 
 const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,
   CastleNathria: require('./castlenathria').default, //tier 26
+  SanctumOfDomination: require('./sanctumofdomination').default, //tier 27
+  // The Burning Cursage
+  GruulsLair: require('./gruulslair').default, //tier 4
+  MagtheridonsLair: require('./magtheridonslair').default, //tier 4
 };
 export default raids;
 

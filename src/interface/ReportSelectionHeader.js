@@ -1,18 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
-
-import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import AlertWarning from 'interface/AlertWarning';
-import { getReportHistory } from 'interface/selectors/reportHistory';
-import NameSearch, { SearchType } from 'interface/NameSearch';
 import ReportIcon from 'interface/icons/Events';
-import CharacterIcon from 'interface/icons/Person';
 import GuildIcon from 'interface/icons/People';
+import CharacterIcon from 'interface/icons/Person';
+import { ReactComponent as Logo } from 'interface/images/logo.svg';
+import NameSearch, { SearchType } from 'interface/NameSearch';
+import { getReportHistory } from 'interface/selectors/reportHistory';
+import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import ReportSelecter from './ReportSelecter';
 import ReportHistory from './ReportHistory';
+import ReportSelecter from './ReportSelecter';
 
 import './Header.scss';
 
@@ -20,7 +19,7 @@ const STATE_SEARCH_REPORT = 0;
 const STATE_SEARCH_CHAR = 1;
 const STATE_SEARCH_GUILD = 2;
 
-class ReportSelectionHeader extends React.PureComponent {
+class ReportSelectionHeader extends PureComponent {
   static propTypes = {
     reportHistory: PropTypes.array.isRequired,
   };

@@ -10,7 +10,7 @@ const covenants = {
     name: 'Resonating Arrow',
     icon: 'ability_bastion_hunter',
   },
-  RESONATING_ARROW_DAMAGE: {
+  RESONATING_ARROW_DAMAGE_AND_BUFF: {
     id: 308495,
     name: 'Resonating Arrow',
     icon: 'ability_bastion_hunter',
@@ -56,6 +56,11 @@ const covenants = {
     name: 'Wild Mark',
     icon: 'ability_ardenweald_hunter',
   },
+  WILD_SPIRITS_BUFF: {
+    id: 328837,
+    name: 'Wild Spirits',
+    icon: 'ability_ardenweald_hunter',
+  },
   //endregion
 
   //region Venthyr
@@ -66,7 +71,7 @@ const covenants = {
   },
   FLAYERS_MARK: {
     id: 324156,
-    name: 'Flayer\'s Mark',
+    name: "Flayer's Mark",
     icon: 'ability_hunter_assassinate2',
   },
   //endregion

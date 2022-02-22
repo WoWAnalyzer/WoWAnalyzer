@@ -1,10 +1,10 @@
-import { PhaseConfig } from 'game/raids';
-
 import Spell from 'common/SPELLS/Spell';
-
-import React from 'react';
+import { PhaseConfig } from 'game/raids';
+import * as React from 'react';
 
 import EventFilter from './EventFilter';
+import { PetInfo } from './Pet';
+import { PlayerInfo } from './Player';
 
 export enum EventType {
   Heal = 'heal',
@@ -27,7 +27,11 @@ export enum EventType {
   RemoveBuff = 'removebuff',
   RemoveDebuff = 'removedebuff',
   Summon = 'summon',
-  Energize = 'energize',
+  /**
+   * @deprecated Use `EventType.ResourceChange` instead. This enum variant will be removed soon.
+   */
+  Energize = 'resourcechange',
+  ResourceChange = 'resourcechange',
   Interrupt = 'interrupt',
   Death = 'death',
   Resurrect = 'resurrect',
@@ -39,6 +43,7 @@ export enum EventType {
   Event = 'event', // everything
   FightEnd = 'fightend',
   GlobalCooldown = 'globalcooldown',
+  AutoAttackCooldown = 'autoattackcooldown',
   BeginChannel = 'beginchannel',
   EndChannel = 'endchannel',
   CancelChannel = 'cancelchannel',
@@ -59,6 +64,9 @@ export enum EventType {
   Test = 'test',
   SpendResource = 'spendresource',
 
+  // Demon Hunter
+  ConsumeSoulFragments = 'consumesoulfragments',
+
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
@@ -70,9 +78,13 @@ export enum EventType {
   AtonementFaded = 'atonement_faded',
   AtonementRefresh = 'atonement_refresh',
   AtonementRefreshImproper = 'atonement_refresh_improper',
+  SpiritShell = 'spirit_shell',
 
   //Shaman
   FeedHeal = 'feed_heal',
+
+  // Warlock
+  FullShardGained = 'fullshardgained',
 
   // Phases:
   PhaseStart = 'phasestart',
@@ -83,56 +95,85 @@ export enum EventType {
   FilterBuffInfo = 'filterbuffinfo',
 }
 
-type MappedEventTypes = {
-  [EventType.Event]: Event<EventType.Event>,
-  [EventType.Heal]: HealEvent,
-  [EventType.Absorbed]: AbsorbedEvent,
-  [EventType.Damage]: DamageEvent,
-  [EventType.BeginCast]: BeginCastEvent,
-  [EventType.Cast]: CastEvent,
-  [EventType.ApplyBuff]: ApplyBuffEvent,
-  [EventType.ApplyDebuff]: ApplyDebuffEvent,
-  [EventType.ApplyBuffStack]: ApplyBuffStackEvent,
-  [EventType.ApplyDebuffStack]: ApplyDebuffStackEvent,
-  [EventType.RemoveBuffStack]: RemoveBuffStackEvent,
-  [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent,
-  [EventType.ChangeBuffStack]: ChangeBuffStackEvent,
-  [EventType.ChangeDebuffStack]: ChangeDebuffStackEvent,
-  [EventType.RefreshBuff]: RefreshBuffEvent,
-  [EventType.RefreshDebuff]: RefreshDebuffEvent,
-  [EventType.RemoveBuff]: RemoveBuffEvent,
-  [EventType.RemoveDebuff]: RemoveDebuffEvent,
-  [EventType.Summon]: SummonEvent,
-  [EventType.Energize]: EnergizeEvent,
-  [EventType.Death]: DeathEvent,
-  [EventType.CombatantInfo]: CombatantInfoEvent,
-  [EventType.Dispel]: DispelEvent,
-  [EventType.AuraBroken]: AuraBrokenEvent,
-
-  // Fabricated:
-  [EventType.FightEnd]: FightEndEvent,
-  [EventType.GlobalCooldown]: GlobalCooldownEvent,
-  [EventType.BeginChannel]: BeginChannelEvent,
-  [EventType.EndChannel]: EndChannelEvent,
-  [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent,
-  [EventType.ChangeStats]: ChangeStatsEvent,
-  [EventType.SpendResource]: SpendResourceEvent,
-  [EventType.FeedHeal]: FeedHealEvent,
-  // Phases:
-  [EventType.PhaseStart]: PhaseStartEvent,
-  [EventType.PhaseEnd]: PhaseEndEvent,
-
-  // Time Filtering:
-  [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent,
-  [EventType.FilterBuffInfo]: FilterBuffInfoEvent,
+export interface AddStaggerEvent extends Event<EventType.AddStagger> {
+  amount: number;
+  overheal: number;
+  newPooledDamage: number;
+  extraAbility?: Ability;
+  trigger?: AbsorbedEvent;
 }
 
-export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> = MappedEventTypes[ET];
+export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
+  amount: number;
+  overheal: number;
+  newPooledDamage: number;
+  trigger?: CastEvent | DeathEvent;
+}
+
+type MappedEventTypes = {
+  [EventType.Event]: Event<EventType.Event>;
+  [EventType.Heal]: HealEvent;
+  [EventType.Absorbed]: AbsorbedEvent;
+  [EventType.Damage]: DamageEvent;
+  [EventType.BeginCast]: BeginCastEvent;
+  [EventType.Cast]: CastEvent;
+  [EventType.ApplyBuff]: ApplyBuffEvent;
+  [EventType.ApplyDebuff]: ApplyDebuffEvent;
+  [EventType.ApplyBuffStack]: ApplyBuffStackEvent;
+  [EventType.ApplyDebuffStack]: ApplyDebuffStackEvent;
+  [EventType.RemoveBuffStack]: RemoveBuffStackEvent;
+  [EventType.RemoveDebuffStack]: RemoveDebuffStackEvent;
+  [EventType.ChangeBuffStack]: ChangeBuffStackEvent;
+  [EventType.ChangeDebuffStack]: ChangeDebuffStackEvent;
+  [EventType.RefreshBuff]: RefreshBuffEvent;
+  [EventType.RefreshDebuff]: RefreshDebuffEvent;
+  [EventType.RemoveBuff]: RemoveBuffEvent;
+  [EventType.RemoveDebuff]: RemoveDebuffEvent;
+  [EventType.Summon]: SummonEvent;
+  [EventType.ResourceChange]: ResourceChangeEvent;
+  [EventType.Drain]: DrainEvent;
+  [EventType.Death]: DeathEvent;
+  [EventType.CombatantInfo]: CombatantInfoEvent;
+  [EventType.Dispel]: DispelEvent;
+  [EventType.AuraBroken]: AuraBrokenEvent;
+
+  // Fabricated:
+  [EventType.FightEnd]: FightEndEvent;
+  [EventType.GlobalCooldown]: GlobalCooldownEvent;
+  [EventType.AutoAttackCooldown]: AutoAttackCooldownEvent;
+  [EventType.BeginChannel]: BeginChannelEvent;
+  [EventType.EndChannel]: EndChannelEvent;
+  [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
+  [EventType.ChangeStats]: ChangeStatsEvent;
+  [EventType.SpendResource]: SpendResourceEvent;
+  [EventType.FeedHeal]: FeedHealEvent;
+  [EventType.AddStagger]: AddStaggerEvent;
+  [EventType.RemoveStagger]: RemoveStaggerEvent;
+  // Phases:
+  [EventType.PhaseStart]: PhaseStartEvent;
+  [EventType.PhaseEnd]: PhaseEndEvent;
+
+  // Time Filtering:
+  [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent;
+  [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
+};
+
+export type AnyEvent<
+  ET extends keyof MappedEventTypes = keyof MappedEventTypes
+> = MappedEventTypes[ET];
 
 export interface Ability {
+  /** The ability's name */
   name: string;
+  /**
+   * The ability's ID - this uniquely identifies the ability,
+   * as there are sometimes multiple different abilities with the same name,
+   * but they'll have different guids
+   */
   guid: number;
+  /** The ability's spell school. See {@link MAGIC_SCHOOLS}. */
   type: number;
+  /** The resource name for the ability's icon */
   abilityIcon: string;
 }
 
@@ -145,7 +186,7 @@ export interface ClassResources {
 
 // TODO: Find a good place for this
 export enum Class {
-  DemonHunter = 'DemonHunter',
+  DemonHunter = 'Demon Hunter',
   DeathKnight = 'Death Knight',
   Druid = 'Druid',
   Hunter = 'Hunter',
@@ -160,8 +201,15 @@ export enum Class {
 }
 
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
-export type SourcedEvent<T extends string> = Event<T> & { sourceID: number, sourceIsFriendly: boolean };
-export type TargettedEvent<T extends string> = Event<T> & { targetID: number, targetIsFriendly: boolean };
+export type SourcedEvent<T extends string> = Event<T> & {
+  sourceID: number;
+  sourceIsFriendly: boolean;
+};
+export type TargettedEvent<T extends string> = Event<T> & {
+  targetID: number;
+  targetInstance?: number;
+  targetIsFriendly: boolean;
+};
 
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
@@ -175,16 +223,55 @@ export function HasTarget<T extends EventType>(event: Event<T>): event is Target
   return (event as TargettedEvent<T>).targetID !== undefined;
 }
 
-export type MappedEvent<T extends EventType> =
-  T extends keyof MappedEventTypes ? MappedEventTypes[T] : Event<T>;
+export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
+  return event._linkedEvents === undefined
+    ? []
+    : event._linkedEvents.filter((le) => le.relation === relation).map((le) => le.event);
+}
+
+export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
+  return (
+    event._linkedEvents !== undefined &&
+    event._linkedEvents.find((le) => le.relation === relation) !== undefined
+  );
+}
+
+export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent: AnyEvent): void {
+  if (event._linkedEvents === undefined) {
+    event._linkedEvents = [];
+  }
+  event._linkedEvents.push({ relation, event: relatedEvent });
+  event.__modified = true;
+}
+
+export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
+  ? MappedEventTypes[T]
+  : Event<T>;
 
 // TODO Eventually convert this back from string to EventType (once the edge cases of raw string filters are removed)
 export interface Event<T extends string> {
+  /** Event type string */
   type: T;
+  /** Timestamp in milliseconds */
   timestamp: number;
+  /** True iff the event happened before the pull. Added by WoWA */
   prepull?: boolean;
+  /** Other events associated with this event. Added by WoWA normalizers. Meaning is context sensitive */
+  _linkedEvents?: LinkedEvent[];
+  /** True iff the event was created by WoWA */
   __fabricated?: boolean;
+  /** True iff the event's content was modified by WoWA */
   __modified?: boolean;
+  /** True iff a WoWA normalizer reordered this event */
+  __reordered?: boolean;
+}
+
+// TODO way to specify specific expected event type?
+export interface LinkedEvent {
+  /** A string specifying the relationship of the linked event. Will be used as a key during lookup */
+  relation: string;
+  /** The linked event */
+  event: AnyEvent;
 }
 
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
@@ -208,6 +295,19 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   ability: Ability;
   sourceID: number;
   isCancelled: boolean;
+  targetID?: number;
+  targetInstance?: number;
+  sourceIsFriendly: boolean;
+  targetIsFriendly: boolean;
+  classResources?: Array<ClassResources & { cost: number }>;
+  // Added by any module, used in the timeline
+  meta?: {
+    isInefficientCast?: boolean;
+    inefficientCastReason?: React.ReactNode;
+    isEnhancedCast?: boolean;
+    enhancedCastReason?: React.ReactNode;
+  };
+  trigger?: AnyEvent;
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
@@ -216,9 +316,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
-  trigger?: {
-    timestamp: number;
-  };
+  trigger?: AnyEvent;
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
@@ -229,6 +327,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   channel?: {
     type: EventType.BeginChannel;
     timestamp: number;
+    duration: number;
     ability: Ability;
     sourceID: number;
     isCancelled: boolean;
@@ -275,7 +374,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   };
 }
 
-export type CastEvent = BaseCastEvent<EventType.Cast>
+export type CastEvent = BaseCastEvent<EventType.Cast>;
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -286,42 +385,62 @@ export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo>
 }
 
 export interface HealEvent extends Event<EventType.Heal> {
+  /** Unique Identifier for the source. Nobody else will have this ID */
   sourceID: number;
+  /** If the person who is doing the healing friendly */
   sourceIsFriendly: boolean;
+  /** Unique Identifier for the target. Nobody else will have this ID */
   targetID: number;
   targetInstance?: number;
+  /** Is the target you're healing a friendly */
   targetIsFriendly: boolean;
+  /** The ability that is healing the target */
   ability: Ability;
+  /** This describes if the spell Hit/Missed/Crit/etc. Look at {@link HIT_TYPES} all types of hits */
   hitType: number;
+  /** The effective healing the event did */
   amount: number;
+  /** The overheal the event did */
   overheal?: number;
+  /** If the event is a tick of a HoT or HoT like object */
   tick?: boolean;
   resourceActor: number;
+  /** A list of resource that changed when this event happened */
   classResources: ClassResources[];
+  /** Hit points of the target AFTER the heal is done if you want hp before you need to do (hitpoints - amount) */
   hitPoints: number;
+  /** The max hitpoints of the target */
   maxHitPoints: number;
+  /** How much attack power the target has */
   attackPower: number;
+  /** How much Spell power the target has */
   spellPower: number;
+  /** How much Armor the target has */
   armor: number;
-  /** The current total absorb shields on the target I think? */
+  /** The current total absorb shields on the target */
   absorb: number;
   /** The amount of healing absorbed by a healing taken-debuff. */
   absorbed?: number;
+  /** The x location of the player */
   x: number;
+  /** The y location of the player */
   y: number;
+  /** The direction the plaeyr is facing */
   facing: number;
+  /** The map they are in. This is a unique ID for every zone in wow */
   mapID: number;
+  /** The Item level of the target */
   itemLevel: number;
 }
 
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
-  type: EventType.BeaconTransfer,
-  originalHeal: HealEvent,
+  type: EventType.BeaconTransfer;
+  originalHeal: HealEvent;
 }
 
 export interface FeedHealEvent extends Omit<HealEvent, 'type'> {
-  type: EventType.FeedHeal,
-  feed: number,
+  type: EventType.FeedHeal;
+  feed: number;
 }
 
 export interface AbsorbedEvent extends Event<EventType.Absorbed> {
@@ -466,17 +585,20 @@ export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
 }
 
-export interface EnergizeEvent extends Event<EventType.Energize> {
+export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
   ability: Ability;
   sourceID: number;
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
-  resourceChange: number;
+  /** The id for the resource. See the RESOURCE_TYPES file for all available resource types. */
   resourceChangeType: number;
-  otherResourceChange: number;
+  /** The amount of resource gained. This includes any wasted gain, see `waste`. */
+  resourceChange: number;
+  /** The amount of wasted resource gain (overcapped). */
   waste: number;
-  resourceActor: number;
+  otherResourceChange: number; // defaults to 0?
+  resourceActor: number; // 1 = source, 2 = target? used for classResources/hitpoints/etc, not resourceChange fields I think
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;
@@ -545,8 +667,8 @@ export interface AuraBrokenEvent extends Event<EventType.AuraBroken> {
 }
 
 export interface ResurrectEvent extends Event<EventType.Resurrect> {
-  ability?: Ability,
-  sourceID: number,
+  ability?: Ability;
+  sourceID: number;
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
@@ -555,14 +677,7 @@ export interface ResurrectEvent extends Event<EventType.Resurrect> {
 export interface SummonEvent extends Event<EventType.Summon> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  target: {
-    name: string;
-    id: number;
-    guid: number;
-    type: string;
-    petOwner: number;
-    icon: string;
-  };
+  target: PetInfo;
   targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;
@@ -580,6 +695,18 @@ export interface GlobalCooldownEvent extends Event<EventType.GlobalCooldown> {
   __fabricated: true;
 }
 
+export interface AutoAttackCooldownEvent extends Event<EventType.AutoAttackCooldown> {
+  ability: Ability;
+  duration: number;
+  haste: number;
+  attackSpeed: number;
+  sourceID: number;
+  targetID: number;
+  timestamp: number;
+  trigger: CastEvent | BeginChannelEvent;
+  __fabricated: true;
+}
+
 export interface FightEndEvent extends Event<EventType.FightEnd> {
   timestamp: number;
   __fabricated: true;
@@ -587,15 +714,20 @@ export interface FightEndEvent extends Event<EventType.FightEnd> {
 
 export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsable> {
   ability: Omit<Ability, 'type'>;
-  name?: string
-  trigger: EventType.BeginCooldown | EventType.EndCooldown | EventType.RefreshCooldown | EventType.AddCooldownCharge | EventType.RestoreCharge;
-  isOnCooldown: boolean
-  isAvailable: boolean
-  chargesAvailable: number
-  maxCharges: number
-  timePassed?: number
-  sourceID: number
-  targetID: number
+  name?: string;
+  trigger:
+    | EventType.BeginCooldown
+    | EventType.EndCooldown
+    | EventType.RefreshCooldown
+    | EventType.AddCooldownCharge
+    | EventType.RestoreCharge;
+  isOnCooldown: boolean;
+  isAvailable: boolean;
+  chargesAvailable: number;
+  maxCharges: number;
+  timePassed?: number;
+  sourceID: number;
+  targetID: number;
   targetIsFriendly: boolean;
   start: number;
   end?: number;
@@ -609,18 +741,18 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
 }
 
 export interface Stats {
-  agility: number
-  armor: number
-  avoidance: number
-  crit: number
-  haste: number
-  intellect: number
-  leech: number
-  mastery: number
-  speed: number
-  stamina: number
-  strength: number
-  versatility: number
+  agility: number;
+  armor: number;
+  avoidance: number;
+  crit: number;
+  haste: number;
+  intellect: number;
+  leech: number;
+  mastery: number;
+  speed: number;
+  stamina: number;
+  strength: number;
+  versatility: number;
 }
 
 export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
@@ -663,11 +795,11 @@ export interface SpendResourceEvent extends Event<EventType.SpendResource> {
   __fabricated: true;
 }
 
-export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>
+export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>;
 
-export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>
+export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
 
-export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>
+export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>;
 
 export interface Item {
   id: number;
@@ -710,21 +842,23 @@ export interface Soulbind {
 }
 
 export interface SoulbindTrait {
-  traitID: number,
-  rank: number,
-  spellID: number,
-  icon: string,
-}
-
-export interface Conduit {
   traitID: number;
   rank: number;
   spellID: number;
   icon: string;
 }
 
+export interface Conduit {
+  traitID: number;
+  rank: number;
+  itemLevel?: number;
+  spellID: number;
+  icon: string;
+}
+
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
-  expansion: string;
+  player: PlayerInfo;
+  expansion: 'tbc' | 'shadowlands' | string;
   pin: string;
   sourceID: number;
   gear: Item[];
@@ -752,23 +886,33 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   versatilityDamageDone: number;
   versatilityHealingDone: number;
   versatilityDamageReduction: number;
-  talents: [
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-    Spell,
-  ];
+  talents: [Spell, Spell, Spell, Spell, Spell, Spell, Spell];
   pvpTalents: Spell[];
-  covenantID: number,
-  soulbindID: number,
-  artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
+  covenantID: number;
+  soulbindID: number;
+  /**
+   * Represents expansion specific traits
+   * Legion: Artifact Traits
+   * BFA: Azerite
+   * Shadowlands: Soulbinds
+   */
+  customPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  /**
+   * Represents expansion specific traits
+   * BFA: Essences
+   * Shadowlands: Conduits
+   */
+  secondaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  /**
+   * Represents expansion specific traits
+   * Shadowlands: Anima Powers
+   */
+  tertiaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  /** Filled from customPowerSet for Shadowlands logs */
   soulbindTraits?: SoulbindTrait[];
-  heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
+  /** Filled from secondaryCustomPowerSet for Shadowlands logs */
   conduits?: Conduit[];
-  error?: any, //TODO: Verify, is this a bool? string?
+  error?: any; //TODO: Verify, is this a bool? string?
 }
 
 const Events = {
@@ -960,8 +1104,8 @@ const Events = {
   get summon() {
     return new EventFilter(EventType.Summon);
   },
-  get energize() {
-    return new EventFilter(EventType.Energize);
+  get resourcechange() {
+    return new EventFilter(EventType.ResourceChange);
   },
   get drain() {
     return new EventFilter(EventType.Drain);

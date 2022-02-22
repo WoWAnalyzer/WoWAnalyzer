@@ -1,8 +1,4 @@
-import React, { ReactNode } from 'react';
-
 import { captureException } from 'common/errorLogger';
-import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
-import Fight from 'parser/core/Fight';
 import {
   EventType,
   PhaseEvent,
@@ -18,13 +14,15 @@ import {
   FilterCooldownInfoEvent,
   AnyEvent,
 } from 'parser/core/Events';
+import Fight, { WCLFight } from 'parser/core/Fight';
+import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
+import { PureComponent, ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';
 
-const TIME_AVAILABLE = console.time && console.timeEnd;
-const bench = (id: string) => TIME_AVAILABLE && console.time(id);
-const benchEnd = (id: string) => TIME_AVAILABLE && console.timeEnd(id);
+const bench = (id: string) => console.time(id);
+const benchEnd = (id: string) => console.timeEnd(id);
 
 //returns whether e2 follows e and the events are associated
 const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
@@ -34,13 +32,13 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   e2.targetID === e.targetID;
 
 interface Props {
-  fight: Fight;
+  fight: WCLFight;
   filter: Filter;
   phase: string;
   phaseinstance: number;
   bossPhaseEvents: PhaseEvent[];
   events: AnyEvent[];
-  children: (isLoading: boolean, events?: AnyEvent[], fight?: unknown) => ReactNode;
+  children: (isLoading: boolean, events?: AnyEvent[], fight?: Fight) => ReactNode;
 }
 
 interface State {
@@ -49,12 +47,12 @@ interface State {
   fight?: Fight;
 }
 
-interface Filter {
+export interface Filter {
   start: number;
   end: number;
 }
 
-class TimeEventFilter extends React.PureComponent<Props, State> {
+class TimeEventFilter extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -120,18 +118,14 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
       const eventFilter = this.makeEvents();
       benchEnd('time filter');
       this.setState({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         events: eventFilter.events,
         fight: {
           ...this.props.fight,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           start_time: eventFilter.start,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           end_time: eventFilter.end,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
-          // eslint-disable-next-line @typescript-eslint/camelcase
           original_end_time: this.props.fight.end_time,
           filtered:
             eventFilter.start !== this.props.fight.start_time ||
@@ -144,8 +138,8 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
         isLoading: false,
       });
     } catch (err) {
-      captureException(err);
-      throw new EventsParseError(err);
+      captureException(err as Error);
+      throw new EventsParseError(err as Error);
     }
   }
 

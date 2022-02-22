@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import CastleNathria from './images/backgrounds/CastleNathria.jpg';
 
 export default {

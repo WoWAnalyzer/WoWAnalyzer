@@ -1,10 +1,9 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
 

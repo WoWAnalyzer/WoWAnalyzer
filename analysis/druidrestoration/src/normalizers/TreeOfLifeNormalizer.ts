@@ -1,7 +1,6 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MAX_DELAY = 200;
 
@@ -18,23 +17,32 @@ const MAX_DELAY = 200;
  * This Normalizer deletes all the form reassumption events. Form can still be tracked using the INCARNATION_TREE_OF_LIFE_TALENT buff.
  */
 class TreeOfLifeNormalizer extends EventsNormalizer {
-
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === EventType.Cast && event.ability.guid === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
+      if (
+        event.type === EventType.Cast &&
+        event.ability.guid === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id
+      ) {
         const castTimestamp = event.timestamp;
 
         // Look ahead through the events to see if there is an INCARNATION_TOL_ALLOWED application within a brief buffer period
-        for (let nextEventIndex = eventIndex; nextEventIndex < events.length-1; nextEventIndex += 1) {
+        for (
+          let nextEventIndex = eventIndex;
+          nextEventIndex < events.length - 1;
+          nextEventIndex += 1
+        ) {
           const nextEvent = events[nextEventIndex];
-          if ((nextEvent.timestamp - castTimestamp) > MAX_DELAY) {
+          if (nextEvent.timestamp - castTimestamp > MAX_DELAY) {
             // No INCARNATION_TOL_ALLOWED application found within buffer, meaining this is a form reassumption: delete the event
             fixedEvents.pop();
             break;
-          } else if (nextEvent.type === EventType.ApplyBuff && nextEvent.ability.guid === SPELLS.INCARNATION_TOL_ALLOWED.id) {
+          } else if (
+            nextEvent.type === EventType.ApplyBuff &&
+            nextEvent.ability.guid === SPELLS.INCARNATION_TOL_ALLOWED.id
+          ) {
             // INCARNATION_TOL_ALLOWED application found, this cast event stays
             break;
           }
@@ -44,6 +52,5 @@ class TreeOfLifeNormalizer extends EventsNormalizer {
 
     return fixedEvents;
   }
-
 }
 export default TreeOfLifeNormalizer;

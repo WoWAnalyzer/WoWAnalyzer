@@ -1,21 +1,16 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import Events, { EnergizeEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import { SpellLink } from 'interface';
-
-import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-
-import { t } from '@lingui/macro';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -57,7 +52,7 @@ class DrainSoul extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
     this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN),
       this.onDrainSoulEnergize,
     );
     this.addEventListener(
@@ -67,7 +62,7 @@ class DrainSoul extends Analyzer {
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onDrainSoulEnergize(event: EnergizeEvent) {
+  onDrainSoulEnergize(event: ResourceChangeEvent) {
     this.mobsSniped += 1;
     if (this._lastEnergize !== event.timestamp) {
       this._lastEnergize = event.timestamp;
@@ -137,7 +132,7 @@ class DrainSoul extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <BoringSpellValueText spell={SPELLS.DRAIN_SOUL_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.DRAIN_SOUL_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

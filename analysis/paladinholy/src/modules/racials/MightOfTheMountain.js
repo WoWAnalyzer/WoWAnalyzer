@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import Events from 'parser/core/Events';
 import BaseMightOfTheMountain, {
   CRIT_EFFECT,
 } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
-
-import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
 
@@ -13,7 +12,7 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
   }

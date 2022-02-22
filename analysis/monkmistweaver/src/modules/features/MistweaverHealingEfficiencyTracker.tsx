@@ -1,20 +1,22 @@
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import HealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import SPELLS from 'common/SPELLS';
+import HealingEfficiencyTracker, {
+  SpellInfoDetails,
+} from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import Abilities from 'parser/core/modules/Abilities';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import EssenceFont from '../spells/EssenceFont';
+import FaelineStompHealing from '../shadowlands/covenant/FaelineStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
-import SoothingMist from '../spells/SoothingMist';
+import EssenceFont from '../spells/EssenceFont';
+import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
+import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
 import RefreshingJadeWind from '../talents/RefreshingJadeWind';
-import ExpelHarm from '../spells/ExpelHarm';
-import EssenceFontMastery from './EssenceFontMastery';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -27,13 +29,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // Custom dependencies
     abilities: Abilities,
     essenceFont: EssenceFont,
-    essenceFontMastery: EssenceFontMastery,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
     refreshingJadeWind: RefreshingJadeWind,
     expelHarm: ExpelHarm,
+    faelineStompHealing: FaelineStompHealing,
   };
 
   protected manaTracker!: ManaTracker;
@@ -43,18 +45,19 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected castEfficiency!: CastEfficiency;
   protected abilities!: Abilities;
   protected essenceFont!: EssenceFont;
-  protected essenceFontMastery!: EssenceFontMastery;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected expelHarm!: ExpelHarm;
+  protected faelineStompHealing!: FaelineStompHealing;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (spellId === SPELLS.ESSENCE_FONT.id) {
       spellInfo = this.getEssenceFontDetails(spellInfo);
-    } else if (spellId === SPELLS.ENVELOPING_MIST.id) { //maybe consider adding tft buffed version's spell id too
+    } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+      //maybe consider adding tft buffed version's spell id too
       spellInfo = this.getEnvelopingMistsDetails(spellInfo);
     } else if (spellId === SPELLS.SOOTHING_MIST.id) {
       spellInfo = this.getSoothingMistDetails(spellInfo);
@@ -72,6 +75,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
+    } else if (spellId === SPELLS.FAELINE_STOMP_CAST.id) {
+      spellInfo = this.getFLSDetails(spellInfo);
     }
 
     return spellInfo;
@@ -85,7 +90,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEnvelopingMistsDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = spellInfo.healingDone + this.envelopingMists.gustsHealing + this.envelopingMists.healingIncrease;
+    spellInfo.healingDone =
+      spellInfo.healingDone +
+      this.envelopingMists.gustsHealing +
+      this.envelopingMists.healingIncrease;
     // Enveloping breath part
     spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
     spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
@@ -93,15 +101,18 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.essenceFont.totalHealing + this.essenceFontMastery.healing + this.essenceFont.totalAbsorbs;
+    spellInfo.healingDone = this.essenceFont.totalHealing;
     spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
-    spellInfo.healingHits = this.essenceFont.targetsEF;
     return spellInfo;
   }
 
   getRenewingMistDetails(spellInfo: SpellInfoDetails) {
     // Vivify splashes due to ReM should be attributed to ReM's value, because without casting ReM, you wouldn't get the splash.
-    spellInfo.healingDone = this.renewingMist.totalHealing + this.vivify.remVivifyHealing + this.renewingMist.gustsHealing + this.renewingMist.totalAbsorbs;
+    spellInfo.healingDone =
+      this.renewingMist.totalHealing +
+      this.vivify.cleaveHealing +
+      this.renewingMist.gustsHealing +
+      this.renewingMist.totalAbsorbs;
     spellInfo.overhealingDone = this.renewingMist.totalOverhealing;
     spellInfo.healingHits = this.renewingMist.healingHits;
     return spellInfo;
@@ -109,7 +120,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getVivifyDetails(spellInfo: SpellInfoDetails) {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
-    spellInfo.healingDone = spellInfo.healingDone + this.vivify.gustsHealing - this.vivify.remVivifyHealing;
+    spellInfo.healingDone = this.vivify.mainTargetHealing + this.vivify.gomHealing;
     return spellInfo;
   }
 
@@ -140,11 +151,24 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getExpelHarmDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = spellInfo.healingDone + this.expelHarm.gustsHealing + this.expelHarm.selfHealing + this.expelHarm.targetHealing;
-    spellInfo.overhealingDone = spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;
+    spellInfo.healingDone =
+      spellInfo.healingDone +
+      this.expelHarm.gustsHealing +
+      this.expelHarm.selfHealing +
+      this.expelHarm.targetHealing;
+    spellInfo.overhealingDone =
+      spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;
     return spellInfo;
   }
 
+  getFLSDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone =
+      this.faelineStompHealing.flsHealing + this.faelineStompHealing.efHealing;
+    spellInfo.overhealingDone =
+      this.faelineStompHealing.flsOverhealing + this.faelineStompHealing.efOverhealing;
+    spellInfo.manaSpent = this.faelineStompHealing.flsCasts * 2000;
+    return spellInfo;
+  }
 }
 
 export default MistweaverHealingEfficiencyTracker;

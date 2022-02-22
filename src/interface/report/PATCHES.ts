@@ -5,7 +5,7 @@
   Timestamps are for the NA Region to match WCL
 */
 
-interface Patch {
+export interface Patch {
   name: string;
   timestamp: number;
   urlPrefix: string;

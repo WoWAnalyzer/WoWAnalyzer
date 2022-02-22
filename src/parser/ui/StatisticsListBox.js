@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { TooltipElement } from 'interface';
+import PropTypes from 'prop-types';
 
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';

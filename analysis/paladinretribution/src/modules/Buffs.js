@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreBuffs from 'parser/core/modules/Buffs';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {
@@ -35,7 +35,12 @@ class Buffs extends CoreBuffs {
       },
       // Utility
       {
-        spellId: [SPELLS.DIVINE_STEED_BUFF.id, SPELLS.DIVINE_STEED_BUFF_ALT.id, SPELLS.DIVINE_STEED_BUFF_ALT_2.id, SPELLS.DIVINE_STEED_BUFF_ALT_3.id],
+        spellId: [
+          SPELLS.DIVINE_STEED_BUFF.id,
+          SPELLS.DIVINE_STEED_BUFF_ALT.id,
+          SPELLS.DIVINE_STEED_BUFF_ALT_2.id,
+          SPELLS.DIVINE_STEED_BUFF_ALT_3.id,
+        ],
         triggeredBySpellId: SPELLS.DIVINE_STEED.id,
       },
       {
@@ -55,7 +60,7 @@ class Buffs extends CoreBuffs {
         spellId: SPELLS.BLESSING_OF_PROTECTION.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

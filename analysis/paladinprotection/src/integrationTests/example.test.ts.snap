@@ -12,13 +12,15 @@ Array [
         icon={true}
         id={20271}
       />
-       or 
+       or
+       
       <ForwardRef
         icon={true}
         id={31935}
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.protection.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"27.52"}}
        (
@@ -36,6 +38,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -61,7 +64,7 @@ exports[`Protection Paladin integration test: example log BlessedHammerDamageRed
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=204019"
+            href="https://wowhead.com/spell=204019"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -212,7 +215,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=26573"
+                href="https://wowhead.com/spell=26573"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -256,8 +259,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               25
               /44
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -310,7 +312,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=204019"
+                href="https://wowhead.com/spell=204019"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -354,8 +356,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               18
               /36
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -408,7 +409,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31935"
+                href="https://wowhead.com/spell=31935"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -452,8 +453,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               11
               /60
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -511,7 +511,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=53600"
+                href="https://wowhead.com/spell=53600"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -555,8 +555,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               17
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -597,7 +596,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=275779"
+                href="https://wowhead.com/spell=275779"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -641,8 +640,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               38
               /45
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -695,7 +693,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=24275"
+                href="https://wowhead.com/spell=24275"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -739,8 +737,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /25
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -851,7 +848,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=633"
+                href="https://wowhead.com/spell=633"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -895,8 +892,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1012,7 +1008,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=85673"
+                href="https://wowhead.com/spell=85673"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1056,8 +1052,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1098,7 +1093,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31850"
+                href="https://wowhead.com/spell=31850"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1142,8 +1137,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1201,7 +1195,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=86659"
+                href="https://wowhead.com/spell=86659"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1245,8 +1239,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1304,7 +1297,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=642"
+                href="https://wowhead.com/spell=642"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1348,8 +1341,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1465,7 +1457,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31884"
+                href="https://wowhead.com/spell=31884"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1509,8 +1501,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1621,7 +1612,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19750"
+                href="https://wowhead.com/spell=19750"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1665,8 +1656,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1765,7 +1755,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190784"
+                href="https://wowhead.com/spell=190784"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1809,8 +1799,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               3
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1863,7 +1852,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1044"
+                href="https://wowhead.com/spell=1044"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1907,8 +1896,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1961,7 +1949,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1022"
+                href="https://wowhead.com/spell=1022"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2005,8 +1993,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2059,7 +2046,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6940"
+                href="https://wowhead.com/spell=6940"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2103,8 +2090,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2157,7 +2143,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=213644"
+                href="https://wowhead.com/spell=213644"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2201,8 +2187,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2255,7 +2240,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=853"
+                href="https://wowhead.com/spell=853"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2299,8 +2284,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2353,7 +2337,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=62124"
+                href="https://wowhead.com/spell=62124"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2397,8 +2381,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               6
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2451,7 +2434,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=96231"
+                href="https://wowhead.com/spell=96231"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2495,8 +2478,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /11
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2607,7 +2589,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2619,7 +2601,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -2628,7 +2610,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Spiritual Healing Potion
+                Healthstone
               </a>
             </td>
             <td
@@ -2651,8 +2633,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2705,7 +2686,104 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307192"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spiritual Healing Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2749,8 +2827,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2804,7 +2881,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
-    "icon": "spell_holy_avengersshield",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2821,6 +2898,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 31935,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -2848,7 +2926,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_ardentdefender",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2865,6 +2943,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 31850,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -2892,7 +2971,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_heroism",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2909,6 +2988,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 86659,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -2936,7 +3016,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_layonhands",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -2953,6 +3033,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 633,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -2980,7 +3061,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_divineshield",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -2997,6 +3078,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 642,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3044,7 +3126,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=26573"
+            href="https://wowhead.com/spell=26573"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3078,6 +3160,7 @@ Array [
     "icon": "spell_holy_innerfire",
     "importance": "major",
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.protection.suggestions.consecration.hitsMitigated","message":"{0}% of hits were mitigated by Consecration","values":{"0":"55.93"}}
        (
@@ -3220,6 +3303,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3270,6 +3354,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3322,6 +3407,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3373,6 +3459,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3412,6 +3499,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3462,6 +3550,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3474,6 +3563,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3486,6 +3576,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3515,7 +3606,7 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=85043"
+            href="https://wowhead.com/spell=85043"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3593,7 +3684,8 @@ Array [
       <ForwardRef
         id={275779}
       />
-       and 
+       and
+       
       <ForwardRef
         id={31935}
       />
@@ -3601,8 +3693,10 @@ Array [
       <em>
         filler
       </em>
-       ability and should only be used when you have no better spells to cast.
+       
+      ability and should only be used when you have no better spells to cast.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.protection.suggestions.hammerOfTheRighteous.efficiency","message":"{0}% of casts while better spells were available","values":{"0":"38.89"}}
        (
@@ -3632,7 +3726,7 @@ Array [
             className="flex-sub icon"
           >
             <a
-              href="http://wowhead.com/holy-power"
+              href="https://wowhead.com/holy-power"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -3740,7 +3834,7 @@ Array [
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=220637"
+                href="https://wowhead.com/spell=220637"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -3834,7 +3928,7 @@ Array [
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=204019"
+                href="https://wowhead.com/spell=204019"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -3928,7 +4022,7 @@ Array [
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31935"
+                href="https://wowhead.com/spell=31935"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -4046,7 +4140,7 @@ Array [
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=53600"
+                href="https://wowhead.com/spell=53600"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -4144,6 +4238,7 @@ Array [
     "icon": "inv_helmet_96",
     "importance": "major",
     "issue": "You wasted 11 Holy Power.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.shared.suggestions.holyPower.wasted","message":"{0}% Holy Power wasted","values":{"0":"16.42"}}
        (
@@ -4173,7 +4268,7 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=197277"
+            href="https://wowhead.com/spell=197277"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4217,30 +4312,6 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
 </div>
 `;
 
-exports[`Protection Paladin integration test: example log Judgment matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_holy_righteousfury",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You're not consuming all your 
-      <ForwardRef
-        icon={true}
-        id={20271}
-      />
-       debuffs.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      {"id":"paladin.retribution.suggestions.judgement.consumed","message":"{0}% Judgments consumed","values":{"0":"39.47"}}
-       (
-      &gt;95.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Protection Paladin integration test: example log NoDamageShieldOfTheRighteous matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4260,7 +4331,7 @@ exports[`Protection Paladin integration test: example log NoDamageShieldOfTheRig
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53600"
+            href="https://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4315,7 +4386,7 @@ exports[`Protection Paladin integration test: example log OvercapShieldOfTheRigh
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53600"
+            href="https://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4395,6 +4466,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4422,7 +4494,7 @@ exports[`Protection Paladin integration test: example log ShieldOfTheRighteous m
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53600"
+            href="https://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4476,6 +4548,7 @@ Array [
       />
        while actively tanking
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       69.57% of hits mitigated by Shield of the Righteous
        (
@@ -4813,7 +4886,7 @@ Array [
         }
       }
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans
@@ -4823,6 +4896,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4845,6 +4919,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       You let 2 free casts expire.
        (
@@ -4872,427 +4947,10 @@ exports[`Protection Paladin integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Use core abilities as often as possible.
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#df7102",
-                  "width": "43.24105535544569%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            These should generally always be recharging to maximize efficiency.
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=31935"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_avengersshield.jpg"
-                  />
-                   
-                  Avenger's Shield
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  18.51%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "8.219219578676292%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=275779"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
-                  />
-                   
-                  Judgment
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  86.49%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Bad 
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=204019"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/paladin_retribution.jpg"
-                  />
-                   
-                  Blessed Hammer
-                </a>
-                 casts
-              </div>
-              <div
-                className="flex-sub"
-                style={
-                  Object {
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <div
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <svg
-                    className="icon"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                    />
-                    <path
-                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                    />
-                    <path
-                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  38.89%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "21.40714285714286%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=31884"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_avenginewrath.jpg"
-                  />
-                   
-                  Avenging Wrath
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  74.54%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ffc84a",
-                        "transition": "background-color 800ms",
-                        "width": "65.07496785374852%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
           Mitigate incoming damage with 
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53600"
+            href="https://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5304,10 +4962,11 @@ exports[`Protection Paladin integration test: example log matches the checklist 
              
             Shield of the Righteous
           </a>
-           and 
+           and
+           
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=26573"
+            href="https://wowhead.com/spell=26573"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5331,7 +4990,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "20.19701475149503%",
+                  "width": "26.929353001993373%",
                 }
               }
             />
@@ -5391,7 +5050,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             Maintain 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=26573"
+              href="https://wowhead.com/spell=26573"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5408,7 +5067,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             Use 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=53600"
+              href="https://wowhead.com/spell=53600"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5423,7 +5082,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
              to smooth out your physical damage taken. 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=31850"
+              href="https://wowhead.com/spell=31850"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5435,10 +5094,11 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                
               Ardent Defender
             </a>
-             can be used either as a cooldown to mitigate boss abilities or to cover time when 
+             can be used either as a cooldown to mitigate boss abilities or to cover time when
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=53600"
+              href="https://wowhead.com/spell=53600"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5528,7 +5188,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 Hits Mitigated with 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=53600"
+                  href="https://wowhead.com/spell=53600"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5632,7 +5292,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 Hits Mitigated with 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=26573"
+                  href="https://wowhead.com/spell=26573"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5694,80 +5354,6 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               </div>
             </div>
           </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=31850"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_ardentdefender.jpg"
-                  />
-                   
-                  Ardent Defender
-                </a>
-                 cast efficiency
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  0.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -5788,7 +5374,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
           Use 
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=85673"
+            href="https://wowhead.com/spell=85673"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5813,7 +5399,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "94.45%",
+                  "width": "91.675%",
                 }
               }
             />
@@ -5873,7 +5459,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             You should use 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=85673"
+              href="https://wowhead.com/spell=85673"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5888,7 +5474,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
              to heal yourself (or others, with 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=315924"
+              href="https://wowhead.com/spell=315924"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5904,10 +5490,11 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             <b>
               not
             </b>
-             do this at the expense of 
+             do this at the expense of
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=53600"
+              href="https://wowhead.com/spell=53600"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5919,10 +5506,11 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                
               Shield of the Righteous
             </a>
-             uptime. Instead, take advantage of 
+             uptime. Instead, take advantage of
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=321136"
+              href="https://wowhead.com/spell=321136"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5934,10 +5522,11 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                
               Shining Light
             </a>
-             to make most of your 
+             to make most of your
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=85673"
+              href="https://wowhead.com/spell=85673"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5970,7 +5559,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=85673"
+                  href="https://wowhead.com/spell=85673"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6075,7 +5664,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 Free casts from 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=321136"
+                  href="https://wowhead.com/spell=321136"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6168,8 +5757,108 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use your damaging abilities effectively
+        </div>
+        <div
+          className="flex-sub perf"
+        >
           <div
-            className="col-md-6"
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "width": "69.63736035365675%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+             
+            <div>
+              Damage rotations are usually written as 
+              <em>
+                priority lists:
+              </em>
+               go from top to bottom and cast the first ability that is available. This checklist compares how you did against the standard priority list for your specialization.
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-12"
           >
             <div
               className="flex"
@@ -6177,22 +5866,48 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Stacks of 
+                <strong>
+                  1
+                  .
+                </strong>
+                 Cast 
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=321136"
+                  href="https://wowhead.com/spell=26573"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_toweroflight.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_innerfire.jpg"
                   />
                    
-                  Shining Light
+                  Consecration
                 </a>
-                 lost to overcapping
+                 
+                when
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=188370"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_innerfire.jpg"
+                  />
+                   
+                  Consecration
+                </a>
+                 
+                is
+                 missing
+                 
+                 
+                (if actively tanking)
               </div>
               <div
                 className="flex-sub"
@@ -6243,7 +5958,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  4
+                  100.00%
                    
                    
                 </div>
@@ -6266,6 +5981,716 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  2
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=53600"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+                  />
+                   
+                  Shield of the Righteous
+                </a>
+                 
+                when
+                 
+                you 
+                have
+                 
+                at least 3
+                 
+                <a
+                  href="https://wowhead.com/holy-power"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt="Holy Power"
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/achievement_bg_winsoa.jpg"
+                  />
+                   
+                  Holy Power
+                </a>
+                 
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  3
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=275779"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
+                  />
+                   
+                  Judgment
+                </a>
+                 
+                when
+                 
+                you 
+                have
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=204023"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_enlightenedjudgements.jpg"
+                  />
+                   
+                  Crusader's Judgment
+                </a>
+                 talented
+                 and 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=275779"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
+                  />
+                   
+                  Judgment
+                </a>
+                 
+                has
+                 
+                at most 1.5
+                 
+                seconds remaining on cooldown
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  92.31%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  4
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=24275"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_hammerofwrath.jpg"
+                  />
+                   
+                  Hammer of Wrath
+                </a>
+                 
+                when
+                 
+                your target 
+                is
+                 
+                below
+                 
+                20
+                % HP
+                 or 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=31884"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_avenginewrath.jpg"
+                  />
+                   
+                  Avenging Wrath
+                </a>
+                 
+                is
+                 present
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  5
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=31935"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_avengersshield.jpg"
+                  />
+                   
+                  Avenger's Shield
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  47.06%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "22.386554621848745%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  6
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=275779"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
+                  />
+                   
+                  Judgment
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            className="col-md-12 text-muted"
+          >
+            In addition to your rotational abilities, ensure that you're using your major cooldowns:
+          </p>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=31884"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_avenginewrath.jpg"
+                  />
+                   
+                  Avenging Wrath
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  74.54%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "65.07496785374852%",
                       }
                     }
                   />

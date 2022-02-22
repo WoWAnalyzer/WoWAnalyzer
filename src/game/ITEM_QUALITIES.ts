@@ -6,4 +6,4 @@ export enum ITEM_QUALITIES {
   UNCOMMON = 2,
   COMMON = 1,
   POOR = 0,
-};
+}

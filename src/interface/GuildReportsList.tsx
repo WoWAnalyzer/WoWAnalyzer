@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { makePlainUrl } from 'interface/makeAnalyzerUrl';
-import ZONES from 'game/ZONES';
 import { WCLGuildReport } from 'common/WCL_TYPES';
+import ZONES from 'game/ZONES';
+import { makePlainUrl } from 'interface/makeAnalyzerUrl';
+import { Link } from 'react-router-dom';
 
 interface Props {
   reports: WCLGuildReport[];

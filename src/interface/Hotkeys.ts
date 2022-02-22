@@ -1,7 +1,7 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 const Hotkeys = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (document.activeElement && document.activeElement !== document.body) {
         return;
@@ -11,8 +11,8 @@ const Hotkeys = () => {
         e.key === 'l' &&
         // eslint-disable-next-line no-restricted-globals
         confirm(
-          "Open this page in your development environment?\n\n" +
-          "See https://github.com/WoWAnalyzer/WoWAnalyzer#getting-started for information on how to set this up.",
+          'Open this page in your development environment?\n\n' +
+            'See https://github.com/WoWAnalyzer/WoWAnalyzer#getting-started for information on how to set this up.',
         )
       ) {
         const newUrl = `http://localhost:3000${window.location.pathname}`;

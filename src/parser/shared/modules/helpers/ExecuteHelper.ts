@@ -1,8 +1,14 @@
-import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { formatDuration } from 'common/format';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { formatDuration, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  FightEndEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
@@ -33,6 +39,19 @@ class ExecuteHelper extends Analyzer {
    * This should contain any SPELLS object that allows execute to be used outside normal execute range
    */
   static executeOutsideRangeEnablers: Spell[] = [];
+
+  /**
+   * Array of objects from common/SPELLS
+   * This should contain any SPELLS object that allows an execute to be used once, even outside normal execute range
+   */
+  static singleExecuteEnablers: Spell[] = [];
+
+  /**
+   * Whether cooldown of the executeSpells should count as time in execute.
+   * For spells such as Execute this should be set to true,
+   * but for spells like Aimed Shot that also function outside of execute this shouldn't be set.
+   */
+  static countCooldownAsExecuteTime: boolean;
 
   /**
    * The lower threshold where execute is enabled, shown in decimals.
@@ -96,6 +115,11 @@ class ExecuteHelper extends Analyzer {
    * returns the amount of casts of the executes listed in executeSpells that were cast whilst being in an execute window
    */
   castsWithExecute: number = 0;
+
+  /**
+   * returns the amount of times a buff was applied that allows for a single cast of a given execute spell
+   */
+  singleExecuteEnablerApplications: number = 0;
   //endregion
 
   //region Execute helpers
@@ -108,7 +132,7 @@ class ExecuteHelper extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
-    return (event.hitPoints / event.maxHitPoints) < this.lowerThreshold;
+    return event.hitPoints / event.maxHitPoints < this.lowerThreshold;
   }
 
   /**
@@ -120,7 +144,7 @@ class ExecuteHelper extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
-    return (event.hitPoints / event.maxHitPoints) > this.upperThreshold;
+    return event.hitPoints / event.maxHitPoints > this.upperThreshold;
   }
 
   /**
@@ -131,15 +155,15 @@ class ExecuteHelper extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
-    return (this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event));
+    return this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event);
   }
 
   /**
    * Returns true if the combatant has one of the buffs that enable execute to be used outside of the regular execute windows
    */
   get isExecuteUsableOutsideExecuteRange() {
-    let usable: boolean = false;
-    this.executeOutsideRangeEnablers.forEach(spell => {
+    let usable = false;
+    this.executeOutsideRangeEnablers.forEach((spell) => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
         usable = true;
       }
@@ -151,8 +175,8 @@ class ExecuteHelper extends Analyzer {
    * If all execute spells are on cooldown, then we should count the entire period of cooldown as "inside execute" to properly calculate maxCasts
    */
   get areExecuteSpellsOnCD() {
-    let allOnCD: boolean = true;
-    this.executeSpells.forEach(spell => {
+    let allOnCD = true;
+    this.executeSpells.forEach((spell) => {
       if (!this.spellUsable.isOnCooldown(spell.id)) {
         allOnCD = false;
       }
@@ -165,10 +189,30 @@ class ExecuteHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(this.executeSources), this.onGeneralDamage);
-    this.addEventListener(Events.cast.by(this.executeSources).spell(this.executeSpells), this.onExecuteCast);
-    this.addEventListener(Events.damage.by(this.executeSources).spell(this.executeSpells), this.onExecuteDamage);
-    this.addEventListener(Events.applybuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers), this.applyExecuteEnablerBuff);
-    this.addEventListener(Events.removebuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers), this.removeExecuteEnablerBuff);
+    this.addEventListener(
+      Events.cast.by(this.executeSources).spell(this.executeSpells),
+      this.onExecuteCast,
+    );
+    this.addEventListener(
+      Events.damage.by(this.executeSources).spell(this.executeSpells),
+      this.onExecuteDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers),
+      this.applyExecuteEnablerBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers),
+      this.removeExecuteEnablerBuff,
+    );
+    this.addEventListener(
+      Events.applybuff.to(this.executeSources).spell(this.singleExecuteEnablers),
+      this.applySingleExecuteEnablerBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(this.executeSources).spell(this.singleExecuteEnablers),
+      this.refreshSingleExecuteEnablerBuff,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -208,6 +252,15 @@ class ExecuteHelper extends Analyzer {
     return ctor.damageModifier;
   }
 
+  get countCooldownAsExecuteTime() {
+    const ctor = this.constructor as typeof ExecuteHelper;
+    return ctor.countCooldownAsExecuteTime;
+  }
+
+  get singleExecuteEnablers() {
+    const ctor = this.constructor as typeof ExecuteHelper;
+    return ctor.singleExecuteEnablers;
+  }
   //endregion
 
   //region Generic Getters
@@ -238,20 +291,37 @@ class ExecuteHelper extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    if (this.areExecuteSpellsOnCD || this.isExecuteUsableOutsideExecuteRange || this.isTargetInHealthExecuteWindow(event)) {
+    if (
+      (this.areExecuteSpellsOnCD && this.countCooldownAsExecuteTime) ||
+      this.isExecuteUsableOutsideExecuteRange ||
+      this.isTargetInHealthExecuteWindow(event)
+    ) {
       this.lastExecuteHitTimestamp = event.timestamp;
       if (!this.inExecuteWindow) {
         this.inExecuteWindow = true;
         this.inHealthExecuteWindow = true;
         this.executeWindowStart = event.timestamp;
-        debug && console.log('Execute window started');
+        debug &&
+          console.log(
+            'Execute window started at timestamp:',
+            event.timestamp,
+            'with ability',
+            event.ability.name,
+            `at ${formatPercentage((event.hitPoints ?? 1) / (event.maxHitPoints ?? 1))}%`,
+          );
       }
     } else {
       if (this.inExecuteWindow && event.timestamp > this.lastExecuteHitTimestamp + MS_BUFFER) {
         this.inExecuteWindow = false;
         this.inHealthExecuteWindow = false;
         this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
-        debug && console.log('Execute window ended, current total: ', this.totalExecuteDuration);
+        debug &&
+          console.log(
+            'Execute window ended, current total time in execute: ',
+            this.totalExecuteDuration,
+            'at timestamp:',
+            event.timestamp,
+          );
       }
     }
   }
@@ -273,6 +343,14 @@ class ExecuteHelper extends Analyzer {
     }
   }
 
+  applySingleExecuteEnablerBuff(event: ApplyBuffEvent) {
+    this.singleExecuteEnablerApplications += 1;
+  }
+
+  refreshSingleExecuteEnablerBuff(event: RefreshBuffEvent) {
+    this.singleExecuteEnablerApplications += 1;
+  }
+
   applyExecuteEnablerBuff(event: ApplyBuffEvent) {
     if (!this.inExecuteWindow && !this.inHealthExecuteWindow) {
       this.executeWindowStart = event.timestamp;
@@ -286,9 +364,17 @@ class ExecuteHelper extends Analyzer {
     if (!this.inHealthExecuteWindow) {
       this.inExecuteWindow = false;
       this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
-      debug && console.log(event.ability.name, ' was removed ending the execute window, current total: ', this.totalExecuteDuration);
+      debug &&
+        console.log(
+          event.ability.name,
+          ' was removed ending the execute window, current total: ',
+          this.totalExecuteDuration,
+        );
     } else {
-      debug && console.log('Execute enabler buff ended, but inside execute health window so window still ongoing.');
+      debug &&
+        console.log(
+          'Execute enabler buff ended, but inside execute health window so window still ongoing.',
+        );
     }
   }
 
@@ -297,7 +383,13 @@ class ExecuteHelper extends Analyzer {
       this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
       this.inExecuteWindow = false;
     }
-    debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
+    debug &&
+      console.log(
+        'Fight ended, total duration of execute: ' +
+          this.totalExecuteDuration +
+          ' | ' +
+          formatDuration(this.totalExecuteDuration),
+      );
   }
 
   //endregion

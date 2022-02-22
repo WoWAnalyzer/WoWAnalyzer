@@ -1,128 +1,111 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { SpellIcon } from 'interface';
-import { formatNumber } from 'common/format';
-import { TooltipElement } from 'interface';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { t } from '@lingui/macro';
+import Events, { HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class EssenceFont extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
+
+  boltHealing: number = 0;
+  boltOverhealing: number = 0;
+  hotHealing: number = 0;
+  hotOverhealing: number = 0;
+  gomHealing: number = 0;
+  gomOverhealing: number = 0;
+  gomEFHits: number = 0;
+  gomEFEvent: boolean = false;
+
   totalHealing: number = 0;
   totalOverhealing: number = 0;
-  totalAbsorbs: number = 0;
-  castEF: number = 0;
-  targetsEF: number = 0;
-  efHotHeal: number = 0;
-  efHotOverheal: number = 0;
-  targetOverlap: number = 0;
-  uniqueTargets: Set<number> = new Set<number>();
-  total: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.castEssenceFont);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.handleEssenceFont);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.handleEssenceFontBuff);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.applyEssenceFontBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.refreshEssenceFontBuff);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.handleEssenceFontHealing,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      this.gustHealing,
+    );
   }
 
-  get efHotHealing() {
-    return (this.efHotHeal);
-  }
-
-  get efHotOverhealing() {
-    return (this.efHotOverheal / (this.efHotHeal + this.efHotOverheal)).toFixed(4);
-  }
-
-  get avgTargetsHitPerEF() {
-    return (this.targetsEF / this.castEF) || 0;
-  }
-
-  get efHotOverlap() {
-    return ((this.targetOverlap / this.targetsEF) || 0).toFixed(2);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.avgTargetsHitPerEF,
-      isLessThan: {
-        minor: 17,
-        average: 14,
-        major: 12,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  castEssenceFont(event: CastEvent) {
-    this.castEF += 1;
-    this.total += this.uniqueTargets.size || 0;
-    this.uniqueTargets.clear();
-  }
-
-  handleEssenceFont(event: HealEvent) {
-    this.totalHealing += event.amount || 0;
-    this.totalOverhealing += event.overheal || 0;
-    this.totalAbsorbs += event.absorbed || 0;
-  }
-
-  handleEssenceFontBuff(event: HealEvent) {
-    if (event.tick === true) {
-      this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
-      this.efHotOverheal += event.overheal || 0;
+  gustHealing(event: HealEvent) {
+    const combatant = this.combatants.players[event.targetID];
+    if (!combatant) {
+      return;
     }
 
-    this.totalHealing += event.amount || 0;
+    const targetHasEFHot = combatant.hasBuff(
+      SPELLS.ESSENCE_FONT_BUFF.id,
+      event.timestamp,
+      0,
+      0,
+      event.sourceID,
+    );
+
+    // if no EF buff die
+    if (!targetHasEFHot) {
+      return;
+    }
+
+    if (!this.gomEFEvent) {
+      this.gomEFEvent = true;
+      return;
+    }
+
+    // GoM healing
+    this.gomEFEvent = false;
+    this.gomEFHits += 1;
+    this.gomHealing += event.amount + (event.absorbed || 0);
+    this.gomOverhealing += event.overheal || 0;
+
+    // Total healing
+    this.totalHealing += event.amount + (event.absorbed || 0);
     this.totalOverhealing += event.overheal || 0;
-    this.totalAbsorbs += event.absorbed || 0;
-    this.uniqueTargets.add(event.targetID);
   }
 
-  applyEssenceFontBuff(event: ApplyBuffEvent) {
-    this.targetsEF += 1;
-  }
+  handleEssenceFontHealing(event: HealEvent) {
+    //tick vs bolt hit
+    if (event.tick) {
+      this.hotHealing += event.amount + (event.absorbed || 0);
+      this.hotOverhealing += event.overheal || 0;
+    } else {
+      this.boltHealing += event.amount + (event.absorbed || 0);
+      this.boltOverhealing += event.overheal || 0;
+    }
 
-  refreshEssenceFontBuff(event: RefreshBuffEvent) {
-    this.targetsEF += 1;
-    this.targetOverlap += 1;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.
-      </>,
-    )
-      .icon(SPELLS.ESSENCE_FONT.icon)
-      .actual(`${this.avgTargetsHitPerEF.toFixed(2)}${t({
-      id: "monk.mistweaver.suggestions.essenceFont.averageTargetsHit",
-      message: `average targets hit per cast`
-    })}`)
-      .recommended(`${recommended} targets hit is recommended`));
+    // total healing
+    this.totalHealing += event.amount + (event.absorbed || 0);
+    this.totalOverhealing += event.overheal || 0;
   }
 
   statistic() {
-    const averageHits = this.total / this.castEF;
     return (
-      <StatisticBox
-        postion={STATISTIC_ORDER.OPTIONAL(50)}
-        icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
-        value={`${formatNumber(averageHits)}`}
-        label={(
-          <TooltipElement content="This is the average unique targets hit per essences font cast.">
-            Average Unique Targets Hit
-          </TooltipElement>
-        )}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(0)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
+        tooltip={<>Gust Of Mist healing events due to Essence Font Hot.</>}
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> from Essence Font
+            </>
+          }
+        >
+          {this.gomEFHits}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

@@ -1,3 +1,5 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
 import {
   Channeling,
   DeathTracker,
@@ -25,64 +27,50 @@ import {
   RejuvenatingWind,
   HarmonyOfTheTortollan,
   SoulforgeEmbers,
+  RaeshalareDeathsWhisper,
+  RaeshalarePrepullNormalizer,
+  FragmentsOfTheElderAntlers,
 } from '@wowanalyzer/hunter';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-//Overridden Core modules
-import SpellUsable from './modules/core/SpellUsable';
-import GlobalCooldown from './modules/core/GlobalCooldown';
-
-//Features
 import Abilities from './modules/Abilities';
+import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-
-//Checklist
 import Checklist from './modules/checklist/Module';
-
-//Talents
-import KillerInstinct from './modules/talents/KillerInstinct';
-import ChimaeraShot from './modules/talents/ChimaeraShot';
-import DireBeast from './modules/talents/DireBeast';
-import KillerCobra from './modules/talents/KillerCobra';
-import Stampede from './modules/talents/Stampede';
-import Stomp from './modules/talents/Stomp';
-import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
-import OneWithThePack from './modules/talents/OneWithThePack';
-import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
-import SpittingCobra from './modules/talents/SpittingCobra';
-import ScentOfBlood from './modules/talents/ScentOfBlood';
-import AnimalCompanion from './modules/talents/AnimalCompanion';
-
-//Pets
+import GlobalCooldown from './modules/core/GlobalCooldown';
+import SpellUsable from './modules/core/SpellUsable';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import DireCommand from './modules/items/DireCommand';
+import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
+import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
+import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
 import BasicAttacks from './modules/pets/basicAttacksTracker';
-
-//Spells
-import BeastCleave from './modules/spells/BeastCleave';
-import CobraShot from './modules/spells/CobraShot';
-import BarbedShot from './modules/spells/BarbedShot';
-import AspectOfTheWild from './modules/spells/AspectOfTheWild';
-import BestialWrath from './modules/spells/BestialWrath';
-
-//Focus
 import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
-import Focus from './modules/resources/Focus';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
-
-//Conduits
+import Focus from './modules/resources/Focus';
+import AspectOfTheWild from './modules/spells/AspectOfTheWild';
+import BarbedShot from './modules/spells/BarbedShot';
+import BeastCleave from './modules/spells/BeastCleave';
+import BestialWrath from './modules/spells/BestialWrath';
+import CobraShot from './modules/spells/CobraShot';
 import Bloodletting from './modules/spells/conduits/Bloodletting';
 import EchoingCall from './modules/spells/conduits/EchoingCall';
 import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
 import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
-
-//Legendaries
-import DireCommand from './modules/items/DireCommand';
-import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
-import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
-import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
+import AnimalCompanion from './modules/talents/AnimalCompanion';
+import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
+import ChimaeraShot from './modules/talents/ChimaeraShot';
+import DireBeast from './modules/talents/DireBeast';
+import KillerCobra from './modules/talents/KillerCobra';
+import KillerInstinct from './modules/talents/KillerInstinct';
+import OneWithThePack from './modules/talents/OneWithThePack';
+import ScentOfBlood from './modules/talents/ScentOfBlood';
+import SpittingCobra from './modules/talents/SpittingCobra';
+import Stampede from './modules/talents/Stampede';
+import Stomp from './modules/talents/Stomp';
+import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
+import AntlerVersusRylak from './modules/theorycraft/AntlerVersusRylak';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -104,6 +92,9 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusCapTracker: BeastMasteryFocusCapTracker,
     focus: Focus,
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
+
+    //Normalizers
+    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -163,13 +154,20 @@ class CombatLogParser extends CoreCombatLogParser {
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
+    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
+    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
 
     //Beast Mastery Legendaries
     direCommand: DireCommand,
     flamewakersCobraSting: FlamewakersCobraSting,
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
+
+    //Theorycraft
+    antlerVersusRylak: AntlerVersusRylak,
   };
+
+  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
 }
 
 export default CombatLogParser;

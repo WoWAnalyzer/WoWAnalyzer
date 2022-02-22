@@ -1,5 +1,5 @@
-import CoreMitigationCheck from 'parser/shared/modules/MitigationCheck';
 import SPELLS from 'common/SPELLS';
+import CoreMitigationCheck from 'parser/shared/modules/MitigationCheck';
 
 class MitigationCheck extends CoreMitigationCheck {
   constructor(...args) {

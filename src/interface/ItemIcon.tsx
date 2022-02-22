@@ -1,17 +1,15 @@
-import React from 'react';
-
-import { Item } from 'parser/core/Events';
 import ITEMS from 'common/ITEMS';
+import { Item } from 'parser/core/Events';
 
-import ItemLink from './ItemLink';
 import Icon from './Icon';
+import ItemLink from './ItemLink';
 
 type Props = {
   id: number;
   noLink?: boolean;
   details?: Item;
   className?: string;
-}
+};
 
 const ItemIcon = ({ id, noLink, details, className }: Props) => {
   const icon = (

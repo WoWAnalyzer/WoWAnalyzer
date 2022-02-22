@@ -7,23 +7,26 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving
+       
       <ForwardRef
         id={205025}
       />
-       to make your next 2 
+       to make your next 2
+       
       <ForwardRef
         id={30451}
       />
        casts instant.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.alwaysBeCasting.downtime"
         message="{0}% downtime"
         values={
           Object {
-            "0": "45.08",
+            "0": "45.23",
           }
         }
       />
@@ -52,7 +55,7 @@ exports[`Arcane Mage integration test: example log ArcaneEcho matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=342231"
+            href="https://wowhead.com/spell=342231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -65,7 +68,7 @@ exports[`Arcane Mage integration test: example log ArcaneEcho matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=342231"
+            href="https://wowhead.com/spell=342231"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -77,7 +80,7 @@ exports[`Arcane Mage integration test: example log ArcaneEcho matches the statis
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=5143"
+            href="https://wowhead.com/spell=5143"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -96,7 +99,7 @@ exports[`Arcane Mage integration test: example log ArcaneEcho matches the statis
           <br />
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=321507"
+            href="https://wowhead.com/spell=321507"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -147,30 +150,36 @@ Array [
       <ForwardRef
         id={5143}
       />
-       into 
+       into
+       
       <ForwardRef
         id={321507}
       />
        
       5
-       times. When using 
+       times. When using
+       
       <ForwardRef
         id={342231}
       />
-       you should be casting 
+       you should be casting
+       
       <ForwardRef
         id={5143}
       />
-       non-stop (Whether you have 
+       non-stop (Whether you have
+       
       <ForwardRef
         id={263725}
       />
-       procs or not) until the 
+       procs or not) until the
+       
       <ForwardRef
         id={321507}
       />
        debuff is removed from the target.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.arcaneEcho.badTouchUses"
@@ -203,6 +212,7 @@ Array [
       84.39
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.arcaneIntellect.uptime"
@@ -232,26 +242,32 @@ Array [
       <ForwardRef
         id={5143}
       />
-       improperly 
+       improperly
+       
       2
-       times. In order to get the most out of 
+       times. In order to get the most out of
+       
       <ForwardRef
         id={5143}
       />
-       you should only cast it if you have 
+       you should only cast it if you have
+       
       <ForwardRef
         id={263725}
       />
-       or if you are using 
+       or if you are using
+       
       <ForwardRef
         id={342231}
       />
-       and the target has 
+       and the target has
+       
       <ForwardRef
         id={321507}
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime"
@@ -287,7 +303,7 @@ exports[`Arcane Mage integration test: example log ArcaneOrb matches the statist
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=153626"
+            href="https://wowhead.com/spell=153626"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -300,7 +316,7 @@ exports[`Arcane Mage integration test: example log ArcaneOrb matches the statist
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=153626"
+            href="https://wowhead.com/spell=153626"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -354,6 +370,7 @@ Array [
       1
        times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.arcane.suggestions.arcaneOrb.badCasts"
@@ -389,7 +406,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205022"
+            href="https://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -402,7 +419,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205022"
+            href="https://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -414,7 +431,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12042"
+            href="https://wowhead.com/spell=12042"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -439,7 +456,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           <br />
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30451"
+            href="https://wowhead.com/spell=30451"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -502,7 +519,7 @@ exports[`Arcane Mage integration test: example log ArcanePowerActiveTime matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12042"
+            href="https://wowhead.com/spell=12042"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -515,7 +532,7 @@ exports[`Arcane Mage integration test: example log ArcanePowerActiveTime matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12042"
+            href="https://wowhead.com/spell=12042"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -525,7 +542,7 @@ exports[`Arcane Mage integration test: example log ArcanePowerActiveTime matches
         <div
           className="value"
         >
-          111.34
+          109.97
           % 
           <small>
             Arcane Power Active Time
@@ -561,6 +578,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -669,6 +687,7 @@ Array [
       </React.Fragment>
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.castsCancelled"
@@ -794,7 +813,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30451"
+                href="https://wowhead.com/spell=30451"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -838,8 +857,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               65
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -880,7 +898,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116"
+                href="https://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -924,8 +942,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -966,7 +983,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=108853"
+                href="https://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1010,8 +1027,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /31
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1064,7 +1080,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5143"
+                href="https://wowhead.com/spell=5143"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1108,8 +1124,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               19
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1150,7 +1165,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=44425"
+                href="https://wowhead.com/spell=44425"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1194,8 +1209,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               6
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1236,7 +1250,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1449"
+                href="https://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1280,8 +1294,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1322,7 +1335,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=321507"
+                href="https://wowhead.com/spell=321507"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1366,8 +1379,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               5
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1478,7 +1490,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=153626"
+                href="https://wowhead.com/spell=153626"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1522,8 +1534,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               4
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1639,7 +1650,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=80353"
+                href="https://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1683,8 +1694,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1737,7 +1747,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=12042"
+                href="https://wowhead.com/spell=12042"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1781,8 +1791,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1840,7 +1849,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=12051"
+                href="https://wowhead.com/spell=12051"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1884,8 +1893,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1943,7 +1951,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=205025"
+                href="https://wowhead.com/spell=205025"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1987,8 +1995,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               3
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2041,7 +2048,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116011"
+                href="https://wowhead.com/spell=116011"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2085,8 +2092,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2144,7 +2150,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=314791"
+                href="https://wowhead.com/spell=314791"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2188,8 +2194,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               2
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2305,7 +2310,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=235450"
+                href="https://wowhead.com/spell=235450"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2337,7 +2342,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.70
+              0.87
             </td>
             <td
               className="text-right"
@@ -2347,10 +2352,9 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              4
+              5
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2403,7 +2407,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=45438"
+                href="https://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2447,8 +2451,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2501,7 +2504,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=55342"
+                href="https://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2545,8 +2548,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2657,7 +2659,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1459"
+                href="https://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2701,8 +2703,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2743,7 +2744,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=122"
+                href="https://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2787,8 +2788,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2841,7 +2841,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31589"
+                href="https://wowhead.com/spell=31589"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2885,8 +2885,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2927,7 +2926,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212653"
+                href="https://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2971,8 +2970,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               9
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3025,7 +3023,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2139"
+                href="https://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3069,8 +3067,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3123,7 +3120,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=475"
+                href="https://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3167,8 +3164,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /43
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3221,7 +3217,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=130"
+                href="https://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3265,8 +3261,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3307,7 +3302,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30449"
+                href="https://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3351,8 +3346,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3393,7 +3387,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=321358"
+                href="https://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3437,8 +3431,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3479,7 +3472,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=342247"
+                href="https://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3523,8 +3516,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3565,7 +3557,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=110959"
+                href="https://wowhead.com/spell=110959"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3609,8 +3601,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3663,7 +3654,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=118"
+                href="https://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3707,8 +3698,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3807,7 +3797,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3819,7 +3809,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3828,7 +3818,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   }
                 />
                  
-                Spiritual Healing Potion
+                Healthstone
               </a>
             </td>
             <td
@@ -3851,8 +3841,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3905,7 +3894,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3917,7 +3906,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3926,7 +3915,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   }
                 />
                  
-                Combat Potion
+                Spiritual Healing Potion
               </a>
             </td>
             <td
@@ -3949,8 +3938,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3993,6 +3981,103 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307162"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Combat Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.17
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
       </table>
     </div>
@@ -4004,7 +4089,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the su
 Array [
   Object {
     "details": null,
-    "icon": "spell_mage_arcaneorb",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4021,6 +4106,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 153626,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4048,7 +4134,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_nature_lightning",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4065,6 +4151,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 12042,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4092,7 +4179,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_nature_purge",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4109,6 +4196,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 12051,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4136,7 +4224,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_mage_runeofpower",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4153,6 +4241,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116011,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4180,7 +4269,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_ardenweald_mage",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4197,6 +4286,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 314791,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4236,14 +4326,17 @@ Array [
       15.60
       % of the fight duration (
       54
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/HmYxBnZPgV3Rk8hL/12-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%225:43%22%7D%7D/Mattyblasts/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -4373,7 +4466,7 @@ exports[`Arcane Mage integration test: example log ElementalBarrier matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=235450"
+            href="https://wowhead.com/spell=235450"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4386,7 +4479,7 @@ exports[`Arcane Mage integration test: example log ElementalBarrier matches the 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=235450"
+            href="https://wowhead.com/spell=235450"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4477,6 +4570,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4489,6 +4583,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4511,7 +4606,7 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4524,7 +4619,7 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4580,6 +4675,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4602,7 +4698,7 @@ exports[`Arcane Mage integration test: example log RuneOfPower matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4615,7 +4711,7 @@ exports[`Arcane Mage integration test: example log RuneOfPower matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4626,13 +4722,15 @@ exports[`Arcane Mage integration test: example log RuneOfPower matches the stati
           className="value"
         >
           16
-          % 
+          %
+           
           <small>
             Damage added by Rune of Power
           </small>
           <br />
           11
-          s 
+          s
+           
           <small>
             Average time in Rune per cast
           </small>
@@ -4671,8 +4769,10 @@ Array [
       <ForwardRef
         id={116011}
       />
-       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
+       
+      for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.runeOfPower.utilization"
@@ -4708,7 +4808,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=314791"
+            href="https://wowhead.com/spell=314791"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4721,7 +4821,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=314791"
+            href="https://wowhead.com/spell=314791"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4749,7 +4849,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=12042"
+                    href="https://wowhead.com/spell=12042"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4777,7 +4877,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=12051"
+                    href="https://wowhead.com/spell=12051"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4805,7 +4905,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=80353"
+                    href="https://wowhead.com/spell=80353"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4833,7 +4933,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=116011"
+                    href="https://wowhead.com/spell=116011"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4861,7 +4961,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=205025"
+                    href="https://wowhead.com/spell=205025"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4889,7 +4989,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=212653"
+                    href="https://wowhead.com/spell=212653"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4917,7 +5017,7 @@ exports[`Arcane Mage integration test: example log ShiftingPower matches the sta
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=321507"
+                    href="https://wowhead.com/spell=321507"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -5335,7 +5435,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=12042"
+                  href="https://wowhead.com/spell=12042"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5408,7 +5508,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=12051"
+                  href="https://wowhead.com/spell=12051"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5481,7 +5581,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=153626"
+                  href="https://wowhead.com/spell=153626"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5554,7 +5654,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=116011"
+                  href="https://wowhead.com/spell=116011"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5706,7 +5806,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
             Using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=12042"
+              href="https://wowhead.com/spell=12042"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5964,7 +6064,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  111.34%
+                  109.97%
                    
                    
                 </div>
@@ -6387,7 +6487,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "42.91809398958169%",
+                  "width": "42.91089992074676%",
                 }
               }
             />
@@ -6480,7 +6580,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  45.08%
+                  45.23%
                    
                    
                 </div>
@@ -6502,7 +6602,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "4.432291875267269%",
+                        "width": "4.41790373759741%",
                       }
                     }
                   />
@@ -6660,7 +6760,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
             You should ensure that you maintain 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=1459"
+              href="https://wowhead.com/spell=1459"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6672,10 +6772,11 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                
               Arcane Intellect
             </a>
-             for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as 
+             for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=205022"
+              href="https://wowhead.com/spell=205022"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6840,10 +6941,11 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           <div
             className="col-md-12"
           >
-            The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during 
+            The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=12042"
+              href="https://wowhead.com/spell=12042"
               rel="noopener noreferrer"
               target="_blank"
             >

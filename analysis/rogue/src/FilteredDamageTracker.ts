@@ -37,7 +37,7 @@ class FilteredDamageTracker extends DamageTracker {
 
   subscribeInefficientCast(spells: Spell[], messageFunction: any) {
     this.subscribeToCastEvent((event: any) => {
-      const spell = spells.find(s => event.ability.guid === s.id);
+      const spell = spells.find((s) => event.ability.guid === s.id);
       if (spell) {
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;

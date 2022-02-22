@@ -1,4 +1,4 @@
-const GEAR_SLOTS: { 
+const GEAR_SLOTS: {
   [key: string]: number;
 } = {
   HEAD: 0,

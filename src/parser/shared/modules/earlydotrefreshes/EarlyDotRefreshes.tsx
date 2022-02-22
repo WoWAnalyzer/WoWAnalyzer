@@ -1,10 +1,15 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Spell from 'common/SPELLS/Spell';
-import Enemies from 'parser/shared/modules/Enemies';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { formatDuration } from 'common/format';
-import Events, { ApplyDebuffEvent, RefreshDebuffEvent, GlobalCooldownEvent, CastEvent } from 'parser/core/Events';
+import Spell from 'common/SPELLS/Spell';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyDebuffEvent,
+  RefreshDebuffEvent,
+  GlobalCooldownEvent,
+  CastEvent,
+} from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const BUFFER_MS = 100;
 const PANDEMIC_WINDOW = 0.3;
@@ -35,23 +40,24 @@ class EarlyDotRefreshes extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   static dots: Dot[] = [];
-  targets: { [key: number]: any } = {};
+  targets: DotsById = {};
   lastGCD?: GlobalCooldownEvent;
   lastCast?: CastEvent;
   lastCastGoodExtension = false;
   lastCastMinWaste = Number.MAX_SAFE_INTEGER;
   lastCastMaxEffect = 0;
-  casts: { [key: number]: {
-    badCasts: number;
-    addedDuration: number;
-    wastedDuration: number;
-    } 
+  casts: {
+    [key: number]: {
+      badCasts: number;
+      addedDuration: number;
+      wastedDuration: number;
+    };
   } = {};
 
   constructor(options: Options) {
     super(options);
     const ctor = this.constructor as typeof EarlyDotRefreshes;
-    ctor.dots.forEach(dot => {
+    ctor.dots.forEach((dot) => {
       this.targets[dot.debuffId] = {};
       this.casts[dot.castId] = {
         badCasts: 0,
@@ -83,8 +89,8 @@ class EarlyDotRefreshes extends Analyzer {
       return;
     }
     const targetID = encodeTargetString(event.targetID, event.targetInstance);
-    const extensionInfo = this.extendDot(dot.debuffId, Number(targetID), dot.duration, event.timestamp);
-    if(this.lastCastGoodExtension){
+    const extensionInfo = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
+    if (this.lastCastGoodExtension) {
       return;
     }
     this.lastCastGoodExtension = extensionInfo.wasted === 0;
@@ -97,7 +103,8 @@ class EarlyDotRefreshes extends Analyzer {
     if (!dot) {
       return;
     }
-    this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + dot.duration;
+    this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] =
+      event.timestamp + dot.duration;
     this.lastCastGoodExtension = true;
     this.lastCastMinWaste = 0;
     this.lastCastMaxEffect = dot.duration;
@@ -135,7 +142,7 @@ class EarlyDotRefreshes extends Analyzer {
     }
     // We wait roughly a GCD to check, to account for minor travel times.
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
-    if (!this.lastCastBuffer || timeSinceCast < this.lastCastBuffer){
+    if (!this.lastCastBuffer || timeSinceCast < this.lastCastBuffer) {
       return;
     }
     this.casts[this.lastCast.ability.guid].addedDuration += this.lastCastMaxEffect;
@@ -162,39 +169,44 @@ class EarlyDotRefreshes extends Analyzer {
 
   // Get the suggestion for last bad cast. If empty, cast will be considered good.
   getLastBadCastText(event: CastEvent, dot: Dot) {
-    return `${dot.name} was refreshed ${formatDuration(this.lastCastMinWaste/1000)} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(PANDEMIC_WINDOW * dot.duration/1000)} left or part of the dot will be wasted.`;
+    return `${dot.name} was refreshed ${formatDuration(
+      this.lastCastMinWaste,
+    )} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(
+      PANDEMIC_WINDOW * dot.duration,
+    )} left or part of the dot will be wasted.`;
   }
 
   //Returns the dot object
   getDot(spellId: number) {
     const ctor = this.constructor as typeof EarlyDotRefreshes;
-    const dot = ctor.dots.find(element => element.debuffId === spellId);
+    const dot = ctor.dots.find((element) => element.debuffId === spellId);
     return dot;
   }
 
   //Returns the dot object
   getDotByCast(spellId: number) {
     const ctor = this.constructor as typeof EarlyDotRefreshes;
-    const dot = ctor.dots.find(element => element.castId === spellId);
+    const dot = ctor.dots.find((element) => element.castId === spellId);
     return dot;
   }
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.
-  extendDot(spellId: number, targetID: number, extension: number, timestamp: number) {
+  extendDot(spellId: number, targetString: string, extension: number, timestamp: number) {
     const dot = this.getDot(spellId);
     if (!dot) {
       throw new Error(`The spellID ${spellId} is not in the list of dots to track`);
     }
-    const remainingDuration = this.targets[dot.debuffId][targetID] - timestamp || 0;
+    const remainingDuration = this.targets[dot.debuffId][targetString] - timestamp || 0;
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
     const lostDuration = newDuration - maxDuration;
-    if (lostDuration <= 0) { //full extension
-      this.targets[dot.debuffId][targetID] = timestamp + newDuration;
-      return {wasted: 0, effective: extension};
+    if (lostDuration <= 0) {
+      //full extension
+      this.targets[dot.debuffId][targetString] = timestamp + newDuration;
+      return { wasted: 0, effective: extension };
     } // Else not full extension
-    this.targets[dot.debuffId][targetID] = timestamp + maxDuration;
-    return {wasted: lostDuration, effective: extension - lostDuration};
+    this.targets[dot.debuffId][targetString] = timestamp + maxDuration;
+    return { wasted: lostDuration, effective: extension - lostDuration };
   }
 
   badCastsPercent(spellId: number) {
@@ -203,8 +215,13 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   badCastsEffectivePercent(spellId: number) {
-    if(!this.casts[spellId].addedDuration) {return 1;}
-    return this.casts[spellId].addedDuration / (this.casts[spellId].addedDuration+this.casts[spellId].wastedDuration);
+    if (!this.casts[spellId].addedDuration) {
+      return 1;
+    }
+    return (
+      this.casts[spellId].addedDuration /
+      (this.casts[spellId].addedDuration + this.casts[spellId].wastedDuration)
+    );
   }
 
   makeSuggestionThresholds(spell: Spell, minor: number, avg: number, major: number) {
@@ -222,5 +239,8 @@ class EarlyDotRefreshes extends Analyzer {
     };
   }
 }
+
+export type DotsById = { [key: number]: DotsByTarget };
+export type DotsByTarget = { [key: string]: number };
 
 export default EarlyDotRefreshes;

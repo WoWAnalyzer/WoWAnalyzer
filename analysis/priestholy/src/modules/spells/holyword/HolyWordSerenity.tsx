@@ -17,17 +17,20 @@ class HolyWordSerenity extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.GREATER_HEAL.id]: {
         baseReduction: () => GREATER_HEAL_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => GREATER_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        lightOfTheNaaruReduction: () =>
+          GREATER_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => GREATER_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
       [SPELLS.FLASH_HEAL.id]: {
         baseReduction: () => FLASH_HEAL_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => FLASH_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        lightOfTheNaaruReduction: () =>
+          FLASH_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => FLASH_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
       [SPELLS.BINDING_HEAL_TALENT.id]: {
         baseReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        lightOfTheNaaruReduction: () =>
+          BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
     };
@@ -35,8 +38,10 @@ class HolyWordSerenity extends HolyWordBase {
     if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
       this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
         baseReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
-        apotheosisReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
+        lightOfTheNaaruReduction: () =>
+          PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        apotheosisReduction: () =>
+          PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       };
     }
   }

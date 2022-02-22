@@ -1,4 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 /**
  * NAME: {
@@ -8,6 +8,11 @@ import { ItemList } from "common/ITEMS/Item";
  * },
  */
 const items: ItemList = {
+  VANTUS_RUNE_SANCTUM_OF_DOMINATION: {
+    id: 186662,
+    name: 'Vantus Rune',
+    icon: 'inv_inscription_90_vantusrune_torghast',
+  },
   VANTUS_RUNE_CASTLE_NATHRIA: {
     id: 173067,
     name: 'Vantus Rune',

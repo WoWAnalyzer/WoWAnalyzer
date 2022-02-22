@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 const ROOT_ELEMENT_ID = 'portal-target';
 
@@ -20,8 +20,6 @@ export const removeElement = (elem: HTMLElement) => {
   root().removeChild(elem);
 };
 
-const PortalTarget = () => (
-  <div id={ROOT_ELEMENT_ID} />
-);
+const PortalTarget = () => <div id={ROOT_ELEMENT_ID} />;
 
 export default memo(PortalTarget);

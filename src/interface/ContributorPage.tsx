@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DocumentTitle from 'interface/DocumentTitle';
 
 import Details from './ContributorDetails';

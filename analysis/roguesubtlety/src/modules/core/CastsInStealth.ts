@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import { Options } from 'parser/core/Analyzer';
 import Spell from 'common/SPELLS/Spell';
+import { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
+
 import { StealthDamageTracker } from '@wowanalyzer/rogue';
 
 import CastsInStealthBase from './CastsInStealthBase';
@@ -19,7 +20,8 @@ class CastsInStealth extends CastsInStealthBase {
   constructor(options: Options & { stealthDamageTracker: StealthDamageTracker }) {
     super(options);
 
-    this.maxCastsPerStealth = 1 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 2 : 0);
+    this.maxCastsPerStealth =
+      1 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 2 : 0);
 
     this.stealthCondition = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)
       ? 'Stealth or Vanish with Subterfuge'
@@ -27,7 +29,8 @@ class CastsInStealth extends CastsInStealthBase {
 
     options.stealthDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
-      (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
+      (s: Spell) =>
+        `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );
   }
 
@@ -40,7 +43,9 @@ class CastsInStealth extends CastsInStealthBase {
   }
 
   get stealthActualCasts() {
-    return this.validStealthSpellIds.map(s => this.stealthDamageTracker.getAbility(s).casts || 0).reduce((p, c) => p + c);
+    return this.validStealthSpellIds
+      .map((s) => this.stealthDamageTracker.getAbility(s).casts || 0)
+      .reduce((p, c) => p + c);
   }
 
   suggestions(when: When) {

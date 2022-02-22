@@ -2,15 +2,15 @@
 export default function rankingColor(percentage: number): string {
   if (percentage < 0.25) {
     return 'parse-grey';
-  } else if (percentage < 0.50) {
+  } else if (percentage < 0.5) {
     return 'parse-green';
   } else if (percentage < 0.75) {
     return 'parse-blue';
   } else if (percentage < 0.95) {
     return 'parse-purple';
-  } else if (percentage < 1.00) {
+  } else if (percentage < 1.0) {
     return 'parse-orange';
-  } else if (percentage >= 1.00) {
+  } else if (percentage >= 1.0) {
     return 'parse-artifact';
   } else {
     return 'parse-none';

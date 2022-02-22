@@ -17,12 +17,18 @@ class LavaSurge extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LAVA_SURGE), this.onLavaSurgeProc);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LAVA_SURGE),
+      this.onLavaSurgeProc,
+    );
   }
 
   onLavaSurgeProc() {
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_BURST.id)) {
-      const reduction = this.abilities.getExpectedCooldownDuration(SPELLS.LAVA_BURST.id, this.spellUsable.cooldownTriggerEvent(SPELLS.LAVA_BURST.id));
+      const reduction = this.abilities.getExpectedCooldownDuration(
+        SPELLS.LAVA_BURST.id,
+        this.spellUsable.cooldownTriggerEvent(SPELLS.LAVA_BURST.id),
+      );
       if (reduction) {
         this.spellUsable.reduceCooldown(SPELLS.LAVA_BURST.id, reduction);
       }

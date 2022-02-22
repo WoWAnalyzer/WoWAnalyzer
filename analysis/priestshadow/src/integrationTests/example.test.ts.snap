@@ -1,5 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          1.23 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "98.76526554728024%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Shadow Priest integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -7,6 +105,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -119,7 +218,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=205448"
+                href="https://wowhead.com/spell=205448"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -163,8 +262,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               22
               /23
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -217,7 +315,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=8092"
+                href="https://wowhead.com/spell=8092"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -261,8 +359,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               38
               /48
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -320,7 +417,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=15407"
+                href="https://wowhead.com/spell=15407"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -364,8 +461,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               27
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -406,7 +502,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=205385"
+                href="https://wowhead.com/spell=205385"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -450,8 +546,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               11
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -504,7 +599,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=589"
+                href="https://wowhead.com/spell=589"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -548,8 +643,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -590,7 +684,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=335467"
+                href="https://wowhead.com/spell=335467"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -634,8 +728,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               37
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -676,7 +769,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34914"
+                href="https://wowhead.com/spell=34914"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -720,8 +813,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               10
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -762,7 +854,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=263165"
+                href="https://wowhead.com/spell=263165"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -806,8 +898,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               8
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -860,7 +951,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=32379"
+                href="https://wowhead.com/spell=32379"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -904,8 +995,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               4
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1021,7 +1111,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48045"
+                href="https://wowhead.com/spell=48045"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1065,8 +1155,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1165,7 +1254,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=228260"
+                href="https://wowhead.com/spell=228260"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1209,8 +1298,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1263,7 +1351,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=34433"
+                href="https://wowhead.com/spell=34433"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1307,8 +1395,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1361,7 +1448,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=10060"
+                href="https://wowhead.com/spell=10060"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1405,8 +1492,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1459,7 +1545,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=324724"
+                href="https://wowhead.com/spell=324724"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1503,8 +1589,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               4
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1620,7 +1705,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=331180"
+                href="https://wowhead.com/spell=331180"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1664,8 +1749,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1776,7 +1860,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=47585"
+                href="https://wowhead.com/spell=47585"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1820,8 +1904,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1874,7 +1957,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=15487"
+                href="https://wowhead.com/spell=15487"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1918,8 +2001,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1972,7 +2054,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=15286"
+                href="https://wowhead.com/spell=15286"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2016,8 +2098,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2070,7 +2151,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=17"
+                href="https://wowhead.com/spell=17"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2114,8 +2195,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               5
               /58
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2168,7 +2248,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=186263"
+                href="https://wowhead.com/spell=186263"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2212,8 +2292,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2254,7 +2333,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19236"
+                href="https://wowhead.com/spell=19236"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2298,8 +2377,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2352,7 +2430,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=73325"
+                href="https://wowhead.com/spell=73325"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2396,8 +2474,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2450,7 +2527,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=586"
+                href="https://wowhead.com/spell=586"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2494,8 +2571,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2548,7 +2624,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=21562"
+                href="https://wowhead.com/spell=21562"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2592,8 +2668,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2634,7 +2709,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1706"
+                href="https://wowhead.com/spell=1706"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2678,8 +2753,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2720,7 +2794,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=453"
+                href="https://wowhead.com/spell=453"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2764,8 +2838,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2806,7 +2879,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=32375"
+                href="https://wowhead.com/spell=32375"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2850,8 +2923,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2904,7 +2976,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=528"
+                href="https://wowhead.com/spell=528"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2948,8 +3020,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2990,7 +3061,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=605"
+                href="https://wowhead.com/spell=605"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3034,8 +3105,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3076,7 +3146,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=9484"
+                href="https://wowhead.com/spell=9484"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3120,8 +3190,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3162,7 +3231,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=8122"
+                href="https://wowhead.com/spell=8122"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3206,8 +3275,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3260,7 +3328,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=64044"
+                href="https://wowhead.com/spell=64044"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3304,8 +3372,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3358,7 +3425,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2096"
+                href="https://wowhead.com/spell=2096"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3402,8 +3469,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3444,7 +3510,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=213634"
+                href="https://wowhead.com/spell=213634"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3488,8 +3554,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3542,7 +3607,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=232698"
+                href="https://wowhead.com/spell=232698"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3586,8 +3651,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3628,7 +3692,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2006"
+                href="https://wowhead.com/spell=2006"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3672,8 +3736,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3772,7 +3835,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3784,7 +3847,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3793,7 +3856,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   }
                 />
                  
-                Spiritual Healing Potion
+                Healthstone
               </a>
             </td>
             <td
@@ -3816,8 +3879,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3870,7 +3932,104 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307494"
+                href="https://wowhead.com/spell=307192"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spiritual Healing Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307494"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3914,8 +4073,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3969,7 +4127,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
 Array [
   Object {
     "details": null,
-    "icon": "spell_shadow_unholyfrenzy",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3986,6 +4144,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 8092,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4013,7 +4172,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_demonicfortitude",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -4030,6 +4189,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 32379,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4057,7 +4217,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_maldraxxus_priest",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -4074,6 +4234,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 324724,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4119,7 +4280,7 @@ exports[`Shadow Priest integration test: example log DarkThoughts matches the st
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341205"
+            href="https://wowhead.com/spell=341205"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4132,7 +4293,7 @@ exports[`Shadow Priest integration test: example log DarkThoughts matches the st
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=341205"
+            href="https://wowhead.com/spell=341205"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4174,7 +4335,7 @@ exports[`Shadow Priest integration test: example log DissonantEchoes matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=338342"
+            href="https://wowhead.com/spell=338342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4187,7 +4348,7 @@ exports[`Shadow Priest integration test: example log DissonantEchoes matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=338342"
+            href="https://wowhead.com/spell=338342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4205,11 +4366,11 @@ exports[`Shadow Priest integration test: example log DissonantEchoes matches the
             src="/img/sword.png"
           />
            
-          89
+          45
            DPS
            
           <small>
-            1.99
+            1.00
              % of total
           </small>
            
@@ -4348,7 +4509,7 @@ exports[`Shadow Priest integration test: example log DotUptimeStatisticBox match
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=34914"
+            href="https://wowhead.com/spell=34914"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4419,7 +4580,7 @@ exports[`Shadow Priest integration test: example log DotUptimeStatisticBox match
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=589"
+            href="https://wowhead.com/spell=589"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4482,7 +4643,7 @@ exports[`Shadow Priest integration test: example log DotUptimeStatisticBox match
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=335467"
+            href="https://wowhead.com/spell=335467"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4703,7 +4864,7 @@ exports[`Shadow Priest integration test: example log EternalCallToTheVoid matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336214"
+            href="https://wowhead.com/spell=336214"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4716,7 +4877,7 @@ exports[`Shadow Priest integration test: example log EternalCallToTheVoid matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336214"
+            href="https://wowhead.com/spell=336214"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4763,7 +4924,7 @@ exports[`Shadow Priest integration test: example log FortressOfTheMind matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193195"
+            href="https://wowhead.com/spell=193195"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4776,7 +4937,7 @@ exports[`Shadow Priest integration test: example log FortressOfTheMind matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=193195"
+            href="https://wowhead.com/spell=193195"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4856,7 +5017,7 @@ exports[`Shadow Priest integration test: example log InsanityUsage matches the s
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/insanity"
+            href="https://wowhead.com/insanity"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4918,12 +5079,14 @@ Array [
       <ForwardRef
         id={335467}
       />
-       is your main source of damage and the damage stacks from early refreshing, you should always use 
+       is your main source of damage and the damage stacks from early refreshing, you should always use
+       
       <ForwardRef
         id={335467}
       />
        when at risk of overcapping.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"priest.shadow.suggestions.insanity.usage","message":"You wasted {0}% of your Insanity due to overcapping.","values":{"0":"1.09"}}
        (
@@ -4951,7 +5114,7 @@ exports[`Shadow Priest integration test: example log ShadowCrash matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205385"
+            href="https://wowhead.com/spell=205385"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4964,7 +5127,7 @@ exports[`Shadow Priest integration test: example log ShadowCrash matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205385"
+            href="https://wowhead.com/spell=205385"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5331,7 +5494,7 @@ exports[`Shadow Priest integration test: example log TwistOfFate matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=123254"
+            href="https://wowhead.com/spell=123254"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5344,7 +5507,7 @@ exports[`Shadow Priest integration test: example log TwistOfFate matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=123254"
+            href="https://wowhead.com/spell=123254"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5408,7 +5571,7 @@ exports[`Shadow Priest integration test: example log UnholyNova matches the stat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=324724"
+            href="https://wowhead.com/spell=324724"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5421,7 +5584,7 @@ exports[`Shadow Priest integration test: example log UnholyNova matches the stat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=324724"
+            href="https://wowhead.com/spell=324724"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5499,7 +5662,7 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=15286"
+            href="https://wowhead.com/spell=15286"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5512,7 +5675,7 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=15286"
+            href="https://wowhead.com/spell=15286"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5576,6 +5739,7 @@ Array [
       />
        on the boss.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"priest.shadow.suggestions.vampiricTouch.uptime","message":"{0}% Vampiric Touch uptime","values":{"0":"91.17"}}
        (
@@ -5603,7 +5767,7 @@ exports[`Shadow Priest integration test: example log VoidTorrent matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=263165"
+            href="https://wowhead.com/spell=263165"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5616,7 +5780,7 @@ exports[`Shadow Priest integration test: example log VoidTorrent matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=263165"
+            href="https://wowhead.com/spell=263165"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5691,10 +5855,12 @@ Array [
       <ForwardRef
         id={263165}
       />
-       early, wasting 
+       early, wasting
+       
       0.2
        channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"priest.shadow.suggestions.voidTorrent.secondsLost","message":"Lost {0} seconds of Void Torrent.","values":{"0":0.2}}
        (
@@ -5795,7 +5961,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             When not in 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=228264"
+              href="https://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5810,7 +5976,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             , it's important to keep your DoTs up on the boss. While in 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=228264"
+              href="https://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5822,10 +5988,11 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Voidform
             </a>
-            , your 
+            , your
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=34914"
+              href="https://wowhead.com/spell=34914"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5837,25 +6004,11 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Vampiric Touch
             </a>
-            , 
+             and
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=335467"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_devouringplague.jpg"
-              />
-               
-              Devouring Plague
-            </a>
-            , and 
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=589"
+              href="https://wowhead.com/spell=589"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5870,7 +6023,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
              durations are extended when the target or a nearby target gets hit by 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=205448"
+              href="https://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5899,7 +6052,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=589"
+                  href="https://wowhead.com/spell=589"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5973,7 +6126,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34914"
+                  href="https://wowhead.com/spell=34914"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6126,7 +6279,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             Spells such as 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=205448"
+              href="https://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6138,10 +6291,11 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Void Bolt
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=8092"
+              href="https://wowhead.com/spell=8092"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6170,7 +6324,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=205448"
+                  href="https://wowhead.com/spell=205448"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6243,7 +6397,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=8092"
+                  href="https://wowhead.com/spell=8092"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6316,7 +6470,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=32379"
+                  href="https://wowhead.com/spell=32379"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6389,7 +6543,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=263165"
+                  href="https://wowhead.com/spell=263165"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6462,7 +6616,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=205385"
+                  href="https://wowhead.com/spell=205385"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6628,7 +6782,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=228260"
+                  href="https://wowhead.com/spell=228260"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6701,7 +6855,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=10060"
+                  href="https://wowhead.com/spell=10060"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6774,7 +6928,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=34433"
+                  href="https://wowhead.com/spell=34433"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6847,7 +7001,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=324724"
+                  href="https://wowhead.com/spell=324724"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6999,7 +7153,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             Insanity generation and management is crucial to maximizing your damage. You should always try to stay below maximum insanity for room to generate more with your abilities. You should juggle using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=335467"
+              href="https://wowhead.com/spell=335467"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7011,10 +7165,11 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Devouring Plague
             </a>
-             to not overcap while also maximizing DOT uptime for the increased mastery benefit from 
+             to not overcap while also maximizing DOT uptime for the increased mastery benefit from
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=343690"
+              href="https://wowhead.com/spell=343690"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7182,7 +7337,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=205448"
+              href="https://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7194,10 +7349,11 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Void Bolt
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=335467"
+              href="https://wowhead.com/spell=335467"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7212,7 +7368,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
              cast towards that location. During high movement you can use 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=589"
+              href="https://wowhead.com/spell=589"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7224,10 +7380,11 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Shadow Word: Pain
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=32379"
+              href="https://wowhead.com/spell=32379"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7275,7 +7432,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  2.54%
+                  1.23%
                    
                    
                 </div>

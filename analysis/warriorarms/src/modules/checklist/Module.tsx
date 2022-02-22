@@ -1,14 +1,15 @@
-import React from 'react';
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import { apl, check as aplCheck } from '../core/AplCheck';
+import Bladestorm from '../core/Bladestorm';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
 import SweepingStrikes from '../core/SweepingStrikes';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -21,6 +22,7 @@ class Checklist extends BaseChecklist {
     rendUptime: RendUptime,
     mortalStrike: MortalStrike,
     sweepingStrikes: SweepingStrikes,
+    bladestorm: Bladestorm,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -30,10 +32,14 @@ class Checklist extends BaseChecklist {
   protected rendUptime!: RendUptime;
   protected mortalStrike!: MortalStrike;
   protected sweepingStrikes!: SweepingStrikes;
+  protected bladestorm!: Bladestorm;
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
@@ -46,6 +52,7 @@ class Checklist extends BaseChecklist {
           notEnoughMortalStrike: this.mortalStrike.notEnoughMortalStrikeThresholds,
           tooMuchMortalStrike: this.mortalStrike.tooMuchMortalStrikeThresholds,
           badSweepingStrikes: this.sweepingStrikes.suggestionThresholds,
+          badBladestorms: this.bladestorm.suggestionThresholds,
         }}
       />
     );

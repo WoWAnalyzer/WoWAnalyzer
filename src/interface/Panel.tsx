@@ -1,4 +1,5 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
+import * as React from 'react';
 
 interface HeadingProps {
   title?: React.ReactNode;
@@ -67,12 +68,7 @@ const Panel = ({
   bodyStyle,
 }: PanelProps) => (
   <div className={`panel ${className}`} style={style}>
-    <Heading
-      title={title}
-      explanation={explanation}
-      actions={actions}
-      backButton={backButton}
-    />
+    <Heading title={title} explanation={explanation} actions={actions} backButton={backButton} />
     <div className={`panel-body ${pad ? 'pad' : ''}`} style={bodyStyle}>
       {children}
     </div>

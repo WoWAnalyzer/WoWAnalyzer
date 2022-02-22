@@ -1,11 +1,10 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const debug = false;
 
 class AimedShotPrepullNormalizer extends EventsNormalizer {
-
   /**
    * Aimed Shot can begin casting before combat.
    * This means we don't see the begincast event, and only the cast success event.
@@ -15,14 +14,22 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
   normalize(events) {
     const fixedEvents = [];
     let lastBeginCastTimestamp = null;
-    events.forEach(event => {
-      if ((event.type === EventType.BeginCast || event.type === EventType.Cast) && event.ability.guid === SPELLS.AIMED_SHOT.id) {
+    events.forEach((event) => {
+      if (
+        (event.type === EventType.BeginCast || event.type === EventType.Cast) &&
+        event.ability.guid === SPELLS.AIMED_SHOT.id
+      ) {
         if (event.type === EventType.BeginCast) {
           lastBeginCastTimestamp = event.timestamp;
         }
         if (event.type === EventType.Cast) {
           if (lastBeginCastTimestamp === null) {
-            debug && console.log('Aimed Shot without a Begin Cast registered', (event.timestamp - this.owner.fight.start_time) / 1000, 'seconds into combat');
+            debug &&
+              console.log(
+                'Aimed Shot without a Begin Cast registered',
+                (event.timestamp - this.owner.fight.start_time) / 1000,
+                'seconds into combat',
+              );
 
             const fabricatedEvent = {
               ...event,
@@ -33,7 +40,6 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
             fixedEvents.push(fabricatedEvent);
             debug && console.log('Real', event);
             debug && console.log('Fabricated', fabricatedEvent);
-
           }
         }
       }
@@ -41,7 +47,6 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
     });
     return fixedEvents;
   }
-
 }
 
 export default AimedShotPrepullNormalizer;

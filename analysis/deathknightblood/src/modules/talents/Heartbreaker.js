@@ -1,10 +1,9 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const DEATHSTRIKE_COST = 40;
 
@@ -16,7 +15,7 @@ class Heartbreaker extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEART_STRIKE), this.onCast);
-    this.addEventListener(Events.energize.spell(SPELLS.HEARTBREAKER), this.onEnergize);
+    this.addEventListener(Events.resourcechange.spell(SPELLS.HEARTBREAKER), this.onEnergize);
   }
 
   onCast(event) {
@@ -45,12 +44,14 @@ class Heartbreaker extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(1)}
         value={this.totalRPGained}
         label="Runic Power gained"
-        tooltip={(
+        tooltip={
           <>
-            Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death Strikes.<br />
+            Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death
+            Strikes.
+            <br />
             Your Heart Strike hit on average {this.averageHearStrikeHits} targets.
           </>
-        )}
+        }
       />
     );
   }

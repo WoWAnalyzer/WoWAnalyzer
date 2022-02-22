@@ -1,12 +1,13 @@
-import React from 'react';
-
-import { joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon, darkpsy3934 } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
+
 
 export default [
-  change(date(2021, 4, 4), 'Version bump to 9.0.5', Khazak),
+  change(date(2021, 11, 5), 'Verified 9.1.5 patch changes and bumped support to 9.1.5', darkpsy3934),
+  change(date(2021, 8, 19), <> Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
+  change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),
   change(date(2021, 3, 7), <>Added basic Frost specific suggestions to <SpellLink id={SPELLS.SUPERSTRAIN.id}/></>, Khazak),
   change(date(2021, 2, 17), <> Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),

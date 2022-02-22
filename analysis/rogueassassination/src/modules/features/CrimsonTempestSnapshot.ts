@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import Events, { SpendResourceEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { SpendResourceEvent } from 'parser/core/Events';
 
 import Snapshot from '../core/Snapshot';
 
@@ -25,10 +24,16 @@ class CrimsonTempestSnapshot extends Snapshot {
   constructor(options: Options) {
     super(options);
     const combatant = this.selectedCombatant;
-    if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) || !combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id)) {
+    if (
+      combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ||
+      !combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id)
+    ) {
       this.active = false;
     }
-    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_TEMPEST_TALENT), this.onSpendResource);
+    this.addEventListener(
+      Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_TEMPEST_TALENT),
+      this.onSpendResource,
+    );
   }
 
   onSpendResource(event: SpendResourceEvent) {

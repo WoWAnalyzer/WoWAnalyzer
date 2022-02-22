@@ -1,7 +1,7 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/shaman';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class LavaSurge extends Analyzer {
   static dependencies = {

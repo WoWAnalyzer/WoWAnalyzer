@@ -1,9 +1,8 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
@@ -26,7 +25,11 @@ class Skullsplitter extends Analyzer {
     const avg = total / (Skullsplitter.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<>Average <SpellLink id={SPELLS.SKULLSPLITTER_TALENT.id} /> damage</>}
+        title={
+          <>
+            Average <SpellLink id={SPELLS.SKULLSPLITTER_TALENT.id} /> damage
+          </>
+        }
         value={formatThousands(avg)}
         valueTooltip={`Total Skullsplitter damage: ${formatThousands(total)}`}
       />

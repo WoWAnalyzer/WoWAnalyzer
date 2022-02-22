@@ -1,20 +1,18 @@
-import React from 'react';
-
-import { HolyPowerDetails } from '@wowanalyzer/paladin'
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
-import NoDamageShieldOfTheRighteous from '../NoDamageShieldOfTheRighteous';
+import { HolyPowerDetails } from '@wowanalyzer/paladin';
+
+import { apl, check as aplCheck } from '../../core/AplCheck';
 import Consecration from '../../spells/Consecration';
 import HammerOfTheRighteous from '../../spells/HammerOfTheRighteous';
 import LightOfTheProtector from '../../spells/LightOfTheProtector';
 import WordOfGlory from '../../spells/WordOfGlory';
-
+import NoDamageShieldOfTheRighteous from '../NoDamageShieldOfTheRighteous';
+import ShieldOfTheRighteous from '../ShieldOfTheRighteous';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -32,9 +30,13 @@ class Checklist extends BaseChecklist {
     wog: WordOfGlory,
   };
 
-  render(){
+  render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
+
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         extras={{
@@ -51,7 +53,6 @@ class Checklist extends BaseChecklist {
           hpWaste: this.hp.suggestionThresholds,
           wogOverheal: this.wog.overhealSuggestion,
           wogSlWaste: this.wog.wastedSlSuggestion,
-          wogSotrCasts: this.wog.sotrSuggestion,
         }}
       />
     );

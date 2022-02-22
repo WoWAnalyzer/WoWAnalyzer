@@ -3,44 +3,40 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Felstorm from './modules/features/Felstorm';
-import Checklist from './modules/features/Checklist/Module';
-import SummonDemonicTyrant from './modules/features/SummonDemonicTyrant';
 import LegionStrike from './modules/features/LegionStrike';
-
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
-import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-
+import SummonDemonicTyrant from './modules/features/SummonDemonicTyrant';
 import DemoPets from './modules/pets/DemoPets';
-import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
-import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
-import WildImpEnergyHandler from './modules/pets/DemoPets/WildImpEnergyHandler';
-import PowerSiphonHandler from './modules/pets/DemoPets/PowerSiphonHandler';
 import DemonicTyrantHandler from './modules/pets/DemoPets/DemonicTyrantHandler';
 import ImplosionHandler from './modules/pets/DemoPets/ImplosionHandler';
-import PetTimelineTab from './modules/pets/PetTimelineTab';
+import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
+import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
+import PowerSiphonHandler from './modules/pets/DemoPets/PowerSiphonHandler';
+import WildImpEnergyHandler from './modules/pets/DemoPets/WildImpEnergyHandler';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 import SummonOrderNormalizer from './modules/pets/normalizers/SummonOrderNormalizer';
-
-import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
-
+import PetTimelineTab from './modules/pets/PetTimelineTab';
+import SoulShardDetails from './modules/soulshards/SoulShardDetails';
+import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import TalentStatisticBox from './modules/talents';
-import Dreadlash from './modules/talents/Dreadlash';
-import DemonicStrength from './modules/talents/DemonicStrength';
 import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
-import PowerSiphon from './modules/talents/PowerSiphon';
+import DemonicConsumption from './modules/talents/DemonicConsumption';
+import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
+import Dreadlash from './modules/talents/Dreadlash';
 import FromTheShadows from './modules/talents/FromTheShadows';
+import GrimoireFelguard from './modules/talents/GrimoireFelguard';
+import InnerDemons from './modules/talents/InnerDemons';
+import NetherPortal from './modules/talents/NetherPortal';
+import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
+import PowerSiphon from './modules/talents/PowerSiphon';
+import SacrificedSouls from './modules/talents/SacrificedSouls';
+import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
-import SoulConduit from './modules/talents/SoulConduit';
-import InnerDemons from './modules/talents/InnerDemons';
-import GrimoireFelguard from './modules/talents/GrimoireFelguard';
-import SacrificedSouls from './modules/talents/SacrificedSouls';
-import DemonicConsumption from './modules/talents/DemonicConsumption';
-import NetherPortal from './modules/talents/NetherPortal';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

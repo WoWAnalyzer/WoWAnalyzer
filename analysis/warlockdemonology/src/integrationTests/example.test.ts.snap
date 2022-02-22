@@ -109,12 +109,14 @@ Array [
       <ForwardRef
         id={268358}
       />
-       or 
+       or
+       
       <ForwardRef
         id={111400}
       />
        when you can.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"warlock.demonology.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"49.86"}}
        (
@@ -132,6 +134,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -244,7 +247,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=104316"
+                href="https://wowhead.com/spell=104316"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -288,8 +291,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               8
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -347,7 +349,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=105174"
+                href="https://wowhead.com/spell=105174"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -391,8 +393,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               50
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -433,7 +434,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264178"
+                href="https://wowhead.com/spell=264178"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -477,8 +478,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               31
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -519,7 +519,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=172"
+                href="https://wowhead.com/spell=172"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -563,8 +563,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -605,7 +604,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=264057"
+                href="https://wowhead.com/spell=264057"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -649,8 +648,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               14
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -708,7 +706,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=686"
+                href="https://wowhead.com/spell=686"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -752,8 +750,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               34
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -852,7 +849,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=196277"
+                href="https://wowhead.com/spell=196277"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -896,8 +893,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -996,7 +992,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=265187"
+                href="https://wowhead.com/spell=265187"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1040,8 +1036,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1099,7 +1094,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=267171"
+                href="https://wowhead.com/spell=267171"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1143,8 +1138,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               3
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1260,7 +1254,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=104773"
+                href="https://wowhead.com/spell=104773"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1304,8 +1298,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1421,7 +1414,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=111400"
+                href="https://wowhead.com/spell=111400"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1465,8 +1458,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1507,7 +1499,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=234153"
+                href="https://wowhead.com/spell=234153"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1551,8 +1543,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               5
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1593,7 +1584,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6789"
+                href="https://wowhead.com/spell=6789"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1637,8 +1628,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               2
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1691,7 +1681,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48018"
+                href="https://wowhead.com/spell=48018"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1735,8 +1725,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1789,7 +1778,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48020"
+                href="https://wowhead.com/spell=48020"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1833,8 +1822,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1887,7 +1875,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=20707"
+                href="https://wowhead.com/spell=20707"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1931,8 +1919,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1973,7 +1960,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=111771"
+                href="https://wowhead.com/spell=111771"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2017,8 +2004,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2071,7 +2057,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=710"
+                href="https://wowhead.com/spell=710"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2115,8 +2101,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2157,7 +2142,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6201"
+                href="https://wowhead.com/spell=6201"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2201,8 +2186,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2243,7 +2227,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=29893"
+                href="https://wowhead.com/spell=29893"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2287,8 +2271,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2341,7 +2324,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1098"
+                href="https://wowhead.com/spell=1098"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2385,8 +2368,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2427,7 +2409,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=126"
+                href="https://wowhead.com/spell=126"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2471,8 +2453,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2513,7 +2494,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5782"
+                href="https://wowhead.com/spell=5782"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2557,8 +2538,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2599,7 +2579,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1714"
+                href="https://wowhead.com/spell=1714"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2643,8 +2623,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2685,7 +2664,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=702"
+                href="https://wowhead.com/spell=702"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2729,8 +2708,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2771,7 +2749,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=334275"
+                href="https://wowhead.com/spell=334275"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2815,8 +2793,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2857,7 +2834,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=755"
+                href="https://wowhead.com/spell=755"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2901,8 +2878,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2943,7 +2919,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=688"
+                href="https://wowhead.com/spell=688"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2987,8 +2963,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3029,7 +3004,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30283"
+                href="https://wowhead.com/spell=30283"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3073,8 +3048,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3127,7 +3101,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=333889"
+                href="https://wowhead.com/spell=333889"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3171,8 +3145,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3225,7 +3198,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=5697"
+                href="https://wowhead.com/spell=5697"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3269,8 +3242,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3369,7 +3341,104 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.21
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /2
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "50%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              50.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3413,8 +3482,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3467,7 +3535,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3511,8 +3579,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3566,7 +3633,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
-    "icon": "spell_warlock_calldreadstalkers",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3583,6 +3650,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 104316,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3610,7 +3678,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_polearm_2h_fellord_04",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3627,6 +3695,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 264057,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3654,7 +3723,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_summondemonictyrant",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3671,6 +3740,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 265187,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3698,7 +3768,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_warlock_demonicempowerment",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3715,6 +3785,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 267171,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3742,7 +3813,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_shadow_demonictactics",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3759,6 +3830,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 104773,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3798,14 +3870,17 @@ Array [
       32.78
       % of the fight duration (
       95
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/XAHa3hgKm4JcyDT2/156-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%224:50%22%7D%7D/Armaghoul/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -3844,7 +3919,7 @@ exports[`Demonology Warlock integration test: example log DemonicCalling matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205145"
+            href="https://wowhead.com/spell=205145"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3857,7 +3932,7 @@ exports[`Demonology Warlock integration test: example log DemonicCalling matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205145"
+            href="https://wowhead.com/spell=205145"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3896,7 +3971,7 @@ exports[`Demonology Warlock integration test: example log DemonicConsumption mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267215"
+            href="https://wowhead.com/spell=267215"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3909,7 +3984,7 @@ exports[`Demonology Warlock integration test: example log DemonicConsumption mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267215"
+            href="https://wowhead.com/spell=267215"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3973,7 +4048,7 @@ exports[`Demonology Warlock integration test: example log DemonicStrength matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267171"
+            href="https://wowhead.com/spell=267171"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3986,7 +4061,7 @@ exports[`Demonology Warlock integration test: example log DemonicStrength matche
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=267171"
+            href="https://wowhead.com/spell=267171"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4165,6 +4240,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4209,6 +4285,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4253,6 +4330,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4296,6 +4374,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4335,6 +4414,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -4386,6 +4466,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4404,6 +4485,7 @@ Array [
       />
        more often, preferably on cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"warlock.demonology.suggestions.felstorm.casts","message":"{0} out of {1} ({2} %) Felstorm casts.","values":{"0":7,"1":10,"2":"70.00"}}
        (
@@ -4421,6 +4503,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4433,6 +4516,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4455,7 +4539,7 @@ exports[`Demonology Warlock integration test: example log LegionStrike matches t
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30213"
+            href="https://wowhead.com/spell=30213"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4468,7 +4552,7 @@ exports[`Demonology Warlock integration test: example log LegionStrike matches t
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30213"
+            href="https://wowhead.com/spell=30213"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4532,6 +4616,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4554,7 +4639,7 @@ exports[`Demonology Warlock integration test: example log SoulConduit matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=215941"
+            href="https://wowhead.com/spell=215941"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4567,7 +4652,7 @@ exports[`Demonology Warlock integration test: example log SoulConduit matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=215941"
+            href="https://wowhead.com/spell=215941"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4623,7 +4708,7 @@ exports[`Demonology Warlock integration test: example log SoulShardDetails match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=246985"
+            href="https://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4636,7 +4721,7 @@ exports[`Demonology Warlock integration test: example log SoulShardDetails match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=246985"
+            href="https://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4682,6 +4767,7 @@ Array [
     "icon": "inv_misc_gem_amethyst_02",
     "importance": "minor",
     "issue": "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"warlock.demonology.suggestions.soulShards.wastedPerMinutes","message":"{shardsWasted} Soul Shards wasted ({0} per minute)","values":{"0":"1.65","shardsWasted":8}}
        (
@@ -4709,7 +4795,7 @@ exports[`Demonology Warlock integration test: example log SoulStrike matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=264057"
+            href="https://wowhead.com/spell=264057"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4722,7 +4808,7 @@ exports[`Demonology Warlock integration test: example log SoulStrike matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=264057"
+            href="https://wowhead.com/spell=264057"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4798,7 +4884,7 @@ exports[`Demonology Warlock integration test: example log SummonDemonicTyrant ma
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=265187"
+            href="https://wowhead.com/spell=265187"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4811,7 +4897,7 @@ exports[`Demonology Warlock integration test: example log SummonDemonicTyrant ma
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=265187"
+            href="https://wowhead.com/spell=265187"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5197,7 +5283,7 @@ Array [
         }
       }
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans
@@ -5207,6 +5293,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -5299,10 +5386,11 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Demonology has a lot of short cooldowns that make up majority of your rotation, such as 
+            Demonology has a lot of short cooldowns that make up majority of your rotation, such as
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=104316"
+              href="https://wowhead.com/spell=104316"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5314,10 +5402,11 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Call Dreadstalkers
             </a>
-             or Felguard's 
+             or Felguard's
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=89751"
+              href="https://wowhead.com/spell=89751"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5346,7 +5435,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=104316"
+                  href="https://wowhead.com/spell=104316"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5419,7 +5508,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=89751"
+                  href="https://wowhead.com/spell=89751"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5492,7 +5581,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=264057"
+                  href="https://wowhead.com/spell=264057"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5819,7 +5908,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=265187"
+                  href="https://wowhead.com/spell=265187"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5892,7 +5981,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=267171"
+                  href="https://wowhead.com/spell=267171"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6044,7 +6133,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=111771"
+              href="https://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6056,10 +6145,11 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Demonic Gateway
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=268358"
+              href="https://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6071,10 +6161,11 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Demonic Circle
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=111400"
+              href="https://wowhead.com/spell=111400"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6086,10 +6177,11 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Burning Rush
             </a>
-             or mitigate incoming damage with 
+             or mitigate incoming damage with
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=104773"
+              href="https://wowhead.com/spell=104773"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6104,7 +6196,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             /
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=108416"
+              href="https://wowhead.com/spell=108416"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6135,7 +6227,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=48020"
+                  href="https://wowhead.com/spell=48020"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6208,7 +6300,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=104773"
+                  href="https://wowhead.com/spell=104773"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6360,7 +6452,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             You should try to avoid doing nothing during the fight. When you're waiting for cooldowns, keep building Soul Shards to summon additional Wild Imps. When you have to move, use your instant abilities like 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=264178"
+              href="https://wowhead.com/spell=264178"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6375,7 +6467,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
              (with Demonic Core) or 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=264057"
+              href="https://wowhead.com/spell=264057"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6387,10 +6479,11 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Soul Strike
             </a>
-             or try to utilize 
+             or try to utilize
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=268358"
+              href="https://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6402,10 +6495,12 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Teleport
             </a>
-             or 
+             
+            or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=111771"
+              href="https://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6417,7 +6512,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Gateway
             </a>
-             to reduce the movement even further.
+             
+            to reduce the movement even further.
           </div>
         </div>
         <div

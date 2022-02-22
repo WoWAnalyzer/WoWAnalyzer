@@ -4,8 +4,6 @@
  * worth mitigating, skewing the results of tracking.
  */
 
-const IGNORED: number[] = [
-
-];
+const IGNORED: number[] = [];
 
 export default IGNORED;

@@ -3,7 +3,6 @@ import { Dungeon } from 'game/raids';
 import Background from './backgrounds/Plaguefall.jpg';
 import Headshot from './headshots/Plaguefall.jpg';
 
-
 const Plaguefall: Dungeon = {
   id: 12289,
   name: 'Plaguefall',

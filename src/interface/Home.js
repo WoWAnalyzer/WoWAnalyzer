@@ -1,25 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
-import { Link, Route, Switch } from 'react-router-dom';
-
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
+import Ad from 'interface/Ad';
+import ErrorBoundary from 'interface/ErrorBoundary';
+import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
+import HelpWantedIcon from 'interface/icons/Information';
 import NewsIcon from 'interface/icons/Megaphone';
 import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
-import HelpWantedIcon from 'interface/icons/Information';
-import { hasPremium } from 'interface/selectors/user';
-import ErrorBoundary from 'interface/ErrorBoundary';
-import Ad from 'interface/Ad';
 import NavigationBar from 'interface/NavigationBar';
+import { hasPremium } from 'interface/selectors/user';
+import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import './Home.scss';
-import ReportSelectionHeader from './ReportSelectionHeader';
-import NotFound from './NotFound';
 import LanguageSwitcher from './LanguageSwitcher';
+import NotFound from './NotFound';
+import ReportSelectionHeader from './ReportSelectionHeader';
 
 const News = lazyLoadComponent(() =>
   retryingPromise(() =>
@@ -72,7 +71,7 @@ const Search = lazyLoadComponent(() =>
   ),
 );
 
-class Home extends React.PureComponent {
+class Home extends PureComponent {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
@@ -126,6 +125,8 @@ class Home extends React.PureComponent {
         </NavigationBar>
 
         <ReportSelectionHeader />
+
+        {premium === false && <Ad location="top" style={{ marginTop: '-20px' }} />}
 
         <main className="container">
           <nav>
@@ -187,12 +188,6 @@ class Home extends React.PureComponent {
               <Route component={NotFound} />
             </Switch>
           </ErrorBoundary>
-
-          {premium === false && (
-            <div style={{ marginTop: 40 }}>
-              <Ad />
-            </div>
-          )}
         </main>
       </div>
     );

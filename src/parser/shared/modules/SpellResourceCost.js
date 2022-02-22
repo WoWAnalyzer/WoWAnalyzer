@@ -21,7 +21,9 @@ class SpellResourceCost extends Analyzer {
   constructor(...args) {
     super(...args);
     if (!this.constructor.resourceType || !RESOURCE_TYPES[this.constructor.resourceType.id]) {
-      throw new Error('Attempting to use SpellResourceCost without providing a valid resourceType.');
+      throw new Error(
+        'Attempting to use SpellResourceCost without providing a valid resourceType.',
+      );
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
@@ -43,7 +45,7 @@ class SpellResourceCost extends Analyzer {
       return 0;
     }
     return event.classResources
-      .filter(resource => resource.type === this.constructor.resourceType.id)
+      .filter((resource) => resource.type === this.constructor.resourceType.id)
       .reduce((totalCost, resource) => totalCost + (resource.cost || 0), 0);
   }
 

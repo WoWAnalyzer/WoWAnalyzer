@@ -5,7 +5,8 @@
 .grouped-heal-meta.amount {
   min-width: 35px;
 }
-.grouped-heal-meta.healing, .grouped-heal-meta.overhealing {
+.grouped-heal-meta.healing,
+.grouped-heal-meta.overhealing {
   color: #84f8bd;
   min-width: 80px;
   text-align: right;

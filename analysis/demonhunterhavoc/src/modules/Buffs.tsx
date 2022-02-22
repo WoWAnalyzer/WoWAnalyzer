@@ -26,7 +26,7 @@ class Buffs extends CoreBuffs {
         triggeredBySpellId: SPELLS.FELBLADE_TALENT.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

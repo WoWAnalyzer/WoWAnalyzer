@@ -42,9 +42,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       return false;
     }
 
-    if (this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) &&
-        this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
-        AVENGING_CRUSADER_SPELLS.includes(spellId)) {
+    if (
+      this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) &&
+      this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
+      AVENGING_CRUSADER_SPELLS.includes(spellId)
+    ) {
       return true;
     }
 

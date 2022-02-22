@@ -1,21 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
-
-import Tooltip from 'interface/Tooltip';
-import SpellLink from 'interface/SpellLink';
 import Icon from 'interface/Icon';
-
+import SpellLink from 'interface/SpellLink';
+import Tooltip from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
+import PropTypes from 'prop-types';
+import { PureComponent, Fragment } from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
-class Lane extends React.PureComponent {
+class Lane extends PureComponent {
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.object).isRequired,
     fightStartTimestamp: PropTypes.number.isRequired,
     fightEndTimestamp: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
+    castableBuff: PropTypes.number,
     style: PropTypes.object,
   };
 
@@ -23,6 +22,7 @@ class Lane extends React.PureComponent {
     return ((timestamp - this.props.fightStartTimestamp) / 1000) * this.props.secondWidth;
   }
 
+  lastApplyBuff = null;
   renderEvent(event) {
     switch (event.type) {
       case EventType.FilterCooldownInfo:
@@ -31,14 +31,24 @@ class Lane extends React.PureComponent {
       case EventType.UpdateSpellUsable:
         if (event.trigger === EventType.RestoreCharge) {
           return (
-            <React.Fragment key={`restorecharge-${event.timestamp}`}>
+            <Fragment key={`restorecharge-${event.timestamp}`}>
               {this.renderCooldown(event)}
               {this.renderRecharge(event)}
-            </React.Fragment>
+            </Fragment>
           );
         } else {
           return this.renderCooldown(event);
         }
+      case EventType.ApplyBuff:
+        if (this.props.castableBuff === event.ability.guid) {
+          this.lastApplyBuff = event;
+        }
+        return null;
+      case EventType.RemoveBuff:
+        if (this.props.castableBuff === event.ability.guid) {
+          return this.renderCastableWindow(event);
+        }
+        return null;
       default:
         return null;
     }
@@ -112,6 +122,31 @@ class Lane extends React.PureComponent {
           className="recharge"
           style={{
             left,
+          }}
+        />
+      </Tooltip>
+    );
+  }
+  renderCastableWindow(event) {
+    const start = this.lastApplyBuff?.timestamp || this.fightStartTimestamp;
+    const end = event.timestamp;
+
+    return (
+      <Tooltip
+        content={
+          <Trans id="interface.report.results.timeline.lane.tooltip.castable">Castable</Trans>
+        }
+      >
+        <div
+          key={`castable-${start}-${end}`}
+          className="castable"
+          style={{
+            left: this.getOffsetLeft(start),
+            width:
+              ((Math.min(this.props.fightEndTimestamp, end) -
+                Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, start)) /
+                1000) *
+              this.props.secondWidth,
           }}
         />
       </Tooltip>

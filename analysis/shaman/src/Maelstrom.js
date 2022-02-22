@@ -1,10 +1,9 @@
 //Based on Main/Mana.js and parser/VengeanceDemonHunter/Modules/PainChart
 //Note: For those that might wish to add Boss Health in the future- some of the work is already done here: https://github.com/leapis/WoWAnalyzer/tree/focusChartBossHealth
 
-import React from 'react';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
 import { AutoSizer } from 'react-virtualized';
-import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 const COLORS = {
   MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',
@@ -13,13 +12,9 @@ const COLORS = {
   WASTED_MAELSTROM_BORDER: 'rgba(255, 90, 160, 1)',
 };
 
-const Maelstrom = props => {
+const Maelstrom = (props) => {
   if (!props.tracker) {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 
   const { start } = props;
@@ -28,8 +23,8 @@ const Maelstrom = props => {
 
   props.tracker.resourceUpdates.forEach((item) => {
     const secIntoFight = Math.floor((item.timestamp - start) / 1000);
-    rawData.push({kind: 'Maelstrom', x: secIntoFight, y:item.current});
-    rawData.push({kind: 'Wasted', x: secIntoFight, y:item.waste});
+    rawData.push({ kind: 'Maelstrom', x: secIntoFight, y: item.current });
+    rawData.push({ kind: 'Wasted', x: secIntoFight, y: item.waste });
   });
 
   const data = {
@@ -94,18 +89,11 @@ const Maelstrom = props => {
     },
   };
 
- return (
-   <AutoSizer disableHeight>
-     {({ width }) => (
-       <BaseChart
-         height={400}
-         width={width}
-         spec={spec}
-         data={data}
-       />
-     )}
-   </AutoSizer>
- );
+  return (
+    <AutoSizer disableHeight>
+      {({ width }) => <BaseChart height={400} width={width} spec={spec} data={data} />}
+    </AutoSizer>
+  );
 };
 
 Maelstrom.propTypes = {

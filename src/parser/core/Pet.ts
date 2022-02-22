@@ -1,10 +1,15 @@
 import CombatLogParser from './CombatLogParser';
 import Entity from './Entity';
+import Unit from './Unit';
 
-interface PetInfo {
-  name: string;
-  type: string;
-  guid: number;
+export interface PetFight {
+  id: number;
+  instances: number;
+}
+
+export interface PetInfo extends Unit {
+  petOwner: number;
+  fights: PetFight[];
 }
 
 class Pet extends Entity {

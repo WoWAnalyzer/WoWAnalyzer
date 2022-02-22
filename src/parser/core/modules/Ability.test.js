@@ -1,7 +1,7 @@
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
-import Ability from './Ability';
 import Abilities from './Abilities';
+import Ability from './Ability';
 
 describe('core/Modules/Ability', () => {
   let parserMock;
@@ -20,7 +20,7 @@ describe('core/Modules/Ability', () => {
   });
 
   it('provides the current Haste to the cooldown property of an ability', () => {
-    const cooldown = jest.fn(haste => haste);
+    const cooldown = jest.fn((haste) => haste);
     const instance = new Ability(abilitiesMock, {
       cooldown,
     });

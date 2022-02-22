@@ -1,10 +1,20 @@
-import { Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import React from 'react';
-import { SpellLink } from 'interface';
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import { Adoraci, Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
+import { ItemLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 31), <> Adjusted ExecuteHelper module to more accurately handle <SpellLink id={SPELLS.KILL_SHOT_MM_BM.id}/> when playing with <SpellLink id={SPELLS.FLAYED_SHOT.id}/>. </>, Putro),
+  change(date(2021, 12, 12), <> Updated the APL Checker to also enforce recommend early refreshes of <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> if your last cast was <SpellLink id={SPELLS.STEADY_SHOT.id}/>. </> , Putro),
+  change(date(2021, 12, 12), <> Added <SpellLink id={SPELLS.WILD_SPIRITS_BUFF.id} />, <SpellLink id={SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id}/> and <SpellLink id={SPELLS.FLAYERS_MARK.id} /> to the timeline to better show when these covenant specifics buffs were active.</>, Putro),
+  change(date(2021, 11, 13), 'Implemented an initial version of the APL checker module.', Putro),
+  change(date(2021, 11, 11), <> Added a simple analyzer to track damage gained from <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/>. </>, Putro),
+  change(date(2021, 11, 5), <> Correct an issue where the increased damage attributed to <SpellLink id={SPELLS.BRUTAL_PROJECTILES_CONDUIT.id}/> was ramping up too fast. </>, Putro),
+  change(date(2021, 11, 5), <> Added support for <SpellLink id={SPELLS.WAILING_ARROW_CAST.id}/> as provided by <ItemLink id={ITEMS.RAESHALARE_DEATHS_WHISPER.id} />. </>, Putro),
+  change(date(2021, 10, 31), <> Fix a bug with <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id}/> that showed it's contribution as much larger than it actually was. </>, Putro),
+  change(date(2021, 4, 3), <>Update <SpellLink id={SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.id} /> and other legendaries to 9.0.5. Bump support to 9.0.5.</>, Adoraci),
+  change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Putro),
   change(date(2021, 1, 16), <> Added support for <SpellLink id={SPELLS.REVERSAL_OF_FORTUNE_CONDUIT.id} />, <SpellLink id={SPELLS.REJUVENATING_WIND_CONDUIT.id} /> and <SpellLink id={SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id} />. </>, Putro),
   change(date(2021, 1, 10), <> Create a hacky solution to handle precasting <SpellLink id={SPELLS.AIMED_SHOT.id} /> to properly handle downtime - this leads to showing extremely short casttime for any precast Aimed Shot that finishes cast inside combat.</>, Putro),

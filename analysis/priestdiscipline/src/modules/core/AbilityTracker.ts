@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-
-import CoreAbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import { Ability, CastEvent } from 'parser/core/Events';
+import CoreAbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 interface TrackedDisciplineAbility extends TrackedAbility {
   raptureCasts?: number;

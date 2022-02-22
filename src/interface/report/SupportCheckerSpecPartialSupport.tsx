@@ -1,27 +1,22 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
-
-import Fight from 'parser/core/Fight';
-import { Player } from 'parser/core/CombatLogParser';
 import Config from 'parser/Config';
+import { WCLFight } from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
+import Report from 'parser/core/Report';
 
 import SupportCheckerIssue from './SupportCheckerIssue';
 
 interface Props {
-  report: unknown;
-  fight: Fight;
+  report: Report;
+  fight: WCLFight;
   config: Config;
-  player: Player;
+  player: PlayerInfo;
   onContinueAnyway: () => void;
 }
 
 const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => (
   <SupportCheckerIssue
-    title={
-      <Trans id="interface.report.supportChecker.specPartialSupport">
-        Partial support
-      </Trans>
-    }
+    title={<Trans id="interface.report.supportChecker.specPartialSupport">Partial support</Trans>}
     config={config}
     {...others}
   >

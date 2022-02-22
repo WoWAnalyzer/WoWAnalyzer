@@ -1,9 +1,10 @@
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
-import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
-import { MIN_GCD } from '@wowanalyzer/hunter';
-import Haste from 'parser/shared/modules/Haste';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import Haste from 'parser/shared/modules/Haste';
+
+import { MIN_GCD } from '@wowanalyzer/hunter';
 
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
@@ -20,7 +21,10 @@ class GlobalCooldown extends CoreGlobalCooldown {
    */
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.startAimedShot);
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.startAimedShot,
+    );
   }
 
   startAimedShot(event: BeginCastEvent) {
@@ -54,7 +58,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     return Math.max(MIN_GCD, gcd);
   }
-
 }
 
 export default GlobalCooldown;

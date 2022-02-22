@@ -1,11 +1,11 @@
-import React from 'react';
-
-import { Dambroda, Sharrq, Maleficien, Akhtal } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Dambroda, Sharrq, Maleficien, Akhtal, Pirrang } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
+
 
 export default [
+  change(date(2021, 9,  28), <>Updated <SpellLink id={SPELLS.SHADOW_EMBRACE.id}/> suggestions and  <SpellLink id={SPELLS.SUMMON_DARKGLARE.id}/> cooldown, </>, Pirrang),
   change(date(2021, 1, 18), <>Added support for <SpellLink id={SPELLS.SCOURING_TITHE.id}/>, <SpellLink id={SPELLS.IMPENDING_CATASTROPHE_CAST.id}/> and <SpellLink id={SPELLS.DECIMATING_BOLT.id}/>.</>, Akhtal),
   change(date(2021, 1, 9), <>Update <SpellLink id={SPELLS.SUMMON_DARKGLARE.id}/> damage calculations to support <SpellLink id={SPELLS.VILE_TAINT_TALENT.id}/>, finish Typescript conversion.</>, Akhtal),
   change(date(2020, 12, 30), <>Add support for <SpellLink id={SPELLS.SHADOW_EMBRACE.id}/> and <SpellLink id={SPELLS.HAUNT_TALENT.id}/> in debuff uptime, convert most analyzers to Typescript.</>, Akhtal),

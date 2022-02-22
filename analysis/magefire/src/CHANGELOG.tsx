@@ -1,11 +1,22 @@
-import React from 'react';
-
-import { Sharrq } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Adoraci, Sharrq } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 12, 8), <>Added a suggestion for expired <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />.</>, Sharrq),
+  change(date(2021, 12, 8), <>Fixed the number rounding for one of the <SpellLink id={SPELLS.COMBUSTION.id} /> modules.</>, Sharrq),
+  change(date(2021, 12, 8), <>Changed the <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> module to consider capping charges a minor issue.</>, Sharrq),
+  change(date(2021, 12, 8), <>Added a check to ensure the player is not using <SpellLink id={SPELLS.COMBUSTION.id} /> while it is already active (via <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />).</>, Sharrq),
+  change(date(2021, 12, 8), <>Added a check for <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> to ensure the player is not using it during <SpellLink id={SPELLS.COMBUSTION.id} /> if they are capped or about to cap on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />.</>, Sharrq),
+  change(date(2021, 12, 8), <>Removed the <SpellLink id={SPELLS.SCORCH.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> check as it was no longer relevant.</>, Sharrq),
+  change(date(2021, 12, 5), 'Updated support to 9.1.5.', Sharrq),
+  change(date(2021, 12, 5), <>Added support for <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /></>, Sharrq),
+  change(date(2021, 12, 5), <>Added support for <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /></>, Sharrq),
+  change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Fire Mage. Spec updates for Fire will be coming soon', Sharrq),
+  change(date(2021, 4, 3), 'Verified changes and bumped support to 9.0.5.', Adoraci),
+  change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Fire Mage has not been fully tested/updated for 9.0.5.', Sharrq),
+  change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Fire Mage. Marked Fire Mage as Unsupported/Unmaintained.', Sharrq),
   change(date(2021, 3, 6), 'Updated for Patch 9.0.5.', Sharrq),
   change(date(2021, 3, 6), <>Adjusted <SpellLink id={SPELLS.COMBUSTION.id} /> Statistics to show a breakdown of the active time and pre-cast delay for each cast.</>, Sharrq),
   change(date(2021, 3, 6), <>Added the ability to check the delay between using <SpellLink id={SPELLS.COMBUSTION.id} /> and the end of pre-cast abilities.</>, Sharrq),

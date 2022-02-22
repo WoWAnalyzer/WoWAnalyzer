@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const REDUCTION_MS = 500;
 
@@ -14,7 +14,10 @@ class FrozenOrb extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE), this._reduceCooldown);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
+      this._reduceCooldown,
+    );
   }
 
   _reduceCooldown() {

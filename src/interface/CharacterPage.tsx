@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DocumentTitle from 'interface/DocumentTitle';
 import NavigationBar from 'interface/NavigationBar';
 
@@ -11,12 +9,7 @@ interface CharacterPageProps {
   name: string;
 }
 
-const CharacterPage = ({
-  region,
-  realm,
-  name,
-  ...others
-}: CharacterPageProps) => (
+const CharacterPage = ({ region, realm, name, ...others }: CharacterPageProps) => (
   <>
     <DocumentTitle title={`${name}-${realm} (${region})`} />
 

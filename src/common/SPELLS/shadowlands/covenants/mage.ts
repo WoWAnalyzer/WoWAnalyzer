@@ -1,5 +1,4 @@
 const covenants = {
-
   //Kyrian
   RADIANT_SPARK: {
     id: 307443,
@@ -32,6 +31,5 @@ const covenants = {
     name: 'Shifting Power',
     icon: 'ability_ardenweald_mage',
   },
-
 } as const;
 export default covenants;

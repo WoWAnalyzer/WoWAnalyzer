@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
+import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
 
 import './Expandable.scss';
@@ -12,14 +13,14 @@ interface Props {
   inverseExpanded: () => void;
 }
 
-export const Expandable = (props: Omit<Props, 'expanded'|'inverseExpanded'>) => {
+export const Expandable = (props: Omit<Props, 'expanded' | 'inverseExpanded'>) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const handleToggle = () => {
-    setExpanded((prevExpanded: boolean) => !prevExpanded)
-  }
+    setExpanded((prevExpanded: boolean) => !prevExpanded);
+  };
 
   const { header, children, element: Element, className } = props;
-  
+
   return (
     <Element className={`expandable ${expanded ? 'expanded' : ''} ${className || ''}`}>
       <div className="meta" onClick={handleToggle}>
@@ -30,9 +31,9 @@ export const Expandable = (props: Omit<Props, 'expanded'|'inverseExpanded'>) => 
       </AnimateHeight>
     </Element>
   );
-}
+};
 
-export const ControlledExpandable = (props: Props) =>  {
+export const ControlledExpandable = (props: Props) => {
   const { header, children, element: Element, className } = props;
 
   return (
@@ -45,4 +46,4 @@ export const ControlledExpandable = (props: Props) =>  {
       </AnimateHeight>
     </Element>
   );
-}
+};

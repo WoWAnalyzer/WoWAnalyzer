@@ -23,24 +23,10 @@ export const BOD_K = [
 ];
 
 const EP_FIRST_BOSS = 2289;
-export const EP_K = [
-  null,
-  10275.3,
-  null,
-  11478.6,
-  12782.7,
-  14282.1,
-];
+export const EP_K = [null, 10275.3, null, 11478.6, 12782.7, 14282.1];
 
 const NYALOTHA_FIRST_BOSS = 2327;
-export const NYALOTHA_K = [
-  null,
-  12782.7,
-  null,
-  14282.1,
-  16002.0,
-  17986.5,
-];
+export const NYALOTHA_K = [null, 12782.7, null, 14282.1, 16002.0, 17986.5];
 
 export function diminish(stat, K) {
   return stat / (stat + K);

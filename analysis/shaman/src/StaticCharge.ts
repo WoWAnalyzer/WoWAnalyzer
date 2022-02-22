@@ -18,7 +18,10 @@ class StaticCharge extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STATIC_CHARGE_TALENT.id);
 
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.STATIC_CHARGE_DEBUFF), this.stunApplication);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.STATIC_CHARGE_DEBUFF),
+      this.stunApplication,
+    );
   }
 
   stunApplication() {

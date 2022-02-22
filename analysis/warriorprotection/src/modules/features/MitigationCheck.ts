@@ -1,6 +1,6 @@
-import CoreMitigationCheck from 'parser/shared/modules/MitigationCheck';
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
+import CoreMitigationCheck from 'parser/shared/modules/MitigationCheck';
 
 class MitigationCheck extends CoreMitigationCheck {
   constructor(options: Options) {

@@ -105,12 +105,14 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting
+       
       <ForwardRef
         id={2948}
       />
        
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.alwaysBeCasting.downtime"
@@ -151,6 +153,7 @@ Array [
       97.60
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.arcaneIntellect.uptime"
@@ -176,6 +179,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -278,6 +282,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.castsCancelled"
@@ -403,7 +408,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=133"
+                href="https://wowhead.com/spell=133"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -447,8 +452,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               27
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -489,7 +493,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116"
+                href="https://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -533,8 +537,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -575,7 +578,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=11366"
+                href="https://wowhead.com/spell=11366"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -619,8 +622,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               84
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -661,7 +663,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2948"
+                href="https://wowhead.com/spell=2948"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -705,8 +707,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               28
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -747,7 +748,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=257541"
+                href="https://wowhead.com/spell=257541"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -791,8 +792,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               13
               /20
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -850,7 +850,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=108853"
+                href="https://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -894,8 +894,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               45
               /54
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1011,7 +1010,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1449"
+                href="https://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1055,8 +1054,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1097,7 +1095,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31661"
+                href="https://wowhead.com/spell=31661"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1141,8 +1139,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /22
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1195,7 +1192,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2120"
+                href="https://wowhead.com/spell=2120"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1239,8 +1236,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1339,7 +1335,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=80353"
+                href="https://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1383,8 +1379,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1437,7 +1432,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190319"
+                href="https://wowhead.com/spell=190319"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1469,7 +1464,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.63
+              0.78
             </td>
             <td
               className="text-right"
@@ -1479,10 +1474,9 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              4
+              5
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1535,7 +1529,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116011"
+                href="https://wowhead.com/spell=116011"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1579,8 +1573,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               4
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1638,7 +1631,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=314791"
+                href="https://wowhead.com/spell=314791"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1682,8 +1675,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               4
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1799,7 +1791,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=235313"
+                href="https://wowhead.com/spell=235313"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1843,8 +1835,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               7
               /17
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1897,7 +1888,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=45438"
+                href="https://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1941,8 +1932,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1995,7 +1985,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=55342"
+                href="https://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2039,8 +2029,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2151,7 +2140,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1459"
+                href="https://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2195,8 +2184,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2237,7 +2225,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=122"
+                href="https://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2281,8 +2269,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2335,7 +2322,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212653"
+                href="https://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2379,8 +2366,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               9
               /19
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2433,7 +2419,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2139"
+                href="https://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2477,8 +2463,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2531,7 +2516,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=475"
+                href="https://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2575,8 +2560,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /48
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2629,7 +2613,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=130"
+                href="https://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2673,8 +2657,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2715,7 +2698,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30449"
+                href="https://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2759,8 +2742,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2801,7 +2783,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=321358"
+                href="https://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2845,8 +2827,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2887,7 +2868,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=342247"
+                href="https://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2931,8 +2912,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2973,7 +2953,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=66"
+                href="https://wowhead.com/spell=66"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3017,8 +2997,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3071,7 +3050,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=118"
+                href="https://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3115,8 +3094,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3215,7 +3193,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3227,7 +3205,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3236,7 +3214,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   }
                 />
                  
-                Spiritual Healing Potion
+                Healthstone
               </a>
             </td>
             <td
@@ -3259,8 +3237,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3313,7 +3290,104 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307192"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spiritual Healing Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.16
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3345,7 +3419,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.16
+              0.31
             </td>
             <td
               className="text-right"
@@ -3355,10 +3429,9 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1
+              2
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3412,7 +3485,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the sugg
 Array [
   Object {
     "details": null,
-    "icon": "artifactability_firemage_phoenixbolt",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3429,6 +3502,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 257541,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3456,7 +3530,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_fire_fireball",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -3473,6 +3547,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 108853,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3500,7 +3575,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_mage_runeofpower",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3517,6 +3592,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116011,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3544,7 +3620,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_ardenweald_mage",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3561,6 +3637,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 314791,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3611,7 +3688,7 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=190319"
+            href="https://wowhead.com/spell=190319"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3624,7 +3701,7 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=190319"
+            href="https://wowhead.com/spell=190319"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3634,14 +3711,15 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
         <div
           className="value"
         >
-          88.90
+          86.95
           % 
           <small>
             Combustion Active Time
           </small>
           <br />
           0.51
-          s 
+          s
+           
           <small>
             Avg. Pre-Cast Delay
           </small>
@@ -3696,26 +3774,29 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You spent 
-      7
+      8
        seconds (
-      1
-      s per cast) not casting anything while 
+      2
+      s per cast) not casting anything while
+       
       <ForwardRef
         id={190319}
       />
-       was active. Because a large portion of your damage comes from Combustion, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting 
+       was active. Because a large portion of your damage comes from Combustion, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting
+       
       <ForwardRef
         id={190319}
       />
        when you are at a low risk of being interrupted or when the target is vulnerable.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.combustion.combustionActiveTime"
         message="{0}% Active Time during Combustion"
         values={
           Object {
-            "0": "88.90",
+            "0": "86.95",
           }
         }
       />
@@ -3742,18 +3823,22 @@ Array [
       2
        times with less than 
       2
-       charges of 
+       
+      charges of 
       <ForwardRef
         id={108853}
       />
-      . Make sure you are saving at least 
+      . Make sure you are saving at least
+       
       2
        charges while Combustion is on cooldown so you can get as many 
       <ForwardRef
         id={48108}
       />
-       procs as possible before Combustion ends.
+       
+      procs as possible before Combustion ends.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.combustionCharges.flameOn.utilization"
@@ -3772,51 +3857,6 @@ Array [
 ]
 `;
 
-exports[`Fire Mage integration test: example log CombustionSpellUsage matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_fire_sealoffire",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You started to cast 
-      <ForwardRef
-        id={2948}
-      />
-       
-      2
-       times (
-      0.40
-       per Combustion), and completed 
-      1
-       casts, while you had charges of 
-      <ForwardRef
-        id={108853}
-      />
-        or 
-      <ForwardRef
-        id={257541}
-      />
-       available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.fire.suggestions.combustion.charge.utilization"
-        message="{0} Casts Per Combustion"
-        values={
-          Object {
-            "0": "0.40",
-          }
-        }
-      />
-       (
-      0 is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Fire Mage integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -3828,14 +3868,17 @@ Array [
       2.39
       % of the fight duration (
       9
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/TryHCcA7LBNK2xvR/5-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%226:22%22%7D%7D/Ifrosty/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -3965,7 +4008,7 @@ exports[`Fire Mage integration test: example log ElementalBarrier matches the st
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=235313"
+            href="https://wowhead.com/spell=235313"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3978,7 +4021,7 @@ exports[`Fire Mage integration test: example log ElementalBarrier matches the st
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=235313"
+            href="https://wowhead.com/spell=235313"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4072,6 +4115,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4094,7 +4138,7 @@ exports[`Fire Mage integration test: example log Firestorm matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=333097"
+            href="https://wowhead.com/spell=333097"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4107,7 +4151,7 @@ exports[`Fire Mage integration test: example log Firestorm matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=333097"
+            href="https://wowhead.com/spell=333097"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4153,7 +4197,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=48107"
+            href="https://wowhead.com/spell=48107"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4166,7 +4210,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=48107"
+            href="https://wowhead.com/spell=48107"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4178,7 +4222,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=108853"
+            href="https://wowhead.com/spell=108853"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4190,14 +4234,15 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           </a>
            
           93
-          % 
+          %
+           
           <small>
             Fire Blast Utilization
           </small>
           <br />
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=257541"
+            href="https://wowhead.com/spell=257541"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4250,18 +4295,21 @@ Array [
       />
        
       1
-       times while 
+       times while
+       
       <ForwardRef
         id={48108}
       />
        was active and 
       2
-       times while you didnt have 
+       
+      times while you didnt have 
       <ForwardRef
         id={48107}
       />
       . Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.heatingUp.fireBlastUtilization"
@@ -4297,7 +4345,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=48108"
+            href="https://wowhead.com/spell=48108"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4310,7 +4358,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=48108"
+            href="https://wowhead.com/spell=48108"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4327,7 +4375,8 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
           </small>
           <br />
           56
-          % 
+          %
+           
           <small>
             Procs used alongside Fireball
           </small>
@@ -4370,40 +4419,48 @@ Array [
       
        
        and the target is over 30% health
-      , 
+      ,
+       
       <ForwardRef
         id={48108}
       />
-       procs should be used immediately after casting 
+       procs should be used immediately after casting
+       
       <ForwardRef
         id={133}
       />
        
       
-      . This way, if one of the two abilities crit you will gain a new 
+      . This way, if one of the two abilities crit you will gain a new
+       
       <ForwardRef
         id={48107}
       />
-       proc, and if both crit you will get a new 
+       proc, and if both crit you will get a new
+       
       <ForwardRef
         id={48108}
       />
-       proc. You failed to do this 
+       proc. You failed to do this
+       
       8
        times. If you have a 
       <ForwardRef
         id={48108}
       />
-       proc and need to move, you can hold the proc and cast 
+       
+      proc and need to move, you can hold the proc and cast 
       <ForwardRef
         id={2948}
       />
-       once or twice until you are able to stop and cast 
+       
+      once or twice until you are able to stop and cast 
       <ForwardRef
         id={133}
       />
        or you can use your procs while you move.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.hostStreak.precasts.utilization"
@@ -4433,12 +4490,14 @@ Array [
       3
        (
       0
-       Per Minute) direct damage abilities while 
+       
+      Per Minute) direct damage abilities while 
       <ForwardRef
         id={48108}
       />
        was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.hotStreak.wastedCrits"
@@ -4474,7 +4533,7 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336821"
+            href="https://wowhead.com/spell=336821"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4487,7 +4546,7 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336821"
+            href="https://wowhead.com/spell=336821"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4537,13 +4596,15 @@ Array [
       <ForwardRef
         id={190319}
       />
-       was active, your 
+       was active, your
+       
       <ForwardRef
         id={336821}
       />
        buff was at 
       2
-       stacks for 
+       stacks for
+       
       5
       s on average per Combustion (
       44.38
@@ -4553,7 +4614,8 @@ Array [
       <ForwardRef
         id={336821}
       />
-       for as much of your 
+       
+      for as much of your 
       <ForwardRef
         id={190319}
       />
@@ -4561,16 +4623,19 @@ Array [
       <ForwardRef
         id={108853}
       />
-       and 
+       and
+       
       <ForwardRef
         id={257541}
       />
-       to generate 
+       to generate
+       
       <ForwardRef
         id={48108}
       />
        instead of using all the charges of one, and then all the charges of the other.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.infernalCascade.maxStackPercent"
@@ -4606,7 +4671,7 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=155148"
+            href="https://wowhead.com/spell=155148"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4619,7 +4684,7 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=155148"
+            href="https://wowhead.com/spell=155148"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4630,7 +4695,8 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
           className="value"
         >
           200
-          s 
+          s
+           
           <small>
             Combustion Cooldown Reduction
           </small>
@@ -4658,7 +4724,7 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4671,7 +4737,7 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4715,7 +4781,7 @@ Array [
   Object {
     "details": null,
     "icon": "artifactability_firemage_phoenixbolt",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <React.Fragment>
       You spent 
       75
@@ -4729,12 +4795,13 @@ Array [
       <ForwardRef
         id={190319}
       />
-      , it is also important that you avoid capping on charges whenever possible. To avoid this, you should use a charge of 
+      , you should also try to avoid capping on charges whenever possible. To avoid this, you should use a charge of 
       <ForwardRef
         id={257541}
       />
        if you are capped or are about to cap on charges.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.phoenixFlames.phoenixFlamesCappedCharges"
@@ -4746,7 +4813,7 @@ Array [
         }
       />
        (
-      5.00% is recommended
+      10.00% is recommended
       )
     </React.Fragment>,
   },
@@ -4770,7 +4837,7 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4783,7 +4850,7 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4794,13 +4861,15 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
           className="value"
         >
           16
-          % 
+          %
+           
           <small>
             Damage added by Rune of Power
           </small>
           <br />
           13
-          s 
+          s
+           
           <small>
             Average time in Rune per cast
           </small>
@@ -4845,7 +4914,7 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=269644"
+            href="https://wowhead.com/spell=269644"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4858,7 +4927,7 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=269644"
+            href="https://wowhead.com/spell=269644"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4914,7 +4983,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=314791"
+            href="https://wowhead.com/spell=314791"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4927,7 +4996,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=314791"
+            href="https://wowhead.com/spell=314791"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4955,7 +5024,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=108853"
+                    href="https://wowhead.com/spell=108853"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -4983,7 +5052,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=116011"
+                    href="https://wowhead.com/spell=116011"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -5011,7 +5080,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=190319"
+                    href="https://wowhead.com/spell=190319"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -5039,7 +5108,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=212653"
+                    href="https://wowhead.com/spell=212653"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -5067,7 +5136,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=235313"
+                    href="https://wowhead.com/spell=235313"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -5095,7 +5164,7 @@ exports[`Fire Mage integration test: example log ShiftingPower matches the stati
                 <td>
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=257541"
+                    href="https://wowhead.com/spell=257541"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -5137,24 +5206,29 @@ Array [
       <ForwardRef
         id={190319}
       />
-       and 
+       and
+       
       <ForwardRef
         id={116011}
       />
-      ) were not on cooldown. Since 
+      ) were not on cooldown. Since
+       
       <ForwardRef
         id={314791}
       />
-       will reduce the cooldown on these spells by a decent amount, you want to ensure that you do not cast it unless both 
+       will reduce the cooldown on these spells by a decent amount, you want to ensure that you do not cast it unless both
+       
       <ForwardRef
         id={190319}
       />
-       and 
+       and
+       
       <ForwardRef
         id={116011}
       />
        are on cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.shiftingPowerUsage.usagePercent"
@@ -5550,7 +5624,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
             Any time you are not casting something, that is damage that is lost. Mage has many ways to decrease downtime, such as using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=1953"
+              href="https://wowhead.com/spell=1953"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5565,7 +5639,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              to get somewhere faster so you can continue casting or using 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=2948"
+              href="https://wowhead.com/spell=2948"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5577,10 +5651,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Scorch
             </a>
-             while you are moving; even phases where the only target is taking 99% reduced damage is an opportunity to fish for procs or get cooldown reduction from crits if you are using 
+             while you are moving; even phases where the only target is taking 99% reduced damage is an opportunity to fish for procs or get cooldown reduction from crits if you are using
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=155148"
+              href="https://wowhead.com/spell=155148"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5748,7 +5823,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "79.06433911412044%",
+                  "width": "77.04802874389684%",
                 }
               }
             />
@@ -5805,10 +5880,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           <div
             className="col-md-12"
           >
-            As a Fire Mage, the vast majority if your damage is going to come from 
+            As a Fire Mage, the vast majority if your damage is going to come from
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190319"
+              href="https://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5823,7 +5899,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
             . Therefore it is critical that you do everything you can to get the most out of 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190319"
+              href="https://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5838,7 +5914,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
             , including getting the most out of abilities that empower 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190319"
+              href="https://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5850,10 +5926,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Combustion
             </a>
-            . This not only includes the abilities you use during 
+            . This not only includes the abilities you use during
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190319"
+              href="https://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5865,10 +5942,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Combustion
             </a>
-            , but also pooling resources, like 
+            , but also pooling resources, like
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=108853"
+              href="https://wowhead.com/spell=108853"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5883,7 +5961,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              and 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=257541"
+              href="https://wowhead.com/spell=257541"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5898,7 +5976,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
             , before 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190319"
+              href="https://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5927,7 +6005,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=190319"
+                  href="https://wowhead.com/spell=190319"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -6179,96 +6257,6 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Scorch used with instants available
-              </div>
-              <div
-                className="flex-sub"
-                style={
-                  Object {
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <div
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <svg
-                    className="icon"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                    />
-                    <path
-                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                    />
-                    <path
-                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  0
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#a6c34c",
-                        "transition": "background-color 800ms",
-                        "width": "86.68%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
                 Fireball casts during Combustion
               </div>
               <div
@@ -6410,7 +6398,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  88.90%
+                  86.95%
                    
                    
                 </div>
@@ -6432,7 +6420,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "62.92717946814746%",
+                        "width": "56.42866776246183%",
                       }
                     }
                   />
@@ -6707,10 +6695,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           <div
             className="col-md-12"
           >
-            Fire Mage revolves almost entirely around the buffs 
+            Fire Mage revolves almost entirely around the buffs
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48107"
+              href="https://wowhead.com/spell=48107"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6725,7 +6714,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              and 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48108"
+              href="https://wowhead.com/spell=48108"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6740,7 +6729,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
             , so it is very important that you understand how these procs work. Essentially, when you get a crit with a direct damage ability, like 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=133"
+              href="https://wowhead.com/spell=133"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6752,10 +6741,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Fireball
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=11366"
+              href="https://wowhead.com/spell=11366"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6767,10 +6757,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Pyroblast
             </a>
-            , you will get a 
+            , you will get a
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48107"
+              href="https://wowhead.com/spell=48107"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6785,7 +6776,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              proc. If you get a second consecutive crit with a direct damage ability, you will get a 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48108"
+              href="https://wowhead.com/spell=48108"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6800,7 +6791,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              proc which makes your next 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=11366"
+              href="https://wowhead.com/spell=11366"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6812,10 +6803,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Pyroblast
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=2120"
+              href="https://wowhead.com/spell=2120"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6830,7 +6822,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              cast be instant cast. Additionally, you have spells like 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=108853"
+              href="https://wowhead.com/spell=108853"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6845,7 +6837,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
              which is always guaranteed to crit and spells like 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=2948"
+              href="https://wowhead.com/spell=2948"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6857,10 +6849,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Scorch
             </a>
-             which are guaranteed to crit when the target is below 30% health (If you are using the 
+             which are guaranteed to crit when the target is below 30% health (If you are using the
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=269644"
+              href="https://wowhead.com/spell=269644"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6872,10 +6865,11 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                
               Searing Touch
             </a>
-             talent). These can be used to force 
+             talent). These can be used to force
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=48108"
+              href="https://wowhead.com/spell=48108"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -7357,7 +7351,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=108853"
+                  href="https://wowhead.com/spell=108853"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7431,7 +7425,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=257541"
+                  href="https://wowhead.com/spell=257541"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7505,7 +7499,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=116011"
+                  href="https://wowhead.com/spell=116011"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -7579,7 +7573,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=314791"
+                  href="https://wowhead.com/spell=314791"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreBuffs from 'parser/core/modules/Buffs';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {
@@ -35,6 +36,23 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
 
+      //Covenants
+      {
+        spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.BONEDUST_BREW_CAST.id,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FALLEN_ORDER_CAST.id,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        timelineHighlight: true,
+      },
+
       // Utility
       {
         spellId: SPELLS.TIGERS_LUST_TALENT.id,
@@ -52,7 +70,7 @@ class Buffs extends CoreBuffs {
         spellId: SPELLS.FORTIFYING_BREW.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

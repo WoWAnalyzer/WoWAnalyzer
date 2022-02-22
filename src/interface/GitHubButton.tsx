@@ -1,6 +1,5 @@
-import React from 'react';
-
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
+import * as React from 'react';
 
 import './ThirdPartyButtons.css';
 

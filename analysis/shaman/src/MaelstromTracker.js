@@ -7,6 +7,5 @@ class MaelstromTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.MAELSTROM;
     this.maxResource = 100;
   }
-
 }
 export default MaelstromTracker;

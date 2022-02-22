@@ -1,10 +1,8 @@
-import React from 'react';
-
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
 import UptimeBar from 'parser/ui/UptimeBar';
 
 class DevouringPlague extends Analyzer {

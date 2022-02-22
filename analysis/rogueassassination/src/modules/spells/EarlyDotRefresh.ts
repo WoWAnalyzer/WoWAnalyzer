@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import EarlyDotRefreshesCore, { Dot } from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
-import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
-import Events, { CastEvent, SpendResourceEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, SpendResourceEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
+import EarlyDotRefreshesCore, {
+  Dot,
+} from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
+import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
 
 const MINOR_THRESHOLD = 0.975;
 const AVERAGE_THRESHOLD = 0.95;
@@ -13,11 +14,21 @@ const MAJOR_THRESHOLD = 0.9;
 
 class EarlyDotRefresh extends EarlyDotRefreshesCore {
   get suggestionThresholdsRuptureEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.RUPTURE, MINOR_THRESHOLD, AVERAGE_THRESHOLD, MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(
+      SPELLS.RUPTURE,
+      MINOR_THRESHOLD,
+      AVERAGE_THRESHOLD,
+      MAJOR_THRESHOLD,
+    );
   }
 
   get suggestionThresholdsGarroteEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.GARROTE, MINOR_THRESHOLD, AVERAGE_THRESHOLD, MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(
+      SPELLS.GARROTE,
+      MINOR_THRESHOLD,
+      AVERAGE_THRESHOLD,
+      MAJOR_THRESHOLD,
+    );
   }
 
   static dots = [
@@ -35,7 +46,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     },
   ];
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
@@ -47,7 +58,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     }
 
     //Update duration.
-    const dot = this.getDot(SPELLS.RUPTURE.id)
+    const dot = this.getDot(SPELLS.RUPTURE.id);
     if (dot) {
       dot.duration = (comboPointsSpent * 4 + 4) * 1000;
     }

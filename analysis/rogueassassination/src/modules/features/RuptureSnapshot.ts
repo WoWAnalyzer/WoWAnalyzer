@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 
@@ -24,7 +23,10 @@ class RuptureSnapshot extends Snapshot {
     if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
       this.active = false;
     }
-    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.RUPTURE), this.onSpendResource);
+    this.addEventListener(
+      Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.RUPTURE),
+      this.onSpendResource,
+    );
   }
 
   get durationOfFresh() {

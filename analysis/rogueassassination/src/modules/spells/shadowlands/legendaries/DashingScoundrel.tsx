@@ -1,13 +1,12 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Events, { EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ResourceIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { ResourceIcon } from 'interface';
 
 class DashingScoundrel extends Analyzer {
   static dependencies = {
@@ -22,10 +21,13 @@ class DashingScoundrel extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL), this.onEnergize);
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
+      this.onEnergize,
+    );
   }
 
-  onEnergize(event: EnergizeEvent) {
+  onEnergize(event: ResourceChangeEvent) {
     this.critCount += 1;
     this.comboPointsGained += event.resourceChange;
     this.comboPointsWasted += event.waste;
@@ -42,8 +44,10 @@ class DashingScoundrel extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
-          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink /> {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained} <small> extra Combo Points gained.</small>
+        <BoringSpellValueText spellId={SPELLS.DASHING_SCOUNDREL.id}>
+          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink /> {this.comboPointsGained}/
+          {this.comboPointsWasted + this.comboPointsGained}{' '}
+          <small> extra Combo Points gained.</small>
         </BoringSpellValueText>
       </Statistic>
     );

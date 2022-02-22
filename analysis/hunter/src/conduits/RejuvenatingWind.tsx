@@ -1,15 +1,13 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
-import React from 'react';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class ReversalOfFortune extends Analyzer {
-
   conduitRank = 0;
   healingDone = 0;
 
@@ -20,9 +18,14 @@ class ReversalOfFortune extends Analyzer {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.REJUVENATING_WIND_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.REJUVENATING_WIND_CONDUIT.id,
+    );
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATING_WIND_BUFF), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATING_WIND_BUFF),
+      this.onHeal,
+    );
   }
 
   onHeal(event: HealEvent) {
@@ -36,7 +39,7 @@ class ReversalOfFortune extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spell={SPELLS.REJUVENATING_WIND_CONDUIT} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.REJUVENATING_WIND_CONDUIT.id} rank={this.conduitRank}>
           <>
             <ItemHealingDone amount={this.healingDone} />
           </>
@@ -44,7 +47,6 @@ class ReversalOfFortune extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default ReversalOfFortune;

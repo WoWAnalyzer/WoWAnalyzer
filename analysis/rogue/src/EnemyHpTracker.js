@@ -1,6 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Events from 'parser/core/Events';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 /**
  * Adds HP Percent information to the Enemy Entity

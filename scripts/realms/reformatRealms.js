@@ -4,10 +4,12 @@ function readJson(path) {
   return JSON.parse(fs.readFileSync(path, 'utf8'));
 }
 function reformat(json) {
-  return json.realms.map(({ name, slug }) => ({
-    name,
-    slug,
-  })).sort((a, b) => a.name.localeCompare(b.name));
+  return json.realms
+    .map(({ name, slug }) => ({
+      name,
+      slug,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 function reformatFile(path) {
   return reformat(readJson(path));

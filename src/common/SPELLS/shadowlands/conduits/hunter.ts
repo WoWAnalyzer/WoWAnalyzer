@@ -44,7 +44,7 @@ const conduits = {
   },
   MARKMANS_ADVANTAGE_CONDUIT: {
     id: 339264,
-    name: 'Markman\'s Advantage',
+    name: "Markman's Advantage",
     icon: 'ability_argus_soulbombdebuffsmall',
   },
   REJUVENATING_WIND_CONDUIT: {
@@ -130,7 +130,7 @@ const conduits = {
   },
   SHARPSHOOTERS_FOCUS_CONDUIT: {
     id: 339920,
-    name: 'Sharpshooter\'s Focus',
+    name: "Sharpshooter's Focus",
     icon: 'ability_creature_cursed_04',
   },
   //endregion

@@ -2,8 +2,7 @@ const fs = require('fs');
 
 let jsSpellOutput = '';
 let jsSpellScalingOutput = '';
-let fullOutput =
-  `\t"CONDUIT_NAME": {
+let fullOutput = `\t"CONDUIT_NAME": {
 \t\t"id": "The spell ID of the conduit -- This is what should be used when identifying if a player has that conduit and also for searching for it on WoWHead or similiar.",
 \t\t"name": "The name of the conduit",
 \t\t"icon": "The icon string of the conduit",
@@ -11,8 +10,9 @@ let fullOutput =
 \t\t"covenantID": "The ID of the covenant, as defined in src/game/shadowlands/COVENANTS.ts",
 \t\t"soulbindConduitID": "The unique ID of that conduit that is the same regardless of the rank",
 \t\t"conduitItemID": "The item ID of the item giving you access to the conduit. Used when searching wowhead with item= searches",
-\t\t"spellModifierByRanks": {
-\t\t\t"rankInteger": "The effect it has on the spell it affects, the value can be in milliseconds, percentage numbers etc - that's up to the maintainer to figure out. Note rank 1 is index 0 - this is also the case in the game data."
+\t\t"AuraPointsOverride": "[An array of the effects on the spell it affects, this can be milliseconds, percentage numbers etc.]",
+\t\t"AuraPointsOverrideKeyed": {
+\t\t\t"rankInteger": "The effect it has on the spell it affects, the value can be in milliseconds, percentage numbers etc - that's up to the maintainer to figure out. In the game data rank 1 is index 0, here we've made it index 1 to make it easier to map rank to correct index."
 \t\t}
   },\n`;
 
@@ -40,7 +40,7 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
   const conduitRanksArray = [0];
 
   let finishedRaidbotsLoop = false;
-  Object.keys(conduitRaidbots).forEach(raidBotsKey => {
+  Object.keys(conduitRaidbots).forEach((raidBotsKey) => {
     if (finishedRaidbotsLoop) {
       return;
     }
@@ -49,7 +49,10 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
         return;
       }
       conduitName = conduitRaidbots[raidBotsKey].name;
-      conduitKeyName = conduitName.replace(/(['\-,])/g, '').replace(/ /g, '_').toUpperCase();
+      conduitKeyName = conduitName
+        .replace(/(['\-,])/g, '')
+        .replace(/ /g, '_')
+        .toUpperCase();
       conduitType = conduitRaidbots[raidBotsKey].type;
       conduitIcon = conduitRaidbots[raidBotsKey].icon;
       conduitCovenant = conduitRaidbots[raidBotsKey].covenant;
@@ -62,18 +65,20 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
 
   let finishedRanksLoop = false;
   const maxRank = 15;
-  Object.keys(conduitRankInfo).forEach(rankInfoKey => {
+  Object.keys(conduitRankInfo).forEach((rankInfoKey) => {
     if (finishedRanksLoop) {
       return;
     }
     if (conduitRankInfo[rankInfoKey].SoulbindConduitID === conduitItemInfo[itemInfoKey].ConduitID) {
-
       if (conduitRanks.length > 0) {
         conduitRanks += `,\n`;
       }
 
-      conduitRanks += `\t\t\t"${Number([conduitRankInfo[rankInfoKey].RankIndex]) + 1}": ${[conduitRankInfo[rankInfoKey].AuraPointsOverride]}`;
-      conduitRankInfo[rankInfoKey].AuraPointsOverride = ' ' + conduitRankInfo[rankInfoKey].AuraPointsOverride;
+      conduitRanks += `\t\t\t"${Number([conduitRankInfo[rankInfoKey].RankIndex]) + 1}": ${[
+        conduitRankInfo[rankInfoKey].AuraPointsOverride,
+      ]}`;
+      conduitRankInfo[rankInfoKey].AuraPointsOverride =
+        ' ' + conduitRankInfo[rankInfoKey].AuraPointsOverride;
       conduitRanksArray.push(conduitRankInfo[rankInfoKey].AuraPointsOverride);
 
       conduitSpellId = conduitRankInfo[rankInfoKey].SpellID;
@@ -87,8 +92,7 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
   if (!(conduitKeyName.length > 0)) {
     return;
   }
-  fullOutput +=
-    `\t"${conduitKeyName}": {
+  fullOutput += `\t"${conduitKeyName}": {
 \t\t"id": ${conduitSpellId},
 \t\t"name": "${conduitName}",
 \t\t"icon": "${conduitIcon}",
@@ -100,10 +104,9 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
 \t\t"AuraPointsOverrideKeyed": { \n${conduitRanks}\n\t\t}
     }${Object.keys(conduitItemInfo).length - 1 > idx ? ',' : ''}\n`;
 
-  conduitName = conduitName.replace('\'', '\\\'');
+  conduitName = conduitName.replace("'", "\\'");
 
-  jsSpellOutput +=
-    `  ${conduitKeyName}: {
+  jsSpellOutput += `  ${conduitKeyName}: {
     id: ${conduitSpellId},
     name: '${conduitName}',
     icon: '${conduitIcon}',
@@ -112,10 +115,7 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
   jsSpellScalingOutput += `\nconst ${conduitKeyName}_EFFECT_BY_RANK = [${conduitRanksArray}]; `;
 });
 
-fs.writeFileSync(
-  'fullConduitInfo.json',
-  `{\n${fullOutput}}`,
-);
+fs.writeFileSync('fullConduitInfo.json', `{\n${fullOutput}}`);
 
 fs.writeFileSync(
   'conduitSpells.js',

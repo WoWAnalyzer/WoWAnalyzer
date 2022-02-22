@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 
 import TabComponent from './TabComponent';
@@ -9,11 +7,7 @@ class ManaTab extends Analyzer {
     return {
       title: 'Mana',
       url: 'mana',
-      render: () => (
-        <TabComponent
-          parser={this.owner}
-        />
-      ),
+      render: () => <TabComponent parser={this.owner} />,
     };
   }
 }

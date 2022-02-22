@@ -1,9 +1,9 @@
-import SPELLS from 'common/SPELLS';
-import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { formatPercentage } from 'common/format';
-import { SuggestionFactory, When } from 'parser/core/ParseResults';
-import { CastEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { CastEvent } from 'parser/core/Events';
+import { SuggestionFactory, When } from 'parser/core/ParseResults';
+import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
@@ -13,7 +13,7 @@ const debug = false;
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-// counting damaging abilities here because of atonement mechanics
+  // counting damaging abilities here because of atonement mechanics
   static HEALING_ABILITIES_ON_GCD = [
     SPELLS.POWER_WORD_SHIELD.id,
     SPELLS.POWER_WORD_RADIANCE.id,
@@ -41,7 +41,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     spellId: number,
   ) {
     if (spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id) {
-      if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME_BUFFER) {
+      if (
+        !this.lastPenanceStartTimestamp ||
+        castStartTimestamp - this.lastPenanceStartTimestamp > PENANCE_CHANNEL_TIME_BUFFER
+      ) {
         debug && console.log('%cABC: New penance channel started', 'color: orange');
         this.lastPenanceStartTimestamp = castStartTimestamp;
       } else {
@@ -56,16 +59,23 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    when(deadTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
-      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
-        .icon('spell_mage_altertime')
-        .actual(t({
-      id: "priest.discipline.suggestions.alwaysBeCasting.downtime",
-      message: `${formatPercentage(actual)}% downtime`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(SuggestionThresholds.ABC_NOT_CASTING.regular)
-        .major(SuggestionThresholds.ABC_NOT_CASTING.major));
+    when(deadTimePercentage)
+      .isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
+      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) =>
+        suggest(
+          "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
+        )
+          .icon('spell_mage_altertime')
+          .actual(
+            t({
+              id: 'priest.discipline.suggestions.alwaysBeCasting.downtime',
+              message: `${formatPercentage(actual)}% downtime`,
+            }),
+          )
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(SuggestionThresholds.ABC_NOT_CASTING.regular)
+          .major(SuggestionThresholds.ABC_NOT_CASTING.major),
+      );
   }
 }
 

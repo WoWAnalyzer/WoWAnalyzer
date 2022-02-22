@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import { formatPercentage } from 'common/format';
 import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import PropTypes from 'prop-types';
 
 const Gauge = ({ value }) => (
   <div className="flex" style={{ textAlign: 'center', marginTop: 12 }}>

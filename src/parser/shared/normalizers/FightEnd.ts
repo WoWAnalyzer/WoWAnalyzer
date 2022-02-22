@@ -1,5 +1,5 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType, FightEndEvent } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
  * Normalizes in an event at the back of the queue to indicate that the fight

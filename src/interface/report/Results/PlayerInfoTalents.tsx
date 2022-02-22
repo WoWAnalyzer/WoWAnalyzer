@@ -1,10 +1,8 @@
-import React from 'react';
-
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Icon from 'interface/Icon';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
-import { Trans } from '@lingui/macro';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 
@@ -12,7 +10,7 @@ interface Props {
   talents: number[];
 }
 
-const PlayerInfoTalents = ({talents}: Props) => {
+const PlayerInfoTalents = ({ talents }: Props) => {
   const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
@@ -22,10 +20,12 @@ const PlayerInfoTalents = ({talents}: Props) => {
       </h3>
       <div className="talent-info">
         {talents.map((spellId: number, index: number) => (
-          <div key={index} className="talent-info-row" style={{ marginBottom: '0.8em', fontSize: '1.3em' }}>
-            <div className="talent-level">
-              {rows[index]}
-            </div>
+          <div
+            key={index}
+            className="talent-info-row"
+            style={{ marginBottom: '0.8em', fontSize: '1.3em' }}
+          >
+            <div className="talent-level">{rows[index]}</div>
             {spellId ? (
               <>
                 <div className="talent-icon">

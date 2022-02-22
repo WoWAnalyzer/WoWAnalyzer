@@ -1,7 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, {
+  BUILT_IN_SUMMARY_TYPES,
+} from 'parser/shared/modules/CooldownThroughputTracker';
 
 import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_FEEDING_INTO_CBT } from '../../constants';
 
@@ -36,7 +38,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -56,23 +58,23 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   processAll() {
     this.pastCooldowns
-      .filter(cooldown => cooldown.end && !cooldown.processed)
+      .filter((cooldown) => cooldown.end && !cooldown.processed)
       .forEach((cooldown) => {
         let feed = null;
         let totals = null;
         let feedingFactor = 0;
-        if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+        if (cooldown.spell === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
           feed = this.cbtFeed;
           totals = this.cbtTotals;
-          feedingFactor = 0.25;
-        } else if (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
+          feedingFactor = 0.3;
+        } else if (cooldown.spell === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
           feed = this.ascFeed;
           totals = this.ascTotals;
           feedingFactor = 1.0;
         }
 
         let percentOverheal = 0;
-        if ((cooldown.healing + cooldown.overheal) > 0) {
+        if (cooldown.healing + cooldown.overheal > 0) {
           percentOverheal = cooldown.overheal / (cooldown.healing + cooldown.overheal);
         }
 
@@ -109,17 +111,26 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }
 
       // skipping all the events that do not get treated anyway, helping calculation time and removing a lot of fabricated event spam
-      if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id || event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
+      if (
+        event.ability.guid === SPELLS.ASCENDANCE_HEAL.id ||
+        event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id
+      ) {
         return;
       }
 
-      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1 - percentOverheal);
+      const eventFeed =
+        ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) *
+        feedingFactor *
+        (1 - percentOverheal);
 
-      this.eventEmitter.fabricateEvent({
-        ...event,
-        type: EventType.FeedHeal,
-        feed: eventFeed,
-      }, cooldown.spell);
+      this.eventEmitter.fabricateEvent(
+        {
+          ...event,
+          type: EventType.FeedHeal,
+          feed: eventFeed,
+        },
+        cooldown.spell,
+      );
     });
   }
 
@@ -137,10 +148,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   }
 
   addNewCooldown(spell, timestamp) {
-    const cooldown = {
-      ...spell,
-      start: timestamp,
-      end: null,
+    //call addCooldown from the core module. It adjusts spells for buffer ms and adds the cdStart property, and this felt cleaner than copy/pasting code that might be updated in the future
+    let cooldown = this.addCooldown(spell, timestamp);
+    //this.addCooldown performs its own 'this.pastCooldowns.push(cooldown);', but we want to add properties to cooldown before pushing
+    this.pastCooldowns.pop(cooldown);
+    cooldown = {
+      ...cooldown,
       processed: false,
       healing: 0,
       overheal: 0,
@@ -150,12 +163,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
     this.pastCooldowns.push(cooldown);
     this.activeCooldowns.push(cooldown);
-
     return cooldown;
   }
 
   popCBT(event) {
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id);
+    const index = this.activeCooldowns.findIndex(
+      (cooldown) => cooldown.spell === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+    );
     if (index === -1) {
       return;
     }
@@ -167,34 +181,42 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   constructor(...args) {
     super(...args);
     // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
-    this.lastCBT = this.addNewCooldown({
-      spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    }, this.owner.fight.start_time);
-    this.lastAsc = this.addNewCooldown({
-      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    }, this.owner.fight.start_time);
+    this.lastCBT = this.addNewCooldown(
+      {
+        spell: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+          BUILT_IN_SUMMARY_TYPES.MANA,
+        ],
+      },
+      this.owner.fight.start_time,
+    );
+    this.lastAsc = this.addNewCooldown(
+      {
+        spell: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+          BUILT_IN_SUMMARY_TYPES.MANA,
+        ],
+      },
+      this.owner.fight.start_time,
+    );
   }
 
   onApplyBuffToPlayer(event) {
     const spellId = event.ability.guid;
-    const spell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    const spell = this.constructor.cooldownSpells.find(
+      (cooldownSpell) => cooldownSpell.spell === spellId,
+    );
     if (!spell) {
       return;
     }
 
     // If the Asc we stored on pull is still up, discard all data in it.
     if (spellId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
-      if (this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId) !== -1) {
+      if (this.activeCooldowns.findIndex((cooldown) => cooldown.spell === spellId) !== -1) {
         this.removeLastCooldown(spellId);
       }
     }
@@ -220,7 +242,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       cooldown.end = this.owner.fight.end_time;
 
       // If cloudburst is still up at the end of the fight, it didn't do any healing, so dont process it.
-      if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+      if (cooldown.spell === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
         cooldown.processed = true;
       }
     });
@@ -237,23 +259,30 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         // If the CBT we stored on pull is still up, discard all data in it.
         this.removeLastCooldown(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
       }
-      this.lastCBT = this.addNewCooldown({
-        spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
-        summary: [
-          BUILT_IN_SUMMARY_TYPES.HEALING,
-          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-          BUILT_IN_SUMMARY_TYPES.MANA,
-        ],
-      }, event.timestamp);
+      this.lastCBT = this.addNewCooldown(
+        {
+          spell: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+          summary: [
+            BUILT_IN_SUMMARY_TYPES.HEALING,
+            BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+            BUILT_IN_SUMMARY_TYPES.MANA,
+          ],
+        },
+        event.timestamp,
+      );
     }
 
     super.onCast(event);
   }
 
   removeLastCooldown(spellId) {
-    const indexactiveCooldowns = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId);
+    const indexactiveCooldowns = this.activeCooldowns.findIndex(
+      (cooldown) => cooldown.spell === spellId,
+    );
 
-    const reverseIndexCooldowns = [...this.pastCooldowns].reverse().findIndex(cooldown => cooldown.spell.id === spellId);
+    const reverseIndexCooldowns = [...this.pastCooldowns]
+      .reverse()
+      .findIndex((cooldown) => cooldown.spell === spellId);
     const indexCooldowns = this.pastCooldowns.length - reverseIndexCooldowns - 1;
 
     if (indexactiveCooldowns !== -1 && indexCooldowns !== -1) {
@@ -267,21 +296,25 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       this.hasBeenCBTHealingEvent = true;
       this.popCBT(event);
       this.lastCBT.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.lastCBT.overheal += (event.overheal || 0);
+      this.lastCBT.overheal += event.overheal || 0;
     } else if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id && this.lastAsc) {
       this.hasBeenAscHealingOrCastEvent = true;
       this.lastAsc.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.lastAsc.overheal += (event.overheal || 0);
+      this.lastAsc.overheal += event.overheal || 0;
     }
 
     const spellId = event.ability.guid;
     const healingDone = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
-      const cooldownId = cooldown.spell.id;
+      const cooldownId = cooldown.spell;
 
-      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && ABILITIES_FEEDING_INTO_CBT.some(s => s.id === spellId)) ||
-        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.some(s => s.id === spellId))) {
+      if (
+        (cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id &&
+          ABILITIES_FEEDING_INTO_CBT.some((s) => s.id === spellId)) ||
+        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id &&
+          !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.some((s) => s.id === spellId))
+      ) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];
           cooldown.feed[spellId].healing = 0;

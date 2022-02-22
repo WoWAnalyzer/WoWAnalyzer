@@ -21,33 +21,37 @@ const conduits = {
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
   //Covenant Potency
-  REPEAT_DECREE: { //Kyrian
+  REPEAT_DECREE: {
+    //Kyrian
     id: 339895,
     name: 'Repeat Decree',
     icon: 'ability_mount_goatmountwhite',
   },
-  INCREASED_SCRUTINY: { //Venthyr
+  INCREASED_SCRUTINY: {
+    //Venthyr
     id: 340028,
     name: 'Increased Scrutiny',
     icon: 'spell_animarevendreth_buff',
   },
-  BROODING_POOL: { //Necrolord
+  BROODING_POOL: {
+    //Necrolord
     id: 340063,
     name: 'Brooding Pool',
     icon: 'spell_animamaldraxxus_groundstate',
   },
-  UNNATURAL_MALICE: { //Night Fae
+  UNNATURAL_MALICE: {
+    //Night Fae
     id: 344358,
     name: 'Unnatural Malice',
     icon: 'spell_animaardenweald_missile',
   },
   //Endurance general
-  FEL_DEFENDER: { 
+  FEL_DEFENDER: {
     id: 338671,
     name: 'Fel Defender',
     icon: 'inv_armor_shield_naxxramas_d_01',
   },
-  SHATTERED_RESTORATION: { 
+  SHATTERED_RESTORATION: {
     id: 338793,
     name: 'Shattered Restoration',
     icon: 'ability_warlock_soulsiphon',

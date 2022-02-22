@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 // the max delay between the heal and cast events never looks to be more than this.
 const MAX_DELAY = 100; // XdVPajNB8vpJkyCF/16-Mythic+Antoran+High+Command+-+Kill+(7:17)/177/events has one of 83ms
@@ -37,7 +36,7 @@ class LightOfDawn extends EventsNormalizer {
           ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
+            previousEvent.__reordered = true;
             break; // I haven't seen a log with multiple `heal` events before the `cast` yet
           }
         }

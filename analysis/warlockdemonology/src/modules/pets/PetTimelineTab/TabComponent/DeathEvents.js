@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import { Tooltip } from 'interface';
 import { formatDuration } from 'common/format';
+import { Tooltip } from 'interface';
+import PropTypes from 'prop-types';
 
 const DeathEvents = (props) => {
   const { start, secondWidth, deaths, resurrections } = props;
@@ -11,7 +9,7 @@ const DeathEvents = (props) => {
     <>
       {deaths.map((event) => {
         const eventStart = event.start || event.timestamp;
-        const fightDuration = (eventStart - start) / 1000;
+        const fightDuration = eventStart - start;
         const left = ((eventStart - start) / 1000) * secondWidth;
         return (
           <Tooltip
@@ -29,7 +27,7 @@ const DeathEvents = (props) => {
       })}
       {resurrections.map((event) => {
         const eventStart = event.start || event.timestamp;
-        const fightDuration = (eventStart - start) / 1000;
+        const fightDuration = eventStart - start;
         const left = ((eventStart - start) / 1000) * secondWidth;
         return (
           <Tooltip

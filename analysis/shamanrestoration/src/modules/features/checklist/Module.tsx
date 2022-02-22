@@ -1,19 +1,16 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import AlwaysBeCasting from '../AlwaysBeCasting';
 import ChainHeal from '../../spells/ChainHeal';
-import HealingRain from '../../spells/HealingRain';
 import EarthShield from '../../spells/EarthShield';
-import Wellspring from '../../talents/Wellspring';
+import HealingRain from '../../spells/HealingRain';
 import EarthenWallTotem from '../../talents/EarthenWallTotem';
 import SurgeOfEarth from '../../talents/SurgeOfEarth';
-
+import Wellspring from '../../talents/Wellspring';
+import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -51,7 +48,8 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
+            .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           chainHealTargetThresholds: this.chainHeal.suggestionThreshold,
           healingRainTargetThreshold: this.healingRain.suggestionThreshold,

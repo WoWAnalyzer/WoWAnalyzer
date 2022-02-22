@@ -1,15 +1,12 @@
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
+import SPECS from 'game/SPECS';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
-const MINUTE = 600000;
-
 class TouchOfDeath extends ExecuteHelper {
-  static executeSpells = [
-    SPELLS.TOUCH_OF_DEATH,
-  ];
+  static executeSpells = [SPELLS.TOUCH_OF_DEATH];
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = 0.15;
   static executeOutsideRangeEnablers = [];
@@ -22,25 +19,16 @@ class TouchOfDeath extends ExecuteHelper {
 
   maxCasts = 0;
 
-  cooldown = MINUTE * 3;
-
   constructor(options) {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
-    //FIXME added reduction from legendary when we can get that info
-
-    //if(hasLego) {
-    //  this.cooldown = this.cooldown - MINUTE;
-    // }
-
     options.abilities.add({
-      spell: SPELLS.TOUCH_OF_DEATH,
+      spell: SPELLS.TOUCH_OF_DEATH.id,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      cooldown: 180,
-      gcd: {
-        static: 1000,
-      },
+      cooldown: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FATAL_TOUCH.bonusID) ? 60 : 180,
+      gcd:
+        this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency: 0.85,

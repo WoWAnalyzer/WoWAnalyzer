@@ -105,16 +105,19 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics. If you do have to move, try casting filler spells, such as
+       
       <ForwardRef
         id={49184}
       />
-       or 
+       or
+       
       <ForwardRef
         id={196770}
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.frost.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"47.93"}}
        (
@@ -132,6 +135,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -154,7 +158,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=152279"
+            href="https://wowhead.com/spell=152279"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -167,7 +171,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=152279"
+            href="https://wowhead.com/spell=152279"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -178,7 +182,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
           className="value"
         >
           14.1
-          s  
+          s 
           <small>
             average duration
           </small>
@@ -213,17 +217,20 @@ Array [
     "icon": "spell_deathknight_breathofsindragosa",
     "importance": "major",
     "issue": <React.Fragment>
-       You are not getting good uptime from your 
+       
+      You are not getting good uptime from your
+       
       <ForwardRef
         id={152279}
       />
-       casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use 
+       casts. A good cast is one that lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast. Also make sure to use 
       <ForwardRef
         id={47568}
       />
        within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. 
       
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.frost.suggestions.breathOfSindragosa.uptime","message":"You averaged {0} seconds of uptime per cast","values":{"0":"14.1"}}
        (
@@ -341,7 +348,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=49020"
+                href="https://wowhead.com/spell=49020"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -385,8 +392,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               29
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -427,7 +433,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=196770"
+                href="https://wowhead.com/spell=196770"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -471,8 +477,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -525,7 +530,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=49184"
+                href="https://wowhead.com/spell=49184"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -569,8 +574,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -611,7 +615,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=49143"
+                href="https://wowhead.com/spell=49143"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -655,8 +659,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -697,7 +700,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=45524"
+                href="https://wowhead.com/spell=45524"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -741,8 +744,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -841,7 +843,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=207230"
+                href="https://wowhead.com/spell=207230"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -885,8 +887,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -985,7 +986,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=51271"
+                href="https://wowhead.com/spell=51271"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1029,8 +1030,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1083,7 +1083,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=47568"
+                href="https://wowhead.com/spell=47568"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1127,8 +1127,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1181,7 +1180,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=152279"
+                href="https://wowhead.com/spell=152279"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1225,8 +1224,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1284,7 +1282,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=279302"
+                href="https://wowhead.com/spell=279302"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1328,8 +1326,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1387,7 +1384,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=46585"
+                href="https://wowhead.com/spell=46585"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1431,8 +1428,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1485,7 +1481,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=327574"
+                href="https://wowhead.com/spell=327574"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1529,8 +1525,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1641,7 +1636,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48707"
+                href="https://wowhead.com/spell=48707"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1685,8 +1680,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1739,7 +1733,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48792"
+                href="https://wowhead.com/spell=48792"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1783,8 +1777,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1837,7 +1830,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=49998"
+                href="https://wowhead.com/spell=49998"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1881,8 +1874,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1923,7 +1915,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=51052"
+                href="https://wowhead.com/spell=51052"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1967,8 +1959,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2021,7 +2012,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=49039"
+                href="https://wowhead.com/spell=49039"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2065,8 +2056,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2177,7 +2167,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=49576"
+                href="https://wowhead.com/spell=49576"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2221,8 +2211,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2275,7 +2264,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=48265"
+                href="https://wowhead.com/spell=48265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2319,8 +2308,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2373,7 +2361,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=56222"
+                href="https://wowhead.com/spell=56222"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2417,8 +2405,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2471,7 +2458,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=61999"
+                href="https://wowhead.com/spell=61999"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2515,8 +2502,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2569,7 +2555,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=47528"
+                href="https://wowhead.com/spell=47528"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2613,8 +2599,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2667,7 +2652,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=3714"
+                href="https://wowhead.com/spell=3714"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2711,8 +2696,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2753,7 +2737,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=108194"
+                href="https://wowhead.com/spell=108194"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2797,8 +2781,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2851,7 +2834,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=111673"
+                href="https://wowhead.com/spell=111673"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2895,8 +2878,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2937,7 +2919,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212552"
+                href="https://wowhead.com/spell=212552"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2981,8 +2963,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3035,7 +3016,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=43265"
+                href="https://wowhead.com/spell=43265"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3079,8 +3060,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3133,7 +3113,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=47541"
+                href="https://wowhead.com/spell=47541"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3177,8 +3157,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3277,7 +3256,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3289,7 +3268,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3298,7 +3277,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Spiritual Healing Potion
+                Healthstone
               </a>
             </td>
             <td
@@ -3321,8 +3300,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3375,7 +3353,104 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307192"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spiritual Healing Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3419,8 +3494,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3474,7 +3548,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
 Array [
   Object {
     "details": null,
-    "icon": "spell_deathknight_breathofsindragosa",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3491,6 +3565,7 @@ Array [
        
       You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase
     </React.Fragment>,
+    "spell": 152279,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3518,7 +3593,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "achievement_boss_sindragosa",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3534,14 +3609,16 @@ Array [
       />
        
       <React.Fragment>
-        Although you normally want to use this off CD, you can save it to line it up with 
+        Although you normally want to use this off CD, you can save it to line it up with
+         
         <ForwardRef
           icon={true}
           id={51271}
         />
-        .  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
+        . You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
       </React.Fragment>
     </React.Fragment>,
+    "spell": 279302,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3581,14 +3658,17 @@ Array [
       15.78
       % of the fight duration (
       22
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/TcCmAWp2RGzvkK69/1-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%222:22%22%7D%7D/Khazakk/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="shared.suggestions.deathTracker.deathTime"
@@ -3741,6 +3821,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3780,6 +3861,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3822,6 +3904,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3862,6 +3945,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3902,6 +3986,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3914,6 +3999,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -3921,6 +4007,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3933,6 +4020,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3955,7 +4043,7 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55095"
+            href="https://wowhead.com/spell=55095"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3968,7 +4056,7 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55095"
+            href="https://wowhead.com/spell=55095"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4011,12 +4099,14 @@ Array [
       <ForwardRef
         id={55095}
       />
-       uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using 
+       uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using
+       
       <ForwardRef
         id={49184}
       />
        to refresh Frost Fever. Using a debuff tracker can help.
     </span>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.frost.suggestions.frostFever.uptime","message":"{0}% Frost Fever uptime","values":{"0":"90.95"}}
        (
@@ -4044,7 +4134,7 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=207230"
+            href="https://wowhead.com/spell=207230"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4057,7 +4147,7 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=207230"
+            href="https://wowhead.com/spell=207230"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4113,7 +4203,7 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=194912"
+            href="https://wowhead.com/spell=194912"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4126,7 +4216,7 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=194912"
+            href="https://wowhead.com/spell=194912"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4190,7 +4280,7 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=49184"
+            href="https://wowhead.com/spell=49184"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4203,7 +4293,7 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=49184"
+            href="https://wowhead.com/spell=49184"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4259,7 +4349,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=51124"
+            href="https://wowhead.com/spell=51124"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4272,7 +4362,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=51124"
+            href="https://wowhead.com/spell=51124"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4328,6 +4418,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -4350,7 +4441,7 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=59052"
+            href="https://wowhead.com/spell=59052"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4363,7 +4454,7 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=59052"
+            href="https://wowhead.com/spell=59052"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4419,7 +4510,7 @@ exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusade
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53344"
+            href="https://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4432,7 +4523,7 @@ exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusade
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53344"
+            href="https://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4494,7 +4585,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/runes"
+            href="https://wowhead.com/runes"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4569,6 +4660,7 @@ Array [
       33.55
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"33.55"}}
        (
@@ -4597,7 +4689,7 @@ exports[`Frost Death Knight integration test: example log RunicPowerDetails matc
           className="flex-sub icon"
         >
           <a
-            href="http://wowhead.com/runic-power"
+            href="https://wowhead.com/runic-power"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4961,7 +5053,7 @@ Array [
         }
       }
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans
@@ -4971,6 +5063,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5002,7 +5095,7 @@ Array [
         }
       }
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans
@@ -5012,6 +5105,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -5129,7 +5223,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=51271"
+                  href="https://wowhead.com/spell=51271"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5202,7 +5296,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=152279"
+                  href="https://wowhead.com/spell=152279"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5275,7 +5369,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=47568"
+                  href="https://wowhead.com/spell=47568"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5424,10 +5518,11 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast 
+            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=49184"
+              href="https://wowhead.com/spell=49184"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5748,7 +5843,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=49143"
+              href="https://wowhead.com/spell=49143"
               rel="noopener noreferrer"
               target="_blank"
             >

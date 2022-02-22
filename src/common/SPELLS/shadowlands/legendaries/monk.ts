@@ -6,9 +6,19 @@ const legendaries = {
     icon: 'ability_monk_mightyoxkick',
     bonusID: 7076,
   },
+  CHARRED_PASSIONS_BUFF: {
+    id: 338140,
+    name: 'Charred Passions',
+    icon: 'ability_monk_mightyoxkick',
+  },
+  CHARRED_PASSIONS_DAMAGE: {
+    id: 338141,
+    name: 'Charred Passions',
+    icon: 'ability_monk_mightyoxkick',
+  },
   STORMSTOUTS_LAST_KEG: {
     id: 337288,
-    name: 'Stormstout\'s Last Keg',
+    name: "Stormstout's Last Keg",
     icon: 'achievement_brewery_2',
     bonusID: 7077,
   },
@@ -16,11 +26,11 @@ const legendaries = {
     id: 337290,
     name: 'Celestial Infusion',
     icon: 'achievement_faction_brewmaster',
-    bonusID: 7078
+    bonusID: 7078,
   },
   SHAOHAOS_MIGHT: {
     id: 337570,
-    name: 'Shaohao\'s Might',
+    name: "Shaohao's Might",
     icon: 'ability_monk_tigerpalm',
     bonusID: 7079,
   },
@@ -34,21 +44,16 @@ const legendaries = {
     icon: 'ability_monk_uplift',
     bonusID: 7072,
   },
-  TEAR_OF_MORNING_BUFF: {
-    id: 337993,
-    name: 'Tear of Morning',
-    icon: 'ability_monk_pathofmists',
-  },
-  TEAR_OF_MORNING_HEAL: {
-    id: 337992,
-    name: 'Tear of Morning',
-    icon: 'ability_monk_pathofmists',
-  },
   YULONS_WHISPER: {
     id: 337225,
-    name: 'Yu\'lon\'s Whisper',
+    name: "Yu'lon's Whisper",
     icon: 'ability_monk_dragonkick',
     bonusID: 7073,
+  },
+  YULON_WHISPER_HEAL: {
+    id: 337268,
+    name: "Yu'lon's Whisper",
+    icon: 'ability_monk_chiexplosion',
   },
   CLOUDED_FOCUS: {
     id: 337343,
@@ -56,7 +61,7 @@ const legendaries = {
     icon: 'ability_monk_soothingmist',
     bonusID: 7074,
   },
-  CLOUDED_FOCUS_BUFF:{
+  CLOUDED_FOCUS_BUFF: {
     id: 337476,
     name: 'Clouded Focus',
     icon: 'ability_monk_surgingmist',
@@ -67,17 +72,17 @@ const legendaries = {
     icon: 'passive_monk_teachingsofmonastery',
     bonusID: 7075,
   },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL:{
+  ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL: {
     id: 126890,
     name: 'Ancient Teachings of the Monastery',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL:{
+  ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL: {
     id: 347572,
     name: 'Ancient Teachings of the Monastery',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF:{
+  ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF: {
     id: 347553,
     name: 'Ancient Teachings of the Monastery',
     icon: 'inv_misc_book_07',
@@ -87,26 +92,31 @@ const legendaries = {
   //region Windwalker
   KEEFERS_SKYREACH: {
     id: 337334,
-    name: 'Keefer\'s Skyreach',
+    name: "Keefer's Skyreach",
     icon: 'inv__fistofthewhitetiger',
     bonusID: 7068,
   },
   LAST_EMPERORS_CAPACITOR: {
     id: 337292,
-    name: 'Last Emperor\'s Capacitor',
+    name: "Last Emperor's Capacitor",
     icon: 'ability_warrior_unrelentingassault',
     bonusID: 7069,
   },
   LAST_EMPERORS_CAPACITOR_BUFF: {
     id: 337291,
-    name: 'The Emperor\'s Capcitor',
+    name: "The Emperor's Capcitor",
     icon: 'ability_monk_cracklingjadelightning',
   },
   XUENS_BATTLEGEAR: {
     id: 337481,
-    name: 'Xuen\'s Battlegear',
+    name: "Xuen's Battlegear",
     icon: 'monk_stance_whitetiger',
     bonusID: 7070,
+  },
+  PRESSURE_POINT: {
+    id: 337482,
+    name: 'Pressure Point',
+    icon: 'spell_monk_windwalker_spec',
   },
   JADE_IGNITION: {
     id: 337483,
@@ -142,13 +152,13 @@ const legendaries = {
   },
   INVOKERS_DELIGHT: {
     id: 337298,
-    name: 'Invoker\'s Delight',
+    name: "Invoker's Delight",
     icon: 'inv_inscription_80_warscroll_battleshout',
     bonusID: 7082,
   },
   INVOKERS_DELIGHT_BUFF: {
     id: 338321,
-    name: 'Invoker\'s Delight',
+    name: "Invoker's Delight",
     icon: 'inv_inscription_80_warscroll_battleshout',
   },
   ESCAPE_FROM_REALITY: {
@@ -159,5 +169,43 @@ const legendaries = {
   },
 
   //endregion
+
+  // Covenant
+  CALL_TO_ARMS: {
+    id: 356684,
+    name: 'Call to Arms',
+    icon: 'ability_bastion_monk',
+    bonusID: 7718,
+  },
+  BOUNTIFUL_BREW: {
+    id: 356592,
+    name: 'Bountiful Brew',
+    icon: 'ability_maldraxxus_monk',
+    bonusID: 7707,
+  },
+  FAELINE_HARMONY: {
+    id: 356705,
+    name: 'Faeline Harmony',
+    icon: 'ability_ardenweald_monk',
+    bonusID: 7721,
+  },
+  FAELINE_HARMONY_DEBUFF: {
+    id: 356773,
+    name: 'Faeline Exposure Damage',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_HARMONY_BUFF: {
+    id: 356774,
+    name: 'Faeline Exposure Healing',
+    icon: 'ability_ardenweald_monk',
+  },
+  SINISTER_TEACHINGS: {
+    id: 356818,
+    name: 'Sinister Teachings',
+    icon: 'ability_revendreth_monk',
+    bonusID: 7726,
+  },
+
+  // end region
 } as const;
 export default legendaries;

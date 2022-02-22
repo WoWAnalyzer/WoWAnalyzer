@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
 
 /**
  * Module to find the position of healing rain, and return how much extra healing spells modified by healing rain did.
@@ -12,15 +12,14 @@ import Events, { HealEvent } from 'parser/core/Events';
  */
 
 interface Point {
-  x: number,
-  y: number
+  x: number;
+  y: number;
 }
 interface Location {
   ellipseCenterPoint: Point;
   ellipseWidth: number;
   ellipseHeight: number;
 }
-
 
 class HealingRainLocation extends Analyzer {
   static dependencies = {
@@ -39,8 +38,14 @@ class HealingRainLocation extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.healingRainHeal);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this.healingRainCast);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
+      this.healingRainHeal,
+    );
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST),
+      this.healingRainCast,
+    );
   }
 
   healingRainHeal(event: HealEvent) {
@@ -82,7 +87,10 @@ class HealingRainLocation extends Analyzer {
     }
 
     // Filtering events that didn't actually happen during the rain cast we're looking at
-    const filteredEvents = eventsDuringRain.filter(event => event.timestamp >= this.firstHealingRainTick && event.timestamp <= this.lastHealingRainTick);
+    const filteredEvents = eventsDuringRain.filter(
+      (event) =>
+        event.timestamp >= this.firstHealingRainTick && event.timestamp <= this.lastHealingRainTick,
+    );
     if (!filteredEvents) {
       return 0;
     }
@@ -101,24 +109,35 @@ class HealingRainLocation extends Analyzer {
   }
 
   locate(events: HealEvent[]) {
-    const { minY, maxY, minX, maxX } = events.reduce((result, event) => {
-      result.minY = Math.min(event.y, result.minY);
-      result.maxY = Math.max(event.y, result.maxY);
-      result.minX = Math.min(event.x, result.minX);
-      result.maxX = Math.max(event.x, result.maxX);
-      return result;
-    }, { minY: Number.MAX_VALUE, maxY: -Number.MAX_VALUE, minX: Number.MAX_VALUE, maxX: -Number.MAX_VALUE });
+    const { minY, maxY, minX, maxX } = events.reduce(
+      (result, event) => {
+        result.minY = Math.min(event.y, result.minY);
+        result.maxY = Math.max(event.y, result.maxY);
+        result.minX = Math.min(event.x, result.minX);
+        result.maxX = Math.max(event.x, result.maxX);
+        return result;
+      },
+      {
+        minY: Number.MAX_VALUE,
+        maxY: -Number.MAX_VALUE,
+        minX: Number.MAX_VALUE,
+        maxX: -Number.MAX_VALUE,
+      },
+    );
 
-    const ellipseWidth = (maxX - minX);
-    const ellipseHeight = (maxY - minY);
+    const ellipseWidth = maxX - minX;
+    const ellipseHeight = maxY - minY;
 
     // If there are erroneous data, it's better to not count the rain instead of having it overvalue the effect.
     if (ellipseHeight >= this.healingRainDiameter || ellipseWidth >= this.healingRainDiameter) {
       console.warn(
         'Reported Healing Rain size is too large, something went wrong.',
-        'Allowed Size:', this.healingRainDiameter,
-        'Reported Width:', ellipseWidth,
-        'Reported Height:', ellipseHeight,
+        'Allowed Size:',
+        this.healingRainDiameter,
+        'Reported Width:',
+        ellipseWidth,
+        'Reported Height:',
+        ellipseHeight,
       );
       return null;
     }
@@ -133,10 +152,14 @@ class HealingRainLocation extends Analyzer {
 
   // also called: is point inside ellipse
   _isPlayerInsideHealingRain(pointToCheck: Point, location: Location) {
-    const xComponent = (Math.pow(pointToCheck.x - location.ellipseCenterPoint.x, 2) / Math.pow(location.ellipseWidth, 2));
-    const yComponent = (Math.pow(pointToCheck.y - location.ellipseCenterPoint.y, 2) / Math.pow(location.ellipseHeight, 2));
+    const xComponent =
+      Math.pow(pointToCheck.x - location.ellipseCenterPoint.x, 2) /
+      Math.pow(location.ellipseWidth, 2);
+    const yComponent =
+      Math.pow(pointToCheck.y - location.ellipseCenterPoint.y, 2) /
+      Math.pow(location.ellipseHeight, 2);
 
-    if ((xComponent + yComponent) <= 1) {
+    if (xComponent + yComponent <= 1) {
       return true;
     }
     return false;

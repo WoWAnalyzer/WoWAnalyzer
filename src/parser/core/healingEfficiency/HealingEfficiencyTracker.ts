@@ -1,14 +1,14 @@
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import CoreAbilities from 'parser/core/modules/Abilities';
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import Analyzer from 'parser/core/Analyzer';
+import CoreAbilities from 'parser/core/modules/Abilities';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import ManaTracker from './ManaTracker';
 import { SpellbookAbility } from '../modules/Ability';
+import ManaTracker from './ManaTracker';
 
 export interface SpellInfoDetails {
   spell: Spell;
@@ -82,11 +82,12 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.overhealingDone = ability.healingOverheal || 0;
 
     if (healingSpellIds) {
-      for (const healingSpellId in healingSpellIds) {
+      for (const healingSpellId of healingSpellIds) {
         const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
 
         spellInfo.healingHits += healingAbility.healingHits || 0;
-        spellInfo.healingDone += (healingAbility.healingEffective || 0) + (healingAbility.healingAbsorbed || 0);
+        spellInfo.healingDone +=
+          (healingAbility.healingEffective || 0) + (healingAbility.healingAbsorbed || 0);
         spellInfo.overhealingDone += healingAbility.healingOverheal || 0;
       }
     }
@@ -99,33 +100,40 @@ class HealingEfficiencyTracker extends Analyzer {
       [spellId: number]: {
         spent: number;
         spentByCast: number[];
-        casts: number
-      }
+        casts: number;
+      };
     };
+
     spellInfo.manaSpent = spenders[spellId] ? spenders[spellId].spent : 0;
 
     // All of the following information can be derived from the data in SpellInfo.
     // Now we can add custom logic for spells.
     spellInfo = this.getCustomSpellStats(spellInfo, spellId, healingSpellIds);
 
-    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / ((spellInfo.healingDone || 0) + spellInfo.overhealingDone) || 0;
+    spellInfo.percentOverhealingDone =
+      spellInfo.overhealingDone / ((spellInfo.healingDone || 0) + spellInfo.overhealingDone) || 0;
     spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
     spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
     spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
 
-    spellInfo.hpm = (spellInfo.healingDone / spellInfo.manaSpent) || 0;
-    spellInfo.dpm = (spellInfo.damageDone / spellInfo.manaSpent) || 0;
+    spellInfo.hpm = spellInfo.healingDone / spellInfo.manaSpent || 0;
+    spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent || 0;
 
-    spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
+    const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);
+    spellInfo.timeSpentCasting = timeSpentCasting.timeSpentCasting + timeSpentCasting.gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
-    spellInfo.hpet = (spellInfo.healingDone / spellInfo.timeSpentCasting) | 0;
-    spellInfo.dpet = (spellInfo.damageDone / spellInfo.timeSpentCasting) | 0;
+    spellInfo.hpet = spellInfo.healingDone / spellInfo.timeSpentCasting || 0;
+    spellInfo.dpet = spellInfo.damageDone / spellInfo.timeSpentCasting || 0;
 
     return spellInfo;
   }
 
-  getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number, healingSpellIds: number[] | null) {
+  getCustomSpellStats(
+    spellInfo: SpellInfoDetails,
+    spellId: number,
+    healingSpellIds: number[] | null,
+  ) {
     // Overwrite this function to add specific logic for spells.
     return spellInfo;
   }
@@ -137,21 +145,39 @@ class HealingEfficiencyTracker extends Analyzer {
     let topHpet = 0;
     let topDpet = 0;
 
-    for (const index in this.abilities.abilities) {
-      const ability = this.abilities.abilities[index] as unknown as SpellbookAbility;
+    for (const rawAbility of this.abilities.abilities) {
+      const ability = (rawAbility as unknown) as SpellbookAbility;
 
-      if (ability.spell instanceof Array) {
+      if (ability.category === 'Cooldown' && !includeCooldowns) {
         continue;
       }
-      if (ability.spell && ability.spell.manaCost && ability.spell.manaCost > 0) {
-        if (includeCooldowns || ability.category !== 'Cooldown') {
-          spells[ability.spell.id] = this.getSpellStats(ability.spell.id, ability.healSpellIds);
 
-          topHpm = Math.max(topHpm, spells[ability.spell.id].hpm);
-          topDpm = Math.max(topDpm, spells[ability.spell.id].dpm);
-          topHpet = Math.max(topHpet, spells[ability.spell.id].hpet);
-          topDpet = Math.max(topDpet, spells[ability.spell.id].dpet);
+      if (ability.spell instanceof Array) {
+        for (const lowerRankSpell of ability.spell) {
+          const spellData = this.getSpellStats(lowerRankSpell, ability.healSpellIds);
+          if (spellData.manaSpent === 0) {
+            continue;
+          }
+          topHpm = Math.max(topHpm, spellData.hpm);
+          topDpm = Math.max(topDpm, spellData.dpm);
+          if (spellData.timeSpentCasting !== 0) {
+            topHpet = Math.max(topHpet, spellData.hpet);
+            topDpet = Math.max(topDpet, spellData.dpet);
+          }
+          spells[lowerRankSpell] = spellData;
         }
+      } else {
+        const spellData = this.getSpellStats(ability.spell, ability.healSpellIds);
+        if (spellData.manaSpent === 0) {
+          continue;
+        }
+        topHpm = Math.max(topHpm, spellData.hpm);
+        topDpm = Math.max(topDpm, spellData.dpm);
+        if (spellData.timeSpentCasting !== 0) {
+          topHpet = Math.max(topHpet, spellData.hpet);
+          topDpet = Math.max(topDpet, spellData.dpet);
+        }
+        spells[ability.spell] = spellData;
       }
     }
 

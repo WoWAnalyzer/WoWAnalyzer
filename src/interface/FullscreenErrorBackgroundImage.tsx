@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 
 import BackgroundOverlay from './images/background-overlay.png';
 
@@ -40,9 +40,7 @@ interface FullscreenErrorBackgroundImageProps {
   image?: string;
 }
 
-const FullscreenErrorBackgroundImage = ({
-  image,
-}: FullscreenErrorBackgroundImageProps) => (
+const FullscreenErrorBackgroundImage = ({ image }: FullscreenErrorBackgroundImageProps) => (
   <div style={styles.container}>
     <div
       style={{

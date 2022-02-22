@@ -225,15 +225,18 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like 
+      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like
+       
       <ForwardRef
         id={108853}
       />
-       or 
+       or
+       
       <ForwardRef
         id={1449}
       />
-       (if there are 2+ targets); even unbuffed 
+       (if there are 2+ targets); even unbuffed
+       
       <ForwardRef
         id={30455}
       />
@@ -247,6 +250,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"mage.frost.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"36.82"}}
        (
@@ -264,6 +268,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -286,7 +291,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=190446"
+            href="https://wowhead.com/spell=190446"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -299,7 +304,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=190446"
+            href="https://wowhead.com/spell=190446"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -347,11 +352,13 @@ Array [
     "issue": <React.Fragment>
       You overwrote 
       7.14
-      % of your 
+      % of your
+       
       <ForwardRef
         id={190446}
       />
-       procs. You should use your 
+       procs. You should use your
+       
       <ForwardRef
         id={190446}
       />
@@ -361,6 +368,7 @@ Array [
       />
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.brainFreeze.overwritten"
@@ -387,8 +395,10 @@ Array [
       <ForwardRef
         id={190446}
       />
-       procs to expire. Make sure you are using your procs as soon as possible to avoid this.
+       
+      procs to expire. Make sure you are using your procs as soon as possible to avoid this.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.brainFreeze.expired"
@@ -510,6 +520,7 @@ Array [
       </React.Fragment>
       .
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.castsCancelled"
@@ -635,7 +646,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116"
+                href="https://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -679,8 +690,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               68
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -721,7 +731,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=108853"
+                href="https://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -765,8 +775,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -819,7 +828,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1449"
+                href="https://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -863,8 +872,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -905,7 +913,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30455"
+                href="https://wowhead.com/spell=30455"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -949,8 +957,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               69
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -991,7 +998,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=44614"
+                href="https://wowhead.com/spell=44614"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1035,8 +1042,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               25
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1077,7 +1083,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=120"
+                href="https://wowhead.com/spell=120"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1121,8 +1127,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1175,7 +1180,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=84714"
+                href="https://wowhead.com/spell=84714"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1219,8 +1224,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               5
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1336,7 +1340,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190356"
+                href="https://wowhead.com/spell=190356"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1380,8 +1384,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /52
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1492,7 +1495,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=116011"
+                href="https://wowhead.com/spell=116011"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1536,8 +1539,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               5
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1595,7 +1597,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=12472"
+                href="https://wowhead.com/spell=12472"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1639,8 +1641,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1693,7 +1694,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=80353"
+                href="https://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1737,8 +1738,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1791,7 +1791,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=314793"
+                href="https://wowhead.com/spell=314793"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1835,8 +1835,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1952,7 +1951,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=11426"
+                href="https://wowhead.com/spell=11426"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1984,7 +1983,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1.38
+              1.55
             </td>
             <td
               className="text-right"
@@ -1994,10 +1993,9 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              8
+              9
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2050,7 +2048,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=45438"
+                href="https://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2094,8 +2092,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               1
               /121
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2148,7 +2145,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=55342"
+                href="https://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2180,7 +2177,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.17
+              0.34
             </td>
             <td
               className="text-right"
@@ -2190,10 +2187,9 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1
+              2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2304,7 +2300,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1459"
+                href="https://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2348,8 +2344,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2390,7 +2385,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=122"
+                href="https://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2434,8 +2429,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2488,7 +2482,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212653"
+                href="https://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2532,8 +2526,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               15
               /17
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2586,7 +2579,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=2139"
+                href="https://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2630,8 +2623,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2684,7 +2676,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=475"
+                href="https://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2728,8 +2720,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /44
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2782,7 +2773,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=130"
+                href="https://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2826,8 +2817,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2868,7 +2858,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=30449"
+                href="https://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2912,8 +2902,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2954,7 +2943,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=321358"
+                href="https://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2998,8 +2987,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3040,7 +3028,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=342247"
+                href="https://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3084,8 +3072,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3126,7 +3113,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=66"
+                href="https://wowhead.com/spell=66"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3170,8 +3157,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3224,7 +3210,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=235219"
+                href="https://wowhead.com/spell=235219"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3268,8 +3254,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3322,7 +3307,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=118"
+                href="https://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3366,8 +3351,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3466,7 +3450,104 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.17
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3510,8 +3591,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3564,7 +3644,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307497"
+                href="https://wowhead.com/spell=307497"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3608,8 +3688,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               2
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3663,7 +3742,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sug
 Array [
   Object {
     "details": null,
-    "icon": "spell_frost_frozenorb",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -3680,6 +3759,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 84714,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3707,7 +3787,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_mage_runeofpower",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3724,6 +3804,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 116011,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3751,7 +3832,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_revendreth_mage",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -3768,6 +3849,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 314793,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -3904,7 +3986,7 @@ exports[`Frost Mage integration test: example log ElementalBarrier matches the s
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=11426"
+            href="https://wowhead.com/spell=11426"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3917,7 +3999,7 @@ exports[`Frost Mage integration test: example log ElementalBarrier matches the s
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=11426"
+            href="https://wowhead.com/spell=11426"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -3975,6 +4057,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "minor",
     "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -3997,7 +4080,7 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336569"
+            href="https://wowhead.com/spell=336569"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4010,7 +4093,7 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=336569"
+            href="https://wowhead.com/spell=336569"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4059,7 +4142,7 @@ exports[`Frost Mage integration test: example log IceLance matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30455"
+            href="https://wowhead.com/spell=30455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4072,7 +4155,7 @@ exports[`Frost Mage integration test: example log IceLance matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=30455"
+            href="https://wowhead.com/spell=30455"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4130,16 +4213,19 @@ Array [
       <ForwardRef
         id={12982}
       />
-      . Make sure that you are only casting Ice Lance when the target has 
+      . Make sure that you are only casting Ice Lance when the target has
+       
       <ForwardRef
         id={228358}
       />
-       (or other Shatter effects), if you have a 
+       (or other Shatter effects), if you have a
+       
       <ForwardRef
         id={44544}
       />
        proc, or if you are moving and you cant cast anything else.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.iceLance.nonShatterCasts"
@@ -4175,7 +4261,7 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12472"
+            href="https://wowhead.com/spell=12472"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4188,7 +4274,7 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12472"
+            href="https://wowhead.com/spell=12472"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4238,16 +4324,19 @@ Array [
       19
        seconds (
       10
-      s per cast) not casting anything while 
+      s per cast) not casting anything while
+       
       <ForwardRef
         id={12472}
       />
-       was active. Because a large portion of your damage comes from Icy Veins, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting 
+       was active. Because a large portion of your damage comes from Icy Veins, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting
+       
       <ForwardRef
         id={12472}
       />
        when you are at a low risk of being interrupted or when the target is vulnerable.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.icyVeins.icyVeinsActiveTime"
@@ -4283,7 +4372,7 @@ exports[`Frost Mage integration test: example log LonelyWinter matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205024"
+            href="https://wowhead.com/spell=205024"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4296,7 +4385,7 @@ exports[`Frost Mage integration test: example log LonelyWinter matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=205024"
+            href="https://wowhead.com/spell=205024"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4348,7 +4437,7 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4361,7 +4450,7 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=55342"
+            href="https://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4417,7 +4506,7 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4430,7 +4519,7 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116011"
+            href="https://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4441,13 +4530,15 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
           className="value"
         >
           16
-          % 
+          %
+           
           <small>
             Damage added by Rune of Power
           </small>
           <br />
           12
-          s 
+          s
+           
           <small>
             Average time in Rune per cast
           </small>
@@ -4486,8 +4577,10 @@ Array [
       <ForwardRef
         id={116011}
       />
-       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
+       
+      for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.shared.suggestions.runeOfPower.utilization"
@@ -4523,20 +4616,20 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56377"
+            href="https://wowhead.com/spell=56377"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
               alt="Splitting Ice"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_ice_shards.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshards.jpg"
             />
           </a>
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=56377"
+            href="https://wowhead.com/spell=56377"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4595,7 +4688,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=155149"
+            href="https://wowhead.com/spell=155149"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4608,7 +4701,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=155149"
+            href="https://wowhead.com/spell=155149"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4620,7 +4713,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=12472"
+            href="https://wowhead.com/spell=12472"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4980,7 +5073,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=228358"
+            href="https://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -4993,7 +5086,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=228358"
+            href="https://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5005,7 +5098,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=228358"
+            href="https://wowhead.com/spell=228358"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5017,14 +5110,15 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
           </a>
            
           96
-          % 
+          %
+           
           <small>
             Spells shattered
           </small>
           <br />
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=116"
+            href="https://wowhead.com/spell=116"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5036,7 +5130,8 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
           </a>
            
           76
-          % 
+          %
+           
           <small>
             Pre-casts shattered
           </small>
@@ -5071,7 +5166,8 @@ Array [
     "icon": "spell_frost_frostbolt02",
     "importance": "regular",
     "issue": <React.Fragment>
-      You failed to use a pre-cast ability before spending your 
+      You failed to use a pre-cast ability before spending your
+       
       <ForwardRef
         id={190446}
       />
@@ -5079,21 +5175,25 @@ Array [
       6
        times (
       24.00
-      %). Because of the travel time of 
+      %). Because of the travel time of
+       
       <ForwardRef
         id={44614}
       />
-      , you should cast a damaging ability such as 
+      , you should cast a damaging ability such as
+       
       <ForwardRef
         id={116}
       />
        
       
-       immediately before using your instant cast 
+       
+      immediately before using your instant cast 
       <ForwardRef
         id={44614}
       />
-      . Doing this will allow your pre-cast ability to hit the target after 
+      . Doing this will allow your pre-cast ability to hit the target after
+       
       <ForwardRef
         id={44614}
       />
@@ -5107,6 +5207,7 @@ Array [
       />
        instead.
     </React.Fragment>,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="mage.frost.suggestions.wintersChill.notShattered"
@@ -5229,7 +5330,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=12472"
+                  href="https://wowhead.com/spell=12472"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5302,7 +5403,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=84714"
+                  href="https://wowhead.com/spell=84714"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5375,7 +5476,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=116011"
+                  href="https://wowhead.com/spell=116011"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -5527,7 +5628,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             The most important element of maximizing the damage of your rotation is ensuring that you are 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=12982"
+              href="https://wowhead.com/spell=12982"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5542,7 +5643,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             ing as many of your spells as possible. The key aspect of this is taking advantage of the 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=228358"
+              href="https://wowhead.com/spell=228358"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5557,7 +5658,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              debuff. Winter's Chill is applied to the target when you use a 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190446"
+              href="https://wowhead.com/spell=190446"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5572,7 +5673,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=116"
+              href="https://wowhead.com/spell=116"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5584,10 +5685,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Frostbolt
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=257537"
+              href="https://wowhead.com/spell=257537"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5599,10 +5701,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ebonbolt
             </a>
-            , or 
+            , or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=199786"
+              href="https://wowhead.com/spell=199786"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5617,7 +5720,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             , followed immediately by the Brain Freeze buffed Flurry and then end with two 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=30455"
+              href="https://wowhead.com/spell=30455"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5629,10 +5732,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ice Lance
             </a>
-            s. Against non-boss enemies, you can also utilize other things like 
+            s. Against non-boss enemies, you can also utilize other things like
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=122"
+              href="https://wowhead.com/spell=122"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5644,10 +5748,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Frost Nova
             </a>
-             or your pet's 
+             or your pet's
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=33395"
+              href="https://wowhead.com/spell=33395"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5935,7 +6040,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
             Frost Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that when you get a proc, you use it quickly and efficiently to prevent them from expiring and to lessen the likelyhood of overwriting them or wasting them. You should aim to use your 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=44544"
+              href="https://wowhead.com/spell=44544"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5950,7 +6055,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              as quickly as possible to ensure that you do not overcap and to avoid wasting them. Additionally, you should try to ensure that you use all of your Fingers of Frost procs before you use your 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190446"
+              href="https://wowhead.com/spell=190446"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5965,7 +6070,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
              proc, but sometimes this is not possible. If you are already casting 
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=116"
+              href="https://wowhead.com/spell=116"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5977,10 +6082,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Frostbolt
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=257537"
+              href="https://wowhead.com/spell=257537"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -5992,10 +6098,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ebonbolt
             </a>
-            , or 
+            , or
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=199786"
+              href="https://wowhead.com/spell=199786"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6007,10 +6114,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Glacial Spike
             </a>
-             and you have both a 
+             and you have both a
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=190446"
+              href="https://wowhead.com/spell=190446"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6022,10 +6130,11 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Brain Freeze
             </a>
-             and a 
+             and a
+             
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=44544"
+              href="https://wowhead.com/spell=44544"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6642,6 +6751,1076 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
                         "width": "64.32448677045393%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use your damaging abilities effectively (Beta APL Check)
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "width": "30.58163265306123%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+             
+            <div>
+              Damage rotations are usually written as 
+              <em>
+                priority lists:
+              </em>
+               go from top to bottom and cast the first ability that is available. This checklist compares how you did against the standard priority list for your specialization.
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  1
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=30455"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
+                  />
+                   
+                  Ice Lance
+                </a>
+                 
+                when
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=228358"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostward.jpg"
+                  />
+                   
+                  Winter's Chill
+                </a>
+                 
+                is
+                 present on target
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  94.12%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  2
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=116"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
+                  />
+                   
+                  Frostbolt
+                </a>
+                 
+                when
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=314793"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_revendreth_mage.jpg"
+                  />
+                   
+                  Mirrors of Torment
+                </a>
+                 
+                is
+                 missing
+                 
+                 from the target
+                 and 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=190446"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+                  />
+                   
+                  Brain Freeze
+                </a>
+                 was just applied
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  62.96%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "29.95238095238096%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  3
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=44614"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_burningembersblue.jpg"
+                  />
+                   
+                  Flurry
+                </a>
+                 
+                when
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=190446"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+                  />
+                   
+                  Brain Freeze
+                </a>
+                 
+                is
+                 present
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  80.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "66.60000000000001%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  4
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=30455"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
+                  />
+                   
+                  Ice Lance
+                </a>
+                 
+                when
+                 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=44544"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_mage_wintersgrasp.jpg"
+                  />
+                   
+                  Fingers of Frost
+                </a>
+                 
+                is
+                 present
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  64.29%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "30.58163265306123%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  5
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=84714"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frozenorb.jpg"
+                  />
+                   
+                  Frozen Orb
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  37.50%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "17.83928571428572%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-12"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <strong>
+                  6
+                  .
+                </strong>
+                 Cast 
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=116"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
+                  />
+                   
+                  Frostbolt
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  94.34%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            className="col-md-12 text-muted"
+          >
+            In addition to your rotational abilities, ensure that you're using your major cooldowns:
+          </p>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=12472"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_coldhearted.jpg"
+                  />
+                   
+                  Icy Veins
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=116011"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+                  />
+                   
+                  Rune of Power
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  65.11%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "28.908112755001163%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=314793"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_revendreth_mage.jpg"
+                  />
+                   
+                  Mirrors of Torment
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  64.98%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "28.85314856047385%",
                       }
                     }
                   />

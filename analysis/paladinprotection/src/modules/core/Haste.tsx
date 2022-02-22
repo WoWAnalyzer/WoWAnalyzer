@@ -6,7 +6,7 @@ class Haste extends CoreHaste {
     ...CoreHaste.HASTE_BUFFS,
     // Prot paladin specific
     [SPELLS.SERAPHIM_TALENT.id]: 0.08,
-  }
+  };
 }
 
 export default Haste;

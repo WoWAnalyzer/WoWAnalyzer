@@ -13,9 +13,18 @@ class RenewingMist extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST), this.castRenewingMist);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleGustsOfMists);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL), this.handleRenewingMist);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST),
+      this.castRenewingMist,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      this.handleGustsOfMists,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.handleRenewingMist,
+    );
   }
 
   castRenewingMist(event: CastEvent) {
@@ -24,7 +33,7 @@ class RenewingMist extends Analyzer {
   }
 
   handleGustsOfMists(event: HealEvent) {
-    if ((this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
+    if (this.lastCastTarget === event.targetID && this.numberToCount > 0) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
       this.numberToCount -= 1;
     }

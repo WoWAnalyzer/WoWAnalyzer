@@ -201,5 +201,5 @@ export default {
     hasteHpct: true,
     mastery: false,
     vers: true,
-  }
+  },
 };

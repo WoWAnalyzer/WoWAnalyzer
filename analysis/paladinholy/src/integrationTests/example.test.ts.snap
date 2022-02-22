@@ -251,6 +251,7 @@ Array [
     "icon": "petbattle_health-down",
     "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-49.89}}
        (
@@ -263,6 +264,7 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "regular",
     "issue": "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"62.25"}}
        (
@@ -280,6 +282,7 @@ Array [
     "icon": "inv_misc_gem_azuredraenite_01",
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -307,7 +310,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=216331"
+            href="https://wowhead.com/spell=216331"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -320,7 +323,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=216331"
+            href="https://wowhead.com/spell=216331"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -512,7 +515,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=19750"
+              href="https://wowhead.com/spell=19750"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -601,7 +604,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=25914"
+              href="https://wowhead.com/spell=25914"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -690,7 +693,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=216371"
+              href="https://wowhead.com/spell=216371"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -779,7 +782,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=281465"
+              href="https://wowhead.com/spell=281465"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -868,7 +871,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=225311"
+              href="https://wowhead.com/spell=225311"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -957,7 +960,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=82326"
+              href="https://wowhead.com/spell=82326"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1046,7 +1049,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=223306"
+              href="https://wowhead.com/spell=223306"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1170,7 +1173,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=53563"
+              href="https://wowhead.com/spell=53563"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1212,7 +1215,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
           >
             <a
               className="spell-link-text"
-              href="http://wowhead.com/spell=156910"
+              href="https://wowhead.com/spell=156910"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1304,7 +1307,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                 >
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=19750"
+                    href="https://wowhead.com/spell=19750"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -1352,7 +1355,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                 >
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=82326"
+                    href="https://wowhead.com/spell=82326"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -1481,7 +1484,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                 >
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=19750"
+                    href="https://wowhead.com/spell=19750"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -1529,7 +1532,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                 >
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=82326"
+                    href="https://wowhead.com/spell=82326"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -1577,7 +1580,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                 >
                   <a
                     className="spell-link-text"
-                    href="http://wowhead.com/spell=183998"
+                    href="https://wowhead.com/spell=183998"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -1726,7 +1729,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=20473"
+                href="https://wowhead.com/spell=20473"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1770,8 +1773,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               34
               /65
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1829,7 +1831,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=85222"
+                href="https://wowhead.com/spell=85222"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1873,8 +1875,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               16
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1915,7 +1916,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=275773"
+                href="https://wowhead.com/spell=275773"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1959,8 +1960,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               21
               /44
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2018,7 +2018,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=223306"
+                href="https://wowhead.com/spell=223306"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2062,8 +2062,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               4
               /34
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2121,7 +2120,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=85673"
+                href="https://wowhead.com/spell=85673"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2165,8 +2164,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2207,7 +2205,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=24275"
+                href="https://wowhead.com/spell=24275"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2250,9 +2248,8 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               0
-              /23
-               
-              casts
+              /27
+               casts
             </td>
             <td
               style={
@@ -2368,7 +2365,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=214202"
+                href="https://wowhead.com/spell=214202"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2412,8 +2409,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2466,7 +2462,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=498"
+                href="https://wowhead.com/spell=498"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2510,8 +2506,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               2
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2569,7 +2564,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=642"
+                href="https://wowhead.com/spell=642"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2613,8 +2608,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2667,7 +2661,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=216331"
+                href="https://wowhead.com/spell=216331"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2711,8 +2705,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2770,7 +2763,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=31821"
+                href="https://wowhead.com/spell=31821"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2814,8 +2807,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2868,7 +2860,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6940"
+                href="https://wowhead.com/spell=6940"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2912,8 +2904,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2966,7 +2957,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=633"
+                href="https://wowhead.com/spell=633"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3010,8 +3001,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3122,7 +3112,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=183998"
+                href="https://wowhead.com/spell=183998"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3166,8 +3156,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               14
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3208,7 +3197,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19750"
+                href="https://wowhead.com/spell=19750"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3252,8 +3241,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               34
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3294,7 +3282,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=19750"
+                href="https://wowhead.com/spell=19750"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3338,8 +3326,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3380,7 +3367,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=82326"
+                href="https://wowhead.com/spell=82326"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3424,8 +3411,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               6
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3466,7 +3452,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=82326"
+                href="https://wowhead.com/spell=82326"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3510,8 +3496,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3610,7 +3595,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=190784"
+                href="https://wowhead.com/spell=190784"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3654,8 +3639,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3708,7 +3692,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=4987"
+                href="https://wowhead.com/spell=4987"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3752,8 +3736,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /51
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3806,7 +3789,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1044"
+                href="https://wowhead.com/spell=1044"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3850,8 +3833,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /17
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3904,7 +3886,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=1022"
+                href="https://wowhead.com/spell=1022"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3948,8 +3930,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4002,7 +3983,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=156910"
+                href="https://wowhead.com/spell=53563"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4014,7 +3995,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconsoflight.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -4023,7 +4004,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   }
                 />
                  
-                Beacon of Faith
+                Beacon of Light
               </a>
             </td>
             <td
@@ -4046,8 +4027,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               2
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4088,7 +4068,92 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=853"
+                href="https://wowhead.com/spell=156910"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconsoflight.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Beacon of Faith
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=853"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4132,8 +4197,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4186,7 +4250,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=62124"
+                href="https://wowhead.com/spell=62124"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4230,8 +4294,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /51
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4342,7 +4405,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=35395"
+                href="https://wowhead.com/spell=35395"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4386,8 +4449,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               39
               /89
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4440,7 +4502,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=26573"
+                href="https://wowhead.com/spell=26573"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4484,8 +4546,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               1
               /105
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4538,7 +4599,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=53600"
+                href="https://wowhead.com/spell=53600"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4582,8 +4643,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4682,7 +4742,104 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307192"
+                href="https://wowhead.com/spell=6262"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Healthstone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.15
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              100.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4726,8 +4883,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4780,7 +4936,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=307162"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4824,8 +4980,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4879,7 +5034,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
 Array [
   Object {
     "details": null,
-    "icon": "spell_holy_searinglight",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4899,6 +5054,7 @@ Array [
         message="Casting Holy Shock regularly is very important for performing well."
       />
     </React.Fragment>,
+    "spell": 20473,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4917,7 +5073,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "80",
+            "0": "90",
           }
         }
       />
@@ -4926,7 +5082,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_righteousfury",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -4953,6 +5109,7 @@ Array [
         message="You should cast it whenever <0/> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things."
       />
     </React.Fragment>,
+    "spell": 275773,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -4971,7 +5128,7 @@ Array [
         message=">{0}% is recommended"
         values={
           Object {
-            "0": "85",
+            "0": "75",
           }
         }
       />
@@ -4980,7 +5137,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_paladin_blessedmending",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -5010,6 +5167,7 @@ Array [
         message="If you can't or don't want to cast it more consider using <0/> or <1/> instead."
       />
     </React.Fragment>,
+    "spell": 223306,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5037,7 +5195,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_divineprotection",
+    "icon": undefined,
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -5054,6 +5212,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 498,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5081,7 +5240,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_paladin_veneration",
+    "icon": undefined,
     "importance": "regular",
     "issue": <React.Fragment>
       <Trans
@@ -5098,6 +5257,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 216331,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5125,7 +5285,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_paladin_hammerofwrath",
+    "icon": undefined,
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
@@ -5142,6 +5302,7 @@ Array [
        
       
     </React.Fragment>,
+    "spell": 24275,
     "stat": <React.Fragment>
       <Trans
         id="shared.modules.castEfficiency.actual"
@@ -5149,7 +5310,7 @@ Array [
         values={
           Object {
             "0": 0,
-            "1": 23,
+            "1": 27,
             "2": "0",
           }
         }
@@ -5194,7 +5355,7 @@ exports[`Holy Paladin integration test: example log DevotionAuraDamageReduction 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=465"
+            href="https://wowhead.com/spell=465"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5238,7 +5399,7 @@ exports[`Holy Paladin integration test: example log DevotionAuraDamageReduction 
       className="drilldown"
     >
       <a
-        href="https://www.warcraftlogs.com/reports/TEST/#fight=8&type=damage-taken&pins=2%24Off%24%23244F4B%24expression%24(IN%20RANGE%20FROM%20target.name%3D'Villahseen'%20AND%20type%3D'applybuff'%20AND%20ability.id%3D31821%20TO%20target.name%3D'Villahseen'%20AND%20type%3D'removebuff'%20AND%20ability.id%3D31821%20END)%0A%20%20%20%20%20%20AND%20(mitigatedDamage%2FrawDamage*100)%3E14&view=events"
+        href="https://www.warcraftlogs.com/reports/TEST/#fight=8&type=damage-taken&pins=2%24Off%24%23244F4B%24expression%24(IN%20RANGE%20FROM%20target.name%3D'Villahseen'%20AND%20type%3D'applybuff'%20AND%20ability.id%3D31821%20TO%20target.name%3D'Villahseen'%20AND%20type%3D'removebuff'%20AND%20ability.id%3D31821%20END)%0A%20%20%20%20%20%20AND%20(mitigatedDamage%2FrawDamage*100)%3E11&view=events"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -5309,7 +5470,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
            
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53563"
+            href="https://wowhead.com/spell=53563"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5543,6 +5704,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5583,6 +5745,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5624,6 +5787,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5665,6 +5829,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5705,6 +5870,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -5745,6 +5911,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -5772,7 +5939,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=53563"
+            href="https://wowhead.com/spell=53563"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -5877,6 +6044,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.fillerFlashOfLight.actualInefficient"
@@ -5915,6 +6083,7 @@ Array [
       id="paladin.holy.modules.fillerLightOfTheMatyrs.suggestion"
       message="You cast many <0/>s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.fillerLightOfTheMatyrs.actual"
@@ -5983,6 +6152,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.actual"
@@ -6011,6 +6181,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "spell": undefined,
     "stat": null,
   },
   Object {
@@ -6018,6 +6189,7 @@ Array [
     "icon": "inv_alchemy_90_flask_green",
     "importance": "minor",
     "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -6030,6 +6202,7 @@ Array [
     "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
     "importance": "major",
     "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -6054,7 +6227,7 @@ Array [
             className="flex-sub icon"
           >
             <a
-              href="http://wowhead.com/holy-power"
+              href="https://wowhead.com/holy-power"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -6203,7 +6376,7 @@ exports[`Holy Paladin integration test: example log JudgmentOfLight matches the 
         <label>
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=183778"
+            href="https://wowhead.com/spell=183778"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6246,7 +6419,7 @@ exports[`Holy Paladin integration test: example log LightOfDawn matches the stat
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=85222"
+            href="https://wowhead.com/spell=85222"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -6612,9 +6785,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Relicprince
@@ -6641,7 +6813,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "100%",
@@ -6672,7 +6844,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "7.776232572766344%",
@@ -6701,9 +6873,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Villahseen
@@ -6730,7 +6901,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "99.90453264906459%",
@@ -6761,7 +6932,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "100%",
@@ -6790,9 +6961,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"} {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Miguro
@@ -6819,7 +6989,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
+                  className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
                       "width": "99.75837816275181%",
@@ -6850,7 +7020,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
+                  className="flex-sub performance-bar Rogue-bg"
                   style={
                     Object {
                       "width": "63.182920437471616%",
@@ -6879,9 +7049,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.beastMastery\\",\\"message\\":\\"Beast Mastery\\"} {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-{\\"id\\":\\"specs.beastMastery\\",\\"message\\":\\"BeastMastery\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Uniiq
@@ -6908,7 +7077,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
+                  className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
                       "width": "98.82772145283883%",
@@ -6939,7 +7108,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
+                  className="flex-sub performance-bar Hunter-bg"
                   style={
                     Object {
                       "width": "33.534924350955656%",
@@ -6968,9 +7137,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Prüttan
@@ -6997,7 +7165,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "96.7527230206816%",
@@ -7028,7 +7196,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
+                  className="flex-sub performance-bar Warrior-bg"
                   style={
                     Object {
                       "width": "23.98700164226563%",
@@ -7057,9 +7225,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.havoc\\",\\"message\\":\\"Havoc\\"} {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"Demon Hunter\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-{\\"id\\":\\"specs.havoc\\",\\"message\\":\\"Havoc\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Demolicious
@@ -7086,7 +7253,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
+                  className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
                       "width": "95.02652453637467%",
@@ -7117,7 +7284,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
+                  className="flex-sub performance-bar DemonHunter-bg"
                   style={
                     Object {
                       "width": "36.795555400258564%",
@@ -7146,9 +7313,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.guardian\\",\\"message\\":\\"Guardian\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.guardian\\",\\"message\\":\\"Guardian\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Hildelyst
@@ -7175,7 +7341,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "92.36189391256022%",
@@ -7206,7 +7372,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "22.691638422027324%",
@@ -7235,9 +7401,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.brewmaster\\",\\"message\\":\\"Brewmaster\\"} {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-{\\"id\\":\\"specs.brewmaster\\",\\"message\\":\\"Brewmaster\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Dobbadon
@@ -7264,7 +7429,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
                       "width": "91.38361345054697%",
@@ -7295,7 +7460,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
+                  className="flex-sub performance-bar Monk-bg"
                   style={
                     Object {
                       "width": "20.533212201684194%",
@@ -7324,9 +7489,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Cónqs
@@ -7353,7 +7517,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "90.06108731455261%",
@@ -7384,7 +7548,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "18.76878996470876%",
@@ -7413,9 +7577,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.retribution\\",\\"message\\":\\"Retribution\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.retribution\\",\\"message\\":\\"Retribution\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Sanctues
@@ -7442,7 +7605,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "89.42101282580826%",
@@ -7473,7 +7636,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "24.32551801250917%",
@@ -7502,9 +7665,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Mooladin
@@ -7531,7 +7693,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "88.23653957419722%",
@@ -7562,7 +7724,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  className="flex-sub performance-bar Paladin-bg"
                   style={
                     Object {
                       "width": "2.1772948041510887%",
@@ -7591,9 +7753,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Jodiefroster
@@ -7620,7 +7781,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "87.6714126923483%",
@@ -7651,7 +7812,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "14.997309479716273%",
@@ -7680,9 +7841,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.affliction\\",\\"message\\":\\"Affliction\\"} {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-{\\"id\\":\\"specs.affliction\\",\\"message\\":\\"Affliction\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Diagentez
@@ -7709,7 +7869,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
+                  className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
                       "width": "82.53549868889384%",
@@ -7740,7 +7900,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
+                  className="flex-sub performance-bar Warlock-bg"
                   style={
                     Object {
                       "width": "3.704951256158496%",
@@ -7769,9 +7929,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.frost\\",\\"message\\":\\"Frost\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Snusraketten
@@ -7798,7 +7957,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "80.0775139814152%",
@@ -7829,7 +7988,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "5.307522974247878%",
@@ -7858,9 +8017,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.mage.arcane\\",\\"message\\":\\"Arcane\\"} {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-{\\"id\\":\\"specs.mage.arcane\\",\\"message\\":\\"Arcane\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Nuffemis
@@ -7887,7 +8045,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "72.62709335906682%",
@@ -7918,7 +8076,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
+                  className="flex-sub performance-bar Mage-bg"
                   style={
                     Object {
                       "width": "12.392326775918097%",
@@ -7947,9 +8105,8 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"} {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}"
                 className="icon "
-                src="/specs/{\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-{\\"id\\":\\"specs.restoration\\",\\"message\\":\\"Restoration\\"}.jpg"
+                src="/specs/undefined.jpg"
               />
                
               Smusk
@@ -7976,7 +8133,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "55.20479425239239%",
@@ -8007,7 +8164,7 @@ Array [
                 className="flex performance-bar-container"
               >
                 <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
+                  className="flex-sub performance-bar Druid-bg"
                   style={
                     Object {
                       "width": "15.60473811104511%",
@@ -8051,6 +8208,7 @@ Array [
       id="paladin.holy.modules.overhealing.bestowFaithSuggestion"
       message="Try to avoid overhealing with <0/>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       {"id":"paladin.holy.modules.overhealing.bestowFaithSuggestion.actual","message":"{0}% overhealing","values":{"0":"45.94"}}
        (
@@ -8078,6 +8236,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -8103,7 +8262,7 @@ exports[`Holy Paladin integration test: example log RuleOfLaw matches the statis
         >
           <a
             className="spell-link-text"
-            href="http://wowhead.com/spell=214202"
+            href="https://wowhead.com/spell=214202"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -8172,6 +8331,7 @@ Array [
       id="paladin.holy.modules.talents.ruleOfLaw.suggestion"
       message="Your <0/> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges."
     />,
+    "spell": undefined,
     "stat": <React.Fragment>
       <Trans
         id="paladin.holy.modules.talents.ruleOfLaw.actual"
@@ -8196,538 +8356,6 @@ Array [
     </React.Fragment>,
   },
 ]
-`;
-
-exports[`Holy Paladin integration test: example log StatValues matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-6 col-md-6 col-sm-6 col-xs-12"
->
-  <div
-    className="panel items statistic"
-  >
-    <div
-      className="panel-body"
-      style={
-        Object {
-          "padding": "10px 0 16px",
-        }
-      }
-    >
-      <table
-        className="data-table compact"
-        style={
-          Object {
-            "margin": 0,
-          }
-        }
-      >
-        <thead>
-          <tr
-            className="text-muted"
-          >
-            <th
-              style={
-                Object {
-                  "fontWeight": 400,
-                  "minWidth": 30,
-                }
-              }
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="shared.healerStatValues.statistic.title"
-                  message="Stat Values"
-                />
-              </dfn>
-            </th>
-            <th
-              className="text-right"
-              colSpan={2}
-              style={
-                Object {
-                  "fontWeight": 400,
-                  "minWidth": 30,
-                }
-              }
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="shared.healerStatValues.statistic.title.value"
-                  message="Value"
-                />
-              </dfn>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              className="stat-intellect"
-            >
-              <svg
-                className="icon"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-                version="1.1"
-                viewBox="16 17 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-                />
-              </svg>
-               
-              <trans
-                id="common.stat.intellect"
-                message="Intellect"
-              />
-            </td>
-            <td
-              className="text-right"
-            >
-              1.00
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="stat-criticalstrike"
-            >
-              <svg
-                className="icon"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-                version="1.1"
-                viewBox="16 16 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="32.111"
-                  cy="32.678"
-                  r="2.989"
-                />
-                <path
-                  d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
-                />
-              </svg>
-               
-              <trans
-                id="common.stat.criticalStrike"
-                message="Critical Strike"
-              />
-            </td>
-            <td
-              className="text-right"
-            >
-              1.05
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="stat-haste"
-            >
-              <svg
-                className="icon"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-                version="1.1"
-                viewBox="16 16 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-                />
-              </svg>
-               
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="common.stat.hasteHPCT"
-                  message="Haste (HPCT)"
-                />
-              </dfn>
-            </td>
-            <td
-              className="text-right"
-            >
-              0.00 - 
-              1.74
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="stat-mastery"
-            >
-              <svg
-                className="icon"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-                version="1.1"
-                viewBox="16 16 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691 l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976 c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976 c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861 c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976 c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236 c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
-                />
-              </svg>
-               
-              <trans
-                id="common.stat.mastery"
-                message="Mastery"
-              />
-            </td>
-            <td
-              className="text-right"
-            >
-              1.39
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="stat-versatility"
-            >
-              <svg
-                className="icon"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-                version="1.1"
-                viewBox="16 16 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <polygon
-                  points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
-                />
-              </svg>
-               
-              <trans
-                id="common.stat.versatility"
-                message="Versatility"
-              />
-            </td>
-            <td
-              className="text-right"
-            >
-              1.57
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="stat-versatility"
-            >
-              <svg
-                className="icon"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-                version="1.1"
-                viewBox="16 16 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <polygon
-                  points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
-                />
-              </svg>
-               
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="common.stat.versatilityDR"
-                  message="Versatility (with DR)"
-                />
-              </dfn>
-            </td>
-            <td
-              className="text-right"
-            >
-              1.95
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              className="stat-leech"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_lifedrain02.jpg"
-                style={
-                  Object {
-                    "height": "1.6em",
-                    "marginRight": 10,
-                    "width": "1.6em",
-                  }
-                }
-              />
-               
-              <trans
-                id="common.stat.leech"
-                message="Leech"
-              />
-            </td>
-            <td
-              className="text-right"
-            >
-              1.06
-            </td>
-            <td
-              style={
-                Object {
-                  "padding": 6,
-                }
-              }
-            >
-              <div
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <svg
-                  className="icon"
-                  viewBox="0 0 100 100"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                  />
-                  <path
-                    d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                  />
-                  <path
-                    d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Holy Paladin integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
@@ -9047,7 +8675,7 @@ Array [
         }
       }
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans
@@ -9057,6 +8685,7 @@ Array [
         }
       }
     />,
+    "spell": undefined,
     "stat": null,
   },
 ]
@@ -9095,7 +8724,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "14.234621278049525%",
+                  "width": "14.27837417263663%",
                 }
               }
             />
@@ -9207,7 +8836,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=20473"
+                  href="https://wowhead.com/spell=20473"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9261,7 +8890,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.060430968084738%",
+                        "width": "23.452373505673442%",
                       }
                     }
                   />
@@ -9280,7 +8909,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=24275"
+                  href="https://wowhead.com/spell=24275"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9353,7 +8982,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=275773"
+                  href="https://wowhead.com/spell=275773"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9407,7 +9036,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.698414244558247%",
+                        "width": "26.481483285317957%",
                       }
                     }
                   />
@@ -9426,7 +9055,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=223306"
+                  href="https://wowhead.com/spell=223306"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9607,7 +9236,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=216331"
+                  href="https://wowhead.com/spell=216331"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9680,7 +9309,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=31821"
+                  href="https://wowhead.com/spell=31821"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -9753,7 +9382,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=214202"
+                  href="https://wowhead.com/spell=214202"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -11116,7 +10745,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=190784"
+                  href="https://wowhead.com/spell=190784"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -11189,7 +10818,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=498"
+                  href="https://wowhead.com/spell=498"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -11262,7 +10891,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=6940"
+                  href="https://wowhead.com/spell=6940"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -11335,7 +10964,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=633"
+                  href="https://wowhead.com/spell=633"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import colorForPerformance from 'common/colorForPerformance';
 
 interface Props {

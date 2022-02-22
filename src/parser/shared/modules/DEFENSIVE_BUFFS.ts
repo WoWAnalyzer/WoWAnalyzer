@@ -4,49 +4,49 @@ import SPELLS from 'common/SPELLS';
 
 const DEFENSIVE_BUFFS = [
   {
-    spell: SPELLS.IRONBARK,
+    spell: SPELLS.IRONBARK.id,
   },
   {
-    spell: SPELLS.LIFE_COCOON,
+    spell: SPELLS.LIFE_COCOON.id,
   },
   {
-    spell: SPELLS.BLESSING_OF_PROTECTION,
+    spell: SPELLS.BLESSING_OF_PROTECTION.id,
   },
   {
-    spell: SPELLS.BLESSING_OF_SACRIFICE,
+    spell: SPELLS.BLESSING_OF_SACRIFICE.id,
   },
   {
-    spell: SPELLS.GUARDIAN_SPIRIT,
+    spell: SPELLS.GUARDIAN_SPIRIT.id,
   },
   {
-    spell: SPELLS.PAIN_SUPPRESSION,
+    spell: SPELLS.PAIN_SUPPRESSION.id,
   },
   {
-    spell: SPELLS.POWER_WORD_BARRIER_BUFF,
+    spell: SPELLS.POWER_WORD_BARRIER_BUFF.id,
   },
 
   //Blood Death-Knight
   {
-    spell: SPELLS.BONE_SHIELD,
+    spell: SPELLS.BONE_SHIELD.id,
   },
   {
-    spell: SPELLS.SHROUD_OF_PURGATORY,
+    spell: SPELLS.SHROUD_OF_PURGATORY.id,
   },
   //Vengence Demon Hunter
   {
-    spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF,
+    spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
   },
   //Arms Warrior
   {
-    spell: SPELLS.DEFENSIVE_STANCE_TALENT,
+    spell: SPELLS.DEFENSIVE_STANCE_TALENT.id,
   },
   //Arms & Fury Warrior
   {
-    spell: SPELLS.RALLYING_CRY_BUFF,
+    spell: SPELLS.RALLYING_CRY_BUFF.id,
   },
   //Shaman
   {
-    spell: SPELLS.SPIRIT_WOLF_BUFF,
+    spell: SPELLS.SPIRIT_WOLF_BUFF.id,
   },
 ];
 

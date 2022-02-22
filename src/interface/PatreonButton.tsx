@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PatreonIcon from 'interface/icons/PatreonTiny';
 
 interface Props {

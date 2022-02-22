@@ -24,7 +24,8 @@ class HolyWordSanctify extends HolyWordBase {
     if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
       this.serendipityProccers[SPELLS.HOLY_FIRE.id] = {
         baseReduction: () => HOLY_FIRE_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => HOLY_FIRE_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        lightOfTheNaaruReduction: () =>
+          HOLY_FIRE_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => HOLY_FIRE_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       };
     }

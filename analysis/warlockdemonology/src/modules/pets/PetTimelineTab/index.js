@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
@@ -23,7 +21,11 @@ class PetTimelineTab extends Analyzer {
         <TabComponent
           selectedCombatant={this.selectedCombatant}
           start={this.owner.fight.start_time}
-          end={this.owner.currentTimestamp >= 0 ? this.owner.currentTimestamp : this.owner.fight.end_time}
+          end={
+            this.owner.currentTimestamp >= 0
+              ? this.owner.currentTimestamp
+              : this.owner.fight.end_time
+          }
           deaths={this.deathTracker.deaths}
           petTimeline={this.demoPets.timeline}
           resurrections={this.deathTracker.resurrections}

@@ -30,5 +30,4 @@ export default {
   //Stoneborne Generals
 
   //Sire Denathrius
-
 };

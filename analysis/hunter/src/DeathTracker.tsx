@@ -1,5 +1,5 @@
-import CoreDeathTracker from 'parser/shared/modules/DeathTracker';
 import { ResurrectEvent } from 'parser/core/Events';
+import CoreDeathTracker from 'parser/shared/modules/DeathTracker';
 
 import { TIME_SPENT_DEAD_THRESHOLD } from './constants';
 
@@ -18,7 +18,10 @@ class DeathTracker extends CoreDeathTracker {
 
   resurrect(event: ResurrectEvent) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-    const percentSpentDead = this.deathPercentageOfEncounter(this.lastDeathTimestamp, this.lastResurrectionTimestamp);
+    const percentSpentDead = this.deathPercentageOfEncounter(
+      this.lastDeathTimestamp,
+      this.lastResurrectionTimestamp,
+    );
     if (percentSpentDead > TIME_SPENT_DEAD_THRESHOLD) {
       super.resurrect(event);
     } else {

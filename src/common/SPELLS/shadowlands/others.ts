@@ -114,10 +114,21 @@ const spells = {
     name: 'Feast of Gluttonous Hedonism',
     icon: 'inv_tradeskill_cooking_shadowlandsfeast_large01',
   },
+  DRUID_BORN_ANEW: {
+    id: 341449,
+    name: 'Born Anew',
+    icon: 'spell_nature_reincarnation',
+  },
   VEILED_AUGMENT_RUNE: {
     id: 347901,
     name: 'Veiled Augment Rune',
     icon: 'inv_misc_gem_azuredraenite_01',
+  },
+  ADAPTIVE_ARMOR_FRAGMENT_BUFF: {
+    // buff procced by Adaptive Armor Fragment, a generic tanking conduit
+    id: 357972,
+    name: 'Adaptive Armor Fragment',
+    icon: 'inv_belt_plate_ardenweald_d_01',
   },
 } as const;
 export default spells;

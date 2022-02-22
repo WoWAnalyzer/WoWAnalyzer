@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
-
 import { TooltipElement } from 'interface/Tooltip';
+import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+import Toggle from 'react-toggle';
+
+import 'react-toggle/style.css';
 
 import Changelog from './Changelog';
 
-class ResultsChangelogTab extends React.PureComponent {
+class ResultsChangelogTab extends PureComponent {
   static propTypes = {
     changelog: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
     limit: PropTypes.number,
@@ -31,11 +31,13 @@ class ResultsChangelogTab extends React.PureComponent {
               <Toggle
                 defaultChecked={this.state.includeCore}
                 icons={false}
-                onChange={event => this.setState({ includeCore: event.target.checked })}
+                onChange={(event) => this.setState({ includeCore: event.target.checked })}
                 id="core-entries-toggle"
               />{' '}
               <label htmlFor="core-entries-toggle">
-                <TooltipElement content="Turn this off to only see changes to this spec's implementation.">Shared changes</TooltipElement>
+                <TooltipElement content="Turn this off to only see changes to this spec's implementation.">
+                  Shared changes
+                </TooltipElement>
               </label>
             </div>
           )}

@@ -1,6 +1,6 @@
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import SPELLS from 'common/SPELLS';
 
 /**
  * Dark Shadow

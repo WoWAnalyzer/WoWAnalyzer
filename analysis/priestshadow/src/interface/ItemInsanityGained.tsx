@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { formatNumber } from 'common/format';
 import InsanityIcon from 'interface/icons/Insanity';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import PropTypes from 'prop-types';
 
 interface Props {
   amount: number;
@@ -13,10 +11,7 @@ interface Context {
   parser: CombatLogParser;
 }
 
-const ItemInsanityGained = (
-  { amount, approximate }: Props,
-  { parser }: Context,
-) => (
+const ItemInsanityGained = ({ amount, approximate }: Props, { parser }: Context) => (
   <>
     <InsanityIcon /> {approximate && '≈'}
     {formatNumber(amount)}

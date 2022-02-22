@@ -1,8 +1,9 @@
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
-import Haste from 'parser/shared/modules/Haste';
-import { MAX_GCD, MIN_GCD } from '@wowanalyzer/hunter';
 import { CastEvent } from 'parser/core/Events';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import Haste from 'parser/shared/modules/Haste';
+
+import { MAX_GCD, MIN_GCD } from '@wowanalyzer/hunter';
 
 import { AOTW_GCD_REDUCTION_AFFECTED_ABILITIES } from '../../constants';
 
@@ -39,7 +40,10 @@ class GlobalCooldown extends CoreGlobalCooldown {
     if (!gcd) {
       return 0;
     }
-    if (AOTW_GCD_REDUCTION_AFFECTED_ABILITIES.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
+    if (
+      AOTW_GCD_REDUCTION_AFFECTED_ABILITIES.includes(spellId) &&
+      this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)
+    ) {
       const unhastedAspectGCD = MAX_GCD - ASPECT_GCD_REDUCTION;
       const hastepercent = 1 + this.haste.current;
       gcd = unhastedAspectGCD / hastepercent;
@@ -53,7 +57,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     return Math.max(MIN_GCD, gcd);
   }
-
 }
 
 export default GlobalCooldown;

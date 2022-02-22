@@ -1,18 +1,21 @@
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const BREATH_COST_PER_TICK = 160;
-const HYPOTHERMIC_PRESENCE_COST_REDUCTION = .35;
+const HYPOTHERMIC_PRESENCE_COST_REDUCTION = 0.35;
 
 class RunicPowerTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.RUNIC_POWER;
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK), this.onBreathDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK),
+      this.onBreathDamage,
+    );
   }
 
   mostRecentTickTime = 0;
@@ -30,11 +33,9 @@ class RunicPowerTracker extends ResourceTracker {
       if (!this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id]) {
         this.initSpenderAbility(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id);
       }
-      
-      this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].casts += 1;
-    }
 
-    else {
+      this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].casts += 1;
+    } else {
       super.onCast(event);
     }
   }
@@ -53,14 +54,14 @@ class RunicPowerTracker extends ResourceTracker {
       ability: event.ability,
       sourceIsFriendly: event.sourceIsFriendly,
       targetIsFriendly: event.targetIsFriendly,
-    }    
+    };
 
     let cost = this.getHypothermicPresenceReduction(BREATH_COST_PER_TICK, event.timestamp);
 
     cost = cost / 10;
 
     this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].spentByCast.push(cost);
-    if(cost > 0) {
+    if (cost > 0) {
       this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].spent += cost;
     }
 
@@ -80,10 +81,9 @@ class RunicPowerTracker extends ResourceTracker {
   }
 
   getHypothermicPresenceReduction(cost: number, timestamp: number) {
-    
     if (this.selectedCombatant.hasBuff(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id, timestamp)) {
       const newCost = cost * (1 - HYPOTHERMIC_PRESENCE_COST_REDUCTION);
-      this._totalHypothermicPresenceReduction += (cost - newCost);
+      this._totalHypothermicPresenceReduction += cost - newCost;
       cost = newCost;
     }
 

@@ -1,30 +1,28 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from '../../core/modules/Abilities';
-import Channeling from './Channeling';
-
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 
 /**
  * This triggers a fabricated `globalcooldown` event when appropriate.
+ *
+ * This module depends on the beginchannel events fabricated by the ChannelingNormalizer
+ * TODO make this also a normalizer that builds off of Channeling
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
     abilities: Abilities,
     haste: Haste,
-    // For the `beginchannel` event among other things
-    channeling: Channeling,
   };
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
@@ -33,7 +31,7 @@ class GlobalCooldown extends Analyzer {
 
   _errors = 0;
   get errorsPerMinute() {
-    const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
+    const minutesElapsed = this.owner.fightDuration / 1000 / 60;
     return this._errors / minutesElapsed;
   }
   get isAccurate() {
@@ -83,13 +81,14 @@ class GlobalCooldown extends Analyzer {
     }
     // We can't rely on `this.channeling` here since it will have been executed first so will already have marked the channel as ended. This is annoying since it will be more reliable and work with changes.
     const isChanneling = Boolean(this._currentChannel);
-    const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;
+    const isChannelingSameSpell =
+      isChanneling && this._currentChannel.ability.guid === event.ability.guid;
 
     // Reset the current channel prior to returning if `isChannelingSameSpell`, since the player might cast the same ability again and the second `cast` event might be an instant (e.g. channeled Aimed Shot into proc into instant Aimed Shot).
     this._currentChannel = null;
 
     if (isChannelingSameSpell) {
-      // The GCD occured already at the start of this channel
+      // The GCD occurred already at the start of this channel
       return;
     }
     event.globalCooldown = this.triggerGlobalCooldown(event);
@@ -100,14 +99,33 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   triggerGlobalCooldown(event) {
-    return this.eventEmitter.fabricateEvent({
-      type: EventType.GlobalCooldown,
-      ability: event.ability,
-      sourceID: event.sourceID,
-      targetID: event.sourceID, // no guarantees the original targetID is the player
-      timestamp: event.timestamp,
-      duration: this.getGlobalCooldownDuration(event.ability.guid),
-    }, event);
+    if (
+      this.lastGlobalCooldown &&
+      this.lastGlobalCooldown.timestamp === event.timestamp &&
+      this.lastGlobalCooldown.ability.guid === event.ability.guid
+    ) {
+      console.warn(
+        'GlobalCooldown module attempted to trigger duplicate GCDs for ability ' +
+          event.ability.name +
+          '(' +
+          event.ability.guid +
+          ') @ ' +
+          event.timestamp +
+          ' - duplicate will be ignored. This is probably due to an event ordering issue not being handled correctly by this module.',
+      );
+      return undefined;
+    }
+    return this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.GlobalCooldown,
+        ability: event.ability,
+        sourceID: event.sourceID,
+        targetID: event.sourceID, // no guarantees the original targetID is the player
+        timestamp: event.timestamp,
+        duration: this.getGlobalCooldownDuration(event.ability.guid),
+      },
+      event,
+    );
   }
 
   /**
@@ -136,7 +154,9 @@ class GlobalCooldown extends Analyzer {
       const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || MIN_GCD;
       return this.constructor.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
-    throw new Error(`Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`);
+    throw new Error(
+      `Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`,
+    );
   }
   _resolveAbilityGcdField(value) {
     if (typeof value === 'function') {
@@ -146,7 +166,7 @@ class GlobalCooldown extends Analyzer {
     }
   }
 
-  /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
+  /** @type {import('parser/core/Events').GlobalCooldownEvent} The last GCD event that occurred, can be used to check if the player is affected by the GCD. */
   lastGlobalCooldown = null;
   onGlobalcooldown(event) {
     this._verifyAccuracy(event);
@@ -160,14 +180,20 @@ class GlobalCooldown extends Analyzer {
         console.error(
           formatMilliseconds(this.owner.fightDuration),
           'GlobalCooldown',
-          event.trigger.ability.name, event.trigger.ability.guid,
+          event.trigger.ability.name,
+          event.trigger.ability.guid,
           `was cast while the Global Cooldown from`,
-          this.lastGlobalCooldown.ability.name, this.lastGlobalCooldown.ability.guid,
+          this.lastGlobalCooldown.ability.name,
+          this.lastGlobalCooldown.ability.guid,
           `was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
-          'time passed:', timeSince,
-          'cooldown remaining:', remainingDuration,
-          'expectedDuration:', this.lastGlobalCooldown.duration,
-          'errors:', this._errors,
+          'time passed:',
+          timeSince,
+          'cooldown remaining:',
+          remainingDuration,
+          'expectedDuration:',
+          this.lastGlobalCooldown.duration,
+          'errors:',
+          this._errors,
         );
       }
     }

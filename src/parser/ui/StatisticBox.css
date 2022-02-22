@@ -33,7 +33,7 @@
 .panel.statistic-box.statistic-box-list .items > *:not(:last-child) {
   margin-bottom: 0.3em;
   padding-bottom: 0.2em;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .panel.statistic-box .statistic-box-bar {
   display: flex;

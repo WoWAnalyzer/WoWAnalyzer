@@ -1,14 +1,11 @@
-import React from 'react';
-
-import BaseModule from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
-import AlwaysBeCasting from '../AlwaysBeCasting';
 import RunicPowerDetails from '../../runicpower/RunicPowerDetails';
+import AlwaysBeCasting from '../AlwaysBeCasting';
 import RuneTracker from '../RuneTracker';
-
 import Component from './Component';
 
 class Checklist extends BaseModule {

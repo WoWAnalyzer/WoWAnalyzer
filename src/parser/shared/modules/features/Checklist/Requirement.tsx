@@ -1,16 +1,15 @@
-import React from 'react';
-
-import InformationIcon from 'interface/icons/Information';
+import { Trans } from '@lingui/macro';
+import colorForPerformance from 'common/colorForPerformance';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import { Tooltip, TooltipElement } from 'interface';
-import colorForPerformance from 'common/colorForPerformance';
+import InformationIcon from 'interface/icons/Information';
 import {
   BoolThreshold,
   NumberThreshold,
   Threshold,
   ThresholdStyle,
 } from 'parser/core/ParseResults';
-import { Trans } from '@lingui/macro';
+import * as React from 'react';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
@@ -25,7 +24,9 @@ interface Props {
   setPerformance: (performance: number) => void;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
+  fullWidth?: boolean;
 }
+
 class Requirement extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
@@ -60,7 +61,7 @@ class Requirement extends React.PureComponent<Props> {
   }
 
   render() {
-    const { name, thresholds, tooltip, valueTooltip, prefix, suffix } = this.props;
+    const { name, thresholds, tooltip, valueTooltip, prefix, suffix, fullWidth } = this.props;
 
     const performance = this.performance;
     let max = undefined;
@@ -75,7 +76,7 @@ class Requirement extends React.PureComponent<Props> {
     );
 
     return (
-      <div className="col-md-6">
+      <div className={fullWidth ? 'col-md-12' : 'col-md-6'}>
         <div className="flex">
           <div className="flex-main">{name}</div>
           {tooltip && (

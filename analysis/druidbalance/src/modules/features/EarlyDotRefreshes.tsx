@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Analyzer';
-
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 

@@ -1,6 +1,6 @@
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import SPELLS from 'common/SPELLS';
 
 class ChiTracker extends ResourceTracker {
   maxResource = 5;
@@ -23,7 +23,7 @@ class ChiTracker extends ResourceTracker {
 
     // Blackout Kick costs 3 chi when learned, but is reduced in cost during levelling
     if (spellId === SPELLS.BLACKOUT_KICK.id) {
-        cost = 1;
+      cost = 1;
     }
     return cost;
   }

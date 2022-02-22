@@ -1,15 +1,13 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import Component from '@wowanalyzer/hunter-survival/src/modules/checklist/Component';
 
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import MongooseBite from '../../modules/talents/MongooseBite';
 import BirdOfPrey from '../../modules/talents/BirdOfPrey';
+import MongooseBite from '../../modules/talents/MongooseBite';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

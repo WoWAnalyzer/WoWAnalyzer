@@ -1,11 +1,18 @@
-import React from 'react';
-
-import { Sharrq } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Adoraci, Sharrq, Sref, Zea, Karahtar, emallson } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 2, 5), 'Added beta APL', emallson),
+  change(date(2021, 11, 13), 'Bumped Frost Mage to supported for 9.1.5.', Sharrq),
+  change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Frost Mage. Spec updates for Frost will be coming soon', Sharrq),
+  change(date(2021, 10, 1), 'Fixed frost mage talent image icon on character page.', Karahtar),
+  change(date(2021, 6, 29), <>Bumped to 9.1 to remove error.</>, Zea),
+  change(date(2021, 5, 27), <>Fixed a bug where <SpellLink id={SPELLS.SHIVERING_CORE.id} /> damage contribution would always show as zero.</>, Sref),
+  change(date(2021, 4, 3), 'Verified changes and bumped support to 9.0.5', Adoraci),
+  change(date(2021, 3, 11), 'Reverting support back to Patch 9.0.2 as Frost Mage has not been fully tested/updated for 9.0.5.', Sharrq),
+  change(date(2021, 3, 11), 'Removed myself as a contributor/maintainer for Frost Mage. Marked Frost Mage as Unsupported/Unmaintained.', Sharrq),
   change(date(2021, 3, 6), 'Updated for Patch 9.0.5.', Sharrq),
   change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
   change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),

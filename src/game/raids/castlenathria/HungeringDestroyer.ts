@@ -1,4 +1,4 @@
-import { Boss } from "game/raids";
+import { Boss } from 'game/raids';
 
 import Background from './images/backgrounds/HungeringDestroyer.jpg';
 import Headshot from './images/headshots/HungeringDestroyer.jpg';

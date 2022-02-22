@@ -1,18 +1,16 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
+import { apl, check as aplCheck } from '../../core/AplCheck';
 import BlackoutCombo from '../../spells/BlackoutCombo';
-import TigerPalm from '../../spells/TigerPalm';
-import RushingJadeWind from '../../spells/RushingJadeWind';
-import PurifyingBrew from '../../spells/PurifyingBrew';
-import Shuffle from '../../spells/Shuffle';
-
-import Component from './Component';
 import CelestialBrew from '../../spells/CelestialBrew';
+import PurifyingBrew from '../../spells/PurifyingBrew';
+import RushingJadeWind from '../../spells/RushingJadeWind';
+import Shuffle from '../../spells/Shuffle';
+import TigerPalm from '../../spells/TigerPalm';
+import Component from './Component';
 
 export default class Checklist extends BaseChecklist {
   static dependencies = {
@@ -38,8 +36,11 @@ export default class Checklist extends BaseChecklist {
   protected cb!: CelestialBrew;
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Zerotorescue } from 'CONTRIBUTORS';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
 

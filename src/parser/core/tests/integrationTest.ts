@@ -1,12 +1,11 @@
-import renderer from 'react-test-renderer';
-import { ReactElement } from 'react';
-
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import { ReactElement } from 'react';
+import renderer from 'react-test-renderer';
 
+import Analyzer from '../Analyzer';
 import CombatLogParser, { DependenciesDefinition } from '../CombatLogParser';
 import Module from '../Module';
-import Analyzer from '../Analyzer';
 import { loadLog, parseLog } from './log-tools';
 import { statistic } from './snapshotTest';
 
@@ -35,19 +34,19 @@ function integrationSuggestions(analyzer: Analyzer) {
 
 function checklist(parser: CombatLogParser) {
   const checklistModule = Object.values((parser.constructor as typeof CombatLogParser).specModules)
-    .map(dep => {
+    .map((dep) => {
       if (dep instanceof Array) {
         return dep[0] as typeof Module;
       } else {
         return dep as typeof Module;
       }
     })
-    .find(m => m.prototype instanceof BaseChecklist);
+    .find((m) => m.prototype instanceof BaseChecklist);
   if (checklistModule === undefined) {
     return 'no checklist';
   }
   const result = (parser.getModule(checklistModule) as BaseChecklist).render();
-  return renderer.create(result as unknown as ReactElement).toJSON();
+  return renderer.create((result as unknown) as ReactElement).toJSON();
 }
 
 /**
@@ -86,10 +85,8 @@ export default function integrationTest(
     beforeAll(async () => {
       const log = await loadLog(path);
       parser = parseLog(parserClass, log, build, suppressLog, suppressWarn);
-      window.fetch = jest.fn(url => {
-        throw new Error(
-          `Attempt to fetch "${url}". These tests shouldn't do AJAX calls.`,
-        );
+      window.fetch = jest.fn((url) => {
+        throw new Error(`Attempt to fetch "${url}". These tests shouldn't do AJAX calls.`);
       });
     });
 
@@ -101,7 +98,7 @@ export default function integrationTest(
 
     const getAnalyzers = (moduleConfig: DependenciesDefinition) =>
       Object.values(moduleConfig)
-        .map(moduleClass => {
+        .map((moduleClass) => {
           if (moduleClass instanceof Array) {
             // cannot call parser._getModuleClass at this point in
             // execution, so we handle the case manually
@@ -111,9 +108,9 @@ export default function integrationTest(
         })
         // Normalizers have no output, their effects are irrelevant so long as the
         // results of analyzers stay the same
-        .filter(moduleClass => moduleClass.prototype instanceof Analyzer);
+        .filter((moduleClass) => moduleClass.prototype instanceof Analyzer);
     const testAnalyzers = (moduleConfig: DependenciesDefinition) =>
-      getAnalyzers(moduleConfig).forEach(moduleClass => {
+      getAnalyzers(moduleConfig).forEach((moduleClass) => {
         describe(moduleClass.name, () => {
           // We skip anything without output so that adding a new analyzer will
           // only require updating the snapshots if it added or changed output.

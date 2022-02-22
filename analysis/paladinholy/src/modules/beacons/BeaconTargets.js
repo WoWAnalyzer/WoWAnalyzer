@@ -1,7 +1,7 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
-import Events from 'parser/core/Events';
 
 import { BEACON_TYPES, NUM_BEACONS } from '../../constants';
 
@@ -27,7 +27,7 @@ class BeaconTargets extends Analyzer {
     return NUM_BEACONS[this.selectedCombatant.lv50Talent];
   }
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
@@ -72,7 +72,7 @@ class BeaconTargets extends Analyzer {
       return;
     }
     const targetId = event.targetID;
-    this.currentBeaconTargets = this.currentBeaconTargets.filter(id => id !== targetId);
+    this.currentBeaconTargets = this.currentBeaconTargets.filter((id) => id !== targetId);
     debug &&
       console.log(
         `%c${this.combatants.players[targetId].name} lost a beacon`,

@@ -1,13 +1,12 @@
-import React, { ReactElement } from 'react';
-import Masonry from 'react-masonry-component';
 import { t, Trans } from '@lingui/macro';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { Fragment, ReactElement } from 'react';
+import Masonry from 'react-masonry-component';
 
-import StatisticsSectionTitle from './StatisticsSectionTitle';
 import FightDowntimeToggle from './FightDowntimeToggle';
+import StatisticsSectionTitle from './StatisticsSectionTitle';
 
 function sizeToInt(size: StatisticSize) {
   switch (size) {
@@ -48,6 +47,11 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
         id: 'interface.report.results.statistics.items',
         message: `Items`,
       });
+    case STATISTIC_CATEGORY.THEORYCRAFT:
+      return t({
+        id: 'interface.report.results.statistics.theorycraft',
+        message: `Theorycraft`,
+      });
     default:
       throw new Error(`Unknown category: ${key}`);
   }
@@ -55,18 +59,18 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
 
 interface Props {
   parser: CombatLogParser;
-  children: ReactElement[];
+  statistics: ReactElement[];
   adjustForDowntime: boolean;
   onChangeAdjustForDowntime: (newValue: boolean) => void;
 }
 
 const ReportStatistics = ({
   parser,
-  children,
+  statistics,
   adjustForDowntime,
   onChangeAdjustForDowntime,
 }: Props) => {
-  const groups = children.reduce<{
+  const groups = statistics.reduce<{
     [category: string]: ReactElement[];
   }>((obj, statistic) => {
     const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
@@ -93,7 +97,7 @@ const ReportStatistics = ({
         .map((name) => {
           const statistics = groups[name];
           return (
-            <React.Fragment key={name}>
+            <Fragment key={name}>
               <StatisticsSectionTitle
                 rightAddon={
                   name === STATISTIC_CATEGORY.GENERAL &&
@@ -116,7 +120,7 @@ const ReportStatistics = ({
                 <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
                 {statistics.sort(sortByPosition)}
               </Masonry>
-            </React.Fragment>
+            </Fragment>
           );
         })}
 

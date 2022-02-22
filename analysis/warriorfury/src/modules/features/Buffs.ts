@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreBuffs from 'parser/core/modules/Buffs';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {
@@ -10,7 +10,7 @@ class Buffs extends CoreBuffs {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
       {

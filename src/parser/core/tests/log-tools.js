@@ -1,5 +1,5 @@
 import decompress from 'decompress';
-
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import getConfig from 'parser/getConfig';
 
@@ -58,29 +58,37 @@ export function parseLog(
   suppressLog = true,
   suppressWarn = true,
 ) {
-  const friendlies = log.report.friendlies.find(({ id }) => id === log.meta.player.id);
+  const player = log.report.friendlies.find(({ id }) => id === log.meta.player.id);
   const fight = {
     ...log.report.fights.find(({ id }) => id === log.meta.fight.id),
-    // eslint-disable-next-line @typescript-eslint/camelcase
+
     offset_time: 0,
   };
-  const builds = getConfig(log.meta.player.specID).builds;
+  const config = getConfig(
+    wclGameVersionToExpansion(log.report.gameVersion),
+    log.meta.player.specID,
+    log.meta.player.type,
+  );
+  const builds = config.builds;
   const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
   builds &&
     Object.keys(builds).forEach((key) => {
       builds[key].active = key === buildKey;
     });
   const parser = new parserClass(
+    config,
     {
       ...log.report,
       code: log.meta.reportCode || 'TEST',
     },
-    friendlies,
+    player,
     fight,
-    log.combatants,
+    log.combatants.map((combatant) => ({
+      ...combatant,
+      player: log.report.friendlies.find((friendly) => friendly.id === combatant.sourceID),
+    })),
     null,
     build,
-    builds,
   );
   return suppressLogging(suppressLog, suppressWarn, false, () => {
     parser

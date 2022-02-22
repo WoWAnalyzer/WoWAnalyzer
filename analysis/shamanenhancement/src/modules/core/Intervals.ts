@@ -25,9 +25,7 @@ export class Intervals {
   startInterval(timestamp: number) {
     if (this.isLastIntervalInProgress) {
       debug &&
-      console.error(
-        'Intervals: cannot start a new interval because one is already in progress.',
-      );
+        console.error('Intervals: cannot start a new interval because one is already in progress.');
       return;
     }
 
@@ -36,10 +34,7 @@ export class Intervals {
 
   endInterval(timestamp: number) {
     if (!this.isLastIntervalInProgress) {
-      debug &&
-      console.error(
-        'Intervals: cannot end an interval because none are in progress.',
-      );
+      debug && console.error('Intervals: cannot end an interval because none are in progress.');
       return;
     }
 

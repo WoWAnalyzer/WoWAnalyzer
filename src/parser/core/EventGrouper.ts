@@ -19,7 +19,9 @@ export default class EventGrouper {
   }
 
   [Symbol.iterator]() {
-    return Object.entries(this.cache).map(item => item[1])[Symbol.iterator]();
+    return Object.entries(this.cache)
+      .map((item) => item[1])
+      [Symbol.iterator]();
   }
 
   processEvent(event: AnyEvent) {
@@ -29,18 +31,18 @@ export default class EventGrouper {
       return;
     }
 
-    this.cache[stemTimestamp] = [
-      ...this.cache[stemTimestamp],
-      event,
-    ];
+    this.cache[stemTimestamp] = [...this.cache[stemTimestamp], event];
   }
 
   getStemTimestamp(event: AnyEvent) {
-    return Object.keys(this.cache).map(Number).filter(this.withinThreshold(event.timestamp))[0] || null;
+    return (
+      Object.keys(this.cache).map(Number).filter(this.withinThreshold(event.timestamp))[0] || null
+    );
   }
 
   withinThreshold(timestamp: number) {
-    return (stemTimestamp: number) => (timestamp <= (stemTimestamp + this.threshold)) && (timestamp > stemTimestamp);
+    return (stemTimestamp: number) =>
+      timestamp <= stemTimestamp + this.threshold && timestamp > stemTimestamp;
   }
 
   addNewStemTimestamp(event: AnyEvent) {

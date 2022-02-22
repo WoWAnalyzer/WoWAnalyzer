@@ -1,7 +1,6 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Events from 'parser/core/Events';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /*
  * The amount of time elapsed without a combat event before a target is considered inactive.
@@ -14,7 +13,7 @@ class ActiveTargets extends Analyzer {
   /* Targets are considered inactive by default.  Once they are part of a damage event,
    * they become active.  If they are not part of another damage event before a certain
    * amount of time has passed, they are considered inactive again.
-  */
+   */
   _targetActivity = {};
 
   constructor(options) {
@@ -62,11 +61,17 @@ class ActiveTargets extends Analyzer {
       return false;
     }
 
-    return this._targetActivity[enemyID].findIndex(activity => activity.start < timestamp && activity.end > timestamp) >= 0;
+    return (
+      this._targetActivity[enemyID].findIndex(
+        (activity) => activity.start < timestamp && activity.end > timestamp,
+      ) >= 0
+    );
   }
 
   getActiveTargets(timestamp) {
-    return Object.keys(this._targetActivity).filter(enemyID => this.isTargetActive(enemyID, timestamp));
+    return Object.keys(this._targetActivity).filter((enemyID) =>
+      this.isTargetActive(enemyID, timestamp),
+    );
   }
 }
 

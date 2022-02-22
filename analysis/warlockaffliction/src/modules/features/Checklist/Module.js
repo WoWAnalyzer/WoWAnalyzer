@@ -1,21 +1,18 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
+import ScouringTitheUptime from '../../covenants/ScouringTithe';
+import SoulShardDetails from '../../soulshards/SoulShardDetails';
+import SoulShardTracker from '../../soulshards/SoulShardTracker';
+import Haunt from '../../talents/Haunt';
+import ShadowEmbrace from '../../talents/ShadowEmbrace';
+import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import AgonyUptime from '../DotUptimes/AgonyUptime';
 import CorruptionUptime from '../DotUptimes/CorruptionUptime';
 import UnstableAfflictionUptime from '../DotUptimes/UnstableAfflictionUptime';
-import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
-import Haunt from '../../talents/Haunt';
-import ShadowEmbrace from '../../features/ShadowEmbrace';
-import ScouringTitheUptime from '../../covenants/ScouringTithe';
-import SoulShardDetails from '../../soulshards/SoulShardDetails';
-import SoulShardTracker from '../../soulshards/SoulShardTracker';
-
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

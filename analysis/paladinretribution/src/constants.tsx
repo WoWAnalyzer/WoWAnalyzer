@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 
 // Based on spelldata for Avenging Wrath
 // Avenging Wrath also increases melee damage by 20% - this is added in their modules.
@@ -15,7 +16,7 @@ export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
   SPELLS.WAKE_OF_ASHES,
   SPELLS.JUSTICARS_VENGEANCE_TALENT,
   SPELLS.EYE_FOR_AN_EYE_TALENT,
-  SPELLS.SANCTIFIED_WRATH_DAMAGE
+  SPELLS.SANCTIFIED_WRATH_DAMAGE,
 ];
 
 // Stuff like Retribution mastery and Execution sentence increases damage done by these sources of holy damage
@@ -31,4 +32,12 @@ export const ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES = [
   SPELLS.SANCTIFIED_WRATH_DAMAGE,
 ];
 
-export const EMPYREAN_POWER_CHANCE = .15;
+export const HOLY_POWER_FINISHERS: Spell[] = [
+  SPELLS.DIVINE_STORM,
+  SPELLS.TEMPLARS_VERDICT_DAMAGE,
+  SPELLS.EXECUTION_SENTENCE_TALENT,
+  SPELLS.JUSTICARS_VENGEANCE_TALENT,
+  SPELLS.FINAL_VERDICT_FINISHER,
+];
+
+export const EMPYREAN_POWER_CHANCE = 0.15;

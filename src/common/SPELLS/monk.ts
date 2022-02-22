@@ -89,16 +89,11 @@ const spells = {
   },
 
   // Mistweaver Monk Spells
-  RISING_MIST_HEAL: {
-    id: 274912,
-    name: 'Rising Mist',
-    icon: 'ability_monk_effuse',
-  },
   ENVELOPING_MIST: {
     id: 124682,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-    manaCost: 3000,
+    manaCost: 2800,
   },
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -126,7 +121,7 @@ const spells = {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
-    manaCost: 1100,
+    manaCost: 900,
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
@@ -148,7 +143,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 2050,
+    manaCost: 1900,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -156,14 +151,9 @@ const spells = {
     icon: 'ability_monk_soothingmists',
     manaCost: 200,
   },
-  SOOTHING_MIST_STATUE: {
-    id: 198533,
-    name: 'Soothing Mist',
-    icon: 'ability_monk_soothingmists',
-  },
   INVOKE_YULON_THE_JADE_SERPENT: {
     id: 322118,
-    name: 'Invoke Yu\'lon, the Jade Serpent',
+    name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
     manaCost: 2500,
   },
@@ -177,46 +167,10 @@ const spells = {
     name: 'Soothing Breath',
     icon: 'ability_monk_soothingmists',
   },
-  SPIRIT_OF_THE_CRANE_BUFF: {
-    id: 210803,
-    name: 'Spirit of the Crane',
-    icon: 'monk_stance_redcrane',
-  },
-  CHI_BURST_HEAL: {
-    id: 130654,
-    name: 'Chi Burst',
-    icon: 'spell_arcane_arcanetorrent',
-  },
-  REFRESHING_JADE_WIND_HEAL: {
-    id: 162530,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-  },
-  GUST_OF_MISTS_CHIJI: {
-    id: 343819,
-    name: 'Gust of Mists',
-    icon: 'monk_stance_redcrane',
-  },
   EXPEL_HARM_TARGET_HEAL: {
     id: 344939,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
-  },
-  // Lifecycles buffs
-  LIFECYCLES_VIVIFY_BUFF: {
-    id: 197916,
-    name: 'Lifecycles (Vivify)',
-    icon: 'ability_monk_uplift',
-  },
-  LIFECYCLES_ENVELOPING_MIST_BUFF: {
-    id: 197919,
-    name: 'Lifecycles (Enveloping Mist)',
-    icon: 'spell_monk_envelopingmist',
-  },
-  INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
-    id: 343820,
-    name: 'Invoke Chi-Ji, the Red Crane',
-    icon: 'monk_stance_redcrane',
   },
   // Mastery
   GUSTS_OF_MISTS: {
@@ -230,7 +184,8 @@ const spells = {
     name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
   },
-  BLACKOUT_KICK_TOTM : { //Backout Kick from TotM
+  BLACKOUT_KICK_TOTM: {
+    //Backout Kick from TotM
     id: 228649,
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
@@ -436,14 +391,14 @@ const spells = {
     icon: 'ability_monk_blackoutkick',
   },
   POTENT_KICK: {
-      id: 213047,
-      name: 'Potent Kick',
-      icon: 'ability_monk_ironskinbrew',
+    id: 213047,
+    name: 'Potent Kick',
+    icon: 'ability_monk_ironskinbrew',
   },
   QUICK_SIP: {
-      id: 238129,
-      name: 'Quick Sip',
-      icon: 'spell_misc_drink',
+    id: 238129,
+    name: 'Quick Sip',
+    icon: 'spell_misc_drink',
   },
   STAGGERING_AROUND: {
     id: 213055,
@@ -458,22 +413,22 @@ const spells = {
   WANDERERS_HARDINESS_TRAIT: {
     id: 214920,
     name: "Wanderer's Hardiness",
-    icon: "inv_staff_2h_artifactmonkeyking_d_02",
+    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
   },
   ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT: {
     id: 241131,
-    name: "Endurance of the Broken Temple",
-    icon: "misc_legionfall_monk",
+    name: 'Endurance of the Broken Temple',
+    icon: 'misc_legionfall_monk',
   },
   BREW_STACHE: {
     id: 214373,
-    name: "Brew-Stache",
-    icon: "inv_misc_archaeology_vrykuldrinkinghorn",
+    name: 'Brew-Stache',
+    icon: 'inv_misc_archaeology_vrykuldrinkinghorn',
   },
   HOT_TRUB: {
     id: 202126,
-    name: "Hot Trub",
-    icon: "spell_brew_dark",
+    name: 'Hot Trub',
+    icon: 'spell_brew_dark',
   },
   // Conduits
   EVASIVE_STRIDE_HEAL: {
@@ -502,6 +457,16 @@ const spells = {
     id: 221771,
     name: 'Storm, Earth, and Fire: Fixate',
     icon: 'spell_nature_giftofthewild',
+  },
+  STORM_EARTH_AND_FIRE_EARTH_SPIRIT: {
+    id: 138121,
+    name: 'Storm, Earth, and Fire',
+    icon: 'inv_elemental_primal_earth',
+  },
+  STORM_EARTH_AND_FIRE_FIRE_SPIRIT: {
+    id: 138123,
+    name: 'Storm, Earth, and Fire',
+    icon: 'inv_summerfest_firespirit',
   },
   FLYING_SERPENT_KICK: {
     id: 101545,
@@ -568,6 +533,11 @@ const spells = {
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
   },
+  FIST_OF_THE_WHITE_TIGER_SECOND: {
+    id: 261977,
+    name: 'Fist of the White Tiger',
+    icon: 'ability_monk_jab',
+  },
   FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
     id: 261978,
     name: 'Fist of the White Tiger',
@@ -591,6 +561,16 @@ const spells = {
   INVOKE_XUEN_THE_WHITE_TIGER: {
     id: 123904,
     name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  XUEN_CRACKLING_TIGER_LIGHTNING: {
+    id: 123996,
+    name: 'Crackling Tiger Lightning',
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  EMPOWERED_TIGER_LIGHTNING: {
+    id: 335913,
+    name: 'Empowered Tiger Lightning',
     icon: 'ability_monk_summontigerstatue',
   },
   DANCE_OF_CHI_JI_BUFF: {

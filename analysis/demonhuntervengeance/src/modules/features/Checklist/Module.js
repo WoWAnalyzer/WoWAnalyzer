@@ -1,29 +1,18 @@
-import React from 'react';
-
-import BaseModule from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
-// Buffs-Debuffs
-import SpiritBombFrailtyDebuff from '../../talents/SpiritBombFrailtyDebuff';
-import VoidReaverDebuff from '../../talents/VoidReaverDebuff';
-
-// Talents
-import SpiritBombSoulsConsume from '../../talents/SpiritBombSoulsConsume';
-import SoulBarrier from '../../talents/SoulBarrier';
-
-//Spells
-import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
+import FuryDetails from '../../fury/FuryDetails';
 import DemonSpikes from '../../spells/DemonSpikes';
 import ShearFracture from '../../spells/ShearFracture';
-
-// Resources
-import FuryDetails from '../../fury/FuryDetails';
+import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
 import SoulsOvercap from '../../statistics/SoulsOvercap';
-
+import SoulBarrier from '../../talents/SoulBarrier';
+import SpiritBombFrailtyDebuff from '../../talents/SpiritBombFrailtyDebuff';
+import SpiritBombSoulsConsume from '../../talents/SpiritBombSoulsConsume';
+import VoidReaverDebuff from '../../talents/VoidReaverDebuff';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-
 import Component from './Component';
 
 class Checklist extends BaseModule {
@@ -49,7 +38,6 @@ class Checklist extends BaseModule {
     // Resources
     furyDetails: FuryDetails,
     soulsOvercap: SoulsOvercap,
-
   };
 
   render() {

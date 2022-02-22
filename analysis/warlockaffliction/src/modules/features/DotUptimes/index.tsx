@@ -1,16 +1,13 @@
-import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
-
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import StatisticBar from 'parser/ui/StatisticBar';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
+import Haunt from '../../talents/Haunt';
+import ShadowEmbrace from '../../talents/ShadowEmbrace';
+import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
 import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';
-import ShadowEmbrace from '../ShadowEmbrace';
-import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
 import UnstableAfflictionUptime from './UnstableAfflictionUptime';
-import Haunt from '../../talents/Haunt';
 
 class DotUptimeStatisticBox extends Analyzer {
   static dependencies = {

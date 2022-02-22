@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Secret Technique

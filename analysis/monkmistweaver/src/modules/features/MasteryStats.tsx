@@ -1,44 +1,48 @@
-import React from 'react';
-
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import EssenceFontMastery from './EssenceFontMastery';
 import EnvelopingMists from '../spells/EnvelopingMists';
-import SoothingMist from '../spells/SoothingMist';
-import RenewingMist from '../spells/RenewingMist';
-import Vivify from '../spells/Vivify';
+import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
+import RenewingMist from '../spells/RenewingMist';
+import Revival from '../spells/Revival';
+import SoothingMist from '../spells/SoothingMist';
+import Vivify from '../spells/Vivify';
 
 class MasteryStats extends Analyzer {
   static dependencies = {
-    essenceFontMastery: EssenceFontMastery,
+    essenceFont: EssenceFont,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
     expelHarm: ExpelHarm,
+    revival: Revival,
   };
 
-  protected essenceFontMastery!: EssenceFontMastery;
+  protected essenceFont!: EssenceFont;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   protected expelHarm!: ExpelHarm;
+  protected revival!: Revival;
 
   get totalMasteryHealing() {
-    return (this.vivify.gustsHealing || 0)
-      + (this.renewingMist.gustsHealing || 0)
-      + (this.envelopingMists.gustsHealing || 0)
-      + (this.soothingMist.gustsHealing || 0)
-      + (this.essenceFontMastery.healing || 0)
-      + (this.expelHarm.gustsHealing || 0);
+    return (
+      (this.vivify.gomHealing || 0) +
+      (this.renewingMist.gustsHealing || 0) +
+      (this.envelopingMists.gustsHealing || 0) +
+      (this.soothingMist.gustsHealing || 0) +
+      (this.essenceFont.gomHealing || 0) +
+      (this.expelHarm.gustsHealing || 0) +
+      this.revival.gustsHealing
+    );
   }
 
   renderMasterySourceChart() {
@@ -47,8 +51,8 @@ class MasteryStats extends Analyzer {
         color: '#00b159',
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
-        value: this.vivify.gustsHealing,
-        valueTooltip: formatThousands(this.vivify.gustsHealing),
+        value: this.vivify.gomHealing,
+        valueTooltip: formatThousands(this.vivify.gomHealing),
       },
       {
         color: '#db00db',
@@ -75,8 +79,8 @@ class MasteryStats extends Analyzer {
         color: '#00bbcc',
         label: 'Essence font',
         spellId: SPELLS.ESSENCE_FONT.id,
-        value: this.essenceFontMastery.healing,
-        valueTooltip: formatThousands(this.essenceFontMastery.healing),
+        value: this.essenceFont.gomHealing,
+        valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },
       {
         color: '#03fcad',
@@ -85,23 +89,25 @@ class MasteryStats extends Analyzer {
         value: this.expelHarm.gustsHealing,
         valueTooltip: formatThousands(this.expelHarm.gustsHealing),
       },
+      {
+        color: '#ccccff',
+        label: 'Revival',
+        spellId: SPELLS.REVIVAL.id,
+        value: this.revival.gustsHealing,
+        valueTooltip: formatThousands(this.revival.gustsHealing),
+      },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown</label>
+          <label>
+            <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown
+          </label>
           {this.renderMasterySourceChart()}
         </div>
       </Statistic>

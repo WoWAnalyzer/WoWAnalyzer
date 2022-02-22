@@ -1,6 +1,5 @@
-import React from 'react';
-
 import { Juko8, Skeletor } from 'CONTRIBUTORS';
+import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 
@@ -8,7 +7,8 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Juko8, Skeletor],
-  patchCompatibility: '9.0.2',
+  expansion: Expansion.Shadowlands,
+  patchCompatibility: '9.0.5',
   isPartial: false,
   description: (
     <>
@@ -43,7 +43,8 @@ const config: Config = {
       work on!
     </>
   ),
-  exampleReport: '/report/BYXDCHGQyc3L98at/18-Mythic+Lady+Ashvane+-+Kill+(3:47)/Cellendis',
+  exampleReport:
+    '/report/XWL82zKpNdFykwGg/11-Mythic+Hungering+Destroyer+-+Kill+(5:06)/Zïwak/standard',
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,
