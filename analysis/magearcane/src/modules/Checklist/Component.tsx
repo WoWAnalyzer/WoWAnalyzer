@@ -56,11 +56,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
       >
         <Requirement
-          name="Spells Cast During Arcane Power"
-          tooltip="Your cast utilization during Arcane Power. You should be ensuring that you are using the most of the short Arcane Power window and only casting damage abilities like Arcane Blast, Arcane Missiles, and Arcane Explosion."
-          thresholds={thresholds.arcanePowerCasts}
-        />
-        <Requirement
           name="Arcane Power Pre-Cast Setup"
           tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Power will all help make the most out of your burn phase."
           thresholds={thresholds.arcanePowerCooldown}
