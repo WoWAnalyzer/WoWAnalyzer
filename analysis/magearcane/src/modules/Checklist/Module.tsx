@@ -7,8 +7,8 @@ import { ArcaneIntellect, CancelledCasts, MirrorImage, RuneOfPower } from '@wowa
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneMissiles from '../features/ArcaneMissiles';
-import ArcanePowerMana from '../features/ArcanePowerMana';
 import ArcanePowerActiveTime from '../features/ArcanePowerActiveTime';
+import ArcanePowerMana from '../features/ArcanePowerMana';
 import ArcanePowerPreReqs from '../features/ArcanePowerPreReqs';
 import ManaValues from '../ManaChart/ManaValues';
 import ArcaneEcho from '../talents/ArcaneEcho';

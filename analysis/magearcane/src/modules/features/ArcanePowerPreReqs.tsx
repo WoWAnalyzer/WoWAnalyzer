@@ -14,13 +14,13 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import ArcaneChargeTracker from './ArcaneChargeTracker';
-
 import {
   AP_MANA_THRESHOLD_PERCENT,
   ARCANE_CHARGE_MAX_STACKS,
   ARCANE_HARMONY_MAX_STACKS,
 } from '@wowanalyzer/mage';
+
+import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const debug = false;
 

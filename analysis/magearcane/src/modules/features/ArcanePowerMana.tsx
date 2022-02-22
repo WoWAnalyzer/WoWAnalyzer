@@ -10,14 +10,14 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 
-import ArcaneChargeTracker from './ArcaneChargeTracker';
-
 import {
   ARCANE_BLAST_BASE_MANA_COST,
   ARCANE_EXPLOSION_BASE_MANA_COST,
   OVERPOWERED_COST_REDUCTION_PERCENT,
   MS_BUFFER_1000,
 } from '@wowanalyzer/mage';
+
+import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const debug = false;
 
