@@ -35,7 +35,6 @@ import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
 import FaelineStompHealing from './modules/shadowlands/covenant/FaelineStompHealing';
 import FallenOrderAverageHPOfTargetOnCast from './modules/shadowlands/covenant/FallenOrderAverageHPOfTargetOnCast';
 import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
-import FallenOrderMistWrap from './modules/shadowlands/covenant/FallenOrderMistWrap';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
@@ -139,7 +138,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     fallenOrder: FallenOrder,
     fallenOrderCraneAverage: FallenOrderCraneAverage,
-    fallenOrderMistWrap: FallenOrderMistWrap,
     fallenOrderAverageHPOfTargetOnCast: FallenOrderAverageHPOfTargetOnCast,
     faelineStomp: FaelineStomp,
     faelineStompHealing: FaelineStompHealing,
