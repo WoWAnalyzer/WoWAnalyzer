@@ -2,6 +2,7 @@ import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent, CastEvent } from 'parser/core/Events';
@@ -13,7 +14,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
 const ICD = 750;
-const CDR = 5000;
+const CDR_DEFAULT = 5000;
+const CDR_MW = 2500;
 
 export default class SinisterTeachings extends Analyzer {
   static dependencies = {
@@ -27,6 +29,7 @@ export default class SinisterTeachings extends Analyzer {
   spellThatGrantedCDR: Map<number, number> = new Map<number, number>();
   totalFOCasts: number = 0;
   firstCheck: boolean = true;
+  CDR: number;
 
   constructor(options: Options) {
     super(options);
@@ -34,6 +37,8 @@ export default class SinisterTeachings extends Analyzer {
     this.active =
       this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
       this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SINISTER_TEACHINGS.bonusID);
+
+    this.CDR = this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id ? CDR_MW : CDR_DEFAULT;
 
     if (!this.active) {
       return;
@@ -76,13 +81,13 @@ export default class SinisterTeachings extends Analyzer {
 
     //weird catch for pre-casts
     if (this.spellUsable.isOnCooldown(SPELLS.FALLEN_ORDER_CAST.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FALLEN_ORDER_CAST.id, CDR);
+      this.spellUsable.reduceCooldown(SPELLS.FALLEN_ORDER_CAST.id, this.CDR);
     }
 
     this.lastCDREvent = currentTime + ICD;
 
     const guid = event.ability.guid;
-    this.totalCDR += CDR;
+    this.totalCDR += this.CDR;
 
     if (!this.spellThatGrantedCDR.has(guid)) {
       this.spellThatGrantedCDR.set(guid, 0);
@@ -90,7 +95,7 @@ export default class SinisterTeachings extends Analyzer {
 
     const currentCDRFromSpell = this.spellThatGrantedCDR.get(guid)!;
 
-    this.spellThatGrantedCDR.set(guid, currentCDRFromSpell + CDR);
+    this.spellThatGrantedCDR.set(guid, currentCDRFromSpell + this.CDR);
   }
 
   /** The dropdown table in the base form of this statistic */
