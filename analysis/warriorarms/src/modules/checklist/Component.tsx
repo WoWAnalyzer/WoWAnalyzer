@@ -38,6 +38,9 @@ const ArmsWarriorChecklist = ({
           SPELLS.WARBREAKER_TALENT,
           SPELLS.AVATAR_TALENT,
           SPELLS.DEADLY_CALM_TALENT,
+          SPELLS.ANCIENT_AFTERSHOCK,
+          SPELLS.SPEAR_OF_BASTION,
+          SPELLS.CONQUERORS_BANNER,
         ]}
         description={
           <div style={{ color: 'white' }}>
