@@ -33,7 +33,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_ZONE = 28;
+const DEFAULT_ZONE = 29; // DEFAULT_ZONE changed from 28 to 29 folowing the 9.2 patch.
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
