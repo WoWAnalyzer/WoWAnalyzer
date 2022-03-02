@@ -7,7 +7,9 @@ const Dausegne: Boss = {
   name: 'Dausegne, the Fallen Oracle',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_dominated_progenitor_bot',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367126,
+  },
 };
 
 export default Dausegne;

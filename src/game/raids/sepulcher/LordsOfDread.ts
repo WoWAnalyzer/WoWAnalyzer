@@ -7,7 +7,9 @@ const LordsOfDread: Boss = {
   name: 'Lords of Dread',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_dreadlord_duo',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367136,
+  },
 };
 
 export default LordsOfDread;

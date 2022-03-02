@@ -7,7 +7,9 @@ const Jailer: Boss = {
   name: 'The Jailer, Zovaal',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_jailer',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367143,
+  },
 };
 
 export default Jailer;

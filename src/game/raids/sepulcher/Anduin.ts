@@ -7,7 +7,9 @@ const Anduin: Boss = {
   name: 'AnduinWrynn',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_anduin',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367134,
+  },
 };
 
 export default Anduin;

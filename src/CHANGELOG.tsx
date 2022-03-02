@@ -55,6 +55,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 3, 2), <>Added support for <ItemLink id={ITEMS.VANTUS_RUNE_SEPULCHER.id} />.</>, emallson),
   change(date(2022, 3, 1), 'Changed default zone from 28 to 29', bhawkins6177),
   change(date(2022, 2, 21), 'Added support for Sepulcher of the First Ones', emallson),
   change(date(2022, 2, 5), 'Fix issue where external absorbs were counted on Self-Healing Timing graphs.', emallson),

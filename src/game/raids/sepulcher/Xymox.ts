@@ -7,7 +7,9 @@ const Xymox: Boss = {
   name: "Artificer Xy'mox",
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_broker_incursion',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367124,
+  },
 };
 
 export default Xymox;

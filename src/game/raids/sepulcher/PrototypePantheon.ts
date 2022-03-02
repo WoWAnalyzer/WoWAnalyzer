@@ -7,7 +7,9 @@ const PrototypePantheon: Boss = {
   name: 'Prototype Pantheon',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_proto_primus',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367128,
+  },
 };
 
 export default PrototypePantheon;
