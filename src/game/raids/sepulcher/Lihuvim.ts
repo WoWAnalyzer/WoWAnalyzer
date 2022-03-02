@@ -7,7 +7,9 @@ const Lihuvim: Boss = {
   name: 'Lihuvim, Principal Architect',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_terrestrial_keeper',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367130,
+  },
 };
 
 export default Lihuvim;

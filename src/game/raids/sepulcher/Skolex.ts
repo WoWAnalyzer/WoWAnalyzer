@@ -7,7 +7,9 @@ const Skolex: Boss = {
   name: 'Skolex, the Insatiable Ravener',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_progenium_devourer_worm',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367121,
+  },
 };
 
 export default Skolex;

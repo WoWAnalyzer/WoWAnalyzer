@@ -7,7 +7,9 @@ const Halondrus: Boss = {
   name: 'Halondrus the Reclaimer',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_progenium_keeper',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367132,
+  },
 };
 
 export default Halondrus;

@@ -7,7 +7,9 @@ const Rygelon: Boss = {
   name: 'Rygelon',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_dominated_constellar',
-  fight: {},
+  fight: {
+    vantusRuneBuffId: 367140,
+  },
 };
 
 export default Rygelon;
