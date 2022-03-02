@@ -8,6 +8,11 @@ import { ItemList } from 'common/ITEMS/Item';
  * },
  */
 const items: ItemList = {
+  VANTUS_RUNE_SEPULCHER: {
+    id: 187805,
+    name: 'Vantus Rune',
+    icon: 'inv_inscription_vantusrune_progenitor',
+  },
   VANTUS_RUNE_SANCTUM_OF_DOMINATION: {
     id: 186662,
     name: 'Vantus Rune',
