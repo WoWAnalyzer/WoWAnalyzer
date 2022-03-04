@@ -43,10 +43,9 @@ const OutlawRogueChecklist = ({
             Efficient use of <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> is a critical part of
             Outlaw rogue. You should try to keep as high of an uptime as possible with any of the
             buffs, and reroll efficiently to get higher value buffs.{' '}
-            <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and{' '}
-            <SpellLink id={SPELLS.GRAND_MELEE.id} /> are the highest value of the six possible
-            buffs. You should reroll until you get one of them, or any two other buffs. Any high
-            value roll should be kept for the full duration.
+            <SpellLink id={SPELLS.TRUE_BEARING.id} /> and <SpellLink id={SPELLS.BROADSIDE.id} /> are
+            the highest value of the six possible buffs. You should reroll until you get one of
+            them, or any two other buffs. Any high value roll should be kept for the full duration.
           </>
         }
       >
