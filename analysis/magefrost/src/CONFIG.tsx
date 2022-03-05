@@ -40,7 +40,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/z4cAKJDfVvLrwa7H/3-Heroic+Shriekwing+-+Kill+(5:48)/Woimundl/standard',
+  exampleReport: '/report/ydqQLTvJfCNtcDYR/13-Normal+Dausegne,+the+Fallen+Oracle+-+Kill+(4:22)/Arcanfrost/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,
