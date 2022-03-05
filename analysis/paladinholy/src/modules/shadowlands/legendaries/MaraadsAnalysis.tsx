@@ -56,9 +56,9 @@ class MaraadsAnalysis extends Analyzer {
 
   get unbuffedCastsSuggestion() {
     return {
-      actual: (this.totalCasts / this.LODcasts)/10,
+      actual: 1 - (this.LODcasts/this.totalCasts),
       isGreaterThan: {
-        minor: 0.1,
+        minor: .1,
         average: 0.2,
         major: 0.3,
       },
