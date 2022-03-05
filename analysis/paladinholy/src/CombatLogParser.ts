@@ -43,6 +43,7 @@ import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
+import MaraadsAnalysis from './modules/shadowlands/legendaries/MaraadsAnalysis';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //-- shadowlands section --//
     // Lego
     shockBarrier: ShockBarrier,
+    maraadsAnalysis: MaraadsAnalysis,
 
     // Covenant
     ashenHallow: AshenHallow,
