@@ -10,7 +10,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [acornellier],
   expansion: Expansion.Shadowlands,
-  patchCompatibility: '9.0.5',
+  patchCompatibility: '9.2',
   isPartial: false,
   description: (
     <>
