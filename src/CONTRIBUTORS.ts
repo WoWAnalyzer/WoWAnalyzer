@@ -1845,3 +1845,15 @@ export const Llanas: Contributor = {
   nickname: 'Llanas',
   github: 'llanas',
 };
+export const xizbow: Contributor = {
+  nickname: 'xizbow',
+  discord: 'xizbow#1856',
+  github: 'xizbow1',
+  mains: [
+    {
+      name: 'Greggoros',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/Greggoros',
+    },
+  ],
+};
