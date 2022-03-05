@@ -6,6 +6,7 @@ export const MS_BUFFER_500 = 500;
 export const MS_BUFFER_1000 = 1000;
 
 //Frost
+export const COMET_STORM_AOE_MIN_TARGETS = 2;
 export const SHATTER_DEBUFFS = [
   SPELLS.WINTERS_CHILL,
   SPELLS.FROST_NOVA,
