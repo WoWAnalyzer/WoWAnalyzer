@@ -66,6 +66,18 @@ class MaraadsAnalysis extends Analyzer {
     };
   }
 
+  get notEnoughCastsSuggestion() {
+    return{
+      actual: 1 - (this.totalCasts/this.LODcasts),
+      isGreaterThan:{
+        minor: .05,
+        average: 0.1,
+        major: 0.15,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   get overhealSuggestion() {
     return {
       actual: this.castsOverhealed / this.totalCasts,
@@ -98,6 +110,18 @@ class MaraadsAnalysis extends Analyzer {
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
         .actual(`${formatPercentage(actual)}% of your casts were unbuffed by Maraad's Dying Breath`)
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
+    );
+    when(this.notEnoughCastsSuggestion).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to keep your casts of <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> at a 1:1 ratio with your casts of <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />, as you
+          are wasting a large amount of healing by overwriting the <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> proc. If you are frequently unable to 
+          find a suitable target for your buffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, consider using a different legendary.
+        </>,
+      )
+        .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
+        .actual(`You had ${formatPercentage(actual)}% more casts of Light of Dawn than Light of the Martyr`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
   }
