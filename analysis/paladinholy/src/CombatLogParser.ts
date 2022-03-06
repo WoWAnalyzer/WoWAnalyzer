@@ -30,6 +30,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
+import MaraadsAnalysis from './modules/shadowlands/legendaries/MaraadsAnalysis';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
@@ -43,7 +44,6 @@ import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
-import MaraadsAnalysis from './modules/shadowlands/legendaries/MaraadsAnalysis';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -101,8 +101,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //-- shadowlands section --//
     // Lego
-    shockBarrier: ShockBarrier,
     maraadsAnalysis: MaraadsAnalysis,
+    shockBarrier: ShockBarrier,
 
     // Covenant
     ashenHallow: AshenHallow,
