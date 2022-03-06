@@ -21,16 +21,16 @@ class MaraadsAnalysis extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER)
-      ,this.cast,
+      Events.cast.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
+      this.cast,
     );
     this.addEventListener(
-      Events.heal.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER)
-      ,this.heal,
+      Events.heal.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
+      this.heal,
     );
     this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER)
-      ,this.LODcast,
+      Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
+      this.LODcast,
     );
   }
 
@@ -89,7 +89,7 @@ class MaraadsAnalysis extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> buffed{'.'}
+          Try to avoid casting <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> buffed
           <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when a large portion of it would
           overheal. If you are finding that this is happening very frequently, consider using a
           different legendary.
@@ -104,7 +104,6 @@ class MaraadsAnalysis extends Analyzer {
         <>
           Try to avoid casting unbuffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, as it is a
           very inefficient spell when it isn't buffed by{' '}
-
           <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} />.
         </>,
       )
