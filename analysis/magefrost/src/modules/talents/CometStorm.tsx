@@ -10,6 +10,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import { COMET_STORM_AOE_MIN_TARGETS } from '@wowanalyzer/mage';
+
 import { cometStormHits } from '../../normalizers/CometStormLinkNormalizer';
 
 const MIN_SHATTERED_PROJECTILES_PER_CAST = 4;
