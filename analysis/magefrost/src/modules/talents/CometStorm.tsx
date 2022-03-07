@@ -4,17 +4,18 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { AnyEvent, CastEvent, GetRelatedEvents } from 'parser/core/Events';
+import Events, { AnyEvent, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import { COMET_STORM_AOE_MIN_TARGETS } from '@wowanalyzer/mage';
+import { cometStormHits } from '../../normalizers/CometStormLinkNormalizer';
 
 const MIN_SHATTERED_PROJECTILES_PER_CAST = 4;
 
 class CometStorm extends Analyzer {
-  static dependencies = { 
+  static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
   };
@@ -26,12 +27,15 @@ class CometStorm extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.COMET_STORM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMET_STORM_TALENT), this.onCometStormCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMET_STORM_TALENT),
+      this.onCometStormCast,
+    );
   }
 
   onCometStormCast(event: CastEvent) {
-    const damageEvents: AnyEvent[] = GetRelatedEvents(event, 'HitsTarget')
-    const enemiesHit: number[] = []
+    const damageEvents: AnyEvent[] = cometStormHits(event);
+    const enemiesHit: number[] = [];
     let projectilesShattered = 0;
 
     damageEvents.forEach((hit) => {
@@ -46,9 +50,12 @@ class CometStorm extends Analyzer {
       if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
         projectilesShattered += 1;
       }
-    })
+    });
 
-    if(enemiesHit.length < COMET_STORM_AOE_MIN_TARGETS && projectilesShattered < MIN_SHATTERED_PROJECTILES_PER_CAST) {
+    if (
+      enemiesHit.length < COMET_STORM_AOE_MIN_TARGETS &&
+      projectilesShattered < MIN_SHATTERED_PROJECTILES_PER_CAST
+    ) {
       this.badCometStormCast += 1;
     }
   }
@@ -58,16 +65,16 @@ class CometStorm extends Analyzer {
   }
 
   get castUtilization() {
-    return 1 - (this.badCometStormCast / this.totalCasts)
+    return 1 - this.badCometStormCast / this.totalCasts;
   }
 
   get cometStormUtilizationThresholds() {
     return {
       actual: this.castUtilization,
       isLessThan: {
-        minor: 0.90,
-        average: 0.80,
-        major: 0.70,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -77,7 +84,17 @@ class CometStorm extends Analyzer {
     when(this.cometStormUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to get the most out of your <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> casts {this.badCometStormCast} times. Because the projectiles from <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> no longer remove your stacks of <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should always cast <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> immediately after using your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc on <SpellLink id={SPELLS.FLURRY.id} />. This way there is time for most/all of the comets to hit the target before <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires. Alternatively, if <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> will hit at least {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without <SpellLink id={SPELLS.SHATTER.id} />/<SpellLink id={SPELLS.WINTERS_CHILL.id} />
+          You failed to get the most out of your <SpellLink id={SPELLS.COMET_STORM_TALENT.id} />{' '}
+          casts {this.badCometStormCast} times. Because the projectiles from{' '}
+          <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> no longer remove your stacks of{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should always cast{' '}
+          <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> immediately after using your{' '}
+          <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc on <SpellLink id={SPELLS.FLURRY.id} />.
+          This way there is time for most/all of the comets to hit the target before{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires. Alternatively, if{' '}
+          <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /> will hit at least{' '}
+          {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without{' '}
+          <SpellLink id={SPELLS.SHATTER.id} />/<SpellLink id={SPELLS.WINTERS_CHILL.id} />
         </>,
       )
         .icon(SPELLS.COMET_STORM_TALENT.icon)
