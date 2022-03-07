@@ -92,7 +92,7 @@ class KindredSpiritsResto extends Analyzer {
       this.onProtectionDamage,
     );
     this.addEventListener(
-      Events.heal.to(this.selectedCombatant.id).spell(SPELLS.KINDRED_FOCUS_HEAL),
+      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.KINDRED_FOCUS_HEAL),
       this.onFocusHealPlayer,
     );
   }

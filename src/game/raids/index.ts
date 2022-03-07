@@ -54,6 +54,7 @@ const raids = {
   Dungeons: require('./dungeons').default,
   CastleNathria: require('./castlenathria').default, //tier 26
   SanctumOfDomination: require('./sanctumofdomination').default, //tier 27
+  SepulcherOfTheFirstOnes: require('./sepulcher').default, //tier 28
   // The Burning Cursage
   GruulsLair: require('./gruulslair').default, //tier 4
   MagtheridonsLair: require('./magtheridonslair').default, //tier 4

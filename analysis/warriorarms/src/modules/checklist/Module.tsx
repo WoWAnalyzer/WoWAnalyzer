@@ -4,6 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import { apl, check as aplCheck } from '../core/AplCheck';
+import Bladestorm from '../core/Bladestorm';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
@@ -21,6 +22,7 @@ class Checklist extends BaseChecklist {
     rendUptime: RendUptime,
     mortalStrike: MortalStrike,
     sweepingStrikes: SweepingStrikes,
+    bladestorm: Bladestorm,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -30,6 +32,7 @@ class Checklist extends BaseChecklist {
   protected rendUptime!: RendUptime;
   protected mortalStrike!: MortalStrike;
   protected sweepingStrikes!: SweepingStrikes;
+  protected bladestorm!: Bladestorm;
 
   render() {
     const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
@@ -49,6 +52,7 @@ class Checklist extends BaseChecklist {
           notEnoughMortalStrike: this.mortalStrike.notEnoughMortalStrikeThresholds,
           tooMuchMortalStrike: this.mortalStrike.tooMuchMortalStrikeThresholds,
           badSweepingStrikes: this.sweepingStrikes.suggestionThresholds,
+          badBladestorms: this.bladestorm.suggestionThresholds,
         }}
       />
     );

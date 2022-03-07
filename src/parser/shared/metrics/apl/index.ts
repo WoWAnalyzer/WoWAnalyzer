@@ -1,5 +1,11 @@
 import type Spell from 'common/SPELLS/Spell';
-import { AnyEvent, EventType, UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
+import {
+  AnyEvent,
+  EventType,
+  UpdateSpellUsableEvent,
+  CastEvent,
+  BeginChannelEvent,
+} from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
 
@@ -8,6 +14,14 @@ export enum Tense {
   Past,
   Present,
 }
+
+/**
+ * An event that triggers checking the APL. For instant cast spells and
+ * abilities, this is `CastEvent`. For abilities with cast times,
+ * `BeginChannelEvent` is used. This should be largely automatic because the
+ * `BeginChannelEvent` comes first for cast-time spells and channels.
+ */
+export type AplTriggerEvent = CastEvent | BeginChannelEvent;
 
 /**
  * A Condition can be used to determine whether a [[Rule]] can applies to the
@@ -28,12 +42,13 @@ export interface Condition<T> {
   // Update the internal condition state
   update: (state: T, event: AnyEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (state: T, event: CastEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
+  validate: (state: T, event: AplTriggerEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
   // tooltip description for checklist
   tooltip?: () => ReactChild | undefined;
 }
+export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
 export interface ConditionalRule {
   spell: Spell;
   condition: Condition<any>;
@@ -71,7 +86,7 @@ export enum ResultKind {
 
 export interface Violation {
   kind: ResultKind.Violation;
-  actualCast: CastEvent;
+  actualCast: AplTriggerEvent;
   expectedCast: Spell;
   rule: Rule;
 }
@@ -82,7 +97,7 @@ type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 export interface Success {
   kind: ResultKind.Success;
   rule: Rule;
-  actualCast: CastEvent;
+  actualCast: AplTriggerEvent;
 }
 
 interface CheckState {
@@ -90,6 +105,7 @@ interface CheckState {
   violations: Violation[];
   conditionState: ConditionState;
   abilityState: AbilityState;
+  mostRecentBeginCast?: BeginChannelEvent;
 }
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
@@ -119,9 +135,6 @@ export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
   return tense === Tense.Present ? a : b;
 }
 export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
-
-export const cooldownEnd = (event: UpdateSpellUsableEvent): number =>
-  event.expectedDuration + event.start;
 
 export function lookaheadSlice(
   events: AnyEvent[],
@@ -158,7 +171,7 @@ function ruleApplies(
   eventIndex: number,
 ): boolean {
   const event = events[eventIndex];
-  if (event.type !== EventType.Cast) {
+  if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
     return false;
   }
@@ -166,8 +179,7 @@ function ruleApplies(
     abilities.has(spell(rule).id) &&
     (spell(rule).id === event.ability.guid ||
       result.abilityState[spell(rule).id] === undefined ||
-      result.abilityState[spell(rule).id].isAvailable ||
-      cooldownEnd(result.abilityState[spell(rule).id]) <= event.timestamp + 100) &&
+      result.abilityState[spell(rule).id].isAvailable) &&
     (!('condition' in rule) ||
       rule.condition.validate(
         result.conditionState[rule.condition.key],
@@ -215,13 +227,34 @@ const aplCheck = (apl: Apl) =>
     const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
     return events.reduce<CheckState>(
       (result, event, eventIndex) => {
-        if (event.type === EventType.Cast && applicableSpells.has(event.ability.guid)) {
+        if (
+          (event.type === EventType.BeginChannel ||
+            (event.type === EventType.Cast &&
+              event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
+          applicableSpells.has(event.ability.guid)
+        ) {
           const rule = applicableRule(apl, abilities, result, events, eventIndex);
           if (rule) {
+            if (
+              result.abilityState[spell(rule).id] !== undefined &&
+              !result.abilityState[spell(rule).id].isAvailable &&
+              process.env.NODE_ENV === 'development'
+            ) {
+              console.warn(
+                'inconsistent ability state in APL checker:',
+                result.abilityState[spell(rule).id],
+                rule,
+                event,
+              );
+            }
             if (spell(rule).id === event.ability.guid) {
               // the player cast the correct spell
               result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
-            } else {
+            } else if (
+              info.combatant === undefined ||
+              event.timestamp >= info.combatant.owner.fight.start_time
+            ) {
+              // condition prevents punishing precast spells
               result.violations.push({
                 kind: ResultKind.Violation,
                 rule,
@@ -230,6 +263,12 @@ const aplCheck = (apl: Apl) =>
               });
             }
           }
+        }
+
+        if (event.type === EventType.BeginChannel) {
+          result.mostRecentBeginCast = event;
+        } else if (event.type === EventType.EndChannel) {
+          result.mostRecentBeginCast = undefined;
         }
 
         result.abilityState = updateAbilities(result.abilityState, event);

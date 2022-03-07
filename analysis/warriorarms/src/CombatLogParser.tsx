@@ -4,13 +4,14 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AplCheck from './modules/core/AplCheck';
+import Bladestorm from './modules/core/Bladestorm';
+import DeepWoundsRefreshes from './modules/core/Dots/DeepWoundsRefreshes';
 import DeepWoundsUptime from './modules/core/Dots/DeepWoundsUptime';
 import DotUptime from './modules/core/Dots/DotUptime';
+import RendRefreshes from './modules/core/Dots/RendRefreshes';
 import RendUptime from './modules/core/Dots/RendUptime';
-import EarlyDotRefresh from './modules/core/Execute/EarlyDotRefresh';
 import ExecuteRange from './modules/core/Execute/ExecuteRange';
 import MortalStrike from './modules/core/Execute/MortalStrike';
-import Rend from './modules/core/Execute/Rend';
 import Overpower from './modules/core/Overpower';
 import Slam from './modules/core/Slam';
 import SweepingStrikes from './modules/core/SweepingStrikes';
@@ -63,17 +64,18 @@ class CombatLogParser extends CoreCombatLogParser {
     overpower: Overpower,
     slam: Slam,
     sweepingStrikes: SweepingStrikes,
+    bladestorm: Bladestorm,
 
     // Execute range
     executeRange: ExecuteRange,
-    rend: Rend,
     mortalStrike: MortalStrike,
 
     // Dots
     deepWoundsUptime: DeepWoundsUptime,
     rendUptime: RendUptime,
     dotUptimes: DotUptime,
-    earlyDotRefresh: EarlyDotRefresh,
+    deepWoundsRefreshes: DeepWoundsRefreshes,
+    rendRefreshes: RendRefreshes,
 
     // Talents
     talents: Talents,

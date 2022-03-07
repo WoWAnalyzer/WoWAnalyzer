@@ -9,10 +9,11 @@ import Events, {
   CastEvent,
   Event,
   HealEvent,
-  RemoveBuffEvent,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { Attribution } from 'parser/shared/modules/HotTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -21,6 +22,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
+import HotTrackerRestoDruid from '../../modules/core/hottracking/HotTrackerRestoDruid';
+import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import Rejuvenation from '../core/Rejuvenation';
 
 const ALL_BOOST = 0.15;
@@ -30,17 +33,18 @@ const REJUV_MANA_SAVED = 0.3;
 const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
 const WG_INCREASE = 8 / 6 - 1;
 const TOL_DURATION = 30000;
+const BUFFER = 500;
 
 // have to be careful about applying stacking boosts so we don't double count. Arbitrarily considering all boost to be applied "first"
 // for example, lets say a rejuv tick during ToL heals for 1000 base, but is boosted by 1.15 * 1.5 => 1725... a total of 725 raw boost
 // if we count each as a seperate boost, we get 1.15 => 225 boost, 1.5 => 575, total of 800 ... the overlapping boost was double counted
 // we correct for this by dividing out the all boost before calcing either the rejuv boost or the wg increase
 
-/*
- * This module handles 'Incarnation: Tree of Life' talent.
- *
+/**
  * Incarnation: Tree of Life -
- * Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%, and granting protection from Polymorph effects.  Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.
+ * Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%,
+ * and granting protection from Polymorph effects.
+ * Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.
  *
  * Tree of Life bonuses:
  *  - ALL: +15% healing
@@ -53,35 +57,134 @@ class TreeOfLife extends Analyzer {
     healingDone: HealingDone,
     abilityTracker: AbilityTracker,
     rejuvenation: Rejuvenation,
+    hotTracker: HotTrackerRestoDruid,
   };
 
   healingDone!: HealingDone;
   abilityTracker!: AbilityTracker;
   rejuvenation!: Rejuvenation;
+  hotTracker!: HotTrackerRestoDruid;
 
-  lastTolCast: number | null = null;
-  lastTolApply: number | null = null;
-  completedTolUptime = 0;
+  lastHardcastTimestamp: number | null = null;
 
-  // gets the appropriate accumulator for tallying this event
-  // if ToL buff isn't active, returns null,
-  wgCasts = 0;
   hardcast: TolAccumulator = {
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
     rejuvManaSaved: 0,
-    extraWgHealing: 0,
+    extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL Hardcast: Extra WGs'),
+  };
+  t29_4pc: TolAccumulator = {
+    allBoostHealing: 0,
+    rejuvBoostHealing: 0,
+    rejuvManaSaved: 0,
+    extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL from T29 4pc: Extra WGs'),
   };
 
-  get hardcastUptime() {
-    const currentUptime = !this.lastTolCast
-      ? 0
-      : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
-    return currentUptime + this.completedTolUptime;
+  constructor(options: Options) {
+    super(options);
+
+    // FIXME so far on PTR, no bonus ID shows if player has T29 4pc set or not, which procs ToL
+    //       We'll start with this module always active and then disable parts depending on
+    //       the state of accumulators afterwards
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS),
+      this.onBoostedHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT),
+      this.onHardcastTol,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
+      this.onCastRejuv,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
+      this.onApplyWildGrowth,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
+      this.onApplyWildGrowth,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
+      this.onApplyTol,
+    );
+
+    this.addEventListener(Events.fightend, this.checkActive);
   }
 
-  get hardcastUptimePercent() {
-    return this.hardcastUptime / this.owner.fightDuration;
+  checkActive() {
+    // only stay active for suggestion / stat if player actually has Talent -
+    // we need this to calc to check for 4pc, which is why we don't check active at the start
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT);
+  }
+
+  onHardcastTol(event: CastEvent) {
+    this.lastHardcastTimestamp = event.timestamp;
+  }
+
+  onApplyTol(event: ApplyBuffEvent) {
+    if (isFromHardcast(event)) {
+      this.lastHardcastTimestamp = event.timestamp; // set here and on cast to avoid event ordering mishaps
+    }
+  }
+
+  /**
+   * Gets the tracking accumulator for the current ToL, if there is one
+   */
+  _getAccumulator(event: Event<any>) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+      return null; // ToL isn't active, no accumulator
+    } else if (!this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT)) {
+      return this.t29_4pc; // player doesn't have the ToL talent so this must be from the set 4pc
+    } else if (
+      this.lastHardcastTimestamp !== null &&
+      this.lastHardcastTimestamp + TOL_DURATION + BUFFER >= event.timestamp
+    ) {
+      return this.hardcast; // player hardcast ToL within buff duration, so this is a hardcast
+    } else {
+      return this.t29_4pc; // player didn't hardcast within buff duration, so this is the set 4pc
+    }
+  }
+
+  onBoostedHeal(event: HealEvent) {
+    const spellId = event.ability.guid;
+
+    const accumulator = this._getAccumulator(event);
+    if (!accumulator) {
+      return;
+    }
+
+    accumulator.allBoostHealing += calculateEffectiveHealing(event, ALL_BOOST);
+    if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
+      accumulator.rejuvBoostHealing += calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
+    }
+  }
+
+  onCastRejuv(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      const accumulator = this._getAccumulator(event);
+      if (!accumulator) {
+        return;
+      }
+      accumulator.rejuvManaSaved += REJUV_MANA_SAVED;
+    }
+  }
+
+  onApplyWildGrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const accumulator = this._getAccumulator(event);
+    if (!accumulator) {
+      return;
+    }
+    // ToL causes extra WG buffs to be applied - rather than arbitrarily deciding which HoTs
+    // were the "extra" ones, we instead partially attribute every WG applied during ToL
+    this.hotTracker.addBoostFromApply(
+      accumulator.extraWgsAttribution,
+      WG_INCREASE / ALL_MULT,
+      event,
+    );
   }
 
   get suggestionThresholds() {
@@ -96,91 +199,6 @@ class TreeOfLife extends Analyzer {
     };
   }
 
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT, SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
-      this.onApplyBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
-      this.onRemoveBuff,
-    );
-  }
-
-  // if ToL buff is due to hardcast, returns the hardcast accumulator,
-  _getAccumulator(event: Event<any>) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
-      return null;
-    } else if (this.lastTolCast && this.lastTolCast + TOL_DURATION > event.timestamp) {
-      return this.hardcast;
-    } else {
-      return null;
-    }
-  }
-
-  onHeal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    const accumulator = this._getAccumulator(event);
-    if (!accumulator) {
-      return;
-    }
-
-    accumulator.allBoostHealing += calculateEffectiveHealing(event, ALL_BOOST);
-
-    if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
-      accumulator.rejuvBoostHealing += calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
-    } else if (spellId === SPELLS.WILD_GROWTH.id) {
-      accumulator.extraWgHealing += calculateEffectiveHealing(event, WG_INCREASE) / ALL_MULT;
-    }
-  }
-
-  onCast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
-      this.lastTolCast = event.timestamp;
-    } else if (
-      spellId === SPELLS.REJUVENATION.id &&
-      !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
-    ) {
-      const accumulator = this._getAccumulator(event);
-      if (!accumulator) {
-        return;
-      }
-      accumulator.rejuvManaSaved += REJUV_MANA_SAVED;
-    } else if (spellId === SPELLS.WILD_GROWTH.id) {
-      this.wgCasts += 1;
-    }
-  }
-
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.lastTolApply = event.timestamp;
-  }
-
-  onRemoveBuff(event: RemoveBuffEvent) {
-    const tolApply = this.lastTolApply === null ? this.owner.fight.start_time : this.lastTolApply;
-    const buffUptime = event.timestamp - tolApply;
-
-    if (this.lastTolCast) {
-      this.completedTolUptime += Math.min(TOL_DURATION, buffUptime);
-    }
-
-    this.lastTolCast = null;
-    this.lastTolApply = null;
-  }
-
   _getManaSavedHealing(accumulator: TolAccumulator) {
     return accumulator.rejuvManaSaved * this.rejuvenation.avgRejuvHealing;
   }
@@ -193,7 +211,7 @@ class TreeOfLife extends Analyzer {
     return (
       accumulator.allBoostHealing +
       accumulator.rejuvBoostHealing +
-      accumulator.extraWgHealing +
+      accumulator.extraWgsAttribution.healing +
       this._getManaSavedHealing(accumulator)
     );
   }
@@ -225,9 +243,6 @@ class TreeOfLife extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            The Tree of Life buff was active for{' '}
-            <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or{' '}
-            <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter.
             The displayed healing number is the sum of several benefits, listed below:
             <ul>
               <li>
@@ -266,7 +281,9 @@ class TreeOfLife extends Analyzer {
                 Increased Wild Growths:{' '}
                 <strong>
                   {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing),
+                    this.owner.getPercentageOfTotalHealingDone(
+                      this.hardcast.extraWgsAttribution.healing,
+                    ),
                   )}
                   %
                 </strong>
@@ -289,7 +306,7 @@ interface TolAccumulator {
   allBoostHealing: number;
   rejuvBoostHealing: number;
   rejuvManaSaved: number;
-  extraWgHealing: number;
+  extraWgsAttribution: Attribution;
 }
 
 export default TreeOfLife;

@@ -9,6 +9,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
+import FaelineStompHealing from '../shadowlands/covenant/FaelineStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
@@ -34,6 +35,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     vivify: Vivify,
     refreshingJadeWind: RefreshingJadeWind,
     expelHarm: ExpelHarm,
+    faelineStompHealing: FaelineStompHealing,
   };
 
   protected manaTracker!: ManaTracker;
@@ -49,6 +51,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected vivify!: Vivify;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected expelHarm!: ExpelHarm;
+  protected faelineStompHealing!: FaelineStompHealing;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (spellId === SPELLS.ESSENCE_FONT.id) {
@@ -72,6 +75,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
+    } else if (spellId === SPELLS.FAELINE_STOMP_CAST.id) {
+      spellInfo = this.getFLSDetails(spellInfo);
     }
 
     return spellInfo;
@@ -153,6 +158,15 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.expelHarm.targetHealing;
     spellInfo.overhealingDone =
       spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;
+    return spellInfo;
+  }
+
+  getFLSDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone =
+      this.faelineStompHealing.flsHealing + this.faelineStompHealing.efHealing;
+    spellInfo.overhealingDone =
+      this.faelineStompHealing.flsOverhealing + this.faelineStompHealing.efOverhealing;
+    spellInfo.manaSpent = this.faelineStompHealing.flsCasts * 2000;
     return spellInfo;
   }
 }

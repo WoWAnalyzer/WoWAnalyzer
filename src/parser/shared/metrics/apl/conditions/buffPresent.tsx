@@ -5,27 +5,27 @@ import { EventType } from 'parser/core/Events';
 import { Condition, tenseAlt } from '../index';
 import { buffDuration, DurationData, PandemicData } from './util';
 
-export function buffPresent(spell: Spell): Condition<boolean> {
+export function buffPresent(spell: Spell, latencyOffset: number = 0): Condition<number | null> {
   return {
     key: `buffPresent-${spell.id}`,
-    init: () => false,
+    init: () => null,
     update: (state, event) => {
       switch (event.type) {
         case EventType.ApplyBuff:
           if (event.ability.guid === spell.id) {
-            return true;
+            return event.timestamp;
           }
           break;
         case EventType.RemoveBuff:
           if (event.ability.guid === spell.id) {
-            return false;
+            return null;
           }
           break;
       }
 
       return state;
     },
-    validate: (state, _event) => state,
+    validate: (state, event) => (state ? event.timestamp > state + latencyOffset : false),
     describe: (tense) => (
       <>
         <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} present

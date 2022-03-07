@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: false, // Suggestions are in Bladestorm.js
           recommendedEfficiency: 0.7,
         },
         enabled: !combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id),
@@ -168,6 +168,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
+        },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
@@ -176,6 +180,10 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
@@ -227,6 +235,10 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },

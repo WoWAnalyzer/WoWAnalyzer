@@ -15,10 +15,16 @@ export function ConditionDescription({
     return null;
   }
 
+  const desc = rule.condition.describe(tense);
+
+  if (!desc || desc === '') {
+    return null;
+  }
+
   return (
     <>
       {' '}
-      {prefix || 'because'} {rule.condition.describe(tense)}
+      {prefix || 'because'} {desc}
     </>
   );
 }

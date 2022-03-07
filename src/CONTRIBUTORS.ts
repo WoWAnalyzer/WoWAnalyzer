@@ -170,6 +170,10 @@ export const Bonebasher: Contributor = {
   nickname: 'Bonebasher',
   github: 'Bonebasher',
 };
+export const bhawkins6177: Contributor = {
+  nickname: 'bhawkins6177',
+  github: 'bhawkins6177',
+};
 export const Sharrq: Contributor = {
   nickname: 'Sharrq',
   github: 'Sharrq',
