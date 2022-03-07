@@ -34,22 +34,24 @@ class Flagellation extends Analyzer {
       this.onLashDamage,
     );
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
-    (options.abilities as Abilities).add({
-      spell: SPELLS.FLAGELLATION.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      cooldown: this.cooldown,
-      gcd: {
-        base: 1000,
-      },
-      castEfficiency: {
-        maxCasts: () => this.maxCasts,
-        suggestion: true,
-        recommendedEfficiency: 0.9,
-        averageIssueEfficiency: 0.8,
-        majorIssueEfficiency: 0.7,
-        extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
-      },
-    });
+    if (this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id)) {
+      (options.abilities as Abilities).add({
+        spell: SPELLS.FLAGELLATION.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: this.cooldown,
+        gcd: {
+          base: 1000,
+        },
+        castEfficiency: {
+          maxCasts: () => this.maxCasts,
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
+          extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
+        },
+      });
+    }
   }
 
   adjustMaxCasts() {
