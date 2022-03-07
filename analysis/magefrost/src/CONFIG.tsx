@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [Sharrq, Dambroda],
   expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '9.1.5',
+  patchCompatibility: '9.2',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more. If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -40,7 +40,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/z4cAKJDfVvLrwa7H/3-Heroic+Shriekwing+-+Kill+(5:48)/Woimundl/standard',
+  exampleReport:
+    '/report/ydqQLTvJfCNtcDYR/13-Normal+Dausegne,+the+Fallen+Oracle+-+Kill+(4:22)/Arcanfrost/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,

@@ -36,10 +36,12 @@ import IcyPropulsion from './modules/items/IcyPropulsion';
 import ShiveringCore from './modules/items/ShiveringCore';
 import UnrelentingCold from './modules/items/UnrelentingCold';
 import BoneChilling from './modules/talents/BoneChilling';
+import CometStorm from './modules/talents/CometStorm';
 import GlacialSpike from './modules/talents/GlacialSpike';
 import LonelyWinter from './modules/talents/LonelyWinter';
 import SplittingIce from './modules/talents/SplittingIce';
 import ThermalVoid from './modules/talents/ThermalVoid';
+import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
 
     //Normalizers
+    cometStormLinkNormalizer: CometStormLinkNormalizer,
 
     // Features
     abilities: Abilities,
@@ -70,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     splittingIce: SplittingIce,
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
+    cometStorm: CometStorm,
 
     // Cooldowns
     frozenOrb: FrozenOrb,
