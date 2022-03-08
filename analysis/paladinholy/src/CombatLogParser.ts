@@ -30,7 +30,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
-import MaraadsAnalysis from './modules/shadowlands/legendaries/MaraadsAnalysis';
+import MaraadsOverheal from './modules/shadowlands/legendaries/MaraadsOverheal';
+import MaraadsCastRatio from './modules/shadowlands/legendaries/MaraadsCastRatio';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
@@ -101,7 +102,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //-- shadowlands section --//
     // Lego
-    maraadsAnalysis: MaraadsAnalysis,
+    MaraadsCastRatio: MaraadsCastRatio,
+    MaraadsOverheal: MaraadsOverheal,
     shockBarrier: ShockBarrier,
 
     // Covenant
