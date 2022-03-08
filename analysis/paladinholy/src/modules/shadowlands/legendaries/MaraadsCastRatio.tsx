@@ -1,17 +1,12 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-const OVERHEAL_THRESHOLD = 0.5;
-
-class MaraadsAnalysis extends Analyzer {
-  totalCasts = 0;
-  overheal = 0;
-  castsOverhealed = 0;
+class MaraadsCastRatio extends Analyzer {
+  LOTMCasts = 0;
   LODcasts = 0;
 
   constructor(options: Options) {
@@ -25,34 +20,22 @@ class MaraadsAnalysis extends Analyzer {
       this.cast,
     );
     this.addEventListener(
-      Events.heal.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
-      this.heal,
-    );
-    this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
-      this.LODcast,
-    );
+        Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
+        this.LODcast,
+      );
   }
 
   cast(event: CastEvent) {
-    this.totalCasts += 1;
+    this.LOTMCasts += 1;
   }
 
   LODcast(event: CastEvent) {
     this.LODcasts += 1;
   }
 
-  private heal(event: HealEvent) {
-    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    const effectiveHeal = event.amount + (event.absorbed || 0);
-    if (event.hitType !== HIT_TYPES.CRIT && effectiveHeal / totalHeal < OVERHEAL_THRESHOLD) {
-      this.castsOverhealed += 1;
-    }
-  }
-
-  get unbuffedCastsSuggestion() {
+  get unbuffedLOTMSuggestion() { // should only ever show when you have more LOTM than LOD
     return {
-      actual: 1 - this.LODcasts / this.totalCasts,
+      actual: 1 - (this.LODcasts / this.LOTMCasts),
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -62,44 +45,20 @@ class MaraadsAnalysis extends Analyzer {
     };
   }
 
-  get notEnoughCastsSuggestion() {
+  get notEnoughLOTMSuggestion() { // should only ever show when you have more LOD than LOTM
     return {
-      actual: 1 - this.totalCasts / this.LODcasts,
+      actual: 1 - (this.LOTMCasts / this.LODcasts),
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
+        minor: 0.1,
+        average: 0.175,
+        major: 0.25,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get overhealSuggestion() {
-    return {
-      actual: this.castsOverhealed / this.totalCasts,
-      isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.35,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-  suggestions(when: When) {
-    when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid casting <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> buffed
-          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when a large portion of it would
-          overheal. If you are finding that this is happening very frequently, consider using a
-          different legendary.
-        </>,
-      )
-        .icon(SPELLS.MARAADS_DYING_BREATH.icon)
-        .actual(`${formatPercentage(actual)}% of your casts overhealed by more than 50%`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
-    );
-    when(this.unbuffedCastsSuggestion).addSuggestion((suggest, actual, recommended) =>
+  suggestions(when: When) { // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
+    when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Try to avoid casting unbuffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, as it is a
@@ -111,7 +70,7 @@ class MaraadsAnalysis extends Analyzer {
         .actual(`${formatPercentage(actual)}% of your casts were unbuffed by Maraad's Dying Breath`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
-    when(this.notEnoughCastsSuggestion).addSuggestion((suggest, actual, recommended) =>
+    when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Try to keep your casts of <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> at a 1:1 ratio
@@ -132,4 +91,4 @@ class MaraadsAnalysis extends Analyzer {
     );
   }
 }
-export default MaraadsAnalysis;
+export default MaraadsCastRatio;
