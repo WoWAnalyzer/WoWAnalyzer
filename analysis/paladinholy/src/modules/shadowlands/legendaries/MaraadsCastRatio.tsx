@@ -58,7 +58,7 @@ class MaraadsCastRatio extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when: When) { 
+  suggestions(when: When) {
     // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
     when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
