@@ -18,7 +18,7 @@ export default {
       While most features for Fury have been implemented, there are a few that are still to come. If
       you find any issues or if there is something missing that you would like to see added, please
       open an Issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or
-      send a message to Abelito75 on Discord (Abelito75#0001). <br /> <br />
+      send a message to Tyndi on Discord (Tyndi#9039). <br /> <br />
       Make sure to check out the{' '}
       <a href="https://discordapp.com/invite/Skyhold">Warrior Class Discord</a> if you need more
       specific advice or a more detailed guide than the ones available on{' '}
