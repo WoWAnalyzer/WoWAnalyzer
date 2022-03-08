@@ -33,7 +33,7 @@ class MaraadsCastRatio extends Analyzer {
     this.LODcasts += 1;
   }
 
-  get unbuffedCastsSuggestion() { // should only ever show when you have more LOTM than LOD
+  get unbuffedLOTMSuggestion() { // should only ever show when you have more LOTM than LOD
     return {
       actual: 1 - (this.LODcasts / this.LOTMCasts),
       isGreaterThan: {
@@ -45,7 +45,7 @@ class MaraadsCastRatio extends Analyzer {
     };
   }
 
-  get notEnoughCastsSuggestion() { // should only ever show when you have more LOD than LOTM
+  get notEnoughLOTMSuggestion() { // should only ever show when you have more LOD than LOTM
     return {
       actual: 1 - (this.LOTMCasts / this.LODcasts),
       isGreaterThan: {
@@ -58,7 +58,7 @@ class MaraadsCastRatio extends Analyzer {
   }
 
   suggestions(when: When) { // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
-    when(this.unbuffedCastsSuggestion).addSuggestion((suggest, actual, recommended) =>
+    when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Try to avoid casting unbuffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, as it is a
@@ -70,7 +70,7 @@ class MaraadsCastRatio extends Analyzer {
         .actual(`${formatPercentage(actual)}% of your casts were unbuffed by Maraad's Dying Breath`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
-    when(this.notEnoughCastsSuggestion).addSuggestion((suggest, actual, recommended) =>
+    when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Try to keep your casts of <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> at a 1:1 ratio
