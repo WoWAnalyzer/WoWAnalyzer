@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
@@ -8,10 +7,12 @@ class Condemn extends Analyzer {
     abilities: Abilities,
   };
 
+  condemnSpellId: number = 0;
+
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.active = false; // this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
     if (!this.active) {
       return;
