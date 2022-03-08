@@ -20,9 +20,9 @@ class MaraadsCastRatio extends Analyzer {
       this.cast,
     );
     this.addEventListener(
-        Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
-        this.LODcast,
-      );
+      Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
+      this.LODcast,
+    );
   }
 
   cast(event: CastEvent) {
@@ -33,9 +33,10 @@ class MaraadsCastRatio extends Analyzer {
     this.LODcasts += 1;
   }
 
-  get unbuffedLOTMSuggestion() { // should only ever show when you have more LOTM than LOD
+  get unbuffedLOTMSuggestion() {
+     // should only ever show when you have more LOTM than LOD
     return {
-      actual: 1 - (this.LODcasts / this.LOTMCasts),
+      actual: 1 - this.LODcasts / this.LOTMCasts,
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -45,9 +46,10 @@ class MaraadsCastRatio extends Analyzer {
     };
   }
 
-  get notEnoughLOTMSuggestion() { // should only ever show when you have more LOD than LOTM
+  get notEnoughLOTMSuggestion() {
+     // should only ever show when you have more LOD than LOTM
     return {
-      actual: 1 - (this.LOTMCasts / this.LODcasts),
+      actual: 1 - this.LOTMCasts / this.LODcasts,
       isGreaterThan: {
         minor: 0.1,
         average: 0.175,
@@ -56,7 +58,6 @@ class MaraadsCastRatio extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-
   suggestions(when: When) { // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
     when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
