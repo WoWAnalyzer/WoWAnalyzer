@@ -11,7 +11,6 @@ const OVERHEAL_THRESHOLD = 0.5;
 class MaraadsOverheal extends Analyzer {
   totalCasts = 0;
   castsOverhealed = 0;
-  LODcasts = 0;
 
   constructor(options: Options) {
     super(options);
