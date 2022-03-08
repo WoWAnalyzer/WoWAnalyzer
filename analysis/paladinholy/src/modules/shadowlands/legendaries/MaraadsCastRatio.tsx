@@ -34,7 +34,7 @@ class MaraadsCastRatio extends Analyzer {
   }
 
   get unbuffedLOTMSuggestion() {
-     // should only ever show when you have more LOTM than LOD
+    // should only ever show when you have more LOTM than LOD
     return {
       actual: 1 - this.LODcasts / this.LOTMCasts,
       isGreaterThan: {
@@ -47,7 +47,7 @@ class MaraadsCastRatio extends Analyzer {
   }
 
   get notEnoughLOTMSuggestion() {
-     // should only ever show when you have more LOD than LOTM
+    // should only ever show when you have more LOD than LOTM
     return {
       actual: 1 - this.LOTMCasts / this.LODcasts,
       isGreaterThan: {
@@ -58,7 +58,8 @@ class MaraadsCastRatio extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when: When) { // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
+  suggestions(when: When) { 
+    // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
     when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
