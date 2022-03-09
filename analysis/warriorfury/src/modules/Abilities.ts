@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -44,6 +45,20 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: [
+          SPELLS.CONDEMN.id,
+          SPELLS.CONDEMN_MASSACRE.id,
+          SPELLS.CONDEMN_FURY.id,
+          SPELLS.CONDEMN_FURY_MASSACRE.id,
+        ],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.SIEGEBREAKER_TALENT.id,
@@ -78,6 +93,28 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+      },
+      {
+        spell: SPELLS.ANCIENT_AFTERSHOCK.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown:
+          90 -
+          (this.selectedCombatant.hasConduitBySpellID(SPELLS.DESTRUCTIVE_REVERBERATIONS.id)
+            ? 15
+            : 0),
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
+      {
+        spell: SPELLS.SPEAR_OF_BASTION.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       // Others
       {
@@ -122,6 +159,15 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+      },
+      {
+        spell: SPELLS.CONQUERORS_BANNER.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       // Defensive
       {

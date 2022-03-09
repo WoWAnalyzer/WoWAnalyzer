@@ -1,7 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { Condemn } from '@wowanalyzer/warrior';
-
 import Abilities from './modules/Abilities';
 import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
@@ -61,9 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     warMachine: WarMachine,
     punish: Punish,
     dragonRoar: DragonRoar,
-
-    //covenants
-    condemn: Condemn,
 
     //legos
     theWall: TheWall,
