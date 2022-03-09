@@ -60,9 +60,6 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
 
-    //covenants
-    condemn: Condemn,
-
     //legos
     theWall: TheWall,
     thunderlord: Thunderlord,
