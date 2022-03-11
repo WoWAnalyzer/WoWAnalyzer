@@ -51,10 +51,10 @@ import {
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
-// prettier-ignore
 
 // prettier-ignore
 export default [
+  change(date(2022, 3, 11), 'Updated build tooling for improved performance during development.', Zerotorescue),
   change(date(2022, 3, 2), <>Added support for <ItemLink id={ITEMS.VANTUS_RUNE_SEPULCHER.id} />.</>, emallson),
   change(date(2022, 3, 1), 'Changed default zone from 28 to 29', bhawkins6177),
   change(date(2022, 2, 21), 'Added support for Sepulcher of the First Ones', emallson),
