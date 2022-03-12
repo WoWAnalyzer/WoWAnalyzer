@@ -118,7 +118,7 @@ export default function integrationTest(
           // the snapshot output diffs making them easier to review.
           let module: Analyzer;
           beforeAll(() => {
-            module = parser.getModule(moduleClass);
+            module = parser.getModule(moduleClass) as Analyzer;
           });
 
           it('matches the statistic snapshot', () => {

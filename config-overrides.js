@@ -1,20 +1,25 @@
 const { override, babelInclude } = require('customize-cra');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const EslintPlugin = require('eslint-webpack-plugin');
 const path = require('path');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 
-// customize-cra's disableEsLint disables the rules, but disabling the entire
-// plugin seem to give us more performance.
-const disableEsLint = () => (config) => ({
+const disablePlugins = (plugins) => (config) => ({
   ...config,
-  plugins: config.plugins.filter((plugin) => !(plugin instanceof EslintPlugin)),
+  plugins: config.plugins.filter((plugin) => !plugins.includes(plugin.constructor.name)),
 });
-const disableTypeChecking = () => (config) => ({
-  ...config,
-  plugins: config.plugins.filter((plugin) => !(plugin instanceof ForkTsCheckerWebpackPlugin)),
-});
+const reportPlugins = () => (config) => {
+  console.log(config.plugins.map((plugin) => plugin.constructor.name));
+  process.exit();
+};
+const fixLingui = () => (config) => {
+  config.module.rules = [
+    ...config.module.rules,
+    // Fix for lingui loader https://github.com/lingui/js-lingui/issues/1048#issuecomment-822785379
+    {
+      resourceQuery: /as-js/,
+      type: 'javascript/auto',
+    },
+  ];
+  return config;
+};
 
 module.exports = override(
   babelInclude([
@@ -23,6 +28,7 @@ module.exports = override(
     // Hello Windows
     new RegExp(`^${process.cwd().replace(/\\/g, '\\\\')}\\\\analysis\\\\[^\\\\]+\\\\src`),
   ]),
+  fixLingui(),
   // TODO: Support linking packages. The below was disabled since it will make CRA show paths to
   //  node_modules for errors which make them harder to fix. It also likely makes Babel parse files
   //  twice, reducing performance. A better solution may be to keep symlinking enabled, and scan
@@ -40,7 +46,10 @@ module.exports = override(
   //   config.resolve.symlinks = false;
   //   return config;
   // },
-  process.env.DISABLE_AUTOMATIC_ESLINT && disableEsLint(),
-  process.env.DISABLE_AUTOMATIC_ESLINT && disableTypeChecking(),
+
+  // customize-cra's disableEsLint disables the rules, but disabling the entire
+  // plugin seem to give us more performance.
+  process.env.DISABLE_AUTOMATIC_ESLINT && disablePlugins(['ESLintWebpackPlugin']),
+  process.env.DISABLE_AUTOMATIC_ESLINT && disablePlugins(['ForkTsCheckerWebpackPlugin']),
   // addBabelPlugin('babel-plugin-transform-typescript-metadata'),
 );
