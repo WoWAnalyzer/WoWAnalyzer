@@ -17,7 +17,7 @@ class MaraadsCastRatio extends Analyzer {
     }
     this.addEventListener(
       Events.cast.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
-      this.cast,
+      this.LOTMcast,
     );
     this.addEventListener(
       Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
@@ -25,7 +25,7 @@ class MaraadsCastRatio extends Analyzer {
     );
   }
 
-  cast(event: CastEvent) {
+  LOTMcast(event: CastEvent) {
     this.LOTMCasts += 1;
   }
 
@@ -34,7 +34,7 @@ class MaraadsCastRatio extends Analyzer {
   }
 
   get unbuffedLOTMSuggestion() {
-    // should only ever show when you have more LOTM than LOD
+    // should only ever show when you have more LOTM than LOD, as having more LOD would give you a negative number when subtracted from 1
     return {
       actual: 1 - this.LODcasts / this.LOTMCasts,
       isGreaterThan: {
@@ -47,7 +47,7 @@ class MaraadsCastRatio extends Analyzer {
   }
 
   get notEnoughLOTMSuggestion() {
-    // should only ever show when you have more LOD than LOTM
+    // should only ever show when you have more LOD than LOTM, as having more LOTM would give you a negative number when subtracted from 1
     return {
       actual: 1 - this.LOTMCasts / this.LODcasts,
       isGreaterThan: {

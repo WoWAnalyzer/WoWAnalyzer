@@ -32,10 +32,14 @@ class MaraadsOverheal extends Analyzer {
     this.totalCasts += 1;
   }
 
-  private heal(event: HealEvent) {
+  heal(event: HealEvent) {
     const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    const effectiveHeal = event.amount + (event.absorbed || 0);
-    if (event.hitType !== HIT_TYPES.CRIT && effectiveHeal / totalHeal < OVERHEAL_THRESHOLD) {
+    const effectiveHeal = event.amount + (event.absorbed || 0); // effective healing by default does not include healing done to healing absorbs, even though that is effective healing
+    if (event.hitType === HIT_TYPES.CRIT) {
+      // dont  want to penalize somebody for accidentally critting somebody for more than their entire healthbar
+      return;
+    }
+    if (effectiveHeal / totalHeal < OVERHEAL_THRESHOLD) {
       this.castsOverhealed += 1;
     }
   }
