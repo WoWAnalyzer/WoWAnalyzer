@@ -18,6 +18,12 @@ class FillerLightOfTheMartyrs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = !this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.MARAADS_DYING_BREATH.bonusID,
+    );
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),
       this.handleCast,

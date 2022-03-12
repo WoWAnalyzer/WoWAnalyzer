@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { acornellier } from 'CONTRIBUTORS';
+import { xizbow } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -8,9 +8,9 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [acornellier],
+  contributors: [xizbow],
   expansion: Expansion.Shadowlands,
-  patchCompatibility: '9.0.5',
+  patchCompatibility: '9.2',
   isPartial: false,
   description: (
     <>
@@ -27,7 +27,7 @@ const config: Config = {
       (such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and{' '}
       <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
       ). Ohh and don't cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> unless there's nothing
-      else to cast.
+      else to cast, or you're playing with <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} />.
       <br />
       <br />
       If you want to learn more about Holy Paladins, join the Paladin community at the{' '}
