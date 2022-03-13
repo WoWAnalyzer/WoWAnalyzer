@@ -13,7 +13,7 @@ export const SHAMAN_TIER_ID = 1499;
 export const WARLOCK_TIER_ID = 1507;
 export const WARRIOR_TIER_ID = 1506;
 
-export type T29_TIER_GEAR_IDS =
+export type T28_TIER_GEAR_IDS =
   | typeof DEATH_KNIGHT_TIER_ID
   | typeof DEMON_HUNTER_TIER_ID
   | typeof DRUID_TIER_ID
@@ -27,7 +27,7 @@ export type T29_TIER_GEAR_IDS =
   | typeof WARLOCK_TIER_ID
   | typeof WARRIOR_TIER_ID;
 
-export const TIER_BY_CLASSES: { [key: number]: T29_TIER_GEAR_IDS } = {
+export const TIER_BY_CLASSES: { [key: number]: T28_TIER_GEAR_IDS } = {
   [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_TIER_ID,
   [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_TIER_ID,
   [CLASSES.DRUID]: DRUID_TIER_ID,

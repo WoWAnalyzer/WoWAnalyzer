@@ -1,5 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { T29_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
+import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
 import SPELLS from 'common/SPELLS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -475,11 +475,11 @@ class Combatant extends Entity {
     return [this.head, this.shoulder, this.chest, this.legs, this.hands];
   }
 
-  setIdBySpec(): T29_TIER_GEAR_IDS {
+  setIdBySpec(): T28_TIER_GEAR_IDS {
     return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
   }
 
-  has2Piece(setId?: T29_TIER_GEAR_IDS) {
+  has2Piece(setId?: T28_TIER_GEAR_IDS) {
     if (!setId) {
       setId = this.setIdBySpec();
     }
@@ -490,7 +490,7 @@ class Combatant extends Entity {
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
   }
 
-  has4Piece(setId?: T29_TIER_GEAR_IDS) {
+  has4Piece(setId?: T28_TIER_GEAR_IDS) {
     if (!setId) {
       setId = this.setIdBySpec();
     }
