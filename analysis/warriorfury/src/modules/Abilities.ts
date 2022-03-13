@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RAGING_BLOW.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste: number) => 8 / (1 + haste),
-        charges: 2,
+        charges: combatant.has2Piece() ? 3 : 2,
         gcd: {
           base: 1500,
         },
