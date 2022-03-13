@@ -483,12 +483,20 @@ class Combatant extends Entity {
     if (!setId) {
       setId = this.setIdBySpec();
     }
+    if (!setId) {
+      console.error("no setId passed and couldn't match spec to a setId");
+      return false;
+    }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
   }
 
   has4Piece(setId?: T29_TIER_GEAR_IDS) {
     if (!setId) {
       setId = this.setIdBySpec();
+    }
+    if (!setId) {
+      console.error("no setId passed and couldn't match spec to a setId");
+      return false;
     }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
   }

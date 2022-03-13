@@ -54,7 +54,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2022, 3, 13), 'Added has2Piece and has4Piece to the combatant to enable easily checking if a player has tier equipped or not', Putro),
+  change(date(2022, 3, 13), 'Added has2Piece and has4Piece functions to the combatant to easily check if a player has tier equipped or not', Putro),
   change(date(2022, 3, 11), 'Updated build tooling for improved performance during development.', Zerotorescue),
   change(date(2022, 3, 2), <>Added support for <ItemLink id={ITEMS.VANTUS_RUNE_SEPULCHER.id} />.</>, emallson),
   change(date(2022, 3, 1), 'Changed default zone from 28 to 29', bhawkins6177),
