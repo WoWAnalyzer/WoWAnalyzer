@@ -446,51 +446,6 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
-  // Punchcards are insertable items for the Pocket Sized Computation Device
-  // trinket The PSCD never has actual gems in it, since it is a one-time quest
-  // reward
-  get trinket1Punchcard() {
-    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
-    return punchcard;
-  }
-
-  get trinket2Punchcard() {
-    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
-    return punchcard;
-  }
-
-  // Red punchcard is always the first in the array
-  getRedPunchcard(id: number) {
-    if (this.trinket1Punchcard && this.trinket1Punchcard[0].id === id) {
-      return this.trinket1Punchcard[0];
-    }
-    if (this.trinket2Punchcard && this.trinket2Punchcard[0].id === id) {
-      return this.trinket2Punchcard[0];
-    }
-
-    return undefined;
-  }
-
-  hasRedPunchcard(id: number) {
-    return this.getRedPunchcard(id) !== undefined;
-  }
-
-  // Yellow punchcard is always second
-  getYellowPunchcard(id: number) {
-    if (this.trinket1Punchcard && this.trinket1Punchcard[1].id === id) {
-      return this.trinket1Punchcard[1];
-    }
-    if (this.trinket2Punchcard && this.trinket2Punchcard[1].id === id) {
-      return this.trinket2Punchcard[1];
-    }
-
-    return undefined;
-  }
-
-  hasYellowPunchcard(id: number) {
-    return this.getYellowPunchcard(id) !== undefined;
-  }
-
   //Each legendary is given a specific bonusID that is the same regardless which slot it appears on.
   hasLegendaryByBonusID(legendaryBonusID: number) {
     const foundLegendaryMatch = Object.keys(this._gearItemsBySlotId)
@@ -511,6 +466,20 @@ class Combatant extends Entity {
       .find((item: Item) => item.id === itemId);
   }
 
+  // endregion
+
+  // region Tier
+  get tierPieces() {
+    return [this.head, this.shoulder, this.chest, this.legs, this.hands];
+  }
+
+  has2Piece(setId: number) {
+    return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
+  }
+
+  has4Piece(setId: number) {
+    return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
+  }
   // endregion
 
   _parsePrepullBuffs(buffs: Buff[]) {

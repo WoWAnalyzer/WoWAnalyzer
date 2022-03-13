@@ -1,0 +1,12 @@
+export const DEATH_KNIGHT_TIER_ID = 1500;
+export const DEMON_HUNTER_TIER_ID = 1501;
+export const DRUID_TIER_ID = 1502;
+export const HUNTER_TIER_ID = 1497;
+export const MAGE_TIER_ID = 1503;
+export const MONK_TIER_ID = 1504;
+export const PALADIN_TIER_ID = 1498;
+export const PRIEST_TIER_ID = 1505;
+export const ROGUE_TIER_ID = 1496;
+export const SHAMAN_TIER_ID = 1499;
+export const WARLOCK_TIER_ID = 1507;
+export const WARRIOR_TIER_ID = 1506;
