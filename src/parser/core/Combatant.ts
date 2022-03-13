@@ -1,5 +1,7 @@
 import { Enchant } from 'common/ITEMS/Item';
+import { T29_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
 import SPELLS from 'common/SPELLS';
+import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
@@ -469,15 +471,25 @@ class Combatant extends Entity {
   // endregion
 
   // region Tier
-  get tierPieces() {
+  get tierPieces(): Item[] {
     return [this.head, this.shoulder, this.chest, this.legs, this.hands];
   }
 
-  has2Piece(setId: number) {
+  setIdBySpec(): T29_TIER_GEAR_IDS {
+    return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
+  }
+
+  has2Piece(setId?: T29_TIER_GEAR_IDS) {
+    if (!setId) {
+      setId = this.setIdBySpec();
+    }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
   }
 
-  has4Piece(setId: number) {
+  has4Piece(setId?: T29_TIER_GEAR_IDS) {
+    if (!setId) {
+      setId = this.setIdBySpec();
+    }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
   }
   // endregion
