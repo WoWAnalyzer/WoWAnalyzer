@@ -30,7 +30,8 @@ class FortifyingIngredients extends Analyzer {
   }
 
   statistic() {
-    const shield = this.healingDone.byAbility(SPELLS.FORTIFYING_INGREDIENTS.id).effective;
+    // This is silly work around till I can get around to fixing the whole `HealingDone` library to actually work logically with absorbs
+    const shield = this.healingDone.byAbility(SPELLS.FORTIFYING_INGREDIENTS_SHIELD.id).regular;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

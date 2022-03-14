@@ -67,6 +67,8 @@ import Upwelling from './modules/talents/Upwelling';
 import FallenOrderCraneCloneNormalizer from './normalizers/FallenOrderCraneCloneNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
+import BonedustBrewAverageTargets from './modules/shadowlands/covenant/BonedustBrewAverageTargets';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -141,6 +143,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fallenOrderAverageHPOfTargetOnCast: FallenOrderAverageHPOfTargetOnCast,
     faelineStomp: FaelineStomp,
     faelineStompHealing: FaelineStompHealing,
+    bonedustBrewAverageTargets: BonedustBrewAverageTargets,
 
     // Conduits
     // Endurance
