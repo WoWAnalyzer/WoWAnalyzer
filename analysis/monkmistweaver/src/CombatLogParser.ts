@@ -32,6 +32,7 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import BonedustBrewAverageTargets from './modules/shadowlands/covenant/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/shadowlands/covenant/FaelineStompHealing';
 import FallenOrderAverageHPOfTargetOnCast from './modules/shadowlands/covenant/FallenOrderAverageHPOfTargetOnCast';
 import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
@@ -67,8 +68,6 @@ import Upwelling from './modules/talents/Upwelling';
 import FallenOrderCraneCloneNormalizer from './normalizers/FallenOrderCraneCloneNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
-import BonedustBrewAverageTargets from './modules/shadowlands/covenant/BonedustBrewAverageTargets';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

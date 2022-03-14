@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Combatants from 'parser/shared/modules/Combatants';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -23,7 +23,6 @@ class FaelineStompHealing extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
-
 
     if (!this.active) {
       return;
@@ -75,7 +74,8 @@ class FaelineStompHealing extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.BONEDUST_BREW_CAST.id}>
           <>
-            {(this.totalBuffs / this.totalCasts).toFixed(2)} <small>average allies hit per cast</small>
+            {(this.totalBuffs / this.totalCasts).toFixed(2)}{' '}
+            <small>average allies hit per cast</small>
           </>
         </BoringSpellValueText>
       </Statistic>
