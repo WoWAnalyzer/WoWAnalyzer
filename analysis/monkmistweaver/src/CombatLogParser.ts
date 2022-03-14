@@ -32,6 +32,7 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import BonedustBrewAverageTargets from './modules/shadowlands/covenant/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/shadowlands/covenant/FaelineStompHealing';
 import FallenOrderAverageHPOfTargetOnCast from './modules/shadowlands/covenant/FallenOrderAverageHPOfTargetOnCast';
 import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
@@ -141,6 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fallenOrderAverageHPOfTargetOnCast: FallenOrderAverageHPOfTargetOnCast,
     faelineStomp: FaelineStomp,
     faelineStompHealing: FaelineStompHealing,
+    bonedustBrewAverageTargets: BonedustBrewAverageTargets,
 
     // Conduits
     // Endurance
