@@ -13,11 +13,13 @@ class HolyWordBase extends Analyzer {
   baseCooldown = 60000;
   serendipityReduction = 6000;
   remainingCooldown = 0;
-  serendipityProccers: { [spellID: string]: {
-    baseReduction: () => number,
-    lightOfTheNaaruReduction: () => number,
-    apotheosisReduction: () => number,
-  } } = {};
+  serendipityProccers: {
+    [spellID: string]: {
+      baseReduction: () => number;
+      lightOfTheNaaruReduction: () => number;
+      apotheosisReduction: () => number;
+    };
+  } = {};
   holyWordHealing = 0;
   holyWordOverhealing = 0;
   holyWordCasts = 0;
@@ -66,7 +68,7 @@ class HolyWordBase extends Analyzer {
   get baseCooldownReduction() {
     let totalCDR = 0;
 
-    for (let [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
       totalCDR += value;
     }
     return totalCDR;
@@ -75,8 +77,8 @@ class HolyWordBase extends Analyzer {
   get lightOfTheNaaruCooldownReduction() {
     let lotnCDR = 0;
 
-    for (let [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
-      lotnCDR += value
+    for (const [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
+      lotnCDR += value;
     }
     return lotnCDR;
   }
@@ -84,7 +86,7 @@ class HolyWordBase extends Analyzer {
   get apotheosisCooldownReduction() {
     let apothCDR = 0;
 
-    for (let [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
       apothCDR += value;
     }
     return apothCDR;
@@ -92,17 +94,17 @@ class HolyWordBase extends Analyzer {
 
   get totalHolyWordReductionPerSpell() {
     const totalReduction: any = {};
-    for (let [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += value;
     }
 
-    for (let [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += value;
     }
 
-    for (let [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
       totalReduction[key] = totalReduction[key] || 0;
       totalReduction[key] += value;
     }
@@ -111,24 +113,24 @@ class HolyWordBase extends Analyzer {
   }
 
   get totalHolyWordReductionPerSpellPerTalent() {
-    const totalReduction: {[spellID: string]: 
-      {
-        [otherSpellID: string]: number
-      }
+    const totalReduction: {
+      [spellID: string]: {
+        [otherSpellID: string]: number;
+      };
     } = {};
-    for (let [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
       totalReduction[key] = totalReduction[key] || {};
       totalReduction[key].base = totalReduction[key].base || 0;
       totalReduction[key].base += value;
     }
 
-    for (let [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
       totalReduction[key] = totalReduction[key] || {};
       totalReduction[key].apotheosis = totalReduction[key].apotheosis || 0;
       totalReduction[key].apotheosis += value;
     }
 
-    for (let [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
+    for (const [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
       totalReduction[key] = totalReduction[key] || {};
       totalReduction[key].lightOfTheNaaru = totalReduction[key].lightOfTheNaaru || 0;
       totalReduction[key].lightOfTheNaaru += value;

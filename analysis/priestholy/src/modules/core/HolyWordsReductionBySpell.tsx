@@ -42,7 +42,7 @@ class HolyWordsReductionBySpell extends Analyzer {
   }
 
   get reductionBySpell() {
-    let totalReductionBySpell: {[spellID: string]: { [otherSpellID: string]: number }} = {};
+    let totalReductionBySpell: { [spellID: string]: { [otherSpellID: string]: number } } = {};
 
     totalReductionBySpell = this.sumCooldown(
       totalReductionBySpell,
@@ -64,12 +64,15 @@ class HolyWordsReductionBySpell extends Analyzer {
     return totalReductionBySpell;
   }
 
-  sumCooldown(currentList: {[spellID: string]: { [otherSpellID: string]: number }}, newList: {[spellID: string]: { [otherSpellID: string]: number }}) {
-    for (let [key, value] of Object.entries(newList)) {
+  sumCooldown(
+    currentList: { [spellID: string]: { [otherSpellID: string]: number } },
+    newList: { [spellID: string]: { [otherSpellID: string]: number } },
+  ) {
+    for (const [key, value] of Object.entries(newList)) {
       if (currentList[key] == null) {
         currentList[key] = value;
       } else {
-        for (let [innerKey, innerValue] of Object.entries(value)) {
+        for (const [innerKey, innerValue] of Object.entries(value)) {
           currentList[key][innerKey] = currentList[key][innerKey] || 0;
           currentList[key][innerKey] += innerValue;
         }
