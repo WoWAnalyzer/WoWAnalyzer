@@ -68,6 +68,7 @@ class HolyWordBase extends Analyzer {
   get baseCooldownReduction() {
     let totalCDR = 0;
 
+    // eslint-disable-next-line no-use-before-define
     for (const [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
       totalCDR += value;
     }
@@ -77,6 +78,7 @@ class HolyWordBase extends Analyzer {
   get lightOfTheNaaruCooldownReduction() {
     let lotnCDR = 0;
 
+    // eslint-disable-next-line no-use-before-define
     for (const [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
       lotnCDR += value;
     }
@@ -86,6 +88,7 @@ class HolyWordBase extends Analyzer {
   get apotheosisCooldownReduction() {
     let apothCDR = 0;
 
+    // eslint-disable-next-line no-use-before-define
     for (const [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
       apothCDR += value;
     }
