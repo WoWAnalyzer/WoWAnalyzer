@@ -68,9 +68,8 @@ class HolyWordBase extends Analyzer {
   get baseCooldownReduction() {
     let totalCDR = 0;
 
-    // eslint-disable-next-line no-use-before-define
-    for (const [key, value] of Object.entries(this.baseHolyWordReductionBySpell)) {
-      totalCDR += value;
+    for (const key of Object.entries(this.baseHolyWordReductionBySpell)) {
+      totalCDR += key[1];
     }
     return totalCDR;
   }
@@ -78,9 +77,8 @@ class HolyWordBase extends Analyzer {
   get lightOfTheNaaruCooldownReduction() {
     let lotnCDR = 0;
 
-    // eslint-disable-next-line no-use-before-define
-    for (const [key, value] of Object.entries(this.lightOfTheNaruReductionBySpell)) {
-      lotnCDR += value;
+    for (const key of Object.entries(this.lightOfTheNaruReductionBySpell)) {
+      lotnCDR += key[1];
     }
     return lotnCDR;
   }
@@ -88,9 +86,8 @@ class HolyWordBase extends Analyzer {
   get apotheosisCooldownReduction() {
     let apothCDR = 0;
 
-    // eslint-disable-next-line no-use-before-define
-    for (const [key, value] of Object.entries(this.apotheosisReductionBySpell)) {
-      apothCDR += value;
+    for (const key of Object.entries(this.apotheosisReductionBySpell)) {
+      apothCDR += key[1];
     }
     return apothCDR;
   }
