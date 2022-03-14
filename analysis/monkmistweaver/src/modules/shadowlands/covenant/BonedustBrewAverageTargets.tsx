@@ -24,7 +24,7 @@ class FaelineStompHealing extends Analyzer {
 
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
 
-   
+
     if (!this.active) {
       return;
     }
@@ -61,7 +61,7 @@ class FaelineStompHealing extends Analyzer {
     this.castMap.set(this.totalCasts, currentTotal);
   }
 
-  enemyDebuffs(event: ApplyDebuffEvent)  {
+  enemyDebuffs(event: ApplyDebuffEvent) {
     this.totalDebuffs += 1;
   }
 
@@ -82,8 +82,8 @@ class FaelineStompHealing extends Analyzer {
     );
   }
 
-   /** The dropdown table in the base form of this statistic */
-   get baseTable(): React.ReactNode {
+  /** The dropdown table in the base form of this statistic */
+  get baseTable(): React.ReactNode {
     return (
       <>
         <table className="table table-condensed">
