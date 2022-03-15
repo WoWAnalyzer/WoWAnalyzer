@@ -104,5 +104,10 @@ const spells = {
     name: 'Potion of Unhindered Passing',
     icon: 'inv_alchemy_90_utility_teal',
   },
+  COSMIC_HEALING_POTION: {
+    id: 359867,
+    name: 'Cosmic Healing Potion',
+    icon: 'inv_alchemy_70_red',
+  }
 } as const;
 export default spells;
