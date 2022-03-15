@@ -110,6 +110,6 @@ const potions: ItemList = {
     id: 187802,
     name: 'Cosmic Healing Potion',
     icon: 'inv_alchemy_70_red',
-  }
+  },
 };
 export default potions;

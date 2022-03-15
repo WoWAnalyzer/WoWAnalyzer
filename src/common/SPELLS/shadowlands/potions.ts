@@ -108,6 +108,6 @@ const spells = {
     id: 359867,
     name: 'Cosmic Healing Potion',
     icon: 'inv_alchemy_70_red',
-  }
+  },
 } as const;
 export default spells;
