@@ -4,6 +4,7 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass } fro
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 3, 14), <>Fixed <b>ANY</b> crashing from the HarmoniousApparatus modules</>, Abelito75),
   change(date(2022, 3, 14), <>Fixed <b>ANY</b> crashing from the HolyWord modules</>, Abelito75),
   change(date(2021, 10, 1), <>Fixing Crash in Holy Priest Checklist</>, Khadaj),
   change(
