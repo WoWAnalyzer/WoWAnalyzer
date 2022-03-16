@@ -38,6 +38,7 @@ import FallenOrderAverageHPOfTargetOnCast from './modules/shadowlands/covenant/F
 import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
+import T28FourSet from './modules/shadowlands/tier/T28FourSet';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
@@ -160,6 +161,9 @@ class CombatLogParser extends CoreCombatLogParser {
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
     sinisterTeachings: SinisterTeachings,
+
+    // Tier set
+    t28FourSet: T28FourSet,
   };
 }
 

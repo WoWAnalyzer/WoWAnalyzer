@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-class FaelineStompHealing extends Analyzer {
+class BonedustBrewAverageTargets extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -107,4 +107,4 @@ class FaelineStompHealing extends Analyzer {
   }
 }
 
-export default FaelineStompHealing;
+export default BonedustBrewAverageTargets;
