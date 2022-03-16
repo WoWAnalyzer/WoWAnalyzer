@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 3, 16), <> Added T28 Four set Statistic </>, Abelito75),
   change(date(2022, 3, 14), <> Added Average Targets Hit module for Bonedust Brew and fixed Fortifying Ingredients' module. </>, Abelito75),
   change(date(2022, 2, 6), <> Fallen Order now longer works with Mist Wrap. Removing module. </>, Abelito75),
   change(date(2022, 2, 6), <> Added FLS into the Mana Efficiency Tracker.</>, Abelito75),
