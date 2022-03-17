@@ -90,7 +90,7 @@ class AngerManagement extends Analyzer {
               <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction
             </>
           }
-        ></BoringValueText>
+        >-</BoringValueText>
       </Statistic>
     );
   }
