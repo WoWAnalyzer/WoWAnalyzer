@@ -4,7 +4,7 @@ import Background from './images/Anduin.jpg';
 
 const Anduin: Boss = {
   id: 2546,
-  name: 'AnduinWrynn',
+  name: 'Anduin Wrynn',
   background: Background,
   icon: 'inv_achievement_raid_progenitorraid_anduin',
   fight: {
