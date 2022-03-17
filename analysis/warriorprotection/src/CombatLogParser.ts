@@ -10,7 +10,6 @@ import BlockCheck from './modules/features/BlockCheck';
 import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import IgnorePain from './modules/features/IgnorePain';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SpellUsable from './modules/features/SpellUsable';
 import TheWall from './modules/shadowlands/legendaries/TheWall';
@@ -44,7 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
 
-    ignorePain: IgnorePain,
     rageTracker: RageTracker,
     rageDetails: RageDetails,
     avatar: Avatar,

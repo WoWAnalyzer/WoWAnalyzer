@@ -91,7 +91,7 @@ class AngerManagement extends Analyzer {
             </>
           }
         >
-          -
+          
         </BoringValueText>
       </Statistic>
     );

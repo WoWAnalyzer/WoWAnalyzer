@@ -16,14 +16,16 @@ class ShieldBlock extends Analyzer {
     statTracker: StatTracker,
     abilityTracker: AbilityTracker,
   };
+
+  protected statTracker!: StatTracker;
+  protected abilityTracker!: AbilityTracker;
+
   timeOnCd = 0; //total time its not on cd
   currentCd = 0;
   lastCast = 0;
   averageCd = 0;
   actualCasts = 0;
   totalCastsAssumed = 0;
-  protected statTracker!: StatTracker;
-  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
@@ -33,22 +35,6 @@ class ShieldBlock extends Analyzer {
       this.onSlamCast,
     );
     this.addEventListener(Events.fightend, this.handleFightEnd);
-  }
-
-  get slamRatio() {
-    return this.actualCasts / this.totalCastsAssumed;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.slamRatio,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   onSlamCast(event: CastEvent) {
@@ -89,6 +75,23 @@ class ShieldBlock extends Analyzer {
       console.log('averageCd: ' + this.averageCd);
       console.log('actual casts ' + this.actualCasts);
     }
+  }
+
+  
+  get slamRatio() {
+    return this.actualCasts / this.totalCastsAssumed;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.slamRatio,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   suggestions(when: When) {
