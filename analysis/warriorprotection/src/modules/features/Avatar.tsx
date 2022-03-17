@@ -9,7 +9,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 
