@@ -77,7 +77,6 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  
   get slamRatio() {
     return this.actualCasts / this.totalCastsAssumed;
   }

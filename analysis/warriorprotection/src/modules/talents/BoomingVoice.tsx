@@ -82,7 +82,6 @@ class BoomingVoice extends Analyzer {
     };
   }
 
-
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
