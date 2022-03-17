@@ -1,47 +1,32 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 
 const debug = false;
 
 class ShieldBlock extends Analyzer {
-  get suggestionThresholds() {
-    return {
-      actual: this.goodCast / (this.goodCast + this.badCast),
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  shieldBlocksOffensive;
-  shieldBlocksDefensive;
-  shieldBlocksOverall;
+  shieldBlocksOffensive: OffensiveData[] = [];
+  shieldBlocksDefensive: DefensiveData[] = [];
+  shieldBlocksOverall: OverallData[] = [];
   goodCast = 0;
   badCast = 0;
   bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
   ssNeeded = !this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id) ? 0 : 1;
 
-  constructor(...args) {
-    super(...args);
-    this.shieldBlocksOffensive = [];
-    this.shieldBlocksDefensive = [];
-    this.shieldBlocksOverall = [];
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_BLOCK), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this.shieldBlocksDefensive.length > 0) {
       this.checkLastBlock();
     }
@@ -49,15 +34,16 @@ class ShieldBlock extends Analyzer {
     this.shieldBlockCast(event);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
 
     if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
 
-    if (this.shieldBlocksOffensive.length === 0) {
-      this.shieldBlockCast(event); //kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
+    if (this.shieldBlocksDefensive.length === 0) {
+      // If we don't have shieldblock detected, meaning its pre casted, just ignore till we get one
+      return;
     }
 
     if (spellId === SPELLS.SHIELD_SLAM.id) {
@@ -65,7 +51,7 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
@@ -75,10 +61,11 @@ class ShieldBlock extends Analyzer {
     }
 
     if (this.shieldBlocksDefensive.length === 0) {
-      this.shieldBlockCast(event); //kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
+      // If we don't have shieldblock detected, meaning its pre casted, just ignore till we get one
+      return;
     }
 
-    if (event.blocked > 0) {
+    if ((event.blocked || 0) > 0) {
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockAbleEvents += 1;
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].eventName.add(
         event.ability.name,
@@ -91,14 +78,14 @@ class ShieldBlock extends Analyzer {
     this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockedDamage +=
       event.blocked || 0;
     this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].damageTaken +=
-      event.amount + event.absorbed || 0;
+      event.amount + (event.absorbed || 0);
 
     if (this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].blockAbleEvents > 1) {
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length - 1].good = true;
     }
   }
 
-  shieldBlockCast(event) {
+  shieldBlockCast(event: CastEvent) {
     const offensive = {
       shieldBlock: this.shieldBlocksOffensive.length + 1,
       shieldSlamCasts: 0,
@@ -115,15 +102,15 @@ class ShieldBlock extends Analyzer {
       blockAbleEvents: 0,
       blockedDamage: 0,
       damageTaken: 0,
-      eventName: new Set(), //human readable
-      eventSpellId: new Set(), //data safe
+      eventName: new Set<string>(), //human readable
+      eventSpellId: new Set<number>(), //data safe
       good: false,
     };
 
     this.shieldBlocksDefensive.push(defensive);
   }
 
-  shieldSlamCast(event) {
+  shieldSlamCast(event: DamageEvent) {
     this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].shieldSlamCasts += 1;
 
     if (
@@ -177,7 +164,19 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  get suggestionThresholds() {
+    return {
+      actual: this.goodCast / (this.goodCast + this.badCast),
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -243,5 +242,29 @@ class ShieldBlock extends Analyzer {
     );
   }
 }
+
+type OffensiveData = {
+  shieldBlock: number;
+  shieldSlamCasts: number;
+  bonusDamage: number;
+  timeStamp: number;
+  good: boolean;
+  event: CastEvent;
+};
+
+type DefensiveData = {
+  shieldBlock: number;
+  blockAbleEvents: number;
+  blockedDamage: number;
+  damageTaken: number;
+  eventName: Set<string>;
+  eventSpellId: Set<number>;
+  good: boolean;
+};
+
+type OverallData = {
+  shieldBlock: number;
+  good: boolean;
+};
 
 export default ShieldBlock;
