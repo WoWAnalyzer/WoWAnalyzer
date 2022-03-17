@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 3, 16), 'Converted BlockCheck and ShieldBlock to typescript.', Abelito75),
   change(date(2022, 3, 16), 'Updated Avatar\'s statistic box.', Abelito75),
   change(date(2022, 3, 16), 'Corrected Into The Fray haste buff tracking.', Abelito75),
   change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
