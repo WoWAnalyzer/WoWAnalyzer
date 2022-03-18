@@ -36,24 +36,37 @@ class BlockCheck extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
+    const reprisal = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.REPRISAL.bonusID);
     const heavyRepercussions = this.selectedCombatant.hasTalent(
       SPELLS.HEAVY_REPERCUSSIONS_TALENT.id,
     );
 
-    // thresholds for
-    if (this.bolster) {
-      this.minor = 0.85;
-      this.average = 0.75;
+    if (this.bolster && reprisal) {
+      this.minor = 0.8;
+      this.average = 0.7;
+      this.major = 0.6;
+    } else if (heavyRepercussions && reprisal) {
+      this.minor = 0.9;
+      this.average = 0.8;
       this.major = 0.7;
+    } else if (reprisal) {
+      this.minor = 0.7;
+      this.average = 0.6;
+      this.major = 0.6;
+    } else if (this.bolster) {
+      this.minor = 0.7;
+      this.average = 0.6;
+      this.major = 0.5;
     } else if (heavyRepercussions) {
-      this.minor = 0.85;
-      this.average = 0.75;
-      this.major = 0.7;
+      this.minor = 0.7;
+      this.average = 0.6;
+      this.major = 0.5;
     } else {
-      this.minor = 0.85;
-      this.average = 0.75;
-      this.major = 0.7;
+      this.minor = 0.6;
+      this.average = 0.5;
+      this.major = 0.4;
     }
+
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.fightend, this.onFightend);
   }
