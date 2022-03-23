@@ -31,6 +31,16 @@ const conduits = {
     name: 'Sleight of Hand',
     icon: 'inv_misc_dice_02',
   },
+  WELLPLACED_STEEL: {
+    id: 341537,
+    name: 'Well-Placed Steel',
+    icon: 'inv_weapon_shortblade_62',
+  },
+  LASHING_SCARS: {
+    id: 341310,
+    name: 'Lashing Scars',
+    icon: 'inv_misc_crop_01',
+  },
   //endregion
 } as const;
 export default conduits;

@@ -123,6 +123,16 @@ const spells = {
     name: 'Slice and Dice',
     icon: 'ability_rogue_slicedice',
   },
+  SHIV: {
+    id: 5938,
+    name: 'Shiv',
+    icon: 'inv_throwingknife_04',
+  },
+  SHIV_DEBUFF: {
+    id: 319504,
+    name: 'Shiv',
+    icon: 'inv_throwingknife_04',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability

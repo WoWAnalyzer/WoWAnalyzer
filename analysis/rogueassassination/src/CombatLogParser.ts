@@ -12,11 +12,13 @@ import {
   EssenceOfBloodfang,
   Flagellation,
   InvigoratingShadowdust,
+  LashingScars,
   Sepsis,
   StealthAbilityFollowingSepsis,
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
+  WellPlacedSteel,
 } from '@wowanalyzer/rogue';
 
 import Abilities from './modules/Abilities';
@@ -95,6 +97,10 @@ class CombatLogParser extends CoreCombatLogParser {
     flagellation: Flagellation,
     sepsis: Sepsis,
     stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
+
+    // Conduits
+    wellPlacedSteel: WellPlacedSteel,
+    lashingScars: LashingScars,
 
     // Legendaries
     dashingScoundrel: DashingScoundrel,
