@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-import { STORMSTRIKE_CAST_SPELLS } from '../constants';
+import { STORMSTRIKE_CAST_SPELLS_IDS } from '../constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: STORMSTRIKE_CAST_SPELLS,
+        spell: STORMSTRIKE_CAST_SPELLS_IDS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {

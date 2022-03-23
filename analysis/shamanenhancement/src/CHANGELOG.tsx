@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { HawkCorrigan, Mae, MusicMeister, Vonn } from 'CONTRIBUTORS';
+import { Abelito75, HawkCorrigan, Mae, MusicMeister, Vonn } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 3, 23), <>Fixed an issue in ability.tsx where the spell object was being passed instead of the ID</>, Abelito75),
   change(date(2020, 11, 11), <>Added stacks and time spent at cap statisctics for <SpellLink id={SPELLS.MAELSTROM_WEAPON.id} /></>, Mae),
   change(date(2020, 11, 8), <>Added uptime statisctics for <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /></>, Mae),
   change(date(2020, 11, 8), <>Added uptime statistic and suggestion for <SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /></>, Mae),
