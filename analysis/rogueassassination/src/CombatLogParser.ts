@@ -35,6 +35,7 @@ import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
 import RuptureUptime from './modules/spells/RuptureUptime';
 import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
+import Doomblade from './modules/spells/shadowlands/legendaries/Doomblade';
 import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
@@ -107,6 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
     duskwalkersPatch: DuskwalkersPatch,
     essenceOfBloodfang: EssenceOfBloodfang,
     invigoratingShadowdust: InvigoratingShadowdust,
+    doomblade: Doomblade,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

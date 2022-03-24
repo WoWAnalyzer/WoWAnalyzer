@@ -12,6 +12,12 @@ const legendaries = {
     name: 'Doomblade',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
+  // Doomblade Mutilate DoT
+  MUTILATED_FLESH: {
+    id: 340431,
+    name: 'Mutilated Flesh',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
   DUSKWALKERS_PATCH: {
     id: 340084,
     name: "DuskwalKer's Patch",
