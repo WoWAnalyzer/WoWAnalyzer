@@ -108,7 +108,7 @@ export default class KegOfTheHeavens extends Analyzer {
   get netPhantomHealing() {
     return this.kothUpdates
       .map(({ old, new: new_ }) => new_.current - old.current)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
   }
 
   private finalize() {
