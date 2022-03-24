@@ -34,6 +34,7 @@ class FallenOrderAverageHPOfTargetOnCast extends Analyzer {
   }
 
   healListener(event: CastEvent) {
+    console.log(event);
     const hpPercent = event.hitPoints! / event.maxHitPoints!;
     this.hpOfTargetOnCast.push(hpPercent);
     if (event.ability.guid === SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id) {
@@ -65,9 +66,12 @@ class FallenOrderAverageHPOfTargetOnCast extends Analyzer {
   }
 
   statistic() {
-    const averageOfAll = this.getAverage(this.hpOfTargetOnCast);
-    const averageOfSOOM = this.getAverage(this.hpOfTargetWhenSOOMCast);
-    const averageOfENM = this.getAverage(this.hpOfTargetWhenENMCast);
+    const averageOfAll =
+      this.hpOfTargetOnCast.length > 0 ? this.getAverage(this.hpOfTargetOnCast) : 0;
+    const averageOfSOOM =
+      this.hpOfTargetOnCast.length > 0 ? this.getAverage(this.hpOfTargetWhenSOOMCast) : 0;
+    const averageOfENM =
+      this.hpOfTargetOnCast.length > 0 ? this.getAverage(this.hpOfTargetWhenENMCast) : 0;
 
     return (
       <Statistic
@@ -93,28 +97,58 @@ class FallenOrderAverageHPOfTargetOnCast extends Analyzer {
                   <td>
                     <img src="/img/healing.png" alt="Healing" className="icon" /> Overall
                   </td>
-                  <td>{this.getMax(this.hpOfTargetOnCast)}</td>
-                  <td>{this.getMin(this.hpOfTargetOnCast)}</td>
+                  <td>
+                    {this.hpOfTargetOnCast.length > 0 ? this.getMax(this.hpOfTargetOnCast) : 0}
+                  </td>
+                  <td>
+                    {this.hpOfTargetOnCast.length > 0 ? this.getMin(this.hpOfTargetOnCast) : 0}
+                  </td>
                   <td>{averageOfAll}</td>
-                  <td>{this.getSTD(this.hpOfTargetOnCast)}</td>
+                  <td>
+                    {this.hpOfTargetOnCast.length > 0 ? this.getSTD(this.hpOfTargetOnCast) : 0}
+                  </td>
                 </tr>
                 <tr>
                   <td>
                     <SpellLink id={SPELLS.FALLEN_ORDER_SOOTHING_MIST.id} />
                   </td>
-                  <td>{this.getMax(this.hpOfTargetWhenSOOMCast)}</td>
-                  <td>{this.getMin(this.hpOfTargetWhenSOOMCast)}</td>
+                  <td>
+                    {this.hpOfTargetWhenSOOMCast.length > 0
+                      ? this.getMax(this.hpOfTargetWhenSOOMCast)
+                      : 0}
+                  </td>
+                  <td>
+                    {this.hpOfTargetWhenSOOMCast.length > 0
+                      ? this.getMin(this.hpOfTargetWhenSOOMCast)
+                      : 0}
+                  </td>
                   <td>{averageOfSOOM}</td>
-                  <td>{this.getSTD(this.hpOfTargetWhenSOOMCast)}</td>
+                  <td>
+                    {this.hpOfTargetWhenSOOMCast.length > 0
+                      ? this.getSTD(this.hpOfTargetWhenSOOMCast)
+                      : 0}
+                  </td>
                 </tr>
                 <tr>
                   <td>
                     <SpellLink id={SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id} />
                   </td>
-                  <td>{this.getMax(this.hpOfTargetWhenENMCast)}</td>
-                  <td>{this.getMin(this.hpOfTargetWhenENMCast)}</td>
+                  <td>
+                    {this.hpOfTargetWhenENMCast.length > 0
+                      ? this.getMax(this.hpOfTargetWhenENMCast)
+                      : 0}
+                  </td>
+                  <td>
+                    {this.hpOfTargetWhenENMCast.length > 0
+                      ? this.getMin(this.hpOfTargetWhenENMCast)
+                      : 0}
+                  </td>
                   <td>{averageOfENM}</td>
-                  <td>{this.getSTD(this.hpOfTargetWhenENMCast)}</td>
+                  <td>
+                    {this.hpOfTargetWhenENMCast.length > 0
+                      ? this.getSTD(this.hpOfTargetWhenENMCast)
+                      : 0}
+                  </td>
                 </tr>
               </tbody>
             </table>
