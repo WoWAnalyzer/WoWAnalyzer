@@ -50,7 +50,6 @@ class EssenceFontCancelled extends Analyzer {
 
   handleEndChannel(event: EndChannelEvent) {
     if (event.duration < this.expected_duration - this.cancelDelta) {
-      console.log('event duration is' + event.duration);
       this.cancelled_ef += 1;
       if (this.last_ef != null) {
         this.last_ef.meta = this.last_ef.meta || {};
