@@ -9,7 +9,7 @@ const legendaries = {
 
   MARAADS_DYING_BREATH: {
     id: 340459,
-    name: 'Maraad\'s Dying Breath',
+    name: "Maraad's Dying Breath",
     icon: 'paladin_icon_speedoflight',
     bonusID: 7128,
   },
