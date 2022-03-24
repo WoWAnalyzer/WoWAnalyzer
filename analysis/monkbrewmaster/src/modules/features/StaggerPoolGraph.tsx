@@ -156,27 +156,24 @@ class StaggerPoolGraph extends Analyzer {
           },
         },
         {
-          mark: {
-            type: 'rule' as const,
-            color: 'grey',
-          },
-          // TODO: Fix types
-          // selection: {
-          //   hover: {
-          //     type: 'single' as const,
-          //     empty: 'none' as const,
-          //     on: 'mouseover',
-          //     nearest: true,
-          //   },
-          // },
+          mark: 'rule',
+          params: [
+            {
+              name: 'hover',
+              select: {
+                type: 'point',
+                on: 'mouseover',
+              },
+            },
+          ],
           encoding: {
             color: {
-              // condition: {
-              //   selection: {
-              //     not: 'hover',
-              //   },
-              //   value: 'transparent',
-              // },
+              condition: {
+                param: 'hover',
+                empty: false,
+                value: 'grey',
+              },
+              value: 'transparent',
             },
           },
         },
