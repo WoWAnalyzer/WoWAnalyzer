@@ -34,7 +34,6 @@ class FallenOrderAverageHPOfTargetOnCast extends Analyzer {
   }
 
   healListener(event: CastEvent) {
-    console.log(event);
     const hpPercent = event.hitPoints! / event.maxHitPoints!;
     this.hpOfTargetOnCast.push(hpPercent);
     if (event.ability.guid === SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id) {
