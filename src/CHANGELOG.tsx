@@ -54,6 +54,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 3, 23), 'Fixed degraded experience for Venthyr Mistweaver', Trevor),
   change(date(2022, 3, 14), 'Correcting the spelling of Anduin Wrynn.', Abelito75),
   change(date(2022, 3, 14), 'Added Cosmic Healing Potion to potions list.', Abelito75),
   change(date(2022, 3, 13), 'Added has2Piece and has4Piece functions to the combatant to easily check if a player has tier equipped or not.', Putro),
