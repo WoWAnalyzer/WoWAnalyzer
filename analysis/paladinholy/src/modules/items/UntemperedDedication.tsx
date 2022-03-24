@@ -29,7 +29,6 @@ class UntemperedDedication extends Analyzer {
     if (!this.active) {
       return;
     }
-    //this.active = this.selectedCombatant.hasConduitBySpellID(SPELpLS.UNTEMPERED_DEDICATION.id);
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.UNTEMPERED_DEDICATION_BUFF),
       this.onByPlayerUntemperedDedicationBuff,
@@ -104,7 +103,7 @@ class UntemperedDedication extends Analyzer {
         .icon(conduits.UNTEMPERED_DEDICATION.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR)
         .actual(<>You lost your stacks {actual} times</>)
-        .recommended(<>It is recommended to maintain 5 stacks at all times</>),
+        .recommended(<>It is recommended to maintain 5 stacks at all times.</>),
     );
   }
 }
