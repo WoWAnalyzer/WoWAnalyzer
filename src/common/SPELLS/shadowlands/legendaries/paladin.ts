@@ -6,6 +6,13 @@ const legendaries = {
     icon: 'ability_paladin_blessedmending',
     bonusID: 7059,
   },
+
+  MARAADS_DYING_BREATH: {
+    id: 340458,
+    name: "Maraad's Dying Breath",
+    icon: 'paladin_icon_speedoflight',
+    bonusID: 7128,
+  },
   //endregion
 
   //region Protection

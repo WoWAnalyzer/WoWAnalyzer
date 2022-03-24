@@ -18,10 +18,12 @@ class HeavyRepercussions extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
   };
+
+  protected rageTracker!: RageTracker;
+
   sbExtended = 0;
   sbCasts = 0;
   statisticOrder = STATISTIC_ORDER.CORE(5);
-  protected rageTracker!: RageTracker;
 
   constructor(options: Options) {
     super(options);
@@ -30,6 +32,14 @@ class HeavyRepercussions extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
       this.onSlamCast,
     );
+  }
+
+  onSlamCast(event: CastEvent) {
+    this.sbCasts += 1;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
+      return;
+    }
+    this.sbExtended += 1;
   }
 
   get shieldBlockuptime() {
@@ -46,14 +56,6 @@ class HeavyRepercussions extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  onSlamCast(event: CastEvent) {
-    this.sbCasts += 1;
-    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
-      return;
-    }
-    this.sbExtended += 1;
   }
 
   suggestions(when: When) {
