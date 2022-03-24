@@ -20,7 +20,7 @@ i18n.loadLocaleData('zh', { plurals: zh });
 const loadCatalog = (locale: string): Promise<{ messages: Messages }> =>
   process.env.NODE_ENV !== 'production'
     ? import(
-        /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `@lingui/loader!./${locale}/messages.json`
+        /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `@lingui/loader!./${locale}/messages.json?as-js`
       )
     : import(
         /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `./${locale}/messages.js`

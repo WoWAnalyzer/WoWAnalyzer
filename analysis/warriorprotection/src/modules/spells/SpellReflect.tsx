@@ -16,28 +16,18 @@ class SpellReflect extends Analyzer {
     statTracker: StatTracker,
     abilityTracker: AbilityTracker,
   };
+
+  protected statTracker!: StatTracker;
+  protected abilityTracker!: AbilityTracker;
+
   magicDamage = 0;
   magicDamageReduced = 0;
   totalDamage = 0;
-  protected statTracker!: StatTracker;
-  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     debug && this.addEventListener(Events.fightend, this.fightEndDebug);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.magicDamageReduced / this.magicDamage,
-      isLessThan: {
-        minor: 0.25,
-        average: 0.15,
-        major: 0.05,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   onDamage(event: DamageEvent) {
@@ -54,6 +44,18 @@ class SpellReflect extends Analyzer {
     console.log(`magic damage ${this.magicDamage}`);
     console.log(`magic damage with mit ${this.magicDamageReduced}`);
     console.log(`total damage ${this.totalDamage}`);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.magicDamageReduced / this.magicDamage,
+      isLessThan: {
+        minor: 0.25,
+        average: 0.15,
+        major: 0.05,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   suggestions(when: When) {

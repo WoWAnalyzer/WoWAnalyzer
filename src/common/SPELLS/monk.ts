@@ -108,7 +108,7 @@ const spells = {
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
-    name: 'Essence Font Buff',
+    name: 'Essence Font',
     icon: 'ability_monk_essencefont',
   },
   LIFE_COCOON: {
@@ -197,6 +197,13 @@ const spells = {
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
     manaCost: 650,
+  },
+
+  // temp spot for t 28
+  PRIMORDIAL_MENDING: {
+    id: 364266,
+    name: 'Primordial Mending',
+    icon: 'inv_relics_totemofrage',
   },
 
   // Brewmaster

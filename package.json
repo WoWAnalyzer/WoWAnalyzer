@@ -83,17 +83,17 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "sass-text-stroke": "1.0.1",
+    "sass-text-stroke": "1.2.0",
     "swr": "^0.5.6",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.17.3",
-    "vega-lite": "^4.15.0"
+    "vega": "~5.21.0",
+    "vega-lite": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@martijnhols/eslint-config": "^5.1.0",
     "@lingui/cli": "^3.13.0",
     "@lingui/loader": "^3.13.0",
+    "@martijnhols/eslint-config": "^5.1.0",
     "@sentry/browser": "^5.19.1",
     "@types/enzyme": "^3.10.7",
     "@types/jest": "^24.0.23",
@@ -116,18 +116,18 @@
     "jest-canvas-mock": "^2.3.0",
     "jest-enzyme": "^7.1.2",
     "lint-staged": "^10.5.2",
-    "node-sass": "^6.0.1",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "~2.2.1",
-    "react-app-rewired": "^2.1.6",
-    "react-scripts": "^4.0.3",
+    "react-app-rewired": "^2.1.11",
+    "react-scripts": "^5.0.0",
     "react-test-renderer": "^17.0.2",
-    "sass-loader": "12.3.0",
+    "sass": "^1.49.7",
     "typescript": "^4.5.2"
   },
   "resolutions": {
-    "eslint-plugin-react": "^7.26.1"
+    "eslint-plugin-react": "^7.26.1",
+    "prettier-plugin-tailwindcss": "0.1.7"
   },
   "scripts": {
     "start": "react-app-rewired start",

@@ -810,6 +810,7 @@ export interface Item {
   permanentEnchant?: number;
   temporaryEnchant?: number;
   gems?: Gem[];
+  setID?: number;
 }
 
 export interface Gem {

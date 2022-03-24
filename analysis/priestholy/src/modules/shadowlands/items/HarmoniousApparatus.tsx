@@ -26,7 +26,7 @@ class HarmoniousApparatus extends Analyzer {
   }
 
   get reductionForAllSpells() {
-    let totalReductionBySpell: { [spellId: number]: { base: number } } = {};
+    let totalReductionBySpell: { [spellID: string]: { [otherSpellID: string]: number } } = {};
 
     totalReductionBySpell = this.sumCooldown(
       totalReductionBySpell,
@@ -44,14 +44,17 @@ class HarmoniousApparatus extends Analyzer {
     return totalReductionBySpell;
   }
 
-  sumCooldown(currentList: any, newList: any) {
-    for (const spellId of newList) {
-      if (currentList[spellId] == null) {
-        currentList[spellId] = newList[spellId];
+  sumCooldown(
+    currentList: { [spellID: string]: { [otherSpellID: string]: number } },
+    newList: { [spellID: string]: { [otherSpellID: string]: number } },
+  ) {
+    for (const [key, value] of Object.entries(newList)) {
+      if (currentList[key] == null) {
+        currentList[key] = value;
       } else {
-        for (const cooldownType of newList[spellId]) {
-          currentList[spellId][cooldownType] = currentList[spellId][cooldownType] || 0;
-          currentList[spellId][cooldownType] += newList[spellId][cooldownType];
+        for (const [innerKey, innerValue] of Object.entries(value)) {
+          currentList[key][innerKey] = currentList[key][innerKey] || 0;
+          currentList[key][innerKey] += innerValue;
         }
       }
     }

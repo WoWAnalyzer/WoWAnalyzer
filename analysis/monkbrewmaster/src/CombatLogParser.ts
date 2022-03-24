@@ -29,6 +29,7 @@ import CelestialEffervescence from './modules/shadowlands/conduits/CelestialEffe
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
 import WalkWithTheOx from './modules/shadowlands/conduits/WalkWithTheOx';
+import KegOfTheHeavens from './modules/shadowlands/KegOfTheHeavens';
 import StormtoutsLastKeg from './modules/shadowlands/legendaries/StormstoutsLastKeg';
 import BlackoutCombo from './modules/spells/BlackoutCombo';
 import BlackOxBrew from './modules/spells/BlackOxBrew';
@@ -106,6 +107,9 @@ class CombatLogParser extends CoreCombatLogParser {
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
     /// Finesse
+
+    /// Tier
+    koth: KegOfTheHeavens,
   };
 
   static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];

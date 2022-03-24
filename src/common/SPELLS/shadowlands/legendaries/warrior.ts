@@ -42,6 +42,12 @@ const legendaries = {
     icon: 'ability_vehicle_electrocharge',
     bonusID: 6956,
   },
+  REPRISAL: {
+    id: 335718,
+    name: 'Reprisal',
+    icon: 'ability_warrior_unrelentingassault',
+    bonusID: 6969,
+  },
   //endregion
 
   //region Shared

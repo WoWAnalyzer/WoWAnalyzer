@@ -6,8 +6,8 @@ class Haste extends CoreHaste {
     ...CoreHaste.HASTE_BUFFS,
     // Ignorrior specific
     [SPELLS.INTO_THE_FRAY_BUFF.id]: {
-      // from Into the Fray (3% per stack for each enemy nearby)
-      hastePerStack: 0.03,
+      // from Into the Fray (2% per stack for each enemy nearby)
+      hastePerStack: 0.02,
     },
   };
 }
