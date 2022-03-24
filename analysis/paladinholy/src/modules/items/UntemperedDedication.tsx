@@ -11,7 +11,7 @@ class UntemperedDedication extends Analyzer {
   // we do not know how many stacks the character has and how long it has until expiration
   // in WoWA we have a prepull apply buff with the same lack of info
   // Realistically, people start at 5 stacks, or _isFullStack is going to turn to false on the first applyBuff or applyBuffStack
-  // the only issue is that the first Flash Heal may be considered wasteful when it is not.
+  // the only issue is that the first LOTM may be considered wasteful when it is not.
   _isFullStack = true;
   // There is also no buff event generated when LOTM is cast while there are already 5 stacks
   // so we are maintaining the date of the last refresh here.
@@ -46,7 +46,7 @@ class UntemperedDedication extends Analyzer {
 
   /**
    * Sets _isFullStack to true if there are now 5 stacks, as well as the last refresh
-   * NB: it comes after the Flash Heal Cast
+   * NB: it comes after the LOTM Cast
    * @param event indicate the new number of stacks (only positive increments)
    */
   onByPlayerUntemperedDedicationBuff(event: ApplyBuffStackEvent) {
@@ -63,9 +63,9 @@ class UntemperedDedication extends Analyzer {
    * Sets _isFullStack to false.
    * Note: The only exception is the prepull event, for which we assume that
    * it means the character has five stacks. It will be corrected if the
-   * first Flash Heal generates a ApplyBuffStack or ApplyBuff event
+   * first LOTM generates a ApplyBuffStack or ApplyBuff event
    * Note 2: Technically, the only time this function does something is on the first
-   * apply buff if there was no prepull FC.
+   * apply buff if there was no prepull UD.
    * @param event with info about first stack, or prepull incomplete indication
    */
   onByPlayerUntemperedDedicationInitialBuff(event: ApplyBuffEvent) {
