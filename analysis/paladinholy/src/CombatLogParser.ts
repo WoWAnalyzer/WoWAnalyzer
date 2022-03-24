@@ -29,6 +29,7 @@ import CastBehavior from './modules/features/CastBehavior';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
+import UntemperedDedication from './modules/items/UntemperedDedication';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 import MaraadsCastRatio from './modules/shadowlands/legendaries/MaraadsCastRatio';
 import MaraadsOverheal from './modules/shadowlands/legendaries/MaraadsOverheal';
@@ -109,6 +110,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenant
     ashenHallow: AshenHallow,
     divineToll: DivineToll,
+
+    // Items
+    UntemperedDedication: UntemperedDedication,
   };
 }
 
