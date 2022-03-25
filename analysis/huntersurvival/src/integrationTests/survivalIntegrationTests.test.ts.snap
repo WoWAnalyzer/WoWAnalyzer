@@ -3602,56 +3602,6 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
 </div>
 `;
 
-exports[`Survival Hunter integration test: Multi Target CastEfficiency matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={266779}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 266779,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 2,
-            "1": 3,
-            "2": "70",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Survival Hunter integration test: Multi Target CoordinatedAssault matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -10396,56 +10346,6 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
     </div>
   </div>
 </div>
-`;
-
-exports[`Survival Hunter integration test: Single Target CastEfficiency matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={266779}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 266779,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 3,
-            "1": 4,
-            "2": "62",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Survival Hunter integration test: Single Target CoordinatedAssault matches the statistic snapshot 1`] = `
