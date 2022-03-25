@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasLegendary(SPELLS.LIFEBLOOM_DTL_HOT_HEAL),
+        enabled: !combatant.hasLegendary(SPELLS.THE_DARK_TITANS_LESSON),
         gcd: {
           base: 1500,
         },
@@ -169,7 +169,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasLegendary(SPELLS.LIFEBLOOM_DTL_HOT_HEAL),
+        enabled: combatant.hasLegendary(SPELLS.THE_DARK_TITANS_LESSON),
         gcd: {
           base: 1500,
         },

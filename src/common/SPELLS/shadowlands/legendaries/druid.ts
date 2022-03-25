@@ -69,6 +69,7 @@ const legendaries = {
     id: 338831,
     name: "The Dark Titan's Lesson",
     icon: 'spell_druid_germination_rejuvenation',
+    bonusID: 7097,
   },
   LIFEBLOOM_DTL_HOT_HEAL: {
     // with The Dark Titan's Lesson legendary, BOTH lifeblooms will have this ID
@@ -76,7 +77,6 @@ const legendaries = {
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
-    bonusID: 7097,
   },
   MEMORY_OF_THE_MOTHER_TREE: {
     id: 189877,
