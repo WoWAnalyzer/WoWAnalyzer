@@ -53,7 +53,7 @@ class FallenOrderCraneAverage extends Analyzer {
   }
 
   statistic() {
-    if (this.mwClones === 0 || this.soomCasts === 0 || this.mwClones === 0) {
+    if (this.mwClones === 0) {
       return <></>;
     }
     return (
