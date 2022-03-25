@@ -28,7 +28,10 @@ export const apl = build([
   { spell: SPELLS.MORTAL_STRIKE, condition: cnd.hasLegendary(SPELLS.ENDURING_BLOW) },
   {
     spell: SPELLS.MORTAL_STRIKE,
-    condition: cnd.and(cnd.hasLegendary(SPELLS.BATTLELORD), cnd.buffPresent(SPELLS.BATTLELORD)),
+    condition: cnd.and(
+      cnd.hasLegendary(SPELLS.BATTLELORD_ITEM),
+      cnd.buffPresent(SPELLS.BATTLELORD),
+    ),
   },
   {
     spell: SPELLS.MORTAL_STRIKE,
