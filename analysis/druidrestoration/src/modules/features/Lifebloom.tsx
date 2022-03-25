@@ -32,9 +32,7 @@ class Lifebloom extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasDTL = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID,
-    );
+    this.hasDTL = this.selectedCombatant.hasLegendary(SPELLS.LIFEBLOOM_DTL_HOT_HEAL);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_HOTS),

@@ -33,9 +33,7 @@ class LatentPoisonInjectors extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.LATENT_POISON_INJECTORS_EFFECT.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.LATENT_POISON_INJECTORS_EFFECT);
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.LATENT_POISON_INJECTORS_DEBUFF),

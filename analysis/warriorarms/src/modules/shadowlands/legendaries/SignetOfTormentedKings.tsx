@@ -26,9 +26,7 @@ class SignetOfTormentedKings extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.SIGNET_OF_TORMENTED_KINGS.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.SIGNET_OF_TORMENTED_KINGS);
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_TALENT),

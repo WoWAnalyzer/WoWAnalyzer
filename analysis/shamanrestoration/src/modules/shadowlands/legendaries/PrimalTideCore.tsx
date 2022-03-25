@@ -40,7 +40,7 @@ class PrimalTideCore extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.PRIMAL_TIDE_CORE.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.PRIMAL_TIDE_CORE);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]),

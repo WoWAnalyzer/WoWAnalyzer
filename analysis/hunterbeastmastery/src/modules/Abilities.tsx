@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           120 *
           (1 -
-            (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
               ? CALL_OF_THE_WILD_CD_REDUCTION
               : 0)),
         gcd: {
@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
               ? BORN_TO_BE_WILD_CD_REDUCTION
               : 0)) *
           (1 -
-            (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
               ? CALL_OF_THE_WILD_CD_REDUCTION
               : 0)),
         gcd: {
@@ -175,7 +175,7 @@ class Abilities extends CoreAbilities {
               ? BORN_TO_BE_WILD_CD_REDUCTION
               : 0)) *
           (1 -
-            (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
               ? CALL_OF_THE_WILD_CD_REDUCTION
               : 0)),
         gcd: {
@@ -230,9 +230,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
-            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
-          ),
+          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
           recommendedEfficiency: 0.55,
         },
       },
@@ -252,9 +250,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
-            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
-          ),
+          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
           recommendedEfficiency: 0.9,
         },
       },

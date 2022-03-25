@@ -33,7 +33,7 @@ class SinfulHysteria extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SINFUL_HYSTERIA.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.SINFUL_HYSTERIA);
 
     this.lastLingerHaste = 0;
 

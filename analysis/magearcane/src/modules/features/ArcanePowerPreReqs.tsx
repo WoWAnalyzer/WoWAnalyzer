@@ -47,9 +47,7 @@ class ArcanePowerPreReqs extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
-    this.hasArcaneHarmony = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.ARCANE_HARMONY.bonusID,
-    );
+    this.hasArcaneHarmony = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER),
       this.onArcanePower,

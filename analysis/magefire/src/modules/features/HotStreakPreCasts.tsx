@@ -39,7 +39,7 @@ class HotStreakPreCasts extends Analyzer {
     this.hasPyroclasm = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
-    this.hasFirestorm = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID);
+    this.hasFirestorm = this.selectedCombatant.hasLegendary(SPELLS.FIRESTORM);
     if (this.hasFirestarter || this.hasSearingTouch) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),

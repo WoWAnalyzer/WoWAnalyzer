@@ -1,6 +1,7 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
 import SPELLS from 'common/SPELLS';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
@@ -448,17 +449,14 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
-  //Each legendary is given a specific bonusID that is the same regardless which slot it appears on.
-  hasLegendaryByBonusID(legendaryBonusID: number) {
+  /**
+   * Each legendary is given a specific `effectID` that is the same regardless which slot it appears on.
+   * This id is the same as the spell ID on Wowhead.
+   */
+  hasLegendary(legendary: Pick<LegendarySpell, 'id'>) {
     const foundLegendaryMatch = Object.keys(this._gearItemsBySlotId)
       .map((key: any) => this._gearItemsBySlotId[key])
-      .find((item: Item) => {
-        if (typeof item.bonusIDs === 'number') {
-          return item.bonusIDs === legendaryBonusID;
-        } else {
-          return item?.bonusIDs?.includes(legendaryBonusID);
-        }
-      });
+      .find((item: Item) => item.effectID === legendary.id);
     return typeof foundLegendaryMatch === 'object';
   }
 

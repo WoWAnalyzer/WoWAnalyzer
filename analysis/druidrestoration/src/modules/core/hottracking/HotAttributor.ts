@@ -51,14 +51,14 @@ class HotAttributor extends Analyzer {
     super(options);
 
     this.hasOvergrowth = this.selectedCombatant.hasTalent(SPELLS.OVERGROWTH_TALENT.id);
-    this.hasMemoryOfTheMotherTree = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.MEMORY_OF_THE_MOTHER_TREE.bonusID,
+    this.hasMemoryOfTheMotherTree = this.selectedCombatant.hasLegendary(
+      SPELLS.MEMORY_OF_THE_MOTHER_TREE,
     );
-    this.hasVisionOfUnendingGrowth = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.VISION_OF_UNENDING_GROWTH.bonusID,
+    this.hasVisionOfUnendingGrowth = this.selectedCombatant.hasLegendary(
+      SPELLS.VISION_OF_UNENDING_GROWTH,
     );
-    this.hasLycarasFleetingGlimpse = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.LYCARAS_FLEETING_GLIMPSE.bonusID,
+    this.hasLycarasFleetingGlimpse = this.selectedCombatant.hasLegendary(
+      SPELLS.LYCARAS_FLEETING_GLIMPSE,
     );
 
     this.addEventListener(

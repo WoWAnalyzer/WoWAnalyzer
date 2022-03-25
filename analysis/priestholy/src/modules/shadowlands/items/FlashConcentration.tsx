@@ -47,7 +47,7 @@ class FlashConcentration extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FLASH_CONCENTRATION.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FLASH_CONCENTRATION);
 
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FLASH_CONCENTRATION),

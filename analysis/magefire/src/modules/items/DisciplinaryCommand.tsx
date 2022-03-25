@@ -18,7 +18,7 @@ class DisciplinaryCommand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DISCIPLINARY_COMMAND.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.DISCIPLINARY_COMMAND);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
       this.onCombustionStart,

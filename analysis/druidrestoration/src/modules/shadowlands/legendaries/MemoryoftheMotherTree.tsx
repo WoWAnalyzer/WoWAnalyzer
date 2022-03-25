@@ -32,9 +32,7 @@ class MemoryoftheMotherTree extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.MEMORY_OF_THE_MOTHER_TREE.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.MEMORY_OF_THE_MOTHER_TREE);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),

@@ -27,9 +27,7 @@ class FragmentsOfTheElderAntlers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS);
     if (!this.active) {
       return;
     }
