@@ -84,7 +84,7 @@ class AstralPowerDetails extends Analyzer {
   }
 
   get usingBoat() {
-    return this.selectedCombatant.hasLegendary(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR);
+    return this.selectedCombatant.hasLegendary(SPELLS.BALANCE_OF_ALL_THINGS_ITEM);
   }
 
   get suggestionThresholdsWasted() {

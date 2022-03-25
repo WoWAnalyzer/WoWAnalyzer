@@ -26,7 +26,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasLegendary(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR);
+    const active = this.selectedCombatant.hasLegendary(SPELLS.BALANCE_OF_ALL_THINGS_ITEM);
     if (!active) {
       return;
     }
