@@ -78,6 +78,12 @@ const legendaries = {
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
   },
+  MEMORY_OF_THE_MOTHER_TREE_ITEM: {
+    id: 339064,
+    name: 'Memory of the Mother Tree',
+    icon: 'spell_druid_rampantgrowth',
+    bonusID: 7096,
+  },
   MEMORY_OF_THE_MOTHER_TREE: {
     id: 189877,
     name: 'Memory of the Mother Tree',
