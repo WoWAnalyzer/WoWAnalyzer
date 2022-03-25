@@ -24,7 +24,7 @@ class HarmonyOfTheTortollan extends Analyzer {
         ? BORN_TO_BE_WILD_CD_REDUCTION
         : 0)) *
     (1 -
-      (this.selectedCombatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+      (this.selectedCombatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
         ? CALL_OF_THE_WILD_CD_REDUCTION
         : 0));
   lastCast = 0;

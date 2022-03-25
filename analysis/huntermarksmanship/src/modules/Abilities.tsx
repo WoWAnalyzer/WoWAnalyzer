@@ -78,7 +78,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           120 *
           (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
               ? CALL_OF_THE_WILD_CD_REDUCTION
               : 0)),
         gcd: {
@@ -134,7 +134,7 @@ class Abilities extends CoreAbilities {
               ? BORN_TO_BE_WILD_CD_REDUCTION
               : 0)) *
           (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
               ? CALL_OF_THE_WILD_CD_REDUCTION
               : 0)),
         gcd: {
@@ -203,7 +203,7 @@ class Abilities extends CoreAbilities {
               ? BORN_TO_BE_WILD_CD_REDUCTION
               : 0)) *
           (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
               ? CALL_OF_THE_WILD_CD_REDUCTION
               : 0)),
         gcd: {
