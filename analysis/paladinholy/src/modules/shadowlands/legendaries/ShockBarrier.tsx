@@ -18,7 +18,7 @@ class ShockBarrier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SHOCK_BARRIER);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.SHOCK_BARRIER_ITEM);
     if (!this.active) {
       return;
     }
