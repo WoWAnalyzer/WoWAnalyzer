@@ -453,7 +453,7 @@ class Combatant extends Entity {
    * Each legendary is given a specific `effectID` that is the same regardless which slot it appears on.
    * This id is the same as the spell ID on Wowhead.
    */
-  hasLegendary(legendary: Pick<LegendarySpell, 'id'>) {
+  hasLegendary(legendary: LegendarySpell) {
     const foundLegendaryMatch = Object.keys(this._gearItemsBySlotId)
       .map((key: any) => this._gearItemsBySlotId[key])
       .find((item: Item) => item.effectID === legendary.id);
