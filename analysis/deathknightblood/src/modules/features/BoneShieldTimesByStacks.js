@@ -14,7 +14,7 @@ const BONE_SHIELD_DURATION_MS = 30 * 1000;
 class BoneShieldStacksBySeconds extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-  }
+  };
 
   boneShieldStacks = [];
   lastBoneShieldStack = 0;
@@ -65,7 +65,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
     }
     this.lastBoneShieldUpdate = event.timestamp;
     const nextStacks = currentStacks(event);
-    const didExpire = nextStacks === 0? this.didExpire(event) : false;
+    const didExpire = nextStacks === 0 ? this.didExpire(event) : false;
     if (nextStacks < this.lastBoneShieldStack && !didExpire) {
       // TODO: Blood Tap cdr
       this.reduceDRWCooldown(nextStacks - this.lastBoneShieldStack);
@@ -76,8 +76,8 @@ class BoneShieldStacksBySeconds extends Analyzer {
   trackApplication(event) {
     // Can't track this with buff applied events in case the player
     // refreshes at 10 stacks.
-    const isMarrow = (event.ability.guid === SPELLS.MARROWREND.spellID);
-    const isDRW = (event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.spellID);
+    const isMarrow = event.ability.guid === SPELLS.MARROWREND.spellID;
+    const isDRW = event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.spellID;
     const hasCRW = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CRIMSON_RUNE_WEAPON.bonusID);
 
     if (isMarrow || (isDRW && hasCRW)) {
@@ -114,14 +114,11 @@ class BoneShieldStacksBySeconds extends Analyzer {
     }
     const COOLDOWN_REDUCTION_MS = 5000;
     const reduction = -stackDiff * COOLDOWN_REDUCTION_MS;
-    const reducedSpellID = SPELLS.DANCING_RUNE_WEAPON.id
+    const reducedSpellID = SPELLS.DANCING_RUNE_WEAPON.id;
     if (!this.spellUsable.isOnCooldown(reducedSpellID)) {
       this.totalDRWCooldownReductionWasted += reduction;
     } else {
-      const effectiveReduction = this.spellUsable.reduceCooldown(
-        reducedSpellID,
-        reduction,
-      );
+      const effectiveReduction = this.spellUsable.reduceCooldown(reducedSpellID, reduction);
       this.totalDRWCooldownReduction += effectiveReduction;
       this.totalDRWCooldownReductionWasted += reduction - effectiveReduction;
     }

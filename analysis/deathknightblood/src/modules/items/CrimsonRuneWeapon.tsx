@@ -1,20 +1,20 @@
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ResourceChangeEvent } from 'parser/core/Events';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+
 import BoneShieldTimesByStacks from '../features/BoneShieldTimesByStacks';
-import UptimeIcon from 'interface/icons/Uptime';
 
 class CrimsonRuneWeapon extends Analyzer {
   static dependencies = {
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
+  protected boneShieldTimesByStacks!: BoneShieldTimesByStacks;
 
   constructor(options: Options) {
     super(options);
@@ -27,12 +27,10 @@ class CrimsonRuneWeapon extends Analyzer {
   }
 
   get reduction() {
-    // @ts-ignore
     return this.boneShieldTimesByStacks.totalDRWCooldownReduction / 1000;
   }
 
   get wastedReduction() {
-    // @ts-ignore
     return this.boneShieldTimesByStacks.totalDRWCooldownReductionWasted / 1000;
   }
 

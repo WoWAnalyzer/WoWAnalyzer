@@ -58,9 +58,7 @@ class Bonestorm extends Analyzer {
 
   get goodBonestormCasts() {
     if (this.selectedCombatant.has2Piece()) {
-      return this.bsCasts.filter(
-        (val) => val.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT,
-      ).length;
+      return this.bsCasts.filter((val) => val.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT).length;
     } else {
       return this.bsCasts.filter(
         (val) => val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM,
@@ -89,10 +87,10 @@ class Bonestorm extends Analyzer {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only when you have 100
-            or more Runic Power. The main purpose of <SpellLink id={SPELLS.BONESTORM_TALENT.id} />
-            {' '}once you have 2-piece is to quickly spend Runic Power on a high
-            Damage Per Execution Time (DPET) ability.
+            Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only when you have 100 or more
+            Runic Power. The main purpose of <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> once you
+            have 2-piece is to quickly spend Runic Power on a high Damage Per Execution Time (DPET)
+            ability.
           </>,
         )
           .icon(SPELLS.BONESTORM_TALENT.icon)
