@@ -56,9 +56,7 @@ class BarbedShot extends Analyzer {
       this.handleStacks,
     );
     this.addEventListener(Events.fightend, this.handleStacks);
-    this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
-    ) &&
+    this.selectedCombatant.hasLegendary(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT) &&
       this.addEventListener(
         Events.resourcechange.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS),
         this.checkNesingwaryFocusGain,

@@ -16,7 +16,7 @@ class GlacialFragments extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GLACIAL_FRAGMENTS.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.GLACIAL_FRAGMENTS);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_FRAGMENTS_DAMAGE),

@@ -23,7 +23,7 @@ class DivineImage extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DIVINE_IMAGE.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.DIVINE_IMAGE);
     if (!this.active) {
       return;
     }
