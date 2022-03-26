@@ -78,7 +78,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
     // refreshes at 10 stacks.
     const isMarrow = event.ability.guid === SPELLS.MARROWREND.spellID;
     const isDRW = event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.spellID;
-    const hasCRW = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CRIMSON_RUNE_WEAPON.bonusID);
+    const hasCRW = this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON);
 
     if (isMarrow || (isDRW && hasCRW)) {
       this.boneShieldApplied = event.timestamp;

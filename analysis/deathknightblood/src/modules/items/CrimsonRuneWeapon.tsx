@@ -19,7 +19,7 @@ class CrimsonRuneWeapon extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CRIMSON_RUNE_WEAPON.bonusID);
+    const active = this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON);
     this.active = active;
     if (!active) {
       return;
