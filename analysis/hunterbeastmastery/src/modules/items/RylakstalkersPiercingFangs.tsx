@@ -24,9 +24,7 @@ class RylakstalkersPiercingFangs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT);
     if (!this.active) {
       return;
     }

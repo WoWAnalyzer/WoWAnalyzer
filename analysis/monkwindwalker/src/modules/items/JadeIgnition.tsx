@@ -26,7 +26,7 @@ class JadeIgnition extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.JADE_IGNITION);
     if (!this.active) {
       return;
     }

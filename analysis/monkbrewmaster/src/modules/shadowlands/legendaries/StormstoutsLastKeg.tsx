@@ -34,7 +34,7 @@ class StormstoutsLastKeg extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.STORMSTOUTS_LAST_KEG.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH), this.onDamage);
     this.addEventListener(

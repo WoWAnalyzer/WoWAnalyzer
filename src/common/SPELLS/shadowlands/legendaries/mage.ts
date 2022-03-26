@@ -102,7 +102,7 @@ const legendaries = {
     bonusID: 6828,
   },
   FREEZING_WINDS: {
-    id: 327478,
+    id: 327364,
     name: 'Freezing Winds',
     icon: 'spell_shadow_soulleech_2',
     bonusID: 6829,

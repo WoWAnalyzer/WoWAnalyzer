@@ -19,7 +19,7 @@ class TheRotten extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_ROTTEN.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.THE_ROTTEN);
     this.addEventListener(
       Events.resourcechange
         .by(SELECTED_PLAYER)

@@ -32,9 +32,7 @@ class ButchersBoneFragments extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.BUTCHERS_BONE_FRAGMENTS_EFFECT);
     if (!this.active) {
       return;
     }

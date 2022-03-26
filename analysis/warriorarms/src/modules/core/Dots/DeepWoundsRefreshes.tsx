@@ -77,7 +77,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
           targetID: event.targetID,
           targetInstance: event.targetInstance,
         }) &&
-          this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ENDURING_BLOW.id) &&
+          this.selectedCombatant.hasLegendary(SPELLS.ENDURING_BLOW) &&
           this.hasTwoOverpowerStacks()))
     ) {
       this.lastCastGoodExtension = true;

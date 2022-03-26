@@ -54,6 +54,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 3, 25), 'Handle Unity legendary.', emallson),
   change(date(2022, 3, 23), 'Fixed degraded experience for Venthyr Mistweaver', Trevor),
   change(date(2022, 3, 14), 'Correcting the spelling of Anduin Wrynn.', Abelito75),
   change(date(2022, 3, 14), 'Added Cosmic Healing Potion to potions list.', Abelito75),
