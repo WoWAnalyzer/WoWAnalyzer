@@ -1857,3 +1857,8 @@ export const xizbow: Contributor = {
     },
   ],
 };
+export const Tialyss: Contributor = {
+  nickname: 'tialyss',
+  discord: 'tialyss#0087',
+  github: 'mfield',
+};

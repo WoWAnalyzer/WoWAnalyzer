@@ -106,7 +106,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
   }
 
   reduceDRWCooldown(stackDiff) {
-    if (!this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CRIMSON_RUNE_WEAPON.bonusID)) {
+    if (!this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON)) {
       return;
     }
     if (stackDiff >= 0) {

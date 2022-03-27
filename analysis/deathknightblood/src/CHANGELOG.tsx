@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon } from 'CONTRIBUTORS';
+import { Adoraci, joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon, Tialyss } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 3, 26), <>Added CDR tracking for <SpellLink id={SPELLS.CRIMSON_RUNE_WEAPON.id} /> and removed suggestions to only use <SpellLink id={SPELLS.BONESTORM.id} /> in AOE</>, Tialyss),
   change(date(2021, 8, 19), <>Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
   change(date(2021, 4, 3), 'Verified 9.0.5 patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 2, 17), <>Fixed issues in modules where <SpellLink id={SPELLS.DEATHS_DUE.id}/> did not correctly replace <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> </>, Pendragon),
