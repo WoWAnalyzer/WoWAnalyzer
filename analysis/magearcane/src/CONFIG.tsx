@@ -44,7 +44,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/HmYxBnZPgV3Rk8hL/12-Heroic+Shriekwing+-+Kill+(5:43)/Mattyblasts/standard',
+  exampleReport: '/report/mFnxQzZ3GgRXJV8W/31-Heroic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:01)/Allesha/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
