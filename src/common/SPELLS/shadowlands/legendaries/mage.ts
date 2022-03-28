@@ -132,7 +132,7 @@ const legendaries = {
   },
   DEATHS_FATHOM: {
     id: 354294,
-    name: 'Death\'s Fathom',
+    name: "Death's Fathom",
     icon: 'ability_maldraxxus_mage',
     bonusID: 7475,
   },
