@@ -124,5 +124,29 @@ const legendaries = {
     icon: 'inv_enchant_shardshadowfrostlarge',
     bonusID: 6823,
   },
+  HARMONIC_ECHO: {
+    id: 354186,
+    name: 'Harmonic Echo',
+    icon: 'ability_bastion_mage',
+    bonusID: 7473,
+  },
+  DEATHS_FATHOM: {
+    id: 354294,
+    name: 'Death\'s Fathom',
+    icon: 'ability_maldraxxus_mage',
+    bonusID: 7475,
+  },
+  HEART_OF_THE_FAE: {
+    id: 356877,
+    name: 'Heart of the Fae',
+    icon: 'ability_ardenweald_mage',
+    bonusID: 7727,
+  },
+  SINFUL_DELIGHT: {
+    id: 354333,
+    name: 'Sinful Delight',
+    icon: 'ability_revendreth_mage',
+    bonusID: 7476,
+  },
 } as const;
 export default legendaries;
