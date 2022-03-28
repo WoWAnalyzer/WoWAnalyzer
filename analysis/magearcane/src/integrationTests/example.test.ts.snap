@@ -881,8 +881,6 @@ Array [
              times.
           </React.Fragment>
         </li>
-        
-        
       </ul>
     </React.Fragment>,
     "spell": undefined,
@@ -5681,7 +5679,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
         <div
           className="flex-main name"
         >
-          Use your cooldowns
+          Always Be Casting
         </div>
         <div
           className="flex-sub perf"
@@ -5693,8 +5691,282 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "15.519908185528152%",
+                  "backgroundColor": "#df7102",
+                  "width": "42.91089992074676%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Any time you are not casting something, that is damage that is lost. Mage has many ways to decrease downtime, such as using 
+            <a
+              className="spell-link-text"
+              href="https://wowhead.com/spell=1953"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_blink.jpg"
+              />
+               
+              Blink
+            </a>
+             to get somewhere faster so you can continue casting or using
+             
+            <a
+              className="spell-link-text"
+              href="https://wowhead.com/spell=205025"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_nature_enchantarmor.jpg"
+              />
+               
+              Presence of Mind
+            </a>
+             to get a couple casts in while you are moving; even phases where the only target is taking 99% reduced damage is an opportunity to fish for 
+            <a
+              className="spell-link-text"
+              href="https://wowhead.com/spell=263725"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_manaburn.jpg"
+              />
+               
+              Clearcasting
+            </a>
+             procs or to get more stacks of 
+            <a
+              className="spell-link-text"
+              href="https://wowhead.com/spell=332777"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_creature_cursed_04.jpg"
+              />
+               
+              Arcane Harmony
+            </a>
+             if you are using that legendary. While some encounters have forced downtime, which WoWAnalyzer does not account for, anything you can do to minimize your downtime will help your damage. Additionally, to better contextualize your downtime, we recommend comparing your downtime to another Arcane Mage that did better than you on the same encounter with roughly the same kill time. If you have less downtime than them, then maybe there is something you can do to improve.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Active Time
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  45.23%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "4.41790373759741%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Cancelled Casts
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  7.79%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "81.40389610389612%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Arcane Power
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ffc84a",
+                  "width": "64.0507912517004%",
                 }
               }
             />
@@ -5839,333 +6111,6 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=12051"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_nature_purge.jpg"
-                  />
-                   
-                  Evocation
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  46.61%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "20.69321091403754%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=153626"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_arcaneorb.jpg"
-                  />
-                   
-                  Arcane Orb
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  23.30%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "10.34660545701877%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=116011"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
-                  />
-                   
-                  Rune of Power
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  21.04%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "9.34078607402833%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Use Arcane Power effectively
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "63.87500000000001%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            Using 
-            <a
-              className="spell-link-text"
-              href="https://wowhead.com/spell=12042"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightning.jpg"
-              />
-               
-              Arcane Power
-            </a>
-             properly is one of the most important aspects of playing Arcane well. Therefore it is critical that you make the most of the time that you have while Arcane Power is active. This include things such as not wasting time or GCDs while Arcane Power is active and ensuring that you properly setup for your "burn phase" before hitting Arcane Power.
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
                 Arcane Power Pre-Cast Setup
               </div>
               <div
@@ -6256,7 +6201,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Arcane Power Active time
+                Arcane Power Active Time
               </div>
               <div
                 className="flex-sub"
@@ -6337,6 +6282,66 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Arcane Power Mana Mgmt.
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -6354,7 +6359,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
         <div
           className="flex-main name"
         >
-          Use your talents effectively
+          Using your supporting spells and talents
         </div>
         <div
           className="flex-sub perf"
@@ -6367,7 +6372,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "6.660000000000001%",
+                  "width": "12.933256821273458%",
                 }
               }
             />
@@ -6424,7 +6429,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           <div
             className="col-md-12"
           >
-            Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected.
+            As with any spec, there are additional spells, talents, and items that provide rotational gameplay outside of the base rotation and need to be properly utilized to get the most out of them. Regardless of which items and talents you pick and whether they are considered the best or not, it is important that you use them properly. While not all of them will change your rotation, or might be as simple as "use this ability on cooldown", they are still important to your gameplay as an Arcane Mage. Additonally, if you are intentionally holding a cooldown because that specific encounter or your raid team's strategy requires it, then you will need to take that into account when reviewing this information.
           </div>
         </div>
         <div
@@ -6439,7 +6444,303 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Missed Arcane Orbs
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=12051"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_nature_purge.jpg"
+                  />
+                   
+                  Evocation
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  46.61%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "20.69321091403754%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=153626"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_arcaneorb.jpg"
+                  />
+                   
+                  Arcane Orb
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  23.30%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "10.34660545701877%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=116011"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+                  />
+                   
+                  Rune of Power
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  21.04%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "9.34078607402833%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=314791"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_mage.jpg"
+                  />
+                   
+                  Shifting Power
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  34.95%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "15.51990818552815%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Average time spent inside Rune of Power
               </div>
               <div
                 className="flex-sub"
@@ -6490,7 +6791,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  1
+                  11
                    
                    
                 </div>
@@ -6510,9 +6811,99 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "57.32595000000003%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Rune of Power overlapped casts
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6619,7 +7010,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Rune of Power Uptime
+                Missed Arcane Orbs
               </div>
               <div
                 className="flex-sub"
@@ -6670,160 +7061,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  11
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ffc84a",
-                        "transition": "background-color 800ms",
-                        "width": "57.32595000000003%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Avoid downtime
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#df7102",
-                  "width": "42.91089992074676%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Downtime
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  45.23%
+                  1
                    
                    
                 </div>
@@ -6845,251 +7083,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "4.41790373759741%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Cancelled Casts
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  7.79%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#a6c34c",
-                        "transition": "background-color 800ms",
-                        "width": "81.40389610389612%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Maintain your buffs
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#df7102",
-                  "width": "47.92964745223577%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            You should ensure that you maintain 
-            <a
-              className="spell-link-text"
-              href="https://wowhead.com/spell=1459"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_holy_magicalsentry.jpg"
-              />
-               
-              Arcane Intellect
-            </a>
-             for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as
-             
-            <a
-              className="spell-link-text"
-              href="https://wowhead.com/spell=205022"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_socererking_arcanemines.jpg"
-              />
-               
-              Arcane Familiar
-            </a>
-             if you are talented into them.
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Arcane Intellect Uptime
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  84.39%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#df7102",
-                        "transition": "background-color 800ms",
-                        "width": "47.92964745223577%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -7127,7 +7121,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "33.10526315789474%",
+                  "width": "23.212631578947367%",
                 }
               }
             />
@@ -7275,66 +7269,6 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Arcane Power Mana Mgmt.
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
                 Arcane Missiles only with Clearcasting
               </div>
               <div
@@ -7419,7 +7353,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "69.6969696969697%",
+                  "width": "67.88302617657521%",
                 }
               }
             />
@@ -8190,6 +8124,66 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Arcane Intellect active
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  84.39%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "47.92964745223577%",
                       }
                     }
                   />
