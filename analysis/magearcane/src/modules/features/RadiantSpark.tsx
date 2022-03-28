@@ -72,7 +72,7 @@ class RadiantSpark extends Analyzer {
     return {
       actual: this.radiantSparkUtilization,
       isLessThan: {
-        minor: 1.1,
+        minor: 0.95,
         average: 0.9,
         major: 0.8,
       },
