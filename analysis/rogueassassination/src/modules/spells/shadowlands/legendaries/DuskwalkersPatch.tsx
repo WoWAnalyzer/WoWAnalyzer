@@ -19,6 +19,7 @@ class DuskwalkersPatch extends Analyzer {
   effectiveVendettaReductionMs: number = 0;
   wastedVendettaReductionMs: number = 0;
   lastEnergyCost: number = 0;
+
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {

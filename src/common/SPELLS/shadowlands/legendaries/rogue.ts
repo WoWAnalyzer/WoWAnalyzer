@@ -141,5 +141,20 @@ const legendaries = {
     icon: 'ability_rogue_poisoned_knife',
   },
   //endregion
+
+  //region Covenant
+  DEATHSPIKE: {
+    id: 354731,
+    bonusID: 7573,
+    name: 'Deathspike',
+    icon: 'ability_maldraxxus_rogue',
+  },
+  OBEDIENCE: {
+    id: 354703,
+    bonusID: 7572,
+    name: 'Obedience',
+    icon: 'ability_revendreth_rogue',
+  },
+  //endregion
 } as const;
 export default legendaries;

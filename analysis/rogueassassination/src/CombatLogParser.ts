@@ -13,6 +13,7 @@ import {
   Flagellation,
   InvigoratingShadowdust,
   LashingScars,
+  Obedience,
   Sepsis,
   StealthAbilityFollowingSepsis,
   SerratedBoneSpike,
@@ -109,6 +110,8 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceOfBloodfang: EssenceOfBloodfang,
     invigoratingShadowdust: InvigoratingShadowdust,
     doomblade: Doomblade,
+
+    obedience: Obedience,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
