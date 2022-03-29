@@ -35,7 +35,12 @@ const legendaries = {
   //endregion
 
   //region Fury
-
+  DEATHMAKER: {
+    id: 335567,
+    bonusID: 6964,
+    name: 'Deathmaker',
+    icon: 'ability_warrior_warbringer',
+  },
   //endregion
 
   //region Protection
