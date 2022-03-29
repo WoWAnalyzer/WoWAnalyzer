@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 export default [
   change(date(2022, 3, 27), <>Updated spec support to 9.2</>, Sharrq),
   change(date(2022, 3, 27), <>Reorganized the Arcane Checklist to better group things together and to be more clear.</>, Sharrq),
-  change(date(2022, 3, 27), <>Added support for <SpellLink id={SPELLS.RADIANT_SPARK.id} />, <SpellLink id={SPELLS.ARCANE_HARMONY} />, and <SpellLink id={SPELLS.HARMONIC_ECHO.id} /></>, Sharrq),
+  change(date(2022, 3, 27), <>Added support for <SpellLink id={SPELLS.RADIANT_SPARK.id} />, <SpellLink id={SPELLS.ARCANE_HARMONY.id} />, and <SpellLink id={SPELLS.HARMONIC_ECHO.id} /></>, Sharrq),
   change(date(2022, 2, 18), <>Temporarily disabled the <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> checks for players that are using <SpellLink id={SPELLS.ARCANE_HARMONY.id} />. Full <SpellLink id={SPELLS.ARCANE_HARMONY.id} /> will be coming soon, but until then this prevents the completely false <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> suggestion from being displayed.</>, Sharrq),
   change(date(2022, 2, 18), <>Refactored and updated <SpellLink id={SPELLS.ARCANE_POWER.id} /> to support 9.1.5 and <SpellLink id={SPELLS.ARCANE_HARMONY.id} /></>, Sharrq),
   change(date(2021, 10, 29), 'Added myself as a contributor/maintainer for Arcane Mage. Spec updates for Arcane will be coming soon', Sharrq),
