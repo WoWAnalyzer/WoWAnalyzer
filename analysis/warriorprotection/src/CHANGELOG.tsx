@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 3, 29), 'Some prettying up of stats.', Abelito75),
   change(date(2022, 3, 18), 'Corrected thresholds for BlockCheck', Abelito75),
   change(date(2022, 3, 17), 'File Clean up and abilities updated. Bumping to 9.2 and supported', Abelito75),
   change(date(2022, 3, 16), 'Converted BlockCheck and ShieldBlock to typescript.', Abelito75),
