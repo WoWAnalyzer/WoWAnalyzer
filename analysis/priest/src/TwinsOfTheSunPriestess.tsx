@@ -19,9 +19,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.TWINS_OF_THE_SUN_PRIESTESS.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.TWINS_OF_THE_SUN_PRIESTESS);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_INFUSION),
       this.onCast,

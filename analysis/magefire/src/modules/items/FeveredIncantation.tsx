@@ -18,7 +18,7 @@ class FeveredIncantation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FEVERED_INCANTATION.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FEVERED_INCANTATION);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 

@@ -33,7 +33,7 @@ class SignetOfTormentedKings extends Analyzer {
       this.onByPlayerSignetTriggeredBuff,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT),
       this.onByPlayerSignetTriggeredBuff,
     );
     this.addEventListener(
@@ -50,11 +50,16 @@ class SignetOfTormentedKings extends Analyzer {
       this.onByPlayerSignetTriggerCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT),
       this.onByPlayerSignetTriggerCast,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAVAGER_TALENT_ARMS),
+      this.onByPlayerSignetTriggerCast,
+    );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS),
       this.onByPlayerSignetTriggerCast,
     );
   }
@@ -67,7 +72,7 @@ class SignetOfTormentedKings extends Analyzer {
       ) {
         this._signet_effects.avatar += 1;
         this._signetIsUp = false;
-      } else if (event.ability.guid === SPELLS.BLADESTORM.id) {
+      } else if (event.ability.guid === SPELLS.BLADESTORM_TALENT.id) {
         this._signet_effects.bladestorm += 1;
         this._signetIsUp = false;
       } else if (event.ability.guid === SPELLS.RECKLESSNESS.id) {
@@ -79,9 +84,8 @@ class SignetOfTormentedKings extends Analyzer {
 
   onByPlayerSignetTriggerCast(event: CastEvent) {
     if (
-      event.ability.guid === SPELLS.AVATAR_TALENT.id &&
-      (this._lastSignetTrigger === SPELLS.RAVAGER_TALENT_ARMS.id ||
-        this._lastSignetTrigger === SPELLS.BLADESTORM.id) &&
+      event.ability.guid === SPELLS.RECKLESSNESS.id &&
+      this._lastSignetTrigger === SPELLS.BLADESTORM_TALENT.id &&
       this._lastActivation > event.timestamp - 8000
     ) {
       this._bad_uses += 1;
@@ -110,7 +114,7 @@ class SignetOfTormentedKings extends Analyzer {
       {
         color: '#eeff41',
         label: 'Bladestorm',
-        spellId: SPELLS.BLADESTORM.id,
+        spellId: SPELLS.BLADESTORM_TALENT.id,
         value: this._signet_effects.bladestorm,
         valueTooltip: `${this._signet_effects.bladestorm} Bladestorm Procs`,
       },
@@ -148,7 +152,7 @@ class SignetOfTormentedKings extends Analyzer {
           {this.selectedCombatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS) ? (
             <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />
           ) : (
-            <SpellLink id={SPELLS.BLADESTORM.id} />
+            <SpellLink id={SPELLS.BLADESTORM_TALENT.id} />
           )}{' '}
           right before using <SpellLink id={SPELLS.AVATAR_TALENT.id} />, potentially wasting{' '}
           <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS.id} /> Procs

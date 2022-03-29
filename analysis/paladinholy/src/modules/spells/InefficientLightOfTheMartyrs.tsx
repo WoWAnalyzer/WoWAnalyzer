@@ -11,9 +11,7 @@ class InefficientLightOfTheMartyrs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.MARAADS_DYING_BREATH.bonusID,
-    );
+    this.active = !this.selectedCombatant.hasLegendary(SPELLS.MARAADS_DYING_BREATH);
     if (!this.active) {
       return;
     }

@@ -36,7 +36,7 @@ export default class SinisterTeachings extends Analyzer {
 
     this.active =
       this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
-      this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SINISTER_TEACHINGS.bonusID);
+      this.selectedCombatant.hasLegendary(SPELLS.SINISTER_TEACHINGS);
 
     this.CDR = this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id ? CDR_MW : CDR_DEFAULT;
 

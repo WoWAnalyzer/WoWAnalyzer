@@ -31,9 +31,7 @@ class LastEmperorsCapacitor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.LAST_EMPERORS_CAPACITOR.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.LAST_EMPERORS_CAPACITOR);
     if (!this.active) {
       return;
     }

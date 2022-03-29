@@ -65,6 +65,14 @@ class FallenOrderAverageHPOfTargetOnCast extends Analyzer {
   }
 
   statistic() {
+    if (
+      this.hpOfTargetOnCast.length === 0 ||
+      this.hpOfTargetWhenSOOMCast.length === 0 ||
+      this.hpOfTargetWhenENMCast.length === 0
+    ) {
+      return <></>;
+    }
+
     const averageOfAll = this.getAverage(this.hpOfTargetOnCast);
     const averageOfSOOM = this.getAverage(this.hpOfTargetWhenSOOMCast);
     const averageOfENM = this.getAverage(this.hpOfTargetWhenENMCast);

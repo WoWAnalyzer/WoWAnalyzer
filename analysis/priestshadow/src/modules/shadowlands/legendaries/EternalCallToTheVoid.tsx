@@ -12,9 +12,7 @@ class EternalCallToTheVoid extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.ETERNAL_CALL_TO_THE_VOID.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.ETERNAL_CALL_TO_THE_VOID);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.ETERNAL_CALL_TO_THE_VOID_MIND_FLAY_DAMAGE),
       this.onDamage,

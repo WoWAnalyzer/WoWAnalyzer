@@ -29,9 +29,7 @@ class LycarasFleetingGlimpseResto extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.LYCARAS_FLEETING_GLIMPSE.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.LYCARAS_FLEETING_GLIMPSE);
   }
 
   statistic() {
