@@ -12,6 +12,7 @@ import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SpellUsable from './modules/features/SpellUsable';
+import Glory from './modules/shadowlands/legendaries/Glory';
 import TheWall from './modules/shadowlands/legendaries/TheWall';
 import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
 import ShieldBlock from './modules/spells/ShieldBlock';
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //legos
     theWall: TheWall,
     thunderlord: Thunderlord,
+    glory: Glory,
   };
 }
 
