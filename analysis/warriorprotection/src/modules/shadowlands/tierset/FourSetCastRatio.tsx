@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 /**
  * Whenever you cast a shield slam reduce shield wall by 5 second and gain 5 extra rage.
  */
-class FourSet extends Analyzer {
+class FourSetCastRatio extends Analyzer {
   hasBuff = false;
 
   ssUsage = 0;
@@ -72,4 +72,4 @@ class FourSet extends Analyzer {
   }
 }
 
-export default FourSet;
+export default FourSetCastRatio;

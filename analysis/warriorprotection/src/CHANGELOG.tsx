@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 3, 30), 'Added a stat to show average time between Outburst procs.', Abelito75),
   change(date(2022, 3, 30), 'Added a FourSet ratio stat.', Abelito75),
   change(date(2022, 3, 30), 'Glory Stat Added.', Abelito75),
   change(date(2022, 3, 29), 'Some prettying up of stats.', Abelito75),

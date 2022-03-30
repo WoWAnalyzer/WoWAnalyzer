@@ -15,7 +15,8 @@ import SpellUsable from './modules/features/SpellUsable';
 import Glory from './modules/shadowlands/legendaries/Glory';
 import TheWall from './modules/shadowlands/legendaries/TheWall';
 import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
-import FourSet from './modules/shadowlands/tierset/FourSet';
+import FourSetCastRatio from './modules/shadowlands/tierset/FourSetCastRatio';
+import FourSetTimeBetweenBuffs from './modules/shadowlands/tierset/FourSetTimeBetweenBuffs';
 import ShieldBlock from './modules/spells/ShieldBlock';
 import ShieldSlam from './modules/spells/ShieldSlam';
 import SpellReflect from './modules/spells/SpellReflect';
@@ -64,9 +65,9 @@ class CombatLogParser extends CoreCombatLogParser {
     theWall: TheWall,
     thunderlord: Thunderlord,
     glory: Glory,
-
     //tier
-    fourSet: FourSet,
+    fourSetCastRatio: FourSetCastRatio,
+    fourSetTimeBetweenBuffs: FourSetTimeBetweenBuffs,
   };
 }
 
