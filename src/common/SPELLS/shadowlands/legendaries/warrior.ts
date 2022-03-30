@@ -93,12 +93,6 @@ const legendaries = {
     name: "Nature's Fury",
     icon: 'ability_ardenweald_warrior',
   },
-  UNITY_WARRIOR: {
-    id: 364929,
-    bonusID: 8130,
-    name: 'Unity',
-    icon: 'achievement_mythicdungeons_shadowlands',
-  },
   //endregion
 } as const;
 export default legendaries;

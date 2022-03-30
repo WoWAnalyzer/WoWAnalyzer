@@ -9,20 +9,16 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class NaturesFury extends Analyzer {
   _ancientAftershockDamage: number = 0;
   _naturesFuryDamage: number = 0;
+  _hasLegendary: boolean = this.selectedCombatant.hasLegendary(SPELLS.NATURES_FURY);
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-      (this.selectedCombatant.hasLegendary(SPELLS.NATURES_FURY) ||
-        this.selectedCombatant.hasLegendary(SPELLS.UNITY));
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) || this._hasLegendary;
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_AFTERSHOCK),
-      this.onAftershockDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_AFTERSHOCK_DOT),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ANCIENT_AFTERSHOCK, SPELLS.ANCIENT_AFTERSHOCK_DOT]),
       this.onAftershockDamage,
     );
 
@@ -33,19 +29,21 @@ class NaturesFury extends Analyzer {
   }
 
   onAftershockDamage(event: DamageEvent) {
-    this._ancientAftershockDamage += event.amount;
+    this._ancientAftershockDamage += event.amount + (event.absorbed || 0);
   }
 
   onNaturesFuryDamage(event: DamageEvent) {
-    this._naturesFuryDamage += event.amount;
+    this._naturesFuryDamage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.NATURES_FURY_DAMAGE.id}>
-          {this.owner.formatItemDamageDone(this._naturesFuryDamage)}
-        </BoringSpellValueText>
+        {this._hasLegendary && (
+          <BoringSpellValueText spellId={SPELLS.NATURES_FURY_DAMAGE.id}>
+            {this.owner.formatItemDamageDone(this._naturesFuryDamage)}
+          </BoringSpellValueText>
+        )}
         <BoringSpellValueText spellId={SPELLS.ANCIENT_AFTERSHOCK.id}>
           {this.owner.formatItemDamageDone(this._ancientAftershockDamage)}
         </BoringSpellValueText>

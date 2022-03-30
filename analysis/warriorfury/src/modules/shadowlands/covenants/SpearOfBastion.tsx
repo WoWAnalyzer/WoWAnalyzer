@@ -20,7 +20,7 @@ class SpearOfBastion extends Analyzer {
   }
 
   onSpearDamage(event: DamageEvent) {
-    this._spearOfBastionDamage += event.amount;
+    this._spearOfBastionDamage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
