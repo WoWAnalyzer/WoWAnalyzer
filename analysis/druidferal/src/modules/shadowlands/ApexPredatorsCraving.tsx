@@ -49,9 +49,7 @@ class ApexPredatorsCraving extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.APEX_PREDATORS_CRAVING.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.APEX_PREDATORS_CRAVING);
 
     this.hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id);
 

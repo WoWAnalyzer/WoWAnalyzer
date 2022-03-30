@@ -9,7 +9,7 @@ export default {
   contributors: [Sharrq, Dambroda],
   expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '9.0.5',
+  patchCompatibility: '9.2',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -44,7 +44,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/HmYxBnZPgV3Rk8hL/12-Heroic+Shriekwing+-+Kill+(5:43)/Mattyblasts/standard',
+  exampleReport:
+    '/report/mFnxQzZ3GgRXJV8W/31-Heroic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:01)/Allesha/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -807,9 +807,11 @@ export interface Item {
   icon: string;
   itemLevel: number;
   bonusIDs?: number | number[];
+  effectID?: number;
   permanentEnchant?: number;
   temporaryEnchant?: number;
   gems?: Gem[];
+  setID?: number;
 }
 
 export interface Gem {

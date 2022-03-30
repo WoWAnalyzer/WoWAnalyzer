@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai, ab } from 'CONTRIBUTORS';
+import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai, ab, bhawkins6177 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 3, 6), <>Bump to partial support for 9.2</>, Tyndi),
+  change(date(2022, 3, 1), <>Fixed bug where <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> had incorrect high value buffs listed.</>, bhawkins6177),
   change(date(2021, 8, 12), <>Added <SpellLink id={SPELLS.FLAGELLATION.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
   change(date(2021, 5, 2), <>Fix bug in Sepsis analyzer in mythic plus analysis.</>, Hordehobbs),
   change(date(2021, 5, 1), <>Added analyzer for <SpellLink id={SPELLS.CELERITY.id} /> legendary. </>, Hordehobbs),

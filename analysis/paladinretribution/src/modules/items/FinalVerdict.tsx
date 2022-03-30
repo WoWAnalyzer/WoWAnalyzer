@@ -19,7 +19,7 @@ class FinalVerdict extends Analyzer {
     },
   ) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FINAL_VERDICT.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FINAL_VERDICT);
     if (!this.active) {
       return;
     }

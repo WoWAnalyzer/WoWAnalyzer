@@ -28,9 +28,7 @@ class DraughtOfDeepFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.DRAUGHT_OF_DEEP_FOCUS.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.DRAUGHT_OF_DEEP_FOCUS);
 
     // init trackers
     BUFFED_DOTS.forEach((dotSpell) => {

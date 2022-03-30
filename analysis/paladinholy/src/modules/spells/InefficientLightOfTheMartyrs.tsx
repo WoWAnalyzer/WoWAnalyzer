@@ -11,6 +11,10 @@ class InefficientLightOfTheMartyrs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = !this.selectedCombatant.hasLegendary(SPELLS.MARAADS_DYING_BREATH);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),
       this.handleCast,

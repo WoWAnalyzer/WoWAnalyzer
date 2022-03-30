@@ -9,27 +9,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 /**
- * When a Festering Wound bursts the cooldown of Apocalypse is reduced by 0.5 sec.
+ * When a Festering Wound bursts the cooldown of Apocalypse is reduced by 1.0 sec.
  */
 
-const CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK = [
-  0,
-  5,
-  5.5,
-  6,
-  6.5,
-  7,
-  7.5,
-  8,
-  8.5,
-  9,
-  9.5,
-  10,
-  10.5,
-  11,
-  11.5,
-  12,
-];
+const CONVOCATION_OF_THE_DEAD_CDR = 1.0;
 
 class ConvocationOfTheDead extends Analyzer {
   static dependencies = {
@@ -58,14 +41,14 @@ class ConvocationOfTheDead extends Analyzer {
 
   onWoundBurst(event: ResourceChangeEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
-      this.cooldownReduction += CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10;
+      this.cooldownReduction += CONVOCATION_OF_THE_DEAD_CDR;
       this.spellUsable.reduceCooldown(
         SPELLS.APOCALYPSE.id,
-        CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10,
+        CONVOCATION_OF_THE_DEAD_CDR,
         event.timestamp,
       );
     } else {
-      this.wastedCooldownReduction += CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10;
+      this.wastedCooldownReduction += CONVOCATION_OF_THE_DEAD_CDR;
     }
   }
 

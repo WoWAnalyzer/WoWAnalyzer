@@ -6,22 +6,31 @@ const legendaries = {
     icon: 'ability_titankeeper_piercingcorruption',
     bonusID: 6962,
   },
+  BATTLELORD_ITEM: {
+    id: 335274,
+    name: 'Battlelord',
+    icon: 'ability_pvp_hardiness',
+  },
   BATTLELORD: {
     id: 346369,
     name: 'Battlelord',
     icon: 'ability_pvp_hardiness',
-    bonusID: 6960,
   },
   BATTLELORD_ENERGIZE: {
     id: 346370,
     name: 'Battlelord',
     icon: 'ability_pvp_hardiness',
   },
+  EXPLOITER_ITEM: {
+    id: 335451,
+    name: 'Exploiter',
+    icon: 'inv_sword_48',
+    bonusID: 6961,
+  },
   EXPLOITER: {
     id: 335452,
     name: 'Exploiter',
     icon: 'inv_sword_48',
-    bonusID: 6961,
   },
   //endregion
 
@@ -41,6 +50,12 @@ const legendaries = {
     name: 'Thunderlord',
     icon: 'ability_vehicle_electrocharge',
     bonusID: 6956,
+  },
+  REPRISAL: {
+    id: 335718,
+    name: 'Reprisal',
+    icon: 'ability_warrior_unrelentingassault',
+    bonusID: 6969,
   },
   //endregion
 
@@ -63,5 +78,13 @@ const legendaries = {
     bonusID: 7470,
   },
   //endregion
+
+  // Covenant
+  GLORY: {
+    id: 353577,
+    name: 'Glory',
+    icon: 'ability_maldraxxus_warrior',
+    bonusID: 7469,
+  },
 } as const;
 export default legendaries;

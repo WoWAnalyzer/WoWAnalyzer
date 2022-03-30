@@ -2,6 +2,13 @@ import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 3, 30), 'Glory Stat Added.', Abelito75),
+  change(date(2022, 3, 29), 'Some prettying up of stats.', Abelito75),
+  change(date(2022, 3, 18), 'Corrected thresholds for BlockCheck', Abelito75),
+  change(date(2022, 3, 17), 'File Clean up and abilities updated. Bumping to 9.2 and supported', Abelito75),
+  change(date(2022, 3, 16), 'Converted BlockCheck and ShieldBlock to typescript.', Abelito75),
+  change(date(2022, 3, 16), 'Updated Avatar\'s statistic box.', Abelito75),
+  change(date(2022, 3, 16), 'Corrected Into The Fray haste buff tracking.', Abelito75),
   change(date(2021, 4, 3), 'Verified patch changes and bumped support to 9.0.5', Adoraci),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),
   change(date(2021, 1, 10), 'Updated to 9.0.2.', Abelito75),

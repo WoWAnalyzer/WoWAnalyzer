@@ -38,7 +38,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: (haste) => 6 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 3,
       },
@@ -48,7 +47,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         buffSpellId: SPELLS.REVENGE_FREE_CAST.id,
-        cooldown: (haste) => 3 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 3,
       },
@@ -189,7 +187,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 30,
+        cooldown: 25,
       },
       {
         spell: SPELLS.RAVAGER_TALENT_PROTECTION.id,
@@ -198,7 +196,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 60,
+        cooldown: 45,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -223,6 +221,36 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 180,
         timelineSortIndex: 9,
+      },
+      {
+        spell: SPELLS.CHARGE.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        timelineSortIndex: 9,
+      },
+      {
+        spell: [SPELLS.INTERVENE_CAST.id, SPELLS.INTERVENE_BUFF.id, SPELLS.INTERVENE_CHARGE.id],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        timelineSortIndex: 9,
+      },
+
+      // covenant magic
+      {
+        spell: SPELLS.CONQUERORS_BANNER.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 120,
+        timelineSortIndex: 9,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

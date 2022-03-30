@@ -4,7 +4,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const REDUCTION_MS = 500;
+const REDUCTION_MS = 300;
 
 class FrozenOrb extends Analyzer {
   static dependencies = {

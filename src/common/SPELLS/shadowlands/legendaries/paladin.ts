@@ -1,10 +1,22 @@
 const legendaries = {
   //region Holy
+  SHOCK_BARRIER_ITEM: {
+    id: 337825,
+    name: 'Shock Barrier',
+    icon: 'ability_paladin_blessedmending',
+    bonusID: 7059,
+  },
   SHOCK_BARRIER: {
     id: 337824,
     name: 'Shock Barrier',
     icon: 'ability_paladin_blessedmending',
-    bonusID: 7059,
+  },
+
+  MARAADS_DYING_BREATH: {
+    id: 340458,
+    name: "Maraad's Dying Breath",
+    icon: 'paladin_icon_speedoflight',
+    bonusID: 7128,
   },
   //endregion
 

@@ -11,6 +11,7 @@ import Events, {
   HealEvent,
 } from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
 import StaggerFabricator from '../core/StaggerFabricator';
@@ -79,7 +80,7 @@ class StaggerPoolGraph extends Analyzer {
       title: null,
     };
 
-    const spec = {
+    const spec: VisualizationSpec = {
       data: {
         name: 'combined',
       },
@@ -155,26 +156,24 @@ class StaggerPoolGraph extends Analyzer {
           },
         },
         {
-          mark: {
-            type: 'rule' as const,
-            color: 'grey',
-          },
-          selection: {
-            hover: {
-              type: 'single' as const,
-              empty: 'none' as const,
-              on: 'mouseover',
-              nearest: true,
+          mark: 'rule',
+          params: [
+            {
+              name: 'hover',
+              select: {
+                type: 'point',
+                on: 'mouseover',
+              },
             },
-          },
+          ],
           encoding: {
             color: {
               condition: {
-                selection: {
-                  not: 'hover',
-                },
-                value: 'transparent',
+                param: 'hover',
+                empty: false,
+                value: 'grey',
               },
+              value: 'transparent',
             },
           },
         },

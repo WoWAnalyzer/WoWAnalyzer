@@ -32,12 +32,13 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
+import BonedustBrewAverageTargets from './modules/shadowlands/covenant/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/shadowlands/covenant/FaelineStompHealing';
 import FallenOrderAverageHPOfTargetOnCast from './modules/shadowlands/covenant/FallenOrderAverageHPOfTargetOnCast';
 import FallenOrderCraneAverage from './modules/shadowlands/covenant/FallenOrderCraneAverage';
-import FallenOrderMistWrap from './modules/shadowlands/covenant/FallenOrderMistWrap';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
+import T28FourSet from './modules/shadowlands/tier/T28FourSet';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
@@ -139,10 +140,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     fallenOrder: FallenOrder,
     fallenOrderCraneAverage: FallenOrderCraneAverage,
-    fallenOrderMistWrap: FallenOrderMistWrap,
     fallenOrderAverageHPOfTargetOnCast: FallenOrderAverageHPOfTargetOnCast,
     faelineStomp: FaelineStomp,
     faelineStompHealing: FaelineStompHealing,
+    bonedustBrewAverageTargets: BonedustBrewAverageTargets,
 
     // Conduits
     // Endurance
@@ -160,6 +161,9 @@ class CombatLogParser extends CoreCombatLogParser {
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
     sinisterTeachings: SinisterTeachings,
+
+    // Tier set
+    t28FourSet: T28FourSet,
   };
 }
 

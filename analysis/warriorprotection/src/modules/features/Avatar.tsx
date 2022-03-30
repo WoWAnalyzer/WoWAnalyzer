@@ -5,7 +5,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import EventFilter from 'parser/core/EventFilter';
 import { DamageEvent, EventType } from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 
@@ -32,10 +36,10 @@ class Avatar extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.AVATAR_TALENT.id} />}
-        value={`${formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)} DPS`}
-        label="Damage contributed"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(25)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
             Avatar contributed {formatNumber(this.bonusDmg)} total damage (
@@ -43,7 +47,17 @@ class Avatar extends Analyzer {
             Uptime was {formatPercentage(this.uptime)}%
           </>
         }
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.AVATAR_TALENT.id} /> Damage Contributed
+            </>
+          }
+        >
+          <ItemDamageDone amount={this.bonusDmg} />
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

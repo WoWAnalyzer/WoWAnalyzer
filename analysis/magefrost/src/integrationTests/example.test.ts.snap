@@ -145,7 +145,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(36.9104037488743deg)",
+                    "transform": "rotate(77.46650219924533deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -175,7 +175,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                 }
               }
             >
-              63
+              78
               %
             </div>
           </div>
@@ -223,7 +223,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like
        
@@ -252,24 +252,11 @@ Array [
     </React.Fragment>,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"mage.frost.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"36.82"}}
+      {"id":"mage.frost.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"22.33"}}
        (
       &lt;5.00% is recommended
       )
     </React.Fragment>,
-  },
-]
-`;
-
-exports[`Frost Mage integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_misc_gem_azuredraenite_01",
-    "importance": "minor",
-    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
-    "spell": undefined,
-    "stat": null,
   },
 ]
 `;
@@ -314,7 +301,7 @@ exports[`Frost Mage integration test: example log BrainFreeze matches the statis
         <div
           className="value"
         >
-          89
+          95
           % 
           <small>
             Proc utilization
@@ -348,10 +335,10 @@ Array [
   Object {
     "details": null,
     "icon": "ability_mage_brainfreeze",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <React.Fragment>
       You overwrote 
-      7.14
+      4.55
       % of your
        
       <ForwardRef
@@ -375,7 +362,7 @@ Array [
         message="{0}% overwritten"
         values={
           Object {
-            "0": "7.14",
+            "0": "4.55",
           }
         }
       />
@@ -386,31 +373,60 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_mage_brainfreeze",
+    "icon": "ability_warlock_burningembersblue",
     "importance": "regular",
     "issue": <React.Fragment>
-      You allowed 
-      3.57
-      % of your 
+      You cast 
+      <ForwardRef
+        id={44614}
+      />
+       without
+       
       <ForwardRef
         id={190446}
       />
        
-      procs to expire. Make sure you are using your procs as soon as possible to avoid this.
+      1
+       times.
+       
+      <ForwardRef
+        id={44614}
+      />
+       does not debuff the target with
+       
+      <ForwardRef
+        id={228358}
+      />
+       unless you have a
+       
+      <ForwardRef
+        id={190446}
+      />
+       proc, so you should never cast
+       
+      <ForwardRef
+        id={44614}
+      />
+       unless you have
+       
+      <ForwardRef
+        id={190446}
+      />
+      .
     </React.Fragment>,
     "spell": undefined,
     "stat": <React.Fragment>
       <Trans
-        id="mage.frost.suggestions.brainFreeze.expired"
-        message="{0}% expired"
+        id="mage.frost.suggestions.brainFreeze.casts"
+        message="{0} casts"
         values={
           Object {
-            "0": "3.57",
+            "0": "1",
           }
         }
       />
        (
-      Letting none expire is recommended
+      Casting none is recommended
       )
     </React.Fragment>,
   },
@@ -466,7 +482,7 @@ exports[`Frost Mage integration test: example log CancelledCasts matches the sta
             </g>
           </svg>
            
-          9.91
+          22.78
           % 
           <small>
             Casts Cancelled
@@ -500,10 +516,10 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_map_01",
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
       You cancelled 
-      9.91
+      22.78
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
       <ForwardRef
         id={1953}
@@ -527,7 +543,7 @@ Array [
         message="{0}% casts cancelled"
         values={
           Object {
-            "0": "9.91",
+            "0": "22.78",
           }
         }
       />
@@ -678,7 +694,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              11.69
+              7.54
             </td>
             <td
               className="text-right"
@@ -688,7 +704,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              68
+              33
               
                casts
             </td>
@@ -774,7 +790,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /35
+              /34
                casts
             </td>
             <td
@@ -945,7 +961,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              11.86
+              26.98
             </td>
             <td
               className="text-right"
@@ -955,7 +971,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              69
+              118
               
                casts
             </td>
@@ -1030,7 +1046,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              4.30
+              5.03
             </td>
             <td
               className="text-right"
@@ -1040,7 +1056,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              25
+              22
               
                casts
             </td>
@@ -1126,7 +1142,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /30
+              /22
                casts
             </td>
             <td
@@ -1212,7 +1228,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.86
+              0.91
             </td>
             <td
               className="text-right"
@@ -1222,8 +1238,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              5
-              /6
+              4
+              /5
                casts
             </td>
             <td
@@ -1241,7 +1257,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "82.24455467391087%",
+                      "width": "81.64110575549162%",
                     }
                   }
                 />
@@ -1256,7 +1272,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              82.24%
+              81.64%
             </td>
             <td
               style={
@@ -1383,7 +1399,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /52
+              /51
                casts
             </td>
             <td
@@ -1527,7 +1543,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.86
+              0.69
             </td>
             <td
               className="text-right"
@@ -1537,8 +1553,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              5
-              /8
+              3
+              /6
                casts
             </td>
             <td
@@ -1556,7 +1572,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "65.10836206081343%",
+                      "width": "48.644858922821925%",
                     }
                   }
                 />
@@ -1571,7 +1587,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              65.11%
+              48.64%
             </td>
             <td
               style={
@@ -1629,7 +1645,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.34
+              0.69
             </td>
             <td
               className="text-right"
@@ -1639,8 +1655,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              2
-              /2
+              3
+              /3
                casts
             </td>
             <td
@@ -1658,7 +1674,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "92.24744891380037%",
+                      "width": "88.5198803558841%",
                     }
                   }
                 />
@@ -1673,7 +1689,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              92.25%
+              88.52%
             </td>
             <td
               style={
@@ -1737,7 +1753,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /2
+              /1
                casts
             </td>
             <td
@@ -1823,7 +1839,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.52
+              0.69
             </td>
             <td
               className="text-right"
@@ -1834,7 +1850,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               3
-              /4
+              /3
                casts
             </td>
             <td
@@ -1851,8 +1867,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "64.98456882989606%",
+                      "backgroundColor": "#70b570",
+                      "width": "83.42205033435577%",
                     }
                   }
                 />
@@ -1867,7 +1883,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              64.98%
+              83.42%
             </td>
             <td
               style={
@@ -1876,12 +1892,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
         </tbody>
         <tbody>
@@ -1983,7 +1994,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1.55
+              0.91
             </td>
             <td
               className="text-right"
@@ -1993,8 +2004,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              9
-              /14
+              4
+              /11
                casts
             </td>
             <td
@@ -2012,7 +2023,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "60.26294599233742%",
+                      "width": "30.342357446322087%",
                     }
                   }
                 />
@@ -2027,7 +2038,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              60.26%
+              30.34%
             </td>
             <td
               style={
@@ -2080,7 +2091,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.17
+              0.00
             </td>
             <td
               className="text-right"
@@ -2090,8 +2101,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1
-              /121
+              0
+              /2
                casts
             </td>
             <td
@@ -2109,7 +2120,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0.8307328158088542%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2124,7 +2135,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.83%
+              0.00%
             </td>
             <td
               style={
@@ -2177,7 +2188,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.34
+              0.00
             </td>
             <td
               className="text-right"
@@ -2187,7 +2198,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              2
+              0
               /3
                casts
             </td>
@@ -2206,7 +2217,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "68.77401717631079%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2221,7 +2232,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              68.77%
+              0.00%
             </td>
             <td
               style={
@@ -2428,7 +2439,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /13
+              /10
                casts
             </td>
             <td
@@ -2514,7 +2525,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              2.58
+              1.14
             </td>
             <td
               className="text-right"
@@ -2524,8 +2535,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              15
-              /17
+              5
+              /14
                casts
             </td>
             <td
@@ -2543,7 +2554,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "93.85647435732113%",
+                      "width": "35.8109318142849%",
                     }
                   }
                 />
@@ -2558,7 +2569,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              93.86%
+              35.81%
             </td>
             <td
               style={
@@ -2611,7 +2622,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.00
+              0.23
             </td>
             <td
               className="text-right"
@@ -2621,8 +2632,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0
-              /15
+              1
+              /11
                casts
             </td>
             <td
@@ -2640,7 +2651,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "width": "9.144773190573263%",
                     }
                   }
                 />
@@ -2655,7 +2666,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              9.14%
             </td>
             <td
               style={
@@ -2719,7 +2730,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /44
+              /33
                casts
             </td>
             <td
@@ -3156,7 +3167,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /2
+              /1
                casts
             </td>
             <td
@@ -3242,7 +3253,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.17
+              0.00
             </td>
             <td
               className="text-right"
@@ -3252,8 +3263,8 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1
-              /2
+              0
+              /1
                casts
             </td>
             <td
@@ -3271,7 +3282,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "70.15436901272032%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3286,7 +3297,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              70.15%
+              0.00%
             </td>
             <td
               style={
@@ -3482,7 +3493,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.17
+              0.00
             </td>
             <td
               className="text-right"
@@ -3492,7 +3503,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              1
+              0
               /1
                casts
             </td>
@@ -3511,7 +3522,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -3526,7 +3537,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              100.00%
+              0.00%
             </td>
             <td
               style={
@@ -3644,7 +3655,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="https://wowhead.com/spell=307497"
+                href="https://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3656,7 +3667,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat1_yellow.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -3676,7 +3687,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              0.34
+              0.23
             </td>
             <td
               className="text-right"
@@ -3686,7 +3697,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              2
+              1
               /1
                casts
             </td>
@@ -3766,8 +3777,8 @@ Array [
         message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 5,
-            "1": 6,
+            "0": 4,
+            "1": 5,
             "2": "82",
           }
         }
@@ -3811,54 +3822,9 @@ Array [
         message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 5,
-            "1": 8,
-            "2": "65",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={314793}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 314793,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
             "0": 3,
-            "1": 4,
-            "2": "65",
+            "1": 6,
+            "2": "49",
           }
         }
       />
@@ -3902,7 +3868,7 @@ exports[`Frost Mage integration test: example log DistanceMoved matches the stat
           className="value"
         >
           ≈ 
-          1,018
+          605
            yards
           <small
             style={
@@ -3912,7 +3878,7 @@ exports[`Frost Mage integration test: example log DistanceMoved matches the stat
             }
           >
             ≈ 
-            59.02
+            41.58
             %
           </small>
         </div>
@@ -3969,6 +3935,74 @@ exports[`Frost Mage integration test: example log DistanceMoved matches the stat
 </div>
 `;
 
+exports[`Frost Mage integration test: example log DivertedEnergy matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=337136"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Diverted Energy"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_soulbarrier.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=337136"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Diverted Energy
+          </a>
+           - Rank 
+          9
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          89
+           HPS
+           
+          <small>
+            12.12
+            % of total
+          </small>
+          <br />
+          4,298
+           
+          <small>
+            Overhealing
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Frost Mage integration test: example log ElementalBarrier matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4009,19 +4043,19 @@ exports[`Frost Mage integration test: example log ElementalBarrier matches the s
         <div
           className="value"
         >
-          48k
+          55k
            
           <small>
             Damage absorbed
           </small>
           <br />
-          5,296
+          14k
            
           <small>
             Avg. absorbed per barrier
           </small>
           <br />
-          19.36
+          11.86
           % 
           <small>
              % of Damage absorbed
@@ -4050,13 +4084,48 @@ exports[`Frost Mage integration test: example log ElementalBarrier matches the s
 </div>
 `;
 
-exports[`Frost Mage integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
-    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
+    "icon": "inv_plate_oribosdungeon_c_01_cape.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  7622,
+                  7359,
+                  6652,
+                  1566,
+                  6646,
+                ],
+                "icon": "inv_plate_oribosdungeon_c_01_cape.jpg",
+                "id": 178851,
+                "itemLevel": 252,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={178851}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.cloak"
+            message="Cloak"
+          />,
+        }
+      }
+    />,
     "spell": undefined,
     "stat": null,
   },
@@ -4100,7 +4169,7 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
             Ice Bite
           </a>
            - Rank 
-          3
+          9
         </label>
         <div
           className="value"
@@ -4111,11 +4180,11 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
             src="/img/sword.png"
           />
            
-          35
+          117
            DPS
            
           <small>
-            1.64
+            1.81
              % of total
           </small>
         </div>
@@ -4165,7 +4234,7 @@ exports[`Frost Mage integration test: example log IceLance matches the statistic
         <div
           className="value"
         >
-          94%
+          59%
            
           <small>
             Casts shattered
@@ -4199,16 +4268,16 @@ Array [
   Object {
     "details": null,
     "icon": "spell_frost_frostblast",
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
       You cast 
       <ForwardRef
         id={30455}
       />
        
-      4
+      48
        times (
-      5.80
+      40.68
       %) without 
       <ForwardRef
         id={12982}
@@ -4232,7 +4301,7 @@ Array [
         message="{0}% missed"
         values={
           Object {
-            "0": "5.80",
+            "0": "40.68",
           }
         }
       />
@@ -4242,6 +4311,87 @@ Array [
     </React.Fragment>,
   },
 ]
+`;
+
+exports[`Frost Mage integration test: example log IcyPropulsion matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=336522"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Icy Propulsion"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_coldhearted.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=336522"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Icy Propulsion
+          </a>
+           - Rank 
+          9
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          243s
+           
+          <small>
+            Icy Veins CDR
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Frost Mage integration test: example log IcyVeins matches the statistic snapshot 1`] = `
@@ -4284,7 +4434,7 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
         <div
           className="value"
         >
-          79.32
+          64.65
           % 
           <small>
             Icy Veins Active Time
@@ -4318,12 +4468,12 @@ Array [
   Object {
     "details": null,
     "icon": "spell_frost_coldhearted",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       You spent 
-      19
+      48
        seconds (
-      10
+      16
       s per cast) not casting anything while
        
       <ForwardRef
@@ -4343,7 +4493,7 @@ Array [
         message="{0}% Active Time during Icy Veins"
         values={
           Object {
-            "0": "79.32",
+            "0": "64.65",
           }
         }
       />
@@ -4395,7 +4545,7 @@ exports[`Frost Mage integration test: example log LonelyWinter matches the stati
         <div
           className="value"
         >
-          15.20 % / 321 DPS
+          15.99 % / 1,038 DPS
         </div>
       </div>
     </div>
@@ -4460,7 +4610,7 @@ exports[`Frost Mage integration test: example log MirrorImage matches the statis
         <div
           className="value"
         >
-          11k
+          0
            
           <small>
              Damage Avoided
@@ -4529,14 +4679,14 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
         <div
           className="value"
         >
-          16
+          12
           %
            
           <small>
             Damage added by Rune of Power
           </small>
           <br />
-          12
+          10
           s
            
           <small>
@@ -4571,7 +4721,48 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_runeofpower",
-    "importance": "minor",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={116011}
+      />
+       or an ability that automatically casts 
+      <ForwardRef
+        id={116011}
+      />
+       (Like
+       
+      <ForwardRef
+        id={12472}
+      />
+      , 
+      <ForwardRef
+        id={190319}
+      />
+      , or
+       
+      <ForwardRef
+        id={12042}
+      />
+      ) while you still had a Rune down. Make sure you are not overlapping your 
+      <ForwardRef
+        id={116011}
+      />
+       so you can get the most out of the damage buff that it provides.
+    </React.Fragment>,
+    "spell": undefined,
+    "stat": <React.Fragment>
+      1 overlapped runes
+       (
+      0 is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_mage_runeofpower",
+    "importance": "major",
     "issue": <React.Fragment>
       You sometimes aren't standing in your 
       <ForwardRef
@@ -4587,7 +4778,7 @@ Array [
         message="Average \${0}s standing in each Rune of Power"
         values={
           Object {
-            "0": "11.5",
+            "0": "9.6",
           }
         }
       />
@@ -4597,6 +4788,68 @@ Array [
     </React.Fragment>,
   },
 ]
+`;
+
+exports[`Frost Mage integration test: example log SiphonedMalice matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=337087"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Siphoned Malice"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_artifact_stolenpower.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=337087"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Siphoned Malice
+          </a>
+           - Rank 
+          9
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          193
+           DPS
+           
+          <small>
+            2.98
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Frost Mage integration test: example log SplittingIce matches the statistic snapshot 1`] = `
@@ -4640,7 +4893,7 @@ exports[`Frost Mage integration test: example log SplittingIce matches the stati
           className="value"
         >
           
-          2.66
+          9.56
           %
         </div>
       </div>
@@ -4724,7 +4977,7 @@ exports[`Frost Mage integration test: example log ThermalVoid matches the statis
             />
           </a>
            +
-          54
+          75
            seconds
         </div>
       </div>
@@ -4818,7 +5071,7 @@ exports[`Frost Mage integration test: example log ThroughputStatisticGroup match
               }
             }
           >
-            2,115
+            6,493
              DPS
           </div>
           <div
@@ -4835,7 +5088,7 @@ exports[`Frost Mage integration test: example log ThroughputStatisticGroup match
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/z4cAKJDfVvLrwa7H/#fight=3&source=24&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/ydqQLTvJfCNtcDYR/#fight=13&source=8&type=damage-done"
             >
               <div
                 style={
@@ -4907,7 +5160,7 @@ exports[`Frost Mage integration test: example log ThroughputStatisticGroup match
               }
             }
           >
-            182
+            737
              HPS
           </div>
           <div
@@ -4929,7 +5182,7 @@ exports[`Frost Mage integration test: example log ThroughputStatisticGroup match
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/z4cAKJDfVvLrwa7H/#fight=3&source=24&type=healing"
+              href="https://www.warcraftlogs.com/reports/ydqQLTvJfCNtcDYR/#fight=13&source=8&type=healing"
             >
               <div
                 style={
@@ -5001,7 +5254,7 @@ exports[`Frost Mage integration test: example log ThroughputStatisticGroup match
               }
             }
           >
-            706
+            1,781
              DTPS
           </div>
           <div
@@ -5019,7 +5272,7 @@ exports[`Frost Mage integration test: example log ThroughputStatisticGroup match
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/z4cAKJDfVvLrwa7H/#fight=3&source=24&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/ydqQLTvJfCNtcDYR/#fight=13&source=8&type=damage-taken"
             >
               <div
                 style={
@@ -5109,7 +5362,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          96
+          98
           %
            
           <small>
@@ -5129,7 +5382,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          76
+          52
           %
            
           <small>
@@ -5164,7 +5417,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_frost_frostbolt02",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       You failed to use a pre-cast ability before spending your
        
@@ -5172,9 +5425,9 @@ Array [
         id={190446}
       />
        
-      6
+      10
        times (
-      24.00
+      47.62
       %). Because of the travel time of
        
       <ForwardRef
@@ -5214,7 +5467,7 @@ Array [
         message="{0}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt"
         values={
           Object {
-            "0": "24.00",
+            "0": "47.62",
           }
         }
       />
@@ -5256,7 +5509,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "57.42436706412318%",
+                  "width": "55.41488216578713%",
                 }
               }
             />
@@ -5435,7 +5688,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  82.24%
+                  81.64%
                    
                    
                 </div>
@@ -5457,7 +5710,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "57.42436706412318%",
+                        "width": "55.41488216578713%",
                       }
                     }
                   />
@@ -5508,7 +5761,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  65.11%
+                  48.64%
                    
                    
                 </div>
@@ -5530,7 +5783,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "28.908112755001163%",
+                        "width": "21.598317361732935%",
                       }
                     }
                   />
@@ -5543,7 +5796,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5567,8 +5820,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "79.97%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "64.53571428571429%",
                 }
               }
             />
@@ -5830,7 +6083,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  96.00%
+                  97.62%
                    
                    
                 </div>
@@ -5920,7 +6173,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  76.00%
+                  52.38%
                    
                    
                 </div>
@@ -5940,9 +6193,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "59.93999999999999%",
+                        "width": "29.071428571428577%",
                       }
                     }
                   />
@@ -5979,8 +6232,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "82.1107142857143%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -6212,7 +6465,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  89.29%
+                  95.45%
                    
                    
                 </div>
@@ -6232,9 +6485,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "64.22142857142859%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6307,7 +6560,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6331,8 +6584,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "83.85891428571426%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "31.875870000000006%",
                 }
               }
             />
@@ -6455,7 +6708,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  12
+                  10
                    
                    
                 </div>
@@ -6475,9 +6728,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "83.85891428571426%",
+                        "width": "31.875870000000006%",
                       }
                     }
                   />
@@ -6514,8 +6767,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "51.41196194423324%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "30.753994011722956%",
                 }
               }
             />
@@ -6608,7 +6861,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  36.82%
+                  22.33%
                    
                    
                 </div>
@@ -6628,9 +6881,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "22.611399062245784%",
+                        "width": "42.179804401245335%",
                       }
                     }
                   />
@@ -6668,7 +6921,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  9.91%
+                  22.78%
                    
                    
                 </div>
@@ -6688,9 +6941,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "67.30000000000001%",
+                        "width": "29.230000000000008%",
                       }
                     }
                   />
@@ -6728,7 +6981,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  79.32%
+                  64.65%
                    
                    
                 </div>
@@ -6748,9 +7001,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "64.32448677045393%",
+                        "width": "30.753994011722956%",
                       }
                     }
                   />
@@ -6788,7 +7041,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "30.58163265306123%",
+                  "width": "24.819875776397517%",
                 }
               }
             />
@@ -6956,7 +7209,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  94.12%
+                  93.18%
                    
                    
                 </div>
@@ -7102,7 +7355,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  62.96%
+                  29.03%
                    
                    
                 </div>
@@ -7124,7 +7377,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "29.95238095238096%",
+                        "width": "13.811059907834105%",
                       }
                     }
                   />
@@ -7230,7 +7483,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  80.00%
+                  52.17%
                    
                    
                 </div>
@@ -7250,9 +7503,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "66.60000000000001%",
+                        "width": "24.819875776397517%",
                       }
                     }
                   />
@@ -7358,7 +7611,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  64.29%
+                  85.00%
                    
                    
                 </div>
@@ -7378,9 +7631,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "30.58163265306123%",
+                        "width": "83.24999999999999%",
                       }
                     }
                   />
@@ -7466,7 +7719,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  37.50%
+                  20.00%
                    
                    
                 </div>
@@ -7488,7 +7741,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "17.83928571428572%",
+                        "width": "9.514285714285716%",
                       }
                     }
                   />
@@ -7574,7 +7827,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  94.34%
+                  41.94%
                    
                    
                 </div>
@@ -7594,9 +7847,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "19.94930875576037%",
                       }
                     }
                   />
@@ -7725,7 +7978,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  65.11%
+                  48.64%
                    
                    
                 </div>
@@ -7747,7 +8000,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "28.908112755001163%",
+                        "width": "21.598317361732935%",
                       }
                     }
                   />
@@ -7798,7 +8051,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  64.98%
+                  100.00%
                    
                    
                 </div>
@@ -7818,9 +8071,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "28.85314856047385%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -7861,7 +8114,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "83.33333333333334%",
+                  "width": "97.22222222222223%",
                 }
               }
             />
@@ -7960,7 +8213,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  6
+                  5
                    
                   / 6
                    
@@ -7981,9 +8234,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "83.33333333333334%",
                       }
                     }
                   />
@@ -8024,7 +8277,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  6
+                  5
                    
                   / 6
                    
@@ -8045,9 +8298,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "83.33333333333334%",
                       }
                     }
                   />
@@ -8214,9 +8467,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  2
+                  1
                    
-                  / 2
+                  / 1
                    
                 </div>
               </div>
@@ -8278,9 +8531,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  2
+                  1
                    
-                  / 2
+                  / 1
                    
                 </div>
               </div>
@@ -8475,8 +8728,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                 >
                    
                   <trans
-                    id="common.no"
-                    message="No"
+                    id="common.yes"
+                    message="Yes"
                   />
                    
                    
@@ -8497,9 +8750,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -8607,8 +8860,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                 >
                    
                   <trans
-                    id="common.no"
-                    message="No"
+                    id="common.yes"
+                    message="Yes"
                   />
                    
                    
@@ -8629,9 +8882,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />

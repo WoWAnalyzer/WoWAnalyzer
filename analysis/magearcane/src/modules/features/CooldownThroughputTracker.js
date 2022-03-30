@@ -15,6 +15,10 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: SPELLS.RUNE_OF_POWER_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
+    {
+      spell: SPELLS.RADIANT_SPARK.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+    },
   ];
 
   static castCooldowns = [

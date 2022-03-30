@@ -41,7 +41,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) && (
           <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />
         )}
-        {combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id) && (
+        {!combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.FIRE_ELEMENTAL.id} />
         )}
         {combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id) && (

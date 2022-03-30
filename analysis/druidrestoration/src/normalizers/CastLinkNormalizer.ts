@@ -72,6 +72,17 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
   },
   {
+    // for discerning hardcasts from T29 4pc procs
+    linkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.INCARNATION_TOL_ALLOWED.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
     linkRelation: FROM_OVERGROWTH,
     linkingEventId: [
       SPELLS.REJUVENATION.id,

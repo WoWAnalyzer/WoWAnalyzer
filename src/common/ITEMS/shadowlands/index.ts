@@ -23,3 +23,4 @@ const items: ItemList = safeMerge(
   Raids,
 );
 export default items;
+export * from './tier';

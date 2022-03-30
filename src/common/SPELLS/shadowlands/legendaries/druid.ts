@@ -1,18 +1,22 @@
 const legendaries = {
   //region Balance
+  BALANCE_OF_ALL_THINGS_ITEM: {
+    id: 339942,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_balanceofpower',
+    bonusID: 7107,
+  },
 
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 339946,
     name: 'Balance of All Things',
     icon: 'ability_druid_balanceofpower',
-    bonusID: 7107,
   },
 
   BALANCE_OF_ALL_THINGS_SOLAR: {
     id: 339943,
     name: 'Balance of All Things',
     icon: 'ability_druid_balanceofpower',
-    bonusID: 7107,
   },
   //endregion
 
@@ -65,6 +69,7 @@ const legendaries = {
     id: 338831,
     name: "The Dark Titan's Lesson",
     icon: 'spell_druid_germination_rejuvenation',
+    bonusID: 7097,
   },
   LIFEBLOOM_DTL_HOT_HEAL: {
     // with The Dark Titan's Lesson legendary, BOTH lifeblooms will have this ID
@@ -72,7 +77,12 @@ const legendaries = {
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
-    bonusID: 7097,
+  },
+  MEMORY_OF_THE_MOTHER_TREE_ITEM: {
+    id: 339064,
+    name: 'Memory of the Mother Tree',
+    icon: 'spell_druid_rampantgrowth',
+    bonusID: 7096,
   },
   MEMORY_OF_THE_MOTHER_TREE: {
     id: 189877,

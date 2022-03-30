@@ -41,18 +41,6 @@ class BoomingVoice extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  get uptimeSuggestionThresholds() {
-    return {
-      actual: this.rageWasted,
-      isGreaterThan: {
-        minor: 0,
-        average: 10,
-        major: 20,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   onShoutCast(event: CastEvent) {
     if (this.nextCastWasted === 0) {
       return;
@@ -80,6 +68,18 @@ class BoomingVoice extends Analyzer {
     if (enemy && enemy.hasBuff(SPELLS.DEMORALIZING_SHOUT.id)) {
       this.bonusDmg += calculateEffectiveDamage(event, BOOMING_VOICE_DAMAGE_INCREASE);
     }
+  }
+
+  get uptimeSuggestionThresholds() {
+    return {
+      actual: this.rageWasted,
+      isGreaterThan: {
+        minor: 0,
+        average: 10,
+        major: 20,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   suggestions(when: When) {

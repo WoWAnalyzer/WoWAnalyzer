@@ -6,6 +6,11 @@ import * as SPELLS from './SPELLS';
 
 export default [
   change(
+    date(2022, 2, 16),
+    'TBC Priest Fixing CanceledCasts module.',
+    Khadaj,
+  ),
+  change(
     date(2021, 9, 29),
     'TBC Priest Fixing mana efficiency and adding CanceledCasts module.',
     Khadaj,

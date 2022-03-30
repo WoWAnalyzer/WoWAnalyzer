@@ -40,6 +40,8 @@ import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigora
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
+import Tier29_2pc from './modules/shadowlands/items/Tier29_2pc';
+import Tier29_4pc from './modules/shadowlands/items/Tier29_4pc';
 import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
@@ -142,6 +144,10 @@ class CombatLogParser extends CoreCombatLogParser {
     verdantInfusion: VerdantInfusion,
     lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
     draughtOfDeepFocus: DraughtOfDeepFocus,
+
+    // sets
+    tier29_2pc: Tier29_2pc,
+    tier29_4pc: Tier29_4pc,
   };
 }
 
