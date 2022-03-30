@@ -12,6 +12,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
 import MercilessBonegrinder from './modules/shadowlands/conduits/MercilessBonegrinder';
+import SpearOfBastion from './modules/shadowlands/covenants/SpearOfBastion';
+import NaturesFury from './modules/shadowlands/legendaries/NaturesFury';
 import SignetOfTormentedKings from './modules/shadowlands/legendaries/SignetOfTormentedKings';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
@@ -60,6 +62,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shadowlands
     signetofTormentedKings: SignetOfTormentedKings,
     mercilessBonegrinder: MercilessBonegrinder,
+    naturesFury: NaturesFury,
+    spearofBastion: SpearOfBastion,
   };
 }
 

@@ -82,6 +82,23 @@ const legendaries = {
     icon: 'ability_revendreth_warrior',
     bonusID: 7470,
   },
+  NATURES_FURY: {
+    id: 354161,
+    bonusID: 7471,
+    name: "Nature's Fury",
+    icon: 'ability_ardenweald_warrior',
+  },
+  NATURES_FURY_DAMAGE: {
+    id: 354163,
+    name: "Nature's Fury",
+    icon: 'ability_ardenweald_warrior',
+  },
+  UNITY_WARRIOR: {
+    id: 364929,
+    bonusID: 8130,
+    name: 'Unity',
+    icon: 'achievement_mythicdungeons_shadowlands',
+  },
   //endregion
 } as const;
 export default legendaries;
