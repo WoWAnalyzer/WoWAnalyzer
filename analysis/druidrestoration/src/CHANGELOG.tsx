@@ -4,6 +4,7 @@ import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn,
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 3, 30), <>Added <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> to throughput tracker to allow user to better compare timing / healing with other CDs.</>, Sref),
   change(date(2022, 1, 29), <>Fixed a bug where <SpellLink id={SPELLS.KINDRED_SPIRITS.id} /> statistic would occasionally overcount when linked to another healer</>, Sref),
   change(date(2022, 1, 17), <>Fixed many issues with the Mana Efficiency chart, and added explanation text.</>, Sref),
   change(date(2022, 1, 16), <>Added a damage statistic for <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id}/> for Resto players who are a healer, but...</>, Sref),
