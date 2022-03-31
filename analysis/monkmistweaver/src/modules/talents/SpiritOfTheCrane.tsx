@@ -6,9 +6,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
-  CastEvent,
   ResourceChangeEvent,
   RemoveBuffEvent,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -22,19 +22,17 @@ const SOTC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const SOTC_MANA_PER_SECOND_RETURN_AVERAGE: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const SOTC_MANA_PER_SECOND_RETURN_MAJOR: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 
-const debug = false;
-
 class SpiritOfTheCrane extends Analyzer {
-  castsTp: number = 0;
-  buffTotm: number = 0;
-  castsBk: number = 0;
   lastTotmBuffTimestamp: number = 0;
-  totmOverCap: number = 0;
-  totmBuffWasted: number = 0;
-  totalTotmBuffs: number = 0;
 
-  manaReturnSotc: number = 0;
-  sotcWasted: number = 0;
+  currentStacks: number = 0;
+  firstRefreshAtMax: boolean = false;
+
+  refreshedStacks: number = 0;
+  droppedStacks: number = 0;
+
+  manaReturn: number = 0;
+  manaWasted: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -56,19 +54,54 @@ class SpiritOfTheCrane extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
       this.lostStacks,
     );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
+      this.refreshStack,
+    );
+
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_THE_CRANE_BUFF),
-      this.stacksToMana,
-    );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.tigerPalm);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK),
-      this.blackoutKick,
+      this.sotcManaChange,
     );
   }
 
-  get manaReturn() {
-    return this.manaReturnSotc;
+  firstStack(event: ApplyBuffEvent) {
+    this.lastTotmBuffTimestamp = event.timestamp;
+    this.currentStacks = 1;
+  }
+
+  gainStacks(event: ApplyBuffStackEvent) {
+    this.lastTotmBuffTimestamp = event.timestamp;
+    this.currentStacks = event.stack;
+    if (event.stack === 3) {
+      this.firstRefreshAtMax = true;
+    }
+  }
+
+  lostStacks(event: RemoveBuffEvent) {
+    const currentTime = event.timestamp;
+    const timeDifference = currentTime - this.lastTotmBuffTimestamp;
+
+    if (timeDifference >= TEACHINGS_OF_THE_MONASTERY_DURATION) {
+      this.droppedStacks += this.currentStacks;
+    }
+
+    this.currentStacks = 0;
+  }
+
+  refreshStack(event: RefreshBuffEvent) {
+    // the log is weird and when you hit max stacks you also get a refresh event
+    if (this.firstRefreshAtMax) {
+      this.firstRefreshAtMax = false;
+      return;
+    }
+    this.refreshedStacks += 1;
+  }
+
+  sotcManaChange(event: ResourceChangeEvent) {
+    this.manaReturn += event.resourceChange - event.waste;
+    this.manaWasted += event.waste;
   }
 
   get suggestionThresholds() {
@@ -81,64 +114,6 @@ class SpiritOfTheCrane extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  firstStack(event: ApplyBuffEvent) {
-    this.buffTotm += 1;
-    this.lastTotmBuffTimestamp = event.timestamp;
-    debug && console.log(`ToTM at ${this.buffTotm}`);
-  }
-
-  gainStacks(event: ApplyBuffStackEvent) {
-    this.buffTotm += 1;
-    this.lastTotmBuffTimestamp = event.timestamp;
-    debug && console.log(`ToTM at ${this.buffTotm}`);
-  }
-
-  lostStacks(event: RemoveBuffEvent) {
-    debug && console.log(event.timestamp);
-    if (event.timestamp - this.lastTotmBuffTimestamp > TEACHINGS_OF_THE_MONASTERY_DURATION) {
-      this.totmBuffWasted += 1;
-      this.buffTotm = 0;
-      debug && console.log('ToTM Buff Wasted');
-    }
-    this.buffTotm = 0;
-  }
-
-  stacksToMana(event: ResourceChangeEvent) {
-    this.manaReturnSotc += event.resourceChange - event.waste;
-    this.sotcWasted += event.waste;
-    debug &&
-      console.log(
-        `SotC Entergize: ${event.resourceChange - event.waste} Total: ${this.manaReturnSotc}`,
-      );
-    debug &&
-      console.log(
-        `SotC Waste: ${event.waste} Total: ${this.sotcWasted} Timestamp: ${event.timestamp}`,
-      );
-  }
-
-  tigerPalm(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
-      return;
-    }
-
-    debug && console.log(`TP Casted at 3 stacks ${event.timestamp}`);
-    this.lastTotmBuffTimestamp = event.timestamp;
-    this.totmOverCap += 1;
-  }
-
-  blackoutKick() {
-    if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
-      return;
-    }
-
-    if (this.buffTotm > 0) {
-      if (this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
-        this.totalTotmBuffs += this.buffTotm;
-        debug && console.log(`Black Kick Casted with Totm at ${this.buffTotm} stacks`);
-      }
-    }
   }
 
   suggestions(when: When) {
@@ -170,15 +145,17 @@ class SpiritOfTheCrane extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            You gained a raw total of {((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k
-            mana from SotC with {(this.sotcWasted / 1000).toFixed(0)}k wasted.
+            You gained a raw total of {((this.manaReturn + this.manaWasted) / 1000).toFixed(0)}k
+            mana from SotC with {(this.manaWasted / 1000).toFixed(0)}k wasted.
             <br />
-            You lost {this.totmOverCap + this.totmBuffWasted} Teachings of the Monestery stacks.
+            You lost {this.droppedStacks + this.refreshedStacks} Teachings of the Monestery stacks.
             <br />
             <ul>
-              {this.totmOverCap > 0 && <li>You overcapped Teachings {this.totmOverCap} times</li>}
-              {this.totmBuffWasted > 0 && (
-                <li>You let Teachings drop off {this.totmBuffWasted} times</li>
+              {this.refreshedStacks > 0 && (
+                <li>You overcapped Teachings {this.refreshedStacks} times</li>
+              )}
+              {this.droppedStacks > 0 && (
+                <li>You let Teachings drop off {this.droppedStacks} times</li>
               )}
             </ul>
           </>
@@ -191,7 +168,7 @@ class SpiritOfTheCrane extends Analyzer {
             </>
           }
         >
-          <>{formatNumber(this.manaReturnSotc)}</>
+          <>{formatNumber(this.manaReturn)}</>
         </BoringValueText>
       </Statistic>
     );

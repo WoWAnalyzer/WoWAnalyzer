@@ -34,29 +34,6 @@ class AngerManagement extends Analyzer {
     });
   }
 
-  get tooltip() {
-    return (
-      <table className="table table-condensed">
-        <thead>
-          <tr>
-            <th>Spell</th>
-            <th>Effective</th>
-            <th>Wasted</th>
-          </tr>
-        </thead>
-        <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
-            <tr key={value}>
-              <td>{SPELLS[value].name}</td>
-              <td>{formatDuration(this.effectiveReduction[value])}</td>
-              <td>{formatDuration(this.wastedReduction[value])}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-
   onCast(event: CastEvent) {
     const classResources = event.classResources?.find((e) => e.type === RESOURCE_TYPES.RAGE.id);
     if (!classResources || !classResources.cost) {
@@ -76,13 +53,38 @@ class AngerManagement extends Analyzer {
     this.totalRageSpend += rageSpend;
   }
 
+  get tooltip() {
+    return (
+      <table className="table table-condensed">
+        <thead>
+          <tr>
+            <th>Spell</th>
+            <th>Effective</th>
+            <th>Wasted</th>
+          </tr>
+        </thead>
+        <tbody>
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
+            <tr key={value}>
+              <td>
+                <SpellLink id={SPELLS[value].id} />
+              </td>
+              <td>{formatDuration(this.effectiveReduction[value])}</td>
+              <td>{formatDuration(this.wastedReduction[value])}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
+        wide
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={this.tooltip}
       >
         <BoringValueText
           label={
@@ -91,7 +93,7 @@ class AngerManagement extends Analyzer {
             </>
           }
         >
-          -
+          {this.tooltip}
         </BoringValueText>
       </Statistic>
     );

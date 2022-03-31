@@ -33,7 +33,7 @@ class TheWall extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_WALL.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.THE_WALL);
     if (!this.active) {
       return;
     }

@@ -1,8 +1,13 @@
 const legendaries = {
   //region Assassination
+  DASHING_SCOUNDREL_ITEM: {
+    id: 340081,
+    bonusID: 7115,
+    name: 'Dashing Scoundrel',
+    icon: 'ability_rogue_venomouswounds',
+  },
   DASHING_SCOUNDREL: {
     id: 340426,
-    bonusID: 7115,
     name: 'Dashing Scoundrel',
     icon: 'ability_rogue_venomouswounds',
   },

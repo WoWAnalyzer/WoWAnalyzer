@@ -6,7 +6,7 @@ import { Condition, tenseAlt } from '../index';
 export default function hasLegendary(legendary: LegendarySpell): Condition<boolean> {
   return {
     key: `hasLegendary-${legendary.id}`,
-    init: ({ combatant }) => combatant.hasLegendaryByBonusID(legendary.bonusID!),
+    init: ({ combatant }) => combatant.hasLegendary(legendary),
     update: (state, _event) => state,
     validate: (state, _event) => state,
     describe: (tense) => (

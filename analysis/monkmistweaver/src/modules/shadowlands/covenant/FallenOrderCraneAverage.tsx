@@ -53,6 +53,9 @@ class FallenOrderCraneAverage extends Analyzer {
   }
 
   statistic() {
+    if (this.mwClones === 0) {
+      return <></>;
+    }
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE()}

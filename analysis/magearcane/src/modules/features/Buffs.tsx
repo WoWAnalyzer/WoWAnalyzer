@@ -48,6 +48,15 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.ARCANE_HARMONY_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.RADIANT_SPARK.id,
+        triggeredBySpellId: SPELLS.RADIANT_SPARK.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },

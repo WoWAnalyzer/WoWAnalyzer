@@ -33,7 +33,7 @@ class Celerity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CELERITY.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.CELERITY);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ADRENALINE_RUSH),
       this.onAdrenalineRushCast,
