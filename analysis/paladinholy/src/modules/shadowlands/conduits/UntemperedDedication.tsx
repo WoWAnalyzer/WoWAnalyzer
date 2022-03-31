@@ -4,7 +4,6 @@ import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { RemoveBuffEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 class UntemperedDedication extends Analyzer {
@@ -47,7 +46,9 @@ class UntemperedDedication extends Analyzer {
         <span>
           You dropped your <SpellLink id={SPELLS.UNTEMPERED_DEDICATION.id} /> stacks {actual} times.
           Try to keep it up at all times, as this is a fairly large loss of healing.
-          If the fight has a large amount of downtime forcing these drops, take this suggestion with a grain of salt.
+          If the fight
+          has a large amount of downtime forcing these drops, take this suggestion with a grain of
+          salt.
         </span>,
       )
         .icon(conduits.UNTEMPERED_DEDICATION.icon)
