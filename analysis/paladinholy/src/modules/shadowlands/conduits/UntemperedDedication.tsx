@@ -45,7 +45,7 @@ class UntemperedDedication extends Analyzer {
       suggest(
         <span>
           You dropped your <SpellLink id={SPELLS.UNTEMPERED_DEDICATION.id} /> stacks {actual} times.
-          Try to keep it up at all times, as this is a fairly large loss of healing. If the fight
+          Try to keep it up at all times, as this is a fairly large loss of healing.  If the fight
           has a large amount of downtime forcing these drops, take this suggestion with a grain of
           salt.
         </span>,
