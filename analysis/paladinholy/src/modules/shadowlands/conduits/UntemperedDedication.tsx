@@ -9,7 +9,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 class UntemperedDedication extends Analyzer {
   // a counter for when UD stacks are dropped
-  private totalDrops = 0;
+  totalDrops = 0;
   conduitRank = 0;
 
   constructor(options: Options) {
@@ -33,9 +33,9 @@ class UntemperedDedication extends Analyzer {
     return {
       actual: this.totalDrops,
       isGreaterThan: {
-        minor: 1,
-        average: 2,
-        major: 3,
+        minor: 2,
+        average: 4,
+        major: 6,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -47,6 +47,7 @@ class UntemperedDedication extends Analyzer {
         <span>
           You dropped your <SpellLink id={SPELLS.UNTEMPERED_DEDICATION.id} /> stacks {actual} times.
           Try to keep it up at all times, as this is a fairly large loss of healing.
+          If the fight has a large amount of downtime forcing these drops, take this suggestion with a grain of salt.
         </span>,
       )
         .icon(conduits.UNTEMPERED_DEDICATION.icon)
