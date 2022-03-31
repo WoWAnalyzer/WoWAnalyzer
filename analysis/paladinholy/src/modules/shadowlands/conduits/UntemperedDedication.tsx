@@ -51,7 +51,6 @@ class UntemperedDedication extends Analyzer {
         </span>,
       )
         .icon(conduits.UNTEMPERED_DEDICATION.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR)
         .actual(<>You lost your stacks {actual} times</>)
         .recommended(<>It is recommended to maintain 5 stacks at all times.</>),
     );
