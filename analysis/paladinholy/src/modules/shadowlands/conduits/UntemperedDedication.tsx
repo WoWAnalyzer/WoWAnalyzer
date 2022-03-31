@@ -9,12 +9,10 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 class UntemperedDedication extends Analyzer {
   // a counter for when UD stacks are dropped
   totalDrops = 0;
-  conduitRank = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.UNTEMPERED_DEDICATION.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.UNTEMPERED_DEDICATION.id);
     if (!this.active) {
       return;
     }
