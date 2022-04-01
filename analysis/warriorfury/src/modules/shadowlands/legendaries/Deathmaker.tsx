@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
 
 class Deathmaker extends Analyzer {
-  static depedencies = {
+  static dependencies = {
     enemies: Enemies,
   };
   damage: number = 0;

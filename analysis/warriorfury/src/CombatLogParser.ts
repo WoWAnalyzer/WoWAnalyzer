@@ -13,6 +13,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
 import MercilessBonegrinder from './modules/shadowlands/conduits/MercilessBonegrinder';
 import SpearOfBastion from './modules/shadowlands/covenants/SpearOfBastion';
+import Deathmaker from './modules/shadowlands/legendaries/Deathmaker';
 import NaturesFury from './modules/shadowlands/legendaries/NaturesFury';
 import SignetOfTormentedKings from './modules/shadowlands/legendaries/SignetOfTormentedKings';
 import MissedRampage from './modules/spells/MissedRampage';
@@ -63,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     signetofTormentedKings: SignetOfTormentedKings,
     mercilessBonegrinder: MercilessBonegrinder,
     naturesFury: NaturesFury,
+    deathMaker: Deathmaker,
     spearofBastion: SpearOfBastion,
   };
 }
