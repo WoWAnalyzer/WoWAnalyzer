@@ -28,9 +28,7 @@ class Siegebreaker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) ||
-      this.selectedCombatant.hasLegendary(SPELLS.DEATHMAKER);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id);
 
     if (!this.active) {
       return;
