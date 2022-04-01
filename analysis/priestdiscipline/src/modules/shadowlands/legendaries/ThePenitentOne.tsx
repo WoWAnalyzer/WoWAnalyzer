@@ -26,7 +26,7 @@ class ThePenitentOne extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_PENITENT_ONE.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.THE_PENITENT_ONE);
     if (!this.active) {
       return;
     }

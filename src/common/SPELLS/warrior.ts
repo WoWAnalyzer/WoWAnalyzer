@@ -515,6 +515,13 @@ const spells = {
     name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
+
+  // Tier set
+  T28_OUTBURST: {
+    id: 364010,
+    name: 'Outburst',
+    icon: 'ability_warrior_furiousresolve',
+  },
 } as const;
 
 export default spells;

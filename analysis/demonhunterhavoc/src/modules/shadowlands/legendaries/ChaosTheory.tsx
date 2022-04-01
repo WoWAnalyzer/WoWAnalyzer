@@ -11,7 +11,7 @@ class ChaosTheory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CHAOS_THEORY.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.CHAOS_THEORY);
     if (!this.active) {
       return;
     }

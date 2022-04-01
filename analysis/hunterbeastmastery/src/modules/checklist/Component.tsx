@@ -170,7 +170,7 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
         name="Legendaries"
         description="The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said legendary."
       >
-        {combatant.hasLegendaryByBonusID(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID) && (
+        {combatant.hasLegendary(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT) && (
           <Requirement
             name={
               <>

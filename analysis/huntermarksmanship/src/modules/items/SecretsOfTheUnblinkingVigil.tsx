@@ -34,8 +34,8 @@ class SecretsOfTheUnblinkingVigil extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.SECRETS_OF_THE_UNBLINKING_VIGIL_EFFECT.bonusID,
+    this.active = this.selectedCombatant.hasLegendary(
+      SPELLS.SECRETS_OF_THE_UNBLINKING_VIGIL_EFFECT,
     );
     if (!this.active) {
       return;

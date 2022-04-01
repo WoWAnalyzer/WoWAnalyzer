@@ -27,9 +27,7 @@ class FlamewakersCobraSting extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT.bonusID,
-    );
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT);
     if (!this.active) {
       return;
     }

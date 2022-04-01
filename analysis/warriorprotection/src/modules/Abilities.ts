@@ -222,6 +222,36 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         timelineSortIndex: 9,
       },
+      {
+        spell: SPELLS.CHARGE.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        timelineSortIndex: 9,
+      },
+      {
+        spell: [SPELLS.INTERVENE_CAST.id, SPELLS.INTERVENE_BUFF.id, SPELLS.INTERVENE_CHARGE.id],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        timelineSortIndex: 9,
+      },
+
+      // covenant magic
+      {
+        spell: SPELLS.CONQUERORS_BANNER.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 120,
+        timelineSortIndex: 9,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
     ];
   }
 }
