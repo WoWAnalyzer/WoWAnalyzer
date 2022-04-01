@@ -301,7 +301,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SERRATED_BONE_SPIKE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        charges: combatant.hasLegendaryByBonusID(SPELLS.DEATHSPIKE.bonusID) ? 5 : 3,
+        charges: combatant.hasLegendary(SPELLS.DEATHSPIKE) ? 5 : 3,
         cooldown: 30,
         gcd: {
           static: standardGcd,

@@ -25,7 +25,9 @@ class Obedience extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id); // && this.selectedCombatant.hasLegendaryByBonusID(SPELLS.OBEDIENCE.bonusID);
+    this.active =
+      this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
+      this.selectedCombatant.hasLegendary(SPELLS.OBEDIENCE);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
@@ -60,11 +62,8 @@ class Obedience extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spellId={SPELLS.OBEDIENCE.id}>
-          {formatNumber(this.effectiveFlegellationReductionMs / 1000)}s/
-          {formatNumber(
-            (this.wastedFlagellationReductionMs + this.effectiveFlegellationReductionMs) / 1000,
-          )}
-          s <small> cooldown reduction </small>
+          {formatNumber(this.effectiveFlegellationReductionMs / 1000)}s{' '}
+          <small> cooldown reduction </small>
         </BoringSpellValueText>
       </Statistic>
     );

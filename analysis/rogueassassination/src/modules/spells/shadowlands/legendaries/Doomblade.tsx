@@ -22,7 +22,7 @@ class Doomblade extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DOOMBLADE.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.DOOMBLADE);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MUTILATED_FLESH),
       this.onMutilatedFleshDamage,
@@ -56,7 +56,7 @@ class Doomblade extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.MUTILATED_FLESH.id}>
+        <BoringSpellValueText spellId={SPELLS.DOOMBLADE.id}>
           <ItemDamageDone amount={this.mutilatedFleshDamage} />
         </BoringSpellValueText>
         <BoringSpellValueText spellId={SPELLS.ENVENOM.id}>
