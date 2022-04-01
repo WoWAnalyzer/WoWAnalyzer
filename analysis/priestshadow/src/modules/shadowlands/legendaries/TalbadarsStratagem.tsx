@@ -21,7 +21,7 @@ class TalbadarsStratagem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.TALBADARS_STRATAGEM.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.TALBADARS_STRATAGEM);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
       this.onDamage,

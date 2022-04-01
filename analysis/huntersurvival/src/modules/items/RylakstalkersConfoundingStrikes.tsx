@@ -33,8 +33,8 @@ class RylakstalkersConfoundingStrikes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID,
+    this.active = this.selectedCombatant.hasLegendary(
+      SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT,
     );
     if (!this.active) {
       return;

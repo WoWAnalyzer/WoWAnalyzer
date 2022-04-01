@@ -32,11 +32,16 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_pet_naaru',
     bonusID: 6973,
   },
+  FLASH_CONCENTRATION_ITEM: {
+    id: 336266,
+    name: 'Flash Concentration',
+    icon: 'ability_priest_flashoflight',
+    bonusID: 6974,
+  },
   FLASH_CONCENTRATION: {
     id: 336267,
     name: 'Flash Concentration',
     icon: 'ability_priest_flashoflight',
-    bonusID: 6974,
   },
   //endregion
   // https://www.warcraftlogs.com/reports/NKcbdPzMXRJ1Drk6#fight=9&type=damage-done&source=11

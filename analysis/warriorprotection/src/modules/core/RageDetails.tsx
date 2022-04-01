@@ -5,7 +5,10 @@ import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import RageTracker from './RageTracker';
 
@@ -60,14 +63,24 @@ class RageDetails extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<Icon icon="spell_nature_reincarnation" />}
-        value={`${formatPercentage(this.wastedPercent)} %`}
-        label="Rage wasted"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.GENERAL}
         tooltip={`${this.rageTracker.wasted} out of ${
           this.rageTracker.wasted + this.rageTracker.generated
         } Rage wasted.`}
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <Icon icon="spell_nature_reincarnation" /> Rage Wasted
+            </>
+          }
+        >
+          {this.rageTracker.wasted}
+        </BoringValueText>
+      </Statistic>
     );
   }
 

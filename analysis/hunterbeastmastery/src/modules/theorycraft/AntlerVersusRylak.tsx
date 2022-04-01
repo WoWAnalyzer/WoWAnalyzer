@@ -31,13 +31,10 @@ class AntlerVersusRylak extends Analyzer {
   //Because we're comparing a generic legendary (rylak) to antlers that only works when you're NightFae
   //we require the rylak user to also be NF before showing this module
   hasRylakAndIsNF =
-    this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID,
-    ) && this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+    this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT) &&
+    this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
-  hasAntlers = this.selectedCombatant.hasLegendaryByBonusID(
-    SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.bonusID,
-  );
+  hasAntlers = this.selectedCombatant.hasLegendary(SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS);
   constructor(options: Options) {
     super(options);
 

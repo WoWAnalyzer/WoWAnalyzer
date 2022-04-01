@@ -26,7 +26,7 @@ class Superstrain extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SUPERSTRAIN.bonusID);
+    const active = this.selectedCombatant.hasLegendary(SPELLS.SUPERSTRAIN);
     this.active = active;
     if (!active) {
       return;

@@ -78,9 +78,7 @@ class FerociousBite extends Analyzer {
 
   suggestions(when: When) {
     const hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL);
-    const hasApex = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.APEX_PREDATORS_CRAVING.bonusID,
-    );
+    const hasApex = this.selectedCombatant.hasLegendary(SPELLS.APEX_PREDATORS_CRAVING);
     let exceptions = 0;
     if (hasSotf) {
       exceptions += 1;

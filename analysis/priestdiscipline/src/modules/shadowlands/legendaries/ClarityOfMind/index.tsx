@@ -21,7 +21,7 @@ class ClarityOfMind extends Analyzer {
     super(options);
 
     this.active =
-      this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CLARITY_OF_MIND.bonusID) &&
+      this.selectedCombatant.hasLegendary(SPELLS.CLARITY_OF_MIND) &&
       this.selectedCombatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT);
 
     if (!this.active) {

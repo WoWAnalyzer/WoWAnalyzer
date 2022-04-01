@@ -28,7 +28,7 @@ class Thunderlord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THUNDERLORD.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.THUNDERLORD);
     if (!this.active) {
       return;
     }
