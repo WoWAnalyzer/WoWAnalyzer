@@ -31,13 +31,13 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
 import GarroteSnapshot from './modules/features/GarroteSnapshot';
 import RuptureSnapshot from './modules/features/RuptureSnapshot';
+import DashingScoundrel from './modules/shadowlands/legendaries/DashingScoundrel';
+import Doomblade from './modules/shadowlands/legendaries/Doomblade';
+import DuskwalkersPatch from './modules/shadowlands/legendaries/DuskwalkersPatch';
 import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
 import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
 import RuptureUptime from './modules/spells/RuptureUptime';
-import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
-import Doomblade from './modules/spells/shadowlands/legendaries/Doomblade';
-import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
 import Blindside from './modules/talents/Blindside';
 import ElaboratePlanning from './modules/talents/ElaboratePlanning';
 import MasterAssassin from './modules/talents/MasterAssassin';
