@@ -12,7 +12,7 @@ class SpellUsable extends CoreSpellUsable {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID)) {
+    if (this.selectedCombatant.hasLegendary(SPELLS.SURGING_SHOTS_EFFECT)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
         this.lastPotentialTriggerForRapidFireReset = event;
       } else if (spellId === SPELLS.RAPID_FIRE.id) {
@@ -25,7 +25,7 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
     if (
       spellId === SPELLS.RAPID_FIRE.id &&
-      this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID)
+      this.selectedCombatant.hasLegendary(SPELLS.SURGING_SHOTS_EFFECT)
     ) {
       if (this.isOnCooldown(spellId)) {
         this.rapidFireResets += 1;

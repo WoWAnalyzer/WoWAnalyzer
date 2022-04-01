@@ -67,7 +67,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.fistsofFury}
         />
-        {combatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID) && (
+        {combatant.hasLegendary(SPELLS.JADE_IGNITION) && (
           <Requirement
             name={
               <>
@@ -163,7 +163,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           />
         )}
       </Rule>
-      {combatant.hasLegendaryByBonusID(SPELLS.LAST_EMPERORS_CAPACITOR.bonusID) && (
+      {combatant.hasLegendary(SPELLS.LAST_EMPERORS_CAPACITOR) && (
         <Rule
           name={
             <>

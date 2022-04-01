@@ -24,7 +24,7 @@ class FierySoul extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIERY_SOUL.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FIERY_SOUL);
     if (!this.active) {
       return;
     }

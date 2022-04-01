@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 3, 26), <>Added support for <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS.id} /> and <SpellLink id={SPELLS.MERCILESS_BONEGRINDER.id} /></>, Tyndi),
   change(date(2022, 3, 12), 'Updated Raging Blow for 2 piece tier set bonus', Tyndi),
   change(date(2022, 3, 8), 'Added Condemn for Venthyr', Tyndi),
   change(date(2020, 12, 17), 'Added some shadowlandisms.', Abelito75),
