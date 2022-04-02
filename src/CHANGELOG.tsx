@@ -54,6 +54,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 2), 'Fix issue with Donut Chart failing to render.', emallson),
   change(date(2022, 3, 25), 'Handle Unity legendary.', emallson),
   change(date(2022, 3, 23), 'Fixed degraded experience for Venthyr Mistweaver', Trevor),
   change(date(2022, 3, 14), 'Correcting the spelling of Anduin Wrynn.', Abelito75),
