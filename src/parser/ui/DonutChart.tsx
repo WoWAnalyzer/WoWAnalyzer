@@ -2,33 +2,33 @@ import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import BaseChart from 'parser/ui/BaseChart';
-import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
+import { VisualizationSpec } from 'react-vega';
 
 import 'parser/ui/DonutChart.scss';
 
-class DonutChart extends PureComponent {
-  static propTypes = {
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.number.isRequired,
-        label: PropTypes.node.isRequired,
-        color: PropTypes.string.isRequired,
-        tooltip: PropTypes.node,
-        spellId: PropTypes.number,
-        valueTooltip: PropTypes.node,
-      }),
-    ).isRequired,
-    // While you could change the chart size, I strongly recommend you do not for consistency and to avoid breaking whenever this component is modified. Do you really need to adjust the size?
-    chartSize: PropTypes.number,
-    innerRadiusFactor: PropTypes.number,
-  };
+type Item = {
+  label: React.ReactNode;
+  tooltip?: React.ReactNode;
+  color: string;
+  value: number;
+  spellId?: number;
+  valueTooltip?: React.ReactNode;
+};
+
+type Props = {
+  items: Item[];
+  chartSize: number;
+  innerRadiusFactor: number;
+};
+
+class DonutChart extends PureComponent<Props> {
   static defaultProps = {
     chartSize: 90,
     innerRadiusFactor: 0.28,
   };
 
-  renderLegend(items) {
+  renderLegend(items: Item[]) {
     const total = items.reduce((sum, item) => sum + item.value, 0);
 
     return (
@@ -53,13 +53,13 @@ class DonutChart extends PureComponent {
       </div>
     );
   }
-  renderChart(items, chartSize, innerRadiusFactor) {
+  renderChart(items: Item[], chartSize: number, innerRadiusFactor: number) {
     const innerRadius = chartSize * innerRadiusFactor;
 
     const data = {
       items,
     };
-    const spec = {
+    const spec: VisualizationSpec = {
       data: {
         name: 'items',
       },
@@ -73,11 +73,11 @@ class DonutChart extends PureComponent {
           type: 'quantitative',
         },
         color: {
-          field: 'label',
+          field: 'color',
           type: 'nominal',
           legend: null,
           scale: {
-            domain: items.map(({ label }) => label),
+            domain: items.map(({ color }) => color),
             range: items.map(({ color }) => color),
           },
         },
