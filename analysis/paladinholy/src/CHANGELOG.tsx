@@ -5,6 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot } from 'CONTRIBUTOR
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 3, 31), <>Fix some maraads bugs</>, xizbow),
   change(date(2022, 3, 23), <>Added <SpellLink id={SPELLS.UNTEMPERED_DEDICATION.id}/> analysis.</>, xizbow),
   change(date(2022, 3, 5), <>Added Maraads support and updated combatability to 9.2.</>, xizbow),
   change(date(2021, 11, 11), <>Corrected Aura Mastery's Active DR.</>, Abelito75),
