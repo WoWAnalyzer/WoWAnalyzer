@@ -10,8 +10,6 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-// https://www.warcraftlogs.com/reports/DPNTcb6XkGQZ9xHV#fight=5&type=auras&source=2&ability=340459&view=events log to test with :)
-
 class MaraadsCastRatio extends Analyzer {
   totalCasts = 0;
   maraadsBuffed = false;
@@ -49,11 +47,10 @@ class MaraadsCastRatio extends Analyzer {
 
   LOTMcast(event: CastEvent) {
     this.totalCasts += 1;
-    if (this.maraadsBuffed === true) {
-      this.maraadsBuffed = false;
-    } else {
+    if (!this.maraadsBuffed) {
       this.unbuffedCasts += 1;
     }
+    this.maraadsBuffed = false;
   }
 
   MaraadsBuffAdded(event: ApplyBuffEvent) {
@@ -111,8 +108,8 @@ class MaraadsCastRatio extends Analyzer {
     when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid overriting the <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> proc, as you
-          are wasting a large amount of healing by overwriting the proc. If you are frequently
+          Try to avoid overwriting the <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> proc, as
+          you are wasting a large amount of healing by overwriting the proc. If you are frequently
           unable to find a suitable target for your buffed{' '}
           <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, consider using a different legendary.
         </>,
