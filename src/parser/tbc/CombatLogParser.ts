@@ -98,10 +98,10 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Tabs
     raidHealthTab: RaidHealthTab,
-  };
 
-  static suggestions = [...BaseCombatLogParser.suggestions];
-  static statistics = [...BaseCombatLogParser.statistics, ManaGained];
+    // Migrated Functional Statistics
+    manaGained: ManaGained,
+  };
 }
 
 export default CombatLogParser;

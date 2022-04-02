@@ -216,6 +216,25 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
 
 const aplCheck = (apl: Apl) =>
   metric<[PlayerInfo], CheckResult>((events, info) => {
+    // sort event history. this is a workaround for event dispatch happening
+    // out of order, mostly due to SpellUsable. eventually that will be made a
+    // normalizer and this can go away.
+    events.sort((a, b) => {
+      if (a.timestamp === b.timestamp) {
+        if (
+          a.type === EventType.Cast &&
+          b.type === EventType.UpdateSpellUsable &&
+          b.trigger === EventType.EndCooldown
+        ) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else {
+        return a.timestamp - b.timestamp;
+      }
+    });
+
     // rules for spells that aren't known are automatically ignored
     const abilities = new Set(
       info.abilities
