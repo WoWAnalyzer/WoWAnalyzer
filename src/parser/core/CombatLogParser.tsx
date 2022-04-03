@@ -14,6 +14,7 @@ import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
+import Mikanikos from 'parser/shadowlands/modules/Mikanikos';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
@@ -88,7 +89,6 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
-import Mikanikos from 'parser/shadowlands/modules/Mikanikos';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;

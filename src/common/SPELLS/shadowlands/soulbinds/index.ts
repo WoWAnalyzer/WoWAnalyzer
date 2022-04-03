@@ -5,12 +5,12 @@ import FORGELITE_PRIME_MIKANIKOS from './forgeliteprimemikanikos';
 import GENERAL_DRAVEN from './generaldraven';
 import KLEIA from './kleia';
 import KORAYN from './korayn';
+import MIKANIKOS from './mikanikos';
 import NADJIA_THE_MISTBLADE from './nadjiathemistblade';
 import NIYA from './niya';
 import PELAGOS from './pelagos';
 import PLAGUE_DEVISER_MARILETH from './plaguedevisermarileth';
 import THEOTAR_THE_MAD_DUKE from './theotarthemadduke';
-import MIKANIKOS from './mikanikos';
 
 const soulbinds = {
   ...BONESMITH_HEIRMIR,
