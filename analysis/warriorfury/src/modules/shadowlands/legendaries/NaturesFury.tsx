@@ -14,20 +14,9 @@ class NaturesFury extends Analyzer {
     this.active = this.selectedCombatant.hasLegendary(SPELLS.NATURES_FURY);
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ANCIENT_AFTERSHOCK, SPELLS.ANCIENT_AFTERSHOCK_DOT]),
-      this.onAftershockDamage,
-    );
-
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.NATURES_FURY_DAMAGE),
       this.onNaturesFuryDamage,
     );
-  }
-
-  onAftershockDamage(event: DamageEvent) {
-    this._ancientAftershockDamage += event.amount + (event.absorbed || 0);
   }
 
   onNaturesFuryDamage(event: DamageEvent) {
@@ -36,14 +25,9 @@ class NaturesFury extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        {this._hasLegendary && (
-          <BoringSpellValueText spellId={SPELLS.NATURES_FURY_DAMAGE.id}>
-            {this.owner.formatItemDamageDone(this._naturesFuryDamage)}
-          </BoringSpellValueText>
-        )}
-        <BoringSpellValueText spellId={SPELLS.ANCIENT_AFTERSHOCK.id}>
-          {this.owner.formatItemDamageDone(this._ancientAftershockDamage)}
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+        <BoringSpellValueText spellId={SPELLS.NATURES_FURY_DAMAGE.id}>
+          {this.owner.formatItemDamageDone(this._naturesFuryDamage)}
         </BoringSpellValueText>
       </Statistic>
     );
