@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -9,11 +8,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class NaturesFury extends Analyzer {
   _ancientAftershockDamage: number = 0;
   _naturesFuryDamage: number = 0;
-  _hasLegendary: boolean = this.selectedCombatant.hasLegendary(SPELLS.NATURES_FURY);
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) || this._hasLegendary;
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.NATURES_FURY);
 
     this.addEventListener(
       Events.damage
