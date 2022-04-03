@@ -27,6 +27,8 @@ import EmpyreanPower from './modules/talents/EmpyreanPower';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import SanctifiedWrath from './modules/talents/SanctifiedWrath';
+import AshesToAshesProbability from './modules/shadowlands/AshesToAshesProbability';
+import OverallArtOfWarProbability from './modules/shadowlands/OverallArtOfWarProbability';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -63,6 +65,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     finalVerdict: FinalVerdict,
+
+    // tier
+    ashesToAshesProbability: AshesToAshesProbability,
+    overallArtOfWarProbability: OverallArtOfWarProbability,
   };
 }
 

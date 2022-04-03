@@ -8,9 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-class ArtOfWarProbability extends Analyzer {
-  hasTier = false;
-  flipFlop = false;
+class AshesToAshesProbability extends Analyzer {
 
   procsGained: number = 0;
   chance: number = 0.12;
@@ -21,10 +19,19 @@ class ArtOfWarProbability extends Analyzer {
     super(args);
     this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id) ? 0.24 : 0.12;
 
-    this.hasTier = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.has4Piece();
+
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
 
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASHES_TO_ASHES),
+      this.gotAProc,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ASHES_TO_ASHES),
+      this.gotAProc,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
       this.gotAProc,
@@ -36,11 +43,8 @@ class ArtOfWarProbability extends Analyzer {
   }
 
   castCounter() {
-    if(this.hasTier && this.flipFlop){
-      this.totalChances += 1;
-      this.procProbabilities.push(this.chance);
-    }
-    this.flipFlop = !this.flipFlop;
+    this.totalChances += 1;
+    this.procProbabilities.push(this.chance);
   }
 
   gotAProc() {
@@ -64,7 +68,7 @@ class ArtOfWarProbability extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.ART_OF_WAR.id} /> BoJ Reset Chance
+              <SpellLink id={SPELLS.ART_OF_WAR.id} /> Overall Reset Chance
             </>
           }
         >
@@ -75,4 +79,4 @@ class ArtOfWarProbability extends Analyzer {
   }
 }
 
-export default ArtOfWarProbability;
+export default AshesToAshesProbability;

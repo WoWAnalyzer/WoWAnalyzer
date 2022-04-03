@@ -1,15 +1,21 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-class ArtOfWarProbability extends Analyzer {
-  hasTier = false;
+class AshesToAshesProbability extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
+  protected spellUsable!: SpellUsable;
+
   flipFlop = false;
 
   procsGained: number = 0;
@@ -21,30 +27,34 @@ class ArtOfWarProbability extends Analyzer {
     super(args);
     this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id) ? 0.24 : 0.12;
 
-    this.hasTier = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.has4Piece();
+
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASHES_TO_ASHES),
       this.gotAProc,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ASHES_TO_ASHES),
       this.gotAProc,
     );
   }
 
   castCounter() {
-    if(this.hasTier && this.flipFlop){
+    if(this.flipFlop){
       this.totalChances += 1;
       this.procProbabilities.push(this.chance);
     }
     this.flipFlop = !this.flipFlop;
   }
 
-  gotAProc() {
+  gotAProc(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.procsGained += 1;
+    if(this.spellUsable.isOnCooldown(SPELLS.WAKE_OF_ASHES.id)){
+      this.spellUsable.endCooldown(SPELLS.WAKE_OF_ASHES.id);
+    }
   }
 
   statistic() {
@@ -52,7 +62,7 @@ class ArtOfWarProbability extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(12)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
             Reset Chance: {this.chance * 100} % <br />
@@ -64,7 +74,7 @@ class ArtOfWarProbability extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.ART_OF_WAR.id} /> BoJ Reset Chance
+              <SpellLink id={SPELLS.ASHES_TO_ASHES.id} /> Reset Chance
             </>
           }
         >
@@ -75,4 +85,4 @@ class ArtOfWarProbability extends Analyzer {
   }
 }
 
-export default ArtOfWarProbability;
+export default AshesToAshesProbability;

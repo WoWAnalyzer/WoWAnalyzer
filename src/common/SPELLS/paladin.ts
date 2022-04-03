@@ -582,6 +582,14 @@ const spells = {
     name: 'Divine Shield',
     icon: 'spell_holy_divineshield',
   },
+
+  // T28
+  ASHES_TO_ASHES: {
+    id: 364371,
+    name: 'Ashes To Ashes',
+    icon: 'ability_paladin_artofwar'
+  },
+
 } as const;
 
 export default spells;
