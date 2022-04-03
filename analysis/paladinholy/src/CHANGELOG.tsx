@@ -5,6 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot } from 'CONTRIBUTOR
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 3), <>Updated phrasing on suggestion for Maraad's Dying Breath.</>, xizbow),
   change(date(2022, 3, 31), <>Fix some maraads bugs</>, xizbow),
   change(date(2022, 3, 23), <>Added <SpellLink id={SPELLS.UNTEMPERED_DEDICATION.id}/> analysis.</>, xizbow),
   change(date(2022, 3, 5), <>Added Maraads support and updated combatability to 9.2.</>, xizbow),
