@@ -104,7 +104,7 @@ class T28FourSet extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(0)}
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.ITEMS}
         dropdown={this.baseTable}
         tooltip={
           <>
