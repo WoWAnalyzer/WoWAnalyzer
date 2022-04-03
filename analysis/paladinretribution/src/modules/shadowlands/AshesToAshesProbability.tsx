@@ -29,7 +29,6 @@ class AshesToAshesProbability extends Analyzer {
 
     this.active = this.selectedCombatant.has4Piece();
 
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
 
     this.addEventListener(
@@ -43,7 +42,7 @@ class AshesToAshesProbability extends Analyzer {
   }
 
   castCounter() {
-    if(this.flipFlop){
+    if (this.flipFlop) {
       this.totalChances += 1;
       this.procProbabilities.push(this.chance);
     }
@@ -52,7 +51,7 @@ class AshesToAshesProbability extends Analyzer {
 
   gotAProc(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.procsGained += 1;
-    if(this.spellUsable.isOnCooldown(SPELLS.WAKE_OF_ASHES.id)){
+    if (this.spellUsable.isOnCooldown(SPELLS.WAKE_OF_ASHES.id)) {
       this.spellUsable.endCooldown(SPELLS.WAKE_OF_ASHES.id);
     }
   }

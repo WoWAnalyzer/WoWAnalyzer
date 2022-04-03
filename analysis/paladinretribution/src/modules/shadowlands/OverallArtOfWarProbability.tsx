@@ -9,7 +9,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class AshesToAshesProbability extends Analyzer {
-
   procsGained: number = 0;
   chance: number = 0.12;
   totalChances: number = 0;
@@ -20,7 +19,6 @@ class AshesToAshesProbability extends Analyzer {
     this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id) ? 0.24 : 0.12;
 
     this.active = this.selectedCombatant.has4Piece();
-
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
 

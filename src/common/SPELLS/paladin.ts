@@ -587,9 +587,8 @@ const spells = {
   ASHES_TO_ASHES: {
     id: 364371,
     name: 'Ashes To Ashes',
-    icon: 'ability_paladin_artofwar'
+    icon: 'ability_paladin_artofwar',
   },
-
 } as const;
 
 export default spells;
