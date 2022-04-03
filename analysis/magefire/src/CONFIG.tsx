@@ -40,7 +40,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/TryHCcA7LBNK2xvR/5-Heroic+Shriekwing+-+Kill+(6:22)/Ifrosty/standard',
+  exampleReport:
+    'report/vXZQKypmBwkPt6nW/2-Heroic+Dausegne,+the+Fallen+Oracle+-+Kill+(4:32)/Kaotics/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
