@@ -88,6 +88,7 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
+import Mikanikos from 'parser/shadowlands/modules/Mikanikos';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -218,6 +219,7 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Shadowlands
+    mikanikos: Mikanikos,
 
     // Dungeons
     overchargedAnimaBattery: OverchargedAnimaBattery,

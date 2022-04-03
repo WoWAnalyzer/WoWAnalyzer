@@ -10,6 +10,7 @@ import NIYA from './niya';
 import PELAGOS from './pelagos';
 import PLAGUE_DEVISER_MARILETH from './plaguedevisermarileth';
 import THEOTAR_THE_MAD_DUKE from './theotarthemadduke';
+import MIKANIKOS from './mikanikos';
 
 const soulbinds = {
   ...BONESMITH_HEIRMIR,
@@ -24,6 +25,7 @@ const soulbinds = {
   ...PELAGOS,
   ...PLAGUE_DEVISER_MARILETH,
   ...THEOTAR_THE_MAD_DUKE,
+  ...MIKANIKOS,
 } as const;
 
 export default soulbinds;
