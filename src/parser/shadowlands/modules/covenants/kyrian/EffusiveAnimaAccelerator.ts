@@ -27,7 +27,9 @@ const SPELLS_BY_CLASS: { [key: number]: SpellInfo } = {
   [CLASSES.WARRIOR]: SPELLS.SPEAR_OF_BASTION,
 };
 
-class Mikanikos extends Analyzer {
+const debug = false;
+
+class EffusiveAnimaAccelerator extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
@@ -70,13 +72,14 @@ class Mikanikos extends Analyzer {
 
   onDebuff(event: ApplyDebuffEvent) {
     if (this.casts.length === 0) {
-      this.warn(event.ability.name, 'applied before first', this.classAbility.name, 'cast');
+      debug &&
+        this.warn(event.ability.name, 'applied before first', this.classAbility.name, 'cast');
       return;
     }
     const [lastCast, cdr] = this.casts[this.casts.length - 1];
     const baseCd = this.abilities.getExpectedCooldownDuration(lastCast.ability.guid, lastCast);
     if (baseCd == null) {
-      this.warn('no cd for', lastCast.ability.name);
+      debug && this.warn('no cd for', lastCast.ability.name);
       return;
     }
 
@@ -89,4 +92,4 @@ class Mikanikos extends Analyzer {
   }
 }
 
-export default Mikanikos;
+export default EffusiveAnimaAccelerator;

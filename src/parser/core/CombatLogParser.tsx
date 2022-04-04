@@ -14,7 +14,7 @@ import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
-import Mikanikos from 'parser/shadowlands/modules/Mikanikos';
+import EffusiveAnimaAccelerator from 'parser/shadowlands/modules/covenants/kyrian/EffusiveAnimaAccelerator';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
@@ -219,7 +219,7 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Shadowlands
-    mikanikos: Mikanikos,
+    effusiveAnimaAccelerator: EffusiveAnimaAccelerator,
 
     // Dungeons
     overchargedAnimaBattery: OverchargedAnimaBattery,
