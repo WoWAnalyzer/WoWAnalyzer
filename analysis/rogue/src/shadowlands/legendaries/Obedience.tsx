@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -25,9 +24,7 @@ class Obedience extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
-      this.selectedCombatant.hasLegendary(SPELLS.OBEDIENCE);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.OBEDIENCE);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
