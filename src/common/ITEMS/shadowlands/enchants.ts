@@ -231,6 +231,20 @@ const enchants: ItemList<Enchant> = {
     icon: 'inv_blacksmithing_greaterweightstone',
     effectId: 6201,
   },
+
+  //Shaman Only
+  FLAMETONGUE_WEAPON: {
+    id: 334294,
+    name: 'Flametongue Weapon',
+    icon: 'spell_fire_flametounge',
+    effectId: 5400,
+  },
+  WINDFURY_WEAPON: {
+    id: 334302,
+    name: 'Flametongue Weapon',
+    icon: 'spell_fire_flametounge',
+    effectId: 5401,
+  },
 };
 
 export default enchants;

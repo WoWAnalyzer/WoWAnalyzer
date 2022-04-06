@@ -9,6 +9,8 @@ const MAX_ENHANCEMENT_IDS = [
   ITEMS.EMBALMERS_OIL.effectId,
   ITEMS.SHADED_SHARPENING_STONE.effectId,
   ITEMS.SHADED_WEIGHTSTONE.effectId,
+  ITEMS.FLAMETONGUE_WEAPON.effectId,
+  ITEMS.WINDFURY_WEAPON.effectId,
 ];
 
 class WeaponEnhancementChecker extends BaseWeaponEnhancementChecker {

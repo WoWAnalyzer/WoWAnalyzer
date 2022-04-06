@@ -1857,3 +1857,8 @@ export const xizbow: Contributor = {
     },
   ],
 };
+
+export const sorrellp: Contributor = {
+  nickname: 'sorrellp',
+  github: 'sorrellp',
+};
