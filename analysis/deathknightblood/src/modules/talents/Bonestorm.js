@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
+const SUGGESTED_RUNIC_POWER_SPENT = 100;
 
 class Bonestorm extends Analyzer {
   bsCasts = [];
@@ -56,10 +57,13 @@ class Bonestorm extends Analyzer {
   }
 
   get goodBonestormCasts() {
-    const goodCasts = this.bsCasts.filter(
-      (val) => val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM,
-    );
-    return goodCasts.length;
+    if (this.selectedCombatant.has2Piece()) {
+      return this.bsCasts.filter((val) => val.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT).length;
+    } else {
+      return this.bsCasts.filter(
+        (val) => val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM,
+      ).length;
+    }
   }
 
   get totalBonestormCasts() {
@@ -79,27 +83,50 @@ class Bonestorm extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2
-          or more targets to maximize the damage and healing. Casting{' '}
-          <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a
-          minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
-          <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.
-        </>,
-      )
-        .icon(SPELLS.BONESTORM_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.suggestions.boneStorm.notEnoughTargets',
-            message: `${formatPercentage(
-              actual,
-            )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
-          }),
+    if (this.selectedCombatant.has2Piece()) {
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only when you have 100 or more
+            Runic Power. The main purpose of <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> once you
+            have 2-piece is to quickly spend Runic Power on a high Damage Per Execution Time (DPET)
+            ability.
+          </>,
         )
-        .recommended(`${formatPercentage(recommended)}%is recommended`),
-    );
+          .icon(SPELLS.BONESTORM_TALENT.icon)
+          .actual(
+            t({
+              id: 'deathknight.blood.suggestions.boneStorm.inneficientValue',
+              message: `${formatPercentage(
+                actual,
+              )}% casts spent ${SUGGESTED_RUNIC_POWER_SPENT} Runic Power`,
+            }),
+          )
+          .recommended(`${formatPercentage(recommended)}% is recommended`),
+      );
+    } else {
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2
+            or more targets to maximize the damage and healing. Casting{' '}
+            <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a
+            minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
+            <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.
+          </>,
+        )
+          .icon(SPELLS.BONESTORM_TALENT.icon)
+          .actual(
+            t({
+              id: 'deathknight.blood.suggestions.boneStorm.notEnoughTargets',
+              message: `${formatPercentage(
+                actual,
+              )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
+            }),
+          )
+          .recommended(`${formatPercentage(recommended)}%is recommended`),
+      );
+    }
   }
 
   get bonestormTooltip() {

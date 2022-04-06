@@ -30,6 +30,7 @@ import MarrowrendUsage from './modules/features/MarrowrendUsage';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Ossuary from './modules/features/Ossuary';
 import BrynadaorsMight from './modules/items/BrynadaorsMight';
+import CrimsonRuneWeapon from './modules/items/CrimsonRuneWeapon';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import Bloodworms from './modules/talents/Bloodworms';
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries
     brynadaorsMight: BrynadaorsMight,
     superStrain: Superstrain,
+    crimsonRuneWeapon: CrimsonRuneWeapon,
 
     // Covenants
     swarmingMist: SwarmingMist,

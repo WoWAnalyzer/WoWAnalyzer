@@ -13,6 +13,12 @@ const legendaries: SpellList<LegendarySpell> = {
     name: "Bryndaor's Might",
     icon: 'ability_creature_cursed_04',
   },
+  CRIMSON_RUNE_WEAPON: {
+    id: 334525,
+    name: 'Crimson Rune Weapon',
+    icon: '70_inscription_vantus_rune_nightmare',
+    bonusID: 6941,
+  },
 
   //endregion
 
