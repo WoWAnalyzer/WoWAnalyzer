@@ -11,6 +11,8 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
+import MercilessBonegrinder from './modules/shadowlands/conduits/MercilessBonegrinder';
+import SignetOfTormentedKings from './modules/shadowlands/legendaries/SignetOfTormentedKings';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -54,6 +56,10 @@ class CombatLogParser extends CoreCombatLogParser {
     siegebreaker: Siegebreaker,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
+
+    // Shadowlands
+    signetofTormentedKings: SignetOfTormentedKings,
+    mercilessBonegrinder: MercilessBonegrinder,
   };
 }
 

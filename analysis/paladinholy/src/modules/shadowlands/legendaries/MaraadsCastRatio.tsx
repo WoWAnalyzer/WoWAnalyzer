@@ -2,12 +2,22 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class MaraadsCastRatio extends Analyzer {
-  LOTMCasts = 0;
-  LODcasts = 0;
+  totalCasts = 0;
+  maraadsBuffed = false;
+  unbuffedCasts = 0;
+  expiredBuffs = 0;
+  maraadsBuffApplied = 0;
+  removals = 0;
+  goodRemovals = 0;
 
   constructor(options: Options) {
     super(options);
@@ -20,23 +30,47 @@ class MaraadsCastRatio extends Analyzer {
       this.LOTMcast,
     );
     this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_DAWN_CAST).by(SELECTED_PLAYER),
-      this.LODcast,
+      Events.applybuff.spell(SPELLS.MARAADS_DYING_BREATH_BUFF).by(SELECTED_PLAYER),
+      this.MaraadsBuffAdded,
+    );
+    this.addEventListener(
+      // this fires every time, whether its removed by LOTM, naturally expired, or overwritten by another LOD cast (for some reason)
+      Events.removebuff.spell(SPELLS.MARAADS_DYING_BREATH_BUFF).by(SELECTED_PLAYER),
+      this.MaraadsBuffRemoved,
+    );
+    this.addEventListener(
+      // this only fires when the Maraads buff is removed by LOTM, not when it naturally expires or is overwritten.
+      Events.removebuffstack.spell(SPELLS.MARAADS_DYING_BREATH_BUFF).by(SELECTED_PLAYER),
+      this.MaraadsBuffStacksRemoved,
     );
   }
 
   LOTMcast(event: CastEvent) {
-    this.LOTMCasts += 1;
+    this.totalCasts += 1;
+    if (!this.maraadsBuffed) {
+      this.unbuffedCasts += 1;
+    }
+    this.maraadsBuffed = false;
   }
 
-  LODcast(event: CastEvent) {
-    this.LODcasts += 1;
+  MaraadsBuffAdded(event: ApplyBuffEvent) {
+    this.maraadsBuffApplied += 1;
+    this.maraadsBuffed = true;
+  }
+
+  MaraadsBuffRemoved(event: RemoveBuffEvent) {
+    this.removals += 1;
+  }
+
+  MaraadsBuffStacksRemoved(event: RemoveBuffStackEvent) {
+    // if you have the same number of buff removals as buff stack removals, this will be 0, meaning you wasted 0 buffs
+    this.goodRemovals += 1;
   }
 
   get unbuffedLOTMSuggestion() {
-    // should only ever show when you have more LOTM than LOD, as having more LOD would give you a negative number when subtracted from 1
+    // the actual should be the percentage of LOTM casts that were unbuffed, in decimal form
     return {
-      actual: 1 - this.LODcasts / this.LOTMCasts,
+      actual: this.unbuffedCasts / this.totalCasts,
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -47,9 +81,8 @@ class MaraadsCastRatio extends Analyzer {
   }
 
   get notEnoughLOTMSuggestion() {
-    // should only ever show when you have more LOD than LOTM, as having more LOTM would give you a negative number when subtracted from 1
     return {
-      actual: 1 - this.LOTMCasts / this.LODcasts,
+      actual: (this.removals - this.goodRemovals) / this.maraadsBuffApplied,
       isGreaterThan: {
         minor: 0.1,
         average: 0.175,
@@ -75,20 +108,14 @@ class MaraadsCastRatio extends Analyzer {
     when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to keep your casts of <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> at a 1:1 ratio
-          with your casts of <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />, as you are wasting a
-          large amount of healing by overwriting the{' '}
-          <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> proc. If you are frequently unable to
-          find a suitable target for your buffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />,
-          consider using a different legendary.
+          Try to avoid wasting the <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> proc, either by
+          overwriting it or by allowing it to time out, as you are wasting a large amount of healing
+          by wasting it. If you are frequently unable to find a suitable target for your buffed{' '}
+          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, consider using a different legendary.
         </>,
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(
-          `You had ${formatPercentage(
-            actual,
-          )}% more casts of Light of Dawn than Light of the Martyr`,
-        )
+        .actual(`You wasted ${formatPercentage(actual)}% of your Maraad's Dying Breath procs`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
   }

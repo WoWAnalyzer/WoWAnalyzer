@@ -26,6 +26,7 @@ import ArcanePowerMana from './modules/features/ArcanePowerMana';
 import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import RadiantSpark from './modules/features/RadiantSpark';
 import ArcaneBombardment from './modules/items/ArcaneBombardment';
 import ArcaneHarmony from './modules/items/ArcaneHarmony';
 import ArcaneProdigy from './modules/items/ArcaneProdigy';
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Covenants
     shiftingPower: ShiftingPower,
+    radiantSpark: RadiantSpark,
 
     //Conduits
     arcaneProdigy: ArcaneProdigy,

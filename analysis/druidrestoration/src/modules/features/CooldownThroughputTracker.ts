@@ -23,6 +23,14 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
       startBufferMS: 12_000,
     },
+    {
+      spell: SPELLS.TRANQUILITY_CAST.id,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
   ];
 }
 

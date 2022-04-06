@@ -4,6 +4,8 @@ import { Abelito75, Fashathus, Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } fr
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 2), <>Corrected Art Of War stat and made two more for tierset </>, Abelito75),
+  change(date(2022, 3, 28), <>Fixed an issue where the Divine Purpose statistic wasn't tracking Final Verdict correctly causing it to crash. </>, Abelito75),
   change(date(2022, 1, 31), <>Added a cool probability graph for Art Of War. </>, Abelito75),
   change(date(2021, 7, 5), <>Fixed bug where <SpellLink id={SPELLS.FINAL_VERDICT.id} icon /> would sometimes not count toward consuming <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs. </>, Fashathus),
   change(date(2021, 6, 27), <>Changed <SpellLink id={SPELLS.EXECUTION_SENTENCE_TALENT.id} icon /> statistics for Shadowlands. At least partially fixed bug with judgement debuff consumption tracking. </>, Fashathus),

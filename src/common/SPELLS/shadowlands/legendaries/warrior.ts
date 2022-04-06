@@ -78,5 +78,13 @@ const legendaries = {
     bonusID: 7470,
   },
   //endregion
+
+  // Covenant
+  GLORY: {
+    id: 353577,
+    name: 'Glory',
+    icon: 'ability_maldraxxus_warrior',
+    bonusID: 7469,
+  },
 } as const;
 export default legendaries;
