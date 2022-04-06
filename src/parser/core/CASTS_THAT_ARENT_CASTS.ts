@@ -72,7 +72,7 @@ const spells: number[] = [
   SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
   //endregion
 
-  // monk 
+  // monk
   SPELLS.PRIMORDIAL_MENDING.id,
   // end monk
 ];
