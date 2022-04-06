@@ -32,6 +32,11 @@ const covenants = {
     name: 'Ancient Aftershock',
     icon: 'ability_ardenweald_warrior',
   },
+  ANCIENT_AFTERSHOCK_DOT: {
+    id: 326062,
+    name: 'Ancient Aftershock',
+    icon: 'ability_ardenweald_warrior',
+  },
   //endregion
 
   //region Venthyr
