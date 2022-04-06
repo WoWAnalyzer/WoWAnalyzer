@@ -30,22 +30,24 @@ class DuskwalkersPatch extends Analyzer {
 
   onCast(event: CastEvent) {
     const resource = event.classResources?.find(
-      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+      (resource) => resource.type === RESOURCE_TYPES.ENERGY.id,
     );
     if (!resource) {
       return;
     }
     this.lastEnergyCost = resource.cost || 0;
     const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
-    const effectiveReductionMs =
-      cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id);
-    if (effectiveReductionMs < cooldownReductionMs) {
-      this.wastedVendettaReductionMs += cooldownReductionMs - effectiveReductionMs;
+    if (this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
+      const effectiveReductionMs =
+        cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id);
+      if (effectiveReductionMs < cooldownReductionMs) {
+        this.wastedVendettaReductionMs += cooldownReductionMs - effectiveReductionMs;
+      }
+      this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(
+        SPELLS.VENDETTA.id,
+        cooldownReductionMs,
+      );
     }
-    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(
-      SPELLS.VENDETTA.id,
-      cooldownReductionMs,
-    );
   }
 
   statistic() {
@@ -58,7 +60,7 @@ class DuskwalkersPatch extends Analyzer {
         <BoringSpellValueText spellId={SPELLS.DUSKWALKERS_PATCH.id}>
           {formatNumber(this.effectiveVendettaReductionMs / 1000)}s/
           {formatNumber(
-            (this.wastedVendettaReductionMs + this.effectiveVendettaReductionMs) / 1000,
+            (this.wastedVendettaReductionMs / 1000 + this.effectiveVendettaReductionMs) / 1000,
           )}
           s <small> cooldown reduction</small>
         </BoringSpellValueText>

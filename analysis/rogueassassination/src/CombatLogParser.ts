@@ -14,6 +14,7 @@ import {
   InvigoratingShadowdust,
   LashingScars,
   Obedience,
+  Reverberation,
   Sepsis,
   StealthAbilityFollowingSepsis,
   SerratedBoneSpike,
@@ -32,6 +33,8 @@ import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
 import GarroteSnapshot from './modules/features/GarroteSnapshot';
 import RuptureSnapshot from './modules/features/RuptureSnapshot';
 import LethalPoisons from './modules/shadowlands/conduits/LethalPoisons';
+import MaimMangle from './modules/shadowlands/conduits/MaimMangle';
+import PoisonedKatar from './modules/shadowlands/conduits/PoisonedKatar';
 import DashingScoundrel from './modules/shadowlands/legendaries/DashingScoundrel';
 import Doomblade from './modules/shadowlands/legendaries/Doomblade';
 import DuskwalkersPatch from './modules/shadowlands/legendaries/DuskwalkersPatch';
@@ -47,6 +50,8 @@ import Nightstalker from './modules/talents/Nightstalker';
 import Subterfuge from './modules/talents/Subterfuge';
 import GarroteNormalizer from './normalizers/GarroteNormalizer';
 import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer';
+
+//Conduits
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -105,6 +110,9 @@ class CombatLogParser extends CoreCombatLogParser {
     wellPlacedSteel: WellPlacedSteel,
     lashingScars: LashingScars,
     lethalPoisons: LethalPoisons,
+    maimMangle: MaimMangle,
+    poisonedKatar: PoisonedKatar,
+    reverberation: Reverberation,
 
     // Legendaries
     dashingScoundrel: DashingScoundrel,

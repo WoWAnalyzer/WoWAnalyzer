@@ -23,3 +23,4 @@ export { default as Sepsis } from './shadowlands/covenants/nightfae/Sepsis';
 export { default as StealthAbilityFollowingSepsis } from './shadowlands/covenants/nightfae/StealthAbilityFollowingSepsis';
 export { default as Flagellation } from './shadowlands/covenants/venthyr/Flagellation';
 export { default as Obedience } from './shadowlands/legendaries/Obedience';
+export { default as Reverberation } from './shadowlands/conduits/Reverberation';
