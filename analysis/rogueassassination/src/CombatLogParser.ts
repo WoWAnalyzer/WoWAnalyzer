@@ -31,6 +31,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
 import GarroteSnapshot from './modules/features/GarroteSnapshot';
 import RuptureSnapshot from './modules/features/RuptureSnapshot';
+import LethalPoisons from './modules/shadowlands/conduits/LethalPoisons';
 import DashingScoundrel from './modules/shadowlands/legendaries/DashingScoundrel';
 import Doomblade from './modules/shadowlands/legendaries/Doomblade';
 import DuskwalkersPatch from './modules/shadowlands/legendaries/DuskwalkersPatch';
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     wellPlacedSteel: WellPlacedSteel,
     lashingScars: LashingScars,
+    lethalPoisons: LethalPoisons,
 
     // Legendaries
     dashingScoundrel: DashingScoundrel,
