@@ -6,6 +6,7 @@ import {
   TheHunt,
   FelDefender,
   GrowingInferno,
+  RepeatDecree,
 } from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fierySoul: FierySoul,
     blindFaith: BlindFaith,
     growingInferno: GrowingInferno,
+    repeatDecree: RepeatDecree,
   };
 }
 
