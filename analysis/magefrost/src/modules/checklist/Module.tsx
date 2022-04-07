@@ -10,6 +10,7 @@ import { apl, check } from '../features/apl';
 import BrainFreeze from '../features/BrainFreeze';
 import IceLance from '../features/IceLance';
 import IcyVeins from '../features/IcyVeins';
+import MunchedProcs from '../features/MunchedProcs';
 import WaterElemental from '../features/WaterElemental';
 import WintersChill from '../features/WintersChill';
 import GlacialSpike from '../talents/GlacialSpike';
@@ -21,6 +22,7 @@ class Checklist extends BaseChecklist {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     icyVeins: IcyVeins,
+    munchedProcs: MunchedProcs,
     brainFreeze: BrainFreeze,
     glacialSpike: GlacialSpike,
     iceLance: IceLance,
@@ -36,6 +38,7 @@ class Checklist extends BaseChecklist {
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected icyVeins!: IcyVeins;
+  protected munchedProcs!: MunchedProcs;
   protected brainFreeze!: BrainFreeze;
   protected glacialSpike!: GlacialSpike;
   protected iceLance!: IceLance;
@@ -61,6 +64,7 @@ class Checklist extends BaseChecklist {
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.overrideDowntimeSuggestionThresholds,
           icyVeinsActiveTime: this.icyVeins.icyVeinsActiveTimeThresholds,
+          munchedProcs: this.munchedProcs.munchedProcsThresholds,
           brainFreezeUtilization: this.brainFreeze.brainFreezeUtilizationThresholds,
           brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwritenThresholds,
           brainFreezeExpired: this.brainFreeze.brainFreezeExpiredThresholds,
