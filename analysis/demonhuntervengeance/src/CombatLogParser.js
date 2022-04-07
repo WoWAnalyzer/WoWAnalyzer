@@ -17,6 +17,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/fury/FuryDetails';
 import FuryTracker from './modules/fury/FuryTracker';
+import ShatteredRestoration from './modules/shadowlands/conduits/ShatteredRestoration';
 import BlindFaith from './modules/shadowlands/legendaries/BlindFaith';
 import FierySoul from './modules/shadowlands/legendaries/FierySoul';
 import DemonSpikes from './modules/spells/DemonSpikes';
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     felDefender: FelDefender,
+    shatteredRestoration: ShatteredRestoration,
 
     // Legendaries
     fierySoul: FierySoul,
