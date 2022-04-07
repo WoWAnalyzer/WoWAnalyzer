@@ -180,7 +180,7 @@ class Whirlwind extends Analyzer {
         .actual(
           t({
             id: 'warrior.fury.suggestions.whirlwind.badCasts',
-            message: `${formatPercentage(actual)}% of bad Whirlwind casts`,
+            message: `${formatPercentage(1-actual)}% of bad Whirlwind casts`,
           }),
         )
         .recommended(`${formatPercentage(recommended)}+% is recommended`),
