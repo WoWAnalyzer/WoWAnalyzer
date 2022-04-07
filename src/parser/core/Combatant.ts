@@ -449,21 +449,38 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
+  private legendaries: Set<number> = new Set();
+  private scannedForLegendaries = false;
+
   /**
    * Each legendary is given a specific `effectID` that is the same regardless which slot it appears on.
    * This id is the same as the spell ID on Wowhead.
    */
   hasLegendary(legendary: LegendarySpell) {
-    const foundLegendaryMatch = Object.keys(this._gearItemsBySlotId)
-      .map((key: any) => this._gearItemsBySlotId[key])
-      .find((item: Item) => item.effectID === legendary.id);
-    return typeof foundLegendaryMatch === 'object';
+    if (!this.scannedForLegendaries && this.legendaries.size === 0) {
+      Object.values(this._gearItemsBySlotId).forEach((item) => {
+        if (item.effectID) {
+          this.legendaries.add(item.effectID);
+        }
+      });
+      this.scannedForLegendaries = true;
+    }
+
+    return this.legendaries.has(legendary.id);
   }
 
+  private itemMap: Map<number, Item> = new Map();
+  private scannedForItems = false;
+
   getItem(itemId: number) {
-    return Object.keys(this._gearItemsBySlotId)
-      .map((key: any) => this._gearItemsBySlotId[key])
-      .find((item: Item) => item.id === itemId);
+    if (!this.scannedForItems && this.itemMap.size === 0) {
+      Object.values(this._gearItemsBySlotId).forEach((item) => {
+        this.itemMap.set(item.id, item);
+      });
+      this.scannedForItems = true;
+    }
+
+    return this.itemMap.get(itemId);
   }
 
   // endregion

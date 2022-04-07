@@ -1,10 +1,11 @@
 
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Yajinni, Zeboot, LeoZhekov, TurianSniper, Geeii, Makhai, Yax, emallson } from 'CONTRIBUTORS';
+import { Adoraci, Yajinni, Zeboot, LeoZhekov, TurianSniper, Geeii, Makhai, Yax, emallson, xepheris } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 7), <>Added Average <SpellLink id={SPELLS.BLIND_FAITH_BUFF.id} /> versatility buff stat tracking.</>, xepheris),
   change(date(2022, 3, 26), 'Fix crash related to Unity legendary support.', emallson),
   change(date(2021, 10, 15), <>Added <SpellLink id={SPELLS.FIERY_SOUL.id} /> support.</>, Yax),
   change(date(2021, 10, 15), <>Fixed Fury Usage costs.</>, Yax),

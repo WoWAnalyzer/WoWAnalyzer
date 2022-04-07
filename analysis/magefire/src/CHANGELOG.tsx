@@ -4,6 +4,7 @@ import { Adoraci, Sharrq } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 2), <>Added a statistic to show the spells that were cast during <SpellLink id={SPELLS.COMBUSTION.id} />.</>, Sharrq),
   change(date(2021, 12, 8), <>Added a suggestion for expired <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />.</>, Sharrq),
   change(date(2021, 12, 8), <>Fixed the number rounding for one of the <SpellLink id={SPELLS.COMBUSTION.id} /> modules.</>, Sharrq),
   change(date(2021, 12, 8), <>Changed the <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> module to consider capping charges a minor issue.</>, Sharrq),

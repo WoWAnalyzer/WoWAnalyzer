@@ -5188,24 +5188,17 @@ Array [
     "icon": "ability_bastion_mage",
     "importance": "major",
     "issue": <React.Fragment>
-      You did not cast 
-      <ForwardRef
-        id={30451}
-      />
-       enough during
-       
+      You did not properly utilize 
       <ForwardRef
         id={307443}
       />
        
-      2
-       times. Because
-       
+      3
+       times. Because 
       <ForwardRef
         id={30451}
       />
-       hits very hard at 4
-       
+       hits very hard at 4 
       <ForwardRef
         id={36032}
       />
@@ -5232,7 +5225,29 @@ Array [
       <ForwardRef
         id={307443}
       />
-       ends.
+       ends. Alternatively, if there is 
+      3
+       targets or more, you can use
+       
+      <ForwardRef
+        id={1449}
+      />
+      ,
+       
+      <ForwardRef
+        id={153626}
+      />
+      , and
+       
+      <ForwardRef
+        id={44425}
+      />
+       instead of
+       
+      <ForwardRef
+        id={30451}
+      />
+      .
     </React.Fragment>,
     "spell": undefined,
     "stat": <React.Fragment>
@@ -5241,7 +5256,7 @@ Array [
         message="{0}% Utilization"
         values={
           Object {
-            "0": "66.67",
+            "0": "50.00",
           }
         }
       />
@@ -6327,7 +6342,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "63.75810311348624%",
+                  "width": "62.02372811348624%",
                 }
               }
             />
@@ -6846,7 +6861,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  66.67%
+                  50.00%
                    
                    
                 </div>
@@ -6868,7 +6883,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.750000000000004%",
+                        "width": "20.8125%",
                       }
                     }
                   />

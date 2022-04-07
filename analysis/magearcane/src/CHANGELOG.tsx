@@ -4,6 +4,7 @@ import { Adoraci, Putro, Sharrq, Soulhealer95 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 2), <>Updated <SpellLink id={SPELLS.RADIANT_SPARK.id} /> to also allow the AOE use of the buff.</>, Sharrq),
   change(date(2022, 3, 27), <>Updated spec support to 9.2</>, Sharrq),
   change(date(2022, 3, 27), <>Reorganized the Arcane Checklist to better group things together and to be more clear.</>, Sharrq),
   change(date(2022, 3, 27), <>Added support for <SpellLink id={SPELLS.RADIANT_SPARK.id} />, <SpellLink id={SPELLS.ARCANE_HARMONY.id} />, and <SpellLink id={SPELLS.HARMONIC_ECHO.id} /></>, Sharrq),
