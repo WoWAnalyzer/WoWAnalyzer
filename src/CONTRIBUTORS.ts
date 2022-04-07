@@ -1868,3 +1868,7 @@ export const sorrellp: Contributor = {
   nickname: 'sorrellp',
   github: 'sorrellp',
 };
+export const AndreasAlbert: Contributor = {
+  nickname: 'AndreasAlbert',
+  github: 'AndreasAlbert',
+};
