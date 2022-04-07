@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -15,12 +14,6 @@ import { ConsumeSoulFragmentsEvent } from '../../statistics/SoulFragmentsConsume
  * for 20 seconds
  */
 export default class BlindFaith extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
-
   blindFaithActive = false;
   currentStacks = 0;
   stacksGained: number[] = [];
