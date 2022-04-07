@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import VersatilityIcon from 'interface/icons/Versatility';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -20,9 +20,7 @@ export default class BlindFaith extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-      this.selectedCombatant.hasLegendary(SPELLS.BLIND_FAITH);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.BLIND_FAITH);
 
     if (!this.active) {
       return;
@@ -35,6 +33,10 @@ export default class BlindFaith extends Analyzer {
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLIND_FAITH_BUFF),
       this.onBlindFaithLoss,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLIND_FAITH_BUFF),
+      this.onBlindFaithGain,
     );
     this.addEventListener(EventType.ConsumeSoulFragments, this.onSoulFragmentsConsumed);
   }
@@ -69,7 +71,7 @@ export default class BlindFaith extends Analyzer {
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spellId={SPELLS.BLIND_FAITH.id}>
           <>
-            Ø {avg}% Versatility increase <small>per Elysian Decree.</small>
+            <VersatilityIcon /> {avg}% average Versatility <small>per Elysian Decree.</small>
           </>
         </BoringSpellValueText>
       </Statistic>
