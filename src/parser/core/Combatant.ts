@@ -276,8 +276,12 @@ class Combatant extends Entity {
     return Boolean(this.conduitsByConduitID[spellId]);
   }
 
-  conduitRankBySpellID(spellId: number) {
-    return this.conduitsByConduitID[spellId] && this.conduitsByConduitID[spellId].rank;
+  conduitRankBySpellID(spellId: number): number {
+    if (!(spellId in this.conduitRankBySpellID)) {
+      return 0;
+    }
+
+    return this.conduitsByConduitID[spellId].rank + (this.likelyHasEmpoweredConduits() ? 2 : 0);
   }
 
   likelyHasEmpoweredConduits() {

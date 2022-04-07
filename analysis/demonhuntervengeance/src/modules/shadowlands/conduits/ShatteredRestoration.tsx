@@ -9,6 +9,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import { SHATTERED_RESTORATION_SCALING } from '@wowanalyzer/demonhunter';
+
 export default class ShatteredRestoration extends Analyzer {
   heal = 0;
   factor = 0;
@@ -22,11 +24,8 @@ export default class ShatteredRestoration extends Analyzer {
       return;
     }
 
-    const rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHATTERED_RESTORATION.id);
-    this.rank = rank;
-    // rank 1 = 5%, scaling up to rank 11 atm at 10%
-    this.factor =
-      (this.selectedCombatant.likelyHasEmpoweredConduits() ? 0.06 : 0.05) + (rank - 1) * 0.005;
+    this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHATTERED_RESTORATION.id);
+    this.factor = SHATTERED_RESTORATION_SCALING[this.rank];
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),

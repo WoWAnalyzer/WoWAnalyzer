@@ -29,11 +29,7 @@ class GrowingInferno extends Analyzer {
       return;
     }
 
-    const empoweredConduitsRankOffset = this.selectedCombatant.likelyHasEmpoweredConduits() ? 2 : 0;
-
-    this.conduitRank =
-      this.selectedCombatant.conduitRankBySpellID(SPELLS.GROWING_INFERNO.id) +
-      empoweredConduitsRankOffset;
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROWING_INFERNO.id);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
