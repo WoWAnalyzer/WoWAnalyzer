@@ -277,7 +277,7 @@ class Combatant extends Entity {
   }
 
   conduitRankBySpellID(spellId: number): number {
-    if (!(spellId in this.conduitRankBySpellID)) {
+    if (!(spellId in this.conduitsByConduitID)) {
       return 0;
     }
 
