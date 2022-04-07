@@ -12,7 +12,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 //WCL: https://www.warcraftlogs.com/reports/JxyY7HCDcjqMA9tf/#fight=1&source=15
 export default class AgonizingFlames extends Analyzer {
   extendedImmolationAuraDamage = 0;
-  hasGrowingInferno = false;
   lastCast = 0;
 
   constructor(options: Options) {
@@ -22,8 +21,6 @@ export default class AgonizingFlames extends Analyzer {
     if (!this.active) {
       return;
     }
-
-    this.hasGrowingInferno = this.selectedCombatant.hasConduitBySpellID(SPELLS.GROWING_INFERNO.id);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMMOLATION_AURA),
