@@ -1030,7 +1030,7 @@ exports[`Arcane Mage integration test: example log ArcaneProdigy matches the sta
             Arcane Prodigy
           </a>
            - Rank 
-          9
+          11
         </label>
         <div
           className="value"
@@ -3460,7 +3460,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               6
-              /27
+              /28
                casts
             </td>
             <td
@@ -3478,7 +3478,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "21.57533109835032%",
+                      "width": "20.911474756862614%",
                     }
                   }
                 />
@@ -3493,7 +3493,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              21.58%
+              20.91%
             </td>
             <td
               style={
@@ -4889,7 +4889,7 @@ exports[`Arcane Mage integration test: example log DivertedEnergy matches the st
             Diverted Energy
           </a>
            - Rank 
-          10
+          12
         </label>
         <div
           className="value"
@@ -5087,7 +5087,7 @@ exports[`Arcane Mage integration test: example log IreOfTheAscended matches the 
             Ire of the Ascended
           </a>
            - Rank 
-          9
+          11
         </label>
         <div
           className="value"
@@ -5098,11 +5098,11 @@ exports[`Arcane Mage integration test: example log IreOfTheAscended matches the 
             src="/img/sword.png"
           />
            
-          318
+          350
            DPS
            
           <small>
-            4.05
+            4.46
              % of total
           </small>
         </div>
