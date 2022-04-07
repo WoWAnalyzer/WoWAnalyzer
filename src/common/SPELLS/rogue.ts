@@ -422,7 +422,7 @@ const spells = {
 
   // Sets
   ASSA_ROGUE_TIER_28_2P_SET_BONUS: {
-    id: 364667,
+    id: 364668,
     name: 'Grudge Match',
     icon: 'trade_engineering',
   },

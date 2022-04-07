@@ -38,6 +38,7 @@ import PoisonedKatar from './modules/shadowlands/conduits/PoisonedKatar';
 import DashingScoundrel from './modules/shadowlands/legendaries/DashingScoundrel';
 import Doomblade from './modules/shadowlands/legendaries/Doomblade';
 import DuskwalkersPatch from './modules/shadowlands/legendaries/DuskwalkersPatch';
+import Tier28_2pc from './modules/shadowlands/tier28/Tier28_2pc';
 import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
 import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
@@ -122,6 +123,8 @@ class CombatLogParser extends CoreCombatLogParser {
     doomblade: Doomblade,
 
     obedience: Obedience,
+
+    tier28_2pc: Tier28_2pc,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

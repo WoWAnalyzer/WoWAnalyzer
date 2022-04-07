@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-// import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-// import Statistic from 'parser/ui/Statistic';
-// import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-// import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 /**
  * Assassination Rogue Tier 28 - 2pc - Grudge Match
@@ -23,6 +23,8 @@ const POISON_BLEED_DOTS = [
   SPELLS.WOUND_POISON,
   SPELLS.SERRATED_BONE_SPIKE,
 ];
+
+const DAMAGE_BONUS = 0.4;
 
 class Tier28_2pc extends Analyzer {
   static dependencies = {
@@ -42,7 +44,20 @@ class Tier28_2pc extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    // const enemy = this.enemies.getEntity(event);
+    const enemy = this.enemies.getEntity(event);
+    if (enemy && enemy.hasBuff(SPELLS.ASSA_ROGUE_TIER_28_2P_SET_BONUS.id)) {
+      this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS);
+    }
+  }
+
+  statistic() {
+    return (
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+        <BoringSpellValueText spellId={SPELLS.ASSA_ROGUE_TIER_28_2P_SET_BONUS.id}>
+          {this.owner.formatItemDamageDone(this.bonusDamage)}
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 
