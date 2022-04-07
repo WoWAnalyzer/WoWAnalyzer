@@ -1,6 +1,12 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
+import {
+  ElysianDecree,
+  SinfulBrand,
+  TheHunt,
+  FelDefender,
+  GrowingInferno,
+} from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -78,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries
     fierySoul: FierySoul,
     blindFaith: BlindFaith,
+    growingInferno: GrowingInferno,
   };
 }
 
