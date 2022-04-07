@@ -1868,7 +1868,22 @@ export const sorrellp: Contributor = {
   nickname: 'sorrellp',
   github: 'sorrellp',
 };
+
 export const AndreasAlbert: Contributor = {
   nickname: 'AndreasAlbert',
   github: 'AndreasAlbert',
+};
+
+export const xepheris: Contributor = {
+  nickname: 'xepheris',
+  github: 'ljosberinn',
+  discord: 'Chevron#6539',
+  twitter: 'gerrit_alex',
+  mains: [
+    {
+      name: 'Xepheris',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.com/en-us/character/eu/blackmoore/Xepheris',
+    },
+  ],
 };

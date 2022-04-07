@@ -92,6 +92,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_misc_head_dragon_blue_nightmare',
     bonusID: 7052,
   },
+  BLIND_FAITH: {
+    id: 355893,
+    name: 'Blind Faith',
+    icon: 'ability_bastion_demonhunter',
+    bonusID: 7699,
+  },
   //endregion
 } as const;
 export default legendaries;
