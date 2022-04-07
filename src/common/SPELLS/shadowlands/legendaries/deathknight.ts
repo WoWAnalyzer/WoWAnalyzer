@@ -19,6 +19,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: '70_inscription_vantus_rune_nightmare',
     bonusID: 6941,
   },
+  RAMPANT_TRANSFERENCE: {
+    id: 353882,
+    name: 'Rampant Transference',
+    icon: 'ability_ardenweald_deathknight',
+    bonusID: 7466,
+  },
 
   //endregion
 

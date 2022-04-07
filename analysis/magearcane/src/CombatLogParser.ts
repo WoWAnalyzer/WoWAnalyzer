@@ -41,12 +41,14 @@ import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcanePowerNormalizer from './normalizers/ArcanePower';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcanePowerNormalizer: ArcanePowerNormalizer,
+    castLinkNormalizer: CastLinkNormalizer,
 
     // Features
     checklist: Checklist,

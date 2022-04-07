@@ -138,6 +138,11 @@ const spells = {
     name: 'Relish in Blood',
     icon: 'ability_deathknight_roilingblood',
   },
+  ENDLESS_RUNE_WALTZ: {
+    id: 366008,
+    name: 'Endless Rune Waltz',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
 
   // CC
   GOREFIENDS_GRASP: {

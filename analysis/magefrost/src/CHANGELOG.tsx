@@ -4,6 +4,7 @@ import { Adoraci, Sharrq, Sref, Zea, Karahtar, emallson } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 2), <>Added a statistic/suggestion for munched <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> procs</>, Sharrq),
   change(date(2022, 3, 4), 'Updated Frost Mage for Patch 9.2', Sharrq),
   change(date(2022, 3, 4), <>Adjusted the <SpellLink id={SPELLS.FROZEN_ORB.id} /> Coodown Reduction provided by <SpellLink id={SPELLS.BLIZZARD.id} /></>, Sharrq),
   change(date(2022, 3, 4), <>Added support for <SpellLink id={SPELLS.COMET_STORM_TALENT.id} /></>, Sharrq),

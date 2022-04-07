@@ -138,11 +138,11 @@ class Bonestorm extends Analyzer {
       const rpCost = formatNumber(cast.cost / 10);
 
       tooltipRows.push(
-        <>
+        <div id={index}>
           Cast #{index + 1} (for {rpCost} RP) hit an average of {avgHits} target
           {avgHits <= 1 ? '' : 's'} for {avgDamage} per hit. ({totalDamage} total)
           <br />
-        </>,
+        </div>,
       );
     });
     return tooltipRows;
