@@ -48,14 +48,16 @@ import {
   Jeff,
   Trevor,
   bhawkins6177,
-  sorrellp
+  sorrellp,
+  Tialyss,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(20221, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', sorrellp),
+  change(date(2022, 4, 6), 'Track CDR from Effusive Anima Accelerator', Tialyss),
+  change(date(2022, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', sorrellp),
   change(date(2022, 4, 2), 'Fix issue with Donut Chart failing to render.', emallson),
   change(date(2022, 3, 25), 'Handle Unity legendary.', emallson),
   change(date(2022, 3, 23), 'Fixed degraded experience for Venthyr Mistweaver', Trevor),
