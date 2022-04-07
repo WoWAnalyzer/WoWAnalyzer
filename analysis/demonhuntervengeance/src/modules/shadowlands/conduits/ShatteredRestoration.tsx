@@ -23,10 +23,10 @@ export default class ShatteredRestoration extends Analyzer {
     }
 
     const rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHATTERED_RESTORATION.id);
-    const hasEmpoweredConduits = true;
     this.rank = rank;
     // rank 1 = 5%, scaling up to rank 11 atm at 10%
-    this.factor = (hasEmpoweredConduits ? 0.06 : 0.05) + (rank - 1) * 0.005;
+    this.factor =
+      (this.selectedCombatant.likelyHasEmpoweredConduits() ? 0.06 : 0.05) + (rank - 1) * 0.005;
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
