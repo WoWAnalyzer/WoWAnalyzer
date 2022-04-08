@@ -121,9 +121,9 @@ export default class BlindFaith extends Analyzer {
     return {
       actual: this.goodWindowsPercentage,
       isLessThan: {
-        minor: 0.8,
-        average: 0.9,
-        major: 0.6,
+        minor: 0.65,
+        average: 0.75,
+        major: 0.5,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
