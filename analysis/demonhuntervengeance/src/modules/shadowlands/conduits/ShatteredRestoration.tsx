@@ -25,7 +25,6 @@ export default class ShatteredRestoration extends Analyzer {
     }
 
     this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHATTERED_RESTORATION.id);
-    this.factor = SHATTERED_RESTORATION_SCALING[this.rank];
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
@@ -38,7 +37,8 @@ export default class ShatteredRestoration extends Analyzer {
   }
 
   statistic() {
-    const effectiveHealing = this.heal - (this.heal * 100) / (this.factor * 100 + 100);
+    const effectiveHealing =
+      this.heal - (this.heal / (100 + SHATTERED_RESTORATION_SCALING[this.rank])) * 100;
 
     return (
       <Statistic
