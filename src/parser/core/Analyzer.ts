@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
-import Events, { AnyEvent, EventType, FightEndEvent, MappedEvent } from './Events';
+import Events, { AnyEvent, EventType, MappedEvent } from './Events';
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
 import { Metric } from './metric';
 import Module from './Module';
@@ -67,10 +67,12 @@ export enum FunctionType {
   Suggestion,
 }
 
+type FunctionalEventFilter = EventFilter<any> | Array<EventFilter<any>>;
+
 function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
   functionType: FunctionType,
   metric: Metric<Result>,
-  eventFilter: EventFilter<any> | Array<EventFilter<any>> = [Events.any],
+  eventFilter: FunctionalEventFilter = Events.any,
   dependencies?: Deps,
 ) {
   const eventFilters: Array<EventFilter<any>> = Array.isArray(eventFilter)
@@ -83,21 +85,18 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
     static dependencies = deps;
 
     eventList: AnyEvent[] = [];
-    result?: Result;
 
     constructor(options: Options) {
       super(options);
 
       eventFilters.forEach((filter) => this.addEventListener(filter, this.appendEvent));
-
-      this.addEventListener(Events.fightend, this.run);
     }
 
     private appendEvent(event: AnyEvent) {
       this.eventList.push(event);
     }
 
-    private run(_event: FightEndEvent) {
+    private run() {
       const finalDependencies: InjectedDependencies<Deps> = (Object.fromEntries(
         Object.entries(deps).map(([key, depCtor]) => [
           key,
@@ -105,21 +104,22 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
         ]),
       ) as unknown) as InjectedDependencies<Deps>;
 
-      this.result = metric(this.eventList, this.owner.info, finalDependencies);
+      return metric(this.eventList, this.owner.info, finalDependencies);
     }
 
     statistic(): React.ReactNode {
       if (functionType === FunctionType.Statistic) {
-        return this.result;
+        return this.run();
       }
     }
 
     suggestions(_when: When): Issue[] | void {
       if (functionType === FunctionType.Suggestion) {
-        if (Array.isArray(this.result)) {
-          return this.result as Issue[];
+        const result = this.run();
+        if (Array.isArray(result)) {
+          return result as Issue[];
         } else {
-          return [this.result as unknown] as Issue[];
+          return [result as unknown] as Issue[];
         }
       }
     }
@@ -129,5 +129,13 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
   return analyzer;
 }
 
-export const statistic = buildFunctionalAnalyzer.bind(null, FunctionType.Statistic);
-export const suggestion = buildFunctionalAnalyzer.bind(null, FunctionType.Suggestion);
+export const statistic = (
+  metric: Metric<React.ReactNode | undefined>,
+  eventFilter?: FunctionalEventFilter,
+  dependencies?: Dependencies,
+) => buildFunctionalAnalyzer(FunctionType.Statistic, metric, eventFilter, dependencies);
+export const suggestion = (
+  metric: Metric<Issue | Issue[] | undefined>,
+  eventFilter?: FunctionalEventFilter,
+  dependencies?: Dependencies,
+) => buildFunctionalAnalyzer(FunctionType.Suggestion, metric, eventFilter, dependencies);

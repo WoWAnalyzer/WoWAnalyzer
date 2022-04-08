@@ -112,9 +112,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     /// Tier
     koth: KegOfTheHeavens,
-  };
 
-  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
+    apl: AplCheck,
+  };
 }
 
 export default CombatLogParser;

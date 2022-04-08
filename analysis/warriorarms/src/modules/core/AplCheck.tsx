@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
@@ -80,11 +80,9 @@ export const apl = build([
 
 export const check = aplCheck(apl);
 
-const armsApl = (): WIPSuggestionFactory => (events, info) => {
+export default suggestion((events, info) => {
   const { violations } = check(events, info);
   annotateTimeline(violations);
 
   return undefined;
-};
-
-export default armsApl;
+});

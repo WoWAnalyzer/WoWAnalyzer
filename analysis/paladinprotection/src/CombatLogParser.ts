@@ -83,9 +83,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenant Abilities
     divineToll: DivineToll,
     ashenHallow: AshenHallow,
-  };
 
-  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
+    apl: AplCheck,
+  };
 }
 
 export default CombatLogParser;
