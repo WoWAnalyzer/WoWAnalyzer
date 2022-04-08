@@ -131,7 +131,6 @@ const spells = {
     icon: 'inv_belt_plate_ardenweald_d_01',
   },
   ETERNAL_AUGMENT_RUNE: {
-    // buff procced by Adaptive Armor Fragment, a generic tanking conduit
     id: 367405,
     name: 'Eternal Augmentation',
     icon: 'inv_jewelcrafting_optionalreagent_02',
