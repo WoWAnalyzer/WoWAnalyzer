@@ -27,6 +27,7 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import IceLance from './modules/features/IceLance';
 import IcyVeins from './modules/features/IcyVeins';
+import MunchedProcs from './modules/features/MunchedProcs';
 import WaterElemental from './modules/features/WaterElemental';
 import WintersChill from './modules/features/WintersChill';
 import ColdFront from './modules/items/ColdFront';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     icyVeins: IcyVeins,
     arcaneIntellect: ArcaneIntellect,
     mirrorImage: MirrorImage,
+    munchedProcs: MunchedProcs,
     elementalBarrier: ElementalBarrier,
     waterElemental: WaterElemental,
 
