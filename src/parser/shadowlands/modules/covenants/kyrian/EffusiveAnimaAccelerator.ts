@@ -27,6 +27,9 @@ const SPELLS_BY_CLASS: { [key: number]: SpellInfo } = {
   [CLASSES.WARRIOR]: SPELLS.SPEAR_OF_BASTION,
 };
 
+const CDR_PER_APPLICATION = 1 / 15;
+const MAX_CDR_APPLICATIONS = 5;
+
 const debug = false;
 
 class EffusiveAnimaAccelerator extends Analyzer {
@@ -38,7 +41,7 @@ class EffusiveAnimaAccelerator extends Analyzer {
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
-  // Array of triggering cast and CDR in milliseconds.
+  // Array of triggering cast and number of debuff applications
   casts: Array<[CastEvent, number]> = [];
   classAbility: SpellInfo;
 
@@ -76,19 +79,19 @@ class EffusiveAnimaAccelerator extends Analyzer {
         this.warn(event.ability.name, 'applied before first', this.classAbility.name, 'cast');
       return;
     }
-    const [lastCast, cdr] = this.casts[this.casts.length - 1];
+    const [lastCast, applications] = this.casts[this.casts.length - 1];
     const baseCd = this.abilities.getExpectedCooldownDuration(lastCast.ability.guid, lastCast);
     if (baseCd == null) {
       debug && this.warn('no cd for', lastCast.ability.name);
       return;
     }
 
-    if (cdr >= baseCd / 3) {
+    if (applications >= MAX_CDR_APPLICATIONS) {
       return;
     }
 
-    const newCdr = cdr + this.spellUsable.reduceCooldown(lastCast.ability.guid, baseCd / 15);
-    this.casts[this.casts.length - 1][1] = newCdr;
+    this.spellUsable.reduceCooldown(lastCast.ability.guid, baseCd * CDR_PER_APPLICATION);
+    this.casts[this.casts.length - 1][1] = applications + 1;
   }
 }
 
