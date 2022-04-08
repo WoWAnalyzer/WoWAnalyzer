@@ -81,11 +81,7 @@ export const apl = build([
 export const check = aplCheck(apl);
 
 export default suggestion((events, info) => {
-  const { successes, violations } = check(events, info);
-  console.log(events.filter((event) => event.timestamp === 6801836));
-  console.log(violations.filter((v) => v.actualCast.timestamp === 6801836));
-  console.log(successes.length, violations.length);
-  console.log(successes.map((r) => r.actualCast.timestamp));
+  const { violations } = check(events, info);
   annotateTimeline(violations);
 
   return undefined;

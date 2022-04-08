@@ -78,7 +78,6 @@ import EventFilter from './EventFilter';
 import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
-import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -110,11 +109,6 @@ export interface Suggestion {
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
 }
-// ALPHA - The parameters may still change
-export type WIPSuggestionFactory = (
-  events: AnyEvent[],
-  info: Info,
-) => Suggestion | Suggestion[] | undefined;
 
 interface Talent {
   id: number;
