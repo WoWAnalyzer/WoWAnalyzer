@@ -1,11 +1,12 @@
 import * as React from 'react';
 
+import type { Suggestion } from './CombatLogParser';
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 import Events, { AnyEvent, EventType, MappedEvent } from './Events';
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
-import { Metric } from './metric';
+import { Info, Metric } from './metric';
 import Module from './Module';
-import { When, Issue } from './ParseResults';
+import { When } from './ParseResults';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 export type Options = _Options;
@@ -46,7 +47,7 @@ class Analyzer extends EventSubscriber {
   statisticOrder?: number = undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  suggestions(when: When): Issue[] | void {}
+  suggestions(when: When): Suggestion[] | void {}
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */
@@ -96,30 +97,36 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
       this.eventList.push(event);
     }
 
-    private run() {
-      const finalDependencies: InjectedDependencies<Deps> = (Object.fromEntries(
-        Object.entries(deps).map(([key, depCtor]) => [
-          key,
-          ((this as unknown) as any)[key] as ConstructedDependency<typeof depCtor>,
-        ]),
-      ) as unknown) as InjectedDependencies<Deps>;
-
-      return metric(this.eventList, this.owner.info, finalDependencies);
+    public static run(events: AnyEvent[], info: Info, deps?: InjectedDependencies<Deps>) {
+      return metric(events, info, deps);
     }
 
     statistic(): React.ReactNode {
       if (functionType === FunctionType.Statistic) {
-        return this.run();
+        return analyzer.run(
+          this.eventList,
+          this.owner.info,
+          (this as unknown) as InjectedDependencies<Deps>,
+        );
       }
     }
 
-    suggestions(_when: When): Issue[] | void {
+    suggestions(_when: When): Suggestion[] | void {
       if (functionType === FunctionType.Suggestion) {
-        const result = this.run();
+        const result = analyzer.run(
+          this.eventList,
+          this.owner.info,
+          (this as unknown) as InjectedDependencies<Deps>,
+        );
+
+        if (result === undefined) {
+          return [];
+        }
+
         if (Array.isArray(result)) {
-          return result as Issue[];
+          return result as Suggestion[];
         } else {
-          return [result as unknown] as Issue[];
+          return [result as unknown] as Suggestion[];
         }
       }
     }
@@ -135,7 +142,7 @@ export const statistic = (
   dependencies?: Dependencies,
 ) => buildFunctionalAnalyzer(FunctionType.Statistic, metric, eventFilter, dependencies);
 export const suggestion = (
-  metric: Metric<Issue | Issue[] | undefined>,
+  metric: Metric<Suggestion | Suggestion[] | undefined>,
   eventFilter?: FunctionalEventFilter,
   dependencies?: Dependencies,
 ) => buildFunctionalAnalyzer(FunctionType.Suggestion, metric, eventFilter, dependencies);

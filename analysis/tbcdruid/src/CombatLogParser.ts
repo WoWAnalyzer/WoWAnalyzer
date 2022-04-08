@@ -28,9 +28,9 @@ class CombatLogParser extends BaseCombatLogParser {
     hpmDetails: HealingEfficiencyDetails,
 
     checklist: Checklist,
-  };
 
-  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpellsSuggestion(lowRankSpells)];
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
+  };
 }
 
 export default CombatLogParser;

@@ -15,10 +15,9 @@ class CombatLogParser extends BaseCombatLogParser {
     haste: Haste,
     channeling: Channeling,
     coldSnap: ColdSnap,
-  };
 
-  static suggestions = [...BaseCombatLogParser.suggestions, lowRankSpellsSuggestion(lowRankSpells)];
-  static statistics = [...BaseCombatLogParser.statistics];
+    lowRank: lowRankSpellsSuggestion(lowRankSpells),
+  };
 }
 
 export default CombatLogParser;
