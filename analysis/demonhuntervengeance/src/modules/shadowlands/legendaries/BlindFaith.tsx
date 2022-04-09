@@ -115,14 +115,16 @@ export default class BlindFaith extends Analyzer {
     this.dataset[nextStacks] = { start: event.timestamp, end: 0 };
   }
 
-  goodWindowsPercentage = 0;
+  get calcGoodWindowsPercentage() {
+    return this.data.filter((window) => window > 10).length / this.data.length;
+  }
 
   get suggestionThresholdsEfficiency() {
     return {
-      actual: this.goodWindowsPercentage,
+      actual: this.calcGoodWindowsPercentage,
       isLessThan: {
-        minor: 0.65,
-        average: 0.75,
+        minor: 0.75,
+        average: 0.65,
         major: 0.5,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -146,7 +148,7 @@ export default class BlindFaith extends Analyzer {
           t({
             id: 'demonhunter.vengeance.suggestions.blindFaith.actual',
             message: `${formatPercentage(
-              this.goodWindowsPercentage,
+              this.calcGoodWindowsPercentage,
             )}% of windows with an average of 10 or more stacks.`,
           }),
         )
@@ -161,9 +163,6 @@ export default class BlindFaith extends Analyzer {
 
   statistic() {
     const avg = (this.data.reduce((acc, value) => acc + value, 0) / this.data.length).toFixed(2);
-
-    this.goodWindowsPercentage =
-      this.data.filter((window) => window > 10).length / this.data.length;
 
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
