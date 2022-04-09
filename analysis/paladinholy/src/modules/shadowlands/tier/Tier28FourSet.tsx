@@ -22,11 +22,7 @@ class Tier28FourSet extends Analyzer {
   cooldownReductionWasted: number = 0;
   WingsCasts: number = 0;
   spellToReduce: Spell = SPELLS.AVENGING_WRATH;
-  healingBoost: number = 0;
-  healing: number = 0;
-  conduitRank: number = 0;
   protected spellUsable!: SpellUsable;
-  protected healingDone!: HealingDone;
 
   constructor(options: Options) {
     super(options);
@@ -52,7 +48,8 @@ class Tier28FourSet extends Analyzer {
 
   LODheal(event: HealEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
-      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(this.spellToReduce.id, CDR);
+      this.spellUsable.reduceCooldown(this.spellToReduce.id, CDR);
+      this.cooldownReductionUsed += CDR;
     } else {
       this.cooldownReductionWasted += CDR;
     }
