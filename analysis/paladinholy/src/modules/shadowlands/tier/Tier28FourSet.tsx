@@ -78,7 +78,7 @@ class Tier28FourSet extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.DAWN_WILL_COME_4PC.id}>
           <>
-            Estimated Average <SpellLink id={this.spellToReduce.id} />. Cooldown:{' '}
+            Estimated Average <SpellLink id={this.spellToReduce.id} /> Cooldown:{' '}
             {formatNumber((120000 - this.cooldownReductionUsed / (this.WingsCasts + 1)) / 1000)}{' '}
             Seconds
           </>
