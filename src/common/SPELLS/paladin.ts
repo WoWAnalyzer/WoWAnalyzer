@@ -589,6 +589,11 @@ const spells = {
     name: 'Ashes To Ashes',
     icon: 'ability_paladin_artofwar',
   },
+  DAWN_WILL_COME_4PC: {
+    id: 363674,
+    name: 'Dawn Will Come',
+    icon: 'ability_priest_flashoflight',
+  },
 } as const;
 
 export default spells;

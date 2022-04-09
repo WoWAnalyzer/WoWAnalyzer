@@ -34,6 +34,7 @@ import UntemperedDedication from './modules/shadowlands/conduits/UntemperedDedic
 import MaraadsCastRatio from './modules/shadowlands/legendaries/MaraadsCastRatio';
 import MaraadsOverheal from './modules/shadowlands/legendaries/MaraadsOverheal';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
+import Tier28FourSet from './modules/shadowlands/tier/Tier28FourSet';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
@@ -113,6 +114,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     UntemperedDedication: UntemperedDedication,
+
+    // Tier Sets
+    Tier28FourSet: Tier28FourSet,
   };
 }
 
