@@ -1,6 +1,7 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -77,7 +78,7 @@ class Tier28FourSet extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.DAWN_WILL_COME_4PC.id}>
           <>
-            Average Wings Cooldown:{' '}
+            Estimated Average <SpellLink id={this.spellToReduce.id} />. Cooldown:{' '}
             {formatNumber((120000 - this.cooldownReductionUsed / (this.WingsCasts + 1)) / 1000)}{' '}
             Seconds
           </>
