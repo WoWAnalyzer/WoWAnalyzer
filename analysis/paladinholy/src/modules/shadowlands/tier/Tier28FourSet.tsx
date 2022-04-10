@@ -1,12 +1,12 @@
-import { formatNumber } from 'common/format';
+import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -33,12 +33,12 @@ class Tier28FourSet extends Analyzer {
 
     this.addEventListener(
       Events.heal.spell(SPELLS.LIGHT_OF_DAWN_HEAL).by(SELECTED_PLAYER),
-      this.LODheal,
+      this.lodHeal,
     );
 
     this.addEventListener(
       Events.cast.spell(this.spellToReduce).by(SELECTED_PLAYER),
-      this.WingsCast,
+      this.wingsCast,
     );
 
     if (this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)) {
@@ -46,7 +46,7 @@ class Tier28FourSet extends Analyzer {
     }
   }
 
-  LODheal(event: HealEvent) {
+  lodHeal(event: HealEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
       this.spellUsable.reduceCooldown(this.spellToReduce.id, CDR);
       this.cooldownReductionUsed += CDR;
@@ -55,7 +55,10 @@ class Tier28FourSet extends Analyzer {
     }
   }
 
-  WingsCast(event: CastEvent) {
+  wingsCast(event: CastEvent) {
+    if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
+      this.spellUsable.endCooldown;
+    }
     this.WingsCasts += 1;
   }
 
@@ -67,20 +70,22 @@ class Tier28FourSet extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
+            Effective Cooldown Reduction: {formatDuration(this.cooldownReductionUsed)}
             <br />
-            Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+            Wasted Cooldown Reduction: {formatDuration(this.cooldownReductionWasted)}
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DAWN_WILL_COME_4PC.id}>
-          <>
-            Estimated Average <SpellLink id={this.spellToReduce.id} /> Cooldown:{' '}
-            {formatNumber((120000 - this.cooldownReductionUsed / (this.WingsCasts + 1)) / 1000)}{' '}
-            Seconds
-          </>
-          <br />
-        </BoringSpellValueText>
+        <BoringValueText
+          label={
+            <>
+              Estimated Effective <SpellIcon id={SPELLS.DAWN_WILL_COME_4PC.id} /> Cooldown Reduction
+              per cast of <SpellIcon id={SPELLS.AVENGING_WRATH.id} />
+            </>
+          }
+        >
+          <>{formatDuration(this.cooldownReductionUsed / (this.WingsCasts + 1))}</>
+        </BoringValueText>
       </Statistic>
     );
   }
