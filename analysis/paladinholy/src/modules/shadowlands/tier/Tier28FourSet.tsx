@@ -57,7 +57,8 @@ class Tier28FourSet extends Analyzer {
 
   wingsCast(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
-      this.spellUsable.endCooldown;
+      this.spellUsable.endCooldown(this.spellToReduce.id);
+      this.spellUsable.beginCooldown(this.spellToReduce.id, event);
     }
     this.WingsCasts += 1;
   }
@@ -80,7 +81,7 @@ class Tier28FourSet extends Analyzer {
           label={
             <>
               Estimated Effective <SpellIcon id={SPELLS.DAWN_WILL_COME_4PC.id} /> Cooldown Reduction
-              per cast of <SpellIcon id={SPELLS.AVENGING_WRATH.id} />
+              per Cast of <SpellIcon id={SPELLS.AVENGING_WRATH.id} />
             </>
           }
         >
