@@ -55,6 +55,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(200, 4, 10), 'Added Ravenous Frenzy to Restoration Druid cooldown tracker', Trevor),
   change(date(2022, 4, 8), 'Updated Augment Rune Checker to also tracker eteneral augment rune.', Abelito75),
   change(date(2022, 4, 7), 'Updated generated conduit information as of patch 9.2.5.43057', Putro),
   change(date(20221, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', sorrellp),
