@@ -43,6 +43,11 @@ const conduits = {
     name: 'Merciless Bonegrinder',
     icon: 'ability_ironmaidens_whirlofblood',
   },
+  MERCILESS_BONEGRINDER_BUFF: {
+    id: 346574,
+    name: 'Merciless Bonegrinder',
+    icon: 'ability_ironmaidens_whirlofblood',
+  },
   MORTAL_COMBO: {
     id: 339386,
     name: 'Mortal Combo',

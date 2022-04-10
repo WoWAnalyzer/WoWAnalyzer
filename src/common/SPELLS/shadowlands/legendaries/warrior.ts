@@ -6,27 +6,41 @@ const legendaries = {
     icon: 'ability_titankeeper_piercingcorruption',
     bonusID: 6962,
   },
+  BATTLELORD_ITEM: {
+    id: 335274,
+    name: 'Battlelord',
+    icon: 'ability_pvp_hardiness',
+  },
   BATTLELORD: {
     id: 346369,
     name: 'Battlelord',
     icon: 'ability_pvp_hardiness',
-    bonusID: 6960,
   },
   BATTLELORD_ENERGIZE: {
     id: 346370,
     name: 'Battlelord',
     icon: 'ability_pvp_hardiness',
   },
-  EXPLOITER: {
-    id: 335452,
+  EXPLOITER_ITEM: {
+    id: 335451,
     name: 'Exploiter',
     icon: 'inv_sword_48',
     bonusID: 6961,
   },
+  EXPLOITER: {
+    id: 335452,
+    name: 'Exploiter',
+    icon: 'inv_sword_48',
+  },
   //endregion
 
   //region Fury
-
+  DEATHMAKER: {
+    id: 335567,
+    bonusID: 6964,
+    name: 'Deathmaker',
+    icon: 'ability_warrior_warbringer',
+  },
   //endregion
 
   //region Protection
@@ -68,6 +82,25 @@ const legendaries = {
     icon: 'ability_revendreth_warrior',
     bonusID: 7470,
   },
+  NATURES_FURY: {
+    id: 354161,
+    bonusID: 7471,
+    name: "Nature's Fury",
+    icon: 'ability_ardenweald_warrior',
+  },
+  NATURES_FURY_DAMAGE: {
+    id: 354163,
+    name: "Nature's Fury",
+    icon: 'ability_ardenweald_warrior',
+  },
   //endregion
+
+  // Covenant
+  GLORY: {
+    id: 353577,
+    name: 'Glory',
+    icon: 'ability_maldraxxus_warrior',
+    bonusID: 7469,
+  },
 } as const;
 export default legendaries;

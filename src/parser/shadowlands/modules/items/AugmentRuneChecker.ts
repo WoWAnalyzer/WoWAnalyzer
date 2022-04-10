@@ -5,6 +5,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 const AUGMENT_RUNE_ID = SPELLS.VEILED_AUGMENT_RUNE.id;
+const ETERNAL_AUGMENT_RUNE_ID = SPELLS.ETERNAL_AUGMENT_RUNE.id;
 
 class AugmentRuneChecker extends Analyzer {
   startFightWithAugmentRuneUp = false;
@@ -16,7 +17,7 @@ class AugmentRuneChecker extends Analyzer {
 
   onApplybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
-    if (AUGMENT_RUNE_ID === spellId && event.prepull) {
+    if ((AUGMENT_RUNE_ID === spellId || ETERNAL_AUGMENT_RUNE_ID === spellId) && event.prepull) {
       this.startFightWithAugmentRuneUp = true;
     }
   }

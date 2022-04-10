@@ -33,11 +33,7 @@ class SwarmingMist extends Analyzer {
     super(options);
 
     const active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-    this.deathCoilReduction = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.DEADLIEST_COIL.bonusID,
-    )
-      ? -10
-      : 0;
+    this.deathCoilReduction = this.selectedCombatant.hasLegendary(SPELLS.DEADLIEST_COIL) ? -10 : 0;
     this.active = active;
     if (!active) {
       return;

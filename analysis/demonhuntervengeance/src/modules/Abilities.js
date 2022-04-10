@@ -182,12 +182,12 @@ class Abilities extends CoreAbilities {
         },
         enabled: !(
           combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-          combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)
+          combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
         ),
         castEfficiency: {
           suggestion: !(
             combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-            combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)
+            combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
           ),
           recommendedEfficiency: 0.9,
           extraSuggestion: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? (

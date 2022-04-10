@@ -53,7 +53,7 @@ class ConvokeSpiritsGuardian extends ConvokeSpirits {
     );
 
     // only alternate way to do Starfall is lycara's, so only need to watch if we have it
-    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.LYCARAS_FLEETING_GLIMPSE.bonusID)) {
+    if (this.selectedCombatant.hasLegendary(SPELLS.LYCARAS_FLEETING_GLIMPSE)) {
       this.addEventListener(
         Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST),
         this.onGainStarfall,

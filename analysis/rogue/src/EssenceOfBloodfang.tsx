@@ -13,7 +13,7 @@ class EssenceOfBloodfang extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ESSENCE_OF_BLOODFANG.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.ESSENCE_OF_BLOODFANG);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_OF_BLOODFANG_BUFF),
       this.onHeal,

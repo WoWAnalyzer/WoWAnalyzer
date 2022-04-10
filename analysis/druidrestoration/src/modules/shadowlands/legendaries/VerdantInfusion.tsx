@@ -42,7 +42,7 @@ class VerdantInfusion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.VERDANT_INFUSION.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.VERDANT_INFUSION);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),

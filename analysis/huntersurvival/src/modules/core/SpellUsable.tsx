@@ -17,11 +17,7 @@ class SpellUsable extends CoreSpellUsable {
 
   onCast(event: CastEvent) {
     const spell = event.ability;
-    if (
-      this.selectedCombatant.hasLegendaryByBonusID(
-        SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID,
-      )
-    ) {
+    if (this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT)) {
       if (RAPTOR_MONGOOSE_VARIANTS.includes(spell)) {
         this.lastPotentialTriggerForBombReset = event;
       } else if (spell.guid === SPELLS.WILDFIRE_BOMB.id) {
@@ -34,9 +30,7 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
     if (
       SURVIVAL_BOMB_TYPES.includes(spellId) &&
-      this.selectedCombatant.hasLegendaryByBonusID(
-        SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT.bonusID,
-      )
+      this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT)
     ) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
         this.bombResets += 1;

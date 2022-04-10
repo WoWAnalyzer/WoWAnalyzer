@@ -47,13 +47,19 @@ import {
   ChrisKaczor,
   Jeff,
   Trevor,
-  bhawkins6177
+  bhawkins6177,
+  sorrellp
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 8), 'Updated Augment Rune Checker to also tracker eteneral augment rune.', Abelito75),
+  change(date(2022, 4, 7), 'Updated generated conduit information as of patch 9.2.5.43057', Putro),
+  change(date(20221, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', sorrellp),
+  change(date(2022, 4, 2), 'Fix issue with Donut Chart failing to render.', emallson),
+  change(date(2022, 3, 25), 'Handle Unity legendary.', emallson),
   change(date(2022, 3, 23), 'Fixed degraded experience for Venthyr Mistweaver', Trevor),
   change(date(2022, 3, 14), 'Correcting the spelling of Anduin Wrynn.', Abelito75),
   change(date(2022, 3, 14), 'Added Cosmic Healing Potion to potions list.', Abelito75),

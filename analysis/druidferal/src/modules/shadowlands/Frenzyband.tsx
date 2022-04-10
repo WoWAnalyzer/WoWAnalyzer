@@ -46,7 +46,7 @@ class Frenzyband extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FRENZYBAND.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.FRENZYBAND);
 
     this.cdSpell = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)
       ? SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT

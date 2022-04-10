@@ -42,9 +42,7 @@ class KillCommand extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE),
       this.onFlankersProc,
     );
-    this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
-    ) &&
+    this.selectedCombatant.hasLegendary(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT) &&
       this.addEventListener(
         Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
         this.checkNesingwaryFocusGain,

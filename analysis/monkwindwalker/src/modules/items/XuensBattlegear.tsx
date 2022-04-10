@@ -30,7 +30,7 @@ class XuensBattlegear extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.XUENS_BATTLEGEAR.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.XUENS_BATTLEGEAR);
     if (!this.active) {
       return;
     }

@@ -9,6 +9,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class ArtOfWarProbability extends Analyzer {
+  hasTier = false;
+  flipFlop = false;
+
   procsGained: number = 0;
   chance: number = 0.12;
   totalChances: number = 0;
@@ -17,6 +20,8 @@ class ArtOfWarProbability extends Analyzer {
   constructor(args: Options) {
     super(args);
     this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id) ? 0.24 : 0.12;
+
+    this.hasTier = this.selectedCombatant.has4Piece();
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
 
@@ -31,8 +36,11 @@ class ArtOfWarProbability extends Analyzer {
   }
 
   castCounter() {
-    this.totalChances += 1;
-    this.procProbabilities.push(this.chance);
+    if (this.hasTier && this.flipFlop) {
+      this.totalChances += 1;
+      this.procProbabilities.push(this.chance);
+    }
+    this.flipFlop = !this.flipFlop;
   }
 
   gotAProc() {
@@ -56,7 +64,7 @@ class ArtOfWarProbability extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.ART_OF_WAR.id} /> Reset Chance
+              <SpellLink id={SPELLS.ART_OF_WAR.id} /> BoJ Reset Chance
             </>
           }
         >

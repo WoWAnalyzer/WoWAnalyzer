@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -36,20 +37,21 @@ class ArcanePowerPreReqs extends Analyzer {
 
   hasOverpowered: boolean;
   hasArcaneHarmony: boolean;
+  isKyrian: boolean;
 
   lowArcaneCharges = 0;
   lowMana = 0;
   missingTouchOfTheMagi = 0;
   lowArcaneHarmonyStacks = 0;
+  noRadiantSpark = 0;
   badCooldownUses = 0;
   failedChecks = 0;
 
   constructor(options: Options) {
     super(options);
     this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
-    this.hasArcaneHarmony = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.ARCANE_HARMONY.bonusID,
-    );
+    this.hasArcaneHarmony = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
+    this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER),
       this.onArcanePower,
@@ -104,6 +106,14 @@ class ArcanePowerPreReqs extends Analyzer {
       this.lowArcaneHarmonyStacks += 1;
     }
 
+    //Checks if Radiant Spark is active (if the player is Kyrian)
+    if (this.isKyrian && !this.selectedCombatant.hasBuff(SPELLS.RADIANT_SPARK.id)) {
+      debug && this.log('Radiant Spark is not active');
+      badCooldownUse = true;
+      this.failedChecks += 1;
+      this.noRadiantSpark += 1;
+    }
+
     //If any of the above checks were failed, mark the AP Cast as a bad cast
     if (badCooldownUse === true) {
       this.badCooldownUses += 1;
@@ -118,7 +128,7 @@ class ArcanePowerPreReqs extends Analyzer {
     return 1 - this.badCooldownUses / this.totalAPCasts;
   }
 
-  get arcanePowerCooldownThresholds() {
+  get arcanePowerPreReqThresholds() {
     return {
       actual: this.cooldownUtilization,
       isLessThan: {
@@ -130,8 +140,30 @@ class ArcanePowerPreReqs extends Analyzer {
     };
   }
 
+  get arcaneHarmonyPreReqThresholds() {
+    return {
+      actual: this.lowArcaneHarmonyStacks,
+      isGreaterThan: {
+        average: 0,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get radiantSparkPreReqThresholds() {
+    return {
+      actual: this.noRadiantSpark,
+      isGreaterThan: {
+        average: 0,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   suggestions(when: When) {
-    when(this.arcanePowerCooldownThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.arcanePowerPreReqThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without proper setup{' '}
@@ -151,22 +183,24 @@ class ArcanePowerPreReqs extends Analyzer {
                 before Arcane Power - You failed this {this.missingTouchOfTheMagi} times.
               </>
             </li>
-            {!this.hasOverpowered ? (
+            {!this.hasOverpowered && (
               <li>
                 You have more than {formatPercentage(AP_MANA_THRESHOLD_PERCENT)} mana - You failed
                 this {this.lowMana} times.
               </li>
-            ) : (
-              ''
             )}
-            {this.hasArcaneHarmony ? (
+            {this.hasArcaneHarmony && (
               <li>
                 You have {ARCANE_HARMONY_MAX_STACKS} stacks of{' '}
                 <SpellLink id={SPELLS.ARCANE_HARMONY_BUFF.id} /> - You failed this{' '}
                 {this.lowArcaneHarmonyStacks} times.
               </li>
-            ) : (
-              ''
+            )}
+            {this.isKyrian && (
+              <li>
+                <SpellLink id={SPELLS.RADIANT_SPARK.id} /> is active. - You failed this{' '}
+                {this.noRadiantSpark} times.
+              </li>
             )}
           </ul>
         </>,
@@ -211,6 +245,12 @@ class ArcanePowerPreReqs extends Analyzer {
                 <li>
                   You have {ARCANE_HARMONY_MAX_STACKS} stacks of Arcane Harmony - Missed{' '}
                   {this.lowArcaneHarmonyStacks} times
+                </li>
+              )}
+              {this.hasArcaneHarmony && (
+                <li>
+                  <SpellLink id={SPELLS.RADIANT_SPARK.id} /> is active - Missed{' '}
+                  {this.noRadiantSpark} times
                 </li>
               )}
             </ul>

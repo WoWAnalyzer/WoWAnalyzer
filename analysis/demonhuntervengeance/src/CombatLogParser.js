@@ -10,6 +10,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/fury/FuryDetails';
 import FuryTracker from './modules/fury/FuryTracker';
+import BlindFaith from './modules/shadowlands/legendaries/BlindFaith';
 import FierySoul from './modules/shadowlands/legendaries/FierySoul';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import ImmolationAura from './modules/spells/ImmolationAura';
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     fierySoul: FierySoul,
+    blindFaith: BlindFaith,
   };
 }
 

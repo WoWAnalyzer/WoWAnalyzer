@@ -22,6 +22,8 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FinalVerdict from './modules/items/FinalVerdict';
+import AshesToAshesProbability from './modules/shadowlands/AshesToAshesProbability';
+import OverallArtOfWarProbability from './modules/shadowlands/OverallArtOfWarProbability';
 import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
@@ -63,6 +65,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     finalVerdict: FinalVerdict,
+
+    // tier
+    ashesToAshesProbability: AshesToAshesProbability,
+    overallArtOfWarProbability: OverallArtOfWarProbability,
   };
 }
 

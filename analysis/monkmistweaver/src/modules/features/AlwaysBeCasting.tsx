@@ -40,11 +40,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       );
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     }
-    if (
-      this.selectedCombatant.hasLegendaryByBonusID(
-        SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID,
-      )
-    ) {
+    if (this.selectedCombatant.hasLegendary(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY)) {
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
       AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);

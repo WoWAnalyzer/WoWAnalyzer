@@ -12,7 +12,7 @@ class CollectiveAnguish extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLLECTIVE_ANGUISH.bonusID);
+    this.active = this.selectedCombatant.hasLegendary(SPELLS.COLLECTIVE_ANGUISH);
     if (!this.active) {
       return;
     }

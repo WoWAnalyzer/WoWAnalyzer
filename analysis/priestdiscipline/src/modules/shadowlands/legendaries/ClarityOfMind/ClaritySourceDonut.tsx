@@ -9,7 +9,7 @@ interface ClaritySourceDonutProps {
 }
 
 interface ClaritySourceGraphItem {
-  color?: string;
+  color: string;
   spellId: number;
   label: string;
   value: number;

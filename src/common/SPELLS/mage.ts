@@ -442,6 +442,11 @@ const spells = {
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
   },
+  ARCANE_MISSILES_DAMAGE: {
+    id: 7268,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
+  },
   ARCANE_BARRAGE: {
     id: 44425,
     name: 'Arcane Barrage',
