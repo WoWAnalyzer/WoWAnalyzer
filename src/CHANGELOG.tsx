@@ -56,6 +56,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 8), 'Updated Augment Rune Checker to also tracker eteneral augment rune.', Abelito75),
   change(date(2022, 4, 7), 'Updated conduit ranks to assume the player has all empowered conduits unlocked.', xepheris),
   change(date(2022, 4, 7), 'Updated generated conduit information as of patch 9.2.5.43057', Putro),
   change(date(2022, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', sorrellp),
