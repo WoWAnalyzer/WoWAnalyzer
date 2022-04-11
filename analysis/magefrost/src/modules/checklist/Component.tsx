@@ -117,6 +117,11 @@ const FrostMageChecklist = ({
           name="Used Fingers of Frost procs"
           thresholds={thresholds.fingersOfFrostUtilization}
         />
+        <Requirement
+          name="Munched Fingers of Frost Procs"
+          thresholds={thresholds.munchedProcs}
+          tooltip="Munching a proc refers to a situation where you have a Fingers of Frost proc at the same time that Winters Chill is on the target. This essentially leads to a wasted Fingers of Frost proc since Fingers of Frost and Winter's Chill both do the same thing, and casting Ice Lance will remove both a Fingers of Frost proc and a stack of Winter's Chill. This is sometimes unavoidable, but if you have both a Fingers of Frost proc and a Brain Freeze proc, you can minimize this by ensuring that you use the Fingers of Frost procs first before you start casting Frostbolt and Flurry to use the Brain Freeze proc."
+        />
       </Rule>
       <Rule
         name="Use Glacial Spike properly"

@@ -8,8 +8,17 @@ import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import { ARCANE_BLAST_PER_RADIANT_SPARK } from '@wowanalyzer/mage';
+import { CASTS_PER_RADIANT_SPARK } from '@wowanalyzer/mage';
 
+import { getHitCount } from '../../normalizers/CastLinkNormalizer';
+
+const CAST_SPELLS = [
+  SPELLS.ARCANE_BLAST,
+  SPELLS.ARCANE_EXPLOSION,
+  SPELLS.ARCANE_ORB_TALENT,
+  SPELLS.ARCANE_BARRAGE,
+];
+const AOE_TARGET_THRESHOLD = 3;
 const debug = false;
 
 class RadiantSpark extends Analyzer {
@@ -21,47 +30,51 @@ class RadiantSpark extends Analyzer {
   hasHarmonicEcho: boolean;
 
   arcaneBlastCasts = 0;
+  aoeCasts = 0;
   badRadiantSpark = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
     this.hasHarmonicEcho = this.selectedCombatant.hasLegendary(SPELLS.HARMONIC_ECHO);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BLAST),
-      this.onArcaneBlastCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CAST_SPELLS), this.onCast);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_SPARK),
       this.onRadiantSparkRemoved,
     );
   }
 
-  onArcaneBlastCast(event: CastEvent) {
+  onCast(event: CastEvent) {
     //If Radiant Spark is not active, then we do not need to check the Arcane Blast cast.
     if (!this.selectedCombatant.hasBuff(SPELLS.RADIANT_SPARK.id)) {
       return;
     }
 
-    this.arcaneBlastCasts += 1;
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.ARCANE_BLAST.id) {
+      this.arcaneBlastCasts += 1;
+    } else if (getHitCount(event) >= AOE_TARGET_THRESHOLD) {
+      this.aoeCasts += 1;
+    }
   }
 
   onRadiantSparkRemoved(event: RemoveBuffEvent) {
     //Confirm whether 5 Arcane Blast casts (4 with Harmonic Echo) were cast during Radiant Spark
-    const arcaneBlastCountThreshold = this.hasHarmonicEcho
-      ? ARCANE_BLAST_PER_RADIANT_SPARK - 1
-      : ARCANE_BLAST_PER_RADIANT_SPARK;
-    if (this.arcaneBlastCasts < arcaneBlastCountThreshold) {
+    const spellCountThreshold = this.hasHarmonicEcho
+      ? CASTS_PER_RADIANT_SPARK - 1
+      : CASTS_PER_RADIANT_SPARK;
+    if (this.arcaneBlastCasts !== spellCountThreshold && this.aoeCasts < spellCountThreshold) {
       debug &&
         this.log(
-          'Not enough Arcane Blast casts during Radiant Spark - Casted ' +
+          'Not enough (or too many) Arcane Blast casts during Radiant Spark - Casted ' +
             this.arcaneBlastCasts +
             ', expected ' +
-            arcaneBlastCountThreshold,
+            spellCountThreshold,
         );
       this.badRadiantSpark += 1;
     }
     this.arcaneBlastCasts = 0;
+    this.aoeCasts = 0;
   }
 
   get radiantSparkUtilization() {
@@ -84,15 +97,19 @@ class RadiantSpark extends Analyzer {
     when(this.radiantSparkUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You did not cast <SpellLink id={SPELLS.ARCANE_BLAST.id} /> enough during{' '}
-          <SpellLink id={SPELLS.RADIANT_SPARK.id} /> {this.badRadiantSpark} times. Because{' '}
-          <SpellLink id={SPELLS.ARCANE_BLAST.id} /> hits very hard at 4{' '}
-          <SpellLink id={SPELLS.ARCANE_CHARGE.id} />
+          You did not properly utilize <SpellLink id={SPELLS.RADIANT_SPARK.id} />{' '}
+          {this.badRadiantSpark} times. Because <SpellLink id={SPELLS.ARCANE_BLAST.id} /> hits very
+          hard at 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} />
           s, you should use the damage buff from <SpellLink id={SPELLS.RADIANT_SPARK.id} /> to
           increase their damage even further. So, you should ensure that you are getting{' '}
-          {ARCANE_BLAST_PER_RADIANT_SPARK} ({ARCANE_BLAST_PER_RADIANT_SPARK - 1} with{' '}
+          {CASTS_PER_RADIANT_SPARK} ({CASTS_PER_RADIANT_SPARK - 1} with{' '}
           <SpellLink id={SPELLS.HARMONIC_ECHO.id} />) <SpellLink id={SPELLS.ARCANE_BLAST.id} />{' '}
-          casts in before <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends.
+          casts in before <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends. Alternatively, if there
+          is {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
+          <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />,{' '}
+          <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} />, and{' '}
+          <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> instead of{' '}
+          <SpellLink id={SPELLS.ARCANE_BLAST.id} />.
         </>,
       )
         .icon(SPELLS.RADIANT_SPARK.icon)

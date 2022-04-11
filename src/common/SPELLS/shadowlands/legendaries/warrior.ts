@@ -35,7 +35,12 @@ const legendaries = {
   //endregion
 
   //region Fury
-
+  DEATHMAKER: {
+    id: 335567,
+    bonusID: 6964,
+    name: 'Deathmaker',
+    icon: 'ability_warrior_warbringer',
+  },
   //endregion
 
   //region Protection
@@ -76,6 +81,17 @@ const legendaries = {
     name: 'Sinful Surge',
     icon: 'ability_revendreth_warrior',
     bonusID: 7470,
+  },
+  NATURES_FURY: {
+    id: 354161,
+    bonusID: 7471,
+    name: "Nature's Fury",
+    icon: 'ability_ardenweald_warrior',
+  },
+  NATURES_FURY_DAMAGE: {
+    id: 354163,
+    name: "Nature's Fury",
+    icon: 'ability_ardenweald_warrior',
   },
   //endregion
 

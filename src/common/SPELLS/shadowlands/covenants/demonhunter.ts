@@ -20,6 +20,11 @@ const covenants = {
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
+  BLIND_FAITH_BUFF: {
+    id: 355894,
+    name: 'Blind Faith',
+    icon: 'ability_bastion_demonhunter',
+  },
   //endregion
 
   //region Necrolord

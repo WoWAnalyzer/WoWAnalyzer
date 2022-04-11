@@ -22,6 +22,7 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CombustionActiveTime from './modules/features/CombustionActiveTime';
+import CombustionCasts from './modules/features/CombustionCasts';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionPreCastDelay from './modules/features/CombustionPreCastDelay';
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotStreakPreCasts: HotStreakPreCasts,
     hotStreakWastedCrits: HotStreakWastedCrits,
     combustionFirestarter: CombustionFirestarter,
+    combustionCasts: CombustionCasts,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     combustionActiveTime: CombustionActiveTime,

@@ -23,7 +23,6 @@ const spells: number[] = [
   SPELLS.CHARGE_2.id, // The damage component of charge
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   SPELLS.SPIRITWALKERS_GRACE.id,
-
   //endregion
 
   //region Consumables
@@ -72,6 +71,10 @@ const spells: number[] = [
   //region trinket
   SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
   //endregion
+
+  // monk
+  SPELLS.PRIMORDIAL_MENDING.id,
+  // end monk
 ];
 
 export default spells;
