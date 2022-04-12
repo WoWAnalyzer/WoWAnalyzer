@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 4, 11), <>Added cooldown reduction tracking for <SpellLink id={SPELLS.WITCH_DOCTORS_WOLF_BONES.id} /></>, xunai),
   change(date(2022, 4, 11), <>Updated Frost Shock and Flame Shock to be treated as separate abilities on the timeline</>, xunai),
   change(date(2022, 3, 23), <>Fixed an issue in ability.tsx where the spell object was being passed instead of the ID</>, Abelito75),
   change(date(2020, 11, 11), <>Added stacks and time spent at cap statisctics for <SpellLink id={SPELLS.MAELSTROM_WEAPON.id} /></>, Mae),
