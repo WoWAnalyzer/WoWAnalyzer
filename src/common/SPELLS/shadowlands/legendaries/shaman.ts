@@ -1,7 +1,12 @@
 //https://www.raidbots.com/static/data/live/bonuses.json
 const legendaries = {
   //region Enhancement
-
+  WITCH_DOCTORS_WOLF_BONES: {
+    id: 335897,
+    name: "Witch Doctor's Wolf Bones",
+    icon: 'inv_misc_bone_09',
+    bonusID: 6995,
+  },
   //endregion
 
   //region Elemental
