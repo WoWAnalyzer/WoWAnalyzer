@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -7,6 +8,10 @@ import Events, {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class WitchDoctorsWolfBones extends Analyzer {
   static dependencies = {
@@ -16,6 +21,8 @@ class WitchDoctorsWolfBones extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected lastTimestamp = 0;
   protected hasApplyBuffInThisTimestamp = false;
+  protected totalCdrGained = 0;
+  protected totalCdrWasted = 0;
 
   constructor(options: Options) {
     super(options);
@@ -52,9 +59,31 @@ class WitchDoctorsWolfBones extends Analyzer {
 
     if (this.spellUsable.isOnCooldown(SPELLS.FERAL_SPIRIT.id)) {
       this.spellUsable.reduceCooldown(SPELLS.FERAL_SPIRIT.id, 2000, event.timestamp);
+      this.totalCdrGained += 2000;
+    } else {
+      this.totalCdrWasted += 2000;
     }
 
     this.lastTimestamp = event.timestamp;
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(10)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.ITEMS}
+      >
+        <BoringSpellValueText spellId={SPELLS.WITCH_DOCTORS_WOLF_BONES.id}>
+          <>
+            <CooldownIcon /> {this.totalCdrGained / 1000}s <small> of Feral Spirit CDR</small>
+            <br />
+            <CooldownIcon /> {this.totalCdrWasted / 1000}s{' '}
+            <small> of Feral Spirit CDR wasted</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 
