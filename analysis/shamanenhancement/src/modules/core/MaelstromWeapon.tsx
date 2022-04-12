@@ -7,6 +7,7 @@ import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
@@ -23,6 +24,7 @@ const MAELSTROM_WEAPON_SPENDERS: Spell[] = [
   SPELLS.CHAIN_LIGHTNING,
   SPELLS.HEALING_SURGE,
   SPELLS.LIGHTNING_BOLT,
+  SPELLS.ELEMENTAL_BLAST_TALENT,
 ];
 const debug = false;
 
@@ -32,6 +34,9 @@ class MaelstromWeapon extends Analyzer {
   protected stacksExpired = 0;
 
   protected currentStacks = 0;
+
+  protected lastTimestamp = 0;
+  protected hasApplyBuffInThisTimestamp = false;
 
   protected cappedIntervals: Intervals;
 
@@ -65,6 +70,11 @@ class MaelstromWeapon extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_SPENDERS),
       this.castMaelstromWeaponSpender,
     );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.refreshStacks,
+    );
   }
 
   get timePercentageSpentWithCappedStacks() {
@@ -97,15 +107,34 @@ class MaelstromWeapon extends Analyzer {
   }
 
   gainFirstStack(event: ApplyBuffEvent) {
+    if (event.timestamp !== this.lastTimestamp) {
+      this.hasApplyBuffInThisTimestamp = false;
+    }
+
+    this.hasApplyBuffInThisTimestamp = true;
+
     this.currentStacks = 1;
     this.stacksGained += 1;
+
+    this.lastTimestamp = event.timestamp;
   }
 
   gainSubsequentStack(event: ApplyBuffStackEvent) {
-    if (this.currentStacks + 1 !== event.stack) {
-      debug && console.error('Maelstrom Weapon analyzer: stack mismatch in applybuffstack');
-      return;
+    if (event.timestamp !== this.lastTimestamp) {
+      this.hasApplyBuffInThisTimestamp = false;
     }
+
+    if (this.currentStacks + 1 !== event.stack) {
+      debug &&
+        console.error(
+          'Maelstrom Weapon analyzer: stack mismatch in applybuffstack',
+          event.timestamp,
+          this.currentStacks,
+          event.stack,
+        );
+    }
+
+    this.hasApplyBuffInThisTimestamp = true;
 
     this.currentStacks = event.stack;
     this.stacksGained += 1;
@@ -113,6 +142,26 @@ class MaelstromWeapon extends Analyzer {
     if (this.currentStacks === MAX_STACKS) {
       this.reachMaxStacks(event.timestamp);
     }
+
+    this.lastTimestamp = event.timestamp;
+  }
+
+  refreshStacks(event: RefreshBuffEvent) {
+    if (event.timestamp !== this.lastTimestamp) {
+      this.hasApplyBuffInThisTimestamp = false;
+    }
+
+    if (this.hasApplyBuffInThisTimestamp) {
+      return;
+    }
+
+    if (this.currentStacks < MAX_STACKS) {
+      this.currentStacks += 1;
+    }
+
+    this.stacksGained += 1;
+
+    this.lastTimestamp = event.timestamp;
   }
 
   removeAllStacks(event: RemoveBuffEvent) {
