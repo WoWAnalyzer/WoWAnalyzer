@@ -841,6 +841,7 @@ export interface Soulbind {
   id: number;
   covenantID: number;
   garrisonTalentTreeId: number;
+  capstoneTraitID: number;
 }
 
 export interface SoulbindTrait {
