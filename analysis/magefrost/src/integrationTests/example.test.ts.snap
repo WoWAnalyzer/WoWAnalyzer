@@ -1674,7 +1674,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.5198803558841%",
+                      "width": "84.01303130179657%",
                     }
                   }
                 />
@@ -1689,7 +1689,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              88.52%
+              84.01%
             </td>
             <td
               style={
@@ -2554,7 +2554,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "35.8109318142849%",
+                      "width": "35.201280268246684%",
                     }
                   }
                 />
@@ -2569,7 +2569,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              35.81%
+              35.20%
             </td>
             <td
               style={
@@ -3972,7 +3972,7 @@ exports[`Frost Mage integration test: example log DivertedEnergy matches the sta
             Diverted Energy
           </a>
            - Rank 
-          9
+          11
         </label>
         <div
           className="value"
@@ -4169,7 +4169,7 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
             Ice Bite
           </a>
            - Rank 
-          9
+          11
         </label>
         <div
           className="value"
@@ -4180,11 +4180,11 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
             src="/img/sword.png"
           />
            
-          117
+          129
            DPS
            
           <small>
-            1.81
+            1.99
              % of total
           </small>
         </div>
@@ -4350,7 +4350,7 @@ exports[`Frost Mage integration test: example log IcyPropulsion matches the stat
             Icy Propulsion
           </a>
            - Rank 
-          9
+          11
         </label>
         <div
           className="value"
@@ -4365,7 +4365,7 @@ exports[`Frost Mage integration test: example log IcyPropulsion matches the stat
             />
           </svg>
            
-          243s
+          261s
            
           <small>
             Icy Veins CDR
@@ -4965,7 +4965,7 @@ exports[`Frost Mage integration test: example log SiphonedMalice matches the sta
             Siphoned Malice
           </a>
            - Rank 
-          9
+          11
         </label>
         <div
           className="value"

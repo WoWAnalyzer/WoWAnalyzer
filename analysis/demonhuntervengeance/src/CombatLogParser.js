@@ -1,6 +1,13 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
+import {
+  ElysianDecree,
+  SinfulBrand,
+  TheHunt,
+  FelDefender,
+  GrowingInferno,
+  RepeatDecree,
+} from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -10,6 +17,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/fury/FuryDetails';
 import FuryTracker from './modules/fury/FuryTracker';
+import ShatteredRestoration from './modules/shadowlands/conduits/ShatteredRestoration';
 import BlindFaith from './modules/shadowlands/legendaries/BlindFaith';
 import FierySoul from './modules/shadowlands/legendaries/FierySoul';
 import DemonSpikes from './modules/spells/DemonSpikes';
@@ -74,10 +82,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     felDefender: FelDefender,
+    shatteredRestoration: ShatteredRestoration,
 
     // Legendaries
     fierySoul: FierySoul,
     blindFaith: BlindFaith,
+    growingInferno: GrowingInferno,
+    repeatDecree: RepeatDecree,
   };
 }
 

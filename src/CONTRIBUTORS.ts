@@ -1864,9 +1864,21 @@ export const Tialyss: Contributor = {
   github: 'mfield',
 };
 
-export const sorrellp: Contributor = {
-  nickname: 'sorrellp',
+export const xunai: Contributor = {
+  nickname: 'xunai',
   github: 'sorrellp',
+  mains: [
+    {
+      name: 'Xunai',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/xunai',
+    },
+    {
+      name: 'Ikoogra',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/ikoogra',
+    },
+  ],
 };
 
 export const AndreasAlbert: Contributor = {
