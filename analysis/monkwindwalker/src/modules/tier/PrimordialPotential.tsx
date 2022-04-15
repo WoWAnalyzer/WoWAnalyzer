@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -25,11 +25,6 @@ class PrimordialPotential extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   totalDamage = 0;
-  /**
-   * If the damage increasing "Primordial Power" buff is currently active,
-   * not the stacking "Primordial Potential"
-   */
-  powerActive = false;
 
   constructor(options: Options) {
     super(options);
@@ -39,31 +34,16 @@ class PrimordialPotential extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_POWER_BUFF),
-      this.onApplyBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_POWER_BUFF),
-      this.onRemoveBuff,
-    );
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER),
       this.onDamage,
     );
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.powerActive = true;
-  }
-
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.powerActive = false;
-  }
-
   onDamage(event: DamageEvent) {
-    if (!this.powerActive) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
       return;
     }
+
     this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
   }
 
