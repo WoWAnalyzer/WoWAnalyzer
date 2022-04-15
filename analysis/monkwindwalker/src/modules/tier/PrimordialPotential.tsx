@@ -1,11 +1,9 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import { MONK_TIER_ID } from 'common/ITEMS/shadowlands';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -39,18 +37,13 @@ const PP_MOD = 0.22;
 
 /** Monk Tier 28 "Garb of the Grand Upwelling" 4-Set Bonus for Windwalker */
 class PrimordialPotential extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-  protected abilityTracker!: AbilityTracker;
-
   /** IDs of abilities casts that was cast during Primordial Power */
   poweredCasts: { [spellID: number]: number } = {};
   totalDamage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4Piece(MONK_TIER_ID);
+    this.active = this.selectedCombatant.has4Piece();
     if (!this.active) {
       return;
     }

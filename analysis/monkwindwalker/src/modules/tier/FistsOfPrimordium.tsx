@@ -1,11 +1,9 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import { MONK_TIER_ID } from 'common/ITEMS/shadowlands';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -17,16 +15,11 @@ const FOF_INCREASE = 0.4;
 
 /** Monk Tier 28 "Garb of the Grand Upwelling" 2-Set Bonus */
 class FistsOfPrimordium extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-  protected abilityTracker!: AbilityTracker;
-
   totalDamage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2Piece(MONK_TIER_ID);
+    this.active = this.selectedCombatant.has2Piece();
     if (!this.active) {
       return;
     }
