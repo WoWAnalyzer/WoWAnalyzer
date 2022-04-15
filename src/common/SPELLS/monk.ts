@@ -585,5 +585,11 @@ const spells = {
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
   },
+  // Tier 28, 2P Set-Bonus
+  FISTS_OF_PRIMORDIUM: {
+    id: 364418,
+    name: 'Fists of Primordium',
+    icon: 'monk_ability_fistoffury',
+  },
 } as const;
 export default spells;
