@@ -3965,14 +3965,25 @@ exports[`Frost Mage integration test: example log DivertedEnergy matches the sta
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=337136"
+            href="https://wowhead.com/spell=337136&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Diverted Energy
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
@@ -4162,14 +4173,25 @@ exports[`Frost Mage integration test: example log IceBite matches the statistic 
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=336569"
+            href="https://wowhead.com/spell=336569&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Ice Bite
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
@@ -4343,14 +4365,25 @@ exports[`Frost Mage integration test: example log IcyPropulsion matches the stat
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=336522"
+            href="https://wowhead.com/spell=336522&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Icy Propulsion
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
@@ -4958,14 +4991,25 @@ exports[`Frost Mage integration test: example log SiphonedMalice matches the sta
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=337087"
+            href="https://wowhead.com/spell=337087&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Siphoned Malice
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
