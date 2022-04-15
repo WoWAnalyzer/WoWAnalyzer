@@ -49,13 +49,15 @@ import {
   Trevor,
   bhawkins6177,
   xunai,
-  xepheris
+  xepheris,
+  nullDozzer,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 15), 'Improved conduit statistics to use the equipped itemlevel for the link and tooltip.', nullDozzer),
   change(date(2022, 4, 10), 'Added Ravenous Frenzy to Restoration Druid', Trevor),
   change(date(2022, 4, 8), 'Updated Augment Rune Checker to also tracker eteneral augment rune.', Abelito75),
   change(date(2022, 4, 7), 'Updated conduit ranks to assume the player has all empowered conduits unlocked.', xepheris),
