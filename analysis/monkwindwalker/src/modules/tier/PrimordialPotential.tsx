@@ -37,6 +37,7 @@ const PP_MOD = 0.22;
 
 /** Monk Tier 28 "Garb of the Grand Upwelling" 4-Set Bonus for Windwalker */
 class PrimordialPotential extends Analyzer {
+  numberPoweredCasts = 0;
   /** IDs of abilities casts that was cast during Primordial Power */
   poweredCasts: { [spellID: number]: number } = {};
   totalDamage = 0;
@@ -62,6 +63,8 @@ class PrimordialPotential extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
       return;
     }
+
+    this.numberPoweredCasts += 1;
 
     if (!this.poweredCasts[event.ability.guid]) {
       this.poweredCasts[event.ability.guid] = 0;
@@ -109,7 +112,7 @@ class PrimordialPotential extends Analyzer {
 
     return (
       <div className="pad">
-        <div>Breakdown of empowered casts</div>
+        <div>Breakdown of {this.numberPoweredCasts} empowered casts</div>
         <DonutChart items={ratioChartItems} />
       </div>
     );
@@ -123,12 +126,12 @@ class PrimordialPotential extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            The {formatPercentage(PP_MOD, 0)}% increase from the 4-set bonus,{' '}
-            <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id} />, was worth{' '}
-            {formatNumber(this.totalDamage)} raw damage.
+            The {formatPercentage(PP_MOD, 0)}% increase on {this.numberPoweredCasts} casted
+            abilities, from the 4-set bonus, <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id} />, was
+            worth {formatNumber(this.totalDamage)} raw damage.
           </>
         }
-        dropdown={this.totalDamage > 0 && this.renderCastRatioChart()}
+        dropdown={this.numberPoweredCasts > 0 && this.renderCastRatioChart()}
       >
         <BoringSpellValueText spellId={SPELLS.PRIMORDIAL_POTENTIAL.id}>
           <ItemDamageDone amount={this.totalDamage} />
