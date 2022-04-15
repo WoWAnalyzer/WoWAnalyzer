@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -10,6 +10,30 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { BLACKOUT_KICK_COOLDOWN_REDUCTION_MS } from '../../constants';
+
+function oxfordCommaJoin(list: JSX.Element[]): JSX.Element {
+  switch (list.length) {
+    case 1:
+      return list[0];
+    case 2:
+      return (
+        <>
+          {list[0]} and {list[1]}
+        </>
+      );
+    default:
+      return (
+        <>
+          {list.slice(0, -1).reduce((acc, item) => (
+            <>
+              {acc}, {item}
+            </>
+          ))}
+          , and {list[list.length - 1]}
+        </>
+      );
+  }
+}
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
@@ -22,7 +46,7 @@ class BlackoutKick extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  IMPORTANT_SPELLS = [SPELLS.RISING_SUN_KICK.id, SPELLS.FISTS_OF_FURY_CAST.id];
+  IMPORTANT_SPELLS: number[] = [SPELLS.RISING_SUN_KICK.id, SPELLS.FISTS_OF_FURY_CAST.id];
   effectiveRisingSunKickReductionMs = 0;
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
@@ -38,7 +62,7 @@ class BlackoutKick extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some((spellId) =>
+    const availableImportantCast = this.IMPORTANT_SPELLS.filter((spellId) =>
       this.spellUsable.isAvailable(spellId),
     );
     /**
@@ -49,13 +73,20 @@ class BlackoutKick extends Analyzer {
       (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) *
       BLACKOUT_KICK_COOLDOWN_REDUCTION_MS;
     if (
-      hasImportantCastsAvailable &&
+      availableImportantCast.length > 0 &&
       !this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
     ) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason =
-        'You cast this Blackout Kick while more important spells were available';
+      const linkList = availableImportantCast.map((spellId) => (
+        <SpellLink key={spellId} id={spellId} />
+      ));
+      event.meta.inefficientCastReason = (
+        <>
+          You cast this <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> while {oxfordCommaJoin(linkList)}{' '}
+          was available.
+        </>
+      );
     }
 
     if (!this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
