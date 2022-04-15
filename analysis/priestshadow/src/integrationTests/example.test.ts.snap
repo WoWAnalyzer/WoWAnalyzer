@@ -4348,13 +4348,16 @@ exports[`Shadow Priest integration test: example log DissonantEchoes matches the
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=338342"
+            href="https://wowhead.com/spell=338342&ilvl=200"
             rel="noopener noreferrer"
             target="_blank"
           >
             Dissonant Echoes
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           5
         </label>
         <div

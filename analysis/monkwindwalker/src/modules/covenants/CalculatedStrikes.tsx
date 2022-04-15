@@ -6,7 +6,7 @@ import conduitScaling from 'parser/core/conduitScaling';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -141,9 +141,9 @@ class CalculatedStrikes extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spellId={SPELLS.CALCULATED_STRIKES.id}>
+          <ConduitSpellText spellId={SPELLS.CALCULATED_STRIKES.id}>
             <ItemDamageDone amount={this.totalDamage} />
-          </BoringSpellValueText>
+          </ConduitSpellText>
         </Statistic>
       );
     }
