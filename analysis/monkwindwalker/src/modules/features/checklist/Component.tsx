@@ -191,26 +191,27 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           />
         </Rule>
       )}
-      {combatant.hasConduitBySpellID(SPELLS.COORDINATED_OFFENSIVE.id) && (
-        <Rule
-          name={
-            <>
-              Fixate spirits to benefit from <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
-            </>
-          }
-          description={
-            <>
-              To gain the bonus damage of <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> you
-              need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} />.
-            </>
-          }
-        >
-          <Requirement
-            name="Fixate uptime"
-            thresholds={thresholds.coordinatedOffensiveFixateUptime}
-          />
-        </Rule>
-      )}
+      {combatant.hasConduitBySpellID(SPELLS.COORDINATED_OFFENSIVE.id) &&
+        !combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
+          <Rule
+            name={
+              <>
+                Fixate spirits to benefit from <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
+              </>
+            }
+            description={
+              <>
+                To gain the bonus damage of <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> you
+                need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} />.
+              </>
+            }
+          >
+            <Requirement
+              name="Fixate uptime"
+              thresholds={thresholds.coordinatedOffensiveFixateUptime}
+            />
+          </Rule>
+        )}
       <Rule
         name="Use your defensive cooldowns effectively"
         description={

@@ -162,31 +162,39 @@ class CoordinatedOffensive extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
-          <>Fixated {formatPercentage(this.uptime, 0)}%</>
-        </ConduitSpellText>
+        {this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id) ? (
+          <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
+            <ItemDamageDone amount={this.damageIncrease} />
+          </ConduitSpellText>
+        ) : (
+          <>
+            <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
+              <>Fixated {formatPercentage(this.uptime, 0)}%</>
+            </ConduitSpellText>
 
-        <BoringValueText label="Resulting damage gain">
-          <ItemDamageDone amount={this.damageIncrease} />
-        </BoringValueText>
+            <BoringValueText label="Resulting damage gain">
+              <ItemDamageDone amount={this.damageIncrease} />
+            </BoringValueText>
 
-        <BoringValueText
-          label={
-            <TooltipElement
-              content={
-                <>
-                  The amount of damage that would have been contributed during the{' '}
-                  {formatPercentage(1 - this.uptime, 0)}% of Storm, Earth, and Fire that the spirits
-                  was not fixated on.
-                </>
+            <BoringValueText
+              label={
+                <TooltipElement
+                  content={
+                    <>
+                      The amount of damage that would have been contributed during the{' '}
+                      {formatPercentage(1 - this.uptime, 0)}% of Storm, Earth, and Fire that the
+                      spirits was not fixated on.
+                    </>
+                  }
+                >
+                  Missed damage increase
+                </TooltipElement>
               }
             >
-              Missed damage increase
-            </TooltipElement>
-          }
-        >
-          <ItemDamageDone amount={this.missedDamageIncrease} />
-        </BoringValueText>
+              <ItemDamageDone amount={this.missedDamageIncrease} />
+            </BoringValueText>
+          </>
+        )}
       </Statistic>
     );
   }
