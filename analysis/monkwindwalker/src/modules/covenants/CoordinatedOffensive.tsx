@@ -1,12 +1,10 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, SummonEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import BoringValueText from 'parser/ui/BoringValueText';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -162,39 +160,9 @@ class CoordinatedOffensive extends Analyzer {
           </>
         }
       >
-        {this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id) ? (
-          <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
-            <ItemDamageDone amount={this.damageIncrease} />
-          </ConduitSpellText>
-        ) : (
-          <>
-            <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
-              <>Fixated {formatPercentage(this.uptime, 0)}%</>
-            </ConduitSpellText>
-
-            <BoringValueText label="Resulting damage gain">
-              <ItemDamageDone amount={this.damageIncrease} />
-            </BoringValueText>
-
-            <BoringValueText
-              label={
-                <TooltipElement
-                  content={
-                    <>
-                      The amount of damage that would have been contributed during the{' '}
-                      {formatPercentage(1 - this.uptime, 0)}% of Storm, Earth, and Fire that the
-                      spirits was not fixated on.
-                    </>
-                  }
-                >
-                  Missed damage increase
-                </TooltipElement>
-              }
-            >
-              <ItemDamageDone amount={this.missedDamageIncrease} />
-            </BoringValueText>
-          </>
-        )}
+        <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
+          <ItemDamageDone amount={this.damageIncrease} />
+        </ConduitSpellText>
       </Statistic>
     );
   }
