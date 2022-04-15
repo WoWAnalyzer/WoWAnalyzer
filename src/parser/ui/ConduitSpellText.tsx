@@ -16,6 +16,11 @@ interface Context {
   parser: CombatLogParser;
 }
 
+/**
+ * Component to display statistics for a conduit. Pass the spell ID of the conduit in the `spellId` prop.
+ *
+ * Component will link to the conduit with the equipped itemlevel, as well as print out "Rank x".
+ */
 const ConduitSpellText = ({ spellId, children, className }: Props, { parser }: Context) => {
   const { rank, itemLevel } = parser.selectedCombatant.conduitsByConduitID[spellId];
   return (
