@@ -3,16 +3,19 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
-import Events, { SummonEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, RemoveBuffEvent, SummonEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES, ABILITIES_CLONED_BY_SEF } from '../../constants';
 
-import { ABILITIES_CLONED_BY_SEF, ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 class CoordinatedOffensive extends Analyzer {
+  FIXATE_ACTIVATE_TIMESTAMP = -1;
+  FIXATE_UPTIME = 0;
   CO_MOD = 0;
   SER_MOD = 0.2;
   totalDamage = 0;
@@ -34,7 +37,7 @@ class CoordinatedOffensive extends Analyzer {
 
     //summon events (need to track this to get melees)
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_EARTH_AND_FIRE_CAST),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_EARTH_AND_FIRE_CAST),
       this.CO_Deactivator,
     );
     this.addEventListener(
@@ -62,11 +65,16 @@ class CoordinatedOffensive extends Analyzer {
       );
     }
   }
-  CO_Deactivator(event: CastEvent) {
+  CO_Deactivator(event: RemoveBuffEvent) {
+    this.FIXATE_UPTIME = this.FIXATE_UPTIME + (event.timestamp - this.FIXATE_ACTIVATE_TIMESTAMP);
     this.CO_Active = false;
   }
   CO_Activator(event: CastEvent) {
-    this.CO_Active = true;
+    // Don't want to overwrite the fixate timestamp if we're already active
+    if (!this.CO_Active) {
+      this.FIXATE_ACTIVATE_TIMESTAMP = event.timestamp;
+      this.CO_Active = true;
+    }
   }
   trackSummons(event: SummonEvent) {
     this.cloneMap.set(event.targetID, event.ability.guid);
@@ -107,6 +115,26 @@ class CoordinatedOffensive extends Analyzer {
       calculateEffectiveDamage(event, this.CO_MOD + this.SER_MOD) -
       calculateEffectiveDamage(event, this.SER_MOD);
   }
+
+  /** How much of the active SEF time that has been fixated */
+  get uptime() {
+    return (
+      this.FIXATE_UPTIME / this.selectedCombatant.getBuffUptime(SPELLS.STORM_EARTH_AND_FIRE_CAST.id)
+    );
+  }
+
+  get fixateUptimeThreshold() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.75,
+        major: 0.5,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   statistic() {
     return (
       <Statistic
