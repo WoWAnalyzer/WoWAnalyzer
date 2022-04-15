@@ -11,7 +11,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { BLACKOUT_KICK_COOLDOWN_REDUCTION_MS } from '../../constants';
 
-function oxfordCommaJoin(list: JSX.Element[]): JSX.Element {
+function oxfordCommaJoin(list: JSX.Element[], joiner = 'and'): JSX.Element {
   switch (list.length) {
     case 1:
       return list[0];
@@ -29,7 +29,7 @@ function oxfordCommaJoin(list: JSX.Element[]): JSX.Element {
               {acc}, {item}
             </>
           ))}
-          , and {list[list.length - 1]}
+          , {joiner} {list[list.length - 1]}
         </>
       );
   }
@@ -132,9 +132,16 @@ class BlackoutKick extends Analyzer {
   }
 
   suggestions(when: When) {
+    const linkList = this.IMPORTANT_SPELLS.map((spellId) => (
+      <SpellLink key={spellId} id={spellId} />
+    ));
+
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        'You are wasting cooldown reduction by casting Blackout Kick while having important casts available',
+        <>
+          You are wasting cooldown reduction by casting {<SpellLink id={SPELLS.BLACKOUT_KICK.id} />}{' '}
+          while having important casts, such as {oxfordCommaJoin(linkList, 'or')} available
+        </>,
       )
         .icon(SPELLS.BLACKOUT_KICK.icon)
         .actual(
