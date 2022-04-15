@@ -27,6 +27,9 @@ const SPELLS_BY_CLASS: { [key: number]: SpellInfo } = {
   [CLASSES.WARRIOR]: SPELLS.SPEAR_OF_BASTION,
 };
 
+// Each stack of Effusive Anima Accelerator refunds 1/15 of the cooldown, up to a maximum of 5 times.
+// E.g. for a 1 minute cooldown, you get 4s per stack up to 20s.
+// Warlock base cd is 40s which isn't evenly divisible, this one is rounded up to 3s per stack up to 15s.
 const CDR_PER_APPLICATION = 1 / 15;
 const MAX_CDR_APPLICATIONS = 5;
 
@@ -51,11 +54,7 @@ class EffusiveAnimaAccelerator extends Analyzer {
     const classId = getClassBySpecId(this.selectedCombatant.specId);
     this.classAbility = SPELLS_BY_CLASS[classId];
 
-    const active =
-      classId < Infinity &&
-      this.classAbility != null &&
-      this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-      this.selectedCombatant.hasSoulbind(SOULBINDS.FORGELITE_PRIME_MIKANIKOS.id);
+    const active = this.selectedCombatant.hasSoulbind(SOULBINDS.FORGELITE_PRIME_MIKANIKOS.id);
 
     this.active = active;
     if (!active) {
@@ -90,7 +89,7 @@ class EffusiveAnimaAccelerator extends Analyzer {
       return;
     }
 
-    this.spellUsable.reduceCooldown(lastCast.ability.guid, baseCd * CDR_PER_APPLICATION);
+    this.spellUsable.reduceCooldown(lastCast.ability.guid, Math.ceil(baseCd * CDR_PER_APPLICATION));
     this.casts[this.casts.length - 1][1] = applications + 1;
   }
 }
