@@ -48,7 +48,8 @@ class FistsOfPrimordium extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            The {formatPercentage(FOF_INCREASE, 0)}% increase from the 2-set bonus,{' '}
+            The {formatPercentage(FOF_INCREASE, 0)}% increase to{' '}
+            <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> from the 2-set bonus,{' '}
             <SpellLink id={SPELLS.FISTS_OF_PRIMORDIUM.id} />, was worth{' '}
             {formatNumber(this.totalDamage)} raw damage.
           </>
