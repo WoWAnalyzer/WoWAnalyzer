@@ -37,6 +37,10 @@ class Buffs extends CoreBuffs {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.PRIMORDIAL_POWER_BUFF.id,
+        timelineHighlight: true,
+      },
     ];
   }
 }
