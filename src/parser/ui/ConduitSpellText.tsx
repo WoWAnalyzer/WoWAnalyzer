@@ -1,4 +1,4 @@
-import { SpellIcon } from 'interface';
+import { SpellIcon, TooltipElement } from 'interface';
 import { SpellLink } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
@@ -21,13 +21,29 @@ interface Context {
  *
  * Component will link to the conduit with the equipped itemlevel, as well as print out "Rank x".
  */
-const ConduitSpellText = ({ spellId, children, className }: Props, { parser }: Context) => {
-  const { rank, itemLevel } = parser.selectedCombatant.conduitsByConduitID[spellId];
+const ConduitSpellText = (
+  { spellId, children, className }: Props,
+  { parser: { selectedCombatant } }: Context,
+) => {
+  const { itemLevel, rank } = selectedCombatant.conduitsByConduitID[spellId];
+
+  const likelyEmpowered = selectedCombatant.likelyHasEmpoweredConduits();
+  const effectiveItemlevel = itemLevel != null && likelyEmpowered ? itemLevel + 26 : itemLevel;
+  const effectiveRank = likelyEmpowered ? rank + 2 : rank;
   return (
     <div className={`pad boring-text ${className || ''}`}>
       <label>
-        <SpellIcon id={spellId} /> <SpellLink id={spellId} icon={false} ilvl={itemLevel} /> - Rank{' '}
-        {rank}
+        <SpellIcon id={spellId} /> <SpellLink id={spellId} icon={false} ilvl={effectiveItemlevel} />{' '}
+        -{' '}
+        {likelyEmpowered ? (
+          <TooltipElement
+            content={`Equipped rank ${rank} (itemlevel: ${itemLevel}) but empowered to rank ${effectiveRank} (itemlevel: ${effectiveItemlevel})`}
+          >
+            Rank {effectiveRank}
+          </TooltipElement>
+        ) : (
+          <>Rank {rank}</>
+        )}
       </label>
       <div className="value">{children}</div>
     </div>
