@@ -75,6 +75,23 @@ class PrimordialPotential extends Analyzer {
     }
 
     this.poweredCasts[event.ability.guid] += 1;
+
+    event.meta = event.meta || {};
+    event.meta.isEnhancedCast = true;
+    const reason = (
+      <>
+        This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} />
+      </>
+    );
+    event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
+      <>
+        {event.meta.enhancedCastReason}
+        <br />
+        {reason}
+      </>
+    ) : (
+      reason
+    );
   }
 
   onDamage(event: DamageEvent) {
