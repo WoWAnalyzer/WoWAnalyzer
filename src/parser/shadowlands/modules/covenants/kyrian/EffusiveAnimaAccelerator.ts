@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { CLASSES, getClassBySpecId } from 'game/CLASSES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyDebuffEvent } from 'parser/core/Events';
