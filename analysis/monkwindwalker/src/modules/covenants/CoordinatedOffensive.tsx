@@ -1,10 +1,12 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, SummonEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import BoringValueText from 'parser/ui/BoringValueText';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -13,12 +15,26 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES, ABILITIES_CLONED_BY_SEF } from '../../constants';
 
 
+/**
+ * Calculates the amount of damage that could have been added if an effect
+ * had been applied.
+ *
+ * @param event a damage event that could have been boosted by an effect
+ * @param increase the boost's added multiplier (for +20% pass 0.20)
+ * @returns the amount of damage that the boost would have added if applied
+ */
+function calculateMissedDamage(event: DamageEvent, increase: number): number {
+  const raw = (event.amount || 0) + (event.absorbed || 0);
+  return raw * increase;
+}
+
 class CoordinatedOffensive extends Analyzer {
   FIXATE_ACTIVATE_TIMESTAMP = -1;
   FIXATE_UPTIME = 0;
   CO_MOD = 0;
   SER_MOD = 0.2;
   damageIncrease = 0;
+  missedDamageIncrease = 0;
   CO_Active: boolean = false;
   cloneIDs = new Set();
   cloneMap: Map<number, number> = new Map<number, number>();
@@ -80,10 +96,6 @@ class CoordinatedOffensive extends Analyzer {
     this.cloneMap.set(event.targetID, event.ability.guid);
   }
   handleMelee(event: DamageEvent) {
-    //if CO is not active we cant add the dmg
-    if (!this.CO_Active) {
-      return;
-    }
     //if we don't know who its from then we can't add it
     if (!event.sourceID) {
       return;
@@ -93,19 +105,21 @@ class CoordinatedOffensive extends Analyzer {
     if (cloneType === undefined) {
       return;
     }
-    if (cloneType === SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT.id) {
-      this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
-    }
-    if (cloneType === SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT.id) {
-      this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
+
+    if (
+      cloneType === SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT.id ||
+      cloneType === SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT.id
+    ) {
+      this.onSEFDamage(event);
     }
   }
 
   onSEFDamage(event: DamageEvent) {
-    if (!this.CO_Active) {
-      return;
+    if (this.CO_Active) {
+      this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
+    } else {
+      this.missedDamageIncrease += calculateMissedDamage(event, this.CO_MOD);
     }
-    this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
   }
   onSERDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
@@ -149,8 +163,30 @@ class CoordinatedOffensive extends Analyzer {
         }
       >
         <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
-          <ItemDamageDone amount={this.damageIncrease} />
+          <>Fixated {formatPercentage(this.uptime, 0)}%</>
         </ConduitSpellText>
+
+        <BoringValueText label="Resulting damage gain">
+          <ItemDamageDone amount={this.damageIncrease} />
+        </BoringValueText>
+
+        <BoringValueText
+          label={
+            <TooltipElement
+              content={
+                <>
+                  The amount of damage that would have been contributed during the{' '}
+                  {formatPercentage(1 - this.uptime, 0)}% of Storm, Earth, and Fire that the spirits
+                  was not fixated on.
+                </>
+              }
+            >
+              Missed damage increase
+            </TooltipElement>
+          }
+        >
+          <ItemDamageDone amount={this.missedDamageIncrease} />
+        </BoringValueText>
       </Statistic>
     );
   }
