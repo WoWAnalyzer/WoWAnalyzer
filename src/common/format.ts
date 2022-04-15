@@ -1,9 +1,10 @@
 /**
- * Rounds to nearest integer and returns as a String with added thousands seperators.
+ * Rounds to nearest integer and returns as a String with added thousands seperators. *
  * Ex: 5842923.7 => 5,842,924
  */
 export function formatThousands(number: number): string {
-  return Math.round(number || 0).toLocaleString();
+  // If env variable LOCALE is set, use that locale for formatting.
+  return Math.round(number || 0).toLocaleString(process.env.LOCALE);
 }
 
 /**
