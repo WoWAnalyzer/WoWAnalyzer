@@ -2,10 +2,10 @@ import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -16,7 +16,6 @@ const CDR = 1000;
 class Tier28FourSet extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    healingDone: HealingDone,
   };
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
@@ -80,8 +79,8 @@ class Tier28FourSet extends Analyzer {
         <BoringValueText
           label={
             <>
-              Estimated Effective <SpellIcon id={SPELLS.DAWN_WILL_COME_4PC.id} /> Cooldown Reduction
-              per Cast of <SpellIcon id={SPELLS.AVENGING_WRATH.id} />
+              <SpellIcon id={SPELLS.DAWN_WILL_COME_4PC.id} /> Average CDR of{' '}
+              <SpellLink id={SPELLS.AVENGING_WRATH.id} />
             </>
           }
         >
