@@ -18,7 +18,7 @@ class CoordinatedOffensive extends Analyzer {
   FIXATE_UPTIME = 0;
   CO_MOD = 0;
   SER_MOD = 0.2;
-  totalDamage = 0;
+  damageIncrease = 0;
   CO_Active: boolean = false;
   cloneIDs = new Set();
   cloneMap: Map<number, number> = new Map<number, number>();
@@ -94,10 +94,10 @@ class CoordinatedOffensive extends Analyzer {
       return;
     }
     if (cloneType === SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT.id) {
-      this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
+      this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
     }
     if (cloneType === SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT.id) {
-      this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
+      this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
     }
   }
 
@@ -105,13 +105,13 @@ class CoordinatedOffensive extends Analyzer {
     if (!this.CO_Active) {
       return;
     }
-    this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
+    this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
   }
   onSERDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
-    this.totalDamage +=
+    this.damageIncrease +=
       calculateEffectiveDamage(event, this.CO_MOD + this.SER_MOD) -
       calculateEffectiveDamage(event, this.SER_MOD);
   }
@@ -144,12 +144,12 @@ class CoordinatedOffensive extends Analyzer {
         tooltip={
           <>
             The {formatPercentage(this.CO_MOD)}% increase from Coordinated Offensive was worth ~
-            {formatNumber(this.totalDamage)} raw Damage.
+            {formatNumber(this.damageIncrease)} raw Damage.
           </>
         }
       >
         <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
-          <ItemDamageDone amount={this.totalDamage} />
+          <ItemDamageDone amount={this.damageIncrease} />
         </ConduitSpellText>
       </Statistic>
     );
