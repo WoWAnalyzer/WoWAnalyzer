@@ -4930,14 +4930,25 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=336821"
+            href="https://wowhead.com/spell=336821&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Infernal Cascade
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
