@@ -4,6 +4,7 @@ import { Juko8, Abelito75, Talby, Hursti, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 15), <>Added tracking and statistics for set bonuses <SpellLink id={SPELLS.FISTS_OF_PRIMORDIUM.id}/> and <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/></>, nullDozzer),
   change(date(2022, 4, 15), 'Updated all conduit statistics to show correct itemlevel and rank.', nullDozzer),
   change(date(2022, 1, 2), <>Changed the <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> module to work with <SpellLink id={SPELLS.SERENITY_TALENT.id} />.</>, Hursti),
   change(date(2021, 12, 21), <>Added <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> module.</>, Hursti),
