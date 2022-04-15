@@ -42,6 +42,7 @@ import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 // Tier Set Bonuses
 import FistsOfPrimordium from './modules/tier/FistsOfPrimordium';
+import PrimordialPotential from './modules/tier/PrimordialPotential';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Set Bonuses
     fistsOfPrimordium: FistsOfPrimordium,
+    primordialPotential: PrimordialPotential,
 
     // Covenants
     fallenOrder: FallenOrder,
