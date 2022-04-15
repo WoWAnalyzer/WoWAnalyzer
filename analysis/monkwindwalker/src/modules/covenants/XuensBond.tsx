@@ -7,7 +7,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
 import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -104,13 +104,13 @@ class XuensBond extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.XUENS_BOND.id}>
+        <ConduitSpellText spellId={SPELLS.XUENS_BOND.id}>
           <ItemDamageDone amount={this.totalDamage} />
           <br />
           <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Used)} <small>Effective CDR</small>
           <br />
           <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Wasted)} <small>Wasted CDR</small>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

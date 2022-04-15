@@ -6,6 +6,7 @@ import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
+import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS, { Spec } from 'game/SPECS';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -275,8 +276,20 @@ class Combatant extends Entity {
     return Boolean(this.conduitsByConduitID[spellId]);
   }
 
-  conduitRankBySpellID(spellId: number) {
-    return this.conduitsByConduitID[spellId] && this.conduitsByConduitID[spellId].rank;
+  conduitRankBySpellID(spellId: number): number {
+    if (!(spellId in this.conduitsByConduitID)) {
+      return 0;
+    }
+
+    return this.conduitsByConduitID[spellId].rank + (this.likelyHasEmpoweredConduits() ? 2 : 0);
+  }
+
+  likelyHasEmpoweredConduits() {
+    if (!this._combatantInfo.soulbindID || !(this._combatantInfo.soulbindID in SOULBINDS)) {
+      return false;
+    }
+
+    return this.hasSoulbindTrait(SOULBINDS[this._combatantInfo.soulbindID].capstoneTraitID);
   }
 
   //endregion

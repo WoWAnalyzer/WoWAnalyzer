@@ -12,7 +12,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const MAX_STACKS = 4;
-const STR_PER_STACK = 0.02; // 2% str buff per stack
 const GROUND_EFFECT_DURATION = 10000;
 
 class DeathsDue extends Analyzer {
@@ -27,12 +26,18 @@ class DeathsDue extends Analyzer {
   groundEffectEnd = this.owner.fight.start_time;
   wastedCasts = 0;
 
+  strPerStack = 0.02; // 2% str buff per stack, overridden in constructor if legendary
+
   constructor(...args) {
     super(...args);
     const active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     this.active = active;
     if (!active) {
       return;
+    }
+
+    if (this.selectedCombatant.hasLegendary(SPELLS.RAMPANT_TRANSFERENCE)) {
+      this.strPerStack = 0.05;
     }
 
     this.stacks = Array.from({ length: MAX_STACKS + 1 }, (x) => []);
@@ -105,7 +110,7 @@ class DeathsDue extends Analyzer {
   }
 
   get averageStrength() {
-    return this.averageStacks * STR_PER_STACK;
+    return this.averageStacks * this.strPerStack;
   }
 
   get uptime() {

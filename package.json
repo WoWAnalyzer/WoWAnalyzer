@@ -176,6 +176,7 @@
     ]
   },
   "jest": {
+    "globalSetup": "./jest.setup.js",
     "roots": [
       "<rootDir>/src",
       "<rootDir>/analysis"

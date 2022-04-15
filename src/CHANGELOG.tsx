@@ -48,7 +48,9 @@ import {
   Jeff,
   Trevor,
   bhawkins6177,
-  sorrellp,
+  xunai,
+  xepheris,
+  nullDozzer,
   Tialyss,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
@@ -56,9 +58,14 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2022, 4, 7), 'Track CDR from Effusive Anima Accelerator', Tialyss),
+  change(date(2022, 4, 15), 'Track CDR from Effusive Anima Accelerator', Tialyss),
+  change(date(2022, 4, 15), 'Update tests to produce the same snapshot no matter the locale of running machine', nullDozzer),
+  change(date(2022, 4, 15), 'Improved conduit statistics to use the equipped itemlevel for the link and tooltip.', nullDozzer),
+  change(date(2022, 4, 10), 'Added Ravenous Frenzy to Restoration Druid', Trevor),
+  change(date(2022, 4, 8), 'Updated Augment Rune Checker to also tracker eteneral augment rune.', Abelito75),
+  change(date(2022, 4, 7), 'Updated conduit ranks to assume the player has all empowered conduits unlocked.', xepheris),
   change(date(2022, 4, 7), 'Updated generated conduit information as of patch 9.2.5.43057', Putro),
-  change(date(2022, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', sorrellp),
+  change(date(2022, 4, 6), 'Add Flametongue and Windfury weapon to max enhancement list', xunai),
   change(date(2022, 4, 2), 'Fix issue with Donut Chart failing to render.', emallson),
   change(date(2022, 3, 25), 'Handle Unity legendary.', emallson),
   change(date(2022, 3, 23), 'Fixed degraded experience for Venthyr Mistweaver', Trevor),
