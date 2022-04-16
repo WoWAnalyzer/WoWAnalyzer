@@ -203,12 +203,18 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             description={
               <>
                 To gain the bonus damage of <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> you
-                need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} />.
+                need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} />, even if there
+                is only one target. <br />
+                Therefore you should fixate as soon as possible, or use another conduit.
               </>
             }
           >
             <Requirement
-              name="Fixate uptime"
+              name={
+                <>
+                  Percentage of <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> that was fixated
+                </>
+              }
               thresholds={thresholds.coordinatedOffensiveFixateUptime}
             />
           </Rule>
