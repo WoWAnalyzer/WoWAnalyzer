@@ -482,6 +482,19 @@ export const rubensayshi: Contributor = {
   nickname: 'rubensayshi',
   github: 'rubensayshi',
 };
+export const nullDozzer: Contributor = {
+  nickname: 'nullDozzer',
+  github: 'oBusk',
+  discord: 'nullDozzer#1179',
+  avatar: avatar('nullDozzer-avatar.jpg'),
+  mains: [
+    {
+      name: 'Basically',
+      spec: SPECS.WINDWALKER_MONK,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/daggerspine/basically',
+    },
+  ],
+};
 export const nutspanther: Contributor = {
   nickname: 'nutspanther',
   github: 'nutspanther',
@@ -1864,9 +1877,26 @@ export const Tialyss: Contributor = {
   github: 'mfield',
 };
 
-export const sorrellp: Contributor = {
-  nickname: 'sorrellp',
+export const xunai: Contributor = {
+  nickname: 'xunai',
   github: 'sorrellp',
+  mains: [
+    {
+      name: 'Xunai',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/xunai',
+    },
+    {
+      name: 'Ikoogra',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/ikoogra',
+    },
+  ],
+};
+
+export const AndreasAlbert: Contributor = {
+  nickname: 'AndreasAlbert',
+  github: 'AndreasAlbert',
 };
 
 export const xepheris: Contributor = {

@@ -4,6 +4,7 @@ import { Abelito75, Fashathus, Adoraci, Juko8, Skeletor, Zeboot, Hordehobbs } fr
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 2), <>Fixed Art Of War for people without 4set </>, Abelito75),
   change(date(2022, 4, 2), <>Corrected Art Of War stat and made two more for tierset </>, Abelito75),
   change(date(2022, 3, 28), <>Fixed an issue where the Divine Purpose statistic wasn't tracking Final Verdict correctly causing it to crash. </>, Abelito75),
   change(date(2022, 1, 31), <>Added a cool probability graph for Art Of War. </>, Abelito75),

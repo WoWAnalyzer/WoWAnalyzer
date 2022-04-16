@@ -4,7 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -47,9 +47,9 @@ class InnerFury extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.INNER_FURY.id}>
+        <ConduitSpellText spellId={SPELLS.INNER_FURY.id}>
           <ItemDamageDone amount={this.totalDamage} />
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }
