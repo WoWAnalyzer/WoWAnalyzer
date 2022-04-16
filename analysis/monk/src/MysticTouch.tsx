@@ -16,6 +16,7 @@ const MYSTIC_TOUCH_INCREASE = 0.05;
  * Summons a totem at the target location for 6 sec, which reduces damage taken by all party and raid members within 10 yards by 10%.
  */
 class MysticTouch extends Analyzer {
+  totalDamageAdded = 0;
   damageAdded = 0;
 
   get filter() {
@@ -43,11 +44,12 @@ class MysticTouch extends Analyzer {
     }).then((json) => {
       const data = json as WCLDamageDoneTableResponse;
 
-      const totalDamageDone = data.entries.reduce(
+      this.totalDamageAdded = data.entries.reduce(
         (damageDone: number, entry) => damageDone + entry.total,
         0,
       );
-      this.damageAdded = totalDamageDone - totalDamageDone / (1 + MYSTIC_TOUCH_INCREASE);
+
+      this.damageAdded = this.totalDamageAdded - this.totalDamageAdded / (1 + MYSTIC_TOUCH_INCREASE);
     });
   }
 
@@ -64,6 +66,8 @@ class MysticTouch extends Analyzer {
           If this number is zero then another monk most likely applyed mystic touch before you.
           <br />
           If you want to see the value Mystic Touch provided you will need to go to their log to find out.
+          <br />
+          Total Physical Damage Queried: {formatNumber(this.totalDamageAdded)}
           </>
         }
         drilldown={makeWclUrl(this.owner.report.code, {
