@@ -11,26 +11,18 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class JadeSerpentStatue extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-    combatants: Combatants,
-  };
   healing: number = 0;
   overHealing: number = 0;
   casts: number = 0;
   soothingMistUptime: number = 0;
   lastBuffApplyTimestamp: number = -1;
   jssCasting: boolean = false;
-  protected abilityTracker!: AbilityTracker;
-  protected combatants!: Combatants;
 
   constructor(options: Options) {
     super(options);

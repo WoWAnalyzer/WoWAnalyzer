@@ -40,6 +40,9 @@ import TouchOfKarma from './modules/spells/TouchOfKarma';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
+// Tier Set Bonuses
+import FistsOfPrimordium from './modules/tier/FistsOfPrimordium';
+import PrimordialPotential from './modules/tier/PrimordialPotential';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +80,10 @@ class CombatLogParser extends CoreCombatLogParser {
     lastEmperorsCapacitor: LastEmperorsCapacitor,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
+
+    // Tier Set Bonuses
+    fistsOfPrimordium: FistsOfPrimordium,
+    primordialPotential: PrimordialPotential,
 
     // Covenants
     fallenOrder: FallenOrder,
