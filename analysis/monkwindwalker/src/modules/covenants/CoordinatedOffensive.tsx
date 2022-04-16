@@ -144,7 +144,6 @@ class CoordinatedOffensive extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-
   statistic() {
     const tooltip = this.hasSerenity ? (
       <>
@@ -174,7 +173,6 @@ class CoordinatedOffensive extends Analyzer {
       </Statistic>
     );
   }
-
   suggestions(when: When) {
     when(this.fixateUptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
