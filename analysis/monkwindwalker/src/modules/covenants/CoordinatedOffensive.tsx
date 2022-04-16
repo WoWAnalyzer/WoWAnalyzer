@@ -135,7 +135,7 @@ class CoordinatedOffensive extends Analyzer {
     );
   }
 
-  get fixateUptimeThreshold() {
+  get fixateUptimeSuggestionThreshold() {
     return {
       actual: this.uptime,
       isLessThan: {
