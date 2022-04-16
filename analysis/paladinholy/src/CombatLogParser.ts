@@ -9,6 +9,7 @@ import {
   HolyPowerDetails,
   AshenHallow,
   DivineToll,
+  HolyPowerPerMinute,
 } from '@wowanalyzer/paladin';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+    holyPowerPerMinute: HolyPowerPerMinute,
 
     //-- shadowlands section --//
     // Lego

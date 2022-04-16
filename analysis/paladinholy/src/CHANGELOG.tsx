@@ -5,6 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot } from 'CONTRIBUTOR
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 15), <>Added Holy Power Generated Per Minute statistic </>, xizbow),
   change(date(2022, 4, 8), <>Added statistic for <SpellLink id={SPELLS.DAWN_WILL_COME_4PC.id}/> cooldown reduction.</>, xizbow),
   change(date(2022, 4, 3), <>Updated phrasing on suggestion for Maraad's Dying Breath.</>, xizbow),
   change(date(2022, 3, 31), <>Fix some maraads bugs</>, xizbow),
