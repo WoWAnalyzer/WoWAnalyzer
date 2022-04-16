@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import ConduitLink from 'interface/ConduitLink';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -196,12 +197,12 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Rule
             name={
               <>
-                Fixate spirits to benefit from <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
+                Fixate spirits to benefit from <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
               </>
             }
             description={
               <>
-                To gain the bonus damage of <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> you
+                To gain the bonus damage of <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> you
                 need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} />.
               </>
             }

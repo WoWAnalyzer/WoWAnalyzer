@@ -284,6 +284,15 @@ class Combatant extends Entity {
     return this.conduitsByConduitID[spellId].rank + (this.likelyHasEmpoweredConduits() ? 2 : 0);
   }
 
+  conduitIlvlBySpellID(spellId: number): number {
+    const conduit = this.conduitsByConduitID[spellId];
+    if (conduit?.itemLevel == null) {
+      return 0;
+    }
+
+    return conduit.itemLevel + (this.likelyHasEmpoweredConduits() ? 26 : 0);
+  }
+
   likelyHasEmpoweredConduits() {
     if (!this._combatantInfo.soulbindID || !(this._combatantInfo.soulbindID in SOULBINDS)) {
       return false;
