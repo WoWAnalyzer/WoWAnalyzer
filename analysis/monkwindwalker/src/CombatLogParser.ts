@@ -8,6 +8,7 @@ import {
   FaelineHarmony,
   SinisterTeachings,
   ImbuedReflections,
+  MysticTouch,
 } from '@wowanalyzer/monk';
 
 // Features
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    mysticTouch: MysticTouch,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
