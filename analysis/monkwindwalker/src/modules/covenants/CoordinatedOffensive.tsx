@@ -10,8 +10,8 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES, ABILITIES_CLONED_BY_SEF } from '../../constants';
 
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES, ABILITIES_CLONED_BY_SEF } from '../../constants';
 
 /**
  * Calculates the amount of damage that could have been added if an effect
@@ -27,10 +27,10 @@ function calculateMissedDamage(event: DamageEvent, increase: number): number {
 }
 
 class CoordinatedOffensive extends Analyzer {
-  FIXATE_ACTIVATE_TIMESTAMP = -1;
-  FIXATE_UPTIME = 0;
   CO_MOD = 0;
   SER_MOD = 0.2;
+  fixateUptime = 0;
+  fixateActivateTimestamp = -1;
   damageIncrease = 0;
   missedDamageIncrease = 0;
   CO_Active: boolean = false;
@@ -80,13 +80,13 @@ class CoordinatedOffensive extends Analyzer {
     }
   }
   CO_Deactivator(event: RemoveBuffEvent) {
-    this.FIXATE_UPTIME = this.FIXATE_UPTIME + (event.timestamp - this.FIXATE_ACTIVATE_TIMESTAMP);
+    this.fixateUptime = this.fixateUptime + (event.timestamp - this.fixateActivateTimestamp);
     this.CO_Active = false;
   }
   CO_Activator(event: CastEvent) {
     // Don't want to overwrite the fixate timestamp if we're already active
     if (!this.CO_Active) {
-      this.FIXATE_ACTIVATE_TIMESTAMP = event.timestamp;
+      this.fixateActivateTimestamp = event.timestamp;
       this.CO_Active = true;
     }
   }
@@ -131,7 +131,7 @@ class CoordinatedOffensive extends Analyzer {
   /** How much of the active SEF time that has been fixated */
   get uptime() {
     return (
-      this.FIXATE_UPTIME / this.selectedCombatant.getBuffUptime(SPELLS.STORM_EARTH_AND_FIRE_CAST.id)
+      this.fixateUptime / this.selectedCombatant.getBuffUptime(SPELLS.STORM_EARTH_AND_FIRE_CAST.id)
     );
   }
 
