@@ -49,7 +49,8 @@ class MysticTouch extends Analyzer {
         0,
       );
 
-      this.damageAdded = this.totalDamageAdded - this.totalDamageAdded / (1 + MYSTIC_TOUCH_INCREASE);
+      this.damageAdded =
+        this.totalDamageAdded - this.totalDamageAdded / (1 + MYSTIC_TOUCH_INCREASE);
     });
   }
 
@@ -63,11 +64,12 @@ class MysticTouch extends Analyzer {
         label="Mystic Touch Damage Increased"
         tooltip={
           <>
-          If this number is zero then another monk most likely applyed mystic touch before you.
-          <br />
-          If you want to see the value Mystic Touch provided you will need to go to their log to find out.
-          <br />
-          Total Physical Damage Queried: {formatNumber(this.totalDamageAdded)}
+            If this number is zero then another monk most likely applyed mystic touch before you.
+            <br />
+            If you want to see the value Mystic Touch provided you will need to go to their log to
+            find out.
+            <br />
+            Total Physical Damage Queried: {formatNumber(this.totalDamageAdded)}
           </>
         }
         drilldown={makeWclUrl(this.owner.report.code, {
