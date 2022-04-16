@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
@@ -155,17 +156,27 @@ class CoordinatedOffensive extends Analyzer {
   }
 
   statistic() {
+    const tooltip = this.hasSerenity ? (
+      <>
+        The {formatPercentage(this.CO_MOD, 1)}% increase to{' '}
+        <SpellLink id={SPELLS.SERENITY_TALENT.id} /> from{' '}
+        <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> was worth{' '}
+        {formatNumber(this.damageIncrease)} raw damage.
+      </>
+    ) : (
+      <>
+        The {formatPercentage(this.CO_MOD, 1)}% damage increase during the{' '}
+        {formatPercentage(this.uptime, 0)}% of <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} />{' '}
+        that the spirits was fixated contributed ~{formatNumber(this.damageIncrease)} raw damage.
+      </>
+    );
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={
-          <>
-            The {formatPercentage(this.CO_MOD)}% increase from Coordinated Offensive was worth ~
-            {formatNumber(this.damageIncrease)} raw Damage.
-          </>
-        }
+        tooltip={tooltip}
       >
         <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
           <ItemDamageDone amount={this.damageIncrease} />
