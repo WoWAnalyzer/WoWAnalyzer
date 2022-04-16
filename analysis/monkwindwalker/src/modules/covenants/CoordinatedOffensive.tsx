@@ -28,7 +28,8 @@ function calculateMissedDamage(event: DamageEvent, increase: number): number {
 
 class CoordinatedOffensive extends Analyzer {
   CO_MOD = 0;
-  SER_MOD = 0.2;
+  readonly SERENITY_MOD = 0.2;
+  hasSerenity = false;
   fixateUptime = 0;
   fixateActivateTimestamp = -1;
   damageIncrease = 0;
@@ -49,33 +50,39 @@ class CoordinatedOffensive extends Analyzer {
 
     this.CO_MOD = conduitScaling(0.088, conduitRank);
 
-    //summon events (need to track this to get melees)
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_EARTH_AND_FIRE_CAST),
-      this.CO_Deactivator,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_EARTH_AND_FIRE_FIXATE),
-      this.CO_Activator,
-    );
-    this.addEventListener(
-      Events.summon
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT, SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT]),
-      this.trackSummons,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
-      this.handleMelee,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(ABILITIES_CLONED_BY_SEF),
-      this.onSEFDamage,
-    );
-    if (this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id)) {
+    this.hasSerenity = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id);
+
+    if (!this.hasSerenity) {
+      //summon events (need to track this to get melees)
+      this.addEventListener(
+        Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_EARTH_AND_FIRE_CAST),
+        this.CO_Deactivator,
+      );
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_EARTH_AND_FIRE_FIXATE),
+        this.CO_Activator,
+      );
+      this.addEventListener(
+        Events.summon
+          .by(SELECTED_PLAYER)
+          .spell([
+            SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT,
+            SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT,
+          ]),
+        this.trackSummons,
+      );
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
+        this.handleMelee,
+      );
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER_PET).spell(ABILITIES_CLONED_BY_SEF),
+        this.onSEFDamage,
+      );
+    } else {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES),
-        this.onSERDamage,
+        this.onSerenityDamage,
       );
     }
   }
@@ -119,13 +126,13 @@ class CoordinatedOffensive extends Analyzer {
       this.missedDamageIncrease += calculateMissedDamage(event, this.CO_MOD);
     }
   }
-  onSERDamage(event: DamageEvent) {
+  onSerenityDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
     this.damageIncrease +=
-      calculateEffectiveDamage(event, this.CO_MOD + this.SER_MOD) -
-      calculateEffectiveDamage(event, this.SER_MOD);
+      calculateEffectiveDamage(event, this.CO_MOD + this.SERENITY_MOD) -
+      calculateEffectiveDamage(event, this.SERENITY_MOD);
   }
 
   /** How much of the active SEF time that has been fixated */
