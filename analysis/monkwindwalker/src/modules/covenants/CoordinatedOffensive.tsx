@@ -1,11 +1,12 @@
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellLink, ConduitLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import conduitScaling from 'parser/core/conduitScaling';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, SummonEvent } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -182,6 +183,26 @@ class CoordinatedOffensive extends Analyzer {
           <ItemDamageDone amount={this.damageIncrease} />
         </ConduitSpellText>
       </Statistic>
+    );
+  }
+
+  suggestions(when: When) {
+    when(this.fixateUptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <Trans id="monk.windwalker.suggestions.coordinatedOffensiveFixate">
+          {' '}
+          Remember to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to benefit from{' '}
+          <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.
+        </Trans>,
+      )
+        .icon(SPELLS.COORDINATED_OFFENSIVE.icon)
+        .actual(
+          <>
+            {formatPercentage(actual, 0)}% of <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> was
+            fixated.
+          </>,
+        )
+        .recommended(`${formatPercentage(recommended, 0)}% recommended`),
     );
   }
 }
