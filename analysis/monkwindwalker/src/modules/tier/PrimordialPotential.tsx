@@ -76,7 +76,7 @@ class PrimordialPotential extends Analyzer {
     event.meta.isEnhancedCast = true;
     const reason = (
       <>
-        This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} />
+        This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} /> (4-set bonus)
       </>
     );
     event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
