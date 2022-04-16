@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
@@ -11,27 +11,27 @@ class HolyPowerPerMinute extends Analyzer {
   static dependencies = {
     holyPowerTracker: HolyPowerTracker,
   };
-  holyPowerTracker: any;
+  holyPowerTracker!: HolyPowerTracker;
 
   get HopoPerMin() {
     return this.owner.getPerMinute(this.holyPowerTracker.generated);
   }
 
   statistic() {
-    return [
+    return (
       <Statistic
         key="Statistic"
         size="small"
         position={STATISTIC_ORDER.CORE(20)}
-        tooltip={`${formatPercentage(this.holyPowerTracker.generated)} generated`}
+        tooltip={`${formatNumber(this.holyPowerTracker.generated)} Total Holy Power Generated`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.HOLY_POWER}
           value={formatNumber(this.HopoPerMin)}
           label="Holy Power Generated Per Minute"
         />
-      </Statistic>,
-    ];
+      </Statistic>
+    );
   }
 }
 
