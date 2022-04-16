@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
@@ -46,7 +47,20 @@ class DANCE_OF_CHI_JI extends Analyzer {
       this.buffedCast = true;
       event.meta = event.meta || {};
       event.meta.isEnhancedCast = true;
-      event.meta.enhancedCastReason = 'This cast was empowered by Dance of Chi-Ji';
+      const reason = (
+        <>
+          This cast was empowered by <SpellLink id={SPELLS.DANCE_OF_CHI_JI_BUFF.id} />
+        </>
+      );
+      event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
+        <>
+          {event.meta.enhancedCastReason}
+          <br />
+          {reason}
+        </>
+      ) : (
+        reason
+      );
     } else {
       // GCD is shorter than the duration SCK deals damage, and new SCK casts override any ongoing SCK cast, so this prevents a directly following from being marked as benefitting
       this.buffedCast = false;

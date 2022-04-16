@@ -90,8 +90,15 @@ class Abilities extends CoreAbilities {
         gcd: undefined,
       },
       {
-        name: `${SPELLS.FLAME_SHOCK.name} / ${SPELLS.FROST_SHOCK.name}`,
-        spell: [SPELLS.FROST_SHOCK.id, SPELLS.FLAME_SHOCK.id],
+        spell: SPELLS.FLAME_SHOCK.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: (haste) => 6 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FROST_SHOCK.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
