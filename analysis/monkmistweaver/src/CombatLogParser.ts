@@ -61,6 +61,7 @@ import InvokeChiJi from './modules/talents/InvokeChiJi';
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
 import Lifecycles from './modules/talents/Lifecycles';
 import ManaTea from './modules/talents/ManaTea';
+import MistWrapEnvelopingBreath from './modules/talents/MistWrapEnvelopingBreath';
 import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
 import RisingMist from './modules/talents/RisingMist';
@@ -131,6 +132,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     upwelling: Upwelling,
     invokeChiJi: InvokeChiJi,
+    mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
 
     // Mana Tab
     manaTracker: ManaTracker,
