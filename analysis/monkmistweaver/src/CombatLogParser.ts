@@ -12,6 +12,7 @@ import {
   GroundingBreath,
   HarmDenial,
   ImbuedReflections,
+  MysticTouch,
   SinisterTeachings,
   TouchOfDeath,
 } from '@wowanalyzer/monk';
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTrackerMW: HotTrackerMW,
+    mysticTouch: MysticTouch,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,

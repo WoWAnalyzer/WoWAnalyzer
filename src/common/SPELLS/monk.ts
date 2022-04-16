@@ -10,6 +10,11 @@ const spells = {
     name: 'Mystic Touch',
     icon: 'ability_monk_sparring',
   },
+  MYSTIC_TOUCH_DEBUFF: {
+    id: 113746,
+    name: 'Mystic Touch',
+    icon: 'ability_monk_sparring',
+  },
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
