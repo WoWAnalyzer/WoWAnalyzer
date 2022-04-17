@@ -158,9 +158,9 @@ class CoordinatedOffensive extends Analyzer {
   statistic() {
     const tooltip = this.hasSerenity ? (
       <>
-        The {formatPercentage(this.CO_MOD, 1)}% increase to{' '}
+        The {formatPercentage(this.CO_MOD, 1)}% damage increase during{' '}
         <SpellLink id={SPELLS.SERENITY_TALENT.id} /> from{' '}
-        <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> was worth{' '}
+        <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> was worth ~
         {formatNumber(this.totalDamage)} raw damage.
       </>
     ) : (
