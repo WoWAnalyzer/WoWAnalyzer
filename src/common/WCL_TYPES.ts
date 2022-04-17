@@ -56,6 +56,16 @@ export interface WCLDamageTakenTableResponse {
   totalTime: number;
 }
 
+export interface WCLDamageDoneTableResponse {
+  entries: WCLDamageDone[];
+  totalTime: number;
+}
+
+// These should be the same data. Im just making it so things are logical
+// Worst comes to worse we unextend it and just define it. But from my testing
+// It works perfectly fine
+export type WCLDamageDone = WCLDamageTaken;
+
 export interface WCLDamageTaken {
   abilities: Array<{ name: string; total: number; totalReduced: number; type: number }>;
   sources: Array<{ name: string; total: number; totalReduced: number; type: string }>;
@@ -100,7 +110,8 @@ export type WCLResponseJSON =
   | WCLHealingTableResponse
   | WCLDamageTakenTableResponse
   | WCLRankingsResponse
-  | WCLBossResources;
+  | WCLBossResources
+  | WCLDamageDoneTableResponse;
 
 export interface WclOptions {
   timeout: number;

@@ -51,12 +51,15 @@ import {
   xunai,
   xepheris,
   nullDozzer,
+  Tialyss,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 17), 'Fix CDR tracking from Effusive Anima Accelerator for Monks and Shamans.', emallson),
+  change(date(2022, 4, 15), 'Track CDR from Effusive Anima Accelerator', Tialyss),
   change(date(2022, 4, 15), 'Update tests to produce the same snapshot no matter the locale of running machine', nullDozzer),
   change(date(2022, 4, 15), 'Improved conduit statistics to use the equipped itemlevel for the link and tooltip.', nullDozzer),
   change(date(2022, 4, 10), 'Added Ravenous Frenzy to Restoration Druid', Trevor),
