@@ -11,7 +11,7 @@ interface SpellInfo {
   name: string;
 }
 
-const SPELLS_BY_CLASS: { [key: number]: SpellInfo | undefined } = {
+const SPELLS_BY_CLASS: { [key: number]: SpellInfo } = {
   [CLASSES.DEATH_KNIGHT]: SPELLS.SHACKLE_THE_UNWORTHY,
   [CLASSES.DEMON_HUNTER]: SPELLS.ELYSIAN_DECREE,
   [CLASSES.DRUID]: SPELLS.KINDRED_SPIRITS,
@@ -21,7 +21,7 @@ const SPELLS_BY_CLASS: { [key: number]: SpellInfo | undefined } = {
   [CLASSES.PALADIN]: SPELLS.DIVINE_TOLL,
   [CLASSES.PRIEST]: SPELLS.BOON_OF_THE_ASCENDED,
   [CLASSES.ROGUE]: SPELLS.ECHOING_REPRIMAND,
-  [CLASSES.SHAMAN]: undefined,
+  [CLASSES.SHAMAN]: SPELLS.VESPER_TOTEM,
   [CLASSES.WARLOCK]: SPELLS.SCOURING_TITHE,
   [CLASSES.WARRIOR]: SPELLS.SPEAR_OF_BASTION,
 };
@@ -45,7 +45,7 @@ class EffusiveAnimaAccelerator extends Analyzer {
 
   // Array of triggering cast and number of debuff applications
   casts: Array<[CastEvent, number]> = [];
-  classAbility?: SpellInfo;
+  classAbility: SpellInfo;
 
   constructor(options: Options) {
     super(options);
@@ -53,10 +53,10 @@ class EffusiveAnimaAccelerator extends Analyzer {
     const classId = getClassBySpecId(this.selectedCombatant.specId);
     this.classAbility = SPELLS_BY_CLASS[classId];
 
+    // shouldn't be possible, but we don't actually have proper typechecks on
+    // the SPELLS table so a typo etc can cause it
     if (this.classAbility === undefined) {
-      console.warn('No Kyrian ability defined for class.', classId);
-      this.active = false;
-      return;
+      throw new Error('No Kyrian ability defined for class.');
     }
 
     const active = this.selectedCombatant.hasSoulbind(SOULBINDS.FORGELITE_PRIME_MIKANIKOS.id);
@@ -80,7 +80,7 @@ class EffusiveAnimaAccelerator extends Analyzer {
   onDebuff(event: ApplyDebuffEvent) {
     if (this.casts.length === 0) {
       debug &&
-        this.warn(event.ability.name, 'applied before first', this.classAbility?.name, 'cast');
+        this.warn(event.ability.name, 'applied before first', this.classAbility.name, 'cast');
       return;
     }
     const [lastCast, applications] = this.casts[this.casts.length - 1];
