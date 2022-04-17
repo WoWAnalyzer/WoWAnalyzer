@@ -15,6 +15,17 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_CLONED_BY_SEF, ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
+/**
+ * Tracks damage increase from
+ * [Coordinated Offensive Conduit](https://www.wowhead.com/spell=336598/coordinated-offensive).
+ *
+ * Also tracks if you are not Fixating your Storm, Earth and Fire spirits and missing out on
+ * the damage.
+ *
+ * * Example logs:
+ *   - Serenity https://www.warcraftlogs.com/reports/HYTBGcXtV4AN27QW#fight=last&type=damage-done&source=27
+ *   - SEF https://www.warcraftlogs.com/reports/TmtHDNgX7ApGywbZ#fight=27&type=damage-done&source=12
+ */
 class CoordinatedOffensive extends Analyzer {
   CO_MOD = 0;
   readonly SERENITY_MOD = 0.2;
