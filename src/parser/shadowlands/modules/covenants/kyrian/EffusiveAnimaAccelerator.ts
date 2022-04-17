@@ -17,7 +17,7 @@ const SPELLS_BY_CLASS: { [key: number]: SpellInfo } = {
   [CLASSES.DRUID]: SPELLS.KINDRED_SPIRITS,
   [CLASSES.HUNTER]: SPELLS.RESONATING_ARROW,
   [CLASSES.MAGE]: SPELLS.RADIANT_SPARK,
-  [CLASSES.MONK]: SPELLS.WEAPONS_OF_ORDER,
+  [CLASSES.MONK]: SPELLS.WEAPONS_OF_ORDER_CAST,
   [CLASSES.PALADIN]: SPELLS.DIVINE_TOLL,
   [CLASSES.PRIEST]: SPELLS.BOON_OF_THE_ASCENDED,
   [CLASSES.ROGUE]: SPELLS.ECHOING_REPRIMAND,
@@ -52,6 +52,12 @@ class EffusiveAnimaAccelerator extends Analyzer {
 
     const classId = getClassBySpecId(this.selectedCombatant.specId);
     this.classAbility = SPELLS_BY_CLASS[classId];
+
+    // shouldn't be possible, but we don't actually have proper typechecks on
+    // the SPELLS table so a typo etc can cause it
+    if (this.classAbility === undefined) {
+      throw new Error('No Kyrian ability defined for class.');
+    }
 
     const active = this.selectedCombatant.hasSoulbind(SOULBINDS.FORGELITE_PRIME_MIKANIKOS.id);
 
