@@ -11,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import { damageToCast } from '../../castDamage';
 import {
   ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER,
   DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER,
@@ -41,6 +42,8 @@ class PrimordialPotential extends Analyzer {
   /** IDs of abilities casts that was cast during Primordial Power */
   poweredCasts: { [spellID: number]: number } = {};
   totalDamage = 0;
+  /** If id is in Set, the last cast was B00STED, if any unpowered cast is detected, remove from set */
+  wasLastCastPowered = new Set<number>();
 
   constructor(options: Options) {
     super(options);
@@ -60,42 +63,50 @@ class PrimordialPotential extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
-      return;
+    if (this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
+      this.wasLastCastPowered.add(event.ability.guid);
+
+      this.numberPoweredCasts += 1;
+
+      if (!this.poweredCasts[event.ability.guid]) {
+        this.poweredCasts[event.ability.guid] = 0;
+      }
+
+      this.poweredCasts[event.ability.guid] += 1;
+
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      const reason = (
+        <>
+          This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} /> (4-set
+          bonus)
+        </>
+      );
+      event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
+        <>
+          {event.meta.enhancedCastReason}
+          <br />
+          {reason}
+        </>
+      ) : (
+        reason
+      );
+    } else {
+      this.wasLastCastPowered.delete(event.ability.guid);
     }
-
-    this.numberPoweredCasts += 1;
-
-    if (!this.poweredCasts[event.ability.guid]) {
-      this.poweredCasts[event.ability.guid] = 0;
-    }
-
-    this.poweredCasts[event.ability.guid] += 1;
-
-    event.meta = event.meta || {};
-    event.meta.isEnhancedCast = true;
-    const reason = (
-      <>
-        This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} /> (4-set bonus)
-      </>
-    );
-    event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
-      <>
-        {event.meta.enhancedCastReason}
-        <br />
-        {reason}
-      </>
-    ) : (
-      reason
-    );
   }
 
   onDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
-      return;
-    }
+    const damageId = event.ability.guid;
 
-    this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
+    // Need to figure out which casted ability causes this damage
+    const abilityId = damageToCast[damageId]?.id ?? damageId;
+
+    const isPowered = this.wasLastCastPowered.has(abilityId);
+
+    if (isPowered) {
+      this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
+    }
   }
 
   renderCastRatioChart() {
