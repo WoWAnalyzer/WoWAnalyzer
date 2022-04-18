@@ -1,6 +1,7 @@
 import { captureException } from 'common/errorLogger';
 import sleep from 'common/sleep';
 import ExtendableError from 'es6-error';
+import getBuild from 'interface/selectors/url/report/getBuild';
 import Config, { Builds } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -11,8 +12,6 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
-import getBuild from './selectors/url/report/getBuild';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.

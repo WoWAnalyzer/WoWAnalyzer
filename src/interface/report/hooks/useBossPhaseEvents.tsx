@@ -7,7 +7,7 @@ import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
 
-import BossPhasesState from './report/BOSS_PHASES_STATE';
+import BossPhasesState from '../BOSS_PHASES_STATE';
 
 const useBossPhaseEvents = ({ report, fight }: { report: Report; fight: WCLFight }) => {
   const [loadingState, setLoadingState] = useState<BossPhasesState>(BossPhasesState.LOADING);

@@ -1,5 +1,5 @@
 import { Phase } from 'game/raids';
-import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/usePhases';
+import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/hooks/usePhases';
 import Fight from 'parser/core/Fight';
 import * as React from 'react';
 

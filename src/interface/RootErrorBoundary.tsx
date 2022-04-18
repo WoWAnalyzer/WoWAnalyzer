@@ -5,7 +5,7 @@ import ApiDownBackground from 'interface/images/api-down-background.gif';
 import PropTypes from 'prop-types';
 import { Component, ReactNode } from 'react';
 
-import { EventsParseError } from './useEventParser';
+import { EventsParseError } from './report/hooks/useEventParser';
 
 interface HandledError {
   message: string;
