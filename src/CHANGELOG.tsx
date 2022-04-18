@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 19), 'Refactor reports component to fix state management issues', nullDozzer),
   change(date(2022, 4, 17), 'Fix conduits not being parsed correctly in some cases', nullDozzer),
   change(date(2022, 4, 17), 'Fix CDR tracking from Effusive Anima Accelerator for Monks and Shamans.', emallson),
   change(date(2022, 4, 15), 'Track CDR from Effusive Anima Accelerator', Tialyss),
