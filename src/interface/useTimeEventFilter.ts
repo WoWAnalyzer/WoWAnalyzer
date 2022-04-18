@@ -18,7 +18,7 @@ import Fight, { WCLFight } from 'parser/core/Fight';
 import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
 import { useEffect, useState } from 'react';
 
-import { EventsParseError } from './report/EventParser';
+import { EventsParseError } from './useEventParser';
 import { SELECTION_ALL_PHASES } from './usePhases';
 
 const bench = (id: string) => console.time(id);
