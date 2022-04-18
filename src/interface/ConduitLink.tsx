@@ -17,9 +17,9 @@ interface Context {
  * Must have parser context.
  */
 const ConduitLink = ({ id }: Props, { parser: { selectedCombatant } }: Context) => {
-  const ilvl = selectedCombatant.conduitIlvlBySpellID(id);
+  const rank = selectedCombatant.conduitRankBySpellID(id);
 
-  return <SpellLink id={id} ilvl={ilvl} />;
+  return <SpellLink id={id} rank={rank} />;
 };
 ConduitLink.contextTypes = {
   parser: PropTypes.object.isRequired,
