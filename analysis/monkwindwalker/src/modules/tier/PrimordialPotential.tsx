@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -57,7 +57,9 @@ class PrimordialPotential extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER),
+      Events.damage
+        .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
+        .spell(DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER),
       this.onDamage,
     );
   }
