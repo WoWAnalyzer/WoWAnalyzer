@@ -19,7 +19,10 @@ export interface Filter {
 }
 
 const TimeEventFilter = ({ children, ...props }: Props) => {
-  const { isLoading, events, fight } = useTimeEventFilter(props);
+  const { isLoading, events, fight } = useTimeEventFilter({
+    ...props,
+    bossPhaseEventsLoaded: true,
+  });
 
   return children(isLoading, events, fight);
 };

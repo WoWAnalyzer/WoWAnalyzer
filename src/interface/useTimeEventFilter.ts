@@ -192,15 +192,17 @@ export interface Filter {
 }
 
 interface Config {
+  bossPhaseEventsLoaded: boolean;
   fight: WCLFight;
   filter: Filter;
   phase: string;
   phaseinstance: number;
-  bossPhaseEvents: PhaseEvent[];
-  events: AnyEvent[];
+  bossPhaseEvents: PhaseEvent[] | null;
+  events: AnyEvent[] | null;
 }
 
 const useTimeEventFilter = ({
+  bossPhaseEventsLoaded = false,
   fight,
   filter,
   phase,
@@ -213,6 +215,10 @@ const useTimeEventFilter = ({
   const [stateFight, setStateFight] = useState<Fight | undefined>(undefined);
 
   useEffect(() => {
+    if (!bossPhaseEventsLoaded || events == null) {
+      return;
+    }
+
     const makeEvents = (): {
       start: number;
       events: AnyEvent[];
@@ -262,6 +268,7 @@ const useTimeEventFilter = ({
     setIsLoading(true);
     parse();
   }, [
+    bossPhaseEventsLoaded,
     bossPhaseEvents,
     fight,
     // TODO: Originally it did some deep comparing of filter to know if it should re-render

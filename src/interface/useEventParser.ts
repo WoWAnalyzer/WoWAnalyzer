@@ -32,16 +32,16 @@ export class EventsParseError extends ExtendableError {
 // "Props" is probably not correct in hook, but don't know what to call o/w
 interface Props {
   report: Report;
-  fight: Fight;
+  fight?: Fight;
   config: Config;
   player: PlayerInfo;
   combatants: CombatantInfoEvent[];
   applyTimeFilter: (start: number, end: number) => null;
   applyPhaseFilter: (phase: string, instance: any) => null;
-  parserClass: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
+  parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   builds?: Builds;
-  characterProfile: CharacterProfile;
-  events: AnyEvent[];
+  characterProfile: CharacterProfile | null;
+  events?: AnyEvent[];
 }
 
 const useEventParser = ({
@@ -65,6 +65,18 @@ const useEventParser = ({
   const build = getBuild(location.pathname);
 
   useEffect(() => {
+    // Original code only rendered EventParser if
+    // > !this.state.isLoadingParser &&
+    // > !this.state.isLoadingCharacterProfile &&
+    // > !this.state.isFilteringEvents
+    // We have to always run the hook, but the hook should make sure the above is true
+    // isLoadingParser => parserClass == null
+    // isLoadingCharacterProfile => characterProfile == null
+    // isFilteringEvents => events == null
+    if (fight == null || parserClass == null || characterProfile == null || events == null) {
+      return;
+    }
+
     const makeParser = () => {
       const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
       builds &&

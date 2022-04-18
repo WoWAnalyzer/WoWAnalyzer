@@ -11,7 +11,7 @@ interface Props {
 }
 
 const PhaseParser = ({ children, fight, bossPhaseEvents }: Props) => {
-  const phases = usePhases({ fight, bossPhaseEvents });
+  const phases = usePhases({ fight, bossPhaseEvents, bossPhaseEventsLoaded: true });
 
   return children(!phases, phases);
 };

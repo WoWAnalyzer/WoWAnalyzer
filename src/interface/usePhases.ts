@@ -8,14 +8,20 @@ export const SELECTION_CUSTOM_PHASE = 'CUSTOM';
 
 const usePhases = ({
   fight,
+  bossPhaseEventsLoaded,
   bossPhaseEvents,
 }: {
   fight: WCLFight;
-  bossPhaseEvents: PhaseEvent[];
+  bossPhaseEventsLoaded: boolean;
+  bossPhaseEvents: PhaseEvent[] | null;
 }) => {
   const [phases, setPhases] = useState<{ [key: string]: Phase } | null>(null);
 
   useEffect(() => {
+    if (!bossPhaseEventsLoaded) {
+      return;
+    }
+
     const makePhases = () => {
       if (!bossPhaseEvents) {
         return {};
@@ -79,7 +85,7 @@ const usePhases = ({
 
     setPhases(null);
     parse();
-  }, [bossPhaseEvents, fight]);
+  }, [bossPhaseEventsLoaded, bossPhaseEvents, fight]);
 
   return phases;
 };
