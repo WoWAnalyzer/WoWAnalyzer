@@ -1,4 +1,5 @@
 import { captureException } from 'common/errorLogger';
+import { SELECTION_ALL_PHASES } from 'interface/usePhases';
 import {
   EventType,
   PhaseEvent,
@@ -19,7 +20,6 @@ import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
 import { PureComponent, ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
-import { SELECTION_ALL_PHASES } from './PhaseParser';
 
 const bench = (id: string) => console.time(id);
 const benchEnd = (id: string) => console.timeEnd(id);
