@@ -8,7 +8,7 @@ import useEventParser from 'interface/useEventParser';
 import useEvents from 'interface/useEvents';
 import useParser from 'interface/useParser';
 import usePhases, { SELECTION_ALL_PHASES } from 'interface/usePhases';
-import useTimeEventFilter from 'interface/useTimeEventFilter';
+import useTimeEventFilter, { Filter } from 'interface/useTimeEventFilter';
 import Config from 'parser/Config';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
@@ -26,7 +26,6 @@ import PlayerLoader from './PlayerLoader';
 import ReportLoader from './ReportLoader';
 import Results from './Results';
 import SupportChecker from './SupportChecker';
-import { Filter } from './TimeEventFilter';
 
 interface Props {
   config: Config;
