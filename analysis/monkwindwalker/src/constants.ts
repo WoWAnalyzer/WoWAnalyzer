@@ -127,10 +127,8 @@ export const ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
  * Seems to match DAMAGE_AFFECTED_BY_MASTERY but excludes
  * Expel Harm
  */
-export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
-  ...ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER.map(
-    (ability) => castToDamage[ability.id] || ability,
-  ).flat(),
-];
+export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER.map(
+  (ability) => castToDamage[ability.id] || ability,
+).flat();
 
 export const BLACKOUT_KICK_COOLDOWN_REDUCTION_MS = 1000;
