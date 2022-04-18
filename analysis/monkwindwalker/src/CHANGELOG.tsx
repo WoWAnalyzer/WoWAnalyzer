@@ -4,7 +4,7 @@ import { Juko8, Abelito75, Talby, Hursti, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 4, 16), <>Added checklist and suggestion to remember to <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> when using <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.</>, nullDozzer),
+  change(date(2022, 4, 18), <>Added checklist and suggestion to remember to <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> when using <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.</>, nullDozzer),
   change(date(2022, 4, 16), <>More informative messages for ineffective casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.</>, nullDozzer),
   change(date(2022, 4, 16), <>Added a Mystic Touch stat. </>, Abelito75),
   change(date(2022, 4, 15), <>Added tracking and statistics for set bonuses <SpellLink id={SPELLS.FISTS_OF_PRIMORDIUM.id}/> and <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/></>, nullDozzer),
