@@ -29,6 +29,9 @@ class DuskwalkersPatch extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    if (event.ability.guid === SPELLS.VENDETTA.id) {
+      return;
+    }
     const resource = event.classResources?.find(
       (resource) => resource.type === RESOURCE_TYPES.ENERGY.id,
     );
@@ -36,18 +39,25 @@ class DuskwalkersPatch extends Analyzer {
       return;
     }
     this.lastEnergyCost = resource.cost || 0;
-    const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
-    if (this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
-      const effectiveReductionMs =
-        cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id);
-      if (effectiveReductionMs < cooldownReductionMs) {
-        this.wastedVendettaReductionMs += cooldownReductionMs - effectiveReductionMs;
-      }
-      this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(
+    const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * this.lastEnergyCost;
+    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
+      this.wastedVendettaReductionMs += cooldownReductionMs;
+      return;
+    }
+
+    if (this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id) < cooldownReductionMs) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(
         SPELLS.VENDETTA.id,
         cooldownReductionMs,
       );
+      this.effectiveVendettaReductionMs += effectiveReductionMs;
+      this.wastedVendettaReductionMs += cooldownReductionMs - effectiveReductionMs;
+      return;
     }
+    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(
+      SPELLS.VENDETTA.id,
+      cooldownReductionMs,
+    );
   }
 
   statistic() {
@@ -60,7 +70,7 @@ class DuskwalkersPatch extends Analyzer {
         <BoringSpellValueText spellId={SPELLS.DUSKWALKERS_PATCH.id}>
           {formatNumber(this.effectiveVendettaReductionMs / 1000)}s/
           {formatNumber(
-            (this.wastedVendettaReductionMs / 1000 + this.effectiveVendettaReductionMs) / 1000,
+            (this.wastedVendettaReductionMs + this.effectiveVendettaReductionMs) / 1000,
           )}
           s <small> cooldown reduction</small>
         </BoringSpellValueText>

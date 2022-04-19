@@ -98,13 +98,6 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CRIMSON_TEMPEST_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id),
       },
-      {
-        spell: SPELLS.SHIV.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-      },
       // Rotational AOE
       {
         spell: SPELLS.FAN_OF_KNIVES.id,

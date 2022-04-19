@@ -29,30 +29,33 @@ class Obedience extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.FLAGELLATION.id)) {
-      const resource = event.classResources?.find(
-        (resource) => resource.type === RESOURCE_TYPES.COMBO_POINTS.id,
-      );
-      if (!resource) {
-        return;
-      }
-      if (this.spellUsable.isOnCooldown(SPELLS.FLAGELLATION.id)) {
-        this.lastComboPointCost = resource.cost || 0;
-        const cooldownReductionMs = this.FLAGELLATION_CDR_MS_PER_CP * this.lastComboPointCost;
-
-        const effectiveReductionMs =
-          cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.FLAGELLATION.id);
-
-        if (effectiveReductionMs < cooldownReductionMs) {
-          this.wastedFlagellationReductionMs += cooldownReductionMs - effectiveReductionMs;
-        }
-
-        this.effectiveFlegellationReductionMs += this.spellUsable.reduceCooldown(
-          SPELLS.FLAGELLATION.id,
-          cooldownReductionMs,
-        );
-      }
+    if (!this.selectedCombatant.hasBuff(SPELLS.FLAGELLATION.id)) {
+      return;
     }
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.COMBO_POINTS.id,
+    );
+    if (!resource) {
+      return;
+    }
+    if (!this.spellUsable.isOnCooldown(SPELLS.FLAGELLATION.id)) {
+      return;
+    }
+
+    this.lastComboPointCost = resource.cost || 0;
+    const cooldownReductionMs = this.FLAGELLATION_CDR_MS_PER_CP * this.lastComboPointCost;
+
+    const effectiveReductionMs =
+      cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.FLAGELLATION.id);
+
+    if (effectiveReductionMs < cooldownReductionMs) {
+      this.wastedFlagellationReductionMs += cooldownReductionMs - effectiveReductionMs;
+    }
+
+    this.effectiveFlegellationReductionMs += this.spellUsable.reduceCooldown(
+      SPELLS.FLAGELLATION.id,
+      cooldownReductionMs,
+    );
   }
 
   statistic() {

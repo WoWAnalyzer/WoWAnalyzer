@@ -40,17 +40,19 @@ class Doomblade extends Analyzer {
   onEnvenomDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (
-      enemy &&
-      ASSASSINATION_BLEED_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, event.timestamp))
+      !enemy ||
+      (enemy &&
+        !ASSASSINATION_BLEED_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, event.timestamp)))
     ) {
-      let enemyBleedCount = 0;
-      ASSASSINATION_BLEED_DEBUFFS.forEach((debuff) => {
-        if (enemy.hasBuff(debuff.id, event.timestamp)) {
-          enemyBleedCount += 1;
-        }
-      });
-      this.bonusEnvenomDamage += calculateEffectiveDamage(event, 0.05 * enemyBleedCount);
+      return;
     }
+    let enemyBleedCount = 0;
+    ASSASSINATION_BLEED_DEBUFFS.forEach((debuff) => {
+      if (enemy.hasBuff(debuff.id, event.timestamp)) {
+        enemyBleedCount += 1;
+      }
+    });
+    this.bonusEnvenomDamage += calculateEffectiveDamage(event, 0.05 * enemyBleedCount);
   }
 
   statistic() {
