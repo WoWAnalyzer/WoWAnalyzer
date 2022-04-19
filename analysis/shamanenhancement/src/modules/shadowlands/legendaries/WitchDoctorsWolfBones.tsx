@@ -1,3 +1,4 @@
+import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -76,9 +77,10 @@ class WitchDoctorsWolfBones extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.WITCH_DOCTORS_WOLF_BONES.id}>
           <>
-            <CooldownIcon /> {this.totalCdrGained / 1000}s <small> of Feral Spirit CDR</small>
+            <CooldownIcon /> {formatDuration(this.totalCdrGained)}s{' '}
+            <small> of Feral Spirit CDR</small>
             <br />
-            <CooldownIcon /> {this.totalCdrWasted / 1000}s{' '}
+            <CooldownIcon /> {formatDuration(this.totalCdrWasted)}s{' '}
             <small> of Feral Spirit CDR wasted</small>
           </>
         </BoringSpellValueText>
