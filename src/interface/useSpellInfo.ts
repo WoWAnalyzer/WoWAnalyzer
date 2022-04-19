@@ -8,7 +8,7 @@ const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res)
 const useSpellInfo = (spellId: number) => {
   const { data, error } = useSWR(makeApiUrl(`spell/${spellId}`), {
     fetcher,
-    isPaused: () => SPELLS[spellId] !== undefined,
+    isPaused: () => SPELLS.maybeGet(spellId) !== undefined,
   });
 
   if (error) {
@@ -21,7 +21,7 @@ const useSpellInfo = (spellId: number) => {
     }
   }, [data, spellId]);
 
-  return SPELLS[spellId] || data;
+  return SPELLS.maybeGet(spellId) ?? data;
 };
 
 export default useSpellInfo;

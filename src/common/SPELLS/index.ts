@@ -28,6 +28,7 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
+import Spell from './Spell';
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
 import TALENTS_DEMON_HUNTER from './talents/demonhunter';
 import TALENTS_DRUID from './talents/druid';
@@ -81,16 +82,36 @@ const ABILITIES = {
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-const SPELLS = indexById(ABILITIES);
+const InternalSpellTable = indexById(ABILITIES);
+// assignment is used here to avoid potential performance pitfalls when
+// compiling the spread operator on large objects.
+InternalSpellTable.maybeGet = (key: string | number | undefined): Spell | undefined =>
+  key ? InternalSpellTable[key] : undefined;
+
+const SPELLS = new Proxy(InternalSpellTable, {
+  get(target, prop, receiver) {
+    const value = Reflect.get(target, prop, receiver);
+
+    if (value === undefined) {
+      throw new Error(
+        `Attempted to retrieve invalid or missing spell from SPELLS: ${String(
+          prop,
+        )}. If this is intended, use SPELLS.maybeGet.`,
+      );
+    }
+
+    return value;
+  },
+});
 
 export default SPELLS;
 
 export const registerSpell = (id: number, name: string, icon: string) => {
-  if (SPELLS[id]) {
+  if (InternalSpellTable[id]) {
     return;
   }
 
-  SPELLS[id] = {
+  InternalSpellTable[id] = {
     id,
     name,
     icon,
