@@ -31,21 +31,21 @@ class WitchDoctorsWolfBones extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.reduceFeralSpirityCooldown,
+      this.reduceFeralSpiritCooldown,
     );
 
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.reduceFeralSpirityCooldown,
+      this.reduceFeralSpiritCooldown,
     );
 
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.reduceFeralSpirityCooldown,
+      this.reduceFeralSpiritCooldown,
     );
   }
 
-  reduceFeralSpirityCooldown(event: ApplyBuffStackEvent | ApplyBuffEvent | RefreshBuffEvent) {
+  reduceFeralSpiritCooldown(event: ApplyBuffStackEvent | ApplyBuffEvent | RefreshBuffEvent) {
     if (event.timestamp !== this.lastTimestamp) {
       this.hasApplyBuffInThisTimestamp = false;
     }
