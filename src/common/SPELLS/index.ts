@@ -93,11 +93,19 @@ const SPELLS = new Proxy(InternalSpellTable, {
     const value = Reflect.get(target, prop, receiver);
 
     if (value === undefined) {
-      throw new Error(
-        `Attempted to retrieve invalid or missing spell from SPELLS: ${String(
+      if (process.env.NODE_ENV === 'production') {
+        console.error(
+          'Attempted to retrieve invalid or missing spell from SPELLS. If this is expected, use SPELLS.maybeGet.',
           prop,
-        )}. If this is intended, use SPELLS.maybeGet.`,
-      );
+          target,
+        );
+      } else {
+        throw new Error(
+          `Attempted to retrieve invalid or missing spell from SPELLS: ${String(
+            prop,
+          )}. If this is expected, use SPELLS.maybeGet.`,
+        );
+      }
     }
 
     return value;
