@@ -8,7 +8,11 @@ const conduits = {
   //endregion
 
   //region Night Fae
-
+  ESSENTIAL_EXTRACTION: {
+    id: 339183,
+    name: 'Essential Extraction',
+    icon: 'spell_animaardenweald_debuff',
+  },
   //endregion
 
   //region Venthyr
