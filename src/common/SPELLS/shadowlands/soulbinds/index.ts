@@ -5,6 +5,7 @@ import FORGELITE_PRIME_MIKANIKOS from './forgeliteprimemikanikos';
 import GENERAL_DRAVEN from './generaldraven';
 import KLEIA from './kleia';
 import KORAYN from './korayn';
+import MIKANIKOS from './mikanikos';
 import NADJIA_THE_MISTBLADE from './nadjiathemistblade';
 import NIYA from './niya';
 import PELAGOS from './pelagos';
@@ -24,6 +25,7 @@ const soulbinds = {
   ...PELAGOS,
   ...PLAGUE_DEVISER_MARILETH,
   ...THEOTAR_THE_MAD_DUKE,
+  ...MIKANIKOS,
 } as const;
 
 export default soulbinds;

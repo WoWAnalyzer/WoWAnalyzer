@@ -118,7 +118,7 @@ class Abilities extends Module {
   }
 
   /**
-   * Returns the expected cooldown (in seconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
+   * Returns the expected cooldown (in milliseconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
   getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent?: AnyEvent) {
     const ability = this.getAbility(spellId);

@@ -4372,13 +4372,16 @@ exports[`Survival Hunter integration test: Multi Target StrengthOfThePack matche
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=341222"
+            href="https://wowhead.com/spell=341222&ilvl=200"
             rel="noopener noreferrer"
             target="_blank"
           >
             Strength of the Pack
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           5
         </label>
         <div
@@ -11518,13 +11521,16 @@ exports[`Survival Hunter integration test: Single Target StrengthOfThePack match
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=341222"
+            href="https://wowhead.com/spell=341222&ilvl=200"
             rel="noopener noreferrer"
             target="_blank"
           >
             Strength of the Pack
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           5
         </label>
         <div
