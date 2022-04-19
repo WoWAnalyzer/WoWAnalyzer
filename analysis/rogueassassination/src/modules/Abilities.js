@@ -37,6 +37,20 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GARROTE.id,
       },
       {
+        spell: SPELLS.SHIV.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
+        spell: SPELLS.SLICE_AND_DICE.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
         spell: SPELLS.MUTILATE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
