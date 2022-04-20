@@ -546,7 +546,8 @@ class Combatant extends Entity {
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach((buff) => {
-      const spell = SPELLS[buff.ability];
+      const spell = SPELLS.maybeGet(buff.ability);
+
       this.applyBuff({
         type: EventType.ApplyBuff,
         timestamp: timestamp,
