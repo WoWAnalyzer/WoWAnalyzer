@@ -188,6 +188,7 @@ class CoordinatedOffensive extends Analyzer {
         The {formatPercentage(this.CO_MOD, 1)}% damage increase during the{' '}
         {formatPercentage(this.uptime, 0)}% of <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} />{' '}
         that the spirits was fixated contributed ~{formatNumber(this.damageIncrease)} raw damage.
+        This is {formatPercentage(this.damageBenefit)}% of the possible damage increase.
       </>
     );
 
