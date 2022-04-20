@@ -2,8 +2,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
+import SPELLS from 'common/SPELLS';
 
-import { BEACON_TYPES, NUM_BEACONS } from '../../constants';
+import { BEACON_TYPES } from '../../constants';
 
 const BEACONS = Object.values(BEACON_TYPES);
 
@@ -16,6 +17,7 @@ class BeaconTargets extends Analyzer {
   };
 
   currentBeaconTargets = [];
+  maxBeacons = 1;
 
   hasBeacon(playerId) {
     return this.currentBeaconTargets.includes(playerId);
@@ -24,11 +26,18 @@ class BeaconTargets extends Analyzer {
     return this.currentBeaconTargets.length;
   }
   get numMaxBeacons() {
-    return NUM_BEACONS[this.selectedCombatant.lv50Talent];
+    return this.maxBeacons;
   }
 
   constructor(options) {
     super(options);
+    if(this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
+      this.maxBeacons = 2;
+    }else if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRUTE.id)){
+      this.maxBeacons = 4;
+    }
+    
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
   }

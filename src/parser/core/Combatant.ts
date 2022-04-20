@@ -129,38 +129,6 @@ class Combatant extends Entity {
     return Object.values(this._talentsByRow);
   }
 
-  _getTalent(row: number) {
-    return [...this._talentsByRow][row];
-  }
-
-  get lv15Talent() {
-    return this._getTalent(TALENT_ROWS.LV15);
-  }
-
-  get lv25Talent() {
-    return this._getTalent(TALENT_ROWS.LV25);
-  }
-
-  get lv30Talent() {
-    return this._getTalent(TALENT_ROWS.LV30);
-  }
-
-  get lv35Talent() {
-    return this._getTalent(TALENT_ROWS.LV35);
-  }
-
-  get lv40Talent() {
-    return this._getTalent(TALENT_ROWS.LV40);
-  }
-
-  get lv45Talent() {
-    return this._getTalent(TALENT_ROWS.LV45);
-  }
-
-  get lv50Talent() {
-    return this._getTalent(TALENT_ROWS.LV50);
-  }
-
   hasTalent(spell: number | Spell) {
     let spellId = spell;
     const spellObj = spell as Spell;
