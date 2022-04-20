@@ -24,7 +24,7 @@ const castDamageMap: ReadonlyMap<Spell, Spell[]> = new Map([
 
 const entries = Array.from(castDamageMap.entries());
 
-/** Provide id of cast ability and get damage spell back */
+/** Provide id of cast ability and get damage spell(s) back */
 export const castToDamage: { [id: string]: Spell[] } = Object.fromEntries(
   entries.map(([cast, damage]) => [cast.id, damage]),
 );
