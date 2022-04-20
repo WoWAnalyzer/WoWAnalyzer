@@ -276,18 +276,7 @@ const useTimeEventFilter = ({
 
     setIsLoading(true);
     parse();
-  }, [
-    bossPhaseEventsLoaded,
-    bossPhaseEvents,
-    fight,
-    // TODO: Originally it did some deep comparing of filter to know if it should re-render
-    filter,
-
-    // TODO: The original code did not check these properties but exhaustive-deps asks for them
-    events,
-    phase,
-    phaseinstance,
-  ]);
+  }, [bossPhaseEventsLoaded, bossPhaseEvents, fight, filter, events, phase, phaseinstance]);
 
   return {
     isLoading,

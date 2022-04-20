@@ -166,8 +166,6 @@ const useEventParser = ({
     events,
     build,
     builds,
-
-    // TODO: These were not checked in the original code, but were required by exhaustive deps
     config,
     applyTimeFilter,
     applyPhaseFilter,
