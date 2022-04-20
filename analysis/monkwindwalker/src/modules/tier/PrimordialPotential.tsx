@@ -65,37 +65,38 @@ class PrimordialPotential extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
-      this.wasLastCastPowered.add(event.ability.guid);
-
-      this.numberPoweredCasts += 1;
-
-      if (!this.poweredCasts[event.ability.guid]) {
-        this.poweredCasts[event.ability.guid] = 0;
-      }
-
-      this.poweredCasts[event.ability.guid] += 1;
-
-      event.meta = event.meta || {};
-      event.meta.isEnhancedCast = true;
-      const reason = (
-        <>
-          This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} /> (4-set
-          bonus)
-        </>
-      );
-      event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
-        <>
-          {event.meta.enhancedCastReason}
-          <br />
-          {reason}
-        </>
-      ) : (
-        reason
-      );
-    } else {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
       this.wasLastCastPowered.delete(event.ability.guid);
+      return;
     }
+
+    this.wasLastCastPowered.add(event.ability.guid);
+
+    this.numberPoweredCasts += 1;
+
+    if (!this.poweredCasts[event.ability.guid]) {
+      this.poweredCasts[event.ability.guid] = 0;
+    }
+
+    this.poweredCasts[event.ability.guid] += 1;
+
+    event.meta = event.meta || {};
+    event.meta.isEnhancedCast = true;
+    const reason = (
+      <>
+        This cast was empowered by <SpellLink id={SPELLS.PRIMORDIAL_POWER_BUFF.id} /> (4-set
+        bonus)
+      </>
+    );
+    event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
+      <>
+        {event.meta.enhancedCastReason}
+        <br />
+        {reason}
+      </>
+    ) : (
+      reason
+    );
   }
 
   onDamage(event: DamageEvent) {
