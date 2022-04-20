@@ -7,6 +7,7 @@ import {
   ApplyDebuffStackEvent,
   CastEvent,
   EventType,
+  FilterBuffInfoEvent,
   FilterCooldownInfoEvent,
   PhaseEvent,
   RemoveBuffEvent,
@@ -34,13 +35,16 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
 function findRelevantPostFilterEvents(events: AnyEvent[]) {
   return events
     .filter(
-      (e) => e.type === EventType.Cast && COMBAT_POTIONS.includes((e as CastEvent).ability.guid),
+      (e): e is CastEvent =>
+        e.type === EventType.Cast && COMBAT_POTIONS.includes((e as CastEvent).ability.guid),
     )
-    .map((e) => ({
-      ...e,
-      type: EventType.FilterCooldownInfo,
-      trigger: e.type,
-    }));
+    .map(
+      (e): FilterCooldownInfoEvent => ({
+        ...e,
+        type: EventType.FilterCooldownInfo,
+        trigger: e.type,
+      }),
+    );
 }
 
 //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
@@ -154,6 +158,14 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
  *  List of filtered events
  */
 export function filterEvents(events: AnyEvent[], start: number, end: number) {
+  function createFilterBuffInfoEvent(e: BuffEvent | StackEvent): FilterBuffInfoEvent {
+    return {
+      ...e,
+      type: EventType.FilterBuffInfo,
+      trigger: e.type,
+    };
+  }
+
   const phaseEvents = events.filter((event) => event.timestamp >= start && event.timestamp <= end);
 
   const preFilterEvents = findRelevantPreFilterEvents(
@@ -161,14 +173,12 @@ export function filterEvents(events: AnyEvent[], start: number, end: number) {
   )
     .sort((a, b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map((e) => ({
-      ...e,
       prepull: true, //pretend previous events were "prepull"
       ...(e.type !== EventType.FilterCooldownInfo &&
-        e.type !== EventType.Cast &&
-        COMBAT_POTIONS.includes(e.ability.guid) && {
-          type: EventType.FilterBuffInfo,
-          trigger: e.type,
-        }),
+      e.type !== EventType.Cast &&
+      COMBAT_POTIONS.includes(e.ability.guid)
+        ? createFilterBuffInfoEvent(e)
+        : e),
       ...(e.type !== EventType.FilterCooldownInfo && !COMBAT_POTIONS.includes(e.ability.guid)
         ? { timestamp: start }
         : { __fabricated: true }), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
@@ -178,7 +188,7 @@ export function filterEvents(events: AnyEvent[], start: number, end: number) {
     events.filter((event) => event.timestamp > end),
   )
     .sort((a, b) => a.timestamp - b.timestamp) //sort events by timestamp
-    .map((e) => ({
+    .map((e): typeof e => ({
       ...e,
       timestamp: end,
     }));
@@ -234,8 +244,7 @@ const useTimeEventFilter = ({
 
       return {
         start: filter.start,
-        // TODO: filterEvents needs better typings
-        events: (filterEvents(events, filter.start, filter.end) as unknown[]) as AnyEvent[],
+        events: filterEvents(events, filter.start, filter.end),
         end: filter.end,
       };
     };
