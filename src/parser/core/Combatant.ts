@@ -117,11 +117,11 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentsByRow: { [key: number]: number } = {};
+  _talentsByRow: Set<number> = new Set<number>();
 
   _parseTalents(talents: Spell[]) {
     talents.forEach(({ id }, index: number) => {
-      this._talentsByRow[index] = id;
+      this._talentsByRow.add(id);
     });
   }
 
@@ -130,7 +130,7 @@ class Combatant extends Entity {
   }
 
   _getTalent(row: number) {
-    return this._talentsByRow[row];
+    return [...this._talentsByRow][row];
   }
 
   get lv15Talent() {
@@ -167,11 +167,7 @@ class Combatant extends Entity {
     if (spellObj.id) {
       spellId = spellObj.id;
     }
-    return Boolean(
-      Object.keys(this._talentsByRow).find(
-        (row: string) => this._talentsByRow[Number(row)] === spellId,
-      ),
-    );
+    return this._talentsByRow.has(spellId as number);
   }
 
   // endregion
