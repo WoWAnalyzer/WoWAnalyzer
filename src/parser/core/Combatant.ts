@@ -8,7 +8,6 @@ import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS, { Spec } from 'game/SPECS';
-import TALENT_ROWS from 'game/TALENT_ROWS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import {
   Buff,
