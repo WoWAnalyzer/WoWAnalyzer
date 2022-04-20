@@ -16,6 +16,19 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ABILITIES_CLONED_BY_SEF, ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 /**
+ * Calculates the amount of damage that could have been added if an effect
+ * had been applied.
+ *
+ * @param event a damage event that could have been boosted by an effect
+ * @param increase the boost's added multiplier (for +20% pass 0.20)
+ * @returns the amount of damage that the boost would have added if applied
+ */
+function calculateMissedDamage(event: DamageEvent, increase: number): number {
+  const raw = (event.amount || 0) + (event.absorbed || 0);
+  return raw * increase;
+}
+
+/**
  * Tracks damage increase from
  * [Coordinated Offensive Conduit](https://www.wowhead.com/spell=336598/coordinated-offensive).
  *
@@ -32,10 +45,20 @@ class CoordinatedOffensive extends Analyzer {
   hasSerenity = false;
   fixateUptime = 0;
   fixateActivateTimestamp = -1;
-  totalDamage = 0;
+  damageIncrease = 0;
+  missedDamageIncrease = 0;
   CO_Active: boolean = false;
   cloneIDs = new Set();
   cloneMap: Map<number, number> = new Map<number, number>();
+
+  get totalPossibleDamageIncrease() {
+    return this.damageIncrease + this.missedDamageIncrease;
+  }
+
+  /** Ratio of "possible" damage that was gained. */
+  get damageBenefit() {
+    return this.damageIncrease / this.totalPossibleDamageIncrease;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -100,10 +123,6 @@ class CoordinatedOffensive extends Analyzer {
     this.cloneMap.set(event.targetID, event.ability.guid);
   }
   handleMelee(event: DamageEvent) {
-    //if CO is not active we cant add the dmg
-    if (!this.CO_Active) {
-      return;
-    }
     //if we don't know who its from then we can't add it
     if (!event.sourceID) {
       return;
@@ -114,25 +133,26 @@ class CoordinatedOffensive extends Analyzer {
       return;
     }
 
-    if (cloneType === SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT.id) {
-      this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
-    }
-    if (cloneType === SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT.id) {
-      this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
+    if (
+      cloneType === SPELLS.STORM_EARTH_AND_FIRE_FIRE_SPIRIT.id ||
+      cloneType === SPELLS.STORM_EARTH_AND_FIRE_EARTH_SPIRIT.id
+    ) {
+      this.onSEFDamage(event);
     }
   }
 
   onSEFDamage(event: DamageEvent) {
-    if (!this.CO_Active) {
-      return;
+    if (this.CO_Active) {
+      this.damageIncrease += calculateEffectiveDamage(event, this.CO_MOD);
+    } else {
+      this.missedDamageIncrease += calculateMissedDamage(event, this.CO_MOD);
     }
-    this.totalDamage += calculateEffectiveDamage(event, this.CO_MOD);
   }
   onSerenityDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
-    this.totalDamage +=
+    this.damageIncrease +=
       calculateEffectiveDamage(event, this.CO_MOD + this.SERENITY_MOD) -
       calculateEffectiveDamage(event, this.SERENITY_MOD);
   }
@@ -144,13 +164,13 @@ class CoordinatedOffensive extends Analyzer {
     );
   }
 
-  get fixateUptimeSuggestionThreshold() {
+  get damageBenefitThreshold() {
     return {
-      actual: this.uptime,
+      actual: this.damageBenefit,
       isLessThan: {
-        minor: 0.9,
-        average: 0.75,
-        major: 0.5,
+        minor: 0.95,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -161,13 +181,13 @@ class CoordinatedOffensive extends Analyzer {
         The {formatPercentage(this.CO_MOD, 1)}% damage increase during{' '}
         <SpellLink id={SPELLS.SERENITY_TALENT.id} /> from{' '}
         <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> was worth ~
-        {formatNumber(this.totalDamage)} raw damage.
+        {formatNumber(this.damageIncrease)} raw damage.
       </>
     ) : (
       <>
         The {formatPercentage(this.CO_MOD, 1)}% damage increase during the{' '}
         {formatPercentage(this.uptime, 0)}% of <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} />{' '}
-        that the spirits was fixated contributed ~{formatNumber(this.totalDamage)} raw damage.
+        that the spirits was fixated contributed ~{formatNumber(this.damageIncrease)} raw damage.
       </>
     );
 
@@ -179,28 +199,30 @@ class CoordinatedOffensive extends Analyzer {
         tooltip={tooltip}
       >
         <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
-          <ItemDamageDone amount={this.totalDamage} />
+          <ItemDamageDone amount={this.damageIncrease} />
         </ConduitSpellText>
       </Statistic>
     );
   }
   suggestions(when: When) {
-    when(this.fixateUptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+    when(this.damageBenefitThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="monk.windwalker.suggestions.coordinatedOffensiveFixate">
           {' '}
-          Remember to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to benefit from{' '}
-          <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.
+          Use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to benefit from{' '}
+          <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />. You should fixate as soon as you
+          have 5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are
+          marked.
         </Trans>,
       )
         .icon(SPELLS.COORDINATED_OFFENSIVE.icon)
         .actual(
           <>
-            {formatPercentage(actual, 0)}% of <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> was
-            fixated.
+            You gained {formatPercentage(actual, 1)}% of the possible{' '}
+            {formatNumber(this.totalPossibleDamageIncrease)} possible raw damage
           </>,
         )
-        .recommended(`${formatPercentage(recommended, 0)}% recommended`),
+        .recommended(`${formatPercentage(recommended, 0)}% expected`),
     );
   }
 }

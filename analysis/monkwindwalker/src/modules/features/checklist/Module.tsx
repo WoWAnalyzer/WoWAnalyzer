@@ -73,8 +73,7 @@ class Checklist extends BaseChecklist {
             .wastedStacksSuggestionThresholds,
           jadeIgnition: this.jadeIgnition.suggestionThresholds,
 
-          coordinatedOffensiveFixateUptime: this.coordinatedOffensive
-            .fixateUptimeSuggestionThreshold,
+          coordinatedOffensiveDamageBenefit: this.coordinatedOffensive.damageBenefitThreshold,
         }}
       />
     );
