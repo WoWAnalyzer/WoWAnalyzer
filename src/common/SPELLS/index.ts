@@ -41,6 +41,7 @@ import TALENTS_ROGUE from './talents/rogue';
 import TALENTS_SHAMAN from './talents/shaman';
 import TALENTS_WARLOCK from './talents/warlock';
 import TALENTS_WARRIOR from './talents/warrior';
+import VANTUS_RUNE from './vantusrune';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
@@ -60,6 +61,7 @@ const ABILITIES = {
   ...TALENTS_WARRIOR,
   // Talents can be overwritten with custom spell objects
   ...OTHERS,
+  ...VANTUS_RUNE,
   ...ENCOUNTER,
   ...RACIALS,
   ...DEATH_KNIGHT,
