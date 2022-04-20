@@ -1,8 +1,8 @@
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
-import SPELLS from 'common/SPELLS';
 
 import { BEACON_TYPES } from '../../constants';
 
@@ -31,12 +31,11 @@ class BeaconTargets extends Analyzer {
 
   constructor(options) {
     super(options);
-    if(this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
       this.maxBeacons = 2;
-    }else if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRUTE.id)){
+    } else if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRUTE.id)) {
       this.maxBeacons = 4;
     }
-    
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
