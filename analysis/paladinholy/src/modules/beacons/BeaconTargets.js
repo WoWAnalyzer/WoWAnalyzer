@@ -33,7 +33,7 @@ class BeaconTargets extends Analyzer {
     super(options);
     if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
       this.maxBeacons = 2;
-    } else if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRUTE.id)) {
+    } else if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id)) {
       this.maxBeacons = 4;
     }
 
