@@ -22,6 +22,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Enhancement Core
 // Talents
+import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalAssault from './modules/talents/ElementalAssault';
@@ -35,6 +36,7 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Stormflurry from './modules/talents/Stormflurry';
 import Stormkeeper from './modules/talents/Stormkeeper';
 import Sundering from './modules/talents/Sundering';
+// Legendaries
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -85,6 +87,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // covenants
     //chainHarvest: ChainHarvest,
     //vesperTotem: VesperTotem,
+
+    // Legendaries
+    seedsOfRampantGrowth: SeedsOfRampantGrowth,
   };
 }
 
