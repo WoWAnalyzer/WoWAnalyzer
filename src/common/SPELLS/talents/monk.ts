@@ -9,7 +9,9 @@ const talents: SpellList = {
     icon: 'ability_druid_primalprecision',
   },
   CHI_WAVE_TALENT: { id: 115098, name: 'Chi Wave', icon: 'ability_monk_chiwave' },
+  CHI_WAVE_TALENT_DAMAGE: { id: 132467, name: 'Chi Wave', icon: 'ability_monk_chiwave' },
   CHI_BURST_TALENT: { id: 123986, name: 'Chi Burst', icon: 'spell_arcane_arcanetorrent' },
+  CHI_BURST_TALENT_DAMAGE: { id: 148135, name: 'Chi Burst', icon: 'spell_arcane_arcanetorrent' },
   CHI_BURST_HEAL: {
     id: 130654,
     name: 'Chi Burst',
