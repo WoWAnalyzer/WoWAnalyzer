@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 4, 21), <>Added statistics for tier 28 two set bonus and for <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT} /></>, xunai),
   change(date(2022, 4, 11), <>Updated Frost Shock and Flame Shock to be treated as separate abilities on the timeline</>, xunai),
   change(date(2022, 3, 23), <>Fixed an issue in ability.tsx where the spell object was being passed instead of the ID</>, Abelito75),
   change(date(2020, 11, 11), <>Added stacks and time spent at cap statisctics for <SpellLink id={SPELLS.MAELSTROM_WEAPON.id} /></>, Mae),
