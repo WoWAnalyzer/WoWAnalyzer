@@ -18,7 +18,7 @@ import {
   DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER,
 } from '../../constants';
 
-const DEBUG = true;
+const DEBUG = false;
 const debugLog = (...args: any[]) => DEBUG && console.log(...args);
 
 const abilityColors = {
