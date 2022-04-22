@@ -137,6 +137,7 @@ export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
     (ability) => castToDamage[ability.id] || ability,
   ).flat(),
   SPELLS.EYE_OF_THE_TIGER_HEAL,
+  SPELLS.JADE_IGNITION_DAMAGE,
 ];
 
 /**
