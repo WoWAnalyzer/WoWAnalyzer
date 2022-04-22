@@ -101,6 +101,15 @@ class PrimordialPotential extends Analyzer {
   onDamage(event: DamageEvent) {
     const damageId = event.ability.guid;
 
+    if (DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER_NAIVELY.some(({ id }) => id === damageId)) {
+      // Handle special cases of damage that benefits if the buff is up,
+      // regardless if the original cast was powered or not
+      if (this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
+        this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
+      }
+      return;
+    }
+
     // Need to figure out which casted ability causes this damage
     const abilityId = damageToCast[damageId]?.id ?? damageId;
 
@@ -112,7 +121,7 @@ class PrimordialPotential extends Analyzer {
   }
 
   renderCastRatioChart() {
-    const ratioChartItems = ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER.map(
+    const ratioChartItems = ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER.map(
       (spell: { id: number; name: string }) => ({
         label: spell.name,
         spellId: spell.id,

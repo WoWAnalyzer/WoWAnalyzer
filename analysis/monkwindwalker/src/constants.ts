@@ -103,8 +103,10 @@ export const ABILITIES_CLONED_BY_SEF = [
  * Abilities that are affected by the T28 4-set bonus
  * "Primordial Power"
  * https://www.wowhead.com/spell=363924/primordial-power
+ *
+ * https://docs.google.com/spreadsheets/d/1QvAtBtaFKaAuhy9iGiMmEzCd--kuwL3oWIDwny6GEoQ/edit
  */
-export const ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
+export const ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER: Spell[] = [
   SPELLS.BLACKOUT_KICK,
   SPELLS.CHI_BURST_TALENT,
   SPELLS.CHI_WAVE_TALENT,
@@ -129,11 +131,24 @@ export const ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
  */
 export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
   // Include both all original cast events
-  ...ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER,
+  ...ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER,
   // And all known damage spells
-  ...ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER.map(
+  ...ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER.map(
     (ability) => castToDamage[ability.id] || ability,
   ).flat(),
+  SPELLS.EYE_OF_THE_TIGER_HEAL,
+];
+
+/**
+ * These spells are special cases that benefit from the 4p bonus while the
+ * buff is up, regardless if the cast was powered or not
+ *
+ * https://docs.google.com/spreadsheets/d/1QvAtBtaFKaAuhy9iGiMmEzCd--kuwL3oWIDwny6GEoQ/edit
+ */
+export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER_NAIVELY: Spell[] = [
+  ...castToDamage[SPELLS.CHI_BURST_TALENT.id],
+  ...castToDamage[SPELLS.CHI_WAVE_TALENT.id],
+  SPELLS.EYE_OF_THE_TIGER_HEAL,
 ];
 
 export const BLACKOUT_KICK_COOLDOWN_REDUCTION_MS = 1000;
