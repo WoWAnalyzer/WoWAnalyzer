@@ -31,8 +31,8 @@ class Shadowmeld extends Analyzer {
       actual: this.correctUses / this.possibleUses,
       isLessThan: {
         minor: 0.7,
-        average: 0.7,
-        major: 0.7,
+        average: 0.5,
+        major: 0.2,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
