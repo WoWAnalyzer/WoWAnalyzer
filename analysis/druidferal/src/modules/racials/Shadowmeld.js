@@ -5,6 +5,7 @@ import RACES from 'game/RACES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,7 +17,7 @@ const BUFF_WINDOW_TIME = 60;
 
 /**
  * The Night Elf racial ability Shadowmeld can be used by as a DPS cooldown for Feral druids.
- * The stealth provided by Shadowmeld doubles the damage of a Rake cast while it's active.
+ * The stealth provided by Shadowmeld boosts the damage of a Rake cast while it's active.
  * This analyzer checks how often Shadowmeld is being to buff Rake's damage.
  */
 class Shadowmeld extends Analyzer {
@@ -29,8 +30,8 @@ class Shadowmeld extends Analyzer {
     return {
       actual: this.correctUses / this.possibleUses,
       isLessThan: {
-        minor: 0.9,
-        average: 0.8,
+        minor: 0.7,
+        average: 0.7,
         major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -128,10 +129,11 @@ class Shadowmeld extends Analyzer {
           You could be using <SpellLink id={SPELLS.SHADOWMELD.id} /> to increase your{' '}
           <SpellLink id={SPELLS.RAKE.id} /> damage more often. Activating{' '}
           <SpellLink id={SPELLS.SHADOWMELD.id} /> and immediately using{' '}
-          <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal double damage.
+          <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal +60% damage.
         </Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
+        .staticImportance(ISSUE_IMPORTANCE.MINOR)
         .actual(
           t({
             id: 'druid.feral.suggetions.shadowmeld.efficiency',
