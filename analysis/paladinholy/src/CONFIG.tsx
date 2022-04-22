@@ -42,7 +42,8 @@ const config: Config = {
       guides.
     </>
   ),
-  exampleReport: '/report/mWxqCgyDB7atVrd1/4-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(4:30)/Claríus/standard',
+  exampleReport:
+    '/report/mWxqCgyDB7atVrd1/4-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(4:30)/Claríus/standard',
 
   //
   spec: SPECS.HOLY_PALADIN,
