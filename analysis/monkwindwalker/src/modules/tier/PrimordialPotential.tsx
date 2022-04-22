@@ -13,9 +13,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { damageToCast } from '../../castDamage';
 import {
-  ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER,
+  ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER,
+  DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER_NAIVELY,
   DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER,
 } from '../../constants';
+
+const DEBUG = true;
+const debugLog = (...args: any[]) => DEBUG && console.log(...args);
 
 const abilityColors = {
   [SPELLS.BLACKOUT_KICK.id]: '#88265e',
@@ -52,8 +56,22 @@ class PrimordialPotential extends Analyzer {
       return;
     }
 
+    if (DEBUG) {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_POWER_BUFF),
+        () => debugLog('======================= Primordial Power Applied ======================='),
+      );
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET),
+        (event) =>
+          event.ability.guid !== 1 &&
+          !DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER.some(({ id }) => id === event.ability.guid) &&
+          debugLog(`Untracked spell: ${event.ability.name} (${event.ability.guid})`),
+      );
+    }
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER),
+      Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER),
       this.onCast,
     );
     this.addEventListener(
@@ -69,6 +87,8 @@ class PrimordialPotential extends Analyzer {
       this.wasLastCastPowered.delete(event.ability.guid);
       return;
     }
+
+    debugLog(`++++++++++ Powered Cast ${event.ability.name} (${event.ability.guid}) ++++++++++`);
 
     this.wasLastCastPowered.add(event.ability.guid);
 
@@ -105,6 +125,7 @@ class PrimordialPotential extends Analyzer {
       // Handle special cases of damage that benefits if the buff is up,
       // regardless if the original cast was powered or not
       if (this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
+        debugLog(`++ Powered tick ${event.ability.name}`);
         this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
       }
       return;
@@ -121,6 +142,14 @@ class PrimordialPotential extends Analyzer {
     const isPowered = this.wasLastCastPowered.has(abilityId);
 
     if (isPowered) {
+      debugLog(
+        `++++ Powered damage ${event.ability.name} (${
+          event.ability.guid
+        }->${abilityId}): Total Damage: ${formatNumber(
+          (event.amount || 0) + (event.absorbed || 0),
+        )}, Effective Damage:${formatNumber(calculateEffectiveDamage(event, PP_MOD))}`,
+      );
+
       this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
     }
   }

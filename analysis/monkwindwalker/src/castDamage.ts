@@ -33,3 +33,5 @@ export const castToDamage = Object.fromEntries<Spell[]>(
 export const damageToCast = Object.fromEntries<Spell>(
   entries.map(([cast, dSpells]) => dSpells.map((d) => [d.id, cast] as const)).flat(),
 );
+
+console.log({ castToDamage, damageToCast });
