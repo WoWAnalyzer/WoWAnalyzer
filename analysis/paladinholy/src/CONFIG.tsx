@@ -42,7 +42,7 @@ const config: Config = {
       guides.
     </>
   ),
-  exampleReport: '/report/DPwyKpWBZ6F947mx/2-Normal+Mekkatorque+-+Kill+(7:19)/7-Riftie',
+  exampleReport: '/report/mWxqCgyDB7atVrd1/4-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(4:30)/Claríus/standard',
 
   //
   spec: SPECS.HOLY_PALADIN,

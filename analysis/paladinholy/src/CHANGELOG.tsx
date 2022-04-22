@@ -5,6 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot } from 'CONTRIBUTOR
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 22), <>Update example log. </>, Abelito75),
   change(date(2022, 4, 15), <>Fixed an issue when trying to load logs with Beacon of Virtue. </>, Abelito75),
   change(date(2022, 4, 15), <>Added Holy Power Generated Per Minute statistic </>, xizbow),
   change(date(2022, 4, 8), <>Added statistic for <SpellLink id={SPELLS.DAWN_WILL_COME_4PC.id}/> cooldown reduction.</>, xizbow),
