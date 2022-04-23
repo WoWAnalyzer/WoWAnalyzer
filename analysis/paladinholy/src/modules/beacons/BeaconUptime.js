@@ -100,7 +100,10 @@ For Beacon of Virtue (C)
 class BeaconUptime extends Analyzer {
   constructor(...args) {
     super(...args);
-
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this._onBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this._offBuff);
 

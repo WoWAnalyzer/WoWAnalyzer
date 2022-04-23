@@ -35,7 +35,6 @@ class FailedBeaconTransfers extends Analyzer {
       // Normally we don't want optional statistics, but this is an exception as this giving any results is very rare.
       return null;
     }
-
     const lostBeaconHealing = this.owner.formatItemHealingDone(this.lostBeaconHealing);
 
     return (
