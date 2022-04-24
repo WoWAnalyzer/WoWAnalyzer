@@ -7,6 +7,7 @@ import {
   HolyPowerDetails,
   DivineToll,
   AshenHallow,
+  HolyPowerPerMinute,
 } from '@wowanalyzer/paladin';
 
 import Abilities from './modules/Abilities';
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+    holyPowerPerMinute: HolyPowerPerMinute,
 
     // Covenant Abilities
     divineToll: DivineToll,

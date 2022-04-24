@@ -123,6 +123,16 @@ const spells = {
     name: 'Slice and Dice',
     icon: 'ability_rogue_slicedice',
   },
+  SHIV: {
+    id: 5938,
+    name: 'Shiv',
+    icon: 'inv_throwingknife_04',
+  },
+  SHIV_DEBUFF: {
+    id: 319504,
+    name: 'Shiv',
+    icon: 'inv_throwingknife_04',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -408,6 +418,18 @@ const spells = {
     id: 245389,
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
+  },
+
+  // Sets
+  ASSA_ROGUE_TIER_28_2P_SET_BONUS: {
+    id: 364668,
+    name: 'Grudge Match',
+    icon: 'trade_engineering',
+  },
+  ASSA_ROGUE_TIER_28_4P_SET_BONUS: {
+    id: 363591,
+    name: 'Grudge Match',
+    icon: 'trade_engineering',
   },
 
   //Outlaw

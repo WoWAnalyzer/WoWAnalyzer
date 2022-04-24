@@ -482,6 +482,19 @@ export const rubensayshi: Contributor = {
   nickname: 'rubensayshi',
   github: 'rubensayshi',
 };
+export const nullDozzer: Contributor = {
+  nickname: 'nullDozzer',
+  github: 'oBusk',
+  discord: 'nullDozzer#1179',
+  avatar: avatar('nullDozzer-avatar.jpg'),
+  mains: [
+    {
+      name: 'Basically',
+      spec: SPECS.WINDWALKER_MONK,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/daggerspine/basically',
+    },
+  ],
+};
 export const nutspanther: Contributor = {
   nickname: 'nutspanther',
   github: 'nutspanther',

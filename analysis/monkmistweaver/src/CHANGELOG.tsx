@@ -5,6 +5,9 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 4, 22), <>Updated example log. </>, Abelito75),
+  change(date(2022, 4, 16), <>Added a Mystic Touch stat. </>, Abelito75),
+  change(date(2022, 4, 16), <>Enveloping Breath's value from Mist Wrap. </>, Abelito75),
   change(date(2022, 4, 2), <> Removing the fake four set cast event. </>, Abelito75),
   change(date(2022, 4, 2), <> Moved the location of 4set to ITEMS from COVENANTS</>, Abelito75),
   change(date(2022, 3, 29), <> Spirit of the Crane rebuilt for sanity and correctness </>, Abelito75),

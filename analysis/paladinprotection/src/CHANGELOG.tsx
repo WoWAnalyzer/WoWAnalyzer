@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, emallson, Hordehobbs, Zeboot, HolySchmidt } from 'CONTRIBUTORS';
+import { Adoraci, emallson, Hordehobbs, Zeboot, HolySchmidt, xizbow } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 15), <>Added Holy Power Generated Per Minute statistic </>, xizbow),
   change(date(2022, 2, 5), <>Improved APL handling of <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> when <SpellLink id={SPELLS.CRUSADERS_JUDGMENT_TALENT.id} /> is used.</>, emallson),
   change(date(2021, 11, 6), <>Added AoE condition for <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />.</>, emallson),
   change(date(2021, 10, 28), <>Clean up outdated suggestions and bump supported version to 9.1.5.</>, emallson),

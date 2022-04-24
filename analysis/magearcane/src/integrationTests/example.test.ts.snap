@@ -1023,14 +1023,25 @@ exports[`Arcane Mage integration test: example log ArcaneProdigy matches the sta
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=336873"
+            href="https://wowhead.com/spell=336873&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Arcane Prodigy
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
@@ -4882,14 +4893,25 @@ exports[`Arcane Mage integration test: example log DivertedEnergy matches the st
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=337136"
+            href="https://wowhead.com/spell=337136&ilvl=291"
             rel="noopener noreferrer"
             target="_blank"
           >
             Diverted Energy
           </a>
-           - Rank 
-          12
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            12
+          </dfn>
         </label>
         <div
           className="value"
@@ -5080,14 +5102,25 @@ exports[`Arcane Mage integration test: example log IreOfTheAscended matches the 
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=337058"
+            href="https://wowhead.com/spell=337058&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Ire of the Ascended
           </a>
-           - Rank 
-          11
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
