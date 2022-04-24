@@ -54,18 +54,27 @@ class SwiftPenitence extends Analyzer {
 
   onAtone(event: AtonementAnalyzerEvent) {
     // const { penanceBoltNumber } = event.damageEvent as DirtyDamageEvent; Is this required?
-    console.log(event);
+    let absorbedHealing = 0;
+    if ('sourceEvent' in event.healEvent && !('attackPower' in event.healEvent.sourceEvent)) {
+      // is a SpiritShellEvent
+      if ('absorbed' in event.healEvent.sourceEvent) {
+        absorbedHealing = event.healEvent.sourceEvent.absorbed || 0;
+      } else if (!('absorbed' in event.healEvent.sourceEvent)) {
+        absorbedHealing = event.healEvent.sourceEvent.amount || 0;
+      }
+    } else if (!('sourceEvent' in event.healEvent)) {
+      // is a healEvent
+      absorbedHealing = event.healEvent.absorbed || 0;
+    }
     if (
       event?.damageEvent &&
       IsPenanceDamageEvent(event.damageEvent) &&
       event.damageEvent.penanceBoltNumber === 0
     ) {
       const totalHealing =
-        event.healEvent.amount + (event.healEvent.overheal || 0) + (event.healEvent.absorbed || 0);
+        event.healEvent.amount + (event.healEvent.overheal || 0) + absorbedHealing;
       const adjustedHealing =
-        event.healEvent.amount +
-        (event.healEvent.absorbed || 0) -
-        totalHealing / (1 + this.conduitIncrease);
+        event.healEvent.amount + absorbedHealing - totalHealing / (1 + this.conduitIncrease);
       if (adjustedHealing >= 0) {
         this.bonusSwiftPenitenceAtoneHealing += adjustedHealing;
       }
