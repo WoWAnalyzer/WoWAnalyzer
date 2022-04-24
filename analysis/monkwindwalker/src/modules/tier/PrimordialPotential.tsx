@@ -132,12 +132,7 @@ class PrimordialPotential extends Analyzer {
     }
 
     // Need to figure out which casted ability causes this damage
-    const abilityId =
-      // Special case for Jade Ignition which is empowered if the SCK is empowered
-      // but should not be in the damageToCast map
-      damageId === SPELLS.JADE_IGNITION_DAMAGE.id
-        ? SPELLS.SPINNING_CRANE_KICK.id
-        : damageToCast[damageId]?.id ?? damageId;
+    const abilityId = damageToCast[damageId]?.id ?? damageId;
 
     const isPowered = this.wasLastCastPowered.has(abilityId);
 
