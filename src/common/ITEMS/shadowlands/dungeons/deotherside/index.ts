@@ -24,6 +24,11 @@ const items: ItemList = {
     name: 'Inscrutable Quantum Device',
     icon: 'inv_trinket_80_titan02a',
   },
+  SOLEAHS_SECRET_TECHNIQUE: {
+    id: 190958,
+    name: "So'leah's Secret Technique",
+    icon: 'inv_60pvp_trinket1d',
+  },
   OVERWHELMING_POWER_CRYSTAL: {
     id: 179342,
     name: 'Overwhelming Power Crystal',

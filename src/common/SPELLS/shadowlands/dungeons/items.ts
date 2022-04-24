@@ -57,6 +57,17 @@ const dungeonItemSpells = {
     name: 'Anima Field',
     icon: 'inv_trinket_oribos_01_silver',
   },
+  // Tazavesh, the Veiled Market
+  SOLEAHS_SECRET_TECHNIQUE_OWN_BUFF: {
+    id: 368510,
+    name: "So'leah's Secret Technique",
+    icon: 'inv_60pvp_trinket1d',
+  },
+  SOLEAHS_SECRET_TECHNIQUE_FRIEND_BUFF: {
+    id: 368512,
+    name: "So'leah's Secret Technique",
+    icon: 'inv_60pvp_trinket1d',
+  },
 } as const;
 
 export default dungeonItemSpells;

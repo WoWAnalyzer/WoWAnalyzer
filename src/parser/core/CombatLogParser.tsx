@@ -29,6 +29,7 @@ import CombatPotion from '../shadowlands/modules/items/CombatPotion';
 import DarkmoonDeckVoracity from '../shadowlands/modules/items/crafted/DarkmoonDeckVoracity';
 import InscrutableQuantumDevice from '../shadowlands/modules/items/dungeons/InscrutableQuantumDevice';
 import OverchargedAnimaBattery from '../shadowlands/modules/items/dungeons/OverchargedAnimaBattery';
+import SoleahsSecretTechnique from '../shadowlands/modules/items/dungeons/SoleahsSecretTechnique';
 import EnchantChecker from '../shadowlands/modules/items/EnchantChecker';
 import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
 import FoodChecker from '../shadowlands/modules/items/FoodChecker';
@@ -225,6 +226,7 @@ class CombatLogParser {
     // Dungeons
     inscrutableQuantumDevice: InscrutableQuantumDevice,
     overchargedAnimaBattery: OverchargedAnimaBattery,
+    soleahsSecretTechnique: SoleahsSecretTechnique,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
