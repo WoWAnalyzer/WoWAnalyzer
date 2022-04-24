@@ -46,6 +46,21 @@ const dungeonItemSpells = {
     name: 'Inscrutable Quantum Device',
     icon: 'inv_trinket_80_titan02a',
   },
+  SHADOWGRASP_TOTEM_SUMMON: {
+    id: 331523,
+    name: 'Shadowgrasp Totem',
+    icon: 'inv_alchemy_83_alchemiststone02',
+  },
+  SHADOWGRASP_TOTEM_DAMAGE: {
+    id: 331537,
+    name: 'Shadowgrasp Totem',
+    icon: 'inv_alchemy_83_alchemiststone02',
+  },
+  SHADOWGRASP_TOTEM_HEAL: {
+    id: 329872,
+    name: 'Shadowgrasp Totem',
+    icon: 'inv_alchemy_83_alchemiststone02',
+  },
   //Spires of Ascension
   OVERCHARGED_ANIMA_BATTERY_BUFF: {
     id: 345530,
