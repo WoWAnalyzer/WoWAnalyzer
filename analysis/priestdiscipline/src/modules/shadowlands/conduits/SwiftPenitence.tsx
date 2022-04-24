@@ -18,9 +18,9 @@ import {
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
 import Penance from '../../spells/Penance';
 
-interface DirtyDamageEvent extends DamageEvent {
-  penanceBoltNumber?: number;
-}
+// interface DirtyDamageEvent extends DamageEvent {
+//   penanceBoltNumber?: number;
+// }
 
 interface DirtyHealEvent extends HealEvent {
   penanceBoltNumber?: number;
@@ -53,8 +53,13 @@ class SwiftPenitence extends Analyzer {
   }
 
   onAtone(event: AtonementAnalyzerEvent) {
-    const { penanceBoltNumber } = event.damageEvent as DirtyDamageEvent;
-    if (event.damageEvent.ability.name === 'Penance' && event.damageEvent.penanceBoltNumber === 0) {
+    // const { penanceBoltNumber } = event.damageEvent as DirtyDamageEvent; Is this required?
+    console.log(event);
+    if (
+      event?.damageEvent &&
+      IsPenanceDamageEvent(event.damageEvent) &&
+      event.damageEvent.penanceBoltNumber === 0
+    ) {
       const totalHealing =
         event.healEvent.amount + (event.healEvent.overheal || 0) + (event.healEvent.absorbed || 0);
       const adjustedHealing =
@@ -64,9 +69,6 @@ class SwiftPenitence extends Analyzer {
       if (adjustedHealing >= 0) {
         this.bonusSwiftPenitenceAtoneHealing += adjustedHealing;
       }
-    }
-    if (typeof penanceBoltNumber !== 'number') {
-      return;
     }
   }
 
