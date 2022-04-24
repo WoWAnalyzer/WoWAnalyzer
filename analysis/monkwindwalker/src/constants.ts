@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 
-import { castToDamage } from './castDamage';
+import { castDamageMap } from './castDamage';
 
 // Based on SpellData for Hit Combo and Serenity
 export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
@@ -133,9 +133,7 @@ export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
   // Include both all original cast events
   ...ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER,
   // And all known damage spells
-  ...ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER.map(
-    (ability) => castToDamage[ability.id] || ability,
-  ).flat(),
+  ...ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER.map((a) => castDamageMap.get(a) || []).flat(),
   SPELLS.EYE_OF_THE_TIGER_HEAL,
   SPELLS.JADE_IGNITION_DAMAGE,
 ];
@@ -147,8 +145,8 @@ export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
  * https://docs.google.com/spreadsheets/d/1QvAtBtaFKaAuhy9iGiMmEzCd--kuwL3oWIDwny6GEoQ/edit
  */
 export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER_NAIVELY: Spell[] = [
-  ...castToDamage[SPELLS.CHI_BURST_TALENT.id],
-  ...castToDamage[SPELLS.CHI_WAVE_TALENT.id],
+  ...(castDamageMap.get(SPELLS.CHI_BURST_TALENT) || []),
+  ...(castDamageMap.get(SPELLS.CHI_WAVE_TALENT) || []),
   SPELLS.EYE_OF_THE_TIGER_HEAL,
   SPELLS.JADE_IGNITION_DAMAGE,
 ];
