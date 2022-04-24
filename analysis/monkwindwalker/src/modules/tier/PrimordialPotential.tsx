@@ -43,6 +43,7 @@ const PP_MOD = 0.22;
  * Example logs:
  * - https://www.warcraftlogs.com/reports/1C4JhKbgyvRmQnX3#fight=31&type=damage-done&source=1
  * - JI+PP https://www.warcraftlogs.com/reports/mtvQXwYWJGFKbn3p/#fight=5&type=damage-done&source=257
+ * - Faeline https://www.warcraftlogs.com/reports/nbg2DqdJQhryfApC/#fight=12&type=damage-done&source=82
  */
 class PrimordialPotential extends Analyzer {
   numberPoweredCasts = 0;
