@@ -126,8 +126,8 @@ export const ABILITIES_THAT_CONSUME_PRIMORDIAL_POWER: Spell[] = [
  * Damage that is affected by the T28 4-set bonus
  * "Primordial Power"
  * https://www.wowhead.com/spell=363924/primordial-power
- * Seems to match DAMAGE_AFFECTED_BY_MASTERY but excludes
- * Expel Harm
+ *
+ * https://docs.google.com/spreadsheets/d/1QvAtBtaFKaAuhy9iGiMmEzCd--kuwL3oWIDwny6GEoQ/edit
  */
 export const DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER: Spell[] = [
   // Include both all original cast events
