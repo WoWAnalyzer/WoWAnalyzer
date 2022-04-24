@@ -21,6 +21,31 @@ const dungeonItemSpells = {
     name: 'Inscrutable Quantum Device',
     icon: 'inv_trinket_80_titan02a',
   },
+  INSCRUTABLE_QUANTUM_DEVICE_HEAL: {
+    id: 330364,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
+  INSCRUTABLE_QUANTUM_DEVICE_MANA: {
+    id: 330376,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
+  INSCRUTABLE_QUANTUM_DEVICE_CC_BREAK: {
+    id: 330363,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
+  INSCRUTABLE_QUANTUM_DEVICE_DECOY: {
+    id: 330372,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
+  INSCRUTABLE_QUANTUM_DEVICE_EXECUTE: {
+    id: 330373,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
   //Spires of Ascension
   OVERCHARGED_ANIMA_BATTERY_BUFF: {
     id: 345530,

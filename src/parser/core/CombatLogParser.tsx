@@ -27,6 +27,7 @@ import Config from '../Config';
 import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';
 import CombatPotion from '../shadowlands/modules/items/CombatPotion';
 import DarkmoonDeckVoracity from '../shadowlands/modules/items/crafted/DarkmoonDeckVoracity';
+import InscrutableQuantumDevice from '../shadowlands/modules/items/dungeons/InscrutableQuantumDevice';
 import OverchargedAnimaBattery from '../shadowlands/modules/items/dungeons/OverchargedAnimaBattery';
 import EnchantChecker from '../shadowlands/modules/items/EnchantChecker';
 import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
@@ -222,6 +223,7 @@ class CombatLogParser {
     effusiveAnimaAccelerator: EffusiveAnimaAccelerator,
 
     // Dungeons
+    inscrutableQuantumDevice: InscrutableQuantumDevice,
     overchargedAnimaBattery: OverchargedAnimaBattery,
   };
   // Override this with spec specific modules when extending
