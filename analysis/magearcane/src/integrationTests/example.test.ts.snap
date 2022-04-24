@@ -5072,6 +5072,117 @@ Array [
 ]
 `;
 
+exports[`Arcane Mage integration test: example log InscrutableQuantumDevice matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1001}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="rareitem-link-text"
+            href="https://wowhead.com/item=179350&bonus=7781:7359:6652:1576:6646"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Inscrutable Quantum Device"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+            />
+             
+            Inscrutable Quantum Device
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          ??? Effects
+        </div>
+      </div>
+      <div
+        className="pad"
+      >
+        <small>
+          1
+           total uses
+        </small>
+        <div
+          className="donut-chart"
+        >
+          <div
+            className="legend"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#665191",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=330380&ilvl=262"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+                  />
+                   
+                  Mastery
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  100
+                  %
+                </dfn>
+              </div>
+            </div>
+          </div>
+          <div
+            className="chart"
+          >
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Arcane Mage integration test: example log IreOfTheAscended matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
