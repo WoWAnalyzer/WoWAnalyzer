@@ -1,4 +1,5 @@
 export { default as Icon } from './Icon';
+export { default as ConduitLink } from './ConduitLink';
 export { default as SpellLink } from './SpellLink';
 export { default as SpellIcon } from './SpellIcon';
 export { default as ItemLink } from './ItemLink';
