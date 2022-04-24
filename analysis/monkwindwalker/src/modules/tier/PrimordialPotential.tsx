@@ -142,7 +142,8 @@ class PrimordialPotential extends Analyzer {
 
     return (
       <div className="pad">
-        <div>Breakdown of {this.numberPoweredCasts} empowered casts</div>
+        <div>Number of empowered casts:</div>
+        <small>{this.numberPoweredCasts} total</small>
         <DonutChart items={ratioChartItems} />
       </div>
     );
