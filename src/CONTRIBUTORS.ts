@@ -1887,3 +1887,8 @@ export const xepheris: Contributor = {
     },
   ],
 };
+
+export const Hana: Contributor = {
+  nickname: 'Hana',
+  github: 'OisinOD',
+};

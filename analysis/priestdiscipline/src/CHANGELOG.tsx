@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Khadaj, Ogofo, Oratio, Reglitch, VMakaev, Zeboot, jasper } from 'CONTRIBUTORS';
+import { Adoraci, Khadaj, Ogofo, Oratio, Reglitch, VMakaev, Zeboot, jasper, Hana } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 4, 24), <>Support for <SpellLink id={SPELLS.SWIFT_PENITENCE.id} /> </>, Hana, ),
   change(date(2021, 4, 11), <>Updated <SpellLink id={SPELLS.GUARDIAN_FAERIE.id} /> damage reduction to 20% and corrected DR calculation.</>, Adoraci),
   change(date(2021, 4, 9), <>Support for <SpellLink id={SPELLS.CLARITY_OF_MIND.id} /></>, Reglitch),
   change(date(2021, 4, 8), <>Support for <SpellLink id={SPELLS.SHATTERED_PERCEPTIONS.id} /></>, Reglitch),
