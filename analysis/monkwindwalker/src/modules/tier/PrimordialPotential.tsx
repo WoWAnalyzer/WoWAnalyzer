@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import { damageToCast } from '../../castDamage';
 import {
   ABILITIES_AFFECTED_BY_PRIMORDIAL_POWER,
   DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER,
@@ -41,6 +42,8 @@ class PrimordialPotential extends Analyzer {
   /** IDs of abilities casts that was cast during Primordial Power */
   poweredCasts: { [spellID: number]: number } = {};
   totalDamage = 0;
+  /** If id is in Set, the last cast was B00STED, if any unpowered cast is detected, remove from set */
+  wasLastCastPowered = new Set<number>();
 
   constructor(options: Options) {
     super(options);
@@ -54,15 +57,20 @@ class PrimordialPotential extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER),
+      Events.damage
+        .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
+        .spell(DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER),
       this.onDamage,
     );
   }
 
   onCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
+      this.wasLastCastPowered.delete(event.ability.guid);
       return;
     }
+
+    this.wasLastCastPowered.add(event.ability.guid);
 
     this.numberPoweredCasts += 1;
 
@@ -91,11 +99,16 @@ class PrimordialPotential extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.PRIMORDIAL_POWER_BUFF.id)) {
-      return;
-    }
+    const damageId = event.ability.guid;
 
-    this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
+    // Need to figure out which casted ability causes this damage
+    const abilityId = damageToCast[damageId]?.id ?? damageId;
+
+    const isPowered = this.wasLastCastPowered.has(abilityId);
+
+    if (isPowered) {
+      this.totalDamage += calculateEffectiveDamage(event, PP_MOD);
+    }
   }
 
   renderCastRatioChart() {
