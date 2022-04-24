@@ -201,6 +201,7 @@ class InscrutableQuantumDevice extends Analyzer {
   }
 
   statistic() {
+    const totalCount = this.totalCount;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
@@ -209,9 +210,8 @@ class InscrutableQuantumDevice extends Analyzer {
       >
         <BoringItemValueText item={this.item}>??? Effects</BoringItemValueText>
         <div className="pad">
-          <small>{this.totalCount} total uses</small>
-
-          <DonutChart items={this.donutChartItems} />
+          <small>{totalCount} total uses</small>
+          {totalCount > 0 && <DonutChart items={this.donutChartItems} />}
         </div>
       </Statistic>
     );
