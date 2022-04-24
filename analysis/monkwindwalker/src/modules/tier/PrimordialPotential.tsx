@@ -37,7 +37,13 @@ const abilityColors = {
 /** _After 10 offensive abilities, your next 3 offensive abilities deal an additional 22% damage._ */
 const PP_MOD = 0.22;
 
-/** Monk Tier 28 "Garb of the Grand Upwelling" 4-Set Bonus for Windwalker */
+/**
+ * Monk Tier 28 "Garb of the Grand Upwelling" 4-Set Bonus for Windwalker
+ *
+ * Example logs:
+ * - https://www.warcraftlogs.com/reports/1C4JhKbgyvRmQnX3#fight=31&type=damage-done&source=1
+ * - JI+PP https://www.warcraftlogs.com/reports/mtvQXwYWJGFKbn3p/#fight=5&type=damage-done&source=257
+ */
 class PrimordialPotential extends Analyzer {
   numberPoweredCasts = 0;
   /** IDs of abilities casts that was cast during Primordial Power */
