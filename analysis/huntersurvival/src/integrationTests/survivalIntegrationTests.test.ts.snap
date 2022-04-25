@@ -4294,7 +4294,7 @@ exports[`Survival Hunter integration test: Multi Target ShadowgraspTotem matches
             2
           </span>
           /
-          1
+          2
            use
           s
           <div
@@ -4336,45 +4336,6 @@ exports[`Survival Hunter integration test: Multi Target ShadowgraspTotem matches
                 43.66
                 %
               </dfn>
-            </small>
-          </div>
-          <div
-            className="value"
-          >
-            <img
-              alt="Healing"
-              className="icon"
-              src="/img/healing.png"
-            />
-             
-            0
-             HP 
-            <small>
-              0
-               heals
-            </small>
-          </div>
-          <div
-            className="value"
-          >
-            <a
-              className="epicitem-link-text"
-              href="https://wowhead.com/item=179356&bonus=7210:6652:1501:5861:6646"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               
-              <img
-                alt="Shadowgrasp Totem"
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_83_alchemiststone02.jpg"
-              />
-            </a>
-             
-            0
-             
-            <small>
-              Seconds cooldown reduced
             </small>
           </div>
         </div>
