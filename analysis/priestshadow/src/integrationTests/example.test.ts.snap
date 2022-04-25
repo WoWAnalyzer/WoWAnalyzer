@@ -5134,15 +5134,22 @@ exports[`Shadow Priest integration test: example log InscrutableQuantumDevice ma
         <div
           className="value"
         >
-          ??? Effects
+          <span
+            className="DeathKnight"
+          >
+            1
+          </span>
+          /
+          2
+           use
+          s
         </div>
       </div>
       <div
         className="pad"
       >
         <small>
-          1
-           total uses
+          ??? Effects
         </small>
         <div
           className="donut-chart"
