@@ -144,7 +144,14 @@ class ShadowgraspTotem extends Analyzer {
             <ItemDamageDone amount={this.totalDamage} />
             <small style={{ display: 'block' }}>
               <TooltipElement
-                content={<>Average tickrate {formatNumber(this.averageTickRate)}ms</>}
+                content={
+                  <>
+                    The DoT is affected by haste, and ticked, in average, every{' '}
+                    {formatNumber(this.averageTickRate)}ms, which is an effective haste rate of{' '}
+                    {formatPercentage(this.effectiveHaste)}% of the original tickrate of{' '}
+                    {DEFAULT_TICK_RATE_MS / 1000}s
+                  </>
+                }
               >
                 Effective haste {formatPercentage(this.effectiveHaste)}%
               </TooltipElement>
