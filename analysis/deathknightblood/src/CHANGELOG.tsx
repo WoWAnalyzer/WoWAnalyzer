@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 4, 25), <>More accurate rune cooldown tracking for <SpellLink id={SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id} /> and CDR for <SpellLink id={SPELLS.BLOOD_TAP.id} />.</>, Tialyss),
+  change(date(2022, 4, 25), <>More accurate rune cooldown tracking for <SpellLink id={SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id} /> and CDR for <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} />.</>, Tialyss),
   change(date(2022, 4, 6), <>Added <SpellLink id={SPELLS.ENDLESS_RUNE_WALTZ.id} /> and updated <SpellLink id={SPELLS.DEATHS_DUE.id}/> module for <SpellLink id={SPELLS.RAMPANT_TRANSFERENCE.id}/> </>, Tialyss),
   change(date(2022, 3, 26), <>Added CDR tracking for <SpellLink id={SPELLS.CRIMSON_RUNE_WEAPON.id} /> and removed suggestions to only use <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> in AOE</>, Tialyss),
   change(date(2021, 8, 19), <>Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
