@@ -4290,7 +4290,11 @@ exports[`Survival Hunter integration test: Multi Target ShadowgraspTotem matches
         <div
           className="value"
         >
-          2
+          <span>
+            2
+          </span>
+          /
+          1
            use
           s
           <div
