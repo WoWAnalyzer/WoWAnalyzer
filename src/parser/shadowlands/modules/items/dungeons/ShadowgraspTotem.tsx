@@ -158,14 +158,14 @@ class ShadowgraspTotem extends Analyzer {
               </TooltipElement>
             </small>
           </div>
-          <div className="value">
-            <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
-            {formatNumber(this.totalHealing)} HP <small>{this.numberHeals} heals</small>
-          </div>
-          <div className="value">
-            <ItemIcon id={this.item.id} details={this.item} /> {this.cooldownReductionSeconds}{' '}
-            <small>Seconds cooldown reduced</small>
-          </div>
+          {this.numberHeals > 0 && (
+            <div className="value">
+              <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
+              {formatNumber(this.totalHealing)} HP <small>{this.numberHeals} heals</small>
+              <ItemIcon id={this.item.id} details={this.item} /> {this.cooldownReductionSeconds}{' '}
+              <small>Seconds cooldown reduced</small>
+            </div>
+          )}
         </BoringItemValueText>
       </Statistic>
     );
