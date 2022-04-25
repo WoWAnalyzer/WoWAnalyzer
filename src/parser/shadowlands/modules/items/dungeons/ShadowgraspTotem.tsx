@@ -1,7 +1,7 @@
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { ItemIcon, ItemLink } from 'interface';
+import { ItemIcon, ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent, Item } from 'parser/core/Events';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -11,6 +11,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const COOLDOWN_REDUCTION_SECONDS = 15;
+const DEFAULT_TICK_RATE_MS = 1_000;
+
+function calculateHaste(baseTickRate: number, currentTickRate: number) {
+  return baseTickRate / currentTickRate - 1;
+}
 
 /**
  * Track damage, healing and cooldown reset by Shadowgrasp Totem
@@ -18,14 +23,18 @@ const COOLDOWN_REDUCTION_SECONDS = 15;
  * ## Example log:
  *
  * - https://www.warcraftlogs.com/reports/fZGa6X23CWbm9v8B#fight=9&type=damage-done&source=1
+ * - https://www.warcraftlogs.com/reports/k8pAznjf3wJKYhZa#fight=7&type=damage-done&source=673
  */
 class ShadowgraspTotem extends Analyzer {
   private item: Item;
 
+  /** Timestamps of damage events since the last cast */
+  private currentDot?: number[];
+  /** All timestamps of all casts */
+  private dots: number[][] = [];
   private numberCasts = 0;
   private totalDamage = 0;
-  private totalHealing = 0;
-  private numberHeals = 0;
+  private healing: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -52,15 +61,45 @@ class ShadowgraspTotem extends Analyzer {
 
   onCast(event: CastEvent) {
     this.numberCasts += 1;
+    this.dots.push((this.currentDot = []));
   }
 
   onDamage(event: DamageEvent) {
+    this.currentDot?.push(event.timestamp);
     this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
   }
 
   onHeal(event: HealEvent) {
-    this.numberHeals += 1;
-    this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
+    this.healing.push((event.amount || 0) + (event.absorbed || 0));
+  }
+
+  private get numberHeals() {
+    return this.healing.length;
+  }
+
+  private get totalHealing() {
+    return this.healing.reduce((total, healing) => total + healing, 0);
+  }
+
+  private get averageHealing() {
+    return this.healing.reduce((average, healing) => average + healing, 0) / this.numberHeals;
+  }
+
+  private get averageTickRate() {
+    return this.dots
+      .map((timestamps) =>
+        timestamps.reduce(
+          (deltas, timestamp, i, array) =>
+            i === 0 ? deltas : deltas.concat(timestamp - array[i - 1]),
+          [] as number[],
+        ),
+      )
+      .flat()
+      .reduce((average, tickRate, i, array) => average + tickRate / array.length, 0);
+  }
+
+  private get effectiveHaste() {
+    return calculateHaste(DEFAULT_TICK_RATE_MS, this.averageTickRate);
   }
 
   private get cooldownReductionSeconds() {
@@ -80,20 +119,30 @@ class ShadowgraspTotem extends Analyzer {
             damage in the {formatNumber(this.numberCasts)} times it was used.
             <br />
             Targets died {this.numberHeals} times, which healed a total of{' '}
-            {formatNumber(this.totalHealing)} and reduced the cooldown by a total of{' '}
-            {this.cooldownReductionSeconds} seconds.
+            {formatNumber(this.totalHealing)} (average {formatNumber(this.averageHealing)} HP) and
+            reduced the cooldown by a total of {this.cooldownReductionSeconds} seconds.
           </>
         }
       >
         <BoringItemValueText item={this.item}>
-          <ItemDamageDone amount={this.totalDamage} />
-          <div>
+          {this.numberCasts} use{this.numberCasts > 1 ? 's' : ''}
+          <div className="value" style={{ paddingBottom: '0.5em' }}>
+            <ItemDamageDone amount={this.totalDamage} />
+            <small style={{ display: 'block' }}>
+              <TooltipElement
+                content={<>Average tickrate {formatNumber(this.averageTickRate)}ms</>}
+              >
+                Effective haste {formatPercentage(this.effectiveHaste)}%
+              </TooltipElement>
+            </small>
+          </div>
+          <div className="value">
             <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
             {formatNumber(this.totalHealing)} HP <small>{this.numberHeals} heals</small>
           </div>
-          <div>
+          <div className="value">
             <ItemIcon id={this.item.id} details={this.item} /> {this.cooldownReductionSeconds}{' '}
-            <small>Seconds reduced</small>
+            <small>Seconds cooldown reduced</small>
           </div>
         </BoringItemValueText>
       </Statistic>
