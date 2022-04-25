@@ -147,7 +147,7 @@ class ShadowgraspTotem extends Analyzer {
               <TooltipElement
                 content={
                   <>
-                    The DoT is affected by haste, and ticked, in average, every{' '}
+                    The DoT is affected by haste, and ticked in average, every{' '}
                     {formatNumber(this.averageTickRate)}ms, which is an effective haste rate of{' '}
                     {formatPercentage(this.effectiveHaste)}% of the original tickrate of{' '}
                     {DEFAULT_TICK_RATE_MS / 1000}s
