@@ -3,6 +3,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { ItemIcon, ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events, { CastEvent, DamageEvent, HealEvent, Item } from 'parser/core/Events';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -11,6 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const COOLDOWN_REDUCTION_SECONDS = 15;
+const DEFAULT_COOLDOWN_SECONDS = 60 * 2;
 const DEFAULT_TICK_RATE_MS = 1_000;
 
 function calculateHaste(baseTickRate: number, currentTickRate: number) {
@@ -82,7 +84,7 @@ class ShadowgraspTotem extends Analyzer {
   }
 
   private get averageHealing() {
-    return this.healing.reduce((average, healing) => average + healing, 0) / this.numberHeals;
+    return this.totalHealing / this.numberHeals;
   }
 
   private get averageTickRate() {
@@ -107,6 +109,15 @@ class ShadowgraspTotem extends Analyzer {
     return this.numberHeals * COOLDOWN_REDUCTION_SECONDS;
   }
 
+  private get maxCasts() {
+    return Math.floor(
+      calculateMaxCasts(
+        DEFAULT_COOLDOWN_SECONDS,
+        this.owner.fightDuration + this.cooldownReductionSeconds * 1000,
+      ),
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -125,7 +136,10 @@ class ShadowgraspTotem extends Analyzer {
         }
       >
         <BoringItemValueText item={this.item}>
-          {this.numberCasts} use{this.numberCasts > 1 ? 's' : ''}
+          <span className={this.numberCasts < 0.65 * this.maxCasts ? 'DeathKnight' : undefined}>
+            {this.numberCasts}
+          </span>
+          /{this.maxCasts} use{this.numberCasts > 1 ? 's' : ''}
           <div className="value" style={{ paddingBottom: '0.5em' }}>
             <ItemDamageDone amount={this.totalDamage} />
             <small style={{ display: 'block' }}>
