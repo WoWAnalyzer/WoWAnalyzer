@@ -110,7 +110,8 @@ class ShadowgraspTotem extends Analyzer {
   }
 
   private get maxCasts() {
-    return Math.floor(
+    // It should still be on cooldown when the fight is over hopefully
+    return Math.ceil(
       calculateMaxCasts(
         DEFAULT_COOLDOWN_SECONDS,
         this.owner.fightDuration + this.cooldownReductionSeconds * 1000,
