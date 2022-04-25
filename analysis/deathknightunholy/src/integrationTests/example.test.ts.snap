@@ -4303,7 +4303,7 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
           className="flex-main value"
         >
           <div>
-            12.72 %
+            28.50 %
           </div>
           <small>
             Runes overcapped
@@ -4349,6 +4349,28 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
     </div>
   </div>
 </div>
+`;
+
+exports[`Unholy Death Knight integration test: example log RuneTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_frozenruneweapon",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You overcapped 
+      28.50
+      % of your runes. Try to always have at least 3 runes on cooldown.
+    </React.Fragment>,
+    "spell": undefined,
+    "stat": <React.Fragment>
+      {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"28.50"}}
+       (
+      &lt;15.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log RunicPowerDetails matches the statistic snapshot 1`] = `
@@ -5656,7 +5678,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5680,8 +5702,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "54.94152670469066%",
                 }
               }
             />
@@ -5774,7 +5796,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  87.28%
+                  71.50%
                    
                    
                 </div>
@@ -5794,9 +5816,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "54.94152670469066%",
                       }
                     }
                   />

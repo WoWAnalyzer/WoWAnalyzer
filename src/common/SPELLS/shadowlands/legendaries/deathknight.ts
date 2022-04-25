@@ -19,6 +19,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: '70_inscription_vantus_rune_nightmare',
     bonusID: 6941,
   },
+  CRIMSON_RUNE_WEAPON_BUFF: {
+    id: 334526,
+    name: 'Crimson Rune Weapon',
+    icon: '70_inscription_vantus_rune_nightmare',
+  },
   RAMPANT_TRANSFERENCE: {
     id: 353882,
     name: 'Rampant Transference',
