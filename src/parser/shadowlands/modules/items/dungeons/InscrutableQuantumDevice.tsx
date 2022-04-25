@@ -2,12 +2,15 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events, { ApplyBuffEvent, CastEvent, Item } from 'parser/core/Events';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+
+const COOLDOWN_SECONDS = 180 as const;
 
 // https://www.wowhead.com/item=179350/inscrutable-quantum-device?bonus=6805:1472#comments:id=3243706
 
@@ -130,6 +133,10 @@ class InscrutableQuantumDevice extends Analyzer {
     return Object.values(this.counts).reduce((a, b) => a + b, 0);
   }
 
+  private get maxCasts() {
+    return Math.ceil(calculateMaxCasts(COOLDOWN_SECONDS, this.owner.fightDuration));
+  }
+
   private get donutChartItems() {
     return [
       {
@@ -208,9 +215,14 @@ class InscrutableQuantumDevice extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringItemValueText item={this.item}>??? Effects</BoringItemValueText>
+        <BoringItemValueText item={this.item}>
+          <span className={totalCount < this.maxCasts * 0.65 ? 'DeathKnight' : undefined}>
+            {totalCount}
+          </span>
+          /{this.maxCasts} use{totalCount > 0 ? 's' : ''}
+        </BoringItemValueText>
         <div className="pad">
-          <small>{totalCount} total uses</small>
+          <small>??? Effects</small>
           {totalCount > 0 && <DonutChart items={this.donutChartItems} />}
         </div>
       </Statistic>
