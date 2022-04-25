@@ -25,7 +25,7 @@ function calculateHaste(baseTickRate: number, currentTickRate: number) {
  * ## Example log:
  *
  * - https://www.warcraftlogs.com/reports/fZGa6X23CWbm9v8B#fight=9&type=damage-done&source=1
- * - https://www.warcraftlogs.com/reports/k8pAznjf3wJKYhZa#fight=7&type=damage-done&source=673
+ * - https://www.warcraftlogs.com/reports/twQhDxWCZN2jPbnp#fight=6&type=damage-done&source=13
  */
 class ShadowgraspTotem extends Analyzer {
   private item: Item;
