@@ -64,7 +64,10 @@ class SwiftPenitence extends Analyzer {
       }
     } else {
       // is a healEvent
-      absorbedHealing = event.healEvent.absorbed || 0;
+      if (!('sourceEvent' in event.healEvent)) {
+        // is a healEvent
+        absorbedHealing = event.healEvent.absorbed || 0;
+      }
     }
     if (
       event?.damageEvent &&
