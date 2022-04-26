@@ -6,6 +6,7 @@ import { Adoraci, joshinator, Khazak, LeoZhekov, Pendragon, Tialyss } from 'CONT
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 26), <>Added <SpellLink id={SPELLS.ETERNAL_HUNGER.id} />.</>, Tialyss),
   change(date(2022, 4, 25), <>More accurate rune cooldown tracking for <SpellLink id={SPELLS.RUNIC_CORRUPTION.id} />.</>, Tialyss),
   change(date(2022, 2, 22), <>Changed cooldown reduction tracking for <SpellLink id={SPELLS.CONVOCATION_OF_THE_DEAD.id} /> to flat CDR per rank to reflect 9.2 changes</>, Khazak),
   change(date(2021, 8, 19), <>Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),
