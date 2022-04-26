@@ -1151,13 +1151,16 @@ exports[`Beast Mastery Hunter integration test: Multi Target Bloodletting matche
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=341440"
+            href="https://wowhead.com/spell=341440&ilvl=200"
             rel="noopener noreferrer"
             target="_blank"
           >
             Bloodletting
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           5
         </label>
         <div
@@ -5507,13 +5510,16 @@ exports[`Beast Mastery Hunter integration test: Multi Target ReversalOfFortune m
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=339495"
+            href="https://wowhead.com/spell=339495&ilvl=213"
             rel="noopener noreferrer"
             target="_blank"
           >
             Reversal of Fortune
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           6
         </label>
         <div
@@ -10736,13 +10742,16 @@ exports[`Beast Mastery Hunter integration test: Single Target Bloodletting match
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=341440"
+            href="https://wowhead.com/spell=341440&ilvl=200"
             rel="noopener noreferrer"
             target="_blank"
           >
             Bloodletting
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           5
         </label>
         <div

@@ -6,8 +6,8 @@ import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
+import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS, { Spec } from 'game/SPECS';
-import TALENT_ROWS from 'game/TALENT_ROWS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import {
   Buff,
@@ -116,48 +116,16 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentsByRow: { [key: number]: number } = {};
+  _talentsByRow: Set<number> = new Set<number>();
 
   _parseTalents(talents: Spell[]) {
     talents.forEach(({ id }, index: number) => {
-      this._talentsByRow[index] = id;
+      this._talentsByRow.add(id);
     });
   }
 
   get talents() {
     return Object.values(this._talentsByRow);
-  }
-
-  _getTalent(row: number) {
-    return this._talentsByRow[row];
-  }
-
-  get lv15Talent() {
-    return this._getTalent(TALENT_ROWS.LV15);
-  }
-
-  get lv25Talent() {
-    return this._getTalent(TALENT_ROWS.LV25);
-  }
-
-  get lv30Talent() {
-    return this._getTalent(TALENT_ROWS.LV30);
-  }
-
-  get lv35Talent() {
-    return this._getTalent(TALENT_ROWS.LV35);
-  }
-
-  get lv40Talent() {
-    return this._getTalent(TALENT_ROWS.LV40);
-  }
-
-  get lv45Talent() {
-    return this._getTalent(TALENT_ROWS.LV45);
-  }
-
-  get lv50Talent() {
-    return this._getTalent(TALENT_ROWS.LV50);
   }
 
   hasTalent(spell: number | Spell) {
@@ -166,11 +134,7 @@ class Combatant extends Entity {
     if (spellObj.id) {
       spellId = spellObj.id;
     }
-    return Boolean(
-      Object.keys(this._talentsByRow).find(
-        (row: string) => this._talentsByRow[Number(row)] === spellId,
-      ),
-    );
+    return this._talentsByRow.has(spellId as number);
   }
 
   // endregion
@@ -265,8 +229,17 @@ class Combatant extends Entity {
     };
 
     conduits.forEach((conduit: Conduit) => {
-      conduit.itemLevel = conduit.rank; // conduit "rank" passed in is actually its ilvl
-      conduit.rank = ilvlToRankMapping[conduit.rank];
+      if (conduit.itemLevel == null) {
+        // Conduit has not been parsed to ilvl/rank, do it now
+        conduit.itemLevel = conduit.rank;
+        conduit.rank = ilvlToRankMapping[conduit.rank];
+
+        if (conduit.rank == null) {
+          // If rank is undefined after parsing, something has gone horribly wrong
+          console.error('Conduit rank not found', conduit);
+        }
+      }
+
       this.conduitsByConduitID[conduit.spellID] = conduit;
     });
   }
@@ -275,8 +248,20 @@ class Combatant extends Entity {
     return Boolean(this.conduitsByConduitID[spellId]);
   }
 
-  conduitRankBySpellID(spellId: number) {
-    return this.conduitsByConduitID[spellId] && this.conduitsByConduitID[spellId].rank;
+  conduitRankBySpellID(spellId: number): number {
+    if (!(spellId in this.conduitsByConduitID)) {
+      return 0;
+    }
+
+    return this.conduitsByConduitID[spellId].rank + (this.likelyHasEmpoweredConduits() ? 2 : 0);
+  }
+
+  likelyHasEmpoweredConduits() {
+    if (!this._combatantInfo.soulbindID || !(this._combatantInfo.soulbindID in SOULBINDS)) {
+      return false;
+    }
+
+    return this.hasSoulbindTrait(SOULBINDS[this._combatantInfo.soulbindID].capstoneTraitID);
   }
 
   //endregion
@@ -524,7 +509,8 @@ class Combatant extends Entity {
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach((buff) => {
-      const spell = SPELLS[buff.ability];
+      const spell = SPELLS.maybeGet(buff.ability);
+
       this.applyBuff({
         type: EventType.ApplyBuff,
         timestamp: timestamp,

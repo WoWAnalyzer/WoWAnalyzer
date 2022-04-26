@@ -10,6 +10,11 @@ const spells = {
     name: 'Mystic Touch',
     icon: 'ability_monk_sparring',
   },
+  MYSTIC_TOUCH_DEBUFF: {
+    id: 113746,
+    name: 'Mystic Touch',
+    icon: 'ability_monk_sparring',
+  },
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -584,6 +589,28 @@ const spells = {
     id: 325202,
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
+  },
+  // Tier 28, 2P Set-Bonus
+  FISTS_OF_PRIMORDIUM: {
+    id: 364418,
+    name: 'Fists of Primordium',
+    icon: 'monk_ability_fistoffury',
+  },
+  // Tier 28, 4p Set-Bonus
+  PRIMORDIAL_POTENTIAL: {
+    id: 363734,
+    name: 'Primordial Potential',
+    icon: 'inv_relics_totemofrage',
+  },
+  PRIMORDIAL_POTENTIAL_BUFF: {
+    id: 363911,
+    name: 'Primordial Potential',
+    icon: 'spell_priest_divinestar',
+  },
+  PRIMORDIAL_POWER_BUFF: {
+    id: 363924,
+    name: 'Primordial Power',
+    icon: 'inv_relics_totemofrage',
   },
 } as const;
 export default spells;

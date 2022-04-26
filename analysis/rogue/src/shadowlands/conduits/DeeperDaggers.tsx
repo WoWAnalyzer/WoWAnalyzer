@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class DeeperDaggers extends Analyzer {
   static dependencies = {
@@ -23,7 +24,7 @@ class DeeperDaggers extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible">
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
         <div className="pad">
           <label>
             <SpellLink id={SPELLS.DEEPER_DAGGERS.id} /> Uptime

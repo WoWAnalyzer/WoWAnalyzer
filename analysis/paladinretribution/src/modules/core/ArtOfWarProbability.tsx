@@ -37,9 +37,11 @@ class ArtOfWarProbability extends Analyzer {
 
   castCounter() {
     if (this.hasTier && this.flipFlop) {
-      this.totalChances += 1;
-      this.procProbabilities.push(this.chance);
+      this.flipFlop = !this.flipFlop;
+      return;
     }
+    this.totalChances += 1;
+    this.procProbabilities.push(this.chance);
     this.flipFlop = !this.flipFlop;
   }
 

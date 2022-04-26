@@ -1023,14 +1023,25 @@ exports[`Arcane Mage integration test: example log ArcaneProdigy matches the sta
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=336873"
+            href="https://wowhead.com/spell=336873&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Arcane Prodigy
           </a>
-           - Rank 
-          9
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
@@ -3460,7 +3471,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               6
-              /27
+              /28
                casts
             </td>
             <td
@@ -3478,7 +3489,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "21.57533109835032%",
+                      "width": "20.911474756862614%",
                     }
                   }
                 />
@@ -3493,7 +3504,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              21.58%
+              20.91%
             </td>
             <td
               style={
@@ -4882,14 +4893,25 @@ exports[`Arcane Mage integration test: example log DivertedEnergy matches the st
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=337136"
+            href="https://wowhead.com/spell=337136&ilvl=291"
             rel="noopener noreferrer"
             target="_blank"
           >
             Diverted Energy
           </a>
-           - Rank 
-          10
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            12
+          </dfn>
         </label>
         <div
           className="value"
@@ -5080,14 +5102,25 @@ exports[`Arcane Mage integration test: example log IreOfTheAscended matches the 
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=337058"
+            href="https://wowhead.com/spell=337058&ilvl=278"
             rel="noopener noreferrer"
             target="_blank"
           >
             Ire of the Ascended
           </a>
-           - Rank 
-          9
+           
+          -
+           
+          <dfn
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
+          >
+            Rank 
+            11
+          </dfn>
         </label>
         <div
           className="value"
@@ -5098,11 +5131,11 @@ exports[`Arcane Mage integration test: example log IreOfTheAscended matches the 
             src="/img/sword.png"
           />
            
-          318
+          350
            DPS
            
           <small>
-            4.05
+            4.46
              % of total
           </small>
         </div>

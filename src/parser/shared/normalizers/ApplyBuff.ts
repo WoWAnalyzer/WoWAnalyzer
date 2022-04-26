@@ -143,12 +143,14 @@ class ApplyBuff extends EventsNormalizer {
             return;
           }
 
+          const spell = SPELLS.maybeGet(spellId);
+
           debug &&
             console.warn(
               'Found a buff on',
               (playersById[targetId] && playersById[targetId].name) || '???',
               'in the combatantinfo that was applied before the pull and never dropped:',
-              (SPELLS[spellId] && SPELLS[spellId].name) || '???',
+              spell?.name ?? '???',
               spellId,
               "! Fabricating an `applybuff` event so you don't have to do anything special to take this into account.",
             );
@@ -158,7 +160,7 @@ class ApplyBuff extends EventsNormalizer {
             type: EventType.ApplyBuff,
             ability: {
               guid: spellId,
-              name: SPELLS[spellId] ? SPELLS[spellId].name : 'Unknown',
+              name: spell?.name ?? 'Unknown',
               abilityIcon: aura.icon,
               type: 0,
             },

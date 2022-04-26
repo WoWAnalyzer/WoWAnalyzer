@@ -5720,13 +5720,16 @@ exports[`Marksmanship Hunter integration test: Multi Target ReversalOfFortune ma
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=339495"
+            href="https://wowhead.com/spell=339495&ilvl=184"
             rel="noopener noreferrer"
             target="_blank"
           >
             Reversal of Fortune
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           4
         </label>
         <div
@@ -5850,13 +5853,16 @@ exports[`Marksmanship Hunter integration test: Multi Target SpiritAttunement mat
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=339109"
+            href="https://wowhead.com/spell=339109&ilvl=171"
             rel="noopener noreferrer"
             target="_blank"
           >
             Spirit Attunement
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           3
         </label>
         <div
@@ -14272,13 +14278,16 @@ exports[`Marksmanship Hunter integration test: Single Target EnfeebledMark match
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=339018"
+            href="https://wowhead.com/spell=339018&ilvl=171"
             rel="noopener noreferrer"
             target="_blank"
           >
             Enfeebled Mark
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           3
         </label>
         <div
@@ -15335,13 +15344,16 @@ exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune m
            
           <a
             className="spell-link-text"
-            href="https://wowhead.com/spell=339399"
+            href="https://wowhead.com/spell=339399&ilvl=171"
             rel="noopener noreferrer"
             target="_blank"
           >
             Rejuvenating Wind
           </a>
-           - Rank 
+           
+          -
+           
+          Rank 
           3
         </label>
         <div
