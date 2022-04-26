@@ -439,6 +439,26 @@ const spells = {
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
+  FERAL_SPIRIT_LIGHTNING_TIER: {
+    id: 363933,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
+  FERAL_SPIRIT_FIRE_TIER: {
+    id: 363928,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
+  FERAL_SPIRIT_FROST_TIER: {
+    id: 363932,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
+  FERAL_SPIRIT_TIER: {
+    id: 363941,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
   FERAL_SPIRIT_MAELSTROM_BUFF: {
     id: 333957,
     name: 'Feral Spirit',

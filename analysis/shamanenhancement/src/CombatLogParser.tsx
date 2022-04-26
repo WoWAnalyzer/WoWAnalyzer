@@ -23,9 +23,11 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 // Enhancement Core
 // Talents
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
+import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalAssault from './modules/talents/ElementalAssault';
+import ElementalSpirits from './modules/talents/ElementalSpirits';
 import FireNova from './modules/talents/FireNova';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Hailstorm from './modules/talents/Hailstorm';
@@ -36,7 +38,6 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Stormflurry from './modules/talents/Stormflurry';
 import Stormkeeper from './modules/talents/Stormkeeper';
 import Sundering from './modules/talents/Sundering';
-// Legendaries
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crashingStorm: CrashingStorm,
     stormkeeper: Stormkeeper,
     sundering: Sundering,
-    //elementalSpirits: ElementalSpirits,
+    elementalSpirits: ElementalSpirits,
     earthenSpike: EarthenSpike,
     //ascendance: Ascendance,
 
@@ -90,6 +91,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
+    // Tier
+    tier28TwoSet: Tier28TwoSet,
   };
 }
 
