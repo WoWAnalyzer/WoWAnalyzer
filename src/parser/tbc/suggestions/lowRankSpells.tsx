@@ -33,7 +33,7 @@ const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) => 
             </TooltipElement>
           ),
           importance: SuggestionImportance.Regular,
-          icon: (SPELLS[primarySpellId] || SPELLS[spellId])?.icon,
+          icon: (SPELLS.maybeGet(primarySpellId) ?? SPELLS.maybeGet(spellId))?.icon,
         })),
   );
 };

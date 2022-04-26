@@ -183,6 +183,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 500,
+          minimum: 500,
         },
         cooldown: 15,
         timelineSortIndex: 14,

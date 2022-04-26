@@ -1,4 +1,3 @@
-import legendaries from 'common/ITEMS/shadowlands/legendaries/deathknight';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
@@ -67,8 +66,8 @@ class BoneShieldStacksBySeconds extends Analyzer {
     const nextStacks = currentStacks(event);
     const didExpire = nextStacks === 0 ? this.didExpire(event) : false;
     if (nextStacks < this.lastBoneShieldStack && !didExpire) {
-      // TODO: Blood Tap cdr
       this.reduceDRWCooldown(nextStacks - this.lastBoneShieldStack);
+      this.reduceBloodTapCooldown(nextStacks - this.lastBoneShieldStack);
     }
     this.lastBoneShieldStack = currentStacks(event);
   }
@@ -121,6 +120,21 @@ class BoneShieldStacksBySeconds extends Analyzer {
       const effectiveReduction = this.spellUsable.reduceCooldown(reducedSpellID, reduction);
       this.totalDRWCooldownReduction += effectiveReduction;
       this.totalDRWCooldownReductionWasted += reduction - effectiveReduction;
+    }
+  }
+
+  reduceBloodTapCooldown(stackDiff) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.BLOOD_TAP_TALENT)) {
+      return;
+    }
+    if (stackDiff >= 0) {
+      return;
+    }
+    const COOLDOWN_REDUCTION_MS = 2000;
+    const reduction = -stackDiff * COOLDOWN_REDUCTION_MS;
+    const reducedSpellID = SPELLS.BLOOD_TAP_TALENT.id;
+    if (this.spellUsable.isOnCooldown(reducedSpellID)) {
+      this.spellUsable.reduceCooldown(reducedSpellID, reduction);
     }
   }
 }

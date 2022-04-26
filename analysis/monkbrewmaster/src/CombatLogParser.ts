@@ -10,6 +10,7 @@ import {
   GroundingBreath,
   HarmDenial,
   TouchOfDeath,
+  MysticTouch,
 } from '@wowanalyzer/monk';
 
 import Abilities from './modules/Abilities';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
     checklist: Checklist,
+    mysticTouch: MysticTouch,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

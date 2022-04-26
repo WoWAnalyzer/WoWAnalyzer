@@ -17,6 +17,12 @@ const legendaries = {
     name: 'Doomblade',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
+  // Doomblade Mutilate DoT
+  MUTILATED_FLESH: {
+    id: 340431,
+    name: 'Mutilated Flesh',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
   DUSKWALKERS_PATCH: {
     id: 340084,
     name: "DuskwalKer's Patch",
@@ -138,6 +144,21 @@ const legendaries = {
     bonusID: 7112,
     name: 'Tiny Toxic Blades',
     icon: 'ability_rogue_poisoned_knife',
+  },
+  //endregion
+
+  //region Covenant
+  DEATHSPIKE: {
+    id: 354731,
+    bonusID: 7573,
+    name: 'Deathspike',
+    icon: 'ability_maldraxxus_rogue',
+  },
+  OBEDIENCE: {
+    id: 354703,
+    bonusID: 7572,
+    name: 'Obedience',
+    icon: 'ability_revendreth_rogue',
   },
   //endregion
 } as const;

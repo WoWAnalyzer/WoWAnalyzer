@@ -1,6 +1,10 @@
 const covenants = {
   //region Kyrian
-
+  VESPER_TOTEM: {
+    id: 324386,
+    name: 'Vesper Totem',
+    icon: 'ability_bastion_shaman',
+  },
   //endregion
 
   //region Necrolord

@@ -36,7 +36,14 @@ export const OUTLAW_ABILITY_COOLDOWNS: SpellList[] = [
   ...SHARED_ABILITY_COOLDOWNS,
 ];
 
+export const ASSASSINATION_BLEED_DEBUFFS = [
+  SPELLS.GARROTE,
+  SPELLS.RUPTURE,
+  SPELLS.CRIMSON_TEMPEST_TALENT,
+  SPELLS.INTERNAL_BLEEDING_TALENT,
+];
+
 //region Legendaries
-// 1 second per 65 energy cost
-export const ASS_VEN_CDR_PER_ENERGY = 1000 / 65;
+// 1 second per 30 energy cost
+export const ASS_VEN_CDR_PER_ENERGY = 1000 / 30;
 //endregion

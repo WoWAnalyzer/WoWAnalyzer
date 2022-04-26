@@ -2,7 +2,14 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
-import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
+import {
+  ElysianDecree,
+  SinfulBrand,
+  TheHunt,
+  FelDefender,
+  GrowingInferno,
+  RepeatDecree,
+} from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -12,7 +19,6 @@ import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
-import GrowingInferno from './modules/shadowlands/conduits/GrowingInferno';
 import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import BladeDance from './modules/spells/BladeDance';
@@ -93,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Conduits
     growingInferno: GrowingInferno,
     felDefender: FelDefender,
+    repeatDecree: RepeatDecree,
   };
 }
 

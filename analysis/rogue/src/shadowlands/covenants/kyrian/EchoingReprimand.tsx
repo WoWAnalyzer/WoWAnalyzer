@@ -1,3 +1,4 @@
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -27,7 +28,7 @@ class EchoingReprimand extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
       this.onEnergize,
     );
   }
@@ -45,15 +46,17 @@ class EchoingReprimand extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={`${formatNumber(this.damage)} total damage done.`}
+      >
         <BoringSpellValueText spellId={SPELLS.ECHOING_REPRIMAND.id}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-            <br />
-            <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-            {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-            <small> Combo Points gained</small>
-          </>
+          <ItemDamageDone amount={this.damage} />
+          <br />
+          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+          {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+          <small> Combo Points gained</small>
         </BoringSpellValueText>
       </Statistic>
     );
