@@ -53,7 +53,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "98.76526554728024%",
+                  "width": "98.76782228542328%",
                 }
               }
             >
@@ -376,7 +376,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "79.90168278888649%",
+                      "width": "79.90775759495628%",
                     }
                   }
                 />
@@ -391,7 +391,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              79.90%
+              79.91%
             </td>
             <td
               style={
@@ -563,7 +563,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.81629343938503%",
+                      "width": "88.84131612662148%",
                     }
                   }
                 />
@@ -578,7 +578,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              88.82%
+              88.84%
             </td>
             <td
               style={
@@ -6222,7 +6222,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.0245207373984%",
+                  "width": "81.02856655824088%",
                 }
               }
             />
@@ -6432,7 +6432,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  79.90%
+                  79.91%
                    
                    
                 </div>
@@ -6454,7 +6454,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "66.27260368699201%",
+                        "width": "66.29283279120442%",
                       }
                     }
                   />
@@ -6651,7 +6651,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  88.82%
+                  88.84%
                    
                    
                 </div>
