@@ -147,9 +147,7 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.OLD_WARRIORS_SOUL_HASTE.id]: {
       itemId: ITEMS.OLD_WARRIORS_SOUL.id,
-      haste: (_, item) =>
-        SPELLS.OLD_WARRIORS_SOUL_HASTE.buffValues[item.itemLevel] ||
-        calculateSecondaryStatDefault(233, 40, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(233, 32, item.itemLevel),
     },
 
     //endregion
