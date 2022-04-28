@@ -317,19 +317,28 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_1.id,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: (haste) => 10 / (1 + haste),
+        cooldown: (haste) => {
+          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_2.id,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: (haste) => 10 / (1 + haste),
+        cooldown: (haste) => {
+          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_3.id,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: (haste) => 10 / (1 + haste),
+        cooldown: (haste) => {
+          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
         charges: 2,
       },
 

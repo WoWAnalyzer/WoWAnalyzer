@@ -24,11 +24,5 @@ export default {
     id: 356492,
     name: 'Undying Rage',
     icon: 'ability_warrior_warcry',
-    buffValues: {
-      220: 37,
-      233: 40,
-      246: 43,
-      259: 45,
-    },
   },
 };

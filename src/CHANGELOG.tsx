@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 27), 'Updated stat multiplier table for Shadowlands values', Putro),
   change(date(2022, 4, 20), 'Preformance increase for talent identification.', Abelito75),
   change(date(2022, 4, 19), 'Prevent invalid spells from passing internal tests and getting deployed.', emallson),
   change(date(2022, 4, 17), 'Fix conduits not being parsed correctly in some cases', nullDozzer),
