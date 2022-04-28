@@ -232,13 +232,14 @@ class HeatingUp extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be
-            used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like
-            if you are about to cap on charges or using Fireball & Phoenix Flames to bait Heating
-            Up/Hot Streak just before Combustion), the goal should be to waste as few of these as
-            possible.
+            Outside of Combustion & Firestarter, spells that are guaranteed to crit (like Fire
+            Blast) should only be used to convert Heating Up into Hot Streak. While there are minor
+            exceptions to this (like if you are about to cap on charges), the goal should be to
+            waste as few of these as possible. Additionally, you should never cast Fire Blast or
+            Phoenix Flames while Hot Streak is active, as those could have contributed towards your
+            next Heating Up/Hot Streak
             <ul>
-              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
+              <li>Fireblast used without Heating Up: {this.fireBlastWithoutHeatingUp}</li>
               <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
               <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
             </ul>
