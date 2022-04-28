@@ -11,15 +11,16 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
   icon?: boolean;
   iconStyle?: CSSProperties;
   ilvl?: number;
+  rank?: number;
 }
 
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
-  ({ id, children, icon = true, iconStyle, ilvl, ...other }: Props, ref) => {
+  ({ id, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
     const spell = useSpellInfo(id);
 
     return (
       <a
-        href={TooltipProvider.spell(id, ilvl ? { ilvl } : undefined)}
+        href={TooltipProvider.spell(id, { ilvl, rank })}
         target="_blank"
         rel="noopener noreferrer"
         ref={ref}

@@ -5,7 +5,7 @@ class TooltipProviderWowhead extends Base {
   static libraryUrl = '//wow.zamimg.com/widgets/power.js';
   static baseUrl = 'https://wowhead.com/';
 
-  static spellRelative(id: number, details: { ilvl: number }) {
+  static spellRelative(id: number, details: { ilvl?: number; rank?: number }) {
     const base = `spell=${id}`;
     if (!details) {
       return base;
@@ -13,6 +13,10 @@ class TooltipProviderWowhead extends Base {
       const queryString = [base];
       if (details.ilvl) {
         queryString.push(`ilvl=${details.ilvl}`);
+      }
+      if (details.rank) {
+        // We usually see rank 1 as 1, but wowhead starts at 0
+        queryString.push(`rank=${details.rank - 1}`);
       }
       return queryString.join('&');
     }
