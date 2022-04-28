@@ -4967,7 +4967,7 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
              % of total
           </small>
           <br />
-          48.45
+          84.82
           % 
           <small>
             Uptime at Max Stacks
@@ -4978,75 +4978,6 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
     </div>
   </div>
 </div>
-`;
-
-exports[`Fire Mage integration test: example log InfernalCascade matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_rhyolith_immolation",
-    "importance": "major",
-    "issue": <React.Fragment>
-      While 
-      <ForwardRef
-        id={190319}
-      />
-       was active, your
-       
-      <ForwardRef
-        id={336821}
-      />
-       buff was at 
-      2
-       stacks for
-       
-      13
-      s on average per Combustion (
-      48.45
-      % of your Combustion Uptime). Because so much of your damage comes from your Combustion, it is important that you adjust your rotation such that you can maintain 
-      2
-       stacks of 
-      <ForwardRef
-        id={336821}
-      />
-       
-      for as much of your 
-      <ForwardRef
-        id={190319}
-      />
-       as possible. This can be done by alternating between using 
-      <ForwardRef
-        id={108853}
-      />
-       and
-       
-      <ForwardRef
-        id={257541}
-      />
-       to generate
-       
-      <ForwardRef
-        id={48108}
-      />
-       instead of using all the charges of one, and then all the charges of the other.
-    </React.Fragment>,
-    "spell": undefined,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.fire.suggestions.infernalCascade.maxStackPercent"
-        message="{0}% utilization"
-        values={
-          Object {
-            "0": "48.45",
-          }
-        }
-      />
-       (
-      &gt;80.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Fire Mage integration test: example log MirrorImage matches the statistic snapshot 1`] = `
@@ -6407,7 +6338,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "71.63305840927637%",
+                  "width": "82.07726058211462%",
                 }
               }
             />
@@ -7162,7 +7093,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  48.45%
+                  84.82%
                    
                    
                 </div>
@@ -7182,9 +7113,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "26.890584790132227%",
+                        "width": "100%",
                       }
                     }
                   />
