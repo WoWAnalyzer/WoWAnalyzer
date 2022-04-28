@@ -5134,15 +5134,12 @@ exports[`Shadow Priest integration test: example log InscrutableQuantumDevice ma
         <div
           className="value"
         >
-          <span
-            className="DeathKnight"
-          >
-            1
-          </span>
-          /
-          2
-           use
-          s
+          1
+           Uses 
+          <small>
+            2
+             possible
+          </small>
         </div>
       </div>
       <div

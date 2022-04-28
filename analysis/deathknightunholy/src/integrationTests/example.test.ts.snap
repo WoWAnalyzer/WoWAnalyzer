@@ -4206,15 +4206,12 @@ exports[`Unholy Death Knight integration test: example log InscrutableQuantumDev
         <div
           className="value"
         >
-          <span
-            className="DeathKnight"
-          >
-            1
-          </span>
-          /
-          3
-           use
-          s
+          1
+           Uses 
+          <small>
+            3
+             possible
+          </small>
         </div>
       </div>
       <div

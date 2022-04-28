@@ -137,10 +137,7 @@ class ShadowgraspTotem extends Analyzer {
         }
       >
         <BoringItemValueText item={this.item}>
-          <span className={this.numberCasts < 0.65 * this.maxCasts ? 'DeathKnight' : undefined}>
-            {this.numberCasts}
-          </span>
-          /{this.maxCasts} use{this.numberCasts > 1 ? 's' : ''}
+          {this.numberCasts} Uses <small>{this.maxCasts} possible</small>
           <div className="value" style={{ paddingBottom: '0.5em' }}>
             <ItemDamageDone amount={this.totalDamage} />
             <small style={{ display: 'block' }}>
@@ -159,12 +156,16 @@ class ShadowgraspTotem extends Analyzer {
             </small>
           </div>
           {this.numberHeals > 0 && (
-            <div className="value">
-              <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
-              {formatNumber(this.totalHealing)} HP <small>{this.numberHeals} heals</small>
-              <ItemIcon id={this.item.id} details={this.item} /> {this.cooldownReductionSeconds}{' '}
-              <small>Seconds cooldown reduced</small>
-            </div>
+            <>
+              <div className="value">
+                <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
+                {formatNumber(this.totalHealing)} HP <small>{this.numberHeals} heals</small>
+              </div>
+              <div className="value">
+                <ItemIcon id={this.item.id} details={this.item} /> {this.cooldownReductionSeconds}{' '}
+                <small>Seconds cooldown reduced</small>
+              </div>
+            </>
           )}
         </BoringItemValueText>
       </Statistic>

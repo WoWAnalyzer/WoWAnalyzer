@@ -216,10 +216,7 @@ class InscrutableQuantumDevice extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringItemValueText item={this.item}>
-          <span className={totalCount < this.maxCasts * 0.65 ? 'DeathKnight' : undefined}>
-            {totalCount}
-          </span>
-          /{this.maxCasts} use{totalCount > 0 ? 's' : ''}
+          {totalCount} Uses <small>{this.maxCasts} possible</small>
         </BoringItemValueText>
         <div className="pad">
           <small>??? Effects</small>

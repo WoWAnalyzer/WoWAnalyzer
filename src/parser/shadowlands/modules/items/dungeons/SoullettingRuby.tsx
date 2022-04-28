@@ -210,7 +210,7 @@ class SoullettingRuby extends Analyzer {
         }
       >
         <BoringItemValueText item={this.item}>
-          {this.numberCasts} casts <small>{this.maxCasts} possible</small>
+          {this.numberCasts} Uses <small>{this.maxCasts} possible</small>
         </BoringItemValueText>
         <div className="pad value">
           Average {this.averageBuffValues.toFixed(1)} <small>Critical Strike</small>
