@@ -51,19 +51,20 @@ const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => 
     events: bossPhaseEvents,
   } = useBossPhaseEvents({ report, fight });
 
-  const characterProfile = useCharacterProfile({ report, player });
-  const isLoadingCharacterProfile = characterProfile == null;
+  const { characterProfile, isLoading: isLoadingCharacterProfile } = useCharacterProfile({
+    report,
+    player,
+  });
 
   // Original code only rendered <PhaseParser> if
   // > !this.state.isLoadingEvents
   // > && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING
   // We have to always run the hook, so the hook has to make sure it has the necessary data
-  const phases = usePhases({
+  const { phases, isLoading: isLoadingPhases } = usePhases({
     bossPhaseEventsLoaded: bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING,
     fight,
     bossPhaseEvents,
   });
-  const isLoadingPhases = phases == null;
 
   const applyPhaseFilter = useCallback(
     (phase: string, instance: any) => {
@@ -123,20 +124,20 @@ const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => 
   // isLoadingParser => parserClass == null
   // isLoadingCharacterProfile => characterProfile == null
   // isFilteringEvents => events == null
-  const { isLoading: isParsingEvents, progress: parsingEventsProgress, parser } =
-    useEventParser({
-      report,
-      fight: filteredFight,
-      config,
-      player,
-      combatants,
-      applyTimeFilter,
-      applyPhaseFilter,
-      parserClass,
-      builds: config.builds,
-      characterProfile,
-      events: filteredEvents,
-    }) || {};
+  const { isLoading: isParsingEvents, progress: parsingEventsProgress, parser } = useEventParser({
+    report,
+    fight: filteredFight,
+    config,
+    player,
+    combatants,
+    applyTimeFilter,
+    applyPhaseFilter,
+    parserClass,
+    builds: config.builds,
+    characterProfile,
+    events: filteredEvents,
+    dependenciesLoading: isLoadingParser || isLoadingCharacterProfile || isFilteringEvents,
+  });
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
   const build = (parser && parser.build) || undefined;

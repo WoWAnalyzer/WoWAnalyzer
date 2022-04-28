@@ -1,5 +1,4 @@
 import { captureException } from 'common/errorLogger';
-import sleep from 'common/sleep';
 import ExtendableError from 'es6-error';
 import getBuild from 'interface/selectors/url/report/getBuild';
 import Config, { Builds } from 'parser/Config';
@@ -10,7 +9,7 @@ import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const BENCHMARK = false;
@@ -41,6 +40,7 @@ interface Props {
   builds?: Builds;
   characterProfile: CharacterProfile | null;
   events?: AnyEvent[];
+  dependenciesLoading?: boolean;
 }
 
 const useEventParser = ({
@@ -55,15 +55,16 @@ const useEventParser = ({
   builds,
   characterProfile,
   events,
+  dependenciesLoading,
 }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [parser, setParser] = useState<CombatLogParser | null>(null);
+  const [eventIndex, setEventIndex] = useState(0);
   const location = useLocation();
 
   const build = getBuild(location.pathname);
 
-  useEffect(() => {
+  const parser = useMemo(() => {
     // Original code only rendered EventParser if
     // > !this.state.isLoadingParser &&
     // > !this.state.isLoadingCharacterProfile &&
@@ -72,104 +73,98 @@ const useEventParser = ({
     // isLoadingParser => parserClass == null
     // isLoadingCharacterProfile => characterProfile == null
     // isFilteringEvents => events == null
-    if (fight == null || parserClass == null || characterProfile == null || events == null) {
-      return;
+    if (dependenciesLoading) {
+      return null;
     }
+    const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
+    builds &&
+      Object.keys(builds).forEach((key) => {
+        builds[key].active = key === buildKey;
+      });
+    //set current build to undefined if default build or non-existing build selected
+    const parser = new parserClass!(
+      config,
+      report,
+      player,
+      fight!,
+      combatants,
+      characterProfile!,
+      buildKey,
+    );
+    parser.applyTimeFilter = applyTimeFilter;
+    parser.applyPhaseFilter = applyPhaseFilter;
 
-    const makeParser = () => {
-      const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
-      builds &&
-        Object.keys(builds).forEach((key) => {
-          builds[key].active = key === buildKey;
-        });
-      //set current build to undefined if default build or non-existing build selected
-      const parser = new parserClass(
-        config,
-        report,
-        player,
-        fight,
-        combatants,
-        characterProfile,
-        buildKey,
-      );
-      parser.applyTimeFilter = applyTimeFilter;
-      parser.applyPhaseFilter = applyPhaseFilter;
-
-      setParser(parser);
-
-      return parser;
-    };
-
-    const makeEvents = (parser: CombatLogParser) => {
-      let _events = events;
-      // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-      _events = _events.filter((event) => event.type !== EventType.CombatantInfo);
-      //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
-      _events = parser.normalize(_events).sort((a, b) => a.timestamp - b.timestamp);
-      return _events;
-    };
-
-    const parse = async () => {
-      try {
-        bench('total parse');
-        bench('initialize');
-        const parser = makeParser();
-        const events = makeEvents(parser);
-        parser.normalizedEvents = events;
-
-        const numEvents = events.length;
-
-        const eventEmitter = parser.getModule(EventEmitter);
-        benchEnd('initialize');
-        bench('events');
-        let eventIndex = 0;
-        while (eventIndex < numEvents) {
-          const start = Date.now();
-          while (eventIndex < numEvents) {
-            eventEmitter.triggerEvent(events[eventIndex]);
-            eventIndex += 1;
-
-            if (!BENCHMARK && Date.now() - start > MAX_BATCH_DURATION) {
-              break;
-            }
-          }
-          if (!BENCHMARK) {
-            setProgress(Math.min(1, eventIndex / numEvents));
-            // Delay the next iteration until next frame so the browser doesn't appear to be frozen
-            await sleep(0); // eslint-disable-line no-await-in-loop
-          }
-        }
-        parser.finish();
-        benchEnd('events');
-        benchEnd('total parse');
-
-        setIsLoading(false);
-        setProgress(1);
-      } catch (err) {
-        captureException(err as Error);
-        throw new EventsParseError(err as Error);
-      }
-    };
-
-    setIsLoading(true);
-    setProgress(0);
-    setParser(null);
-
-    parse();
+    return parser;
   }, [
-    report,
     fight,
-    player,
-    combatants,
+    dependenciesLoading,
     parserClass,
     characterProfile,
-    events,
+    applyPhaseFilter,
+    applyTimeFilter,
+    report,
+    player,
+    combatants,
     build,
     builds,
     config,
-    applyTimeFilter,
-    applyPhaseFilter,
   ]);
+
+  const normalizedEvents = useMemo(() => {
+    bench('normalizing events');
+    console.log(events, parser);
+    if (events === undefined || parser === null) {
+      benchEnd('normalizing events');
+      return null;
+    }
+    // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
+    const result = parser
+      .normalize(events.filter((event) => event.type !== EventType.CombatantInfo))
+      //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
+      .sort((a, b) => a.timestamp - b.timestamp);
+    benchEnd('normalizing events');
+    return result;
+  }, [events, parser]);
+
+  useEffect(() => {
+    setEventIndex(0);
+  }, [normalizedEvents]);
+
+  const eventEmitter = useMemo(() => parser?.getModule(EventEmitter), [parser]);
+
+  useEffect(() => {
+    if (parser === null || normalizedEvents === null) {
+      return;
+    }
+
+    let currentIndex = eventIndex;
+
+    try {
+      bench('event loop');
+      parser.normalizedEvents = normalizedEvents;
+
+      const start = Date.now();
+      while (currentIndex < normalizedEvents.length) {
+        eventEmitter?.triggerEvent(normalizedEvents[currentIndex]);
+        currentIndex += 1;
+
+        if (!BENCHMARK && Date.now() - start > MAX_BATCH_DURATION) {
+          break;
+        }
+      }
+    } catch (err) {
+      captureException(err as Error);
+      throw new EventsParseError(err as Error);
+    } finally {
+      setEventIndex(currentIndex);
+      setProgress(Math.min(1, currentIndex / normalizedEvents.length));
+      if (currentIndex === normalizedEvents.length) {
+        parser.finish();
+        setIsLoading(false);
+      }
+      benchEnd('event loop');
+    }
+  }, [parser, normalizedEvents, eventEmitter, eventIndex]);
 
   return {
     isLoading,

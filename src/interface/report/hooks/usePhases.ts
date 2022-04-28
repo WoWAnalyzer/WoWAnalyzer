@@ -16,6 +16,7 @@ const usePhases = ({
   bossPhaseEvents: PhaseEvent[] | null;
 }) => {
   const [phases, setPhases] = useState<{ [key: string]: Phase } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!bossPhaseEventsLoaded) {
@@ -79,7 +80,9 @@ const usePhases = ({
     };
 
     const parse = async () => {
+      setIsLoading(true);
       const phases = makePhases();
+      setIsLoading(false);
       setPhases(phases);
     };
 
@@ -87,7 +90,7 @@ const usePhases = ({
     parse();
   }, [bossPhaseEventsLoaded, bossPhaseEvents, fight]);
 
-  return phases;
+  return { phases, isLoading };
 };
 
 export default usePhases;

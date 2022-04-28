@@ -6,14 +6,18 @@ import { useEffect, useState } from 'react';
 
 const CHINESE_REGION = 'cn';
 
+export type CharacterProfileStatus = {
+  characterProfile: CharacterProfile | null;
+  isLoading?: boolean;
+};
+
 const useCharacterProfile = ({ report, player }: { report: Report; player: PlayerInfo }) => {
   const [characterProfile, setCharacterProfile] = useState<CharacterProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadCharacterProfile = async () => {
-      // This is a Blizzard globally unique character id. If a character transfers, they get a new guid.
-      // If we've seen the character before, this id will be stored in the database along with the player's name, realm and region which gives the API enough info to fetch their character profile.
-      // If they're not stored in the database, we need the region, realm and name from the report to store the correct data in the database. For this reason the data from the expertedCharacters is optional and we may be able to get the correct profile without it.
+    (async () => {
+      setIsLoading(true);
       const id = player.guid;
       // TODO: Since the player selection loads this data now too, store it in Redux and use a cached version if available.
       let region;
@@ -32,34 +36,19 @@ const useCharacterProfile = ({ report, player }: { report: Report; player: Playe
         }
       }
 
-      return fetch(makeCharacterApiUrl(id, region, realm, name))
-        .then((result) => {
-          if (!result.ok) {
-            throw new Error('Request failed');
-          }
-          return result;
-        })
-        .then((data) => data.json());
-    };
+      const result = await fetch(makeCharacterApiUrl(id, region, realm, name));
 
-    const load = async () => {
-      let characterProfile;
-      try {
-        characterProfile = await loadCharacterProfile();
-      } catch (err) {
-        // This only provides optional info, so it's no big deal if it fails.
-        // We don't want to log it, as it will usually just be a 404 where the character moved or something
-        console.error(err);
+      if (!result.ok) {
+        console.warn(new Error('Character profile loading failed'));
+      } else {
+        setCharacterProfile(await result.json());
       }
 
-      setCharacterProfile(characterProfile);
-    };
-
-    setCharacterProfile(null);
-    load();
+      setIsLoading(false);
+    })();
   }, [report, player]);
 
-  return characterProfile;
+  return { characterProfile, isLoading };
 };
 
 export default useCharacterProfile;
