@@ -1,9 +1,17 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Abelito75, Talby, Hursti } from 'CONTRIBUTORS';
+import { Juko8, Abelito75, Talby, Hursti, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 4, 24), <>Further fixes to 4-set bonus <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/>. Stop missing multiple damage events, and now also tracks <SpellLink id={SPELLS.JADE_IGNITION.id} />.</>, nullDozzer),
+  change(date(2022, 4, 24), <>Added checklist and suggestion to to <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> when using <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.</>, nullDozzer),
+  change(date(2022, 4, 18), <>Fix tracking of Coordinated Offensive, Serenity and Weapons of Order to include damage from <SpellLink id={SPELLS.CHI_BURST_TALENT.id} />, <SpellLink id={SPELLS.CHI_WAVE_TALENT.id} /> and <SpellLink id={SPELLS.FAELINE_STOMP_CAST.id} />.</>, nullDozzer),
+  change(date(2022, 4, 18), <>Fix tracking of damage from 4-set bonus <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/>. It included events it shouldn't and did not include pet damage.</>, nullDozzer),
+  change(date(2022, 4, 16), <>More informative messages for ineffective casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.</>, nullDozzer),
+  change(date(2022, 4, 16), <>Added a Mystic Touch stat. </>, Abelito75),
+  change(date(2022, 4, 15), <>Added tracking and statistics for set bonuses <SpellLink id={SPELLS.FISTS_OF_PRIMORDIUM.id}/> and <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/></>, nullDozzer),
+  change(date(2022, 4, 15), 'Updated all conduit statistics to show correct itemlevel and rank.', nullDozzer),
   change(date(2022, 1, 2), <>Changed the <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> module to work with <SpellLink id={SPELLS.SERENITY_TALENT.id} />.</>, Hursti),
   change(date(2021, 12, 21), <>Added <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> module.</>, Hursti),
   change(date(2021, 12, 21), <>Added Data for <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> Clones for further usage.</>, Hursti),

@@ -59,12 +59,15 @@ class SwiftPenitence extends Analyzer {
       // is a SpiritShellEvent
       if ('absorbed' in event.healEvent.sourceEvent) {
         absorbedHealing = event.healEvent.sourceEvent.absorbed || 0;
-      } else if (!('absorbed' in event.healEvent.sourceEvent)) {
+      } else {
         absorbedHealing = event.healEvent.sourceEvent.amount || 0;
       }
-    } else if (!('sourceEvent' in event.healEvent)) {
+    } else {
       // is a healEvent
-      absorbedHealing = event.healEvent.absorbed || 0;
+      if (!('sourceEvent' in event.healEvent)) {
+        // is a healEvent
+        absorbedHealing = event.healEvent.absorbed || 0;
+      }
     }
     if (
       event?.damageEvent &&

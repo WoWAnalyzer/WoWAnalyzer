@@ -333,7 +333,7 @@ class EncounterStats extends PureComponent {
             <SpellLink id={spell.id} icon={false}>
               <Icon
                 icon={
-                  this.state.spells[spell.id] === undefined
+                  this.state.spells.maybeGet(spell.id) === undefined
                     ? this.state.spells[1].icon
                     : this.state.spells[spell.id].icon
                 }

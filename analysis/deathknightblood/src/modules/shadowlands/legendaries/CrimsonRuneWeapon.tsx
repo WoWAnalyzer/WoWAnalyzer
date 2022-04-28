@@ -8,7 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import BoneShieldTimesByStacks from '../features/BoneShieldTimesByStacks';
+import BoneShieldTimesByStacks from '../../features/BoneShieldTimesByStacks';
 
 class CrimsonRuneWeapon extends Analyzer {
   static dependencies = {
@@ -68,7 +68,6 @@ class CrimsonRuneWeapon extends Analyzer {
   }
 
   statistic() {
-    console.log('statistic', this);
     return (
       <Statistic
         category={STATISTIC_CATEGORY.ITEMS}

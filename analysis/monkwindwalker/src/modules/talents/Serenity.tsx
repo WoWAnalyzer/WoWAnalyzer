@@ -13,6 +13,13 @@ import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 const DAMAGE_MULTIPLIER = 0.2;
 
+/**
+ * Tracks damage increase and cooldown reduction from
+ * [Serenity](https://www.wowhead.com/spell=152173/serenity).
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/HYTBGcXtV4AN27QW#fight=last&type=damage-done&source=27
+ */
 class Serenity extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,

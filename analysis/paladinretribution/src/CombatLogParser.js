@@ -6,6 +6,7 @@ import {
   HolyPowerTracker,
   HolyPowerDetails,
   Judgment,
+  HolyPowerPerMinute,
 } from '@wowanalyzer/paladin';
 
 import Abilities from './modules/Abilities';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+    holyPowerPerMinute: HolyPowerPerMinute,
 
     // Items
     finalVerdict: FinalVerdict,

@@ -19,6 +19,7 @@ class DuskwalkersPatch extends Analyzer {
   effectiveVendettaReductionMs: number = 0;
   wastedVendettaReductionMs: number = 0;
   lastEnergyCost: number = 0;
+
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
@@ -28,18 +29,30 @@ class DuskwalkersPatch extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    if (event.ability.guid === SPELLS.VENDETTA.id) {
+      return;
+    }
     const resource = event.classResources?.find(
-      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+      (resource) => resource.type === RESOURCE_TYPES.ENERGY.id,
     );
     if (!resource) {
       return;
     }
     this.lastEnergyCost = resource.cost || 0;
-    const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
-    const effectiveReductionMs =
-      cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id);
-    if (effectiveReductionMs < cooldownReductionMs) {
+    const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * this.lastEnergyCost;
+    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
+      this.wastedVendettaReductionMs += cooldownReductionMs;
+      return;
+    }
+
+    if (this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id) < cooldownReductionMs) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(
+        SPELLS.VENDETTA.id,
+        cooldownReductionMs,
+      );
+      this.effectiveVendettaReductionMs += effectiveReductionMs;
       this.wastedVendettaReductionMs += cooldownReductionMs - effectiveReductionMs;
+      return;
     }
     this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(
       SPELLS.VENDETTA.id,
