@@ -13,6 +13,7 @@ import Events, {
 } from 'parser/core/Events';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -50,6 +51,11 @@ const calculateCritRating = (ilvl: number) => {
  * - https://www.warcraftlogs.com/reports/fZGa6X23CWbm9v8B#fight=9&type=damage-done&source=360
  */
 class SoullettingRuby extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+  protected statTracker!: StatTracker;
+
   crit: Readonly<{
     base: number;
     dynamic: number;
@@ -70,7 +76,7 @@ class SoullettingRuby extends Analyzer {
   }> = [];
   buffs: number[] = [];
 
-  constructor(options: Options) {
+  constructor(options: Options & { statTracker: StatTracker }) {
     super(options);
 
     this.item = this.selectedCombatant.getItem(ITEMS.SOULLETTING_RUBY.id)!;
@@ -80,6 +86,10 @@ class SoullettingRuby extends Analyzer {
     }
 
     this.crit = calculateCritRating(this.item.itemLevel);
+
+    options.statTracker.add(SPELLS.SOULLETTING_RUBY_BUFF.id, {
+      crit: this.crit.base,
+    });
 
     this.addEventListener(Events.damage, this.onDamage);
     this.addEventListener(
@@ -125,6 +135,11 @@ class SoullettingRuby extends Analyzer {
 
     this.casts.push({
       enemyHpPercent,
+    });
+
+    // Update statTracker so that the next buff will have the correct crit value
+    this.statTracker.update(SPELLS.SOULLETTING_RUBY_BUFF.id, {
+      crit: this.calculateBuffValue(enemyHpPercent).total,
     });
   }
 
