@@ -112,7 +112,6 @@ const useEventParser = ({
 
   const normalizedEvents = useMemo(() => {
     bench('normalizing events');
-    console.log(events, parser);
     if (events === undefined || parser === null) {
       benchEnd('normalizing events');
       return null;
