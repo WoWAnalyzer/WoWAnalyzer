@@ -72,6 +72,42 @@ const dungeonItemSpells = {
     name: 'Anima Field',
     icon: 'inv_trinket_oribos_01_silver',
   },
+  //Theater of Pain
+  SOULLETTING_RUBY_CAST: {
+    id: 345801,
+    name: 'Soulletting Ruby',
+    icon: 'inv_jewelcrafting_livingruby_01',
+  },
+  // SOULLETTING_RUBY_UNKNOWN: {
+  //   id: 345802,
+  //   name: 'Soul Fragment',
+  //   icon: 'spell_warlock_soulburn',
+  // },
+  // SOULLETTING_RUBY_UNKNOWN_2: {
+  //   id: 345803,
+  //   name: 'Soul Fragment',
+  //   icon: 'spell_warlock_soulburn',
+  // },
+  SOULLETTING_RUBY_HEAL: {
+    id: 345804,
+    name: 'Soul Transfer',
+    icon: 'spell_warlock_soulburn',
+  },
+  SOULLETTING_RUBY_BUFF: {
+    id: 345805,
+    name: 'Soul Infusion',
+    icon: 'spell_warlock_soulburn',
+  },
+  // SOULLETTING_RUBY_BUFF_2: {
+  //   id: 345806,
+  //   name: 'Soul Infusion',
+  //   icon: 'spell_warlock_soulburn',
+  // },
+  // SOULLETTING_RUBY_BUFF_3: {
+  //   id: 345807,
+  //   name: 'Soul Infusion',
+  //   icon: 'spell_warlock_soulburn',
+  // },
 } as const;
 
 export default dungeonItemSpells;
