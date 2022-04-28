@@ -58,10 +58,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 4, 30), <>Add statistics for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
   change(date(2022, 4, 27), 'Updated stat multiplier table for Shadowlands values', Putro),
   change(date(2022, 4, 26), 'Update scaling of all items', nullDozzer),
-  change(date(2022, 4, 26), <>Add statistics for damage, healing and cooldown reduction of <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />.</>, nullDozzer),
-  change(date(2022, 4, 26), <>Add statistics for effects of <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />.</>, nullDozzer),
   change(date(2022, 4, 20), 'Preformance increase for talent identification.', Abelito75),
   change(date(2022, 4, 19), 'Prevent invalid spells from passing internal tests and getting deployed.', emallson),
   change(date(2022, 4, 17), 'Fix conduits not being parsed correctly in some cases', nullDozzer),
