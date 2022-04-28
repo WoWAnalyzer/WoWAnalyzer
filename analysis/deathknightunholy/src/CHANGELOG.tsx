@@ -2,7 +2,7 @@
 
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
-import { Adoraci, joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
+import { Adoraci, joshinator, Khazak, LeoZhekov, Pendragon, Tialyss } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
