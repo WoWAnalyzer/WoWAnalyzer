@@ -135,4 +135,6 @@ export const SWIFT_PENITENCE_INCREASE = [
   0.6,
   0.63,
   0.66,
+  0.69,
+  0.72,
 ];
