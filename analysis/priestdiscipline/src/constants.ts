@@ -120,3 +120,21 @@ export const SHATTERED_PERCEPTIONS_INCREASE = [
   0.299,
   0.312,
 ];
+
+export const SWIFT_PENITENCE_INCREASE = [
+  0.3,
+  0.33,
+  0.36,
+  0.39,
+  0.42,
+  0.45,
+  0.48,
+  0.51,
+  0.54,
+  0.57,
+  0.6,
+  0.63,
+  0.66,
+  0.69,
+  0.72,
+];

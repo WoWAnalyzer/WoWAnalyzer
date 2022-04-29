@@ -34,6 +34,7 @@ import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
 import ShatteredPerceptions from './modules/shadowlands/conduits/ShatteredPerceptions';
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
+import SwiftPenitence from './modules/shadowlands/conduits/SwiftPenitence';
 import Mindgames from './modules/shadowlands/covenant/Mindgames';
 import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
 import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
@@ -110,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shiningRadiance: ShiningRadiance,
     exaltation: Exaltation,
     shatteredPerceptions: ShatteredPerceptions,
+    swiftPenitence: SwiftPenitence,
 
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,

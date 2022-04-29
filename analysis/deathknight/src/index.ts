@@ -1,9 +1,10 @@
 export { default as RuneBreakdown } from './RuneBreakdown';
 export { default as RuneDetails } from './RuneDetails';
-export { default as RuneForgeChecker } from './RuneForgeChecker';
-export { default as RuneOfHysteria } from './RuneOfHysteria';
-export { default as RuneOfTheFallenCrusader } from './RuneOfTheFallenCrusader';
+export { default as RuneForgeChecker } from './runeforges/RuneForgeChecker';
+export { default as RuneOfHysteria } from './runeforges/RuneOfHysteria';
+export { default as RuneOfTheFallenCrusader } from './runeforges/RuneOfTheFallenCrusader';
 export { default as RuneTracker } from './RuneTracker';
-export { default as Superstrain } from './Superstrain';
-export { default as SwarmingMist } from './SwarmingMist';
-export { default as DeathsDue } from './DeathsDue';
+export { default as Superstrain } from './shadowlands/legendaries/Superstrain';
+export { default as SwarmingMist } from './shadowlands/covenants/SwarmingMist';
+export { default as DeathsDue } from './shadowlands/covenants/DeathsDue';
+export { default as EternalHunger } from './shadowlands/conduits/EternalHunger';

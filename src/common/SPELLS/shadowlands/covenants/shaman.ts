@@ -27,7 +27,22 @@ const covenants = {
   //endregion
 
   //region Night Fae
-
+  FAE_TRANSFUSION: {
+    id: 328923,
+    name: 'Fae Transfusion',
+    icon: 'ability_ardenweald_shaman',
+    manaCost: 1000,
+  },
+  FAE_TRANSFUSION_BUFF: {
+    id: 328933,
+    name: 'Fae Transfusion',
+    icon: 'ability_ardenweald_shaman',
+  },
+  FAE_TRANSFUSION_HEAL: {
+    id: 328930,
+    name: 'Fae Transfusion',
+    icon: 'ability_ardenweald_shaman',
+  },
   //endregion
 
   //region Venthyr
