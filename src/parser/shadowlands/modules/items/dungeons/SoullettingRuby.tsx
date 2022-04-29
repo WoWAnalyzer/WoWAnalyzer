@@ -1,9 +1,9 @@
 import { formatNumber } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { ItemLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
@@ -11,7 +11,10 @@ import Events, {
   HealEvent,
   Item,
 } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -21,6 +24,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 
 const COOLDOWN_SECONDS = 120 as const;
+const CAST: Spell = SPELLS.SOULLETTING_RUBY_CAST;
+const HEAL: Spell = SPELLS.SOULLETTING_RUBY_HEAL;
+const BUFF: Spell = SPELLS.SOULLETTING_RUBY_BUFF;
 
 // We got the ratio between the guaranteed base and the dynamic part of the crit rating from simc data
 // https://github.dev/simulationcraft/simc/blob/e718ffa2a052facfe07f450d34377589abc0e049/engine/dbc/generated/sc_spell_data.inc#L41795-L41796
@@ -52,8 +58,14 @@ const calculateCritRating = (ilvl: number) => {
  */
 class SoullettingRuby extends Analyzer {
   static dependencies = {
+    abilities: Abilities,
+    buffs: Buffs,
+    castEfficiency: CastEfficiency,
     statTracker: StatTracker,
   };
+  protected abilities!: Abilities;
+  protected buffs!: Buffs;
+  protected castEfficiency!: CastEfficiency;
   protected statTracker!: StatTracker;
 
   crit: Readonly<{
@@ -74,9 +86,16 @@ class SoullettingRuby extends Analyzer {
     // Is it possible to get the enemys name here? To be able to display all casts
     enemyHpPercent: number;
   }> = [];
-  buffs: number[] = [];
+  appliedBuffs: number[] = [];
 
-  constructor(options: Options & { statTracker: StatTracker }) {
+  constructor(
+    options: Options & {
+      abilities: Abilities;
+      buffs: Buffs;
+      castEfficiency: CastEfficiency;
+      statTracker: StatTracker;
+    },
+  ) {
     super(options);
 
     this.item = this.selectedCombatant.getItem(ITEMS.SOULLETTING_RUBY.id)!;
@@ -87,23 +106,35 @@ class SoullettingRuby extends Analyzer {
 
     this.crit = calculateCritRating(this.item.itemLevel);
 
-    options.statTracker.add(SPELLS.SOULLETTING_RUBY_BUFF.id, {
+    // This value needs to update with every use of the trinket, we
+    // just set it to the lowest possible value to start with.
+    options.statTracker.add(BUFF.id, {
       crit: this.crit.base,
     });
 
+    // Add buff to show up in timeline
+    options.buffs.add({
+      spellId: BUFF.id,
+      timelineHighlight: true,
+      triggeredBySpellId: CAST.id,
+    });
+
+    // Add cast as an ability to show effective usage and cooldown in timeline
+    options.abilities.add({
+      spell: CAST.id,
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      cooldown: COOLDOWN_SECONDS,
+      gcd: null,
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.8,
+      },
+    });
+
     this.addEventListener(Events.damage, this.onDamage);
-    this.addEventListener(
-      Events.cast.spell(SPELLS.SOULLETTING_RUBY_CAST).by(SELECTED_PLAYER),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.heal.spell(SPELLS.SOULLETTING_RUBY_HEAL).to(SELECTED_PLAYER),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.applybuff.spell(SPELLS.SOULLETTING_RUBY_BUFF).to(SELECTED_PLAYER),
-      this.onBuff,
-    );
+    this.addEventListener(Events.cast.spell(CAST).by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.spell(HEAL).to(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.spell(BUFF).to(SELECTED_PLAYER), this.onBuff);
   }
 
   /** Tracks health of all enemies so that we know the percentage when the trinket is used. */
@@ -138,7 +169,7 @@ class SoullettingRuby extends Analyzer {
     });
 
     // Update statTracker so that the next buff will have the correct crit value
-    this.statTracker.update(SPELLS.SOULLETTING_RUBY_BUFF.id, {
+    this.statTracker.update(BUFF.id, {
       crit: this.calculateBuffValue(enemyHpPercent).total,
     });
   }
@@ -156,7 +187,7 @@ class SoullettingRuby extends Analyzer {
 
     console.log(`Buffing with (${base.toFixed()} + ${dynamic.toFixed()}) ${total.toFixed()}`);
 
-    this.buffs.push(total);
+    this.appliedBuffs.push(total);
   }
 
   calculateBuffValue(enemyHpPercent: number) {
@@ -174,20 +205,17 @@ class SoullettingRuby extends Analyzer {
     };
   }
 
-  get numberCasts() {
-    return this.casts.length;
+  private getCastEfficiency() {
+    return this.castEfficiency.getCastEfficiencyForSpellId(CAST.id);
   }
 
   get averageBuffValues() {
-    return this.buffs.reduce((a, b) => a + b, 0) / this.buffs.length;
-  }
-
-  get maxCasts() {
-    // Ceil because should be used as many times as possible, should be on cooldown when fight is over
-    return Math.ceil(calculateMaxCasts(COOLDOWN_SECONDS, this.owner.fightDuration));
+    return this.appliedBuffs.reduce((a, b) => a + b, 0) / this.appliedBuffs.length;
   }
 
   statistic(): ReactNode {
+    const { casts = 0, maxCasts = 0 } = this.getCastEfficiency() ?? {};
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
@@ -210,7 +238,7 @@ class SoullettingRuby extends Analyzer {
         }
       >
         <BoringItemValueText item={this.item}>
-          {this.numberCasts} Uses <small>{this.maxCasts} possible</small>
+          {casts} Uses <small>{maxCasts} possible</small>
         </BoringItemValueText>
         <div className="pad value">
           Average {this.averageBuffValues.toFixed(1)} <small>Critical Strike</small>
