@@ -11,10 +11,10 @@ const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance t
 
 class Penance extends Analyzer {
   get missedBolts() {
-    return [...this.eventGrouper].reduce(
-      (missedBolts, cast) => missedBolts + (this._boltCount - cast.length),
-      0,
-    );
+    return [...this.eventGrouper].reduce((missedBolts, cast) => {
+      cast.length > 3 ? (this._boltCount = 6) : (this._boltCount = 3); // checking for Penitent one legendary
+      return missedBolts + (this._boltCount - cast.length);
+    }, 0);
   }
 
   get casts() {
