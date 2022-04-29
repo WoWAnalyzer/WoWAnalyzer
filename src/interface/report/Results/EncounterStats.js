@@ -262,7 +262,7 @@ class EncounterStats extends PureComponent {
           .then((data) => {
             const updatedItems = this.state.items;
             updatedItems[trinket.id] = {
-              icon: data.icon,
+              icon: data.icon.split('/').pop(),
               id: trinket.id,
               name: trinket.name,
             };
