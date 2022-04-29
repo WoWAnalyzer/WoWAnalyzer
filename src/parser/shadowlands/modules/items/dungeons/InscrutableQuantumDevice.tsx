@@ -2,8 +2,12 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
-import Events, { ApplyBuffEvent, CastEvent, Item } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, Item } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
@@ -11,6 +15,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const COOLDOWN_SECONDS = 180 as const;
+
+const IQD_CAST: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CAST;
 
 // https://www.wowhead.com/item=179350/inscrutable-quantum-device?bonus=6805:1472#comments:id=3243706
 
@@ -25,9 +31,6 @@ const IQD_BUFFS = [IQD_CRIT, IQD_HASTE, IQD_MASTERY, IQD_VERS, IQD_CC_BREAK];
 
 const IQD_MANA: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MANA;
 const IQD_DECOY: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_DECOY;
-
-const IQD_CASTS = [IQD_MANA, IQD_DECOY];
-
 const IQD_EXECUTE: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_EXECUTE;
 const IQD_HEAL: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HEAL;
 
@@ -52,7 +55,19 @@ const IQD_HEAL: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HEAL;
  * - Find log where the decoy effect happened. I couldn't find any.
  */
 class InscrutableQuantumDevice extends Analyzer {
-  item: Item;
+  static dependencies = {
+    abilities: Abilities,
+    buffs: Buffs,
+    castEfficiency: CastEfficiency,
+    statTracker: StatTracker,
+  };
+
+  protected abilities!: Abilities;
+  protected buffs!: Buffs;
+  protected castEfficiency!: CastEfficiency;
+  protected statTracker!: StatTracker;
+
+  private readonly item: Item;
 
   private readonly counts = {
     crit: 0,
@@ -68,7 +83,14 @@ class InscrutableQuantumDevice extends Analyzer {
     decoy: 0,
   };
 
-  constructor(options: Options) {
+  constructor(
+    options: Options & {
+      abilities: Abilities;
+      buffs: Buffs;
+      castEfficiency: CastEfficiency;
+      statTracker: StatTracker;
+    },
+  ) {
     super(options);
 
     this.item = this.selectedCombatant.getItem(ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id)!;
@@ -77,8 +99,52 @@ class InscrutableQuantumDevice extends Analyzer {
       return;
     }
 
+    // https://wowhead.com/spell=330366/inscrutable-quantum-device?ilvl=262
+    const secondaryStat = calculateSecondaryStatDefault(262, 850, this.item.itemLevel);
+
+    // Add all the buffs to the statTracker so that other modules know them
+    options.statTracker.add(SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT, {
+      crit: secondaryStat,
+    });
+    options.statTracker.add(SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HASTE, {
+      haste: secondaryStat,
+    });
+    options.statTracker.add(SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MASTERY, {
+      mastery: secondaryStat,
+    });
+    options.statTracker.add(SPELLS.INSCRUTABLE_QUANTUM_DEVICE_VERS, {
+      versatility: secondaryStat,
+    });
+
+    // Add the buffs to the buff tracker so that they show up in the timeline
+    options.buffs.add({
+      spellId: IQD_BUFFS.map(({ id }) => id),
+      timelineHighlight: true,
+      triggeredBySpellId: IQD_CAST.id,
+    });
+
+    // Add the main cast as an ability so that we can track cooldown and usage in timeline
+    options.abilities.add({
+      spell: IQD_CAST.id,
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      cooldown: COOLDOWN_SECONDS,
+      gcd: null,
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.8,
+      },
+    });
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(IQD_BUFFS), this.onBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(IQD_CASTS), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(IQD_MANA),
+      () => (this.counts.mana += 1),
+    );
+    this.addEventListener(
+      // This is speculative as I could not find any log where the decoy had triggered
+      Events.cast.by(SELECTED_PLAYER).spell(IQD_DECOY),
+      () => (this.counts.decoy += 1),
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(IQD_EXECUTE),
       () => (this.counts.execute += 1),
@@ -86,9 +152,6 @@ class InscrutableQuantumDevice extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(IQD_HEAL),
       () => (this.counts.heal += 1),
-    );
-    this.addEventListener(Events.any.by(SELECTED_PLAYER).spell(IQD_CC_BREAK), (e) =>
-      console.log(e),
     );
   }
 
@@ -112,29 +175,8 @@ class InscrutableQuantumDevice extends Analyzer {
     }
   }
 
-  onCast(event: CastEvent) {
-    switch (event.ability.guid) {
-      case IQD_MANA.id:
-        this.counts.mana += 1;
-        break;
-      case IQD_CC_BREAK.id:
-        this.counts.ccBreak += 1;
-        break;
-      case IQD_DECOY.id:
-        this.counts.decoy += 1;
-        break;
-      case IQD_EXECUTE.id:
-        this.counts.execute += 1;
-        break;
-    }
-  }
-
-  private get totalCount() {
-    return Object.values(this.counts).reduce((a, b) => a + b, 0);
-  }
-
-  private get maxCasts() {
-    return Math.ceil(calculateMaxCasts(COOLDOWN_SECONDS, this.owner.fightDuration));
+  private getCastEfficiency() {
+    return this.castEfficiency.getCastEfficiencyForSpellId(IQD_CAST.id);
   }
 
   private get donutChartItems() {
@@ -208,7 +250,8 @@ class InscrutableQuantumDevice extends Analyzer {
   }
 
   statistic() {
-    const totalCount = this.totalCount;
+    const { casts = 0, maxCasts = 0 } = this.getCastEfficiency() ?? {};
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
@@ -216,11 +259,11 @@ class InscrutableQuantumDevice extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringItemValueText item={this.item}>
-          {totalCount} Uses <small>{this.maxCasts} possible</small>
+          {casts} Uses <small>{maxCasts} possible</small>
         </BoringItemValueText>
         <div className="pad">
           <small>??? Effects</small>
-          {totalCount > 0 && <DonutChart items={this.donutChartItems} />}
+          {casts > 0 && <DonutChart items={this.donutChartItems} />}
         </div>
       </Statistic>
     );
