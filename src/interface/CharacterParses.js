@@ -230,7 +230,7 @@ class CharacterParses extends Component {
         return fetch(makeItemApiUrl(trinket.id))
           .then((response) => response.json())
           .then((data) => {
-            updatedTrinkets[trinket.id].icon = data.icon;
+            updatedTrinkets[trinket.id].icon = data.icon.split('/').pop();
             this.setState({
               trinkets: updatedTrinkets,
             });
