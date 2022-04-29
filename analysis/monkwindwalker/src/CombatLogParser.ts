@@ -9,6 +9,7 @@ import {
   SinisterTeachings,
   ImbuedReflections,
   MysticTouch,
+  DampenHarm,
 } from '@wowanalyzer/monk';
 
 // Features
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+    dampenHarm: DampenHarm,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
