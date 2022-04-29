@@ -31,9 +31,14 @@ class DampenHarm extends Analyzer {
         const maxHP = event.maxHitPoints || 0;
         const hitSize = h + a + o;
         if (maxHP > 0) {
+          let drdh = 0;
           // given 1 - u / h = 0.2 + 0.3 * u, where u = hit size after all other dr effecs, h = current max hp
           // the following can be then produced algebraically:
-          const drdh = 0.6 - 0.5 * Math.sqrt(0.64 - (6 * hitSize) / (5 * maxHP));
+          if (hitSize >= maxHP / 2) {
+            drdh = 0.5;
+          } else {
+            drdh = 0.6 - 0.5 * Math.sqrt(0.64 - (6 * hitSize) / (5 * maxHP));
+          }
           this.damageReduced += hitSize / (1 - drdh) - hitSize;
         }
       }
