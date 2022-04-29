@@ -1,7 +1,6 @@
 import { RETAIL_EXPANSION } from 'game/Expansion';
 import getAverageItemLevel from 'game/getAverageItemLevel';
-import Icon from 'interface/Icon';
-import SpellLink from 'interface/SpellLink';
+import { ConduitLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
 
@@ -49,12 +48,10 @@ function renderConduit(conduit: Conduit) {
     >
       <div className="row">
         <div className="col-md-10">
-          <SpellLink id={conduit.spellID} icon={false}>
-            <Icon
-              icon={conduit.icon}
-              style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
-            />
-          </SpellLink>
+          <ConduitLink
+            id={conduit.spellID}
+            iconStyle={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
+          />
         </div>
       </div>
     </div>
