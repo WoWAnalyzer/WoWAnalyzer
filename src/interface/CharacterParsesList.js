@@ -1,15 +1,15 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
+import SPELLS from 'common/SPELLS';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
-import { ItemLink } from 'interface';
+import { ItemLink, SpellLink } from 'interface';
 import Icon from 'interface/Icon';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import SpellIcon from 'interface/SpellIcon';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
 
 const styles = {
@@ -26,10 +26,12 @@ class CharacterParsesList extends PureComponent {
     class: PropTypes.string.isRequired,
     metric: PropTypes.string.isRequired,
     trinkets: PropTypes.object.isRequired,
+    spellIcons: PropTypes.object.isRequired,
   };
 
   constructor(props) {
     super(props);
+    this.renderLegendaryEffect = this.renderLegendaryEffect.bind(this);
     this.renderItem = this.renderItem.bind(this);
   }
 
@@ -38,7 +40,23 @@ class CharacterParsesList extends PureComponent {
   }
 
   itemFilter(item, index) {
-    return TRINKET_SLOTS.includes(index) || item.quality === 'legendary';
+    return TRINKET_SLOTS.includes(index);
+  }
+  renderLegendaryEffect(
+    /** @type {{ name: string, id: number, icon: string }} */
+    le,
+  ) {
+    return (
+      <SpellLink key={le.id} id={le.id} icon={false}>
+        <Icon
+          icon={this.props.spellIcons[le.id] ?? SPELLS[1].icon}
+          style={{
+            ...styles.icon,
+            border: '1px solid',
+          }}
+        ></Icon>
+      </SpellLink>
+    );
   }
   renderItem(item) {
     return (
@@ -49,7 +67,10 @@ class CharacterParsesList extends PureComponent {
               ? this.props.trinkets[item.id].icon
               : this.props.trinkets[0].icon
           }
-          style={{ ...styles.icon, border: '1px solid' }}
+          style={{
+            ...styles.icon,
+            border: '1px solid',
+          }}
         />
       </ItemLink>
     );
@@ -89,8 +110,13 @@ class CharacterParsesList extends PureComponent {
                       {this.formatPerformance(elem)}
                     </div>
                   </div>
-                  <div className="col-md-1 text-right">
-                    {elem.advanced && elem.gear.filter(this.itemFilter).map(this.renderItem)}
+                  <div className="col-md-1 text-center">
+                    {elem.advanced && (
+                      <>
+                        <div>{elem.legendaryEffects.map(this.renderLegendaryEffect)}</div>
+                        <div>{elem.gear.filter(this.itemFilter).map(this.renderItem)}</div>
+                      </>
+                    )}
                   </div>
                   <div className="col-md-3">
                     {elem.advanced &&
