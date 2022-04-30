@@ -1,22 +1,25 @@
 // import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-// import Events, { DamageEvent, HealEvent, Ability } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+// import ApplyBuff from 'parser/shared/normalizers/ApplyBuff';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
+// DamageEvent, HealEvent, Ability, CastEvent,
+// import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
 
 // const CLARITY_EXTENSION_DURATION = 6000;
 
 class ClarityOfMindEvang extends Analyzer {
   private atonementHealing: number = 0;
   private healingMap: Map<number, number> = new Map();
-  // private abilityMap: Map<number, Ability> = new Map();
+  raptureBuffActive = false;
+  raptureShields = [] as any;
 
+  // private abilityMap: Map<number, Ability> = new Map();
   constructor(options: Options) {
     super(options);
 
@@ -28,15 +31,33 @@ class ClarityOfMindEvang extends Analyzer {
       return;
     }
 
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.handleAtone);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.checkRapture);
+    // this.addEventListener(ApplyBuff, this.raptureTest)
   }
 
-  private handleAtone(event: AtonementAnalyzerEvent) {
-    const { expirationDelta } = event;
-    console.log(expirationDelta);
+  private checkRapture(event: ApplyBuffEvent) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.ATONEMENT_BUFF.id || SPELLS.RAPTURE.id) {
+      return;
+    }
+    console.log(event);
+    this.selectedCombatant.buffs.forEach((buff) => {
+      if (buff.ability.name === 'Rapture') {
+        console.log(this.owner.formatTimestamp(buff.timestamp));
+        // console.log(buff) ;
+      }
+    });
+    // console.log(this.selectedCombatant.has2Piece());
+    if (SELECTED_PLAYER) {
+      this.raptureShields.push({
+        applyBuff: event,
+        atonementEvents: [],
+      });
+    }
   }
 
   statistic() {
+    // console.log(this.raptureShields);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
