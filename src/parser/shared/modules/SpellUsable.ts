@@ -41,7 +41,6 @@ class SpellUsable extends Analyzer {
   protected abilities!: Abilities;
 
   _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
-  _currentAccelerations: { [spellId: number]: number } = {};
   _errors = 0;
 
   get errorsPerMinute() {
@@ -164,7 +163,7 @@ class SpellUsable extends Analyzer {
     }
 
     const canSpellId = this._getCanonicalId(spellId);
-    const expectedCooldownDuration = this._getExpectedCooldownDuration(
+    const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
       canSpellId,
       cooldownTriggerEvent,
     );
@@ -290,7 +289,7 @@ class SpellUsable extends Analyzer {
     if (!this.isOnCooldown(canSpellId)) {
       throw new Error(`Tried to refresh the cooldown of ${canSpellId}, but it's not on cooldown.`);
     }
-    const expectedCooldownDuration = this._getExpectedCooldownDuration(canSpellId);
+    const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(canSpellId);
     if (!expectedCooldownDuration) {
       debug && this.warn('Spell', spellName(canSpellId), canSpellId, "doesn't have a cooldown.");
       return;
@@ -375,24 +374,6 @@ class SpellUsable extends Analyzer {
         -this._currentCooldowns[canSpellId].totalReductionTime,
       );
     return extensionMS;
-  }
-
-  // Adjust spell cooldown based on an acceleration factor.
-  // Currently used for death knight runes e.g. "regeneration rate increased by 40%"
-  // (rune regen is modeled as spell cooldown)
-  // Acceleration factor is stored outside CooldownInfo so that a new cooldown beginning during
-  // the acceleration picks up the correct expectedDuration.
-  accelerate(spellId: number, factor: number, timestamp = this.owner.currentTimestamp) {
-    this._currentAccelerations[spellId] = (this._currentAccelerations[spellId] || 1) * factor;
-    this._adjustCooldownMaintainingProgres(spellId, timestamp, 'Acceleration');
-  }
-
-  _getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent?: AnyEvent) {
-    const baseDuration = this.abilities.getExpectedCooldownDuration(spellId, cooldownTriggerEvent);
-    if (!baseDuration) {
-      return baseDuration;
-    }
-    return baseDuration * (this._currentAccelerations[spellId] || 1);
   }
 
   _makeEvent(
@@ -512,7 +493,51 @@ class SpellUsable extends Analyzer {
     Object.keys(this._currentCooldowns)
       .map(Number)
       .forEach((spellId) => {
-        this._adjustCooldownMaintainingProgres(spellId, event.timestamp, 'Haste');
+        const cooldown = this._currentCooldowns[spellId];
+        const originalExpectedDuration = cooldown.expectedDuration;
+        const cooldownTriggerEvent = cooldown.cooldownTriggerEvent;
+
+        const timePassed = event.timestamp - cooldown.start;
+        const progress = timePassed / originalExpectedDuration;
+
+        const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(
+          Number(spellId),
+          cooldownTriggerEvent,
+        );
+        if (cooldownDurationWithCurrentHaste === undefined) {
+          throw new Error(
+            `Attempting to get cooldown duration for spell with no ability info: ${spellId}`,
+          );
+        }
+        // The game only works with integers so round the new expected duration
+        const newExpectedDuration = Math.round(
+          timePassed +
+            this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste),
+        );
+        // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)
+
+        cooldown.expectedDuration = newExpectedDuration;
+
+        debug &&
+          this.log(
+            'Adjusted',
+            spellName(spellId),
+            spellId,
+            'cooldown duration due to Haste change; old duration without CDRs:',
+            originalExpectedDuration,
+            'CDRs:',
+            cooldown.totalReductionTime,
+            'time expired:',
+            timePassed,
+            'progress:',
+            `${formatPercentage(progress)}%`,
+            'cooldown duration with current Haste:',
+            cooldownDurationWithCurrentHaste,
+            '(without CDRs)',
+            'actual new expected duration:',
+            newExpectedDuration,
+            '(without CDRs)',
+          );
       });
   }
 
@@ -542,62 +567,6 @@ class SpellUsable extends Analyzer {
 
   _calculateNewCooldownDuration(progress: number, newDuration: number) {
     return newDuration * (1 - progress);
-  }
-
-  _adjustCooldownMaintainingProgres(spellId: number, timestamp: number, why: string) {
-    if (!this.isOnCooldown(spellId)) {
-      return;
-    }
-    const cooldown = this._currentCooldowns[spellId];
-    const originalExpectedDuration = cooldown.expectedDuration;
-    const cooldownTriggerEvent = cooldown.cooldownTriggerEvent;
-
-    const timePassed = timestamp - cooldown.start;
-    const progress = timePassed / originalExpectedDuration;
-
-    const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(
-      Number(spellId),
-      cooldownTriggerEvent,
-    );
-    if (cooldownDurationWithCurrentHaste === undefined) {
-      throw new Error(
-        `Attempting to get cooldown duration for spell with no ability info: ${spellId}`,
-      );
-    }
-    if (originalExpectedDuration === cooldownDurationWithCurrentHaste) {
-      return;
-    }
-
-    // The game only works with integers so round the new expected duration
-    const newExpectedDuration = Math.round(
-      timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste),
-    );
-    // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)
-
-    cooldown.expectedDuration = newExpectedDuration;
-
-    debug &&
-      this.log(
-        'Adjusted',
-        spellName(spellId),
-        spellId,
-        `cooldown duration due to ${why} change; old duration without CDRs:`,
-        originalExpectedDuration,
-        'CDRs:',
-        cooldown.totalReductionTime,
-        'time expired:',
-        timePassed,
-        'progress:',
-        `${formatPercentage(progress)}%`,
-        `cooldown duration with new ${why}:`,
-        cooldownDurationWithCurrentHaste,
-        '(without CDRs)',
-        'actual new expected duration:',
-        newExpectedDuration,
-        '(without CDRs)',
-      );
-
-    return newExpectedDuration;
   }
 }
 
