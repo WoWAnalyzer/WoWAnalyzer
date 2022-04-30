@@ -5,7 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot, HolySchmidt } from
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 4, 22), <>Added tracking for <SpellLink id={SPELLS.VANQUISHERS_HAMMER.id}/>. </>, HolySchmidt),
+  change(date(2022, 4, 30), <>Added tracking for <SpellLink id={SPELLS.VANQUISHERS_HAMMER.id}/>. </>, HolySchmidt),
   change(date(2022, 4, 22), <>Update example log. </>, Abelito75),
   change(date(2022, 4, 15), <>Fixed an issue when trying to load logs with Beacon of Virtue. </>, Abelito75),
   change(date(2022, 4, 15), <>Added Holy Power Generated Per Minute statistic </>, xizbow),
