@@ -26,7 +26,6 @@ class CharacterParsesList extends PureComponent {
     class: PropTypes.string.isRequired,
     metric: PropTypes.string.isRequired,
     trinkets: PropTypes.object.isRequired,
-    spellIcons: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -44,12 +43,12 @@ class CharacterParsesList extends PureComponent {
   }
   renderLegendaryEffect(
     /** @type {{ name: string, id: number, icon: string }} */
-    le,
+    { id, icon },
   ) {
     return (
-      <SpellLink key={le.id} id={le.id} icon={false}>
+      <SpellLink key={id} id={id} icon={false}>
         <Icon
-          icon={this.props.spellIcons[le.id] ?? SPELLS[1].icon}
+          icon={icon}
           style={{
             ...styles.icon,
             border: '1px solid',

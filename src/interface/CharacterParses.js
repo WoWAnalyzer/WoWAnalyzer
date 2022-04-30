@@ -3,9 +3,8 @@ import { Trans, defineMessage } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import ITEMS from 'common/ITEMS';
-import { makeCharacterApiUrl, makeItemApiUrl, makeSpellApiUrl } from 'common/makeApiUrl';
+import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
-import SPELLS from 'common/SPELLS';
 import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import SPECS from 'game/SPECS';
 import ZONES from 'game/ZONES';
@@ -95,7 +94,6 @@ class CharacterParses extends Component {
       error: null,
       errorMessage: null,
       trinkets: ITEMS,
-      spellIcons: {},
       realmSlug: this.props.realm,
     };
 
@@ -193,7 +191,6 @@ class CharacterParses extends Component {
 
   changeParseStructure(rawParses) {
     const updatedTrinkets = { ...this.state.trinkets };
-    const spellIcons = { ...this.state.spellIcons };
     const parses = rawParses.map((elem) => {
       // get missing trinket-icons later
       TRINKET_SLOTS.forEach((slotID) => {
@@ -205,14 +202,6 @@ class CharacterParses extends Component {
             quality: elem.gear[slotID].quality,
           };
         }
-      });
-
-      const legendaryEffects = elem.legendaryEffects
-        // the effects can come in different order. Sort for most consistent view
-        .sort((a, b) => b.id - a.id);
-
-      legendaryEffects.forEach((effect) => {
-        spellIcons[effect.id] = spellIcons[effect.id] ?? SPELLS.maybeGet(effect.id)?.icon;
       });
 
       return {
@@ -232,20 +221,11 @@ class CharacterParses extends Component {
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
-        legendaryEffects,
+        legendaryEffects: elem.legendaryEffects
+          // the effects can come in different order. Sort for most consistent view
+          .sort((a, b) => b.id - a.id),
         advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
       };
-    });
-
-    Object.entries(spellIcons).forEach(([spellId, icon]) => {
-      if (icon == null) {
-        fetch(makeSpellApiUrl(spellId))
-          .then((response) => response.json())
-          .then((data) => {
-            spellIcons[spellId] = data.icon.split('/').pop();
-            this.setState({ spellIcons });
-          });
-      }
     });
 
     Object.values(updatedTrinkets).map((trinket) => {
@@ -824,7 +804,6 @@ class CharacterParses extends Component {
                         class={this.state.class}
                         metric={this.state.metric}
                         trinkets={this.state.trinkets}
-                        spellIcons={this.state.spellIcons}
                       />
                     )}
                   </div>
