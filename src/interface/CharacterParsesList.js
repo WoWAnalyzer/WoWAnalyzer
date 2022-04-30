@@ -1,6 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
-import SPELLS from 'common/SPELLS';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import { ItemLink, SpellLink } from 'interface';
@@ -10,6 +9,7 @@ import SpellIcon from 'interface/SpellIcon';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
 
 const styles = {
