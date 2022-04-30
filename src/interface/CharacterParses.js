@@ -601,7 +601,7 @@ class CharacterParses extends Component {
                     {Object.values(ZONES)
                       .reverse()
                       .map((elem) => (
-                        <option key={'ZONES' + elem.id} value={elem.id}>
+                        <option key={elem.id} value={elem.id}>
                           {elem.name}
                         </option>
                       ))}
@@ -618,7 +618,7 @@ class CharacterParses extends Component {
                       All bosses
                     </option>
                     {this.zoneBosses.map((e) => (
-                      <option key={e.id + e.name} value={e.name}>
+                      <option key={e.id} value={e.name}>
                         {e.name}
                       </option>
                     ))}
@@ -667,7 +667,7 @@ class CharacterParses extends Component {
               <div className="panel character-filters">
                 {this.state.specs.map((elem, index) => (
                   <div
-                    key={'SPECS' + index}
+                    key={index}
                     onClick={() => this.updateSpec(elem.replace(' ', ''))}
                     className={
                       this.state.activeSpec.includes(elem.replace(' ', ''))
