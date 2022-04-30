@@ -52,7 +52,6 @@ class DampenHarm extends Analyzer {
 
   updateMaxHP(event: any) {
     this.currentMaxHP = event.maxHitPoints || this.currentMaxHP;
-    console.log(event);
   }
 
   statistic() {
