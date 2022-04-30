@@ -682,7 +682,7 @@ class CharacterParses extends Component {
 
                 {Object.values(DIFFICULTIES).map((difficultyId) => (
                   <div
-                    key={'DIFFICULTY' + difficultyId}
+                    key={difficultyId}
                     onClick={() => this.updateDifficulty(difficultyId)}
                     className={
                       this.state.activeDifficultyIds.includes(difficultyId)
