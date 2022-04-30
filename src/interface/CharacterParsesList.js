@@ -25,7 +25,6 @@ class CharacterParsesList extends PureComponent {
     parses: PropTypes.array.isRequired,
     class: PropTypes.string.isRequired,
     metric: PropTypes.string.isRequired,
-    trinkets: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -61,11 +60,7 @@ class CharacterParsesList extends PureComponent {
     return (
       <ItemLink key={item.id} id={item.id} className={item.quality} icon={false}>
         <Icon
-          icon={
-            this.props.trinkets[item.id]
-              ? this.props.trinkets[item.id].icon
-              : this.props.trinkets[0].icon
-          }
+          icon={item.icon}
           style={{
             ...styles.icon,
             border: '1px solid',
