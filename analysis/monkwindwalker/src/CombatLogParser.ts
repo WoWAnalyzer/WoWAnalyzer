@@ -8,6 +8,7 @@ import {
   FaelineHarmony,
   SinisterTeachings,
   ImbuedReflections,
+  InvokersDelight,
   MysticTouch,
 } from '@wowanalyzer/monk';
 
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
+    invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
 
