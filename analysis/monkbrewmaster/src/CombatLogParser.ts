@@ -9,6 +9,7 @@ import {
   FortifyingIngredients,
   GroundingBreath,
   HarmDenial,
+  InvokersDelight,
   TouchOfDeath,
   MysticTouch,
 } from '@wowanalyzer/monk';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
+    invokersDelight: InvokersDelight,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,
