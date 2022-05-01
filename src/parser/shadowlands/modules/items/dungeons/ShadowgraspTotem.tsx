@@ -82,10 +82,7 @@ class ShadowgraspTotem extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SUMMON_SPELL), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(DAMAGE_SPELL), this.onDamage);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(HEAL_SPELL),
-      this.onHeal,
-    );
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER).spell(HEAL_SPELL), this.onHeal);
   }
 
   onCast(event: CastEvent) {
