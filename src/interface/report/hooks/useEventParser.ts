@@ -121,6 +121,23 @@ const useEventParser = ({
       .normalize(events.filter((event) => event.type !== EventType.CombatantInfo))
       //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
       .sort((a, b) => a.timestamp - b.timestamp);
+
+    // verify events
+    const types = new Set<string>(Object.values(EventType));
+    // cycle through events
+    result.forEach((event) => {
+      // do we have the type?
+      if (!types.has(event.type)) {
+        if (process.env.NODE_ENV === 'production') {
+          console.error('Unknown event type detected: ', event);
+        } else {
+          throw new Error(
+            `Unknown event type detected ${event.type} if you created a new type you will need to add it to Event.ts`,
+          );
+        }
+      }
+    });
+
     benchEnd('normalizing events');
     return result;
   }, [events, parser]);
