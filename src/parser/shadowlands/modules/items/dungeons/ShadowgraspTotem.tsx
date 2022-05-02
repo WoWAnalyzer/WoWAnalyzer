@@ -153,9 +153,15 @@ class ShadowgraspTotem extends Analyzer {
             <ItemLink id={this.item.id} details={this.item} /> did {formatNumber(this.totalDamage)}{' '}
             damage in the {formatNumber(casts)} times it was used.
             <br />
-            Targets died {this.numberHeals} times, which healed a total of{' '}
-            {formatNumber(this.totalHealing)} (average {formatNumber(this.averageHealing)} HP) and
-            reduced the cooldown by a total of {this.cooldownReductionSeconds} seconds.
+            {this.numberHeals > 0 ? (
+              <>
+                Targets died {this.numberHeals} times, which healed a total of{' '}
+                {formatNumber(this.totalHealing)} (average {formatNumber(this.averageHealing)} HP)
+                and reduced the cooldown by a total of {this.cooldownReductionSeconds} seconds.
+              </>
+            ) : (
+              <>No target died causing no cooldown reduction or healing.</>
+            )}
           </>
         }
       >
