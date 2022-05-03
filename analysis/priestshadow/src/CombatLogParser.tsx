@@ -9,6 +9,7 @@ import {
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
+  TranslucentImage,
 } from '@wowanalyzer/priest';
 
 import Abilities from './modules/Abilities';
@@ -97,6 +98,7 @@ class CombatLogParser extends MainCombatLogParser {
     // conduits:
     dissonantEchoes: DissonantEchoes,
     hauntingApparitions: HauntingApparitions,
+    TranslucentImage: TranslucentImage,
 
     // legendaries:
     eternalCallToTheVoid: EternalCallToTheVoid,
