@@ -1,7 +1,12 @@
 import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  ResourceChangeEvent,
+  DrainEvent,
+  HealEvent,
+} from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -10,7 +15,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class DampenHarm extends Analyzer {
   hitsReduced = 0;
   damageReduced = 0;
-  skip = 0;
   currentMaxHP = 0;
 
   constructor(options: Options) {
@@ -22,6 +26,7 @@ class DampenHarm extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.drain.by(SELECTED_PLAYER), this.updateMaxHP);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageReduction);
   }
 
@@ -29,28 +34,30 @@ class DampenHarm extends Analyzer {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.DAMPEN_HARM_TALENT.id)) {
-      this.hitsReduced += 1;
-      const h = event.amount || 0;
-      const a = event.absorbed || 0;
-      const o = event.overkill || 0;
-      // TODO: ACTUAL MAX HP TRACKING
-      // event.maxHitPoints is insufficient as many events such as SPELL_ABSORBED are missing it and Keg of the Heavens is cursed.
-      const maxHP = event.maxHitPoints || this.currentMaxHP;
-      const hitSize = h + a + o;
-      let drdh = 0;
-      // given 1 - u / h = 0.2 + 0.3 * u, where u = hit size after all other dr effecs, h = current max hp
-      // the following can be then produced algebraically:
-      if (hitSize >= maxHP / 2) {
-        drdh = 0.5;
-      } else {
-        drdh = 0.6 - 0.5 * Math.sqrt(0.64 - (6 * hitSize) / (5 * maxHP));
-      }
-      this.damageReduced += hitSize / (1 - drdh) - hitSize;
+    if (!this.selectedCombatant.hasBuff(SPELLS.DAMPEN_HARM_TALENT.id)) {
+      return;
     }
+    const maxHP = event.maxHitPoints || this.currentMaxHP;
+    if (maxHP === 0) {
+      return;
+    }
+    this.hitsReduced += 1;
+    const h = event.amount || 0;
+    const a = event.absorbed || 0;
+    const o = event.overkill || 0;
+    const hitSize = h + a + o;
+    let drdh = 0;
+    // given 1 - u / h = 0.2 + 0.3 * u, where u = hit size after all other dr effecs, h = current max hp
+    // the following can be then produced algebraically:
+    if (hitSize >= maxHP / 2) {
+      drdh = 0.5;
+    } else {
+      drdh = 0.6 - 0.5 * Math.sqrt(0.64 - (6 * hitSize) / (5 * maxHP));
+    }
+    this.damageReduced += hitSize / (1 - drdh) - hitSize;
   }
 
-  updateMaxHP(event: any) {
+  updateMaxHP(event: DamageEvent | ResourceChangeEvent | DrainEvent | HealEvent) {
     this.currentMaxHP = event.maxHitPoints || this.currentMaxHP;
   }
 
