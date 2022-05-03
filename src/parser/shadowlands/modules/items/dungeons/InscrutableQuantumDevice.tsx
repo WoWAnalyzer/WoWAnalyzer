@@ -49,10 +49,8 @@ const IQD_HEAL: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HEAL;
  *   - CcBreak (330363) + Haste (330368), Mastery (330380)
  * - https://www.warcraftlogs.com/reports/4phRMkjqgHd7aVJy#fight=10&type=damage-done&source=260
  *   - Execute (330373) + Mastery (330380), Crit (330366)
- *
- * ### WANTED
- *
- * - Find log where the decoy effect happened. I couldn't find any.
+ * - https://www.warcraftlogs.com/reports/9ZLVq32tkGxznpDw#fight=34&type=damage-done&source=6
+ *   - Decoy () + Haste (330368)
  */
 class InscrutableQuantumDevice extends Analyzer {
   static dependencies = {
