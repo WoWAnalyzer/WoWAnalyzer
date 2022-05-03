@@ -16,6 +16,7 @@ import {
   MysticTouch,
   SinisterTeachings,
   TouchOfDeath,
+  DampenHarm,
 } from '@wowanalyzer/monk';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -136,6 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
     upwelling: Upwelling,
     invokeChiJi: InvokeChiJi,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
+    dampenHarm: DampenHarm,
 
     // Mana Tab
     manaTracker: ManaTracker,
