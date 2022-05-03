@@ -2,9 +2,10 @@ import { Trans, t } from '@lingui/macro';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
-import { EventsParseError } from 'interface/report/EventParser';
 import PropTypes from 'prop-types';
 import { Component, ReactNode } from 'react';
+
+import { EventsParseError } from './report/hooks/useEventParser';
 
 interface HandledError {
   message: string;

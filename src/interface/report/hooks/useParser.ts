@@ -1,8 +1,7 @@
+import retryingPromise from 'common/retryingPromise';
 import Config from 'parser/Config';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { useEffect, useState } from 'react';
-
-import retryingPromise from '../common/retryingPromise';
 
 const useParser = (config: Config) => {
   const [parserClass, setParserClass] = useState<typeof CombatLogParser>();

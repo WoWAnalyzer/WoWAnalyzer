@@ -10,6 +10,7 @@ import {
   AshenHallow,
   DivineToll,
   HolyPowerPerMinute,
+  VanquishersHammer,
 } from '@wowanalyzer/paladin';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -113,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenant
     ashenHallow: AshenHallow,
     divineToll: DivineToll,
+    vanquishersHammer: VanquishersHammer,
 
     // Conduits
     UntemperedDedication: UntemperedDedication,
