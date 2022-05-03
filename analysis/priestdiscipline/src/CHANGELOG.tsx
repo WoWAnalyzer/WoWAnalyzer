@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change (date(2022,5,3), <><SpellLink id={SPELLS.SWIFT_PENITENCE.id}/> tooltip added to explain HPS breakdown.</>, Hana,),
   change(date(2022, 4, 29), <><SpellLink id={SPELLS.SWIFT_PENITENCE.id} /> bug fixed when using empowered conduits </>, Hana, ),
   change(date(2022, 4, 24), <>Support for <SpellLink id={SPELLS.SWIFT_PENITENCE.id} /> </>, Hana, ),
   change(date(2021, 4, 11), <>Updated <SpellLink id={SPELLS.GUARDIAN_FAERIE.id} /> damage reduction to 20% and corrected DR calculation.</>, Adoraci),
