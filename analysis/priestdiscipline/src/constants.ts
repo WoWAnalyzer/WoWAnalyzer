@@ -138,3 +138,22 @@ export const SWIFT_PENITENCE_INCREASE = [
   0.69,
   0.72,
 ];
+
+export const TRANSLUCENT_IMAGE_INCREASE = [
+  0,
+  6,
+  6.6,
+  7.2,
+  7.8,
+  8.4,
+  9,
+  9.6,
+  10.2,
+  10.8,
+  11.4,
+  12,
+  12.6,
+  13.2,
+  13.8,
+  14.4,
+];
