@@ -31,20 +31,23 @@ const useCharacterProfile = ({ report, player }: { report: Report; player: Playe
         realm = exportedCharacter.server;
         name = exportedCharacter.name;
         if (region === CHINESE_REGION) {
+          setIsLoading(false);
           // China doesn't have an API
           return null;
         }
       }
 
-      const result = await fetch(makeCharacterApiUrl(id, region, realm, name));
+      try {
+        const result = await fetch(makeCharacterApiUrl(id, region, realm, name));
 
-      if (!result.ok) {
-        console.warn(new Error('Character profile loading failed'));
-      } else {
-        setCharacterProfile(await result.json());
+        if (!result.ok) {
+          console.warn(new Error('Character profile loading failed'));
+        } else {
+          setCharacterProfile(await result.json());
+        }
+      } finally {
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     })();
   }, [report, player]);
 
