@@ -133,6 +133,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
           <AbilityRequirement spell={SPELLS.DIVINE_TOLL.id} />
         )}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <AbilityRequirement spell={SPELLS.VANQUISHERS_HAMMER.id} />
+        )}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />

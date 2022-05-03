@@ -11,11 +11,13 @@ import {
   Hordehobbs,
   Akhtal,
   carglass,
+  kate,
 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
   change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
   change(date(2022, 4, 16), <>Added a Mystic Touch stat. </>, Abelito75),
   change(date(2022, 3, 23), <>Fix <SpellLink id={SPELLS.STAGGER.id} /> chart that was broken by version bump.</>, emallson),

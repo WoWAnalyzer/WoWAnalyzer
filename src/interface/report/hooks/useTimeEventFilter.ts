@@ -1,25 +1,26 @@
 import { captureException } from 'common/errorLogger';
 import {
-  EventType,
-  PhaseEvent,
-  CastEvent,
-  ApplyBuffStackEvent,
-  ApplyDebuffStackEvent,
-  RemoveBuffStackEvent,
-  RemoveDebuffStackEvent,
-  ApplyBuffEvent,
-  RemoveBuffEvent,
-  ApplyDebuffEvent,
-  RemoveDebuffEvent,
-  FilterCooldownInfoEvent,
   AnyEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  ApplyDebuffEvent,
+  ApplyDebuffStackEvent,
+  CastEvent,
+  EventType,
+  FilterBuffInfoEvent,
+  FilterCooldownInfoEvent,
+  PhaseEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  RemoveDebuffEvent,
+  RemoveDebuffStackEvent,
 } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
 import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
-import { PureComponent, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
-import { EventsParseError } from './EventParser';
-import { SELECTION_ALL_PHASES } from './PhaseParser';
+import { EventsParseError } from './useEventParser';
+import { SELECTION_ALL_PHASES } from './usePhases';
 
 const bench = (id: string) => console.time(id);
 const benchEnd = (id: string) => console.timeEnd(id);
@@ -31,133 +32,19 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   e2.sourceID === e.sourceID &&
   e2.targetID === e.targetID;
 
-interface Props {
-  fight: WCLFight;
-  filter: Filter;
-  phase: string;
-  phaseinstance: number;
-  bossPhaseEvents: PhaseEvent[];
-  events: AnyEvent[];
-  children: (isLoading: boolean, events?: AnyEvent[], fight?: Fight) => ReactNode;
-}
-
-interface State {
-  isLoading: boolean;
-  events?: AnyEvent[];
-  fight?: Fight;
-}
-
-export interface Filter {
-  start: number;
-  end: number;
-}
-
-class TimeEventFilter extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-    };
-  }
-
-  componentDidMount() {
-    // noinspection JSIgnoredPromiseFromCall
-    this.parse();
-  }
-
-  //compare filters if both are defined, otherwise to shallow reference copy to avoid rerendering when filter is clicked without changing the timestamps
-  filterDiffers(filter1: Filter, filter2: Filter) {
-    //if both filters are identical (shallow)
-    if (filter1 === filter2) {
-      return false;
-    }
-    //if both are defined, compare start and end
-    if (filter1 && filter2) {
-      return filter1.start !== filter2.start || filter1.end !== filter2.end;
-    }
-    //filters aren't equal
-    return true;
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    const changed =
-      this.props.bossPhaseEvents !== prevProps.bossPhaseEvents ||
-      this.props.fight !== prevProps.fight ||
-      this.filterDiffers(this.props.filter, prevProps.filter);
-
-    if (changed) {
-      this.setState({
-        isLoading: true,
-      });
-      // noinspection JSIgnoredPromiseFromCall
-      this.parse();
-    }
-  }
-
-  makeEvents() {
-    const { bossPhaseEvents, events, filter } = this.props;
-
-    if (!filter) {
-      return {
-        start: this.props.fight.start_time,
-        events: bossPhaseEvents ? [...bossPhaseEvents, ...events] : events,
-        end: this.props.fight.end_time,
-      };
-    }
-
-    return {
-      start: filter.start,
-      events: filterEvents(events, filter.start, filter.end),
-      end: filter.end,
-    };
-  }
-
-  async parse() {
-    try {
-      bench('time filter');
-      const eventFilter = this.makeEvents();
-      benchEnd('time filter');
-      this.setState({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        events: eventFilter.events,
-        fight: {
-          ...this.props.fight,
-          start_time: eventFilter.start,
-          end_time: eventFilter.end,
-          offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
-          original_end_time: this.props.fight.end_time,
-          filtered:
-            eventFilter.start !== this.props.fight.start_time ||
-            eventFilter.end !== this.props.fight.end_time,
-          ...(this.props.phase !== SELECTION_ALL_PHASES && {
-            phase: this.props.phase,
-            instance: this.props.phaseinstance || 0,
-          }), //if phase is selected, add it to the fight object
-        },
-        isLoading: false,
-      });
-    } catch (err) {
-      captureException(err as Error);
-      throw new EventsParseError(err as Error);
-    }
-  }
-
-  render() {
-    return this.props.children(this.state.isLoading, this.state.events, this.state.fight);
-  }
-}
-
 function findRelevantPostFilterEvents(events: AnyEvent[]) {
   return events
     .filter(
-      (e) => e.type === EventType.Cast && COMBAT_POTIONS.includes((e as CastEvent).ability.guid),
+      (e): e is CastEvent =>
+        e.type === EventType.Cast && COMBAT_POTIONS.includes((e as CastEvent).ability.guid),
     )
-    .map((e) => ({
-      ...e,
-      type: EventType.FilterCooldownInfo,
-      trigger: e.type,
-    }));
+    .map(
+      (e): FilterCooldownInfoEvent => ({
+        ...e,
+        type: EventType.FilterCooldownInfo,
+        trigger: e.type,
+      }),
+    );
 }
 
 //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
@@ -271,6 +158,14 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
  *  List of filtered events
  */
 export function filterEvents(events: AnyEvent[], start: number, end: number) {
+  function createFilterBuffInfoEvent(e: BuffEvent | StackEvent): FilterBuffInfoEvent {
+    return {
+      ...e,
+      type: EventType.FilterBuffInfo,
+      trigger: e.type,
+    };
+  }
+
   const phaseEvents = events.filter((event) => event.timestamp >= start && event.timestamp <= end);
 
   const preFilterEvents = findRelevantPreFilterEvents(
@@ -278,14 +173,12 @@ export function filterEvents(events: AnyEvent[], start: number, end: number) {
   )
     .sort((a, b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map((e) => ({
-      ...e,
       prepull: true, //pretend previous events were "prepull"
       ...(e.type !== EventType.FilterCooldownInfo &&
-        e.type !== EventType.Cast &&
-        COMBAT_POTIONS.includes(e.ability.guid) && {
-          type: EventType.FilterBuffInfo,
-          trigger: e.type,
-        }),
+      e.type !== EventType.Cast &&
+      COMBAT_POTIONS.includes(e.ability.guid)
+        ? createFilterBuffInfoEvent(e)
+        : e),
       ...(e.type !== EventType.FilterCooldownInfo && !COMBAT_POTIONS.includes(e.ability.guid)
         ? { timestamp: start }
         : { __fabricated: true }), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
@@ -295,7 +188,7 @@ export function filterEvents(events: AnyEvent[], start: number, end: number) {
     events.filter((event) => event.timestamp > end),
   )
     .sort((a, b) => a.timestamp - b.timestamp) //sort events by timestamp
-    .map((e) => ({
+    .map((e): typeof e => ({
       ...e,
       timestamp: end,
     }));
@@ -303,4 +196,93 @@ export function filterEvents(events: AnyEvent[], start: number, end: number) {
   return [...preFilterEvents, ...phaseEvents, ...postFilterEvents];
 }
 
-export default TimeEventFilter;
+export interface Filter {
+  start: number;
+  end: number;
+}
+
+interface Config {
+  bossPhaseEventsLoaded: boolean;
+  fight: WCLFight;
+  filter: Filter;
+  phase: string;
+  phaseinstance: number;
+  bossPhaseEvents: PhaseEvent[] | null;
+  events: AnyEvent[] | null;
+}
+
+const useTimeEventFilter = ({
+  bossPhaseEventsLoaded = false,
+  fight,
+  filter,
+  phase,
+  phaseinstance,
+  bossPhaseEvents,
+  events,
+}: Config) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [stateEvents, setStateEvents] = useState<AnyEvent[] | undefined>(undefined);
+  const [stateFight, setStateFight] = useState<Fight | undefined>(undefined);
+
+  useEffect(() => {
+    if (!bossPhaseEventsLoaded || events == null) {
+      return;
+    }
+
+    const makeEvents = (): {
+      start: number;
+      events: AnyEvent[];
+      end: number;
+    } => {
+      if (!filter) {
+        return {
+          start: fight.start_time,
+          events: bossPhaseEvents ? [...bossPhaseEvents, ...events] : events,
+          end: fight.end_time,
+        };
+      }
+
+      return {
+        start: filter.start,
+        events: filterEvents(events, filter.start, filter.end),
+        end: filter.end,
+      };
+    };
+
+    const parse = async () => {
+      try {
+        bench('time filter');
+        const eventFilter = makeEvents();
+        benchEnd('time filter');
+        setStateEvents(eventFilter.events);
+        setStateFight({
+          ...fight,
+          start_time: eventFilter.start,
+          end_time: eventFilter.end,
+          offset_time: eventFilter.start - fight.start_time, //time between time filter start and fight start (for e.g. timeline)
+          original_end_time: fight.end_time,
+          filtered: eventFilter.start !== fight.start_time || eventFilter.end !== fight.end_time,
+          ...(phase !== SELECTION_ALL_PHASES && {
+            phase: phase,
+            phaseinstance: phaseinstance || 0,
+          }), //if phase is selected, add it to the fight object
+        });
+        setIsLoading(false);
+      } catch (err) {
+        captureException(err as Error);
+        throw new EventsParseError(err as Error);
+      }
+    };
+
+    setIsLoading(true);
+    parse();
+  }, [bossPhaseEventsLoaded, bossPhaseEvents, fight, filter, events, phase, phaseinstance]);
+
+  return {
+    isLoading,
+    events: stateEvents,
+    fight: stateFight,
+  };
+};
+
+export default useTimeEventFilter;
