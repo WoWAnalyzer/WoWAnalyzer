@@ -155,5 +155,4 @@ export const TRANSLUCENT_IMAGE_INCREASE = [
   12.6,
   13.2,
   13.8,
-  14.4,
 ];
