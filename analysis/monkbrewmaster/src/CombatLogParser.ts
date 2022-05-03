@@ -9,6 +9,7 @@ import {
   FortifyingIngredients,
   GroundingBreath,
   HarmDenial,
+  InvokersDelight,
   TouchOfDeath,
   MysticTouch,
   DampenHarm,
@@ -89,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
+    invokersDelight: InvokersDelight,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,

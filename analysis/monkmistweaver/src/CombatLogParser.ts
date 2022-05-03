@@ -12,6 +12,7 @@ import {
   GroundingBreath,
   HarmDenial,
   ImbuedReflections,
+  InvokersDelight,
   MysticTouch,
   SinisterTeachings,
   TouchOfDeath,
@@ -166,6 +167,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     cloudedFocus: CloudedFocus,
+    invokersDelight: InvokersDelight,
     sinisterTeachings: SinisterTeachings,
 
     // Tier set

@@ -13,6 +13,11 @@ const covenants = {
     name: "Vanquisher's Hammer",
     icon: 'ability_maldraxxus_paladin',
   },
+  DUTY_BOUND_GAVEL: {
+    id: 355099,
+    name: 'Duty-Bound Gavel',
+    icon: 'ability_maldraxxus_paladin',
+  },
   //endregion
 
   //region Night Fae
