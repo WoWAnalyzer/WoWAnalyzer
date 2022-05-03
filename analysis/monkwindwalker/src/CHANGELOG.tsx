@@ -4,6 +4,7 @@ import { Juko8, Abelito75, Talby, Hursti, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
   change(date(2022, 4, 30), 'Add myself as contributor', nullDozzer),
   change(date(2022, 4, 24), <>Further fixes to 4-set bonus <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/>. Stop missing multiple damage events, and now also tracks <SpellLink id={SPELLS.JADE_IGNITION.id} />.</>, nullDozzer),
   change(date(2022, 4, 24), <>Added checklist and suggestion to to <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> when using <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.</>, nullDozzer),
