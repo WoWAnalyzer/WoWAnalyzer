@@ -26,7 +26,7 @@ class DampenHarm extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.drain.by(SELECTED_PLAYER), this.updateMaxHP);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.updateMaxHP);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageReduction);
   }
 
