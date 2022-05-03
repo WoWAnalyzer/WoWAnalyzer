@@ -15,7 +15,7 @@ import LoadingBar from 'interface/LoadingBar';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import { RootState } from 'interface/reducers';
-import { Filter } from 'interface/report/hooks/useTimeEventFilter';
+import { Filter } from 'interface/report/TimeEventFilter';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import ResultsChangelogTab from 'interface/ResultsChangelogTab';
 import { getResultTab } from 'interface/selectors/url/report';
