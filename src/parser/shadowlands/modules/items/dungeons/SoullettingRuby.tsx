@@ -178,7 +178,7 @@ class SoullettingRuby extends Analyzer {
 
   /** We can track how much you heal because why not */
   onHeal(event: HealEvent) {
-    this.healedAmount += (event.amount || 0) * (event.absorbed || 0);
+    this.healedAmount += (event.amount || 0) + (event.absorbed || 0);
   }
 
   private calculateBuffValue(enemyHpPercent: number) {
