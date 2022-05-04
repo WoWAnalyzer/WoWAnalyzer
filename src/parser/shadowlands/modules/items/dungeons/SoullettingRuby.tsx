@@ -85,7 +85,7 @@ class SoullettingRuby extends Analyzer {
   /** Each entry is the crit value of a particular instance of the buff */
   readonly casts: Array<{
     timestamp: number;
-    targetName: string;
+    targetName: ReactNode;
     // Is it possible to get the enemys name here? To be able to display all casts
     targetHpPercent: number;
     buffValue: {
@@ -158,7 +158,7 @@ class SoullettingRuby extends Analyzer {
 
     this.casts.push({
       timestamp: event.timestamp,
-      targetName: enemy?.name ?? 'Unknown',
+      targetName: enemy?.name ?? <span className="poor">Unknown</span>,
       targetHpPercent: hitPointsPercent,
       buffValue,
     });
