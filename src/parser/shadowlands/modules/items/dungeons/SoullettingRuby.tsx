@@ -49,7 +49,7 @@ const calculateCritRating = (ilvl: number) => {
  * ### Example Logs:
  *
  * - https://www.warcraftlogs.com/reports/V3RndD8QGmzrJHhB#fight=5&type=damage-done&source=99
- * - https://www.warcraftlogs.com/reports/fZGa6X23CWbm9v8B#fight=9&type=damage-done&source=360
+ * - https://www.warcraftlogs.com/reports/cbGYVyBa9nzLvZ2P#fight=3&type=damage-done&source=13
  */
 class SoullettingRuby extends Analyzer {
   static dependencies = {
