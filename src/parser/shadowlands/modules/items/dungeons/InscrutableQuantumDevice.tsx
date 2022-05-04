@@ -48,12 +48,14 @@ const IQD_HEAL: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HEAL;
  *   - Heal (330364) + Haste (330368), Mastery (330380)
  * - https://www.warcraftlogs.com/reports/v8anRWA7zYj1DChK#fight=5&type=damage-done&source=3
  *   - Mana (330376) + Haste (330368), Vers (330367)
+ * - https://www.warcraftlogs.com/reports/Cwth4bkpX8mnFvZD#fight=4&type=healing&source=121
+ *   - Mana (330376) + Haste (330368), Vers (330367), Execute (330373)
  * - https://www.warcraftlogs.com/reports/a9knCMFB1xdKyJ6G#fight=8&type=damage-done&source=10
  *   - CcBreak (330363) + Haste (330368), Mastery (330380)
  * - https://www.warcraftlogs.com/reports/4phRMkjqgHd7aVJy#fight=10&type=damage-done&source=260
  *   - Execute (330373) + Mastery (330380), Crit (330366)
  * - https://www.warcraftlogs.com/reports/9ZLVq32tkGxznpDw#fight=34&type=damage-done&source=6
- *   - Decoy () + Haste (330368)
+ *   - Decoy (330372) + Haste (330368)
  */
 class InscrutableQuantumDevice extends Analyzer {
   static dependencies = {
@@ -155,6 +157,21 @@ class InscrutableQuantumDevice extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(IQD_HEAL),
       () => (this.counts.heal += 1),
     );
+    this.addEventListener(Events.fightend, () => {
+      const { casts = -1 } = this.getCastEfficiency() || {};
+      const { crit, haste, mastery, vers, heal, execute, mana, ccBreak, decoy } = this.counts;
+      const total = crit + haste + mastery + vers + heal + execute + mana + ccBreak + decoy;
+
+      if (casts !== total) {
+        console.warn(
+          'Inscrutable Quantum Device:',
+          casts,
+          'casts, but only',
+          total,
+          'effects were detected.',
+        );
+      }
+    });
   }
 
   onBuff(event: ApplyBuffEvent) {
