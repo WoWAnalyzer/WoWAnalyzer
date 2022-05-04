@@ -4334,7 +4334,7 @@ exports[`Unholy Death Knight integration test: example log InscrutableQuantumDev
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1001}
+    position={1100}
   >
     <div
       className="panel-body"

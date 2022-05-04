@@ -4418,7 +4418,7 @@ exports[`Survival Hunter integration test: Multi Target ShadowgraspTotem matches
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1001}
+    position={1100}
   >
     <div
       className="panel-body"

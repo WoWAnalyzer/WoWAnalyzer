@@ -218,7 +218,7 @@ class SoullettingRuby extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        position={STATISTIC_ORDER.OPTIONAL(100)}
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={

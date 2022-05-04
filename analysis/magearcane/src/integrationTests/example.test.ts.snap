@@ -5234,7 +5234,7 @@ exports[`Arcane Mage integration test: example log InscrutableQuantumDevice matc
   <div
     category="ITEMS"
     className="panel statistic flexible "
-    position={1001}
+    position={1100}
   >
     <div
       className="panel-body"
