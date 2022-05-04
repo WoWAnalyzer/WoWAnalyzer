@@ -11,7 +11,7 @@ import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
 
 const EVANGELISM_DURATION = 6;
-const EVANGELISM_DURATION_MS = 6000;
+const EVANGELISM_DURATION_MS = EVANGELISM_DURATION * 1000;
 
 class Evangelism extends Analyzer {
   static dependencies = {

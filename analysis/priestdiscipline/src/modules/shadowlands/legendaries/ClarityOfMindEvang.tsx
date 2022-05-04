@@ -17,10 +17,15 @@ const CLARITY_EXTENSION_DURATION = 6000;
 const EVANG_EXTENSION_DURATION = 6000;
 const POWER_WORD_SHIELD_MANA_COST = 1550;
 
+type RaptureShieldInfo = {
+  cast: CastEvent;
+  extendedByEvang?: boolean;
+};
+
 class ClarityOfMindEvang extends Analyzer {
   private atonementHealing: number = 0;
   raptureBuffActive = false;
-  raptureShields = [] as any;
+  raptureShields: RaptureShieldInfo[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -34,9 +39,15 @@ class ClarityOfMindEvang extends Analyzer {
     }
 
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.handleAtone);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.checkRapture);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.checkEvang);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.applyRapture);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.POWER_WORD_SHIELD, SPELLS.RAPTURE]),
+      this.checkRapture,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT),
+      this.checkEvang,
+    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPTURE), this.applyRapture);
     this.addEventListener(
       Events.removebuff.spell(SPELLS.RAPTURE).by(SELECTED_PLAYER),
       this.raptureRemoved,
@@ -44,35 +55,23 @@ class ClarityOfMindEvang extends Analyzer {
   }
 
   private checkRapture(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.POWER_WORD_SHIELD.id && spellId !== SPELLS.RAPTURE.id) {
-      return;
-    }
     if (this.raptureBuffActive) {
       this.raptureShields.push({
-        applyBuff: event,
+        cast: event,
       });
     }
   }
 
   applyRapture(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RAPTURE.id) {
-      return;
-    }
-    this.raptureShields.push({ applyBuff: event });
+    this.raptureShields.push({ cast: event });
     this.raptureBuffActive = true;
   }
 
   checkEvang(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EVANGELISM_TALENT.id) {
-      return;
-    }
-    this.raptureShields.forEach((shield: any, index: number) => {
+    this.raptureShields.forEach((shield, index: number) => {
       if (
-        event.timestamp > shield.applyBuff.timestamp &&
-        event.timestamp < shield.applyBuff.timestamp + POWER_WORD_SHIELD_ATONEMENT_DUR
+        event.timestamp > shield.cast.timestamp &&
+        event.timestamp < shield.cast.timestamp + POWER_WORD_SHIELD_ATONEMENT_DUR
       ) {
         this.raptureShields[index].extendedByEvang = true;
       }
@@ -84,19 +83,19 @@ class ClarityOfMindEvang extends Analyzer {
   }
 
   private handleAtone(event: AtonementAnalyzerEvent) {
-    this.raptureShields.forEach((rapture: any) => {
+    this.raptureShields.forEach((rapture) => {
       const end =
-        rapture.applyBuff.timestamp +
+        rapture.cast.timestamp +
         (rapture.extendedByEvang ? EVANG_EXTENSION_DURATION : 0) +
         POWER_WORD_SHIELD_ATONEMENT_DUR +
         CLARITY_EXTENSION_DURATION;
       const start =
-        rapture.applyBuff.timestamp +
+        rapture.cast.timestamp +
         (rapture.extendedByEvang ? EVANG_EXTENSION_DURATION : 0) +
         POWER_WORD_SHIELD_ATONEMENT_DUR;
 
       if (
-        event.targetID === rapture.applyBuff.targetID &&
+        event.targetID === rapture.cast.targetID &&
         event.timestamp > start &&
         event.timestamp < end
       ) {
