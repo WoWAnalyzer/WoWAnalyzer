@@ -1,9 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Abelito75, Talby, Hursti, nullDozzer } from 'CONTRIBUTORS';
+import { Juko8, Abelito75, Talby, Hursti, nullDozzer, kate } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
+  change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
+  change(date(2022, 4, 30), 'Add myself as contributor', nullDozzer),
   change(date(2022, 4, 24), <>Further fixes to 4-set bonus <SpellLink id={SPELLS.PRIMORDIAL_POTENTIAL.id}/>. Stop missing multiple damage events, and now also tracks <SpellLink id={SPELLS.JADE_IGNITION.id} />.</>, nullDozzer),
   change(date(2022, 4, 24), <>Added checklist and suggestion to to <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> when using <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />.</>, nullDozzer),
   change(date(2022, 4, 18), <>Fix tracking of Coordinated Offensive, Serenity and Weapons of Order to include damage from <SpellLink id={SPELLS.CHI_BURST_TALENT.id} />, <SpellLink id={SPELLS.CHI_WAVE_TALENT.id} /> and <SpellLink id={SPELLS.FAELINE_STOMP_CAST.id} />.</>, nullDozzer),

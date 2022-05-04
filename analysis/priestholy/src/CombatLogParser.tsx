@@ -10,6 +10,7 @@ import {
   Mindgames,
   TwinsOfTheSunPriestess,
   UnholyNova,
+  TranslucentImage,
 } from '@wowanalyzer/priest';
 import AbilityTracker from '@wowanalyzer/priest-holy/src/modules/core/AbilityTracker';
 
@@ -133,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     resonantWords: ResonantWords,
+    TranslucentImage: TranslucentImage,
 
     // Covenants
     unholyNova: UnholyNova,
