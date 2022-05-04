@@ -1,12 +1,13 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import DonutChart from 'parser/ui/DonutChart';
@@ -31,6 +32,7 @@ const IQD_BUFFS = [IQD_CRIT, IQD_HASTE, IQD_MASTERY, IQD_VERS, IQD_CC_BREAK];
 
 const IQD_MANA: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MANA;
 const IQD_DECOY: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_DECOY;
+const IQD_DECOY_DISTRACT: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVUCE_DECOY_DISTRACT;
 const IQD_EXECUTE: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_EXECUTE;
 const IQD_HEAL: Spell = SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HEAL;
 
@@ -78,7 +80,10 @@ class InscrutableQuantumDevice extends Analyzer {
 
     mana: 0,
     ccBreak: 0,
-    decoy: 0,
+    get decoy() {
+      return this.decoyIds.size;
+    },
+    decoyIds: new Set<string>(),
   };
 
   constructor(
@@ -138,10 +143,8 @@ class InscrutableQuantumDevice extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(IQD_MANA),
       () => (this.counts.mana += 1),
     );
-    this.addEventListener(
-      // This is speculative as I could not find any log where the decoy had triggered
-      Events.cast.by(SELECTED_PLAYER).spell(IQD_DECOY),
-      () => (this.counts.decoy += 1),
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(IQD_DECOY_DISTRACT), (e) =>
+      this.counts.decoyIds.add(encodeTargetString(e.sourceID, e.sourceInstance)),
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(IQD_EXECUTE),

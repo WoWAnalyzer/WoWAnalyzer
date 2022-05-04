@@ -46,6 +46,11 @@ const dungeonItemSpells = {
     name: 'Inscrutable Quantum Device',
     icon: 'inv_trinket_80_titan02a',
   },
+  INSCRUTABLE_QUANTUM_DEVUCE_DECOY_DISTRACT: {
+    id: 347940,
+    name: 'Inscrutable Quantum Device',
+    icon: 'inv_trinket_80_titan02a',
+  },
   INSCRUTABLE_QUANTUM_DEVICE_EXECUTE: {
     id: 330373,
     name: 'Inscrutable Quantum Device',
