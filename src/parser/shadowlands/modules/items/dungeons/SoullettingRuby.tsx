@@ -1,8 +1,8 @@
-import { formatNumber } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import { ItemLink } from 'interface';
+import { ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -15,6 +15,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -23,6 +24,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 
+/** The amount of health we use when we can't figure out how much health the target hass */
+const HP_PERCENT_GUESS = 0.75;
 const COOLDOWN_SECONDS = 120 as const;
 const CAST: Spell = SPELLS.SOULLETTING_RUBY_CAST;
 const HEAL: Spell = SPELLS.SOULLETTING_RUBY_HEAL;
@@ -61,38 +64,53 @@ class SoullettingRuby extends Analyzer {
     abilities: Abilities,
     buffs: Buffs,
     castEfficiency: CastEfficiency,
+    enemies: Enemies,
     statTracker: StatTracker,
   };
   protected abilities!: Abilities;
   protected buffs!: Buffs;
   protected castEfficiency!: CastEfficiency;
+  protected enemies!: Enemies;
   protected statTracker!: StatTracker;
 
-  crit: Readonly<{
+  /**
+   * The budget for the current itemlevel of the item.
+   *
+   * Dynamic is the maximum when used on target with 0% health.
+   */
+  readonly critBudget: Readonly<{
     base: number;
     dynamic: number;
   }> = {
     base: -1,
     dynamic: -1,
   };
-  item: Item;
+  readonly item: Item;
 
   /** The percentages of all enemies that has been damaged */
   // TODO: I'm sure there's some module that tracks this for me??
-  enemyHealths: { [key: string]: number } = {};
+  readonly enemyHealths: { [key: string]: number } = {};
   healedAmount = 0;
   /** Each entry is the crit value of a particular instance of the buff */
-  casts: Array<{
+  readonly casts: Array<{
+    timestamp: number;
+    targetName: string;
     // Is it possible to get the enemys name here? To be able to display all casts
-    enemyHpPercent: number;
+    targetHpPercent: number;
+    buffValue: {
+      base: number;
+      dynamic: number;
+      total: number;
+    };
   }> = [];
-  appliedBuffs: number[] = [];
+  readonly appliedBuffs: number[] = [];
 
   constructor(
     options: Options & {
       abilities: Abilities;
       buffs: Buffs;
       castEfficiency: CastEfficiency;
+      enemies: Enemies;
       statTracker: StatTracker;
     },
   ) {
@@ -104,12 +122,12 @@ class SoullettingRuby extends Analyzer {
       return;
     }
 
-    this.crit = calculateCritRating(this.item.itemLevel);
+    this.critBudget = calculateCritRating(this.item.itemLevel);
 
     // This value needs to update with every use of the trinket, we
     // just set it to the lowest possible value to start with.
     options.statTracker.add(BUFF.id, {
-      crit: this.crit.base,
+      crit: this.critBudget.base,
     });
 
     // Add buff to show up in timeline
@@ -160,18 +178,24 @@ class SoullettingRuby extends Analyzer {
       return;
     }
 
+    const enemy = this.enemies.getEntity(event);
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     /** Enemy health percentage as fraction (0.4 === 40%) */
-    const enemyHpPercent = this.enemyHealths[targetString];
+    const targetHpPercent =
+      this.enemyHealths[targetString] ??
+      // -1 Signifies health unknown
+      -1;
+    const buffValue = this.calculateBuffValue(targetHpPercent);
 
     this.casts.push({
-      enemyHpPercent,
+      timestamp: event.timestamp,
+      targetName: enemy?.name ?? 'Unknown',
+      targetHpPercent,
+      buffValue,
     });
 
     // Update statTracker so that the next buff will have the correct crit value
-    this.statTracker.update(BUFF.id, {
-      crit: this.calculateBuffValue(enemyHpPercent).total,
-    });
+    this.updateBuffValue(buffValue);
   }
 
   /** We can track how much you heal because why not */
@@ -181,21 +205,19 @@ class SoullettingRuby extends Analyzer {
 
   /** Once we get the buff, track it. Using the multiplier we calculated on the cast */
   onBuff(event: ApplyBuffEvent) {
-    const { enemyHpPercent } = this.casts[this.casts.length - 1] || { enemyHpPercent: -1 };
-
-    const { base, dynamic, total } = this.calculateBuffValue(enemyHpPercent);
-
-    console.log(`Buffing with (${base.toFixed()} + ${dynamic.toFixed()}) ${total.toFixed()}`);
-
-    this.appliedBuffs.push(total);
+    this.appliedBuffs.push(this.getCurrentBuffValue());
   }
 
-  calculateBuffValue(enemyHpPercent: number) {
+  private calculateBuffValue(enemyHpPercent: number) {
+    if (enemyHpPercent < 0) {
+      enemyHpPercent = HP_PERCENT_GUESS;
+    }
+
     // https://github.dev/simulationcraft/simc/blob/e718ffa2a052facfe07f450d34377589abc0e049/engine/player/unique_gear_shadowlands.cpp#L1034-L1035
     const bonusMultiplier = 1 - enemyHpPercent;
 
-    const base = this.crit.base;
-    const dynamic = this.crit.dynamic * bonusMultiplier;
+    const base = this.critBudget.base;
+    const dynamic = this.critBudget.dynamic * bonusMultiplier;
     const total = base + dynamic;
 
     return {
@@ -205,6 +227,17 @@ class SoullettingRuby extends Analyzer {
     };
   }
 
+  private updateBuffValue(buffValue: { total: number }) {
+    this.statTracker.update(BUFF.id, {
+      crit: buffValue.total,
+    });
+  }
+
+  private getCurrentBuffValue() {
+    const statBuff = this.statTracker.statBuffs[BUFF.id];
+    return this.statTracker.getBuffValue(statBuff, statBuff.crit);
+  }
+
   private getCastEfficiency() {
     return this.castEfficiency.getCastEfficiencyForSpellId(CAST.id);
   }
@@ -212,6 +245,44 @@ class SoullettingRuby extends Analyzer {
   get averageBuffValues() {
     return this.appliedBuffs.reduce((a, b) => a + b, 0) / this.appliedBuffs.length;
   }
+
+  renderDropdown = () => (
+    <table className="table table-condensed">
+      <thead>
+        <tr>
+          <th>Target</th>
+          <th>HP</th>
+          <th>Crit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.casts.map(({ timestamp, targetName, targetHpPercent, buffValue }) => (
+          <tr key={timestamp}>
+            <td>
+              <TooltipElement content={formatDuration(timestamp - this.owner.fight.start_time)}>
+                {targetName}
+              </TooltipElement>
+            </td>
+            <td>
+              {targetHpPercent < 0 ? (
+                <TooltipElement
+                  content={`Health of enemy was unknown, using ${formatPercentage(
+                    HP_PERCENT_GUESS,
+                    0,
+                  )}% as a guess`}
+                >
+                  ???
+                </TooltipElement>
+              ) : (
+                `${formatPercentage(targetHpPercent, 1)}%`
+              )}
+            </td>
+            <td>{formatNumber(buffValue.total)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 
   statistic(): ReactNode {
     const { casts = 0, maxCasts = 0 } = this.getCastEfficiency() ?? {};
@@ -236,6 +307,7 @@ class SoullettingRuby extends Analyzer {
             </ul>
           </>
         }
+        dropdown={this.casts.length > 0 && this.renderDropdown()}
       >
         <BoringItemValueText item={this.item}>
           {casts} Uses <small>{maxCasts} possible</small>
