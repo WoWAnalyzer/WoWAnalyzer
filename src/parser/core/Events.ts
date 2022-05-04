@@ -347,6 +347,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   maxHitPoints?: number;
   resourceActor?: number;
   sourceID: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
   spellPower?: number;
   target?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
