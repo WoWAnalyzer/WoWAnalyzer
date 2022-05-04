@@ -62,9 +62,9 @@ class EnemiesHealth extends Analyzer {
       );
       if (!baseInfo) {
         debug && console.warn('Enemy not noteworthy enough:', targetId, event);
-        return null;
+      } else {
+        this.enemies[targetId] = enemy = new Enemy(this.owner, baseInfo);
       }
-      this.enemies[targetId] = enemy = new Enemy(this.owner, baseInfo);
     }
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
 
