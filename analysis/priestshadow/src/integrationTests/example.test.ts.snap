@@ -5352,7 +5352,55 @@ exports[`Shadow Priest integration test: example log InscrutableQuantumDevice ma
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  100
+                  50
+                  %
+                </dfn>
+              </div>
+            </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#ffd11a",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=330372&ilvl=203"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+                  />
+                   
+                  Decoy
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  50
                   %
                 </dfn>
               </div>

@@ -4424,7 +4424,50 @@ exports[`Unholy Death Knight integration test: example log InscrutableQuantumDev
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  100
+                  50
+                  %
+                </dfn>
+              </div>
+            </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "hotpink",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  ???
+                </dfn>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  50
                   %
                 </dfn>
               </div>
