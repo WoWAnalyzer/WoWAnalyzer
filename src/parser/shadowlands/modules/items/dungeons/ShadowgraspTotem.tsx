@@ -86,7 +86,8 @@ class ShadowgraspTotem extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.dots.push((this.currentDot = []));
+    this.currentDot = [];
+    this.dots.push(this.currentDot);
   }
 
   onDamage(event: DamageEvent) {

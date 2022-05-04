@@ -21,11 +21,7 @@ class EnemiesHealth extends Analyzer {
 
   readonly enemyHealths: Record<
     string,
-    {
-      hitPoints: number;
-      maxHitPoints: number;
-      hitPointsPercent: number;
-    }
+   Omit<EnemyHealth, 'enemy'>
   > = {};
 
   constructor(options: Options) {
