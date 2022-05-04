@@ -141,7 +141,7 @@ class InscrutableQuantumDevice extends Analyzer {
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(IQD_BUFFS), this.onBuff);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(IQD_MANA),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(IQD_MANA),
       () => (this.counts.mana += 1),
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(IQD_DECOY_DISTRACT), (e) =>

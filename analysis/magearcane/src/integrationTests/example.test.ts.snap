@@ -5339,7 +5339,7 @@ exports[`Arcane Mage integration test: example log InscrutableQuantumDevice matc
                   className="circle"
                   style={
                     Object {
-                      "background": "hotpink",
+                      "background": "#ff7c43",
                     }
                   }
                 />
@@ -5347,15 +5347,20 @@ exports[`Arcane Mage integration test: example log InscrutableQuantumDevice matc
               <div
                 className="flex-main"
               >
-                <dfn
-                  className=""
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                  style={Object {}}
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=330376&ilvl=262"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  ???
-                </dfn>
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+                  />
+                   
+                  Mana
+                </a>
               </div>
               <div
                 className="flex-sub"
