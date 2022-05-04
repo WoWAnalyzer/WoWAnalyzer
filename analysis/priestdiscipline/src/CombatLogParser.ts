@@ -9,6 +9,7 @@ import {
   DesperatePrayer,
   FaeGuardians,
   ShadowfiendNormalizer,
+  TranslucentImage,
   TwinsOfTheSunPriestess,
   UnholyNova,
 } from '@wowanalyzer/priest';
@@ -113,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     exaltation: Exaltation,
     shatteredPerceptions: ShatteredPerceptions,
     swiftPenitence: SwiftPenitence,
+    translucentImage: TranslucentImage,
 
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
