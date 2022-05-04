@@ -4,13 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  DamageEvent,
-  HealEvent,
-  Item,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
@@ -149,14 +143,14 @@ class SoullettingRuby extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.damage, this.onDamage);
+    this.addEventListener(Events.any, this.trackEnemyHealth);
     this.addEventListener(Events.cast.spell(CAST).by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.spell(HEAL).to(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.applybuff.spell(BUFF).to(SELECTED_PLAYER), this.onBuff);
   }
 
   /** Tracks health of all enemies so that we know the percentage when the trinket is used. */
-  onDamage(event: DamageEvent) {
+  trackEnemyHealth(event: any) {
     if (
       event.targetID == null ||
       // Don't know if damage to friends can show up here.
@@ -173,6 +167,7 @@ class SoullettingRuby extends Analyzer {
 
   /** When cast, figure out the multiplier of the buff we will gain later */
   onCast(event: CastEvent) {
+    console.log('Cast!', event);
     if (event.targetID == null) {
       console.error('SoullettingRuby: targetID is null');
       return;
