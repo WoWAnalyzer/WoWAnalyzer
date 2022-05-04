@@ -19,10 +19,7 @@ interface EnemyHealth {
 class EnemiesHealth extends Analyzer {
   enemies: { [enemyId: number]: Enemy } = {};
 
-  readonly enemyHealths: Record<
-    string,
-   Omit<EnemyHealth, 'enemy'>
-  > = {};
+  readonly enemyHealths: Record<string, Omit<EnemyHealth, 'enemy'>> = {};
 
   constructor(options: Options) {
     super(options);
