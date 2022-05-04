@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HasTarget, HealEvent, Item } from 'parser/core/Events';
+import Events, { CastEvent, HasTarget, HealEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
@@ -18,8 +18,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 
-/** The amount of health we use when we can't figure out how much health the target hass */
-const HP_PERCENT_GUESS = 0.75;
 const COOLDOWN_SECONDS = 120 as const;
 const CAST: Spell = SPELLS.SOULLETTING_RUBY_CAST;
 const HEAL: Spell = SPELLS.SOULLETTING_RUBY_HEAL;
@@ -88,13 +86,12 @@ class SoullettingRuby extends Analyzer {
     targetName: ReactNode;
     // Is it possible to get the enemys name here? To be able to display all casts
     targetHpPercent: number;
-    buffValue: {
+    buffValue?: {
       base: number;
       dynamic: number;
       total: number;
     };
   }> = [];
-  readonly appliedBuffs: number[] = [];
 
   constructor(
     options: Options & {
@@ -142,7 +139,6 @@ class SoullettingRuby extends Analyzer {
 
     this.addEventListener(Events.cast.spell(CAST).by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.spell(HEAL).to(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(Events.applybuff.spell(BUFF).to(SELECTED_PLAYER), this.onBuff);
   }
 
   /** When cast, figure out the multiplier of the buff we will gain later */
@@ -152,19 +148,31 @@ class SoullettingRuby extends Analyzer {
       return;
     }
 
-    const { hitPointsPercent = -1, enemy } = this.enemiesHealth.getHealthEnemy(event) || {};
+    const { hitPointsPercent, enemy } = this.enemiesHealth.getHealthEnemy(event) || {};
+    const targetName = enemy?.name ?? <span className="poor">Unknown</span>;
 
-    const buffValue = this.calculateBuffValue(hitPointsPercent);
+    if (hitPointsPercent == null) {
+      this.casts.push({
+        timestamp: event.timestamp,
+        targetName,
+        targetHpPercent: -1,
+        // Since we don't know the buff value, we dont store it
+      });
 
-    this.casts.push({
-      timestamp: event.timestamp,
-      targetName: enemy?.name ?? <span className="poor">Unknown</span>,
-      targetHpPercent: hitPointsPercent,
-      buffValue,
-    });
+      // Update statTracker with lowest possible value
+      this.updateBuffValue(this.calculateBuffValue(1));
+    } else {
+      const buffValue = this.calculateBuffValue(hitPointsPercent);
 
-    // Update statTracker so that the next buff will have the correct crit value
-    this.updateBuffValue(buffValue);
+      this.casts.push({
+        timestamp: event.timestamp,
+        targetName,
+        targetHpPercent: hitPointsPercent,
+        buffValue,
+      });
+
+      this.updateBuffValue(buffValue);
+    }
   }
 
   /** We can track how much you heal because why not */
@@ -172,16 +180,7 @@ class SoullettingRuby extends Analyzer {
     this.healedAmount += (event.amount || 0) * (event.absorbed || 0);
   }
 
-  /** Once we get the buff, track it. Using the multiplier we calculated on the cast */
-  onBuff(event: ApplyBuffEvent) {
-    this.appliedBuffs.push(this.getCurrentBuffValue());
-  }
-
   private calculateBuffValue(enemyHpPercent: number) {
-    if (enemyHpPercent < 0) {
-      enemyHpPercent = HP_PERCENT_GUESS;
-    }
-
     // https://github.dev/simulationcraft/simc/blob/e718ffa2a052facfe07f450d34377589abc0e049/engine/player/unique_gear_shadowlands.cpp#L1034-L1035
     const bonusMultiplier = 1 - enemyHpPercent;
 
@@ -202,17 +201,19 @@ class SoullettingRuby extends Analyzer {
     });
   }
 
-  private getCurrentBuffValue() {
-    const statBuff = this.statTracker.statBuffs[BUFF.id];
-    return this.statTracker.getBuffValue(statBuff, statBuff.crit);
-  }
-
   private getCastEfficiency() {
     return this.castEfficiency.getCastEfficiencyForSpellId(CAST.id);
   }
 
+  get knownBuffs() {
+    return this.casts
+      .filter(({ buffValue }) => buffValue != null)
+      .map(({ buffValue }) => buffValue!.total);
+  }
+
   get averageBuffValues() {
-    return this.appliedBuffs.reduce((a, b) => a + b, 0) / this.appliedBuffs.length;
+    const knownBuffs = this.knownBuffs;
+    return knownBuffs.reduce((a, b) => a + b, 0) / knownBuffs.length;
   }
 
   renderDropdown = () => (
@@ -232,21 +233,8 @@ class SoullettingRuby extends Analyzer {
                 {targetName}
               </TooltipElement>
             </td>
-            <td>
-              {targetHpPercent < 0 ? (
-                <TooltipElement
-                  content={`Health of enemy was unknown, using ${formatPercentage(
-                    HP_PERCENT_GUESS,
-                    0,
-                  )}% as a guess`}
-                >
-                  ???
-                </TooltipElement>
-              ) : (
-                `${formatPercentage(targetHpPercent, 1)}%`
-              )}
-            </td>
-            <td>{formatNumber(buffValue.total)}</td>
+            <td>{targetHpPercent > 0 ? `${formatPercentage(targetHpPercent, 1)}%` : '???'}</td>
+            <td>{buffValue ? formatNumber(buffValue.total) : '???'}</td>
           </tr>
         ))}
       </tbody>
@@ -281,9 +269,11 @@ class SoullettingRuby extends Analyzer {
         <BoringItemValueText item={this.item}>
           {casts} Uses <small>{maxCasts} possible</small>
         </BoringItemValueText>
-        <div className="pad value">
-          Average {this.averageBuffValues.toFixed(1)} <small>Critical Strike</small>
-        </div>
+        {this.knownBuffs.length > 0 && (
+          <div className="pad value">
+            Average {this.averageBuffValues.toFixed(1)} <small>Critical Strike</small>
+          </div>
+        )}
       </Statistic>
     );
   }

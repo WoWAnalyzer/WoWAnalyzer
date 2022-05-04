@@ -4548,16 +4548,6 @@ exports[`Balance Druid integration test: example log SoullettingRuby matches the
           </small>
         </div>
       </div>
-      <div
-        className="pad value"
-      >
-        Average 
-        NaN
-         
-        <small>
-          Critical Strike
-        </small>
-      </div>
     </div>
     <div
       className="detail-corner"
