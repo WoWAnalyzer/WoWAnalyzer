@@ -16,6 +16,7 @@ import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checkli
 import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
+import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -168,6 +169,7 @@ class CombatLogParser {
 
     enemies: Enemies,
     enemyInstances: EnemyInstances,
+    enemiesHealth: EnemiesHealth,
     pets: Pets,
     spellManaCost: SpellManaCost,
 

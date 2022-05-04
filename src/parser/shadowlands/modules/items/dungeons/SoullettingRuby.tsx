@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, Item } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HasTarget, HealEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Enemies from 'parser/shared/modules/Enemies';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -58,13 +58,13 @@ class SoullettingRuby extends Analyzer {
     abilities: Abilities,
     buffs: Buffs,
     castEfficiency: CastEfficiency,
-    enemies: Enemies,
+    enemiesHealth: EnemiesHealth,
     statTracker: StatTracker,
   };
   protected abilities!: Abilities;
   protected buffs!: Buffs;
   protected castEfficiency!: CastEfficiency;
-  protected enemies!: Enemies;
+  protected enemiesHealth!: EnemiesHealth;
   protected statTracker!: StatTracker;
 
   /**
@@ -81,9 +81,6 @@ class SoullettingRuby extends Analyzer {
   };
   readonly item: Item;
 
-  /** The percentages of all enemies that has been damaged */
-  // TODO: I'm sure there's some module that tracks this for me??
-  readonly enemyHealths: { [key: string]: number } = {};
   healedAmount = 0;
   /** Each entry is the crit value of a particular instance of the buff */
   readonly casts: Array<{
@@ -143,49 +140,26 @@ class SoullettingRuby extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.any, this.trackEnemyHealth);
     this.addEventListener(Events.cast.spell(CAST).by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.spell(HEAL).to(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.applybuff.spell(BUFF).to(SELECTED_PLAYER), this.onBuff);
   }
 
-  /** Tracks health of all enemies so that we know the percentage when the trinket is used. */
-  trackEnemyHealth(event: any) {
-    if (
-      event.targetID == null ||
-      // Don't know if damage to friends can show up here.
-      event.targetIsFriendly ||
-      event.hitPoints == null ||
-      event.maxHitPoints == null
-    ) {
-      return;
-    }
-
-    const targetString = encodeTargetString(event.targetID, event.targetInstance);
-    this.enemyHealths[targetString] = event.hitPoints / event.maxHitPoints;
-  }
-
   /** When cast, figure out the multiplier of the buff we will gain later */
   onCast(event: CastEvent) {
-    console.log('Cast!', event);
-    if (event.targetID == null) {
-      console.error('SoullettingRuby: targetID is null');
+    if (!HasTarget(event)) {
+      console.error('SoullettingRuby: cast has no target');
       return;
     }
 
-    const enemy = this.enemies.getEntity(event);
-    const targetString = encodeTargetString(event.targetID, event.targetInstance);
-    /** Enemy health percentage as fraction (0.4 === 40%) */
-    const targetHpPercent =
-      this.enemyHealths[targetString] ??
-      // -1 Signifies health unknown
-      -1;
-    const buffValue = this.calculateBuffValue(targetHpPercent);
+    const { hitPointsPercent = -1, enemy } = this.enemiesHealth.getHealthEnemy(event) || {};
+
+    const buffValue = this.calculateBuffValue(hitPointsPercent);
 
     this.casts.push({
       timestamp: event.timestamp,
       targetName: enemy?.name ?? 'Unknown',
-      targetHpPercent,
+      targetHpPercent: hitPointsPercent,
       buffValue,
     });
 
