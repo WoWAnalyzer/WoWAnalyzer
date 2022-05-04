@@ -2,7 +2,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import { ItemLink, TooltipElement } from 'interface';
+import { ItemLink, SpellLink, TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HasTarget, HealEvent, Item } from 'parser/core/Events';
@@ -271,6 +271,12 @@ class SoullettingRuby extends Analyzer {
                 targeting an enemy with 0% health
               </li>
             </ul>
+            {this.healedAmount > 0 && (
+              <div>
+                <SpellLink id={HEAL.id} /> healed wearer for a total of{' '}
+                {formatNumber(this.healedAmount)} HP
+              </div>
+            )}
           </>
         }
         dropdown={this.casts.length > 0 && this.renderDropdown()}
