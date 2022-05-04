@@ -53,7 +53,12 @@ const ItemLink = (props: Props) => {
       }}
       {...others}
     >
-      {props.icon && <ItemIcon id={id} noLink />} {children || ITEMS[id].name}
+      {props.icon && (
+        <>
+          <ItemIcon id={id} noLink />{' '}
+        </>
+      )}
+      {children || ITEMS[id].name}
     </a>
   );
 };
