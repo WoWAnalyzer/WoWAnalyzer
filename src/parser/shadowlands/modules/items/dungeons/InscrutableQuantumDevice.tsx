@@ -1,6 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -244,6 +245,25 @@ class InscrutableQuantumDevice extends Analyzer {
         itemLevel: this.item.itemLevel,
         value: this.counts.decoy,
         color: '#ffd11a',
+      },
+      {
+        label: (
+          <TooltipElement content="We did not manage to track what happened, please report">
+            ???
+          </TooltipElement>
+        ),
+        value:
+          (this.getCastEfficiency()?.casts ?? 0) -
+          this.counts.crit -
+          this.counts.haste -
+          this.counts.mastery -
+          this.counts.vers -
+          this.counts.execute -
+          this.counts.heal -
+          this.counts.mana -
+          this.counts.ccBreak -
+          this.counts.decoy,
+        color: 'hotpink',
       },
     ]
       .filter((i) => i.value > 0)
