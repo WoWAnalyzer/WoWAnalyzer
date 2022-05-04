@@ -3,6 +3,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { ItemLink, TooltipElement } from 'interface';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HasTarget, HealEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -220,6 +221,7 @@ class SoullettingRuby extends Analyzer {
     <table className="table table-condensed">
       <thead>
         <tr>
+          <th />
           <th>Target</th>
           <th>HP</th>
           <th>Crit</th>
@@ -230,11 +232,18 @@ class SoullettingRuby extends Analyzer {
           <tr key={timestamp}>
             <td>
               <TooltipElement content={formatDuration(timestamp - this.owner.fight.start_time)}>
-                {targetName}
+                <UptimeIcon />
               </TooltipElement>
             </td>
-            <td>{targetHpPercent > 0 ? `${formatPercentage(targetHpPercent, 1)}%` : '???'}</td>
-            <td>{buffValue ? formatNumber(buffValue.total) : '???'}</td>
+            <td>{targetName}</td>
+            <td>
+              {targetHpPercent > 0 ? (
+                `${formatPercentage(targetHpPercent, 1)}%`
+              ) : (
+                <span className="poor">???</span>
+              )}
+            </td>
+            <td>{buffValue ? formatNumber(buffValue.total) : <span className="poor">???</span>}</td>
           </tr>
         ))}
       </tbody>
