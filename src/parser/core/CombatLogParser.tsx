@@ -13,6 +13,7 @@ import {
 import ModuleError from 'parser/core/ModuleError';
 import EffusiveAnimaAccelerator from 'parser/shadowlands/modules/covenants/kyrian/EffusiveAnimaAccelerator';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import BloodSpatteredScale from 'parser/shadowlands/modules/items/dungeons/BloodSpatteredScale';
 import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
@@ -27,6 +28,7 @@ import Config from '../Config';
 import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';
 import CombatPotion from '../shadowlands/modules/items/CombatPotion';
 import DarkmoonDeckVoracity from '../shadowlands/modules/items/crafted/DarkmoonDeckVoracity';
+import CodexOfTheFirstTechnique from '../shadowlands/modules/items/dungeons/CodexOfTheFirstTechnique';
 import OverchargedAnimaBattery from '../shadowlands/modules/items/dungeons/OverchargedAnimaBattery';
 import EnchantChecker from '../shadowlands/modules/items/EnchantChecker';
 import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
@@ -223,6 +225,8 @@ class CombatLogParser {
 
     // Dungeons
     overchargedAnimaBattery: OverchargedAnimaBattery,
+    codexOfTheFirstTechnique: CodexOfTheFirstTechnique,
+    bloodSpatteredScale: BloodSpatteredScale,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
