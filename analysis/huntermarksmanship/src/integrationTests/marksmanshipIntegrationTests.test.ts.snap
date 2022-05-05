@@ -4585,7 +4585,6 @@ exports[`Marksmanship Hunter integration test: Multi Target DarkmoonDeckVoracity
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Darkmoon Deck: Voracity"
               className="icon game "
@@ -4599,7 +4598,6 @@ exports[`Marksmanship Hunter integration test: Multi Target DarkmoonDeckVoracity
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Darkmoon Deck: Voracity
           </a>
         </label>
