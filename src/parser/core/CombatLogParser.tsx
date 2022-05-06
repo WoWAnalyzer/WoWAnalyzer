@@ -13,6 +13,7 @@ import {
 import ModuleError from 'parser/core/ModuleError';
 import EffusiveAnimaAccelerator from 'parser/shadowlands/modules/covenants/kyrian/EffusiveAnimaAccelerator';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import AscendedVigor from 'parser/shadowlands/modules/items/enchants/AscendedVigor';
 import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
@@ -212,6 +213,9 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
+
+    // Enchants
+    ascendedViro: AscendedVigor,
 
     // Legendaries
 
