@@ -1,12 +1,7 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  DamageEvent,
-  HealEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
@@ -41,8 +36,16 @@ class ThePenitentOne extends Analyzer {
     this.expectedBolts = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
-    this.addEventListener(Events.removebuff, this.onRemoveTPO);
-    this.addEventListener(Events.removebuffstack, this.onRemoveTPOStack); // for when the buff stacks to two.
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
+      this.checkTPO,
+    );
+  }
+
+  checkTPO() {
+    if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
+      this.tpoPenances += 1;
+    }
   }
 
   onAtone(event: AtonementAnalyzerEvent) {
@@ -67,25 +70,6 @@ class ThePenitentOne extends Analyzer {
     }
 
     this.tpoDirect += event.amount;
-  }
-
-  onRemoveTPO(event: RemoveBuffEvent) {
-    if (
-      event.targetID !== this.selectedCombatant.id ||
-      event.ability.guid !== SPELLS.THE_PENITENT_ONE_BUFF.id
-    ) {
-      return;
-    }
-    this.tpoPenances += 1;
-  }
-  onRemoveTPOStack(event: RemoveBuffStackEvent) {
-    if (
-      event.targetID !== this.selectedCombatant.id ||
-      event.ability.guid !== SPELLS.THE_PENITENT_ONE_BUFF.id
-    ) {
-      return;
-    }
-    this.tpoPenances += 1;
   }
 
   statistic() {
