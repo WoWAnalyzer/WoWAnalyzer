@@ -215,7 +215,7 @@ class CombatLogParser {
     // Items:
 
     // Enchants
-    ascendedViro: AscendedVigor,
+    ascendedVigor: AscendedVigor,
 
     // Legendaries
 
