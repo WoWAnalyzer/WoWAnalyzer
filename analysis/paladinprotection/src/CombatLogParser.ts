@@ -8,6 +8,7 @@ import {
   DivineToll,
   AshenHallow,
   HolyPowerPerMinute,
+  VanquishersHammer,
 } from '@wowanalyzer/paladin';
 
 import Abilities from './modules/Abilities';
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenant Abilities
     divineToll: DivineToll,
     ashenHallow: AshenHallow,
+    vanquishersHammer: VanquishersHammer,
   };
 
   static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];

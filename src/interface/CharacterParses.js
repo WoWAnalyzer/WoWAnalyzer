@@ -3,7 +3,7 @@ import { Trans, defineMessage } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import ITEMS from 'common/ITEMS';
-import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
+import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
 import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import SPECS from 'game/SPECS';
@@ -93,7 +93,6 @@ class CharacterParses extends Component {
       isLoading: true,
       error: null,
       errorMessage: null,
-      trinkets: ITEMS,
       realmSlug: this.props.realm,
     };
 
@@ -190,57 +189,28 @@ class CharacterParses extends Component {
   }
 
   changeParseStructure(rawParses) {
-    const updatedTrinkets = { ...this.state.trinkets };
-    const parses = rawParses.map((elem) => {
-      // get missing trinket-icons later
-      TRINKET_SLOTS.forEach((slotID) => {
-        if (!updatedTrinkets[elem.gear[slotID].id]) {
-          updatedTrinkets[elem.gear[slotID].id] = {
-            name: elem.gear[slotID].name,
-            id: elem.gear[slotID].id,
-            icon: ITEMS[0].icon,
-            quality: elem.gear[slotID].quality,
-          };
-        }
-      });
+    const parses = rawParses.map((elem) => ({
+      name: elem.encounterName,
+      spec: elem.spec.replace(' ', ''),
+      difficulty: elem.difficulty,
 
-      return {
-        name: elem.encounterName,
-        spec: elem.spec.replace(' ', ''),
-        difficulty: elem.difficulty,
+      report_code: elem.reportID,
 
-        report_code: elem.reportID,
+      report_fight: elem.fightID,
 
-        report_fight: elem.fightID,
+      historical_percent: 100 - (elem.rank / elem.outOf) * 100,
+      persecondamount: elem.total,
 
-        historical_percent: 100 - (elem.rank / elem.outOf) * 100,
-        persecondamount: elem.total,
+      start_time: elem.startTime,
 
-        start_time: elem.startTime,
-
-        character_name: elem.characterName,
-        talents: elem.talents,
-        gear: elem.gear,
-        advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
-      };
-    });
-
-    Object.values(updatedTrinkets).map((trinket) => {
-      if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
-        return fetch(makeItemApiUrl(trinket.id))
-          .then((response) => response.json())
-          .then((data) => {
-            updatedTrinkets[trinket.id].icon = data.icon;
-            this.setState({
-              trinkets: updatedTrinkets,
-            });
-          })
-          .catch(() => {
-            // ignore errors;;
-          });
-      }
-      return null;
-    });
+      character_name: elem.characterName,
+      talents: elem.talents,
+      gear: elem.gear,
+      legendaryEffects: elem.legendaryEffects
+        // the effects can come in different order. Sort for most consistent view
+        .sort((a, b) => b.id - a.id),
+      advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
+    }));
 
     return parses;
   }
@@ -800,7 +770,6 @@ class CharacterParses extends Component {
                         parses={this.filterParses}
                         class={this.state.class}
                         metric={this.state.metric}
-                        trinkets={this.state.trinkets}
                       />
                     )}
                   </div>
