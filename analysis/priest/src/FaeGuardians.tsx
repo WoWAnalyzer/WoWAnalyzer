@@ -10,6 +10,7 @@ import Events, {
   ResourceChangeEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveDamageReduction } from 'parser/core/HelpfulFormulas';
 import Abilities from 'parser/core/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -18,7 +19,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import ItemInsanityGained from '@wowanalyzer/priest-shadow/src/interface/ItemInsanityGained';
-import { calculateEffectiveDamageReduction } from 'parser/core/HelpfulFormulas';
 
 const GUARDIAN_DAMAGE_REDUCTION = 0.2;
 
