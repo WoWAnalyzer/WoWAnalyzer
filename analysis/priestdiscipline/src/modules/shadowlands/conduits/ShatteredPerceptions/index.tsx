@@ -1,13 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, {
   AbsorbedEvent,
   ApplyDebuffEvent,
   DamageEvent,
   HealEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
 import { Options } from 'parser/core/Module';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';

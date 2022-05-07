@@ -3,7 +3,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
   ApplyBuffEvent,
@@ -11,6 +10,7 @@ import Events, {
   RemoveBuffEvent,
   DamageEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';

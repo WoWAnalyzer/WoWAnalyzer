@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 6), 'Condensed helpful functions into one file.', nullDozzer),
   change(date(2022, 4, 30), 'Fix legendary icons not working on Character parses page', nullDozzer),
   change(date(2022, 4, 30), 'Fix broken trinket icons and conduit links on the character page', nullDozzer),
   change(date(2022, 4, 27), 'Updated stat multiplier table for Shadowlands values', Putro),

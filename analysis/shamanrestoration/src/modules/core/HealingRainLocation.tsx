@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
+import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
 import Combatants from 'parser/shared/modules/Combatants';
 
 /**

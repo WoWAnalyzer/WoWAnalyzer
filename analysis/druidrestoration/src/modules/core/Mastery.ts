@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Entity from 'parser/core/Entity';
 import Events, { AbsorbedEvent, FightEndEvent, HealEvent } from 'parser/core/Events';
+import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
 import Combatants from 'parser/shared/modules/Combatants';
 import { HealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';

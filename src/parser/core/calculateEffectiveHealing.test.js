@@ -1,4 +1,4 @@
-import calculateEffectiveHealing from './calculateEffectiveHealing';
+import { calculateEffectiveHealing } from './HelpfulFormulas';
 
 describe('calculateEffectiveHealing', () => {
   test('no overhealing', () => {

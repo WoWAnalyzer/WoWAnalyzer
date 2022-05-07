@@ -3,7 +3,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
@@ -11,6 +10,7 @@ import Events, {
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { Attribution } from 'parser/shared/modules/HotTracker';

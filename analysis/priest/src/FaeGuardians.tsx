@@ -4,7 +4,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamageReduction from 'parser/core/calculateEffectiveDamageReduction';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
@@ -19,6 +18,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import ItemInsanityGained from '@wowanalyzer/priest-shadow/src/interface/ItemInsanityGained';
+import { calculateEffectiveDamageReduction } from 'parser/core/HelpfulFormulas';
 
 const GUARDIAN_DAMAGE_REDUCTION = 0.2;
 
