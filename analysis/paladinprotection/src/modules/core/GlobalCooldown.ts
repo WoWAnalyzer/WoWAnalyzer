@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+
 import SepulcherTierSet from '../shadowlands/SepulcherTierSet';
 
 export default class GlobalCooldown extends CoreGlobalCooldown {
@@ -18,7 +19,6 @@ export default class GlobalCooldown extends CoreGlobalCooldown {
 
     if (
       spellId !== SPELLS.JUDGMENT_CAST_PROTECTION.id ||
-      !this.selectedCombatant.has4Piece() ||
       !this.sepulcher4pc.isPotential4pcProc(event)
     ) {
       return super.onCast(event);
