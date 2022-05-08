@@ -16,6 +16,16 @@ class SpellChiCost extends SpellResourceCost {
 
     return cost;
   }
+
+  protected getResourceCost(event: CastEvent) {
+    let cost = super.getResourceCost(event);
+
+    if (this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id)) {
+      cost -= 1;
+    }
+
+    return cost;
+  }
 }
 
 export default SpellChiCost;
