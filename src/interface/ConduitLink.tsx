@@ -1,11 +1,10 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
+import { ComponentProps } from 'react';
 
 import SpellLink from './SpellLink';
 
-interface Props {
-  id: number;
-}
+type Props = ComponentProps<typeof SpellLink>;
 
 interface Context {
   parser: CombatLogParser;
@@ -16,10 +15,10 @@ interface Context {
  *
  * Must have parser context.
  */
-const ConduitLink = ({ id }: Props, { parser: { selectedCombatant } }: Context) => {
+const ConduitLink = ({ id, ...rest }: Props, { parser: { selectedCombatant } }: Context) => {
   const rank = selectedCombatant.conduitRankBySpellID(id);
 
-  return <SpellLink id={id} rank={rank} />;
+  return <SpellLink id={id} rank={rank} {...rest} />;
 };
 ConduitLink.contextTypes = {
   parser: PropTypes.object.isRequired,

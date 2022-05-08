@@ -4979,7 +4979,6 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Darkmoon Deck: Voracity"
               className="icon game "
@@ -4993,7 +4992,6 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Darkmoon Deck: Voracity
           </a>
         </label>
@@ -15087,7 +15085,6 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Overcharged Anima Battery"
               className="icon game "
@@ -15101,7 +15098,6 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Overcharged Anima Battery
           </a>
         </label>
