@@ -24,6 +24,7 @@ import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRi
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import SpellUsable from './modules/features/SpellUsable';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
+import SepulcherTierSet from './modules/shadowlands/SepulcherTierSet';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
@@ -36,7 +37,6 @@ import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import Seraphim from './modules/talents/Seraphim';
-import SepulcherTierSet from './modules/shadowlands/SepulcherTierSet';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
