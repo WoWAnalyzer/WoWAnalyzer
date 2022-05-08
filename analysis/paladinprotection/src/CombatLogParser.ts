@@ -13,6 +13,7 @@ import {
 
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 import GrandCrusader from './modules/core/GrandCrusader';
 import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -35,6 +36,7 @@ import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import Seraphim from './modules/talents/Seraphim';
+import SepulcherTierSet from './modules/shadowlands/SepulcherTierSet';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -53,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
     checklist: Checklist,
     wogTiming: WordOfGloryTiming,
@@ -85,6 +88,9 @@ class CombatLogParser extends CoreCombatLogParser {
     divineToll: DivineToll,
     ashenHallow: AshenHallow,
     vanquishersHammer: VanquishersHammer,
+
+    // Tier Set
+    sepulcherSet: SepulcherTierSet,
   };
 
   static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
