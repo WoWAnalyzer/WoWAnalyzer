@@ -4,7 +4,7 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import { DamageEvent, EventType } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';

@@ -6,7 +6,7 @@ import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

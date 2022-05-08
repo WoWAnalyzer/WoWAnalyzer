@@ -6,7 +6,7 @@ import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';

@@ -6,7 +6,7 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';

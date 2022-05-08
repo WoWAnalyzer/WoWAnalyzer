@@ -5,7 +5,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';

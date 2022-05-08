@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

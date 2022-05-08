@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

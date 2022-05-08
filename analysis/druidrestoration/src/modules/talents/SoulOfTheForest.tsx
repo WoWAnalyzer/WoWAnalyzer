@@ -10,7 +10,7 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';

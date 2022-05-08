@@ -5,7 +5,7 @@ import PRIEST_TALENTS from 'common/SPELLS/talents/priest';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox from 'parser/ui/StatisticBox';

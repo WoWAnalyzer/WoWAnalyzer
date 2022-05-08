@@ -10,7 +10,7 @@ import Events, {
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { Attribution } from 'parser/shared/modules/HotTracker';

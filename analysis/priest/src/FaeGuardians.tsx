@@ -10,7 +10,7 @@ import Events, {
   ResourceChangeEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamageReduction } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
 import Abilities from 'parser/core/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

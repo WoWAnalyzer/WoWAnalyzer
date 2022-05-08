@@ -14,7 +14,7 @@ import Events, {
   TargettedEvent,
 } from 'parser/core/Events';
 import { EventType } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
 

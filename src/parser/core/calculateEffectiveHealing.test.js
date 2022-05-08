@@ -1,4 +1,4 @@
-import { calculateEffectiveHealing } from './HelpfulFormulas';
+import { calculateEffectiveHealing } from './EventCalculateLib';
 
 describe('calculateEffectiveHealing', () => {
   test('no overhealing', () => {

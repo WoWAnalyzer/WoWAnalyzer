@@ -11,7 +11,7 @@ import Events, {
   HealEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';

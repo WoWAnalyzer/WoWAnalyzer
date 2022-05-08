@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { Options } from 'parser/core/Module';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';

@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import StatisticBox from 'parser/ui/StatisticBox';

@@ -7,7 +7,7 @@ import Events, {
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

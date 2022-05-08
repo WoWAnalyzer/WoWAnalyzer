@@ -6,8 +6,8 @@ import Events, {
   DamageEvent,
   HealEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
-import { calculateEffectiveHealing } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { Options } from 'parser/core/Module';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';

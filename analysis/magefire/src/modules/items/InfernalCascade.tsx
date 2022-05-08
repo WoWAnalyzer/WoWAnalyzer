@@ -10,7 +10,7 @@ import Events, {
   RemoveBuffEvent,
   DamageEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
