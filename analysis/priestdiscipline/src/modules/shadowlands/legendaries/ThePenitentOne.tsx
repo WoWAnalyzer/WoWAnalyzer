@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -22,6 +23,7 @@ class ThePenitentOne extends Analyzer {
   private expectedBolts = 3;
   private tpoAtonement = 0;
   private tpoDirect = 0;
+  private tpoPenances = 0;
 
   constructor(options: Options) {
     super(options);
@@ -34,6 +36,16 @@ class ThePenitentOne extends Analyzer {
     this.expectedBolts = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
+      this.checkTPO,
+    );
+  }
+
+  checkTPO() {
+    if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
+      this.tpoPenances += 1;
+    }
   }
 
   onAtone(event: AtonementAnalyzerEvent) {
@@ -61,6 +73,7 @@ class ThePenitentOne extends Analyzer {
   }
 
   statistic() {
+    const manaSaved = this.tpoPenances * SPELLS.PENANCE.manaCost;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -72,12 +85,14 @@ class ThePenitentOne extends Analyzer {
             <br />
             <strong>Direct Healing:</strong> {formatThousands(this.tpoDirect)}
             <br />
+            <strong>Mana saved:</strong> {formatThousands(manaSaved)}
           </>
         }
       >
         <>
           <BoringSpellValueText spellId={SPELLS.THE_PENITENT_ONE.id}>
-            <ItemHealingDone amount={this.tpoAtonement + this.tpoDirect} />
+            <ItemHealingDone amount={this.tpoAtonement + this.tpoDirect} /> <br />
+            <ItemManaGained amount={manaSaved} />
           </BoringSpellValueText>
         </>
       </Statistic>

@@ -132,6 +132,20 @@ class EventParser extends React.PureComponent<Props, State> {
     events = events.filter((event) => event.type !== EventType.CombatantInfo);
     //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
     events = parser.normalize(events).sort((a, b) => a.timestamp - b.timestamp);
+    // if in dev
+    if (process.env.NODE_ENV !== 'production') {
+      // verify events
+      const types = new Set<string>(Object.values(EventType));
+      // cycle through events
+      events.forEach((event) => {
+        // do we have the type?
+        if (!types.has(event.type)) {
+          throw new Error(
+            `Unknown event type detected ${event.type} if you created a new type you will need to add it to Event.ts`,
+          );
+        }
+      });
+    }
     return events;
   }
   async parse() {
