@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022,5,4), <><SpellLink id ={SPELLS.THE_PENITENT_ONE.id}/> mana saved added to module</>, Hana),
   change (date(2022,5,3), <><SpellLink id={SPELLS.SWIFT_PENITENCE.id}/> tooltip added to explain HPS breakdown.</>, Hana,),
   change(date(2022, 4, 29), <><SpellLink id={SPELLS.THE_PENITENT_ONE.id} /> support added to penance bolts wasted. </>, Hana, ),
   change(date(2022, 4, 29), <><SpellLink id={SPELLS.SWIFT_PENITENCE.id} /> bug fixed when using empowered conduits </>, Hana, ),
