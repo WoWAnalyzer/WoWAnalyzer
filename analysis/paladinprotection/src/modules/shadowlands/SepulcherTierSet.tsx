@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  Event,
   AnyEvent,
   CastEvent,
   DamageEvent,
@@ -10,12 +9,12 @@ import Events, {
   FreeCastEvent,
   GlobalCooldownEvent,
 } from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { INVALID_COOLDOWN_CONFIG_LAG_MARGIN } from 'parser/shared/modules/SpellUsable';
-import Statistic from 'parser/ui/Statistic';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 export default class SepulcherTierSet extends Analyzer {
   static dependencies = {
@@ -50,9 +49,8 @@ export default class SepulcherTierSet extends Analyzer {
     return Math.max(this.gcd.timestamp + this.gcd.duration - event.timestamp, 0);
   }
 
-  public isPotential4pcProc(event: CastEvent | DamageEvent): boolean {
-    if (!this.active || event.type === EventType.Damage) {
-      // not even going to try to do timestamp stuff with judgment damage events due to travel time
+  public isPotential4pcProc(event: CastEvent): boolean {
+    if (!this.active) {
       return false;
     }
 
@@ -63,7 +61,6 @@ export default class SepulcherTierSet extends Analyzer {
 
     const triggerOffset = Math.abs(event.timestamp - (this.lastTriggerEvent?.timestamp ?? 0));
     const damageOffset = Math.abs(event.timestamp - (this.lastDamageEvent?.timestamp ?? 0));
-    // console.log(event, triggerOffset, damageOffset, this.lastTriggerEvent, this.lastDamageEvent);
 
     return (
       triggerOffset >= 3000 - INVALID_COOLDOWN_CONFIG_LAG_MARGIN &&
@@ -71,12 +68,7 @@ export default class SepulcherTierSet extends Analyzer {
     );
   }
 
-  public triggerInferredProc(event: CastEvent | DamageEvent) {
-    if (event.type === EventType.Damage) {
-      console.warn('Damage event somehow reached SepulcherTierSet.triggerInferredProc', event);
-      return;
-    }
-
+  public triggerInferredProc(event: CastEvent) {
     const freeCast = (event as unknown) as FreeCastEvent;
     freeCast.type = EventType.FreeCast;
 
@@ -84,7 +76,8 @@ export default class SepulcherTierSet extends Analyzer {
       isEnhancedCast: true,
       enhancedCastReason: (
         <>
-          Triggered by <SpellLink id={SPELLS.GLORIOUS_PURPOSE_4PC.id} />
+          Triggered by <SpellLink id={SPELLS.GLORIOUS_PURPOSE_4PC.id} /> due to damage from{' '}
+          <SpellLink id={this.lastDamageEvent?.ability.guid ?? 0} />.
         </>
       ),
     };
