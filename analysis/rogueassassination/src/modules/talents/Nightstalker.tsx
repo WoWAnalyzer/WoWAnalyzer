@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

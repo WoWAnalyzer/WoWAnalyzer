@@ -1,7 +1,7 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   EventType,

@@ -3,7 +3,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Buffs from 'parser/core/modules/Buffs';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
