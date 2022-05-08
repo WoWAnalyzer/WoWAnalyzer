@@ -8,6 +8,7 @@ import NecroticWake from './necroticwake';
 import Plaguefall from './plaguefall';
 import SanguineDepths from './sanguinedepths';
 import SpiresOfAscension from './spiresofascension';
+import Tazavesh from './tazavesh';
 import TheatorOfPain from './theaterofpain';
 import Thorgast from './thorgast';
 
@@ -21,5 +22,6 @@ const items: ItemList = safeMerge(
   SpiresOfAscension,
   TheatorOfPain,
   Thorgast,
+  Tazavesh,
 );
 export default items;

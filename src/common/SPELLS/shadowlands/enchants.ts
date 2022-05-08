@@ -4,6 +4,11 @@ const enchants = {
     name: 'Ascended Vigor',
     icon: 'trade_engraving',
   },
+  ASCENDED_VIGOR_CAST: {
+    id: 324226,
+    name: 'Ascended Vigor',
+    icon: 'trade_engraving',
+  },
   CELESTIAL_GUIDANCE: {
     id: 309627,
     name: 'Celestial Guidance',
