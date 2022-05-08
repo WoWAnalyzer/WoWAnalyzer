@@ -1,6 +1,7 @@
 import { formatDuration, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
@@ -8,7 +9,6 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;

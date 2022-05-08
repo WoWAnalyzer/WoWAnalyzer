@@ -1,6 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   AbilityEvent,
   AnyEvent,
@@ -14,7 +15,6 @@ import Events, {
   TargettedEvent,
 } from 'parser/core/Events';
 import { EventType } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
 

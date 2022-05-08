@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { SpellInfo } from 'parser/core/EventFilter';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { SpellInfo } from 'parser/core/EventFilter';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';

@@ -1,6 +1,16 @@
 import { DamageEvent } from 'parser/core/Events';
 
 /**
+ * This should honestly be done away with but there are so many unique Events/Sub-Events that call the calculateEffectiveHealing fucntions
+ * that this is just easier to do than go modify all the callers.
+ */
+type LightWeightHealingEvent = {
+  amount: number;
+  absorbed?: number;
+  overheal?: number;
+};
+
+/**
  * Calculates the effective healing attributable to a percent healing buff.
  * The bonus healing is considered 'marginal' and will be consumed first when encountering overheal.
  *
@@ -17,7 +27,7 @@ import { DamageEvent } from 'parser/core/Events';
  * @return the amount of healing attributable on the given heal from the given boost
  */
 export function calculateEffectiveHealing(
-  event: { amount: number; absorbed?: number; overheal?: number },
+  event: LightWeightHealingEvent,
   relativeHealIncrease: number,
 ): number {
   const amount = event.amount;
@@ -48,7 +58,7 @@ export function calculateEffectiveHealing(
  * @return the amount of healing attributable on the given heal from the last stack of the given boost
  */
 export function calculateEffectiveHealingStacked(
-  event: { amount: number; absorbed?: number; overheal?: number },
+  event: LightWeightHealingEvent,
   relativeHealIncreasePerStack: number,
   stacks: number,
 ): number {

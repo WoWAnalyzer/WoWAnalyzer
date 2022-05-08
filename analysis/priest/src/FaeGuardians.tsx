@@ -4,13 +4,13 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
   ResourceChangeEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
 import Abilities from 'parser/core/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

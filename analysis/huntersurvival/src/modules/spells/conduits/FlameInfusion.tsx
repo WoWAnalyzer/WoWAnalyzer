@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   DamageEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
