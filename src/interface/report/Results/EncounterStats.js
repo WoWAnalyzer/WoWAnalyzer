@@ -3,6 +3,7 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import Expansion from 'game/Expansion';
 import ROLES from 'game/ROLES';
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
@@ -337,7 +338,8 @@ class EncounterStats extends PureComponent {
           <div className="col-md-6">
             {formatThousands(log.total)} {this.metric}
             <br />
-            {getCovenantById(log.covenantID).name}
+            {this.props.config.expansion === Expansion.Shadowlands &&
+              getCovenantById(log.covenantID)?.name}
           </div>
         </div>
       </div>
@@ -532,13 +534,15 @@ class EncounterStats extends PureComponent {
                     <h2>
                       {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times{' '}
                     </h2>
-                    <FilterByCovenantToggle
-                      initialValue={this.state.filterByCovenant}
-                      onChange={(val) => {
-                        this.setState({ filterByCovenant: val });
-                        this.load();
-                      }}
-                    />
+                    {this.props.config.expansion === Expansion.Shadowlands && (
+                      <FilterByCovenantToggle
+                        initialValue={this.state.filterByCovenant}
+                        onChange={(val) => {
+                          this.setState({ filterByCovenant: val });
+                          this.load();
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="row" style={{ marginBottom: '2em' }}>
