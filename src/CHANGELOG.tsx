@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 10), 'Added a "total" resource breakdown tables', nullDozzer),
   change(date(2022, 5, 6), 'Condensed helpful functions into one file.', Abelito75),
   change(date(2022, 5, 5), 'Add support for Ascended Vigor', xepheris),
   change(date(2022, 5, 5), 'Add support for Blood-Spattered Scale and Codex of the First Technique trinkets.', xepheris),
