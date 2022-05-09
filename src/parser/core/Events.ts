@@ -39,6 +39,7 @@ export enum EventType {
   Instakill = 'instakill',
   AuraBroken = 'aurabroken',
   ExtraAttacks = 'extraattacks',
+  OrbGenerated = 'orb-generated',
 
   // Fabricated:
   Event = 'event', // everything
