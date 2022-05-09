@@ -64,6 +64,8 @@ export enum EventType {
   Time = 'time',
   Test = 'test',
   SpendResource = 'spendresource',
+  // casts that are triggered for free by something else
+  FreeCast = 'freecast',
 
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
@@ -113,6 +115,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
 
 type MappedEventTypes = {
   [EventType.Event]: Event<EventType.Event>;
+  [EventType.FreeCast]: FreeCastEvent;
   [EventType.Heal]: HealEvent;
   [EventType.Absorbed]: AbsorbedEvent;
   [EventType.Damage]: DamageEvent;
@@ -377,6 +380,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
 }
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
+export type FreeCastEvent = BaseCastEvent<EventType.FreeCast>;
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
