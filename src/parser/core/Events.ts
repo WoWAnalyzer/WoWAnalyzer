@@ -38,6 +38,7 @@ export enum EventType {
   CombatantInfo = 'combatantinfo',
   Instakill = 'instakill',
   AuraBroken = 'aurabroken',
+  ExtraAttacks = 'extraattacks',
 
   // Fabricated:
   Event = 'event', // everything
@@ -63,6 +64,8 @@ export enum EventType {
   Time = 'time',
   Test = 'test',
   SpendResource = 'spendresource',
+  // casts that are triggered for free by something else
+  FreeCast = 'freecast',
 
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
@@ -112,6 +115,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
 
 type MappedEventTypes = {
   [EventType.Event]: Event<EventType.Event>;
+  [EventType.FreeCast]: FreeCastEvent;
   [EventType.Heal]: HealEvent;
   [EventType.Absorbed]: AbsorbedEvent;
   [EventType.Damage]: DamageEvent;
@@ -136,6 +140,7 @@ type MappedEventTypes = {
   [EventType.CombatantInfo]: CombatantInfoEvent;
   [EventType.Dispel]: DispelEvent;
   [EventType.AuraBroken]: AuraBrokenEvent;
+  [EventType.ExtraAttacks]: ExtraAttacksEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -384,6 +389,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
 }
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
+export type FreeCastEvent = BaseCastEvent<EventType.FreeCast>;
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -593,6 +599,23 @@ export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
 
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+}
+
+/**
+ * Extra attacks, like Windfury totem.
+ *
+ * Example: https://www.warcraftlogs.com/reports/YPpMjNnXBxTyKfRa/#fight=1&source=9
+ */
+export interface ExtraAttacksEvent extends Event<EventType.ExtraAttacks> {
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  sourceMarker?: number;
+  targetID: number;
+  targetIsFriendly: boolean;
+  targetMarker?: number;
+  fight: number;
+  extraAttacks: number;
 }
 
 export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
