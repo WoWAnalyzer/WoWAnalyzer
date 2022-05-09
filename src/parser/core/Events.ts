@@ -38,6 +38,7 @@ export enum EventType {
   CombatantInfo = 'combatantinfo',
   Instakill = 'instakill',
   AuraBroken = 'aurabroken',
+  ExtraAttacks = 'extraattacks',
 
   // Fabricated:
   Event = 'event', // everything
@@ -136,6 +137,7 @@ type MappedEventTypes = {
   [EventType.CombatantInfo]: CombatantInfoEvent;
   [EventType.Dispel]: DispelEvent;
   [EventType.AuraBroken]: AuraBrokenEvent;
+  [EventType.ExtraAttacks]: ExtraAttacksEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -584,6 +586,23 @@ export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
 
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+}
+
+/**
+ * Extra attacks, like Windfury totem.
+ *
+ * Example: https://www.warcraftlogs.com/reports/YPpMjNnXBxTyKfRa/#fight=1&source=9
+ */
+export interface ExtraAttacksEvent extends Event<EventType.ExtraAttacks> {
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  sourceMarker?: number;
+  targetID: number;
+  targetIsFriendly: boolean;
+  targetMarker?: number;
+  fight: number;
+  extraAttacks: number;
 }
 
 export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
