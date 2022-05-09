@@ -215,6 +215,10 @@ export type TargettedEvent<T extends string> = Event<T> & {
   targetInstance?: number;
   targetIsFriendly: boolean;
 };
+export type HitpointsEvent<T extends string> = Event<T> & {
+  hitPoints: number;
+  maxHitPoints: number;
+};
 
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
@@ -226,6 +230,10 @@ export function HasSource<T extends EventType>(event: Event<T>): event is Source
 
 export function HasTarget<T extends EventType>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
+}
+
+export function HasHitpoints<T extends EventType>(event: Event<T>): event is HitpointsEvent<T> {
+  return (event as HitpointsEvent<T>).hitPoints !== undefined;
 }
 
 export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
@@ -352,6 +360,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   maxHitPoints?: number;
   resourceActor?: number;
   sourceID: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
   spellPower?: number;
   target?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
