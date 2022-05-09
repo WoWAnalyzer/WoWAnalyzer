@@ -15,6 +15,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'spell_holy_spiritualguidence',
     bonusID: 6980,
   },
+
+  THE_PENITENT_ONE_BUFF: {
+    id: 336009,
+    name: 'The Penitent One',
+    icon: 'spell_holy_penance',
+  },
   //endregion
 
   //region Holy

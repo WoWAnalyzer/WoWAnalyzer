@@ -59,6 +59,10 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2022, 5, 5), <>Add statistics and tracking for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
+  change(date(2022, 5, 6), 'Condensed helpful functions into one file.', Abelito75),
+  change(date(2022, 5, 5), 'Add support for Ascended Vigor', xepheris),
+  change(date(2022, 5, 5), 'Add support for Blood-Spattered Scale and Codex of the First Technique trinkets.', xepheris),
+  change(date(2022, 5, 2), 'Increased event type safety.', Abelito75),
   change(date(2022, 4, 30), 'Fix legendary icons not working on Character parses page', nullDozzer),
   change(date(2022, 4, 30), 'Fix broken trinket icons and conduit links on the character page', nullDozzer),
   change(date(2022, 4, 27), 'Updated stat multiplier table for Shadowlands values', Putro),
