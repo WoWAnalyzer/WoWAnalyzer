@@ -72,7 +72,7 @@ class ResourceBreakdown extends Component<Props> {
           <tbody>
             <tr className="poor">
               <td>Total</td>
-              <td style={numberColumnStyle}>{tracker.generated}</td>
+              <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
               <td></td>
               <td style={numberColumnStyle}>{tracker.wasted}</td>
               <td></td>
@@ -123,7 +123,7 @@ class ResourceBreakdown extends Component<Props> {
             <tbody>
               <tr className="poor">
                 <td>Total</td>
-                <td style={numberColumnStyle}>{tracker.spent}</td>
+                <td style={numberColumnStyle}>{tracker.spent.toFixed(0)}</td>
                 <td></td>
                 <td style={numberColumnStyle}>{tracker.spendersCasts}</td>
                 <td></td>
