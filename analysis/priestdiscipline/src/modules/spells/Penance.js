@@ -7,33 +7,16 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
-
 class Penance extends Analyzer {
-  get missedBolts() {
-    return [...this.eventGrouper].reduce((missedBolts, cast) => {
-      cast.length > 3 ? (this._boltCount = 6) : (this._boltCount = 3); // checking for Penitent one legendary
-      return missedBolts + (this._boltCount - cast.length);
-    }, 0);
-  }
-
-  get casts() {
-    return [...this.eventGrouper].length;
-  }
-
-  get currentBoltNumber() {
-    return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
-  }
-
-  _boltCount = 3;
-  hits = 0;
-  eventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
+  _expectedBoltCount = 0;
+  _boltCount = 0;
+  _missedBolts = 0;
+  _casts = 0;
 
   constructor(options) {
     super(options);
 
-    // Castigation Penance bolt count to 4 (from 3)
-    this._boltCount = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
@@ -48,9 +31,8 @@ class Penance extends Analyzer {
       return;
     }
 
-    this.eventGrouper.processEvent(event);
-
-    event.penanceBoltNumber = this.currentBoltNumber;
+    event.penanceBoltNumber = this._boltCount;
+    this._boltCount += 1;
   }
 
   onHeal(event) {
@@ -58,9 +40,26 @@ class Penance extends Analyzer {
       return;
     }
 
-    this.eventGrouper.processEvent(event);
+    event.penanceBoltNumber = this._boltCount;
+    this._boltCount += 1;
+  }
 
-    event.penanceBoltNumber = this.currentBoltNumber;
+  onCast(event) {
+    this._casts += 1;
+    this._missedBolts += this._expectedBoltCount - this._boltCount;
+    this.calculateExpectedBolts(event);
+    this._boltCount = 0;
+  }
+
+  calculateExpectedBolts(cast = null) {
+    this._expectedBoltCount = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id)
+      ? 4
+      : 3;
+    if (cast) {
+      if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
+        this._expectedBoltCount += 3;
+      }
+    }
   }
 
   statistic() {
@@ -73,13 +72,13 @@ class Penance extends Analyzer {
             Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
             <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />
             ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
-            {this.casts} times.
+            {this._casts} times.
           </>
         }
       >
         <BoringSpellValue
           spellId={SPELLS.PENANCE.id}
-          value={this.missedBolts}
+          value={this._missedBolts}
           label={
             <>
               Wasted <SpellLink id={SPELLS.PENANCE.id} /> bolts
