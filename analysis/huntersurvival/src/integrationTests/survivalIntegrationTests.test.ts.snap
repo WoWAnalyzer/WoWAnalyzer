@@ -1243,6 +1243,161 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
           <tr>
             <th>
               <b>
+                {"id":"core.abilities.spellCategories.items","message":"Item"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=331523"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_83_alchemiststone02.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Shadowgrasp Totem
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.54
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              /2
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "79.41609255401009%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              79.42%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
                 {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
               </b>
             </th>
@@ -4232,6 +4387,111 @@ exports[`Survival Hunter integration test: Multi Target SerpentSting matches the
           <small>
             uptime
           </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Survival Hunter integration test: Multi Target ShadowgraspTotem matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1100}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="rareitem-link-text"
+            href="https://wowhead.com/item=179356&bonus=7210:6652:1501:5861:6646"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shadowgrasp Totem"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_83_alchemiststone02.jpg"
+            />
+             
+            Shadowgrasp Totem
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          2
+           Uses 
+          <small>
+            2
+             possible
+          </small>
+          <div
+            className="value"
+            style={
+              Object {
+                "paddingBottom": "0.5em",
+              }
+            }
+          >
+            <img
+              alt="Damage"
+              className="icon"
+              src="/img/sword.png"
+            />
+             
+            117
+             DPS
+             
+            <small>
+              0.76
+               % of total
+            </small>
+            <small
+              style={
+                Object {
+                  "display": "block",
+                }
+              }
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                Effective haste 
+                43.66
+                %
+              </dfn>
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -10476,14 +10736,7 @@ exports[`Survival Hunter integration test: Single Target DarkmoonDeckVoracity ma
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_inscription_darkmooncard_voracity.jpg"
             />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="https://wowhead.com/item=173087"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+             
             Darkmoon Deck: Voracity
           </a>
         </label>
