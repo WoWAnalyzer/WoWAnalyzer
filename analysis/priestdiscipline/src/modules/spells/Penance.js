@@ -8,17 +8,19 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class Penance extends Analyzer {
-  _expectedBoltCount = 0;
-  _boltCount = 0;
-  _missedBolts = 0;
+  _boltCount = 0; // which bolt of the cast it is - for other modules
   _casts = 0;
+  _defaultBolts = 0;
+  _totalExpectedBolts = 0;
+  _totalBoltHits = 0;
+  _missedBolts = 0;
 
   constructor(options) {
     super(options);
-
+    this._defaultBolts = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
   }
 
   static isPenance = (spellId) =>
@@ -27,42 +29,29 @@ class Penance extends Analyzer {
     spellId === SPELLS.PENANCE_CAST.id;
 
   onDamage(event) {
-    if (!Penance.isPenance(event.ability.guid)) {
-      return;
-    }
-
     event.penanceBoltNumber = this._boltCount;
     this._boltCount += 1;
+    this._totalBoltHits += 1;
   }
 
   onHeal(event) {
-    if (!Penance.isPenance(event.ability.guid)) {
-      return;
-    }
-
     event.penanceBoltNumber = this._boltCount;
     this._boltCount += 1;
+    this._totalBoltHits += 1;
   }
 
   onCast(event) {
     this._casts += 1;
-    this._missedBolts += this._expectedBoltCount - this._boltCount;
-    this.calculateExpectedBolts(event);
+    this._totalExpectedBolts += this._defaultBolts;
+    if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
+      this._totalExpectedBolts += 3;
+    }
+
     this._boltCount = 0;
   }
 
-  calculateExpectedBolts(cast = null) {
-    this._expectedBoltCount = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id)
-      ? 4
-      : 3;
-    if (cast) {
-      if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
-        this._expectedBoltCount += 3;
-      }
-    }
-  }
-
   statistic() {
+    this._missedBolts = this._totalExpectedBolts - this._totalBoltHits;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(13)}
