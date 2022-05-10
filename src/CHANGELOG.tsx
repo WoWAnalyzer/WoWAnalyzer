@@ -58,6 +58,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 10), <>Add statistics and tracking for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
+  change(date(2022, 5, 9), <>Fix crashing bug in TBC character pages.</>, emallson),
+  change(date(2022, 5, 9), <>Handle "extraattacks" events for things like <SpellLink id={SPELLS.WINDFURY_TOTEM.id}/></>, nullDozzer),
   change(date(2022, 5, 6), 'Condensed helpful functions into one file.', Abelito75),
   change(date(2022, 5, 5), 'Add support for Ascended Vigor', xepheris),
   change(date(2022, 5, 5), 'Add support for Blood-Spattered Scale and Codex of the First Technique trinkets.', xepheris),
