@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

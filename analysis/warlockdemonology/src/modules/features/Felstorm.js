@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events from 'parser/core/Events';
 
 const FELSTORM_COOLDOWN = 30;

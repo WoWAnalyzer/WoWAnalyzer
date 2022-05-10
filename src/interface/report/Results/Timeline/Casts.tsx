@@ -12,6 +12,7 @@ import {
   CastEvent,
   EndChannelEvent,
   EventType,
+  FreeCastEvent,
   GlobalCooldownEvent,
 } from 'parser/core/Events';
 import { Fragment, CSSProperties, HTMLAttributes, ReactNode } from 'react';
@@ -20,7 +21,7 @@ import './Casts.scss';
 
 const ICON_WIDTH = 22;
 
-const isApplicableCastEvent = (event: CastEvent | BeginChannelEvent) => {
+const isApplicableCastEvent = (event: CastEvent | BeginChannelEvent | FreeCastEvent) => {
   const spellId = event.ability.guid;
   if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
     return false;
@@ -34,6 +35,7 @@ export const isApplicableEvent = (parser: CombatLogParser) => (event: AnyEvent) 
   }
 
   switch (event.type) {
+    case EventType.FreeCast:
     case EventType.Cast:
     case EventType.BeginChannel:
       return isApplicableCastEvent(event);
@@ -58,7 +60,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
   const getOffsetLeft = (timestamp: number) => ((timestamp - start) / 1000) * secondWidth;
 
   const renderIcon = (
-    event: CastEvent | BeginChannelEvent,
+    event: CastEvent | BeginChannelEvent | FreeCastEvent,
     {
       className = '',
       style = {},
@@ -115,7 +117,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
   let _lastLowered: number | null = null;
   let _level = 0;
   let _maxLevel = 0;
-  const renderCast = (event: CastEvent) => {
+  const renderCast = (event: CastEvent | FreeCastEvent) => {
     if (event.channel) {
       // If a spell has a channel event, it has a cast time/is channeled and we already rendered it in the `beginchannel` event
       return null;
@@ -275,6 +277,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
 
   const renderEvent = (event: AnyEvent) => {
     switch (event.type) {
+      case EventType.FreeCast:
       case EventType.Cast:
         return renderCast(event);
       case EventType.BeginChannel:

@@ -2,7 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle } from 'parser/core/ParseResults';

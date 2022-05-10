@@ -5,7 +5,7 @@ import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';

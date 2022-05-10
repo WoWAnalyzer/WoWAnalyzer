@@ -1,8 +1,7 @@
-// Values are from simc, found at https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc#L1410
 // Multipliers are 0-indexed. So the value at index #0 is for item level 1, #1 is 2, etc.
 
 export default {
-  // General
+  // https://github.dev/simulationcraft/simc/blob/e718ffa2a052facfe07f450d34377589abc0e049/engine/dbc/generated/sc_scale_data.inc#L1412-L1671
   general: [
     1.5,
     1.5,
@@ -1305,6 +1304,7 @@ export default {
     0.759621521,
     0.759621521, // 1300
   ],
+  // https://github.dev/simulationcraft/simc/blob/e718ffa2a052facfe07f450d34377589abc0e049/engine/dbc/generated/sc_scale_data.inc#L1675-L1934
   jewelry: [
     1.875,
     1.875,

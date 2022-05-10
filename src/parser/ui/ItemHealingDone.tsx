@@ -7,13 +7,17 @@ interface Props {
   approximate?: boolean;
   greaterThan?: boolean;
   lessThan?: boolean;
+  /**
+   * @default {true}
+   */
+  displayPercentage?: boolean;
 }
 interface Context {
   parser: CombatLogParser;
 }
 
 const ItemHealingDone = (
-  { amount, approximate, greaterThan, lessThan }: Props,
+  { amount, approximate, greaterThan, lessThan, displayPercentage = true }: Props,
   { parser }: Context,
 ) => (
   <>
@@ -21,7 +25,9 @@ const ItemHealingDone = (
     {greaterThan && '>'}
     {lessThan && '<'}
     {formatNumber((amount / parser.fightDuration) * 1000)} HPS{' '}
-    <small>{formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of total</small>
+    {displayPercentage && (
+      <small>{formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of total</small>
+    )}
   </>
 );
 ItemHealingDone.contextTypes = {
