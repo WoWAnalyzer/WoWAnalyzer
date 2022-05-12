@@ -4979,20 +4979,11 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Darkmoon Deck: Voracity"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_inscription_darkmooncard_voracity.jpg"
             />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="https://wowhead.com/item=173087"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
              
             Darkmoon Deck: Voracity
           </a>
@@ -9804,7 +9795,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AlwaysBeCasting ma
         <div
           className="value"
         >
-          12.75 %
+          12.83 %
         </div>
         <div
           style={
@@ -9823,7 +9814,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AlwaysBeCasting ma
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "87.24969739128419%",
+                  "width": "87.16574370383375%",
                 }
               }
             >
@@ -9888,7 +9879,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "12.75",
+            "0": "12.83",
           }
         }
       />
@@ -10945,7 +10936,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.49368769408959%",
+                      "width": "88.44781267988783%",
                     }
                   }
                 />
@@ -10960,7 +10951,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                 }
               }
             >
-              88.49%
+              88.45%
             </td>
             <td
               style={
@@ -14605,7 +14596,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CobraShot matches 
           94
           s
           <br />
-          80.08
+          79.97
           %
            
           <small>
@@ -14640,7 +14631,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_hunter_cobrashot",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       A crucial part of 
       <ForwardRef
@@ -14682,7 +14673,7 @@ Array [
         message="You had {0}% effective cooldown reduction of Kill Command"
         values={
           Object {
-            "0": "80.08",
+            "0": "79.97",
           }
         }
       />
@@ -15087,20 +15078,11 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Overcharged Anima Battery"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_battery_01.jpg"
             />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="https://wowhead.com/item=180116"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
              
             Overcharged Anima Battery
           </a>
@@ -15119,7 +15101,7 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
             />
           </svg>
            
-          9.59
+          10.07
           %
            
           <small>
@@ -15930,7 +15912,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   }
                 >
                    
-                  88.49%
+                  88.45%
                    
                    
                 </div>
@@ -16661,7 +16643,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "76.76220063615774%",
+                  "width": "76.6044684171123%",
                 }
               }
             />
@@ -16774,7 +16756,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   }
                 >
                    
-                  80.08%
+                  79.97%
                    
                    
                 </div>
@@ -16794,9 +16776,9 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "67.1610031807887%",
+                        "width": "66.37234208556156%",
                       }
                     }
                   />
@@ -17145,7 +17127,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "93.86099487531756%",
+                  "width": "93.67461768917761%",
                 }
               }
             />
@@ -17254,7 +17236,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   }
                 >
                    
-                  87.25%
+                  87.17%
                    
                    
                 </div>
@@ -17276,7 +17258,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "81.58298462595269%",
+                        "width": "81.0238530675328%",
                       }
                     }
                   />

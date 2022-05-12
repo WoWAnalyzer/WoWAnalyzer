@@ -78,7 +78,7 @@ const conduits = {
   },
   COORDINATED_OFFENSIVE: {
     id: 336598,
-    name: 'Coordinated Offesnive',
+    name: 'Coordinated Offensive',
     icon: 'ability_fixated_state_red',
   },
   INNER_FURY: {

@@ -13,6 +13,7 @@ type Item = {
   color: string;
   value: number;
   spellId?: number;
+  itemLevel?: number;
   valueTooltip?: React.ReactNode;
 };
 
@@ -33,9 +34,15 @@ class DonutChart extends PureComponent<Props> {
 
     return (
       <div className="legend">
-        {items.map(({ color, label, tooltip, value, spellId, valueTooltip }, index) => {
+        {items.map(({ color, label, tooltip, value, spellId, valueTooltip, itemLevel }, index) => {
           label = tooltip ? <TooltipElement content={tooltip}>{label}</TooltipElement> : label;
-          label = spellId ? <SpellLink id={spellId}>{label}</SpellLink> : label;
+          label = spellId ? (
+            <SpellLink id={spellId} ilvl={itemLevel}>
+              {label}
+            </SpellLink>
+          ) : (
+            label
+          );
           return (
             <div key={index} className="flex">
               <div className="flex-sub">

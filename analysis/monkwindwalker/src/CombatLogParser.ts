@@ -8,7 +8,9 @@ import {
   FaelineHarmony,
   SinisterTeachings,
   ImbuedReflections,
+  InvokersDelight,
   MysticTouch,
+  DampenHarm,
 } from '@wowanalyzer/monk';
 
 // Features
@@ -77,9 +79,11 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+    dampenHarm: DampenHarm,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
+    invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
 

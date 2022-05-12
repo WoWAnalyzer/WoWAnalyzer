@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -13,6 +13,13 @@ import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 const DAMAGE_MULTIPLIER = 0.2;
 
+/**
+ * Tracks damage increase and cooldown reduction from
+ * [Serenity](https://www.wowhead.com/spell=152173/serenity).
+ *
+ * Example log:
+ * https://www.warcraftlogs.com/reports/HYTBGcXtV4AN27QW#fight=last&type=damage-done&source=27
+ */
 class Serenity extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,

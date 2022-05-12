@@ -9,7 +9,8 @@ import Spell from 'common/SPELLS/Spell';
  *
  * This map only makes sense with 1-to-1 connections.
  */
-const castDamageMap: ReadonlyMap<Spell, Spell[]> = new Map([
+export const castDamageMap: ReadonlyMap<Spell, Spell[]> = new Map([
+  [SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT, [SPELLS.FIST_OF_THE_WHITE_TIGER_SECOND]],
   [SPELLS.FISTS_OF_FURY_CAST, [SPELLS.FISTS_OF_FURY_DAMAGE]],
   [SPELLS.WHIRLING_DRAGON_PUNCH_TALENT, [SPELLS.WHIRLING_DRAGON_PUNCH_TALENT_TICK]],
   [SPELLS.SPINNING_CRANE_KICK, [SPELLS.SPINNING_CRANE_KICK_DAMAGE]],
@@ -25,10 +26,10 @@ const castDamageMap: ReadonlyMap<Spell, Spell[]> = new Map([
 const entries = Array.from(castDamageMap);
 
 /** Provide id of cast ability and get damage spell(s) back */
-export const castToDamage: { [id: string]: Spell[] } = Object.fromEntries(
-  entries.map(([cast, damage]) => [cast.id, damage]),
+export const castToDamage = Object.fromEntries<Spell[]>(
+  entries.map(([cast, damage]) => [cast.id, damage] as const),
 );
 /** Provide id of damage ability and get cast ability back */
-export const damageToCast: { [id: string]: Spell } = Object.fromEntries(
-  entries.map(([cast, dSpells]) => dSpells.map((d) => [d, cast])).flat(),
+export const damageToCast = Object.fromEntries<Spell>(
+  entries.map(([cast, dSpells]) => dSpells.map((d) => [d.id, cast] as const)).flat(),
 );
