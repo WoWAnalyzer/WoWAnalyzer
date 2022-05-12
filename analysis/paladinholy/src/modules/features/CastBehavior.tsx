@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticGroup from 'parser/ui/StatisticGroup';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
@@ -15,13 +15,15 @@ class CastBehavior extends Analyzer {
     abilityTracker: PaladinAbilityTracker,
   };
 
+  protected abilityTracker!: PaladinAbilityTracker;
+
   get iolProcsPerHolyShockCrit() {
     return 1;
   }
 
   iolCastRatioChart() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = (spellId) => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
@@ -73,7 +75,7 @@ class CastBehavior extends Analyzer {
 
   fillerCastRatioChart() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = (spellId) => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
@@ -114,7 +116,7 @@ class CastBehavior extends Analyzer {
 
   statistic() {
     return (
-      <StatisticGroup position={STATISTIC_ORDER.CORE(40)}>
+      <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style={{}}>
         <Statistic ultrawide>
           <div className="pad">
             <label>

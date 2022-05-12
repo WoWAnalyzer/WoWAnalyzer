@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
@@ -15,9 +15,12 @@ class MissingBeacons extends Analyzer {
     beaconTransferFactor: BeaconTransferFactor,
   };
 
+  protected beaconTargets!: BeaconTargets;
+  protected beaconTransferFactor!: BeaconTransferFactor;
+
   lostBeaconHealing = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
     if (!this.active) {
@@ -26,7 +29,7 @@ class MissingBeacons extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
     const spellBeaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];
     if (!spellBeaconTransferFactor) {

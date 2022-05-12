@@ -24,6 +24,16 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected masteryEffectiveness!: MasteryEffectiveness;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected directBeaconHealing!: DirectBeaconHealing;
+  protected beaconUptime!: BeaconUptime;
+  protected fillerLightOfTheMartyrs!: FillerLightOfTheMartyrs;
+  protected fillerFlashOfLight!: FillerFlashOfLight;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+
   render() {
     return (
       <Component

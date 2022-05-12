@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { BeaconTransferFailedEvent } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import BeaconHealSource from './BeaconHealSource';
@@ -17,16 +18,19 @@ class FailedBeaconTransfers extends Analyzer {
     beaconHealSource: BeaconHealSource, // for the events
   };
 
+  protected beaconTransferFactor!: BeaconTransferFactor;
+  protected beaconHealSource!: BeaconHealSource;
+
   lostBeaconHealing = 0;
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
-      this.beaconHealSource.beacontransferfailed.by(SELECTED_PLAYER),
+      Events.BeaconTransferFailed.by(SELECTED_PLAYER),
       this._onBeaconTransferFailed,
     );
   }
 
-  _onBeaconTransferFailed(event) {
+  _onBeaconTransferFailed(event: BeaconTransferFailedEvent) {
     this.lostBeaconHealing += this.beaconTransferFactor.getExpectedTransfer(event);
   }
 
