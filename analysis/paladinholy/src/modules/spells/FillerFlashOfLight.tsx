@@ -2,8 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import AbilityTracker from '../core/PaladinAbilityTracker';
@@ -26,9 +27,11 @@ class FillerFlashOfLight extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  inefficientCasts = [];
+  protected spellUsable!: SpellUsable;
+
+  inefficientCasts: BeginCastEvent[] = [];
   _isCurrentCastInefficient = false;
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT),
@@ -39,7 +42,7 @@ class FillerFlashOfLight extends Analyzer {
       this.onCast,
     );
   }
-  onBeginCast(event) {
+  onBeginCast(event: BeginCastEvent) {
     if (this._isInefficientCastEvent(event)) {
       this.inefficientCasts.push(event);
       this._isCurrentCastInefficient = true;
@@ -47,7 +50,7 @@ class FillerFlashOfLight extends Analyzer {
       this._isCurrentCastInefficient = false;
     }
   }
-  _isInefficientCastEvent(event) {
+  _isInefficientCastEvent(event: BeginCastEvent) {
     // If there is a lot of healing to be done in short window of time using your IoL proc before casting HS makes sense.
     // The `-1` buffer time is to properly handle chain-casting and IoL buffs; when chain casting the first FoL will consume the IoL buff on the `cast` event and that exact same frame will have the `begincast` event. Because `hasBuff` looks at the timestamp rather than event order, it would otherwise include the buff.
     const hasIol = this.selectedCombatant.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, -1);
@@ -69,7 +72,7 @@ class FillerFlashOfLight extends Analyzer {
    * This marks spells as inefficient casts in the timeline.
    * @param event
    */
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -94,11 +97,11 @@ class FillerFlashOfLight extends Analyzer {
         average: (0.25 * this.owner.fightDuration) / 1000 / 60,
         major: (0.5 * this.owner.fightDuration) / 1000 / 60,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion">

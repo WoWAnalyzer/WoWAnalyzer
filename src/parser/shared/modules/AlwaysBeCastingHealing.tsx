@@ -1,13 +1,14 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
-  static HEALING_ABILITIES_ON_GCD = [
+  HEALING_ABILITIES_ON_GCD: number[] = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
 
@@ -21,7 +22,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
 
   _lastHealingCastFinishedTimestamp = null;
 
-  onGCD(event) {
+  onGCD(event: GlobalCooldownEvent) {
     if (!super.onGCD(event)) {
       return false;
     }
@@ -30,7 +31,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     }
     return true;
   }
-  onEndChannel(event) {
+  onEndChannel(event: EndChannelEvent) {
     if (!super.onEndChannel(event)) {
       return false;
     }
@@ -39,8 +40,8 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     }
     return true;
   }
-  countsAsHealingAbility(event) {
-    return this.constructor.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
+  countsAsHealingAbility(event: GlobalCooldownEvent | EndChannelEvent) {
+    return this.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
   }
 
   showStatistic = true;
@@ -115,7 +116,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.nonHealingTimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
@@ -124,7 +125,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
         .actual(
           t({
             id: 'shared.suggestions.alwaysBeCastingHealing.timeSpentHealing',
-            message: `${1 - formatPercentage(actual)}% time spent healing`,
+            message: `${formatPercentage(1 - actual)}% time spent healing`,
           }),
         )
         .recommended(`>${formatPercentage(1 - recommended)}% is recommended`),

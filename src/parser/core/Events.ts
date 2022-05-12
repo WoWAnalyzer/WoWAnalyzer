@@ -155,6 +155,9 @@ type MappedEventTypes = {
   [EventType.FeedHeal]: FeedHealEvent;
   [EventType.AddStagger]: AddStaggerEvent;
   [EventType.RemoveStagger]: RemoveStaggerEvent;
+  [EventType.BeaconTransfer]: BeaconHealEvent;
+  [EventType.BeaconTransferFailed]: BeaconTransferFailedEvent;
+
   // Phases:
   [EventType.PhaseStart]: PhaseStartEvent;
   [EventType.PhaseEnd]: PhaseEndEvent;
@@ -452,6 +455,11 @@ export interface HealEvent extends Event<EventType.Heal> {
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
   type: EventType.BeaconTransfer;
   originalHeal: HealEvent;
+}
+
+export interface BeaconTransferFailedEvent extends Omit<HealEvent, 'type'> {
+  type: EventType.BeaconTransferFailed;
+  timestamp: number;
 }
 
 export interface FeedHealEvent extends Omit<HealEvent, 'type'> {
@@ -1197,6 +1205,9 @@ const Events = {
   },
   get beacontransfer() {
     return new EventFilter(EventType.BeaconTransfer);
+  },
+  get BeaconTransferFailed() {
+    return new EventFilter(EventType.BeaconTransferFailed);
   },
   get feedheal() {
     return new EventFilter(EventType.FeedHeal);

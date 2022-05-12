@@ -3,14 +3,24 @@ import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  ApplyDebuffEvent,
+  BeaconHealEvent,
+  CastEvent,
+  DamageEvent,
+  HealEvent,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
 
-import BeaconHealSource from '../beacons/BeaconHealSource.js';
+import BeaconHealSource from '../beacons/BeaconHealSource';
 
 /**
  * Glimmer of Light
@@ -31,7 +41,7 @@ class GlimmerOfLight extends Analyzer {
   casts = 0;
   damage = 0;
   earlyRefresh = 0;
-  glimmerBuffs /*: Array<ApplyBuffEvent | ApplyDebuffEvent>*/ = [];
+  glimmerBuffs: Array<ApplyBuffEvent | ApplyDebuffEvent> = [];
   glimmerHits = 0;
   healing = 0;
   overCapHealing = 0;
@@ -40,8 +50,8 @@ class GlimmerOfLight extends Analyzer {
   wastedEarlyRefresh = 0;
   wastedOverCap = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
@@ -54,10 +64,7 @@ class GlimmerOfLight extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT),
       this.onHeal,
     );
-    this.addEventListener(
-      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
-      this.onBeaconTransfer,
-    );
+    this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT),
       this.onDamage,
@@ -80,7 +87,7 @@ class GlimmerOfLight extends Analyzer {
     );
   }
 
-  onBeaconTransfer(event) {
+  onBeaconTransfer(event: BeaconHealEvent) {
     const spellId = event.originalHeal.ability.guid;
     if (spellId !== SPELLS.GLIMMER_OF_LIGHT_TALENT.id) {
       return;
@@ -88,14 +95,14 @@ class GlimmerOfLight extends Analyzer {
     this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
-  onApplyBuff(event /*: ApplyBuffEvent | ApplyDebuffEvent*/) {
+  onApplyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     this.glimmerBuffs.unshift(event);
   }
-  onRemoveBuff(event /*: RemoveBuffEvent | RemoveDebuffEvent*/) {
+  onRemoveBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
     this.glimmerBuffs = this.glimmerBuffs.filter((buff) => buff.targetID !== event.targetID);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.casts += 1;
 
     const index = this.glimmerBuffs.findIndex((g) => g.targetID === event.targetID);
@@ -118,12 +125,12 @@ class GlimmerOfLight extends Analyzer {
     }
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
     this.glimmerHits += 1;
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     this.healing += event.amount + (event.absorbed || 0);
     this.glimmerHits += 1;
   }
@@ -191,6 +198,8 @@ class GlimmerOfLight extends Analyzer {
             <br />
           </>
         }
+        icon={undefined}
+        label={undefined}
       />
     );
   }
@@ -203,7 +212,7 @@ class GlimmerOfLight extends Analyzer {
         average: 0.25,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -215,11 +224,11 @@ class GlimmerOfLight extends Analyzer {
         average: 0.25,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.talents.glimmerOfLight">
