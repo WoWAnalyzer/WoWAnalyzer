@@ -1,6 +1,6 @@
 import Enemy from 'parser/core/Enemy';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import { AnyEvent, HasTarget } from 'parser/core/Events';
+import { AnyEvent, HasSource, HasTarget } from 'parser/core/Events';
 
 import Entities from './Entities';
 
@@ -10,8 +10,32 @@ type EnemyBuffHistory = {
   start: number;
   end: number;
 };
+
+export function encodeEventTargetString(event: AnyEvent) {
+  if (!HasTarget(event)) {
+    return null;
+  }
+  return encodeTargetString(event.targetID, event.targetInstance);
+}
+
+export function encodeEventSourceString(event: AnyEvent) {
+  if (!HasSource(event)) {
+    return null;
+  }
+  return encodeTargetString(event.sourceID, event.sourceInstance);
+}
+
+export function encodeTargetString(id: number, instance = 0) {
+  return `${id}.${instance}`;
+}
+
+export function decodeTargetString(string: string) {
+  const [id, instance = 0] = string.split('.');
+  return { id, instance };
+}
+
 class Enemies extends Entities<Enemy> {
-  enemies: { [enemyId: number]: Enemy } = {};
+  enemies: { [enemyId: string]: Enemy } = {};
 
   getEntities() {
     return this.enemies;
@@ -29,16 +53,21 @@ class Enemies extends Entities<Enemy> {
       return null;
     }
     const targetId = event.targetID;
-    let enemy = this.enemies[targetId];
+    const targetInstance = event.targetInstance || 0;
+
+    const enemyId = encodeTargetString(targetId, targetInstance);
+
+    let enemy = this.enemies[enemyId];
+
     if (!enemy) {
       const baseInfo = this.owner.report.enemies.find(
         (enemy: { id: number }) => enemy.id === targetId,
       );
       if (!baseInfo) {
-        debug && console.warn('Enemy not noteworthy enough:', targetId, event);
+        debug && console.warn('Enemy not noteworthy enough:', targetId, targetInstance, event);
         return null;
       }
-      this.enemies[targetId] = enemy = new Enemy(this.owner, baseInfo);
+      this.enemies[enemyId] = enemy = new Enemy(this.owner, baseInfo, targetInstance);
     }
     return enemy;
   }

@@ -4,17 +4,17 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class Apocalypse extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
 
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   totalApocalypseCasts = 0;
   apocalypseWoundsPopped = 0;
@@ -29,10 +29,10 @@ class Apocalypse extends Analyzer {
   onCast(event: CastEvent) {
     this.totalApocalypseCasts += 1;
     const target = this.enemies.getEntity(event);
-    const currentTargetWounds =
-      target && target.hasBuff(SPELLS.FESTERING_WOUND.id)
-        ? target.getBuff(SPELLS.FESTERING_WOUND.id).stacks
-        : 0;
+    let currentTargetWounds = 0;
+    if (target?.hasBuff(SPELLS.FESTERING_WOUND.id)) {
+      currentTargetWounds = target.getBuffStacks(SPELLS.FESTERING_WOUND.id);
+    }
     if (currentTargetWounds > 4) {
       this.apocalypseWoundsPopped = this.apocalypseWoundsPopped + 4;
     } else {

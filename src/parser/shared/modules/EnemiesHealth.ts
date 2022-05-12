@@ -2,7 +2,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Enemy from 'parser/core/Enemy';
 import Events, { AnyEvent, HasHitpoints, HasTarget } from 'parser/core/Events';
 
-import { encodeTargetString } from './EnemyInstances';
+import { encodeTargetString } from './Enemies';
 
 const debug = false;
 

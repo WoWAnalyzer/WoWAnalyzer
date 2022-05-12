@@ -10,7 +10,7 @@ import Events, {
   TargettedEvent,
 } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods } from 'parser/core/mergeTimePeriods';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 import {

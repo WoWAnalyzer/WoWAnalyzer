@@ -8,7 +8,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstance from 'parser/core/EnemyInstance';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -22,9 +22,9 @@ import { HOLY_POWER_FINISHERS } from '../../paladinretribution/src/constants';
  */
 class Judgment extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
-  private enemies!: EnemyInstances;
+  private enemies!: Enemies;
 
   DAMAGE_MODIFIER: number = 0.25;
 

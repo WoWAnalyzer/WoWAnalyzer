@@ -2,8 +2,8 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
+import Events, { DamageEvent, HasSource } from 'parser/core/Events';
+import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -34,10 +34,14 @@ class BlessedHammerDamageReduction extends Analyzer {
 
   trackHitsToPlayer(event: DamageEvent): void {
     this.totalMeleeHits += 1;
-    if (!event.sourceID || !this.enemies.enemies[event.sourceID]) {
+    if (!HasSource(event)) {
       return;
     }
-    const sourceIsDebuffed = this.enemies.enemies[event.sourceID].hasBuff(
+    const enemyId = encodeEventSourceString(event);
+    if (!enemyId || !this.enemies.enemies[enemyId]) {
+      return;
+    }
+    const sourceIsDebuffed = this.enemies.enemies[enemyId].hasBuff(
       SPELLS.BLESSED_HAMMER_DEBUFF.id,
       event.timestamp,
       undefined,

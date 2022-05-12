@@ -7313,7 +7313,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "24.819875776397517%",
+                  "width": "23.78571428571429%",
                 }
               }
             />
@@ -7627,7 +7627,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  29.03%
+                  30.00%
                    
                    
                 </div>
@@ -7649,7 +7649,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "13.811059907834105%",
+                        "width": "14.271428571428574%",
                       }
                     }
                   />
@@ -7755,7 +7755,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  52.17%
+                  50.00%
                    
                    
                 </div>
@@ -7777,7 +7777,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.819875776397517%",
+                        "width": "23.78571428571429%",
                       }
                     }
                   />
