@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022,5,12), <><SpellLink id ={SPELLS.SHADOW_WORD_MANIPULATION.id}/> support added. </>, Hana),
   change(date(2022,5,10), <><SpellLink id ={SPELLS.PENANCE.id}/> updated to be more compatible with different amounts of bolts. </>, Hana),
   change(date(2022, 5, 10), <><SpellLink id={SPELLS.CLARITY_OF_MIND.id}/> support added when using <SpellLink id={SPELLS.EVANGELISM_TALENT.id}/> </>, Hana, ),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
