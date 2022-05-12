@@ -19,6 +19,10 @@ class MissingBeacons extends Analyzer {
 
   constructor(options) {
     super(options);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
