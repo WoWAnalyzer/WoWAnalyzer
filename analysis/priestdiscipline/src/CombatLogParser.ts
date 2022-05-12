@@ -32,6 +32,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
 import ShatteredPerceptions from './modules/shadowlands/conduits/ShatteredPerceptions';
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
@@ -90,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
+    solaceVsShieldDiscipline: SolaceVsShieldDiscipline,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
