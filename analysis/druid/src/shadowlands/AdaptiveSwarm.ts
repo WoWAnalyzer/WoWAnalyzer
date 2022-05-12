@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -7,9 +8,10 @@ import { SpellInfo } from 'parser/core/EventFilter';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
-import Enemies from 'parser/shared/modules/Enemies';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 const BASE_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic effects
+const BALANCE_PERIODIC_BOOST = 0.35; // balance gets a bit extra because their periodics are worse
 
 // the amount Evolved Swarm adds to the base periodic boost
 const EVOLVED_SWARM_EFFECT_BY_RANK = [
@@ -47,16 +49,37 @@ const PERIODIC_HEALS: SpellInfo[] = [
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 
+// A very wide definition of 'periodic damage', but these are the actual data-mined values...
+// Some of these IDs were clearly copy-pasted and don't proc actual damage, omitted for now
+/*
+  Apply Aura (6) | Modify Damage Taken% from Caster's Spells (271)
+  Base Value: 25 | Scaled Value: 25 | PvP Coefficient: 1.00000 | Target: Unknown(25)
+  Affected Spells:
+    Entangling Roots (339), Rip (1079), Rake (1822), Starfall (50286), Mass Entanglement (102359),
+    Thrash (106830), Moonfire (155625), Rake (155722), Moonfire (164812), Sunfire (164815),
+    Starfall (191034), Starfall (191037), Thrash (192090), Stellar Flare (202347),
+    Shooting Stars (202497), Fury of Elune (202770), Overgrowth (203651), Fury of Elune (211545),
+    Brambles (213709), Feral Frenzy (274837), Feral Frenzy (274838), Primal Wrath (285381), Fury of Elune (365640)
+ */
 const PERIODIC_DAMAGE: SpellInfo[] = [
-  SPELLS.THRASH_BEAR_DOT,
-  SPELLS.THRASH_FERAL,
-  SPELLS.MOONFIRE_DEBUFF,
-  SPELLS.MOONFIRE_FERAL,
-  SPELLS.SUNFIRE,
+  SPELLS.ENTANGLING_ROOTS,
   SPELLS.RIP,
   SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation
-  SPELLS.RAKE_BLEED,
+  SPELLS.MASS_ENTANGLEMENT_TALENT,
+  SPELLS.THRASH_FERAL,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.MOONFIRE_DEBUFF,
+  SPELLS.SUNFIRE,
+  SPELLS.STARFALL,
+  SPELLS.THRASH_BEAR_DOT,
+  SPELLS.STELLAR_FLARE_TALENT,
+  SPELLS.SHOOTING_STARS,
+  SPELLS.FURY_OF_ELUNE_DAMAGE,
+  SPELLS.BRAMBLES_DAMAGE,
+  SPELLS.FERAL_FRENZY_TALENT,
   SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.PRIMAL_WRATH_TALENT,
+  SPELLS.FURY_OF_ELUNE_DAMAGE_4P,
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 
@@ -82,12 +105,12 @@ class AdaptiveSwarm extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
-    enemies: Enemies,
+    enemies: EnemyInstances,
   };
 
   protected abilityTracker!: AbilityTracker;
   protected combatants!: Combatants;
-  protected enemies!: Enemies;
+  protected enemies!: EnemyInstances;
 
   hasEvolvedSwarm: boolean;
 
@@ -121,9 +144,13 @@ class AdaptiveSwarm extends Analyzer {
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
     this.hasEvolvedSwarm = this.selectedCombatant.hasConduitBySpellID(SPELLS.EVOLVED_SWARM.id);
 
-    this._totalPeriodicBoost = BASE_PERIODIC_BOOST;
+    this._totalPeriodicBoost =
+      this.selectedCombatant.spec === SPECS.BALANCE_DRUID
+        ? BALANCE_PERIODIC_BOOST
+        : BASE_PERIODIC_BOOST;
     this._evolvedSwarmPeriodicBoost = 0;
     this._evolvedSwarmRelativeBoost = 0;
+
     if (this.hasEvolvedSwarm) {
       this._evolvedSwarmPeriodicBoost =
         EVOLVED_SWARM_EFFECT_BY_RANK[

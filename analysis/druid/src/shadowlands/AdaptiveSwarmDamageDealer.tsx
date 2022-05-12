@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import Enemies from 'parser/shared/modules/Enemies';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -18,10 +18,10 @@ import AdaptiveSwarm from './AdaptiveSwarm';
 class AdaptiveSwarmDamageDealer extends AdaptiveSwarm {
   static dependencies = {
     ...AdaptiveSwarm.dependencies,
-    enemies: Enemies,
+    enemies: EnemyInstances,
   };
 
-  enemies!: Enemies;
+  enemies!: EnemyInstances;
 
   constructor(options: Options) {
     super(options);
