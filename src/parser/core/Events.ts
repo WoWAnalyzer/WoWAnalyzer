@@ -212,6 +212,7 @@ export enum Class {
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & {
   sourceID: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
 };
 export type TargettedEvent<T extends string> = Event<T> & {

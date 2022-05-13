@@ -6,7 +6,7 @@ import Events, {
   RemoveDebuffEvent,
   SpendResourceEvent,
 } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 /*

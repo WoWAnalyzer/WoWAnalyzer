@@ -52,7 +52,6 @@ import DistanceMoved from '../shared/modules/DistanceMoved';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import Enemies from '../shared/modules/Enemies';
-import EnemyInstances from '../shared/modules/EnemyInstances';
 import EventHistory from '../shared/modules/EventHistory';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
@@ -171,7 +170,6 @@ class CombatLogParser {
     deathTracker: DeathTracker,
 
     enemies: Enemies,
-    enemyInstances: EnemyInstances,
     enemiesHealth: EnemiesHealth,
     pets: Pets,
     spellManaCost: SpellManaCost,

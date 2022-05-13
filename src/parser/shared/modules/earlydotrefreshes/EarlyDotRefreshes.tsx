@@ -9,8 +9,7 @@ import Events, {
 } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 const BUFFER_MS = 100;
 const PANDEMIC_WINDOW = 0.3;
 

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
