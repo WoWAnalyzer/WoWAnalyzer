@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 5, 13), <>Fixed Jade Bond CDR. </>, Abelito75),
   change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
   change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
   change(date(2022, 4, 22), <>Updated example log. </>, Abelito75),
