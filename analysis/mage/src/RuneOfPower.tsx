@@ -167,7 +167,7 @@ class RuneOfPower extends Analyzer {
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
           .actual(
             <Trans id="mage.shared.suggestions.runeOfPower.utilization">
-              Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power
+              Average {this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power
             </Trans>,
           )
           .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`),
