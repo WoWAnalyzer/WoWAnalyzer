@@ -8,7 +8,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import DonutChart from 'parser/ui/DonutChart';

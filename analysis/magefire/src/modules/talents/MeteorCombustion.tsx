@@ -6,17 +6,17 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 class MeteorCombustion extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: EnemyInstances,
+    enemies: Enemies,
     eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
 
   lastRuneCast = 0;

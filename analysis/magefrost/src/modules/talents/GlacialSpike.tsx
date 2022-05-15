@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, FightEndEvent, HasTarget } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -16,10 +16,10 @@ import { SHATTER_DEBUFFS } from '@wowanalyzer/mage';
 
 class GlacialSpike extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
   protected abilityTracker!: AbilityTracker;
 
   lastCastEvent?: CastEvent;
@@ -53,6 +53,9 @@ class GlacialSpike extends Analyzer {
 
   onGlacialSpikeDamage(event: DamageEvent) {
     if (!this.lastCastEvent) {
+      return;
+    }
+    if (!HasTarget(this.lastCastEvent)) {
       return;
     }
 

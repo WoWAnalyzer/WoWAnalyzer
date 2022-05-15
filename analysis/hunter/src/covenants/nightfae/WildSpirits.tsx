@@ -65,7 +65,7 @@ class WildSpirits extends Analyzer {
 
   onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.WILD_MARK.id)) {
+    if (!enemy?.hasBuff(SPELLS.WILD_MARK.id)) {
       return;
     }
     this.ampDamage += calculateEffectiveDamage(event, WILD_MARK_DAMAGE_AMP);

@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';

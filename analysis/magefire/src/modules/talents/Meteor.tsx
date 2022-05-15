@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -16,12 +16,12 @@ import MeteorRune from './MeteorRune';
 class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: EnemyInstances,
+    enemies: Enemies,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
   protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
 

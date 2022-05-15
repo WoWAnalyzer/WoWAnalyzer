@@ -7,7 +7,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { AnyEvent, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import { COMET_STORM_AOE_MIN_TARGETS } from '@wowanalyzer/mage';
 
@@ -18,10 +18,10 @@ const MIN_SHATTERED_PROJECTILES_PER_CAST = 4;
 class CometStorm extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   badCometStormCast = 0;
 
@@ -41,14 +41,16 @@ class CometStorm extends Analyzer {
 
     damageEvents.forEach((hit) => {
       const enemy = this.enemies.getEntity(hit);
-
+      if (!enemy) {
+        return;
+      }
       //Tracks each unique enemy that was hit by the cast
       if (!enemiesHit.includes(enemy.guid)) {
         enemiesHit.push(enemy.guid);
       }
 
       //Tracks how many projectiles were shattered
-      if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
+      if (enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
         projectilesShattered += 1;
       }
     });

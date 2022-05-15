@@ -1,11 +1,11 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
 
-import BeaconHealSource from '../beacons/BeaconHealSource.js';
+import BeaconHealSource from '../beacons/BeaconHealSource';
 
 /**
  * Avenging Crusader
@@ -26,8 +26,8 @@ class AvengingCrusader extends Analyzer {
   overHealing = 0;
   beaconOverhealing = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id);
     if (!this.active) {
       return;
@@ -40,24 +40,21 @@ class AvengingCrusader extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_CRUSADER_HEAL_CRIT),
       this.onCrit,
     );
-    this.addEventListener(
-      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
-      this.onBeaconTransfer,
-    );
+    this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
-  onHit(event) {
+  onHit(event: HealEvent) {
     this.hits += 1;
     this.healing += event.amount + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
   }
 
-  onCrit(event) {
+  onCrit(event: HealEvent) {
     this.crits += 1;
     this.onHit(event);
   }
 
-  onBeaconTransfer(event) {
+  onBeaconTransfer(event: BeaconHealEvent) {
     const spellId = event.originalHeal.ability.guid;
     if (
       spellId !== SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id &&
@@ -107,6 +104,8 @@ class AvengingCrusader extends Analyzer {
             <br />
           </>
         }
+        icon={undefined}
+        label={undefined}
       />
     );
   }

@@ -1,8 +1,17 @@
 import { Trans, t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
+import Events, {
+  AbsorbedEvent,
+  CastEvent,
+  DamageEvent,
+  EventType,
+  HealEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -48,7 +57,16 @@ class MasteryEffectiveness extends Analyzer {
     statTracker: StatTracker,
   };
 
-  _lastPlayerPositionUpdate = null;
+  protected combatants!: Combatants;
+  protected beaconTargets!: BeaconTargets;
+  protected statTracker!: StatTracker;
+
+  _lastPlayerPositionUpdate:
+    | CastEvent
+    | HealEvent
+    | DamageEvent
+    | ResourceChangeEvent
+    | null = null;
   distanceSum = 0;
   distanceCount = 0;
   get averageDistance() {
@@ -78,9 +96,9 @@ class MasteryEffectiveness extends Analyzer {
    */
   totalMasteryHealingDone = 0;
 
-  masteryHealEvents = [];
+  masteryHealEvents: MasteryEvent[] = [];
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -90,29 +108,29 @@ class MasteryEffectiveness extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHealByPlayer);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.updatePlayerPosition(event);
   }
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     // Damage coordinates are for the target, so they are only accurate when done TO player
     this.updatePlayerPosition(event);
   }
-  onEnergize(event) {
+  onEnergize(event: ResourceChangeEvent) {
     this.updatePlayerPosition(event);
   }
-  onHealToPlayer(event) {
+  onHealToPlayer(event: HealEvent) {
     // Do this before checking if this was done by player so that self-heals will apply full mastery properly
     this.updatePlayerPosition(event);
   }
-  onHealByPlayer(event) {
+  onHealByPlayer(event: HealEvent) {
     this.processForMasteryEffectiveness(event);
   }
 
-  onAbsorbedByPlayer(event) {
+  onAbsorbedByPlayer(event: AbsorbedEvent) {
     this.processForMasteryEffectiveness(event);
   }
 
-  processForMasteryEffectiveness(event) {
+  processForMasteryEffectiveness(event: HealEvent | AbsorbedEvent) {
     if (!this._lastPlayerPositionUpdate) {
       console.error(
         "Received a heal before we know the player location. Can't process since player location is still unknown.",
@@ -147,7 +165,7 @@ class MasteryEffectiveness extends Analyzer {
     this.distanceSum += distance;
     this.distanceCount += 1;
 
-    const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(
+    const masteryEffectiveness = MasteryEffectiveness.calculateMasteryEffectiveness(
       distance,
       isRuleOfLawActive,
     );
@@ -155,7 +173,11 @@ class MasteryEffectiveness extends Analyzer {
     this.rawMasteryEffectivenessSum += masteryEffectiveness;
     this.rawMasteryEffectivenessCount += 1;
 
-    const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    let heal = new HealingValue(event.amount, 0, 0);
+    if (event.type === EventType.Heal) {
+      heal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    }
+
     const applicableMasteryPercentage =
       this.statTracker.currentMasteryPercentage * masteryEffectiveness;
 
@@ -172,27 +194,35 @@ class MasteryEffectiveness extends Analyzer {
     this.masteryEffectivenessRawPotentialMasteryGainSum += maxPotentialRawMasteryHealing;
 
     this.masteryHealEvents.push({
-      ...event,
+      sourceEvent: event,
       effectiveHealing: heal.effective,
       rawMasteryGain,
       maxPotentialRawMasteryHealing,
     });
-    // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
-    event.masteryEffectiveness = masteryEffectiveness;
   }
 
-  updatePlayerPosition(event) {
+  updatePlayerPosition(event: HealEvent | CastEvent | DamageEvent | ResourceChangeEvent) {
     if (!event.x || !event.y) {
       return;
     }
     this.verifyPlayerPositionUpdate(event, this._lastPlayerPositionUpdate, 'player');
     this._lastPlayerPositionUpdate = event;
   }
-  verifyPlayerPositionUpdate(event, lastPositionUpdate, forWho) {
-    if (!event.x || !event.y || !lastPositionUpdate) {
+  verifyPlayerPositionUpdate(
+    event: HealEvent | CastEvent | DamageEvent | ResourceChangeEvent,
+    lastPositionUpdate: HealEvent | CastEvent | DamageEvent | ResourceChangeEvent | null,
+    forWho: string,
+  ) {
+    if (
+      !event.x ||
+      !event.y ||
+      !lastPositionUpdate ||
+      !lastPositionUpdate.x ||
+      !lastPositionUpdate.y
+    ) {
       return;
     }
-    const distance = this.constructor.calculateDistance(
+    const distance = MasteryEffectiveness.calculateDistance(
       lastPositionUpdate.x,
       lastPositionUpdate.y,
       event.x,
@@ -215,18 +245,32 @@ class MasteryEffectiveness extends Analyzer {
     }
   }
 
-  getPlayerDistance(event) {
-    return this.constructor.calculateDistance(
+  getPlayerDistance(
+    event: HealEvent | AbsorbedEvent | CastEvent | DamageEvent | ResourceChangeEvent,
+  ) {
+    if (
+      !this._lastPlayerPositionUpdate ||
+      !this._lastPlayerPositionUpdate.x ||
+      !this._lastPlayerPositionUpdate.y
+    ) {
+      return 0;
+    }
+
+    if (event.type === EventType.Absorbed || !event.x || !event.y) {
+      return 0;
+    }
+
+    return MasteryEffectiveness.calculateDistance(
       this._lastPlayerPositionUpdate.x,
       this._lastPlayerPositionUpdate.y,
       event.x,
       event.y,
     );
   }
-  static calculateDistance(x1, y1, x2, y2) {
+  static calculateDistance(x1: number, y1: number, x2: number, y2: number) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
   }
-  static calculateMasteryEffectiveness(distance, isRuleOfLawActive) {
+  static calculateMasteryEffectiveness(distance: number, isRuleOfLawActive: boolean) {
     // https://docs.google.com/spreadsheets/d/1kcIuIYgn61tZoAM6nS_vzGllOuIuMxBZXunDodBTvC0/edit?usp=sharing
     const fullEffectivenessRadius = isRuleOfLawActive ? 15 : 10;
     const falloffRadius = isRuleOfLawActive ? 60 : 40;
@@ -241,26 +285,31 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   get report() {
-    const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
-      // Update the player-totals
-      if (!obj[event.targetID]) {
-        const combatant = this.combatants.players[event.targetID];
-        obj[event.targetID] = {
-          combatant,
-          effectiveHealing: 0,
-          healingReceived: 0,
-          healingFromMastery: 0,
-          maxPotentialHealingFromMastery: 0,
-        };
-      }
-      const playerStats = obj[event.targetID];
-      playerStats.effectiveHealing += event.effectiveHealing;
-      playerStats.healingReceived += event.amount;
-      playerStats.healingFromMastery += event.rawMasteryGain;
-      playerStats.maxPotentialHealingFromMastery += event.maxPotentialRawMasteryHealing;
+    const statsByTargetId = this.masteryHealEvents.reduce(
+      (obj: { [targetID: number]: PlayerStats }, masteryEvent: MasteryEvent) => {
+        // Update the player-totals
+        const event = masteryEvent.sourceEvent;
 
-      return obj;
-    }, {});
+        if (!obj[event.targetID]) {
+          const combatant = this.combatants.players[event.targetID];
+          obj[event.targetID] = {
+            combatant,
+            effectiveHealing: 0,
+            healingReceived: 0,
+            healingFromMastery: 0,
+            maxPotentialHealingFromMastery: 0,
+          };
+        }
+        const playerStats = obj[event.targetID];
+        playerStats.effectiveHealing += masteryEvent.effectiveHealing;
+        playerStats.healingReceived += event.amount;
+        playerStats.healingFromMastery += masteryEvent.rawMasteryGain;
+        playerStats.maxPotentialHealingFromMastery += masteryEvent.maxPotentialRawMasteryHealing;
+
+        return obj;
+      },
+      {},
+    );
 
     return statsByTargetId;
   }
@@ -339,10 +388,11 @@ class MasteryEffectiveness extends Analyzer {
         average: 0.7,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when) {
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.masteryEffectiveness.suggestion">
@@ -368,3 +418,18 @@ class MasteryEffectiveness extends Analyzer {
 }
 
 export default MasteryEffectiveness;
+
+type MasteryEvent = {
+  sourceEvent: HealEvent | AbsorbedEvent;
+  effectiveHealing: number;
+  rawMasteryGain: number;
+  maxPotentialRawMasteryHealing: number;
+};
+
+type PlayerStats = {
+  combatant: Combatant;
+  effectiveHealing: number;
+  healingReceived: number;
+  healingFromMastery: number;
+  maxPotentialHealingFromMastery: number;
+};

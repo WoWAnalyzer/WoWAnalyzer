@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
+import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
 import BaseMightOfTheMountain, {
   CRIT_EFFECT,
 } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
@@ -12,19 +13,22 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
-  constructor(options) {
+
+  protected beaconHealSource!: BeaconHealSource;
+
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       return;
     }
     super.onHeal(event);
   }
-  onBeaconTransfer(event) {
+  onBeaconTransfer(event: BeaconHealEvent) {
     if (!this.isApplicableHeal(event.originalHeal)) {
       return;
     }

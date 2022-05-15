@@ -1,7 +1,13 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  EventType,
+  FightEndEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -98,9 +104,20 @@ For Beacon of Virtue (C)
 -----------------------------------------------------------------------------*/
 
 class BeaconUptime extends Analyzer {
-  constructor(...args) {
-    super(...args);
+  hasBoL: boolean = false;
+  hasBoF: boolean = false;
+  hasBoV: boolean = false;
+  idBoL: number = 0;
+  idBoF: number = 0;
+  idBoV: number = 0;
+  BuffEventType!: BuffEventTypes;
 
+  constructor(options: Options) {
+    super(options);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this._onBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this._offBuff);
 
@@ -136,9 +153,9 @@ class BeaconUptime extends Analyzer {
   fightEnd = this.owner.fight.end_time;
   fightLength = this.fightEnd - this.fightStart;
 
-  lastBoLtimestamp = null;
-  lastBoFtimestamp = null;
-  lastBoVtimestamp = null;
+  lastBoLtimestamp: number | null = null;
+  lastBoFtimestamp: number | null = null;
+  lastBoVtimestamp: number | null = null;
 
   uptimeBoL = 0;
   uptimeBoF = 0;
@@ -165,7 +182,7 @@ class BeaconUptime extends Analyzer {
     return {
       actual: !this.missingBoLPrepull,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
 
@@ -177,7 +194,7 @@ class BeaconUptime extends Analyzer {
         average: 0.8,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -185,7 +202,7 @@ class BeaconUptime extends Analyzer {
     return {
       actual: !this.missingBoFPrepull,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
 
@@ -197,15 +214,15 @@ class BeaconUptime extends Analyzer {
         average: 0.8,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  _updateBoL(event, type) {
+  _updateBoL(event: FightEndEvent | ApplyBuffEvent | RemoveBuffEvent, type: number) {
     const { REMOVEBUFF, PREPULL, POSTPULL, UPDATE, ENDOFFIGHT } = this.BuffEventType;
 
     // buff removed
-    if (type === REMOVEBUFF && this.countBoL < 2) {
+    if (type === REMOVEBUFF && this.countBoL < 2 && this.lastBoLtimestamp) {
       this.missingBoL = true;
       this.uptimeBoL += event.timestamp - this.lastBoLtimestamp;
       this.lastBoLtimestamp = event.timestamp;
@@ -240,18 +257,18 @@ class BeaconUptime extends Analyzer {
       return;
     }
     //buff not changed but updated
-    if (type === UPDATE || type === ENDOFFIGHT) {
+    if ((type === UPDATE || type === ENDOFFIGHT) && this.lastBoLtimestamp) {
       this.uptimeBoL += event.timestamp - this.lastBoLtimestamp;
       this.lastBoLtimestamp = event.timestamp;
       return;
     }
   }
 
-  _updateBoF(event, type) {
+  _updateBoF(event: FightEndEvent | ApplyBuffEvent | RemoveBuffEvent, type: number) {
     const { REMOVEBUFF, PREPULL, POSTPULL, UPDATE, ENDOFFIGHT } = this.BuffEventType;
 
     // buff removed
-    if (type === REMOVEBUFF && this.countBoF < 2) {
+    if (type === REMOVEBUFF && this.countBoF < 2 && this.lastBoFtimestamp) {
       this.missingBoF = true;
       this.uptimeBoF += event.timestamp - this.lastBoFtimestamp;
       this.lastBoFtimestamp = event.timestamp;
@@ -285,23 +302,23 @@ class BeaconUptime extends Analyzer {
       return;
     }
     //buff not changed but updated
-    if (type === UPDATE || type === ENDOFFIGHT) {
+    if ((type === UPDATE || type === ENDOFFIGHT) && this.lastBoFtimestamp) {
       this.uptimeBoF += event.timestamp - this.lastBoFtimestamp;
       this.lastBoFtimestamp = event.timestamp;
       return;
     }
   }
 
-  _handleBoLEvents(event) {
+  _handleBoLEvents(event: FightEndEvent | ApplyBuffEvent) {
     const { POSTPULL, UPDATE, ENDOFFIGHT } = this.BuffEventType;
 
     // end of fight
-    if (!event.ability && !this.missingBoL) {
+    if (event.type === EventType.FightEnd && !this.missingBoL) {
       this._updateBoL(event, ENDOFFIGHT);
       return;
     }
     //post pull beacon of light cast
-    if (event.ability !== undefined && event.ability.guid === this.idBoL) {
+    if (event.type === EventType.ApplyBuff && event.ability.guid === this.idBoL) {
       this._updateBoL(event, POSTPULL);
       return;
     }
@@ -313,21 +330,21 @@ class BeaconUptime extends Analyzer {
     }
   }
 
-  _handleBoFEvents(event) {
+  _handleBoFEvents(event: FightEndEvent | ApplyBuffEvent) {
     const { POSTPULL, UPDATE, ENDOFFIGHT } = this.BuffEventType;
 
     // end of fight
-    if (!event.ability && !this.missingBoF) {
+    if (event.type === EventType.FightEnd && !this.missingBoF) {
       this._updateBoF(event, ENDOFFIGHT);
       return;
     }
 
     // post pull BoF buff applied
-    if (event.ability && event.ability.guid === this.idBoF) {
+    if (event.type === EventType.ApplyBuff && event.ability && event.ability.guid === this.idBoF) {
       this._updateBoF(event, POSTPULL);
       return;
     }
-    if (event.ability && event.ability.guid === this.idBoL) {
+    if (event.type === EventType.ApplyBuff && event.ability && event.ability.guid === this.idBoL) {
       this._updateBoL(event, POSTPULL);
       return;
     }
@@ -353,12 +370,14 @@ class BeaconUptime extends Analyzer {
   _handleBoVEvents() {
     const historyBoV = this.selectedCombatant.getBuffHistory(this.idBoV);
     historyBoV.forEach((event) => {
-      this.uptimeBoV += event.end - event.start;
+      if (event.end) {
+        this.uptimeBoV += event.end - event.start;
+      }
     });
     return;
   }
 
-  _endOfFight(event) {
+  _endOfFight(event: FightEndEvent) {
     if (this.hasBoL) {
       this._handleBoLEvents(event);
       return;
@@ -376,7 +395,7 @@ class BeaconUptime extends Analyzer {
     }
   }
 
-  _offBuff(event) {
+  _offBuff(event: RemoveBuffEvent) {
     const { REMOVEBUFF } = this.BuffEventType;
 
     if (
@@ -397,7 +416,7 @@ class BeaconUptime extends Analyzer {
     }
   }
 
-  _onPrepull(event) {
+  _onPrepull(event: ApplyBuffEvent) {
     const { PREPULL } = this.BuffEventType;
 
     // prepull check for BoL active
@@ -417,7 +436,7 @@ class BeaconUptime extends Analyzer {
     }
   }
 
-  _onBuff(event) {
+  _onBuff(event: ApplyBuffEvent) {
     if (
       event.ability.guid !== this.idBoL &&
       event.ability.guid !== this.idBoF &&
@@ -446,7 +465,7 @@ class BeaconUptime extends Analyzer {
   }
 
   statistic() {
-    const boringSpellValueContainer = { display: 'flex', flexDirection: 'row' };
+    //const boringSpellValueContainer = { display: 'flex', flexDirection: 'row' };
     const missingPrepullContainer = (
       <div style={{ color: 'red', margin: 'auto', textAlign: 'center' }}>
         <Trans id="paladin.holy.modules.beacons.beaconUptime.notCastedPrepull">
@@ -467,7 +486,7 @@ class BeaconUptime extends Analyzer {
 
         {/*  adds a section for BoL stats if BoV talent is not taken */}
         {!this.hasBoV && (
-          <div style={boringSpellValueContainer}>
+          <div>
             <BoringSpellValue
               spellId={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
               value={`${this.uptimeBoLPerc}%`}
@@ -481,7 +500,7 @@ class BeaconUptime extends Analyzer {
 
         {/* adds a section for BoF stats if BoF talent taken */}
         {this.hasBoF && (
-          <div style={boringSpellValueContainer}>
+          <div>
             <BoringSpellValue
               spellId={SPELLS.BEACON_OF_FAITH_TALENT.id}
               value={`${this.uptimeBoFPerc}%`}
@@ -496,7 +515,7 @@ class BeaconUptime extends Analyzer {
 
         {/* adds a section for BoV stats if BoV talent taken */}
         {this.hasBoV && (
-          <div style={boringSpellValueContainer}>
+          <div>
             <BoringSpellValue
               spellId={SPELLS.BEACON_OF_VIRTUE_TALENT.id}
               value={`${this.uptimeBoVPerc}%`}
@@ -512,3 +531,11 @@ class BeaconUptime extends Analyzer {
 }
 
 export default BeaconUptime;
+
+type BuffEventTypes = {
+  REMOVEBUFF: number;
+  PREPULL: number;
+  POSTPULL: number;
+  UPDATE: number;
+  ENDOFFIGHT: number;
+};
