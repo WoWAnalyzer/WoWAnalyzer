@@ -8,7 +8,7 @@ import { SpellInfo } from 'parser/core/EventFilter';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 
 const BASE_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic effects
 const BALANCE_PERIODIC_BOOST = 0.35; // balance gets a bit extra because their periodics are worse
@@ -105,12 +105,12 @@ class AdaptiveSwarm extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
 
   protected abilityTracker!: AbilityTracker;
   protected combatants!: Combatants;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   hasEvolvedSwarm: boolean;
 
