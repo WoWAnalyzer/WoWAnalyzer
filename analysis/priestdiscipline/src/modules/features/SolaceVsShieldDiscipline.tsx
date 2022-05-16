@@ -60,8 +60,8 @@ class SolaceVsShieldDiscipline extends Analyzer {
             <>
               {' '}
               <h6>
-                <SpellLink id={SPELLS.SHIELD_DISCIPLINE_TALENT.id} /> vs{' '}
-                <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />
+                <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> vs{' '}
+                <SpellLink id={SPELLS.SHIELD_DISCIPLINE_TALENT.id} />
               </h6>
             </>
           }
@@ -70,13 +70,11 @@ class SolaceVsShieldDiscipline extends Analyzer {
             <div className="flex-sub icon" id="solace-talent-icon">
               <SpellIcon id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />
             </div>
-            <div className="flex-main value">
-              {formatThousands(this.solaceCasts * 700)}
-              <br />
+            <div id="solace-info">
+              <div className="solace-number">{formatThousands(this.solaceCasts * 700)}</div>
+
               <small>
-                <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">
-                  Mana restored from Solace
-                </Trans>
+                <Trans>Mana restored from Solace</Trans>
               </small>
             </div>
           </div>
@@ -84,13 +82,10 @@ class SolaceVsShieldDiscipline extends Analyzer {
             <div className="flex-sub icon" id="solace-talent-icon">
               <SpellIcon id={SPELLS.SHIELD_DISCIPLINE_TALENT.id} />
             </div>
-            <div className="flex-main value">
+            <div id="solace-info">
               {formatThousands(this.consumedShields * 250)}
-              <br />
               <small>
-                <Trans id="shaman.restoration.manaTideTotem.statistic.healerManaRestored">
-                  Mana which shield discipline would have returned
-                </Trans>
+                <Trans>Shield Discipline potential return</Trans>
               </small>
             </div>
           </div>
