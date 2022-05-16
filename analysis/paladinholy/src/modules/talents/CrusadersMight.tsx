@@ -2,8 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -16,13 +17,16 @@ class CrusadersMight extends Analyzer {
     statTracker: StatTracker,
   };
 
+  protected spellUsable!: SpellUsable;
+  protected statTracker!: StatTracker;
+
   effectiveHolyShockReductionMs = 0;
   wastedHolyShockReductionMs = 0;
   wastedHolyShockReductionCount = 0;
   holyShocksCastsLost = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
     if (!this.active) {
       return;
@@ -33,7 +37,7 @@ class CrusadersMight extends Analyzer {
     );
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const holyShockisOnCooldown = this.spellUsable.isOnCooldown(SPELLS.HOLY_SHOCK_CAST.id);
     if (holyShockisOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(
@@ -76,11 +80,11 @@ class CrusadersMight extends Analyzer {
         average: 2,
         major: 5,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -122,7 +126,7 @@ class CrusadersMight extends Analyzer {
   }
 
   statistic() {
-    const formatSeconds = (seconds) => (
+    const formatSeconds = (seconds: string) => (
       <Trans id="paladin.holy.modules.talents.crusadersMight.formatSeconds">{seconds}s</Trans>
     );
 
@@ -156,7 +160,7 @@ class CrusadersMight extends Analyzer {
               Holy Shock cooldown reduction,
               <br />
               preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
-              Shock cast{this.holyShocksLost === 1 ? '' : 's'}.<br />
+              Shock cast{this.holyShocksCastsLost === 1 ? '' : 's'}.<br />
             </Trans>
           </>
         }

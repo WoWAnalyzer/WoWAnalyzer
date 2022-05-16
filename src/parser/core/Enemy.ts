@@ -29,11 +29,17 @@ class Enemy extends Entity {
     return this._baseInfo.id;
   }
 
-  _baseInfo: EnemyInfo;
+  get instanceID() {
+    return this._instanceID;
+  }
 
-  constructor(owner: CombatLogParser, baseInfo: EnemyInfo) {
+  _baseInfo: EnemyInfo;
+  _instanceID: number;
+
+  constructor(owner: CombatLogParser, baseInfo: EnemyInfo, instanceID = 0) {
     super(owner);
     this._baseInfo = baseInfo;
+    this._instanceID = instanceID;
   }
 }
 

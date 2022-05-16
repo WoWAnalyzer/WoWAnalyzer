@@ -1,7 +1,7 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
@@ -12,8 +12,8 @@ class JudgmentOfLight extends Analyzer {
   wasted = 0;
   casts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
@@ -28,13 +28,13 @@ class JudgmentOfLight extends Analyzer {
     );
   }
 
-  resetCounter(event) {
+  resetCounter(event: CastEvent) {
     this.wasted += JUDGEMENT_HEALS - this.counter;
     this.casts += 1;
     this.counter = 0;
   }
 
-  handleHeals(event) {
+  handleHeals(event: HealEvent) {
     if (this.counter < JUDGEMENT_HEALS) {
       this.counter += 1;
     }
@@ -48,6 +48,7 @@ class JudgmentOfLight extends Analyzer {
         position={STATISTIC_ORDER.CORE(10)}
         value={`${formatNumber(this.wasted)} Wasted Stacks`}
         label="Judgment Of Light"
+        icon={undefined}
       />
     );
   }

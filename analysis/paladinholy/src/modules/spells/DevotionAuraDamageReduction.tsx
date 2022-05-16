@@ -3,16 +3,23 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
+import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  EventType,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.03;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.12;
+const debugg = false;
 
 /**
  * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {
@@ -38,6 +45,8 @@ class DevotionAuraDamageReduction extends Analyzer {
     combatants: Combatants,
   };
 
+  protected combatants!: Combatants;
+
   passiveDamageReduced = 0;
   get passiveDrps() {
     return (this.passiveDamageReduced / this.owner.fightDuration) * 1000;
@@ -53,14 +62,14 @@ class DevotionAuraDamageReduction extends Analyzer {
     return (this.totalDamageReduced / this.owner.fightDuration) * 1000;
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
   }
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId === FALLING_DAMAGE_ABILITY_ID) {
       return;
@@ -89,7 +98,7 @@ class DevotionAuraDamageReduction extends Analyzer {
   get totalPassiveDamageReduction() {
     return this.singleTargetDamageReduction * this.buffsActive;
   }
-  isApplicableBuffEvent(event) {
+  isApplicableBuffEvent(event: ApplyBuffEvent | RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DEVOTION_AURA.id) {
       return false;
@@ -106,14 +115,14 @@ class DevotionAuraDamageReduction extends Analyzer {
 
     return true;
   }
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
     this.buffsActive += 1;
     // this.debug('devo applied to', this.combatants.players[event.targetID].name, this.buffsActive);
   }
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
@@ -127,24 +136,6 @@ class DevotionAuraDamageReduction extends Analyzer {
     }
   }
 
-  get auraMasteryUptimeFilter() {
-    const buffHistory = this.selectedCombatant.getBuffHistory(
-      SPELLS.AURA_MASTERY.id,
-      this.owner.playerId,
-    );
-    if (buffHistory.length === 0) {
-      return null;
-    }
-    // WCL's filter requires the timestamp to be relative to fight start
-    return buffHistory
-      .map(
-        (buff) =>
-          `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${
-            buff.end - this.owner.fight.start_time
-          })`,
-      )
-      .join(' OR ');
-  }
   get filter() {
     const playerName = this.owner.player.name;
     // Include any damage while selected player has AM, and is above the health requirement,
@@ -163,9 +154,11 @@ class DevotionAuraDamageReduction extends Analyzer {
       end: this.owner.fight.end_time,
       filter: this.filter,
     }).then((json) => {
-      console.log('Received AM damage taken', json);
-      const totalDamageTaken = json.entries.reduce(
-        (damageTaken, entry) => damageTaken + entry.total,
+      debugg && console.log('Received AM damage taken', json);
+      json = json as WCLDamageTakenTableResponse;
+
+      const totalDamageTaken = (json.entries as WCLDamageTaken[]).reduce(
+        (damageTaken: number, entry) => damageTaken + entry.total,
         0,
       );
       this.activeDamageReduced =

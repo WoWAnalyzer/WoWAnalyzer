@@ -3,7 +3,8 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 class Overhealing extends Analyzer {
@@ -12,12 +13,14 @@ class Overhealing extends Analyzer {
     healingDone: HealingDone,
   };
 
+  protected abilityTracker!: AbilityTracker;
+
   divinePurposeActive = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
 
-  getRawHealing(ability) {
+  getRawHealing(ability: TrackedAbility) {
     return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
   }
-  getOverhealingPercentage(spellId) {
+  getOverhealingPercentage(spellId: number) {
     const ability = this.abilityTracker.getAbility(spellId);
     return ability.healingOverheal / this.getRawHealing(ability);
   }
@@ -34,7 +37,7 @@ class Overhealing extends Analyzer {
         average: base + 0.1,
         major: base + 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
   get holyShockOverhealing() {
@@ -49,7 +52,7 @@ class Overhealing extends Analyzer {
         average: base + 0.1,
         major: base + 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
   get flashOfLightOverhealing() {
@@ -63,7 +66,7 @@ class Overhealing extends Analyzer {
         average: 0.4,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
   get bestowFaithOverhealing() {
@@ -77,11 +80,11 @@ class Overhealing extends Analyzer {
         average: 0.5,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.lightOfDawnSuggestion">

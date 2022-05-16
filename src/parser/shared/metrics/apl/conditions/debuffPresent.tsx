@@ -1,7 +1,7 @@
 import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { Condition, tenseAlt } from '../index';
 

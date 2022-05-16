@@ -1,15 +1,16 @@
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { DamageEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
+import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 
 import IgnoredAbilities from './IgnoredAbilities';
 
 export function notableEnemy(enemies: Enemies, event: DamageEvent): boolean {
-  return (
-    !event.sourceIsFriendly &&
-    event.sourceID !== undefined &&
-    enemies.getEntities()[event.sourceID] !== undefined
-  );
+  const enemyId = encodeEventSourceString(event);
+  if (!enemyId) {
+    return false;
+  }
+
+  return !event.sourceIsFriendly && enemies.getEntities()[enemyId] !== undefined;
 }
 
 export function magic(event: DamageEvent): boolean {
