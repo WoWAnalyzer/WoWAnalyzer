@@ -51,7 +51,8 @@ class SolaceVsShieldDiscipline extends Analyzer {
         tooltip={
           <>
             The value for <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> also includes the
-            mana cost of <SpellLink id={SPELLS.SMITE.id} />
+            mana cost of one <SpellLink id={SPELLS.SMITE.id} /> as it is assumed that this is what
+            the cast would be replaced by when using Shield Discipline.
           </>
         }
       >
