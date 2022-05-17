@@ -52,6 +52,7 @@ import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 import TwistOfFate from './modules/spells/TwistOfFate';
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
+import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
+    manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
 
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
