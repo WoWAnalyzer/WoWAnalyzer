@@ -3,16 +3,18 @@ import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-// import CombatLogParser from 'parser/core/CombatLogParser';
 import { SHADOW_MEND_ATONEMENT_DUR } from '../../../constants';
+import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
+// import CombatLogParser from 'parser/core/CombatLogParser';
 // import SpellIcon from 'interface/SpellIcon';
 const MANIFESTED_TWILIGHT_BONUS_MS = 2000;
-// const AFTER_CAST_BUFFER_MS = 200
+const EVANG_EXTENSION_DURATION = 6000;
 type SmendInfo = {
   cast: CastEvent;
   extendedByEvangIn2P?: boolean;
@@ -23,6 +25,8 @@ class ManifestedTwilight extends Analyzer {
   twoPieceShadowMends = 0;
   shadowMendCasts: SmendInfo[] = [];
   manaSaved = 0;
+  atonementHealing = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.has2Piece();
@@ -40,17 +44,13 @@ class ManifestedTwilight extends Analyzer {
       Events.cast.spell(SPELLS.EVANGELISM_TALENT).by(SELECTED_PLAYER),
       this.onEvang,
     );
+
+    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.handleAtone);
   }
 
   onShadowMend(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.MANIFESTED_TWILIGHT_BUFF_2P.id)) {
       this.twoPieceShadowMends += 1;
-
-      // @param {number} spellId - buff ID to check for
-      // * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
-      // * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
-      // * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
-      // * @param {number} sourceID - source ID the buff must have come from, or any source if null.
       this.shadowMendCasts.push({ cast: event });
       this.manaSaved += SPELLS.SHADOW_MEND.manaCost;
     }
@@ -77,12 +77,40 @@ class ManifestedTwilight extends Analyzer {
     });
   }
 
+  handleAtone(event: AtonementAnalyzerEvent) {
+    this.shadowMendCasts.forEach((shadowMend) => {
+      const end =
+        shadowMend.cast.timestamp +
+        (shadowMend.extendedByEvangPre2P ? EVANG_EXTENSION_DURATION : 0) +
+        (shadowMend.extendedByEvangIn2P ? 0 : 0) +
+        SHADOW_MEND_ATONEMENT_DUR +
+        MANIFESTED_TWILIGHT_BONUS_MS;
+      const start =
+        shadowMend.cast.timestamp +
+        (shadowMend.extendedByEvangPre2P ? EVANG_EXTENSION_DURATION : 0) +
+        SHADOW_MEND_ATONEMENT_DUR;
+
+      if (
+        event.targetID === shadowMend.cast.targetID &&
+        event.timestamp > start &&
+        event.timestamp < end
+      ) {
+        this.atonementHealing += event.healEvent.amount;
+        console.log({
+          start: this.owner.formatTimestamp(start),
+          end: this.owner.formatTimestamp(end),
+        });
+      }
+    });
+  }
+
   statistic() {
     console.log(this.shadowMendCasts);
     const mendCasts = this.shadowMendCasts.map((smend) =>
       this.owner.formatTimestamp(smend.cast.timestamp),
     );
     console.log(mendCasts);
+    console.log(`atonemnet healing ${this.atonementHealing}`);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -99,6 +127,7 @@ class ManifestedTwilight extends Analyzer {
         >
           <>
             <ItemManaGained amount={this.manaSaved} />
+            <ItemHealingDone amount={this.atonementHealing} />
           </>
         </BoringValueText>
       </Statistic>
