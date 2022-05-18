@@ -71,6 +71,9 @@ export enum EventType {
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
 
+  // Hunter
+  Tick = 'tick',
+
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',

@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 17), 'Fix issue with Dwarf racial.', emallson),
   change(date(2022, 5, 13), 'Merged EnemyInstances logic into the standard Enemies file', Putro),
   change(date(2022, 5, 10), <>Add statistics and tracking for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
   change(date(2022, 5, 9), <>Fix crashing bug in TBC character pages.</>, emallson),
