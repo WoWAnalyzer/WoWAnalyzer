@@ -39,6 +39,7 @@ import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
 import FoodChecker from '../shadowlands/modules/items/FoodChecker';
 import HealthPotion from '../shadowlands/modules/items/HealthPotion';
 import Healthstone from '../shadowlands/modules/items/Healthstone';
+import EarthbreakersImpact from '../shadowlands/modules/items/raid/sepulcherofthefirstones/EarthbreakersImpact';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -230,6 +231,10 @@ class CombatLogParser {
     soullettingRuby: SoullettingRuby,
     codexOfTheFirstTechnique: CodexOfTheFirstTechnique,
     bloodSpatteredScale: BloodSpatteredScale,
+
+    // Raids
+    // Sepulcher of the First Ones
+    earthbreakersImpact: EarthbreakersImpact,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
