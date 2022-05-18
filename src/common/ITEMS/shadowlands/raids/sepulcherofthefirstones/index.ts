@@ -19,6 +19,11 @@ const items: ItemList = {
   //endregion
   //Dausegne, the Fallen Oracle
   //endregion
+  EARTHBREAKERS_IMPACT: {
+    id: 188264,
+    name: "Earthbreaker's Impact",
+    icon: 'spell_nature_earthquake',
+  },
   //Prototype Pantheon
   //endregion
   //Lihuvim, Principle Architect
