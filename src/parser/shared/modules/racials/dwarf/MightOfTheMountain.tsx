@@ -30,7 +30,7 @@ class MightOfTheMountain extends Analyzer {
       return;
     }
 
-    this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
+    (options.critEffectBonus as CritEffectBonus).hook(this.getCritEffectBonus.bind(this));
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
