@@ -22,7 +22,6 @@ class VanquishersHammerAnalysis extends Analyzer {
       this.HammerCast,
     );
     this.addEventListener(
-      // this only fires when the Maraads buff is removed by LOTM, not when it naturally expires or is overwritten.
       Events.removebuffstack.spell(SPELLS.VANQUISHERS_HAMMER).by(SELECTED_PLAYER),
       this.BuffStacksRemoved,
     );
@@ -37,7 +36,7 @@ class VanquishersHammerAnalysis extends Analyzer {
   }
 
   BuffStacksRemoved(event: RemoveBuffStackEvent) {
-    // if you have the same number of buff removals as buff stack removals, this will be 0, meaning you wasted 0 buffs
+    // if you have the same number without DBG or twice the number with DBG of good removals as casts, you have succeeded in your duty
     this.goodRemovals += 1;
   }
 
@@ -53,7 +52,6 @@ class VanquishersHammerAnalysis extends Analyzer {
     };
   }
   suggestions(when: When) {
-    // (should) only ever display the notEnoughCastsSuggestion or the unbuffedCastsSuggestion, never both
     when(this.missedChargesSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
