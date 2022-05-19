@@ -82,7 +82,6 @@ class ManifestedTwilight extends Analyzer {
       const end =
         shadowMend.cast.timestamp +
         (shadowMend.extendedByEvangPre2P ? EVANG_EXTENSION_DURATION : 0) +
-        (shadowMend.extendedByEvangIn2P ? 0 : 0) +
         SHADOW_MEND_ATONEMENT_DUR +
         MANIFESTED_TWILIGHT_BONUS_MS;
       const start =
@@ -96,21 +95,11 @@ class ManifestedTwilight extends Analyzer {
         event.timestamp < end
       ) {
         this.atonementHealing += event.healEvent.amount;
-        console.log({
-          start: this.owner.formatTimestamp(start),
-          end: this.owner.formatTimestamp(end),
-        });
       }
     });
   }
 
   statistic() {
-    console.log(this.shadowMendCasts);
-    const mendCasts = this.shadowMendCasts.map((smend) =>
-      this.owner.formatTimestamp(smend.cast.timestamp),
-    );
-    console.log(mendCasts);
-    console.log(`atonemnet healing ${this.atonementHealing}`);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
