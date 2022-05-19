@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date (2022,5,19), <><SpellLink id={SPELLS.EXALTATION.id}/> support added when using  <SpellLink id={SPELLS.EVANGELISM_TALENT.id}/></>,Hana),
   change(date(2022, 5, 10), <><SpellLink id={SPELLS.CLARITY_OF_MIND.id}/> support added when using <SpellLink id={SPELLS.EVANGELISM_TALENT.id}/> </>, Hana, ),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
   change(date(2022,5,4), <><SpellLink id ={SPELLS.THE_PENITENT_ONE.id}/> mana saved added to module</>, Hana),
