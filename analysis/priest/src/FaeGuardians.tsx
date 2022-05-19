@@ -4,7 +4,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamageReduction from 'parser/core/calculateEffectiveDamageReduction';
+import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,

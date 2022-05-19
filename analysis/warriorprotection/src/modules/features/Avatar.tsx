@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import EventFilter from 'parser/core/EventFilter';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';

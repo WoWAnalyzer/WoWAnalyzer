@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';

@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Entity from 'parser/core/Entity';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
