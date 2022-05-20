@@ -41,6 +41,7 @@ import Mindgames from './modules/shadowlands/covenant/Mindgames';
 import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
 import ClarityOfMindEvang from './modules/shadowlands/legendaries/ClarityOfMindEvang';
 import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
+import ManifestedTwilight from './modules/shadowlands/tier/ManifestedTwilight';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -52,6 +53,7 @@ import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 import TwistOfFate from './modules/spells/TwistOfFate';
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
+import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -62,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
+    manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
 
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
@@ -123,6 +126,9 @@ class CombatLogParser extends CoreCombatLogParser {
     thePenitentOne: ThePenitentOne,
     clarityOfMind: ClarityOfMind,
     clarityOfMindEvang: ClarityOfMindEvang,
+
+    // Items
+    manifestedTwilight: ManifestedTwilight,
   };
 }
 
