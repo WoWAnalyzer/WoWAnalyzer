@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
-import Events, { EventType } from 'parser/core/Events';
+import Events, { EventType, HealEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 
@@ -29,6 +29,11 @@ class BeaconHealSource extends Analyzer {
     beaconOfVirtueNormalizer: BeaconOfVirtue,
   };
 
+  protected eventEmitter!: EventEmitter;
+  protected combatants!: Combatants;
+  protected beaconTargets!: BeaconTargets;
+  protected beaconTransferFactor!: BeaconTransferFactor;
+
   get beacontransfer() {
     return new EventFilter(EventType.BeaconTransfer);
   }
@@ -36,14 +41,14 @@ class BeaconHealSource extends Analyzer {
     return new EventFilter(EventType.BeaconTransferFailed);
   }
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
   }
 
-  healBacklog = [];
+  healBacklog: Array<HealEvent & { remainingBeaconTransfers: number }> = [];
 
-  _onHeal(event) {
+  _onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       this.processBeaconHealing(event);
@@ -78,7 +83,7 @@ class BeaconHealSource extends Analyzer {
     }
   }
 
-  processBeaconHealing(beaconTransferEvent) {
+  processBeaconHealing(beaconTransferEvent: HealEvent) {
     if (debug) {
       this.sanityChecker(beaconTransferEvent);
     }
@@ -147,7 +152,7 @@ class BeaconHealSource extends Analyzer {
   /**
    * Verify that the beacon transfer matches what we would expect. This isn't 100% reliable due to weird interactions with stuff like Blood Death Knights (Vampiric Blood and probably other things), and other healing received increasers.
    */
-  sanityChecker(beaconTransferEvent) {
+  sanityChecker(beaconTransferEvent: HealEvent) {
     const index = this._matchByHealSize(beaconTransferEvent);
 
     if (index === -1) {
@@ -174,16 +179,14 @@ class BeaconHealSource extends Analyzer {
       this._dumpBacklog(beaconTransferEvent);
     }
   }
-  _dumpBacklog(beaconTransferEvent) {
+
+  _dumpBacklog(beaconTransferEvent: HealEvent) {
     const beaconTransferRaw =
       beaconTransferEvent.amount +
       (beaconTransferEvent.absorbed || 0) +
       (beaconTransferEvent.overheal || 0);
     this.healBacklog.forEach((healEvent, i) => {
-      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(
-        healEvent,
-        beaconTransferEvent,
-      );
+      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent);
 
       this.debug(i, {
         ability: healEvent.ability.name,
@@ -201,23 +204,20 @@ class BeaconHealSource extends Analyzer {
    * It does sometimes happen though, such as with Light of Dawn heals.
    * @private
    */
-  _matchByOrder(beaconTransferEvent) {
+  _matchByOrder(beaconTransferEvent: HealEvent) {
     return 0;
   }
   /**
    * @returns {number} Gets the next heal in the backlog that matches the expected source heal amount through simply reversing the transfer formula.
    */
-  _matchByHealSize(beaconTransferEvent) {
+  _matchByHealSize(beaconTransferEvent: HealEvent) {
     const rawBeaconTransfer =
       beaconTransferEvent.amount +
       (beaconTransferEvent.absorbed || 0) +
       (beaconTransferEvent.overheal || 0);
 
     return this.healBacklog.findIndex((healEvent) => {
-      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(
-        healEvent,
-        beaconTransferEvent,
-      );
+      const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent);
 
       return Math.abs(expectedBeaconTransfer - rawBeaconTransfer) <= 2; // allow for rounding errors on Blizzard's end
     });

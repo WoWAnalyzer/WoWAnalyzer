@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { Ability, BeaconHealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Panel from 'parser/ui/Panel';
@@ -13,18 +14,18 @@ class BeaconHealingDone extends Analyzer {
     healingDone: HealingDone,
   };
 
-  _totalBeaconHealing = new HealingValue();
-  _beaconHealingBySource = {};
+  protected beaconHealSource!: BeaconHealSource;
+  protected healingDone!: HealingDone;
 
-  constructor(options) {
+  _totalBeaconHealing = new HealingValue();
+  _beaconHealingBySource: { [spellID: number]: BeaconTracking } = {};
+
+  constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER),
-      this._onBeaconTransfer,
-    );
+    this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this._onBeaconTransfer);
   }
 
-  _onBeaconTransfer(event) {
+  _onBeaconTransfer(event: BeaconHealEvent) {
     this._totalBeaconHealing = this._totalBeaconHealing.add(
       event.amount,
       event.absorbed,
@@ -73,3 +74,8 @@ class BeaconHealingDone extends Analyzer {
 }
 
 export default BeaconHealingDone;
+
+type BeaconTracking = {
+  ability: Ability;
+  healing: HealingValue;
+};

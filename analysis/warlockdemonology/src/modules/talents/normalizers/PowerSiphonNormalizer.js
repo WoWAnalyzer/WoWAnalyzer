@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeEventSourceString, encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { isWildImp } from '../../pets/helpers';
 
@@ -49,9 +49,9 @@ class PowerSiphonNormalizer extends EventsNormalizer {
           this.owner.byPlayerPet(event) &&
           this._isFromWildImp(event)
         ) {
-          const targetString = encodeTargetString(event.sourceID, event.sourceInstance);
-          if (!activeImpsAfterCast.includes(targetString)) {
-            activeImpsAfterCast.push(targetString);
+          const sourceString = encodeEventSourceString(event);
+          if (sourceString && !activeImpsAfterCast.includes(sourceString)) {
+            activeImpsAfterCast.push(sourceString);
           }
         }
       }

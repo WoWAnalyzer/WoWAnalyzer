@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 const MARK_FOR_DEATH_DURATION = 60 * 1000;

@@ -5,7 +5,6 @@ import {
   ComboPointDetails,
   ComboPointTracker,
   EchoingReprimand,
-  EnemyHpTracker,
   EnergyCapTracker,
   EnergyDetails,
   EnergyTracker,
@@ -59,9 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     garroteNormalizer: GarroteNormalizer,
     garroteOpenerNormalizer: GarroteOpenerNormalizer,
-
-    //Trackers
-    enemyHpTracker: EnemyHpTracker,
 
     //Feature
     abilities: Abilities,
