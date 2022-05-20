@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 import { RAKE_BASE_DURATION, THRASH_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';

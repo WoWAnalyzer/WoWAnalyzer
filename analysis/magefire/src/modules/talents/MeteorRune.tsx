@@ -6,17 +6,17 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 
 import { MS_BUFFER_100 } from '@wowanalyzer/mage';
 
 class MeteorRune extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   lastRuneCast = 0;
   badMeteor = 0;

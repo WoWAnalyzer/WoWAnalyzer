@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -118,6 +119,13 @@ class SwiftPenitence extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={
+          <>
+            The top value represents healing from <SpellLink id={SPELLS.ATONEMENT_BUFF.id} />, while
+            the lower value is the healing from directly healing a target with{' '}
+            <SpellLink id={SPELLS.PENANCE_HEAL.id} />.
+          </>
+        }
       >
         <>
           <ConduitSpellText spellId={SPELLS.SWIFT_PENITENCE.id} rank={this.conduitRank}>

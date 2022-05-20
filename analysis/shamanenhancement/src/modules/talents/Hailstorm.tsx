@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffStackEvent, DamageEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

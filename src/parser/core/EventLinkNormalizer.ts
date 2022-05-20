@@ -8,7 +8,7 @@ import {
   HasTarget,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 // TODO maximum links per event (prevent cast linking with too many)
 // TODO easier specification

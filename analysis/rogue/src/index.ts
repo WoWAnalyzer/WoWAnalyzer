@@ -1,6 +1,5 @@
 export { default as ComboPointDetails } from './ComboPointDetails';
 export { default as ComboPointTracker } from './ComboPointTracker';
-export { default as EnemyHpTracker } from './EnemyHpTracker';
 export { default as EnergyCapTracker } from './EnergyCapTracker';
 export { default as EnergyDetails } from './EnergyDetails';
 export { default as EnergyTracker } from './EnergyTracker';

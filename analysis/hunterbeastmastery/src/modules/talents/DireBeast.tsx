@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Haste from 'interface/icons/Haste';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeEventSourceString, encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -24,7 +24,7 @@ import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 class DireBeast extends Analyzer {
   damage = 0;
   activeDireBeasts: string[] = [];
-  targetId = '';
+  targetId: string | null = null;
 
   constructor(options: Options) {
     super(options);
@@ -43,17 +43,23 @@ class DireBeast extends Analyzer {
   }
 
   onPetDamage(event: DamageEvent) {
-    const sourceId: string = encodeTargetString(event.sourceID);
+    const sourceId = encodeEventSourceString(event);
+    if (!sourceId) {
+      return;
+    }
     if (this.activeDireBeasts.includes(sourceId)) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
   onDireSummon(event: SummonEvent) {
-    this.targetId = encodeTargetString(event.targetID);
+    this.targetId = encodeEventTargetString(event);
+    if (!this.targetId) {
+      return;
+    }
     this.activeDireBeasts = [];
     this.activeDireBeasts.push(this.targetId);
-    this.targetId = '';
+    this.targetId = null;
   }
 
   statistic() {

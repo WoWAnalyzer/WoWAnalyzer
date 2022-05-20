@@ -58,9 +58,19 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 17), 'Fix issue with Dwarf racial.', emallson),
+  change(date(2022, 5, 13), 'Merged EnemyInstances logic into the standard Enemies file', Putro),
+  change(date(2022, 5, 10), <>Add statistics and tracking for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
+  change(date(2022, 5, 9), <>Fix crashing bug in TBC character pages.</>, emallson),
+  change(date(2022, 5, 9), <>Handle "extraattacks" events for things like <SpellLink id={SPELLS.WINDFURY_TOTEM.id}/></>, nullDozzer),
+  change(date(2022, 5, 6), 'Condensed helpful functions into one file.', Abelito75),
+  change(date(2022, 5, 5), 'Add support for Ascended Vigor', xepheris),
+  change(date(2022, 5, 5), 'Add support for Blood-Spattered Scale and Codex of the First Technique trinkets.', xepheris),
+  change(date(2022, 5, 2), 'Increased event type safety.', Abelito75),
+  change(date(2022, 4, 30), 'Fix legendary icons not working on Character parses page', nullDozzer),
+  change(date(2022, 4, 30), 'Fix broken trinket icons and conduit links on the character page', nullDozzer),
   change(date(2022, 4, 27), 'Updated stat multiplier table for Shadowlands values', Putro),
   change(date(2022, 4, 20), 'Preformance increase for talent identification.', Abelito75),
-  change(date(2022, 4, 19), 'Refactor reports component to fix state management issues', nullDozzer),
   change(date(2022, 4, 19), 'Prevent invalid spells from passing internal tests and getting deployed.', emallson),
   change(date(2022, 4, 17), 'Fix conduits not being parsed correctly in some cases', nullDozzer),
   change(date(2022, 4, 17), 'Fix CDR tracking from Effusive Anima Accelerator for Monks and Shamans.', emallson),

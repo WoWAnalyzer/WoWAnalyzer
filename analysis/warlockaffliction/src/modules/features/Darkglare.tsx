@@ -6,11 +6,12 @@ import Events, {
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
+  HasTarget,
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -208,6 +209,9 @@ class Darkglare extends Analyzer {
   _resetDotOnTarget(event: ApplyDebuffEvent | CastEvent | DamageEvent | RefreshDebuffEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
+      return;
+    }
+    if (!HasTarget(event)) {
       return;
     }
     const spellId = event.ability.guid;

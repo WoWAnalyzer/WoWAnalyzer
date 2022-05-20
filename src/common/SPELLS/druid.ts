@@ -498,6 +498,11 @@ const spells = {
     name: 'Gore',
     icon: 'ability_druid_mangle2',
   },
+  BRAMBLES_DAMAGE: {
+    id: 213709,
+    name: 'Brambles',
+    icon: 'inv_misc_thornnecklace',
+  },
   // passive spell with this ID granted to any druid with Restoration Affinity
   YSERAS_GIFT_BEAR: {
     id: 145108,
@@ -712,6 +717,18 @@ const spells = {
     id: 33786,
     name: 'Cyclone',
     icon: 'spell_nature_earthbind',
+  },
+  FURY_OF_ELUNE_DAMAGE: {
+    // the damage only - the cast buff and energize use the talent's ID
+    id: 211545,
+    name: 'Fury of Elune',
+    icon: 'ability_druid_dreamstate',
+  },
+  FURY_OF_ELUNE_DAMAGE_4P: {
+    // damage from Fury of Elune procced by the Shadowlands tier 4p
+    id: 365640,
+    name: 'Fury of Elune',
+    icon: 'ability_druid_dreamstate',
   },
 
   // FERAL //

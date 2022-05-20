@@ -3,7 +3,6 @@
  * Use this only as the very last resort.
  */
 
-import { ItemIcon } from 'interface';
 import { ItemLink } from 'interface';
 import { Item } from 'parser/core/Events';
 import * as React from 'react';
@@ -17,7 +16,7 @@ type Props = {
 const BoringItemValueText = ({ item, children, className }: Props) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
-      <ItemIcon id={item.id} /> <ItemLink id={item.id} icon={false} />
+      <ItemLink id={item.id} quality={item.quality} details={item} />
     </label>
     <div className="value">{children}</div>
   </div>
