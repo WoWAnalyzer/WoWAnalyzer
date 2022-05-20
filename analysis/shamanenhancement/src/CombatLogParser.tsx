@@ -22,10 +22,10 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Enhancement Core
 // Legendaries and Tier
-import WitchDoctorWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
-import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
+import WitchDoctorWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
 // Talents
+import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalAssault from './modules/talents/ElementalAssault';
