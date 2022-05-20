@@ -291,6 +291,13 @@ const spells = {
     name: 'T21 4 Set Buff',
     icon: 'spell_holy_searinglightpriest',
   },
+
+  MANIFESTED_TWILIGHT_BUFF_2P: {
+    id: 363943,
+    name: 'Manifested Twilight',
+    icon: 'ability_priest_innerlightandshadow',
+  },
+
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: "Kam Xi'raff",

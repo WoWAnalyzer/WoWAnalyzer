@@ -1,5 +1,5 @@
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import EarlyDotRefreshes from './EarlyDotRefreshes';
 

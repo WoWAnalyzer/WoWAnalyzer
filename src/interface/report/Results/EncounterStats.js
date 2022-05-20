@@ -2,8 +2,8 @@ import { Trans } from '@lingui/macro';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ITEMS from 'common/ITEMS';
-import { makeItemApiUrl } from 'common/makeApiUrl';
 import SPELLS from 'common/SPELLS';
+import Expansion from 'game/Expansion';
 import ROLES from 'game/ROLES';
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
@@ -241,9 +241,6 @@ class EncounterStats extends PureComponent {
           loaded: true,
           rankingsCount: stats.rankings.length,
         });
-
-        //fetch all missing icons from bnet-api and display them
-        this.fillMissingIcons();
       })
       .catch(() => {
         this.setState({
@@ -252,33 +249,6 @@ class EncounterStats extends PureComponent {
           ),
         });
       });
-  }
-
-  fillMissingIcons() {
-    this.state.mostUsedTrinkets.forEach((trinket) => {
-      if (ITEMS[trinket.id] === undefined) {
-        return fetch(makeItemApiUrl(trinket.id))
-          .then((response) => response.json())
-          .then((data) => {
-            const updatedItems = this.state.items;
-            updatedItems[trinket.id] = {
-              icon: data.icon,
-              id: trinket.id,
-              name: trinket.name,
-            };
-
-            this.setState({
-              items: updatedItems,
-            });
-
-            this.forceUpdate();
-          })
-          .catch(() => {
-            // ignore errors;
-          });
-      }
-      return null;
-    });
   }
 
   singleItem(item) {
@@ -298,11 +268,7 @@ class EncounterStats extends PureComponent {
           <div className="col-md-10">
             <ItemLink id={item.id} className={item.quality} details={item} icon={false}>
               <Icon
-                icon={
-                  this.state.items[item.id] === undefined
-                    ? this.state.items[0].icon
-                    : this.state.items[item.id].icon
-                }
+                icon={item.icon}
                 className={item.quality}
                 details={item}
                 style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
@@ -332,11 +298,7 @@ class EncounterStats extends PureComponent {
           <div className="col-md-10">
             <SpellLink id={spell.id} icon={false}>
               <Icon
-                icon={
-                  this.state.spells[spell.id] === undefined
-                    ? this.state.spells[1].icon
-                    : this.state.spells[spell.id].icon
-                }
+                icon={spell.icon}
                 style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
               />
               {spell.name}
@@ -376,7 +338,8 @@ class EncounterStats extends PureComponent {
           <div className="col-md-6">
             {formatThousands(log.total)} {this.metric}
             <br />
-            {getCovenantById(log.covenantID).name}
+            {this.props.config.expansion === Expansion.Shadowlands &&
+              getCovenantById(log.covenantID)?.name}
           </div>
         </div>
       </div>
@@ -401,11 +364,7 @@ class EncounterStats extends PureComponent {
           </div>
           <SpellLink id={covenant.spellID} icon={false}>
             <Icon
-              icon={
-                this.state.spells[covenant.spellID] === undefined
-                  ? this.state.spells[1].icon
-                  : this.state.spells[covenant.spellID].icon
-              }
+              icon={covenant.icon}
               style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
             />
             {covenant.name}
@@ -575,13 +534,15 @@ class EncounterStats extends PureComponent {
                     <h2>
                       {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times{' '}
                     </h2>
-                    <FilterByCovenantToggle
-                      initialValue={this.state.filterByCovenant}
-                      onChange={(val) => {
-                        this.setState({ filterByCovenant: val });
-                        this.load();
-                      }}
-                    />
+                    {this.props.config.expansion === Expansion.Shadowlands && (
+                      <FilterByCovenantToggle
+                        initialValue={this.state.filterByCovenant}
+                        onChange={(val) => {
+                          this.setState({ filterByCovenant: val });
+                          this.load();
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="row" style={{ marginBottom: '2em' }}>

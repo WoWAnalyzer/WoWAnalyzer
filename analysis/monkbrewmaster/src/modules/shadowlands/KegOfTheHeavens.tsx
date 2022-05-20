@@ -26,6 +26,8 @@ function hpFromEvent(event: DamageEvent | HealEvent): Hp | null {
   };
 }
 
+const debug = false;
+
 export default class KegOfTheHeavens extends Analyzer {
   private actualHealingDone = 0;
 
@@ -116,6 +118,6 @@ export default class KegOfTheHeavens extends Analyzer {
       this.storeKothUpdate();
     }
 
-    console.log('KotH', this.kothUpdates, this.healingDone, this.netPhantomHealing);
+    debug && console.log('KotH', this.kothUpdates, this.healingDone, this.netPhantomHealing);
   }
 }

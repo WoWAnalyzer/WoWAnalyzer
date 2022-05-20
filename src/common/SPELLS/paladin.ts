@@ -594,6 +594,11 @@ const spells = {
     name: 'Dawn Will Come',
     icon: 'ability_priest_flashoflight',
   },
+  GLORIOUS_PURPOSE_4PC: {
+    id: 363675,
+    name: 'Glorious Purpose',
+    icon: 'spell_holy_holyprotection',
+  },
 } as const;
 
 export default spells;

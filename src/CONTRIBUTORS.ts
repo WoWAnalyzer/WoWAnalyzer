@@ -1912,3 +1912,12 @@ export const xepheris: Contributor = {
     },
   ],
 };
+
+export const Hana: Contributor = {
+  nickname: 'Hana',
+  github: 'OisinOD',
+};
+export const kate: Contributor = {
+  nickname: 'kate',
+  github: 'renanthera',
+};

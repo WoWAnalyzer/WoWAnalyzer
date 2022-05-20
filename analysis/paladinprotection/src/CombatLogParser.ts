@@ -8,10 +8,12 @@ import {
   DivineToll,
   AshenHallow,
   HolyPowerPerMinute,
+  VanquishersHammer,
 } from '@wowanalyzer/paladin';
 
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 import GrandCrusader from './modules/core/GrandCrusader';
 import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -22,6 +24,7 @@ import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRi
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import SpellUsable from './modules/features/SpellUsable';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
+import SepulcherTierSet from './modules/shadowlands/SepulcherTierSet';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
@@ -52,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
     checklist: Checklist,
     wogTiming: WordOfGloryTiming,
@@ -83,6 +87,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenant Abilities
     divineToll: DivineToll,
     ashenHallow: AshenHallow,
+    vanquishersHammer: VanquishersHammer,
+
+    // Tier Set
+    sepulcherSet: SepulcherTierSet,
 
     apl: AplCheck,
   };

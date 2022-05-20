@@ -7,3 +7,4 @@ export { default as HolyPowerDetails } from './HolyPowerDetails';
 export { default as HolyPowerTracker } from './HolyPowerTracker';
 export { default as Judgment } from './Judgment';
 export { default as HolyPowerPerMinute } from './HolyPowerPerMinute';
+export { default as VanquishersHammer } from './VanquishersHammer';

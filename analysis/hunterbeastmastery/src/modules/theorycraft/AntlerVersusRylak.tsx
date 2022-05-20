@@ -5,7 +5,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

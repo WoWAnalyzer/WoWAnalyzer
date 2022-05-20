@@ -10,6 +10,7 @@ import {
   AshenHallow,
   DivineToll,
   HolyPowerPerMinute,
+  VanquishersHammer,
 } from '@wowanalyzer/paladin';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -32,6 +33,7 @@ import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 import UntemperedDedication from './modules/shadowlands/conduits/UntemperedDedication';
+import VanquishersHammerAnalysis from './modules/shadowlands/covenants/VanquishersHammerAnalysis';
 import MaraadsCastRatio from './modules/shadowlands/legendaries/MaraadsCastRatio';
 import MaraadsOverheal from './modules/shadowlands/legendaries/MaraadsOverheal';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
@@ -113,6 +115,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenant
     ashenHallow: AshenHallow,
     divineToll: DivineToll,
+    vanquishersHammer: VanquishersHammer,
+    vanquishersHammerAnalysis: VanquishersHammerAnalysis,
 
     // Conduits
     UntemperedDedication: UntemperedDedication,

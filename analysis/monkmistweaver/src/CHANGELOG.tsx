@@ -1,10 +1,15 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor } from 'CONTRIBUTORS';
+import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor, kate, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
+  change(date(2022, 5, 13), <>Fixed Jade Bond CDR. </>, Abelito75),
+  change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
+  change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
+  change(date(2022, 4, 22), <>Updated example log. </>, Abelito75),
   change(date(2022, 4, 16), <>Added a Mystic Touch stat. </>, Abelito75),
   change(date(2022, 4, 16), <>Enveloping Breath's value from Mist Wrap. </>, Abelito75),
   change(date(2022, 4, 2), <> Removing the fake four set cast event. </>, Abelito75),

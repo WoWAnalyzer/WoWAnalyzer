@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { DamageEvent } from 'parser/core/Events';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -13,9 +13,9 @@ import { TALBADARS_STRATAGEM_INCREASE } from '@wowanalyzer/priest-shadow/src/con
 
 class TalbadarsStratagem extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   bonusDamage = 0;
 

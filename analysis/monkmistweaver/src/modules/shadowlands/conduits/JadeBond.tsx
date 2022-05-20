@@ -1,12 +1,11 @@
-import { formatNumber } from 'common/format';
+import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import conduitScaling from 'parser/core/conduitScaling';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -20,7 +19,6 @@ const JADE_BOND_REDUCTION = 300;
 class JadeBond extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    healingDone: HealingDone,
   };
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
@@ -29,7 +27,6 @@ class JadeBond extends Analyzer {
   healing: number = 0;
   conduitRank: number = 0;
   protected spellUsable!: SpellUsable;
-  protected healingDone!: HealingDone;
 
   /**
    * Whenever you cast a Gust of Mist procing ability it reduces the cooldown of Yu'lon or Chi-ji by .5 seconds as well as increasing their healing by x%
@@ -45,7 +42,7 @@ class JadeBond extends Analyzer {
     this.healingBoost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
 
     this.addEventListener(
-      Events.cast
+      Events.heal
         .by(SELECTED_PLAYER)
         .spell([
           SPELLS.GUSTS_OF_MISTS,
@@ -69,7 +66,7 @@ class JadeBond extends Analyzer {
     }
   }
 
-  gustProcingSpell(event: CastEvent) {
+  gustProcingSpell(event: HealEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.spellToReduce.id,
@@ -92,9 +89,9 @@ class JadeBond extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
-            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
+            Effective Cooldown Reduction: {formatDuration(this.cooldownReductionUsed)}
             <br />
-            Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+            Wasted Cooldown Reduction: {formatDuration(this.cooldownReductionWasted)}
           </>
         }
       >

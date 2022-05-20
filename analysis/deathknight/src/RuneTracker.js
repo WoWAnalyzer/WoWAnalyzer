@@ -13,7 +13,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const MAX_RUNES = 6;
-const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
+const RUNE_REGEN_BUFFS = {
+  [SPELLS.RUNIC_CORRUPTION.id]: 1,
+  [SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id]: 0.4,
+};
 const RUNE_IDS = [
   SPELLS.RUNE_1, //-101
   SPELLS.RUNE_2, //-102
@@ -109,18 +112,24 @@ class RuneTracker extends ResourceTracker {
 
   onApplybuff(event) {
     //decrease cooldown when a buff that increases rune regeneration rate is applied.
-    const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
-    RUNE_IDS.forEach((spell) => {
-      this.changeCooldown(spell.id, multiplier);
-    });
+    const increase = RUNE_REGEN_BUFFS[event.ability.guid];
+    if (increase) {
+      const multiplier = 1 / (1 + increase);
+      RUNE_IDS.forEach((spell) => {
+        this.changeCooldown(spell.id, multiplier);
+      });
+    }
   }
 
   onRemovebuff(event) {
     //increase cooldown when a buff that increases rune regeneration rate fades.
-    const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
-    RUNE_IDS.forEach((spell) => {
-      this.changeCooldown(spell.id, multiplier);
-    });
+    const increase = RUNE_REGEN_BUFFS[event.ability.guid];
+    if (increase) {
+      const multiplier = 1 + increase;
+      RUNE_IDS.forEach((spell) => {
+        this.changeCooldown(spell.id, multiplier);
+      });
+    }
   }
 
   onUpdateSpellUsable(event) {
@@ -165,7 +174,7 @@ class RuneTracker extends ResourceTracker {
       SPELLS.RUNIC_CORRUPTION.id,
       passiveRunesGained,
       passiveRunesWasted,
-      RUNIC_CORRUPTION_INCREASE,
+      RUNE_REGEN_BUFFS[SPELLS.RUNIC_CORRUPTION.id],
     );
     passiveRunesGained *= 1 - runicCorruptionContribution;
     passiveRunesWasted *= 1 - runicCorruptionContribution;

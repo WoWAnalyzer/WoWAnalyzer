@@ -9,6 +9,7 @@ import {
   Superstrain,
   SwarmingMist,
   DeathsDue,
+  EternalHunger,
 } from '@wowanalyzer/deathknight';
 
 import SpellUsable from './modules/core/SpellUsable';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     swarmingMist: SwarmingMist,
     deathsDue: DeathsDue,
     convocationOfTheDead: ConvocationOfTheDead,
+    eternalHunger: EternalHunger,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

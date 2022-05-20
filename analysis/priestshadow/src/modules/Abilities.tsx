@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {

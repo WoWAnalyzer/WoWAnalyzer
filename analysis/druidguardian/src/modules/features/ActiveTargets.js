@@ -1,7 +1,6 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 /*
  * The amount of time elapsed without a combat event before a target is considered inactive.
  * The ideal size of this window will vary; specs that produce a lot of combat events can

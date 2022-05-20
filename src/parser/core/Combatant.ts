@@ -8,7 +8,6 @@ import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS, { Spec } from 'game/SPECS';
-import TALENT_ROWS from 'game/TALENT_ROWS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import {
   Buff,
@@ -117,48 +116,16 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentsByRow: { [key: number]: number } = {};
+  _talentsByRow: Set<number> = new Set<number>();
 
   _parseTalents(talents: Spell[]) {
     talents.forEach(({ id }, index: number) => {
-      this._talentsByRow[index] = id;
+      this._talentsByRow.add(id);
     });
   }
 
   get talents() {
     return Object.values(this._talentsByRow);
-  }
-
-  _getTalent(row: number) {
-    return this._talentsByRow[row];
-  }
-
-  get lv15Talent() {
-    return this._getTalent(TALENT_ROWS.LV15);
-  }
-
-  get lv25Talent() {
-    return this._getTalent(TALENT_ROWS.LV25);
-  }
-
-  get lv30Talent() {
-    return this._getTalent(TALENT_ROWS.LV30);
-  }
-
-  get lv35Talent() {
-    return this._getTalent(TALENT_ROWS.LV35);
-  }
-
-  get lv40Talent() {
-    return this._getTalent(TALENT_ROWS.LV40);
-  }
-
-  get lv45Talent() {
-    return this._getTalent(TALENT_ROWS.LV45);
-  }
-
-  get lv50Talent() {
-    return this._getTalent(TALENT_ROWS.LV50);
   }
 
   hasTalent(spell: number | Spell) {
@@ -167,11 +134,7 @@ class Combatant extends Entity {
     if (spellObj.id) {
       spellId = spellObj.id;
     }
-    return Boolean(
-      Object.keys(this._talentsByRow).find(
-        (row: string) => this._talentsByRow[Number(row)] === spellId,
-      ),
-    );
+    return this._talentsByRow.has(spellId as number);
   }
 
   // endregion
