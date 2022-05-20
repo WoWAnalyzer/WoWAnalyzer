@@ -8,7 +8,7 @@ import {
 import thunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
-import { EventsParseError } from 'interface/report/EventParser';
+import { EventsParseError } from 'interface/report/hooks/useEventParser';
 
 export default function handleApiError(error: Error, onBack: () => void) {
   console.error(error);
