@@ -15,6 +15,7 @@ import {
   DampenHarm,
 } from '@wowanalyzer/monk';
 
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
 import BrewCDR from './modules/core/BrewCDR';
@@ -119,6 +120,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     apl: AplCheck,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

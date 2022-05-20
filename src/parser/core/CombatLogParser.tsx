@@ -1,5 +1,7 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
+import Guide, { GuideContainer } from 'interface/guide';
+import { ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
   AnyEvent,
@@ -707,6 +709,22 @@ class CombatLogParser {
     }
 
     return results;
+  }
+
+  static guide?: Guide;
+  buildGuide() {
+    const ctor = this.constructor as typeof CombatLogParser;
+    if (ctor.guide === undefined) {
+      return undefined;
+    }
+
+    const props = { modules: this._modules as ModulesOf<any> };
+    const Component = ctor.guide;
+    return () => (
+      <GuideContainer>
+        <Component {...props} />
+      </GuideContainer>
+    );
   }
 
   /**
