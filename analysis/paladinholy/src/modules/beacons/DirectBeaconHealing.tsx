@@ -5,6 +5,7 @@ import { SpellIcon } from 'interface';
 import PlusIcon from 'interface/icons/Plus';
 import UpArrowIcon from 'interface/icons/UpArrow';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
@@ -18,8 +19,11 @@ class DirectBeaconHealing extends Analyzer {
     abilities: Abilities,
   };
 
+  protected abilityTracker!: PaladinAbilityTracker;
+  protected abilities!: Abilities;
+
   get beaconTransferingAbilities() {
-    const listOfSpells = [];
+    const listOfSpells: number[] = [];
 
     //This might seem like a way but ability.spell can be an array
     //meaning we can miss a few spells *cough* holy shock. We don't want that so yeah
@@ -41,7 +45,7 @@ class DirectBeaconHealing extends Analyzer {
   }
   get totalFoLHLOnBeaconPercentage() {
     const abilityTracker = this.abilityTracker;
-    const getCastCount = (spellId) => abilityTracker.getAbility(spellId);
+    const getCastCount = (spellId: number) => abilityTracker.getAbility(spellId);
 
     let casts = 0;
     let castsOnBeacon = 0;
@@ -58,7 +62,7 @@ class DirectBeaconHealing extends Analyzer {
   }
   get totalOtherSpellsOnBeaconPercentage() {
     const abilityTracker = this.abilityTracker;
-    const getCastCount = (spellId) => abilityTracker.getAbility(spellId);
+    const getCastCount = (spellId: number) => abilityTracker.getAbility(spellId);
 
     let casts = 0;
     let castsOnBeacon = 0;
@@ -75,7 +79,7 @@ class DirectBeaconHealing extends Analyzer {
   }
   get totalHealsOnBeaconPercentage() {
     const abilityTracker = this.abilityTracker;
-    const getCastCount = (spellId) => abilityTracker.getAbility(spellId);
+    const getCastCount = (spellId: number) => abilityTracker.getAbility(spellId);
 
     let casts = 0;
     let castsOnBeacon = 0;
@@ -97,10 +101,10 @@ class DirectBeaconHealing extends Analyzer {
         average: 0.25,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds.actual)
       .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) =>

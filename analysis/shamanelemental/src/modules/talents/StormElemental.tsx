@@ -6,7 +6,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Statistic from 'parser/ui/Statistic';
 
 import Abilities from '../Abilities';
@@ -14,7 +13,7 @@ import Abilities from '../Abilities';
 class StormElemental extends Analyzer {
   static dependencies = {
     abilities: Abilities,
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
   badFS = 0;
   justEnteredSE = false;

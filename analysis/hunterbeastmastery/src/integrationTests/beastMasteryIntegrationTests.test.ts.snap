@@ -4984,14 +4984,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_inscription_darkmooncard_voracity.jpg"
             />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="https://wowhead.com/item=173087"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+             
             Darkmoon Deck: Voracity
           </a>
         </label>
@@ -6191,7 +6184,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target WildSpirits matches
             src="/img/sword.png"
           />
            
-          9,269
+          9,146
            
           <small>
              Wild Mark damage
@@ -15090,14 +15083,7 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_battery_01.jpg"
             />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="https://wowhead.com/item=180116"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+             
             Overcharged Anima Battery
           </a>
         </label>

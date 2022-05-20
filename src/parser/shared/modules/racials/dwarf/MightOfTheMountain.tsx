@@ -3,9 +3,10 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import RACES from 'game/RACES';
 import ROLES from 'game/ROLES';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import CritEffectBonus, { ValidEvents } from 'parser/shared/modules/helpers/CritEffectBonus';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticBox from 'parser/ui/StatisticBox';
@@ -17,23 +18,25 @@ class MightOfTheMountain extends Analyzer {
     critEffectBonus: CritEffectBonus,
   };
 
+  protected critEffectBonus!: CritEffectBonus;
+
   damage = 0;
   healing = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.race === RACES.Dwarf;
     if (!this.active) {
       return;
     }
 
-    this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
+    (options.critEffectBonus as CritEffectBonus).hook(this.getCritEffectBonus.bind(this));
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  isApplicableHeal(event) {
-    const abilities = this.owner.constructor.abilitiesAffectedByHealingIncreases;
+  isApplicableHeal(event: HealEvent) {
+    const abilities = CombatLogParser.abilitiesAffectedByHealingIncreases;
     if (abilities.length > 0 && !abilities.includes(event.ability.guid)) {
       // When this isn't configured, assume everything is affected
       return false;
@@ -43,8 +46,8 @@ class MightOfTheMountain extends Analyzer {
     }
     return true;
   }
-  isApplicableDamage(event) {
-    const abilities = this.owner.constructor.abilitiesAffectedByDamageIncreases;
+  isApplicableDamage(event: DamageEvent) {
+    const abilities = CombatLogParser.abilitiesAffectedByDamageIncreases;
     if (abilities.length > 0 && !abilities.includes(event.ability.guid)) {
       // When this isn't configured, assume everything is affected
       return false;
@@ -59,15 +62,15 @@ class MightOfTheMountain extends Analyzer {
     return true;
   }
 
-  getCritEffectBonus(critEffectModifier, event) {
-    if (!this.isApplicableHeal(event)) {
+  getCritEffectBonus(critEffectModifier: number, event: ValidEvents) {
+    if (event.type === EventType.Heal && !this.isApplicableHeal(event)) {
       return critEffectModifier;
     }
 
     return critEffectModifier + CRIT_EFFECT;
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     if (!this.isApplicableHeal(event)) {
       return;
     }
@@ -83,7 +86,7 @@ class MightOfTheMountain extends Analyzer {
 
     this.healing += effectiveHealing;
   }
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     if (!this.isApplicableDamage(event)) {
       return;
     }
@@ -103,7 +106,8 @@ class MightOfTheMountain extends Analyzer {
       case ROLES.HEALER:
         value = <ItemHealingDone amount={this.healing} />;
         break;
-      case ROLES.DPS:
+      case ROLES.DPS.MELEE:
+      case ROLES.DPS.RANGED:
         value = <ItemDamageDone amount={this.damage} />;
         break;
       default:

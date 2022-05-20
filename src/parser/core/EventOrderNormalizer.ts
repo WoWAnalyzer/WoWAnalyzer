@@ -1,7 +1,7 @@
 import { AnyEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
-import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 /**
  * An event normalizer that enforces the ordering of paired events that happen simultaneously

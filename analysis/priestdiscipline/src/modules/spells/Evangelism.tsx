@@ -11,6 +11,7 @@ import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
 
 const EVANGELISM_DURATION = 6;
+const EVANGELISM_DURATION_MS = EVANGELISM_DURATION * 1000;
 
 class Evangelism extends Analyzer {
   static dependencies = {
@@ -65,7 +66,11 @@ class Evangelism extends Analyzer {
       }
 
       // Add all healing that shouldn't exist to expiration
-      if (event.timestamp > target.atonementExpirationTimestamp && this._previousEvangelismCast) {
+      if (
+        event.timestamp > target.atonementExpirationTimestamp &&
+        event.timestamp < target.atonementExpirationTimestamp + EVANGELISM_DURATION_MS &&
+        this._previousEvangelismCast
+      ) {
         this._evangelismStatistics[this._previousEvangelismCast.timestamp].healing +=
           event.amount + (event.absorbed || 0);
       }

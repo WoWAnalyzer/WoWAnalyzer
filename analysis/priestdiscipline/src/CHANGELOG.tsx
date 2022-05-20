@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Khadaj, Ogofo, Oratio, Reglitch, VMakaev, Zeboot, jasper, Hana } from 'CONTRIBUTORS';
+import { Abelito75, Adoraci, Khadaj, Ogofo, Oratio, Reglitch, VMakaev, Zeboot, jasper, Hana } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 5, 19), <>Removed a console.log statement in <SpellLink id={SPELLS.CLARITY_OF_MIND.id}/> module </>, Hana, ),
+  change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
+  change(date(2022, 5, 10), <><SpellLink id={SPELLS.CLARITY_OF_MIND.id}/> support added when using <SpellLink id={SPELLS.EVANGELISM_TALENT.id}/> </>, Hana, ),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
   change(date(2022,5,4), <><SpellLink id ={SPELLS.THE_PENITENT_ONE.id}/> mana saved added to module</>, Hana),
   change (date(2022,5,3), <><SpellLink id={SPELLS.SWIFT_PENITENCE.id}/> tooltip added to explain HPS breakdown.</>, Hana,),

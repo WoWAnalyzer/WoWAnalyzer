@@ -125,22 +125,6 @@ class StatTracker extends Analyzer {
      \****************************************/
 
     // region Trinkets
-    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT.id]: {
-      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
-    },
-    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HASTE.id]: {
-      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
-    },
-    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MASTERY.id]: {
-      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      mastery: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
-    },
-    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_VERS.id]: {
-      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
-    },
     [SPELLS.BLOOD_WALTZ_HASTE_BUFF.id]: {
       itemId: ITEMS.MACABRE_SHEET_MUSIC.id,
       haste: (_, item) => calculateSecondaryStatDefault(213, 95, item.itemLevel),

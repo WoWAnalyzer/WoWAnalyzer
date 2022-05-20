@@ -3,14 +3,15 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import UptimeBar from 'parser/ui/UptimeBar';
+import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 
 class RuleOfLaw extends Analyzer {
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
   }
 
@@ -28,10 +29,10 @@ class RuleOfLaw extends Analyzer {
         average: 0.2,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.talents.ruleOfLaw.suggestion">
@@ -55,8 +56,17 @@ class RuleOfLaw extends Analyzer {
   statistic() {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
 
+    const uptime: Uptime[] = [];
+
+    history.forEach((buff) => {
+      uptime.push({
+        start: buff.start,
+        end: buff.end || 0,
+      });
+    });
+
     return (
-      <StatisticBar position={STATISTIC_ORDER.CORE(31)} wide size="small">
+      <StatisticBar position={STATISTIC_ORDER.CORE(31)} wide>
         <div className="flex">
           <div className="flex-sub icon">
             <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />
@@ -68,10 +78,9 @@ class RuleOfLaw extends Analyzer {
           </div>
           <div className="flex-main chart" style={{ padding: 15 }}>
             <UptimeBar
-              uptimeHistory={history}
+              uptimeHistory={uptime}
               start={this.owner.fight.start_time}
               end={this.owner.fight.end_time}
-              style={{ height: '100%' }}
             />
           </div>
         </div>

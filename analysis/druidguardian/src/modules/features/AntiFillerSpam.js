@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -30,7 +30,7 @@ class AntiFillerSpam extends Analyzer {
   }
 
   static dependencies = {
-    enemyInstances: EnemyInstances,
+    enemies: Enemies,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
     abilities: Abilities,
@@ -54,7 +54,7 @@ class AntiFillerSpam extends Analyzer {
     this._totalGCDSpells += 1;
     const targets = this.activeTargets
       .getActiveTargets(event.timestamp)
-      .map((enemyID) => this.enemyInstances.enemies[enemyID])
+      .map((enemyID) => this.enemies.enemies[enemyID])
       .filter((enemy) => Boolean(enemy));
     const combatant = this.selectedCombatant;
 

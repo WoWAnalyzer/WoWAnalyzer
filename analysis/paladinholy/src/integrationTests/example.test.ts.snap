@@ -253,7 +253,7 @@ Array [
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-49.89}}
+      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":"49.11"}}
        (
       &gt;70.00% is recommended
       )
@@ -1157,14 +1157,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
           message="Beacon Uptime"
         />
       </label>
-      <div
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
+      <div>
         <div
           className="flex boring-value "
         >
@@ -1199,14 +1192,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
           </div>
         </div>
       </div>
-      <div
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
+      <div>
         <div
           className="flex boring-value "
         >
@@ -1248,8 +1234,8 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
 
 exports[`Holy Paladin integration test: example log CastBehavior matches the statistic snapshot 1`] = `
 <div
+  category="GENERAL"
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  position={40}
   style={
     Object {
       "padding": 0,
@@ -8376,7 +8362,6 @@ exports[`Holy Paladin integration test: example log RuleOfLaw matches the statis
   <div
     className="panel statistic bar"
     position={31}
-    size="small"
   >
     <div
       className="panel-body"
@@ -8428,11 +8413,6 @@ exports[`Holy Paladin integration test: example log RuleOfLaw matches the statis
         >
           <div
             className="uptime-bar"
-            style={
-              Object {
-                "height": "100%",
-              }
-            }
           />
         </div>
       </div>

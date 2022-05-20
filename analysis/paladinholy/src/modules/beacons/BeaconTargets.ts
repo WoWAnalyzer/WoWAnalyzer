@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 
@@ -16,10 +16,13 @@ class BeaconTargets extends Analyzer {
     combatants: Combatants,
   };
 
-  currentBeaconTargets = [];
+  protected eventEmitter!: EventEmitter;
+  protected combatants!: Combatants;
+
+  currentBeaconTargets: number[] = [];
   maxBeacons = 1;
 
-  hasBeacon(playerId) {
+  hasBeacon(playerId: number) {
     return this.currentBeaconTargets.includes(playerId);
   }
   get numBeaconsActive() {
@@ -29,7 +32,7 @@ class BeaconTargets extends Analyzer {
     return this.maxBeacons;
   }
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
       this.maxBeacons = 2;
@@ -41,7 +44,7 @@ class BeaconTargets extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (!BEACONS.includes(spellId)) {
       return;
@@ -66,6 +69,7 @@ class BeaconTargets extends Analyzer {
       );
     } else {
       debug &&
+        event.sourceID &&
         console.error(
           `Trying to assign a beacon to ${
             this.combatants.players[event.sourceID].name
@@ -74,7 +78,7 @@ class BeaconTargets extends Analyzer {
         );
     }
   }
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
     if (!BEACONS.includes(spellId)) {
       return;
