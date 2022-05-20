@@ -106,7 +106,6 @@ class ClarityOfMindEvang extends Analyzer {
 
   statistic() {
     const manaSaved = 0.2 * POWER_WORD_SHIELD_MANA_COST * this.raptureShields.length;
-    console.log(manaSaved);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
