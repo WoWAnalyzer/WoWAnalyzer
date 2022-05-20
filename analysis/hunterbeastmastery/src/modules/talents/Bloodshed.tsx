@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
 import Enemies from 'parser/shared/modules/Enemies';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

@@ -16,7 +16,6 @@ import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
 import DistanceMoved from '../shared/modules/DistanceMoved';
 import Enemies from '../shared/modules/Enemies';
-import EnemyInstances from '../shared/modules/EnemyInstances';
 import EventHistory from '../shared/modules/EventHistory';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
@@ -72,7 +71,6 @@ class CombatLogParser extends BaseCombatLogParser {
     combatPotionChecker: CombatPotionChecker,
 
     enemies: Enemies,
-    enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
     eventHistory: EventHistory,
@@ -98,10 +96,10 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Tabs
     raidHealthTab: RaidHealthTab,
-  };
 
-  static suggestions = [...BaseCombatLogParser.suggestions];
-  static statistics = [...BaseCombatLogParser.statistics, ManaGained];
+    // Migrated Functional Statistics
+    manaGained: ManaGained,
+  };
 }
 
 export default CombatLogParser;

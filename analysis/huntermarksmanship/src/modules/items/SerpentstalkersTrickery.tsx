@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Events, { CastEvent, DamageEvent, HasTarget, RemoveDebuffEvent } from 'parser/core/Events';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -44,6 +44,9 @@ class SerpentstalkersTrickery extends Analyzer {
   }
 
   onAimedShotCast(event: CastEvent) {
+    if (!HasTarget(event)) {
+      return;
+    }
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.aimedShotTargets.push(target);
   }

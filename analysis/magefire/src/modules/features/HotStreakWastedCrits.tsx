@@ -9,9 +9,10 @@ import Events, {
   DamageEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
+  HasTarget,
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from '@wowanalyzer/mage';
 
@@ -19,9 +20,9 @@ const debug = false;
 
 class HotStreakWastedCrits extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   hasPyromaniac: boolean;
   lastCastEvent?: CastEvent;
@@ -60,6 +61,9 @@ class HotStreakWastedCrits extends Analyzer {
   //Excludes the cleave from Phoenix Flames (the cleave doesnt contribute towards Hot Streak) and excludes crits immediately after Pyromaniac procs, cause the player cant do anything to prevent that.
   onDamage(event: DamageEvent) {
     if (!this.lastCastEvent) {
+      return;
+    }
+    if (!HasTarget(this.lastCastEvent)) {
       return;
     }
     const spellId = event.ability.guid;

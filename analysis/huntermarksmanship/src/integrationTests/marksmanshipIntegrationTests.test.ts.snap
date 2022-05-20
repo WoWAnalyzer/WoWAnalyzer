@@ -4585,20 +4585,11 @@ exports[`Marksmanship Hunter integration test: Multi Target DarkmoonDeckVoracity
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Darkmoon Deck: Voracity"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_inscription_darkmooncard_voracity.jpg"
             />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="https://wowhead.com/item=173087"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
              
             Darkmoon Deck: Voracity
           </a>
@@ -6522,7 +6513,7 @@ exports[`Marksmanship Hunter integration test: Multi Target WildSpirits matches 
             src="/img/sword.png"
           />
            
-          40k
+          39k
            
           <small>
              Wild Mark damage

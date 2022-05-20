@@ -6,7 +6,7 @@ import Events, {
   RemoveDebuffEvent,
   ApplyDebuffEvent,
 } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 class WoundTracker extends Analyzer {

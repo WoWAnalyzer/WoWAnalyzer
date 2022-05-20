@@ -1,7 +1,7 @@
 import type Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
-import { EventType } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { EventType, HasTarget } from 'parser/core/Events';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { Condition, tenseAlt } from '../index';
 import { buffDuration, DurationData, PandemicData } from './util';
@@ -61,6 +61,10 @@ export function debuffMissing(
       return state;
     },
     validate: (state, event, ruleSpell) => {
+      if (!HasTarget(event)) {
+        //No target so can't have debuff
+        return false;
+      }
       const encodedTargetString = encodeTargetString(event.targetID, event.targetInstance ?? 1);
       if (state === null || state[encodedTargetString] === undefined) {
         // debuff is missing

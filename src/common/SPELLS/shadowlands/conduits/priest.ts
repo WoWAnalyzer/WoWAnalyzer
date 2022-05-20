@@ -70,6 +70,11 @@ const conduits = {
     name: 'Translucent Image',
     icon: 'spell_nature_invisibilty',
   },
+  TRANSLUCENT_IMAGE_BUFF: {
+    id: 337661,
+    name: 'Translucent Image',
+    icon: 'spell_nature_invisibilty',
+  },
   //endregion
 
   //region Finesse Conduits

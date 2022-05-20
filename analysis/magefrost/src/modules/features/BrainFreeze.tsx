@@ -10,7 +10,7 @@ import Events, {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -22,11 +22,11 @@ const debug = false;
 
 class BrainFreeze extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
     eventHistory: EventHistory,
   };
   protected eventHistory!: EventHistory;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   usedProcs = 0;
   overwrittenProcs = 0;

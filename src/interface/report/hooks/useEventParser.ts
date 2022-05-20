@@ -122,6 +122,19 @@ const useEventParser = ({
       //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
       .sort((a, b) => a.timestamp - b.timestamp);
     benchEnd('normalizing events');
+    if (process.env.NODE_ENV !== 'production') {
+      // verify events
+      const types = new Set<string>(Object.values(EventType));
+      // cycle through events
+      result.forEach((event) => {
+        // do we have the type?
+        if (!types.has(event.type)) {
+          throw new Error(
+            `Unknown event type detected ${event.type} if you created a new type you will need to add it to Event.ts`,
+          );
+        }
+      });
+    }
     return result;
   }, [events, parser]);
 
