@@ -165,9 +165,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Theorycraft
     antlerVersusRylak: AntlerVersusRylak,
-  };
 
-  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
+    // apl
+    apl: AplCheck,
+  };
 }
 
 export default CombatLogParser;

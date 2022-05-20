@@ -79,6 +79,7 @@ export default [
   change(date(2022, 4, 15), 'Update tests to produce the same snapshot no matter the locale of running machine', nullDozzer),
   change(date(2022, 4, 15), 'Improved conduit statistics to use the equipped itemlevel for the link and tooltip.', nullDozzer),
   change(date(2022, 4, 10), 'Added Ravenous Frenzy to Restoration Druid', Trevor),
+  change(date(2022, 4, 8), 'Integrate functional analyzers into the analysis pipeline.', emallson),
   change(date(2022, 4, 8), 'Updated Augment Rune Checker to also tracker eteneral augment rune.', Abelito75),
   change(date(2022, 4, 7), 'Updated conduit ranks to assume the player has all empowered conduits unlocked.', xepheris),
   change(date(2022, 4, 7), 'Updated generated conduit information as of patch 9.2.5.43057', Putro),
