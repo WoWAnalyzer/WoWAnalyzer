@@ -326,6 +326,7 @@ class EventEmitter extends Module {
     }
 
     if (!this.eventTypes?.has(event.type)) {
+      console.log(event);
       throw new Error(
         `Unknown event type detected ${event.type} if you created a new type you will need to add it to Event.ts`,
       );

@@ -7,6 +7,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 
 export enum EventType {
+  Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
   Absorbed = 'absorbed',
