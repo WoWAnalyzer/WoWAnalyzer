@@ -192,7 +192,13 @@ class Results extends React.PureComponent<Props, State> {
           return this.renderLoadingIndicator();
         }
         const checklist = parser.getOptionalModule(Checklist);
-        return <Overview checklist={checklist && checklist.render()} issues={results.issues} />;
+        return (
+          <Overview
+            guide={parser.buildGuide()}
+            checklist={checklist && checklist.render()}
+            issues={results.issues}
+          />
+        );
       }
       case TABS.STATISTICS:
         if (this.isLoading || !results) {

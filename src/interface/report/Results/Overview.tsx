@@ -11,9 +11,10 @@ import Suggestions from './Suggestions';
 interface Props {
   checklist?: React.ReactNode;
   issues: Array<Issue | Suggestion>;
+  guide?: React.FC;
 }
 
-const Overview = ({ checklist, issues }: Props) => {
+const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
   const config = useConfig();
 
   let alert: ReactNode = null;
@@ -31,7 +32,11 @@ const Overview = ({ checklist, issues }: Props) => {
     );
   }
 
-  return (
+  return GuideComponent ? (
+    <div className="container">
+      <GuideComponent />
+    </div>
+  ) : (
     <div className="container">
       {alert}
 
