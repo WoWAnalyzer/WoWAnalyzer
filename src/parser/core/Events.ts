@@ -88,6 +88,10 @@ export enum EventType {
   AtonementRefreshImproper = 'atonement_refresh_improper',
   SpiritShell = 'spirit_shell',
 
+  // Paladin
+  BeaconApplied = 'beacon_applied',
+  BeaconRemoved = 'beacon_removed',
+
   //Shaman
   FeedHeal = 'feed_heal',
 
@@ -101,6 +105,10 @@ export enum EventType {
   // Time Filtering:
   FilterCooldownInfo = 'filtercooldowninfo',
   FilterBuffInfo = 'filterbuffinfo',
+
+  // Resource Caps
+  BeginResourceCap = 'beginresourcecap',
+  EndResourceCap = 'endresourcecap',
 }
 
 export interface AddStaggerEvent extends Event<EventType.AddStagger> {
