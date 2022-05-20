@@ -53,7 +53,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "98.76526554728024%",
+                  "width": "98.76859133327429%",
                 }
               }
             >
@@ -376,7 +376,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "79.90168278888649%",
+                      "width": "79.90954430262384%",
                     }
                   }
                 />
@@ -391,7 +391,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              79.90%
+              79.91%
             </td>
             <td
               style={
@@ -563,7 +563,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.81629343938503%",
+                      "width": "88.8489897507073%",
                     }
                   }
                 />
@@ -578,7 +578,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              88.82%
+              88.85%
             </td>
             <td
               style={
@@ -1176,6 +1176,161 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.items","message":"Item"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=330323"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Inscrutable Quantum Device
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.44
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              /2
+               casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "88.46557545507928%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              88.47%
             </td>
             <td
               style={
@@ -5100,6 +5255,169 @@ Array [
 ]
 `;
 
+exports[`Shadow Priest integration test: example log InscrutableQuantumDevice matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={1100}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="rareitem-link-text"
+            href="https://wowhead.com/item=179350&bonus=7213:6652:1501:5861:6646"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Inscrutable Quantum Device"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+            />
+             
+            Inscrutable Quantum Device
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          2
+           Uses 
+          <small>
+            2
+             possible
+          </small>
+        </div>
+      </div>
+      <div
+        className="pad"
+      >
+        <small>
+          ??? Effects
+        </small>
+        <div
+          className="donut-chart"
+        >
+          <div
+            className="legend"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#2f4b7c",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=330368&ilvl=203"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+                  />
+                   
+                  Haste
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  50
+                  %
+                </dfn>
+              </div>
+            </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#ffd11a",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="https://wowhead.com/spell=330372&ilvl=203"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_trinket_80_titan02a.jpg"
+                  />
+                   
+                  Decoy
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  50
+                  %
+                </dfn>
+              </div>
+            </div>
+          </div>
+          <div
+            className="chart"
+          >
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Shadow Priest integration test: example log ShadowCrash matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -6222,7 +6540,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.0245207373984%",
+                  "width": "81.0297565055475%",
                 }
               }
             />
@@ -6432,7 +6750,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  79.90%
+                  79.91%
                    
                    
                 </div>
@@ -6454,7 +6772,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "66.27260368699201%",
+                        "width": "66.29878252773744%",
                       }
                     }
                   />
@@ -6651,7 +6969,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  88.82%
+                  88.85%
                    
                    
                 </div>

@@ -9,8 +9,10 @@ import {
   FortifyingIngredients,
   GroundingBreath,
   HarmDenial,
+  InvokersDelight,
   TouchOfDeath,
   MysticTouch,
+  DampenHarm,
 } from '@wowanalyzer/monk';
 
 import Abilities from './modules/Abilities';
@@ -64,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
     checklist: Checklist,
     mysticTouch: MysticTouch,
+    dampenHarm: DampenHarm,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -87,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
+    invokersDelight: InvokersDelight,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,

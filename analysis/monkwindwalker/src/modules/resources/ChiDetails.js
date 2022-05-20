@@ -62,6 +62,7 @@ class ChiDetails extends Analyzer {
         size="small"
         position={STATISTIC_ORDER.CORE(1)}
         tooltip={<>{formatPercentage(this.chiWastedPercent)}% wasted</>}
+        drilldown="chi"
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.CHI}

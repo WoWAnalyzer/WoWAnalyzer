@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { isWildImp } from '../helpers';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';

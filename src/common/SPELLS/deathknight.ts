@@ -34,6 +34,14 @@ const spells = {
     icon: 'inv_weapon_shortblade_40',
   },
 
+  // T28 heart strike proc and also appears to be heart strike from DRW.
+  // Not sure if/when BLOOD_STRIKE is used instead?
+  HEART_STRIKE_PROC: {
+    id: 228645,
+    name: 'Heart Strike',
+    icon: 'inv_weapon_shortblade_40',
+  },
+
   BONESTORM_HIT: {
     id: 196528,
     name: 'Bonestorm',

@@ -5,7 +5,7 @@ import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';

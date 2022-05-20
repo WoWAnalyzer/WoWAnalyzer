@@ -5,7 +5,7 @@ import { SpellLink, SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -20,12 +20,12 @@ const MS_BUFFER = 100;
  */
 class Blindside extends Analyzer {
   static dependencies = {
-    enemyInstances: EnemyInstances,
+    enemies: Enemies,
   };
   casts = 0;
   badMutilates = 0;
 
-  protected enemyInstances!: EnemyInstances;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
@@ -53,8 +53,10 @@ class Blindside extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - MS_BUFFER)) {
       this.registerBadMutilate(event, 'you had a Blindside Proc');
     }
-    const target = this.enemyInstances.getEntity(event);
-    if (target && target.hpPercent < BLINDSIDE_EXECUTE) {
+    if (!event.hitPoints || !event.maxHitPoints) {
+      return;
+    }
+    if (event.hitPoints / event.maxHitPoints < BLINDSIDE_EXECUTE) {
       this.registerBadMutilate(event, `health of your target was < ${BLINDSIDE_EXECUTE}% `);
     }
   }

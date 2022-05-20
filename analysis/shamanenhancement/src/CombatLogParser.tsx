@@ -21,9 +21,11 @@ import WindfuryTotem from './modules/core/WindfuryTotem';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Enhancement Core
-// Talents
+// Legendaries and Tier
 import WitchDoctorWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
+import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
 import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
+// Talents
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
 import ElementalAssault from './modules/talents/ElementalAssault';
@@ -91,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     witchDoctorWolfBones: WitchDoctorWolfBones,
+    seedsOfRampantGrowth: SeedsOfRampantGrowth,
     // Tier
     tier28TwoSet: Tier28TwoSet,
   };

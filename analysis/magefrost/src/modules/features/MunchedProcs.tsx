@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -15,12 +15,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class MunchedProcs extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: EnemyInstances,
+    enemies: Enemies,
     eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
   protected eventHistory!: EventHistory;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
 
   munchedProcs = 0;
   totalFingersProcs = 0;

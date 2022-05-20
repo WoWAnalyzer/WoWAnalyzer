@@ -40,7 +40,17 @@ const legendaries = {
   //endregion
 
   //region Shared
-
+  SEEDS_OF_RAMPANT_GROWTH: {
+    id: 356218,
+    name: 'Seeds of Rampant Growth',
+    icon: 'spell_lifegivingseed',
+    bonusID: 7708,
+  },
+  SEEDS_OF_RAMPANT_GROWTH_BUFF: {
+    id: 358945,
+    name: 'Seeds of Rampant Growth',
+    icon: 'spell_lifegivingseed',
+  },
   //endregion
 } as const;
 export default legendaries;

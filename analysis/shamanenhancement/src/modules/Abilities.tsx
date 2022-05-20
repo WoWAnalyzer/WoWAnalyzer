@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-import { STORMSTRIKE_CAST_SPELLS_IDS } from '../constants';
+import { ESSENTIAL_EXTRACTION_EFFECT_BY_RANK, STORMSTRIKE_CAST_SPELLS_IDS } from '../constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -316,6 +317,19 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+      },
+      {
+        spell: SPELLS.FAE_TRANSFUSION.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown:
+          120 +
+          ESSENTIAL_EXTRACTION_EFFECT_BY_RANK[
+            combatant.conduitRankBySpellID(SPELLS.ESSENTIAL_EXTRACTION.id)
+          ],
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
     ];
   }

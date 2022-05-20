@@ -538,7 +538,7 @@
   "mage.shared.suggestions.arcaneIntellect.uptime": "{0}% Uptime",
   "mage.shared.suggestions.castsCancelled": "{0}% casts cancelled",
   "mage.shared.suggestions.focusMagic.uptime": "{0}% Focus Magic Uptime",
-  "mage.shared.suggestions.runeOfPower.utilization": "Average ${0}s standing in each Rune of Power",
+  "mage.shared.suggestions.runeOfPower.utilization": "Average {0}s standing in each Rune of Power",
   "monk.brewmaster.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "monk.brewmaster.suggestions.blackOxBrew.cdrWasted": "{0}% of Cooldown Reduction wasted",
   "monk.brewmaster.suggestions.blackoutCombo.wasted": "{0}% unused",

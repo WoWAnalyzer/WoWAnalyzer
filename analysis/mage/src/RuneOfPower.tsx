@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, SummonEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -167,7 +167,7 @@ class RuneOfPower extends Analyzer {
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
           .actual(
             <Trans id="mage.shared.suggestions.runeOfPower.utilization">
-              Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power
+              Average {this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power
             </Trans>,
           )
           .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`),

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import conduitScaling from 'parser/core/conduitScaling';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';

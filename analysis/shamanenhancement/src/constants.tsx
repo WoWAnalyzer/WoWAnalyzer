@@ -12,3 +12,22 @@ export const STORMSTRIKE_DAMAGE_SPELLS = [
 ];
 
 export const STORMSTRIKE_COEFFICIENT = 1.074; // 107.4%
+
+export const ESSENTIAL_EXTRACTION_EFFECT_BY_RANK = [
+  0,
+  -25,
+  -26,
+  -27,
+  -28,
+  -29,
+  -30,
+  -31,
+  -33,
+  -34,
+  -35,
+  -36,
+  -37,
+  -38,
+  -39,
+  -40,
+];

@@ -4,7 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
