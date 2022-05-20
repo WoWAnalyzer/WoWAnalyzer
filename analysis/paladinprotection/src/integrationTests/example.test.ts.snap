@@ -3824,6 +3824,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              56
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              11
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={
@@ -4130,6 +4161,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              51
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              17
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={

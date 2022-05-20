@@ -1,6 +1,6 @@
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 
 /**
  * This analyzer adds the cost of a specific resource type to cast events, and allows that cost to
@@ -15,12 +15,17 @@ import Events from 'parser/core/Events';
  * Check the "IMPLEMENTME" comments for what typically needs to be customised.
  */
 class SpellResourceCost extends Analyzer {
-  // IMPLEMENTME set to one of game/RESOURCE_TYPES
-  static resourceType = null;
+  /** IMPLEMENTME set to one of game/RESOURCE_TYPES */
+  static resourceType: Resource = null!;
 
-  constructor(...args) {
-    super(...args);
-    if (!this.constructor.resourceType || !RESOURCE_TYPES[this.constructor.resourceType.id]) {
+  protected get resourceType() {
+    const constructor = this.constructor as typeof SpellResourceCost;
+    return constructor.resourceType;
+  }
+
+  constructor(options: Options) {
+    super(options);
+    if (!this.resourceType || !RESOURCE_TYPES[this.resourceType.id]) {
       throw new Error(
         'Attempting to use SpellResourceCost without providing a valid resourceType.',
       );
@@ -28,24 +33,24 @@ class SpellResourceCost extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  onCast(event) {
+  private onCast(event: CastEvent) {
     if (!event.resourceCost) {
       event.resourceCost = {};
     }
-    event.resourceCost[this.constructor.resourceType.id] = this.getResourceCost(event);
+    event.resourceCost[this.resourceType.id] = this.getResourceCost(event);
 
     if (!event.rawResourceCost) {
       event.rawResourceCost = {};
     }
-    event.rawResourceCost[this.constructor.resourceType.id] = this.getRawResourceCost(event);
+    event.rawResourceCost[this.resourceType.id] = this.getRawResourceCost(event);
   }
 
-  getCostFromEventObject(event) {
+  protected getCostFromEventObject(event: CastEvent) {
     if (!event.classResources) {
       return 0;
     }
     return event.classResources
-      .filter((resource) => resource.type === this.constructor.resourceType.id)
+      .filter((resource) => resource.type === this.resourceType.id)
       .reduce((totalCost, resource) => totalCost + (resource.cost || 0), 0);
   }
 
@@ -58,7 +63,7 @@ class SpellResourceCost extends Analyzer {
    * If the cost is provided in a modified state (e.g. 10x the actual value) you can correct that.
    * @param {object} event cast event which consumes resources
    */
-  getRawResourceCost(event) {
+  protected getRawResourceCost(event: CastEvent) {
     return this.getCostFromEventObject(event);
   }
 
@@ -67,7 +72,7 @@ class SpellResourceCost extends Analyzer {
    * Apply any resource cost adjustments here.
    * @param {object} event cast event which consumes resources
    */
-  getResourceCost(event) {
+  protected getResourceCost(event: CastEvent) {
     return this.getRawResourceCost(event);
   }
 }
