@@ -3,7 +3,7 @@ import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import PropTypes from 'prop-types';
-import { Component, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 
 import { EventsParseError } from './report/hooks/useEventParser';
 
@@ -50,7 +50,7 @@ interface State {
   errorDetails?: string;
 }
 
-class RootErrorBoundary extends Component<Props, State> {
+class RootErrorBoundary extends React.PureComponent<Props, State> {
   static propTypes = {
     children: PropTypes.node,
   };
@@ -72,6 +72,12 @@ class RootErrorBoundary extends Component<Props, State> {
   componentWillUnmount() {
     window.removeEventListener('error', this.handleErrorEvent);
     window.removeEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
+  }
+
+  componentDidCatch(error: Error, { componentStack }: ErrorInfo) {
+    // we don't call captureException here because it will be called by the child ErrorBoundary
+    // this boundary exists primarily for dev mode.
+    this.error(error, componentStack);
   }
 
   handleErrorEvent(event: ErrorEvent) {
