@@ -98,11 +98,11 @@ function CoalescingMicroTimeline({
 function blockSize(numValues: number, refWidth: number): number | 'coalesce' {
   const size = refWidth / numValues - 1;
 
-  if (size < 6) {
+  if (size < 5) {
     return 'coalesce';
   }
 
-  return Math.min(Math.floor(size), 6);
+  return Math.min(Math.floor(size), 8);
 }
 
 function MicroTimeline({ values, onHover }: MicroTimelineProps) {
