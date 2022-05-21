@@ -1,0 +1,38 @@
+.hits-list {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: start;
+  column-gap: 1em;
+
+  dt {
+    font-weight: normal;
+  }
+
+  .pass-fail-counts {
+    text-align: right;
+  }
+
+  .pass-fail-bar-container {
+    display: inline-block;
+    width: 10em;
+
+    & > div {
+      display: inline-block;
+      height: 1em;
+    }
+
+    .pass-bar {
+      border-radius: 2px 0 0 2px;
+      background-color: hsl(120, 47.5%, 52.9%);
+    }
+
+    .pass-bar:only-child {
+      border-radius: 2px;
+    }
+
+    .fail-bar {
+      border-radius: 0 2px 2px 0;
+      background-color: hsl(348.9, 69.5%, 39.8%);
+    }
+  }
+}
