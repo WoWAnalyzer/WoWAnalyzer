@@ -13,34 +13,56 @@ import { TrackedHit } from './modules/spells/Shuffle';
 type Segment = {
   value: boolean;
   width: number;
+  startIx: number;
 };
+
+type MicroTimelineProps = {
+  values: boolean[];
+  onHover?: (indices: number[]) => void;
+};
+
+function range(start: number, end: number): number[] {
+  return Array.from({ length: end - start }, (_x, i) => i + start);
+}
 
 function CoalescingMicroTimeline({
   values,
+  onHover,
   onRender,
-}: {
-  values: boolean[];
+}: MicroTimelineProps & {
   onRender: (node: HTMLDivElement) => void;
 }) {
   const initialValue: {
+    startIx?: number;
     currentValue?: boolean;
     currentLength: number;
     segments: Segment[];
   } = { currentLength: 0, segments: [] };
-  const { segments, currentValue, currentLength } =
+  const { segments, currentValue, currentLength, startIx } =
     values.length === 0
-      ? { segments: [{ value: true, width: 1 }], currentLength: 0, currentValue: undefined }
-      : values.reduce(({ currentValue, currentLength, segments }, value) => {
+      ? {
+          segments: [{ value: true, width: 1, startIx: 0 }],
+          currentLength: 0,
+          currentValue: undefined,
+          startIx: undefined,
+        }
+      : values.reduce(({ startIx, currentValue, currentLength, segments }, value, ix) => {
           if (value !== currentValue) {
             currentLength > 0 &&
-              segments.push({ value: currentValue!, width: currentLength / values.length });
+              segments.push({
+                startIx: startIx!,
+                value: currentValue!,
+                width: currentLength,
+              });
             return {
               currentLength: 1,
               currentValue: value,
               segments,
+              startIx: ix,
             };
           } else {
             return {
+              startIx,
               currentLength: currentLength + 1,
               currentValue,
               segments,
@@ -48,18 +70,24 @@ function CoalescingMicroTimeline({
           }
         }, initialValue);
 
-  if (currentLength > 0 && currentValue !== undefined) {
-    segments.push({ value: currentValue, width: currentLength / values.length });
+  if (currentLength > 0) {
+    segments.push({
+      value: currentValue!,
+      width: currentLength,
+      startIx: startIx!,
+    });
   }
 
   return (
     <div className="micro-timeline-coalescing" ref={onRender}>
-      {segments.map(({ value, width }, ix) => (
+      {segments.map(({ value, width, startIx }, ix) => (
         <div
           style={{
-            width: `${width * 100}%`,
+            width: `${(width / (values.length ?? 1)) * 100}%`,
             backgroundColor: colorForPerformance(value ? 1 : 0),
           }}
+          onMouseEnter={() => onHover?.(range(startIx, startIx + width))}
+          onMouseLeave={() => onHover?.([])}
           key={ix}
         ></div>
       ))}
@@ -69,25 +97,23 @@ function CoalescingMicroTimeline({
 
 function blockSize(numValues: number, refWidth: number): number | 'coalesce' {
   const size = refWidth / numValues - 1;
-  console.log(numValues, refWidth, size);
 
-  if (size < 4) {
+  if (size < 6) {
     return 'coalesce';
   }
 
   return Math.min(Math.floor(size), 6);
 }
 
-function MicroTimeline({ values }: { values: boolean[] }) {
+function MicroTimeline({ values, onHover }: MicroTimelineProps) {
   const [refWidth, setRefWidth] = useState(800);
   const ref = useCallback((node: HTMLDivElement) => {
-    console.log(node);
     node && setRefWidth(node.getBoundingClientRect().width);
   }, []);
   const size = blockSize(values.length, refWidth);
 
   if (size === 'coalesce') {
-    return <CoalescingMicroTimeline values={values} onRender={ref} />;
+    return <CoalescingMicroTimeline values={values} onRender={ref} onHover={onHover} />;
   }
 
   return (
@@ -95,6 +121,8 @@ function MicroTimeline({ values }: { values: boolean[] }) {
       {values.map((value, ix) => (
         <div
           key={ix}
+          onMouseEnter={() => onHover?.([ix])}
+          onMouseLeave={() => onHover?.([])}
           style={{
             backgroundColor: colorForPerformance(value ? 1 : 0),
             width: size,
@@ -120,16 +148,28 @@ type HitData = {
   ability: DamageEvent['ability'];
   total: number;
   pass: number;
+  focused: boolean;
 };
 
-function HitsList({ hits, style }: { hits: TrackedHit[]; style?: React.CSSProperties }) {
-  const byAbility = hits.reduce<{ [key: number]: HitData }>((byAbility, { event, mitigated }) => {
+function HitsList({
+  hits,
+  style,
+  focusedHits,
+}: {
+  hits: TrackedHit[];
+  style?: React.CSSProperties;
+  focusedHits: Set<TrackedHit>;
+}) {
+  const byAbility = hits.reduce<{ [key: number]: HitData }>((byAbility, hit) => {
+    const { event, mitigated } = hit;
     const datum = byAbility[event.ability.guid] ?? {
       ability: event.ability,
       total: 0,
       pass: 0,
+      focused: false,
     };
 
+    datum.focused = datum.focused || focusedHits.has(hit);
     datum.total += 1;
     datum.pass += mitigated ? 1 : 0;
 
@@ -142,13 +182,15 @@ function HitsList({ hits, style }: { hits: TrackedHit[]; style?: React.CSSProper
     <dl className="hits-list" style={style}>
       {Object.values(byAbility)
         .sort((a, b) => b.total - a.total)
-        .map(({ ability, total, pass }) => (
+        .map(({ ability, total, pass, focused }) => (
           <>
-            <dt>{ability.guid > 1 ? <SpellLink id={ability.guid} /> : ability.name}</dt>
-            <dd className="pass-fail-counts">
+            <dt className={focused ? 'focused' : ''}>
+              {ability.guid > 1 ? <SpellLink id={ability.guid} /> : ability.name}
+            </dt>
+            <dd className={`pass-fail-counts ${focused ? 'focused' : ''}`}>
               {pass} / {total}
             </dd>
-            <dd>
+            <dd className={focused ? 'focused' : ''}>
               <PassFailBar pass={pass} total={total} />
             </dd>
           </>
@@ -158,6 +200,8 @@ function HitsList({ hits, style }: { hits: TrackedHit[]; style?: React.CSSProper
 }
 
 export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
+  const [focusedHits, setFocusedHits] = useState<Set<TrackedHit>>(new Set());
+
   return (
     <>
       <Section title="Stagger Management">
@@ -182,8 +226,19 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           <SpellLink id={SPELLS.SHUFFLE.id} /> active is very dangerous&mdash;and in many cases
           lethal.
           <SubSection title="Hits with Shuffle Active">
-            <MicroTimeline values={modules.shuffle.hits.map(({ mitigated }) => mitigated)} />
-            <HitsList hits={modules.shuffle.hits} style={{ marginTop: '1em' }} />
+            <MicroTimeline
+              values={modules.shuffle.hits.map(({ mitigated }) => mitigated)}
+              onHover={(indices) =>
+                setFocusedHits(
+                  new Set(modules.shuffle.hits.filter((_, ix) => indices.includes(ix))),
+                )
+              }
+            />
+            <HitsList
+              focusedHits={focusedHits}
+              hits={modules.shuffle.hits}
+              style={{ marginTop: '1em' }}
+            />
           </SubSection>
         </SubSection>
       </Section>
