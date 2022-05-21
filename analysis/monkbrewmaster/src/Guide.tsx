@@ -2,10 +2,13 @@ import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
+import { DamageEvent } from 'parser/core/Events';
 import { useCallback, useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
+import './HitsList.scss';
+import { TrackedHit } from './modules/spells/Shuffle';
 
 type Segment = {
   value: boolean;
@@ -103,6 +106,57 @@ function MicroTimeline({ values }: { values: boolean[] }) {
   );
 }
 
+function PassFailBar({ pass, total }: { pass: number; total: number }) {
+  const perf = pass / total;
+  return (
+    <div className="pass-fail-bar-container">
+      <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />
+      {perf < 1 && <div className="fail-bar" style={{ minWidth: `${(1 - perf) * 100}%` }} />}
+    </div>
+  );
+}
+
+type HitData = {
+  ability: DamageEvent['ability'];
+  total: number;
+  pass: number;
+};
+
+function HitsList({ hits, style }: { hits: TrackedHit[]; style?: React.CSSProperties }) {
+  const byAbility = hits.reduce<{ [key: number]: HitData }>((byAbility, { event, mitigated }) => {
+    const datum = byAbility[event.ability.guid] ?? {
+      ability: event.ability,
+      total: 0,
+      pass: 0,
+    };
+
+    datum.total += 1;
+    datum.pass += mitigated ? 1 : 0;
+
+    byAbility[event.ability.guid] = datum;
+
+    return byAbility;
+  }, {});
+
+  return (
+    <dl className="hits-list" style={style}>
+      {Object.values(byAbility)
+        .sort((a, b) => b.total - a.total)
+        .map(({ ability, total, pass }) => (
+          <>
+            <dt>{ability.guid > 1 ? <SpellLink id={ability.guid} /> : ability.name}</dt>
+            <dd className="pass-fail-counts">
+              {pass} / {total}
+            </dd>
+            <dd>
+              <PassFailBar pass={pass} total={total} />
+            </dd>
+          </>
+        ))}
+    </dl>
+  );
+}
+
 export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
@@ -129,6 +183,7 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           lethal.
           <SubSection title="Hits with Shuffle Active">
             <MicroTimeline values={modules.shuffle.hits.map(({ mitigated }) => mitigated)} />
+            <HitsList hits={modules.shuffle.hits} style={{ marginTop: '1em' }} />
           </SubSection>
         </SubSection>
       </Section>
