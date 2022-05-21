@@ -1,9 +1,12 @@
 @import 'interface/Theme';
 
 .guide-container {
+  section {
+    margin: initial;
+  }
   & > section {
     & > .meta > header {
-      font-size: 20px;
+      font-size: 24px;
       padding: 1rem 2rem;
       font-weight: bold;
       background-color: #333a;
@@ -12,10 +15,17 @@
 
   & .subsection {
     header {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: bold;
       padding: 1rem 0;
       border-top: 1px solid #333a;
+    }
+
+    & .subsection {
+      header {
+        font-size: 16px;
+        border-top: none;
+      }
     }
   }
 }
