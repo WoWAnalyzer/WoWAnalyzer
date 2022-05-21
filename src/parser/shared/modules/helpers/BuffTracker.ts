@@ -1,39 +1,33 @@
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 
+/**
+ * This only tracks buffs ON the selected combatant.
+ * This only listens for buffs the player applies to themself.
+ * This works based on order of events not timestamps meaning it can handle same millisecond apply and remove events
+ */
 class BuffTracker extends Analyzer {
-
   activeBuffs: Set<number> = new Set<number>();
 
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER),
-      this._applyBuff,
-    );
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this._applyBuff);
 
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER),
-      this._applyBuffStack,
-    );
+    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER), this._applyBuffStack);
 
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER),
-      this._removeBuff,
-    );
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this._removeBuff);
 
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER),
-      this._removeBuffStack,
-    );
+    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER), this._removeBuffStack);
 
-    // when you die you lose all buffs 
-    this.addEventListener(
-      Events.death.by(SELECTED_PLAYER),
-      this.removeAllBuffs,
-    )
+    // when you die you lose all buffs
+    this.addEventListener(Events.death.by(SELECTED_PLAYER), this.removeAllBuffs);
   }
 
   _applyBuff(event: ApplyBuffEvent) {
@@ -70,7 +64,7 @@ class BuffTracker extends Analyzer {
   }
 
   addBuffs(buffs: number[] | Spell[]): void {
-    buffs.forEach(buff => this.addBuff(buff)); 
+    buffs.forEach((buff) => this.addBuff(buff));
   }
 
   removeBuff(buff: number | Spell): void {
@@ -78,7 +72,7 @@ class BuffTracker extends Analyzer {
   }
 
   removeBuffs(buffs: number[] | Spell[]): void {
-    buffs.forEach(buff => this.removeBuff(buff));
+    buffs.forEach((buff) => this.removeBuff(buff));
   }
 
   removeAllBuffs() {
