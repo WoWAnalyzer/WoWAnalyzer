@@ -45,7 +45,7 @@ describe('Core/Analyzer', () => {
       class MyModule extends Analyzer {
         constructor(options) {
           super(options);
-          this.addEventListener('success', this.onSuccess);
+          this.addEventListener(Events.test, this.onSuccess);
         }
         onSuccess() {
           onSuccess();
@@ -53,7 +53,7 @@ describe('Core/Analyzer', () => {
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'success',
+        type: 'test',
       });
       expect(onSuccess).toBeCalled();
     });
@@ -61,7 +61,7 @@ describe('Core/Analyzer', () => {
       class MyModule extends Analyzer {}
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'success',
+        type: 'test',
       });
       // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
     });
@@ -266,7 +266,7 @@ describe('Core/Analyzer', () => {
       class MyModule extends Analyzer {
         constructor(options) {
           super(options);
-          this.addEventListener('success', this.onSuccess);
+          this.addEventListener(Events.test, this.onSuccess);
         }
         onSuccess() {
           onSuccess.call(this);
@@ -274,7 +274,7 @@ describe('Core/Analyzer', () => {
       }
       parser.loadModule(MyModule);
       eventEmitter.triggerEvent({
-        type: 'success',
+        type: 'test',
       });
       expect(onSuccess.mock.instances[0]).toBe(parser.getModule(MyModule));
     });

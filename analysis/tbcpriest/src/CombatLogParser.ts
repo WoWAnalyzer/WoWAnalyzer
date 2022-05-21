@@ -43,12 +43,9 @@ class CombatLogParser extends BaseCombatLogParser {
     prayerOfHealing: PrayerOfHealing,
 
     checklist: Checklist,
-  };
 
-  static suggestions = [
-    ...BaseCombatLogParser.suggestions,
-    lowRankSpellsSuggestion(lowRankSpells, whitelist),
-  ];
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
+  };
 }
 
 export default CombatLogParser;

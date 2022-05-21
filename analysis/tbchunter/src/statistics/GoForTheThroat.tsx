@@ -1,7 +1,7 @@
 import { formatThousands } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { FunctionalStatisticProps } from 'parser/core/metric';
+import { statistic } from 'parser/core/Analyzer';
 import resourceGained, { sumResourceGainedBySpell } from 'parser/shared/metrics/resourceGained';
 import resourceWasted, { sumResourceWastedBySpell } from 'parser/shared/metrics/resourceWasted';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -10,10 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 const INVIGORATION = 34953;
 const GO_FOR_THE_THROAT = 34954;
 
-const GoForTheThroat = ({
-  events,
-  info: { fightDuration, playerId, fightId, reportCode },
-}: FunctionalStatisticProps) => {
+const GoForTheThroat = statistic((events, { fightDuration, playerId, fightId, reportCode }) => {
   const focusGained = sumResourceGainedBySpell(
     resourceGained(events),
     RESOURCE_TYPES.FOCUS.id,
@@ -49,6 +46,6 @@ const GoForTheThroat = ({
       </BoringSpellValueText>
     </Statistic>
   );
-};
+});
 
 export default GoForTheThroat;
