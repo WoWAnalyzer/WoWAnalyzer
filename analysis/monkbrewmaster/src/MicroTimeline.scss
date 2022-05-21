@@ -1,0 +1,13 @@
+.micro-timeline-coalescing {
+  & > * {
+    display: inline-block;
+    height: 6px;
+  }
+}
+
+.micro-timeline-block {
+  display: grid;
+  gap: 1px;
+  grid-auto-flow: column;
+  justify-content: start;
+}

@@ -3141,7 +3141,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
           className="flex-main value"
         >
           <div>
-            55.93 %
+            62.79 %
           </div>
           <small>
             Hits Mitigated w/ Consecration
@@ -3162,7 +3162,7 @@ Array [
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"paladin.protection.suggestions.consecration.hitsMitigated","message":"{0}% of hits were mitigated by Consecration","values":{"0":"55.93"}}
+      {"id":"paladin.protection.suggestions.consecration.hitsMitigated","message":"{0}% of hits were mitigated by Consecration","values":{"0":"62.79"}}
        (
       &gt;95.00% is recommended
       )
@@ -5115,7 +5115,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "26.929353001993373%",
+                  "width": "27.253196930946295%",
                 }
               }
             />
@@ -5449,7 +5449,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  55.93%
+                  62.79%
                    
                    
                 </div>
@@ -5471,7 +5471,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.281779661016948%",
+                        "width": "26.136627906976745%",
                       }
                     }
                   />
