@@ -2,7 +2,7 @@ import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import { useRef } from 'react';
+import { useCallback, useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
@@ -12,7 +12,13 @@ type Segment = {
   width: number;
 };
 
-function CoalescingMicroTimeline({ values }: { values: boolean[] }) {
+function CoalescingMicroTimeline({
+  values,
+  onRender,
+}: {
+  values: boolean[];
+  onRender: (node: HTMLDivElement) => void;
+}) {
   const initialValue: {
     currentValue?: boolean;
     currentLength: number;
@@ -44,7 +50,7 @@ function CoalescingMicroTimeline({ values }: { values: boolean[] }) {
   }
 
   return (
-    <div className="micro-timeline-coalescing">
+    <div className="micro-timeline-coalescing" ref={onRender}>
       {segments.map(({ value, width }, ix) => (
         <div
           style={{
@@ -58,8 +64,9 @@ function CoalescingMicroTimeline({ values }: { values: boolean[] }) {
   );
 }
 
-function blockSize(numValues: number, refWidth: number = 800): number | 'coalesce' {
+function blockSize(numValues: number, refWidth: number): number | 'coalesce' {
   const size = refWidth / numValues - 1;
+  console.log(numValues, refWidth, size);
 
   if (size < 4) {
     return 'coalesce';
@@ -69,11 +76,15 @@ function blockSize(numValues: number, refWidth: number = 800): number | 'coalesc
 }
 
 function MicroTimeline({ values }: { values: boolean[] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const size = blockSize(values.length, ref.current?.clientWidth);
+  const [refWidth, setRefWidth] = useState(800);
+  const ref = useCallback((node: HTMLDivElement) => {
+    console.log(node);
+    node && setRefWidth(node.getBoundingClientRect().width);
+  }, []);
+  const size = blockSize(values.length, refWidth);
 
   if (size === 'coalesce') {
-    return <CoalescingMicroTimeline values={values} />;
+    return <CoalescingMicroTimeline values={values} onRender={ref} />;
   }
 
   return (
