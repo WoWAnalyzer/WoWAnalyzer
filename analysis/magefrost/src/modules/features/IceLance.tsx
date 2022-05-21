@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,12 +17,12 @@ import { MS_BUFFER_100, SHATTER_DEBUFFS } from '@wowanalyzer/mage';
 
 class IceLance extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
     abilityTracker: AbilityTracker,
     eventHistory: EventHistory,
     spellUsable: SpellUsable,
   };
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
   protected abilityTracker!: AbilityTracker;
   protected eventHistory!: EventHistory;
   protected spellUsable!: SpellUsable;

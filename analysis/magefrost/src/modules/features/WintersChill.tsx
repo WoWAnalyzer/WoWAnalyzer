@@ -12,7 +12,7 @@ import Events, {
   FightEndEvent,
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import Enemies from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -44,10 +44,10 @@ const debug = false;
 
 class WintersChill extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemies: Enemies,
     eventHistory: EventHistory,
   };
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
 
   hasGlacialSpike: boolean;

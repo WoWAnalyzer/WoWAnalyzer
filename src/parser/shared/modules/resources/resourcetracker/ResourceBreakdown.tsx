@@ -53,6 +53,8 @@ class ResourceBreakdown extends Component<Props> {
     totalSpent = totalSpent === 0 ? 1 : totalSpent;
     totalCasts = totalCasts === 0 ? 1 : totalCasts;
 
+    const numberColumnStyle = { width: 50, paddingRight: 5, textAlign: 'center' } as const;
+
     return (
       <>
         <table className="data-table">
@@ -68,13 +70,20 @@ class ResourceBreakdown extends Component<Props> {
             </tr>
           </thead>
           <tbody>
+            <tr className="poor">
+              <td>Total</td>
+              <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
+              <td></td>
+              <td style={numberColumnStyle}>{tracker.wasted}</td>
+              <td></td>
+            </tr>
             {generated &&
               generated.map((ability) => (
                 <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.abilityId} />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                  <td style={numberColumnStyle}>
                     <TooltipElement
                       content={`${formatPercentage(ability.generated / totalGenerated)} %`}
                     >
@@ -87,7 +96,7 @@ class ResourceBreakdown extends Component<Props> {
                       style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                  <td style={numberColumnStyle}>
                     <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>
                       {ability.wasted.toFixed(0)}
                     </TooltipElement>
@@ -112,13 +121,20 @@ class ResourceBreakdown extends Component<Props> {
               </tr>
             </thead>
             <tbody>
+              <tr className="poor">
+                <td>Total</td>
+                <td style={numberColumnStyle}>{tracker.spent.toFixed(0)}</td>
+                <td></td>
+                <td style={numberColumnStyle}>{tracker.spendersCasts}</td>
+                <td></td>
+              </tr>
               {spent &&
                 spent.map((ability) => (
                   <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
                       <SpellLink id={ability.abilityId} />
                     </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                    <td style={numberColumnStyle}>
                       <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>
                         {ability.spent.toFixed(0)}
                       </TooltipElement>
@@ -129,7 +145,7 @@ class ResourceBreakdown extends Component<Props> {
                         style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                       />
                     </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                    <td style={numberColumnStyle}>
                       <TooltipElement content={`${formatPercentage(ability.casts / totalCasts)} %`}>
                         {ability.casts}
                       </TooltipElement>

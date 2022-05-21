@@ -1,6 +1,6 @@
 import type Spell from 'common/SPELLS/Spell';
 import { HasAbility, HasTarget, EventType } from 'parser/core/Events';
-import { encodeEventTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 import { tenseAlt, Condition } from '../index';
 import { Range, formatRange } from './index';

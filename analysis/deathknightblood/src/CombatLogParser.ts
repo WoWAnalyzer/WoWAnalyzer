@@ -9,6 +9,7 @@ import {
   Superstrain,
   SwarmingMist,
   DeathsDue,
+  EternalHunger,
 } from '@wowanalyzer/deathknight';
 
 import Abilities from './modules/Abilities';
@@ -29,11 +30,12 @@ import InitialMarrowrendCast from './modules/features/InitialMarrowrendCast';
 import MarrowrendUsage from './modules/features/MarrowrendUsage';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Ossuary from './modules/features/Ossuary';
-import BrynadaorsMight from './modules/items/BrynadaorsMight';
-import CrimsonRuneWeapon from './modules/items/CrimsonRuneWeapon';
-import EndlessRuneWaltz from './modules/items/EndlessRuneWaltz';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
+import WitheringPlague from './modules/shadowlands/conduits/WitheringPlague';
+import BrynadaorsMight from './modules/shadowlands/legendaries/BrynadaorsMight';
+import CrimsonRuneWeapon from './modules/shadowlands/legendaries/CrimsonRuneWeapon';
+import EndlessRuneWaltz from './modules/shadowlands/tier28/EndlessRuneWaltz';
 import Bloodworms from './modules/talents/Bloodworms';
 import BoneStorm from './modules/talents/Bonestorm';
 import Consumption from './modules/talents/Consumption';
@@ -111,6 +113,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     swarmingMist: SwarmingMist,
     deathsDue: DeathsDue,
+
+    // Conduits
+    eternalHunger: EternalHunger,
+    witheringPlague: WitheringPlague,
   };
 }
 

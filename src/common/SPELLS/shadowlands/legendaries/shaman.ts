@@ -1,7 +1,12 @@
 //https://www.raidbots.com/static/data/live/bonuses.json
 const legendaries = {
   //region Enhancement
-
+  WITCH_DOCTORS_WOLF_BONES: {
+    id: 335897,
+    name: "Witch Doctor's Wolf Bones",
+    icon: 'inv_misc_bone_09',
+    bonusID: 6995,
+  },
   //endregion
 
   //region Elemental
@@ -35,7 +40,17 @@ const legendaries = {
   //endregion
 
   //region Shared
-
+  SEEDS_OF_RAMPANT_GROWTH: {
+    id: 356218,
+    name: 'Seeds of Rampant Growth',
+    icon: 'spell_lifegivingseed',
+    bonusID: 7708,
+  },
+  SEEDS_OF_RAMPANT_GROWTH_BUFF: {
+    id: 358945,
+    name: 'Seeds of Rampant Growth',
+    icon: 'spell_lifegivingseed',
+  },
   //endregion
 } as const;
 export default legendaries;

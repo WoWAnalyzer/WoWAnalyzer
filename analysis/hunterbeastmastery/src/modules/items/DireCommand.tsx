@@ -4,7 +4,7 @@ import { SpellLink } from 'interface';
 import Haste from 'interface/icons/Haste';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeEventSourceString, encodeTargetString } from 'parser/shared/modules/Enemies';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -61,7 +61,10 @@ class DireCommand extends Analyzer {
   }
 
   onPetDamage(event: DamageEvent) {
-    const sourceId: string = encodeTargetString(event.sourceID);
+    const sourceId = encodeEventSourceString(event);
+    if (!sourceId) {
+      return;
+    }
     if (this.activeDireBeasts.includes(sourceId)) {
       this.damage += event.amount + (event.absorbed || 0);
     }

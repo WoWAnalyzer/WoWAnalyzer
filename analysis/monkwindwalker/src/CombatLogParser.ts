@@ -8,7 +8,9 @@ import {
   FaelineHarmony,
   SinisterTeachings,
   ImbuedReflections,
+  InvokersDelight,
   MysticTouch,
+  DampenHarm,
 } from '@wowanalyzer/monk';
 
 // Features
@@ -30,6 +32,7 @@ import XuensBattlegear from './modules/items/XuensBattlegear';
 import ChiDetails from './modules/resources/ChiDetails';
 import ChiTracker from './modules/resources/ChiTracker';
 import EnergyCapTracker from './modules/resources/EnergyCapTracker';
+import SpellChiCost from './modules/resources/SpellChiCost';
 // Spells
 import BlackoutKick from './modules/spells/BlackoutKick';
 import ComboBreaker from './modules/spells/ComboBreaker';
@@ -63,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     chiTracker: ChiTracker,
     chiDetails: ChiDetails,
     energyCapTracker: EnergyCapTracker,
+    spellChiCost: SpellChiCost,
 
     // Talents:
     danceOfChiJi: DanceOfChiJi,
@@ -77,9 +81,11 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+    dampenHarm: DampenHarm,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
+    invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
 

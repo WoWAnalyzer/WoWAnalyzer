@@ -1,14 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
+  HasTarget,
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -58,6 +59,9 @@ class HydrasBite extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    if (!HasTarget(event)) {
+      return;
+    }
     const target = encodeTargetString(event.targetID, event.targetInstance);
     this.mainTargets.push(target);
     this.casts += 1;

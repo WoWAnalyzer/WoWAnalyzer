@@ -95,9 +95,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shadowlands
     signetofTormentedKings: SignetOfTormentedKings,
-  };
 
-  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
+    apl: AplCheck,
+  };
 }
 
 export default CombatLogParser;

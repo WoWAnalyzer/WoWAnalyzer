@@ -27,6 +27,18 @@ const conduits = {
     name: 'Convocation of the Dead',
     icon: 'ability_deathknight_deathsiphon2',
   },
+
+  ETERNAL_HUNGER: {
+    id: 337381,
+    name: 'Eternal Hunger',
+    icon: 'inv_artifact_stolenpower',
+  },
+
+  WITHERING_PLAGUE: {
+    id: 337884,
+    name: 'Withering Plague',
+    icon: 'spell_holiday_tow_spicecloud',
+  },
   //endregion
 } as const;
 export default conduits;

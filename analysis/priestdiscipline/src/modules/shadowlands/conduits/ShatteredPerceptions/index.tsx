@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   AbsorbedEvent,
   ApplyDebuffEvent,

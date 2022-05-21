@@ -14,10 +14,7 @@ export interface Info {
   reportCode: string;
   combatant: Combatant;
 }
-export interface FunctionalStatisticProps {
-  events: AnyEvent[];
-  info: Info;
-}
+
 export type Metric<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
 
 // Shallow compare all args including the events array

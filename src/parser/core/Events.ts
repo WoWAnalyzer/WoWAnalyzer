@@ -7,6 +7,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 
 export enum EventType {
+  Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
   Absorbed = 'absorbed',
@@ -38,6 +39,8 @@ export enum EventType {
   CombatantInfo = 'combatantinfo',
   Instakill = 'instakill',
   AuraBroken = 'aurabroken',
+  ExtraAttacks = 'extraattacks',
+  OrbGenerated = 'orb-generated',
 
   // Fabricated:
   Event = 'event', // everything
@@ -63,9 +66,14 @@ export enum EventType {
   Time = 'time',
   Test = 'test',
   SpendResource = 'spendresource',
+  // casts that are triggered for free by something else
+  FreeCast = 'freecast',
 
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
+
+  // Hunter
+  Tick = 'tick',
 
   // Monk
   AddStagger = 'addstagger',
@@ -80,6 +88,10 @@ export enum EventType {
   AtonementRefreshImproper = 'atonement_refresh_improper',
   SpiritShell = 'spirit_shell',
 
+  // Paladin
+  BeaconApplied = 'beacon_applied',
+  BeaconRemoved = 'beacon_removed',
+
   //Shaman
   FeedHeal = 'feed_heal',
 
@@ -93,6 +105,10 @@ export enum EventType {
   // Time Filtering:
   FilterCooldownInfo = 'filtercooldowninfo',
   FilterBuffInfo = 'filterbuffinfo',
+
+  // Resource Caps
+  BeginResourceCap = 'beginresourcecap',
+  EndResourceCap = 'endresourcecap',
 }
 
 export interface AddStaggerEvent extends Event<EventType.AddStagger> {
@@ -112,6 +128,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
 
 type MappedEventTypes = {
   [EventType.Event]: Event<EventType.Event>;
+  [EventType.FreeCast]: FreeCastEvent;
   [EventType.Heal]: HealEvent;
   [EventType.Absorbed]: AbsorbedEvent;
   [EventType.Damage]: DamageEvent;
@@ -136,6 +153,7 @@ type MappedEventTypes = {
   [EventType.CombatantInfo]: CombatantInfoEvent;
   [EventType.Dispel]: DispelEvent;
   [EventType.AuraBroken]: AuraBrokenEvent;
+  [EventType.ExtraAttacks]: ExtraAttacksEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -149,6 +167,9 @@ type MappedEventTypes = {
   [EventType.FeedHeal]: FeedHealEvent;
   [EventType.AddStagger]: AddStaggerEvent;
   [EventType.RemoveStagger]: RemoveStaggerEvent;
+  [EventType.BeaconTransfer]: BeaconHealEvent;
+  [EventType.BeaconTransferFailed]: BeaconTransferFailedEvent;
+
   // Phases:
   [EventType.PhaseStart]: PhaseStartEvent;
   [EventType.PhaseEnd]: PhaseEndEvent;
@@ -203,12 +224,17 @@ export enum Class {
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & {
   sourceID: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
 };
 export type TargettedEvent<T extends string> = Event<T> & {
   targetID: number;
   targetInstance?: number;
   targetIsFriendly: boolean;
+};
+export type HitpointsEvent<T extends string> = Event<T> & {
+  hitPoints: number;
+  maxHitPoints: number;
 };
 
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
@@ -221,6 +247,10 @@ export function HasSource<T extends EventType>(event: Event<T>): event is Source
 
 export function HasTarget<T extends EventType>(event: Event<T>): event is TargettedEvent<T> {
   return (event as TargettedEvent<T>).targetID !== undefined;
+}
+
+export function HasHitpoints<T extends EventType>(event: Event<T>): event is HitpointsEvent<T> {
+  return (event as HitpointsEvent<T>).hitPoints !== undefined;
 }
 
 export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
@@ -347,6 +377,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   maxHitPoints?: number;
   resourceActor?: number;
   sourceID: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
   spellPower?: number;
   target?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
@@ -375,6 +406,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
 }
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
+export type FreeCastEvent = BaseCastEvent<EventType.FreeCast>;
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -438,6 +470,11 @@ export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
   originalHeal: HealEvent;
 }
 
+export interface BeaconTransferFailedEvent extends Omit<HealEvent, 'type'> {
+  type: EventType.BeaconTransferFailed;
+  timestamp: number;
+}
+
 export interface FeedHealEvent extends Omit<HealEvent, 'type'> {
   type: EventType.FeedHeal;
   feed: number;
@@ -465,6 +502,7 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
 export interface DamageEvent extends Event<EventType.Damage> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceID?: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
   targetID: number;
   targetInstance: number;
@@ -583,6 +621,23 @@ export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
 
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+}
+
+/**
+ * Extra attacks, like Windfury totem.
+ *
+ * Example: https://www.warcraftlogs.com/reports/YPpMjNnXBxTyKfRa/#fight=1&source=9
+ */
+export interface ExtraAttacksEvent extends Event<EventType.ExtraAttacks> {
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  sourceMarker?: number;
+  targetID: number;
+  targetIsFriendly: boolean;
+  targetMarker?: number;
+  fight: number;
+  extraAttacks: number;
 }
 
 export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
@@ -1163,6 +1218,9 @@ const Events = {
   },
   get beacontransfer() {
     return new EventFilter(EventType.BeaconTransfer);
+  },
+  get BeaconTransferFailed() {
+    return new EventFilter(EventType.BeaconTransferFailed);
   },
   get feedheal() {
     return new EventFilter(EventType.FeedHeal);
