@@ -2,6 +2,8 @@ import { ControlledExpandable } from 'interface/Expandable';
 import DropdownIcon from 'interface/icons/Dropdown';
 import type { Options } from 'parser/core/Analyzer';
 import type CombatLogParser from 'parser/core/CombatLogParser';
+import { AnyEvent } from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
 import { useState } from 'react';
 
 import './Guide.scss';
@@ -21,6 +23,8 @@ export type ModulesOf<T extends typeof CombatLogParser> = ConstructedModules<
 
 export type GuideProps<T extends typeof CombatLogParser> = {
   modules: ModulesOf<T>;
+  events: AnyEvent[];
+  info: Info;
 };
 export type Guide<T extends typeof CombatLogParser = any> = (
   props: GuideProps<T>,
@@ -56,9 +60,13 @@ export const GuideContainer = ({ children }: { children: React.ReactNode }) => (
   <div className="guide-container">{children}</div>
 );
 
-export const SubSection = ({ children, title }: React.PropsWithChildren<{ title: string }>) => (
+export const SubSection = ({
+  children,
+  title,
+  style,
+}: React.PropsWithChildren<{ title: string; style?: React.CSSProperties }>) => (
   <section className="subsection">
     <header>{title}</header>
-    {children}
+    <div style={style}>{children}</div>
   </section>
 );

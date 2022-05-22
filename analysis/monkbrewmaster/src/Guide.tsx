@@ -2,12 +2,17 @@ import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import { DamageEvent } from 'parser/core/Events';
-import { useCallback, useState } from 'react';
+import { AnyEvent, DamageEvent } from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import { useCallback, useMemo, useState } from 'react';
+import { VisualizationSpec } from 'react-vega';
+import { AutoSizer } from 'react-virtualized';
 
 import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
 import './HitsList.scss';
+import './ProblemList.scss';
 import { TrackedHit } from './modules/spells/Shuffle';
 
 type TimelineEntry = {
@@ -23,6 +28,7 @@ type Segment = {
 
 type MicroTimelineProps = {
   values: TimelineEntry[];
+  style?: React.CSSProperties;
   onHover?: (indices: number[]) => void;
 };
 
@@ -34,6 +40,7 @@ function CoalescingMicroTimeline({
   values,
   onHover,
   onRender,
+  style,
 }: MicroTimelineProps & {
   onRender: (node: HTMLDivElement) => void;
 }) {
@@ -90,7 +97,7 @@ function CoalescingMicroTimeline({
   }
 
   return (
-    <div className="micro-timeline-coalescing" ref={onRender}>
+    <div className="micro-timeline-coalescing" ref={onRender} style={style}>
       {segments.map(({ value, width, startIx }, ix) => (
         <div
           className={value.highlighted ? 'focused' : ''}
@@ -117,7 +124,7 @@ function blockSize(numValues: number, refWidth: number): number | 'coalesce' {
   return Math.min(Math.floor(size), 8);
 }
 
-function MicroTimeline({ values, onHover }: MicroTimelineProps) {
+function MicroTimeline({ values, onHover, style }: MicroTimelineProps) {
   const [refWidth, setRefWidth] = useState(800);
   const ref = useCallback((node: HTMLDivElement) => {
     node && setRefWidth(node.getBoundingClientRect().width);
@@ -125,11 +132,13 @@ function MicroTimeline({ values, onHover }: MicroTimelineProps) {
   const size = blockSize(values.length, refWidth);
 
   if (size === 'coalesce') {
-    return <CoalescingMicroTimeline values={values} onRender={ref} onHover={onHover} />;
+    return (
+      <CoalescingMicroTimeline values={values} onRender={ref} onHover={onHover} style={style} />
+    );
   }
 
   return (
-    <div className="micro-timeline-block" ref={ref}>
+    <div className="micro-timeline-block" ref={ref} style={style}>
       {values.map((value, ix) => (
         <div
           key={ix}
@@ -220,7 +229,280 @@ function HitsList({
   );
 }
 
-export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
+type Problem<T> = {
+  range: { start: number; end: number };
+  context:
+    | number
+    | {
+        before: number;
+        after: number;
+      };
+  severity?: number;
+  data: T;
+};
+
+function effectiveHitSize({ mitigated, event }: TrackedHit): number {
+  return mitigated
+    ? 0
+    : (event.amount + (event.absorbed ?? 0) + (event.overkill ?? 0)) *
+        -Math.log((event.hitPoints ?? 0) / (event.maxHitPoints ?? 1)) +
+        ((event.overkill ?? 0) > 0 ? 1e8 : 0);
+}
+
+function problems(hits: TrackedHit[]): Array<Problem<TrackedHit[]>> {
+  let current: Problem<TrackedHit[]> | undefined = undefined;
+  const allProblems: Array<Problem<TrackedHit[]>> = [];
+
+  hits.forEach((hit) => {
+    if (hit.mitigated && !current) {
+      return;
+    }
+
+    if (!hit.mitigated && !current) {
+      current = {
+        range: {
+          start: hit.event.timestamp,
+          end: hit.event.timestamp,
+        },
+        severity: effectiveHitSize(hit),
+        data: [hit],
+        context: 10000,
+      };
+      return;
+    }
+
+    if (current && hit.event.timestamp - current.range.end <= 10000) {
+      if (!hit.mitigated) {
+        current.range.end = hit.event.timestamp;
+      }
+      current.data.push(hit);
+      current.severity = (current.severity ?? 0) + effectiveHitSize(hit);
+      return;
+    } else if (current) {
+      allProblems.push(current);
+      current = undefined;
+    }
+  });
+
+  return allProblems;
+}
+
+type ProblemRendererProps<T> = {
+  events: AnyEvent[];
+  problem: Problem<T>;
+  info: Info;
+};
+type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
+
+function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<TrackedHit[]>) {
+  const playerEvents = events.filter(
+    (event) =>
+      (event.type === 'damage' || event.type === 'heal') &&
+      event.targetID === info.playerId &&
+      event.hitPoints !== undefined,
+  );
+  const data = {
+    events: playerEvents,
+    problems: problem.data.map((hit) => {
+      if (hit.event.hitPoints) {
+        return hit;
+      }
+      const event = {
+        ...hit.event,
+      };
+
+      for (const prior of playerEvents) {
+        if (prior.timestamp > event.timestamp) {
+          break;
+        }
+
+        event.hitPoints = 'hitPoints' in prior ? prior.hitPoints : event.hitPoints;
+        event.maxHitPoints = 'maxHitPoints' in prior ? prior.maxHitPoints : event.maxHitPoints;
+      }
+
+      return { ...hit, event };
+    }),
+  };
+
+  const spec: VisualizationSpec = {
+    encoding: {
+      x: {
+        field: 'timestamp',
+        type: 'quantitative',
+        axis: {
+          labelExpr: formatTime('datum.value'),
+          tickMinStep: 5000,
+          grid: false,
+        },
+        scale: {
+          nice: false,
+        },
+        title: null,
+      },
+    },
+    layer: [
+      {
+        data: { name: 'events' },
+        mark: {
+          type: 'line',
+          interpolate: 'monotone',
+          color: '#fab700',
+        },
+        transform: [
+          {
+            calculate: `datum.timestamp - ${info.fightStart}`,
+            as: 'timestamp',
+          },
+        ],
+        encoding: {
+          y: {
+            field: 'hitPoints',
+            type: 'quantitative',
+            title: null,
+            axis: {
+              gridOpacity: 0.3,
+              format: '~s',
+            },
+          },
+        },
+      },
+      {
+        data: { name: 'problems' },
+        transform: [
+          {
+            calculate: `datum.event.timestamp - ${info.fightStart}`,
+            as: 'timestamp',
+          },
+          {
+            calculate:
+              'datum.event.amount + if(datum.event.absorb, datum.event.absorb, 0) + if(datum.event.overkill, datum.event.overkill, 0)',
+            as: 'totalAmount',
+          },
+          {
+            calculate:
+              '1 - datum.totalAmount / if(datum.event.unmitigatedAmount, datum.event.unmitigatedAmount, 1)',
+            as: 'mitPct',
+          },
+          {
+            calculate: 'datum.event.hitPoints + datum.event.amount',
+            as: 'priorHitPoints',
+          },
+        ],
+        mark: {
+          type: 'point',
+          filled: true,
+          opacity: 1,
+          size: 50,
+        },
+        encoding: {
+          y: {
+            field: 'event.hitPoints',
+            type: 'quantitative',
+            title: null,
+            axis: {
+              gridOpacity: 0.3,
+              format: '~s',
+            },
+          },
+          color: {
+            field: 'mitigated',
+            type: 'nominal',
+            title: null,
+            legend: null,
+            scale: {
+              domain: [false, true],
+              range: ['red', '#00ff96'],
+            },
+          },
+          tooltip: [
+            {
+              field: 'event.ability.name',
+              type: 'nominal',
+              title: 'Damaging Ability',
+            },
+            {
+              field: 'priorHitPoints',
+              type: 'quantitative',
+              title: 'Hit Points',
+              format: '.3~s',
+            },
+            {
+              field: 'totalAmount',
+              type: 'quantitative',
+              title: 'Damage Taken',
+              format: '.3~s',
+            },
+            {
+              field: 'mitPct',
+              type: 'quantitative',
+              title: '% Mitigated',
+              format: '.3~p',
+            },
+          ],
+        },
+      },
+    ],
+  };
+
+  return (
+    <AutoSizer disableHeight>
+      {({ width }) => <BaseChart data={data} width={width} height={150} spec={spec} />}
+    </AutoSizer>
+  );
+}
+
+function ProblemList<T>({
+  renderer: Component,
+  problems,
+  events,
+  info,
+}: {
+  problems: Array<Problem<T>>;
+  events: AnyEvent[];
+  renderer: ProblemRenderer<T>;
+  info: Info;
+}) {
+  const sortedProblems = useMemo(
+    () => problems.sort((a, b) => (b.severity ?? 0) - (a.severity ?? 0)),
+    [problems],
+  );
+  const [problemIndex, setProblemIndex] = useState(0);
+  const problem = sortedProblems[problemIndex];
+  const start =
+    problem.range.start -
+    (typeof problem.context === 'number' ? problem.context : problem.context.before);
+  const end =
+    problem.range.end +
+    (typeof problem.context === 'number' ? problem.context : problem.context.after);
+  const childEvents = events.filter(({ timestamp }) => timestamp >= start && timestamp <= end);
+
+  return (
+    <div className="problem-list-container">
+      <header>
+        <span>
+          Problem Point {problemIndex + 1} of {sortedProblems.length}
+        </span>
+        <div className="btn-group">
+          <button
+            onClick={() => setProblemIndex(Math.max(0, problemIndex - 1))}
+            disabled={problemIndex === 0}
+          >
+            <span className="icon-button glyphicon glyphicon-chevron-left" aria-hidden />
+          </button>
+          <button
+            disabled={problemIndex === sortedProblems.length - 1}
+            onClick={() => setProblemIndex(Math.min(sortedProblems.length - 1, problemIndex + 1))}
+          >
+            <span className="icon-button glyphicon glyphicon-chevron-right" aria-hidden />
+          </button>
+        </div>
+      </header>
+      <Component events={childEvents} problem={problem} info={info} />
+    </div>
+  );
+}
+
+export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const [focusedHits, setFocusedHits] = useState<Set<TrackedHit>>(new Set());
 
   return (
@@ -246,8 +528,19 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           damage you <SpellLink id={SPELLS.STAGGER.id} />. Getting hit without{' '}
           <SpellLink id={SPELLS.SHUFFLE.id} /> active is very dangerous&mdash;and in many cases
           lethal.
-          <SubSection title="Hits with Shuffle Active">
+          <SubSection
+            title="Hits with Shuffle Active"
+            style={{
+              display: 'grid',
+              gridTemplateAreas: "'timeline timeline' 'hits-list problem-list'",
+              gridTemplateColumns: 'max-content 1fr',
+              gridColumnGap: '1em',
+            }}
+          >
             <MicroTimeline
+              style={{
+                gridArea: 'timeline',
+              }}
               values={modules.shuffle.hits.map((hit) => ({
                 value: hit.mitigated,
                 highlighted: focusedHits.has(hit),
@@ -273,6 +566,12 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
                     )
               }
               style={{ marginTop: '1em' }}
+            />
+            <ProblemList
+              info={info}
+              renderer={TrackedHitProblem}
+              events={events}
+              problems={problems(modules.shuffle.hits)}
             />
           </SubSection>
         </SubSection>

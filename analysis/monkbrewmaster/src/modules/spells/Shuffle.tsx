@@ -55,7 +55,9 @@ export default class Shuffle extends Analyzer {
       return;
     }
 
-    const mitigated = this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id);
+    const mitigated =
+      this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id) ||
+      (event.unmitigatedAmount === undefined && event.amount === 0);
 
     this.hits.push({
       event,
