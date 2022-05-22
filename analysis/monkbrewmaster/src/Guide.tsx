@@ -10,14 +10,19 @@ import './MicroTimeline.scss';
 import './HitsList.scss';
 import { TrackedHit } from './modules/spells/Shuffle';
 
-type Segment = {
+type TimelineEntry = {
   value: boolean;
+  highlighted: boolean;
+};
+
+type Segment = {
+  value: TimelineEntry;
   width: number;
   startIx: number;
 };
 
 type MicroTimelineProps = {
-  values: boolean[];
+  values: TimelineEntry[];
   onHover?: (indices: number[]) => void;
 };
 
@@ -34,20 +39,23 @@ function CoalescingMicroTimeline({
 }) {
   const initialValue: {
     startIx?: number;
-    currentValue?: boolean;
+    currentValue?: TimelineEntry;
     currentLength: number;
     segments: Segment[];
   } = { currentLength: 0, segments: [] };
+
+  const defaultValue = {
+    segments: [{ value: { value: true, highlighted: false }, width: 1, startIx: 0 }],
+    currentLength: 0,
+    currentValue: undefined,
+    startIx: undefined,
+  };
+
   const { segments, currentValue, currentLength, startIx } =
     values.length === 0
-      ? {
-          segments: [{ value: true, width: 1, startIx: 0 }],
-          currentLength: 0,
-          currentValue: undefined,
-          startIx: undefined,
-        }
+      ? defaultValue
       : values.reduce(({ startIx, currentValue, currentLength, segments }, value, ix) => {
-          if (value !== currentValue) {
+          if (value.value !== currentValue?.value) {
             currentLength > 0 &&
               segments.push({
                 startIx: startIx!,
@@ -64,7 +72,10 @@ function CoalescingMicroTimeline({
             return {
               startIx,
               currentLength: currentLength + 1,
-              currentValue,
+              currentValue: {
+                ...currentValue,
+                highlighted: currentValue.highlighted || value.highlighted,
+              },
               segments,
             };
           }
@@ -82,6 +93,7 @@ function CoalescingMicroTimeline({
     <div className="micro-timeline-coalescing" ref={onRender}>
       {segments.map(({ value, width, startIx }, ix) => (
         <div
+          className={value.highlighted ? 'focused' : ''}
           style={{
             width: `${(width / (values.length ?? 1)) * 100}%`,
             backgroundColor: colorForPerformance(value ? 1 : 0),
@@ -123,8 +135,9 @@ function MicroTimeline({ values, onHover }: MicroTimelineProps) {
           key={ix}
           onMouseEnter={() => onHover?.([ix])}
           onMouseLeave={() => onHover?.([])}
+          className={value.highlighted ? 'focused' : ''}
           style={{
-            backgroundColor: colorForPerformance(value ? 1 : 0),
+            backgroundColor: colorForPerformance(value.value ? 1 : 0),
             width: size,
             height: size,
           }}
@@ -155,10 +168,12 @@ function HitsList({
   hits,
   style,
   focusedHits,
+  onHoverAbility,
 }: {
   hits: TrackedHit[];
   style?: React.CSSProperties;
   focusedHits: Set<TrackedHit>;
+  onHoverAbility?: (ability: DamageEvent['ability'] | null) => void;
 }) {
   const byAbility = hits.reduce<{ [key: number]: HitData }>((byAbility, hit) => {
     const { event, mitigated } = hit;
@@ -179,23 +194,29 @@ function HitsList({
   }, {});
 
   return (
-    <dl className="hits-list" style={style}>
-      {Object.values(byAbility)
-        .sort((a, b) => b.total - a.total)
-        .map(({ ability, total, pass, focused }) => (
-          <>
-            <dt className={focused ? 'focused' : ''}>
-              {ability.guid > 1 ? <SpellLink id={ability.guid} /> : ability.name}
-            </dt>
-            <dd className={`pass-fail-counts ${focused ? 'focused' : ''}`}>
-              {pass} / {total}
-            </dd>
-            <dd className={focused ? 'focused' : ''}>
-              <PassFailBar pass={pass} total={total} />
-            </dd>
-          </>
-        ))}
-    </dl>
+    <table className="hits-list" style={style}>
+      <tbody>
+        {Object.values(byAbility)
+          .sort((a, b) => b.total - a.total)
+          .map(({ ability, total, pass, focused }) => (
+            <tr
+              key={ability.guid}
+              onMouseEnter={() => onHoverAbility?.(ability)}
+              onMouseLeave={() => onHoverAbility?.(null)}
+            >
+              <td className={focused ? 'focused' : ''}>
+                {ability.guid > 1 ? <SpellLink id={ability.guid} /> : ability.name}
+              </td>
+              <td className={`pass-fail-counts ${focused ? 'focused' : ''}`}>
+                {pass} / {total}
+              </td>
+              <td className={focused ? 'focused' : ''}>
+                <PassFailBar pass={pass} total={total} />
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
   );
 }
 
@@ -227,7 +248,10 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           lethal.
           <SubSection title="Hits with Shuffle Active">
             <MicroTimeline
-              values={modules.shuffle.hits.map(({ mitigated }) => mitigated)}
+              values={modules.shuffle.hits.map((hit) => ({
+                value: hit.mitigated,
+                highlighted: focusedHits.has(hit),
+              }))}
               onHover={(indices) =>
                 setFocusedHits(
                   new Set(modules.shuffle.hits.filter((_, ix) => indices.includes(ix))),
@@ -237,6 +261,17 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
             <HitsList
               focusedHits={focusedHits}
               hits={modules.shuffle.hits}
+              onHoverAbility={(ability) =>
+                ability === null
+                  ? setFocusedHits(new Set())
+                  : setFocusedHits(
+                      new Set(
+                        modules.shuffle.hits.filter(
+                          (hit) => hit.event.ability.guid === ability.guid,
+                        ),
+                      ),
+                    )
+              }
               style={{ marginTop: '1em' }}
             />
           </SubSection>
