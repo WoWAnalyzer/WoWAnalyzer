@@ -86,6 +86,7 @@ import EventFilter from './EventFilter';
 import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
+import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -718,7 +719,12 @@ class CombatLogParser {
       return undefined;
     }
 
-    const props = { modules: this._modules as ModulesOf<any> };
+    const props = {
+      modules: this._modules as ModulesOf<any>,
+      info: this.info,
+      events: this.eventHistory,
+    };
+
     const Component = ctor.guide;
     return () => (
       <GuideContainer>
@@ -736,7 +742,7 @@ class CombatLogParser {
    * this array (unless fabricated in a normalizer).
    */
   normalizedEvents: AnyEvent[] = [];
-  get info() {
+  get info(): Info {
     return {
       abilities: this.getModule(Abilities).abilities,
       playerId: this.selectedCombatant.id,

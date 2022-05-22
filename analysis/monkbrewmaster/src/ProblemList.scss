@@ -1,0 +1,23 @@
+@import 'interface/Theme.scss';
+
+.problem-list-container {
+  header {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+
+    button {
+      appearance: none;
+      background: none;
+      color: $primaryColor;
+      border: none;
+
+      &:hover {
+        color: lighten($primaryColor, 30%);
+      }
+
+      &:disabled {
+        color: #333;
+      }
+    }
+  }
+}
