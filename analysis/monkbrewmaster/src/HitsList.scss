@@ -1,11 +1,11 @@
 .hits-list {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: start;
-  column-gap: 1em;
-
-  dt {
+  td {
     font-weight: normal;
+    padding-right: 1em;
+
+    &:first-child {
+      padding-left: 1em;
+    }
   }
 
   .focused {
