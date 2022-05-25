@@ -8,7 +8,7 @@ class CanceledCasts extends Analyzer {
   canceledCasts: { [spellId: number]: number } = {};
 
   get TotalCanceledCastCount() {
-    return Object.values(this.canceledCasts).reduce((a, b) => a + b);
+    return Object.values(this.canceledCasts).reduce((a, b) => a + b, 0);
   }
 
   constructor(options: Options) {
