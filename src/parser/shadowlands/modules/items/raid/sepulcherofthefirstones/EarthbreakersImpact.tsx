@@ -49,11 +49,6 @@ function indexOfClosestMatch(all: number[], startIndex: number, targetNumber: nu
     closestDelta = delta;
   }
 
-  // console.log('indexOfClosestMatch', {
-  //   candidates: all.slice(startIndex),
-  //   targetNumber,
-  //   closestIndex,
-  // });
   return closestIndex;
 }
 
@@ -153,7 +148,6 @@ class EarthbreakersImpact extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CAST), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(TICK), this.onDamage);
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onCast(event: CastEvent) {
@@ -207,11 +201,6 @@ class EarthbreakersImpact extends Analyzer {
   }
 
   getStats() {
-    let grandTotalHits = 0;
-    let grandTotalDamage = 0;
-    let grandTotalBaselineDamage = 0;
-    let grandTotalWeakPointsDamage = 0;
-
     const sessionsStats = this.sessions.map((session, index) => {
       const timestamps = Object.keys(session).map(Number);
 
@@ -235,40 +224,32 @@ class EarthbreakersImpact extends Analyzer {
         return acc + ticks.length;
       }, 0);
 
-      grandTotalHits += totalNumberOfHits;
-      grandTotalDamage += totalDamage;
-      grandTotalBaselineDamage += baselineDamage;
-      grandTotalWeakPointsDamage += weakPointDamage;
-
       return {
-        numberTicks: tickTimestamps.length,
+        totalNumberOfHits,
+        baselineDamage,
+        weakPointDamage,
+        totalDamage,
         numberWeakPoints: weakPointTimestamps.length,
-        totalDamage: formatNumber(totalDamage),
-        baselineDamage: formatNumber(baselineDamage),
-        weakpointDamage: formatNumber(weakPointDamage),
-        averageNumberOfTargets: totalNumberOfHits / timestamps.length,
-        allTicks: Object.entries(session)
-          .map(([timestamp, ticks]) => [Number(timestamp), ticks] as const)
-          .map(([timestamp, ticks], index) => ({
-            timestamp: timestamp - timestamps[0],
-            delta: timestamp - timestamps[index - 1],
-            isWeakPoint: !tickTimestamps.includes(timestamp),
-            numberTargets: ticks.length,
-            minDamage: ticks
-              .map((tick) => Math.floor(tick.damage / tick.hitType))
-              .reduce((min, damage) => Math.min(min, damage), Infinity),
-            averageDamage: Math.round(
-              ticks
-                .map((tick) => Math.floor(tick.damage / tick.hitType))
-                .reduce((acc, damage) => acc + damage, 0) / ticks.length,
-            ),
-          })),
       };
     });
 
-    const totalWeakpoints = sessionsStats
-      .map(({ allTicks }) => allTicks.filter(({ isWeakPoint }) => isWeakPoint).length)
-      .reduce((acc, value) => acc + value, 0);
+    const grandTotalHits = sessionsStats.reduce(
+      (acc, session) => acc + session.totalNumberOfHits,
+      0,
+    );
+    const grandTotalDamage = sessionsStats.reduce((acc, session) => acc + session.totalDamage, 0);
+    const grandTotalBaselineDamage = sessionsStats.reduce(
+      (acc, session) => acc + session.baselineDamage,
+      0,
+    );
+    const grandTotalWeakPointsDamage = sessionsStats.reduce(
+      (acc, session) => acc + session.weakPointDamage,
+      0,
+    );
+    const totalWeakpoints = sessionsStats.reduce(
+      (acc, session) => acc + session.numberWeakPoints,
+      0,
+    );
     const averageWeakPointsPerSession = totalWeakpoints / this.sessions.length;
 
     return {
@@ -280,10 +261,6 @@ class EarthbreakersImpact extends Analyzer {
       averageWeakPointsPerSession,
       totalWeakpoints,
     };
-  }
-
-  onFightEnd() {
-    console.log(this.getStats());
   }
 
   statistic() {
