@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Khadaj } from 'CONTRIBUTORS';
+import { Khadaj, Abelito75 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 import * as SPELLS from './SPELLS';
 
 export default [
+  change(date(2022, 5, 25), 'Fixed crashing for statistics page if spell is unknown', Abelito75),
   change(
     date(2022, 2, 16),
     'TBC Priest Fixing CanceledCasts module.',
