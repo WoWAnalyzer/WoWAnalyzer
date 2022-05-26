@@ -201,65 +201,60 @@ class EarthbreakersImpact extends Analyzer {
   }
 
   getStats() {
-    const sessionsStats = this.sessions.map((session, index) => {
-      const timestamps = Object.keys(session).map(Number);
+    const stats = this.sessions
+      // Summarize stats for each session
+      .map((session) => {
+        const timestamps = Object.keys(session).map(Number);
 
-      const tickTimestamps = findPeroidicNumbers(timestamps, TICK_MS);
-      const weakPointTimestamps = timestamps.filter(
-        (timestamp) => !tickTimestamps.includes(timestamp),
+        const tickTimestamps = findPeroidicNumbers(timestamps, TICK_MS);
+        const weakPointTimestamps = timestamps.filter(
+          (timestamp) => !tickTimestamps.includes(timestamp),
+        );
+
+        const baselineDamage = tickTimestamps.reduce((acc, timestamp) => {
+          const ticks = session[timestamp];
+          return acc + ticks.reduce((acc, tick) => acc + tick.damage, 0);
+        }, 0);
+        const weakPointDamage = weakPointTimestamps.reduce((acc, timestamp) => {
+          const ticks = session[timestamp];
+          return acc + ticks.reduce((acc, tick) => acc + tick.damage, 0);
+        }, 0);
+        const totalDamage = baselineDamage + weakPointDamage;
+
+        const totalNumberOfHits = timestamps.reduce((acc, timestamp) => {
+          const ticks = session[timestamp];
+          return acc + ticks.length;
+        }, 0);
+
+        return {
+          totalNumberOfHits,
+          baselineDamage,
+          weakPointDamage,
+          totalDamage,
+          numberWeakPoints: weakPointTimestamps.length,
+        };
+      })
+      // Summarize total datas
+      .reduce(
+        (acc, session) => ({
+          totalNumberOfHits: acc.totalNumberOfHits + session.totalNumberOfHits,
+          baselineDamage: acc.baselineDamage + session.baselineDamage,
+          weakPointDamage: acc.weakPointDamage + session.weakPointDamage,
+          totalDamage: acc.totalDamage + session.totalDamage,
+          numberWeakPoints: acc.numberWeakPoints + session.numberWeakPoints,
+        }),
+        {
+          totalNumberOfHits: 0,
+          baselineDamage: 0,
+          weakPointDamage: 0,
+          totalDamage: 0,
+          numberWeakPoints: 0,
+        },
       );
 
-      const baselineDamage = tickTimestamps.reduce((acc, timestamp) => {
-        const ticks = session[timestamp];
-        return acc + ticks.reduce((acc, tick) => acc + tick.damage, 0);
-      }, 0);
-      const weakPointDamage = weakPointTimestamps.reduce((acc, timestamp) => {
-        const ticks = session[timestamp];
-        return acc + ticks.reduce((acc, tick) => acc + tick.damage, 0);
-      }, 0);
-      const totalDamage = baselineDamage + weakPointDamage;
-
-      const totalNumberOfHits = timestamps.reduce((acc, timestamp) => {
-        const ticks = session[timestamp];
-        return acc + ticks.length;
-      }, 0);
-
-      return {
-        totalNumberOfHits,
-        baselineDamage,
-        weakPointDamage,
-        totalDamage,
-        numberWeakPoints: weakPointTimestamps.length,
-      };
-    });
-
-    const grandTotalHits = sessionsStats.reduce(
-      (acc, session) => acc + session.totalNumberOfHits,
-      0,
-    );
-    const grandTotalDamage = sessionsStats.reduce((acc, session) => acc + session.totalDamage, 0);
-    const grandTotalBaselineDamage = sessionsStats.reduce(
-      (acc, session) => acc + session.baselineDamage,
-      0,
-    );
-    const grandTotalWeakPointsDamage = sessionsStats.reduce(
-      (acc, session) => acc + session.weakPointDamage,
-      0,
-    );
-    const totalWeakpoints = sessionsStats.reduce(
-      (acc, session) => acc + session.numberWeakPoints,
-      0,
-    );
-    const averageWeakPointsPerSession = totalWeakpoints / this.sessions.length;
-
     return {
-      sessions: sessionsStats,
-      grandTotalHits,
-      grandTotalDamage,
-      grandTotalBaselineDamage,
-      grandTotalWeakPointsDamage,
-      averageWeakPointsPerSession,
-      totalWeakpoints,
+      ...stats,
+      averageWeakPointsPerSession: stats.numberWeakPoints / this.sessions.length,
     };
   }
 
@@ -267,10 +262,10 @@ class EarthbreakersImpact extends Analyzer {
     const { casts = 0, maxCasts = 0 } = this.getCastEfficiency() ?? {};
     const {
       averageWeakPointsPerSession,
-      grandTotalBaselineDamage,
-      grandTotalDamage,
-      grandTotalWeakPointsDamage,
-      totalWeakpoints,
+      baselineDamage,
+      totalDamage,
+      weakPointDamage,
+      numberWeakPoints,
     } = this.getStats();
 
     function damageBreakdown() {
@@ -286,17 +281,17 @@ class EarthbreakersImpact extends Analyzer {
           <tbody>
             <tr>
               <th scope="row">Baseline</th>
-              <td>{formatNumber(grandTotalBaselineDamage)}</td>
-              <td>{formatPercentage(grandTotalBaselineDamage / grandTotalDamage, 1)} %</td>
+              <td>{formatNumber(baselineDamage)}</td>
+              <td>{formatPercentage(baselineDamage / totalDamage, 1)} %</td>
             </tr>
             <tr>
               <th scope="row">Weak Points</th>
-              <td>{formatNumber(grandTotalWeakPointsDamage)}</td>
-              <td>{formatPercentage(grandTotalWeakPointsDamage / grandTotalDamage, 1)} %</td>
+              <td>{formatNumber(weakPointDamage)}</td>
+              <td>{formatPercentage(weakPointDamage / totalDamage, 1)} %</td>
             </tr>
             <tr>
               <th scope="row">Total</th>
-              <td>{formatNumber(grandTotalDamage)}</td>
+              <td>{formatNumber(totalDamage)}</td>
               <td>100 %</td>
             </tr>
           </tbody>
@@ -315,7 +310,7 @@ class EarthbreakersImpact extends Analyzer {
         </BoringItemValueText>
         <div className="pad">
           <TooltipElement className="value" content={damageBreakdown()}>
-            <ItemDamageDone amount={grandTotalDamage} />
+            <ItemDamageDone amount={totalDamage} />
           </TooltipElement>
         </div>
         <div className="pad">
@@ -323,7 +318,7 @@ class EarthbreakersImpact extends Analyzer {
             className="value"
             content={
               <>
-                A total of {totalWeakpoints} weak points was activated over the {casts} uses,
+                A total of {numberWeakPoints} weak points was activated over the {casts} uses,
                 resulting in an average of {averageWeakPointsPerSession.toFixed(2)}
               </>
             }
