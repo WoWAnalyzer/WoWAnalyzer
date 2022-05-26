@@ -312,8 +312,9 @@ class EarthbreakersImpact extends Analyzer {
             className="value"
             content={
               <>
-                A total of {numberWeakPoints} weak points was activated over the {casts} uses,
-                resulting in an average of {averageWeakPointsPerSession.toFixed(2)}
+                A total of {numberWeakPoints} weak points was activated by running over them. Over{' '}
+                {casts} uses, averaging to {averageWeakPointsPerSession.toFixed(2)} weak points
+                activated per use.
               </>
             }
           >
