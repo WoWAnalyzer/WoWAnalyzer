@@ -98,6 +98,7 @@ type Session = { [timestamp: number]: Tick[] };
  * ### Example parses:
  *
  * - https://www.warcraftlogs.com/reports/YWKxBP6bLG7AcgHy#fight=4&type=damage-done&source=5
+ *   - Interestingly, this has two pulses go off at the same millisecond.
  * - https://www.warcraftlogs.com/reports/WbqYvN1nCQFLr4Pc#fight=18&type=damage-done&source=377
  */
 class EarthbreakersImpact extends Analyzer {
@@ -161,14 +162,43 @@ class EarthbreakersImpact extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (!this.currentSession[event.timestamp]) {
-      this.currentSession[event.timestamp] = [];
+    this.trackDamage(
+      event.timestamp,
+      event.targetID,
+      event.targetInstance,
+      event.amount,
+      event.hitType,
+    );
+  }
+
+  private trackDamage(
+    timestamp: number,
+    targetId: number,
+    targetInstance: number,
+    damage: number,
+    hitType: number,
+  ): void {
+    if (!this.currentSession[timestamp]) {
+      // There is no entry for this timestamp
+      this.currentSession[timestamp] = [];
+    } else if (
+      this.currentSession[timestamp].some(
+        (t) => t.targetId === targetId && t.targetInstance === targetInstance,
+      )
+    ) {
+      // The current target has already been hit by this tick
+      // so we try to create a new tick for the next millisecond to create separate ticks
+      // You might think that this would be so rare that it should not be necessary to handle
+      // but with the 2 example logs I looked at, one had this happen, so I assume it can happen
+      // again.
+      return this.trackDamage(timestamp + 1, targetId, targetInstance, damage, hitType);
     }
-    this.currentSession[event.timestamp].push({
-      targetId: event.targetID,
-      targetInstance: event.targetInstance,
-      damage: (event.amount || 0) + (event.absorbed || 0),
-      hitType: event.hitType,
+
+    this.currentSession[timestamp].push({
+      targetId,
+      targetInstance,
+      damage,
+      hitType,
     });
   }
 
@@ -264,8 +294,6 @@ class EarthbreakersImpact extends Analyzer {
       grandTotalDamage,
       grandTotalWeakPointsDamage,
       totalWeakpoints,
-      // grandTotalHits,
-      // sessions,
     } = this.getStats();
 
     function damageBreakdown() {
