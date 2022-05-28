@@ -1,5 +1,6 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { FunctionalStatisticProps } from 'parser/core/metric';
+import { statistic } from 'parser/core/Analyzer';
+import { Metric } from 'parser/core/metric';
 import resourceGained, {
   sumResourceGainedByPlayerPerSpell,
 } from 'parser/shared/metrics/resourceGained';
@@ -7,7 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 
-const ManaGained = ({ events, info }: FunctionalStatisticProps) => {
+const ManaGained: Metric<React.ReactNode> = (events, info) => {
   const manaGainedBySpell = sumResourceGainedByPlayerPerSpell(
     resourceGained(events),
     RESOURCE_TYPES.MANA.id,
@@ -31,4 +32,4 @@ const ManaGained = ({ events, info }: FunctionalStatisticProps) => {
   );
 };
 
-export default ManaGained;
+export default statistic(ManaGained);

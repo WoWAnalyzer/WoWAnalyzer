@@ -34,12 +34,9 @@ class CombatLogParser extends BaseCombatLogParser {
     sealOfCommand: SealOfCommand,
 
     checklist: Checklist,
-  };
 
-  static suggestions = [
-    ...BaseCombatLogParser.suggestions,
-    lowRankSpellsSuggestion(lowRankSpells, whitelist),
-  ];
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
+  };
 }
 
 export default CombatLogParser;

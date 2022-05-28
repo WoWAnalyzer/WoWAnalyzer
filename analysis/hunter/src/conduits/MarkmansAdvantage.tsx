@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { notableEnemy } from 'parser/shared/modules/hit-tracking/utilities';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
@@ -26,10 +26,10 @@ class MarkmansAdvantage extends Analyzer {
 
   conduitRank = 0;
   conduitDR = 0;
-  damageReductionObj: { [key: number]: { damageMitigated: number } } = {};
+  damageReductionObj: { [key: string]: { damageMitigated: number } } = {};
   totalDamageReduction = 0;
   hmApplied = false;
-  potentialDR: { [key: number]: { damageMitigated: number } } = {};
+  potentialDR: { [key: string]: { damageMitigated: number } } = {};
 
   protected enemies!: Enemies;
 
@@ -59,34 +59,35 @@ class MarkmansAdvantage extends Analyzer {
     if (!event.unmitigatedAmount || !event.sourceID) {
       return;
     }
+
+    const id = encodeTargetString(event.sourceID, event.sourceInstance);
+
     if (!this.hmApplied) {
-      this.potentialDR[event.sourceID] = this.potentialDR[event.sourceID] || { damageMitigated: 0 };
-      this.potentialDR[event.sourceID].damageMitigated += event.unmitigatedAmount * this.conduitDR;
+      this.potentialDR[id] = this.potentialDR[id] || { damageMitigated: 0 };
+      this.potentialDR[id].damageMitigated += event.unmitigatedAmount * this.conduitDR;
     } else {
-      const enemy = this.enemies.getEntities()[event.sourceID];
+      const enemy = this.enemies.getEntities()[id];
       if (!enemy.hasBuff(SPELLS.HUNTERS_MARK.id)) {
         return;
       }
-      this.damageReductionObj[event.sourceID] = this.damageReductionObj[event.sourceID] || {
+      this.damageReductionObj[id] = this.damageReductionObj[id] || {
         damageMitigated: 0,
       };
-      this.damageReductionObj[event.sourceID].damageMitigated +=
-        event.unmitigatedAmount * this.conduitDR;
+      this.damageReductionObj[id].damageMitigated += event.unmitigatedAmount * this.conduitDR;
       this.totalDamageReduction += event.unmitigatedAmount * this.conduitDR;
     }
   }
 
   hmRemoval(event: RemoveDebuffEvent) {
     if (!this.hmApplied) {
+      const id = encodeTargetString(event.targetID, event.targetInstance);
       debug && console.log('No Hunters Mark application detected to be removed.');
-      if (this.potentialDR[event.targetID]) {
-        this.damageReductionObj[event.targetID] = this.damageReductionObj[event.targetID] || {
+      if (this.potentialDR[id]) {
+        this.damageReductionObj[id] = this.damageReductionObj[id] || {
           damageMitigated: 0,
         };
-        this.damageReductionObj[event.targetID].damageMitigated += this.potentialDR[
-          event.targetID
-        ].damageMitigated;
-        this.totalDamageReduction += this.potentialDR[event.targetID].damageMitigated;
+        this.damageReductionObj[id].damageMitigated += this.potentialDR[id].damageMitigated;
+        this.totalDamageReduction += this.potentialDR[id].damageMitigated;
       }
       this.hmApplied = true;
     }
@@ -117,13 +118,11 @@ class MarkmansAdvantage extends Analyzer {
               <tbody>
                 {Object.entries(this.damageReductionObj).map((mob, index) => (
                   <tr key={index}>
-                    <td>{this.enemies.getEntities()[Number(mob[0])]._baseInfo.name}</td>
+                    <td>{this.enemies.getEntities()[mob[0]]._baseInfo.name}</td>
                     <td>{formatNumber(mob[1].damageMitigated)}</td>
                     <td>
                       {formatPercentage(
-                        this.enemies
-                          .getEntities()
-                          [Number(mob[0])].getBuffUptime(SPELLS.HUNTERS_MARK.id) /
+                        this.enemies.getEntities()[mob[0]].getBuffUptime(SPELLS.HUNTERS_MARK.id) /
                           this.owner.fightDuration,
                       )}
                       %

@@ -4,7 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
+import Enemies, {
+  encodeEventSourceString,
+  encodeTargetString,
+} from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 
 const DEBUG_ABILITIES = false;
@@ -49,8 +52,11 @@ class BreathOfFire extends Analyzer {
     if (shouldIgnore(this.enemies, event)) {
       return;
     }
-
-    const enemy = this.enemies.enemies[event.sourceID];
+    const enemyId = encodeEventSourceString(event);
+    if (!enemyId) {
+      return;
+    }
+    const enemy = this.enemies.enemies[enemyId];
     if (enemy && enemy.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {

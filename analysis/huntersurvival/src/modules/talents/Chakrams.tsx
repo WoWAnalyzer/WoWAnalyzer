@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
