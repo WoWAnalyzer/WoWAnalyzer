@@ -53,6 +53,10 @@ function indexOfClosestMatch(all: number[], startIndex: number, targetNumber: nu
  * The first number is always selected as the first match.
  * The last number is included if it is more than `threshold` away from the last
  * periodical number.
+ *
+ * This is used to try to differentiate the ticks of Earthbreaker's Impact from
+ * the weak point triggers. Both use the same spell ID, but the ticks should be
+ * strongly periodic while weak point triggers should not.
  */
 function findPeroidicNumbers(all: number[], period: number, threshold = period * 0.9): number[] {
   all = all.sort();
