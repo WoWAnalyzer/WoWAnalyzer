@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 5, 28), 'Fix statistics page for TBC logs when viewing a spec with incomplete support or switching builds.', emallson),
   change(date(2022, 5, 28), <>Added <ItemLink id={ITEMS.EARTHBREAKERS_IMPACT.id}/> to Statistics and Timeline.</>, nullDozzer),
   change(date(2022, 5, 20), 'Added a "total" resource breakdown tables', nullDozzer),
   change(date(2022, 5, 17), 'Fix issue with Dwarf racial.', emallson),
