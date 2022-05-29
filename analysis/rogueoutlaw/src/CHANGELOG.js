@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 5, 28), <>Fixed issue causing modules to crash & added Tier support.</>, Tyndi),
   change(date(2022, 3, 6), <>Bump to partial support for 9.2</>, Tyndi),
   change(date(2022, 3, 1), <>Fixed bug where <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> had incorrect high value buffs listed.</>, bhawkins6177),
   change(date(2021, 8, 12), <>Added <SpellLink id={SPELLS.FLAGELLATION.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
