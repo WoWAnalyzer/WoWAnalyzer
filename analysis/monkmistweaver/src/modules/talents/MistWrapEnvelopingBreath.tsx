@@ -97,7 +97,8 @@ class MistWrapEnvelopingBreath extends Analyzer {
   }
 
   makeGUID(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent): string {
-    return event.targetID.toString() + (event.targetInstance || '');
+    // in theory, targetID is always defined here. in practice, covenant bugs (seed)
+    return event.targetID?.toString() + (event.targetInstance || '');
   }
 
   statistic() {
