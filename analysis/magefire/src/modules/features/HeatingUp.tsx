@@ -63,7 +63,7 @@ class HeatingUp extends Analyzer {
       500,
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES),
     )[0];
-    if (!HasTarget(phoenixFlamesCastEvent)) {
+    if (!phoenixFlamesCastEvent || !HasTarget(phoenixFlamesCastEvent)) {
       return;
     }
     const castTarget = phoenixFlamesCastEvent
