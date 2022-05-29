@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellList } from 'common/SPELLS/Spell';
+import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -28,14 +29,14 @@ class InvigoratingShadowdust extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    switch (this.selectedCombatant.spec?.specName) {
-      case 'Assassination':
+    switch (this.selectedCombatant.specId) {
+      case SPECS.ASSASSINATION_ROGUE:
         this.cooldowns = ASSASSINATION_ABILITY_COOLDOWNS;
         break;
-      case 'Outlaw':
+      case SPECS.OUTLAW_ROGUE:
         this.cooldowns = OUTLAW_ABILITY_COOLDOWNS;
         break;
-      case 'Subtlety':
+      case SPECS.SUBTLETY_ROGUE:
         this.cooldowns = SUBTLETY_ABILITY_COOLDOWNS;
         break;
       default:
