@@ -1,11 +1,11 @@
 import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { GuideProps, Section, SubSection } from 'interface/guide';
-import { AnyEvent, DamageEvent } from 'parser/core/Events';
-import { Info } from 'parser/core/metric';
+import { GuideProps, PassFailBar, Section, SubSection } from 'interface/guide';
+import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/Problems';
+import { DamageEvent } from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
@@ -13,6 +13,7 @@ import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
 import './HitsList.scss';
 import './ProblemList.scss';
+import { PurifySection } from './modules/problems/PurifyingBrew';
 import { TrackedHit } from './modules/spells/Shuffle';
 
 type TimelineEntry = {
@@ -156,16 +157,6 @@ function MicroTimeline({ values, onHover, style }: MicroTimelineProps) {
   );
 }
 
-function PassFailBar({ pass, total }: { pass: number; total: number }) {
-  const perf = pass / total;
-  return (
-    <div className="pass-fail-bar-container">
-      <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />
-      {perf < 1 && <div className="fail-bar" style={{ minWidth: `${(1 - perf) * 100}%` }} />}
-    </div>
-  );
-}
-
 type HitData = {
   ability: DamageEvent['ability'];
   total: number;
@@ -229,18 +220,6 @@ function HitsList({
   );
 }
 
-type Problem<T> = {
-  range: { start: number; end: number };
-  context:
-    | number
-    | {
-        before: number;
-        after: number;
-      };
-  severity?: number;
-  data: T;
-};
-
 function effectiveHitSize({ mitigated, event }: TrackedHit): number {
   return mitigated
     ? 0
@@ -249,7 +228,7 @@ function effectiveHitSize({ mitigated, event }: TrackedHit): number {
         ((event.overkill ?? 0) > 0 ? 1e8 : 0);
 }
 
-function problems(hits: TrackedHit[]): Array<Problem<TrackedHit[]>> {
+function shuffleProblems(hits: TrackedHit[]): Array<Problem<TrackedHit[]>> {
   let current: Problem<TrackedHit[]> | undefined = undefined;
   const allProblems: Array<Problem<TrackedHit[]>> = [];
 
@@ -286,13 +265,6 @@ function problems(hits: TrackedHit[]): Array<Problem<TrackedHit[]>> {
 
   return allProblems;
 }
-
-type ProblemRendererProps<T> = {
-  events: AnyEvent[];
-  problem: Problem<T>;
-  info: Info;
-};
-type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
 
 function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<TrackedHit[]>) {
   const playerEvents = events.filter(
@@ -451,73 +423,6 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
   );
 }
 
-function NoProblem() {
-  return (
-    <div className="problem-list-container no-problems">
-      <span>
-        <i className="glyphicon glyphicon-ok" />
-        No problems found.
-      </span>
-    </div>
-  );
-}
-
-function ProblemList<T>({
-  renderer: Component,
-  problems,
-  events,
-  info,
-}: {
-  problems: Array<Problem<T>>;
-  events: AnyEvent[];
-  renderer: ProblemRenderer<T>;
-  info: Info;
-}) {
-  const sortedProblems = useMemo(
-    () => problems.sort((a, b) => (b.severity ?? 0) - (a.severity ?? 0)),
-    [problems],
-  );
-  const [problemIndex, setProblemIndex] = useState(0);
-  const problem = sortedProblems[problemIndex];
-
-  if (!problem) {
-    return <NoProblem />;
-  }
-
-  const start =
-    problem.range.start -
-    (typeof problem.context === 'number' ? problem.context : problem.context.before);
-  const end =
-    problem.range.end +
-    (typeof problem.context === 'number' ? problem.context : problem.context.after);
-  const childEvents = events.filter(({ timestamp }) => timestamp >= start && timestamp <= end);
-
-  return (
-    <div className="problem-list-container">
-      <header>
-        <span>
-          Problem Point {problemIndex + 1} of {sortedProblems.length}
-        </span>
-        <div className="btn-group">
-          <button
-            onClick={() => setProblemIndex(Math.max(0, problemIndex - 1))}
-            disabled={problemIndex === 0}
-          >
-            <span className="icon-button glyphicon glyphicon-chevron-left" aria-hidden />
-          </button>
-          <button
-            disabled={problemIndex === sortedProblems.length - 1}
-            onClick={() => setProblemIndex(Math.min(sortedProblems.length - 1, problemIndex + 1))}
-          >
-            <span className="icon-button glyphicon glyphicon-chevron-right" aria-hidden />
-          </button>
-        </div>
-      </header>
-      <Component events={childEvents} problem={problem} info={info} />
-    </div>
-  );
-}
-
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const [focusedHits, setFocusedHits] = useState<Set<TrackedHit>>(new Set());
 
@@ -587,10 +492,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               info={info}
               renderer={TrackedHitProblem}
               events={events}
-              problems={problems(modules.shuffle.hits)}
+              problems={shuffleProblems(modules.shuffle.hits)}
             />
           </SubSection>
         </SubSection>
+        <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
       <Section title="Celestial Brew"></Section>
     </>

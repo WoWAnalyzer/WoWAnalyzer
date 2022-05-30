@@ -4,6 +4,9 @@
   header {
     display: grid;
     grid-template-columns: 1fr max-content;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 1rem 0;
 
     button {
       appearance: none;
