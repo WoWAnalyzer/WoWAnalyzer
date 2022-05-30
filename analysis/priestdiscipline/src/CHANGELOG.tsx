@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022,5,30), <>Added a comparison for <SpellLink id ={SPELLS.POWER_WORD_SOLACE_TALENT.id}/> vs <SpellLink id={SPELLS.SHIELD_DISCIPLINE_TALENT.id}/></>, Hana),
   change(date(2022,5,30), <><SpellLink id ={SPELLS.SHADOW_WORD_MANIPULATION.id}/> support added. </>, Hana),
   change(date(2022,5,28), <><SpellLink id ={SPELLS.PENANCE.id}/> updated to be more compatible with different amounts of bolts. </>, Hana),
   change(date(2022, 5, 19), <><SpellLink id={SPELLS.EXALTATION.id}/> support added when using  <SpellLink id={SPELLS.EVANGELISM_TALENT.id}/></>,Hana),
