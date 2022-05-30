@@ -22,7 +22,7 @@ class HealingPerHolyPower extends Analyzer {
       this.castSpender,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL),
       this.healEvent,
     );
     this.addEventListener(
