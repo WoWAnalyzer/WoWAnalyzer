@@ -9,6 +9,7 @@ import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import HotAttributor from './modules/core/hottracking/HotAttributor';
 import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
@@ -149,6 +150,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier29_2pc: Tier29_2pc,
     tier29_4pc: Tier29_4pc,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
