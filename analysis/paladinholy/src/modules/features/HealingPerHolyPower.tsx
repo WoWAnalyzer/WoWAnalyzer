@@ -1,3 +1,4 @@
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
@@ -8,17 +9,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class HealingPerHolyPower extends Analyzer {
   totalEffectiveHealing = 0;
   totalSpenders = 0;
-  activeBarriers: Array<{ target: number; timestamp: number }> = [];
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SHOCK_BARRIER_ITEM);
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
       this.castSpender,
     );
     this.addEventListener(
@@ -26,7 +22,7 @@ class HealingPerHolyPower extends Analyzer {
       this.castSpender,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
       this.healEvent,
     );
     this.addEventListener(
@@ -57,7 +53,9 @@ class HealingPerHolyPower extends Analyzer {
       >
         <div className="pad">
           <label>Healing per Holy Power</label>
-          <div className="value">{this.totalEffectiveHealing / this.totalSpenders / 3}</div>
+          <div className="value">
+            {formatNumber(this.totalEffectiveHealing / this.totalSpenders / 3)}
+          </div>
         </div>
       </Statistic>
     );
