@@ -566,6 +566,23 @@ const spells = {
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
   },
+
+  // Sets
+  OUTLAW_ROGUE_TIER_28_2P_SET_BONUS: {
+    id: 364555,
+    name: 'Tornado Trigger',
+    icon: 'inv_ammo_bullet_06',
+  },
+  OUTLAW_ROGUE_TIER_28_4P_SET_BONUS_LOAD_BULLET: {
+    id: 364234,
+    name: 'Tornado Trigger',
+    icon: 'inv_ammo_bullet_01',
+  },
+  OUTLAW_ROGUE_TIER_28_4P_SET_BONUS_6SHOT: {
+    id: 364556,
+    name: 'Tornado Trigger',
+    icon: 'inv_ammo_bullet_06',
+  },
 } as const;
 
 export default spells;

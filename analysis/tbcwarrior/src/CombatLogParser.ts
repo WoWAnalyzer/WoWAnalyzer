@@ -9,13 +9,9 @@ class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     abilities: Abilities,
     buffs: Buffs,
-  };
 
-  static suggestions = [
-    ...BaseCombatLogParser.suggestions,
-    lowRankSpellsSuggestion(lowRankSpells, whitelist),
-  ];
-  static statistics = [...BaseCombatLogParser.statistics];
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
+  };
 }
 
 export default CombatLogParser;

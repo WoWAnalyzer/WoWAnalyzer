@@ -3,7 +3,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = [
+  HEALING_ABILITIES_ON_GCD = [
     SPELLS.REJUVENATION.id,
     SPELLS.REGROWTH.id,
     SPELLS.WILD_GROWTH.id,

@@ -14,7 +14,7 @@ const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   // counting damaging abilities here because of atonement mechanics
-  static HEALING_ABILITIES_ON_GCD = [
+  HEALING_ABILITIES_ON_GCD = [
     SPELLS.POWER_WORD_SHIELD.id,
     SPELLS.POWER_WORD_RADIANCE.id,
     SPELLS.SHADOW_MEND.id,

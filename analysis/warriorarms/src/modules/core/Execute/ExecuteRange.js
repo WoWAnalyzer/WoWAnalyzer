@@ -2,8 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 const debug = false;
 
 const EXECUTE_RANGE = 0.2;

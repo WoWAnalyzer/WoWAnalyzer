@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -14,7 +13,7 @@ import Abilities from '../Abilities';
 class Ascendance extends Analyzer {
   static dependencies = {
     abilities: Abilities,
-    enemies: EnemyInstances,
+    enemies: Enemies,
   };
   justEnteredAscendance = false;
   checkDelay = 0;

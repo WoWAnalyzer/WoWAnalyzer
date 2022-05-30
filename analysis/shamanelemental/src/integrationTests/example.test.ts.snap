@@ -3310,6 +3310,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              1283
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              0
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={
@@ -4086,6 +4117,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              1260
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              21
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={
@@ -9847,6 +9909,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              1443
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              5
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={
@@ -10435,6 +10528,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              1440
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              24
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={

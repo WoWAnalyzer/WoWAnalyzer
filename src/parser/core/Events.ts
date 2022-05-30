@@ -7,6 +7,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 
 export enum EventType {
+  Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
   Absorbed = 'absorbed',
@@ -71,6 +72,9 @@ export enum EventType {
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
 
+  // Hunter
+  Tick = 'tick',
+
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
@@ -83,6 +87,10 @@ export enum EventType {
   AtonementRefresh = 'atonement_refresh',
   AtonementRefreshImproper = 'atonement_refresh_improper',
   SpiritShell = 'spirit_shell',
+
+  // Paladin
+  BeaconApplied = 'beacon_applied',
+  BeaconRemoved = 'beacon_removed',
 
   //Shaman
   FeedHeal = 'feed_heal',
@@ -97,6 +105,10 @@ export enum EventType {
   // Time Filtering:
   FilterCooldownInfo = 'filtercooldowninfo',
   FilterBuffInfo = 'filterbuffinfo',
+
+  // Resource Caps
+  BeginResourceCap = 'beginresourcecap',
+  EndResourceCap = 'endresourcecap',
 }
 
 export interface AddStaggerEvent extends Event<EventType.AddStagger> {
@@ -155,6 +167,9 @@ type MappedEventTypes = {
   [EventType.FeedHeal]: FeedHealEvent;
   [EventType.AddStagger]: AddStaggerEvent;
   [EventType.RemoveStagger]: RemoveStaggerEvent;
+  [EventType.BeaconTransfer]: BeaconHealEvent;
+  [EventType.BeaconTransferFailed]: BeaconTransferFailedEvent;
+
   // Phases:
   [EventType.PhaseStart]: PhaseStartEvent;
   [EventType.PhaseEnd]: PhaseEndEvent;
@@ -209,6 +224,7 @@ export enum Class {
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & {
   sourceID: number;
+  sourceInstance?: number;
   sourceIsFriendly: boolean;
 };
 export type TargettedEvent<T extends string> = Event<T> & {
@@ -452,6 +468,11 @@ export interface HealEvent extends Event<EventType.Heal> {
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {
   type: EventType.BeaconTransfer;
   originalHeal: HealEvent;
+}
+
+export interface BeaconTransferFailedEvent extends Omit<HealEvent, 'type'> {
+  type: EventType.BeaconTransferFailed;
+  timestamp: number;
 }
 
 export interface FeedHealEvent extends Omit<HealEvent, 'type'> {
@@ -1197,6 +1218,9 @@ const Events = {
   },
   get beacontransfer() {
     return new EventFilter(EventType.BeaconTransfer);
+  },
+  get BeaconTransferFailed() {
+    return new EventFilter(EventType.BeaconTransferFailed);
   },
   get feedheal() {
     return new EventFilter(EventType.FeedHeal);

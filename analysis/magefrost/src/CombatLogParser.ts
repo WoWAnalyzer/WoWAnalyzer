@@ -101,9 +101,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-  };
 
-  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
+    apl: AplCheck,
+  };
 }
 
 export default CombatLogParser;

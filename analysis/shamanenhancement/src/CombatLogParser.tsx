@@ -21,8 +21,10 @@ import WindfuryTotem from './modules/core/WindfuryTotem';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Enhancement Core
-// Talents
+// Legendaries and Tier
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
+import WitchDoctorWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
+// Talents
 import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
@@ -89,7 +91,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //chainHarvest: ChainHarvest,
     //vesperTotem: VesperTotem,
 
-    // Legendaries
+    //Legendaries
+    witchDoctorWolfBones: WitchDoctorWolfBones,
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
     // Tier
     tier28TwoSet: Tier28TwoSet,

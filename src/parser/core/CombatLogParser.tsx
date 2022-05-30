@@ -23,7 +23,6 @@ import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
-import { ComponentType } from 'react';
 import * as React from 'react';
 
 import Config from '../Config';
@@ -40,6 +39,7 @@ import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
 import FoodChecker from '../shadowlands/modules/items/FoodChecker';
 import HealthPotion from '../shadowlands/modules/items/HealthPotion';
 import Healthstone from '../shadowlands/modules/items/Healthstone';
+import EarthbreakersImpact from '../shadowlands/modules/items/raid/sepulcherofthefirstones/EarthbreakersImpact';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -52,7 +52,6 @@ import DistanceMoved from '../shared/modules/DistanceMoved';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import Enemies from '../shared/modules/Enemies';
-import EnemyInstances from '../shared/modules/EnemyInstances';
 import EventHistory from '../shared/modules/EventHistory';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
@@ -86,7 +85,6 @@ import EventFilter from './EventFilter';
 import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
-import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -118,11 +116,6 @@ export interface Suggestion {
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
 }
-// ALPHA - The parameters may still change
-export type WIPSuggestionFactory = (
-  events: AnyEvent[],
-  info: Info,
-) => Suggestion | Suggestion[] | undefined;
 
 interface Talent {
   id: number;
@@ -171,7 +164,6 @@ class CombatLogParser {
     deathTracker: DeathTracker,
 
     enemies: Enemies,
-    enemyInstances: EnemyInstances,
     enemiesHealth: EnemiesHealth,
     pets: Pets,
     spellManaCost: SpellManaCost,
@@ -239,12 +231,13 @@ class CombatLogParser {
     soullettingRuby: SoullettingRuby,
     codexOfTheFirstTechnique: CodexOfTheFirstTechnique,
     bloodSpatteredScale: BloodSpatteredScale,
+
+    // Raids
+    // Sepulcher of the First Ones
+    earthbreakersImpact: EarthbreakersImpact,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
-
-  static suggestions: WIPSuggestionFactory[] = [];
-  static statistics: Array<ComponentType<{ events: AnyEvent[]; info: Info }>> = [];
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
   applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
@@ -691,7 +684,10 @@ class CombatLogParser {
                 }
               }
               if (analyzer.suggestions) {
-                analyzer.suggestions(results.suggestions.when);
+                const maybeResult = analyzer.suggestions(results.suggestions.when);
+                if (maybeResult) {
+                  maybeResult.forEach((issue) => results.addIssue(issue));
+                }
               }
             }
           } catch (e) {
@@ -714,50 +710,6 @@ class CombatLogParser {
       results.tabs = [];
       generated = attemptResultGeneration();
     }
-
-    console.time('functional');
-    const ctor = this.constructor as typeof CombatLogParser;
-    const info = this.info;
-
-    // sort event history. this is a workaround for event dispatch happening
-    // out of order, mostly due to SpellUsable. eventually that will be made a
-    // normalizer and this can go away.
-    this.eventHistory.sort((a, b) => {
-      if (a.timestamp === b.timestamp) {
-        if (
-          a.type === EventType.Cast &&
-          b.type === EventType.UpdateSpellUsable &&
-          b.trigger === EventType.EndCooldown
-        ) {
-          return 1;
-        } else {
-          return 0;
-        }
-      } else {
-        return a.timestamp - b.timestamp;
-      }
-    });
-
-    console.time('functional suggestions');
-    ctor.suggestions.forEach((suggestionFactory) => {
-      const suggestions = suggestionFactory(this.eventHistory, info);
-      if (Array.isArray(suggestions)) {
-        suggestions.forEach((suggestion) => results.addIssue(suggestion));
-      } else if (suggestions) {
-        results.addIssue(suggestions);
-      }
-    });
-    console.timeEnd('functional suggestions');
-    console.time('functional statistics');
-    ctor.statistics.forEach((Component, index) => {
-      addStatistic(
-        <Component events={this.eventHistory} info={info} />,
-        100,
-        `functional-statistic-${Component.name}-${index}`,
-      );
-    });
-    console.timeEnd('functional statistics');
-    console.timeEnd('functional');
 
     return results;
   }

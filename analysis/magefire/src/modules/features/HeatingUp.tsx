@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EventType, CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { EventType, CastEvent, DamageEvent, HasTarget } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -21,12 +21,12 @@ const debug = false;
 class HeatingUp extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: EnemyInstances,
+    enemies: Enemies,
     eventHistory: EventHistory,
     spellUsable: SpellUsable,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: EnemyInstances;
+  protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
   protected spellUsable!: SpellUsable;
 
@@ -63,6 +63,9 @@ class HeatingUp extends Analyzer {
       500,
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES),
     )[0];
+    if (!phoenixFlamesCastEvent || !HasTarget(phoenixFlamesCastEvent)) {
+      return;
+    }
     const castTarget = phoenixFlamesCastEvent
       ? encodeTargetString(phoenixFlamesCastEvent.targetID, event.targetInstance)
       : null;
