@@ -1916,6 +1916,14 @@ export const xepheris: Contributor = {
 export const Hana: Contributor = {
   nickname: 'Hana',
   github: 'OisinOD',
+  avatar: avatar('hana-avatar.png'),
+  mains: [
+    {
+      name: 'Kochouran',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Kochouran',
+    },
+  ],
 };
 export const kate: Contributor = {
   nickname: 'kate',

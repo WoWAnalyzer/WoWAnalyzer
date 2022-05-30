@@ -40,6 +40,7 @@ import SwiftPenitence from './modules/shadowlands/conduits/SwiftPenitence';
 import Mindgames from './modules/shadowlands/covenant/Mindgames';
 import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
 import ClarityOfMindEvang from './modules/shadowlands/legendaries/ClarityOfMindEvang';
+import ShadowWordManipulation from './modules/shadowlands/legendaries/ShadowWordManipulation';
 import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
 import ManifestedTwilight from './modules/shadowlands/tier/ManifestedTwilight';
 import Atonement from './modules/spells/Atonement';
@@ -126,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thePenitentOne: ThePenitentOne,
     clarityOfMind: ClarityOfMind,
     clarityOfMindEvang: ClarityOfMindEvang,
+    shadowWordManipulation: ShadowWordManipulation,
 
     // Items
     manifestedTwilight: ManifestedTwilight,
