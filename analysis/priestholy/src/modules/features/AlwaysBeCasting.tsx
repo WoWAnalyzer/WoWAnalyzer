@@ -5,7 +5,7 @@ import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = [
+  HEALING_ABILITIES_ON_GCD = [
     SPELLS.GREATER_HEAL.id,
     SPELLS.FLASH_HEAL.id,
     SPELLS.PRAYER_OF_MENDING_CAST.id,

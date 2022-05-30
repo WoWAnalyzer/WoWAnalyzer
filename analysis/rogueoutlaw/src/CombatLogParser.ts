@@ -40,6 +40,7 @@ import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import Celerity from './modules/spells/shadowlands/legendaries/Celerity';
 import GreenskinsWickers from './modules/spells/shadowlands/legendaries/GreenskinsWickers';
 import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
+import TornadoTrigger from './modules/spells/shadowlands/tier28/TornadoTrigger';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import BladeRush from './modules/talents/BladeRush';
 
@@ -94,6 +95,9 @@ class CombatLogParser extends CoreCombatLogParser {
     flagellation: Flagellation,
     sepsis: Sepsis,
     stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
+
+    // Tier 28
+    tornadoTrigger: TornadoTrigger,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [

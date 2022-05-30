@@ -1,3 +1,4 @@
+import { suggestion } from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
@@ -31,15 +32,14 @@ class CombatLogParser extends BaseCombatLogParser {
         suggest: false,
       },
     ] as const,
-  };
 
-  static suggestions = [
-    ...BaseCombatLogParser.suggestions,
-    lowRankSpellsSuggestion(lowRankSpells),
-    lowRankSpellsPetSuggestion(lowRankSpellsPet),
-    growl(),
-  ];
-  static statistics = [...BaseCombatLogParser.statistics, GoForTheThroat];
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
+    lowRankPetSpells: lowRankSpellsPetSuggestion(lowRankSpellsPet),
+
+    goForTheThroat: GoForTheThroat,
+
+    growl: suggestion(growl()),
+  };
 }
 
 export default CombatLogParser;

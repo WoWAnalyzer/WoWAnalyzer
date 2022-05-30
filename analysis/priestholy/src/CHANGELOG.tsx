@@ -4,6 +4,7 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
   change(date(2022, 3, 14), <>Fixed <b>ANY</b> crashing from the HarmoniousApparatus modules</>, Abelito75),
   change(date(2022, 3, 14), <>Fixed <b>ANY</b> crashing from the HolyWord modules</>, Abelito75),

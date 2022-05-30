@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
+import { Abelito75, Adoraci, Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
 import { ItemLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 23), <> Fixed an issue with <SpellLink id={SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id}/> to prevent it from crashing. </>, Abelito75),
   change(date(2021, 12, 31), <> Adjusted ExecuteHelper module to more accurately handle <SpellLink id={SPELLS.KILL_SHOT_MM_BM.id}/> when playing with <SpellLink id={SPELLS.FLAYED_SHOT.id}/>. </>, Putro),
   change(date(2021, 12, 12), <> Updated the APL Checker to also enforce recommend early refreshes of <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> if your last cast was <SpellLink id={SPELLS.STEADY_SHOT.id}/>. </> , Putro),
   change(date(2021, 12, 12), <> Added <SpellLink id={SPELLS.WILD_SPIRITS_BUFF.id} />, <SpellLink id={SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id}/> and <SpellLink id={SPELLS.FLAYERS_MARK.id} /> to the timeline to better show when these covenant specifics buffs were active.</>, Putro),

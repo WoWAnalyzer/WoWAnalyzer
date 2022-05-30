@@ -24,7 +24,7 @@ class Exaltation extends Analyzer {
     super(options);
 
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EXALTATION.id);
-    if (!this.conduitRank) {
+    if (!this.conduitRank || !this.selectedCombatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT)) {
       this.active = false;
       return;
     }

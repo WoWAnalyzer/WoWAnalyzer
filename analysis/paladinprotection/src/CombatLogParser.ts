@@ -91,9 +91,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Set
     sepulcherSet: SepulcherTierSet,
-  };
 
-  static suggestions = [...CoreCombatLogParser.suggestions, AplCheck()];
+    apl: AplCheck,
+  };
 }
 
 export default CombatLogParser;

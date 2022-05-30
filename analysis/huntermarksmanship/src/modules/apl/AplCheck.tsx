@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import { suggestion } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
@@ -158,10 +158,9 @@ export const apl = build([
 
 export const check = aplCheck(apl);
 
-const mmApl = (): WIPSuggestionFactory => (events, info) => {
+export default suggestion((events, info) => {
   const { violations } = check(events, info);
   annotateTimeline(violations);
 
   return undefined;
-};
-export default mmApl;
+});

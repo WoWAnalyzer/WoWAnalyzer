@@ -4,6 +4,7 @@ import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi, Sref } from 'CONTR
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 12), <>Updated to indicate this spec is supported for patch 9.2, and also fixed handling of <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/></>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),
   change(date(2021, 8, 2), <>Fixed a bug that was causing <SpellLink id={SPELLS.HALF_MOON.id}/> casts to be missed by the analyzer.</>, Sref),

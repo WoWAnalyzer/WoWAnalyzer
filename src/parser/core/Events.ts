@@ -7,6 +7,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 
 export enum EventType {
+  Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
   Absorbed = 'absorbed',
@@ -71,6 +72,9 @@ export enum EventType {
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
 
+  // Hunter
+  Tick = 'tick',
+
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
@@ -83,6 +87,10 @@ export enum EventType {
   AtonementRefresh = 'atonement_refresh',
   AtonementRefreshImproper = 'atonement_refresh_improper',
   SpiritShell = 'spirit_shell',
+
+  // Paladin
+  BeaconApplied = 'beacon_applied',
+  BeaconRemoved = 'beacon_removed',
 
   //Shaman
   FeedHeal = 'feed_heal',
@@ -97,6 +105,10 @@ export enum EventType {
   // Time Filtering:
   FilterCooldownInfo = 'filtercooldowninfo',
   FilterBuffInfo = 'filterbuffinfo',
+
+  // Resource Caps
+  BeginResourceCap = 'beginresourcecap',
+  EndResourceCap = 'endresourcecap',
 }
 
 export interface AddStaggerEvent extends Event<EventType.AddStagger> {

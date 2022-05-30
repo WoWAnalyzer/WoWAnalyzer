@@ -23,13 +23,9 @@ class CombatLogParser extends BaseCombatLogParser {
     curseOfAgony: CurseOfAgony,
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
-  };
 
-  static suggestions = [
-    ...BaseCombatLogParser.suggestions,
-    lowRankSpellsSuggestion(lowRankSpells, whitelist),
-  ];
-  static statistics = [...BaseCombatLogParser.statistics];
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
+  };
 }
 
 export default CombatLogParser;
