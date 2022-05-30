@@ -47,7 +47,10 @@ class HealingPerHolyPower extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
-            Total healing by spenders, divided by total number of holy power spent on those spenders
+            Total healing by spenders, divided by total number of holy power spent on those spenders{' '}
+            <br></br>
+            Total healing from spenders: {this.totalEffectiveHealing} <br></br>
+            Total spenders: {this.totalSpenders}
           </>
         }
       >
