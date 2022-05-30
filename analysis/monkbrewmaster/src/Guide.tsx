@@ -451,6 +451,17 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
   );
 }
 
+function NoProblem() {
+  return (
+    <div className="problem-list-container no-problems">
+      <span>
+        <i className="glyphicon glyphicon-ok" />
+        No problems found.
+      </span>
+    </div>
+  );
+}
+
 function ProblemList<T>({
   renderer: Component,
   problems,
@@ -468,6 +479,11 @@ function ProblemList<T>({
   );
   const [problemIndex, setProblemIndex] = useState(0);
   const problem = sortedProblems[problemIndex];
+
+  if (!problem) {
+    return <NoProblem />;
+  }
+
   const start =
     problem.range.start -
     (typeof problem.context === 'number' ? problem.context : problem.context.before);
