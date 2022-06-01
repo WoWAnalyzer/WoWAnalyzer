@@ -85,6 +85,19 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'spell_fire_felflamering_red',
     bonusID: 7002,
   },
+
+  SHADOW_WORD_MANIPULATION: {
+    id: 356392,
+    name: 'Shadow Word: Manipulation',
+    icon: 'ability_revendreth_priest',
+    bonusID: 7704,
+  },
+
+  SHADOW_WORD_MANIPULATION_BUFF: {
+    id: 357028,
+    name: 'Shadow Word: Manipulation',
+    icon: 'ability_revendreth_priest',
+  },
   //endregion
 } as const;
 export default legendaries;

@@ -32,6 +32,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
 import ExaltationEvang from './modules/shadowlands/conduits/ExaltationEvang';
 import ShatteredPerceptions from './modules/shadowlands/conduits/ShatteredPerceptions';
@@ -40,6 +41,7 @@ import SwiftPenitence from './modules/shadowlands/conduits/SwiftPenitence';
 import Mindgames from './modules/shadowlands/covenant/Mindgames';
 import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
 import ClarityOfMindEvang from './modules/shadowlands/legendaries/ClarityOfMindEvang';
+import ShadowWordManipulation from './modules/shadowlands/legendaries/ShadowWordManipulation';
 import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
 import ManifestedTwilight from './modules/shadowlands/tier/ManifestedTwilight';
 import Atonement from './modules/spells/Atonement';
@@ -94,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
+    solaceVsShieldDiscipline: SolaceVsShieldDiscipline,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -126,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thePenitentOne: ThePenitentOne,
     clarityOfMind: ClarityOfMind,
     clarityOfMindEvang: ClarityOfMindEvang,
+    shadowWordManipulation: ShadowWordManipulation,
 
     // Items
     manifestedTwilight: ManifestedTwilight,
