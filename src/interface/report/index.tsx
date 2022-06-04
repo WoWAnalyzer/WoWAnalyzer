@@ -1,34 +1,31 @@
-import { Phase } from 'game/raids';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
 import Config from 'parser/Config';
-import CharacterProfile from 'parser/core/CharacterProfile';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import { AnyEvent, CombatantInfoEvent, PhaseEvent } from 'parser/core/Events';
-import Fight, { WCLFight } from 'parser/core/Fight';
+import { CombatantInfoEvent } from 'parser/core/Events';
+import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import ReportObject from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
-import { PureComponent } from 'react';
+import { useCallback, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
-import BossPhaseEventsLoader from './BossPhaseEventsLoader';
-import CharacterProfileLoader from './CharacterProfileLoader';
 import ConfigContext from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
-import EventParser from './EventParser';
-import EventsLoader from './EventsLoader';
 import FightSelection from './FightSelection';
-import ParserLoader from './ParserLoader';
+import useBossPhaseEvents from './hooks/useBossPhaseEvents';
+import useCharacterProfile from './hooks/useCharacterProfile';
+import useEventParser from './hooks/useEventParser';
+import useEvents from './hooks/useEvents';
+import useParser from './hooks/useParser';
+import usePhases, { SELECTION_ALL_PHASES } from './hooks/usePhases';
+import useTimeEventFilter, { Filter } from './hooks/useTimeEventFilter';
 import PatchChecker from './PatchChecker';
-import PhaseParser, { SELECTION_ALL_PHASES } from './PhaseParser';
 import PlayerLoader from './PlayerLoader';
 import ReportLoader from './ReportLoader';
 import Results from './Results';
 import SupportChecker from './SupportChecker';
-import TimeEventFilter, { Filter } from './TimeEventFilter';
 
 interface Props {
   config: Config;
@@ -38,252 +35,149 @@ interface Props {
   combatants: CombatantInfoEvent[];
 }
 
-interface State {
-  isLoadingParser: boolean;
-  parserClass?: typeof CombatLogParser | null;
-  isLoadingEvents: boolean;
-  events: AnyEvent[] | null;
-  bossPhaseEventsLoadingState: BOSS_PHASES_STATE;
-  bossPhaseEvents: PhaseEvent[] | null;
-  isLoadingCharacterProfile: boolean;
-  characterProfile: CharacterProfile | null;
-  phases: { [key: string]: Phase } | null;
-  selectedPhase: string;
-  selectedInstance: number;
-  filteredEvents?: AnyEvent[] | null;
-  filteredFight?: Fight | null;
-  timeFilter: Filter | null;
-  isLoadingPhases: boolean;
-  isFilteringEvents: boolean;
-  parsingState: EVENT_PARSING_STATE;
-  parsingEventsProgress: number | null;
-  parser: CombatLogParser | null;
-}
+const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => {
+  const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
+  const [selectedPhase, setSelectedPhase] = useState<string>(SELECTION_ALL_PHASES);
+  const [selectedInstance, setSelectedInstance] = useState<number>(0);
 
-class ResultsLoader extends PureComponent<Props, State> {
-  state: State = {
-    isLoadingParser: true,
-    parserClass: null,
-    isLoadingEvents: true,
-    events: null,
-    bossPhaseEventsLoadingState: BOSS_PHASES_STATE.LOADING,
-    bossPhaseEvents: null,
-    isLoadingCharacterProfile: true,
-    characterProfile: null,
-    phases: null,
-    selectedPhase: SELECTION_ALL_PHASES,
-    selectedInstance: 0,
-    filteredEvents: null,
-    filteredFight: null,
-    timeFilter: null,
-    isLoadingPhases: true,
-    isFilteringEvents: true,
-    parsingState: EVENT_PARSING_STATE.WAITING,
-    parsingEventsProgress: null,
-    parser: null,
-  };
+  const parserClass = useParser(config);
+  const isLoadingParser = parserClass == null;
 
-  constructor(props: Props) {
-    super(props);
-    this.handleParserLoader = this.handleParserLoader.bind(this);
-    this.handleEventsLoader = this.handleEventsLoader.bind(this);
-    this.handleBossPhaseEventsLoader = this.handleBossPhaseEventsLoader.bind(this);
-    this.handleCharacterProfileLoader = this.handleCharacterProfileLoader.bind(this);
-    this.handleEventsParser = this.handleEventsParser.bind(this);
-    this.handlePhaseSelection = this.handlePhaseSelection.bind(this);
-    this.handlePhaseParser = this.handlePhaseParser.bind(this);
-    this.handleTimeFilter = this.handleTimeFilter.bind(this);
-    this.applyTimeFilter = this.applyTimeFilter.bind(this);
-  }
+  const events = useEvents({ report, fight, player });
+  const isLoadingEvents = events == null;
 
-  handleParserLoader(isLoading: boolean, parserClass?: typeof CombatLogParser) {
-    this.setState({
-      isLoadingParser: isLoading,
-      parserClass,
-    });
-    return null;
-  }
-  handleEventsLoader(isLoading: boolean, events: AnyEvent[] | null) {
-    this.setState({
-      isLoadingEvents: isLoading,
-      events,
-    });
-    return null;
-  }
-  handleBossPhaseEventsLoader(
-    loadingState: BOSS_PHASES_STATE,
-    bossPhaseEvents: PhaseEvent[] | null,
-  ) {
-    this.setState({
-      bossPhaseEventsLoadingState: loadingState,
-      bossPhaseEvents,
-    });
-    return null;
-  }
-  handleCharacterProfileLoader(isLoading: boolean, characterProfile: CharacterProfile | null) {
-    this.setState({
-      isLoadingCharacterProfile: isLoading,
-      characterProfile,
-    });
-    return null;
-  }
-  handleEventsParser(
-    isParsingEvents: boolean,
-    parsingEventsProgress: number,
-    parser: CombatLogParser | null,
-  ) {
-    this.setState({
-      parsingState: isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE,
-      parsingEventsProgress,
-      parser,
-    });
-    return null;
-  }
-  handlePhaseParser(isLoadingPhases: boolean, phases: { [key: string]: Phase } | null) {
-    this.setState({
-      isLoadingPhases,
-      phases,
-    });
-    return null;
-  }
-  handleTimeFilter(isFilteringEvents: boolean, filteredEvents?: AnyEvent[], filteredFight?: Fight) {
-    this.setState({
-      isFilteringEvents,
-      filteredEvents,
-      filteredFight,
-    });
-    return null;
-  }
-  handlePhaseSelection(phase: string, instance: any) {
-    const { phases }: any = this.state;
-    this.setState({
-      selectedPhase: phase,
-      selectedInstance: instance,
-      //set time filter to null if no phase selected
-      timeFilter:
+  const {
+    loadingState: bossPhaseEventsLoadingState,
+    events: bossPhaseEvents,
+  } = useBossPhaseEvents({ report, fight });
+
+  const { characterProfile, isLoading: isLoadingCharacterProfile } = useCharacterProfile({
+    report,
+    player,
+  });
+
+  // Original code only rendered <PhaseParser> if
+  // > !this.state.isLoadingEvents
+  // > && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING
+  // We have to always run the hook, so the hook has to make sure it has the necessary data
+  const { phases, isLoading: isLoadingPhases } = usePhases({
+    bossPhaseEventsLoaded: bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING,
+    fight,
+    bossPhaseEvents,
+  });
+
+  const applyPhaseFilter = useCallback(
+    (phase: string, instance: any) => {
+      setSelectedPhase(phase);
+      setSelectedInstance(instance);
+      setTimeFilter(
         phase === SELECTION_ALL_PHASES
           ? null
-          : { start: phases[phase].start[instance], end: phases[phase].end[instance] },
-    });
-    return null;
-  }
-  applyTimeFilter(start: number, end: number) {
-    this.setState({
+          : phases && { start: phases[phase].start[instance], end: phases[phase].end[instance] },
+      );
+      return null;
+    },
+    // TODO: I don't think we need to re-render whenever phases changes.. this callback should work the same.
+    // this is here because of react-hooks/exhaustive-deps
+    [phases],
+  );
+  const applyTimeFilter = useCallback(
+    (start: number, end: number) => {
       //set time filter to null if 0 and end of fight are selected as boundaries
-      timeFilter:
-        start === 0 && end === this.props.fight.end_time - this.props.fight.start_time
+      setTimeFilter(
+        start === 0 && end === fight.end_time - fight.start_time
           ? null
-          : { start: start + this.props.fight.start_time, end: end + this.props.fight.start_time },
-      selectedPhase: SELECTION_ALL_PHASES,
-      selectedInstance: 0,
-    });
-    return null;
-  }
+          : { start: start + fight.start_time, end: end + fight.start_time },
+      );
+      setSelectedPhase(SELECTION_ALL_PHASES);
+      setSelectedInstance(0);
+      return null;
+    },
+    // TODO: I don't think we need to re-render whenever phases changes.. this callback should work the same.
+    // this is here because of react-hooks/exhaustive-deps
+    [fight.end_time, fight.start_time],
+  );
 
-  get progress() {
-    return (
-      (!this.state.isLoadingParser ? 0.05 : 0) +
-      (!this.state.isLoadingEvents ? 0.05 : 0) +
-      (this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING ? 0.05 : 0) +
-      (!this.state.isLoadingCharacterProfile ? 0.05 : 0) +
-      (!this.state.isFilteringEvents ? 0.05 : 0) +
-      this.state.parsingEventsProgress! * 0.75
-    );
-  }
+  // Original code only rendered TimeEventFilter if
+  // > !this.state.isLoadingEvents &&
+  // > this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING
+  // We have to always run the hook, but the hook must ensure the above is true
+  const {
+    isLoading: isFilteringEvents,
+    events: filteredEvents,
+    fight: filteredFight,
+  } = useTimeEventFilter({
+    bossPhaseEventsLoaded: bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING,
+    fight,
+    filter: timeFilter!,
+    phase: selectedPhase,
+    phaseinstance: selectedInstance,
+    bossPhaseEvents,
+    events,
+  });
 
-  render() {
-    const { config, report, fight, player, combatants } = this.props;
-    const build = (this.state.parser && this.state.parser.build) || undefined;
+  // Original code only rendered EventParser if
+  // > !this.state.isLoadingParser &&
+  // > !this.state.isLoadingCharacterProfile &&
+  // > !this.state.isFilteringEvents
+  // We have to always run the hook, but the hook should make sure the above is true
+  // isLoadingParser => parserClass == null
+  // isLoadingCharacterProfile => characterProfile == null
+  // isFilteringEvents => events == null
+  const { isLoading: isParsingEvents, progress: parsingEventsProgress, parser } = useEventParser({
+    report,
+    fight: filteredFight,
+    config,
+    player,
+    combatants,
+    applyTimeFilter,
+    applyPhaseFilter,
+    parserClass,
+    characterProfile,
+    events: filteredEvents,
+    dependenciesLoading: isLoadingParser || isLoadingCharacterProfile || isFilteringEvents,
+  });
+  const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
-    return (
-      <>
-        {/* Load these different api calls asynchronously */}
-        <ParserLoader config={config}>{this.handleParserLoader}</ParserLoader>
-        <EventsLoader report={report} fight={fight} player={player}>
-          {this.handleEventsLoader}
-        </EventsLoader>
-        <BossPhaseEventsLoader report={report} fight={fight}>
-          {this.handleBossPhaseEventsLoader}
-        </BossPhaseEventsLoader>
-        <CharacterProfileLoader report={report} player={player}>
-          {this.handleCharacterProfileLoader}
-        </CharacterProfileLoader>
+  const build = (parser && parser.build) || undefined;
 
-        {!this.state.isLoadingEvents &&
-          this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
-            <PhaseParser fight={fight} bossPhaseEvents={this.state.bossPhaseEvents!}>
-              {this.handlePhaseParser}
-            </PhaseParser>
-          )}
-        {!this.state.isLoadingEvents &&
-          this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
-            <TimeEventFilter
-              fight={fight}
-              events={this.state.events!}
-              bossPhaseEvents={this.state.bossPhaseEvents!}
-              filter={this.state.timeFilter!}
-              phase={this.state.selectedPhase}
-              phaseinstance={this.state.selectedInstance}
-            >
-              {this.handleTimeFilter}
-            </TimeEventFilter>
-          )}
-        {!this.state.isLoadingParser &&
-          !this.state.isLoadingCharacterProfile &&
-          !this.state.isFilteringEvents && (
-            <EventParser
-              report={report}
-              fight={this.state.filteredFight!}
-              config={config}
-              player={player}
-              combatants={combatants!}
-              applyTimeFilter={this.applyTimeFilter}
-              applyPhaseFilter={this.handlePhaseSelection}
-              parserClass={this.state.parserClass!}
-              characterProfile={this.state.characterProfile!}
-              events={this.state.filteredEvents!}
-              builds={config.builds}
-            >
-              {this.handleEventsParser}
-            </EventParser>
-          )}
+  const progress =
+    (!isLoadingParser ? 0.05 : 0) +
+    (!isLoadingEvents ? 0.05 : 0) +
+    (bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING ? 0.05 : 0) +
+    (!isLoadingCharacterProfile ? 0.05 : 0) +
+    (!isFilteringEvents ? 0.05 : 0) +
+    parsingEventsProgress! * 0.75;
 
-        <Results
-          config={config}
-          isLoadingParser={this.state.isLoadingParser}
-          isLoadingEvents={this.state.isLoadingEvents}
-          bossPhaseEventsLoadingState={this.state.bossPhaseEventsLoadingState}
-          isLoadingCharacterProfile={this.state.isLoadingCharacterProfile}
-          parsingState={this.state.parsingState}
-          progress={this.progress}
-          report={report}
-          fight={this.state.filteredFight || { offset_time: 0, filtered: false, ...fight }} //if no filtered fight has been parsed yet, pass previous fight object alongside 0 offset time and no filtering
-          player={player}
-          characterProfile={this.state.characterProfile!}
-          parser={this.state.parser!}
-          isLoadingPhases={this.state.isLoadingPhases}
-          isFilteringEvents={this.state.isFilteringEvents}
-          phases={this.state.phases}
-          selectedPhase={this.state.selectedPhase}
-          selectedInstance={this.state.selectedInstance}
-          handlePhaseSelection={this.handlePhaseSelection}
-          applyFilter={this.applyTimeFilter}
-          timeFilter={this.state.timeFilter!}
-          build={build}
-          makeTabUrl={(tab: string, newBuild?: string) =>
-            makeAnalyzerUrl(
-              report,
-              fight.id,
-              player.id,
-              tab,
-              newBuild || config.builds?.[build!]?.url,
-            )
-          }
-        />
-      </>
-    );
-  }
-}
+  return (
+    <Results
+      config={config}
+      isLoadingParser={isLoadingParser}
+      isLoadingEvents={isLoadingEvents}
+      bossPhaseEventsLoadingState={bossPhaseEventsLoadingState}
+      isLoadingCharacterProfile={isLoadingCharacterProfile}
+      parsingState={parsingState}
+      progress={progress}
+      report={report}
+      fight={filteredFight || { offset_time: 0, filtered: false, ...fight }} //if no filtered fight has been parsed yet, pass previous fight object alongside 0 offset time and no filtering
+      player={player}
+      characterProfile={characterProfile!}
+      parser={parser!}
+      isLoadingPhases={isLoadingPhases}
+      isFilteringEvents={isFilteringEvents}
+      phases={phases}
+      selectedPhase={selectedPhase}
+      selectedInstance={selectedInstance}
+      handlePhaseSelection={applyPhaseFilter}
+      applyFilter={applyTimeFilter}
+      timeFilter={timeFilter!}
+      build={build}
+      makeTabUrl={(tab: string, newBuild?: string) =>
+        makeAnalyzerUrl(report, fight.id, player.id, tab, newBuild || config.builds?.[build!]?.url)
+      }
+    />
+  );
+};
 
 // TODO: Turn all the loaders and shit into hooks
 const Report = () => (

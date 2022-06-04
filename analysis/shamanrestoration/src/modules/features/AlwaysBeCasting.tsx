@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = [
+  HEALING_ABILITIES_ON_GCD = [
     SPELLS.HEALING_WAVE.id,
     SPELLS.CHAIN_HEAL.id,
     SPELLS.HEALING_SURGE.id,

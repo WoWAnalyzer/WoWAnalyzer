@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { WIPSuggestionFactory } from 'parser/core/CombatLogParser';
+import { suggestion as buildSuggestion } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import aplCheck, { build, Condition } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
@@ -24,7 +24,7 @@ const precastFrostbolt: Condition<{ brainFreeze?: number; frostbolt?: number }> 
 
     return state;
   },
-  validate: (state, event) => {
+  validate: (state, _event) => {
     if (!state.brainFreeze) {
       return false;
     }
@@ -64,11 +64,9 @@ export const apl = build([
 
 export const check = aplCheck(apl);
 
-const suggestion = (): WIPSuggestionFactory => (events, info) => {
+export default buildSuggestion((events, info) => {
   const { violations } = check(events, info);
   annotateTimeline(violations);
 
   return undefined;
-};
-
-export default suggestion;
+});

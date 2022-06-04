@@ -3824,6 +3824,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              56
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              11
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={
@@ -4130,6 +4161,37 @@ Array [
           </tr>
         </thead>
         <tbody>
+          <tr
+            className="poor"
+          >
+            <td>
+              Total
+            </td>
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              51
+            </td>
+            <td />
+            <td
+              style={
+                Object {
+                  "paddingRight": 5,
+                  "textAlign": "center",
+                  "width": 50,
+                }
+              }
+            >
+              17
+            </td>
+            <td />
+          </tr>
           <tr>
             <td
               style={
@@ -5850,7 +5912,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "69.63736035365675%",
+                  "width": "69.29438316278039%",
                 }
               }
             />
@@ -6301,7 +6363,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  92.31%
+                  88.89%
                    
                    
                 </div>
@@ -6321,9 +6383,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "96.19999999999997%",
                       }
                     }
                   />
@@ -6545,7 +6607,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  47.06%
+                  50.00%
                    
                    
                 </div>
@@ -6567,7 +6629,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.386554621848745%",
+                        "width": "23.78571428571429%",
                       }
                     }
                   />

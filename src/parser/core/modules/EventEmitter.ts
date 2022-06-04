@@ -23,6 +23,7 @@ type BoundListener<ET extends EventType, E extends MappedEvent<ET>> = {
  * - firing event listeners
  */
 class EventEmitter extends Module {
+  private eventTypes?: Set<string>;
   static get catchAll() {
     return new EventFilter(CATCH_ALL_EVENT);
   }
@@ -32,6 +33,10 @@ class EventEmitter extends Module {
     if (PROFILE) {
       this.timePerModule = new Map<Module, number>();
       this.addEventListener(Events.fightend, this.reportModuleTimes.bind(this), this);
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      this.eventTypes = new Set<string>(Object.values(EventType));
     }
   }
 
@@ -194,7 +199,7 @@ class EventEmitter extends Module {
   numListenersCalled = 0;
   _isHandlingEvent = false;
   triggerEvent<ET extends EventType, E extends MappedEvent<ET>>(event: E) {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'production') {
       this._validateEvent(event);
     }
 
@@ -311,11 +316,19 @@ class EventEmitter extends Module {
       return this.triggerEvent(fabricatedEvent);
     }
   }
+
   _validateEvent(event: any) {
     if (!event.type) {
       console.log(event);
       throw new Error(
         'Events should have a type. No type received. See the console for the event.',
+      );
+    }
+
+    if (!this.eventTypes?.has(event.type)) {
+      console.log(event);
+      throw new Error(
+        `Unknown event type detected ${event.type} if you created a new type you will need to add it to Event.ts`,
       );
     }
   }

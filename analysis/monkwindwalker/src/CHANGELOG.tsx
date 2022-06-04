@@ -4,6 +4,8 @@ import { Juko8, Abelito75, Talby, Hursti, nullDozzer, kate } from 'CONTRIBUTORS'
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 10), <>Added a drill-down link from the "Wasted Chi" statistics to the Chi tab</>, nullDozzer),
+  change(date(2022, 5, 10), <>Correct tracking of chi cost reduction during <SpellLink id={SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id}/></>, nullDozzer),
   change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
   change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
   change(date(2022, 4, 30), 'Add myself as contributor', nullDozzer),
