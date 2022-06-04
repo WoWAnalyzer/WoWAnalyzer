@@ -33,6 +33,7 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
+import RabidShadows from './modules/shadowlands/conduits/RabidShadows';
 import ShatteredPerceptions from './modules/shadowlands/conduits/ShatteredPerceptions';
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 import SwiftPenitence from './modules/shadowlands/conduits/SwiftPenitence';
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shatteredPerceptions: ShatteredPerceptions,
     swiftPenitence: SwiftPenitence,
     translucentImage: TranslucentImage,
+    RabidShadows: RabidShadows,
 
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,

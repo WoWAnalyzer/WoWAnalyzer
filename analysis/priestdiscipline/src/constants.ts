@@ -138,3 +138,21 @@ export const SWIFT_PENITENCE_INCREASE = [
   0.69,
   0.72,
 ];
+
+export const RABID_SHADOWS_INCREASE = [
+  12,
+  20.9,
+  22.8,
+  24.7,
+  26.6,
+  28.5,
+  30.4,
+  32.3,
+  34.2,
+  36.1,
+  38,
+  39.9,
+  41.8,
+  43.7,
+  45.6,
+];
