@@ -1,3 +1,4 @@
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { GuideProps, PassFailBar, SubSection } from 'interface/guide';
 import type { Problem, ProblemRendererProps } from 'interface/guide/Problems';
@@ -21,6 +22,7 @@ import { AutoSizer } from 'react-virtualized';
 import './PurifyingBrew.scss';
 
 enum PurifyReason {
+  RefreshPurifiedChi = 'refresh-chi',
   PreventCapping = 'prevent-capping',
   BigHit = 'big-hit',
   HighStagger = 'high-stagger',
@@ -34,6 +36,7 @@ type PurifyData = {
 };
 
 const CAP_CUTOFF = 4000;
+const CHI_REFRESH_CUTOFF = 7500;
 
 type PurifiedHit = { hit: AddStaggerEvent; ratio: number };
 
@@ -109,6 +112,13 @@ export default class PurifyingBrewProblems extends Analyzer {
 
     this.unpurifiedHits.push(...unpurified);
 
+    const purifiedChi = this.selectedCombatant.getBuff(
+      SPELLS.PURIFIED_CHI.id,
+      undefined,
+      undefined,
+      1000,
+    );
+
     if (purified.some(({ hit: { amount }, ratio }) => amount * ratio >= this.bigHitThreshold)) {
       this.purifies.push({
         purified,
@@ -129,6 +139,16 @@ export default class PurifyingBrewProblems extends Analyzer {
       this.purifies.push({
         purified,
         reason: PurifyReason.PreventCapping,
+        purify: event,
+      });
+    } else if (
+      purifiedChi &&
+      purifiedChi.stacks >= 3 &&
+      event.timestamp - purifiedChi.start >= CHI_REFRESH_CUTOFF
+    ) {
+      this.purifies.push({
+        purified,
+        reason: PurifyReason.RefreshPurifiedChi,
         purify: event,
       });
     } else {
@@ -166,6 +186,7 @@ export default class PurifyingBrewProblems extends Analyzer {
       [PurifyReason.PreventCapping]: 0,
       [PurifyReason.HighStagger]: 0,
       [PurifyReason.BigHit]: 0,
+      [PurifyReason.RefreshPurifiedChi]: 0,
     };
 
     for (const { reason } of this.purifies) {
@@ -197,7 +218,13 @@ export function PurifyProblem({
             return prev;
           }
         }).timestamp,
+        subject: true,
       },
+      ...stagger.filter(
+        (event) =>
+          event.type === EventType.RemoveStagger &&
+          event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
+      ),
     ],
     hits: problem.data.purified,
   };
@@ -294,8 +321,6 @@ export function PurifyProblem({
         ],
         mark: {
           type: 'point',
-          filled: true,
-          color: '#00ff96',
           opacity: 1,
           size: 50,
         },
@@ -308,15 +333,42 @@ export function PurifyProblem({
               format: '.3~s',
             },
           ],
+          stroke: {
+            field: 'subject',
+            type: 'nominal',
+            legend: null,
+            scale: {
+              domain: [false, true],
+              range: ['#00ff96', 'red'],
+            },
+          },
+          fill: {
+            field: 'subject',
+            type: 'nominal',
+            legend: null,
+            scale: {
+              domain: [false, true],
+              range: ['transparent', 'red'],
+            },
+          },
         },
       },
     ],
   };
 
   return (
-    <AutoSizer disableHeight>
-      {({ width }) => <BaseChart data={data} width={width} height={150} spec={spec} />}
-    </AutoSizer>
+    <div>
+      <AutoSizer disableHeight>
+        {({ width }) => <BaseChart data={data} width={width} height={150} spec={spec} />}
+      </AutoSizer>
+      <p>
+        You cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> with low{' '}
+        <SpellLink id={SPELLS.STAGGER.id} />, clearing only{' '}
+        <strong>{formatNumber(problem.data.purify.amount)}</strong> damage. The timing of this cast
+        was not while <SpellLink id={SPELLS.PURIFYING_BREW.id} /> was almost capped at 2 charges,
+        leaving you with no charges available to deal with incoming damage.
+      </p>
+    </div>
   );
 }
 
@@ -328,6 +380,12 @@ function reasonLabel(reason: PurifyReason): React.ReactNode {
       return 'High Stagger';
     case PurifyReason.PreventCapping:
       return 'Prevent Capping Charges';
+    case PurifyReason.RefreshPurifiedChi:
+      return (
+        <>
+          Refresh <SpellLink id={SPELLS.PURIFIED_CHI.id} /> Stacks
+        </>
+      );
     default:
       return 'Other';
   }
@@ -337,6 +395,7 @@ const reasonOrder = [
   PurifyReason.BigHit,
   PurifyReason.HighStagger,
   PurifyReason.PreventCapping,
+  PurifyReason.RefreshPurifiedChi,
   PurifyReason.Unknown,
 ];
 
