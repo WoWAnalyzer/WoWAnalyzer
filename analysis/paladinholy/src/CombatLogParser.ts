@@ -29,6 +29,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CastBehavior from './modules/features/CastBehavior';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import HealingPerHolyPower from './modules/features/HealingPerHolyPower';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    healingPerHolyPower: HealingPerHolyPower,
 
     // Racials
     mightOfTheMountain: MightOfTheMountain,
