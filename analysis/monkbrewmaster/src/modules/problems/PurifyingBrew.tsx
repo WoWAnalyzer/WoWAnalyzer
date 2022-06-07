@@ -35,6 +35,33 @@ type PurifyData = {
   reason: PurifyReason;
 };
 
+type TrackedStaggerData = {
+  event: AddStaggerEvent;
+  purifyCharges: number;
+};
+
+type MissedPurifyData = {
+  hit: TrackedStaggerData;
+  amountPurified: number;
+  nextPurify: PurifyData;
+  prevPurify?: PurifyData;
+};
+
+enum ProblemType {
+  BadPurify,
+  MissedPurify,
+}
+
+type ProblemData =
+  | {
+      type: ProblemType.BadPurify;
+      data: PurifyData;
+    }
+  | {
+      type: ProblemType.MissedPurify;
+      data: MissedPurifyData[];
+    };
+
 const CAP_CUTOFF = 4000;
 const CHI_REFRESH_CUTOFF = 7500;
 
@@ -45,20 +72,20 @@ function staggerDuration(bnw: boolean): number {
 }
 
 function classifyHitStack(
-  hitStack: AddStaggerEvent[],
+  hitStack: TrackedStaggerData[],
   timestamp: number,
   bnw: boolean = false,
-): { unpurified: AddStaggerEvent[]; purified: PurifiedHit[] } {
+): { unpurified: TrackedStaggerData[]; purified: PurifiedHit[] } {
   const unpurified = [];
   const purified = [];
 
   for (const hit of hitStack) {
-    if (timestamp - hit.timestamp > staggerDuration(bnw)) {
+    if (timestamp - hit.event.timestamp > staggerDuration(bnw)) {
       unpurified.push(hit);
     } else {
       purified.push({
-        hit,
-        ratio: 1 - (timestamp - hit.timestamp) / staggerDuration(bnw),
+        hit: hit.event,
+        ratio: 1 - (timestamp - hit.event.timestamp) / staggerDuration(bnw),
       });
     }
   }
@@ -67,6 +94,86 @@ function classifyHitStack(
     unpurified,
     purified,
   };
+}
+
+type ShamPurifyData = MissedPurifyData | PurifyData;
+
+/// identify missing purifies recursively
+function identifyPurifies(
+  prev: ShamPurifyData | undefined,
+  next: ShamPurifyData,
+  allHits: TrackedStaggerData[],
+  hasBnw: boolean,
+  bigHitThreshold: number,
+): MissedPurifyData[] {
+  // just don't allow conflicts within the stagger duration. loses some
+  // potential casts, but prevents double-counting purified damage. eventually
+  // we could reduce this to the actual PB cd, but that requires deeper
+  // thinking about the implications
+  const conflictWindowLength = hasBnw ? 13000 : 10000;
+  const nextPurifyTimestamp = 'purify' in next ? next.purify.timestamp : next.hit.event.timestamp;
+  const hits = allHits.filter(
+    (hit) =>
+      hit.purifyCharges > 0 &&
+      // note: you may be tempted here to allow this through the filter if
+      // you have at least two purifying charges, but that breaks in the left
+      // branch of recursion. that is such a small optimization in the grand
+      // scheme of things that we simply...don't
+      hit.event.timestamp < nextPurifyTimestamp - conflictWindowLength,
+  );
+
+  if (hits.length === 0) {
+    // no hits could've been purified without screwing things up, return
+    return [];
+  }
+
+  const best = hits.reduceRight((previousBest, current) =>
+    current.event.newPooledDamage > previousBest.event.newPooledDamage ? current : previousBest,
+  );
+
+  // we can't purify anything that'd pass muster
+  if (best.event.newPooledDamage < bigHitThreshold) {
+    return [];
+  }
+
+  const amountPurified = best.event.newPooledDamage / 2;
+
+  const nextPurify = 'purify' in next ? next : next.nextPurify;
+
+  // okay, finally we have a hit that we should've purified! let's handle it!
+  const missedPurify: MissedPurifyData = {
+    hit: best,
+    amountPurified,
+    nextPurify,
+    prevPurify: !prev || 'purify' in prev ? prev : prev.prevPurify,
+  };
+
+  const index = hits.indexOf(best);
+
+  const reduceChargeCutoff = best.event.timestamp + conflictWindowLength;
+
+  // simulate the stagger amount in the remaining hits. this should technically
+  // also go past the boundary of the following purify, but we're not gonna
+  const simulatedRemainder = hits.slice(index + 1).map(({ event, purifyCharges }) => ({
+    event: {
+      ...event,
+      newPooledDamage:
+        event.newPooledDamage -
+        (amountPurified *
+          Math.max(0, 20 - Math.floor((event.timestamp - best.event.timestamp) / 500))) /
+          20,
+    },
+    purifyCharges:
+      event.timestamp < reduceChargeCutoff ? Math.max(purifyCharges - 1, 0) : purifyCharges,
+  }));
+
+  return [
+    // find more in the left sub-window
+    ...identifyPurifies(prev, missedPurify, hits.slice(0, index), hasBnw, bigHitThreshold),
+    missedPurify,
+    // find more in the right sub-window
+    ...identifyPurifies(missedPurify, next, simulatedRemainder, hasBnw, bigHitThreshold),
+  ];
 }
 
 export default class PurifyingBrewProblems extends Analyzer {
@@ -92,16 +199,19 @@ export default class PurifyingBrewProblems extends Analyzer {
     this.lastKnownMaxHp = event.maxHitPoints ?? this.lastKnownMaxHp;
   }
 
-  private hitStack: AddStaggerEvent[] = [];
+  private hitStack: TrackedStaggerData[] = [];
   private addStagger(event: AddStaggerEvent) {
-    this.hitStack.push(event);
+    this.hitStack.push({
+      event,
+      purifyCharges: this.spellUsable.chargesAvailable(SPELLS.PURIFYING_BREW.id),
+    });
   }
 
   get bigHitThreshold() {
     return this.lastKnownMaxHp / 4;
   }
 
-  private unpurifiedHits: AddStaggerEvent[] = [];
+  private unpurifiedHits: TrackedStaggerData[] = [];
   public readonly purifies: PurifyData[] = [];
   private removeStagger(event: RemoveStaggerEvent) {
     if (event.trigger?.ability.guid !== SPELLS.PURIFYING_BREW.id) {
@@ -162,11 +272,58 @@ export default class PurifyingBrewProblems extends Analyzer {
     this.hitStack = [];
   }
 
-  get problems(): Array<Problem<PurifyData>> {
-    return this.purifies
+  private detectMissedPurifies(): Array<Problem<ProblemData>> {
+    if (this.unpurifiedHits.length === 0) {
+      return [];
+    }
+
+    const problems: Array<Problem<ProblemData>> = [];
+
+    let previous: PurifyData | undefined = undefined;
+    for (const purify of this.purifies.filter((data) => data.reason !== PurifyReason.Unknown)) {
+      // HACK: workaround closure capturing the initial value of `previous`
+      const prev = previous;
+      const missed = identifyPurifies(
+        previous,
+        purify,
+        this.unpurifiedHits.filter(
+          (hit) =>
+            hit.event.timestamp > (prev?.purify.timestamp ?? 0) &&
+            hit.event.timestamp < purify.purify.timestamp,
+        ),
+        this.selectedCombatant.hasTalent(SPELLS.BOB_AND_WEAVE_TALENT),
+        this.bigHitThreshold,
+      );
+
+      if (missed.length > 0) {
+        problems.push({
+          data: {
+            type: ProblemType.MissedPurify,
+            data: missed,
+          },
+          context: 5000,
+          range: {
+            start: previous?.purify.timestamp ?? this.owner.fight.start_time,
+            end: purify.purify.timestamp,
+          },
+          severity: missed.map((datum) => datum.amountPurified).reduce((a, b) => a + b),
+        });
+      }
+
+      previous = purify;
+    }
+
+    return problems;
+  }
+
+  get problems(): Array<Problem<ProblemData>> {
+    const badPurifies: Array<Problem<ProblemData>> = this.purifies
       .filter(({ reason }) => reason === PurifyReason.Unknown)
       .map((data) => ({
-        data,
+        data: {
+          type: ProblemType.BadPurify,
+          data,
+        },
         range: {
           start: data.purified[0].hit.timestamp,
           end: data.purify.timestamp,
@@ -174,6 +331,8 @@ export default class PurifyingBrewProblems extends Analyzer {
         context: 5000,
         severity: -data.purify.amount,
       }));
+
+    return badPurifies.concat(this.detectMissedPurifies());
   }
 
   get castEfficiency(): AbilityCastEfficiency {
@@ -197,36 +356,69 @@ export default class PurifyingBrewProblems extends Analyzer {
   }
 }
 
+const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
+  data.type === ProblemType.MissedPurify ? (
+    <p>
+      You missed <strong>{data.data.length} or more</strong> potential casts of{' '}
+      <SpellLink id={SPELLS.PURIFYING_BREW.id} /> here that could've cleared a total of{' '}
+      <strong>
+        {formatNumber(data.data.map((datum) => datum.amountPurified).reduce((a, b) => a + b))}
+      </strong>{' '}
+      damage <em>without</em> impacting any of your other good{' '}
+      <SpellLink id={SPELLS.PURIFYING_BREW.id} /> casts.
+    </p>
+  ) : (
+    <p>
+      You cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> with low{' '}
+      <SpellLink id={SPELLS.STAGGER.id} />, clearing only{' '}
+      <strong>{formatNumber(data.data.purify.amount)}</strong> damage. The timing of this cast was
+      not while <SpellLink id={SPELLS.PURIFYING_BREW.id} /> was almost capped at 2 charges, leaving
+      you with no charges available to deal with incoming damage.
+    </p>
+  );
+
 export function PurifyProblem({
   problem,
   events,
   info,
-}: ProblemRendererProps<PurifyData>): JSX.Element {
+}: ProblemRendererProps<ProblemData>): JSX.Element {
   const stagger = events.filter(
     ({ type }) => type === EventType.AddStagger || type === EventType.RemoveStagger,
   );
 
+  const purifyEvents =
+    problem.data.type === ProblemType.BadPurify
+      ? [
+          {
+            ...problem.data.data.purify,
+            timestamp: stagger.reduce((prev: AnyEvent, cur: AnyEvent) => {
+              if (cur.timestamp < (problem.data.data as PurifyData).purify.timestamp) {
+                return cur;
+              } else {
+                return prev;
+              }
+            }).timestamp,
+            subject: true,
+          },
+        ]
+      : problem.data.data.map((missed) => ({
+          amount: missed.amountPurified,
+          timestamp: missed.hit.event.timestamp,
+          newPooledDamage: missed.hit.event.newPooledDamage - missed.amountPurified,
+          subject: true,
+        }));
+
   const data = {
     stagger,
     purify: [
-      {
-        ...problem.data.purify,
-        timestamp: stagger.reduce((prev: AnyEvent, cur: AnyEvent) => {
-          if (cur.timestamp < problem.data.purify.timestamp) {
-            return cur;
-          } else {
-            return prev;
-          }
-        }).timestamp,
-        subject: true,
-      },
+      ...purifyEvents,
       ...stagger.filter(
         (event) =>
           event.type === EventType.RemoveStagger &&
           event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
       ),
     ],
-    hits: problem.data.purified,
+    hits: problem.data.type === ProblemType.BadPurify ? problem.data.data.purified : [],
   };
 
   const spec: VisualizationSpec = {
@@ -361,13 +553,7 @@ export function PurifyProblem({
       <AutoSizer disableHeight>
         {({ width }) => <BaseChart data={data} width={width} height={150} spec={spec} />}
       </AutoSizer>
-      <p>
-        You cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> with low{' '}
-        <SpellLink id={SPELLS.STAGGER.id} />, clearing only{' '}
-        <strong>{formatNumber(problem.data.purify.amount)}</strong> damage. The timing of this cast
-        was not while <SpellLink id={SPELLS.PURIFYING_BREW.id} /> was almost capped at 2 charges,
-        leaving you with no charges available to deal with incoming damage.
-      </p>
+      <PurifyProblemDescription data={problem.data} />
     </div>
   );
 }
