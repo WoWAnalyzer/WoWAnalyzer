@@ -2,6 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -14,19 +15,11 @@ class HealingPerHolyPower extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, SPELLS.LIGHT_OF_DAWN_CAST]),
       this.castSpender,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WORD_OF_GLORY),
-      this.castSpender,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL),
-      this.healEvent,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WORD_OF_GLORY),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, SPELLS.LIGHT_OF_DAWN_HEAL]),
       this.healEvent,
     );
   }
@@ -54,12 +47,9 @@ class HealingPerHolyPower extends Analyzer {
           </>
         }
       >
-        <div className="pad">
-          <label>Healing per Holy Power</label>
-          <div className="value">
-            {formatNumber(this.totalEffectiveHealing / this.totalSpenders / 3)}
-          </div>
-        </div>
+        <BoringValueText label={<>Average Healing per Holy Power</>}>
+          <>{formatNumber(this.totalEffectiveHealing / this.totalSpenders / 3)}</>
+        </BoringValueText>
       </Statistic>
     );
   }
