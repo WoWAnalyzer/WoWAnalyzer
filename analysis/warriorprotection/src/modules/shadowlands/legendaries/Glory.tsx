@@ -46,6 +46,15 @@ class Glory extends Analyzer {
   }
 
   buffChange(event: RefreshBuffEvent | RemoveBuffEvent | FightEndEvent) {
+    // Precast check
+    if (this.castMap.length === 0) {
+      this.castMap.push({
+        startTime: this.owner.fight.start_time,
+        endTime: -1,
+        duration: -1,
+      });
+    }
+
     const boost = this.castMap[this.castMap.length - 1];
     boost.endTime = event.timestamp;
     boost.duration = boost.endTime - boost.startTime;
@@ -67,7 +76,7 @@ class Glory extends Analyzer {
               <tr key={index}>
                 <th scope="row">{index}</th>
                 <td>{formatDuration(gloryBoost.duration)}</td>
-                <td>{formatDuration(gloryBoost.duration - 15000)}</td>
+                <td>{formatDuration(Math.max(gloryBoost.duration - 15000, 0))}</td>
               </tr>
             ))}
           </tbody>
