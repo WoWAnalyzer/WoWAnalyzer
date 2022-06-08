@@ -32,7 +32,7 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           <SpellLink id={SPELLS.REJUVENATION.id} />.
           <br />
           <br />
-          WG AVG HITS ( + graph of when the bad casts were? ) / REJUV/WG RATIO?
+          {modules.wildGrowth.guideTimeline()}
         </SubSection>
         <SubSection title="Regrowth">
           <SpellLink id={SPELLS.REGROWTH.id} /> is for urgent spot healing. The HoT it applies is
