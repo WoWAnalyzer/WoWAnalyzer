@@ -46,17 +46,26 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
   //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
-// HoTs that can have their rate increased TODO should this be just for flourish? Why does Photosynthesis need this?
-export const HOTS_INCREASED_RATE = [
+// HoTs that get rate increased by Flourish
+export const FLOURISH_INCREASED_RATE = [
   SPELLS.REJUVENATION,
-  SPELLS.WILD_GROWTH,
   SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
   SPELLS.CULTIVATION,
   SPELLS.CENARION_WARD_HEAL,
   SPELLS.LIFEBLOOM_HOT_HEAL,
   SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
-  SPELLS.REGROWTH,
   SPELLS.TRANQUILITY_HEAL,
+  SPELLS.ADAPTIVE_SWARM_HEAL,
+  SPELLS.RENEWING_BLOOM,
+];
+
+// HoTs that get rate increased by Photosynthesis, which is different from the Flourish one because Blizzard
+export const PHOTO_INCREASED_RATE = [
+  ...FLOURISH_INCREASED_RATE,
+  SPELLS.SPRING_BLOSSOMS,
+  SPELLS.EFFLORESCENCE_HEAL,
 ];
 
 export const RANK_ONE_FLASH_OF_CLARITY = 0.2;
