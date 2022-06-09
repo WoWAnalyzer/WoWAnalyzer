@@ -2,7 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,12 +11,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { HOTS_INCREASED_RATE } from '../../constants';
+import { PHOTO_INCREASED_RATE } from '../../constants';
+import { isFromExpiringLifebloom } from '../../normalizers/CastLinkNormalizer';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
 const PHOTOSYNTHESIS_SB_INCREASE = 0.44;
-const BLOOM_BUFFER_MS = 100;
 
 /**
  * Photosynthesis (Talent) :
@@ -30,23 +30,12 @@ class Photosynthesis extends Analyzer {
 
   protected combatants!: Combatants;
 
-  lifebloomIncrease = 0;
-
-  lastRealBloomTimestamp: number | null = null;
-
-  // Counters for increased ticking rate of hots
-  increasedRateRejuvenationHealing = 0;
-  increasedRateWildGrowthHealing = 0;
-  increasedRateCenarionWardHealing = 0;
-  increasedRateCultivationHealing = 0;
-  increasedRateLifebloomHealing = 0;
-  increasedRateRegrowthHealing = 0;
-  increasedRateTranqHealing = 0;
-  increasedRateSpringBlossomsHealing = 0;
-  increasedRateEffloHealing = 0;
-  increasedRateGroveTendingHealing = 0;
+  /** Total healing from randomly procced blooms */
+  extraBloomHealing = 0;
+  /** Total healing from increased HoT rate due to LB on self */
+  increasedRateHealing = 0;
+  /** Number of random blooms */
   randomProccs = 0;
-  naturalProccs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -54,18 +43,8 @@ class Photosynthesis extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
-      this.onLifebloomCast,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
-      this.onLifebloomRemoveBuff,
-    );
-    this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.EFFLORESCENCE_HEAL, SPELLS.SPRING_BLOSSOMS, ...HOTS_INCREASED_RATE]),
-      this.onHeal,
+      Events.heal.by(SELECTED_PLAYER).spell(PHOTO_INCREASED_RATE),
+      this.onHastedHeal,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BLOOM_HEAL),
@@ -73,31 +52,14 @@ class Photosynthesis extends Analyzer {
     );
   }
 
-  onLifebloomCast(event: CastEvent) {
-    this.lastRealBloomTimestamp = event.timestamp;
-  }
-
-  onLifebloomRemoveBuff(event: RemoveBuffEvent) {
-    this.lastRealBloomTimestamp = event.timestamp;
-  }
-
   onLifebloomProc(event: HealEvent) {
-    // Lifebloom random bloom procc
-    if (
-      this.lastRealBloomTimestamp === null ||
-      event.timestamp - this.lastRealBloomTimestamp > BLOOM_BUFFER_MS
-    ) {
-      this.lifebloomIncrease += event.amount;
+    if (!isFromExpiringLifebloom(event)) {
       this.randomProccs += 1;
-    } else {
-      this.naturalProccs += 1;
+      this.extraBloomHealing += event.amount + (event.absorbed || 0);
     }
   }
 
-  onHeal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
-    // Yes it actually buffs efflorescence, confirmed by Voulk and Bastas
+  onHastedHeal(event: HealEvent) {
     if (
       this.selectedCombatant.hasBuff(
         SPELLS.LIFEBLOOM_HOT_HEAL.id,
@@ -105,96 +67,29 @@ class Photosynthesis extends Analyzer {
         0,
         0,
         this.selectedCombatant.id,
+      ) ||
+      this.selectedCombatant.hasBuff(
+        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+        null,
+        0,
+        0,
+        this.selectedCombatant.id,
       )
     ) {
-      switch (spellId) {
-        case SPELLS.REJUVENATION.id:
-          this.increasedRateRejuvenationHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.REJUVENATION_GERMINATION.id:
-          this.increasedRateRejuvenationHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.WILD_GROWTH.id:
-          this.increasedRateWildGrowthHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.CENARION_WARD_HEAL.id:
-          this.increasedRateCenarionWardHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.CULTIVATION.id:
-          this.increasedRateCultivationHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.LIFEBLOOM_HOT_HEAL.id:
-          this.increasedRateLifebloomHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.SPRING_BLOSSOMS.id:
-          this.increasedRateSpringBlossomsHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_SB_INCREASE,
-          );
-          break;
-        case SPELLS.EFFLORESCENCE_HEAL.id:
-          this.increasedRateEffloHealing += calculateEffectiveHealing(
-            event,
-            PHOTOSYNTHESIS_HOT_INCREASE,
-          );
-          break;
-        case SPELLS.REGROWTH.id:
-          if (event.tick === true) {
-            this.increasedRateRegrowthHealing += calculateEffectiveHealing(
-              event,
-              PHOTOSYNTHESIS_HOT_INCREASE,
-            );
-          }
-          break;
-        case SPELLS.TRANQUILITY_HEAL.id:
-          if (event.tick === true) {
-            this.increasedRateTranqHealing += calculateEffectiveHealing(
-              event,
-              PHOTOSYNTHESIS_HOT_INCREASE,
-            );
-          }
-          break;
-        default:
-          console.error(
-            'Photosynthesis: Error, could not identify this object as a HoT: %o',
-            event,
-          );
+      const spellId = event.ability.guid;
+      if (spellId === SPELLS.REGROWTH.id && !event.tick) {
+        return; // don't want to count Regrowth direct
       }
+      const increase =
+        spellId === SPELLS.SPRING_BLOSSOMS.id
+          ? PHOTOSYNTHESIS_SB_INCREASE
+          : PHOTOSYNTHESIS_HOT_INCREASE;
+      this.increasedRateHealing += calculateEffectiveHealing(event, increase);
     }
   }
 
   get totalHealing(): number {
-    return (
-      this.increasedRateRejuvenationHealing +
-      this.increasedRateWildGrowthHealing +
-      this.increasedRateCenarionWardHealing +
-      this.increasedRateCultivationHealing +
-      this.increasedRateLifebloomHealing +
-      this.increasedRateRegrowthHealing +
-      this.increasedRateTranqHealing +
-      this.increasedRateSpringBlossomsHealing +
-      this.increasedRateEffloHealing +
-      this.increasedRateGroveTendingHealing +
-      this.lifebloomIncrease
-    );
+    return this.extraBloomHealing + this.increasedRateHealing;
   }
 
   get percentHealing(): number {
@@ -202,29 +97,33 @@ class Photosynthesis extends Analyzer {
   }
 
   get selfLifebloomUptime(): number {
-    return this.selectedCombatant.getBuffUptime(
-      SPELLS.LIFEBLOOM_HOT_HEAL.id,
-      this.selectedCombatant.id,
+    return (
+      this.selectedCombatant.getBuffUptime(
+        SPELLS.LIFEBLOOM_HOT_HEAL.id,
+        this.selectedCombatant.id,
+      ) +
+      this.selectedCombatant.getBuffUptime(
+        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+        this.selectedCombatant.id,
+      )
     );
   }
 
   get totalLifebloomUptime(): number {
     return Object.values(this.combatants.players).reduce(
-      (uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),
+      (uptime, player) =>
+        uptime +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id),
       0,
     );
   }
 
-  statistic() {
-    const selfUptime = this.selectedCombatant.getBuffUptime(
-      SPELLS.LIFEBLOOM_HOT_HEAL.id,
-      this.selectedCombatant.id,
-    );
-    const totalUptime = Object.values(this.combatants.players).reduce(
-      (uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),
-      0,
-    );
+  get othersLifebloomUptime(): number {
+    return this.totalLifebloomUptime - this.selfLifebloomUptime;
+  }
 
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(50)}
@@ -232,141 +131,39 @@ class Photosynthesis extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Healing contribution
+            Your Lifebloom was active on others{' '}
+            <strong>
+              {formatPercentage(this.othersLifebloomUptime / this.owner.fightDuration)}%
+            </strong>{' '}
+            of the time:
             <ul>
               <li>
-                Rejuvenation:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateRejuvenationHealing,
-                    ),
-                  )}{' '}
-                  %
-                </strong>
+                <strong>{this.randomProccs}</strong> extra blooms
               </li>
               <li>
-                Wild Growth:{' '}
                 <strong>
                   {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Cenarion Ward:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateCenarionWardHealing,
-                    ),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Cultivation:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateCultivationHealing,
-                    ),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Lifebloom HoT:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Regrowth HoT:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Tranquility HoT:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Spring Blossoms:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateSpringBlossomsHealing,
-                    ),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Efflorescence:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateEffloHealing),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Grove Tending:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.increasedRateGroveTendingHealing,
-                    ),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <hr />
-              <li>
-                Total HoT increase part:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.percentHealing -
-                      this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease),
-                  )}{' '}
-                  %
-                </strong>
-              </li>
-              <li>
-                Lifebloom random bloom:{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease),
-                  )}{' '}
+                    this.owner.getPercentageOfTotalHealingDone(this.extraBloomHealing),
+                  )}
                   %
                 </strong>{' '}
-                (Random proccs: {this.randomProccs}, Natural proccs: {this.naturalProccs})
+                total healing from extra blooms
               </li>
             </ul>
-            Lifebloom uptime
+            Your Lifebloom was active on yourself{' '}
+            <strong>
+              {formatPercentage(this.selfLifebloomUptime / this.owner.fightDuration)}%
+            </strong>{' '}
+            of the time:
             <ul>
               <li>
-                On Self:{' '}
-                <strong>{formatPercentage(selfUptime / this.owner.fightDuration)} %</strong>
-              </li>
-              <li>
-                On Others:{' '}
                 <strong>
-                  {formatPercentage((totalUptime - selfUptime) / this.owner.fightDuration)} %
-                </strong>
+                  {formatPercentage(
+                    this.owner.getPercentageOfTotalHealingDone(this.increasedRateHealing),
+                  )}
+                  %
+                </strong>{' '}
+                total healing from faster ticking HoTs
               </li>
             </ul>
           </>

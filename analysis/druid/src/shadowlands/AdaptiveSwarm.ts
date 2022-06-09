@@ -46,6 +46,7 @@ const PERIODIC_HEALS: SpellInfo[] = [
   SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
   SPELLS.TRANQUILITY_HEAL,
   SPELLS.EFFLORESCENCE_HEAL,
+  SPELLS.RENEWING_BLOOM,
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 

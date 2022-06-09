@@ -15,7 +15,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { HOTS_INCREASED_RATE } from '../../constants';
+import { FLOURISH_INCREASED_RATE } from '../../constants';
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
@@ -56,7 +56,7 @@ class Flourish extends Analyzer {
       this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(HOTS_INCREASED_RATE),
+      Events.heal.by(SELECTED_PLAYER).spell(FLOURISH_INCREASED_RATE),
       this.onIncreasedRateHeal,
     );
     this.addEventListener(
