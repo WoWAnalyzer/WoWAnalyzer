@@ -21,12 +21,19 @@ type LowHealthHealingProps = {
 };
 
 interface ComboHealEvent {
+  /** All abilities in Combo, even duplicates */
   abilities: Ability[];
+  /** All HealEvents they are based off of */
   healEvents: HealEvent[];
+  /** totalHeal from all HealEvents */
   totalEffectiveHeal: number;
+  /** person who was healed */
   combatant: Combatant;
+  /** HP before the heal */
   hitPointsBefore: number;
+  /** Max HP for the combo */
   maxHitPoints: number;
+  /** timestamp of first heal */
   timestamp: number;
 }
 
@@ -37,6 +44,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
   };
 
   makeComboEvents(events: HealEvent[], combatants: Combatants) {
+    // first lets group by combatant to make timestamp grouping easier
     const mappy: Map<Combatant, HealEvent[]> = new Map<Combatant, HealEvent[]>();
     events.forEach((event) => {
       const combat = combatants.getEntity(event);
@@ -52,7 +60,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
     });
 
     const comboMappy: Map<Combatant, ComboHealEvent[]> = new Map<Combatant, ComboHealEvent[]>();
-
+    // next lets do the timestamp grouping easier
     mappy.forEach((value, key) => {
       let array = comboMappy.get(key);
       if (array === undefined) {
@@ -64,23 +72,26 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
         const outerEvent = value[outer];
 
         const currentTimeStamp = outerEvent.timestamp;
+        // small buffer for log weirdness far too low for another cast
         const upperRange = currentTimeStamp + 100;
 
+        // Simple math. First event is most important as it contains all the HP values we need
         const effectiveHealing = outerEvent.amount + (outerEvent.absorbed || 0);
         const hitPointsBeforeHeal = outerEvent.hitPoints - effectiveHealing;
 
+        // set up baseline ComboHealEvent
         const currentCombo: ComboHealEvent = {
           abilities: [],
           healEvents: [],
           totalEffectiveHeal: 0,
           combatant: key,
-          hitPointsBefore: hitPointsBeforeHeal,
-          maxHitPoints: outerEvent.maxHitPoints,
-          timestamp: currentTimeStamp,
+          hitPointsBefore: hitPointsBeforeHeal, // this is never going to change
+          maxHitPoints: outerEvent.maxHitPoints, // this will never change for this grouping, can change between ComboHealEvents
+          timestamp: currentTimeStamp, // when did the first heal happen
         };
 
         array.push(currentCombo);
-
+        // lets look into the future to see what to snag
         for (let inner = outer; inner < value.length; inner += 1) {
           const innerEvent = value[inner];
           if (innerEvent.timestamp > upperRange) {
@@ -90,19 +101,20 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
           currentCombo.abilities.push(innerEvent.ability);
           currentCombo.healEvents.push(innerEvent);
           currentCombo.totalEffectiveHeal += innerEvent.amount + (innerEvent.absorbed || 0);
-
+          // lets jump to this point so we don't re-look at events
           outer = inner;
         }
       }
     });
 
+    // time to reorder events again
     const reordered: ComboHealEvent[] = [];
-
+    // add all events to array
     comboMappy.forEach((value) => {
       reordered.push(...value);
     });
+    // sort by timestamp start of fight first
     reordered.sort((a, b) => a.timestamp - b.timestamp);
-
     return reordered;
   }
 
