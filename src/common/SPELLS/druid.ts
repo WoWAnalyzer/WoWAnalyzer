@@ -368,20 +368,20 @@ const spells = {
     name: 'Astral Harmony',
     icon: 'talentspec_druid_restoration',
   },
-  RESTO_DRUID_TIER_29_2P_SET_BONUS: {
+  RESTO_DRUID_TIER_28_2P_SET_BONUS: {
     // presence of this buff indicates player has 2pc equipped FIXME not yet on PTR?
     id: 364365,
     name: 'Renewing Bloom',
     icon: 'spell_unused',
   },
-  RESTO_DRUID_TIER_29_4P_SET_BONUS: {
+  RESTO_DRUID_TIER_28_4P_SET_BONUS: {
     // presence of this buff indicates player has 4pc equipped FIXME not yet on PTR?
     id: 363495,
     name: 'Ephemeral Incarnation',
     icon: 'spell_progenitor_orb2',
   },
   RENEWING_BLOOM: {
-    // HoT procced by T29 2pc
+    // HoT procced by T28 2pc
     id: 364686,
     name: 'Renewing Bloom',
     icon: 'spell_unused',
@@ -895,6 +895,16 @@ const spells = {
     id: 251789,
     name: 'T21 2 set bonus',
     icon: 'ability_druid_cower',
+  },
+  HEART_OF_THE_LION: { // hidden? buff from Feral T28 2pc
+    id: 364416,
+    name: 'Heart of the Lion',
+    icon: 'spell_progenitor_beam',
+  },
+  SICKLE_OF_THE_LION: { // damage from Feral T28 4pc
+    id: 363830,
+    name: 'Sickle of the Lion',
+    icon: 'ability_xavius_tormentingswipe',
   },
   BLOODY_GASH: {
     id: 252750,

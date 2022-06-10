@@ -12,10 +12,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TreeOfLife from '../../../modules/talents/TreeOfLife';
 
 /**
- * Resto Druid Tier 29 - 4pc - Ephemeral Incarnation
+ * Resto Druid Tier 28 - 4pc - Ephemeral Incarnation
  * Every 3 casts of Swiftmend grants you Incarnation: Tree of Life for 9 sec.
  */
-class Tier29_4pc extends Analyzer {
+class Tier28_4pc extends Analyzer {
   static dependencies = {
     treeOfLife: TreeOfLife,
   };
@@ -24,15 +24,7 @@ class Tier29_4pc extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
-    // FIXME so far on PTR, no bonus ID shows if player has set or not
-    //       We'll instead check at fight end if any healing from it was detected.
-    //       Update this later if a bonusID gets added
-    this.addEventListener(Events.fightend, this.checkActive);
-  }
-
-  checkActive() {
-    this.active = this.treeOfLife.t29_4pc.allBoostHealing !== 0;
+    this.active = this.selectedCombatant.has4Piece();
   }
 
   statistic() {
@@ -44,7 +36,7 @@ class Tier29_4pc extends Analyzer {
         tooltip={
           <>
             This is the healing caused by the Tree of Life procs from the{' '}
-            <strong>Tier 29 4-piece set bonus</strong>. The healing amount is the sum of all
+            <strong>Tier 28 4-piece set bonus</strong>. The healing amount is the sum of all
             benefits from gaining Tree of Life form, which are listed below
             <ul>
               <li>
@@ -52,7 +44,7 @@ class Tier29_4pc extends Analyzer {
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife.t29_4pc.allBoostHealing,
+                      this.treeOfLife.t28_4pc.allBoostHealing,
                     ),
                   )}
                   %
@@ -63,7 +55,7 @@ class Tier29_4pc extends Analyzer {
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife.t29_4pc.rejuvBoostHealing,
+                      this.treeOfLife.t28_4pc.rejuvBoostHealing,
                     ),
                   )}
                   %
@@ -72,14 +64,14 @@ class Tier29_4pc extends Analyzer {
               <li>
                 Rejuv Mana Saved:{' '}
                 <strong>
-                  {formatNumber(this.treeOfLife._getManaSaved(this.treeOfLife.t29_4pc))}
+                  {formatNumber(this.treeOfLife._getManaSaved(this.treeOfLife.t28_4pc))}
                 </strong>{' '}
                 (assuming mana used to fill with Rejuvs:{' '}
                 <strong>
                   ≈
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife._getManaSavedHealing(this.treeOfLife.t29_4pc),
+                      this.treeOfLife._getManaSavedHealing(this.treeOfLife.t28_4pc),
                     ),
                   )}
                   %
@@ -91,7 +83,7 @@ class Tier29_4pc extends Analyzer {
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife.t29_4pc.extraWgsAttribution.healing,
+                      this.treeOfLife.t28_4pc.extraWgsAttribution.healing,
                     ),
                   )}
                   %
@@ -101,9 +93,9 @@ class Tier29_4pc extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RESTO_DRUID_TIER_29_4P_SET_BONUS.id}>
+        <BoringSpellValueText spellId={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id}>
           <ItemPercentHealingDone
-            amount={this.treeOfLife._getTotalHealing(this.treeOfLife.t29_4pc)}
+            amount={this.treeOfLife._getTotalHealing(this.treeOfLife.t28_4pc)}
           />
           <br />
         </BoringSpellValueText>
@@ -112,4 +104,4 @@ class Tier29_4pc extends Analyzer {
   }
 }
 
-export default Tier29_4pc;
+export default Tier28_4pc;
