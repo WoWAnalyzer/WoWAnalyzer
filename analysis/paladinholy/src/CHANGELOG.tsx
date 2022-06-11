@@ -5,6 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot, HolySchmidt } from
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 30), <>Lowered recommended cast efficiency of <SpellLink id={SPELLS.JUDGMENT_CAST.id}/> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> due to repeat feedback.</>, xizbow),
   change(date(2022, 5, 30), <>Added statistic for healing per holy power</>, xizbow),
   change(date(2022, 5, 18), <>Fixed the analysis for Vanquishers Hammer</>, Abelito75),
   change(date(2022, 5, 18), <>Added analysis for <SpellLink id={SPELLS.VANQUISHERS_HAMMER.id}/></>, xizbow),

@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
               Casting Holy Shock regularly is very important for performing well.
             </Trans>
           ),
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 0,
         isDefensive: true,
@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
               ignoring unimportant things to focus on important things.
             </Trans>
           ),
-          recommendedEfficiency: 0.75,
+          recommendedEfficiency: 0.2,
         },
         timelineSortIndex: 20,
       },
