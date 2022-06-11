@@ -1886,7 +1886,6 @@ export const xepheris: Contributor = {
 export const Hana: Contributor = {
   nickname: 'Hana',
   github: 'OisinOD',
-  avatar: avatar('hana-avatar.png'),
   mains: [
     {
       name: 'Kochouran',
