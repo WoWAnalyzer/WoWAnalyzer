@@ -1,20 +1,20 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, { CastEvent, DamageEvent, Event, EventType } from 'parser/core/Events';
-import { FINISHERS } from '../../constants';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import { getComboPointsSpent } from '../../modules/core/ResourceFromEvent';
-import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
+import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
+import Events, { CastEvent, DamageEvent, Event, EventType } from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { SpellIcon } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import React from 'react';
+
+import { FINISHERS } from '../../constants';
+import { getComboPointsSpent } from '../../modules/core/ResourceFromEvent';
+import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
 
 const BERSERK_CDR_MS = 700;
 const CONVOKE_BITE_CPS = 5;
@@ -103,7 +103,7 @@ class Tier28 extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
             The effective CD reduction stat considers only the reduction you used. For example if
@@ -128,10 +128,11 @@ class Tier28 extends Analyzer {
           <>
             <SpellIcon id={this.cdSpell.id} /> {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s{' '}
             <small>eff. CD reduction</small> <br />
+            <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
             <SpellIcon id={SPELLS.SICKLE_OF_THE_LION.id} />{' '}
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDotDamage))} %{' '}
             <small>
-              {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS from DoT
+              {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS
             </small>
           </>
         </BoringSpellValueText>
@@ -139,3 +140,5 @@ class Tier28 extends Analyzer {
     );
   }
 }
+
+export default Tier28;

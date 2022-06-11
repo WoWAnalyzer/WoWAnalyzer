@@ -25,6 +25,7 @@ import AdaptiveSwarmFeral from './modules/shadowlands/AdaptiveSwarmFeral';
 import ApexPredatorsCraving from './modules/shadowlands/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from './modules/shadowlands/ConvokeSpiritsFeral';
 import Frenzyband from './modules/shadowlands/Frenzyband';
+import Tier28 from './modules/shadowlands/Tier28';
 import FerociousBite from './modules/spells/FerociousBite';
 import HitCountAoE from './modules/spells/HitCountAoE';
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frenzyband: Frenzyband,
     adaptiveSwarm: AdaptiveSwarmFeral,
     sinfulHysteria: SinfulHysteria,
+    tier28: Tier28,
   };
 }
 
