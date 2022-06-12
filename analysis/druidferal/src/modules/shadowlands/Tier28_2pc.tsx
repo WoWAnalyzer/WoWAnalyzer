@@ -1,4 +1,3 @@
-import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
@@ -23,7 +22,7 @@ const CONVOKE_BITE_CPS = 5;
  * Feral Druid Tier 28 - 2pc - Heart of the Lion
  * Each combo point spent reduces the cooldown of Incarnation: King of the Jungle / Berserk by 0.7 sec.
  */
-class Tier28 extends Analyzer {
+class Tier28_2pc extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
@@ -78,24 +77,23 @@ class Tier28 extends Analyzer {
   }
 
   _tallyReduction(cpsUsed: number) {
-    const reduction = cpsUsed * BERSERK_CDR_MS;
-    const reduced = this.spellUsable.reduceCooldown(this.cdSpell.id, reduction);
-    this.totalRawCdReduced += reduced;
-    this.currCastCdReduced += reduced;
+    if (this.spellUsable.isOnCooldown(this.cdSpell.id)) {
+      const reduction = cpsUsed * BERSERK_CDR_MS;
+      const reduced = this.spellUsable.reduceCooldown(this.cdSpell.id, reduction);
+      this.totalRawCdReduced += reduced;
+      this.currCastCdReduced += reduced;
+    }
   }
 
   onCdUse(event: CastEvent) {
     const timeAvailableBeforeCast =
       this.timestampAvailable === undefined ? 0 : event.timestamp - this.timestampAvailable;
     this.totalEffectiveCdReduced += Math.max(0, this.currCastCdReduced - timeAvailableBeforeCast);
+    this.currCastCdReduced = 0;
   }
 
   onCdAvailable(event: Event<EventType.EndCooldown>) {
     this.timestampAvailable = event.timestamp;
-  }
-
-  get totalDotDamage() {
-    return this.abilityTracker.getAbility(SPELLS.SICKLE_OF_THE_LION.id).damageEffective;
   }
 
   statistic() {
@@ -106,6 +104,9 @@ class Tier28 extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
+            This is the effect granted by the <strong>Tier 28 2-piece set bonus</strong>.
+            <br />
+            <br />
             The effective CD reduction stat considers only the reduction you used. For example if
             you spend enough combo points to take 15 seconds off your {this.cdSpell.name} cooldown
             but then wait 10 seconds after its available to cast, you'll only be credited with 5
@@ -118,22 +119,10 @@ class Tier28 extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText
-          spellId={
-            this.selectedCombatant.has4Piece()
-              ? SPELLS.SICKLE_OF_THE_LION.id
-              : SPELLS.HEART_OF_THE_LION.id
-          }
-        >
+        <BoringSpellValueText spellId={SPELLS.HEART_OF_THE_LION.id}>
           <>
             <SpellIcon id={this.cdSpell.id} /> {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s{' '}
             <small>eff. CD reduction</small> <br />
-            <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
-            <SpellIcon id={SPELLS.SICKLE_OF_THE_LION.id} />{' '}
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDotDamage))} %{' '}
-            <small>
-              {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS
-            </small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -141,4 +130,4 @@ class Tier28 extends Analyzer {
   }
 }
 
-export default Tier28;
+export default Tier28_2pc;
