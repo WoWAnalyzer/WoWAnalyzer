@@ -60,39 +60,9 @@ export const Dummy: Contributor = {
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
-  twitter: 'Zerotorescue',
   discord: 'Zerotorescue#0724',
   avatar: avatar('zerotorescue-avatar.jpg'),
-  about: 'WoWAnalyzer founder, Holy Paladin theorycrafter',
-  mains: [
-    {
-      name: 'Zerotorescue',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-gb/character/alakir/zerotorescue',
-    },
-  ],
-  alts: [
-    {
-      name: 'Zerotorescue',
-      spec: SPECS.BREWMASTER_MONK,
-      link: 'https://worldofwarcraft.com/en-gb/character/skullcrusher/zerotorescue',
-    },
-    {
-      name: 'Zerotorescue',
-      spec: SPECS.DISCIPLINE_PRIEST,
-      link: 'https://worldofwarcraft.com/en-gb/character/xavius/zerotorescue',
-    },
-    {
-      name: 'Leukenaam',
-      spec: SPECS.RESTORATION_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-gb/character/alakir/leukenaam',
-    },
-    {
-      name: 'Zerotohunt',
-      spec: SPECS.MARKSMANSHIP_HUNTER,
-      link: 'https://worldofwarcraft.com/en-gb/character/alakir/Zerotohunt',
-    },
-  ],
+  about: 'WoWAnalyzer founder',
 };
 
 export const Fashathus: Contributor = {
@@ -1872,7 +1842,7 @@ export const xizbow: Contributor = {
 };
 
 export const Tialyss: Contributor = {
-  nickname: 'tialyss',
+  nickname: 'Tialyss',
   discord: 'tialyss#0087',
   github: 'mfield',
 };
@@ -1916,6 +1886,13 @@ export const xepheris: Contributor = {
 export const Hana: Contributor = {
   nickname: 'Hana',
   github: 'OisinOD',
+  mains: [
+    {
+      name: 'Kochouran',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Kochouran',
+    },
+  ],
 };
 export const kate: Contributor = {
   nickname: 'kate',

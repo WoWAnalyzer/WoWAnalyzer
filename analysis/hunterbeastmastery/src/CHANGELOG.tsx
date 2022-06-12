@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Putro, Kartarn } from 'CONTRIBUTORS';
+import { Adoraci, Putro, Kartarn, Abelito75 } from 'CONTRIBUTORS';
 import { ItemLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 23), <> Fixed an issue with <SpellLink id={SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id}/> to prevent it from crashing. </>, Abelito75),
   change(date(2021, 12, 31), <> Adjusted ExecuteHelper module to more accurately handle <SpellLink id={SPELLS.KILL_SHOT_MM_BM.id}/> when playing with <SpellLink id={SPELLS.FLAYED_SHOT.id}/>. </>, Putro),
   change(date(2021, 12, 26), <> Correct an error that was attributing too much damage to <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id}/> on rare occasions. </>, Putro),
   change(date(2021, 12, 26), <> Added a module that aims to simulate either <SpellLink id={SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.id} /> or <SpellLink id={SPELLS.FRAGMENTS_OF_THE_ELDER_ANTLERS.id} />, to provide a better comparison between the two for different bosses or dungeons, as it is a highly debated topic. </>, Putro),

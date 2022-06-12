@@ -5,6 +5,10 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022,6,4), <><SpellLink id={SPELLS.RABID_SHADOWS.id}/> support added.</>, Hana,),
+  change(date(2022,5,30), <>Added a comparison for <SpellLink id ={SPELLS.POWER_WORD_SOLACE_TALENT.id}/> vs <SpellLink id={SPELLS.SHIELD_DISCIPLINE_TALENT.id}/></>, Hana),
+  change(date(2022,5,30), <><SpellLink id ={SPELLS.SHADOW_WORD_MANIPULATION.id}/> support added. </>, Hana),
+  change(date(2022,5,28), <><SpellLink id ={SPELLS.PENANCE.id}/> updated to be more compatible with different amounts of bolts. </>, Hana),
   change(date(2022, 5, 19), <><SpellLink id={SPELLS.EXALTATION.id}/> support added when using  <SpellLink id={SPELLS.EVANGELISM_TALENT.id}/></>,Hana),
   change(date(2022, 5, 19), <>Two Piece Bonus: <SpellLink id={SPELLS.MANIFESTED_TWILIGHT_BUFF_2P.id}/> HPS and MP5 values added. </>, Hana),
   change(date(2022, 5, 19), <>Removed a console.log statement in <SpellLink id={SPELLS.CLARITY_OF_MIND.id}/> module </>, Hana, ),

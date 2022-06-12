@@ -17,6 +17,7 @@ const CAST_BUFFER_MS = 65;
 export const APPLIED_HEAL = 'AppliedHeal';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_OVERGROWTH = 'FromOvergrowth';
+export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -81,7 +82,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
   },
   {
-    // for discerning hardcasts from T29 4pc procs
+    // for discerning hardcasts from T28 4pc procs
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.INCARNATION_TOL_ALLOWED.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
@@ -105,6 +106,15 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.OVERGROWTH_TALENT.id,
     referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_EXPIRING_LIFEBLOOM,
+    linkingEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
+    referencedEventType: [EventType.RefreshBuff, EventType.RemoveBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
@@ -137,6 +147,10 @@ export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): bool
 
 export function getHeals(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, APPLIED_HEAL);
+}
+
+export function isFromExpiringLifebloom(event: HealEvent): boolean {
+  return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
 }
 
 export default CastLinkNormalizer;

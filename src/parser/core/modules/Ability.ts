@@ -317,7 +317,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return SPELLS[this.primarySpell]?.name;
+    return SPELLS.maybeGet(this.primarySpell)?.name;
   }
   set name(value) {
     this._name = value;

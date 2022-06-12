@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 6, 11), <>Added a Renewing Mist Graph that shows vivify casts.</>, Abelito75),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 5, 13), <>Fixed Jade Bond CDR. </>, Abelito75),
   change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),

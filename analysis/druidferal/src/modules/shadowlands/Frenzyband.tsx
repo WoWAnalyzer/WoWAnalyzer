@@ -4,7 +4,14 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
-import Events, { CastEvent, Event, EventType } from 'parser/core/Events';
+import Events, {
+  ApplyDebuffEvent,
+  CastEvent,
+  DamageEvent,
+  Event,
+  EventType,
+  RefreshDebuffEvent,
+} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -13,6 +20,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { CP_GENERATORS } from '../../constants';
+import ConvokeSpiritsFeral from '../shadowlands/ConvokeSpiritsFeral';
 
 const CD_REDUCTION_PER_CAST = 300;
 
@@ -27,10 +35,12 @@ class Frenzyband extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
+    convokeSpiritsFeral: ConvokeSpiritsFeral,
   };
 
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
+  protected convokeSpiritsFeral!: ConvokeSpiritsFeral;
 
   /** The total raw amount the CD was reduced */
   totalRawCdReduced: number = 0;
@@ -51,7 +61,22 @@ class Frenzyband extends Analyzer {
     this.cdSpell = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)
       ? SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT
       : SPELLS.BERSERK;
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CP_GENERATORS), this.onCpGenerator);
+    // generators procced by Convoke also caused CDR
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHRED, SPELLS.THRASH_FERAL]),
+      this.onConvokeGenerator,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_DEBUFF),
+      this.onConvokeGenerator,
+    );
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_DEBUFF),
+      this.onConvokeGenerator,
+    );
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
     this.addEventListener(
       new EventFilter(EventType.EndCooldown).by(SELECTED_PLAYER).spell(this.cdSpell),
@@ -60,6 +85,16 @@ class Frenzyband extends Analyzer {
   }
 
   onCpGenerator(_: CastEvent) {
+    this._tallyReduction();
+  }
+
+  onConvokeGenerator(_: DamageEvent | ApplyDebuffEvent | RefreshDebuffEvent) {
+    if (this.convokeSpiritsFeral.isConvoking()) {
+      this._tallyReduction();
+    }
+  }
+
+  _tallyReduction() {
     if (this.spellUsable.isOnCooldown(this.cdSpell.id)) {
       const reduced = this.spellUsable.reduceCooldown(this.cdSpell.id, CD_REDUCTION_PER_CAST);
       this.totalRawCdReduced += reduced;
@@ -71,6 +106,7 @@ class Frenzyband extends Analyzer {
     const timeAvailableBeforeCast =
       this.timestampAvailable === undefined ? 0 : event.timestamp - this.timestampAvailable;
     this.totalEffectiveCdReduced += Math.max(0, this.currCastCdReduced - timeAvailableBeforeCast);
+    this.currCastCdReduced = 0;
   }
 
   onCdAvailable(event: Event<EventType.EndCooldown>) {

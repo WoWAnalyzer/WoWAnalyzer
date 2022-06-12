@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 6, 8), 'Dynamic suggestion for Block Check and fixed a bug with Glory.', Abelito75),
   change(date(2022, 5, 12), 'Formatted expected shield slams.', Abelito75),
   change(date(2022, 4, 22), 'Fixed Charge and Intervene\'s cooldown and updated the example log.', Abelito75),
   change(date(2022, 3, 30), 'Added a stat to show average time between Outburst procs.', Abelito75),

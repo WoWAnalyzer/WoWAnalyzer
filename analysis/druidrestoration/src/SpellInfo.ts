@@ -202,4 +202,5 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
   },
 };
 
+/** Gets the SpellInfo object for a spell with the given ID */
 export const getSpellInfo = (id: number) => DRUID_HEAL_INFO[id] || DEFAULT_INFO;
