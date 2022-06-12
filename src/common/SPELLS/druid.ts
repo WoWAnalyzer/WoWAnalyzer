@@ -896,12 +896,14 @@ const spells = {
     name: 'T21 2 set bonus',
     icon: 'ability_druid_cower',
   },
-  HEART_OF_THE_LION: { // hidden? buff from Feral T28 2pc
+  HEART_OF_THE_LION: {
+    // hidden? buff from Feral T28 2pc
     id: 364416,
     name: 'Heart of the Lion',
     icon: 'spell_progenitor_beam',
   },
-  SICKLE_OF_THE_LION: { // damage from Feral T28 4pc
+  SICKLE_OF_THE_LION: {
+    // damage from Feral T28 4pc
     id: 363830,
     name: 'Sickle of the Lion',
     icon: 'ability_xavius_tormentingswipe',
