@@ -1,7 +1,7 @@
 import { captureException } from 'common/errorLogger';
 import ExtendableError from 'es6-error';
 import getBuild from 'interface/selectors/url/report/getBuild';
-import Config, { Builds } from 'parser/Config';
+import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
@@ -37,7 +37,6 @@ interface Props {
   applyTimeFilter: (start: number, end: number) => null;
   applyPhaseFilter: (phase: string, instance: any) => null;
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
-  builds?: Builds;
   characterProfile: CharacterProfile | null;
   events?: AnyEvent[];
   dependenciesLoading?: boolean;
@@ -52,7 +51,6 @@ const useEventParser = ({
   applyTimeFilter,
   applyPhaseFilter,
   parserClass,
-  builds,
   characterProfile,
   events,
   dependenciesLoading,
@@ -60,8 +58,8 @@ const useEventParser = ({
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [eventIndex, setEventIndex] = useState(0);
-  const location = useLocation();
 
+  const location = useLocation();
   const build = getBuild(location.pathname);
 
   const parser = useMemo(() => {
@@ -76,6 +74,7 @@ const useEventParser = ({
     if (dependenciesLoading) {
       return null;
     }
+    const builds = config.builds;
     const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
     builds &&
       Object.keys(builds).forEach((key) => {
@@ -106,7 +105,6 @@ const useEventParser = ({
     player,
     combatants,
     build,
-    builds,
     config,
   ]);
 
@@ -127,12 +125,14 @@ const useEventParser = ({
 
   useEffect(() => {
     setEventIndex(0);
+    setIsLoading(true);
+    setProgress(0);
   }, [normalizedEvents]);
 
   const eventEmitter = useMemo(() => parser?.getModule(EventEmitter), [parser]);
 
   useEffect(() => {
-    if (parser === null || normalizedEvents === null) {
+    if (parser === null || normalizedEvents === null || eventIndex === normalizedEvents?.length) {
       return;
     }
 

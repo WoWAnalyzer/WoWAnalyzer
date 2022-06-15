@@ -2,11 +2,11 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { CastEvent } from 'parser/core/Events';
 
 export function getComboPointsSpent(event: CastEvent): number {
-  return getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+  return getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS.id);
 }
 
 export function getEnergySpent(event: CastEvent): number {
-  return getResourceSpent(event, RESOURCE_TYPES.ENERGY);
+  return getResourceSpent(event, RESOURCE_TYPES.ENERGY.id);
 }
 
 function getResourceSpent(event: CastEvent, resourceId: number): number {

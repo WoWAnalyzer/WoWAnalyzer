@@ -94,7 +94,12 @@ class EffusiveAnimaAccelerator extends Analyzer {
       return;
     }
 
-    this.spellUsable.reduceCooldown(lastCast.ability.guid, Math.ceil(baseCd * CDR_PER_APPLICATION));
+    if (this.spellUsable.isOnCooldown(lastCast.ability.guid)) {
+      this.spellUsable.reduceCooldown(
+        lastCast.ability.guid,
+        Math.ceil(baseCd * CDR_PER_APPLICATION),
+      );
+    }
     this.casts[this.casts.length - 1][1] = applications + 1;
   }
 }

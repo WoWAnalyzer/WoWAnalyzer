@@ -133,7 +133,6 @@ const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => 
     applyTimeFilter,
     applyPhaseFilter,
     parserClass,
-    builds: config.builds,
     characterProfile,
     events: filteredEvents,
     dependenciesLoading: isLoadingParser || isLoadingCharacterProfile || isFilteringEvents,
