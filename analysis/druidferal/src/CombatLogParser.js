@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
+import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import Abilities from './modules/Abilities';
 import RakeUptimeAndSnapshots from './modules/bleeds/RakeUptimeAndSnapshots';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frenzyband: Frenzyband,
     adaptiveSwarm: AdaptiveSwarmFeral,
     sinfulHysteria: SinfulHysteria,
+    ravenousFrenzy: RavenousFrenzy,
     tier28_2pc: Tier28_2pc,
     tier28_4pc: Tier28_4pc,
   };
