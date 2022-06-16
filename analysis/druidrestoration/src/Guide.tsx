@@ -63,7 +63,7 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           <SpellLink id={SPELLS.SWIFTMEND.id} /> is our emergency heal and it isn't very mana
           efficient - normally it should only be used to prevent an eminent death. However, if using{' '}
           <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> or the Tier 4-piece (
-          <SpellLink id={SPELLS.RESTO_DRUID_TIER_29_4P_SET_BONUS.id} />
+          <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />
           ), it should be used frequently in order to generate procs.
           <br />
           <br />
@@ -83,6 +83,58 @@ export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
           <br />
           USAGE GRAPH FOR CONVOKE / FLOURISH / TRANQ - also show how well we did on ramping?
         </p>
+      </Section>
+      <Section title="Talents, Legendaries, and Covenant">
+        <SubSection title="Tier 1 - CHOSEN TALENT GOES HERE">
+          <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> is the usual pick for Raiding. (BLURB ON HOW
+          TO USE IT WITH RAMPS GOES HERE)
+          <br />
+          (STATS ON AVG STACKS PER RG CAST GOES HERE)
+          <br />
+          <br />
+          <SpellLink id={SPELLS.NOURISH_TALENT.id} /> is undertuned and not currently picked in any
+          content
+          <br />
+          <br />
+          <SpellLink id={SPELLS.CENARION_WARD_TALENT.id} /> is the usual pick for Mythic+. It is a
+          big mana efficient heal that should be used on cooldown on a target likely to be taking
+          damage - the tank is a safe bet.
+          <br />
+          (STATS ON CAST EFFIC GOES HERE)
+        </SubSection>
+        <SubSection title="Tier 5 - CHOSEN TALENT GOES HERE">
+          <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> is the standard pick
+          for Raiding and Mythic+. When picking this talent, <SpellLink id={SPELLS.SWIFTMEND.id} />{' '}
+          is part of your standard rotation in order to generate procs. It is best to always consume
+          the proc with <SpellLink id={SPELLS.WILD_GROWTH.id} />
+          <br />
+          (STATS ON WHAT PROCS WERE CONSUMED WITH)
+          <br />
+          <br />
+          <SpellLink id={SPELLS.CULTIVATION_TALENT.id} /> is undertuned and not currently picked in
+          any content
+          <br />
+          <br />
+          <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is a strong pick for Raiding.
+          Use it when available during high damage phases. (WHAT STATS TO SHOW HERE?)
+        </SubSection>
+        <SubSection title="Tier 6 - CHOSEN TALENT GOES HERE">
+          <SpellLink id={SPELLS.INNER_PEACE_TALENT.id} /> is best in raid encounters where damage
+          timers will allow you to benefit from the reduced cooldown, or in encounters where raiders
+          are spread out and moving too much to benefit from Spring Blossoms.
+          <br />
+          (STATS ON IF PLAYER ACTUALLY MADE USE OF THE CDR)
+          <br />
+          <br />
+          <SpellLink id={SPELLS.SPRING_BLOSSOMS_TALENT.id} /> is the standard pick for Raiding and
+          Mythic+. Make sure to maintain high <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime
+          and you'll get strong extra healing from this talent.
+          <br />
+          <br />
+          <SpellLink id={SPELLS.OVERGROWTH_TALENT.id} /> is terrible do not pick it.
+        </SubSection>
+        <SubSection title="Tier 7 - CHOSEN TALENT GOES HERE"></SubSection>
+        <SubSection title="Legendary - CHOSEN LEGENDARY GOES HERE"></SubSection>
       </Section>
     </>
   );
