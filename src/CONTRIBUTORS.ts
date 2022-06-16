@@ -102,9 +102,10 @@ export const Stui: Contributor = {
     },
   ],
 };
-export const sref: Contributor = {
-  nickname: 'sref',
+export const Sref: Contributor = {
+  nickname: 'Sref',
   github: 'kfinch',
+  discord: 'Sref#1337',
   avatar: avatar('sref-avatar.jpg'),
 };
 export const Iskalla: Contributor = {
@@ -1534,12 +1535,6 @@ export const maestrohdude: Contributor = {
   nickname: 'maestrohdude',
   github: 'maestrohdude',
   discord: 'maestrohdude#6100',
-};
-
-export const Sref: Contributor = {
-  nickname: 'Sref',
-  github: 'kfinch',
-  discord: 'Sref#1337',
 };
 
 export const Bloodfox: Contributor = {

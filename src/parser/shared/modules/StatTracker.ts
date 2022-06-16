@@ -133,6 +133,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.OLD_WARRIORS_SOUL.id,
       haste: (_, item) => calculateSecondaryStatDefault(246, 43, item.itemLevel),
     },
+    [SPELLS.THE_FIRST_SIGIL.id]: {
+      itemId: ITEMS.THE_FIRST_SIGIL.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(226, 1037, item.itemLevel),
+    },
 
     //endregion
 

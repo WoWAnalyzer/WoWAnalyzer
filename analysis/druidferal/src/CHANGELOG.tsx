@@ -4,6 +4,7 @@ import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 6, 16), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to Timeline.</>, Sref),
   change(date(2022, 6, 12), <>Added support for the Tier 2pc and 4pc bonuses, and fixed handling of Berserk CDR with <SpellLink id={SPELLS.FRENZYBAND.id} />.</>, Sref),
   change(date(2022, 4, 22), <>Changed <SpellLink id={SPELLS.SHADOWMELD.id}/> suggestion to be minor only, and fixed a tooltip with wrong number.</>, Sref),
   change(date(2022, 1, 16), <>Fixed a bug where <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/> statistic wasn't counting boost to Feral Moonfire or Feral Thrash.</>, Sref),
