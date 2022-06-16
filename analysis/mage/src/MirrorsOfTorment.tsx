@@ -10,7 +10,7 @@ import Events, {
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import { MS_BUFFER_100 } from '@wowanalyzer/mage';
+import { MS_BUFFER_100 } from './constants';
 
 const FIRE_BLAST_REDUCTION_MS = 6000;
 const MIRRORS_OF_TORMENT_REDUCTION_MS = 4000;
