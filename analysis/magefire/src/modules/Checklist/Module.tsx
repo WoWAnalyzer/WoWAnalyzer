@@ -8,7 +8,6 @@ import { ArcaneIntellect, CancelledCasts, RuneOfPower } from '@wowanalyzer/mage'
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import CombustionActiveTime from '../features/CombustionActiveTime';
 import CombustionCharges from '../features/CombustionCharges';
-import CombustionFirestarter from '../features/CombustionFirestarter';
 import CombustionPreCastDelay from '../features/CombustionPreCastDelay';
 import CombustionSpellUsage from '../features/CombustionSpellUsage';
 import HeatingUp from '../features/HeatingUp';
@@ -28,7 +27,6 @@ class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     combustionCharges: CombustionCharges,
-    combustionFirestarter: CombustionFirestarter,
     combustionSpellUsage: CombustionSpellUsage,
     combustionActiveTime: CombustionActiveTime,
     combustionPreCastDelay: CombustionPreCastDelay,
@@ -52,7 +50,6 @@ class Checklist extends BaseChecklist {
   };
   protected combatants!: Combatants;
   protected combustionCharges!: CombustionCharges;
-  protected combustionFirestarter!: CombustionFirestarter;
   protected combustionSpellUsage!: CombustionSpellUsage;
   protected combustionActiveTime!: CombustionActiveTime;
   protected combustionPreCastDelay!: CombustionPreCastDelay;
@@ -85,7 +82,6 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
           phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
           fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
-          firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
           fireballSpellUsageDuringCombustion: this.combustionSpellUsage
             .fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,

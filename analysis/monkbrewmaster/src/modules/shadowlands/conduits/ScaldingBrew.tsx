@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Entity from 'parser/core/Entity';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -54,8 +53,7 @@ export default class ScaldingBrew extends Analyzer {
   }
 
   private damage(event: DamageEvent) {
-    const target: Entity =
-      this.enemies.enemies[event.targetID] || this.combatants.players[event.targetID];
+    const target = this.enemies.getEntity(event) || this.combatants.getEntity(event);
     if (!target) {
       return;
     }

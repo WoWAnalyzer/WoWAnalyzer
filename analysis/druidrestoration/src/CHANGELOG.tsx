@@ -4,10 +4,12 @@ import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn,
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 6, 16), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to Timeline.</>, Sref),
+  change(date(2022, 6, 9), <>Fixed handling of <SpellLink id={SPELLS.PHOTOSYNTHESIS_TALENT.id} /> to count <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> in increase HoT rate and to work properly with <SpellLink id={SPELLS.THE_DARK_TITANS_LESSON.id} />. Also cleaned up the tooltip and made some minor fixes to spell lists.</>, Sref),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 4, 24), <>Added healing boosted by <SpellLink id={SPELLS.IRONBARK.id} /> its statistic box.</>, Sref),
   change(date(2022, 3, 30), <>Added <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> to throughput tracker to allow user to better compare timing / healing with other CDs.</>, Sref),
-  change(date(2022, 2, 18), <>Added stat boxes for upcoming tier set bonuses - <SpellLink id={SPELLS.RESTO_DRUID_TIER_29_2P_SET_BONUS.id} /> and <SpellLink id={SPELLS.RESTO_DRUID_TIER_29_4P_SET_BONUS.id} /></>, Sref),
+  change(date(2022, 2, 18), <>Added stat boxes for upcoming tier set bonuses - <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_2P_SET_BONUS.id} /> and <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} /></>, Sref),
   change(date(2022, 1, 29), <>Fixed a bug where <SpellLink id={SPELLS.KINDRED_SPIRITS.id} /> statistic would occasionally overcount when linked to another healer</>, Sref),
   change(date(2022, 1, 17), <>Fixed many issues with the Mana Efficiency chart, and added explanation text.</>, Sref),
   change(date(2022, 1, 16), <>Added a damage statistic for <SpellLink id={SPELLS.DRAUGHT_OF_DEEP_FOCUS.id}/> for Resto players who are a healer, but...</>, Sref),

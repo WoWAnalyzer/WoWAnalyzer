@@ -139,6 +139,11 @@ class HotTrackerRestoDruid extends HotTracker {
         duration: 12000,
         tickPeriod: 2000,
       },
+      {
+        spell: SPELLS.RENEWING_BLOOM,
+        duration: 8000,
+        tickPeriod: 1000,
+      },
     ];
   }
 }

@@ -32,6 +32,7 @@ import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
+import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
@@ -104,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
+    remGraph: REMGraph,
 
     // Spells
     essenceFont: EssenceFont,

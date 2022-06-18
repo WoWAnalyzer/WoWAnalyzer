@@ -3,6 +3,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     convokeSpirits: ConvokeSpiritsGuardian,
     sinfulHysteria: SinfulHysteria,
+    ravenousFrenzy: RavenousFrenzy,
   };
 }
 

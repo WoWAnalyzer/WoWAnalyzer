@@ -12,6 +12,10 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.WILD_CHARGE_TALENT.id,
         timelineHighlight: false,
       },
