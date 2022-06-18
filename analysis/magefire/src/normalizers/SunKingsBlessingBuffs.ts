@@ -12,6 +12,14 @@ const EVENT_ORDERS: EventOrder[] = [
     bufferMs: 50,
     anyTarget: true,
   },
+  {
+    beforeEventId: SPELLS.HOT_STREAK.id,
+    beforeEventType: EventType.RemoveBuff,
+    afterEventId: SPELLS.SUN_KINGS_BLESSING_BUFF.id,
+    afterEventType: [EventType.RemoveBuff, EventType.ApplyBuff],
+    bufferMs: 50,
+    anyTarget: true,
+  },
 ];
 
 class SunKingsBlessing extends EventOrderNormalizer {
