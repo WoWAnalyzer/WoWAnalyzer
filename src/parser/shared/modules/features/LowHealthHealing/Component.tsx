@@ -39,7 +39,10 @@ interface ComboHealEvent {
   timestamp: number;
 }
 
+const GROUPING_BUFFER = 100;
+
 class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHealthHealingState> {
+
   state = {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,
@@ -75,7 +78,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
 
         const currentTimeStamp = outerEvent.timestamp;
         // small buffer for log weirdness far too low for another cast
-        const upperRange = currentTimeStamp + 100;
+        const upperRange = currentTimeStamp + GROUPING_BUFFER;
 
         // Simple math. First event is most important as it contains all the HP values we need
         const effectiveHealing = outerEvent.amount + (outerEvent.absorbed || 0);
