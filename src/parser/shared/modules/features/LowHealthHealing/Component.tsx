@@ -5,10 +5,7 @@ import { SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import Combatant from 'parser/core/Combatant';
 import { Ability, HealEvent } from 'parser/core/Events';
-/* eslint-disable */
-// @ts-ignore
 import Slider from 'rc-slider';
-/* eslint-enable */
 import * as React from 'react';
 import 'rc-slider/assets/index.css';
 
@@ -18,6 +15,11 @@ type LowHealthHealingProps = {
   fightStart: number;
   combatants: Combatants;
   healEvents: HealEvent[];
+};
+
+type LowHealthHealingState = {
+  maxPlayerHealthPercentage: number;
+  minHealOfMaxHealthPercentage: number;
 };
 
 interface ComboHealEvent {
@@ -37,7 +39,7 @@ interface ComboHealEvent {
   timestamp: number;
 }
 
-class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
+class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHealthHealingState> {
   state = {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,
@@ -155,9 +157,9 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
           <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
-            onChange={(value: number) => {
+            onChange={(value: number | number[]) => {
               this.setState({
-                maxPlayerHealthPercentage: value,
+                maxPlayerHealthPercentage: value as number,
               });
             }}
           />
@@ -168,9 +170,9 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps> {
           <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
-            onChange={(value: number) => {
+            onChange={(value: number | number[]) => {
               this.setState({
-                minHealOfMaxHealthPercentage: value,
+                minHealOfMaxHealthPercentage: value as number,
               });
             }}
           />
