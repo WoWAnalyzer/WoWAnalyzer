@@ -325,18 +325,6 @@ export function PurifyProblem({
       ? [
           {
             ...problem.data.data.purify,
-            timestamp: stagger.reduce(
-              (
-                prev: RemoveStaggerEvent | AddStaggerEvent,
-                cur: RemoveStaggerEvent | AddStaggerEvent,
-              ) => {
-                if (cur.timestamp < (problem.data.data as PurifyData).purify.timestamp) {
-                  return cur;
-                } else {
-                  return prev;
-                }
-              },
-            ).timestamp,
             subject: true,
           },
         ]
@@ -351,13 +339,15 @@ export function PurifyProblem({
     stagger,
     purify: [
       ...purifyEvents,
-      ...stagger
-        .filter(
-          (event) =>
-            event.type === EventType.RemoveStagger &&
-            event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
-        )
-        .map((event) => ({ ...event, subject: false })),
+      ...(problem.data.type === ProblemType.MissedPurify
+        ? stagger
+            .filter(
+              (event) =>
+                event.type === EventType.RemoveStagger &&
+                event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
+            )
+            .map((event) => ({ ...event, subject: false }))
+        : []),
     ],
     hits: problem.data.type === ProblemType.BadPurify ? problem.data.data.purified : [],
     potentialStagger:
@@ -396,7 +386,7 @@ export function PurifyProblem({
         data: { name: 'stagger' },
         mark: {
           type: 'line',
-          interpolate: 'linear',
+          interpolate: 'step-after',
           color: '#fab700',
         },
         transform: [
@@ -410,7 +400,7 @@ export function PurifyProblem({
         data: { name: 'potentialStagger' },
         mark: {
           type: 'line',
-          interpolate: 'linear',
+          interpolate: 'step-after',
           color: 'lightblue',
         },
         transform: [

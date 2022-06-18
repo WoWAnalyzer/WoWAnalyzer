@@ -317,7 +317,7 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
         data: { name: 'events' },
         mark: {
           type: 'line',
-          interpolate: 'monotone',
+          interpolate: 'step-after',
           color: '#fab700',
         },
         transform: [
