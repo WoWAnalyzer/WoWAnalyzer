@@ -8,7 +8,6 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
   AddStaggerEvent,
-  AnyEvent,
   DamageEvent,
   EventType,
   HealEvent,
@@ -19,9 +18,12 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+
+import BrewCDR from '../../core/BrewCDR';
+import purifySolver, { MissedPurifyData, potentialStaggerEvents } from './solver';
 import './PurifyingBrew.scss';
 
-enum PurifyReason {
+export enum PurifyReason {
   RefreshPurifiedChi = 'refresh-chi',
   PreventCapping = 'prevent-capping',
   BigHit = 'big-hit',
@@ -29,23 +31,20 @@ enum PurifyReason {
   Unknown = 'unknown',
 }
 
-type PurifyData = {
+export type PurifyData = {
   purified: PurifiedHit[];
   purify: RemoveStaggerEvent;
   reason: PurifyReason;
 };
 
-type TrackedStaggerData = {
-  event: AddStaggerEvent;
-  purifyCharges: number;
-};
-
-type MissedPurifyData = {
-  hit: TrackedStaggerData;
-  amountPurified: number;
-  nextPurify: PurifyData;
-  prevPurify?: PurifyData;
-};
+export type TrackedStaggerData =
+  | {
+      event: AddStaggerEvent;
+      purifyCharges: number;
+      // Remaining PB cd in ms
+      remainingPurifyCooldown: number;
+    }
+  | { event: RemoveStaggerEvent; purifyCharges?: undefined; remainingPurifyCooldown?: undefined };
 
 enum ProblemType {
   BadPurify,
@@ -82,7 +81,7 @@ function classifyHitStack(
   for (const hit of hitStack) {
     if (timestamp - hit.event.timestamp > staggerDuration(bnw)) {
       unpurified.push(hit);
-    } else {
+    } else if (hit.event.type === EventType.AddStagger) {
       purified.push({
         hit: hit.event,
         ratio: 1 - (timestamp - hit.event.timestamp) / staggerDuration(bnw),
@@ -96,94 +95,16 @@ function classifyHitStack(
   };
 }
 
-type ShamPurifyData = MissedPurifyData | PurifyData;
-
-/// identify missing purifies recursively
-function identifyPurifies(
-  prev: ShamPurifyData | undefined,
-  next: ShamPurifyData,
-  allHits: TrackedStaggerData[],
-  hasBnw: boolean,
-  bigHitThreshold: number,
-): MissedPurifyData[] {
-  // just don't allow conflicts within the stagger duration. loses some
-  // potential casts, but prevents double-counting purified damage. eventually
-  // we could reduce this to the actual PB cd, but that requires deeper
-  // thinking about the implications
-  const conflictWindowLength = hasBnw ? 13000 : 10000;
-  const nextPurifyTimestamp = 'purify' in next ? next.purify.timestamp : next.hit.event.timestamp;
-  const hits = allHits.filter(
-    (hit) =>
-      hit.purifyCharges > 0 &&
-      // note: you may be tempted here to allow this through the filter if
-      // you have at least two purifying charges, but that breaks in the left
-      // branch of recursion. that is such a small optimization in the grand
-      // scheme of things that we simply...don't
-      hit.event.timestamp < nextPurifyTimestamp - conflictWindowLength,
-  );
-
-  if (hits.length === 0) {
-    // no hits could've been purified without screwing things up, return
-    return [];
-  }
-
-  const best = hits.reduceRight((previousBest, current) =>
-    current.event.newPooledDamage > previousBest.event.newPooledDamage ? current : previousBest,
-  );
-
-  // we can't purify anything that'd pass muster
-  if (best.event.newPooledDamage < bigHitThreshold) {
-    return [];
-  }
-
-  const amountPurified = best.event.newPooledDamage / 2;
-
-  const nextPurify = 'purify' in next ? next : next.nextPurify;
-
-  // okay, finally we have a hit that we should've purified! let's handle it!
-  const missedPurify: MissedPurifyData = {
-    hit: best,
-    amountPurified,
-    nextPurify,
-    prevPurify: !prev || 'purify' in prev ? prev : prev.prevPurify,
-  };
-
-  const index = hits.indexOf(best);
-
-  const reduceChargeCutoff = best.event.timestamp + conflictWindowLength;
-
-  // simulate the stagger amount in the remaining hits. this should technically
-  // also go past the boundary of the following purify, but we're not gonna
-  const simulatedRemainder = hits.slice(index + 1).map(({ event, purifyCharges }) => ({
-    event: {
-      ...event,
-      newPooledDamage:
-        event.newPooledDamage -
-        (amountPurified *
-          Math.max(0, 20 - Math.floor((event.timestamp - best.event.timestamp) / 500))) /
-          20,
-    },
-    purifyCharges:
-      event.timestamp < reduceChargeCutoff ? Math.max(purifyCharges - 1, 0) : purifyCharges,
-  }));
-
-  return [
-    // find more in the left sub-window
-    ...identifyPurifies(prev, missedPurify, hits.slice(0, index), hasBnw, bigHitThreshold),
-    missedPurify,
-    // find more in the right sub-window
-    ...identifyPurifies(missedPurify, next, simulatedRemainder, hasBnw, bigHitThreshold),
-  ];
-}
-
 export default class PurifyingBrewProblems extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    brewCdr: BrewCDR,
     castEff: CastEfficiency,
   };
 
   protected castEff!: CastEfficiency;
   protected spellUsable!: SpellUsable;
+  protected brewCdr!: BrewCDR;
 
   constructor(options: Options) {
     super(options);
@@ -194,9 +115,13 @@ export default class PurifyingBrewProblems extends Analyzer {
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.updateMaxHp);
   }
 
-  private lastKnownMaxHp = 1;
+  private totalSeenMaxHp = 0;
+  private maxHpEventCount = 0;
   private updateMaxHp(event: DamageEvent | HealEvent) {
-    this.lastKnownMaxHp = event.maxHitPoints ?? this.lastKnownMaxHp;
+    if (event.maxHitPoints) {
+      this.totalSeenMaxHp += event.maxHitPoints;
+      this.maxHpEventCount += 1;
+    }
   }
 
   private hitStack: TrackedStaggerData[] = [];
@@ -204,17 +129,22 @@ export default class PurifyingBrewProblems extends Analyzer {
     this.hitStack.push({
       event,
       purifyCharges: this.spellUsable.chargesAvailable(SPELLS.PURIFYING_BREW.id),
+      remainingPurifyCooldown: this.spellUsable.cooldownRemaining(SPELLS.PURIFYING_BREW.id),
     });
   }
 
   get bigHitThreshold() {
-    return this.lastKnownMaxHp / 4;
+    if (this.maxHpEventCount === 0) {
+      return 25000;
+    }
+    return this.totalSeenMaxHp / this.maxHpEventCount / 4;
   }
 
   private unpurifiedHits: TrackedStaggerData[] = [];
   public readonly purifies: PurifyData[] = [];
   private removeStagger(event: RemoveStaggerEvent) {
     if (event.trigger?.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+      this.hitStack.push({ event });
       return;
     }
 
@@ -283,16 +213,20 @@ export default class PurifyingBrewProblems extends Analyzer {
     for (const purify of this.purifies.filter((data) => data.reason !== PurifyReason.Unknown)) {
       // HACK: workaround closure capturing the initial value of `previous`
       const prev = previous;
-      const missed = identifyPurifies(
-        previous,
-        purify,
-        this.unpurifiedHits.filter(
-          (hit) =>
-            hit.event.timestamp > (prev?.purify.timestamp ?? 0) &&
-            hit.event.timestamp < purify.purify.timestamp,
-        ),
-        this.selectedCombatant.hasTalent(SPELLS.BOB_AND_WEAVE_TALENT),
-        this.bigHitThreshold,
+      const hits = this.unpurifiedHits.filter(
+        (hit) =>
+          hit.event.timestamp > (prev?.purify.timestamp ?? 0) &&
+          hit.event.timestamp < purify.purify.timestamp,
+      );
+      const missed = purifySolver(
+        hits,
+        // this is called after we've run through all the events, so it should
+        // be reasonably accurate outside of lust, and never too much of an
+        // underestimate
+        this.brewCdr.minAttainableCooldown * 1000,
+        // we reduce the threshold a bit for this because it produces a bit more
+        // purifying in lower difficulties w/o negatively affecting Mythic
+        this.bigHitThreshold * 0.7,
       );
 
       if (missed.length > 0) {
@@ -382,29 +316,34 @@ export function PurifyProblem({
   events,
   info,
 }: ProblemRendererProps<ProblemData>): JSX.Element {
-  const stagger = events.filter(
+  const stagger: Array<AddStaggerEvent | RemoveStaggerEvent> = events.filter(
     ({ type }) => type === EventType.AddStagger || type === EventType.RemoveStagger,
-  );
+  ) as Array<AddStaggerEvent | RemoveStaggerEvent>;
 
   const purifyEvents =
     problem.data.type === ProblemType.BadPurify
       ? [
           {
             ...problem.data.data.purify,
-            timestamp: stagger.reduce((prev: AnyEvent, cur: AnyEvent) => {
-              if (cur.timestamp < (problem.data.data as PurifyData).purify.timestamp) {
-                return cur;
-              } else {
-                return prev;
-              }
-            }).timestamp,
+            timestamp: stagger.reduce(
+              (
+                prev: RemoveStaggerEvent | AddStaggerEvent,
+                cur: RemoveStaggerEvent | AddStaggerEvent,
+              ) => {
+                if (cur.timestamp < (problem.data.data as PurifyData).purify.timestamp) {
+                  return cur;
+                } else {
+                  return prev;
+                }
+              },
+            ).timestamp,
             subject: true,
           },
         ]
       : problem.data.data.map((missed) => ({
           amount: missed.amountPurified,
           timestamp: missed.hit.event.timestamp,
-          newPooledDamage: missed.hit.event.newPooledDamage - missed.amountPurified,
+          newPooledDamage: missed.state.staggerPool - missed.amountPurified,
           subject: true,
         }));
 
@@ -412,13 +351,19 @@ export function PurifyProblem({
     stagger,
     purify: [
       ...purifyEvents,
-      ...stagger.filter(
-        (event) =>
-          event.type === EventType.RemoveStagger &&
-          event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
-      ),
+      ...stagger
+        .filter(
+          (event) =>
+            event.type === EventType.RemoveStagger &&
+            event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
+        )
+        .map((event) => ({ ...event, subject: false })),
     ],
     hits: problem.data.type === ProblemType.BadPurify ? problem.data.data.purified : [],
+    potentialStagger:
+      problem.data.type === ProblemType.MissedPurify
+        ? potentialStaggerEvents(problem.data.data, stagger)
+        : undefined,
   };
 
   const spec: VisualizationSpec = {
@@ -453,6 +398,20 @@ export function PurifyProblem({
           type: 'line',
           interpolate: 'linear',
           color: '#fab700',
+        },
+        transform: [
+          {
+            calculate: `datum.timestamp - ${info.fightStart}`,
+            as: 'timestamp',
+          },
+        ],
+      },
+      {
+        data: { name: 'potentialStagger' },
+        mark: {
+          type: 'line',
+          interpolate: 'linear',
+          color: 'lightblue',
         },
         transform: [
           {
@@ -540,7 +499,7 @@ export function PurifyProblem({
             legend: null,
             scale: {
               domain: [false, true],
-              range: ['transparent', 'red'],
+              range: ['#00ff96', 'red'],
             },
           },
         },
