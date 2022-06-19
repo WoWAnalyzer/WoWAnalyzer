@@ -25,6 +25,7 @@ import XuensBond from './modules/covenants/XuensBond';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import MoTCGraph from './modules/features/MoTCGraph';
 import JadeIgnition from './modules/items/JadeIgnition';
 import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
 import XuensBattlegear from './modules/items/XuensBattlegear';
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    moTCGraph: MoTCGraph,
 
     // Resources
     chiTracker: ChiTracker,

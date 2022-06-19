@@ -3,6 +3,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 
 import { AdaptiveSwarmDamageDealer, ConvokeSpirits, SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import Abilities from './modules/Abilities';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -58,6 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     convokeSpirits: ConvokeSpirits,
     adaptiveSwarm: AdaptiveSwarmDamageDealer,
     sinfulHysteria: SinfulHysteria,
+    ravenousFrenzy: RavenousFrenzy,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
