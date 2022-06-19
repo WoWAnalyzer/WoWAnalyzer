@@ -42,7 +42,6 @@ interface ComboHealEvent {
 const GROUPING_BUFFER = 100;
 
 class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHealthHealingState> {
-
   state = {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,
