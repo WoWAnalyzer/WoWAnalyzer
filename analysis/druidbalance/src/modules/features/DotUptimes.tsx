@@ -8,9 +8,9 @@ import SunfireUptime from '../features/SunfireUptime';
 import StellarFlareUptime from '../talents/StellarFlareUptime';
 
 /**
- * Wide statistics box for tracking the most important Feral DoT uptimes
+ * Wide statistics box for tracking the most important Balance DoT uptimes
  */
-class DotUptimesAndSnapshots extends Analyzer {
+class DotUptimes extends Analyzer {
   static dependencies = {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
@@ -40,4 +40,4 @@ class DotUptimesAndSnapshots extends Analyzer {
   }
 }
 
-export default DotUptimesAndSnapshots;
+export default DotUptimes;

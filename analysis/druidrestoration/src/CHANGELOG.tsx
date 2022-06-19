@@ -4,6 +4,7 @@ import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn,
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 6, 19), <>Widened <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> statistic for better viewing.</>, Sref),
   change(date(2022, 6, 16), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to Timeline.</>, Sref),
   change(date(2022, 6, 9), <>Fixed handling of <SpellLink id={SPELLS.PHOTOSYNTHESIS_TALENT.id} /> to count <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} /> in increase HoT rate and to work properly with <SpellLink id={SPELLS.THE_DARK_TITANS_LESSON.id} />. Also cleaned up the tooltip and made some minor fixes to spell lists.</>, Sref),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),

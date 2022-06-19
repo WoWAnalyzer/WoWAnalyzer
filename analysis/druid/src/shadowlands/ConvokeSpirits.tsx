@@ -1,3 +1,4 @@
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
@@ -7,6 +8,8 @@ import Events, {
   AbilityEvent,
   ApplyBuffEvent,
   CastEvent,
+  DamageEvent,
+  RefreshBuffEvent,
   TargettedEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -17,6 +20,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
 import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
+
+const debug = true;
 
 /*
  * For several spells we include multiple IDs for the same spell -
@@ -56,6 +61,14 @@ export const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.SHRED,
   SPELLS.MANGLE_BEAR,
   SPELLS.PULVERIZE_TALENT,
+];
+/** Convokable spells that do direct damage (and possible also a DoT portion) - for damage tallying */
+export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
+  ...CONVOKE_DAMAGE_SPELLS,
+  SPELLS.RAKE,
+  SPELLS.THRASH_BEAR,
+  SPELLS.MOONFIRE_DEBUFF,
+  SPELLS.MOONFIRE_FERAL,
 ];
 /** Convokable spells that have travel time */
 export const SPELLS_WITH_TRAVEL_TIME = [
@@ -116,6 +129,11 @@ class ConvokeSpirits extends Analyzer {
    */
   lastTravelingSpellCast: Array<CastEvent | undefined> = [];
 
+  /** True iff the current Feral Frenzy damage is from Convoke */
+  feralFrenzyIsConvoke: boolean = false;
+  /** True iff the current Starfall damage is from Convoke */
+  starfallIsConvoke: boolean = false;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
@@ -168,6 +186,40 @@ class ConvokeSpirits extends Analyzer {
       this.onHit,
     );
 
+    // tally direct damage
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(CONVOKE_DIRECT_DAMAGE_SPELLS),
+      this.onDirectDamage,
+    );
+
+    // special cases for damage tallying - Starfall and Feral Frenzy which are 'non refreshable' DoTs
+    // (Starfall  is refreshable for Balance but costs a lot of resource so we'll count from Convoke
+    // application until next)
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_DEBUFF),
+      this.onFeralFrenzyDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_TALENT),
+      this.onGainFeralFrenzy,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_TALENT),
+      this.onGainFeralFrenzy,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFALL),
+      this.onStarfallDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST),
+      this.onGainStarfall,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST),
+      this.onGainStarfall,
+    );
+
     // watch for travel time casts
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS_WITH_TRAVEL_TIME),
@@ -177,7 +229,11 @@ class ConvokeSpirits extends Analyzer {
 
   onConvoke(_: ApplyBuffEvent) {
     this.cast += 1;
-    this.convokeTracker[this.cast] = { spellIdToCasts: [], form: this.activeDruidForm.form };
+    this.convokeTracker[this.cast] = {
+      spellIdToCasts: [],
+      form: this.activeDruidForm.form,
+      damage: 0,
+    };
   }
 
   onHit(event: AbilityEvent<any> & TargettedEvent<any>) {
@@ -199,6 +255,65 @@ class ConvokeSpirits extends Analyzer {
     if (isTravelTime) {
       this.onTravelTimeHit(spellId);
     }
+  }
+
+  onDirectDamage(event: DamageEvent) {
+    if (event.tick) {
+      return;
+    }
+
+    const spellId = event.ability.guid;
+
+    const isTravelTime = SPELL_IDS_WITH_TRAVEL_TIME.includes(spellId);
+    const wasProbablyHardcast = isTravelTime && this.wasProbablyHardcast(event);
+    const isConvoking = this.isConvoking();
+
+    if (isConvoking && !wasProbablyHardcast) {
+      // spell hit during convoke and was due to convoke
+      this._addDamage(event);
+    } else if (isTravelTime && !wasProbablyHardcast && this.isWithinTravelFromConvoke()) {
+      // spell hit soon after convoke but was due to convoke
+      this._addDamage(event);
+    }
+  }
+
+  onGainFeralFrenzy(_: ApplyBuffEvent | RefreshBuffEvent) {
+    this.feralFrenzyIsConvoke = this.isConvoking();
+  }
+
+  onGainStarfall(_: ApplyBuffEvent | RefreshBuffEvent) {
+    this.starfallIsConvoke = this.isConvoking();
+  }
+
+  onFeralFrenzyDamage(event: DamageEvent) {
+    if (this.feralFrenzyIsConvoke) {
+      this._addDamage(event);
+    }
+  }
+
+  onStarfallDamage(event: DamageEvent) {
+    if (this.starfallIsConvoke) {
+      this._addDamage(event);
+    }
+  }
+
+  /** Tallies this damage event as being from Convoke */
+  _addDamage(event: DamageEvent) {
+    const currentConvoke = this.convokeTracker[this.cast];
+    currentConvoke.damage += event.amount + (event.absorbed || 0);
+    debug &&
+      console.log(
+        `Convoke #${this.cast} - ${event.ability.name} did ${
+          event.amount + (event.absorbed || 0)
+        } @ ${this.owner.formatTimestamp(event.timestamp)}`,
+      );
+  }
+
+  /**
+   * The total attributable damage due to convoke
+   */
+  get totalDamage() {
+    return this.convokeTracker.reduce((att, cast) => att + cast.damage, 0);
   }
 
   /**
@@ -268,8 +383,6 @@ class ConvokeSpirits extends Analyzer {
     this.lastTravelingSpellCast[spellId] = undefined;
   }
 
-  // TODO discount rejuvs procced from other sources?
-
   statistic() {
     return (
       <Statistic
@@ -284,7 +397,7 @@ class ConvokeSpirits extends Analyzer {
     );
   }
 
-  /** The dropdown table in the base form of this statistic */
+  /** The dropdown table in the base form of this statistic - shows damage done */
   get baseTable(): React.ReactNode {
     return (
       <>
@@ -293,16 +406,18 @@ class ConvokeSpirits extends Analyzer {
             <tr>
               <th>Cast #</th>
               <th>Form</th>
+              <th>Damage</th>
               <th>Spells In Cast</th>
             </tr>
           </thead>
           <tbody>
-            {this.convokeTracker.map((spellIdToCasts, index) => (
+            {this.convokeTracker.map((convokeCast, index) => (
               <tr key={index}>
                 <th scope="row">{index}</th>
-                <td>{spellIdToCasts.form}</td>
+                <td>{convokeCast.form}</td>
+                <td>{formatNumber(convokeCast.damage)}</td>
                 <td>
-                  {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
+                  {convokeCast.spellIdToCasts.map((casts, spellId) => (
                     <>
                       <SpellLink id={spellId} /> {casts} <br />
                     </>
@@ -337,4 +452,6 @@ export interface ConvokeCast {
   spellIdToCasts: number[];
   /** The form the Druid was in during the cast */
   form: DruidForm;
+  /** The damage attributable to this convoke cast */
+  damage: number;
 }

@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 const BAR_COLOR = '#6699ff';
 
@@ -58,16 +58,11 @@ class StellarFlareUptime extends Analyzer {
   }
 
   subStatistic() {
-    return uptimeBarSubStatistic(
-      this.owner.fight,
-      {
-        spells: [SPELLS.STELLAR_FLARE_TALENT],
-        uptimes: this.uptimeHistory,
-        color: BAR_COLOR,
-      },
-      [],
-      SubPercentageStyle.RELATIVE,
-    );
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.STELLAR_FLARE_TALENT],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 

@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 const BAR_COLOR = '#9933cc';
 
@@ -53,16 +53,11 @@ class MoonfireUptime extends Analyzer {
   }
 
   subStatistic() {
-    return uptimeBarSubStatistic(
-      this.owner.fight,
-      {
-        spells: [SPELLS.MOONFIRE_DEBUFF],
-        uptimes: this.uptimeHistory,
-        color: BAR_COLOR,
-      },
-      [],
-      SubPercentageStyle.RELATIVE,
-    );
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.MOONFIRE_DEBUFF],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 
