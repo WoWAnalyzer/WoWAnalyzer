@@ -4,6 +4,11 @@ import { Adoraci, Sharrq } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 5, 21), <>Added the <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> cooldown reduction from <SpellLink id={SPELLS.SINFUL_DELIGHT.id} />.</>, Sharrq),
+  change(date(2022, 5, 21), <>Removed the suggestion and associated checks for casting <SpellLink id={SPELLS.COMBUSTION.id} /> during <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />.</>, Sharrq),
+  change(date(2022, 5, 21), <>Removed <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> from the Throughput Cooldowns list.</>, Sharrq),
+  change(date(2022, 5, 21), <>Updated <SpellLink id={SPELLS.INFERNAL_CASCADE.id} /> to no longer count <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> Combustions against you unless you extend an existing <SpellLink id={SPELLS.COMBUSTION.id} /></>, Sharrq),
+  change(date(2022, 5, 21), 'Added support for the increased CDR from the 4 piece bonus.', Sharrq),
   change(date(2022, 4, 2), <>Added a statistic to show the spells that were cast during <SpellLink id={SPELLS.COMBUSTION.id} />.</>, Sharrq),
   change(date(2021, 12, 8), <>Added a suggestion for expired <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />.</>, Sharrq),
   change(date(2021, 12, 8), <>Fixed the number rounding for one of the <SpellLink id={SPELLS.COMBUSTION.id} /> modules.</>, Sharrq),

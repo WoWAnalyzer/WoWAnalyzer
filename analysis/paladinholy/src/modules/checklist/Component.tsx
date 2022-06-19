@@ -41,23 +41,12 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             ) : (
               ''
             )}{' '}
-            {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? (
-              <SpellLink id={SPELLS.JUDGMENT_CAST_HOLY.id} />
-            ) : (
-              ''
-            )}{' '}
-            {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? 'when using' : ''}{' '}
-            {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? (
-              <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />
-            ) : (
-              ''
-            )}{' '}
             {combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT) ? (
               <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />
             ) : (
               ''
             )}{' '}
-            are your most efficient healing spells available. Try to cast them as much as possible
+            is your most efficient healing spell available. Try to cast them as much as possible
             without overhealing.
             <TooltipElement
               content={t({
@@ -81,9 +70,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       >
         <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
         <AbilityRequirement spell={SPELLS.HAMMER_OF_WRATH.id} />
-        {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.JUDGMENT_CAST_HOLY.id} />
-        )}
         {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.BESTOW_FAITH_TALENT.id} />
         )}

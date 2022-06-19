@@ -7,6 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
+import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
@@ -40,8 +41,8 @@ import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigora
 import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
 import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
-import Tier29_2pc from './modules/shadowlands/items/Tier29_2pc';
-import Tier29_4pc from './modules/shadowlands/items/Tier29_4pc';
+import Tier28_2pc from './modules/shadowlands/items/Tier28_2pc';
+import Tier28_4pc from './modules/shadowlands/items/Tier28_4pc';
 import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
@@ -127,6 +128,7 @@ class CombatLogParser extends CoreCombatLogParser {
     adaptiveSwarm: AdaptiveSwarmResto,
     kindredSpirits: KindredSpiritsResto,
     sinfulHysteria: SinfulHysteria,
+    ravenousFrenzy: RavenousFrenzy,
 
     // Conduits
     // Potency
@@ -146,8 +148,8 @@ class CombatLogParser extends CoreCombatLogParser {
     draughtOfDeepFocus: DraughtOfDeepFocus,
 
     // sets
-    tier29_2pc: Tier29_2pc,
-    tier29_4pc: Tier29_4pc,
+    tier28_2pc: Tier28_2pc,
+    tier28_4pc: Tier28_4pc,
   };
 }
 
