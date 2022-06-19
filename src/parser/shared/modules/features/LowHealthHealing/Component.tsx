@@ -1,29 +1,131 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
-import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import { Icon } from 'interface';
 import { SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
-import PropTypes from 'prop-types';
+import Combatant from 'parser/core/Combatant';
+import { Ability, HealEvent } from 'parser/core/Events';
 import Slider from 'rc-slider';
-import { Component } from 'react';
-
+import * as React from 'react';
 import 'rc-slider/assets/index.css';
 
-class LowHealthHealing extends Component {
-  static propTypes = {
-    healEvents: PropTypes.array.isRequired,
-    fightStart: PropTypes.number.isRequired,
-    combatants: PropTypes.object.isRequired,
-  };
+import Combatants from '../../Combatants';
+
+type LowHealthHealingProps = {
+  fightStart: number;
+  combatants: Combatants;
+  healEvents: HealEvent[];
+};
+
+type LowHealthHealingState = {
+  maxPlayerHealthPercentage: number;
+  minHealOfMaxHealthPercentage: number;
+};
+
+interface ComboHealEvent {
+  /** All abilities in Combo, even duplicates */
+  abilities: Ability[];
+  /** All HealEvents they are based off of */
+  healEvents: HealEvent[];
+  /** totalHeal from all HealEvents */
+  totalEffectiveHeal: number;
+  /** person who was healed */
+  combatant: Combatant;
+  /** HP before the heal */
+  hitPointsBefore: number;
+  /** Max HP for the combo */
+  maxHitPoints: number;
+  /** timestamp of first heal */
+  timestamp: number;
+}
+
+const GROUPING_BUFFER = 100;
+
+class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHealthHealingState> {
   state = {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,
   };
 
+  makeComboEvents(events: HealEvent[], combatants: Combatants) {
+    // first lets group by combatant to make timestamp grouping easier
+    const mappy: Map<Combatant, HealEvent[]> = new Map<Combatant, HealEvent[]>();
+    events.forEach((event) => {
+      const combat = combatants.getEntity(event);
+      if (combat === null) {
+        return;
+      }
+      let array = mappy.get(combat);
+      if (array === undefined) {
+        array = [];
+        mappy.set(combat, array);
+      }
+      array.push(event);
+    });
+
+    const comboMappy: Map<Combatant, ComboHealEvent[]> = new Map<Combatant, ComboHealEvent[]>();
+    // next lets do the timestamp grouping easier
+    mappy.forEach((value, key) => {
+      let array = comboMappy.get(key);
+      if (array === undefined) {
+        array = [];
+        comboMappy.set(key, array);
+      }
+
+      for (let outer = 0; outer < value.length; outer += 1) {
+        const outerEvent = value[outer];
+
+        const currentTimeStamp = outerEvent.timestamp;
+        // small buffer for log weirdness far too low for another cast
+        const upperRange = currentTimeStamp + GROUPING_BUFFER;
+
+        // Simple math. First event is most important as it contains all the HP values we need
+        const effectiveHealing = outerEvent.amount + (outerEvent.absorbed || 0);
+        const hitPointsBeforeHeal = outerEvent.hitPoints - effectiveHealing;
+
+        // set up baseline ComboHealEvent
+        const currentCombo: ComboHealEvent = {
+          abilities: [],
+          healEvents: [],
+          totalEffectiveHeal: 0,
+          combatant: key,
+          hitPointsBefore: hitPointsBeforeHeal, // this is never going to change
+          maxHitPoints: outerEvent.maxHitPoints, // this will never change for this grouping, can change between ComboHealEvents
+          timestamp: currentTimeStamp, // when did the first heal happen
+        };
+
+        array.push(currentCombo);
+        // lets look into the future to see what to snag
+        for (let inner = outer; inner < value.length; inner += 1) {
+          const innerEvent = value[inner];
+          if (innerEvent.timestamp > upperRange) {
+            break;
+          }
+
+          currentCombo.abilities.push(innerEvent.ability);
+          currentCombo.healEvents.push(innerEvent);
+          currentCombo.totalEffectiveHeal += innerEvent.amount + (innerEvent.absorbed || 0);
+          // lets jump to this point so we don't re-look at events
+          outer = inner;
+        }
+      }
+    });
+
+    // time to reorder events again
+    const reordered: ComboHealEvent[] = [];
+    // add all events to array
+    comboMappy.forEach((value) => {
+      reordered.push(...value);
+    });
+    // sort by timestamp start of fight first
+    reordered.sort((a, b) => a.timestamp - b.timestamp);
+    return reordered;
+  }
+
   render() {
     const { fightStart, combatants, healEvents } = this.props;
+
+    const grouppedEvents = this.makeComboEvents(healEvents, combatants);
 
     let total = 0;
     let count = 0;
@@ -57,9 +159,9 @@ class LowHealthHealing extends Component {
           <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
-            onChange={(value) => {
+            onChange={(value: number | number[]) => {
               this.setState({
-                maxPlayerHealthPercentage: value,
+                maxPlayerHealthPercentage: value as number,
               });
             }}
           />
@@ -70,9 +172,9 @@ class LowHealthHealing extends Component {
           <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
-            onChange={(value) => {
+            onChange={(value: number | number[]) => {
               this.setState({
-                minHealOfMaxHealthPercentage: value,
+                minHealOfMaxHealthPercentage: value as number,
               });
             }}
           />
@@ -90,46 +192,43 @@ class LowHealthHealing extends Component {
               <th>
                 <Trans id="common.target">Target</Trans>
               </th>
-              <th colSpan="2">
+              <th colSpan={2}>
                 <Trans id="common.healingDone">Healing done</Trans>
               </th>
             </tr>
           </thead>
           <tbody>
-            {healEvents.map((event) => {
-              const effectiveHealing = event.amount + (event.absorbed || 0);
-              const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
-              const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
+            {grouppedEvents.map((event) => {
+              const effectiveHealing = event.totalEffectiveHeal;
+              const healthPercentage = event.hitPointsBefore / event.maxHitPoints;
 
               if (healthPercentage > this.state.maxPlayerHealthPercentage) {
                 return false;
               }
+
               total += effectiveHealing;
               count += 1;
               if (effectiveHealing / event.maxHitPoints < this.state.minHealOfMaxHealthPercentage) {
                 return false;
               }
+
               bigHealCount += 1;
               totalBigHealing += effectiveHealing;
 
-              const combatant = combatants.getEntity(event);
-              if (!combatant) {
-                console.error('Missing combatant for event:', event);
-                return null; // pet or something
-              }
-              const specClassName = combatant.player.type.replace(' ', '');
+              const specClassName = event.combatant.player.type.replace(' ', '');
 
               return (
-                <tr key={`${event.timestamp}${effectiveHealing}${hitPointsBeforeHeal}`}>
+                <tr key={`${event.timestamp}${effectiveHealing}${event.hitPointsBefore}`}>
                   <td style={{ width: '5%' }}>{formatDuration(event.timestamp - fightStart)}</td>
                   <td style={{ width: '25%' }}>
-                    <SpellLink id={event.ability.guid} icon={false}>
-                      <Icon icon={event.ability.abilityIcon} alt={event.ability.abilityIcon} />{' '}
-                      {event.ability.name}
-                    </SpellLink>
+                    {event.abilities.map((ability) => (
+                      <div key={event.abilities.indexOf(ability)}>
+                        <SpellLink id={ability.guid} />
+                      </div>
+                    ))}
                   </td>
                   <td style={{ width: '20%' }} className={specClassName}>
-                    <SpecIcon icon={combatant.player.icon} /> {combatant.name}
+                    <SpecIcon icon={event.combatant.player.icon} /> {event.combatant.name}
                   </td>
                   <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
                     {formatNumber(effectiveHealing)} @{' '}
@@ -171,7 +270,7 @@ class LowHealthHealing extends Component {
               );
             })}
             <tr>
-              <td colSpan="7">
+              <td colSpan={7}>
                 <Trans id="shared.lowHealthHealing.table.total">
                   Total healing done on targets below {this.state.maxPlayerHealthPercentage * 100}%
                   health: {formatNumber(total)} (spread over {count} seperate heals).

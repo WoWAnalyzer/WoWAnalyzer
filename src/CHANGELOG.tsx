@@ -58,6 +58,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 6, 19), 'Triage Healing update.', Abelito75),
   change(date(2022, 6, 16), <>Added <ItemLink id={ITEMS.THE_FIRST_SIGIL.id}/> to Statistics and Timeline.</>, Sref),
   change(date(2022, 5, 29), 'Smattering of bugfixes.', emallson),
   change(date(2022, 5, 28), 'Fix statistics page for TBC logs when viewing a spec with incomplete support or switching builds.', emallson),

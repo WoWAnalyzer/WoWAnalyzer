@@ -66,7 +66,7 @@
     "make-plural": "^6.2.2",
     "parser": "link:./src/parser",
     "prop-types": "^15.7.2",
-    "rc-slider": "^8.6.13",
+    "rc-slider": "^10",
     "react": "^17.0.2",
     "react-animate-height": "^2.0.15",
     "react-dom": "^17.0.2",
