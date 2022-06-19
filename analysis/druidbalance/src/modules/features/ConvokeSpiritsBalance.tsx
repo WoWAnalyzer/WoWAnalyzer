@@ -23,7 +23,7 @@ const DOTS_WITH_DIRECT_PORTION = [
   SPELLS.MOONFIRE_FERAL,
 ];
 
-class ConvokeSpiritsFeral extends ConvokeSpirits {
+class ConvokeSpiritsBalance extends ConvokeSpirits {
   static dependencies = {
     ...ConvokeSpirits.dependencies,
   };
@@ -31,8 +31,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
   /** The direct damage attributed to each Convoke, with the same indices as the base tracker */
   convokeDamage: number[] = []; // TODO use in chart?
 
-  /** True iff the current Feral Frenzy damage is from Convoke */
-  feralFrenzyIsConvoke: boolean = false;
   /** True iff the current Starfall damage is from Convoke */
   starfallIsConvoke: boolean = false;
 
@@ -71,20 +69,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
     } else {
       this.starfallIsConvoke = true;
     }
-
-    // only alternate way to do Feral Frenzy is having the talent, so only need to watch if we have it
-    if (this.selectedCombatant.hasTalent(SPELLS.FERAL_FRENZY_TALENT.id)) {
-      this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_TALENT),
-        this.onGainFeralFrenzy,
-      );
-      this.addEventListener(
-        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_TALENT),
-        this.onGainFeralFrenzy,
-      );
-    } else {
-      this.feralFrenzyIsConvoke = true;
-    }
   }
 
   onConvoke(event: ApplyBuffEvent) {
@@ -92,18 +76,12 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
     this.convokeDamage[this.cast] = 0;
   }
 
-  onGainFeralFrenzy(_: ApplyBuffEvent | RefreshBuffEvent) {
-    this.feralFrenzyIsConvoke = this.isConvoking();
-  }
-
   onGainStarfall(_: ApplyBuffEvent | RefreshBuffEvent) {
     this.starfallIsConvoke = this.isConvoking();
   }
 
   onFeralFrenzyDamage(event: DamageEvent) {
-    if (this.feralFrenzyIsConvoke) {
-      this._addDamage(event);
-    }
+    this._addDamage(event);
   }
 
   onStarfallDamage(event: DamageEvent) {
@@ -139,7 +117,11 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
   _addDamage(event: DamageEvent) {
     this.convokeDamage[this.cast] += event.amount + (event.absorbed || 0);
     debug &&
-      console.log(`Convoke ${event.ability.name} did ${event.amount + (event.absorbed || 0)}`);
+      console.log(
+        `Convoke ${event.ability.name} did ${
+          event.amount + (event.absorbed || 0)
+        } @ ${this.owner.formatTimestamp(event.timestamp)}`,
+      );
   }
 
   get totalDamage() {
@@ -159,9 +141,9 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
               Damage amount listed considers only the direct damage and non-refreshable DoT damage
               done by convoked abilities!{' '}
             </strong>
-            (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and the
-            energy from Tiger's Fury are all not considered by this number, making it almost
-            certainly an undercount of Convoke's true value.
+            (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and Astral
+            Power gains are all not considered by this number, making it almost certainly an
+            undercount of Convoke's true value.
             <br />
             <br />
             {this.baseTooltip}
@@ -178,4 +160,4 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
   }
 }
 
-export default ConvokeSpiritsFeral;
+export default ConvokeSpiritsBalance;

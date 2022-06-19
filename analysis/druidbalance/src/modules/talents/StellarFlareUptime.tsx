@@ -2,13 +2,12 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+
+const BAR_COLOR = '#6699ff';
 
 class StellarFlareUptime extends Analyzer {
   get suggestionThresholds() {
@@ -54,17 +53,20 @@ class StellarFlareUptime extends Analyzer {
     );
   }
 
-  statistic() {
-    const stellarFlareUptime =
-      this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.STELLAR_FLARE_TALENT.id}>
-          <>
-            <UptimeIcon /> {formatPercentage(stellarFlareUptime)} % <small>uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.STELLAR_FLARE_TALENT.id);
+  }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [SPELLS.STELLAR_FLARE_TALENT],
+        uptimes: this.uptimeHistory,
+        color: BAR_COLOR,
+      },
+      [],
+      SubPercentageStyle.RELATIVE,
     );
   }
 }
