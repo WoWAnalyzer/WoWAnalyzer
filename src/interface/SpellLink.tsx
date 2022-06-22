@@ -1,4 +1,5 @@
 import TooltipProvider from 'interface/TooltipProvider';
+import { convertToSpellID } from 'parser/core/ConversionLib';
 import { CSSProperties } from 'react';
 import * as React from 'react';
 
@@ -16,11 +17,13 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
 
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
   ({ id, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
-    const spell = useSpellInfo(id);
+    // make sure we are a number... some people forget the .id and pass an object instead
+    const spellId = convertToSpellID(id);
+    const spell = useSpellInfo(spellId);
 
     return (
       <a
-        href={TooltipProvider.spell(id, { ilvl, rank })}
+        href={TooltipProvider.spell(spellId, { ilvl, rank })}
         target="_blank"
         rel="noopener noreferrer"
         ref={ref}
@@ -29,10 +32,10 @@ const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
       >
         {icon && (
           <>
-            <SpellIcon id={id} noLink style={iconStyle} alt="" />{' '}
+            <SpellIcon id={spellId} noLink style={iconStyle} alt="" />{' '}
           </>
         )}
-        {children || (spell ? spell.name : `Unknown spell: ${id}`)}
+        {children || (spell ? spell.name : `Unknown spell: ${spellId}`)}
       </a>
     );
   },

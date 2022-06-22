@@ -17,6 +17,8 @@ import TheWall from './modules/shadowlands/legendaries/TheWall';
 import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
 import FourSetCastRatio from './modules/shadowlands/tierset/FourSetCastRatio';
 import FourSetTimeBetweenBuffs from './modules/shadowlands/tierset/FourSetTimeBetweenBuffs';
+import IgnorePainExpired from './modules/spells/IgnorePainExpired';
+import IgnorePainTracker from './modules/spells/IgnorePainTracker';
 import ShieldBlock from './modules/spells/ShieldBlock';
 import ShieldSlam from './modules/spells/ShieldSlam';
 import SpellReflect from './modules/spells/SpellReflect';
@@ -51,6 +53,8 @@ class CombatLogParser extends CoreCombatLogParser {
     avatar: Avatar,
     shieldSlam: ShieldSlam,
     spellReflect: SpellReflect,
+    ignorePainTracker: IgnorePainTracker,
+    ignorePainExpired: IgnorePainExpired,
 
     //Talents
     angerManagement: AngerManagement,
