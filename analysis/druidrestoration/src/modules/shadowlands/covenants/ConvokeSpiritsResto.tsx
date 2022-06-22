@@ -151,6 +151,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   statistic() {
     return (
       <Statistic
+        wide
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}

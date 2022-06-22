@@ -7,12 +7,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
 
-class ConvokeSpiritsFeral extends ConvokeSpirits {
+class ConvokeSpiritsBalance extends ConvokeSpirits {
   static dependencies = {
     ...ConvokeSpirits.dependencies,
   };
 
-  // TODO also show energy and CP gained
+  // TODO also astral power gained?
   statistic() {
     return (
       <Statistic
@@ -26,9 +26,9 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
               Damage amount listed considers only the direct damage and non-refreshable DoT damage
               done by convoked abilities!{' '}
             </strong>
-            (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and the
-            energy and damage boost from Tiger's Fury are all not considered by this number, making
-            it almost certainly an undercount of Convoke's true value.
+            (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and Astral
+            Power gains are all not considered by this number, making it almost certainly an
+            undercount of Convoke's true value.
             <br />
             <br />
             {this.baseTooltip}
@@ -45,4 +45,4 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
   }
 }
 
-export default ConvokeSpiritsFeral;
+export default ConvokeSpiritsBalance;

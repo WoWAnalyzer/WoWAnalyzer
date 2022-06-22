@@ -26,7 +26,8 @@ export enum SubPercentageStyle {
  * one or more smaller sub bars.
  * @param fight the fight we're rendering, used for placing timestamp boundaries
  * @param primaryBar a spec for the primary uptime bar to display
- * @param subBars specs for the sub-bars to display underneath it
+ * @param subBars specs for the sub-bars to display underneath it -
+ *   if omitted, will have no sub bars
  * @param subPercentageStyle
  *   iff 'absolute', sub bar uptime percent will be the portion of the entire fight's time,
  *   iff 'relative', sub bar uptime percent will be the portion of primary uptime.
@@ -38,8 +39,8 @@ export enum SubPercentageStyle {
 export default function uptimeBarSubStatistic(
   fight: WCLFight,
   primaryBar: UptimeBarSpec,
-  subBars: UptimeBarSpec[],
-  subPercentageStyle: SubPercentageStyle,
+  subBars: UptimeBarSpec[] = [],
+  subPercentageStyle: SubPercentageStyle = SubPercentageStyle.RELATIVE,
 ): React.ReactNode {
   const primaryUptime = getCombinedUptime(primaryBar.uptimes);
   const totalFightTime = fight.end_time - fight.start_time;
