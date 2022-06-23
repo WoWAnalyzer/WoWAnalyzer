@@ -6,6 +6,7 @@ import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Avatar from './modules/features/Avatar';
+import BigHitGraph from './modules/features/BigHitGraph';
 import BlockCheck from './modules/features/BlockCheck';
 import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/Checklist/Module';
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    bigHitGraph: BigHitGraph,
 
     rageTracker: RageTracker,
     rageDetails: RageDetails,

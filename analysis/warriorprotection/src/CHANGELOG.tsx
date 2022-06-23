@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Adoraci, Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 6, 22), 'Added a Beautiful big hit graph.', Abelito75),
   change(date(2022, 6, 21), 'Ignore Pain Overcap Stat added.', Abelito75),
   change(date(2022, 6, 21), 'Ignore Pain Expired Stat added.', Abelito75),
   change(date(2022, 6, 8), 'Dynamic suggestion for Block Check and fixed a bug with Glory.', Abelito75),
