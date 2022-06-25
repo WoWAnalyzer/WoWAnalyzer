@@ -39,5 +39,10 @@ const soulbindPowers = {
     name: 'Built For War',
     icon: 'ability_warrior_intensifyrage',
   },
+  BATTLEFIELD_PRESENCE: {
+    id: 352858,
+    name: 'Battlefield Presence',
+    icon: 'achievement_bg_3flagcap_nodeaths',
+  },
 } as const;
 export default soulbindPowers;
