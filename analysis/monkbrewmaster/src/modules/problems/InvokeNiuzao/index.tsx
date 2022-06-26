@@ -16,6 +16,8 @@ import Events, {
 } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Enemies from 'parser/shared/modules/Enemies';
+import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
 import { useState } from 'react';
@@ -52,6 +54,7 @@ type NiuzaoCastData = {
   stomps: StompData[];
   startEvent: SummonEvent;
   endEvent: DeathEvent | FightEndEvent;
+  relevantHits: DamageEvent[];
 };
 
 type StompData = {
@@ -63,9 +66,11 @@ type StompData = {
 export class InvokeNiuzao extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    enemies: Enemies,
   };
 
   protected spellUsable!: SpellUsable;
+  protected enemies!: Enemies;
 
   readonly casts: NiuzaoCastData[] = [];
   private activeCasts: Record<number, Omit<NiuzaoCastData, 'endEvent'>> = {};
@@ -91,6 +96,16 @@ export class InvokeNiuzao extends Analyzer {
     this.addEventListener(EventType.Death, this.onDeath);
 
     this.addEventListener(Events.fightend, this.endNiuzao);
+
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
+  }
+
+  private onDamage(event: DamageEvent) {
+    if (shouldIgnore(this.enemies, event)) {
+      return;
+    }
+
+    Object.values(this.activeCasts).forEach((cast) => cast.relevantHits.push(event));
   }
 
   private removeStagger(event: RemoveStaggerEvent) {
@@ -194,6 +209,7 @@ export class InvokeNiuzao extends Analyzer {
       },
       purifies: [],
       stomps: [],
+      relevantHits: [],
       purifyingAtCast: {
         charges: this.spellUsable.chargesAvailable(SPELLS.PURIFYING_BREW.id),
         cooldown: this.spellUsable.cooldownRemaining(SPELLS.PURIFYING_BREW.id),
@@ -341,10 +357,10 @@ function InvokeNiuzaoSummaryChart({ cast, info, events: allEvents }: CommonProps
     ],
   };
 
-  const specBuilder = (width: number): VisualizationSpec => ({
+  const specBuilder = (width: number, height: number): VisualizationSpec => ({
     vconcat: [
       {
-        height: 75,
+        height: height / 2 - 20,
         width,
         encoding: {
           x: {
@@ -400,7 +416,7 @@ function InvokeNiuzaoSummaryChart({ cast, info, events: allEvents }: CommonProps
         ],
       },
       {
-        height: 75,
+        height: height / 2 - 20,
         width,
         encoding: {
           x: {
@@ -488,20 +504,32 @@ function InvokeNiuzaoSummaryChart({ cast, info, events: allEvents }: CommonProps
   });
 
   return (
-    <AutoSizer disableHeight>
-      {({ width }) => (
+    <AutoSizer>
+      {({ width, height }) => (
         <BaseChart
           data={data}
-          spec={specBuilder(width / 2)}
+          spec={/* HACK: not sure why this doubles the width */ specBuilder(width / 2 - 30, height)}
           config={{
             ...defaultConfig,
-            autosize: 'pad',
+            autosize: {
+              type: 'pad',
+              contains: 'padding',
+            },
           }}
         />
       )}
     </AutoSizer>
   );
 }
+
+const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
+  pass ? (
+    <i className="glyphicon glyphicon-ok" style={{ color: color.purify }} />
+  ) : (
+    <i className="glyphicon glyphicon-remove" style={{ color: 'red' }} />
+  );
+
+const GUESS_MAX_HP = 100000;
 
 function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -520,54 +548,136 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
           alignItems: 'start',
         }}
       >
-        <table className="hits-list">
-          <tbody>
-            <tr>
-              <td>
-                <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> casts
-              </td>
-              <td className="pass-fail-counts">
-                {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
-              </td>
-              <td>
-                <PassFailBar
-                  pass={cast.stomps.length}
-                  total={MAX_STOMPS[cast.startEvent.ability.guid]}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Purify Casts</td>
-              <td className="pass-fail-counts">
-                {formatNumber(cast.purifies.length)} /{' '}
-                {TARGET_PURIFIES[cast.startEvent.ability.guid]}
-              </td>
-              <td>
-                <PassFailBar
-                  pass={cast.purifies.length}
-                  total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Total <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> damage
-              </td>
-              <td className="pass-fail-counts">{formatNumber(cast.stompDamage)}</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Amount Purified</td>
-              <td className="pass-fail-counts">{formatNumber(cast.purifyStompContribution)}</td>
-            </tr>
-            <tr>
-              <td>Amount Pre-Purified</td>
-              <td className="pass-fail-counts">
-                {formatNumber(cast.prePurified.reduce((total, { amount }) => total + amount, 0))}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <section>
+            <header style={{ fontWeight: 'bold' }}>Checklist</header>
+            <table className="hits-list">
+              <tbody>
+                <tr>
+                  <td>Purified Before Casting</td>
+                  <td>
+                    <PassFailCheckmark pass={cast.prePurified.length > 0} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Started with 1+ <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Charge
+                  </td>
+                  <td>
+                    <PassFailCheckmark pass={cast.purifyingAtCast.charges >= 1} />
+                  </td>
+                  <td>
+                    ({cast.purifyingAtCast.charges} charges
+                    {cast.purifyingAtCast.charges < 2 && (
+                      <>, {(cast.purifyingAtCast.cooldown / 1000).toFixed(1)}s til next</>
+                    )}
+                    )
+                  </td>
+                </tr>
+                <tr>
+                  <td>Was Actively Tanking</td>
+                  <td>
+                    <PassFailCheckmark
+                      pass={
+                        cast.relevantHits.reduce(
+                          (total, { unmitigatedAmount, amount, maxHitPoints }) =>
+                            total + (unmitigatedAmount ?? amount) / (maxHitPoints ?? GUESS_MAX_HP),
+                          0,
+                        ) >= 1 ||
+                        cast.purifies.reduce((total, { amount }) => total + amount, 0) >
+                          GUESS_MAX_HP
+                      }
+                    />
+                  </td>
+                  <td>
+                    (
+                    {formatNumber(
+                      cast.relevantHits.reduce(
+                        (total, { amount, unmitigatedAmount }) =>
+                          total + (unmitigatedAmount ?? amount),
+                        0,
+                      ),
+                    )}{' '}
+                    pre-mitigation damage taken)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Used <SpellLink id={SPELLS.PURIFYING_BREW.id} /> to Buff{' '}
+                    <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
+                  </td>
+                  <td>
+                    <PassFailCheckmark
+                      pass={
+                        cast.stomps.filter((stomp) => stomp.purifies.length > 0).length >
+                        MAX_STOMPS[cast.startEvent.ability.guid] / 2
+                      }
+                    />
+                  </td>
+                  <td>
+                    ({cast.stomps.filter((stomp) => stomp.purifies.length > 0).length} Stomps
+                    buffed)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <header style={{ fontWeight: 'bold' }}>Details</header>
+            <table className="hits-list">
+              <tbody>
+                <tr>
+                  <td>
+                    <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> casts
+                  </td>
+                  <td className="pass-fail-counts">
+                    {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
+                  </td>
+                  <td>
+                    <PassFailBar
+                      pass={cast.stomps.length}
+                      total={MAX_STOMPS[cast.startEvent.ability.guid]}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Possible <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Casts
+                  </td>
+                  <td className="pass-fail-counts">
+                    {formatNumber(cast.purifies.length)} /{' '}
+                    {TARGET_PURIFIES[cast.startEvent.ability.guid]}
+                  </td>
+                  <td>
+                    <PassFailBar
+                      pass={cast.purifies.length}
+                      total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Total <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> damage
+                  </td>
+                  <td className="pass-fail-counts">{formatNumber(cast.stompDamage)}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Amount Purified</td>
+                  <td className="pass-fail-counts">{formatNumber(cast.purifyStompContribution)}</td>
+                </tr>
+                <tr>
+                  <td>Amount Pre-Purified</td>
+                  <td className="pass-fail-counts">
+                    {formatNumber(
+                      cast.prePurified.reduce((total, { amount }) => total + amount, 0),
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
         <InvokeNiuzaoSummaryChart cast={cast} info={info} events={events} />
       </div>
     </ControlledExpandable>
