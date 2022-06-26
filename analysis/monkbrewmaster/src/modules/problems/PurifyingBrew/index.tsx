@@ -16,6 +16,7 @@ import Events, {
 import CastEfficiency, { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BaseChart from 'parser/ui/BaseChart';
+import { useEffect, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
@@ -524,6 +525,13 @@ export function PurifySection({
   events,
   info,
 }: Pick<GuideProps<any>, 'events' | 'info'> & { module: PurifyingBrewProblems }): JSX.Element {
+  const [problems, setProblems] = useState<Array<Problem<ProblemData>>>([]);
+
+  useEffect(() => {
+    const run = async () => setProblems(module.problems);
+    run();
+  }, [module]);
+
   return (
     <SubSection title="Purifying Brew">
       <p>
@@ -562,12 +570,7 @@ export function PurifySection({
           total={module.purifies.length}
           castEfficiency={module.castEfficiency}
         />
-        <ProblemList
-          info={info}
-          renderer={PurifyProblem}
-          events={events}
-          problems={module.problems}
-        />
+        <ProblemList info={info} renderer={PurifyProblem} events={events} problems={problems} />
       </div>
     </SubSection>
   );

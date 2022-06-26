@@ -678,7 +678,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
             </table>
           </section>
         </div>
-        <InvokeNiuzaoSummaryChart cast={cast} info={info} events={events} />
+        {isExpanded && <InvokeNiuzaoSummaryChart cast={cast} info={info} events={events} />}
       </div>
     </ControlledExpandable>
   );
