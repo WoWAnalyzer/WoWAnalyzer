@@ -5,6 +5,7 @@ import { ControlledExpandable, SpellLink } from 'interface';
 import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
+  AnyEvent,
   CastEvent,
   DamageEvent,
   DeathEvent,
@@ -16,7 +17,21 @@ import Events, {
 import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
 import { useState } from 'react';
+import { VisualizationSpec } from 'react-vega';
+import { AutoSizer } from 'react-virtualized';
+import { Field } from 'vega-lite/build/src/channeldef';
+import { UnitSpec } from 'vega-lite/build/src/spec';
+
+import {
+  color,
+  line,
+  normalizeTimestampTransform,
+  point,
+  timeAxis,
+  staggerAxis,
+} from '../../charts';
 
 const RECENT_PURIFY_WINDOW = 6000;
 
@@ -203,7 +218,9 @@ const TARGET_PURIFIES = {
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
-function NiuzaoChecklistHeader({ cast, info }: { cast: NiuzaoCastData; info: Info }): JSX.Element {
+type CommonProps = { cast: NiuzaoCastData; info: Info; events: AnyEvent[] };
+
+function NiuzaoChecklistHeader({ cast, info }: Pick<CommonProps, 'cast' | 'info'>): JSX.Element {
   return (
     <SectionHeader>
       {formatDuration(cast.startEvent.timestamp - info.fightStart)} &mdash;{' '}
@@ -213,7 +230,280 @@ function NiuzaoChecklistHeader({ cast, info }: { cast: NiuzaoCastData; info: Inf
   );
 }
 
-function InvokeNiuzaoChecklist({ cast, info }: { cast: NiuzaoCastData; info: Info }): JSX.Element {
+function InvokeNiuzaoSummaryChart({ cast, info, events: allEvents }: CommonProps): JSX.Element {
+  const startTime = cast.startEvent.timestamp - 8000;
+  const endTime = cast.endEvent.timestamp + 2000;
+  const events = allEvents.filter(
+    ({ timestamp }) => timestamp >= startTime && timestamp <= endTime,
+  );
+
+  const davePool = cast.stomps.flatMap(({ purifies, event }, index) => [
+    ...purifies.reduce((result, { timestamp, amount }) => {
+      const prevAmount = result.length > 0 ? result[result.length - 1].amount : 0;
+      const next = {
+        timestamp,
+        amount: prevAmount + amount / 4,
+        stomp: index,
+      };
+      result.push(next);
+      return result;
+    }, [] as Array<{ timestamp: number; amount: number; stomp: number }>),
+    {
+      timestamp: event.timestamp,
+      amount: 0,
+      stomp: index,
+      fake: true,
+    },
+  ]);
+
+  const data = {
+    stagger: events.filter(
+      ({ type }) => type === EventType.RemoveStagger || type === EventType.AddStagger,
+    ),
+    purifies: events
+      .filter(
+        (event) =>
+          event.type === EventType.RemoveStagger &&
+          event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
+      )
+      .map((e) => {
+        const event = e as RemoveStaggerEvent;
+        const other = davePool.find(({ timestamp }) => timestamp === event.timestamp);
+        return {
+          ...event,
+          newPooledDamage: event.newPooledDamage + event.amount,
+          hasStomp: other !== undefined,
+          stomp: other?.stomp ?? -1,
+        };
+      }),
+    davePool,
+    stomps: cast.stomps.map((stomp, index) => ({
+      timestamp: stomp.event.timestamp,
+      amount: stomp.damage.reduce((total, { amount }) => total + amount, 0),
+      stomp: index,
+    })),
+    window: [
+      {
+        timestamp: cast.startEvent.timestamp,
+        end: cast.endEvent.timestamp,
+      },
+    ],
+  };
+
+  const windowSpec: UnitSpec<Field> = {
+    data: {
+      name: 'window',
+    },
+    mark: {
+      type: 'rect',
+      color: 'lightblue',
+      opacity: 0.3,
+    },
+    transform: [
+      normalizeTimestampTransform(info),
+      {
+        calculate: `datum.end - ${info.fightStart}`,
+        as: 'end',
+      },
+    ],
+    encoding: {
+      x2: {
+        ...timeAxis,
+        field: 'end',
+      },
+    },
+  };
+
+  const scale = {
+    zero: false,
+    nice: false,
+    domain: [
+      events[0].timestamp - info.fightStart,
+      events[events.length - 1].timestamp - info.fightStart,
+    ],
+  };
+
+  const highlightSelection = {
+    condition: {
+      param: 'selectedStomp',
+      empty: false,
+      value: 'white',
+    },
+    value: 'transparent',
+  };
+
+  const stompSelection = {
+    params: [
+      {
+        name: 'selectedStomp',
+        select: { type: 'point', on: 'mouseover', fields: ['stomp'] },
+      },
+    ],
+  };
+
+  const specBuilder = (width: number): VisualizationSpec => ({
+    vconcat: [
+      {
+        height: 75,
+        width,
+        encoding: {
+          x: {
+            ...timeAxis,
+            scale,
+            axis: null,
+          },
+        },
+        layer: [
+          windowSpec,
+          {
+            ...line('stagger', color.stagger),
+            transform: [normalizeTimestampTransform(info)],
+            encoding: { y: { ...staggerAxis, title: 'Stagger' } },
+          },
+          {
+            ...stompSelection,
+            ...point('purifies', color.purify),
+            transform: [
+              normalizeTimestampTransform(info),
+              {
+                calculate: 'if(datum.hasStomp, "Yes", "No")',
+                as: 'readableHasStomp',
+              },
+            ],
+            encoding: {
+              y: { ...staggerAxis, title: 'Stagger' },
+              stroke: highlightSelection,
+              color: {
+                field: 'hasStomp',
+                type: 'nominal',
+                legend: null,
+                scale: {
+                  domain: [false, true],
+                  range: ['white', color.purify],
+                },
+              },
+              tooltip: [
+                {
+                  field: 'amount',
+                  type: 'quantitative',
+                  format: '.3~s',
+                  title: 'Amount Purified',
+                },
+                {
+                  field: 'readableHasStomp',
+                  type: 'nominal',
+                  title: 'Buffed a Stomp',
+                },
+              ],
+            },
+          },
+        ],
+      },
+      {
+        height: 75,
+        width,
+        encoding: {
+          x: {
+            ...timeAxis,
+            scale,
+          },
+        },
+        layer: [
+          windowSpec,
+          {
+            ...line('davePool', 'white'),
+            transform: [normalizeTimestampTransform(info)],
+            encoding: {
+              y: {
+                title: 'Stomp',
+                type: 'quantitative',
+                axis: {
+                  gridOpacity: 0.3,
+                  format: '~s',
+                },
+                field: 'amount',
+              },
+            },
+          },
+          {
+            ...point('davePool', color.purify),
+            transform: [
+              normalizeTimestampTransform(info),
+              {
+                filter: '!datum.fake',
+              },
+            ],
+            encoding: {
+              stroke: highlightSelection,
+              y: {
+                title: 'Stomp',
+                type: 'quantitative',
+                axis: {
+                  gridOpacity: 0.3,
+                  format: '~s',
+                },
+                field: 'amount',
+              },
+              tooltip: [
+                {
+                  field: 'amount',
+                  type: 'quantitative',
+                  title: 'Stomp Contribution',
+                  format: '.3~s',
+                },
+              ],
+            },
+          },
+          {
+            ...stompSelection,
+            data: { name: 'stomps' },
+            mark: {
+              type: 'bar',
+              color: 'hsl(25.9, 25%, 50.5%)',
+            },
+            transform: [normalizeTimestampTransform(info)],
+            encoding: {
+              y: {
+                type: 'quantitative',
+                axis: {
+                  gridOpacity: 0.3,
+                  format: '~s',
+                },
+                field: 'amount',
+              },
+              stroke: highlightSelection,
+              tooltip: [
+                {
+                  title: 'Damage',
+                  field: 'amount',
+                  type: 'quantitative',
+                  format: '.3~s',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  return (
+    <AutoSizer disableHeight>
+      {({ width }) => (
+        <BaseChart
+          data={data}
+          spec={specBuilder(width / 2)}
+          config={{
+            ...defaultConfig,
+            autosize: 'pad',
+          }}
+        />
+      )}
+    </AutoSizer>
+  );
+}
+
+function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <ControlledExpandable
@@ -222,53 +512,64 @@ function InvokeNiuzaoChecklist({ cast, info }: { cast: NiuzaoCastData; info: Inf
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
     >
-      <table className="hits-list">
-        <tbody>
-          <tr>
-            <td>
-              <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> casts
-            </td>
-            <td className="pass-fail-counts">
-              {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
-            </td>
-            <td>
-              <PassFailBar
-                pass={cast.stomps.length}
-                total={MAX_STOMPS[cast.startEvent.ability.guid]}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Purify Casts</td>
-            <td className="pass-fail-counts">
-              {formatNumber(cast.purifies.length)} / {TARGET_PURIFIES[cast.startEvent.ability.guid]}
-            </td>
-            <td>
-              <PassFailBar
-                pass={cast.purifies.length}
-                total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Total <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> damage
-            </td>
-            <td className="pass-fail-counts">{formatNumber(cast.stompDamage)}</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Amount Purified</td>
-            <td className="pass-fail-counts">{formatNumber(cast.purifyStompContribution)}</td>
-          </tr>
-          <tr>
-            <td>Amount Pre-Purified</td>
-            <td className="pass-fail-counts">
-              {formatNumber(cast.prePurified.reduce((total, { amount }) => total + amount, 0))}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'max-content 1fr',
+          gridColumnGap: '1em',
+          alignItems: 'start',
+        }}
+      >
+        <table className="hits-list">
+          <tbody>
+            <tr>
+              <td>
+                <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> casts
+              </td>
+              <td className="pass-fail-counts">
+                {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
+              </td>
+              <td>
+                <PassFailBar
+                  pass={cast.stomps.length}
+                  total={MAX_STOMPS[cast.startEvent.ability.guid]}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Purify Casts</td>
+              <td className="pass-fail-counts">
+                {formatNumber(cast.purifies.length)} /{' '}
+                {TARGET_PURIFIES[cast.startEvent.ability.guid]}
+              </td>
+              <td>
+                <PassFailBar
+                  pass={cast.purifies.length}
+                  total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Total <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> damage
+              </td>
+              <td className="pass-fail-counts">{formatNumber(cast.stompDamage)}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Amount Purified</td>
+              <td className="pass-fail-counts">{formatNumber(cast.purifyStompContribution)}</td>
+            </tr>
+            <tr>
+              <td>Amount Pre-Purified</td>
+              <td className="pass-fail-counts">
+                {formatNumber(cast.prePurified.reduce((total, { amount }) => total + amount, 0))}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <InvokeNiuzaoSummaryChart cast={cast} info={info} events={events} />
+      </div>
     </ControlledExpandable>
   );
 }
@@ -353,7 +654,7 @@ export function InvokeNiuzaoSection({
       </table>
       <SubSection title="Casts">
         {module.casts.map((cast, ix) => (
-          <InvokeNiuzaoChecklist key={ix} cast={cast} info={info} />
+          <InvokeNiuzaoChecklist key={ix} cast={cast} info={info} events={events} />
         ))}
       </SubSection>
     </Section>

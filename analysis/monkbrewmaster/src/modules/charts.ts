@@ -1,7 +1,7 @@
 import { Info } from 'parser/core/metric';
 import { formatTime } from 'parser/ui/BaseChart';
-import { VisualizationSpec } from 'react-vega';
 import { Field, PositionDef } from 'vega-lite/build/src/channeldef';
+import { NonNormalizedSpec } from 'vega-lite/build/src/spec';
 import { UnitSpec } from 'vega-lite/build/src/spec/unit';
 import { Transform } from 'vega-lite/build/src/transform';
 
@@ -19,23 +19,26 @@ export const timeAxis: PositionDef<Field> = {
     grid: false,
   },
   scale: {
+    zero: false,
     nice: false,
   },
   title: null,
 };
 
-export const staggerChart: Partial<VisualizationSpec> = {
+export const staggerAxis: PositionDef<Field> = {
+  field: 'newPooledDamage',
+  type: 'quantitative',
+  title: 'Staggered Damage',
+  axis: {
+    gridOpacity: 0.3,
+    format: '~s',
+  },
+};
+
+export const staggerChart: Partial<NonNormalizedSpec> = {
   encoding: {
     x: timeAxis,
-    y: {
-      field: 'newPooledDamage',
-      type: 'quantitative',
-      title: 'Staggered Damage',
-      axis: {
-        gridOpacity: 0.3,
-        format: '~s',
-      },
-    },
+    y: staggerAxis,
   },
 };
 
