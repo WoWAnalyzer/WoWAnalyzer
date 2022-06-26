@@ -1,6 +1,6 @@
 import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 
-import type { TrackedStaggerData } from './index';
+import type { TrackedStaggerData } from './analyzer';
 
 const MAX_CHARGES = 2;
 const MIN_GAP = 1000; // PB has a 1000 ms cd with itself
