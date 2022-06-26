@@ -484,14 +484,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
-      <Section title="Damage Cooldowns">
-        <InvokeNiuzaoSection
-          events={events}
-          info={info}
-          module={modules.invokeNiuzao}
-          castEfficiency={modules.CastEfficiency as CastEfficiency}
-        />
-      </Section>
+      <InvokeNiuzaoSection
+        events={events}
+        info={info}
+        module={modules.invokeNiuzao}
+        castEfficiency={modules.CastEfficiency as CastEfficiency}
+      />
     </>
   );
 }

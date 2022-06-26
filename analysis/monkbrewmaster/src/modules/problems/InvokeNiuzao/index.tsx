@@ -2,7 +2,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ControlledExpandable, SpellLink } from 'interface';
-import { GuideProps, PassFailBar, SectionHeader, SubSection } from 'interface/guide';
+import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -168,7 +168,7 @@ export class InvokeNiuzao extends Analyzer {
       get purifyStompContribution() {
         return this.stomps.reduce(
           (total, { purifies }) =>
-            total + purifies.reduce((total, { amount }) => total + amount, 0) / 4,
+            total + purifies.reduce((total, { amount }) => total + amount, 0),
           0,
         );
       },
@@ -196,6 +196,11 @@ const NIUZAO_BUFF_ID_TO_CAST = {
 const MAX_STOMPS = {
   [SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id]: 5,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 3,
+};
+
+const TARGET_PURIFIES = {
+  [SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id]: 6,
+  [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
 function NiuzaoChecklistHeader({ cast, info }: { cast: NiuzaoCastData; info: Info }): JSX.Element {
@@ -234,6 +239,18 @@ function InvokeNiuzaoChecklist({ cast, info }: { cast: NiuzaoCastData; info: Inf
             </td>
           </tr>
           <tr>
+            <td>Purify Casts</td>
+            <td className="pass-fail-counts">
+              {formatNumber(cast.purifies.length)} / {TARGET_PURIFIES[cast.startEvent.ability.guid]}
+            </td>
+            <td>
+              <PassFailBar
+                pass={cast.purifies.length}
+                total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
+              />
+            </td>
+          </tr>
+          <tr>
             <td>
               Total <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> damage
             </td>
@@ -243,6 +260,12 @@ function InvokeNiuzaoChecklist({ cast, info }: { cast: NiuzaoCastData; info: Inf
           <tr>
             <td>Amount Purified</td>
             <td className="pass-fail-counts">{formatNumber(cast.purifyStompContribution)}</td>
+          </tr>
+          <tr>
+            <td>Amount Pre-Purified</td>
+            <td className="pass-fail-counts">
+              {formatNumber(cast.prePurified.reduce((total, { amount }) => total + amount, 0))}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -268,7 +291,7 @@ export function InvokeNiuzaoSection({
   );
 
   return (
-    <SubSection title="Invoke Niuzao, the Black Ox">
+    <Section title="Invoke Niuzao, the Black Ox">
       <p>
         <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} /> is one of the most powerful damage
         cooldowns in the game&mdash;and one of the most dangerous. Using this ability, we can
@@ -333,6 +356,6 @@ export function InvokeNiuzaoSection({
           <InvokeNiuzaoChecklist key={ix} cast={cast} info={info} />
         ))}
       </SubSection>
-    </SubSection>
+    </Section>
   );
 }
