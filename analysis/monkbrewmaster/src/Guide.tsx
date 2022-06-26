@@ -4,7 +4,8 @@ import { SpellLink } from 'interface';
 import { GuideProps, PassFailBar, Section, SubSection } from 'interface/guide';
 import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/Problems';
 import { DamageEvent } from 'parser/core/Events';
-import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import BaseChart from 'parser/ui/BaseChart';
 import { useCallback, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
@@ -13,6 +14,8 @@ import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
 import './HitsList.scss';
 import './ProblemList.scss';
+import { color, normalizeTimestampTransform, timeAxis } from './modules/charts';
+import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import { TrackedHit } from './modules/spells/Shuffle';
 
@@ -298,19 +301,7 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
 
   const spec: VisualizationSpec = {
     encoding: {
-      x: {
-        field: 'timestamp',
-        type: 'quantitative',
-        axis: {
-          labelExpr: formatTime('datum.value'),
-          tickMinStep: 5000,
-          grid: false,
-        },
-        scale: {
-          nice: false,
-        },
-        title: null,
-      },
+      x: timeAxis,
     },
     layer: [
       {
@@ -318,14 +309,9 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
         mark: {
           type: 'line',
           interpolate: 'step-after',
-          color: '#fab700',
+          color: color.stagger,
         },
-        transform: [
-          {
-            calculate: `datum.timestamp - ${info.fightStart}`,
-            as: 'timestamp',
-          },
-        ],
+        transform: [normalizeTimestampTransform(info)],
         encoding: {
           y: {
             field: 'hitPoints',
@@ -498,7 +484,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
-      <Section title="Celestial Brew"></Section>
+      <Section title="Damage Cooldowns">
+        <InvokeNiuzaoSection
+          events={events}
+          info={info}
+          module={modules.invokeNiuzao}
+          castEfficiency={modules.CastEfficiency as CastEfficiency}
+        />
+      </Section>
     </>
   );
 }

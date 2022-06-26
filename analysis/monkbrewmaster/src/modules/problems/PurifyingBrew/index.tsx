@@ -15,10 +15,11 @@ import Events, {
 } from 'parser/core/Events';
 import CastEfficiency, { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import BaseChart from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
+import { staggerChart, line, point, color, normalizeTimestampTransform } from '../../charts';
 import BrewCDR from '../../core/BrewCDR';
 import purifySolver, { MissedPurifyData, potentialStaggerEvents } from './solver';
 import './PurifyingBrew.scss';
@@ -357,73 +358,20 @@ export function PurifyProblem({
   };
 
   const spec: VisualizationSpec = {
-    encoding: {
-      x: {
-        field: 'timestamp',
-        type: 'quantitative',
-        axis: {
-          labelExpr: formatTime('datum.value'),
-          tickMinStep: 5000,
-          grid: false,
-        },
-        scale: {
-          nice: false,
-        },
-        title: null,
-      },
-      y: {
-        field: 'newPooledDamage',
-        type: 'quantitative',
-        title: 'Staggered Damage',
-        axis: {
-          gridOpacity: 0.3,
-          format: '~s',
-        },
-      },
-    },
+    ...staggerChart,
     layer: [
       {
-        data: { name: 'stagger' },
-        mark: {
-          type: 'line',
-          interpolate: 'step-after',
-          color: '#fab700',
-        },
-        transform: [
-          {
-            calculate: `datum.timestamp - ${info.fightStart}`,
-            as: 'timestamp',
-          },
-        ],
+        ...line('stagger', color.stagger),
+        transform: [normalizeTimestampTransform(info)],
       },
       {
-        data: { name: 'potentialStagger' },
-        mark: {
-          type: 'line',
-          interpolate: 'step-after',
-          color: 'lightblue',
-        },
-        transform: [
-          {
-            calculate: `datum.timestamp - ${info.fightStart}`,
-            as: 'timestamp',
-          },
-        ],
+        ...line('potentialStagger', color.potentialStagger),
+        transform: [normalizeTimestampTransform(info)],
       },
       {
-        data: { name: 'hits' },
-        mark: {
-          type: 'point',
-          filled: true,
-          color: 'white',
-          opacity: 1,
-          size: 50,
-        },
+        ...point('hits', 'white'),
         transform: [
-          {
-            calculate: `datum.hit.timestamp - ${info.fightStart}`,
-            as: 'timestamp',
-          },
+          normalizeTimestampTransform(info, 'hit.timestamp'),
           {
             calculate: 'datum.hit.newPooledDamage',
             as: 'newPooledDamage',
@@ -447,24 +395,14 @@ export function PurifyProblem({
         },
       },
       {
-        data: {
-          name: 'purify',
-        },
+        ...point('purify', 'transparent'),
         transform: [
-          {
-            calculate: `datum.timestamp - ${info.fightStart}`,
-            as: 'timestamp',
-          },
+          normalizeTimestampTransform(info),
           {
             calculate: 'datum.newPooledDamage + datum.amount',
             as: 'newPooledDamage',
           },
         ],
-        mark: {
-          type: 'point',
-          opacity: 1,
-          size: 50,
-        },
         encoding: {
           tooltip: [
             {
@@ -480,7 +418,7 @@ export function PurifyProblem({
             legend: null,
             scale: {
               domain: [false, true],
-              range: ['#00ff96', 'red'],
+              range: [color.purify, 'red'],
             },
           },
           fill: {
@@ -489,7 +427,7 @@ export function PurifyProblem({
             legend: null,
             scale: {
               domain: [false, true],
-              range: ['#00ff96', 'red'],
+              range: [color.purify, 'red'],
             },
           },
         },

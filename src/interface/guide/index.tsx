@@ -32,7 +32,7 @@ export type Guide<T extends typeof CombatLogParser = any> = (
 
 export default Guide;
 
-const SectionHeader = ({ children }: { children: React.ReactNode }) => (
+export const SectionHeader = ({ children }: { children: React.ReactNode }) => (
   <header className="flex">
     <div className="flex-main name">{children}</div>
     <div className="flex-sub chevron">
