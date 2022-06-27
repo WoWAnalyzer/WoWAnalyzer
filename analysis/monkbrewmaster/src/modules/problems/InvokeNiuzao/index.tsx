@@ -67,7 +67,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
   const purifiedEnough = useMemo(() => {
     const hits = cast.relevantHits.map(({ maxHitPoints }) => maxHitPoints ?? GUESS_MAX_HP);
 
-    let avg = hits.reduce((total, current) => total + current) / hits.length;
+    let avg = hits.reduce((total, current) => total + current, 0) / hits.length;
     avg *=
       MAX_STOMPS[cast.startEvent.ability.guid] / Math.max.apply(null, Object.values(MAX_STOMPS));
 
