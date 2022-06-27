@@ -1,52 +1,25 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import Events, { CastEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EventHistory from 'parser/shared/modules/EventHistory';
+import Analyzer from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import StandardChecks from '@wowanalyzer/mage/src/StandardChecks';
+
 class CombustionCasts extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
-    eventHistory: EventHistory,
+    standardChecks: StandardChecks,
   };
-  protected abilityTracker!: AbilityTracker;
-  protected eventHistory!: EventHistory;
-
-  totalCastsDuringCombust = 0;
-  combustionCasts: number[][] = [];
-
-  constructor(options: Options) {
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-  }
-
-  onCast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    //Excludes any casts that are not casted during Combustion and casts that aren't casts (i.e. enchant procs, etc)
-    if (
-      !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) ||
-      CASTS_THAT_ARENT_CASTS.includes(spellId)
-    ) {
-      return;
-    }
-
-    this.totalCastsDuringCombust += 1;
-    const index = this.combustionCasts.findIndex((arr) => arr.includes(spellId));
-    if (index !== -1) {
-      this.combustionCasts[index][1] += 1;
-    } else {
-      this.combustionCasts.push([spellId, 1]);
-    }
-  }
+  protected standardChecks!: StandardChecks;
 
   castPercentage(castCount: number) {
-    return castCount / this.totalCastsDuringCombust;
+    return castCount / this.standardChecks.countCastsDuringBuff(SPELLS.COMBUSTION);
+  }
+
+  get castBreakdown() {
+    return this.standardChecks.castBreakdownDuringBuff(SPELLS.COMBUSTION);
   }
 
   statistic() {
@@ -81,7 +54,7 @@ class CombustionCasts extends Analyzer {
                     <small>% of Total Combust Casts</small>
                   </td>
                 </tr>
-                {this.combustionCasts
+                {this.castBreakdown
                   .sort((a, b) => b[1] - a[1])
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
