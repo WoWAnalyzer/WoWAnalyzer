@@ -11,6 +11,33 @@ export type MissedPurifyData = {
   state: State;
 };
 
+function shouldPurify(
+  hit: TrackedStaggerData,
+  allHits: TrackedStaggerData[],
+  hitIndex: number,
+  purifyThreshold: number,
+  pool: number,
+): boolean {
+  if (hit.event.type === EventType.RemoveStagger) {
+    return false;
+  }
+
+  if (hit.purifyCharges === 0 || pool / 2 < purifyThreshold) {
+    return false;
+  }
+
+  // don't purify if we die in less than 500ms. this hit was probably just a one-shot
+  if (
+    hitIndex < allHits.length - 1 &&
+    allHits[hitIndex + 1].event.trigger?.type === EventType.Death &&
+    allHits[hitIndex + 1].event.timestamp - hit.event.timestamp < 500
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 export default function solver(
   allHits: TrackedStaggerData[],
   estBrewCooldown: number,
@@ -19,11 +46,7 @@ export default function solver(
   let bestSolutionSize = 0;
   let bestSolution: MissedPurifyData[] = [];
   allHits.forEach((hit, ix) => {
-    if (hit.event.type === EventType.RemoveStagger) {
-      return;
-    }
-
-    if (hit.purifyCharges === 0 || hit.event.newPooledDamage / 2 < purifyThreshold) {
+    if (!shouldPurify(hit, allHits, ix, purifyThreshold, hit.event.newPooledDamage)) {
       return;
     }
 
@@ -84,7 +107,8 @@ function identifyPurifies(
   const nextCastable = hit.event.timestamp + MIN_GAP;
 
   let nextStaggerPool = staggerPool - amountPurified;
-  const next = hits.findIndex(({ event }) => {
+  const next = hits.findIndex((hit, ix) => {
+    const { event } = hit;
     if (event.type === EventType.RemoveStagger) {
       nextStaggerPool -= event.amount;
       nextStaggerPool = Math.max(0, nextStaggerPool);
@@ -95,7 +119,7 @@ function identifyPurifies(
     const castable =
       event.timestamp >= nextCastable &&
       (remainingCharges > 0 || event.timestamp >= nextBrewCharge);
-    const worthCasting = nextStaggerPool / 2 > threshold;
+    const worthCasting = shouldPurify(hit, hits, ix, threshold, nextStaggerPool);
 
     return castable && worthCasting;
   });
