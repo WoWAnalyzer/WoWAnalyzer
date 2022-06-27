@@ -12,4 +12,5 @@ export { default as RuneOfPowerNormalizer } from './RuneOfPowerNormalizer';
 export { default as ShiftingPower } from './ShiftingPower';
 export { default as SiphonedMalice } from './SiphonedMalice';
 export { default as TempestBarrier } from './TempestBarrier';
+export { default as StandardChecks } from './StandardChecks';
 export * from './constants';

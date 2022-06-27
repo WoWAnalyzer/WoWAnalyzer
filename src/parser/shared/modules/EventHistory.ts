@@ -8,17 +8,31 @@ class EventHistory extends Module {
    * @param count the maximum number of events to return, or null for no limit
    * @param maxTime the maximum number of milliseconds to look back, or null for no limit
    * @param filterDef an optional EventFilter to apply to all events
+   * @param fromTimestamp an optional timestamp to start searching from
    * @returns the last `count` events that match the given filters, with the oldest events first
    */
   public last<ET extends EventType, E extends MappedEvent<ET>>(
     count?: number,
     maxTime?: number,
     filterDef?: EventFilter<ET>,
+    fromTimestamp?: number,
   ): E[] {
     let filter = (event: AnyEvent) => true;
 
+    if (fromTimestamp) {
+      const prevFilter = filter;
+      filter = (event) => {
+        if (!event.timestamp || event.timestamp > fromTimestamp) {
+          return false;
+        }
+        return prevFilter(event);
+      };
+    }
+
     if (maxTime) {
-      const minTime = this.owner.currentTimestamp - maxTime;
+      const minTime = fromTimestamp
+        ? fromTimestamp - maxTime
+        : this.owner.currentTimestamp - maxTime;
       const prevFilter = filter;
       filter = (event) => {
         if (!event.timestamp || event.timestamp < minTime) {

@@ -15,6 +15,7 @@ import {
   ShiftingPower,
   SiphonedMalice,
   TempestBarrier,
+  StandardChecks,
 } from '@wowanalyzer/mage';
 
 import Checklist from './modules/Checklist/Module';
@@ -65,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Checklist
     checklist: Checklist,
     buffs: Buffs,
+    standardChecks: StandardChecks,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
