@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { EventType, RemoveStaggerEvent } from 'parser/core/Events';
+import HIT_TYPES from 'game/HIT_TYPES';
+import { DamageEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
@@ -15,6 +16,16 @@ import {
   staggerAxis,
 } from '../../charts';
 import type { CommonProps } from './index';
+
+function displayCriticalHit(damage: DamageEvent[]): string {
+  if (damage.every((event) => event.hitType === HIT_TYPES.CRIT)) {
+    return 'Yes';
+  } else if (damage.some((event) => event.hitType === HIT_TYPES.CRIT)) {
+    return 'Partial';
+  } else {
+    return 'No';
+  }
+}
 
 export function InvokeNiuzaoSummaryChart({
   cast,
@@ -70,6 +81,8 @@ export function InvokeNiuzaoSummaryChart({
     stomps: cast.stomps.map((stomp, index) => ({
       timestamp: stomp.event.timestamp,
       amount: stomp.damage.reduce((total, { amount }) => total + amount, 0),
+      staggerContribution: stomp.purifies.reduce((total, { amount }) => total + amount, 0) / 4,
+      displayCritical: displayCriticalHit(stomp.damage),
       stomp: index,
     })),
     window: [
@@ -238,7 +251,7 @@ export function InvokeNiuzaoSummaryChart({
                 {
                   field: 'amount',
                   type: 'quantitative',
-                  title: 'Stomp Contribution',
+                  title: 'Stagger Contribution',
                   format: '.3~s',
                 },
               ],
@@ -268,6 +281,17 @@ export function InvokeNiuzaoSummaryChart({
                   field: 'amount',
                   type: 'quantitative',
                   format: '.3~s',
+                },
+                {
+                  title: 'Stagger Contribution',
+                  field: 'staggerContribution',
+                  type: 'quantitative',
+                  format: '.3~s',
+                },
+                {
+                  title: 'Critical Hit?',
+                  field: 'displayCritical',
+                  type: 'nominal',
                 },
               ],
             },
