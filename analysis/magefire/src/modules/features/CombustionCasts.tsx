@@ -18,10 +18,6 @@ class CombustionCasts extends Analyzer {
     return castCount / this.standardChecks.countCastsDuringBuff(SPELLS.COMBUSTION);
   }
 
-  get castBreakdown() {
-    return this.standardChecks.castBreakdownDuringBuff(SPELLS.COMBUSTION);
-  }
-
   statistic() {
     return (
       <Statistic
@@ -54,7 +50,8 @@ class CombustionCasts extends Analyzer {
                     <small>% of Total Combust Casts</small>
                   </td>
                 </tr>
-                {this.castBreakdown
+                {this.standardChecks
+                  .castBreakdownDuringBuff(SPELLS.COMBUSTION)
                   .sort((a, b) => b[1] - a[1])
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
@@ -63,7 +60,10 @@ class CombustionCasts extends Analyzer {
                       </td>
                       <td style={{ textAlign: 'center' }}>{spell[1]}</td>
                       <td style={{ textAlign: 'center' }}>
-                        {formatPercentage(this.castPercentage(spell[1]))}%
+                        {formatPercentage(
+                          spell[1] / this.standardChecks.countCastsDuringBuff(SPELLS.COMBUSTION),
+                        )}
+                        %
                       </td>
                     </tr>
                   ))}
