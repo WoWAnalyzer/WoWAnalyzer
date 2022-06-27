@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import type { Problem } from 'interface/guide/Problems';
+import type { Problem } from 'interface/guide/ProblemList';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
