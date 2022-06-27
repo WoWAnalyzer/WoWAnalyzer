@@ -14,10 +14,6 @@ class CombustionCasts extends Analyzer {
   };
   protected standardChecks!: StandardChecks;
 
-  castPercentage(castCount: number) {
-    return castCount / this.standardChecks.countCastsDuringBuff(SPELLS.COMBUSTION);
-  }
-
   statistic() {
     return (
       <Statistic
