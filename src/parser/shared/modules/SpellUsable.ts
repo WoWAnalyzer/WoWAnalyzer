@@ -125,12 +125,10 @@ class SpellUsable extends Analyzer {
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    * @returns {number}
    */
-  cooldownRemaining(spellId: number, timestamp = this.owner.currentTimestamp) {
+  cooldownRemaining(spellId: number, timestamp: number = this.owner.currentTimestamp): number {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
-      throw new Error(
-        `Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`,
-      );
+      return 0;
     }
     const cooldown = this._currentCooldowns[canSpellId];
     const expectedEnd = Math.round(

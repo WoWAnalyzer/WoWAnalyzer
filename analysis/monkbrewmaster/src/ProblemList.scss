@@ -4,6 +4,9 @@
   header {
     display: grid;
     grid-template-columns: 1fr max-content;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 1rem 0;
 
     button {
       appearance: none;
@@ -18,6 +21,18 @@
       &:disabled {
         color: #333;
       }
+    }
+  }
+
+  &.no-problems {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    font-size: 2em;
+
+    i {
+      color: #4ec04e;
+      margin-right: 0.5em;
     }
   }
 }

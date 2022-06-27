@@ -177,6 +177,11 @@ const legendaries = {
     icon: 'ability_bastion_monk',
     bonusID: 7718,
   },
+  CTA_INVOKE_NIUZAO_BUFF: {
+    id: 358520,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+  },
   BOUNTIFUL_BREW: {
     id: 356592,
     name: 'Bountiful Brew',

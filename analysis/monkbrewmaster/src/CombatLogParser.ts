@@ -29,6 +29,8 @@ import Stagger from './modules/core/Stagger';
 import StaggerFabricator from './modules/core/StaggerFabricator';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
+import { InvokeNiuzao } from './modules/problems/InvokeNiuzao';
+import PurifyingBrewProblems from './modules/problems/PurifyingBrew';
 import CelestialEffervescence from './modules/shadowlands/conduits/CelestialEffervescence';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
@@ -119,6 +121,10 @@ class CombatLogParser extends CoreCombatLogParser {
     koth: KegOfTheHeavens,
 
     apl: AplCheck,
+
+    /// Problem/Guide stuff
+    purifyProblems: PurifyingBrewProblems,
+    invokeNiuzao: InvokeNiuzao,
   };
 
   static guide = Guide;

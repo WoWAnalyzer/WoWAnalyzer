@@ -7,6 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
+import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Guide from './Guide';
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     adaptiveSwarm: AdaptiveSwarmResto,
     kindredSpirits: KindredSpiritsResto,
     sinfulHysteria: SinfulHysteria,
+    ravenousFrenzy: RavenousFrenzy,
 
     // Conduits
     // Potency

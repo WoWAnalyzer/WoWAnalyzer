@@ -52,6 +52,16 @@ class BrewCDR extends Analyzer {
     return totalCDR;
   }
 
+  get maxTotalCDR() {
+    return (
+      this.ks.wastedCDR +
+      this.ks.wastedBocCDR +
+      this.tp.wastedCDR +
+      this.bob.wastedCDR[SPELLS.PURIFYING_BREW.id] +
+      this.totalCDR
+    );
+  }
+
   // The idea here is pretty simple: we have an amount of time that has
   // passed (fightDuration) and an amount of time that has "passed"
   // via flat cooldown reduction on abilities (totalCDR). For example,
@@ -65,6 +75,14 @@ class BrewCDR extends Analyzer {
   // https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1238#discussion_r163734298
   get cooldownReductionRatio() {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
+  }
+
+  get maxCooldownReductionRatio() {
+    return this.maxTotalCDR / (this.owner.fightDuration + this.maxTotalCDR);
+  }
+
+  get minAttainableCooldown() {
+    return this.avgCooldown * (1 - this.maxCooldownReductionRatio);
   }
 
   get avgCooldown() {

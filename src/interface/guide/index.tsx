@@ -32,7 +32,7 @@ export type Guide<T extends typeof CombatLogParser = any> = (
 
 export default Guide;
 
-const SectionHeader = ({ children }: { children: React.ReactNode }) => (
+export const SectionHeader = ({ children }: { children: React.ReactNode }) => (
   <header className="flex">
     <div className="flex-main name">{children}</div>
     <div className="flex-sub chevron">
@@ -70,3 +70,13 @@ export const SubSection = ({
     <div style={style}>{children}</div>
   </section>
 );
+
+export function PassFailBar({ pass, total }: { pass: number; total: number }) {
+  const perf = pass / total;
+  return (
+    <div className="pass-fail-bar-container">
+      <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />
+      {perf < 1 && <div className="fail-bar" style={{ minWidth: `${(1 - perf) * 100}%` }} />}
+    </div>
+  );
+}

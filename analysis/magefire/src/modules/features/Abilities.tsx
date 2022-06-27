@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 25,
+        cooldown: combatant.has4Piece() && combatant.hasBuff(SPELLS.COMBUSTION.id) ? 25 / 1.5 : 25,
         charges: 3,
         castEfficiency: {
           suggestion: true,
@@ -66,8 +66,26 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: null,
         cooldown: (haste: any) =>
-          (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste),
-        charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2,
+          combatant.has4Piece() && combatant.hasBuff(SPELLS.COMBUSTION.id)
+            ? 12 / 1.5 / (1 + haste)
+            : 12 / (1 + haste),
+        charges: 2,
+        enabled: !combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.FIRE_BLAST.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: null,
+        cooldown: (haste: any) =>
+          combatant.has4Piece() && combatant.hasBuff(SPELLS.COMBUSTION.id)
+            ? 10 / 1.5 / (1 + haste)
+            : 10 / (1 + haste),
+        charges: 3,
+        enabled: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
