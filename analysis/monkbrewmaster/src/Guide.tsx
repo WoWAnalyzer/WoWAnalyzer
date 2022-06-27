@@ -514,6 +514,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         events={events}
         info={info}
         module={modules.invokeNiuzao}
+        // this cast is necessary because the defaultModules are not properly indexed.
+        // combination of static methods + inheritance issues.
         castEfficiency={modules.CastEfficiency as CastEfficiency}
       />
     </>
