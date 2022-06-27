@@ -1,8 +1,9 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { ControlledExpandable, SpellLink } from 'interface';
+import { ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
+import InformationIcon from 'interface/icons/Information';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -140,7 +141,26 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                   <td>
                     <PassFailCheckmark pass={wasActivelyTanking && purifiedEnough} />
                   </td>
-                  <td>({formatNumber(cast.purifyStompContribution)} damage Purified into Stomp)</td>
+                  <td>
+                    ({formatNumber(cast.purifyStompContribution)} damage Purified){' '}
+                    <Tooltip
+                      hoverable
+                      content={
+                        <>
+                          This is the full amount of purified damage that contributed to any{' '}
+                          <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />. Niuzao takes 25% of this
+                          amount as the base bonus damage, which may then be increased by effects
+                          like <SpellLink id={SPELLS.WALK_WITH_THE_OX.id} />. Purified damage that
+                          expired before the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />{' '}
+                          is not counted.
+                        </>
+                      }
+                    >
+                      <span>
+                        <InformationIcon />
+                      </span>
+                    </Tooltip>
+                  </td>
                 </tr>
               </tbody>
             </table>
