@@ -5,6 +5,8 @@ import { NonNormalizedSpec } from 'vega-lite/build/src/spec';
 import { UnitSpec } from 'vega-lite/build/src/spec/unit';
 import { Transform } from 'vega-lite/build/src/transform';
 
+export const POINT_SIZE = 75;
+
 export const normalizeTimestampTransform = (info: Info, key: string = 'timestamp'): Transform => ({
   calculate: `datum.${key} - ${info.fightStart}`,
   as: 'timestamp',
@@ -58,7 +60,7 @@ export const point = (dataName: string, color: string): UnitSpec<Field> => ({
     filled: true,
     color: color,
     opacity: 1,
-    size: 50,
+    size: POINT_SIZE,
   },
 });
 

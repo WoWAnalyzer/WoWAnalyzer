@@ -15,7 +15,7 @@ import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
 import './HitsList.scss';
 import './ProblemList.scss';
-import { color, normalizeTimestampTransform, timeAxis } from './modules/charts';
+import { color, normalizeTimestampTransform, POINT_SIZE, timeAxis } from './modules/charts';
 import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
@@ -317,7 +317,7 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
           y: {
             field: 'hitPoints',
             type: 'quantitative',
-            title: null,
+            title: 'Hit Points',
             axis: {
               gridOpacity: 0.3,
               format: '~s',
@@ -351,13 +351,13 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
           type: 'point',
           filled: true,
           opacity: 1,
-          size: 50,
+          size: POINT_SIZE,
         },
         encoding: {
           y: {
             field: 'event.hitPoints',
             type: 'quantitative',
-            title: null,
+            title: 'Hit Points',
             axis: {
               gridOpacity: 0.3,
               format: '~s',
