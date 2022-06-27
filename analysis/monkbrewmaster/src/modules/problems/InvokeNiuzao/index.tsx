@@ -64,17 +64,15 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
     [cast.purifies, cast.relevantHits],
   );
 
-  const purifiedEnough = useMemo(
-    () =>
-      cast.purifyStompContribution >=
-      Math.max.apply(
-        null,
-        cast.relevantHits
-          .map(({ maxHitPoints }) => maxHitPoints)
-          .filter((val) => val !== undefined) as number[],
-      ),
-    [cast.purifyStompContribution, cast.relevantHits],
-  );
+  const purifiedEnough = useMemo(() => {
+    const hits = cast.relevantHits.map(({ maxHitPoints }) => maxHitPoints ?? GUESS_MAX_HP);
+
+    let avg = hits.reduce((total, current) => total + current) / hits.length;
+    avg *=
+      MAX_STOMPS[cast.startEvent.ability.guid] / Math.max.apply(null, Object.values(MAX_STOMPS));
+
+    return cast.purifyStompContribution >= avg;
+  }, [cast.purifyStompContribution, cast.relevantHits, cast.startEvent.ability.guid]);
 
   return (
     <ControlledExpandable
