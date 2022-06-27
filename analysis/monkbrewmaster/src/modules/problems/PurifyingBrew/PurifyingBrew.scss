@@ -1,5 +1,7 @@
 .purify-reasons {
   margin-top: 1em;
+  align-self: start;
+
   &.hits-list td:first-child {
     min-width: max-content;
   }

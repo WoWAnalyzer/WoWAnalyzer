@@ -286,9 +286,8 @@ export function PurifySection({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'max-content 1fr',
+          gridTemplateColumns: 'minmax(40%, max-content) 1fr',
           gridColumnGap: '1em',
-          alignItems: 'start',
         }}
       >
         <PurifyReasonBreakdown

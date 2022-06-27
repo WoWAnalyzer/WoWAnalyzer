@@ -495,7 +495,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             style={{
               display: 'grid',
               gridTemplateAreas: "'timeline timeline' 'hits-list problem-list'",
-              gridTemplateColumns: 'max-content 1fr',
+              gridTemplateColumns: 'minmax(40%, max-content) 1fr',
               gridColumnGap: '1em',
             }}
           >
