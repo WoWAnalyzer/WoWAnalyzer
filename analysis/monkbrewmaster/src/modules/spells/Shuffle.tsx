@@ -7,13 +7,26 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 
+export type TrackedHit = {
+  mitigated: boolean;
+  event: DamageEvent;
+};
+
 export default class Shuffle extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  hitsWith = 0;
-  hitsWithout = 0;
   protected enemies!: Enemies;
+
+  hits: TrackedHit[] = [];
+
+  get hitsWith() {
+    return this.hits.filter(({ mitigated }) => mitigated).length;
+  }
+
+  get hitsWithout() {
+    return this.hits.filter(({ mitigated }) => !mitigated).length;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -23,7 +36,7 @@ export default class Shuffle extends Analyzer {
 
   get uptimeSuggestionThreshold() {
     return {
-      actual: this.hitsWith / (this.hitsWith + this.hitsWithout),
+      actual: this.hitsWith / this.hits.length,
       isLessThan: {
         minor: 0.98,
         average: 0.96,
@@ -42,11 +55,14 @@ export default class Shuffle extends Analyzer {
       return;
     }
 
-    if (this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id)) {
-      this.hitsWith += 1;
-    } else {
-      this.hitsWithout += 1;
-    }
+    const mitigated =
+      this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id) ||
+      (event.unmitigatedAmount === undefined && event.amount === 0);
+
+    this.hits.push({
+      event,
+      mitigated,
+    });
   }
 
   suggestions(when: When) {

@@ -17,6 +17,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 6, 27), <>Added prototype "guide"-style summary page.</>, emallson),
   change(date(2022, 6, 6), <>Fixed tracking of <SpellLink id={SPELLS.SCALDING_BREW.id} /> damage</>, nullDozzer),
   change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
   change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),

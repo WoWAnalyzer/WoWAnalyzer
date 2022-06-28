@@ -1,0 +1,21 @@
+.purify-reasons {
+  margin-top: 1em;
+  align-self: start;
+
+  &.hits-list td:first-child {
+    min-width: max-content;
+  }
+  tbody.reasons {
+    .fail-bar {
+      background: transparent;
+    }
+
+    .pass-bar {
+      border-radius: 2px;
+    }
+
+    .unknown .pass-bar {
+      background-color: hsl(348.9, 69.5%, 39.8%);
+    }
+  }
+}
