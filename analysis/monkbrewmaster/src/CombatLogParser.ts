@@ -30,6 +30,7 @@ import StaggerFabricator from './modules/core/StaggerFabricator';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import { InvokeNiuzao } from './modules/problems/InvokeNiuzao';
+import { StompOrderNormalizer } from './modules/problems/InvokeNiuzao/normalizer';
 import PurifyingBrewProblems from './modules/problems/PurifyingBrew';
 import CelestialEffervescence from './modules/shadowlands/conduits/CelestialEffervescence';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
@@ -125,6 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
     /// Problem/Guide stuff
     purifyProblems: PurifyingBrewProblems,
     invokeNiuzao: InvokeNiuzao,
+    stompOrder: StompOrderNormalizer,
   };
 
   static guide = Guide;
