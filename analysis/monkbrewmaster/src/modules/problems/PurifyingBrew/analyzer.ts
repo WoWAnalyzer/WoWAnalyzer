@@ -244,7 +244,8 @@ export default class PurifyingBrewProblems extends Analyzer {
 
   get problems(): Array<Problem<ProblemData>> {
     const badPurifies: Array<Problem<ProblemData>> = this.purifies
-      .filter(({ reason }) => reason === PurifyReason.Unknown)
+      // the length check *should* never be relevant but in rare cases it crops up.
+      .filter(({ reason, purified }) => reason === PurifyReason.Unknown && purified.length > 0)
       .map((data) => ({
         data: {
           type: ProblemType.BadPurify,
