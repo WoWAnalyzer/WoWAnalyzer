@@ -179,6 +179,7 @@ class WildGrowth extends Analyzer {
     const items = this.castWgHitsLog.map((wgCast) => ({
       timestamp: wgCast.timestamp,
       icon: SPELLS.WILD_GROWTH,
+      // TODO overlay 'X' on bad casts
       tooltip: `${this.owner.formatTimestamp(wgCast.timestamp)} - Hits: ${
         wgCast.hits
       }, Effective: ${wgCast.effectiveHits}`,

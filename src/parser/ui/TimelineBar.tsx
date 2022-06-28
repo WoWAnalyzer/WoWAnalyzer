@@ -10,11 +10,23 @@ export type TimelineBarItem = {
   timestamp: number;
   /** SpellIcon to represent the item */
   icon: Spell;
-  // TODO add overlay modifier like an X or other symbol?
+  // TODO add option to overlay a symbol like an 'X' over the icon
   /** Tooltip to show on mousing over the item */
   tooltip?: React.ReactNode | string;
 };
 
+/**
+ * Generates a timeline bar over the course of the fight upon which items can be dropped.
+ * These items could represent casts, buffs, hits, etc.. and will have the appearance of
+ * a spell icon with an optional symbol overlaid on top and an optional tooltip on mouseover.
+ *
+ * For example, this component could be used to display every time the player used a specific spell,
+ * and the overlay icon and tooltip could show if the cast was 'good' or 'bad'
+ *
+ * @param fight the fight we're rendering, used for placing timestamp boundaries
+ * @param items a list of items to render on the bar
+ * @param label a label for this timeline that will appear on the left
+ */
 export function fightTimelineBar(
   fight: WCLFight,
   items: TimelineBarItem[],
