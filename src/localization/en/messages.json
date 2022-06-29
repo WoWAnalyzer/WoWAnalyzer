@@ -1088,5 +1088,12 @@
   "{num, plural, one {Healer} other {Healers}}": "{num, plural, one {Healer} other {Healers}}",
   "{num, plural, one {Melee DPS} other {Melee DPS}}": "{num, plural, one {Melee DPS} other {Melee DPS}}",
   "{num, plural, one {Ranged DPS} other {Ranged DPS}}": "{num, plural, one {Ranged DPS} other {Ranged DPS}}",
-  "{num, plural, one {Tank} other {Tanks}}": "{num, plural, one {Tank} other {Tanks}}"
+  "{num, plural, one {Tank} other {Tanks}}": "{num, plural, one {Tank} other {Tanks}}",
+
+  "tbcwork": "TBC support is still a Work in Progress.",
+  "tbcwarlock.modules.checklist.downtime": "Downtime",
+  "tbcwarlock.destruction.modules.checklist.avoidBeingInactive": "Try to avoid being inactive for a large portion of the fight",
+  "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description": "",
+  "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description.ignoreDamage": "",
+  "tbcwarlock.destruction.modules.checklist.maintainCurse": "Maintain a curse on the primary target"
 }
