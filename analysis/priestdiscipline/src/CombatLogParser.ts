@@ -15,6 +15,7 @@ import {
 } from '@wowanalyzer/priest';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AbilityTracker from './modules/core/AbilityTracker';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
@@ -138,6 +139,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     manifestedTwilight: ManifestedTwilight,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
