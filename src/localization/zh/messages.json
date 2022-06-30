@@ -415,13 +415,13 @@
   "interface.report.results.navigationBar.statistics": "分析",
   "interface.report.results.navigationBar.timeline": "时间轴",
   "interface.report.results.overview.suggestions.average": "",
-  "interface.report.results.overview.suggestions.explanation": "",
+  "interface.report.results.overview.suggestions.explanation": "基于你在这场战斗中的表现，以下是我们认为你可以改进的地方",
   "interface.report.results.overview.suggestions.improve": "",
   "interface.report.results.overview.suggestions.major": "",
   "interface.report.results.overview.suggestions.minor": "",
-  "interface.report.results.overview.suggestions.minorImportance": "",
+  "interface.report.results.overview.suggestions.minorImportance": "重要级",
   "interface.report.results.overview.suggestions.noMajorIssues": "",
-  "interface.report.results.overview.suggestions.suggestions": "",
+  "interface.report.results.overview.suggestions.suggestions": "改进建议",
   "interface.report.results.providedBy": "",
   "interface.report.results.providedByDetails": "",
   "interface.report.results.statistics.adjustStatistics": "",
@@ -1092,5 +1092,9 @@
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description": "较高的停机时间是需要避免的，你可以通过降低释放法术之间的延迟、预测移动路径以及在GCD过程中移动等方式来降低你的停机时间",
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description.ignoreDamage": "",
   "tbcwarlock.destruction.modules.checklist.maintainCurse": "保持主要目标的诅咒",
-  "tbcwarlock.destruction.modules.checklist.maintainCurse.description": ""
+  "tbcwarlock.destruction.modules.checklist.maintainCurse.description": "",
+  "shared.curseChecker.suggestions.tbcwarlock.label": "你的 <0>{slotsName}</0> 覆盖率需要提高, 尽量多注意你在Boss身上的 <1>{slotsName}</1>",
+  "tbcwarlock.shared.curses.curseOfElements": "元素诅咒",
+  "tbcwarlock.shared.curses.curseOfDoom": "厄运诅咒",
+  "tbcwarlock.shared.curses.curseOfAgony": "痛苦诅咒"
 }

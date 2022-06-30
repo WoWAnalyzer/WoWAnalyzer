@@ -1095,5 +1095,6 @@
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive": "Try to avoid being inactive for a large portion of the fight",
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description": "",
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description.ignoreDamage": "",
-  "tbcwarlock.destruction.modules.checklist.maintainCurse": "Maintain a curse on the primary target"
+  "tbcwarlock.destruction.modules.checklist.maintainCurse": "Maintain a curse on the primary target",
+  "tbcwarlock.shared.curses.curseOfElements": "Curse of the Elements"
 }

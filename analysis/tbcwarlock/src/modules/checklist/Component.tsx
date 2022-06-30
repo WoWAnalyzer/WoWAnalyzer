@@ -46,7 +46,11 @@ const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPr
       />
     </Rule>
     <Rule
-      name="Maintain a curse on the primary target"
+      name={
+        <Trans id="tbcwarlock.destruction.modules.checklist.maintainCurse">
+          Maintain a curse on the primary target
+        </Trans>
+      }
       description={
         <Fragment>
           It is important to maintain one curse on the primary target. Priority order should be{' '}

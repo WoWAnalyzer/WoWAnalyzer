@@ -1893,3 +1893,10 @@ export const kate: Contributor = {
   nickname: 'kate',
   github: 'renanthera',
 };
+
+export const Lucky0604: Contributor = {
+  nickname: 'Lucky',
+  github: 'lucky0604',
+  avatar: avatar('lucky0604.png'),
+  discord: 'Lucky0604#8966',
+};
