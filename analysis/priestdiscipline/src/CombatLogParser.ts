@@ -44,6 +44,7 @@ import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
 import ClarityOfMindEvang from './modules/shadowlands/legendaries/ClarityOfMindEvang';
 import ShadowWordManipulation from './modules/shadowlands/legendaries/ShadowWordManipulation';
 import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
+import SoothingShade from './modules/shadowlands/soulbinds/SoothingShade';
 import ManifestedTwilight from './modules/shadowlands/tier/ManifestedTwilight';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
+    SoothingShade: SoothingShade,
 
     // Conduits
     shiningRadiance: ShiningRadiance,

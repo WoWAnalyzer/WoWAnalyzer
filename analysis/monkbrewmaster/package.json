@@ -17,6 +17,7 @@
     "react": "^17.0.2",
     "react-toggle": "^4.0.2",
     "react-vega": "^7.4.1",
-    "react-virtualized": "^9.22.3"
+    "react-virtualized": "^9.22.3",
+    "vega-lite": "^5.2.0"
   }
 }

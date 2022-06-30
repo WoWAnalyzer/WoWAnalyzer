@@ -1,5 +1,7 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
+import Guide, { GuideContainer } from 'interface/guide';
+import { ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
   AnyEvent,
@@ -86,6 +88,7 @@ import EventFilter from './EventFilter';
 import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
+import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -716,6 +719,27 @@ class CombatLogParser {
     return results;
   }
 
+  static guide?: Guide;
+  buildGuide() {
+    const ctor = this.constructor as typeof CombatLogParser;
+    if (ctor.guide === undefined) {
+      return undefined;
+    }
+
+    const props = {
+      modules: this._modules as ModulesOf<any>,
+      info: this.info,
+      events: this.eventHistory,
+    };
+
+    const Component = ctor.guide;
+    return () => (
+      <GuideContainer>
+        <Component {...props} />
+      </GuideContainer>
+    );
+  }
+
   /**
    * All fight events after normalization. This does not include (non
    * normalizer) modules that fabricate or alter events.
@@ -725,7 +749,7 @@ class CombatLogParser {
    * this array (unless fabricated in a normalizer).
    */
   normalizedEvents: AnyEvent[] = [];
-  get info() {
+  get info(): Info {
     return {
       abilities: this.getModule(Abilities).abilities,
       playerId: this.selectedCombatant.id,
