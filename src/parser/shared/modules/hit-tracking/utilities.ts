@@ -18,5 +18,9 @@ export function magic(event: DamageEvent): boolean {
 }
 
 export function shouldIgnore(enemies: Enemies, event: DamageEvent): boolean {
-  return !notableEnemy(enemies, event) || IgnoredAbilities.includes(event.ability.guid);
+  return (
+    !notableEnemy(enemies, event) ||
+    IgnoredAbilities.includes(event.ability.guid) ||
+    event.tick === true
+  );
 }

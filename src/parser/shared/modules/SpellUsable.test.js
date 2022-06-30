@@ -190,11 +190,8 @@ describe('core/Modules/SpellUsable', () => {
         module.endCooldown(SPELLS.FAKE_SPELL.id);
       }).toThrow();
     });
-    it('cooldownRemaining on a spell not on cooldown throws', () => {
-      // We throw instead of returning something like null so that implementers *have* to take this into consideration.
-      expect(() => {
-        module.cooldownRemaining(SPELLS.FAKE_SPELL.id);
-      }).toThrow();
+    it('cooldownRemaining on a spell not on cooldown returns 0', () => {
+      expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(0);
     });
   });
 

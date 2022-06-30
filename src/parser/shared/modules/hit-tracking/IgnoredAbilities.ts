@@ -4,6 +4,10 @@
  * worth mitigating, skewing the results of tracking.
  */
 
-const IGNORED: number[] = [];
+const IGNORED: number[] = [
+  360288, // Lords of Dread, Anguishing Strike DoT
+  360302, // Lords of Dread, Swarm of Decay
+  360303, // Lords of Dread, Swarm of Darkness
+];
 
 export default IGNORED;
