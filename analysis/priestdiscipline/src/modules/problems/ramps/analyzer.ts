@@ -3,10 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-
-// type Buffwindow = {
-//   casts[]
-// };
+// import { SubSection } from 'interface/guide';
 
 class Rapture extends Analyzer {
   raptureBuffActive = false;
@@ -75,5 +72,13 @@ class Rapture extends Analyzer {
     };
   }
 }
+// export function RampSection(()
+
+//   return (
+//     <SubSection title = "Main Ramp" >
+//     <p></p>
+//     </SubSection>
+//   )
+// )
 
 export default Rapture;

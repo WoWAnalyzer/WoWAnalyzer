@@ -34,7 +34,6 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
-import Rapture from './modules/problems/ramps/analyzer';
 import Exaltation from './modules/shadowlands/conduits/Exaltation';
 import ExaltationEvang from './modules/shadowlands/conduits/ExaltationEvang';
 import RabidShadows from './modules/shadowlands/conduits/RabidShadows';
@@ -145,7 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manifestedTwilight: ManifestedTwilight,
 
     // Problems
-    rapture: Rapture,
+    // rapture: Rapture,
   };
 
   static guide = Guide;
