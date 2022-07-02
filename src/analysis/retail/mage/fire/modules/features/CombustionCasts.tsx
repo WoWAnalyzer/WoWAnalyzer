@@ -2,6 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -57,7 +58,11 @@ class CombustionCasts extends Analyzer {
                       <td style={{ textAlign: 'center' }}>{spell[1]}</td>
                       <td style={{ textAlign: 'center' }}>
                         {formatPercentage(
-                          spell[1] / this.standardChecks.countCastsDuringBuff(SPELLS.COMBUSTION),
+                          spell[1] /
+                            this.standardChecks.countEventsDuringBuff(
+                              SPELLS.COMBUSTION,
+                              EventType.Cast,
+                            ),
                         )}
                         %
                       </td>
