@@ -20,6 +20,7 @@ class CombustionSpellUsage extends Analyzer {
       EventType.Cast,
       SPELLS.FIREBALL,
     );
+    //TODO: Exclude fireball casts that started before Combustion and ended after.
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
     fireballCasts && this.standardChecks.highlightTimeline(fireballCasts, tooltip);
     return fireballCasts.length;
