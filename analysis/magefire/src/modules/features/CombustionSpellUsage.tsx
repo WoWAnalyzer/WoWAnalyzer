@@ -3,7 +3,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import { EventType, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import StandardChecks from '@wowanalyzer/mage/src/StandardChecks';
@@ -15,12 +15,21 @@ class CombustionSpellUsage extends Analyzer {
   protected standardChecks!: StandardChecks;
 
   get fireballCastsDuringCombustion() {
-    const fireballCasts = this.standardChecks.getEventsDuringBuff(
+    let fireballCasts = this.standardChecks.getEventsDuringBuff(
       SPELLS.COMBUSTION,
       EventType.Cast,
       SPELLS.FIREBALL,
     );
-    //TODO: Exclude fireball casts that started before Combustion and ended after.
+    //If the Begin Cast event was before Combustion started, then disregard it.
+    fireballCasts = fireballCasts.filter((e: CastEvent) => {
+      const beginCast = this.standardChecks.getBeginCastEvents(
+        1,
+        e.timestamp,
+        undefined,
+        SPELLS.FIREBALL,
+      )[0];
+      return this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, beginCast.timestamp);
+    });
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
     fireballCasts && this.standardChecks.highlightTimeline(fireballCasts, tooltip);
     return fireballCasts.length;
