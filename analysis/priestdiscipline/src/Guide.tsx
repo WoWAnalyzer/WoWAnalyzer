@@ -3,12 +3,14 @@ import { SpellLink } from 'interface';
 import { Section, GuideProps, SubSection } from 'interface/guide';
 
 import type CombatLogParser from './CombatLogParser';
-import { EvangelismApplicators } from './modules/spells/Evangelism';
+import { EvangelismApplicators } from './modules/problems/ramps';
+
 export default function Guide({
   modules,
   events,
   info,
 }: GuideProps<typeof CombatLogParser>): JSX.Element {
+  // console.log(modules.ramps.analyzeRamps);
   return (
     <>
       <Section title="Main Ramp">
@@ -19,7 +21,7 @@ export default function Guide({
         rotation.
         <SubSection title="Applicators">
           <br />
-          <EvangelismApplicators evangelismRamps={modules.evangelism.evangelismRamps} />
+          <EvangelismApplicators module={modules.ramps} />
           The first step of an <SpellLink id={SPELLS.EVANGELISM_TALENT.id} /> ramp is to apply{' '}
           <strong> ARBITRARY ATONEMENT NUMBER </strong> of atonements using{' '}
           <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> or <SpellLink id={SPELLS.SHADOW_MEND.id} />
