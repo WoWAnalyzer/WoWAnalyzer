@@ -16,6 +16,7 @@ const ALLOWED_PRE_EVANG = [
   SPELLS.RAPTURE.id,
   SPELLS.SHADOWFIEND.id,
   SPELLS.EVANGELISM_TALENT.id,
+  SPELLS.SHADOW_WORD_PAIN.id,
 ];
 const RAMP_STARTERS = [
   SPELLS.SHADOW_WORD_PAIN.id,
@@ -24,6 +25,12 @@ const RAMP_STARTERS = [
   SPELLS.RAPTURE.id,
   SPELLS.POWER_WORD_SHIELD.id,
 ];
+
+type ProblemHash = {
+  problemDescription: string;
+  index: number;
+  problemType: string;
+};
 
 class Ramps extends Analyzer {
   static dependencies = {
@@ -38,7 +45,7 @@ class Ramps extends Analyzer {
   protected globalCooldown!: GlobalCooldown;
   protected statTracker!: StatTracker;
   evangelismRamps: CastEvent[][];
-  rampProblems: string[][];
+  rampProblems: ProblemHash[][];
 
   constructor(options: Options) {
     super(options);
@@ -70,7 +77,7 @@ class Ramps extends Analyzer {
 
   get analyzeRamps() {
     this.evangelismRamps.forEach((evangelism) => {
-      const problems: string[] = [];
+      const problems: ProblemHash[] = [];
       evangelism.forEach((cast, index) => {
         const castTime =
           cast.ability.guid === SPELLS.POWER_WORD_RADIANCE.id
@@ -80,18 +87,24 @@ class Ramps extends Analyzer {
         if (nonCastTime > 500) {
           // Problem found : You spent too much time off GCD and not casting
           // console.log("in bad gcds");
-          problems.push(
-            `You spent too much time off GCD and not casting. You spent ${(
+          problems.push({
+            problemDescription: `You spent too much time off GCD and not casting. You spent ${(
               nonCastTime / 1000
             ).toFixed(2)} seconds not casting during your ramp.`,
-          );
+            index: index,
+            problemType: 'deadGCD',
+          });
         }
 
         if (!ALLOWED_PRE_EVANG.includes(cast.ability.guid)) {
-          console.log('Only apply atonements before pressing evang');
+          // console.log('Only apply atonements before pressing evang');
           // Problem found : you should only apply atonements before you press evangelism
           // console.log("in wrong gcds")
-          problems.push(`You should only apply atonements before you press evangelism`);
+          problems.push({
+            problemDescription: `You should only apply atonements before you press evangelism`,
+            index: index,
+            problemType: 'nonapplicator',
+          });
         }
 
         if (
@@ -101,7 +114,11 @@ class Ramps extends Analyzer {
         ) {
           // problem found - you didn't refresh your dot at the start of the ramp
           // console.log("in no dot refresh");
-          problems.push(`you didn't refresh your dot at the start of the ramp`);
+          problems.push({
+            problemDescription: `you didn't refresh your dot at the start of the ramp`,
+            index: index,
+            problemType: 'nodot',
+          });
         }
       });
       // console.log(problems);
