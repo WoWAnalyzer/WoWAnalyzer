@@ -4,7 +4,7 @@ import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCoun
 import Panel from 'parser/ui/Panel';
 
 const BUFF_SPECS: GraphedSpellSpec[] = [
-  { spells: [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION] },
+  { spells: [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION], color: '200,20,200' },
   { spells: SPELLS.WILD_GROWTH, color: '00,255,00' }, // TODO make it accept format like '#rrggbb' instead
 ];
 

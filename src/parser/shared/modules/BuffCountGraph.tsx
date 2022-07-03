@@ -178,6 +178,7 @@ abstract class BuffCountGraph extends Analyzer {
         line: {
           strokeWidth: 1,
         },
+        opacity: 0.1,
         interpolate: 'step',
       },
       transform: [
