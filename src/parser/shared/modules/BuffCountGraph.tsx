@@ -108,7 +108,7 @@ abstract class BuffCountGraph extends Analyzer {
   addRuleLine(trackerName: string, timestamp: number) {
     const tracker = this.ruleLineTrackers.find((t) => t.name === trackerName);
     if (!tracker) {
-      console.warn("Couldn't find tracker with name " + tracker);
+      console.warn("Couldn't find tracker with name " + trackerName);
       return;
     }
     this.graphData.push({
@@ -257,14 +257,22 @@ abstract class BuffCountGraph extends Analyzer {
   /** Generates the Vega layer that renders the tooltip and mouseover line */
   _generateTooltipLayer() {
     return {
+      // transforms data from 'tall' to 'wide' so all the counts are in same point -
+      // this allows the tooltip to display with everything
       transform: [{ pivot: 'name', value: 'count', groupby: ['timestamp_shifted'] }],
       mark: 'rule' as const,
       encoding: {
+        // This renders a vertical rule line under the mouse -
+        // The trick here is we're adding a vertical rule line to every data point,
+        // but making every line invisible except the one underneath the mouse.
         opacity: {
           condition: { value: 0.8, param: 'hover' as const, empty: false },
           value: 0,
         },
-        tooltip: this._generateTooltip(),
+        tooltip: this.buffTrackers.map((tracker) => ({
+          field: tracker.name,
+          type: 'quantitative' as const,
+        })),
       },
       params: [
         {
@@ -279,13 +287,6 @@ abstract class BuffCountGraph extends Analyzer {
         },
       ],
     };
-  }
-
-  _generateTooltip() {
-    return this.buffTrackers.map((tracker) => ({
-      field: tracker.name,
-      type: 'quantitative' as const,
-    }));
   }
 
   /** Generates the color encoding information for Vega */
