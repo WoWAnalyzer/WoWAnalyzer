@@ -132,7 +132,7 @@ abstract class BuffCountGraph extends Analyzer {
 
   _onBuffChanged(event: AbilityEvent<any>, change: number) {
     const applicableTrackers = this.buffTrackerLookup[event.ability.guid];
-    if (applicableTrackers === undefined) {
+    if (!applicableTrackers) {
       // shouldn't be possible if the setup code works right...
       console.warn(
         'Spell ID ' +
@@ -172,7 +172,7 @@ abstract class BuffCountGraph extends Analyzer {
 
   onCast(event: CastEvent) {
     const applicableTrackers = this.ruleLineTrackerLookup[event.ability.guid];
-    if (applicableTrackers === undefined) {
+    if (!applicableTrackers) {
       // shouldn't be possible if the setup code works right...
       console.warn(
         'Spell ID ' +
@@ -391,6 +391,12 @@ abstract class BuffCountGraph extends Analyzer {
 
   /** Converts a color from input format '#rrggbb' to internal format 'r,g,b' */
   _convertColor(color: string) {
+    if (color.length !== 7 || !color.startsWith('#')) {
+      console.error(
+        'Got color to convert with bad format: ' + color + ' - will be replaced with white.',
+      );
+      return '#ffffff';
+    }
     const r = '0x' + color[1] + color[2];
     const g = '0x' + color[3] + color[4];
     const b = '0x' + color[5] + color[6];
