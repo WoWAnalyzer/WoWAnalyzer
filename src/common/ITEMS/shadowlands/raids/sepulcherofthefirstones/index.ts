@@ -40,6 +40,11 @@ const items: ItemList = {
   //Rygelon
   //endregion
   //The Jailer
+  SCARS_OF_FRATERNAL_STRIFE: {
+    id: 188253,
+    name: 'Scars of Fraternal Strife',
+    icon: 'ability_domination_rune13',
+  },
   //endregion
 };
 export default items;

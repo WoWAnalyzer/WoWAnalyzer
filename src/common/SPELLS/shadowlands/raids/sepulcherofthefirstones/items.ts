@@ -41,4 +41,9 @@ export default {
   //Lords of Dread
   //Rygelon
   //The Jailer
+  THE_FOURTH_RUNE: {
+    id: 368639,
+    name: 'The Fourth Rune',
+    icon: 'ability_domination_rune08',
+  },
 };
