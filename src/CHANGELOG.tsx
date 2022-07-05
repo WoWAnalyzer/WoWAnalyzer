@@ -52,12 +52,14 @@ import {
   xepheris,
   nullDozzer,
   Tialyss,
+  Lucky0604
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 6, 29), 'CN_translations: add some parts of the report about tbc warlock trans', Lucky0604),
   change(date(2022, 6, 28), <>Fixed an issue where the final buff from <ItemLink id={ITEMS.SCARS_OF_FRATERNAL_STRIFE.id}/> falling would be counted as a Dispel.</>, Sref),
   change(date(2022, 6, 19), 'Triage Healing update.', Abelito75),
   change(date(2022, 6, 16), <>Added <ItemLink id={ITEMS.THE_FIRST_SIGIL.id}/> to Statistics and Timeline.</>, Sref),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { Khadaj, Talador12 } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import PRIMARY_STATS from 'game/PRIMARY_STATS';
@@ -25,7 +25,11 @@ const config: Config = {
   pages: {
     overview: {
       hideChecklist: false,
-      text: <>TBC support is still a Work in Progress.</>,
+      text: (
+        <>
+          <Trans id="tbcwork">TBC support is still a Work in Progress.</Trans>
+        </>
+      ),
       type: 'info',
     },
   },

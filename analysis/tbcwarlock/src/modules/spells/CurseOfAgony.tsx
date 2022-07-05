@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -36,11 +36,15 @@ class CurseOfAgony extends Analyzer {
   }
 
   suggestions(when: When) {
+    const slotsName = <Trans id="tbcwarlock.shared.curses.curseOfAgony">Curse of Agony</Trans>;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={CURSE_OF_AGONY} /> uptime can be improved. Try to pay more attention
-          to your <SpellLink id={CURSE_OF_AGONY} /> on the boss.
+          <Trans id="shared.curseChecker.suggestions.tbcwarlock.label">
+            Your <SpellLink id={CURSE_OF_AGONY}>{slotsName}</SpellLink> uptime can be improved. Try
+            to pay more attention to your <SpellLink id={CURSE_OF_AGONY}>{slotsName}</SpellLink> on
+            the boss.
+          </Trans>
         </span>,
       )
         .actual(
