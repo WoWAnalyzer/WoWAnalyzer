@@ -5,6 +5,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 7, 6), <>Created a set color scheme for each spell. A spell's color should remain the same across all infographs.</>, Abelito75),
+  change(date(2022, 7, 6), <>Average Renewing Mists during Mana Tea no longer depends on vivify being cast.</>, Abelito75),
   change(date(2022, 6, 11), <>Added a Renewing Mist Graph that shows vivify casts.</>, Abelito75),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 5, 13), <>Fixed Jade Bond CDR. </>, Abelito75),
