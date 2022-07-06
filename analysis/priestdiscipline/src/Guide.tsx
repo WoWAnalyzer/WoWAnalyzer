@@ -21,7 +21,7 @@ export default function Guide({
         rotation.
         <SubSection title="Applicators">
           <br />
-          <EvangelismApplicators module={modules.ramps} />
+          <EvangelismApplicators ramps={modules.ramps} />
           The first step of an <SpellLink id={SPELLS.EVANGELISM_TALENT.id} /> ramp is to apply{' '}
           <strong> ARBITRARY ATONEMENT NUMBER </strong> of atonements using{' '}
           <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> or <SpellLink id={SPELLS.SHADOW_MEND.id} />

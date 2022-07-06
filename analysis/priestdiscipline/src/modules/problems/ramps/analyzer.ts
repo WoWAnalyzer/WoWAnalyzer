@@ -30,6 +30,12 @@ type ProblemHash = {
   problemDescription: string;
   index: number;
   problemType: string;
+  timestamp: string;
+};
+
+type EvangelismRampType = {
+  rampInfo: CastEvent[];
+  evangelismTimestamp: string;
 };
 
 class Ramps extends Analyzer {
@@ -44,7 +50,7 @@ class Ramps extends Analyzer {
   protected atonementModule!: Atonement;
   protected globalCooldown!: GlobalCooldown;
   protected statTracker!: StatTracker;
-  evangelismRamps: CastEvent[][];
+  evangelismRamps: EvangelismRampType[];
   rampProblems: ProblemHash[][];
 
   constructor(options: Options) {
@@ -72,18 +78,21 @@ class Ramps extends Analyzer {
     }
     // }
     rampHistory.push(event);
-    this.evangelismRamps.push(rampHistory);
+    this.evangelismRamps.push({
+      rampInfo: rampHistory,
+      evangelismTimestamp: this.owner.formatTimestamp(event.timestamp),
+    });
   }
 
   get analyzeRamps() {
     this.evangelismRamps.forEach((evangelism) => {
       const problems: ProblemHash[] = [];
-      evangelism.forEach((cast, index) => {
+      evangelism.rampInfo.forEach((cast, index) => {
         const castTime =
           cast.ability.guid === SPELLS.POWER_WORD_RADIANCE.id
             ? POWER_WORD_RADIANCE_CAST_TIME_MS / (1 + this.statTracker.currentHastePercentage)
             : this.globalCooldown.getGlobalCooldownDuration(cast.ability.guid);
-        const nonCastTime = evangelism[index + 1]?.timestamp - cast.timestamp - castTime;
+        const nonCastTime = evangelism.rampInfo[index + 1]?.timestamp - cast.timestamp - castTime;
         if (nonCastTime > 500) {
           // Problem found : You spent too much time off GCD and not casting
           // console.log("in bad gcds");
@@ -93,6 +102,7 @@ class Ramps extends Analyzer {
             ).toFixed(2)} seconds not casting during your ramp.`,
             index: index,
             problemType: 'deadGCD',
+            timestamp: this.owner.formatTimestamp(cast.timestamp),
           });
         }
 
@@ -104,13 +114,14 @@ class Ramps extends Analyzer {
             problemDescription: `You should only apply atonements before you press evangelism`,
             index: index,
             problemType: 'nonapplicator',
+            timestamp: this.owner.formatTimestamp(cast.timestamp),
           });
         }
 
         if (
           (cast.ability.guid === SPELLS.SHADOW_WORD_PAIN.id ||
             cast.ability.guid === SPELLS.PURGE_THE_WICKED_TALENT.id) &&
-          evangelism.indexOf(cast) !== 0
+          evangelism.rampInfo.indexOf(cast) !== 0
         ) {
           // problem found - you didn't refresh your dot at the start of the ramp
           // console.log("in no dot refresh");
@@ -118,6 +129,7 @@ class Ramps extends Analyzer {
             problemDescription: `you didn't refresh your dot at the start of the ramp`,
             index: index,
             problemType: 'nodot',
+            timestamp: this.owner.formatTimestamp(cast.timestamp),
           });
         }
       });
