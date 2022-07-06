@@ -6,6 +6,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
+import { SPELL_COLORS } from '../../constants';
 import EssenceFont from '../spells/EssenceFont';
 
 class EssenceFontHealingBreakdown extends Analyzer {
@@ -18,21 +19,21 @@ class EssenceFontHealingBreakdown extends Analyzer {
   renderEssenceFontChart() {
     const items = [
       {
-        color: '#00bbcc',
+        color: SPELL_COLORS.ESSENCE_FONT,
         label: 'Bolt',
         spellId: SPELLS.ESSENCE_FONT.id,
         value: this.essenceFont.boltHealing,
         valueTooltip: formatThousands(this.essenceFont.boltHealing),
       },
       {
-        color: '#f37735',
+        color: SPELL_COLORS.ESSENCE_FONT_BUFF,
         label: 'Hot',
         spellId: SPELLS.ESSENCE_FONT_BUFF.id,
         value: this.essenceFont.hotHealing,
         valueTooltip: formatThousands(this.essenceFont.hotHealing),
       },
       {
-        color: '#00b159',
+        color: SPELL_COLORS.GUSTS_OF_MISTS,
         label: 'Mastery',
         spellId: SPELLS.GUSTS_OF_MISTS.id,
         value: this.essenceFont.gomHealing,
