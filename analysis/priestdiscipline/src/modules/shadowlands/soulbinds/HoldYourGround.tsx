@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -21,7 +20,7 @@ class HoldYourGround extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasSoulbind(SOULBINDS.GENERAL_DRAVEN.id);
+    this.active = this.selectedCombatant.hasSoulbindTrait(SPELLS.HOLD_YOUR_GROUND_TRAIT.id);
     if (!this.active) {
       return;
     }

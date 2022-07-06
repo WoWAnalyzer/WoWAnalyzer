@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent, DamageEvent } from 'parser/core/Events';
@@ -20,7 +19,7 @@ class BattlefieldPresence extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasSoulbind(SOULBINDS.GENERAL_DRAVEN.id);
+    this.active = this.selectedCombatant.hasSoulbindTrait(SPELLS.BATTLEFIELD_PRESENCE_TRAIT.id);
     if (!this.active) {
       return;
     }

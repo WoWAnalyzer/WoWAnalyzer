@@ -29,6 +29,11 @@ const soulbindPowers = {
     name: 'Hold Your Ground',
     icon: 'achievement_bg_killxenemies_generalsroom',
   },
+  HOLD_YOUR_GROUND_TRAIT: {
+    id: 332754,
+    name: 'Hold Your Ground',
+    icon: 'achievement_bg_killxenemies_generalsroom',
+  },
   SUPERIOR_TACTICS: {
     id: 332753,
     name: 'Superior Tactics',
@@ -41,6 +46,11 @@ const soulbindPowers = {
   },
   BATTLEFIELD_PRESENCE: {
     id: 352858,
+    name: 'Battlefield Presence',
+    icon: 'achievement_bg_3flagcap_nodeaths',
+  },
+  BATTLEFIELD_PRESENCE_TRAIT: {
+    id: 352417,
     name: 'Battlefield Presence',
     icon: 'achievement_bg_3flagcap_nodeaths',
   },
