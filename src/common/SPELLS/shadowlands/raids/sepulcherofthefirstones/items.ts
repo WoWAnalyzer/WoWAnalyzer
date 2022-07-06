@@ -6,6 +6,11 @@ export default {
   //Halondrus the Reclaimer
   //Dausegne, the Fallen Oracle
   //Prototype Pantheon
+  THE_FIRST_SIGIL: {
+    id: 367241,
+    name: 'The First Sigil',
+    icon: 'achievement_mythicdungeons_shadowlands',
+  },
   //Lihuvim, Principle Architect
   //Anduin Wrynn
   EARTHBREAKERS_IMPACT: {
@@ -36,4 +41,9 @@ export default {
   //Lords of Dread
   //Rygelon
   //The Jailer
+  THE_FOURTH_RUNE: {
+    id: 368639,
+    name: 'The Fourth Rune',
+    icon: 'ability_domination_rune08',
+  },
 };

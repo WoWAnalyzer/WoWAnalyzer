@@ -4,6 +4,9 @@ import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi, Sref } from 'CONTR
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 7, 6), <>Bumped version to indicate 9.2.5 is supported.</>, Sref),
+  change(date(2022, 6, 19), <>Rolled DoT uptimes into an uptime graph. Added notional damage amount to <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> statistic.</>, Sref),
+  change(date(2022, 6, 16), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to Timeline.</>, Sref),
   change(date(2022, 5, 12), <>Updated to indicate this spec is supported for patch 9.2, and also fixed handling of <SpellLink id={SPELLS.ADAPTIVE_SWARM.id}/></>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 8, 3), <>Updated to indicate this spec is supported for patch 9.1</>, Sref),

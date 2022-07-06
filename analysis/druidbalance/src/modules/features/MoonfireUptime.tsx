@@ -2,13 +2,12 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+
+const BAR_COLOR = '#9933cc';
 
 class MoonfireUptime extends Analyzer {
   get suggestionThresholds() {
@@ -49,18 +48,16 @@ class MoonfireUptime extends Analyzer {
     );
   }
 
-  statistic() {
-    const moonfireUptime =
-      this.enemies.getBuffUptime(SPELLS.MOONFIRE_DEBUFF.id) / this.owner.fightDuration;
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.MOONFIRE_DEBUFF.id}>
-          <>
-            <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_DEBUFF.id);
+  }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.MOONFIRE_DEBUFF],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 

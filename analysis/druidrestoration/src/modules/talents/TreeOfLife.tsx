@@ -73,17 +73,17 @@ class TreeOfLife extends Analyzer {
     rejuvManaSaved: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL Hardcast: Extra WGs'),
   };
-  t29_4pc: TolAccumulator = {
+  t28_4pc: TolAccumulator = {
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
     rejuvManaSaved: 0,
-    extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL from T29 4pc: Extra WGs'),
+    extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL from T28 4pc: Extra WGs'),
   };
 
   constructor(options: Options) {
     super(options);
 
-    // FIXME so far on PTR, no bonus ID shows if player has T29 4pc set or not, which procs ToL
+    // FIXME so far on PTR, no bonus ID shows if player has T28 4pc set or not, which procs ToL
     //       We'll start with this module always active and then disable parts depending on
     //       the state of accumulators afterwards
 
@@ -138,14 +138,14 @@ class TreeOfLife extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null; // ToL isn't active, no accumulator
     } else if (!this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT)) {
-      return this.t29_4pc; // player doesn't have the ToL talent so this must be from the set 4pc
+      return this.t28_4pc; // player doesn't have the ToL talent so this must be from the set 4pc
     } else if (
       this.lastHardcastTimestamp !== null &&
       this.lastHardcastTimestamp + TOL_DURATION + BUFFER >= event.timestamp
     ) {
       return this.hardcast; // player hardcast ToL within buff duration, so this is a hardcast
     } else {
-      return this.t29_4pc; // player didn't hardcast within buff duration, so this is the set 4pc
+      return this.t28_4pc; // player didn't hardcast within buff duration, so this is the set 4pc
     }
   }
 

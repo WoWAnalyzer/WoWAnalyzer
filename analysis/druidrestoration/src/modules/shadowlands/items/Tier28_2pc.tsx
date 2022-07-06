@@ -11,11 +11,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Mastery from '../../core/Mastery';
 
 /**
- * Resto Druid Tier 29 - 2pc - Renewing Bloom
+ * Resto Druid Tier 28 - 2pc - Renewing Bloom
  * Healing from Rejuvenation has a 25% chance to grant Renewing Bloom, healing (20.8% of Spell power) over 8 sec.
  * Swiftmend can consume Renewing Bloom. (Proc chance: 25%)
  */
-class Tier29_2pc extends Analyzer {
+class Tier28_2pc extends Analyzer {
   static dependencies = {
     mastery: Mastery,
   };
@@ -25,9 +25,7 @@ class Tier29_2pc extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    // FIXME so far on PTR, no bonus ID shows if player has set or not
-    //       We'll instead check at fight end if any healing from it was detected.
-    //       Update this later if a bonusID gets added
+    this.active = this.selectedCombatant.has2Piece();
     this.addEventListener(Events.fightend, this.checkActive);
   }
 
@@ -55,7 +53,7 @@ class Tier29_2pc extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Renewing Bloom is the HoT procced by the <strong>Tier 29 2-piece set bonus</strong>. The
+            Renewing Bloom is the HoT procced by the <strong>Tier 28 2-piece set bonus</strong>. The
             healing amount is the sum of the direct healing from Renewing Bloom and the healing
             enabled by Renewing Bloom's extra mastery stack.
             <ul>
@@ -69,7 +67,7 @@ class Tier29_2pc extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RESTO_DRUID_TIER_29_2P_SET_BONUS.id}>
+        <BoringSpellValueText spellId={SPELLS.RESTO_DRUID_TIER_28_2P_SET_BONUS.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>
@@ -78,4 +76,4 @@ class Tier29_2pc extends Analyzer {
   }
 }
 
-export default Tier29_2pc;
+export default Tier28_2pc;

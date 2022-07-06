@@ -17,14 +17,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  static castCooldowns = [
-    ...CoreCooldownThroughputTracker.castCooldowns,
-    {
-      spell: SPELLS.MIRROR_IMAGE.id,
-      duration: 40,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-  ];
+  static castCooldowns = [...CoreCooldownThroughputTracker.castCooldowns];
 }
 
 export default CooldownThroughputTracker;

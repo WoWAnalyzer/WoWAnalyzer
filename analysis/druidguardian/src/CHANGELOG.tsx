@@ -4,6 +4,8 @@ import { Kettlepaw, Zeboot, g3neral, Tiboonn, Buudha, Sref } from 'CONTRIBUTORS'
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 6, 19), <>Widened <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> statistic for better viewing, and added per-cast damage number.</>, Sref),
+  change(date(2022, 6, 16), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to Timeline.</>, Sref),
   change(date(2021, 11, 12), <>Updated to indicate this spec is supported for patch 9.1.5</>, Sref),
   change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
   change(date(2021, 7, 22), <>Fixed an issue causing the <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> to crash.</>, Sref),

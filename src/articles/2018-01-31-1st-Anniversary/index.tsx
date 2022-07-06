@@ -328,7 +328,7 @@ const Article = (props: ArticleProps) => {
         that we use today for fixing all sorts of weird combatlog bugs. He also improved a couple of
         features of the Resto Druid analyzer.
         <br />
-        <Contributor {...CONTRIBUTORS.sref} /> has done a lot of work on the Restoration Druid
+        <Contributor {...CONTRIBUTORS.Sref} /> has done a lot of work on the Restoration Druid
         implementation and has added and improved a large part of the spec implementation.
       </Item>
 
@@ -1199,7 +1199,7 @@ const Article = (props: ArticleProps) => {
         <br />
         <Image source={FrostMage} description="Initial version of the Frost Mage analyzer" />
         <br />
-        <Contributor {...CONTRIBUTORS.sref} /> has also done a considerable amount of work on this
+        <Contributor {...CONTRIBUTORS.Sref} /> has also done a considerable amount of work on this
         spec.
       </Item>
 
@@ -1261,7 +1261,7 @@ const Article = (props: ArticleProps) => {
       </Item>
 
       <Item title="Implemented accurate stat tracking" date="14 Oct">
-        <Contributor {...CONTRIBUTORS.sref} />{' '}
+        <Contributor {...CONTRIBUTORS.Sref} />{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/520">implemented</a> a module for
         accurate stat rating tracking. This is a utility module intended to track the selected
         player's current stat rating at any point in the fight.
@@ -1319,7 +1319,7 @@ const Article = (props: ArticleProps) => {
         Initial version was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/521">
           added
         </a>{' '}
-        by <Contributor {...CONTRIBUTORS.Fyruna} />. <Contributor {...CONTRIBUTORS.sref} /> added a
+        by <Contributor {...CONTRIBUTORS.Fyruna} />. <Contributor {...CONTRIBUTORS.Sref} /> added a
         couple of things. <Contributor {...CONTRIBUTORS.Sharrq} /> added a lot of modules.
         <br />
         <br />
@@ -1359,7 +1359,7 @@ const Article = (props: ArticleProps) => {
       </Item>
 
       <Item title="Added support for healer stat weights" date="24 Oct">
-        <Contributor {...CONTRIBUTORS.sref} />{' '}
+        <Contributor {...CONTRIBUTORS.Sref} />{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/604">added</a> a module to generate
         stat weights based on what actually happened in a fight. This module generates the players
         stat weights using the actual logged events. We keep a listing of all the player's healing
@@ -1369,7 +1369,7 @@ const Article = (props: ArticleProps) => {
         this module is pretty brilliant and makes calculating stat weights from logs pretty easy.
         <br />
         <br />
-        <Contributor {...CONTRIBUTORS.sref} /> wrote a full explanation of the calculation of the
+        <Contributor {...CONTRIBUTORS.Sref} /> wrote a full explanation of the calculation of the
         Restoration Druid Stat Weights{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/e650befd581620eaf62503e96550f4507ea56450/src/parser/Druid/Restoration/Modules/Features/StatWeights.js#L14">
           here
@@ -1379,7 +1379,7 @@ const Article = (props: ArticleProps) => {
         <Image source={RestoDruidStatWeights} description="The initial Stat Weights panel" />
         <br />
         Since the initial version the stat weights module has had several improvements by both{' '}
-        <Contributor {...CONTRIBUTORS.sref} /> and <Contributor {...CONTRIBUTORS.Zerotorescue} />{' '}
+        <Contributor {...CONTRIBUTORS.Sref} /> and <Contributor {...CONTRIBUTORS.Zerotorescue} />{' '}
         (he also implemented the weights for Holy Paladins).
         <br />
         <br />
@@ -1458,7 +1458,7 @@ const Article = (props: ArticleProps) => {
           wide
         />
         <br />
-        <Contributor {...CONTRIBUTORS.sref} />{' '}
+        <Contributor {...CONTRIBUTORS.Sref} />{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/843">added</a> the white indicators
         that show when a spell gains an extra charge.
       </Item>
@@ -1570,7 +1570,7 @@ const Article = (props: ArticleProps) => {
       </Item>
 
       <Item title="Using the time on cooldown for cast efficiency" date="12 Nov">
-        <Contributor {...CONTRIBUTORS.sref} />{' '}
+        <Contributor {...CONTRIBUTORS.Sref} />{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/799">changed</a> the basis for cast
         efficiency into the time on cooldown as recorded by the <i>spell usable</i> module (the
         cooldown tracker mentioned earlier). This should increase the accuracy.

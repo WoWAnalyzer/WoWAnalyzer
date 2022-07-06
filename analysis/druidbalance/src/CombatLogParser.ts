@@ -1,8 +1,9 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
-import { AdaptiveSwarmDamageDealer, ConvokeSpirits, SinfulHysteria } from '@wowanalyzer/druid';
+import { AdaptiveSwarmDamageDealer, SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import Abilities from './modules/Abilities';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -11,7 +12,9 @@ import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpene
 import Buffs from './modules/features/Buffs';
 import CancelledCasts from './modules/features/CancelledCasts';
 import Checklist from './modules/features/Checklist/Module';
+import ConvokeSpiritsBalance from './modules/features/ConvokeSpiritsBalance';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import DotUptimes from './modules/features/DotUptimes';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import FillerUsage from './modules/features/FillerUsage';
@@ -48,6 +51,7 @@ class CombatLogParser extends MainCombatLogParser {
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     balanceOfAllThingsOpener: BalanceOfAllThingsOpener,
     buffs: Buffs,
+    dotUptimes: DotUptimes,
     //Talents
     stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
@@ -55,9 +59,10 @@ class CombatLogParser extends MainCombatLogParser {
     starlord: Starlord,
     soulOfTheForest: SoulOfTheForest,
     //Covenants
-    convokeSpirits: ConvokeSpirits,
+    convokeSpiritsBalance: ConvokeSpiritsBalance,
     adaptiveSwarm: AdaptiveSwarmDamageDealer,
     sinfulHysteria: SinfulHysteria,
+    ravenousFrenzy: RavenousFrenzy,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

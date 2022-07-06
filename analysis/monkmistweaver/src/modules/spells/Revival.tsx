@@ -8,6 +8,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import { SPELL_COLORS } from '../../constants';
 import RisingSunRevival from '../shadowlands/conduits/RisingSunRevival';
 
 const BUFFER = 500;
@@ -79,14 +80,14 @@ class Revival extends Analyzer {
   renderRevivalChart() {
     const items = [
       {
-        color: '#ccccff',
+        color: SPELL_COLORS.REVIVAL,
         label: 'Revival',
         spellId: SPELLS.REVIVAL.id,
         value: this.revivalDirectHealing,
         valueTooltip: formatThousands(this.revivalDirectHealing),
       },
       {
-        color: '#00b159',
+        color: SPELL_COLORS.GUSTS_OF_MISTS,
         label: 'Gust Of Mist',
         spellId: SPELLS.GUSTS_OF_MISTS.id,
         value: this.gustsHealing,
@@ -96,7 +97,7 @@ class Revival extends Analyzer {
 
     if (this.selectedCombatant.conduitRankBySpellID(SPELLS.RISING_SUN_REVIVAL.id)) {
       items.push({
-        color: '#f37735',
+        color: SPELL_COLORS.RISING_SUN_REVIVAL,
         label: 'Rising Sun Revival',
         spellId: SPELLS.RISING_SUN_REVIVAL.id,
         value: this.risingSunRevival.rsrHealing,
@@ -106,7 +107,7 @@ class Revival extends Analyzer {
 
     if (this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id)) {
       items.push({
-        color: '#ffc425',
+        color: SPELL_COLORS.BONEDUST_BREW_GUST_OF_MIST,
         label: 'Gust Of Mist (bdb)',
         spellId: SPELLS.BONEDUST_BREW_GUST_OF_MIST.id,
         value: this.bdbMasteryHeal,

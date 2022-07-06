@@ -4067,9 +4067,9 @@ Array [
 ]
 `;
 
-exports[`Balance Druid integration test: example log ConvokeSpirits matches the statistic snapshot 1`] = `
+exports[`Balance Druid integration test: example log ConvokeSpiritsBalance matches the statistic snapshot 1`] = `
 <div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  className="col-md-6 col-sm-12 col-xs-12"
 >
   <div
     category="COVENANT"
@@ -4113,7 +4113,21 @@ exports[`Balance Druid integration test: example log ConvokeSpirits matches the 
         <div
           className="value"
         >
-          -
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          &gt;
+          26.39
+           %
+           
+          <small>
+            956
+             DPS
+          </small>
+          <br />
         </div>
       </div>
       <div
@@ -4223,6 +4237,171 @@ exports[`Balance Druid integration test: example log DistanceMoved matches the s
                 }
               }
             />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Balance Druid integration test: example log DotUptimes matches the statistic snapshot 1`] = `
+<div
+  className="col-md-6 col-sm-12 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <div
+          className="boring-value"
+        >
+          <h3>
+            <svg
+              className="icon"
+              viewBox="10 10 80 80"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+              />
+            </svg>
+             DoT Uptimes
+          </h3>
+        </div>
+        <div
+          className="flex-main multi-uptime-bar"
+        >
+          <div
+            className="flex main-bar"
+          >
+            <div
+              className="flex-sub bar-label"
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=164812"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Moonfire"
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_nature_starfall.jpg"
+                />
+              </a>
+               
+              100%
+               
+              <small>
+                uptime
+              </small>
+            </div>
+            <div
+              className="flex-main chart"
+            >
+              <div
+                className="uptime-bar"
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "background": "#9933cc",
+                      "left": "0.11480606906628746%",
+                      "width": "99.87019086508982%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex-main multi-uptime-bar"
+        >
+          <div
+            className="flex main-bar"
+          >
+            <div
+              className="flex-sub bar-label"
+            >
+              <a
+                className="spell-link-text"
+                href="https://wowhead.com/spell=164815"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Sunfire"
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_mage_firestarter.jpg"
+                />
+              </a>
+               
+              98%
+               
+              <small>
+                uptime
+              </small>
+            </div>
+            <div
+              className="flex-main chart"
+            >
+              <div
+                className="uptime-bar"
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "background": "#dd8811",
+                      "left": "0.5570703578557357%",
+                      "width": "42.92768522263245%",
+                    }
+                  }
+                />
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "background": "#dd8811",
+                      "left": "44.46158562836754%",
+                      "width": "55.52341130578857%",
+                    }
+                  }
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -4442,68 +4621,6 @@ Array [
     </React.Fragment>,
   },
 ]
-`;
-
-exports[`Balance Druid integration test: example log MoonfireUptime matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic flexible "
-    position={4}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="https://wowhead.com/spell=164812"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Moonfire"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_starfall.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="https://wowhead.com/spell=164812"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Moonfire
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          99.87
-           % 
-          <small>
-            uptime
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Balance Druid integration test: example log SoullettingRuby matches the statistic snapshot 1`] = `
@@ -4727,68 +4844,6 @@ exports[`Balance Druid integration test: example log StellarDrift matches the st
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Balance Druid integration test: example log SunfireUptime matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic flexible "
-    position={4}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="https://wowhead.com/spell=164815"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Sunfire"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_firestarter.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="https://wowhead.com/spell=164815"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Sunfire
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          98.45
-           % 
-          <small>
-            uptime
-          </small>
-        </div>
-      </div>
     </div>
   </div>
 </div>

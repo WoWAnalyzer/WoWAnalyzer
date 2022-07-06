@@ -8,6 +8,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import { SPELL_COLORS } from '../../../constants';
+
 class AncientTeachingsoftheMonastery extends Analyzer {
   damageSpellToHealing: Map<number, number> = new Map();
 
@@ -69,28 +71,28 @@ class AncientTeachingsoftheMonastery extends Analyzer {
 
     const items = [
       {
-        color: '#ffc425',
+        color: SPELL_COLORS.RISING_SUN_KICK,
         label: 'Rising Sun Kick',
         spellId: SPELLS.RISING_SUN_KICK.id,
         value: rskHealing / totalHealing,
         valueTooltip: formatThousands(rskHealing),
       },
       {
-        color: '#7500db',
+        color: SPELL_COLORS.BLACKOUT_KICK,
         label: 'Blackout Kick',
         spellId: SPELLS.BLACKOUT_KICK.id,
         value: bokHealing / totalHealing,
         valueTooltip: formatThousands(bokHealing),
       },
       {
-        color: '#db00db',
+        color: SPELL_COLORS.BLACKOUT_KICK_TOTM,
         label: 'Teachings of the Monastery',
         spellId: SPELLS.BLACKOUT_KICK_TOTM.id,
         value: totmHealing / totalHealing,
         valueTooltip: formatThousands(totmHealing),
       },
       {
-        color: '#00b159',
+        color: SPELL_COLORS.TIGER_PALM,
         label: 'Tiger Palm',
         spellId: SPELLS.TIGER_PALM.id,
         value: tpHealing / totalHealing,

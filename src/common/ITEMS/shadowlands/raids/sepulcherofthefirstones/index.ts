@@ -25,6 +25,11 @@ const items: ItemList = {
     icon: 'spell_nature_earthquake',
   },
   //Prototype Pantheon
+  THE_FIRST_SIGIL: {
+    id: 188271,
+    name: 'The First Sigil',
+    icon: 'inv_legendary_sigilofwisdom',
+  },
   //endregion
   //Lihuvim, Principle Architect
   //endregion
@@ -35,6 +40,11 @@ const items: ItemList = {
   //Rygelon
   //endregion
   //The Jailer
+  SCARS_OF_FRATERNAL_STRIFE: {
+    id: 188253,
+    name: 'Scars of Fraternal Strife',
+    icon: 'ability_domination_rune13',
+  },
   //endregion
 };
 export default items;

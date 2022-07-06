@@ -73,7 +73,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
   },
   {
-    // for discerning hardcasts from T29 4pc procs
+    // for discerning hardcasts from T28 4pc procs
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.INCARNATION_TOL_ALLOWED.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
