@@ -26,7 +26,7 @@ const RAMP_STARTERS = [
   SPELLS.POWER_WORD_SHIELD.id,
 ];
 
-type ProblemHash = {
+export type ProblemHash = {
   problemDescription: string;
   index: number;
   problemType: string;
