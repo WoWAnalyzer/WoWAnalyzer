@@ -1,17 +1,39 @@
-.dead-gcd {
-  border: 1px solid red !important;
+.evang-sequence {
+  .problem-icon {
+    height: 44px !important;
+    transition: height 500ms;
+  }
+
+  .nodot {
+    height: 60px !important;
+    transition: height 500ms;
+    padding: 4px;
+    border: 1px solid #c62a13;
+  }
+
+  .blurred {
+    opacity: 50%;
+  }
+
+  .deadGCD {
+    height: 60px !important;
+    transition: height 500ms;
+  }
+
+  .nonapplicator {
+    height: 60px !important;
+    transition: height 500ms;
+  }
+
+  margin-bottom: 16px;
 }
 
-.nonapplicator {
-  border: 1px solid red !important;
-}
-
-.nodot {
-  border: 1px solid red !important;
-}
-
-.problem-icon {
-  height: 44px !important;
+.problem-description {
+  &:hover {
+    background-color: #333;
+    transition-property: background-color;
+    transition-duration: 1s;
+  }
 }
 
 // .hover-problem{
@@ -21,3 +43,48 @@
 // .hovering-problem{
 //   width: 100px;
 // }
+
+.evang-sequence {
+  display: flex;
+  align-items: center;
+  // justify-content: ;
+}
+
+.problem {
+  color: white;
+  padding: 4px 0px;
+}
+
+.sequence-spacer {
+  width: 44px;
+  font-size: 16px;
+  text-align: center;
+  transition-property: width;
+  transition-duration: 500ms;
+  display: flex;
+  position: relative;
+}
+
+.gcd-time {
+  position: absolute;
+  bottom: 30%;
+  right: 15%;
+
+  svg {
+    height: 22px;
+    width: 60px;
+    transition: 250ms all ease;
+    display: flex;
+    margin: 0px 5px 0px 10px;
+    align-items: center;
+    path {
+      transition: 250ms all ease;
+      height: 100%;
+      width: 100%;
+      fill: white;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

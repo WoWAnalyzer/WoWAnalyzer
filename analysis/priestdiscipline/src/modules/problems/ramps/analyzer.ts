@@ -31,6 +31,7 @@ export type ProblemHash = {
   index: number;
   problemType: string;
   timestamp: string;
+  gcdTime?: number;
 };
 
 type EvangelismRampType = {
@@ -87,6 +88,7 @@ class Ramps extends Analyzer {
   get analyzeRamps() {
     this.evangelismRamps.forEach((evangelism) => {
       const problems: ProblemHash[] = [];
+      let radianceCount = 0;
       evangelism.rampInfo.forEach((cast, index) => {
         const castTime =
           cast.ability.guid === SPELLS.POWER_WORD_RADIANCE.id
@@ -94,22 +96,18 @@ class Ramps extends Analyzer {
             : this.globalCooldown.getGlobalCooldownDuration(cast.ability.guid);
         const nonCastTime = evangelism.rampInfo[index + 1]?.timestamp - cast.timestamp - castTime;
         if (nonCastTime > 500) {
-          // Problem found : You spent too much time off GCD and not casting
-          // console.log("in bad gcds");
           problems.push({
             problemDescription: `You spent too much time off GCD and not casting. You spent ${(
               nonCastTime / 1000
-            ).toFixed(2)} seconds not casting during your ramp.`,
+            ).toFixed(1)} seconds not casting during your ramp.`,
             index: index,
             problemType: 'deadGCD',
             timestamp: this.owner.formatTimestamp(cast.timestamp),
+            gcdTime: nonCastTime,
           });
         }
 
         if (!ALLOWED_PRE_EVANG.includes(cast.ability.guid)) {
-          // console.log('Only apply atonements before pressing evang');
-          // Problem found : you should only apply atonements before you press evangelism
-          // console.log("in wrong gcds")
           problems.push({
             problemDescription: `You should only apply atonements before you press evangelism`,
             index: index,
@@ -119,21 +117,35 @@ class Ramps extends Analyzer {
         }
 
         if (
-          (cast.ability.guid === SPELLS.SHADOW_WORD_PAIN.id ||
-            cast.ability.guid === SPELLS.PURGE_THE_WICKED_TALENT.id) &&
-          evangelism.rampInfo.indexOf(cast) !== 0
+          (cast.ability.guid !== SPELLS.SHADOW_WORD_PAIN.id ||
+            cast.ability.guid !== SPELLS.PURGE_THE_WICKED_TALENT.id) &&
+          evangelism.rampInfo.indexOf(cast) === 0
         ) {
           // problem found - you didn't refresh your dot at the start of the ramp
           // console.log("in no dot refresh");
           problems.push({
-            problemDescription: `you didn't refresh your dot at the start of the ramp`,
+            problemDescription: `You didn't refresh your dot at the start of the ramp. Before you ramp, it is important to refresh your dot so that it lasts the full duration of your ramp.`,
             index: index,
             problemType: 'nodot',
             timestamp: this.owner.formatTimestamp(cast.timestamp),
           });
         }
+
+        if (cast.ability.guid === SPELLS.POWER_WORD_RADIANCE.id) {
+          radianceCount += 1;
+        }
       });
       // console.log(problems);
+
+      if (radianceCount < 2) {
+        problems.push({
+          problemDescription: `Make sure to cast Power Word: Radiance twice before casting Evangelism.`,
+          index: evangelism.rampInfo.length - 1,
+          problemType: 'lessthan2radiances',
+          timestamp: this.owner.formatTimestamp(parseInt(problems[problems.length - 1].timestamp)),
+        });
+      }
+
       this.rampProblems.push(problems);
     });
     return this.rampProblems;
