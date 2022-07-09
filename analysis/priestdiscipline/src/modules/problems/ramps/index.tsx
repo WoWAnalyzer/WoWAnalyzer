@@ -1,5 +1,6 @@
 import { SpellIcon } from 'interface';
 import { ControlledExpandable } from 'interface';
+import DropdownIcon from 'interface/icons/Dropdown';
 import { CastEvent } from 'parser/core/Events';
 import { useState, SetStateAction, Dispatch } from 'react';
 import { useContext } from 'react';
@@ -39,18 +40,19 @@ type RenderEvangelismProblemsProps = {
 type CastSpacerProps = { wastedTime: number | undefined };
 
 const ShowEvangelismCasts = (props: ShowEvangelismCastsProps) => {
+  const gcdTimers = useContext(EvangContext);
   let problemStyle = '';
-  const checkProblem = (problemType: string) => problemType;
-
+  const problems = gcdTimers?.module.analyzeRamps[props.index];
   const setStyling = (index: number) => {
     problemStyle = '';
-
+    const nonHoverStyle = ` ${problems?.find((problem) => problem.index === index)?.problemType} `;
+    problemStyle += nonHoverStyle;
     if (!props.isHighlighted) {
       return problemStyle;
     }
 
     if (props.isHighlighted) {
-      problemStyle += `${checkProblem(props.isHighlighted?.problemDescription)}-hovered`;
+      problemStyle += `${props.isHighlighted?.problemDescription}-hovered `;
     }
 
     if (props.isHighlighted?.index === index) {
@@ -59,17 +61,15 @@ const ShowEvangelismCasts = (props: ShowEvangelismCastsProps) => {
     return 'blurred ';
   };
 
-  const gcdTimers = useContext(EvangContext);
-
   return (
     <>
-      <h2>Evangelism{` ${props.index + 1} - ${props.ramp.evangelismTimestamp}`}</h2>
       <div className="evang-sequence">
         {props.ramp.rampInfo.map((cast: CastEvent) => {
           const spacer = props.gcdsNeedingSpacers.includes(props.ramp.rampInfo.indexOf(cast));
           const wastedTime = (index: number) =>
             gcdTimers?.module.analyzeRamps[props.index].find((problem) => problem.index === index)
               ?.gcdTime;
+
           return (
             <>
               <SpellIcon
@@ -137,19 +137,28 @@ const RenderEvangelismProblems = (props: RenderEvangelismProblemsProps) => (
 const getSpacers = (problems: ProblemHash[]) => problems.map((problem) => problem.index);
 
 const EvangelismRenderer = (props: EvangelismRendererProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(props.index === 0);
   const [isHighlighted, setIsHighlighted] = useState<{
     index: number;
     problemDescription: string;
   } | null>(null);
-
   return (
     <>
       <ControlledExpandable
-        header={`Evangelism ${props.index + 1} - ${props.ramp.evangelismTimestamp}`}
+        header={
+          <>
+            <h3 className="evangelism-header flex">
+              Evangelism {props.index + 1} - {props.ramp.evangelismTimestamp}{' '}
+              <div className="chevron">
+                <DropdownIcon />
+              </div>{' '}
+            </h3>
+          </>
+        }
         element="section"
         expanded={isExpanded}
         inverseExpanded={() => setIsExpanded(!isExpanded)}
+        openOnDefault={props.index}
       >
         <ShowEvangelismCasts
           ramp={props.ramp}
@@ -183,7 +192,7 @@ export const EvangelismApplicators = (props: ApplicatorProps) => {
             <EvangelismRenderer
               ramp={evangelismRamp}
               key={index}
-              index={evangelismRamps.indexOf(evangelismRamp)}
+              index={index}
               problems={rampProblems[index]}
             />
           </>

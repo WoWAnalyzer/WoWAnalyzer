@@ -10,6 +10,7 @@ interface Props {
   element: React.ElementType;
   className?: string;
   expanded?: boolean;
+  openOnDefault?: number;
   inverseExpanded: () => void;
 }
 

@@ -8,7 +8,7 @@
     height: 60px !important;
     transition: height 500ms;
     padding: 4px;
-    border: 1px solid #c62a13;
+    border: 1px solid #edde2a;
   }
 
   .blurred {
@@ -18,14 +18,34 @@
   .deadGCD {
     height: 60px !important;
     transition: height 500ms;
+    border: 2px solid #b21d1d;
   }
 
   .nonapplicator {
     height: 60px !important;
     transition: height 500ms;
+    border: 2px solid #edde2a;
   }
 
   margin-bottom: 16px;
+
+  svg {
+    height: 22px;
+    width: 60px;
+    transition: 250ms all ease;
+    display: flex;
+    margin: 0px 5px 0px 10px;
+    align-items: center;
+    path {
+      transition: 250ms all ease;
+      height: 100%;
+      width: 100%;
+      fill: #b21d1d;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .problem-description {
@@ -40,9 +60,9 @@
 //   // opacity: 0 !important;
 // }
 
-// .hovering-problem{
-//   width: 100px;
-// }
+.hovering-problem {
+  width: 100px;
+}
 
 .evang-sequence {
   display: flex;
@@ -69,22 +89,14 @@
   position: absolute;
   bottom: 30%;
   right: 15%;
+}
 
-  svg {
-    height: 22px;
-    width: 60px;
-    transition: 250ms all ease;
-    display: flex;
-    margin: 0px 5px 0px 10px;
-    align-items: center;
-    path {
-      transition: 250ms all ease;
-      height: 100%;
-      width: 100%;
-      fill: white;
-    }
-    &:hover {
-      opacity: 1;
-    }
+.evangelism-header {
+  margin-top: 16px;
+  align-items: center;
+  grid-gap: 8px;
+
+  .flex-sub .chevron {
+    color: white;
   }
 }

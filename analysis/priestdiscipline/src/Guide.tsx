@@ -22,7 +22,7 @@ export default function Guide({
           The first step of an <SpellLink id={SPELLS.EVANGELISM_TALENT.id} /> ramp is to apply{' '}
           <strong> 7-9 </strong> of atonements using <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} />{' '}
           or <SpellLink id={SPELLS.SHADOW_MEND.id} />. Below are your main ramps with the most
-          important issues highlights.
+          important issues highlighted.
           <br />
           <EvangelismApplicators ramps={modules.ramps} />
         </SubSection>
