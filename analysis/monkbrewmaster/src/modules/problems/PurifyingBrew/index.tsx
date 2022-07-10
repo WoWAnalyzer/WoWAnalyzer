@@ -1,8 +1,8 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { GuideProps, PassFailBar, SubSection } from 'interface/guide';
-import type { Problem, ProblemRendererProps } from 'interface/guide/Problems';
-import ProblemList from 'interface/guide/Problems';
+import type { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
+import ProblemList from 'interface/guide/ProblemList';
 import SpellLink from 'interface/SpellLink';
 import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
@@ -26,8 +26,9 @@ const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
       <strong>
         {formatNumber(data.data.map((datum) => datum.amountPurified).reduce((a, b) => a + b))}
       </strong>{' '}
-      damage <em>without</em> impacting any of your other good{' '}
-      <SpellLink id={SPELLS.PURIFYING_BREW.id} /> casts.
+      damage. While this may reduce the value of your later{' '}
+      <SpellLink id={SPELLS.PURIFYING_BREW.id} /> casts, it is likely to reduce your overall damage
+      intake.
     </p>
   ) : (
     <p>
@@ -274,8 +275,9 @@ export function PurifySection({
         </li>
       </ol>
       <p>
-        Due to our mastery, <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />, moment-to-moment
-        damage intake is highly unpredictable. As a result, the most reliable way to do this is by{' '}
+        Due to our mastery, <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />, moment-to-moment{' '}
+        <SpellLink id={SPELLS.STAGGER.id} /> level is highly unpredictable. As a result, the most
+        reliable way to do this is by{' '}
         <strong>
           casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> immediately after being hit by a large
           attack.
@@ -286,9 +288,8 @@ export function PurifySection({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'max-content 1fr',
+          gridTemplateColumns: 'minmax(40%, max-content) 1fr',
           gridColumnGap: '1em',
-          alignItems: 'start',
         }}
       >
         <PurifyReasonBreakdown

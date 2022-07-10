@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -25,18 +26,31 @@ const DotUptime = (props: DotUptimeProps) => (
 const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>
     <Rule
-      name="Try to avoid being inactive for a large portion of the fight"
+      name={
+        <Trans id="tbcwarlock.destruction.modules.checklist.avoidBeingInactive">
+          Try to avoid being inactive for a large portion of the fight
+        </Trans>
+      }
       description={
         <>
-          High downtime is something to avoid. You can reduce your downtime by reducing the delay
-          between casting abilities, anticipating movement, and moving during the GCD.
+          <Trans id="tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description">
+            High downtime is something to avoid. You can reduce your downtime by reducing the delay
+            between casting abilities, anticipating movement, and moving during the GCD.
+          </Trans>
         </>
       }
     >
-      <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+      <Requirement
+        name={<Trans id="tbcwarlock.modules.checklist.downtime">Downtime</Trans>}
+        thresholds={thresholds.downtimeSuggestionThresholds}
+      />
     </Rule>
     <Rule
-      name="Maintain a curse on the primary target"
+      name={
+        <Trans id="tbcwarlock.destruction.modules.checklist.maintainCurse">
+          Maintain a curse on the primary target
+        </Trans>
+      }
       description={
         <Fragment>
           It is important to maintain one curse on the primary target. Priority order should be{' '}

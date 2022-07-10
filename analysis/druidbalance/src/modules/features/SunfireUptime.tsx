@@ -2,13 +2,12 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+
+const BAR_COLOR = '#dd8811';
 
 class SunfireUptime extends Analyzer {
   get suggestionThresholds() {
@@ -48,17 +47,16 @@ class SunfireUptime extends Analyzer {
     );
   }
 
-  statistic() {
-    const sunfireUptime = this.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SUNFIRE.id}>
-          <>
-            <UptimeIcon /> {formatPercentage(sunfireUptime)} % <small>uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.SUNFIRE.id);
+  }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.SUNFIRE],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 

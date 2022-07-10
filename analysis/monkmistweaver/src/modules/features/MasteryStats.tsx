@@ -6,6 +6,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
+import { SPELL_COLORS } from '../../constants';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
@@ -48,49 +49,49 @@ class MasteryStats extends Analyzer {
   renderMasterySourceChart() {
     const items = [
       {
-        color: '#00b159',
+        color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
         value: this.vivify.gomHealing,
         valueTooltip: formatThousands(this.vivify.gomHealing),
       },
       {
-        color: '#db00db',
+        color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST.id,
         value: this.renewingMist.gustsHealing,
         valueTooltip: formatThousands(this.renewingMist.gustsHealing),
       },
       {
-        color: '#f37735',
-        label: 'Enveloping Mists',
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Enveloping Mist',
         spellId: SPELLS.ENVELOPING_MIST.id,
         value: this.envelopingMists.gustsHealing,
         valueTooltip: formatThousands(this.envelopingMists.gustsHealing),
       },
       {
-        color: '#ffc425',
+        color: SPELL_COLORS.SOOTHING_MIST,
         label: 'Soothing Mist',
         spellId: SPELLS.SOOTHING_MIST.id,
         value: this.soothingMist.gustsHealing,
         valueTooltip: formatThousands(this.soothingMist.gustsHealing),
       },
       {
-        color: '#00bbcc',
+        color: SPELL_COLORS.ESSENCE_FONT,
         label: 'Essence font',
         spellId: SPELLS.ESSENCE_FONT.id,
         value: this.essenceFont.gomHealing,
         valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },
       {
-        color: '#03fcad',
+        color: SPELL_COLORS.EXPEL_HARM,
         label: 'Expel Harm',
         spellId: SPELLS.EXPEL_HARM.id,
         value: this.expelHarm.gustsHealing,
         valueTooltip: formatThousands(this.expelHarm.gustsHealing),
       },
       {
-        color: '#ccccff',
+        color: SPELL_COLORS.REVIVAL,
         label: 'Revival',
         spellId: SPELLS.REVIVAL.id,
         value: this.revival.gustsHealing,

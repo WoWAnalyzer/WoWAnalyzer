@@ -2,11 +2,12 @@ import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { GuideProps, PassFailBar, Section, SubSection } from 'interface/guide';
-import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/Problems';
-import { DamageEvent } from 'parser/core/Events';
+import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
+import { AnyEvent, DamageEvent } from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
@@ -14,10 +15,10 @@ import CombatLogParser from './CombatLogParser';
 import './MicroTimeline.scss';
 import './HitsList.scss';
 import './ProblemList.scss';
-import { color, normalizeTimestampTransform, timeAxis } from './modules/charts';
+import { color, normalizeTimestampTransform, POINT_SIZE, timeAxis } from './modules/charts';
 import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
-import { TrackedHit } from './modules/spells/Shuffle';
+import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
 
 type TimelineEntry = {
   value: boolean;
@@ -316,7 +317,7 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
           y: {
             field: 'hitPoints',
             type: 'quantitative',
-            title: null,
+            title: 'Hit Points',
             axis: {
               gridOpacity: 0.3,
               format: '~s',
@@ -350,13 +351,13 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
           type: 'point',
           filled: true,
           opacity: 1,
-          size: 50,
+          size: POINT_SIZE,
         },
         encoding: {
           y: {
             field: 'event.hitPoints',
             type: 'quantitative',
-            title: null,
+            title: 'Hit Points',
             axis: {
               gridOpacity: 0.3,
               format: '~s',
@@ -409,8 +410,62 @@ function TrackedHitProblem({ problem, events, info }: ProblemRendererProps<Track
   );
 }
 
-export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+const shuffleTimelineStyle = {
+  gridArea: 'timeline',
+};
+
+function ShuffleOverview({
+  shuffle,
+  events,
+  info,
+}: {
+  shuffle: Shuffle;
+  events: AnyEvent[];
+  info: Info;
+}): JSX.Element {
   const [focusedHits, setFocusedHits] = useState<Set<TrackedHit>>(new Set());
+
+  const hitList = useMemo(
+    () =>
+      shuffle.hits.map((hit) => ({
+        value: hit.mitigated,
+        highlighted: focusedHits.has(hit),
+      })),
+    [shuffle.hits, focusedHits],
+  );
+
+  const onHoverTimeline = useCallback(
+    (indices) => setFocusedHits(new Set(shuffle.hits.filter((_, ix) => indices.includes(ix)))),
+    [shuffle.hits, setFocusedHits],
+  );
+
+  const onHoverAbility = useCallback(
+    (ability) =>
+      ability === null
+        ? setFocusedHits(new Set())
+        : setFocusedHits(
+            new Set(shuffle.hits.filter((hit) => hit.event.ability.guid === ability.guid)),
+          ),
+    [setFocusedHits, shuffle.hits],
+  );
+
+  return (
+    <>
+      <MicroTimeline style={shuffleTimelineStyle} values={hitList} onHover={onHoverTimeline} />
+      <HitsList
+        focusedHits={focusedHits}
+        hits={shuffle.hits}
+        onHoverAbility={onHoverAbility}
+        style={{ marginTop: '1em' }}
+      />
+    </>
+  );
+}
+
+export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  const shuffleProblemList = useMemo(() => shuffleProblems(modules.shuffle.hits), [
+    modules.shuffle.hits,
+  ]);
 
   return (
     <>
@@ -440,45 +495,16 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             style={{
               display: 'grid',
               gridTemplateAreas: "'timeline timeline' 'hits-list problem-list'",
-              gridTemplateColumns: 'max-content 1fr',
+              gridTemplateColumns: 'minmax(40%, max-content) 1fr',
               gridColumnGap: '1em',
             }}
           >
-            <MicroTimeline
-              style={{
-                gridArea: 'timeline',
-              }}
-              values={modules.shuffle.hits.map((hit) => ({
-                value: hit.mitigated,
-                highlighted: focusedHits.has(hit),
-              }))}
-              onHover={(indices) =>
-                setFocusedHits(
-                  new Set(modules.shuffle.hits.filter((_, ix) => indices.includes(ix))),
-                )
-              }
-            />
-            <HitsList
-              focusedHits={focusedHits}
-              hits={modules.shuffle.hits}
-              onHoverAbility={(ability) =>
-                ability === null
-                  ? setFocusedHits(new Set())
-                  : setFocusedHits(
-                      new Set(
-                        modules.shuffle.hits.filter(
-                          (hit) => hit.event.ability.guid === ability.guid,
-                        ),
-                      ),
-                    )
-              }
-              style={{ marginTop: '1em' }}
-            />
+            <ShuffleOverview events={events} info={info} shuffle={modules.shuffle} />
             <ProblemList
               info={info}
               renderer={TrackedHitProblem}
               events={events}
-              problems={shuffleProblems(modules.shuffle.hits)}
+              problems={shuffleProblemList}
             />
           </SubSection>
         </SubSection>
@@ -488,6 +514,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         events={events}
         info={info}
         module={modules.invokeNiuzao}
+        // this cast is necessary because the defaultModules are not properly indexed.
+        // combination of static methods + inheritance issues.
         castEfficiency={modules.CastEfficiency as CastEfficiency}
       />
     </>

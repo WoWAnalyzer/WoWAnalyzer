@@ -6,6 +6,7 @@ import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Avatar from './modules/features/Avatar';
+import BigHitGraph from './modules/features/BigHitGraph';
 import BlockCheck from './modules/features/BlockCheck';
 import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/Checklist/Module';
@@ -17,6 +18,9 @@ import TheWall from './modules/shadowlands/legendaries/TheWall';
 import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
 import FourSetCastRatio from './modules/shadowlands/tierset/FourSetCastRatio';
 import FourSetTimeBetweenBuffs from './modules/shadowlands/tierset/FourSetTimeBetweenBuffs';
+import IgnorePainExpired from './modules/spells/IgnorePainExpired';
+import IgnorePainOvercap from './modules/spells/IgnorePainOvercap';
+import IgnorePainTracker from './modules/spells/IgnorePainTracker';
 import ShieldBlock from './modules/spells/ShieldBlock';
 import ShieldSlam from './modules/spells/ShieldSlam';
 import SpellReflect from './modules/spells/SpellReflect';
@@ -45,12 +49,16 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    bigHitGraph: BigHitGraph,
 
     rageTracker: RageTracker,
     rageDetails: RageDetails,
     avatar: Avatar,
     shieldSlam: ShieldSlam,
     spellReflect: SpellReflect,
+    ignorePainTracker: IgnorePainTracker,
+    ignorePainExpired: IgnorePainExpired,
+    ignorePainOvercap: IgnorePainOvercap,
 
     //Talents
     angerManagement: AngerManagement,

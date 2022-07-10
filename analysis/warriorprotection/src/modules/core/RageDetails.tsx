@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { Panel } from 'interface';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Panel from 'parser/ui/Panel';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -62,7 +62,7 @@ class RageDetails extends Analyzer {
   }
 
   statistic() {
-    return (
+    return [
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
@@ -70,6 +70,7 @@ class RageDetails extends Analyzer {
         tooltip={`${this.rageTracker.wasted} out of ${
           this.rageTracker.wasted + this.rageTracker.generated
         } Rage wasted.`}
+        key={0}
       >
         <BoringValueText
           label={
@@ -80,20 +81,12 @@ class RageDetails extends Analyzer {
         >
           {this.rageTracker.wasted}
         </BoringValueText>
-      </Statistic>
-    );
-  }
+      </Statistic>,
 
-  tab() {
-    return {
-      title: 'Rage usage',
-      url: 'rage-usage',
-      render: () => (
-        <Panel>
-          <ResourceBreakdown tracker={this.rageTracker} showSpenders />
-        </Panel>
-      ),
-    };
+      <Panel title="Rage Usage" position={100} key={1}>
+        <ResourceBreakdown tracker={this.rageTracker} showSpenders />
+      </Panel>,
+    ];
   }
 }
 

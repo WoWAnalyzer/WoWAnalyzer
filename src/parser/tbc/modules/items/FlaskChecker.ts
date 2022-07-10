@@ -15,10 +15,11 @@ const FLASK_IDS = [
 
   41609, // https://tbc.wowhead.com/spell=41609/fortification-of-shattrath
   46837, // https://tbc.wowhead.com/spell=46837/pure-death-of-shattrath
+  46838, // https://tbc.wowhead.com/spell=46837/pure-death-of-shattrath  it's also pure-death-of-shattrath, but different from the 46837
   41608, // https://tbc.wowhead.com/spell=41608/relentless-assault-of-shattrath
   46839, // https://tbc.wowhead.com/spell=46839/blinding-light-of-shattrath
   41610, // https://tbc.wowhead.com/spell=41610/mighty-restoration-of-shattrath
-  41611, // https://tbc.wowhead.com/spell=41611/supreme-power-of-shattrath
+  41611, // https://tbc.wowhead.com/spell=41611/supreme-power-of-shattrath,
 ];
 
 const GUARDIAN_ELIXIR_IDS = [
@@ -56,7 +57,6 @@ class FlaskChecker extends Analyzer {
 
   onApplybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
-
     if (FLASK_IDS.includes(spellId) && event.prepull) {
       this.flaskId = spellId;
     }

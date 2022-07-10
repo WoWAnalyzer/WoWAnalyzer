@@ -1,12 +1,13 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { ControlledExpandable, SpellLink } from 'interface';
+import { ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
+import InformationIcon from 'interface/icons/Information';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { color } from '../../charts';
 import type { NiuzaoCastData } from './analyzer';
@@ -53,6 +54,27 @@ const GUESS_MAX_HP = 100000;
 
 function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const wasActivelyTanking = useMemo(
+    () =>
+      cast.relevantHits.reduce(
+        (total, { unmitigatedAmount, amount, maxHitPoints }) =>
+          total + (unmitigatedAmount ?? amount) / (maxHitPoints ?? GUESS_MAX_HP),
+        0,
+      ) >= 1 || cast.purifies.reduce((total, { amount }) => total + amount, 0) > GUESS_MAX_HP,
+    [cast.purifies, cast.relevantHits],
+  );
+
+  const purifiedEnough = useMemo(() => {
+    const hits = cast.relevantHits.map(({ maxHitPoints }) => maxHitPoints ?? GUESS_MAX_HP);
+
+    let avg = hits.reduce((total, current) => total + current, 0) / hits.length;
+    avg *=
+      MAX_STOMPS[cast.startEvent.ability.guid] / Math.max.apply(null, Object.values(MAX_STOMPS));
+
+    return cast.purifyStompContribution >= avg;
+  }, [cast.purifyStompContribution, cast.relevantHits, cast.startEvent.ability.guid]);
+
   return (
     <ControlledExpandable
       header={<NiuzaoChecklistHeader cast={cast} info={info} />}
@@ -97,17 +119,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 <tr>
                   <td>Was Actively Tanking</td>
                   <td>
-                    <PassFailCheckmark
-                      pass={
-                        cast.relevantHits.reduce(
-                          (total, { unmitigatedAmount, amount, maxHitPoints }) =>
-                            total + (unmitigatedAmount ?? amount) / (maxHitPoints ?? GUESS_MAX_HP),
-                          0,
-                        ) >= 1 ||
-                        cast.purifies.reduce((total, { amount }) => total + amount, 0) >
-                          GUESS_MAX_HP
-                      }
-                    />
+                    <PassFailCheckmark pass={wasActivelyTanking} />
                   </td>
                   <td>
                     (
@@ -127,16 +139,27 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                     <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
                   </td>
                   <td>
-                    <PassFailCheckmark
-                      pass={
-                        cast.stomps.filter((stomp) => stomp.purifies.length > 0).length >
-                        MAX_STOMPS[cast.startEvent.ability.guid] / 2
-                      }
-                    />
+                    <PassFailCheckmark pass={wasActivelyTanking && purifiedEnough} />
                   </td>
                   <td>
-                    ({cast.stomps.filter((stomp) => stomp.purifies.length > 0).length} Stomps
-                    buffed)
+                    ({formatNumber(cast.purifyStompContribution)} damage Purified){' '}
+                    <Tooltip
+                      hoverable
+                      content={
+                        <>
+                          This is the full amount of purified damage that contributed to any{' '}
+                          <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />. Niuzao takes 25% of this
+                          amount as the base bonus damage, which may then be increased by effects
+                          like <SpellLink id={SPELLS.WALK_WITH_THE_OX.id} />. Purified damage that
+                          expired before the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />{' '}
+                          is not counted.
+                        </>
+                      }
+                    >
+                      <span>
+                        <InformationIcon />
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
               </tbody>

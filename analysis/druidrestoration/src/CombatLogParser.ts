@@ -23,6 +23,7 @@ import AverageHots from './modules/features/AverageHots';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Efflorescence from './modules/features/Efflorescence';
+import HotCountGraph from './modules/features/HotCountGraph';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import Lifebloom from './modules/features/Lifebloom';
@@ -109,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     prematureRejuvenations: PrematureRejuvenations,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
+    hotCountGraph: HotCountGraph,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
