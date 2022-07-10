@@ -59,6 +59,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 7, 10), 'Bump patch compatibility for all 9.2 specs to 9.2.5.', emallson),
   change(date(2022, 7, 9), 'Fix issue where time filtering could cause the report to hang.', emallson),
   change(date(2022, 6, 29), 'CN translations: add some parts of the report about tbc warlock trans', Lucky0604),
   change(date(2022, 6, 28), <>Fixed an issue where the final buff from <ItemLink id={ITEMS.SCARS_OF_FRATERNAL_STRIFE.id}/> falling would be counted as a Dispel.</>, Sref),
