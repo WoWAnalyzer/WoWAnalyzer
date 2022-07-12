@@ -210,7 +210,7 @@ export const SubSection = ({
  * sets `.fail-bar` to be transparent.
  */
 export function PassFailBar({ pass, total }: { pass: number; total: number }) {
-  const perf = pass / total;
+  const perf = Math.min(pass / total, 1);
   return (
     <div className="pass-fail-bar-container">
       <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />

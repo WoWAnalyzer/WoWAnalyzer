@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 
 import type { TrackedStaggerData } from './analyzer';
@@ -152,6 +153,10 @@ function identifyPurifies(
   }
 }
 
+/**
+ * Generate a sequence of potential stagger events given the possible `missedPurifies`.
+ * This doesn't correctly downscale the stagger ticks, but :shrug:
+ */
 export function potentialStaggerEvents(
   missedPurifies: MissedPurifyData[],
   stagger: Array<AddStaggerEvent | RemoveStaggerEvent>,
@@ -162,7 +167,7 @@ export function potentialStaggerEvents(
   let staggerPool = stagger[ix].newPooledDamage - stagger[ix].amount;
 
   const events = (stagger as Array<
-    Pick<AddStaggerEvent | RemoveStaggerEvent, 'type' | 'amount' | 'timestamp'>
+    Pick<AddStaggerEvent | RemoveStaggerEvent, 'type' | 'amount' | 'timestamp' | 'trigger'>
   >)
     .slice(ix)
     .concat(
@@ -174,8 +179,17 @@ export function potentialStaggerEvents(
     )
     .sort((a, b) => a.timestamp - b.timestamp);
 
-  return events.map(({ type, amount, timestamp }) => {
-    staggerPool += type === EventType.RemoveStagger ? -amount : amount;
+  return events.map(({ type, amount, timestamp, trigger }) => {
+    if (
+      type === EventType.RemoveStagger &&
+      (trigger === undefined || trigger.ability.guid === SPELLS.PURIFYING_BREW.id)
+    ) {
+      staggerPool -= staggerPool / 2;
+    } else if (type === EventType.RemoveStagger) {
+      staggerPool -= amount;
+    } else {
+      staggerPool += amount;
+    }
     staggerPool = Math.max(0, staggerPool);
 
     return {

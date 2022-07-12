@@ -116,8 +116,14 @@ export default class PurifyingBrewProblems extends Analyzer {
     }
   }
 
+  private _amountStaggered: number = 0;
+  public get amountStaggered() {
+    return this._amountStaggered;
+  }
+
   private hitStack: TrackedStaggerData[] = [];
   private addStagger(event: AddStaggerEvent) {
+    this._amountStaggered += event.amount;
     this.hitStack.push({
       event,
       purifyCharges: this.spellUsable.chargesAvailable(SPELLS.PURIFYING_BREW.id),
