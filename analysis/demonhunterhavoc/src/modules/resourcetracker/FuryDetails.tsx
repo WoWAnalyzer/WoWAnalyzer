@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -25,7 +26,7 @@ class FuryDetails extends Analyzer {
         average: 0.07,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -33,7 +34,9 @@ class FuryDetails extends Analyzer {
     furyTracker: FuryTracker,
   };
 
-  suggestions(when) {
+  protected furyTracker!: FuryTracker;
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)

@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { LeoZhekov, flurreN, Elodiel, ToppleTheNun } from 'CONTRIBUTORS';
+import { Elodiel, flurreN, LeoZhekov, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [

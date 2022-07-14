@@ -1,11 +1,13 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/HelpfulFormulas';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 const NEMESIS_BUFF_IDS = [
   SPELLS.NEMESIS_DEMON.id,
@@ -41,11 +43,13 @@ class Nemesis extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
+
   everHadNemesisBuff = false;
   bonusDmg = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NEMESIS_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
@@ -65,11 +69,10 @@ class Nemesis extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%`}
-        label="Damage Contributed"
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             Nemesis Contributed {formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)}{' '}
@@ -86,7 +89,11 @@ class Nemesis extends Analyzer {
             )}
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.NEMESIS_TALENT.id}>
+          {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
