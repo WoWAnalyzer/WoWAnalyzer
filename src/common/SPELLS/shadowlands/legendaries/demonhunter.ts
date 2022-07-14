@@ -98,6 +98,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_bastion_demonhunter',
     bonusID: 7699,
   },
+  AGONY_GAZE: {
+    id: 355886,
+    name: 'Agony Gaze',
+    icon: 'ability_revendreth_demonhunter',
+  },
   //endregion
 } as const;
 export default legendaries;
