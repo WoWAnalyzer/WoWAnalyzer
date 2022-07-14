@@ -55,3 +55,39 @@
     background-color: hsl(348.9, 69.5%, 39.8%);
   }
 }
+
+.gradiated-bar-container {
+  display: inline-block;
+  width: 100%;
+
+  & > div {
+    display: inline-block;
+    height: 1.5em;
+  }
+
+  & > div:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  & > div:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  .perfect-bar {
+    background-color: rgb(32, 144, 192);
+  }
+
+  .good-bar {
+    background-color: rgb(78, 192, 78);
+  }
+
+  .ok-bar {
+    background-color: rgb(255, 200, 74);
+  }
+
+  .bad-bar {
+    background-color: rgb(172, 31, 57);
+  }
+}

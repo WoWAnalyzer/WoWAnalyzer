@@ -3,7 +3,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import BuffCountGraph from 'parser/ui/BuffCountGraph';
 
 import { SinfulHysteria } from '@wowanalyzer/druid';
 import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
@@ -91,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hot Tracking
     hotTracker: HotTrackerRestoDruid,
     hotAttributor: HotAttributor,
-    hotGraph: BuffCountGraph,
 
     // Features
     lowHealthHealing: LowHealthHealing,

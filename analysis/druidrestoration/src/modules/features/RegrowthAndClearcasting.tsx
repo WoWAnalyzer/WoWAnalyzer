@@ -11,6 +11,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
@@ -56,6 +57,8 @@ class RegrowthAndClearcasting extends Analyzer {
   /** the most recent regrowth hardcast, or undefined if the last cast was 'accounted for' */
   lastRegrowthCast: CastEvent | undefined = undefined;
 
+  castRegrowthLog: RegrowthCast[] = [];
+
   hasAbundance: boolean;
 
   constructor(options: Options) {
@@ -98,17 +101,21 @@ class RegrowthAndClearcasting extends Analyzer {
     this.pendingFullPriceRegrowths = 0;
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.innervateRegrowths += 1;
+      this._pushToCastLog(event, 'innervate');
       return;
     } else if (
       this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS.id, event.timestamp, MS_BUFFER)
     ) {
       this.nsRegrowths += 1;
+      this._pushToCastLog(event, 'ns');
     } else if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.ccRegrowths += 1;
+      this._pushToCastLog(event, 'clearcast');
     } else if (
       this.selectedCombatant.getBuffStacks(SPELLS.ABUNDANCE_BUFF.id) >= ABUNDANCE_EXCEPTION_STACKS
     ) {
       this.abundanceRegrowths += 1;
+      this._pushToCastLog(event, 'abundance');
     } else {
       // whether this is a triage regrowth or bad regrowth can't be determined until the heal event
       this.pendingFullPriceRegrowths = 1;
@@ -136,8 +143,10 @@ class RegrowthAndClearcasting extends Analyzer {
 
     if (healthPercentage < TRIAGE_THRESHOLD) {
       this.triageRegrowths += 1;
+      this._pushToCastLog(event, 'triage');
     } else {
       this.badRegrowths += 1;
+      this._pushToCastLog(event, 'bad');
     }
     this.pendingFullPriceRegrowths = 0;
     this.lastRegrowthCast = undefined;
@@ -147,6 +156,12 @@ class RegrowthAndClearcasting extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.endingClearcasts = 1;
     }
+  }
+
+  _pushToCastLog(event: CastEvent | HealEvent, reason: RegrowthReason) {
+    const wasGood = reason !== 'bad';
+    const abundanceStacks = this.selectedCombatant.getBuffStacks(SPELLS.ABUNDANCE_BUFF.id);
+    this.castRegrowthLog.push({ timestamp: event.timestamp, wasGood, reason, abundanceStacks });
   }
 
   get usedClearcasts() {
@@ -218,6 +233,30 @@ class RegrowthAndClearcasting extends Analyzer {
         first before resorting to Regrowth.
       </>
     );
+  }
+
+  get guideTimeline() {
+    const values = this.castRegrowthLog.map((rgCast) => {
+      let message = '';
+      if (rgCast.reason === 'innervate') {
+        message = 'Free due to Innervate';
+      } else if (rgCast.reason === 'ns') {
+        message = "Free due to Nature's Swiftness";
+      } else if (rgCast.reason === 'clearcast') {
+        message = 'Free due to Clearcasting';
+      } else if (rgCast.reason === 'abundance') {
+        message = `Cheap due to ${rgCast.abundanceStacks} stacks of Abundance`;
+      } else if (rgCast.reason === 'triage') {
+        message = 'Cast full price on a low health target';
+      } else if (rgCast.reason === 'bad') {
+        message = 'Cast full price on a high health target';
+      }
+      return {
+        value: rgCast.wasGood,
+        tooltip: `@ ${this.owner.formatTimestamp(rgCast.timestamp)} - ${message}`,
+      };
+    });
+    return <PerformanceBoxRow values={values} />;
   }
 
   suggestions(when: When) {
@@ -335,5 +374,15 @@ class RegrowthAndClearcasting extends Analyzer {
     );
   }
 }
+
+/** Stats about a Regrowth cast */
+type RegrowthCast = {
+  timestamp: number;
+  wasGood: boolean;
+  reason: RegrowthReason;
+  abundanceStacks: number;
+};
+
+type RegrowthReason = 'innervate' | 'ns' | 'clearcast' | 'abundance' | 'triage' | 'bad';
 
 export default RegrowthAndClearcasting;

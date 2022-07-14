@@ -8,9 +8,9 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
+import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { fightTimelineBar } from 'parser/ui/TimelineBar';
 
 import { getHeals } from '../../normalizers/CastLinkNormalizer';
 
@@ -101,6 +101,10 @@ class WildGrowth extends Analyzer {
    */
   _tallyLastCast() {
     this.totalCasts += 1;
+    if (this.totalCasts === 1) {
+      return; // there is no last cast
+    }
+
     const hits = Object.values(this.recentWgTargetHealing);
     const effectiveHits = hits.filter((wg) => wg.total * OVERHEAL_THRESHOLD > wg.overheal).length;
     this.totalEffectiveHits += effectiveHits;
@@ -120,6 +124,10 @@ class WildGrowth extends Analyzer {
       hits: hits.length,
       effectiveHits,
     });
+  }
+
+  get effectiveCasts() {
+    return this.totalCasts - this.ineffectiveCasts;
   }
 
   get averageEffectiveHits() {
@@ -175,16 +183,14 @@ class WildGrowth extends Analyzer {
     };
   }
 
-  guideTimeline() {
-    const items = this.castWgHitsLog.map((wgCast) => ({
-      timestamp: wgCast.timestamp,
-      icon: SPELLS.WILD_GROWTH,
-      // TODO overlay 'X' on bad casts
-      tooltip: `${this.owner.formatTimestamp(wgCast.timestamp)} - Hits: ${
+  get guideTimeline() {
+    const values = this.castWgHitsLog.map((wgCast) => ({
+      value: wgCast.effectiveHits >= 3,
+      tooltip: `@ ${this.owner.formatTimestamp(wgCast.timestamp)} - Hits: ${
         wgCast.hits
       }, Effective: ${wgCast.effectiveHits}`,
     }));
-    return fightTimelineBar(this.owner.fight, items, 'Wild Growth Casts');
+    return <PerformanceBoxRow values={values} />;
   }
 
   suggestions(when: When) {

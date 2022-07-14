@@ -1,0 +1,13 @@
+$shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
+
+.performance-block-row {
+  .performance-block {
+    height: 0.8em;
+    margin: 0 0 0 3px;
+    display: inline-block;
+
+    &:hover {
+      box-shadow: $shadow;
+    }
+  }
+}

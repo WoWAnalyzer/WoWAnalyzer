@@ -218,3 +218,37 @@ export function PassFailBar({ pass, total }: { pass: number; total: number }) {
     </div>
   );
 }
+
+/**
+ * A slightly more complex form of the Checklist's success meters that allows for more than two outcomes.
+ * Not all result types need be included, depending on the bar's context.
+ *
+ * # Props
+ * - `perfect` - The number of flawless executions
+ * - `good` - The number of acceptable executions
+ * - `ok` - The number of suboptimal executions
+ * - `bad` - The number of unacceptable executions
+ */
+export function GradiatedPerformanceBar({
+  perfect,
+  good,
+  ok,
+  bad,
+}: {
+  perfect?: number;
+  good?: number;
+  ok?: number;
+  bad?: number;
+}) {
+  const total = (perfect || 0) + (good || 0) + (ok || 0) + (bad || 0);
+  return (
+    <div className="gradiated-bar-container">
+      {perfect && (
+        <div className="perfect-bar" style={{ minWidth: `${(perfect / total) * 100}%` }} />
+      )}
+      {good && <div className="good-bar" style={{ minWidth: `${(good / total) * 100}%` }} />}
+      {ok && <div className="ok-bar" style={{ minWidth: `${(ok / total) * 100}%` }} />}
+      {bad && <div className="bad-bar" style={{ minWidth: `${(bad / total) * 100}%` }} />}
+    </div>
+  );
+}

@@ -8,7 +8,7 @@ import Mastery from './Mastery';
 const BASE_MANA = 20000;
 const REJUV_COST = 0.105; // % of base mana
 
-/*
+/**
  * Backend module for calculating things about Rejuvenation, to be used by other modules.
  */
 class Rejuvenation extends Analyzer {
