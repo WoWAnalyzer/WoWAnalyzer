@@ -1,5 +1,6 @@
 import './CooldownBar.scss';
-import { SpellIcon } from 'interface';
+import { formatDuration } from 'common/format';
+import { SpellIcon, Tooltip } from 'interface';
 import { AnyEvent, EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 
@@ -20,6 +21,7 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
     (a) => a.spell === spellId || (Array.isArray(a.spell) && a.spell.includes(spellId)),
   );
   const abilityCdMs = (ability ? ability.cooldown : 0) * 1000;
+  const abilityName = ability ? ability.name : 'Unknown Ability';
   let lastAvailable = info.fightStart;
   const endCooldowns: UpdateSpellUsableEvent[] = events.filter(
     (event) =>
@@ -29,16 +31,18 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
   ) as UpdateSpellUsableEvent[];
   return (
     <div className="cooldown-bar" {...others}>
-      {endCooldowns.length === 0 && highlightGaps && (
-        <div
-          className="cooldown-available-bad"
-          key="available"
-          style={{ left: '0%', width: '100%' }}
-        />
+      {endCooldowns.length === 0 && (
+        <Tooltip key="available" content={`You never used ${abilityName}!`}>
+          <div
+            className={highlightGaps ? 'cooldown-available-bad' : 'cooldown-available'}
+            style={{ left: '0%', width: '100%' }}
+          />
+        </Tooltip>
       )}
       {endCooldowns.map((cd, ix) => {
         // EndCooldown updates happen even after fight end, so we clip it here
         const end = cd.end === undefined || cd.end > info.fightEnd ? info.fightEnd : cd.end;
+        const currLastAvailable = lastAvailable;
 
         const openForFullCooldown = cd.start - lastAvailable >= abilityCdMs;
         const openLeft = `${((lastAvailable - info.fightStart) / info.fightDuration) * 100}%`;
@@ -50,22 +54,49 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
         lastAvailable = end;
         return (
           <>
-            <div
-              className={
-                highlightGaps && openForFullCooldown
-                  ? 'cooldown-available-bad'
-                  : 'cooldown-available'
-              }
+            <Tooltip
               key={ix + '-available'}
-              style={{ left: openLeft, width: openWidth }}
-            />
-            <div
-              className="cooldown-unavailable"
-              key={ix + '-unavailable'}
-              style={{ left: cdLeft, width: cdWidth }}
+              content={
+                <>
+                  {abilityName} was available from{' '}
+                  <strong>{formatDuration(currLastAvailable - info.fightStart)}</strong> to{' '}
+                  <strong>{formatDuration(cd.start - info.fightStart)}</strong>{' '}
+                  {highlightGaps && openForFullCooldown
+                    ? ' - could have fit a whole extra use here!'
+                    : ''}
+                </>
+              }
             >
-              <SpellIcon noLink id={cd.ability.guid} />
-            </div>
+              <div
+                className={
+                  highlightGaps && openForFullCooldown
+                    ? 'cooldown-available-bad'
+                    : 'cooldown-available'
+                }
+                style={{ left: openLeft, width: openWidth }}
+              />
+            </Tooltip>
+            <Tooltip
+              key={ix + '-unavailable'}
+              content={
+                <>
+                  {abilityName} was cast at{' '}
+                  <strong>{formatDuration(cd.start - info.fightStart)}</strong> and was cooling down
+                  until{' '}
+                  {end === info.fightEnd ? (
+                    ` the fight ended`
+                  ) : (
+                    <>
+                      <strong>{formatDuration(end - info.fightStart)}</strong>
+                    </>
+                  )}
+                </>
+              }
+            >
+              <div className="cooldown-unavailable" style={{ left: cdLeft, width: cdWidth }}>
+                <SpellIcon noLink id={cd.ability.guid} />
+              </div>
+            </Tooltip>
           </>
         );
       })}
