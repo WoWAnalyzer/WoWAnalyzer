@@ -113,6 +113,7 @@
   "demonhunter.havoc.suggestions.fury.wasted": "{0}% Fury wasted",
   "demonhunter.havoc.suggestions.immolationAura.furyWasted": "{0}% Fury wasted",
   "demonhunter.havoc.suggestions.momentum.uptime": "{0}% buff uptime",
+  "demonhunter.havoc.suggestions.sinfulBrand.uptime": "{0}% uptime",
   "demonhunter.vengeance.spiritBombFrailtyBuff.uptime": "{0}% Frailty uptime",
   "demonhunter.vengeance.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits": "{0}% unmitigated physical hits",

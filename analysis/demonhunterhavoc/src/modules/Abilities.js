@@ -233,6 +233,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+          recommendedEfficiency: 0.95,
+          extraSuggestion: (
+            <>
+              The only times you should delay casting <SpellLink id={SPELLS.EYE_BEAM.id} /> is when
+              you're expecting adds to spawn soon or your <SpellLink id={SPELLS.SINFUL_BRAND.id} />{' '}
+              is about to fall off.
+            </>
+          ),
+        },
       },
       {
         spell: SPELLS.FEL_BARRAGE_TALENT.id,
@@ -278,7 +289,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          // You should only cast Sinful Brand if your primary target does
+          // not already have it applied if you're using the legendary,
+          // as otherwise it overwrites it.
+          suggestion: !combatant.hasLegendary(SPELLS.AGONY_GAZE),
           recommendedEfficiency: 0.95,
           extraSuggestion: `This should be part of your single target rotation.`,
         },
