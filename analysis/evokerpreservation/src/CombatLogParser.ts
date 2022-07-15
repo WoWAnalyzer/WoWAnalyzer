@@ -23,3 +23,5 @@ class CombatLogParser extends CoreCombatLogParser {
     manaUsageChart: ManaUsageChart,
   };
 }
+
+export default CombatLogParser;

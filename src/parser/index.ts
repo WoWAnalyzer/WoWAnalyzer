@@ -7,6 +7,8 @@ import BalanceDruid from '@wowanalyzer/druid-balance';
 import FeralDruid from '@wowanalyzer/druid-feral';
 import GuardianDruid from '@wowanalyzer/druid-guardian';
 import RestoDruid from '@wowanalyzer/druid-restoration';
+import DevastationEvoker from '@wowanalyzer/evoker-devastation';
+import PreservationEvoker from '@wowanalyzer/evoker-preservation';
 import BeastMasteryHunter from '@wowanalyzer/hunter-beastmastery';
 import MarksmanshipHunter from '@wowanalyzer/hunter-marksmanship';
 import SurvivalHunter from '@wowanalyzer/hunter-survival';
@@ -56,8 +58,11 @@ const configs: Config[] = [
 
   BalanceDruid,
   FeralDruid,
-  GuardianDruid,
+  ~GuardianDruid,
   RestoDruid,
+
+  DevastationEvoker,
+  PreservationEvoker,
 
   BeastMasteryHunter,
   MarksmanshipHunter,
