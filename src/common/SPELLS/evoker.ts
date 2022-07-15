@@ -5,9 +5,57 @@
  */
 
 const spells = {
-  //Shared
-  //Devastation
-  //Preservation
+  // Shared
+  BLESSING_OF_THE_BRONZE: {
+    id: 364342,
+    name: 'Blessing of the Bronze',
+    icon: 'ability_evoker_blessingofthebronze',
+  },
+  LIVING_FLAME: {
+    id: 361469,
+    name: 'Living Flame',
+    icon: 'ability_evoker_livingflame',
+  },
+  AZURE_STRIKE: {
+    id: 362969,
+    name: 'Azure Strike',
+    icon: 'ability_evoker_azurestrike',
+  },
+  EMERALD_BLOSSOM: {
+    id: 355913,
+    name: 'Emerald Blossom',
+    icon: 'ability_evoker_emeraldblossom',
+  },
+  DEEP_BREATH: {
+    id: 357210,
+    name: 'Deep Breath',
+    icon: 'ability_evoker_deepbreath',
+  },
+  FIRE_BREATH: {
+    id: 357208,
+    name: 'Fire Breath',
+    icon: 'ability_evoker_firebreath',
+  },
+  DISINTEGRATE: {
+    id: 356995,
+    name: 'Disintegrate',
+    icon: 'ability_evoker_disintegrate',
+  },
+  HOVER: {
+    id: 358267,
+    name: 'Hover',
+    icon: 'ability_evoker_hover',
+  },
+  RETURN: {
+    id: 361227,
+    name: 'Return',
+    icon: 'ability_evoker_return',
+  },
+  PERMEATING_CHILL: {
+    id: 381773,
+    name: 'Permeating Chill',
+    icon: 'spell_frost_coldhearted',
+  },
 } as const;
 
 export default spells;
