@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { GradiatedPerformanceBar, GuideProps, Section, SubSection } from 'interface/guide';
 import CooldownBar from 'parser/ui/CooldownBar';
@@ -101,7 +102,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ), it should be used frequently in order to generate procs.
           <br />
           <br />
-          TODO - SHOW TIMELINE OF WHEN USED / COOLDOWN
+          TODO explanation of this cooldown bar... highlight gaps when player has SotF or 4pc?
+          <div className="flex-main chart" style={{ padding: 5 }}>
+            <CooldownBar spellId={SPELLS.SWIFTMEND.id} events={events} info={info} />
+          </div>
         </SubSection>
       </Section>
       <Section title="Major Healing Cooldowns">
@@ -127,22 +131,26 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           waited to use them again. Grey segments show when the spell was available, yellow segments
           show when the spell was cooling down. Red segments highlight times when you could have fit
           a whole extra use of the cooldown.
-          <div className="flex-main chart" style={{ padding: 5 }}>
-            <CooldownBar
-              spellId={SPELLS.CONVOKE_SPIRITS.id}
-              events={events}
-              info={info}
-              highlightGaps
-            />
-          </div>
-          <div className="flex-main chart" style={{ padding: 5 }}>
-            <CooldownBar
-              spellId={SPELLS.FLOURISH_TALENT.id}
-              events={events}
-              info={info}
-              highlightGaps
-            />
-          </div>
+          {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+            <div className="flex-main chart" style={{ padding: 5 }}>
+              <CooldownBar
+                spellId={SPELLS.CONVOKE_SPIRITS.id}
+                events={events}
+                info={info}
+                highlightGaps
+              />
+            </div>
+          )}
+          {info.combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && (
+            <div className="flex-main chart" style={{ padding: 5 }}>
+              <CooldownBar
+                spellId={SPELLS.FLOURISH_TALENT.id}
+                events={events}
+                info={info}
+                highlightGaps
+              />
+            </div>
+          )}
           <div className="flex-main chart" style={{ padding: 5 }}>
             <CooldownBar
               spellId={SPELLS.TRANQUILITY_CAST.id}
