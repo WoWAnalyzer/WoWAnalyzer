@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -9,11 +9,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Example Report: https://www.warcraftlogs.com/reports/PGMqmyH1b86fW7F2/#fight=55&source=10
  */
 
-class Netherwalk extends Analyzer {
-  damageImmuned = [];
+interface ImmunedAbility {
+  name: string;
+}
 
-  constructor(...args) {
-    super(...args);
+class Netherwalk extends Analyzer {
+  damageImmuned: ImmunedAbility[] = [];
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NETHERWALK_TALENT.id);
     if (!this.active) {
       return;
@@ -21,7 +25,7 @@ class Netherwalk extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onNetherwalkCast);
   }
 
-  onNetherwalkCast(event) {
+  onNetherwalkCast(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.NETHERWALK_TALENT.id)) {
       return;
     }

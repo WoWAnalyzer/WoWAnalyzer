@@ -1,9 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/9tAcN6PLwjMF4vm1/#fight=1&source=1
@@ -22,15 +24,15 @@ class FelEruption extends Analyzer {
         average: 0,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   casts = 0;
   stuns = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id);
     if (!this.active) {
       return;
@@ -45,15 +47,15 @@ class FelEruption extends Analyzer {
     );
   }
 
-  countingCasts(event) {
+  countingCasts(event: CastEvent) {
     this.casts += 1;
   }
 
-  countingStuns(event) {
+  countingStuns(event: ApplyDebuffEvent) {
     this.stuns += 1;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -74,14 +76,9 @@ class FelEruption extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEL_ERUPTION_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.badCasts} <small>bad casts that didn't stun the target</small>{' '}
-          </>
-        }
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This ability should only be used for its stun. Its a DPS loss. <br /> <br />
@@ -89,7 +86,13 @@ class FelEruption extends Analyzer {
             It stunned a target {this.stuns} time(s).
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEL_ERUPTION_TALENT.id}>
+          <>
+            {this.badCasts} <small>bad casts that didn't stun the target</small>{' '}
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
