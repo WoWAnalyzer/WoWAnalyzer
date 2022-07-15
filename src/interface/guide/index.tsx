@@ -69,6 +69,7 @@
  *
  * @module
  */
+import { Tooltip } from 'interface';
 import { ControlledExpandable } from 'interface/Expandable';
 import DropdownIcon from 'interface/icons/Dropdown';
 import type { Options } from 'parser/core/Analyzer';
@@ -76,7 +77,6 @@ import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import { useState } from 'react';
-
 import './Guide.scss';
 
 type Constructed<T> = T extends new (options: Options) => infer R ? R : never;
@@ -225,10 +225,10 @@ export function PassFailBar({ pass, total }: { pass: number; total: number }) {
  * Not all result types need be included, depending on the bar's context.
  *
  * # Props
- * - `perfect` - The number of flawless executions
- * - `good` - The number of acceptable executions
- * - `ok` - The number of suboptimal executions
- * - `bad` - The number of unacceptable executions
+ * - `perfect` - The number of flawless executions (or an object with the number plus a tooltip label)
+ * - `good` - The number of acceptable executions (or an object with the number plus a tooltip label)
+ * - `ok` - The number of suboptimal executions (or an object with the number plus a tooltip label)
+ * - `bad` - The number of unacceptable executions (or an object with the number plus a tooltip label)
  */
 export function GradiatedPerformanceBar({
   perfect,
@@ -236,20 +236,93 @@ export function GradiatedPerformanceBar({
   ok,
   bad,
 }: {
-  perfect?: number;
-  good?: number;
-  ok?: number;
-  bad?: number;
+  perfect?: number | GradiatedPerformanceBarInfo;
+  good?: number | GradiatedPerformanceBarInfo;
+  ok?: number | GradiatedPerformanceBarInfo;
+  bad?: number | GradiatedPerformanceBarInfo;
 }) {
-  const total = (perfect || 0) + (good || 0) + (ok || 0) + (bad || 0);
+  const perfectObj = getDefaultInfo(perfect);
+  const goodObj = getDefaultInfo(good);
+  const okObj = getDefaultInfo(ok);
+  const badObj = getDefaultInfo(bad);
+
+  const total = perfectObj.count + goodObj.count + okObj.count + badObj.count;
   return (
     <div className="gradiated-bar-container">
-      {perfect && (
-        <div className="perfect-bar" style={{ minWidth: `${(perfect / total) * 100}%` }} />
+      {perfectObj.count > 0 && (
+        <Tooltip
+          content={
+            <>
+              {perfectObj.label && `${perfectObj.label} - `}
+              <strong>
+                {perfectObj.count} / {total}
+              </strong>
+            </>
+          }
+        >
+          <div
+            className="perfect-bar"
+            style={{ minWidth: `${(perfectObj.count / total) * 100}%` }}
+          />
+        </Tooltip>
       )}
-      {good && <div className="good-bar" style={{ minWidth: `${(good / total) * 100}%` }} />}
-      {ok && <div className="ok-bar" style={{ minWidth: `${(ok / total) * 100}%` }} />}
-      {bad && <div className="bad-bar" style={{ minWidth: `${(bad / total) * 100}%` }} />}
+      {goodObj.count > 0 && (
+        <Tooltip
+          content={
+            <>
+              {goodObj.label && `${goodObj.label} - `}
+              <strong>
+                {goodObj.count} / {total}
+              </strong>
+            </>
+          }
+        >
+          <div className="good-bar" style={{ minWidth: `${(goodObj.count / total) * 100}%` }} />
+        </Tooltip>
+      )}
+      {okObj.count > 0 && (
+        <Tooltip
+          content={
+            <>
+              {okObj.label && `${okObj.label} - `}
+              <strong>
+                {okObj.count} / {total}
+              </strong>
+            </>
+          }
+        >
+          <div className="ok-bar" style={{ minWidth: `${(okObj.count / total) * 100}%` }} />
+        </Tooltip>
+      )}
+      {badObj.count > 0 && (
+        <Tooltip
+          content={
+            <>
+              {badObj.label && `${badObj.label} - `}
+              <strong>
+                {badObj.count} / {total}
+              </strong>
+            </>
+          }
+        >
+          <div className="bad-bar" style={{ minWidth: `${(badObj.count / total) * 100}%` }} />
+        </Tooltip>
+      )}
     </div>
   );
 }
+
+function getDefaultInfo(val?: number | GradiatedPerformanceBarInfo) {
+  if (val === undefined) {
+    return { count: 0, label: '' };
+  } else if (typeof val === 'number') {
+    return { count: val, label: '' };
+  } else {
+    return val;
+  }
+}
+
+type GradiatedPerformanceBarInfo = {
+  count: number;
+  label: string;
+};

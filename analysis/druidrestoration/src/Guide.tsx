@@ -30,9 +30,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           </small>
           <br />
           <GradiatedPerformanceBar
-            good={modules.prematureRejuvenations.goodRejuvs}
-            ok={modules.prematureRejuvenations.highOverhealCasts}
-            bad={modules.prematureRejuvenations.earlyRefreshments}
+            good={{ count: modules.prematureRejuvenations.goodRejuvs, label: 'Good Rejuvenations' }}
+            ok={{
+              count: modules.prematureRejuvenations.highOverhealCasts,
+              label: 'High-overheal Rejuvenations',
+            }}
+            bad={{
+              count: modules.prematureRejuvenations.earlyRefreshments,
+              label: 'Clipped duration Rejuvenations',
+            }}
           />
         </SubSection>
         <SubSection title="">

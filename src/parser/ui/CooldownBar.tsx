@@ -79,7 +79,7 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
           </>
         );
       })}
-      {lastAvailable !== info.fightEnd && (
+      {endCooldowns.length !== 0 && lastAvailable !== info.fightEnd && (
         <CooldownBarSegment
           abilityId={spellId}
           abilityName={abilityName}
