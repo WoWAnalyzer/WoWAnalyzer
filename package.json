@@ -18,6 +18,8 @@
     "@wowanalyzer/druid-feral": "*",
     "@wowanalyzer/druid-guardian": "*",
     "@wowanalyzer/druid-restoration": "*",
+    "@wowanalyzer/evoker-preservation": "*",
+    "@wowanalyzer/evoker-devastation": "*",
     "@wowanalyzer/hunter-beastmastery": "*",
     "@wowanalyzer/hunter-marksmanship": "*",
     "@wowanalyzer/hunter-survival": "*",
