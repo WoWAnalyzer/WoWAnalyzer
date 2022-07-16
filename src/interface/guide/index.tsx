@@ -219,7 +219,6 @@ export function PassFailBar({ pass, total }: { pass: number; total: number }) {
   );
 }
 
-// TODO need mouseover tooltips to make this more usable
 /**
  * A slightly more complex form of the Checklist's success meters that allows for more than two outcomes.
  * Not all result types need be included, depending on the bar's context.

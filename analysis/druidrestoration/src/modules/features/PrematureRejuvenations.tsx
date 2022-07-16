@@ -22,15 +22,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 
-const debug = true;
+const debug = false;
 
 const OVERHEAL_THRESHOLD = 0.75;
 
 /*
  * This module tracks early refreshments of rejuvenation.
  * TODO: Extend/refactor this module to include other HoTs/Spells as well such as lifebloom/efflorescence
- * TODO: Add this module to checklist
- * TODO: refactor to just use HotTracker rather than own logic
  */
 class PrematureRejuvenations extends Analyzer {
   static dependencies = {
