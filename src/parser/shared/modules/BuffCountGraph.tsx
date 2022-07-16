@@ -301,6 +301,9 @@ abstract class BuffCountGraph extends Analyzer {
         domain: allTrackers.map(({ name }) => name),
         range: allTrackers.map(({ color }) => color),
       },
+      legend: {
+        symbolOpacity: 1,
+      },
     };
   }
 

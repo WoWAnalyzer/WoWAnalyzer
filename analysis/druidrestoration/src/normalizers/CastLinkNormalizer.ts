@@ -1,8 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  AnyEvent,
   ApplyBuffEvent,
+  CastEvent,
   EventType,
+  GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
@@ -11,6 +14,7 @@ import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 65;
 
+export const APPLIED_HEAL = 'AppliedHeal';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_OVERGROWTH = 'FromOvergrowth';
 export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
@@ -18,6 +22,7 @@ export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.REJUVENATION.id,
@@ -27,6 +32,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: SPELLS.REGROWTH.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
     referencedEventId: SPELLS.REGROWTH.id,
@@ -36,6 +42,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
@@ -45,6 +52,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: SPELLS.WILD_GROWTH.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.WILD_GROWTH.id,
@@ -55,6 +63,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: SPELLS.SWIFTMEND.id,
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.SWIFTMEND.id,
@@ -85,6 +94,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_OVERGROWTH,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: [
       SPELLS.REJUVENATION.id,
       SPELLS.REJUVENATION_GERMINATION.id,
@@ -133,6 +143,10 @@ export function isFromHardcast(event: ApplyBuffEvent | RefreshBuffEvent | HealEv
 
 export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, FROM_OVERGROWTH);
+}
+
+export function getHeals(event: CastEvent): AnyEvent[] {
+  return GetRelatedEvents(event, APPLIED_HEAL);
 }
 
 export function isFromExpiringLifebloom(event: HealEvent): boolean {
