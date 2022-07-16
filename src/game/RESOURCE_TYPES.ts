@@ -130,6 +130,13 @@ const RESOURCE_TYPES: { [key: string]: Resource } = {
     icon: 'ability_demonhunter_demonspikes',
     url: 'pain',
   },
+  ESSENCE: {
+    // Evoker
+    id: 19,
+    name: 'Essence',
+    icon: '',
+    url: 'essence',
+  },
 };
 export default indexById(RESOURCE_TYPES);
 
