@@ -18,6 +18,7 @@ import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
 import ENCOUNTER from './encounter';
+import EVOKER from './evoker';
 import HUNTER from './hunter';
 import MAGE from './mage';
 import MONK from './monk';
@@ -32,6 +33,7 @@ import Spell from './Spell';
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
 import TALENTS_DEMON_HUNTER from './talents/demonhunter';
 import TALENTS_DRUID from './talents/druid';
+import TALENTS_EVOKER from './talents/evoker';
 import TALENTS_HUNTER from './talents/hunter';
 import TALENTS_MAGE from './talents/mage';
 import TALENTS_MONK from './talents/monk';
@@ -49,6 +51,7 @@ const ABILITIES = {
   ...TALENTS_DEATH_KNIGHT,
   ...TALENTS_DEMON_HUNTER,
   ...TALENTS_DRUID,
+  ...TALENTS_EVOKER,
   ...TALENTS_HUNTER,
   ...TALENTS_MAGE,
   ...TALENTS_MONK,
@@ -65,6 +68,7 @@ const ABILITIES = {
   ...DEATH_KNIGHT,
   ...DEMON_HUNTER,
   ...DRUID,
+  ...EVOKER,
   ...HUNTER,
   ...MAGE,
   ...MONK,
