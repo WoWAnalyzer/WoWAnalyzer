@@ -1,5 +1,10 @@
 @import 'interface/Theme';
 
+$perfect-perf-color: #2090c0;
+$good-perf-color: #4ec04e;
+$ok-perf-color: #ffc84a;
+$bad-perf-color: #ac1f39;
+
 .guide-container {
   section {
     margin: initial;
@@ -76,18 +81,18 @@
   }
 
   .perfect-bar {
-    background-color: rgb(32, 144, 192);
+    background-color: $perfect-perf-color;
   }
 
   .good-bar {
-    background-color: rgb(78, 192, 78);
+    background-color: $good-perf-color;
   }
 
   .ok-bar {
-    background-color: rgb(255, 200, 74);
+    background-color: $ok-perf-color;
   }
 
   .bad-bar {
-    background-color: rgb(172, 31, 57);
+    background-color: $bad-perf-color;
   }
 }

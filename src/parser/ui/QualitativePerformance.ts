@@ -11,17 +11,3 @@
  * If a boolean is provided instead, true is equivalent to 'good' and false is equivalent to 'fail'.
  */
 export type QualitativePerformance = boolean | 'perfect' | 'good' | 'ok' | 'fail';
-
-// TODO the 'good' 'ok' and 'fail' colors are copied from colorForPerformance, should this be centralized?
-export function colorForQualitativePerformance(perf: QualitativePerformance): string {
-  if (perf === 'perfect') {
-    return '#2090c0';
-  } else if (perf === true || perf === 'good') {
-    return '#4ec04e';
-  } else if (perf === 'ok') {
-    return '#ffc84a';
-  } else {
-    // fail / false
-    return '#ac1f39';
-  }
-}

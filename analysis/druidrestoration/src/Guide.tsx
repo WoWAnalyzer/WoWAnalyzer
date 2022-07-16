@@ -25,7 +25,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <strong>Rejuvenation cast breakdown</strong>
           <small>
             {' '}
-            - Green is a good cast, Yellow was a cast with very high overheal, and Red is an early
+            - Green is a good cast, Yellow is a cast with very high overheal, and Red is an early
             refresh that clipped duration. Mouseover for more details.
           </small>
           <br />
@@ -75,7 +75,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             - Green is a good cast, Red is a bad cast (at full mana cost on a high health target).
             Mouseover boxes for details.
           </small>
-          {modules.clearcasting.guideTimeline}
+          {modules.regrowthAndClearcasting.guideTimeline}
         </SubSection>
         <SubSection title="">
           <b>
@@ -108,7 +108,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ), it should be used frequently in order to generate procs.
           <br />
           <br />
-          TODO explanation of this cooldown bar... highlight gaps when player has SotF or 4pc?
+          <strong>Swiftmend usage and cooldown</strong>
           <div className="flex-main chart" style={{ padding: 5 }}>
             <CooldownBar spellId={SPELLS.SWIFTMEND.id} events={events} info={info} />
           </div>
@@ -151,6 +151,16 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             <div className="flex-main chart" style={{ padding: 5 }}>
               <CooldownBar
                 spellId={SPELLS.FLOURISH_TALENT.id}
+                events={events}
+                info={info}
+                highlightGaps
+              />
+            </div>
+          )}
+          {info.combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
+            <div className="flex-main chart" style={{ padding: 5 }}>
+              <CooldownBar
+                spellId={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id}
                 events={events}
                 info={info}
                 highlightGaps

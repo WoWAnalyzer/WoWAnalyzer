@@ -100,7 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
-    clearcasting: RegrowthAndClearcasting,
+    regrowthAndClearcasting: RegrowthAndClearcasting,
     innervate: Innervate,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
