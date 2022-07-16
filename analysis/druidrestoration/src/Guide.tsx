@@ -102,7 +102,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             <SpellLink id={SPELLS.SWIFTMEND.id} />
           </b>{' '}
           is our emergency heal and it isn't very mana efficient - normally it should only be used
-          to prevent an eminent death. However, if using{' '}
+          to prevent an imminent death. However, if using{' '}
           <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> or the Tier 4-piece (
           <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />
           ), it should be used frequently in order to generate procs.
