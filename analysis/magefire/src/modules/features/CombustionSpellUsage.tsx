@@ -15,14 +15,16 @@ class CombustionSpellUsage extends Analyzer {
   protected standardChecks!: StandardChecks;
 
   get fireballCastsDuringCombustion() {
-    let fireballCasts = this.standardChecks.getEventsDuringBuff(
+    let fireballCasts: any = this.standardChecks.getEventsDuringBuff(
       SPELLS.COMBUSTION,
       EventType.Cast,
       SPELLS.FIREBALL,
     );
+
     //If the Begin Cast event was before Combustion started, then disregard it.
     fireballCasts = fireballCasts.filter((e: CastEvent) => {
-      const beginCast = this.standardChecks.getBeginCastEvents(
+      const beginCast = this.standardChecks.getEvents(
+        EventType.BeginCast,
         1,
         e.timestamp,
         undefined,
@@ -31,7 +33,7 @@ class CombustionSpellUsage extends Analyzer {
       return this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, beginCast.timestamp);
     });
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
-    fireballCasts && this.standardChecks.highlightTimeline(fireballCasts, tooltip);
+    fireballCasts && this.standardChecks.highlightInefficientCast(fireballCasts, tooltip);
     return fireballCasts.length;
   }
 
