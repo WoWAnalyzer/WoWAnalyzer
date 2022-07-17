@@ -52,7 +52,8 @@ import {
   xepheris,
   nullDozzer,
   Tialyss,
-  Lucky0604, Vetyst,
+  Lucky0604,
+  Vetyst,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
