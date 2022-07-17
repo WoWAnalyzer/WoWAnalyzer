@@ -4,6 +4,7 @@ import { Adoraci, Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn,
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 7, 16), <>Added prototype "guide"-style overview page. Press 'View Prototype' on the top-right of the Overview tab to activate.</>, Sref),
   change(date(2022, 7, 6), <>Bumped version to indicate 9.2.5 is supported.</>, Sref),
   change(date(2022, 7, 3), <>Added Hot Count Graph.</>, Sref),
   change(date(2022, 6, 19), <>Widened <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> statistic for better viewing.</>, Sref),

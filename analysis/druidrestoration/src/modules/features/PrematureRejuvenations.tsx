@@ -3,117 +3,154 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
+import HealingValue from 'parser/shared/modules/HealingValue';
+import { RefreshInfo } from 'parser/shared/modules/HotTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+
 const debug = false;
 
-const REJUV_DURATION = 15000;
-const MS_BUFFER = 200;
-const PANDEMIC_THRESHOLD = 0.7;
-const FLOURISH_EXTENSION = 8000;
+const OVERHEAL_THRESHOLD = 0.75;
 
 /*
  * This module tracks early refreshments of rejuvenation.
  * TODO: Extend/refactor this module to include other HoTs/Spells as well such as lifebloom/efflorescence
- * TODO: Add this module to checklist
- * TODO: refactor to just use HotTracker rather than own logic
  */
 class PrematureRejuvenations extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
     combatants: Combatants,
+    hotTracker: HotTrackerRestoDruid,
   };
 
   protected healingDone!: HealingDone;
   protected combatants!: Combatants;
+  protected hotTracker!: HotTrackerRestoDruid;
 
+  /** Healing stats for active hardcast rejuvenations, indexed by targetID */
+  activeHardcastRejuvs: { [key: number]: HealingValue } = {};
+  /** Latch to check if refresh callback has been registered with HotTracker.
+   *  (we can't just do it during constructor due to load order */
+  hasCallbackRegistered: boolean = false;
+
+  /** Total casts of rejuvenation */
   totalRejuvsCasts = 0;
-  rejuvenations: Array<{ targetId: number | undefined; timestamp: number }> = [];
+  /** Hardcasts of rejuvenation that clipped duration */
   earlyRefreshments = 0;
+  /** Hardcasts of rejuvenation that did not clip, but did high overheal while active */
+  highOverhealCasts = 0;
+  /** Total duration clipped, in ms */
   timeLost = 0;
 
   constructor(options: Options) {
     super(options);
-    // TODO - Extend this module to also support when using Germination.
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.GERMINATION_TALENT.id);
+
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.onRemoveBuff,
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]),
+      this.onRejuvApply,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.onRejuvCast,
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]),
+      this.onRejuvRemove,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.onFlourish,
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]),
+      this.onRejuvHeal,
     );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
-      this.onFlourish,
-    );
-    this.addEventListener(Events.fightend, this.onFightend);
+    debug && this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onRemoveBuff(event: RemoveBuffEvent) {
-    const target = this.combatants.getEntity(event);
-    if (!target) {
-      return; // target wasn't important (a pet probably)
+  onRejuvApply(event: ApplyBuffEvent) {
+    if (!this.hasCallbackRegistered) {
+      this.hotTracker.addRefreshHook(SPELLS.REJUVENATION.id, this.onRejuvRefresh.bind(this));
+      this.hotTracker.addRefreshHook(
+        SPELLS.REJUVENATION_GERMINATION.id,
+        this.onRejuvRefresh.bind(this),
+      );
+      this.hasCallbackRegistered = true;
     }
-
-    // Sanity check - Remove rejuvenation from array if it was removed from target player.
-    this.rejuvenations = this.rejuvenations.filter((e) => e.targetId !== event.targetID);
+    if (isFromHardcast(event)) {
+      this.totalRejuvsCasts += 1;
+      this.activeHardcastRejuvs[event.targetID] = new HealingValue();
+    }
   }
 
-  onRejuvCast(event: CastEvent) {
-    this.totalRejuvsCasts += 1;
-
-    const oldRejuv = this.rejuvenations.find((e) => e.targetId === event.targetID);
-    if (oldRejuv == null) {
-      this.rejuvenations.push({ targetId: event.targetID, timestamp: event.timestamp });
-      return;
+  onRejuvRefresh(event: RefreshBuffEvent | ApplyBuffStackEvent, info: RefreshInfo) {
+    // close out existing active rejuv tracker
+    if (this.activeHardcastRejuvs[event.targetID]) {
+      this._handleFinishedRejuv(this.activeHardcastRejuvs[event.targetID]);
+      delete this.activeHardcastRejuvs[event.targetID];
     }
 
-    const pandemicTimestamp =
-      oldRejuv.timestamp + (REJUV_DURATION * PANDEMIC_THRESHOLD + MS_BUFFER);
-    if (pandemicTimestamp > event.timestamp) {
-      this.earlyRefreshments += 1;
-      this.timeLost += pandemicTimestamp - event.timestamp;
+    // hot tracker hook event could be refresh or applystack, but in this case we know it will be a refresh
+    if (isFromHardcast(event as RefreshBuffEvent)) {
+      this.totalRejuvsCasts += 1;
+      if (info.clipped > 0) {
+        this.earlyRefreshments += 1;
+        this.timeLost += info.clipped;
+        debug &&
+          console.log(
+            `Rejuv hardcast clipped @ ${this.owner.formatTimestamp(
+              event.timestamp,
+            )} - remaining: ${info.oldRemaining.toFixed(0)}, clipped: ${info.clipped.toFixed(0)}`,
+          );
+      } else {
+        // we only track hardcast rejuvs that weren't clipping old ones so we don't double count
+        // early refreshes vs high overheal casts in the final tally
+        this.activeHardcastRejuvs[event.targetID] = new HealingValue();
+      }
     }
-
-    // Account for pandemic time if hot was applied within the pandemic timeframe.
-    let pandemicTime = 0;
-    if (
-      event.timestamp >= pandemicTimestamp &&
-      event.timestamp <= oldRejuv.timestamp + REJUV_DURATION
-    ) {
-      pandemicTime = oldRejuv.timestamp + REJUV_DURATION - event.timestamp;
-    } else if (event.timestamp <= pandemicTime) {
-      pandemicTime = REJUV_DURATION - REJUV_DURATION * PANDEMIC_THRESHOLD;
-    }
-    debug && console.log('Extended within pandemic time frame: ' + pandemicTime);
-
-    // Set the new timestamp
-    oldRejuv.timestamp = event.timestamp + pandemicTime;
   }
 
-  onFlourish() {
-    // TODO - Flourish extends all active rejuvenations within 60 yards by 8 seconds. Add range check possible?
-    this.rejuvenations = this.rejuvenations.map((o) => ({
-      ...o,
-      timestamp: o.timestamp + FLOURISH_EXTENSION,
-    }));
+  onRejuvRemove(event: RemoveBuffEvent) {
+    // close out active rejuv tracker
+    if (this.activeHardcastRejuvs[event.targetID]) {
+      this._handleFinishedRejuv(this.activeHardcastRejuvs[event.targetID]);
+      delete this.activeHardcastRejuvs[event.targetID];
+    }
+  }
+
+  onRejuvHeal(event: HealEvent) {
+    if (this.activeHardcastRejuvs[event.targetID]) {
+      this.activeHardcastRejuvs[event.targetID] = this.activeHardcastRejuvs[event.targetID].add(
+        event.amount,
+        event.absorbed,
+        event.overheal,
+      );
+    }
+  }
+
+  _handleFinishedRejuv(val: HealingValue) {
+    if (val.raw > 0) {
+      const percentOverheal = val.overheal / val.raw;
+      if (percentOverheal >= OVERHEAL_THRESHOLD) {
+        this.highOverhealCasts += 1;
+      }
+    }
   }
 
   onFightend() {
-    debug && console.log('Finished: %o', this.rejuvenations);
+    debug && console.log('Total casts: ' + this.totalRejuvsCasts);
     debug && console.log('Early refreshments: ' + this.earlyRefreshments);
+    debug && console.log('High overheal: ' + this.highOverhealCasts);
     debug && console.log('Time lost: ' + this.timeLost);
   }
 
@@ -131,6 +168,10 @@ class PrematureRejuvenations extends Analyzer {
 
   get earlyRefreshmentsPerMinute() {
     return this.earlyRefreshments / (this.owner.fightDuration / 1000 / 60);
+  }
+
+  get goodRejuvs() {
+    return this.totalRejuvsCasts - this.earlyRefreshments - this.highOverhealCasts;
   }
 
   get timeLostThreshold() {

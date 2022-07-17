@@ -28,9 +28,9 @@ class HotCountGraph extends BuffCountGraph {
     const buffSpecs: GraphedSpellSpec[] = [];
     buffSpecs.push({
       spells: [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION],
-      color: '#900090',
+      color: '#a010a0',
     });
-    buffSpecs.push({ spells: SPELLS.WILD_GROWTH, color: '#00b000' });
+    buffSpecs.push({ spells: SPELLS.WILD_GROWTH, color: '#20b020' });
     if (this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT)) {
       buffSpecs.push({ spells: SPELLS.CENARION_WARD_HEAL, color: '#44ffcc' });
     }
@@ -47,12 +47,12 @@ class HotCountGraph extends BuffCountGraph {
     const castSpecs: GraphedSpellSpec[] = [];
     castSpecs.push({ spells: SPELLS.TRANQUILITY_CAST, color: '#bbbbbb' });
     if (this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT)) {
-      castSpecs.push({ spells: SPELLS.FLOURISH_TALENT, color: '#ffbb22' });
+      castSpecs.push({ spells: SPELLS.FLOURISH_TALENT, color: '#ddbb33' });
     }
     if (this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)) {
       // these custom specs will get filled in manually from Convoke module data
-      castSpecs.push({ name: 'Convoke', spells: [], color: '#0000bb' });
-      castSpecs.push({ name: 'Convoke w/ Flourish', spells: [], color: '#00aacc' });
+      castSpecs.push({ name: 'Convoke', spells: [], color: '#2222bb' });
+      castSpecs.push({ name: 'Convoke w/ Flourish', spells: [], color: '#22aacc' });
     }
     return castSpecs;
   }
