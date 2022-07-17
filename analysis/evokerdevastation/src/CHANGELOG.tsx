@@ -4,5 +4,5 @@ import { Tyndi } from 'CONTRIBUTORS';
 // import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 7, 15), 'Initial Evoker Preservation Spec creation', Tyndi)
+  change(date(2022, 7, 15), 'Initial Evoker Devastation Spec creation', Tyndi)
 ];

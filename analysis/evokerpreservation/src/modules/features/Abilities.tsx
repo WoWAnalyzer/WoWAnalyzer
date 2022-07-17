@@ -16,14 +16,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DISINTEGRATE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 0,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DISINTEGRATE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 0,
         gcd: {
@@ -148,24 +140,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.EMERALD_COMMUNION.id),
       },
       {
-        spell: SPELLS.LANDSLIDE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.LANDSLIDE.id),
-      },
-      {
-        spell: SPELLS.OBSIDIAN_SCALES.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 150,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.OBSIDIAN_SCALES.id),
-      },
-      {
         spell: SPELLS.RESCUE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 24,
@@ -197,6 +171,24 @@ class Abilities extends CoreAbilities {
       },
       //endregion
       //region Utility
+      {
+        spell: SPELLS.OBSIDIAN_SCALES.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 150,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.OBSIDIAN_SCALES.id),
+      },
+      {
+        spell: SPELLS.LANDSLIDE.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.LANDSLIDE.id),
+      },
       {
         spell: SPELLS.EXPUNGE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
