@@ -4,6 +4,6 @@ import { SpellList } from '../Spell';
 const talents: SpellList = {
   //Shared
   //Devastation
-  //Feral
+  //Preservation
 };
 export default talents;
