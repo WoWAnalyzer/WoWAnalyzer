@@ -11,7 +11,7 @@ import UptimeStackBar from 'parser/ui/UptimeStackBar';
 const DURATION_MS = 30000;
 const TICK_MS = 2000;
 const EFFLO_TARGETS = 3;
-const EFFLO_COLOR = '#bb0044';
+const EFFLO_COLOR = '#881144';
 const EFFLO_BG_COLOR = '#cca7a7';
 
 class Efflorescence extends Analyzer {

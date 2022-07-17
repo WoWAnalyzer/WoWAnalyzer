@@ -16,7 +16,22 @@ type Props = {
   highlightGaps?: boolean;
 };
 
-function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props): JSX.Element {
+/**
+ *
+ * @param spellId
+ * @param events
+ * @param info
+ * @param highlightGaps
+ * @param others
+ * @constructor
+ */
+export function CooldownBar({
+  spellId,
+  events,
+  info,
+  highlightGaps,
+  ...others
+}: Props): JSX.Element {
   const ability = info.abilities.find(
     (a) => a.spell === spellId || (Array.isArray(a.spell) && a.spell.includes(spellId)),
   );
@@ -168,5 +183,3 @@ function timestampOrFightTerminus(timestamp: number, info: Info): string {
 function IsUpdateSpellUsable(event: AnyEvent): event is UpdateSpellUsableEvent {
   return event.type === EventType.UpdateSpellUsable;
 }
-
-export default CooldownBar;
