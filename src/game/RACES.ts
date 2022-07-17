@@ -156,6 +156,18 @@ const RACES: {
     name: 'Mechagnome',
     side: 'alliance',
   },
+  DracthyrAlliance: {
+    id: 52,
+    mask: 16777216,
+    side: 'alliance',
+    name: 'Dracthyr',
+  },
+  DracthyrHorde: {
+    id: 70,
+    mask: 33554432,
+    side: 'horde',
+    name: 'Dracthyr',
+  },
 };
 
 export default RACES;

@@ -2,6 +2,7 @@
   "All weapons enhanced (oils/stones)": "All weapons enhanced (oils/stones)",
   "Using high quality weapon enhancements": "Using high quality weapon enhancements",
   "className.druid": "Druid",
+  "className.evoker": "Evoker",
   "className.hunter": "Hunter",
   "className.paladin": "Paladin",
   "className.priest": "Priest",
@@ -1030,6 +1031,8 @@
   "specs.warlock": "Warlock",
   "specs.warrior": "Warrior",
   "specs.windwalker": "Windwalker",
+  "specs.devastation": "Devastation",
+  "specs.preservation": "Preservation",
   "supportCheckerIssue.specChangelog": "Spec changelog",
   "tbc.suggestions.hunter.growl": "Your pet cast <0/>. You should not cast it when playing with a tank to avoid your pet from taking aggro. In addition, casting <1/> costs energy, which may reduce your pet's DPS.",
   "tbc.suggestions.hunter.lowRankSpellsPet": "Your pet cast a lower rank <0/>. You should teach your pet the max rank <1/>. See <2>Petopia</2> for info on where to learn the max rank pet abilities.",
@@ -1096,5 +1099,6 @@
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description": "",
   "tbcwarlock.destruction.modules.checklist.avoidBeingInactive.description.ignoreDamage": "",
   "tbcwarlock.destruction.modules.checklist.maintainCurse": "Maintain a curse on the primary target",
+  "tbcwarlock.destruction.modules.checklist.maintainCurse.description": "Maintain a curse on the primary target",
   "tbcwarlock.shared.curses.curseOfElements": "Curse of the Elements"
 }

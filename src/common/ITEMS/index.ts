@@ -5,6 +5,7 @@ import safeMerge from '../safeMerge';
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
+import EVOKER from './evoker';
 import HUNTER from './hunter';
 import MAGE from './mage';
 import MONK from './monk';
@@ -23,6 +24,7 @@ const ITEMS: ItemList = {
     DEATH_KNIGHT,
     DEMON_HUNTER,
     DRUID,
+    EVOKER,
     HUNTER,
     MAGE,
     MONK,

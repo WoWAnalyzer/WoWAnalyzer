@@ -10,7 +10,7 @@ export interface Resource {
 
 const RESOURCE_TYPES: { [key: string]: Resource } = {
   MANA: {
-    // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid
+    // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid, Evoker
     id: 0,
     name: 'Mana',
     icon: 'inv_elemental_mote_mana',
@@ -129,6 +129,13 @@ const RESOURCE_TYPES: { [key: string]: Resource } = {
     name: 'Pain',
     icon: 'ability_demonhunter_demonspikes',
     url: 'pain',
+  },
+  ESSENCE: {
+    // Evoker
+    id: 19,
+    name: 'Essence',
+    icon: 'trade_engineering',
+    url: 'essence',
   },
 };
 export default indexById(RESOURCE_TYPES);

@@ -210,6 +210,7 @@ export enum Class {
   DemonHunter = 'Demon Hunter',
   DeathKnight = 'Death Knight',
   Druid = 'Druid',
+  Evoker = 'Evoker',
   Hunter = 'Hunter',
   Mage = 'Mage',
   Monk = 'Monk',
