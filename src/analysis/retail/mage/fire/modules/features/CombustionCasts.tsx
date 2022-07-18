@@ -48,7 +48,7 @@ class CombustionCasts extends Analyzer {
                   </td>
                 </tr>
                 {this.standardChecks
-                  .castBreakdownDuringBuff(SPELLS.COMBUSTION)
+                  .castBreakdownByBuff(true, SPELLS.COMBUSTION)
                   .sort((a, b) => b[1] - a[1])
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
@@ -59,7 +59,8 @@ class CombustionCasts extends Analyzer {
                       <td style={{ textAlign: 'center' }}>
                         {formatPercentage(
                           spell[1] /
-                            this.standardChecks.countEventsDuringBuff(
+                            this.standardChecks.countEventsByBuff(
+                              true,
                               SPELLS.COMBUSTION,
                               EventType.Cast,
                             ),
