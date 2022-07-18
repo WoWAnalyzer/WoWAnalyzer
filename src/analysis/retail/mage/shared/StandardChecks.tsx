@@ -41,6 +41,9 @@ class StandardChecks extends Analyzer {
     return castArray;
   }
 
+  /**
+   * @param spell the spell you want to count casts for.
+   */
   countTotalCasts(spell: SpellInfo) {
     return this.abilityTracker.getAbility(spell.id).casts;
   }
@@ -74,6 +77,9 @@ class StandardChecks extends Analyzer {
     return filteredEvents;
   }
 
+  /**
+   * @param castEvent the cast event that you want to check the target's health on.
+   */
   getTargetHealth(castEvent: CastEvent) {
     const castTarget =
       castEvent.targetID && encodeTargetString(castEvent.targetID, castEvent.targetInstance);
@@ -104,6 +110,13 @@ class StandardChecks extends Analyzer {
     }
   }
 
+  /**
+   * @param eventType the event type to get (i.e. 'cast', 'begincast', EventType.Cast, EventType.BeginCast). Leave undefined for all events
+   * @param count the number of events to get. Leave undefined for no limit.
+   * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
+   * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
+   * @param spell the specific spell object you are searching for. Leave undefined for all spells.
+   */
   getEvents(
     eventType?: string,
     count?: number,
@@ -134,25 +147,11 @@ class StandardChecks extends Analyzer {
     return filteredEvents;
   }
 
+  /**
+   * @param event the event you want to mark inefficient. Must be a Cast or BeginCast event.
+   * @param tooltip the text you want displayed in the tooltip.
+   */
   highlightInefficientCast(
-    event: CastEvent | BeginChannelEvent | CastEvent[] | BeginChannelEvent[],
-    tooltip: string,
-  ) {
-    if (Array.isArray(event)) {
-      event.forEach((e) => {
-        e.meta = e.meta || {};
-        e.meta.isInefficientCast = true;
-        e.meta.inefficientCastReason = tooltip;
-      });
-    } else {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = tooltip;
-    }
-  }
-
-  //TODO: Modify this to use the enhanced casts stuff instead of inefficient casts
-  highlightEnhancedCast(
     event: CastEvent | BeginChannelEvent | CastEvent[] | BeginChannelEvent[],
     tooltip: string,
   ) {
