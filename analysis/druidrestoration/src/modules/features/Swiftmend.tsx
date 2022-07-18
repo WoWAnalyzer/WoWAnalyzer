@@ -105,8 +105,11 @@ class Swiftmend extends Analyzer {
     const values = this.swiftmendCastInfo.map((cast) => {
       const wasTriage = cast.targetHealthPercent && cast.targetHealthPercent <= TRIAGE_THRESHOLD;
       const targetName = cast.targetName || 'unknown target';
+      const targetHealthString = cast.targetHealthPercent
+        ? (cast.targetHealthPercent * 100).toFixed(0)
+        : 'unknown';
       let value: QualitativePerformance;
-      let hotTooltipString = '';
+      let hotTooltip: JSX.Element;
       if (this.hasVi) {
         const extendedIds = cast.extendedHots ? cast.extendedHots.map((hot) => hot.id) : [];
         const extendedHighValue =
@@ -120,9 +123,14 @@ class Swiftmend extends Analyzer {
           value = 'ok';
         }
         if (extendedIds.length === 0) {
-          hotTooltipString = ` extended unknown HoT`;
+          hotTooltip = <> extended unknown HoT</>;
         } else {
-          hotTooltipString = ` extended ${cast.extendedHots?.map((hot) => ' ' + hot.name)}`;
+          hotTooltip = (
+            <>
+              {' '}
+              extended <strong>{cast.extendedHots?.map((hot) => ' ' + hot.name)}</strong>
+            </>
+          );
         }
       } else {
         const removedHighValue =
@@ -135,12 +143,23 @@ class Swiftmend extends Analyzer {
           value = 'fail';
         }
         const removedHotName = cast.removedHot?.name || 'unknown HoT';
-        hotTooltipString = ` removed ${removedHotName}`;
+        hotTooltip = (
+          <>
+            {' '}
+            removed <strong>{removedHotName}</strong>
+          </>
+        );
       }
 
-      const tooltip = `@ ${this.owner.formatTimestamp(cast.timestamp)} targetting ${targetName}
-         ${cast.targetHealthPercent && ` w/ ${(cast.targetHealthPercent * 100).toFixed(0)}% health`}
-         ${hotTooltipString}`;
+      const tooltip = (
+        <>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong>
+          <br />
+          targetting <strong>{targetName}</strong> w/ {targetHealthString}% health
+          <br />
+          {hotTooltip}
+        </>
+      );
 
       return { value, tooltip };
     });
