@@ -11,7 +11,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <CoreSpellSection modules={modules} events={events} info={info} />
       <CooldownsSection modules={modules} events={events} info={info} />
-      <TalentsSection modules={modules} events={events} info={info} />
     </>
   );
 }
@@ -25,6 +24,9 @@ function CoreSpellSection({ modules, events, info }: GuideProps<typeof CombatLog
       <LifebloomSubsection modules={modules} events={events} info={info} />
       <EfflorescenceSubsection modules={modules} events={events} info={info} />
       <SwiftmendSubsection modules={modules} events={events} info={info} />
+      {info.combatant.hasTalent(SPELLS.CENARION_WARD_TALENT) && (
+        <CenarionWardSubsection modules={modules} events={events} info={info} />
+      )}
     </Section>
   );
 }
@@ -53,8 +55,7 @@ function RejuvenationSubsection({ modules, events, info }: GuideProps<typeof Com
       targets that already have a high duration Rejuvenation, as you will clip duration. Note that
       some high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of
       them are, you might be casting too much.
-      <br />
-      <br />
+      <p />
       <strong>Rejuvenation cast breakdown</strong>
       <small>
         {' '}
@@ -77,8 +78,7 @@ function WildGrowthSubsection({ modules, events, info }: GuideProps<typeof Comba
       damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least 3
       injured targets. Remember that only allies within 30 yds of the primary target can be hit -
       don't cast this on an isolated player!
-      <br />
-      <br />
+      <p />
       <strong>Wild Growth casts</strong>
       <small>
         {' '}
@@ -92,17 +92,26 @@ function WildGrowthSubsection({ modules, events, info }: GuideProps<typeof Comba
 }
 
 function RegrowthSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  const hasAbundance = info.combatant.hasTalent(SPELLS.ABUNDANCE_TALENT);
   return (
     <SubSection title="">
       <b>
         <SpellLink id={SPELLS.REGROWTH.id} />
       </b>{' '}
-      is for urgent spot healing. The HoT it applies is very weak - never pre-cast Regrowth.
-      Regrowth is only efficient when its direct portion doesn't overheal. Exceptions are when
-      Regrowth is free due to <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> or cheap due to{' '}
-      <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />
-      <br />
-      <br />
+      is for urgent spot healing. The HoT it applies is very weak, meaning Regrowth is only
+      efficient when its direct portion is effective. Exceptions are when Regrowth is free due to{' '}
+      <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> /{' '}
+      <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
+      {hasAbundance && (
+        <>
+          or cheap due to <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />.<p />
+          Even with <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> you still shouldn't cast Regrowth
+          during your ramp. Wait until after you <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> or{' '}
+          <SpellLink id={SPELLS.FLOURISH_TALENT.id} />, then you can fill with high-stack Regrowth
+          casts.
+        </>
+      )}
+      <p />
       <strong>Regrowth casts</strong>
       <small>
         {' '}
@@ -124,7 +133,7 @@ function LifebloomSubsection({ modules, events, info }: GuideProps<typeof Combat
       However, it causes <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs and so is a big
       benefit to your mana efficiency . It should always be active on a target - the tank is usually
       a safe bet.
-      <br />
+      <p />
       {modules.lifebloom.subStatistic()}
     </SubSection>
   );
@@ -139,7 +148,7 @@ function EfflorescenceSubsection({ modules, events, info }: GuideProps<typeof Co
       is extremely mana efficient if you're good about placing it where raiders are standing. Under
       the boss is usually a safe bet. While it's acceptable to let it drop during heavy movement,
       you should otherwise aim to keep it active at all times.
-      <br />
+      <p />
       {modules.efflorescence.subStatistic()}
     </SubSection>
   );
@@ -150,6 +159,11 @@ function SwiftmendSubsection({ modules, events, info }: GuideProps<typeof Combat
   const hasVi = info.combatant.hasLegendary(SPELLS.VERDANT_INFUSION);
   const has4p = info.combatant.has4Piece();
   const procCount = (hasSotf ? 1 : 0) + (hasVi ? 1 : 0) + (has4p ? 1 : 0);
+  const chartDescription = ` - ${
+    hasVi ? 'Blue is great (extended high value HoTs), ' : ''
+  }Green is a fine cast, ${procCount > 0 ? 'Yellow' : 'Red'} is a non-triage (>50% health) cast${
+    hasVi ? '' : ' that removes a WG or Rejuv'
+  }${procCount ? ' (still acceptable for generating procs)' : ''}`;
   return (
     <SubSection title="">
       <b>
@@ -169,7 +183,7 @@ function SwiftmendSubsection({ modules, events, info }: GuideProps<typeof Combat
       {hasVi && (
         <>
           <SpellLink id={SPELLS.VERDANT_INFUSION.id} />
-          {'  '}&nbsp;
+          &nbsp;
         </>
       )}
       {has4p && (
@@ -180,15 +194,36 @@ function SwiftmendSubsection({ modules, events, info }: GuideProps<typeof Combat
       {procCount > 0 && (
         <>
           {procCount === 1 ? `This ability is ` : `These abilities are `}very powerful, so you
-          should cast Swiftmend often in order to generate procs - even on targets who don't need
-          urgent healing.
+          should cast Swiftmend frequently in order to generate procs - even on targets who don't
+          need urgent healing.
         </>
       )}
+      <p />
+      <strong>Swiftmend casts</strong>
+      <small>{chartDescription}</small>
+      {modules.swiftmend.guideTimeline}
+    </SubSection>
+  );
+}
+
+function CenarionWardSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection title="">
+      <b>
+        <SpellLink id={SPELLS.CENARION_WARD_TALENT.id} />
+      </b>{' '}
+      is a talented HoT on a short cooldown. It is extremely powerful and efficient and should be
+      cast virtually on cooldown. A tank is usually the best target.
       <br />
       <br />
-      <strong>Swiftmend usage and cooldown</strong>
+      <strong>Cenarion Ward usage and cooldown</strong>
       <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar spellId={SPELLS.SWIFTMEND.id} events={events} info={info} />
+        <CooldownBar
+          spellId={SPELLS.CENARION_WARD_TALENT.id}
+          events={events}
+          info={info}
+          highlightGaps
+        />
       </div>
     </SubSection>
   );
@@ -286,68 +321,7 @@ function CooldownBreakdownSubsection({
   return (
     <SubSection title="">
       <strong>Spell Breakdowns</strong> - evaluate your performance for each cooldown use
-      <br /> TODO - list of timestamp + dropdown for cast goes here (like on Brewmaster)
+      <br /> <strong>COMING SOON</strong>
     </SubSection>
-  );
-}
-
-function TalentsSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <Section title="Talents, Legendaries, and Covenant">
-      <p>
-        This section contains an evaluation of Talent and Item choices. Not all choices are
-        included, this will mostly focus on choices with an impact on your healing rotation.
-      </p>
-      <SubSection title="Tier 1 - CHOSEN TALENT GOES HERE">
-        <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> is the usual pick for Raiding. (BLURB ON HOW
-        TO USE IT WITH RAMPS GOES HERE)
-        <br />
-        (STATS ON AVG STACKS PER RG CAST GOES HERE)
-        <br />
-        <br />
-        <SpellLink id={SPELLS.NOURISH_TALENT.id} /> is undertuned and not currently picked in any
-        content
-        <br />
-        <br />
-        <SpellLink id={SPELLS.CENARION_WARD_TALENT.id} /> is the usual pick for Mythic+. It is a big
-        mana efficient heal that should be used on cooldown on a target likely to be taking damage -
-        the tank is a safe bet.
-        <br />
-        (STATS ON CAST EFFIC GOES HERE)
-      </SubSection>
-      <SubSection title="Tier 5 - CHOSEN TALENT GOES HERE">
-        <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> is the standard pick for
-        Raiding and Mythic+. When picking this talent, <SpellLink id={SPELLS.SWIFTMEND.id} /> is
-        part of your standard rotation in order to generate procs. It is best to always consume the
-        proc with <SpellLink id={SPELLS.WILD_GROWTH.id} />
-        <br />
-        (STATS ON WHAT PROCS WERE CONSUMED WITH)
-        <br />
-        <br />
-        <SpellLink id={SPELLS.CULTIVATION_TALENT.id} /> is undertuned and not currently picked in
-        any content
-        <br />
-        <br />
-        <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is a strong pick for Raiding.
-        Use it when available during high damage phases. (WHAT STATS TO SHOW HERE?)
-      </SubSection>
-      <SubSection title="Tier 6 - CHOSEN TALENT GOES HERE">
-        <SpellLink id={SPELLS.INNER_PEACE_TALENT.id} /> is best in raid encounters where damage
-        timers will allow you to benefit from the reduced cooldown, or in encounters where raiders
-        are spread out and moving too much to benefit from Spring Blossoms.
-        <br />
-        (STATS ON IF PLAYER ACTUALLY MADE USE OF THE CDR)
-        <br />
-        <br />
-        <SpellLink id={SPELLS.SPRING_BLOSSOMS_TALENT.id} /> is the standard pick for Raiding and
-        Mythic+. Make sure to maintain high <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime
-        and you'll get strong extra healing from this talent.
-        <br />
-        <br />
-        <SpellLink id={SPELLS.OVERGROWTH_TALENT.id} /> is terrible do not pick it.
-      </SubSection>
-      <SubSection title="Tier 7 - CHOSEN TALENT GOES HERE"></SubSection>
-      <SubSection title="Legendary - CHOSEN LEGENDARY GOES HERE"></SubSection>
-    </Section>
   );
 }

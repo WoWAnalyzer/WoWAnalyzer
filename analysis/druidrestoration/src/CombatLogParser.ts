@@ -61,6 +61,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
+import SwiftmendNormalizer from './normalizers/SwiftmendNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotCastLinkNormalizer: CastLinkNormalizer,
     soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
+    swiftmendNormazlier: SwiftmendNormalizer,
 
     // Core
     rejuvenation: Rejuvenation,
