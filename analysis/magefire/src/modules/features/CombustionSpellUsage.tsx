@@ -14,25 +14,15 @@ class CombustionSpellUsage extends Analyzer {
   };
   protected standardChecks!: StandardChecks;
 
-  get fireballCastsDuringCombustion() {
-    const casts: any = this.standardChecks.getEventsDuringBuff(
-      SPELLS.COMBUSTION,
-      EventType.Cast,
-      SPELLS.FIREBALL,
-    );
+  // prettier-ignore
+  fireballCastsDuringCombustion = () => {
+    
+    const casts: any = this.standardChecks.getEventsByBuff(true, SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.
     const fireballCasts = casts.filter((e: CastEvent) => {
-      const beginCast = this.standardChecks.getEvents(
-        EventType.BeginCast,
-        1,
-        e.timestamp,
-        undefined,
-        SPELLS.FIREBALL,
-      )[0];
-      return beginCast
-        ? this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, beginCast.timestamp)
-        : false;
+      const beginCast = this.standardChecks.getEvents(EventType.BeginCast, 1, e.timestamp, undefined, SPELLS.FIREBALL)[0];
+      return beginCast ? this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, beginCast.timestamp) : false;
     });
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
     fireballCasts && this.standardChecks.highlightInefficientCast(fireballCasts, tooltip);
@@ -40,7 +30,8 @@ class CombustionSpellUsage extends Analyzer {
   }
 
   get fireballBeginCasts() {
-    return this.standardChecks.countEventsDuringBuff(
+    return this.standardChecks.countEventsByBuff(
+      true,
       SPELLS.COMBUSTION,
       EventType.BeginCast,
       SPELLS.FIREBALL,
@@ -49,7 +40,7 @@ class CombustionSpellUsage extends Analyzer {
 
   get fireballCastsPerCombustion() {
     return (
-      this.fireballCastsDuringCombustion / this.standardChecks.countTotalCasts(SPELLS.COMBUSTION)
+      this.fireballCastsDuringCombustion() / this.standardChecks.countTotalCasts(SPELLS.COMBUSTION)
     );
   }
 

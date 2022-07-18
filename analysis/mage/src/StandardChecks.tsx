@@ -20,11 +20,14 @@ class StandardChecks extends Analyzer {
   protected eventHistory!: EventHistory;
 
   /**
+   * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
    * @param buff the spell object for the buff
    * @returns an array containing each unique spell cast and the number of times it was cast
    */
-  castBreakdownDuringBuff(buff: SpellInfo) {
-    const castEvents: any = this.getEventsDuringBuff(buff, EventType.Cast);
+  castBreakdownByBuff(buffActive: boolean, buff: SpellInfo) {
+    const castEvents: any = buffActive
+      ? this.getEventsByBuff(true, buff, EventType.Cast)
+      : this.getEventsByBuff(false, buff, EventType.Cast);
     const castArray: number[][] = [];
     castEvents &&
       castEvents.forEach((c: CastEvent) => {
@@ -42,53 +45,31 @@ class StandardChecks extends Analyzer {
     return this.abilityTracker.getAbility(spell.id).casts;
   }
 
-  countEventsDuringBuff(buff: SpellInfo, eventType: string, cast?: SpellInfo) {
-    /**
-     * @param buff the spell object for the buff
-     * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
-     * @param cast an optional cast spell object to count. Omit or leave undefined to count all casts
-     */
-    const events = this.getEventsDuringBuff(buff, eventType, cast);
-    return events.length;
-  }
-
   /**
+   * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
    * @param buff the spell object for the buff
    * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
    * @param cast an optional cast spell object to count. Omit or leave undefined to count all casts
    */
-  countEventsWithoutBuff(buff: SpellInfo, eventType: string, cast?: SpellInfo) {
-    const events = this.getEventsWithoutBuff(buff, eventType, cast);
+  countEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType: string, cast?: SpellInfo) {
+    const events = buffActive
+      ? this.getEventsByBuff(true, buff, eventType, cast)
+      : this.getEventsByBuff(false, buff, eventType, cast);
     return events.length;
   }
 
   /**
+   * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
    * @param buff the spell object for the buff
    * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
    * @param spell an optional spell object to search. Omit or leave undefined to count all events
    */
-  getEventsDuringBuff(buff: SpellInfo, eventType: string, spell?: SpellInfo) {
+  getEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType?: string, spell?: SpellInfo) {
     const events = this.getEvents(eventType, undefined, undefined, undefined, spell);
-    const filteredEvents = events.filter(
-      (e) =>
-        this.selectedCombatant.hasBuff(buff.id, e.timestamp) &&
-        (!spell || ('ability' in e && spell.id === e.ability.guid)),
-    );
-    return filteredEvents;
-  }
-
-  /**
-   * @param buff the spell object for the buff
-   * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
-   * @param spell an optional spell object to search. Omit or leave undefined to count all events
-   */
-  getEventsWithoutBuff(buff: SpellInfo, eventType: string, spell?: SpellInfo) {
-    const events = this.getEvents(eventType, undefined, undefined, undefined, spell);
-
-    const filteredEvents = events.filter(
-      (e) =>
-        !this.selectedCombatant.hasBuff(buff.id, e.timestamp) &&
-        (!spell || ('ability' in e && spell.id === e.ability.guid)),
+    const filteredEvents = events.filter((e) =>
+      buffActive
+        ? this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1)
+        : !this.selectedCombatant.hasBuff(buff.id, e.timestamp + 1),
     );
     return filteredEvents;
   }
@@ -132,7 +113,10 @@ class StandardChecks extends Analyzer {
   ) {
     const events = this.eventHistory.last(count, duration, undefined, startTimestamp);
 
-    const filteredEvents = events.filter((e) => {
+    let filteredEvents = events.filter(
+      (e) => 'sourceID' in e && e.sourceID === this.selectedCombatant.id,
+    );
+    filteredEvents = filteredEvents.filter((e) => {
       if ('ability' in e && spell) {
         return (
           !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) &&
@@ -141,7 +125,7 @@ class StandardChecks extends Analyzer {
         );
       } else if ('ability' in e) {
         return (
-          CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) && (!eventType || eventType === e.type)
+          !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) && (!eventType || eventType === e.type)
         );
       } else {
         return !eventType || eventType === e.type;

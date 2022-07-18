@@ -25,24 +25,25 @@ class HeatingUp extends Analyzer {
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
 
-  get phoenixFlamesDuringHotStreak() {
-    return this.standardChecks.countEventsDuringBuff(
+  phoenixFlamesDuringHotStreak = () =>
+    this.standardChecks.countEventsByBuff(
+      true,
       SPELLS.HOT_STREAK,
       EventType.Cast,
       SPELLS.PHOENIX_FLAMES,
     );
-  }
 
-  get fireBlastDuringHotStreak() {
-    return this.standardChecks.countEventsDuringBuff(
+  fireBlastDuringHotStreak = () =>
+    this.standardChecks.countEventsByBuff(
+      true,
       SPELLS.HOT_STREAK,
       EventType.Cast,
       SPELLS.FIRE_BLAST,
     );
-  }
 
-  get fireBlastWithoutHeatingUp() {
-    const casts = this.standardChecks.getEventsWithoutBuff(
+  fireBlastWithoutHeatingUp = () => {
+    const casts = this.standardChecks.getEventsByBuff(
+      false,
       SPELLS.HEATING_UP,
       EventType.Cast,
       SPELLS.FIRE_BLAST,
@@ -57,19 +58,13 @@ class HeatingUp extends Analyzer {
     //Filter out events where the player has Searing Touch and the target is under 30% health
     filteredCasts = filteredCasts.filter((cast: any) => {
       const targetHealth = this.standardChecks.getTargetHealth(cast);
-      return (
-        !this.hasSearingTouch ||
-        (this.hasSearingTouch && targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD)
-      );
+      return !this.hasSearingTouch || (targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD);
     });
 
     //Filter out events where the player has Firestarter and the target is over 90% health.
     filteredCasts = filteredCasts.filter((cast: any) => {
       const targetHealth = this.standardChecks.getTargetHealth(cast);
-      return (
-        !this.hasFirestarter ||
-        (this.hasFirestarter && targetHealth && targetHealth < FIRESTARTER_THRESHOLD)
-      );
+      return !this.hasFirestarter || (targetHealth && targetHealth < FIRESTARTER_THRESHOLD);
     });
 
     //Filter out events where the player is Venthyr and Mirrors of Torment is currently being cast
@@ -83,31 +78,29 @@ class HeatingUp extends Analyzer {
       return !lastEvent || lastEvent.ability.guid !== SPELLS.MIRRORS_OF_TORMENT.id;
     });
     return filteredCasts.length;
-  }
-
-  get fireBlastWasted() {
-    return this.fireBlastWithoutHeatingUp + this.fireBlastDuringHotStreak;
-  }
+  };
 
   get totalWasted() {
-    return this.fireBlastWasted + this.phoenixFlamesDuringHotStreak;
+    return (
+      this.fireBlastWithoutHeatingUp() +
+      this.fireBlastDuringHotStreak() +
+      this.phoenixFlamesDuringHotStreak()
+    );
   }
 
   get fireBlastUtil() {
-    return 1 - this.fireBlastMissedPercent;
+    return (
+      1 -
+      (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) /
+        this.standardChecks.countTotalCasts(SPELLS.FIRE_BLAST)
+    );
   }
 
   get phoenixFlamesUtil() {
-    return 1 - this.phoenixFlamesMissedPercent;
-  }
-
-  get fireBlastMissedPercent() {
-    return this.fireBlastWasted / this.standardChecks.countTotalCasts(SPELLS.FIRE_BLAST);
-  }
-
-  get phoenixFlamesMissedPercent() {
     return (
-      this.phoenixFlamesDuringHotStreak / this.standardChecks.countTotalCasts(SPELLS.PHOENIX_FLAMES)
+      1 -
+      this.phoenixFlamesDuringHotStreak() /
+        this.standardChecks.countTotalCasts(SPELLS.PHOENIX_FLAMES)
     );
   }
 
@@ -139,9 +132,9 @@ class HeatingUp extends Analyzer {
     when(this.fireBlastUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastDuringHotStreak} times
+          You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastDuringHotStreak()} times
           while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and{' '}
-          {this.fireBlastWithoutHeatingUp} times while you didnt have{' '}
+          {this.fireBlastWithoutHeatingUp()} times while you didnt have{' '}
           <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to
           convert Heating Up into Hot Streak or if you are going to cap on charges.
         </>,
@@ -157,7 +150,7 @@ class HeatingUp extends Analyzer {
     when(this.phoenixFlamesUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesDuringHotStreak}{' '}
+          You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesDuringHotStreak()}{' '}
           times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste as the{' '}
           <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> could have contributed towards the next{' '}
           <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} />.
@@ -187,9 +180,9 @@ class HeatingUp extends Analyzer {
             Phoenix Flames while Hot Streak is active, as those could have contributed towards your
             next Heating Up/Hot Streak
             <ul>
-              <li>Fireblast used without Heating Up: {this.fireBlastWithoutHeatingUp}</li>
-              <li>Fireblast used during Hot Streak: {this.fireBlastDuringHotStreak}</li>
-              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesDuringHotStreak}</li>
+              <li>Fireblast used without Heating Up: {this.fireBlastWithoutHeatingUp()}</li>
+              <li>Fireblast used during Hot Streak: {this.fireBlastDuringHotStreak()}</li>
+              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesDuringHotStreak()}</li>
             </ul>
           </>
         }
