@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Combatant from 'parser/core/Combatant';
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_SHOCK_HEAL.id,
@@ -53,7 +54,22 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.WORD_OF_GLORY.id]: 1,
   [SPELLS.ASHEN_HALLOW_HEAL.id]: 0.5,
   [SPELLS.HALLOWED_DISCERNMENT.id]: 0.5,
+  [SPELLS.LIGHT_OF_THE_MARTYR.id]: (player: Combatant) =>
+    player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
 };
+
+export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
+  const spell = BEACON_TRANSFERING_ABILITIES[spellID];
+  if (!spell) {
+    return undefined;
+  }
+
+  if (typeof spell === 'function') {
+    return spell(player);
+  }
+
+  return spell;
+}
 
 export const BEACON_TYPES = {
   BEACON_OF_FATH: SPELLS.BEACON_OF_FAITH_TALENT.id,
