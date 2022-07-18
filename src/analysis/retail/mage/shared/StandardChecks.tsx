@@ -68,7 +68,7 @@ class StandardChecks extends Analyzer {
    * @param spell an optional spell object to search. Omit or leave undefined to count all events
    */
   getEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType?: string, spell?: SpellInfo) {
-    const events = this.getEvents(eventType, undefined, undefined, undefined, spell);
+    const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
     const filteredEvents = events.filter((e) =>
       buffActive
         ? this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1)
@@ -83,7 +83,13 @@ class StandardChecks extends Analyzer {
   getTargetHealth(castEvent: CastEvent) {
     const castTarget =
       castEvent.targetID && encodeTargetString(castEvent.targetID, castEvent.targetInstance);
-    const damageEvents = this.getEvents(EventType.Damage, undefined, castEvent.timestamp, 5000);
+    const damageEvents = this.getEvents(
+      true,
+      EventType.Damage,
+      undefined,
+      castEvent.timestamp,
+      5000,
+    );
     if (!damageEvents) {
       return;
     }
@@ -111,6 +117,7 @@ class StandardChecks extends Analyzer {
   }
 
   /**
+   * @param searchBackwards specify whether you want to search for events forwards or backwards from a particular timestamp (true for backwards, false for forwards. Default is backwards).
    * @param eventType the event type to get (i.e. 'cast', 'begincast', EventType.Cast, EventType.BeginCast). Leave undefined for all events
    * @param count the number of events to get. Leave undefined for no limit.
    * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
@@ -118,13 +125,16 @@ class StandardChecks extends Analyzer {
    * @param spell the specific spell object you are searching for. Leave undefined for all spells.
    */
   getEvents(
+    searchBackwards: boolean = true,
     eventType?: string,
     count?: number,
     startTimestamp: number = this.owner.fight.end_time,
     duration?: number,
     spell?: SpellInfo,
   ) {
-    const events = this.eventHistory.last(count, duration, undefined, startTimestamp);
+    const events = searchBackwards
+      ? this.eventHistory.last(count, duration, undefined, startTimestamp)
+      : this.eventHistory.next(count, duration, undefined, startTimestamp);
 
     let filteredEvents = events.filter(
       (e) => 'sourceID' in e && e.sourceID === this.selectedCombatant.id,
