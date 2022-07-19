@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -31,6 +31,11 @@ class Stormbringer extends Analyzer {
     );
 
     this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
+      this.onStormbringerApplied,
+    );
+
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(STORMSTRIKE_CAST_SPELLS),
       this.onStormstrikeUseWithStormbringerBuff,
     );
@@ -41,7 +46,7 @@ class Stormbringer extends Analyzer {
     );
   }
 
-  onStormbringerApplied(event: ApplyBuffEvent) {
+  onStormbringerApplied() {
     if (this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
       this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
     }
@@ -51,7 +56,7 @@ class Stormbringer extends Analyzer {
     }
   }
 
-  onStormstrikeUseWithStormbringerBuff(event: CastEvent) {
+  onStormstrikeUseWithStormbringerBuff() {
     if (!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)) {
       return;
     }
