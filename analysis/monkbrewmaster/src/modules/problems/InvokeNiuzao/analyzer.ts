@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -33,6 +34,7 @@ export type NiuzaoCastData = {
   startEvent: SummonEvent;
   endEvent: DeathEvent | FightEndEvent;
   relevantHits: DamageEvent[];
+  sitDetected: boolean;
 };
 
 type StompData = {
@@ -83,7 +85,13 @@ export class InvokeNiuzao extends Analyzer {
       return;
     }
 
-    Object.values(this.activeCasts).forEach((cast) => cast.relevantHits.push(event));
+    Object.values(this.activeCasts).forEach((cast) => {
+      cast.relevantHits.push(event);
+
+      if (event.hitType === HIT_TYPES.CRIT) {
+        cast.sitDetected = true;
+      }
+    });
   }
 
   private removeStagger(event: RemoveStaggerEvent) {
@@ -193,6 +201,7 @@ export class InvokeNiuzao extends Analyzer {
         cooldown: this.spellUsable.cooldownRemaining(SPELLS.PURIFYING_BREW.id),
       },
       startEvent: summonEvent,
+      sitDetected: false,
     };
   }
 }

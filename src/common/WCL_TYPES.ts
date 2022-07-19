@@ -103,6 +103,36 @@ export interface WCLBossResources {
   series: BossSeries[];
 }
 
+export interface WCLThreatBand {
+  startTime: number;
+  endTime: number;
+  startEvent: AnyEvent;
+  endEvent: AnyEvent;
+}
+
+export interface WCLThreatTarget {
+  name: string;
+  id: number;
+  guid: number;
+  type: string;
+  icon: string;
+  totalUptime: number;
+  bands: WCLThreatBand[];
+}
+
+export interface WCLThreatEntry {
+  name: string;
+  id: number;
+  guid: number;
+  type: string;
+  icon: string;
+  targets: WCLThreatTarget[];
+}
+
+export interface WCLThreatTableResponse {
+  threat: WCLThreatEntry[];
+}
+
 export type WCLResponseJSON =
   | WCLGuildReportsResponse
   | WCLFightsResponse
@@ -111,10 +141,27 @@ export type WCLResponseJSON =
   | WCLDamageTakenTableResponse
   | WCLRankingsResponse
   | WCLBossResources
-  | WCLDamageDoneTableResponse;
+  | WCLDamageDoneTableResponse
+  | WCLThreatTableResponse;
 
 export interface WclOptions {
   timeout: number;
 
   [key: string]: number | string | boolean;
+}
+
+export enum WclTable {
+  Summary = 'summary',
+  DamageDone = 'damage-done',
+  DamageTaken = 'damage-taken',
+  Healing = 'healing',
+  Casts = 'casts',
+  Summons = 'summons',
+  Buffs = 'buffs',
+  Debuffs = 'debuffs',
+  Deaths = 'deaths',
+  Survivability = 'survivability',
+  Resources = 'resources',
+  ResourceGains = 'resources-gains',
+  Threat = 'threat',
 }

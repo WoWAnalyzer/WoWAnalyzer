@@ -75,6 +75,8 @@ abstract class HotTracker extends Analyzer {
   bouncingHots: Tracker[] = [];
   /** A history of all HoTs that have been tracked over the course of this encounter */
   hotHistory: Tracker[] = [];
+  /** All registered refresh callbacks, indexed by spellId to watch */
+  refreshHooks: { [key: number]: RefreshCallback[] } = {};
   /** All Attributions seen, indexed by name. For logging purposes only */
   attributions: { [key: string]: Attribution } = {};
 
@@ -322,6 +324,32 @@ abstract class HotTracker extends Analyzer {
     this.addBoost(attribution, boostAmount, event.targetID, event.ability.guid);
   }
 
+  /**
+   * Adds a function to be called when a HoT is refreshed.
+   * The function will be given much of HotTracker's internal information about the refresh,
+   * including time remaining on previous application, duration clipped (if any), and attributions
+   * on the refresh.
+   *
+   * @param spellId the ID of the HoT to watch. This spell must be part of HotTracker's track list.
+   * @param callback the function to call when the HoT is refreshed.
+   */
+  public addRefreshHook(spellId: number, callback: RefreshCallback): void {
+    if (!this.hotInfo[spellId]) {
+      console.error(
+        `Tried to add refresh hook for spellId=${spellId}, but that is not a tracked HoT Id!`,
+      );
+    }
+
+    if (!this.refreshHooks[spellId]) {
+      this.refreshHooks[spellId] = [];
+    }
+    this.refreshHooks[spellId].push(callback);
+    debug && console.info(`Added refresh hook for spellId=${spellId}`);
+  }
+
+  // TODO any utility in adding apply / remove hooks? Does HotTracker have more information about
+  //      these that would be useful to consumers?
+
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // PROTECTED METHOD - Must be overridden by spec's implementation of HotTracker
   //
@@ -449,6 +477,16 @@ abstract class HotTracker extends Analyzer {
     } else {
       hot.end += this._calculateExtension(freshDuration, hot, true, true);
       clipped = remaining - freshDuration * PANDEMIC_EXTRA;
+    }
+
+    // trigger refresh callbacks if needed
+    if (this.refreshHooks[spellId]) {
+      const refreshInfo = {
+        oldRemaining: remaining,
+        newRemaining: hot.end - event.timestamp,
+        clipped,
+      };
+      this.refreshHooks[spellId].forEach((hook) => hook(event, refreshInfo));
     }
 
     // calculate if the HoT was refreshed early and take actions if it was
@@ -881,6 +919,23 @@ export interface HotInfo {
   bouncy?: boolean;
   /** the spell's ID again, for dynamic listeners */
   id?: number;
+}
+
+/** A callback to be triggered when a HoT is refreshed */
+export type RefreshCallback = (
+  event: RefreshBuffEvent | ApplyBuffStackEvent,
+  info: RefreshInfo,
+) => void;
+
+/** Info about the refreshed HoT to be passed to the callback */
+export interface RefreshInfo {
+  /** The time that was remaining on the buff at the moment of the refresh, in ms */
+  oldRemaining: number;
+  /** The new time remaining on the buff after the refresh, in ms */
+  newRemaining: number;
+  /** The amount of time clipped due to an early refresh, in ms.
+   *  This will be zero if the HoT can pandemic and the refresh was within the window */
+  clipped: number;
 }
 
 export default HotTracker;

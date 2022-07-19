@@ -1,10 +1,15 @@
-import { formatNumber } from 'common/format';
+import { t } from '@lingui/macro';
+import { fetchTable } from 'common/fetchWclApi';
+import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { WclTable, WCLThreatBand, WCLThreatTableResponse } from 'common/WCL_TYPES';
+import { TooltipElement } from 'interface';
 import { GuideProps, PassFailBar, SubSection } from 'interface/guide';
 import type { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
 import ProblemList from 'interface/guide/ProblemList';
 import SpellLink from 'interface/SpellLink';
 import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
 import { useEffect, useState } from 'react';
@@ -14,9 +19,36 @@ import { AutoSizer } from 'react-virtualized';
 import { staggerChart, line, point, color, normalizeTimestampTransform } from '../../charts';
 import PurifyingBrewProblems, { ProblemType, ProblemData, PurifyReason } from './analyzer';
 import { potentialStaggerEvents } from './solver';
+
 import './PurifyingBrew.scss';
 
 export { default } from './analyzer';
+
+export function useThreatTable({
+  reportCode,
+  fightStart,
+  fightEnd,
+  combatant,
+}: Info): WCLThreatTableResponse | undefined {
+  const [table, setTable] = useState<WCLThreatTableResponse | undefined>(undefined);
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await fetchTable<WCLThreatTableResponse>(
+        reportCode,
+        fightStart,
+        fightEnd,
+        WclTable.Threat,
+        combatant.id,
+      );
+      setTable(data);
+    };
+
+    load();
+  }, [reportCode, fightStart, fightEnd, combatant.id]);
+
+  return table;
+}
 
 const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
   data.type === ProblemType.MissedPurify ? (
@@ -204,16 +236,53 @@ function PurifyReasonBreakdown({
   counts,
   total,
   castEfficiency,
+  amountPurified,
+  amountStaggered,
+  info,
 }: {
   counts: Record<PurifyReason, number>;
   total: number;
+  amountPurified: number;
+  amountStaggered: number;
   castEfficiency: AbilityCastEfficiency;
+  info: Info;
 }): JSX.Element {
+  const threatTable = useThreatTable(info);
+
   return (
     <table className="hits-list purify-reasons">
       <tbody>
         <tr>
-          <td>Charges Used</td>
+          <td>
+            <TooltipElement
+              content={t({
+                id: 'guide.monk.brewmaster.purifyingbrew.targetAmountPurified',
+                message:
+                  'A reasonable goal is to purify 40-50% of Staggered damage. If you purify at least 45%, this bar will be full.',
+              })}
+            >
+              Amount Purified
+            </TooltipElement>
+          </td>
+          <td className="pass-fail-counts">
+            {formatNumber(amountPurified)} / {formatNumber(amountStaggered)}
+          </td>
+          <td>
+            <PassFailBar pass={amountPurified} total={amountStaggered * 0.45} />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <TooltipElement
+              content={t({
+                id: 'guide.monk.brewmaster.purifyingbrew.targetChargesUsed',
+                message:
+                  'This value should be judged relative to the Active Tanking Time shown below. If the fraction of charges used is well below the fraction of time spent tanking, that is a serious problem.',
+              })}
+            >
+              Charges Used
+            </TooltipElement>
+          </td>
           <td className="pass-fail-counts">
             {castEfficiency.casts} / {castEfficiency.maxCasts}
           </td>
@@ -221,6 +290,7 @@ function PurifyReasonBreakdown({
             <PassFailBar pass={castEfficiency.casts} total={castEfficiency.maxCasts} />
           </td>
         </tr>
+        <ThreatSummary threat={threatTable} totalTime={info.fightDuration} />
         <tr>
           <td colSpan={3}>
             <strong>Types of Purifies</strong>
@@ -244,6 +314,57 @@ function PurifyReasonBreakdown({
           ))}
       </tbody>
     </table>
+  );
+}
+
+function ThreatSummary({
+  threat,
+  totalTime,
+}: {
+  threat?: WCLThreatTableResponse;
+  totalTime: number;
+}): JSX.Element {
+  if (!threat) {
+    return (
+      <tr>
+        <td>Active Tanking Time</td>
+        <td colSpan={2}>
+          <em>Unknown</em>
+        </td>
+      </tr>
+    );
+  }
+
+  const tankingTime = threat.threat[0].targets
+    .flatMap((entry) => entry.bands)
+    .sort((a, b) => a.startTime - b.startTime)
+    .reduce((bands, band) => {
+      if (bands.length === 0) {
+        return [band];
+      }
+
+      const prev = bands[bands.length - 1];
+
+      if (prev.endTime > band.startTime) {
+        prev.endTime = Math.max(prev.endTime, band.endTime);
+      } else {
+        bands.push(band);
+      }
+
+      return bands;
+    }, [] as WCLThreatBand[])
+    .reduce((total, band) => total + band.endTime - band.startTime, 0);
+
+  return (
+    <tr>
+      <td>Active Tanking Time</td>
+      <td className="pass-fail-counts">
+        {formatDuration(tankingTime)} / {formatDuration(totalTime)}
+      </td>
+      <td>
+        <PassFailBar pass={tankingTime} total={totalTime} />
+      </td>
+    </tr>
   );
 }
 
@@ -295,7 +416,13 @@ export function PurifySection({
         <PurifyReasonBreakdown
           counts={module.reasonCounts}
           total={module.purifies.length}
+          amountPurified={module.purifies.reduce(
+            (total, purify) => total + purify.purify.amount,
+            0,
+          )}
+          amountStaggered={module.amountStaggered}
           castEfficiency={module.castEfficiency}
+          info={info}
         />
         <ProblemList info={info} renderer={PurifyProblem} events={events} problems={problems} />
       </div>

@@ -132,7 +132,7 @@ const useEventParser = ({
   const eventEmitter = useMemo(() => parser?.getModule(EventEmitter), [parser]);
 
   useEffect(() => {
-    if (parser === null || normalizedEvents === null || eventIndex === normalizedEvents?.length) {
+    if (parser === null || normalizedEvents === null || eventIndex >= normalizedEvents?.length) {
       return;
     }
 

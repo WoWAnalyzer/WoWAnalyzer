@@ -88,7 +88,7 @@ class Stagger extends Analyzer {
   }
 
   private _addstagger(event: AddStaggerEvent) {
-    if (event.trigger!.extraAbility.type === PHYSICAL_DAMAGE) {
+    if (event.trigger?.extraAbility?.type === PHYSICAL_DAMAGE) {
       this.totalPhysicalStaggered += event.amount;
     } else {
       this.totalMagicalStaggered += event.amount;
@@ -96,7 +96,7 @@ class Stagger extends Analyzer {
   }
 
   private _removestagger(event: RemoveStaggerEvent) {
-    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+    if (event.trigger?.ability && event.trigger?.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       this.totalStaggerTaken += event.amount;
     }
   }

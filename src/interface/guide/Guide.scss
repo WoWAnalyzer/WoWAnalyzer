@@ -1,5 +1,10 @@
 @import 'interface/Theme';
 
+$perfect-perf-color: #2090c0;
+$good-perf-color: #4ec04e;
+$ok-perf-color: #ffc84a;
+$bad-perf-color: #ac1f39;
+
 .guide-container {
   section {
     margin: initial;
@@ -53,5 +58,41 @@
   .fail-bar {
     border-radius: 0 2px 2px 0;
     background-color: hsl(348.9, 69.5%, 39.8%);
+  }
+}
+
+.gradiated-bar-container {
+  display: inline-block;
+  width: 100%;
+
+  & > div {
+    display: inline-block;
+    height: 1.5em;
+  }
+
+  & > div:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  & > div:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  .perfect-bar {
+    background-color: $perfect-perf-color;
+  }
+
+  .good-bar {
+    background-color: $good-perf-color;
+  }
+
+  .ok-bar {
+    background-color: $ok-perf-color;
+  }
+
+  .bad-bar {
+    background-color: $bad-perf-color;
   }
 }

@@ -227,9 +227,10 @@ class ConvokeSpirits extends Analyzer {
     );
   }
 
-  onConvoke(_: ApplyBuffEvent) {
+  onConvoke(event: ApplyBuffEvent) {
     this.cast += 1;
     this.convokeTracker[this.cast] = {
+      timestamp: event.timestamp,
       spellIdToCasts: [],
       form: this.activeDruidForm.form,
       damage: 0,
@@ -405,6 +406,7 @@ class ConvokeSpirits extends Analyzer {
           <thead>
             <tr>
               <th>Cast #</th>
+              <th>Time</th>
               <th>Form</th>
               <th>Damage</th>
               <th>Spells In Cast</th>
@@ -414,6 +416,7 @@ class ConvokeSpirits extends Analyzer {
             {this.convokeTracker.map((convokeCast, index) => (
               <tr key={index}>
                 <th scope="row">{index}</th>
+                <td>{this.owner.formatTimestamp(convokeCast.timestamp)}</td>
                 <td>{convokeCast.form}</td>
                 <td>{formatNumber(convokeCast.damage)}</td>
                 <td>
@@ -448,6 +451,7 @@ export default ConvokeSpirits;
 
 /** A tracker for things that happen in a single Convoke cast */
 export interface ConvokeCast {
+  timestamp: number;
   /** A mapping from spellId to the number of times that spell was cast during the Convoke */
   spellIdToCasts: number[];
   /** The form the Druid was in during the cast */

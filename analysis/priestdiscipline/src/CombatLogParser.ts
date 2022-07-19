@@ -44,6 +44,8 @@ import ClarityOfMind from './modules/shadowlands/legendaries/ClarityOfMind';
 import ClarityOfMindEvang from './modules/shadowlands/legendaries/ClarityOfMindEvang';
 import ShadowWordManipulation from './modules/shadowlands/legendaries/ShadowWordManipulation';
 import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
+import BattlefieldPresence from './modules/shadowlands/soulbinds/BattleFieldPresence';
+import HoldYourGround from './modules/shadowlands/soulbinds/HoldYourGround';
 import SoothingShade from './modules/shadowlands/soulbinds/SoothingShade';
 import ManifestedTwilight from './modules/shadowlands/tier/ManifestedTwilight';
 import Atonement from './modules/spells/Atonement';
@@ -127,6 +129,8 @@ class CombatLogParser extends CoreCombatLogParser {
     swiftPenitence: SwiftPenitence,
     translucentImage: TranslucentImage,
     RabidShadows: RabidShadows,
+    holdYourGround: HoldYourGround,
+    battlefieldPresence: BattlefieldPresence,
 
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,

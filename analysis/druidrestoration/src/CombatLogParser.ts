@@ -10,6 +10,7 @@ import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeep
 import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import HotAttributor from './modules/core/hottracking/HotAttributor';
 import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
@@ -21,6 +22,7 @@ import AverageHots from './modules/features/AverageHots';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Efflorescence from './modules/features/Efflorescence';
+import HotCountGraph from './modules/features/HotCountGraph';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import Lifebloom from './modules/features/Lifebloom';
@@ -98,7 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
-    clearcasting: RegrowthAndClearcasting,
+    regrowthAndClearcasting: RegrowthAndClearcasting,
     innervate: Innervate,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
@@ -106,6 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
     prematureRejuvenations: PrematureRejuvenations,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
+    hotCountGraph: HotCountGraph,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
@@ -151,6 +154,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier28_2pc: Tier28_2pc,
     tier28_4pc: Tier28_4pc,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

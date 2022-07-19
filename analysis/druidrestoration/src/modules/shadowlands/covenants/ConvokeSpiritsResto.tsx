@@ -192,16 +192,18 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
               <thead>
                 <tr>
                   <th>Cast #</th>
+                  <th>Time</th>
                   <th>Form</th>
                   <th>Healing</th>
                   <th>Spells In Cast</th>
                 </tr>
               </thead>
               <tbody>
-                {this.convokeTracker.map((spellIdToCasts, index) => (
+                {this.convokeTracker.map((convokeCast, index) => (
                   <tr key={index}>
                     <th scope="row">{index}</th>
-                    <td>{spellIdToCasts.form}</td>
+                    <td>{this.owner.formatTimestamp(convokeCast.timestamp)}</td>
+                    <td>{convokeCast.form}</td>
                     <td>
                       {formatNumber(
                         this.convokeAttributions[index].healing +
@@ -209,7 +211,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                       )}
                     </td>
                     <td>
-                      {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
+                      {convokeCast.spellIdToCasts.map((casts, spellId) => (
                         <>
                           <SpellLink id={spellId} /> {casts} <br />
                         </>

@@ -1,7 +1,7 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { ControlledExpandable, SpellLink, Tooltip } from 'interface';
+import { AlertWarning, ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
 import InformationIcon from 'interface/icons/Information';
 import { AnyEvent } from 'parser/core/Events';
@@ -82,6 +82,15 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
     >
+      {cast.sitDetected && (
+        <p>
+          <AlertWarning>
+            This cast of <SpellLink id={NIUZAO_BUFF_ID_TO_CAST[cast.startEvent.ability.guid]} />{' '}
+            appears to have used <code>/sit</code> to inflate damage taken. This is a risky strat
+            and should only be done with the approval of your raid group.
+          </AlertWarning>
+        </p>
+      )}
       <div
         style={{
           display: 'grid',
@@ -306,6 +315,15 @@ export function InvokeNiuzaoSection({
         </tbody>
       </table>
       <SubSection title="Casts">
+        {module.casts.some((cast) => cast.sitDetected) && (
+          <p>
+            <AlertWarning>
+              One or more of the below casts appears to have used <code>/sit</code> to inflate
+              damage taken. This is a risky strat and should only be done with the approval of your
+              raid group.
+            </AlertWarning>
+          </p>
+        )}
         {module.casts.map((cast, ix) => (
           <InvokeNiuzaoChecklist key={ix} cast={cast} info={info} events={events} />
         ))}
