@@ -21,6 +21,7 @@ interface Props {
 }
 
 const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
+  console.log(tabs, ' ------------ tabs --------------');
   const pages = [
     {
       icon: ChecklistIcon,

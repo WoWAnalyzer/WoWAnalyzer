@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -10,7 +10,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     when(deadTimePercentage)
       .isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) =>
-        suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
+        suggest(
+          <Trans id="tbc.modules.suggestion.downtime">
+            Your downtime can be improved. Try to Always Be Casting (ABC).
+          </Trans>,
+        )
           .icon('spell_mage_altertime')
           .actual(
             t({
