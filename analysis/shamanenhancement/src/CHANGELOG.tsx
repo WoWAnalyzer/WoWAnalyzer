@@ -1,11 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, HawkCorrigan, Mae, MusicMeister, xunai, Vonn } from 'CONTRIBUTORS';
+import { Abelito75, HawkCorrigan, Mae, MusicMeister, xunai, Vonn, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 7, 19), <>Reduce the cooldown of <SpellLink id={SPELLS.LAVA_LASH.id} /> when the <SpellLink id={SPELLS.HOT_HAND_TALENT.id} /> buff is active. </>, xunai),
+  change(date(2022, 7, 19), <>Reduce the cooldown of <SpellLink id={SPELLS.LAVA_LASH.id} /> when the <SpellLink id={SPELLS.HOT_HAND_TALENT.id} /> buff is active. </>, Vetyst),
   change(date(2022, 4, 26), <>Added <SpellLink id={SPELLS.FAE_TRANSFUSION.id} /> to the timeline and support for <SpellLink id={SPELLS.SEEDS_OF_RAMPANT_GROWTH.id} /> </>, xunai),
   change(date(2022, 4, 24), <>Added cooldown reduction tracking for <SpellLink id={SPELLS.WITCH_DOCTORS_WOLF_BONES.id} /></>, xunai),
   change(date(2022, 4, 21), <>Added statistics for tier 28 two set bonus and for <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /></>, xunai),
