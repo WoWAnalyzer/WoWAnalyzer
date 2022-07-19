@@ -48,11 +48,6 @@ class HotHand extends Analyzer {
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.restoreLavaLashCDRemoveBuff,
-    );
-
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
       this.onLavaLashDamage,
     );
@@ -71,12 +66,6 @@ class HotHand extends Analyzer {
   reduceLavaLashCDOnCast() {
     if (this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
       this.reduceLavaLashCDOnBuff();
-    }
-  }
-
-  restoreLavaLashCDRemoveBuff() {
-    if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
-      this.spellUsable.cooldownRemaining(SPELLS.LAVA_LASH.id);
     }
   }
 
