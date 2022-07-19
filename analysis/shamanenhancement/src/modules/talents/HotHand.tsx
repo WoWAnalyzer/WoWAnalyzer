@@ -39,17 +39,17 @@ class HotHand extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.reduceLavaLushCDOnBuff,
+      this.reduceLavaLashCDOnBuff,
     );
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
-      this.reduceLavaLushCDOnCast,
+      this.reduceLavaLashCDOnCast,
     );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.restoreLavaLushCDRemoveBuff,
+      this.restoreLavaLashCDRemoveBuff,
     );
 
     this.addEventListener(
@@ -58,23 +58,23 @@ class HotHand extends Analyzer {
     );
   }
 
-  calcLavaLushCd75pct() {
+  calcLavaLashCd75pct() {
     return (9 / (1 + this.haste.current)) * 1000;
   }
 
-  reduceLavaLushCDOnBuff() {
+  reduceLavaLashCDOnBuff() {
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.LAVA_LASH.id, this.calcLavaLushCd75pct());
+      this.spellUsable.reduceCooldown(SPELLS.LAVA_LASH.id, this.calcLavaLashCd75pct());
     }
   }
 
-  reduceLavaLushCDOnCast() {
+  reduceLavaLashCDOnCast() {
     if (this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
-      this.reduceLavaLushCDOnBuff();
+      this.reduceLavaLashCDOnBuff();
     }
   }
 
-  restoreLavaLushCDRemoveBuff() {
+  restoreLavaLashCDRemoveBuff() {
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
       this.spellUsable.cooldownRemaining(SPELLS.LAVA_LASH.id);
     }
