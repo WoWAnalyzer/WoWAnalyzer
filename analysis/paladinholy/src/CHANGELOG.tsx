@@ -5,6 +5,7 @@ import { Abelito75, acornellier, Putro, Sref, xizbow, Zeboot, HolySchmidt } from
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 7, 18), <>Removed console statements.</>, Abelito75),
   change(date(2022, 7, 17), <>Fixed LoTM healing not showing up on Beacon graph when you had Maraads.</>, Abelito75),
   change(date(2022, 5, 30), <>Lowered recommended cast efficiency of <SpellLink id={SPELLS.JUDGMENT_CAST.id}/> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> due to repeat feedback.</>, xizbow),
   change(date(2022, 5, 30), <>Added statistic for healing per holy power</>, xizbow),
