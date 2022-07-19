@@ -23,6 +23,12 @@ const DotUptime = (props: DotUptimeProps) => (
   />
 );
 
+const curseOfTheElements = (
+  <Trans id="tbcwarlock.shared.curses.curseOfElements">Curse Of the Elements</Trans>
+);
+const curseOfDoom = <Trans id="tbcwarlock.shared.curses.curseOfDoom">Curse Of Doom</Trans>;
+const curseOfAgony = <Trans id="tbcwarlock.shared.curses.curseOfAgony">Curse Of Agony</Trans>;
+
 const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>
     <Rule
@@ -53,11 +59,14 @@ const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPr
       }
       description={
         <Fragment>
-          It is important to maintain one curse on the primary target. Priority order should be{' '}
-          <SpellLink id={CURSE_OF_THE_ELEMENTS} /> over other curses. If elements is on the target
-          from another warlock, use <SpellLink id={CURSE_OF_DOOM} /> on a target that lives at least
-          a minute. If the target will live for less than a minute, use{' '}
-          <SpellLink id={CURSE_OF_AGONY} />
+          <Trans id="shared.maintainCurse.suggestions.tbcwarlock.label">
+            It is important to maintain one curse on the primary target. Priority order should be{' '}
+            <SpellLink id={CURSE_OF_THE_ELEMENTS}>{curseOfTheElements}</SpellLink> over other
+            curses. If elements is on the target from another warlock, use{' '}
+            <SpellLink id={CURSE_OF_DOOM}>{curseOfDoom}</SpellLink> on a target that lives at least
+            a minute. If the target will live for less than a minute, use{' '}
+            <SpellLink id={CURSE_OF_AGONY}>{curseOfAgony}</SpellLink>
+          </Trans>
         </Fragment>
       }
     >
