@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  AbilityEvent,
   AnyEvent,
   ApplyBuffEvent,
   CastEvent,
@@ -137,7 +138,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
+export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 

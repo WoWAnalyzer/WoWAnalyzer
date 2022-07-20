@@ -6,6 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
+  CastEvent,
   EventType,
   HealEvent,
   RefreshBuffEvent,
@@ -14,13 +15,15 @@ import Events, {
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
-import { buffedBySotf } from '../../normalizers/SoulOfTheForestLinkNormalizer';
+import { buffedBySotf, getSotfBuffs } from '../../normalizers/SoulOfTheForestLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
 
@@ -79,10 +82,26 @@ class SoulOfTheForest extends Analyzer {
   };
 
   lastTalliedSotF?: RemoveBuffEvent;
+  lastBuffFromHardcast: boolean = false;
+
+  sotfConsumeLog: SotfUse[] = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_BUFF),
+      this.onSotfRemove,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_BUFF),
+      this.onSotfRemove,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),
+      this.onSwiftmendCast,
+    );
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SOTF_SPELLS),
@@ -96,6 +115,10 @@ class SoulOfTheForest extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
       this.onSotfConsume,
     );
+  }
+
+  onSwiftmendCast(event: CastEvent) {
+    this.lastBuffFromHardcast = true;
   }
 
   /**
@@ -161,6 +184,43 @@ class SoulOfTheForest extends Analyzer {
     }
   }
 
+  onSotfRemove(event: RemoveBuffEvent | RefreshBuffEvent) {
+    const timestamp = event.timestamp;
+    if (event.type === EventType.RefreshBuff) {
+      if (this.lastBuffFromHardcast) {
+        this.sotfConsumeLog.push({ timestamp, use: 'Overwritten' });
+      }
+      this.lastBuffFromHardcast = false;
+      return;
+    }
+
+    const buffed = getSotfBuffs(event);
+    if (buffed.length === 0) {
+      this.sotfConsumeLog.push({ timestamp, use: 'Expired' });
+    } else {
+      if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
+        // SM during Convoke also consumed during Convoke - don't count it
+        return;
+      }
+
+      // even if generated during Convoke, we count it if consumed by hardcast
+      const firstGuid = buffed[0].ability.guid;
+      if (
+        firstGuid === SPELLS.REJUVENATION.id ||
+        firstGuid === SPELLS.REJUVENATION_GERMINATION.id
+      ) {
+        this.sotfConsumeLog.push({ timestamp, use: 'Rejuvenation' });
+      } else if (firstGuid === SPELLS.REGROWTH.id) {
+        this.sotfConsumeLog.push({ timestamp, use: 'Regrowth' });
+      } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
+        this.sotfConsumeLog.push({ timestamp, use: 'Wild Growth' });
+      } else {
+        console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+      }
+    }
+    this.lastBuffFromHardcast = false;
+  }
+
   get rejuvHardcastUses() {
     return this.sotfRejuvInfo.hardcastUses;
   }
@@ -216,6 +276,25 @@ class SoulOfTheForest extends Analyzer {
       this.sotfRegrowthInfo.attribution.healing +
       this.sotfRejuvInfo.attribution.healing
     );
+  }
+
+  get guideTimeline() {
+    const values = this.sotfConsumeLog.map((sotfUse) => {
+      let value: QualitativePerformance;
+      if (sotfUse.use === 'Expired') {
+        value = 'fail';
+      } else if (sotfUse.use === 'Wild Growth') {
+        value = 'good';
+      } else {
+        // rejuv or regrowth
+        value = 'ok';
+      }
+      return {
+        value,
+        tooltip: `@ ${this.owner.formatTimestamp(sotfUse.timestamp)} - ${sotfUse.use}`,
+      };
+    });
+    return <PerformanceBoxRow values={values} />;
   }
 
   get suggestionThresholds() {
@@ -322,5 +401,10 @@ class SoulOfTheForest extends Analyzer {
     );
   }
 }
+
+type SotfUse = {
+  timestamp: number;
+  use: 'Rejuvenation' | 'Regrowth' | 'Wild Growth' | 'Expired' | 'Overwritten';
+};
 
 export default SoulOfTheForest;
