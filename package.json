@@ -85,7 +85,6 @@
     "redux-thunk": "^2.3.0",
     "sass-text-stroke": "1.2.0",
     "swr": "^0.5.6",
-    "universal-cookie": "^4.0.4",
     "vega": "~5.21.0",
     "vega-lite": "^5.2.0"
   },

@@ -1,14 +1,9 @@
 import { APPEND_REPORT_HISTORY } from 'interface/actions/reportHistory';
-import Cookies from 'universal-cookie';
 
+const LOCAL_STORAGE_KEY = 'REPORT_HISTORY';
 const MAX_ITEMS = 5;
-const cookies = new Cookies();
-const COOKIE_NAME = 'REPORT_HISTORY';
-const cookieOptions = {
-  path: '/',
-  maxAge: 86400 * 365, // 1 year
-};
-const defaultState = cookies.get(COOKIE_NAME) || [];
+
+const defaultState = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
 
 export default function reportHistory(state = defaultState, action) {
   switch (action.type) {
@@ -21,7 +16,7 @@ export default function reportHistory(state = defaultState, action) {
       if (numItems > MAX_ITEMS) {
         newState = newState.slice(numItems - MAX_ITEMS);
       }
-      cookies.set(COOKIE_NAME, newState, cookieOptions);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState));
       return newState;
     }
     default:
