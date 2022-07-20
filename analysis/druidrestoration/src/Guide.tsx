@@ -1,8 +1,16 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { SpellLink } from 'interface';
-import { GradiatedPerformanceBar, GuideProps, Section, SubSection } from 'interface/guide';
+import { ControlledExpandable, SpellLink } from 'interface';
+import {
+  GradiatedPerformanceBar,
+  GuideProps,
+  Section,
+  SectionHeader,
+  SubSection,
+} from 'interface/guide';
 import { CooldownBar } from 'parser/ui/CooldownBar';
+import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 
@@ -134,6 +142,29 @@ function LifebloomSubsection({ modules, events, info }: GuideProps<typeof Combat
       benefit to your mana efficiency . It should always be active on a target - the tank is usually
       a safe bet.
       <p />
+      {info.combatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT) && (
+        <>
+          Because you took{' '}
+          <strong>
+            <SpellLink id={SPELLS.PHOTOSYNTHESIS_TALENT.id} />
+          </strong>
+          , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
+          powerful.
+          <br />
+          Total Uptime on{' '}
+          <strong>
+            Self:{' '}
+            {formatPercentage(modules.photosynthesis.selfLifebloomUptime / info.fightDuration, 1)}%
+          </strong>{' '}
+          / on{' '}
+          <strong>
+            Others:{' '}
+            {formatPercentage(modules.photosynthesis.othersLifebloomUptime / info.fightDuration, 1)}
+            %
+          </strong>
+          <p />
+        </>
+      )}
       {modules.lifebloom.subStatistic()}
     </SubSection>
   );
@@ -343,7 +374,24 @@ function CooldownBreakdownSubsection({
   return (
     <SubSection title="">
       <strong>Spell Breakdowns</strong> - evaluate your performance for each cooldown use
-      <br /> <strong>COMING SOON</strong>
+      <p />
+      {modules.convokeSpirits.convokeAttributions.map((att, ix) => (
+        <CooldownExpandable key={ix} />
+      ))}
     </SubSection>
+  );
+}
+
+function CooldownExpandable(): JSX.Element {
+  const [isExpanded, setIsExpanded] = useState(false);
+  return (
+    <ControlledExpandable
+      header={<SectionHeader>Convoke lul</SectionHeader>}
+      element="section"
+      expanded={isExpanded}
+      inverseExpanded={() => setIsExpanded(!isExpanded)}
+    >
+      ARG BLARG
+    </ControlledExpandable>
   );
 }
