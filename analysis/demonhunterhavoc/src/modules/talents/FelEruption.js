@@ -2,8 +2,10 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/9tAcN6PLwjMF4vm1/#fight=1&source=1
@@ -74,14 +76,10 @@ class FelEruption extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEL_ERUPTION_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.badCasts} <small>bad casts that didn't stun the target</small>{' '}
-          </>
-        }
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             This ability should only be used for its stun. Its a DPS loss. <br /> <br />
@@ -89,7 +87,11 @@ class FelEruption extends Analyzer {
             It stunned a target {this.stuns} time(s).
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEL_ERUPTION_TALENT.id}>
+          {this.badCasts} <small>bad casts that didn't stun the target</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -1,8 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/QDMVJtvnBz43NZLk/#fight=2&source=1
@@ -29,15 +31,15 @@ class MasterOfTheGlaives extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.slows} <small>slows provided</small>
-          </>
-        }
-      />
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="small"
+      >
+        <BoringSpellValueText spellId={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id}>
+          {this.slows} <small>slows provided</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

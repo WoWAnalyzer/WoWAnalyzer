@@ -5,6 +5,7 @@ import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class GlaiveTempest extends Analyzer {
   damage = 0;
@@ -30,6 +31,7 @@ class GlaiveTempest extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage

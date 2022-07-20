@@ -1,11 +1,14 @@
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const COOLDOWN_REDUCTION_MS = 500;
 
@@ -68,11 +71,10 @@ class FeedTheDemon extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEED_THE_DEMON_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        value={`${formatNumber(this.averageReduction)} sec`}
-        label="Feed the Demon average reduction"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             {formatNumber(this.reduction)} sec total effective reduction.
@@ -81,7 +83,11 @@ class FeedTheDemon extends Analyzer {
             wasted reduction.
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEED_THE_DEMON_TALENT.id}>
+          {formatNumber(this.averageReduction)} sec average reduction
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

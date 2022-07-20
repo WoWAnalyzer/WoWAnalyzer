@@ -1,11 +1,14 @@
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
@@ -78,19 +81,10 @@ class BlindFury extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BLIND_FURY_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.badCast}{' '}
-            <small>
-              bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts
-            </small>
-            <br />
-            {this.furyPerMin} <small>Fury per min</small>
-          </>
-        }
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             Since this will always max out your Fury on cast, wasted and totals do not matter. Only
@@ -102,7 +96,19 @@ class BlindFury extends Analyzer {
             <br />
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.BLIND_FURY_TALENT.id}>
+          {this.badCast}{' '}
+          <small>
+            bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts
+          </small>
+          <BoringResourceValue
+            resource={RESOURCE_TYPES.FURY}
+            value={this.furyPerMin}
+            label="Fury per min"
+          />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

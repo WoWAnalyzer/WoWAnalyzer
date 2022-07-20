@@ -4,8 +4,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /*
   example report: https://www.warcraftlogs.com/reports/LvmF6W4C3TgcZxj8/#fight=last
@@ -46,12 +49,16 @@ class EssenceBreak extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.ESSENCE_BREAK_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={this.owner.formatItemDamageDone(this.extraDamage)}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(5)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.ESSENCE_BREAK_TALENT.id}>
+          <ItemDamageDone amount={this.extraDamage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

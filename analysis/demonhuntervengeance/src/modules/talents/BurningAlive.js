@@ -2,8 +2,11 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 //WCL: https://www.warcraftlogs.com/reports/JxyY7HCDcjqMA9tf/#fight=1&source=15
 class BurningAlive extends Analyzer {
@@ -24,10 +27,10 @@ class BurningAlive extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BURNING_ALIVE_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        value={this.owner.formatItemDamageDone(this.damage)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             This shows the extra dps that the talent provides.
@@ -35,7 +38,11 @@ class BurningAlive extends Analyzer {
             <strong>Total extra damage:</strong> {formatNumber(this.damage)}
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.BURNING_ALIVE_TALENT.id}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

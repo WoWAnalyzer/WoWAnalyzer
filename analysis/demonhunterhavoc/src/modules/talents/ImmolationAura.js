@@ -1,11 +1,16 @@
 import { t } from '@lingui/macro';
 import { formatThousands, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
@@ -84,16 +89,10 @@ class ImmolationAura extends Analyzer {
   statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.IMMOLATION_AURA.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.furyPerMin} <small>Fury per min </small>
-            <br />
-            {this.owner.formatItemDamageDone(this.damage)}
-          </>
-        }
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
@@ -105,7 +104,16 @@ class ImmolationAura extends Analyzer {
             {this.furyWaste} Fury wasted
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
+          <ItemDamageDone amount={this.damage} />
+          <BoringResourceValue
+            resource={RESOURCE_TYPES.FURY}
+            value={this.furyPerMin}
+            label="Fury per min"
+          />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

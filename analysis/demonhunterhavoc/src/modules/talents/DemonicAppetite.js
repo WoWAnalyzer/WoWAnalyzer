@@ -1,11 +1,15 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/3Fx8Dbzt7fpaLkn4#fight=2&type=summary&source=14
@@ -71,14 +75,10 @@ class DemonicAppetite extends Analyzer {
   statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.DEMONIC_APPETITE_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.furyPerMin} <small>Fury per min</small>
-          </>
-        }
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             {effectiveFuryGain} Effective Fury gained
@@ -88,7 +88,15 @@ class DemonicAppetite extends Analyzer {
             {this.furyWaste} Fury wasted
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.DEMONIC_APPETITE_TALENT.id}>
+          <BoringResourceValue
+            resource={RESOURCE_TYPES.FURY}
+            value={this.furyPerMin}
+            label="Fury per min"
+          />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

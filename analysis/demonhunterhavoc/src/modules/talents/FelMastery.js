@@ -2,8 +2,11 @@ import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/AZMDnzrG48KJLgP6/#fight=1&source=1
@@ -31,17 +34,21 @@ class FelMastery extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEL_MASTERY_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={this.owner.formatItemDamageDone(this.damage)}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(7)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage <br /> <br />
             This shows the extra damage done by Fel Rush due to the Fel Mastery talent.
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEL_MASTERY_TALENT.id}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

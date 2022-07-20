@@ -2,8 +2,11 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 //WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
 class FeastOfSouls extends Analyzer {
@@ -27,10 +30,10 @@ class FeastOfSouls extends Analyzer {
   statistic() {
     const overHealPercent = this.overHeal / (this.overHeal + this.heal);
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEAST_OF_SOULS_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(8)}
-        value={this.owner.formatItemHealingDone(this.heal)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             This shows the extra hps that the talent provides.
@@ -41,7 +44,11 @@ class FeastOfSouls extends Analyzer {
             {formatPercentage(overHealPercent)}%
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEAST_OF_SOULS_TALENT.id}>
+          <ItemHealingDone amount={this.heal} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

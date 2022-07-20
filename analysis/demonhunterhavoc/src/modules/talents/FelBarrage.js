@@ -3,8 +3,11 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/Mz8cTFgNkxXaJt3j/#fight=4&source=18
@@ -81,19 +84,10 @@ class FelBarrage extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEL_BARRAGE_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.badCasts}{' '}
-            <small>
-              casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
-            </small>{' '}
-            <br />
-            {this.owner.formatItemDamageDone(this.damage)}
-          </>
-        }
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(7)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             A bad cast is casting Fel Barage without Metamorphosis up.
@@ -102,7 +96,15 @@ class FelBarrage extends Analyzer {
             {formatThousands(this.damage)} total damage
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEL_BARRAGE_TALENT.id}>
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.badCasts}
+          <small>
+            casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />
+          </small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

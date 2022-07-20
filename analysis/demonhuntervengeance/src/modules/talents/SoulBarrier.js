@@ -2,12 +2,15 @@ import { t } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import Uptime from 'interface/icons/Uptime';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 class SoulBarrier extends Analyzer {
   get uptime() {
@@ -96,11 +99,10 @@ class SoulBarrier extends Analyzer {
   statistic() {
     const avgBuffLength = this.totalBuffLength / this.casts / 1000;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SOUL_BARRIER_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(7)}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Soul Barrier uptime"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             Average Buff Length: <strong>{formatNumber(avgBuffLength)} seconds</strong>
@@ -112,7 +114,11 @@ class SoulBarrier extends Analyzer {
             Total Casts: <strong>{this.casts}</strong>
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.SOUL_BARRIER_TALENT.id}>
+          <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
