@@ -331,6 +331,15 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
+      {
+        spell: SPELLS.PRIMORDIAL_WAVE_CAST.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
     ];
   }
 }

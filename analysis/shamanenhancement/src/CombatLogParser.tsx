@@ -8,6 +8,7 @@ import {
   FlameShock,
   SpiritWolf,
   StaticCharge,
+  TumblingWaves,
 } from '@wowanalyzer/shaman';
 
 import Abilities from './modules/Abilities';
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //ascendance: Ascendance,
 
     // covenants
+    tumblingWaves: TumblingWaves,
     //chainHarvest: ChainHarvest,
     //vesperTotem: VesperTotem,
 

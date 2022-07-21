@@ -10,3 +10,4 @@ export { default as MaelstromTab } from './MaelstromTab';
 export { default as MaelstromTracker } from './MaelstromTracker';
 export { default as SpiritWolf } from './SpiritWolf';
 export { default as StaticCharge } from './StaticCharge';
+export { default as TumblingWaves } from './conduits/TumblingWaves';
