@@ -48,7 +48,6 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         }
       >
         <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
-        <AbilityRequirement spell={SPELLS.EARTH_ELEMENTAL.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && (
           <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />
         )}
