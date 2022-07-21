@@ -5,7 +5,7 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
-import { SpiritWolf, StaticCharge, AstralShift } from '@wowanalyzer/shaman';
+import { AstralShift, SpiritWolf, StaticCharge, TumblingWaves } from '@wowanalyzer/shaman';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Feeding from './Feeding';
@@ -138,6 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     heavyRainfall: HeavyRainfall,
     swirlingCurrents: SwirlingCurrents,
     naturesFocus: NaturesFocus,
+    tumblingWaves: TumblingWaves,
 
     // Legendaries
     primalTideCore: PrimalTideCore,
