@@ -23,7 +23,7 @@ const config: Config = {
       GitHub repo.
     </>
   ),
-  exampleReport: "/report/wWHbPcydVKR2T8YQ/3-Mythic+Carapace+of+N'Zoth+-+Kill+(6:17)/Terza",
+  exampleReport: '/report/hG4KwrcdqA2QpyHg/1-Mythic+Vigilant+Guardian+-+Kill+(3:53)/Zugra/standard',
 
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
