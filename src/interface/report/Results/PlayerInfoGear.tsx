@@ -1,3 +1,4 @@
+import getItemQualityLabel from 'common/getItemQualityLabel';
 import { ITEM_QUALITIES } from 'game/ITEM_QUALITIES';
 import Icon from 'interface/Icon';
 import ItemLink, { EPIC_ITEMS_ILVL } from 'interface/ItemLink';
@@ -21,6 +22,11 @@ const PlayerInfoGear = (props: Props) => {
             quality = ITEM_QUALITIES.EPIC; // relics don't have a quality, but they're always epic
           }
 
+          if (quality < item.quality) {
+            quality = item.quality;
+          }
+
+          const qualityClass = getItemQualityLabel(quality);
           const gearSlot = gear.indexOf(item);
 
           return (
@@ -34,7 +40,7 @@ const PlayerInfoGear = (props: Props) => {
               className={`item-slot-${gearSlot}`}
             >
               <ItemLink id={item.id} quality={quality} details={item} icon={false}>
-                <Icon className="gear-icon icon" icon={item.icon} />
+                <Icon className={'gear-icon icon ' + qualityClass} icon={item.icon} />
                 <div className="gear-ilvl">{item.itemLevel}</div>
               </ItemLink>
             </div>
