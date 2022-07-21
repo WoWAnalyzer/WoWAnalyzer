@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 7, 21), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT} /> procs.</>, Vetyst),
   change(date(2022, 7, 21), <>Show covenant abilities on offensive cooldowns checklist.</>, Vetyst),
   change(date(2022, 7, 21), <>Add suggestion for the <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing T28 4 set.</>, Vetyst),
   change(date(2022, 7, 21), <>Remove <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} />  as suggested offensive cooldown.</>, Vetyst),
