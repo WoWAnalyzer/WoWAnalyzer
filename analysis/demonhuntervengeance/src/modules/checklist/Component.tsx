@@ -3,21 +3,22 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 
-const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = (props) => (
+const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
+  const { combatant, castEfficiency, thresholds } = props;
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -219,16 +220,6 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-VengeanceDemonHunterChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-    hasCovenant: PropTypes.func.isRequired,
-    hasLegendary: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default VengeanceDemonHunterChecklist;

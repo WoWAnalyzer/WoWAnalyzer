@@ -1,4 +1,4 @@
-import { formatPercentage, formatThousands, formatDuration } from 'common/format';
+import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
@@ -11,6 +11,8 @@ class ImmolationAura extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  immolationAuraDamage = 0;
+  protected abilityTracker!: AbilityTracker;
 
   statistic() {
     const immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);

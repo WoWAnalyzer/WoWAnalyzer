@@ -3,16 +3,16 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
-import FuryDetails from '../../fury/FuryDetails';
-import DemonSpikes from '../../spells/DemonSpikes';
-import ShearFracture from '../../spells/ShearFracture';
-import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
-import SoulsOvercap from '../../statistics/SoulsOvercap';
-import SoulBarrier from '../../talents/SoulBarrier';
-import SpiritBombFrailtyDebuff from '../../talents/SpiritBombFrailtyDebuff';
-import SpiritBombSoulsConsume from '../../talents/SpiritBombSoulsConsume';
-import VoidReaverDebuff from '../../talents/VoidReaverDebuff';
-import AlwaysBeCasting from '../AlwaysBeCasting';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import FuryDetails from '../fury/FuryDetails';
+import DemonSpikes from '../spells/DemonSpikes';
+import ShearFracture from '../spells/ShearFracture';
+import SoulCleaveSoulsConsumed from '../spells/SoulCleaveSoulsConsumed';
+import SoulsOvercap from '../statistics/SoulsOvercap';
+import SoulBarrier from '../talents/SoulBarrier';
+import SpiritBombFrailtyDebuff from '../talents/SpiritBombFrailtyDebuff';
+import SpiritBombSoulsConsume from '../talents/SpiritBombSoulsConsume';
+import VoidReaverDebuff from '../talents/VoidReaverDebuff';
 import Component from './Component';
 
 class Checklist extends BaseModule {
@@ -39,6 +39,35 @@ class Checklist extends BaseModule {
     furyDetails: FuryDetails,
     soulsOvercap: SoulsOvercap,
   };
+
+  //region Core
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  //endregion
+
+  //region Buffs and Debuffs
+  protected spiritBombFrailtyDebuff!: SpiritBombFrailtyDebuff;
+  protected voidReaverDebuff!: VoidReaverDebuff;
+  //endregion
+
+  //region Talents
+  protected spiritBombSoulsConsume!: SpiritBombSoulsConsume;
+  protected soulBarrier!: SoulBarrier;
+  //endregion
+
+  //region Spells
+  protected soulCleaveSoulsConsumed!: SoulCleaveSoulsConsumed;
+  protected demonSpikes!: DemonSpikes;
+  protected shearFracture!: ShearFracture;
+  //endregion
+
+  //region Resources
+  protected furyDetails!: FuryDetails;
+  protected soulsOvercap!: SoulsOvercap;
+
+  //endregion
 
   render() {
     return (

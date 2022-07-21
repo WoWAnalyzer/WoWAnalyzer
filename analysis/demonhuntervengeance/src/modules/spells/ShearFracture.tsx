@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /*WCL: https://www.warcraftlogs.com/reports/Y7BWyCx3mHVZzPrk#fight=last&type=summary&view=events&pins=2%24Off%24%23244F4B%24casts%7Cauras%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24258920%7C204255%7C203981%7C263642
 Default spell is Shear (generates 1 soul). Fracture (generates 2 souls) talent replaces it.
@@ -39,6 +39,18 @@ class ShearFracture extends Analyzer {
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
       this.onSoulFragmentBuffFade,
     );
+  }
+
+  get wastedCasts(): NumberThreshold {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   onCast(event: CastEvent) {
@@ -78,17 +90,6 @@ class ShearFracture extends Analyzer {
     }
   }
 
-  get wastedCasts() {
-    return {
-      actual: this.badCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
   suggestions(when: When) {
     when(this.wastedCasts).addSuggestion((suggest, actual, recommended) =>
       suggest(

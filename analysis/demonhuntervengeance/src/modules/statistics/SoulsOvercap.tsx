@@ -2,7 +2,8 @@ import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -11,22 +12,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
 class SoulsOvercap extends Analyzer {
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.wasterPerGenerated(),
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
-      },
-      style: 'percentage',
-    };
-  }
-
   static dependencies = {
     abilityTracker: AbilityTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
   };
+
+  protected abilityTracker!: AbilityTracker;
+  protected soulFragmentsTracker!: SoulFragmentsTracker;
 
   /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
  as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
@@ -34,18 +26,30 @@ class SoulsOvercap extends Analyzer {
  bomb as efficiently as possible (cast at 4+ souls) for a dps boost and have soul cleave absorb souls as little as
  possible since it provides no extra dps.
 */
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active =
       this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
       !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
-  wasterPerGenerated() {
+  get suggestionThresholdsEfficiency(): NumberThreshold {
+    return {
+      actual: this.wastePerGenerated(),
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  wastePerGenerated() {
     return this.soulFragmentsTracker.overcap / this.soulFragmentsTracker.soulsGenerated;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -58,7 +62,7 @@ class SoulsOvercap extends Analyzer {
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.souls.wasted',
-            message: `${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`,
+            message: `${formatPercentage(this.wastePerGenerated())}% wasted Soul Fragments.`,
           }),
         )
         .recommended(`${formatPercentage(recommended)}% or less is recommended`),
@@ -72,8 +76,8 @@ class SoulsOvercap extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            You generated {formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These
-            are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.
+            You generated {formatNumber(this.soulFragmentsTracker.overcap)} souls at cap. These are
+            absorbed automatically and aren't avalible to boost Spirit Bomb's damage.
             <br />
             Total Soul Fragments generated: {formatNumber(this.soulFragmentsTracker.soulsGenerated)}
             <br />
@@ -88,7 +92,7 @@ class SoulsOvercap extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.SOUL_FRAGMENT.id}>
           <>
-            {formatPercentage(this.wasterPerGenerated())}% <small>souls over cap</small>
+            {formatPercentage(this.wastePerGenerated())}% <small>souls over cap</small>
           </>
         </BoringSpellValueText>
       </Statistic>

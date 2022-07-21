@@ -3,14 +3,28 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class DemonSpikes extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+  hitsWithDS = 0;
+  hitsWithoutDS = 0;
+  hitsWithDSOffCD = 0;
+  protected spellUsable!: SpellUsable;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+  }
+
   get mitigatedUptime() {
     return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
   }
@@ -19,7 +33,7 @@ class DemonSpikes extends Analyzer {
     return this.hitsWithDSOffCD / (this.hitsWithDS + this.hitsWithoutDS);
   }
 
-  get suggestionThresholdsEfficiency() {
+  get suggestionThresholdsEfficiency(): NumberThreshold {
     return {
       actual: this.hitsWithDSOffCDPercent,
       isGreaterThan: {
@@ -27,23 +41,11 @@ class DemonSpikes extends Analyzer {
         average: 0.3,
         major: 0.4,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-  hitsWithDS = 0;
-  hitsWithoutDS = 0;
-  hitsWithDSOffCD = 0;
-
-  constructor(options) {
-    super(options);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-  }
-
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     // Physical
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;
@@ -60,7 +62,7 @@ class DemonSpikes extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
