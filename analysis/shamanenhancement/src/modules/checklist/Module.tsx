@@ -6,9 +6,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import WindfuryTotem from '../core/WindfuryTotem';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
-// import Flametongue from '../core/Flametongue';
 // import Hailstorm from '../talents/Hailstorm';
-// import FlametongueRefresh from '../core/FlametongueRefresh';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -17,8 +15,6 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
     windfuryTotem: WindfuryTotem,
-    // flametongue: Flametongue,
-    // flametongueRefresh: FlametongueRefresh,
     // hailstorm: Hailstorm,
   };
 
@@ -27,8 +23,6 @@ class Checklist extends BaseChecklist {
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected windfuryTotem!: WindfuryTotem;
-  // protected flametongue!: Flametongue;
-  // protected flametongueRefresh!: FlametongueRefresh;
   //protected hailstorm!: Hailstorm;
 
   render() {
@@ -41,9 +35,6 @@ class Checklist extends BaseChecklist {
 
           alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
           windfuryTotemUptime: this.windfuryTotem.uptimeThreshold,
-          // Buffs uptime and refreshes
-          // flametongueUptime: this.flametongue.flametongueUptimeThreshold,
-          // flametongueEarlyRefreshes: this.flametongueRefresh.flametongueEarlyRefreshThreshold,
         }}
       />
     );

@@ -66,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     flameShock: FlameShock,
+
     windfuryTotem: WindfuryTotem,
     maelstromWeapon: MaelstromWeapon,
 
