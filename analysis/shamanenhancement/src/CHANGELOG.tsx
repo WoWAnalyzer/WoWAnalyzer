@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 7, 21), <>Add suggestion for the <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing T28 4 set.</>, Vetyst),
   change(date(2022, 7, 21), <>Remove <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} />  as suggested offensive cooldown.</>, Vetyst),
   change(date(2022, 7, 19), <>Reset <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> cooldown when <SpellLink id={SPELLS.STORMBRINGER.id} /> is refreshed. </>, Vetyst),
   change(date(2022, 7, 19), <>Reduce cooldown of <SpellLink id={SPELLS.CRASH_LIGHTNING.id} /> for each target hit by <SpellLink id={SPELLS.CHAIN_LIGHTNING.id} />.</>, Vetyst),

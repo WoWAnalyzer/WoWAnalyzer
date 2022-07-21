@@ -26,6 +26,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
 import WitchDoctorWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
 // Talents
+import Tier28FourSet from './modules/shadowlands/tier/Tier28FourSet';
 import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
@@ -98,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
     // Tier
     tier28TwoSet: Tier28TwoSet,
+    tier28FourSet: Tier28FourSet,
   };
 }
 
