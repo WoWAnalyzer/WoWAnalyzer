@@ -154,7 +154,7 @@ class SignetOfTormentedKings extends Analyzer {
           ) : (
             <SpellLink id={SPELLS.BLADESTORM_TALENT.id} />
           )}{' '}
-          right before using <SpellLink id={SPELLS.AVATAR_TALENT.id} />, potentially wasting{' '}
+          right before using <SpellLink id={SPELLS.RECKLESSNESS.id} />, potentially wasting{' '}
           <SpellLink id={SPELLS.SIGNET_OF_TORMENTED_KINGS.id} /> Procs
         </>,
       )

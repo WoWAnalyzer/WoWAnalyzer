@@ -5,7 +5,7 @@ import Events, { EventType, HealEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 
-import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
+import { getBeaconSpellFactor } from '../../constants';
 import BeaconOfVirtue from '../../normalizers/BeaconOfVirtue';
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
@@ -55,7 +55,7 @@ class BeaconHealSource extends Analyzer {
       return;
     }
     // Not all spells transfer
-    const spellBeaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];
+    const spellBeaconTransferFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
     if (!spellBeaconTransferFactor) {
       return;
     }

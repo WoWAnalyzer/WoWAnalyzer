@@ -14,7 +14,7 @@ const AboutPage = () => (
   <>
     <DocumentTitle title="About WoWAnalyzer" />
 
-    <Panel title="About WoWAnalyzer">
+    <Panel title={<Trans id="interface.aboutPage.title">About WoWAnalyzer</Trans>}>
       <img
         src={MasteryRadiusImage}
         alt="Mastery radius"

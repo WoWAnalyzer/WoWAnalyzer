@@ -4,6 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
 
+import SinfulBrandUptime from '../../covenants/SinfulBrandUptime';
 import FuryDetails from '../../resourcetracker/FuryDetails';
 import DemonBite from '../../spells/DemonBite';
 import BlindFury from '../../talents/BlindFury';
@@ -38,6 +39,7 @@ class Checklist extends BaseModule {
 
     // Maintain buffs/debuffs
     momentum: Momentum,
+    sinfulBrandUptime: SinfulBrandUptime,
 
     // Use your offensive cool downs
 
@@ -70,6 +72,7 @@ class Checklist extends BaseModule {
 
           // Maintain buffs/debuffs
           momentumBuffUptime: this.momentum.suggestionThresholds,
+          sinfulBrandUptime: this.sinfulBrandUptime.suggestionThresholds,
 
           // Use your offensive cool downs
 

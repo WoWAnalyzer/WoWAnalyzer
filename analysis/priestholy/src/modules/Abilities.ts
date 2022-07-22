@@ -248,9 +248,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FADE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.GUARDIAN_SPIRIT.id,

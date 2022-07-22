@@ -5,7 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
+import { getBeaconSpellFactor } from '../../constants';
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
 
@@ -31,7 +31,7 @@ class MissingBeacons extends Analyzer {
 
   onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
-    const spellBeaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];
+    const spellBeaconTransferFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
     if (!spellBeaconTransferFactor) {
       return;
     }

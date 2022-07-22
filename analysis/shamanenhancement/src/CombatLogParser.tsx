@@ -14,6 +14,7 @@ import Abilities from './modules/Abilities';
 // Features
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
+import ChainLightning from './modules/core/ChainLightning';
 import FeralSpirit from './modules/core/FeralSpirit';
 import MaelstromWeapon from './modules/core/MaelstromWeapon';
 import Stormbringer from './modules/core/Stormbringer';
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shaman Core
     stormbringer: Stormbringer,
     feralSpirit: FeralSpirit,
+    chainLightning: ChainLightning,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
