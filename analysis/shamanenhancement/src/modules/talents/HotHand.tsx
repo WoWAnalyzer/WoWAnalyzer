@@ -39,33 +39,19 @@ class HotHand extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.reduceLavaLashCDOnBuff,
+      this.snapLavaLashCDDown,
     );
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
-      this.reduceLavaLashCDOnCast,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
-      this.onLavaLashDamage,
-    );
+    // TODO: Snap it back up when the buff expires.
   }
 
   calcLavaLashCd75pct() {
     return (9 / (1 + this.haste.current)) * 1000;
   }
 
-  reduceLavaLashCDOnBuff() {
+  snapLavaLashCDDown() {
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
       this.spellUsable.reduceCooldown(SPELLS.LAVA_LASH.id, this.calcLavaLashCd75pct());
-    }
-  }
-
-  reduceLavaLashCDOnCast() {
-    if (this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id)) {
-      this.reduceLavaLashCDOnBuff();
     }
   }
 
