@@ -3,8 +3,10 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import {
   AnkhNormalizer,
   AstralShift,
+  ChainHarvest,
   EarthShield,
   ElementalBlast,
+  ElementalConduit,
   FlameShock,
   SpiritWolf,
   StaticCharge,
@@ -93,13 +95,15 @@ class CombatLogParser extends CoreCombatLogParser {
     //ascendance: Ascendance,
 
     // covenants
+    chainHarvest: ChainHarvest,
     tumblingWaves: TumblingWaves,
-    //chainHarvest: ChainHarvest,
     //vesperTotem: VesperTotem,
 
     //Legendaries
+    elementalConduit: ElementalConduit,
     witchDoctorWolfBones: WitchDoctorWolfBones,
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
+
     // Tier
     tier28TwoSet: Tier28TwoSet,
     tier28FourSet: Tier28FourSet,

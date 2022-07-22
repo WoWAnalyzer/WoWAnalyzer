@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-import { ESSENTIAL_EXTRACTION_EFFECT_BY_RANK, STORMSTRIKE_CAST_SPELLS_IDS } from '../constants';
+import { ESSENTIAL_EXTRACTION_EFFECT_BY_RANK } from '../constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -107,12 +108,40 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: STORMSTRIKE_CAST_SPELLS_IDS,
+        spell: SPELLS.STORMSTRIKE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          maxCasts: (cooldown: number) =>
+            calculateMaxCasts(
+              cooldown,
+              this.owner.fightDuration -
+                combatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+            ),
+        },
+      },
+      {
+        spell: SPELLS.WINDSTRIKE_CAST.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: (haste) => 2.5 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          maxCasts: (cooldown: number) =>
+            calculateMaxCasts(
+              cooldown,
+              combatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+            ),
+        },
+        enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
       },
       {
         spell: SPELLS.LAVA_LASH.id,
