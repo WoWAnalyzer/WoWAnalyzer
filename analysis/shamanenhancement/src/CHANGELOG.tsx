@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 7, 22), <>Reset <SpellLink id={SPELLS.STORMSTRIKE_CAST.id} /> cooldown when <SpellLink id={SPELLS.STORMBRINGER.id} /> is refreshed. </>, Vetyst),
   change(date(2022, 7, 19), <>Reduce the cooldown of <SpellLink id={SPELLS.LAVA_LASH.id} /> when the <SpellLink id={SPELLS.HOT_HAND_TALENT.id} /> buff is active. </>, Vetyst),
   change(date(2022, 4, 26), <>Added <SpellLink id={SPELLS.FAE_TRANSFUSION.id} /> to the timeline and support for <SpellLink id={SPELLS.SEEDS_OF_RAMPANT_GROWTH.id} /> </>, xunai),
   change(date(2022, 4, 24), <>Added cooldown reduction tracking for <SpellLink id={SPELLS.WITCH_DOCTORS_WOLF_BONES.id} /></>, xunai),
