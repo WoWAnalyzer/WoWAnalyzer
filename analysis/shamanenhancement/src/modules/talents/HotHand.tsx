@@ -12,6 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const HOT_HAND = {
   INCREASE: 1.0,
+  SNAPBACK_MULTIPLIER: 3.0,
 };
 
 /**
@@ -42,12 +43,34 @@ class HotHand extends Analyzer {
       this.resetLavaLashCD,
     );
 
-    // TODO: Snap it back up when the buff expires.
+    // Very unlikely to happen but it does.
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      this.resetLavaLashCD,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      this.snapLavaLashCDBack,
+    );
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
+      this.onLavaLashDamage,
+    );
   }
 
   resetLavaLashCD() {
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
       this.spellUsable.endCooldown(SPELLS.LAVA_LASH.id);
+    }
+  }
+
+  snapLavaLashCDBack() {
+    if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
+      const increaseRemainingCD =
+        this.spellUsable.cooldownRemaining(SPELLS.LAVA_LASH.id) * HOT_HAND.SNAPBACK_MULTIPLIER;
+      this.spellUsable.extendCooldown(SPELLS.LAVA_LASH.id, increaseRemainingCD);
     }
   }
 
