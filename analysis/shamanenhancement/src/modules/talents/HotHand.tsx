@@ -39,19 +39,15 @@ class HotHand extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.snapLavaLashCDDown,
+      this.resetLavaLashCD,
     );
 
     // TODO: Snap it back up when the buff expires.
   }
 
-  calcLavaLashCd75pct() {
-    return (9 / (1 + this.haste.current)) * 1000;
-  }
-
-  snapLavaLashCDDown() {
+  resetLavaLashCD() {
     if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.LAVA_LASH.id, this.calcLavaLashCd75pct());
+      this.spellUsable.endCooldown(SPELLS.LAVA_LASH.id);
     }
   }
 
