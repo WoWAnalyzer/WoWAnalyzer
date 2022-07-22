@@ -1,6 +1,12 @@
 //https://www.raidbots.com/static/data/live/bonuses.json
 const legendaries = {
   //region Enhancement
+  ELEMENTAL_CONDUIT: {
+    id: 356250,
+    name: 'Elemental Conduit',
+    icon: 'spell_animarevendreth_beam',
+    bonusID: 7709,
+  },
   WITCH_DOCTORS_WOLF_BONES: {
     id: 335897,
     name: "Witch Doctor's Wolf Bones",

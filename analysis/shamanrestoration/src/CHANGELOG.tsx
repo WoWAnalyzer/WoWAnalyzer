@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, niseko, Abelito75, Shamorisse } from 'CONTRIBUTORS';
+import { Adoraci, niseko, Abelito75, Shamorisse, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 7, 22), <>Properly reduce the cooldown of <SpellLink id={SPELLS.CHAIN_HARVEST.id} /> combined with <SpellLink id={SPELLS.ELEMENTAL_CONDUIT.id}/> legendary effect.</>, Vetyst),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 1, 7), <>Fixed bugs in the display of Cooldowns and Feeding tabs.</>, Shamorisse),
   change(date(2021, 11, 13), <>Fixed a bug with Ancestral Vigor where it was including non-players and damage events from friendly targets.</>, Abelito75),

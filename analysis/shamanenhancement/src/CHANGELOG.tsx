@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 7, 22), <>Properly reduce the cooldown of <SpellLink id={SPELLS.CHAIN_HARVEST.id} /> combined with <SpellLink id={SPELLS.ELEMENTAL_CONDUIT.id}/> legendary effect.</>, Vetyst),
   change(date(2022, 7, 22), <>Separate Stormstrike and Windstrike cooldowns.</>, Vetyst),
   change(date(2022, 7, 21), <>Show covenant abilities on offensive cooldowns checklist.</>, Vetyst),
   change(date(2022, 7, 21), <>Add suggestion for the <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing T28 4 set.</>, Vetyst),

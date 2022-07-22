@@ -5,7 +5,13 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
-import { SpiritWolf, StaticCharge, AstralShift } from '@wowanalyzer/shaman';
+import {
+  SpiritWolf,
+  StaticCharge,
+  AstralShift,
+  ElementalConduit,
+  ChainHarvest,
+} from '@wowanalyzer/shaman';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Feeding from './Feeding';
@@ -31,7 +37,6 @@ import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
 import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
 import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
-import ChainHarvest from './modules/shadowlands/spells/ChainHarvest';
 import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
@@ -143,6 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primalTideCore: PrimalTideCore,
     jonatsNaturalFocus: JonatsNaturalFocus,
     earthenHarmony: EarthenHarmony,
+    elementalConduit: ElementalConduit,
 
     // Covenants
     chainHarvest: ChainHarvest,
