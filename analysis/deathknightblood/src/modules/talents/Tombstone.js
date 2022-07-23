@@ -6,8 +6,10 @@ import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
@@ -108,61 +110,65 @@ class Tombstone extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.TOMBSTONE_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
-        value={this.wastedCasts}
-        label="Bad Casts"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip="Any cast without 5 charges is considered a wasted cast."
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Charges</th>
-              <th>RP Wasted</th>
-              <th>Absorb Used (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.tombstone).map((e, i) => (
-              <tr key={i}>
-                <th>{this.tombstone[i].charges}</th>
-                <td>
-                  <TooltipElement
-                    content={
-                      <>
-                        <strong>RP Generated:</strong>{' '}
-                        {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}
-                      </>
-                    }
-                  >
-                    {this.tombstone[i].rpWasted}
-                  </TooltipElement>
-                </td>
-                <td>
-                  <TooltipElement
-                    content={
-                      <>
-                        <strong>Damage Absorbed:</strong>{' '}
-                        {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
-                        <strong>Absorb Shield: </strong>{' '}
-                        {formatNumber(this.tombstone[i].absorbSize)} <br />
-                        <strong>Healing: </strong>{' '}
-                        {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
-                      </>
-                    }
-                  >
-                    {formatPercentage(
-                      this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize,
-                    )}
-                    %
-                  </TooltipElement>
-                </td>
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Charges</th>
+                <th>RP Wasted</th>
+                <th>Absorb Used (%)</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+            </thead>
+            <tbody>
+              {Object.values(this.tombstone).map((e, i) => (
+                <tr key={i}>
+                  <th>{this.tombstone[i].charges}</th>
+                  <td>
+                    <TooltipElement
+                      content={
+                        <>
+                          <strong>RP Generated:</strong>{' '}
+                          {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}
+                        </>
+                      }
+                    >
+                      {this.tombstone[i].rpWasted}
+                    </TooltipElement>
+                  </td>
+                  <td>
+                    <TooltipElement
+                      content={
+                        <>
+                          <strong>Damage Absorbed:</strong>{' '}
+                          {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
+                          <strong>Absorb Shield: </strong>{' '}
+                          {formatNumber(this.tombstone[i].absorbSize)} <br />
+                          <strong>Healing: </strong>{' '}
+                          {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
+                        </>
+                      }
+                    >
+                      {formatPercentage(
+                        this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize,
+                      )}
+                      %
+                    </TooltipElement>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        }
+      >
+        <BoringSpellValueText spellId={SPELLS.TOMBSTONE_TALENT.id}>
+          {this.wastedCasts} <small>Bad Casts</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

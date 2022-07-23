@@ -1,8 +1,10 @@
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 import BoneShieldTimesByStacks from '../features/BoneShieldTimesByStacks';
 
@@ -30,33 +32,37 @@ class FoulBulwark extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FOUL_BULWARK_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
-        value={`${this.averageFoulBullwark}%`}
-        label="average Foul Bulwark buff"
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>HP-bonus</th>
-              <th>Time (s)</th>
-              <th>Time (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.boneShieldTimesByStack.map((e, i) => (
-              <tr key={i}>
-                <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
-                <td>
-                  {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
-                </td>
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>HP-bonus</th>
+                <th>Time (s)</th>
+                <th>Time (%)</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+            </thead>
+            <tbody>
+              {this.boneShieldTimesByStack.map((e, i) => (
+                <tr key={i}>
+                  <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
+                  <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
+                  <td>
+                    {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        }
+      >
+        <BoringSpellValueText spellId={SPELLS.FOUL_BULWARK_TALENT.id}>
+          {this.averageFoulBullwark}% <small>average buff</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
