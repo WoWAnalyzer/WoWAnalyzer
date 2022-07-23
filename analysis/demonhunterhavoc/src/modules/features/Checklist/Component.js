@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -134,6 +135,16 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
             thresholds={thresholds.momentumBuffUptime}
           />
         )}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.SINFUL_BRAND.id} /> debuff uptime
+              </>
+            }
+            thresholds={thresholds.sinfulBrandUptime}
+          />
+        )}
       </Rule>
 
       <Rule
@@ -237,6 +248,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
 HavocDemonHunterChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
+    hasCovenant: PropTypes.func.isRequired,
     hasTalent: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,

@@ -1900,3 +1900,16 @@ export const Lucky0604: Contributor = {
   avatar: avatar('lucky0604.png'),
   discord: 'Lucky0604#8966',
 };
+
+export const ToppleTheNun: Contributor = {
+  nickname: 'ToppleTheNun',
+  github: 'ToppleTheNun',
+  discord: 'ToppleTheNun#6969',
+  mains: [
+    {
+      name: 'Sigilweaver',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.com/en-us/character/us/thrall/Sigilweaver',
+    },
+  ],
+};
