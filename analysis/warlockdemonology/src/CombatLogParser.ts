@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import { DemonicCirclesCreated } from '@wowanalyzer/warlock';
+
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -52,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    demonicCirclesCreated: DemonicCirclesCreated,
 
     // Pets
     demoPets: DemoPets,
