@@ -1,3 +1,6 @@
+export { default as TumblingWaves } from './shadowlands/conduits/TumblingWaves';
+export { default as ElementalConduit } from './shadowlands/legendaries/ElementalConduit';
+export { default as ChainHarvest } from './shadowlands/spells/ChainHarvest';
 export { default as AnkhNormalizer } from './AnkhNormalizer';
 export { default as AstralShift } from './AstralShift';
 export { default as EarthShield } from './EarthShield';
