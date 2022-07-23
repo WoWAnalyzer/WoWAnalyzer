@@ -476,6 +476,11 @@ const spells = {
     name: 'Glaive Tempest',
     icon: 'inv_glaive_1h_artifactazgalor_d_06dual',
   },
+  UNBOUND_CHAOS_BUFF: {
+    id: 347462,
+    name: 'Unbound Chaos',
+    icon: 'artifactability_vengeancedemonhunter_painbringer',
+  },
 } as const;
 
 export default spells;

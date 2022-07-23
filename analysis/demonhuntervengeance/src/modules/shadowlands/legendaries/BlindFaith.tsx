@@ -10,8 +10,7 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -55,6 +54,22 @@ export default class BlindFaith extends Analyzer {
       this.onBlindFaithGain,
     );
     this.addEventListener(EventType.ConsumeSoulFragments, this.onSoulFragmentsConsumed);
+  }
+
+  get calcGoodWindowsPercentage() {
+    return this.data.filter((window) => window > 10).length / this.data.length;
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.calcGoodWindowsPercentage,
+      isLessThan: {
+        minor: 0.75,
+        average: 0.65,
+        major: 0.5,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   onBlindFaithGain(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -113,22 +128,6 @@ export default class BlindFaith extends Analyzer {
     }
 
     this.dataset[nextStacks] = { start: event.timestamp, end: 0 };
-  }
-
-  get calcGoodWindowsPercentage() {
-    return this.data.filter((window) => window > 10).length / this.data.length;
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.calcGoodWindowsPercentage,
-      isLessThan: {
-        minor: 0.75,
-        average: 0.65,
-        major: 0.5,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   suggestions(when: When) {

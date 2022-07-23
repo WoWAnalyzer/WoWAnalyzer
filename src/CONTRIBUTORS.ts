@@ -1904,6 +1904,7 @@ export const Lucky0604: Contributor = {
 export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
+  avatar: avatar('ToppleTheNun-avatar.png'),
   discord: 'ToppleTheNun#6969',
   mains: [
     {

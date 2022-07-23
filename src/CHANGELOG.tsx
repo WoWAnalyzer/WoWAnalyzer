@@ -53,7 +53,8 @@ import {
   nullDozzer,
   Tialyss,
   Lucky0604,
-  ToppleTheNun
+  ToppleTheNun,
+  Vetyst
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
@@ -61,6 +62,8 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),
+  change(date(2022, 7, 21), 'Updated enchants on character overview for SL and TBC.', Vetyst),
+  change(date(2022, 7, 20), 'Replace DualStatisticBox with Statistic.', Vetyst),
   change(date(2022, 7, 19), 'CN_translations: About page, help wanted page and some warlock specs translated.', Lucky0604),
   change(date(2022, 7, 10), 'Bump patch compatibility for all 9.2 specs to 9.2.5.', emallson),
   change(date(2022, 7, 9), 'Fix issue where time filtering could cause the report to hang.', emallson),
