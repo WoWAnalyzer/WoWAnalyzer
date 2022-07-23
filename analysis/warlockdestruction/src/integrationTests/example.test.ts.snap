@@ -4013,6 +4013,55 @@ exports[`Destruction Warlock integration test: example log Cataclysm matches the
 </div>
 `;
 
+exports[`Destruction Warlock integration test: example log DemonicCirclesCreated matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=48018"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Circle Summon"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=48018"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Circle Summon
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0
+           Demonic Circle(s) created
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Destruction Warlock integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
