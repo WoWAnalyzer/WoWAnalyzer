@@ -40,7 +40,7 @@ const PlayerInfoGear = (props: Props) => {
               className={`item-slot-${gearSlot}`}
             >
               <ItemLink id={item.id} quality={quality} details={item} icon={false}>
-                <Icon className={'gear-icon icon ' + qualityClass} icon={item.icon} />
+                <Icon className={`gear-icon icon ${qualityClass}`} icon={item.icon} />
                 <div className="gear-ilvl">{item.itemLevel}</div>
               </ItemLink>
             </div>
