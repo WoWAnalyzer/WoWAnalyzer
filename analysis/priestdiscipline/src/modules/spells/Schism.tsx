@@ -1,13 +1,15 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Enemies from 'parser/shared/modules/Enemies';
-import DualStatisticBox from 'parser/ui/DualStatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
@@ -77,19 +79,9 @@ class Schism extends Analyzer {
 
   statistic() {
     return (
-      <DualStatisticBox
-        icon={<SpellIcon id={SPELLS.SCHISM_TALENT.id} />}
-        values={[
-          `${formatNumber((this.healing / this.owner.fightDuration) * 1000)} HPS`,
-          `${formatNumber(
-            ((this.directDamage + this.damageFromBuff) / this.owner.fightDuration) * 1000,
-          )} DPS`,
-        ]}
-        footer={
-          <>
-            <SpellLink id={SPELLS.SCHISM_TALENT.id} /> throughput
-          </>
-        }
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             The effective healing contributed by Schism was{' '}
@@ -105,8 +97,12 @@ class Schism extends Analyzer {
             total damage done. <br />
           </>
         }
-        alignIcon="center"
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.SCHISM_TALENT.id}>
+          <ItemHealingDone amount={this.healing} /> <br />
+          <ItemDamageDone amount={this.directDamage + this.damageFromBuff} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

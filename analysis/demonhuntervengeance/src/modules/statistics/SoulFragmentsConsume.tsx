@@ -1,13 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { Event, EventType, CastEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import Events, { CastEvent, ChangeBuffStackEvent, Event, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
-import { MAX_SOUL_FRAGMENTS } from '../features/SoulFragmentsTracker';
+import SoulFragmentsTracker, { MAX_SOUL_FRAGMENTS } from '../features/SoulFragmentsTracker';
 
 const REMOVE_STACK_BUFFER = 100;
 
@@ -21,19 +20,17 @@ class SoulFragmentsConsume extends Analyzer {
     soulFragmentsTracker: SoulFragmentsTracker,
     eventEmitter: EventEmitter,
   };
-  protected soulFragmentsTracker!: SoulFragmentsTracker;
-  protected eventEmitter!: EventEmitter;
-
   castTimestamp?: number;
   trackedSpell?: number;
   totalSoulsConsumedBySpells = 0;
-
   soulsConsumedBySpell: {
     [spellId: number]: {
       name: string;
       souls: number;
     };
   } = {};
+  protected soulFragmentsTracker!: SoulFragmentsTracker;
+  protected eventEmitter!: EventEmitter;
 
   constructor(options: Options) {
     super(options);

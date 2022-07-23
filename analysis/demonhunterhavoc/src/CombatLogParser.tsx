@@ -4,19 +4,19 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 
 import {
   ElysianDecree,
-  SinfulBrand,
-  TheHunt,
   FelDefender,
   GrowingInferno,
   RepeatDecree,
+  SinfulBrand,
+  TheHunt,
 } from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
+import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SinfulBrandUptime from './modules/covenants/SinfulBrandUptime';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import DotUptimes from './modules/features/DotUptimes';
 import FuryDetails from './modules/resourcetracker/FuryDetails';

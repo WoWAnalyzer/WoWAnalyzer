@@ -3,42 +3,45 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-class CollectiveAnguish extends Analyzer {
+/**
+ * Example Report: https://www.warcraftlogs.com/reports/RMPgqbz1BxpG9X8H/#fight=2&source=10
+ */
+
+class TrailofRuin extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.COLLECTIVE_ANGUISH);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVESTATION_DAMAGE),
-      this.onDamageEvent,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_RUIN_DAMAGE),
+      this.trailOfRuinDot,
     );
   }
 
-  onDamageEvent(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+  trailOfRuinDot(event: DamageEvent) {
+    this.damage += event.amount;
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={<>{formatThousands(this.damage)} Total damage</>}
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.COLLECTIVE_ANGUISH.id}>
-          <ItemDamageDone amount={this.damage} />
+        <BoringSpellValueText spellId={SPELLS.TRAIL_OF_RUIN_TALENT.id}>
+          {this.owner.formatItemDamageDone(this.damage)}
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default CollectiveAnguish;
+export default TrailofRuin;
