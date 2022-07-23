@@ -62,6 +62,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),
+  change(date(2022, 7, 21), 'Reflect the quality of an item through the border of gear shown on the character tab.', Vetyst),
   change(date(2022, 7, 21), 'Updated enchants on character overview for SL and TBC.', Vetyst),
   change(date(2022, 7, 20), 'Converted deprecated TraitStatisticBox to Statistic statistics.', Vetyst),
   change(date(2022, 7, 19), 'CN_translations: About page, help wanted page and some warlock specs translated.', Lucky0604),
