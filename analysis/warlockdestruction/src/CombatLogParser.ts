@@ -1,7 +1,11 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import { GrimoireOfSacrificeNormalizer, GrimoireOfSacrifice } from '@wowanalyzer/warlock';
+import {
+  DemonicCirclesCreated,
+  GrimoireOfSacrificeNormalizer,
+  GrimoireOfSacrifice,
+} from '@wowanalyzer/warlock';
 
 import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
@@ -45,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     spellUsable: SpellUsable,
+    demonicCirclesCreated: DemonicCirclesCreated,
 
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
 

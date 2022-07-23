@@ -149,7 +149,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: (haste) => 12 / (1 + haste),
+        cooldown: (haste) => (combatant.hasBuff(SPELLS.HOT_HAND_BUFF.id) ? 3 : 12) / (1 + haste),
       },
       {
         spell: SPELLS.CRASH_LIGHTNING.id,
