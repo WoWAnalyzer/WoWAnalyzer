@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -11,11 +12,17 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import FuryTracker from './FuryTracker';
 
 class FuryDetails extends Analyzer {
+  static dependencies = {
+    furyTracker: FuryTracker,
+  };
+
+  protected furyTracker!: FuryTracker;
+
   get wastedPercent() {
     return this.furyTracker.wasted / (this.furyTracker.wasted + this.furyTracker.generated) || 0;
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
@@ -23,11 +30,11 @@ class FuryDetails extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
@@ -35,15 +42,11 @@ class FuryDetails extends Analyzer {
         average: 0.1,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    furyTracker: FuryTracker,
-  };
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Fury.`)
         .icon('ability_demonhunter_demonspikes')

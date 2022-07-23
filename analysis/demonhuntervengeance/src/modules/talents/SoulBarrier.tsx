@@ -1,37 +1,24 @@
 import { t } from '@lingui/macro';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Uptime from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 class SoulBarrier extends Analyzer {
-  get uptime() {
-    return (
-      this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration
-    );
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.35,
-        average: 0.3,
-        major: 0.25,
-      },
-      style: 'percentage',
-    };
-  }
-
   static dependencies = {
     damageTracker: DamageTracker,
     enemies: Enemies,
   };
+
   casts = 0;
   totalAbsorbed = 0;
   buffApplied = 0;
@@ -40,8 +27,8 @@ class SoulBarrier extends Analyzer {
   avgBuffLength = 0;
   totalBuffLength = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT),
@@ -57,16 +44,34 @@ class SoulBarrier extends Analyzer {
     );
   }
 
-  onApplyBuff(event) {
+  get uptime() {
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration
+    );
+  }
+
+  get suggestionThresholdsEfficiency(): NumberThreshold {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.35,
+        average: 0.3,
+        major: 0.25,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  onApplyBuff(event: ApplyBuffEvent) {
     this.casts += 1;
     this.buffApplied = event.timestamp;
   }
 
-  onAbsorb(event) {
+  onAbsorb(event: AbsorbedEvent) {
     this.totalAbsorbed += event.amount;
   }
 
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     if (event.ability.guid !== SPELLS.SOUL_BARRIER_TALENT.id) {
       return;
     }
@@ -75,7 +80,7 @@ class SoulBarrier extends Analyzer {
     this.totalBuffLength += this.buffLength;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -96,11 +101,10 @@ class SoulBarrier extends Analyzer {
   statistic() {
     const avgBuffLength = this.totalBuffLength / this.casts / 1000;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SOUL_BARRIER_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(7)}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Soul Barrier uptime"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             Average Buff Length: <strong>{formatNumber(avgBuffLength)} seconds</strong>
@@ -112,7 +116,11 @@ class SoulBarrier extends Analyzer {
             Total Casts: <strong>{this.casts}</strong>
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.SOUL_BARRIER_TALENT.id}>
+          <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -2,8 +2,9 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -12,30 +13,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 const MS_BUFFER = 100;
 
 class SpiritBombSoulsConsume extends Analyzer {
-  get totalGoodCasts() {
-    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
-  }
-
-  get totalCasts() {
-    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
-  }
-
-  get percentGoodCasts() {
-    return this.totalGoodCasts / this.totalCasts;
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.percentGoodCasts,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.85,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
-  }
-
   castTimestamp = 0;
   castSoulsConsumed = 0;
   cast = 0;
@@ -47,8 +24,8 @@ class SpiritBombSoulsConsume extends Analyzer {
    bomb as efficiently as possible (cast at 4+ souls) for a dps boost and have soul cleave absorb souls as little as
    possible since it provides no extra dps.
 */
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active =
       this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
       !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
@@ -63,7 +40,31 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onCast(event) {
+  get totalGoodCasts() {
+    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
+  }
+
+  get totalCasts() {
+    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
+  }
+
+  get percentGoodCasts() {
+    return this.totalGoodCasts / this.totalCasts;
+  }
+
+  get suggestionThresholdsEfficiency(): NumberThreshold {
+    return {
+      actual: this.percentGoodCasts,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  onCast(event: CastEvent) {
     if (this.cast > 0) {
       this.countHits();
     }
@@ -71,7 +72,7 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.cast += 1;
   }
 
-  onChangeBuffStack(event) {
+  onChangeBuffStack(event: ChangeBuffStackEvent) {
     if (event.oldStacks < event.newStacks) {
       return;
     }
@@ -95,7 +96,7 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.countHits();
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -141,9 +142,7 @@ class SpiritBombSoulsConsume extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
-          <>
-            {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
-          </>
+          {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,7 +1,7 @@
-import { formatPercentage, formatThousands, formatDuration } from 'common/format';
+import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyDebuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,12 +17,13 @@ class SigilOfFlame extends Analyzer {
     abilityTracker: AbilityTracker,
     enemies: Enemies,
   };
-
   successfulStack = 0;
   lastApplicationTimestamp = 0;
   currentApplicationTimestamp = 0;
+  protected abilityTracker!: AbilityTracker;
+  protected enemies!: Enemies;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SIGIL_OF_FLAME_DEBUFF),
@@ -30,7 +31,7 @@ class SigilOfFlame extends Analyzer {
     );
   }
 
-  onApplyDebuff(event) {
+  onApplyDebuff(event: ApplyDebuffEvent) {
     let timeStampDifference = null;
     if (this.lastApplicationTimestamp === 0) {
       this.lastApplicationTimestamp = event.timestamp;

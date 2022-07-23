@@ -2,16 +2,16 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import {
   ElysianDecree,
-  SinfulBrand,
-  TheHunt,
   FelDefender,
   GrowingInferno,
   RepeatDecree,
+  SinfulBrand,
+  TheHunt,
 } from '@wowanalyzer/demonhunter';
 
 import Abilities from './modules/Abilities';
+import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';

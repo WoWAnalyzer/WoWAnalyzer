@@ -1,16 +1,37 @@
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const COOLDOWN_REDUCTION_MS = 500;
 
 //WCL https://www.warcraftlogs.com/reports/ZVJr2MPNx3RCvX6B/#fight=6&source=184
 class FeedTheDemon extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+    spellUsable: SpellUsable,
+  };
+  casts = 0;
+  totalCooldownReductionWasted = 0;
+  totalCooldownReduction = 0;
+  protected abilityTracker!: AbilityTracker;
+  protected spellUsable!: SpellUsable;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
+      this.onHeal,
+    );
+  }
+
   get FTDReduction() {
     return this.totalCooldownReduction;
   }
@@ -36,24 +57,7 @@ class FeedTheDemon extends Analyzer {
     return this.wastedReduction / (this.wastedReduction + this.reduction);
   }
 
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-    spellUsable: SpellUsable,
-  };
-  casts = 0;
-  totalCooldownReductionWasted = 0;
-  totalCooldownReduction = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
-      this.onHeal,
-    );
-  }
-
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)) {
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
     } else {
@@ -68,11 +72,10 @@ class FeedTheDemon extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FEED_THE_DEMON_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        value={`${formatNumber(this.averageReduction)} sec`}
-        label="Feed the Demon average reduction"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             {formatNumber(this.reduction)} sec total effective reduction.
@@ -81,7 +84,11 @@ class FeedTheDemon extends Analyzer {
             wasted reduction.
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.FEED_THE_DEMON_TALENT.id}>
+          {formatNumber(this.averageReduction)} sec average reduction
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

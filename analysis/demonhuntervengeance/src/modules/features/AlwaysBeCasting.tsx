@@ -1,9 +1,10 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  suggestions(when) {
+  suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage)
