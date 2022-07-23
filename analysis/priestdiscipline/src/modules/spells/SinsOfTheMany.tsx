@@ -1,13 +1,15 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
-import DualStatisticBox from 'parser/ui/DualStatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
@@ -74,17 +76,9 @@ class SinsOfTheMany extends Analyzer {
 
   statistic() {
     return (
-      <DualStatisticBox
-        icon={<SpellIcon id={SPELLS.SINS_OF_THE_MANY_TALENT.id} />}
-        values={[
-          `${formatNumber((this.bonusHealing / this.owner.fightDuration) * 1000)} HPS`,
-          `${formatNumber((this.bonusDamage / this.owner.fightDuration) * 1000)} DPS`,
-        ]}
-        footer={
-          <>
-            <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> throughput
-          </>
-        }
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             The effective healing contributed by Sins of the Many was{' '}
@@ -96,8 +90,12 @@ class SinsOfTheMany extends Analyzer {
             total damage done.
           </>
         }
-        alignIcon="center"
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.SINS_OF_THE_MANY_TALENT.id}>
+          <ItemHealingDone amount={this.bonusHealing} /> <br />
+          <ItemDamageDone amount={this.bonusDamage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
