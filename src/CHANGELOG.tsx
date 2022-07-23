@@ -53,6 +53,7 @@ import {
   nullDozzer,
   Tialyss,
   Lucky0604,
+  ToppleTheNun,
   Vetyst
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
@@ -60,6 +61,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),
   change(date(2022, 7, 21), 'Reflect the quality of an item through the border of gear shown on the character tab.', Vetyst),
   change(date(2022, 7, 21), 'Updated enchants on character overview for SL and TBC.', Vetyst),
   change(date(2022, 7, 20), 'Replace DualStatisticBox with Statistic.', Vetyst),
