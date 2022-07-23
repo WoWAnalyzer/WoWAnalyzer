@@ -1,11 +1,14 @@
 import { t } from '@lingui/macro';
-import { formatThousands, formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
@@ -23,7 +26,7 @@ class DemonBlades extends Analyzer {
         average: 0.07,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -31,8 +34,8 @@ class DemonBlades extends Analyzer {
   furyWaste = 0;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
     if (!this.active) {
       return;
@@ -47,16 +50,16 @@ class DemonBlades extends Analyzer {
     );
   }
 
-  onEnergizeEvent(event) {
+  onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
   }
 
-  onDamageEvent(event) {
+  onDamageEvent(event: DamageEvent) {
     this.damage += event.amount;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -79,15 +82,10 @@ class DemonBlades extends Analyzer {
   statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.DEMON_BLADES_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={
-          <>
-            {this.furyPerMin} <small>Fury per min</small> <br />
-            {this.owner.formatItemDamageDone(this.damage)}
-          </>
-        }
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
@@ -99,7 +97,14 @@ class DemonBlades extends Analyzer {
             {this.furyWaste} Fury wasted
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.DEMON_BLADES_TALENT.id}>
+          <>
+            {this.furyPerMin} <small>Fury per min</small> <br />
+            {this.owner.formatItemDamageDone(this.damage)}
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

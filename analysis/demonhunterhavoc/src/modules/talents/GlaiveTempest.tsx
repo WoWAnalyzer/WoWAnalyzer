@@ -1,7 +1,7 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -9,8 +9,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class GlaiveTempest extends Analyzer {
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id);
     if (!this.active) {
       return;
@@ -21,7 +21,7 @@ class GlaiveTempest extends Analyzer {
     );
   }
 
-  onDamageEvent(event) {
+  onDamageEvent(event: DamageEvent) {
     this.damage += event.amount + (event.absorb || 0);
   }
 

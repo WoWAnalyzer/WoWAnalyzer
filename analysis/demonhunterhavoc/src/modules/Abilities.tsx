@@ -2,11 +2,12 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       //Rotation Spells

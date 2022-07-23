@@ -1,11 +1,13 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 /*
   example report: https://www.warcraftlogs.com/reports/LvmF6W4C3TgcZxj8/#fight=last
@@ -24,15 +26,17 @@ class EssenceBreak extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   extraDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.damage);
   }
 
-  damage(event) {
+  damage(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if (!target) {
       return;
@@ -46,12 +50,16 @@ class EssenceBreak extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.ESSENCE_BREAK_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={this.owner.formatItemDamageDone(this.extraDamage)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.ESSENCE_BREAK_TALENT.id}>
+          {this.owner.formatItemDamageDone(this.extraDamage)}
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

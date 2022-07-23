@@ -1,4 +1,4 @@
-import { formatPercentage, formatDuration } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';

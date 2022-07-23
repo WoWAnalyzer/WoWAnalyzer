@@ -2,17 +2,23 @@ import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV#fight=48&type=summary&source=10
+ * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
-class Felblade extends Analyzer {
+
+const IMMOLATION_AURA = [
+  SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
+  SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
+];
+
+class ImmolationAura extends Analyzer {
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -25,7 +31,7 @@ class Felblade extends Analyzer {
         average: 0.07,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -33,44 +39,43 @@ class Felblade extends Analyzer {
   furyWaste = 0;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FELBLADE_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BURNING_HATRED_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
       this.onEnergizeEvent,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
       this.onDamageEvent,
     );
   }
 
-  onEnergizeEvent(event) {
+  onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
   }
 
-  onDamageEvent(event) {
-    this.damage += event.amount + (event.absorbed || 0);
+  onDamageEvent(event: DamageEvent) {
+    this.damage += event.amount;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           {' '}
-          Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast
-          abilities regularly to avoid accidently capping your fury.
+          Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
         </>,
       )
-        .icon(SPELLS.FELBLADE_TALENT.icon)
+        .icon(SPELLS.IMMOLATION_AURA.icon)
         .actual(
           t({
-            id: 'demonhunter.havoc.suggestions.felBlade.furyWasted',
+            id: 'demonhunter.havoc.suggestions.immolationAura.furyWasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),
         )
@@ -86,21 +91,21 @@ class Felblade extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+            {formatThousands(this.damage)} Total damage
+            <br />
             {effectiveFuryGain} Effective Fury gained
             <br />
             {this.furyGain} Total Fury gained
             <br />
             {this.furyWaste} Fury wasted
-            <br />
-            {formatThousands(this.damage)} Total damage
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FELBLADE_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
           <>
             {this.furyPerMin} <small>Fury per min </small>
             <br />
-            <ItemDamageDone amount={this.damage} />
+            {this.owner.formatItemDamageDone(this.damage)}
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -108,4 +113,4 @@ class Felblade extends Analyzer {
   }
 }
 
-export default Felblade;
+export default ImmolationAura;
