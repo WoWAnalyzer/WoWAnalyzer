@@ -22,7 +22,9 @@ class TumblingWaves extends Analyzer {
   }
 
   onApplyBuff() {
-    this.spellUsable.endCooldown(SPELLS.PRIMORDIAL_WAVE_CAST.id);
+    if (this.spellUsable.isOnCooldown(SPELLS.PRIMORDIAL_WAVE_CAST.id)) {
+      this.spellUsable.endCooldown(SPELLS.PRIMORDIAL_WAVE_CAST.id);
+    }
   }
 }
 
