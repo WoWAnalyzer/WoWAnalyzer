@@ -2,8 +2,11 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
 
@@ -75,16 +78,10 @@ class AvengingCrusader extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.AVENGING_CRUSADER_TALENT.id}
-        value={
-          <>
-            <ItemHealingDone amount={this.totalHealing} />
-            <br />
-            {formatPercentage(this.critRate)}% Crit Rate
-          </>
-        }
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b>
@@ -104,9 +101,12 @@ class AvengingCrusader extends Analyzer {
             <br />
           </>
         }
-        icon={undefined}
-        label={undefined}
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.AVENGING_CRUSADER_TALENT.id}>
+          <ItemHealingDone amount={this.totalHealing} /> <br />
+          {formatPercentage(this.critRate)}% Crit Rate
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
