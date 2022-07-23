@@ -6,6 +6,7 @@ import {
   GrimoireOfSacrificeNormalizer,
   WarlockMissingDotApplyDebuffPrePull,
   GrimoireOfSacrifice,
+  DemonicCirclesCreated,
 } from '@wowanalyzer/warlock';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     darkglare: Darkglare,
     shadowEmbrace: ShadowEmbrace,
+    demonicCirclesCreated: DemonicCirclesCreated,
 
     // Normalizers
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
