@@ -4,7 +4,10 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
+import {
+  FEL_DEFENDER_COOLDOWN_REDUCTION,
+  INCREASED_SCRUTINY_SCALING,
+} from '@wowanalyzer/demonhunter';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -285,7 +288,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SINFUL_BRAND.id,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.INCREASED_SCRUTINY.id)
+          ? 45 -
+            INCREASED_SCRUTINY_SCALING[combatant.conduitRankBySpellID(SPELLS.INCREASED_SCRUTINY.id)]
+          : 45,
         gcd: {
           base: 1500,
         },

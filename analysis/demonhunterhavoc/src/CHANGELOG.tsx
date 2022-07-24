@@ -7,6 +7,13 @@ export default [
   change(
     date(2022, 7, 24),
     <>
+      Correct <SpellLink id={SPELLS.SINFUL_BRAND.id} /> cooldown.
+    </>,
+    ToppleTheNun,
+  ),
+  change(
+    date(2022, 7, 24),
+    <>
       Correct spelling of <SpellLink id={SPELLS.FEL_DEVASTATION_DAMAGE.id} />.
     </>,
     ToppleTheNun,
