@@ -17,7 +17,7 @@ class CollectiveAnguish extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVESTATION_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVASTATION_DAMAGE),
       this.onDamageEvent,
     );
   }
