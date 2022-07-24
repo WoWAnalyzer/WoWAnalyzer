@@ -1,54 +1,32 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Uptime from 'interface/icons/Uptime';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { ELEMENTAL_BLAST_BUFFS } from './constants';
-
+/**
+ * https://www.warcraftlogs.com/reports/Fp7tKcmzgCfRy61n/#fight=24&source=62&type=auras
+ */
 class ElementalBlast extends Analyzer {
-  currentBuffAmount = 0;
-  lastFreshApply = 0;
-  resultDuration = 0;
-
   constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
-    this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS),
-      this.onRemoveBuff,
-    );
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS),
-      this.onApplyBuff,
-    );
-  }
-
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.currentBuffAmount -= 1;
-    if (this.currentBuffAmount === 0) {
-      this.resultDuration += event.timestamp - this.lastFreshApply;
-    }
-  }
-
-  onApplyBuff(event: ApplyBuffEvent) {
-    if (this.currentBuffAmount === 0) {
-      this.lastFreshApply = event.timestamp;
-    }
-    this.currentBuffAmount += 1;
-  }
-
-  get hasteUptime() {
-    return (
-      this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) /
-      this.owner.fightDuration
-    );
   }
 
   get critUptime() {
     return (
       this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) /
+      this.owner.fightDuration
+    );
+  }
+
+  get hasteUptime() {
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) /
       this.owner.fightDuration
     );
   }
@@ -60,22 +38,18 @@ class ElementalBlast extends Analyzer {
     );
   }
 
-  get elementalBlastUptime() {
-    return this.resultDuration / this.owner.fightDuration;
+  get totalUptime() {
+    return this.critUptime + this.hasteUptime + this.masteryUptime;
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
-        value={`${formatPercentage(this.elementalBlastUptime)} %`}
-        label="Uptime"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
-            <span className="stat-mastery">
-              <strong>{formatPercentage(this.masteryUptime)}% Mastery</strong>
-            </span>
-            <br />
             <span className="stat-criticalstrike">
               <strong>{formatPercentage(this.critUptime)}% Crit</strong>
             </span>
@@ -83,12 +57,19 @@ class ElementalBlast extends Analyzer {
             <span className="stat-haste">
               <strong>{formatPercentage(this.hasteUptime)}% Haste</strong>
             </span>
+            <br />
+            <span className="stat-mastery">
+              <strong>{formatPercentage(this.masteryUptime)}% Mastery</strong>
+            </span>
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.ELEMENTAL_BLAST_TALENT.id}>
+          <Uptime /> {formatPercentage(this.totalUptime)}% <small>uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default ElementalBlast;
