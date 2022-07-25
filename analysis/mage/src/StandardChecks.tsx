@@ -37,7 +37,7 @@ class StandardChecks extends Analyzer {
    * @returns an array containing each unique spell cast and the number of times it was cast
    */
   castBreakdownByBuff(buffActive: boolean, buff: SpellInfo) {
-    const castEvents: any = buffActive
+    const castEvents = buffActive
       ? this.getEventsByBuff(true, buff, EventType.Cast)
       : this.getEventsByBuff(false, buff, EventType.Cast);
     const castArray: number[][] = [];
