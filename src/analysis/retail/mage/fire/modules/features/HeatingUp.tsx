@@ -41,33 +41,32 @@ class HeatingUp extends Analyzer {
     );
 
   fireBlastWithoutHeatingUp = () => {
-    const casts = this.standardChecks.getEventsByBuff(
+    let casts = this.standardChecks.getEventsByBuff(
       false,
       SPELLS.HEATING_UP,
       EventType.Cast,
       SPELLS.FIRE_BLAST,
     );
 
-    let filteredCasts;
     //Filter out events where Combustion was active
-    filteredCasts = casts.filter(
+    casts = casts.filter(
       (cast) => !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, cast.timestamp),
     );
 
     //Filter out events where the player has Searing Touch and the target is under 30% health
-    filteredCasts = filteredCasts.filter((cast: any) => {
+    casts = casts.filter((cast) => {
       const targetHealth = this.standardChecks.getTargetHealth(cast);
       return !this.hasSearingTouch || (targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD);
     });
 
     //Filter out events where the player has Firestarter and the target is over 90% health.
-    filteredCasts = filteredCasts.filter((cast: any) => {
+    casts = casts.filter((cast) => {
       const targetHealth = this.standardChecks.getTargetHealth(cast);
       return !this.hasFirestarter || (targetHealth && targetHealth < FIRESTARTER_THRESHOLD);
     });
 
     //Filter out events where the player is Venthyr and Mirrors of Torment is currently being cast
-    filteredCasts = filteredCasts.filter((cast) => {
+    casts = casts.filter((cast) => {
       const lastEvent = this.eventHistory.last(
         1,
         1000,
@@ -76,7 +75,7 @@ class HeatingUp extends Analyzer {
       )[0];
       return !lastEvent || lastEvent.ability.guid !== SPELLS.MIRRORS_OF_TORMENT.id;
     });
-    return filteredCasts.length;
+    return casts.length;
   };
 
   get totalWasted() {
@@ -91,7 +90,7 @@ class HeatingUp extends Analyzer {
     return (
       1 -
       (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) /
-        this.standardChecks.countTotalCasts(SPELLS.FIRE_BLAST)
+        this.standardChecks.countEvents(EventType.Cast, SPELLS.FIRE_BLAST)
     );
   }
 
@@ -99,7 +98,7 @@ class HeatingUp extends Analyzer {
     return (
       1 -
       this.phoenixFlamesDuringHotStreak() /
-        this.standardChecks.countTotalCasts(SPELLS.PHOENIX_FLAMES)
+        this.standardChecks.countEvents(EventType.Cast, SPELLS.PHOENIX_FLAMES)
     );
   }
 
