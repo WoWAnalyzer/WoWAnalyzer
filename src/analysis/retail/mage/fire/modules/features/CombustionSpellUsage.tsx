@@ -17,7 +17,7 @@ class CombustionSpellUsage extends Analyzer {
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
     
-    const casts: any = this.standardChecks.getEventsByBuff(true, SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
+    const casts = this.standardChecks.getEventsByBuff(true, SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.
     const fireballCasts = casts.filter((e: CastEvent) => {
@@ -40,7 +40,8 @@ class CombustionSpellUsage extends Analyzer {
 
   get fireballCastsPerCombustion() {
     return (
-      this.fireballCastsDuringCombustion() / this.standardChecks.countTotalCasts(SPELLS.COMBUSTION)
+      this.fireballCastsDuringCombustion() /
+      this.standardChecks.countEvents(EventType.Cast, SPELLS.COMBUSTION)
     );
   }
 
