@@ -90,7 +90,7 @@ class HotStreak extends Analyzer {
               <li>Used procs - {this.totalHotStreakProcs - this.expiredProcs()}</li>
               <li>Expired procs - {this.expiredProcs()}</li>
               <li>
-                Procs used without a Fireball - {this.hotStreakPreCasts.noCastBeforeHotStreak}
+                Procs used without a Fireball - {this.hotStreakPreCasts.missingHotStreakPreCast()}
               </li>
             </ul>
           </>

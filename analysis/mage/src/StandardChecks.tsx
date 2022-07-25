@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventFilter, {
@@ -13,6 +14,7 @@ import {
   CastEvent,
   BeginChannelEvent,
   MappedEvent,
+  AnyEvent,
 } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
@@ -30,6 +32,27 @@ class StandardChecks extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
+
+  isHardcast(cast: CastEvent) {
+    const beginCast = this.getEvents(
+      true,
+      EventType.BeginCast,
+      1,
+      cast.timestamp,
+      undefined,
+      SPELLS[cast.ability.guid],
+    )[0];
+    return cast.timestamp - beginCast.timestamp > 50;
+  }
+
+  checkPreCast(event: AnyEvent, preCastSpell: SpellInfo | SpellInfo[]) {
+    const preCast = this.getPreCast(event, preCastSpell);
+    return preCast ? true : false;
+  }
+
+  getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]) {
+    return this.getEvents(true, EventType.Cast, 1, event.timestamp, 250, preCastSpell)[0];
+  }
 
   /**
    * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
@@ -134,34 +157,26 @@ class StandardChecks extends Analyzer {
   /**
    * @param castEvent the cast event that you want to check the target's health on.
    */
-  getTargetHealth(castEvent: CastEvent) {
-    const castTarget =
-      castEvent.targetID && encodeTargetString(castEvent.targetID, castEvent.targetInstance);
-    const damageEvents = this.getEvents(
-      true,
-      EventType.Damage,
-      undefined,
-      castEvent.timestamp,
-      5000,
-    );
+  getTargetHealth(event: AnyEvent) {
+    const target =
+      (event.type === EventType.Cast || event.type === EventType.BeginCast) && HasTarget(event)
+        ? encodeTargetString(event.targetID, event.targetInstance)
+        : undefined;
+    const damageEvents = this.getEvents(false, EventType.Damage, undefined, event.timestamp, 5000);
     if (!damageEvents) {
       return;
     }
 
-    const relevantEvent = damageEvents.find(
-      (e) =>
-        HasTarget(e) &&
-        e.targetID &&
-        e.targetInstance &&
-        castTarget === encodeTargetString(e.targetID, e.targetInstance),
-    );
+    let relevantEvent;
+    if (target) {
+      relevantEvent = damageEvents.find(
+        (e) => HasTarget(e) && target === encodeTargetString(e.targetID, e.targetInstance),
+      );
+    } else {
+      relevantEvent = damageEvents[0];
+    }
 
-    if (
-      relevantEvent &&
-      HasHitpoints(relevantEvent) &&
-      relevantEvent.hitPoints &&
-      relevantEvent.maxHitPoints
-    ) {
+    if (relevantEvent && HasHitpoints(relevantEvent)) {
       return relevantEvent.hitPoints / relevantEvent.maxHitPoints;
     } else {
       return undefined;
