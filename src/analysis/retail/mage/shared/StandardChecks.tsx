@@ -1,7 +1,18 @@
 import Analyzer from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import { SpellInfo } from 'parser/core/EventFilter';
-import { EventType, CastEvent, BeginChannelEvent } from 'parser/core/Events';
+import EventFilter, {
+  SELECTED_PLAYER,
+  SELECTED_PLAYER_PET,
+  SpellInfo,
+} from 'parser/core/EventFilter';
+import {
+  HasAbility,
+  HasTarget,
+  HasHitpoints,
+  EventType,
+  CastEvent,
+  BeginChannelEvent,
+} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -44,8 +55,9 @@ class StandardChecks extends Analyzer {
   /**
    * @param spell the spell you want to count casts for.
    */
-  countTotalCasts(spell: SpellInfo) {
-    return this.abilityTracker.getAbility(spell.id).casts;
+  countEvents(eventType: EventType = EventType.Event, spell: SpellInfo) {
+    const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
+    return events.length;
   }
 
   /**
@@ -54,7 +66,12 @@ class StandardChecks extends Analyzer {
    * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
    * @param cast an optional cast spell object to count. Omit or leave undefined to count all casts
    */
-  countEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType: string, cast?: SpellInfo) {
+  countEventsByBuff(
+    buffActive: boolean,
+    buff: SpellInfo,
+    eventType: EventType = EventType.Event,
+    cast?: SpellInfo,
+  ) {
     const events = buffActive
       ? this.getEventsByBuff(true, buff, eventType, cast)
       : this.getEventsByBuff(false, buff, eventType, cast);
@@ -67,7 +84,12 @@ class StandardChecks extends Analyzer {
    * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
    * @param spell an optional spell object to search. Omit or leave undefined to count all events
    */
-  getEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType?: string, spell?: SpellInfo) {
+  getEventsByBuff(
+    buffActive: boolean,
+    buff: SpellInfo,
+    eventType: EventType = EventType.Event,
+    spell?: SpellInfo,
+  ) {
     const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
     const filteredEvents = events.filter((e) =>
       buffActive
@@ -75,6 +97,44 @@ class StandardChecks extends Analyzer {
         : !this.selectedCombatant.hasBuff(buff.id, e.timestamp + 1),
     );
     return filteredEvents;
+  }
+
+  /**
+   * @param buff the spell object for the proc's buff.
+   * @param spenderSpell the spell object (or an array of spell objects) that are used to spend the proc.
+   */
+  getExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo) {
+    const events = this.getEvents(
+      true,
+      EventType.RemoveBuff,
+      undefined,
+      undefined,
+      undefined,
+      buff,
+    );
+
+    const filteredEvents = events.filter((e) => {
+      const castEvent = this.getEvents(
+        false,
+        EventType.Cast,
+        1,
+        e.timestamp,
+        undefined,
+        spenderSpell,
+      )[0];
+      this.log(castEvent);
+      return !castEvent;
+    });
+    this.log(filteredEvents.length);
+    return filteredEvents;
+  }
+
+  /**
+   * @param buff the spell object for the proc's buff.
+   * @param spenderSpell the spell object (or an array of spell objects) that are used to spend the proc.
+   */
+  countExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo) {
+    return this.getExpiredProcs(buff, spenderSpell).length;
   }
 
   /**
@@ -96,17 +156,15 @@ class StandardChecks extends Analyzer {
 
     const relevantEvent = damageEvents.find(
       (e) =>
-        'targetID' in e &&
+        HasTarget(e) &&
         e.targetID &&
-        'targetInstance' in e &&
         e.targetInstance &&
         castTarget === encodeTargetString(e.targetID, e.targetInstance),
     );
 
     if (
       relevantEvent &&
-      'hitPoints' in relevantEvent &&
-      'maxHitPoints' in relevantEvent &&
+      HasHitpoints(relevantEvent) &&
       relevantEvent.hitPoints &&
       relevantEvent.maxHitPoints
     ) {
@@ -122,38 +180,28 @@ class StandardChecks extends Analyzer {
    * @param count the number of events to get. Leave undefined for no limit.
    * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
    * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
-   * @param spell the specific spell object you are searching for. Leave undefined for all spells.
+   * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
    */
   getEvents(
     searchBackwards: boolean = true,
-    eventType?: string,
+    eventType: EventType = EventType.Event,
     count?: number,
     startTimestamp: number = this.owner.fight.end_time,
     duration?: number,
     spell?: SpellInfo,
+    includePets: boolean = false,
   ) {
+    const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
+    const eventFilter = spell
+      ? new EventFilter(eventType).by(source).spell(spell)
+      : new EventFilter(eventType).by(source);
     const events = searchBackwards
-      ? this.eventHistory.last(count, duration, undefined, startTimestamp)
-      : this.eventHistory.next(count, duration, undefined, startTimestamp);
+      ? this.eventHistory.last(count, duration, eventFilter, startTimestamp)
+      : this.eventHistory.next(count, duration, eventFilter, startTimestamp);
 
-    let filteredEvents = events.filter(
-      (e) => 'sourceID' in e && e.sourceID === this.selectedCombatant.id,
+    const filteredEvents = events.filter((e) =>
+      HasAbility(e) ? !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) : true,
     );
-    filteredEvents = filteredEvents.filter((e) => {
-      if ('ability' in e && spell) {
-        return (
-          !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) &&
-          e.ability.guid === spell.id &&
-          (!eventType || eventType === e.type)
-        );
-      } else if ('ability' in e) {
-        return (
-          !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) && (!eventType || eventType === e.type)
-        );
-      } else {
-        return !eventType || eventType === e.type;
-      }
-    });
     return filteredEvents;
   }
 
