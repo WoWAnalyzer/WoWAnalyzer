@@ -99,7 +99,7 @@ class StandardChecks extends Analyzer {
    * @param buff the spell object for the proc's buff.
    * @param spenderSpell the spell object (or an array of spell objects) that are used to spend the proc.
    */
-  getExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo) {
+  getExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo | SpellInfo[]) {
     const events = this.getEvents(
       true,
       EventType.RemoveBuff,
@@ -127,7 +127,7 @@ class StandardChecks extends Analyzer {
    * @param buff the spell object for the proc's buff.
    * @param spenderSpell the spell object (or an array of spell objects) that are used to spend the proc.
    */
-  countExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo) {
+  countExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo | SpellInfo[]) {
     return this.getExpiredProcs(buff, spenderSpell).length;
   }
 
@@ -182,7 +182,7 @@ class StandardChecks extends Analyzer {
     count?: number,
     startTimestamp: number = this.owner.fight.end_time,
     duration?: number,
-    spell?: SpellInfo,
+    spell?: SpellInfo | SpellInfo[],
     includePets: boolean = false,
   ): Array<MappedEvent<ET>> {
     const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
