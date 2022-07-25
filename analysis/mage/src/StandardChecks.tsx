@@ -12,6 +12,7 @@ import {
   EventType,
   CastEvent,
   BeginChannelEvent,
+  MappedEvent,
 } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
@@ -55,7 +56,7 @@ class StandardChecks extends Analyzer {
   /**
    * @param spell the spell you want to count casts for.
    */
-  countEvents(eventType: EventType = EventType.Event, spell: SpellInfo) {
+  countEvents(eventType: EventType, spell: SpellInfo) {
     const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
     return events.length;
   }
@@ -66,12 +67,7 @@ class StandardChecks extends Analyzer {
    * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
    * @param cast an optional cast spell object to count. Omit or leave undefined to count all casts
    */
-  countEventsByBuff(
-    buffActive: boolean,
-    buff: SpellInfo,
-    eventType: EventType = EventType.Event,
-    cast?: SpellInfo,
-  ) {
+  countEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType: EventType, cast?: SpellInfo) {
     const events = buffActive
       ? this.getEventsByBuff(true, buff, eventType, cast)
       : this.getEventsByBuff(false, buff, eventType, cast);
@@ -84,12 +80,12 @@ class StandardChecks extends Analyzer {
    * @param eventType the type of event that you want to search for. i.e. "cast", "begincast", EventType.Cast, EventType.BeginCast, etc.
    * @param spell an optional spell object to search. Omit or leave undefined to count all events
    */
-  getEventsByBuff(
+  getEventsByBuff<ET extends EventType>(
     buffActive: boolean,
     buff: SpellInfo,
-    eventType: EventType = EventType.Event,
+    eventType: ET,
     spell?: SpellInfo,
-  ) {
+  ): Array<MappedEvent<ET>> {
     const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
     const filteredEvents = events.filter((e) =>
       buffActive
@@ -182,15 +178,15 @@ class StandardChecks extends Analyzer {
    * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
    * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
    */
-  getEvents(
+  getEvents<ET extends EventType>(
     searchBackwards: boolean = true,
-    eventType: EventType = EventType.Event,
+    eventType: ET,
     count?: number,
     startTimestamp: number = this.owner.fight.end_time,
     duration?: number,
     spell?: SpellInfo,
     includePets: boolean = false,
-  ) {
+  ): Array<MappedEvent<ET>> {
     const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
     const eventFilter = spell
       ? new EventFilter(eventType).by(source).spell(spell)
