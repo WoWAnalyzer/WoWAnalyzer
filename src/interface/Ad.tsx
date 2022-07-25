@@ -22,7 +22,7 @@ const Ad = ({ style, location }: Props) => {
   const pageLoc = useLocation();
   const premium = usePremium();
 
-  const [showBackground, setShowBackground] = useState(false);
+  const [showBackground, setShowBackground] = useState(window.adScriptFailed);
 
   useEffect(() => {
     if (!premium) {
@@ -40,11 +40,12 @@ const Ad = ({ style, location }: Props) => {
     const observer = new MutationObserver((mutationList) => {
       const target = mutationList[0].target;
       const hasDisplayNone = window.getComputedStyle(target as Element).display === 'none';
-      setShowBackground(hasDisplayNone);
+      setShowBackground(hasDisplayNone || !target.hasChildNodes());
     });
 
     observer.observe(node, {
       attributes: true,
+      childList: true,
       attributeFilter: ['style'],
     });
   }, []);
@@ -72,6 +73,7 @@ declare global {
   interface Window {
     tyche?: any;
     refreshAds?: () => void;
+    adScriptFailed?: boolean;
   }
 }
 
