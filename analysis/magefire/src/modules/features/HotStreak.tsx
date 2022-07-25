@@ -2,74 +2,35 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MS_BUFFER_250 } from '@wowanalyzer/mage';
+import StandardChecks from '@wowanalyzer/mage/src/StandardChecks';
 
 import HotStreakPreCasts from './HotStreakPreCasts';
-
-const debug = false;
 
 class HotStreak extends Analyzer {
   static dependencies = {
     hotStreakPreCasts: HotStreakPreCasts,
-    eventHistory: EventHistory,
+    standardChecks: StandardChecks,
   };
   protected hotStreakPreCasts!: HotStreakPreCasts;
-  protected eventHistory!: EventHistory;
+  protected standardChecks!: StandardChecks;
 
-  hasPyroclasm: boolean;
-  totalHotStreakProcs = 0;
-  expiredProcs = 0;
-  hotStreakRemoved = 0;
+  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
 
-  constructor(options: Options) {
-    super(options);
-    this.hasPyroclasm = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-      this.onHotStreakApplied,
-    );
-    this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-      this.checkForExpiredProcs,
-    );
-  }
+  expiredProcs = () => this.standardChecks.countExpiredProcs(SPELLS.HOT_STREAK, SPELLS.PYROBLAST);
 
-  //Count the number of times Hot Streak was applied
-  onHotStreakApplied(event: ApplyBuffEvent) {
-    this.totalHotStreakProcs += 1;
-  }
-
-  //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
-  checkForExpiredProcs(event: RemoveBuffEvent) {
-    const lastCastEvent = this.eventHistory.last(
-      1,
-      MS_BUFFER_250,
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE]),
-    );
-    if (lastCastEvent.length === 0) {
-      debug && this.log('Hot Streak proc expired');
-      this.expiredProcs += 1;
-    }
-  }
-
-  get usedProcs() {
-    return this.totalHotStreakProcs - this.expiredProcs;
-  }
-
-  get expiredProcsPercent() {
-    return this.expiredProcs / this.totalHotStreakProcs || 0;
+  get totalHotStreakProcs() {
+    return this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK);
   }
 
   get hotStreakUtil() {
-    return 1 - this.expiredProcs / this.totalHotStreakProcs || 0;
+    return 1 - this.expiredProcs() / this.totalHotStreakProcs || 0;
   }
 
   get hotStreakUtilizationThresholds() {
@@ -88,7 +49,7 @@ class HotStreak extends Analyzer {
     when(this.hotStreakUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You allowed {formatPercentage(this.expiredProcsPercent)}% of your{' '}
+          You allowed {formatPercentage(this.expiredProcs() / this.totalHotStreakProcs)}% of your{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as
           possible to avoid this.
         </>,
@@ -122,8 +83,8 @@ class HotStreak extends Analyzer {
             <br />
             <ul>
               <li>Total procs - {this.totalHotStreakProcs}</li>
-              <li>Used procs - {this.usedProcs}</li>
-              <li>Expired procs - {this.expiredProcs}</li>
+              <li>Used procs - {this.totalHotStreakProcs - this.expiredProcs()}</li>
+              <li>Expired procs - {this.expiredProcs()}</li>
               <li>
                 Procs used without a Fireball - {this.hotStreakPreCasts.noCastBeforeHotStreak}
               </li>
