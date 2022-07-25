@@ -23,7 +23,11 @@ class HotStreak extends Analyzer {
 
   hasPyroclasm: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
 
-  expiredProcs = () => this.standardChecks.countExpiredProcs(SPELLS.HOT_STREAK, SPELLS.PYROBLAST);
+  expiredProcs = () =>
+    this.standardChecks.countExpiredProcs(SPELLS.HOT_STREAK, [
+      SPELLS.PYROBLAST,
+      SPELLS.FLAMESTRIKE,
+    ]);
 
   get totalHotStreakProcs() {
     return this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK);
