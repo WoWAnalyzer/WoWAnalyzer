@@ -33,13 +33,9 @@ class HotStreak extends Analyzer {
     return this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK);
   }
 
-  get hotStreakUtil() {
-    return 1 - this.expiredProcs() / this.totalHotStreakProcs || 0;
-  }
-
   get hotStreakUtilizationThresholds() {
     return {
-      actual: this.hotStreakUtil,
+      actual: 1 - this.expiredProcs() / this.totalHotStreakProcs || 0,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -61,7 +57,7 @@ class HotStreak extends Analyzer {
         .icon(SPELLS.HOT_STREAK.icon)
         .actual(
           <Trans id="mage.fire.suggestions.hotStreak.expired">
-            {formatPercentage(this.hotStreakUtil)}% expired
+            {formatPercentage(this.hotStreakUtilizationThresholds.actual)}% expired
           </Trans>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
@@ -98,9 +94,10 @@ class HotStreak extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.HOT_STREAK.id}>
           <>
-            {formatPercentage(this.hotStreakUtil, 0)}% <small>Proc Utilization</small>
+            {formatPercentage(this.hotStreakUtilizationThresholds.actual, 0)}%{' '}
+            <small>Proc Utilization</small>
             <br />
-            {formatPercentage(this.hotStreakPreCasts.castBeforeHotStreakUtil, 0)}%{' '}
+            {formatPercentage(this.hotStreakPreCasts.castBeforeHotStreakThresholds.actual, 0)}%{' '}
             <small>Procs used alongside Fireball</small>
           </>
         </BoringSpellValueText>
