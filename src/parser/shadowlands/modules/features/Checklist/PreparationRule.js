@@ -60,11 +60,19 @@ class PreparationRule extends PureComponent {
     return (
       <>
         <Requirement
-          name={<Trans>All weapons enhanced (oils/stones)</Trans>}
+          name={
+            <Trans id="shared.modules.features.checklist.allWeaponsEnhanced">
+              All weapons enhanced (oils/stones)
+            </Trans>
+          }
           thresholds={thresholds.weaponsEnhanced}
         />
         <Requirement
-          name={<Trans>Using high quality weapon enhancements</Trans>}
+          name={
+            <Trans id="shared.modules.features.checklist.highQualityWeaponEnhancements">
+              Using high quality weapon enhancements
+            </Trans>
+          }
           thresholds={thresholds.bestWeaponEnhancements}
         />
       </>
