@@ -18,5 +18,11 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["./types", "./src"],
-  "exclude": ["./src/parser/core/tests", "./**/*.test.ts", "./**/*.test.tsx"]
+  "exclude": ["./src/parser/core/tests", "./**/*.test.ts", "./**/*.test.tsx"],
+  "ts-node": {
+    // these options are overrides used only by ts-node
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
 }
