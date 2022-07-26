@@ -38,10 +38,6 @@ class HotStreak extends Analyzer {
       SPELLS.FLAMESTRIKE,
     ]);
 
-  get totalHotStreakProcs() {
-    return this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK);
-  }
-
   // prettier-ignore
   missingHotStreakPreCast = () => {
     let hotStreakRemovals = this.standardChecks.getEvents(true, EventType.RemoveBuff, undefined, undefined, undefined, SPELLS.HOT_STREAK);
@@ -115,6 +111,10 @@ class HotStreak extends Analyzer {
     });
     return events.length;
   };
+
+  get totalHotStreakProcs() {
+    return this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK);
+  }
 
   get hotStreakUtilizationThresholds() {
     return {
