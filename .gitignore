@@ -8,10 +8,7 @@
 /build
 
 # scripts
-/scripts/conduits/data/
-raidbotsConduitsInfo.json
-soulbindconduititem.json
-soulbindconduitrank.json
+/scripts/talents/*.json
 
 # misc
 .DS_Store
