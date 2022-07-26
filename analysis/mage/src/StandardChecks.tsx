@@ -107,7 +107,7 @@ class StandardChecks extends Analyzer {
     buffActive: boolean,
     buff: SpellInfo,
     eventType: ET,
-    spell?: SpellInfo,
+    spell?: SpellInfo | SpellInfo[],
   ): Array<MappedEvent<ET>> {
     const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
     const filteredEvents = events.filter((e) =>

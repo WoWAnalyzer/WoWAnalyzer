@@ -3,111 +3,91 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, {
-  CastEvent,
-  DamageEvent,
-  ApplyBuffEvent,
-  RemoveBuffEvent,
-  HasTarget,
-} from 'parser/core/Events';
+import Analyzer from 'parser/core/Analyzer';
+import { HasTarget, EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
-import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from '@wowanalyzer/mage';
-
-const debug = false;
+import { FIRE_DIRECT_DAMAGE_SPELLS, StandardChecks } from '@wowanalyzer/mage';
 
 class HotStreakWastedCrits extends Analyzer {
   static dependencies = {
-    enemies: Enemies,
+    standardChecks: StandardChecks,
   };
-  protected enemies!: Enemies;
+  protected standardChecks!: StandardChecks;
 
-  hasPyromaniac: boolean;
-  lastCastEvent?: CastEvent;
-  wastedCrits = 0;
-  hasPyromaniacProc = false;
-  pyromaniacProc = false;
-  hotStreakRemoved = 0;
+  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
 
-  constructor(options: Options) {
-    super(options);
-    this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
-      this.onCast,
+  wastedCrits = () => {
+    let events = this.standardChecks.getEventsByBuff(
+      true,
+      SPELLS.HOT_STREAK,
+      EventType.Damage,
+      FIRE_DIRECT_DAMAGE_SPELLS,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-      this.checkForPyromaniacProc,
-    );
-    this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-      this.onHotStreakRemoved,
-    );
-  }
 
-  //When a spell that contributes towards Hot Streak is cast, get the event info to use for excluding the cleaves from Phoenix Flames on the damage event.
-  onCast(event: CastEvent) {
-    this.lastCastEvent = event;
-  }
+    //Filter it out if they were using their Hot Streak at the exact same time that Scorch was cast.
+    //There is a small grace period and Scorch has no travel time, so this makes it look like the Scorch cast was wasted when it wasnt.
+    events = events.filter(
+      (e) =>
+        !e.ability.guid === SPELLS.SCORCH.id ||
+        this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id, e.timestamp + 50),
+    );
 
-  //When a spell that contributes towards Hot Streak crits the target while Hot Streak is active, count it as a wasted crit.
-  //Excludes the cleave from Phoenix Flames (the cleave doesnt contribute towards Hot Streak) and excludes crits immediately after Pyromaniac procs, cause the player cant do anything to prevent that.
-  onDamage(event: DamageEvent) {
-    if (!this.lastCastEvent) {
-      return;
-    }
-    if (!HasTarget(this.lastCastEvent)) {
-      return;
-    }
-    const spellId = event.ability.guid;
-    const castTarget = encodeTargetString(this.lastCastEvent.targetID, event.targetInstance);
-    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (
-      event.hitType !== HIT_TYPES.CRIT ||
-      !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id, undefined, -50) ||
-      (spellId === SPELLS.PHOENIX_FLAMES.id && castTarget !== damageTarget)
-    ) {
-      return;
-    }
+    //Filter out anything that isnt a Crit
+    events = events.filter((e) => e.hitType === HIT_TYPES.CRIT);
 
-    if (this.hasPyromaniacProc) {
-      debug && this.log('Wasted Crit Ignored');
-    } else {
-      this.wastedCrits += 1;
-      this.lastCastEvent.meta = this.lastCastEvent.meta || {};
-      this.lastCastEvent.meta.isInefficientCast = true;
-      this.lastCastEvent.meta.inefficientCastReason =
+    //Filter out Phoenix Flames cleaves
+    events = events.filter((e) => {
+      const cast = this.standardChecks.getEvents(
+        true,
+        EventType.Cast,
+        1,
+        e.timestamp,
+        5000,
+        SPELLS[e.ability.guid],
+      )[0];
+      if (cast && HasTarget(cast)) {
+        const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
+        return castTarget === encodeTargetString(e.targetID, e.targetInstance);
+      }
+      return true;
+    });
+
+    //If the player got a Pyromaniac proc, then dont count it as a wasted proc because there is nothing they could have done to prevent the crit from being wasted.
+    events = events.filter((e) => {
+      const pyromaniacProc = this.standardChecks.getEvents(
+        true,
+        EventType.RemoveBuff,
+        1,
+        e.timestamp,
+        250,
+        SPELLS.HOT_STREAK,
+      )[0];
+      return !this.hasPyromaniac || !pyromaniacProc;
+    });
+
+    //Highlight Timeline
+    events.forEach((e) => {
+      this.log(this.owner.formatTimestamp(e.timestamp));
+      const cast = this.standardChecks.getEvents(
+        true,
+        EventType.Cast,
+        1,
+        e.timestamp,
+        5000,
+        SPELLS[e.ability.guid],
+      )[0];
+      const tooltip =
         'This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.';
-      debug && this.log('Wasted Crit');
-    }
-  }
-
-  //Pyromaniac doesnt trigger an event, so we need to check to see if the player immediately got a new Hot Streak immediately after using a Hot Streak
-  checkForPyromaniacProc(event: ApplyBuffEvent) {
-    if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < MS_BUFFER_250) {
-      this.hasPyromaniacProc = true;
-    }
-  }
-
-  onHotStreakRemoved(event: RemoveBuffEvent) {
-    this.hotStreakRemoved = event.timestamp;
-    this.hasPyromaniacProc = false;
-  }
-
-  get wastedCritsPerMinute() {
-    return this.wastedCrits / (this.owner.fightDuration / 60000);
-  }
+      cast && this.standardChecks.highlightInefficientCast(cast, tooltip);
+    });
+    return events.length;
+  };
 
   get wastedCritsThresholds() {
     return {
-      actual: this.wastedCritsPerMinute,
+      actual: this.wastedCrits() / (this.owner.fightDuration / 60000),
       isGreaterThan: {
         minor: 0,
         average: 1,
@@ -121,16 +101,17 @@ class HotStreakWastedCrits extends Analyzer {
     when(this.wastedCritsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)}{' '}
-          Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was
-          active. This is a waste since those crits could have contibuted towards your next Hot
-          Streak. Try to use your procs as soon as possible to avoid this.
+          You crit with {formatNumber(this.wastedCrits())} (
+          {formatNumber(this.wastedCritsThresholds.actual)} Per Minute) direct damage abilities
+          while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those
+          crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as
+          possible to avoid this.
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
         .actual(
           <Trans id="mage.fire.suggestions.hotStreak.wastedCrits">
-            {formatNumber(this.wastedCrits)} crits wasted
+            {formatNumber(this.wastedCrits())} crits wasted
           </Trans>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
