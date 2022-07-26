@@ -8844,7 +8844,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -8907,7 +8908,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div
