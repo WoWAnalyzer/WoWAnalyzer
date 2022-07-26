@@ -6,6 +6,11 @@ import { SpellLink } from 'interface';
 export default [
   change(
     date(2022, 7, 24),
+    'Remove talents that were removed in BFA/Shadowlands prepatch.',
+    ToppleTheNun,
+  ),
+  change(
+    date(2022, 7, 24),
     <>
       Correct spelling of <SpellLink id={SPELLS.FEL_DEVASTATION_DAMAGE.id} />.
     </>,
