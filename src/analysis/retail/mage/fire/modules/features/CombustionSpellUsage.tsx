@@ -38,16 +38,11 @@ class CombustionSpellUsage extends Analyzer {
     );
   }
 
-  get fireballCastsPerCombustion() {
-    return (
-      this.fireballCastsDuringCombustion() /
-      this.standardChecks.countEvents(EventType.Cast, SPELLS.COMBUSTION)
-    );
-  }
-
   get fireballDuringCombustionThresholds() {
     return {
-      actual: this.fireballCastsPerCombustion,
+      actual:
+        this.fireballCastsDuringCombustion() /
+        this.standardChecks.countEvents(EventType.Cast, SPELLS.COMBUSTION),
       isGreaterThan: {
         minor: 0,
         average: 0.5,
@@ -62,18 +57,18 @@ class CombustionSpellUsage extends Analyzer {
       suggest(
         <>
           You started to cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.fireballBeginCasts} times
-          ({this.fireballCastsPerCombustion.toFixed(2)} per Combustion), and completed{' '}
-          {this.fireballCastsDuringCombustion} casts, during <SpellLink id={SPELLS.COMBUSTION.id} />
-          . Combustion has a short duration, so you are better off using instant abilities like{' '}
-          <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. If
-          you run out of instant cast abilities, use <SpellLink id={SPELLS.SCORCH.id} /> instead of
-          Fireball since it has a shorter cast time.
+          ({this.fireballDuringCombustionThresholds.actual.toFixed(2)} per Combustion), and
+          completed {this.fireballCastsDuringCombustion} casts, during{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} />. Combustion has a short duration, so you are
+          better off using instant abilities like <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
+          <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. If you run out of instant cast abilities, use{' '}
+          <SpellLink id={SPELLS.SCORCH.id} /> instead of Fireball since it has a shorter cast time.
         </>,
       )
         .icon(SPELLS.COMBUSTION.icon)
         .actual(
           <Trans id="mage.fire.suggestions.combustion.castsPerCombustion">
-            {this.fireballCastsPerCombustion.toFixed(2)} Casts Per Combustion
+            {this.fireballDuringCombustionThresholds.actual.toFixed(2)} Casts Per Combustion
           </Trans>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),

@@ -30,8 +30,12 @@ class HotStreakPreCasts extends Analyzer {
     let hotStreakRemovals = this.standardChecks.getEvents(true, EventType.RemoveBuff, undefined, undefined, undefined, SPELLS.HOT_STREAK);
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.standardChecks.checkPreCast(hs, SPELLS.FIREBALL));
 
-    //If Combustion was active, filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, hs.timestamp))
+    //If Combustion or Firestorm was active, filter it out
+    hotStreakRemovals = hotStreakRemovals.filter(hs => {
+      const combustionActive = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, hs.timestamp);
+      const firestormActive = this.selectedCombatant.hasBuff(SPELLS.FIRESTORM_BUFF.id, hs.timestamp);
+      return (!this.hasFirestorm || !firestormActive) && (!combustionActive)
+    });
 
     //If Combustion ended less than 3 seconds ago, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
@@ -39,20 +43,17 @@ class HotStreakPreCasts extends Analyzer {
       return !combustionEnded || hs.timestamp - combustionEnded.timestamp > COMBUSTION_END_BUFFER;
     })
 
-    //If Firestarter was active, filter it out
+    //If Firestarter or Searing Touch was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
       const targetHealth = this.standardChecks.getTargetHealth(hs);
-      return !this.hasFirestarter || (targetHealth && targetHealth < FIRESTARTER_THRESHOLD);
+      if (this.hasFirestarter) {
+        return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
+      } else if (this.hasSearingTouch) {
+        return targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD;
+      } else {
+        return true;
+      }
     });
-
-    //If Searing Touch was active, filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const targetHealth = this.standardChecks.getTargetHealth(hs);
-      return !this.hasSearingTouch || (targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD);
-    });
-
-    //If Firestorm is active, filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.hasFirestarter || !this.selectedCombatant.hasBuff(SPELLS.FIRESTORM_BUFF.id, hs.timestamp))
 
     //If Pyroclasm was removed within 200ms of the Hot Streak being removed then they probably precast a hard cast Pyroblast, so filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
@@ -62,17 +63,12 @@ class HotStreakPreCasts extends Analyzer {
     return hotStreakRemovals.length
   }
 
-  get castBeforeHotStreakUtil() {
-    return (
-      1 -
-      this.missingHotStreakPreCast() /
-        this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK)
-    );
-  }
-
   get castBeforeHotStreakThresholds() {
     return {
-      actual: this.castBeforeHotStreakUtil,
+      actual:
+        1 -
+        this.missingHotStreakPreCast() /
+          this.standardChecks.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK),
       isLessThan: {
         minor: 0.85,
         average: 0.75,
@@ -111,7 +107,7 @@ class HotStreakPreCasts extends Analyzer {
         .icon(SPELLS.HOT_STREAK.icon)
         .actual(
           <Trans id="mage.fire.suggestions.hostStreak.precasts.utilization">
-            {formatPercentage(this.castBeforeHotStreakUtil)}% Utilization
+            {formatPercentage(this.castBeforeHotStreakThresholds.actual)}% Utilization
           </Trans>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),

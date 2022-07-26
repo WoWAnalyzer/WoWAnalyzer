@@ -5,20 +5,17 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class HeatingUp extends Analyzer {
   static dependencies = {
-    eventHistory: EventHistory,
     standardChecks: StandardChecks,
   };
-  protected eventHistory!: EventHistory;
   protected standardChecks!: StandardChecks;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
@@ -54,24 +51,26 @@ class HeatingUp extends Analyzer {
     );
 
     //Filter out events where the player has Searing Touch and the target is under 30% health
+    //Filter out events where the player has Firestarter and the target is over 90% health
     casts = casts.filter((cast) => {
       const targetHealth = this.standardChecks.getTargetHealth(cast);
-      return !this.hasSearingTouch || (targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD);
-    });
-
-    //Filter out events where the player has Firestarter and the target is over 90% health.
-    casts = casts.filter((cast) => {
-      const targetHealth = this.standardChecks.getTargetHealth(cast);
-      return !this.hasFirestarter || (targetHealth && targetHealth < FIRESTARTER_THRESHOLD);
+      if (this.hasFirestarter) {
+        return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
+      } else if (this.hasSearingTouch) {
+        return targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD;
+      } else {
+        return true;
+      }
     });
 
     //Filter out events where the player is Venthyr and Mirrors of Torment is currently being cast
     casts = casts.filter((cast) => {
-      const lastEvent = this.eventHistory.last(
+      const lastEvent = this.standardChecks.getEvents(
+        true,
+        EventType.BeginCast,
         1,
-        1000,
-        Events.begincast.by(SELECTED_PLAYER),
         cast.timestamp,
+        1000,
       )[0];
       return !lastEvent || lastEvent.ability.guid !== SPELLS.MIRRORS_OF_TORMENT.id;
     });
@@ -86,25 +85,12 @@ class HeatingUp extends Analyzer {
     );
   }
 
-  get fireBlastUtil() {
-    return (
-      1 -
-      (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) /
-        this.standardChecks.countEvents(EventType.Cast, SPELLS.FIRE_BLAST)
-    );
-  }
-
-  get phoenixFlamesUtil() {
-    return (
-      1 -
-      this.phoenixFlamesDuringHotStreak() /
-        this.standardChecks.countEvents(EventType.Cast, SPELLS.PHOENIX_FLAMES)
-    );
-  }
-
   get fireBlastUtilSuggestionThresholds() {
     return {
-      actual: this.fireBlastUtil,
+      actual:
+        1 -
+        (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) /
+          this.standardChecks.countEvents(EventType.Cast, SPELLS.FIRE_BLAST),
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -116,7 +102,10 @@ class HeatingUp extends Analyzer {
 
   get phoenixFlamesUtilSuggestionThresholds() {
     return {
-      actual: this.phoenixFlamesUtil,
+      actual:
+        1 -
+        this.phoenixFlamesDuringHotStreak() /
+          this.standardChecks.countEvents(EventType.Cast, SPELLS.PHOENIX_FLAMES),
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -140,7 +129,7 @@ class HeatingUp extends Analyzer {
         .icon(SPELLS.FIRE_BLAST.icon)
         .actual(
           <Trans id="mage.fire.suggestions.heatingUp.fireBlastUtilization">
-            {formatPercentage(this.fireBlastUtil)}% Utilization
+            {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual)}% Utilization
           </Trans>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
@@ -157,7 +146,7 @@ class HeatingUp extends Analyzer {
         .icon(SPELLS.PHOENIX_FLAMES.icon)
         .actual(
           <Trans id="mage.fire.suggestions.heatingUp.phoenixFlames.utilization">
-            {formatPercentage(this.phoenixFlamesUtil)}% Utilization
+            {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual)}% Utilization
           </Trans>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
@@ -187,11 +176,13 @@ class HeatingUp extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.HEATING_UP.id}>
           <>
-            <SpellIcon id={SPELLS.FIRE_BLAST.id} /> {formatPercentage(this.fireBlastUtil, 0)}%{' '}
+            <SpellIcon id={SPELLS.FIRE_BLAST.id} />{' '}
+            {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual, 0)}%{' '}
             <small>Fire Blast Utilization</small>
             <br />
             <SpellIcon id={SPELLS.PHOENIX_FLAMES.id} />{' '}
-            {formatPercentage(this.phoenixFlamesUtil, 0)}% <small>Phoenix Flames Utilization</small>
+            {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual, 0)}%{' '}
+            <small>Phoenix Flames Utilization</small>
           </>
         </BoringSpellValueText>
       </Statistic>
