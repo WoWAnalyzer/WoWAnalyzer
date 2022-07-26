@@ -5,6 +5,13 @@ import { SpellLink } from 'interface';
 
 export default [
   change(
+    date(2022, 7, 25),
+    <>
+      Add tracker for <SpellLink id={SPELLS.FURIOUS_GAZE.id} />.
+    </>,
+    ToppleTheNun,
+  ),
+  change(
     date(2022, 7, 24),
     <>
       Correct spelling of <SpellLink id={SPELLS.FEL_DEVASTATION_DAMAGE.id} />.
