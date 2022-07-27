@@ -107,6 +107,9 @@ const enchantIdMap: { [key: number]: string } = {
   3225: 'Executioner',
   3229: '+12 Resilience Rating',
   3273: 'Deathfrost',
+  3368: 'Rune of the Fallen Crusader',
+  3370: 'Rune of Razorice',
+  3847: 'Rune of the Stoneskin Gargoyle',
 
   // Battle For Azeroth
   5933: 'Kul Tiran Mining',
@@ -177,6 +180,11 @@ const enchantIdMap: { [key: number]: string } = {
   6228: 'Sinful Revelation',
   6229: 'Celestial Guidance',
   6230: 'Primary Stats +30',
+  6241: 'Rune of Sanguination',
+  6242: 'Rune of Spellwarding',
+  6243: 'Rune of Hysteria',
+  6244: 'Rune of Unending Thirst',
+  6245: 'Rune of the Apocalypse',
   6265: 'Eternal Insight',
 };
 

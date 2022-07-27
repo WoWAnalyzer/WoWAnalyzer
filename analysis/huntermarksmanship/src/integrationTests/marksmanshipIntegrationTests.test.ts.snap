@@ -9417,7 +9417,8 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -9480,7 +9481,8 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div
@@ -18587,7 +18589,8 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -18650,7 +18653,8 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

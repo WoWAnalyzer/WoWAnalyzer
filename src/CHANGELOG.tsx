@@ -61,6 +61,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 7, 26), 'Updated translations and corrected some translation values in various places', Putro),
+  change(date(2022, 7, 22), 'Show Death Knight Runeforge enchants on character overview.', Vetyst),
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),
   change(date(2022, 7, 21), 'Reflect the quality of an item through the border of gear shown on the character tab.', Vetyst),
   change(date(2022, 7, 21), 'Updated enchants on character overview for SL and TBC.', Vetyst),
