@@ -42,17 +42,24 @@ class Haste extends Analyzer {
   static HASTE_BUFFS: HasteBuffMap = {
     // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
 
+    //region Shared
     ...BLOODLUST_BUFFS,
     [SPELLS.BERSERKING.id]: 0.1,
-    [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
-    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
-    [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
-    [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
-    [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
+    //endregion
+
+    //region Covenants Souldbinds
     [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
     [SPELLS.FIELD_OF_BLOSSOMS_BUFF.id]: 0.15, // Buff from Field of Blossoms (Dreamweaver Soulbind Night Fae)
+    //endregion
+
+    //region Death Knight
+    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
+    //endregion
+
+    //region Demon Hunter
+    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
+    //endregion
 
     //region Druid Haste Buffs
     [SPELLS.STARLORD.id]: {
@@ -66,9 +73,20 @@ class Haste extends Analyzer {
     // Sinful Hysteria legendary has to be handled dynamically in a different module
     //endregion
 
+    //region Monk
+    //endregion
+
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
+    //endregion
+
+    //region Mage
+    [SPELLS.ICY_VEINS.id]: 0.3,
+    //endregion
+
+    //region Monk
+    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
     //endregion
 
     //region Paladin
@@ -81,13 +99,22 @@ class Haste extends Analyzer {
     [SPELLS.POWER_INFUSION.id]: 0.25,
     //endregion
 
-    //region Mage
-    [SPELLS.ICY_VEINS.id]: 0.3,
-
+    //region Rogue
     //endregion
 
-    //region Monk
-    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
+    //region Shaman
+    //endregion
+
+    //region Warlock
+    [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
+    [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
+    //endregion
+
+    //region Warrior
+    // Arms
+    [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
+    // Fury
+    [SPELLS.ENRAGE.id]: 0.25,
     //endregion
   };
 
