@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 7, 24), <>Display correct total uptime of <SpellLink id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />.</>, Vetyst),
+  change(date(2022, 7, 27), <>Display correct total uptime of <SpellLink id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />.</>, Vetyst),
   change(date(2022, 3, 4), <>Fixed issue with <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> on the checklist when <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} /> is selected.</>, emallson),
   change(date(2021, 6, 29), <>Bumped to 9.1, moved from partial.</>, Zea),
   change(date(2021, 6, 14), <>Added additional LIGHTNING_SHIELD_ELEMENTAL spellid. Fixed Stormkeeper damage calculation.</>, Zea),

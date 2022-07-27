@@ -61,7 +61,7 @@ class Haste extends Analyzer {
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     //endregion
 
-    //region Druid Haste Buffs
+    //region Druid
     [SPELLS.STARLORD.id]: {
       hastePerStack: 0.04,
     },
@@ -103,6 +103,7 @@ class Haste extends Analyzer {
     //endregion
 
     //region Shaman
+    [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
     //endregion
 
     //region Warlock
