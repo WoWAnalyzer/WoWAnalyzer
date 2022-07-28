@@ -5,12 +5,13 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import CoreChanneling from 'parser/shared/normalizers/Channeling';
 
-// import Abilities from './modules/features/Abilities';
+import Abilities from './modules/features/Abilities';
 
 class CombatLogParser extends CoreCombatLogParser {
   // static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    abilities: Abilities,
     // Mana Tab
     manaTracker: ManaTracker,
 

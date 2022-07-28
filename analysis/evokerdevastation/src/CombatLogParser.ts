@@ -1,5 +1,13 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
-class CombatLogParser extends CoreCombatLogParser {}
+import Abilities from './modules/features/Abilities';
+
+class CombatLogParser extends CoreCombatLogParser {
+  static specModules = {
+    abilities: Abilities,
+    channeling: Channeling,
+  };
+}
 
 export default CombatLogParser;

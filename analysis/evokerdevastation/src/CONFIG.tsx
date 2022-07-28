@@ -28,17 +28,16 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/dAy6WwYKhMQH8Bp3/7-Heroic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:28)/Xoeymist/standard',
+  exampleReport: '',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
-  spec: SPECS.PRESERVATION_EVOKER,
+  spec: SPECS.DEVASTATION_EVOKER,
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "PreservationEvoker" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "DevastationEvoker" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
