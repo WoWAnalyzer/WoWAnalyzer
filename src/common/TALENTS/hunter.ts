@@ -397,6 +397,15 @@ const talents = createTalentList({
     talentType: 'single',
     focusCost: 20,
   },
+  MUZZLE_TALENT: {
+    id: 187707,
+    name: 'Muzzle',
+    icon: 'ability_hunter_negate',
+    maxRanks: 1,
+    reqPoints: 0,
+    spellType: 'active',
+    talentType: 'single',
+  },
 
   //Beast Mastery
   BARBED_SHOT_BEAST_MASTERY_TALENT: {

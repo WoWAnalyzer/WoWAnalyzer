@@ -49,40 +49,38 @@ async function generateTalents() {
     const className = specTalents.className.replace(' ', '').toLowerCase();
     talentObjectByClass[className] = talentObjectByClass[className] || {};
     //Shared hasn't been populated yet, so let's do that
-    if (!talentObjectByClass[className]['Shared']) {
-      talentObjectByClass[className]['Shared'] = {};
-      Object.values(specTalents.classNodes).forEach((classTalent) => {
-        classTalent.entries.forEach((talentSpell) => {
-          if (!talentSpell.name || !talentSpell.spellId) {
-            return;
-          }
-          const talentKey = createTalentKey(talentSpell.name);
-          talentObjectByClass[className]['Shared'][talentKey] = {
-            id: talentSpell.spellId,
-            name: talentSpell.name,
-            icon: talentSpell.icon,
-            //additional DF tree information
-            maxRanks: talentSpell.maxRanks,
-            reqPoints: classTalent.reqPoints ?? 0,
-            spellType: talentSpell.type,
-            talentType: classTalent.type,
-          };
-          const entryInSpellPowerTable = spellpower.find(
-            (e) => parseInt(e.SpellID) === talentSpell.spellId,
+    talentObjectByClass[className]['Shared'] = talentObjectByClass[className]['Shared'] || {};
+    Object.values(specTalents.classNodes).forEach((classTalent) => {
+      classTalent.entries.forEach((talentSpell) => {
+        if (!talentSpell.name || !talentSpell.spellId) {
+          return;
+        }
+        const talentKey = createTalentKey(talentSpell.name);
+        talentObjectByClass[className]['Shared'][talentKey] = {
+          id: talentSpell.spellId,
+          name: talentSpell.name,
+          icon: talentSpell.icon,
+          //additional DF tree information
+          maxRanks: talentSpell.maxRanks,
+          reqPoints: classTalent.reqPoints ?? 0,
+          spellType: talentSpell.type,
+          talentType: classTalent.type,
+        };
+        const entryInSpellPowerTable = spellpower.find(
+          (e) => parseInt(e.SpellID) === talentSpell.spellId,
+        );
+        if (entryInSpellPowerTable) {
+          const resourceId = parseInt(entryInSpellPowerTable.PowerType);
+          const resourceName = ResourceTypes[resourceId];
+          const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
+          talentObjectByClass[className]['Shared'][talentKey][resourceCostKey] = findResourceCost(
+            entryInSpellPowerTable,
+            resourceId,
+            classes[specTalents.classId].baseMaxResource,
           );
-          if (entryInSpellPowerTable) {
-            const resourceId = parseInt(entryInSpellPowerTable.PowerType);
-            const resourceName = ResourceTypes[resourceId];
-            const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
-            talentObjectByClass[className]['Shared'][talentKey][resourceCostKey] = findResourceCost(
-              entryInSpellPowerTable,
-              resourceId,
-              classes[specTalents.classId].baseMaxResource,
-            );
-          }
-        });
+        }
       });
-    }
+    });
     talentObjectByClass[className][specTalents.specName] = {};
     Object.values(specTalents.specNodes).forEach((specTalent) => {
       specTalent.entries.forEach((talentSpell) => {

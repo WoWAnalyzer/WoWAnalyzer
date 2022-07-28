@@ -395,6 +395,26 @@ const talents = createTalentList({
     talentType: 'single',
     manaCost: 500,
   },
+  BLAZING_BARRIER_TALENT: {
+    id: 235313,
+    name: 'Blazing Barrier',
+    icon: 'ability_mage_moltenarmor',
+    maxRanks: 1,
+    reqPoints: 0,
+    spellType: 'active',
+    talentType: 'single',
+    manaCost: 1500,
+  },
+  ICE_BARRIER_TALENT: {
+    id: 11426,
+    name: 'Ice Barrier',
+    icon: 'spell_ice_lament',
+    maxRanks: 1,
+    reqPoints: 0,
+    spellType: 'active',
+    talentType: 'single',
+    manaCost: 1500,
+  },
 
   //Arcane
   ARCANE_BARRAGE_ARCANE_TALENT: {
