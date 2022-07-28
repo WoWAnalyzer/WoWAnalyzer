@@ -1,8 +1,8 @@
 import fs from 'fs';
 
-import { ITalentObjectByClass } from './talent-tree-types';
+import { ISpellpower, ITalentObjectByClass, ResourceTypes } from './talent-tree-types';
 
-const debug = true;
+const debug = false;
 /**
  * Requires NodeJS 18+ (or 17 with experimental flag)
  */
@@ -95,4 +95,31 @@ export function createTalentKey(talentName: string, specName?: string) {
   return `${cleanedTalentName.toUpperCase()}${
     specName ? `_${specName.toUpperCase().replace(' ', '_')}` : ''
   }_TALENT`;
+}
+
+export function camalize(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (_m: unknown, chr: string): string => chr.toUpperCase());
+}
+
+export function findResourceCost(
+  entryInSpellPowerTable: ISpellpower,
+  resourceId: number,
+  baseMaxResource: number,
+) {
+  if (parseInt(entryInSpellPowerTable.PowerCostPct) > 0) {
+    return Math.round((parseInt(entryInSpellPowerTable.PowerCostPct) / 100) * baseMaxResource);
+  } else if (
+    [
+      ResourceTypes.RunicPower,
+      ResourceTypes.Rage,
+      ResourceTypes.SoulShards,
+      ResourceTypes.Pain,
+    ].includes(resourceId)
+  ) {
+    return parseInt(entryInSpellPowerTable.ManaCost) / 10;
+  } else {
+    return parseInt(entryInSpellPowerTable.ManaCost);
+  }
 }

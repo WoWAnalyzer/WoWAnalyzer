@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 3000,
   },
   LAVA_BURST_TALENT: {
     id: 51505,
@@ -20,6 +21,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   ASTRAL_SHIFT_TALENT: {
     id: 108271,
@@ -38,6 +40,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   EARTH_ELEMENTAL_TALENT: {
     id: 198103,
@@ -101,6 +104,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   MAELSTROM_WEAPON_TALENT: {
     id: 187880,
@@ -119,6 +123,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   FIRE_AND_ICE_TALENT: {
     id: 382886,
@@ -137,6 +142,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   CLEANSE_SPIRIT_TALENT: {
     id: 51886,
@@ -146,6 +152,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 600,
   },
   FOCUSED_INSIGHT_TALENT: {
     id: 381666,
@@ -173,6 +180,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1400,
   },
   ANCESTRAL_DEFENSE_TALENT: {
     id: 382947,
@@ -191,6 +199,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   GUARDIANS_CUDGEL_TALENT: {
     id: 381819,
@@ -254,6 +263,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 200,
   },
   WIND_RUSH_TOTEM_TALENT: {
     id: 192077,
@@ -272,6 +282,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 2000,
   },
   PURGE_TALENT: {
     id: 370,
@@ -281,6 +292,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1000,
   },
   ENFEEBLEMENT_TALENT: {
     id: 378079,
@@ -362,6 +374,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 900,
   },
   IMPROVED_LIGHTNING_BOLT_TALENT: {
     id: 381674,
@@ -461,6 +474,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   LIGHTNING_LASSO_TALENT: {
     id: 305483,
@@ -488,6 +502,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   CALL_OF_THE_ELEMENTS_TALENT: {
     id: 108285,
@@ -515,6 +530,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 100,
   },
   STONESKIN_TOTEM_TALENT: {
     id: 383017,
@@ -524,6 +540,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 100,
   },
   CREATION_CORE_TALENT: {
     id: 383012,
@@ -553,6 +570,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    maelstromCost: 60,
   },
   EARTHQUAKE_ELEMENTAL_TALENT: {
     id: 61882,
@@ -562,6 +580,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    maelstromCost: 60,
   },
   ELEMENTAL_FURY_ELEMENTAL_TALENT: {
     id: 60188,
@@ -589,6 +608,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 500,
   },
   INUNDATE_ELEMENTAL_TALENT: {
     id: 378776,
@@ -688,6 +708,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   SWELLING_MAELSTROM_ELEMENTAL_TALENT: {
     id: 381707,
@@ -832,6 +853,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   PRIMORDIAL_WAVE_ELEMENTAL_TALENT: {
     id: 375982,
@@ -841,6 +863,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   ASCENDANCE_ELEMENTAL_TALENT: {
     id: 114050,
@@ -868,6 +891,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 300,
   },
   PRIMAL_ELEMENTALIST_ELEMENTAL_TALENT: {
     id: 117013,
@@ -1005,6 +1029,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   WINDFURY_WEAPON_ENHANCEMENT_TALENT: {
     id: 33757,
@@ -1104,6 +1129,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 600,
   },
   OVERFLOWING_MAELSTROM_ENHANCEMENT_TALENT: {
     id: 384149,
@@ -1131,6 +1157,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   FIRE_NOVA_ENHANCEMENT_TALENT: {
     id: 333974,
@@ -1140,6 +1167,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 100,
   },
   HAILSTORM_ENHANCEMENT_TALENT: {
     id: 334195,
@@ -1194,6 +1222,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   STORMFLURRY_ENHANCEMENT_TALENT: {
     id: 344357,
@@ -1212,6 +1241,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
     id: 117014,
@@ -1221,6 +1251,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   IMPROVD_STORMBRINGER_ENHANCEMENT_TALENT: {
     id: 319930,
@@ -1275,6 +1306,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   FERAL_SPIRIT_ENHANCEMENT_TALENT: {
     id: 51533,
@@ -1385,6 +1417,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 800,
   },
   HEALING_RAIN_RESTORATION_TALENT: {
     id: 73920,
@@ -1394,6 +1427,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2100,
   },
   HEALING_WAVE_RESTORATION_TALENT: {
     id: 77472,
@@ -1403,6 +1437,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
     id: 5394,
@@ -1412,6 +1447,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 900,
   },
   DELUGE_RESTORATION_TALENT: {
     id: 200076,
@@ -1529,6 +1565,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1100,
   },
   MASTER_OF_THE_ELEMENTS_RESTORATION_TALENT: {
     id: 16166,
@@ -1556,6 +1593,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 800,
   },
   LIVING_STREAM_RESTORATION_TALENT: {
     id: 382482,
@@ -1583,6 +1621,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   RESURGENCE_RESTORATION_TALENT: {
     id: 16196,
@@ -1637,6 +1676,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 400,
   },
   UNDULATION_RESTORATION_TALENT: {
     id: 200071,
@@ -1664,6 +1704,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1100,
   },
   EARTHEN_WALL_TOTEM_RESTORATION_TALENT: {
     id: 198838,
@@ -1673,6 +1714,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1100,
   },
   EARTHLIVING_WEAPON_RESTORATION_TALENT: {
     id: 382021,
@@ -1691,6 +1733,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   ANCESTRAL_AWAKENING_RESTORATION_TALENT: {
     id: 382309,
@@ -1736,6 +1779,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   NATURES_FOCUS_RESTORATION_TALENT: {
     id: 382019,
@@ -1790,6 +1834,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'choice',
+    manaCost: 100,
   },
   PRIMAL_TIDE_CORE_RESTORATION_TALENT: {
     id: 382045,
@@ -1817,6 +1862,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 2000,
   },
   DEEPLY_ROOTED_ELEMENTS_RESTORATION_TALENT: {
     id: 378270,

@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 20,
   },
   BLIND_TALENT: {
     id: 2094,
@@ -29,6 +30,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   EVASION_TALENT: {
     id: 5277,
@@ -47,6 +49,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   CLOAK_OF_SHADOWS_TALENT: {
     id: 31224,
@@ -92,6 +95,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   RUSHED_SETUP_TALENT: {
     id: 378803,
@@ -362,6 +366,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 10,
   },
   DEEPER_STRATAGEM_TALENT: {
     id: 193531,
@@ -427,6 +432,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 20,
   },
   VENOMOUS_WOUNDS_ASSASSINATION_TALENT: {
     id: 79134,
@@ -544,6 +550,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   VENOM_RUSH_ASSASSINATION_TALENT: {
     id: 152152,
@@ -580,6 +587,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   FLYING_DAGGERS_ASSASSINATION_TALENT: {
     id: 381631,
@@ -697,6 +705,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    energyCost: 15,
   },
   SEPSIS_ASSASSINATION_TALENT: {
     id: 385408,
@@ -706,6 +715,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    energyCost: 25,
   },
   ZOLDYCK_RECIPE_ASSASSINATION_TALENT: {
     id: 381798,
@@ -742,6 +752,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   DRAGON_TEMPERED_BLADES_ASSASSINATION_TALENT: {
     id: 381801,
@@ -780,6 +791,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 15,
   },
   GRAPPLING_HOOK_OUTLAW_TALENT: {
     id: 195457,
@@ -825,6 +837,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   RETRACTABLE_HOOK_OUTLAW_TALENT: {
     id: 256188,
@@ -960,6 +973,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   QUICK_DRAW_OUTLAW_TALENT: {
     id: 196938,
@@ -1059,6 +1073,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    energyCost: 30,
   },
   SEPSIS_OUTLAW_TALENT: {
     id: 385408,
@@ -1068,6 +1083,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    energyCost: 25,
   },
   BLADE_RUSH_OUTLAW_TALENT: {
     id: 271877,
@@ -1095,6 +1111,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    energyCost: 30,
   },
   KILLING_SPREE_OUTLAW_TALENT: {
     id: 51690,
@@ -1241,6 +1258,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   SHOT_IN_THE_DARK_SUBTLETY_TALENT: {
     id: 257505,
@@ -1295,6 +1313,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   SHADOW_TECHNIQUES_SUBTLETY_TALENT: {
     id: 196912,
@@ -1331,6 +1350,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 30,
   },
   SYMBOLS_OF_DEATH_SUBTLETY_TALENT: {
     id: 212283,
@@ -1421,6 +1441,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 60,
   },
   INEVITABILITY_SUBTLETY_TALENT: {
     id: 278683,
@@ -1475,6 +1496,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   PERFORATED_VEINS_SUBTLETY_TALENT: {
     id: 382518,

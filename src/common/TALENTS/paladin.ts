@@ -20,6 +20,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 700,
   },
   HAMMER_OF_WRATH_TALENT: {
     id: 24275,
@@ -56,6 +57,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 600,
   },
   REPENTANCE_TALENT: {
     id: 20066,
@@ -65,6 +67,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 600,
   },
   DIVINE_STEED_TALENT: {
     id: 190784,
@@ -164,6 +167,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   REBUKE_TALENT: {
     id: 96231,
@@ -191,6 +195,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 600,
   },
   BLESSING_OF_SACRIFICE_TALENT: {
     id: 6940,
@@ -200,6 +205,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 700,
   },
   JUDGMENT_TALENT: {
     id: 231663,
@@ -254,6 +260,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   HOLY_AVENGER_TALENT: {
     id: 105809,
@@ -362,6 +369,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'choice',
+    manaCost: 1500,
   },
   IMPROVED_BLESSING_OF_PROTECTION_TALENT: {
     id: 384909,
@@ -407,6 +415,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    holypowerCost: 3,
   },
   THE_MAD_PARAGON_TALENT: {
     id: 337594,
@@ -436,6 +445,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    holypowerCost: 3,
   },
   ART_OF_WAR_RETRIBUTION_TALENT: {
     id: 267344,
@@ -643,6 +653,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    holypowerCost: 3,
   },
   TRUTHS_WAKE_RETRIBUTION_TALENT: {
     id: 383350,
@@ -706,6 +717,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   EXECUTIONERS_WILL_RETRIBUTION_TALENT: {
     id: 384162,
@@ -760,6 +772,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    holypowerCost: 5,
   },
   VIRTUOUS_COMMAND_RETRIBUTION_TALENT: {
     id: 383304,
@@ -805,6 +818,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   CRUSADE_RETRIBUTION_TALENT: {
     id: 384392,
@@ -1203,6 +1217,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   BULWARK_OF_RIGHTEOUS_FURY_PROTECTION_TALENT: {
     id: 337848,
@@ -1286,6 +1301,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    holypowerCost: 3,
   },
   FLASH_OF_LIGHT_HOLY_TALENT: {
     id: 19750,
@@ -1295,6 +1311,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2200,
   },
   HAMMER_OF_JUSTICE_HOLY_TALENT: {
     id: 853,
@@ -1304,6 +1321,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   CONSECRATION_HOLY_TALENT: {
     id: 26573,
@@ -1322,6 +1340,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    holypowerCost: 3,
   },
   HAND_OF_RECKONING_HOLY_TALENT: {
     id: 62124,
@@ -1331,6 +1350,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   DIVINE_SHIELD_HOLY_TALENT: {
     id: 642,
@@ -1367,6 +1387,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   CLEANSE_HOLY_TALENT: {
     id: 4987,
@@ -1376,6 +1397,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 600,
   },
   REDEMPTION_HOLY_TALENT: {
     id: 7328,
@@ -1385,6 +1407,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 400,
   },
   LAY_ON_HANDS_HOLY_TALENT: {
     id: 633,
@@ -1421,6 +1444,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 700,
   },
   INFUSION_OF_LIGHT_HOLY_TALENT: {
     id: 53576,
@@ -1439,6 +1463,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   DIVINE_PROTECTION_HOLY_TALENT: {
     id: 498,
@@ -1448,6 +1473,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   LIGHT_OF_THE_MARTYR_HOLY_TALENT: {
     id: 183998,
@@ -1457,6 +1483,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 700,
   },
   DEVOTION_AURA_HOLY_TALENT: {
     id: 465,
@@ -1475,6 +1502,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   LIGHT_OF_DAWN_HOLY_TALENT: {
     id: 85222,
@@ -1484,6 +1512,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    holypowerCost: 3,
   },
   AVENGING_WRATH_HOLY_TALENT: {
     id: 317872,
@@ -1529,6 +1558,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 400,
   },
   HAMMER_OF_WRATH_HOLY_TALENT: {
     id: 326730,

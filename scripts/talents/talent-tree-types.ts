@@ -13,13 +13,15 @@ export enum ResourceTypes {
   Maelstrom,
   Chi,
   Insanity,
+  Unused14PowerType,
+  Unused15Powertype,
   ArcaneCharges,
   Fury,
   Pain,
   Essence,
 }
 
-type ResourceCostType = Uncapitalize<`${keyof typeof ResourceTypes}Cost`>;
+export type ResourceCostType = Uncapitalize<`${keyof typeof ResourceTypes}Cost`>;
 
 type GenericTalentInterface = {
   [key in ResourceCostType]?: number;

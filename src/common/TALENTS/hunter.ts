@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 30,
   },
   CONCUSSIVE_SHOT_TALENT: {
     id: 5116,
@@ -29,6 +30,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 10,
   },
   TRAILBLAZER_TALENT: {
     id: 199921,
@@ -164,6 +166,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 25,
   },
   HUNTERS_AGILITY_TALENT: {
     id: 384799,
@@ -272,6 +275,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 60,
   },
   SERPENT_STING_TALENT: {
     id: 271788,
@@ -281,6 +285,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 10,
   },
   IMPROVED_KILL_COMMAND_TALENT: {
     id: 378010,
@@ -380,6 +385,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    focusCost: 15,
   },
   EXPLOSIVE_SHOT_TALENT: {
     id: 212431,
@@ -389,6 +395,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 20,
   },
 
   //Beast Mastery
@@ -418,6 +425,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 40,
   },
   COBRA_SHOT_BEAST_MASTERY_TALENT: {
     id: 193455,
@@ -427,6 +435,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 35,
   },
   ASPECT_OF_THE_BEAST_BEAST_MASTERY_TALENT: {
     id: 191384,
@@ -553,6 +562,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 30,
   },
   BESTIAL_WRATH_BEAST_MASTERY_TALENT: {
     id: 19574,
@@ -670,6 +680,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 15,
   },
   CALL_OF_THE_WILD_BEAST_MASTERY_TALENT: {
     id: 359844,
@@ -735,6 +746,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 30,
   },
   WILDFIRE_BOMB_SURVIVAL_TALENT: {
     id: 259495,
@@ -843,6 +855,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    focusCost: 30,
   },
   CARVE_SURVIVAL_TALENT: {
     id: 187708,
@@ -852,6 +865,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    focusCost: 35,
   },
   MONGOOSE_BITE_SURVIVAL_TALENT: {
     id: 259387,
@@ -861,6 +875,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 30,
   },
   INTENSE_FOCUS_SURVIVAL_TALENT: {
     id: 385709,
@@ -1070,6 +1085,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 35,
   },
   IMPROVED_ARCANE_SHOT_MARKSMANSHIP_TALENT: {
     id: 321293,
@@ -1124,6 +1140,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 40,
   },
   STREAMLINE_MARKSMANSHIP_TALENT: {
     id: 260367,
@@ -1178,6 +1195,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'passive',
     talentType: 'single',
+    focusCost: 20,
   },
   TRUE_AIM_MARKSMANSHIP_TALENT: {
     id: 321287,
@@ -1241,6 +1259,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 10,
   },
   DEATHBLOW_MARKSMANSHIP_TALENT: {
     id: 378769,
@@ -1421,6 +1440,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    focusCost: 15,
   },
 });
 

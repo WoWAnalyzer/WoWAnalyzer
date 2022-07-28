@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 35,
   },
   FRENZIED_REGENERATION_TALENT: {
     id: 22842,
@@ -20,6 +21,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    rageCost: 10,
   },
   REJUVENATION_TALENT: {
     id: 774,
@@ -29,6 +31,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1100,
   },
   STARFIRE_TALENT: {
     id: 194153,
@@ -65,6 +68,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 800,
   },
   STARSURGE_TALENT: {
     id: 197626,
@@ -74,6 +78,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   RIP_TALENT: {
     id: 1079,
@@ -83,6 +88,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 20,
   },
   SWIPE_TALENT: {
     id: 213764,
@@ -110,6 +116,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 600,
   },
   MOONKIN_FORM_TALENT: {
     id: 24858,
@@ -128,6 +135,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 30,
   },
   KILLER_INSTINCT_TALENT: {
     id: 108299,
@@ -146,6 +154,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    rageCost: 40,
   },
   NURTURING_INSTINCT_TALENT: {
     id: 33873,
@@ -164,6 +173,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 600,
   },
   FELINE_SWIFTNESS_TALENT: {
     id: 131768,
@@ -227,6 +237,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   ASTRAL_INFLUENCE_TALENT: {
     id: 197524,
@@ -254,6 +265,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   SUNFIRE_NO_AOE_TALENT: {
     id: 93402,
@@ -263,6 +275,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1200,
   },
   TYPHOON_TALENT: {
     id: 132469,
@@ -308,6 +321,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2200,
   },
   IMPROVED_SUNFIRE_TALENT: {
     id: 231050,
@@ -445,6 +459,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    rageCost: 40,
   },
   GORE_GUARDIAN_TALENT: {
     id: 210706,
@@ -915,6 +930,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1600,
   },
   SHOOTING_STARS_BALANCE_TALENT: {
     id: 202342,
@@ -1149,6 +1165,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 500,
   },
   ORBIT_BREAKER_BALANCE_TALENT: {
     id: 383197,
@@ -1295,6 +1312,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 20,
   },
   MOMENT_OF_CLARITY_FERAL_TALENT: {
     id: 236068,
@@ -1313,6 +1331,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   SAVAGE_ROAR_FERAL_TALENT: {
     id: 52610,
@@ -1322,6 +1341,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    energyCost: 25,
   },
   PREDATORY_SWIFTNESS_FERAL_TALENT: {
     id: 16974,
@@ -1412,6 +1432,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    energyCost: 25,
   },
   ADAPTIVE_SWARM_FERAL_TALENT: {
     id: 325727,
@@ -1421,6 +1442,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   CONVOKE_THE_SPIRITS_FERAL_TALENT: {
     id: 323764,
@@ -1495,6 +1517,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 800,
   },
   EFFLORESCENCE_RESTORATION_TALENT: {
     id: 145205,
@@ -1504,6 +1527,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1700,
   },
   NATURES_SWIFTNESS_RESTORATION_TALENT: {
     id: 132158,
@@ -1585,6 +1609,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1800,
   },
   YSERAS_GIFT_RESTORATION_TALENT: {
     id: 145108,
@@ -1603,6 +1628,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1800,
   },
   SOUL_OF_THE_FOREST_RESTORATION_TALENT: {
     id: 158478,
@@ -1657,6 +1683,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 900,
   },
   STONEBARK_RESTORATION_TALENT: {
     id: 197061,
@@ -1675,6 +1702,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1200,
   },
   SPRING_BLOSSOMS_RESTORATION_TALENT: {
     id: 207385,
@@ -1738,6 +1766,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   CONVOKE_THE_SPIRITS_RESTORATION_TALENT: {
     id: 323764,

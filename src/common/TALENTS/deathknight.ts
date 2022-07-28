@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   DEATH_STRIKE_TALENT: {
     id: 49998,
@@ -20,6 +21,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 45,
   },
   RAISE_DEAD_TALENT: {
     id: 46585,
@@ -38,6 +40,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 0,
   },
   ANTI_MAGIC_SHELL_TALENT: {
     id: 48707,
@@ -119,6 +122,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 20,
   },
   CONTROL_UNDEAD_TALENT: {
     id: 111673,
@@ -128,6 +132,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   ICEBOUND_FORTITUDE_TALENT: {
     id: 48792,
@@ -407,6 +412,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
 
   //Blood
@@ -418,6 +424,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   MARROWREND_BLOOD_TALENT: {
     id: 195182,
@@ -427,6 +434,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 2,
   },
   BLOOD_BOIL_BLOOD_TALENT: {
     id: 316634,
@@ -490,6 +498,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   BLOOD_TAP_BLOOD_TALENT: {
     id: 221699,
@@ -544,6 +553,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   CONSUMPTION_BLOOD_TALENT: {
     id: 274156,
@@ -562,6 +572,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    runesCost: 1,
   },
   TOMBSTONE_BLOOD_TALENT: {
     id: 219809,
@@ -724,6 +735,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 10,
   },
   EVERLASTING_BOND_BLOOD_TALENT: {
     id: 377668,
@@ -789,6 +801,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   REPLENISHING_WOUNDS_UNHOLY_TALENT: {
     id: 377585,
@@ -807,6 +820,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 30,
   },
   HARBINGER_OF_DOOM_UNHOLY_TALENT: {
     id: 276023,
@@ -843,6 +857,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'passive',
     talentType: 'single',
+    runesCost: 1,
   },
   PESTILENCE_UNHOLY_TALENT: {
     id: 277234,
@@ -861,6 +876,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    runesCost: 1,
   },
   UNHOLY_PACT_UNHOLY_TALENT: {
     id: 319230,
@@ -933,6 +949,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   IMPROVED_DEATH_COIL_UNHOLY_TALENT: {
     id: 377580,
@@ -978,6 +995,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   FESTERMIGHT_UNHOLY_TALENT: {
     id: 377590,
@@ -1052,6 +1070,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 25,
   },
   OBLITERATE_FROST_TALENT: {
     id: 49020,
@@ -1061,6 +1080,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 2,
   },
   HOWLING_BLAST_FROST_TALENT: {
     id: 49184,
@@ -1070,6 +1090,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   KILLING_MACHINE_FROST_TALENT: {
     id: 51128,
@@ -1124,6 +1145,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   IMPROVED_OBLITERATE_FROST_TALENT: {
     id: 317198,
@@ -1232,6 +1254,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 40,
   },
   MURDEROUS_EFFICIENCY_FROST_TALENT: {
     id: 207061,
@@ -1304,6 +1327,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 30,
   },
   BONEGRINDER_FROST_TALENT: {
     id: 377098,
@@ -1331,6 +1355,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    runesCost: 1,
   },
   COLD_BLOODED_RAGE_FROST_TALENT: {
     id: 377083,
@@ -1394,6 +1419,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    runicpowerCost: 0,
   },
 });
 
