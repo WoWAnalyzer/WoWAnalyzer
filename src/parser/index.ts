@@ -58,7 +58,7 @@ const configs: Config[] = [
 
   BalanceDruid,
   FeralDruid,
-  ~GuardianDruid,
+  GuardianDruid,
   RestoDruid,
 
   DevastationEvoker,
