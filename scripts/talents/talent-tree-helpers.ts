@@ -1,5 +1,7 @@
 import fs from 'fs';
 
+import { ITalentObjectByClass } from './talent-tree-types';
+
 const debug = true;
 /**
  * Requires NodeJS 18+ (or 17 with experimental flag)
@@ -50,11 +52,47 @@ export async function readCsvFromUrl(url: string) {
       'content-type': 'test/csv;charset=UTF-8',
     },
   })
-    .then((res) => {
-      return res.text();
-    })
+    .then((res) => res.text())
     .catch((err) => {
       throw err;
     });
   return res;
+}
+
+export function printTalents(talentObj: ITalentObjectByClass[string]) {
+  if (!talentObj) {
+    return "\n//Class doesn't exist in data yet\n";
+  }
+  return Object.entries(talentObj)
+    .map(([specName, specTalents]) => {
+      const header = `\n  //${specName}`;
+      const talents = Object.keys(specTalents)
+        .map((talent) => `${talent}: ${JSON.stringify(specTalents[talent])},`)
+        .join('\n');
+
+      return [header, talents].join('\n');
+    })
+    .join('\n');
+}
+
+//Right now in the alpha build there are a bunch of talents between class and spec trees that share the same name
+//This is fixed by adding the spec name to the exported talent name
+export function createTalentKey(talentName: string, specName?: string) {
+  //A lot of the cleaning in here is due to the weirdnamings of stuff in alpha data
+  //Examples of weird names
+  //Fury of the Skies (1/2%)
+  //Celestial Alignment [SL version, No initial damage]
+  //Moonfire/Sunfire + 3/6s
+  //This tries to clean it as good as possible, without spending too much time on it since these names will probably be fixed as alpha progresses
+  const cleanedTalentName = talentName
+    //.replace(/ *\([^)]*\) */g, '') //Remove all contents within a ()
+    //.replace(/ *\[[^)]*\] */g, '') // Remove all contents within []
+    .replace(/([,':[\]()/+%&])/g, '') // Remove ,':[]()/+% symbols
+    .replace(/[0-9]/g, '') //Remove any numbers
+    .trim() //Remove any weird whitespaces that might remain
+    .replace(/([ -])/g, '_'); // Transform - into _
+
+  return `${cleanedTalentName.toUpperCase()}${
+    specName ? `_${specName.toUpperCase().replace(' ', '_')}` : ''
+  }_TALENT`;
 }

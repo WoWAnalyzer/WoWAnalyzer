@@ -1,11 +1,19 @@
 import fs from 'fs';
 
-import { csvToObject, readCsvFromUrl, readJsonFromUrl } from './talent-tree-helpers';
-import { ISpellpower, ITalentTree } from './talent-tree-types';
+import {
+  createTalentKey,
+  csvToObject,
+  printTalents,
+  readCsvFromUrl,
+  readJsonFromUrl,
+} from './talent-tree-helpers';
+import { ISpellpower, ITalentObjectByClass, ITalentTree } from './talent-tree-types';
 
 const WOW_BUILD_NUMBER = '10.0.0.44707';
 const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/beta/new-talent-trees.json';
 const SPELLPOWER_DATA_URL = `https://wow.tools/dbc/api/export/?name=spellpower&build=${WOW_BUILD_NUMBER}`;
+
+const debug = false;
 
 const classes: { [classID: number]: { name: string; specs: { [specID: number]: string } } } = {
   1: { name: 'Warrior', specs: { 71: 'Arms', 72: 'Fury', 73: 'Protection' } },
@@ -26,27 +34,6 @@ const classes: { [classID: number]: { name: string; specs: { [specID: number]: s
   13: { name: 'Evoker', specs: { 1467: 'Devastation', 1468: 'Preservation' } },
 };
 
-const resourceTypes = {
-  0: 'Mana',
-  1: 'Rage',
-  2: 'Focus',
-  3: 'Energy',
-  4: 'Combo Points',
-  5: 'Runes',
-  6: 'Runic Power',
-  7: 'Soul Shards',
-  8: 'Lunar Power',
-  9: 'Holy Power',
-  10: 'Alternate Power',
-  11: 'Maelstrom',
-  12: 'Chi',
-  13: 'Insanity',
-  16: 'Arcane Charges',
-  17: 'Fury',
-  18: 'Pain',
-  19: 'Essence',
-};
-
 async function generateTalents() {
   // CSV -> JSON
   const talents: ITalentTree[] = await readJsonFromUrl(TALENT_DATA_URL);
@@ -54,20 +41,74 @@ async function generateTalents() {
   const spellpower: ISpellpower[] = csvToObject<ISpellpower>(
     await readCsvFromUrl(SPELLPOWER_DATA_URL),
   );
-  //console.log(spellpower);
-  //console.log(talents);
-  //console.log(talents[0].classId);
-  //console.log(talents[0].specId);
-  //console.log(spellpower[0]);
 
+  const talentObjectByClass: ITalentObjectByClass = {};
+
+  //DISTRIBUTE TALENTS TO talentObjectByClass
+  Object.values(talents).forEach((specTalents) => {
+    const className = specTalents.className.replace(' ', '').toLowerCase();
+    talentObjectByClass[className] = talentObjectByClass[className] || {};
+    //Shared hasn't been populated yet, so let's do that
+    if (!talentObjectByClass[className]['Shared']) {
+      talentObjectByClass[className]['Shared'] = {};
+      Object.values(specTalents.classNodes).forEach((classTalent) => {
+        classTalent.entries.forEach((talentSpell) => {
+          if (!talentSpell.name || !talentSpell.spellId) {
+            return;
+          }
+          const talentKey = createTalentKey(talentSpell.name);
+          talentObjectByClass[className]['Shared'][talentKey] = {
+            id: talentSpell.spellId,
+            name: talentSpell.name,
+            icon: talentSpell.icon,
+            //additional DF tree information
+            maxRanks: talentSpell.maxRanks,
+            reqPoints: classTalent.reqPoints ?? 0,
+            spellType: talentSpell.type,
+            talentType: classTalent.type,
+          };
+        });
+      });
+    }
+    talentObjectByClass[className][specTalents.specName] = {};
+    Object.values(specTalents.specNodes).forEach((specTalent) => {
+      specTalent.entries.forEach((talentSpell) => {
+        if (!talentSpell.name || !talentSpell.spellId) {
+          return;
+        }
+        const talentKey = createTalentKey(talentSpell.name, specTalents.specName);
+        talentObjectByClass[className][specTalents.specName][talentKey] = {
+          id: talentSpell.spellId,
+          name: talentSpell.name,
+          icon: talentSpell.icon,
+          //additional DF tree information
+          maxRanks: talentSpell.maxRanks,
+          reqPoints: specTalent.reqPoints ?? 0,
+          spellType: talentSpell.type,
+          talentType: specTalent.type,
+        };
+      });
+    });
+  });
+
+  //DISTRIBUTE SPELLCOSTS
+  if (debug) {
+    console.log(spellpower);
+  }
+  //WRITE TO FILE
   Object.values(classes).forEach((playerClass) => {
-    //console.log('class', playerClass.name);
+    const lowerCasedClassName = playerClass.name.toLowerCase().replace(' ', '');
+    if (lowerCasedClassName === 'druid') {
+      //console.log(printTalents(talentObjectByClass[lowerCasedClassName]));
+    }
     fs.writeFileSync(
-      `./src/common/TALENTS/${playerClass.name.toLowerCase().replace(' ', '')}.ts`,
+      `./src/common/TALENTS/${lowerCasedClassName}.ts`,
       `// Generated file, changes will eventually be overwritten!
 import { createTalentList } from './types';
 
-const talents = createTalentList({});
+const talents = createTalentList({${printTalents(talentObjectByClass[lowerCasedClassName])}
+  });
+
 export default talents;
 export { talents as TALENTS_${playerClass.name.toUpperCase().replace(' ', '_')}}
     `,
