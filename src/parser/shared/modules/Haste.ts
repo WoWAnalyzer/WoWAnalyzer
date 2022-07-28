@@ -59,6 +59,7 @@ class Haste extends Analyzer {
 
     //region Demon Hunter
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
+    [SPELLS.FURIOUS_GAZE.id]: 0.15, // Havoc DH haste buff from fully channeling a cast of Eye Beam
     //endregion
 
     //region Druid

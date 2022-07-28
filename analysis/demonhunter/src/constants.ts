@@ -56,3 +56,5 @@ export const SHATTERED_RESTORATION_SCALING = [
   11.5,
   12,
 ];
+
+export const INCREASED_SCRUTINY_SCALING = [0, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11];

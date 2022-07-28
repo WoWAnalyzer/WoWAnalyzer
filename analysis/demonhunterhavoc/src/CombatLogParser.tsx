@@ -25,6 +25,7 @@ import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import BladeDance from './modules/spells/BladeDance';
 import DemonBite from './modules/spells/DemonBite';
+import FuriousGazeBuffUptime from './modules/spells/FuriousGazeBuffUptime';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
 import BlindFury from './modules/talents/BlindFury';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonBite: DemonBite,
     metaBuffUptime: MetaBuffUptime,
     bladeDance: BladeDance,
+    furiousGazeBuffUptime: FuriousGazeBuffUptime,
 
     //Talents
     felblade: Felblade,
