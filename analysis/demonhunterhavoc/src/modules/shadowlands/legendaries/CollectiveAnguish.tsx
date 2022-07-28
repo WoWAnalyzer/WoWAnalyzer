@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -17,7 +17,7 @@ class CollectiveAnguish extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVESTATION_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVASTATION_DAMAGE),
       this.onDamageEvent,
     );
   }

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -48,9 +49,20 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         }
       >
         <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
-        <AbilityRequirement spell={SPELLS.EARTH_ELEMENTAL.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && (
           <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
+          <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.FAE_TRANSFUSION.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />
         )}
         {combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id) && (
           <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />

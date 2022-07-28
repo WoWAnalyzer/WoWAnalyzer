@@ -5,8 +5,11 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 const SUGGESTED_RUNIC_POWER_SPENT = 100;
@@ -150,15 +153,16 @@ class Bonestorm extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BONESTORM_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(7)}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage),
-        )} %`}
-        label="of your total damage"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={this.bonestormTooltip}
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.BONESTORM_TALENT.id}>
+          <ItemPercentDamageDone amount={this.totalBonestormDamage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { BeaconTransferFailedEvent, HealEvent } from 'parser/core/Events';
 
-import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../constants';
+import { getBeaconSpellFactor, BEACON_TYPES } from '../../constants';
 
 class BeaconTransferFactor extends Analyzer {
   beaconType = BEACON_TYPES.BEACON_OF_VIRTUE;
@@ -18,8 +18,9 @@ class BeaconTransferFactor extends Analyzer {
     const spellId = healEvent.ability.guid;
     // base beacon transfer factor
     let beaconFactor = 0.5;
+
     // Spell specific transfer factor
-    const spellFactor = BEACON_TRANSFERING_ABILITIES[spellId];
+    const spellFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
     if (!spellFactor) {
       return 0;
     }

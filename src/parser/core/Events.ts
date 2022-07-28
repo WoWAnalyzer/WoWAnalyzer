@@ -41,6 +41,7 @@ export enum EventType {
   AuraBroken = 'aurabroken',
   ExtraAttacks = 'extraattacks',
   OrbGenerated = 'orb-generated',
+  Create = 'create',
 
   // Fabricated:
   Event = 'event', // everything
@@ -154,6 +155,7 @@ type MappedEventTypes = {
   [EventType.Dispel]: DispelEvent;
   [EventType.AuraBroken]: AuraBrokenEvent;
   [EventType.ExtraAttacks]: ExtraAttacksEvent;
+  [EventType.Create]: CreateEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -304,6 +306,14 @@ export interface LinkedEvent {
   event: AnyEvent;
 }
 
+export interface CastTarget {
+  name: string;
+  id: number;
+  guid: number;
+  type: string;
+  icon: string;
+}
+
 export interface BeginCastEvent extends Event<EventType.BeginCast> {
   ability: Ability;
   castEvent: CastEvent | null;
@@ -317,7 +327,7 @@ export interface BeginCastEvent extends Event<EventType.BeginCast> {
   isCancelled: boolean;
   sourceID: number;
   sourceIsFriendly: boolean;
-  target: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+  target: CastTarget;
   targetIsFriendly: boolean;
 }
 
@@ -380,7 +390,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   sourceInstance?: number;
   sourceIsFriendly: boolean;
   spellPower?: number;
-  target?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+  target?: CastTarget;
   targetID?: number;
   targetInstance?: number;
   targetIsFriendly: boolean;
@@ -486,13 +496,7 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
   targetID: number;
   targetIsFriendly: boolean;
   ability: Ability;
-  attacker?: {
-    name: 'Environment';
-    id: -1;
-    guid: 0;
-    type: 'NPC';
-    icon: 'NPC';
-  };
+  attacker?: CastTarget;
   attackerID?: number;
   attackerIsFriendly: boolean;
   amount: number;
@@ -617,11 +621,11 @@ export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuff
 
 export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
   absorb?: number;
-  source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+  source?: CastTarget;
 }
 
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
-  source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+  source?: CastTarget;
 }
 
 /**
@@ -704,7 +708,7 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 
 export interface DeathEvent extends Event<EventType.Death> {
   killingAbility?: Ability;
-  source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
+  source: CastTarget;
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
@@ -849,6 +853,16 @@ export interface SpendResourceEvent extends Event<EventType.SpendResource> {
   resourceChangeType: number;
   ability: Ability;
   __fabricated: true;
+}
+
+export interface CreateEvent extends Event<EventType.Create> {
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+  target: CastTarget;
 }
 
 export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>;
@@ -1231,6 +1245,9 @@ const Events = {
   },
   get test() {
     return new EventFilter(EventType.Test);
+  },
+  get create() {
+    return new EventFilter(EventType.Create);
   },
 };
 

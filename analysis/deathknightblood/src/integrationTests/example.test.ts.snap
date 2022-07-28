@@ -441,19 +441,15 @@ exports[`Blood Death Knight integration test: example log Bonestorm matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1007}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -469,12 +465,31 @@ exports[`Blood Death Knight integration test: example log Bonestorm matches the 
             />
           </a>
            
-          of your total damage
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=194844"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Bonestorm
+          </a>
         </label>
         <div
           className="value"
         >
-          0.00 %
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          0.00
+           %
+           
+          <small>
+            0
+             DPS
+          </small>
         </div>
       </div>
     </div>

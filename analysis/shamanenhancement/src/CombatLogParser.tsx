@@ -3,17 +3,21 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import {
   AnkhNormalizer,
   AstralShift,
+  ChainHarvest,
   EarthShield,
   ElementalBlast,
+  ElementalConduit,
   FlameShock,
   SpiritWolf,
   StaticCharge,
+  TumblingWaves,
 } from '@wowanalyzer/shaman';
 
 import Abilities from './modules/Abilities';
 // Features
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
+import ChainLightning from './modules/core/ChainLightning';
 import FeralSpirit from './modules/core/FeralSpirit';
 import MaelstromWeapon from './modules/core/MaelstromWeapon';
 import Stormbringer from './modules/core/Stormbringer';
@@ -25,6 +29,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
 import WitchDoctorWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
 // Talents
+import Tier28FourSet from './modules/shadowlands/tier/Tier28FourSet';
 import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import EarthenSpike from './modules/talents/EarthenSpike';
@@ -55,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shaman Core
     stormbringer: Stormbringer,
     feralSpirit: FeralSpirit,
+    chainLightning: ChainLightning,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -63,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     flameShock: FlameShock,
+
     windfuryTotem: WindfuryTotem,
     maelstromWeapon: MaelstromWeapon,
 
@@ -88,14 +95,18 @@ class CombatLogParser extends CoreCombatLogParser {
     //ascendance: Ascendance,
 
     // covenants
-    //chainHarvest: ChainHarvest,
+    chainHarvest: ChainHarvest,
+    tumblingWaves: TumblingWaves,
     //vesperTotem: VesperTotem,
 
     //Legendaries
+    elementalConduit: ElementalConduit,
     witchDoctorWolfBones: WitchDoctorWolfBones,
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
+
     // Tier
     tier28TwoSet: Tier28TwoSet,
+    tier28FourSet: Tier28FourSet,
   };
 }
 

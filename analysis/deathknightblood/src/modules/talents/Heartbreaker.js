@@ -2,8 +2,12 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ResourceGenerated from 'parser/ui/ResourceGenerated';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const DEATHSTRIKE_COST = 40;
 
@@ -39,11 +43,10 @@ class Heartbreaker extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.HEARTBREAKER_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        value={this.totalRPGained}
-        label="Runic Power gained"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death
@@ -52,7 +55,15 @@ class Heartbreaker extends Analyzer {
             Your Heart Strike hit on average {this.averageHearStrikeHits} targets.
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.HEARTBREAKER_TALENT.id}>
+          <BoringResourceValue
+            resource={RESOURCE_TYPES.RUNIC_POWER}
+            value={this.totalRPGained}
+            label="Runic Power generated"
+          />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

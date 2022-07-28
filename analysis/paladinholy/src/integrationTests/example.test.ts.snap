@@ -293,19 +293,15 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -346,6 +342,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
             18.75
             % of total
           </small>
+           
           <br />
           18.75
           % Crit Rate
@@ -5486,7 +5483,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                     }
                   }
                 >
-                  13
+                  11
                   %
                 </div>
               </div>
@@ -6458,19 +6455,15 @@ exports[`Holy Paladin integration test: example log JudgmentOfLight matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic standard "
+    position={10}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -6486,12 +6479,20 @@ exports[`Holy Paladin integration test: example log JudgmentOfLight matches the 
             />
           </a>
            
-          Judgment Of Light
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=183778"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Judgment of Light
+          </a>
         </label>
         <div
           className="value"
         >
-          115 Wasted Stacks
+          115
+           Wasted Stacks
         </div>
       </div>
     </div>
@@ -10201,7 +10202,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  9.46%
+                  9.26%
                    
                    
                 </div>

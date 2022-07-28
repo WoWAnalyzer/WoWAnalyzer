@@ -4,7 +4,16 @@ const conduits = {
   //endregion
 
   //region Necrolord
-
+  TUMBLING_WAVES_CONDUIT: {
+    id: 339186,
+    name: 'Tumbling Waves',
+    icon: 'spell_animamaldraxxus_wave',
+  },
+  TUMBLING_WAVES_BUFF: {
+    id: 339187,
+    name: 'Tumbling Waves',
+    icon: 'spell_animamaldraxxus_wave',
+  },
   //endregion
 
   //region Night Fae
