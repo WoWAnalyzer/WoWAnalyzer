@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   ICE_BLOCK_TALENT: {
     id: 45438,
@@ -29,6 +30,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2000,
   },
   SHATTER_TALENT: {
     id: 12982,
@@ -47,6 +49,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   RIGID_ICE_TALENT: {
     id: 382481,
@@ -74,6 +77,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   GROUNDING_SURGE_TALENT: {
     id: 382297,
@@ -101,6 +105,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   SLOW_TALENT: {
     id: 31589,
@@ -110,6 +115,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   SPELLSTEAL_TALENT: {
     id: 30449,
@@ -119,6 +125,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 10500,
   },
   ALTER_TIME_TALENT: {
     id: 342245,
@@ -128,6 +135,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   REABSORPTION_TALENT: {
     id: 382820,
@@ -200,6 +208,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 2000,
   },
   TOME_OF_RHONIN_TALENT: {
     id: 382493,
@@ -272,6 +281,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1000,
   },
   TEMPORAL_VELOCITY_TALENT: {
     id: 382826,
@@ -335,6 +345,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 4000,
   },
   GREATER_INVISIBILITY_TALENT: {
     id: 110959,
@@ -353,6 +364,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2000,
   },
   SHIFTING_POWER_TALENT: {
     id: 382440,
@@ -362,6 +374,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2500,
   },
   TIME_ANOMALY_TALENT: {
     id: 383243,
@@ -380,6 +393,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
 
   //Arcane
@@ -400,6 +414,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 7500,
   },
   RULE_OF_THREES_ARCANE_TALENT: {
     id: 264354,
@@ -418,6 +433,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'passive',
     talentType: 'single',
+    manaCost: 500,
   },
   ARCANE_FAMILIAR_ARCANE_TALENT: {
     id: 205022,
@@ -445,6 +461,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1,
   },
   IMPROVED_ARCANE_EXPLOSION_ARCANE_TALENT: {
     id: 321752,
@@ -589,6 +606,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   CHRONO_SHIFT_ARCANE_TALENT: {
     id: 235711,
@@ -607,6 +625,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2500,
   },
   SUPERNOVA_ARCANE_TALENT: {
     id: 157980,
@@ -679,6 +698,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 9000,
   },
   SIPHON_STORM_ARCANE_TALENT: {
     id: 384187,
@@ -706,6 +726,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   RADIANT_SPARK_ARCANE_TALENT: {
     id: 376103,
@@ -715,6 +736,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   CONCENTRATION_ARCANE_TALENT: {
     id: 384374,
@@ -780,6 +802,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   FIRE_BLAST_FIRE_TALENT: {
     id: 231568,
@@ -798,6 +821,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   SCORCH_FIRE_TALENT: {
     id: 2948,
@@ -807,6 +831,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   HOT_STREAK_FIRE_TALENT: {
     id: 195283,
@@ -924,6 +949,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 5000,
   },
   FLAME_PATCH_FIRE_TALENT: {
     id: 205037,
@@ -1014,6 +1040,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   PHOENIX_REBORN_FIRE_TALENT: {
     id: 383476,
@@ -1133,6 +1160,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   FROZEN_ORB_FROST_TALENT: {
     id: 84714,
@@ -1142,6 +1170,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   BLIZZARD_FROST_TALENT: {
     id: 190356,
@@ -1151,6 +1180,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   FINGERS_OF_FROST_FROST_TALENT: {
     id: 112965,
@@ -1169,6 +1199,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   SHATTER_RANK__NYI_FROST_TALENT: {
     id: 231582,
@@ -1250,6 +1281,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'passive',
     talentType: 'choice',
+    manaCost: 1500,
   },
   LONELY_WINTER_FROST_TALENT: {
     id: 205024,
@@ -1367,6 +1399,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   FREEZING_RAIN_FROST_TALENT: {
     id: 270233,
@@ -1394,6 +1427,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   SPLITTING_ICE_FROST_TALENT: {
     id: 56377,
@@ -1493,6 +1527,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
 });
 

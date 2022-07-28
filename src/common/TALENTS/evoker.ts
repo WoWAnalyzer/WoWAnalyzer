@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   OBSIDIAN_SCALES_TALENT: {
     id: 363916,
@@ -29,6 +30,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   NATURAL_CONVERGENCE_TALENT: {
     id: 369913,
@@ -56,6 +58,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   FORGER_OF_MOUNTAINS_TALENT: {
     id: 375528,
@@ -155,6 +158,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   ROAR_OF_EXHILARATION_TALENT: {
     id: 375507,
@@ -200,6 +204,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   DRACONIC_LEGACY_TALENT: {
     id: 376166,
@@ -281,6 +286,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 100,
   },
   PROTRACTED_TALONS_TALENT: {
     id: 369909,
@@ -418,6 +424,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    essenceCost: 2,
   },
   DREAM_BREATH_PRESERVATION_TALENT: {
     id: 355936,
@@ -427,6 +434,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 400,
   },
   REVERSION_PRESERVATION_TALENT: {
     id: 366155,
@@ -436,6 +444,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   TEMPORAL_COMPRESSION_PRESERVATION_TALENT: {
     id: 362874,
@@ -463,6 +472,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   SPIRITBLOOM_PRESERVATION_TALENT: {
     id: 367226,
@@ -472,6 +482,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 300,
   },
   LIFE_GIVERS_FLAME_PRESERVATION_TALENT: {
     id: 371426,
@@ -490,6 +501,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 200,
   },
   EMERALD_COMMUNION_PRESERVATION_TALENT: {
     id: 370960,
@@ -571,6 +583,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1300,
   },
   FLOW_STATE_PRESERVATION_TALENT: {
     id: 377086,
@@ -787,6 +800,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 400,
   },
   CYCLE_OF_LIFE_PRESERVATION_TALENT: {
     id: 371832,
@@ -805,6 +819,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 400,
   },
 
   //Devastation
@@ -816,6 +831,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    essenceCost: 3,
   },
   RUBY_ESSENCE_BURST_DEVASTATION_TALENT: {
     id: 376872,
@@ -1032,6 +1048,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    essenceCost: 2,
   },
   SNAPFIRE_DEVASTATION_TALENT: {
     id: 370783,

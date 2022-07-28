@@ -11,6 +11,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   SHADOW_WORD_DEATH_TALENT: {
     id: 322107,
@@ -29,6 +30,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   FOCUSED_MENDING_TALENT: {
     id: 372354,
@@ -65,6 +67,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   RENEWED_FAITH_TALENT: {
     id: 341997,
@@ -92,6 +95,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   DISPEL_MAGIC_TALENT: {
     id: 528,
@@ -101,6 +105,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   MASOCHISM_TALENT: {
     id: 193063,
@@ -191,6 +196,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   LEAP_OF_FAITH_TALENT: {
     id: 73325,
@@ -200,6 +206,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   MASS_DISPEL_TALENT: {
     id: 32375,
@@ -209,6 +216,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 4000,
   },
   MIND_CONTROL_TALENT: {
     id: 205364,
@@ -218,6 +226,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 0,
   },
   SHADOWFIEND_TALENT: {
     id: 34433,
@@ -308,6 +317,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   TWINS_OF_THE_SUN_PRIESTESS_TALENT: {
     id: 373466,
@@ -407,6 +417,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 0,
   },
   CRYSTALLINE_REFLECTION_TALENT: {
     id: 373457,
@@ -425,6 +436,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   SHADOWFLAME_PRISM_TALENT: {
     id: 373427,
@@ -463,6 +475,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   POWER_WORD_RADIANCE_DISCIPLINE_TALENT: {
     id: 194509,
@@ -472,6 +485,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 3000,
   },
   SHIELD_DISCIPLINE_DISCIPLINE_TALENT: {
     id: 197045,
@@ -526,6 +540,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'tiered',
+    manaCost: 500,
   },
   DARK_INDULGENCE_DISCIPLINE_TALENT: {
     id: 372972,
@@ -544,6 +559,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'tiered',
+    manaCost: 0,
   },
   IMPROVED_POWER_WORD_RADIANCE_DISCIPLINE_TALENT: {
     id: 322115,
@@ -571,6 +587,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   PROTECTOR_OF_THE_FRAIL_DISCIPLINE_TALENT: {
     id: 373035,
@@ -616,6 +633,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
   PAIN_TRANSFORMATION_DISCIPLINE_TALENT: {
     id: 372991,
@@ -643,6 +661,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'tiered',
+    manaCost: 2000,
   },
   REVEL_IN_PURITY_DISCIPLINE_TALENT: {
     id: 373003,
@@ -661,6 +680,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   EMBRACE_SHADOW_DISCIPLINE_TALENT: {
     id: 372985,
@@ -688,6 +708,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'choice',
+    manaCost: 1000,
   },
   EXALTATION_DISCIPLINE_TALENT: {
     id: 373042,
@@ -706,6 +727,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2000,
   },
   HALO_DISCIPLINE_TALENT: {
     id: 120517,
@@ -715,6 +737,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'choice',
+    manaCost: 1000,
   },
   DIVINE_STAR_DISCIPLINE_TALENT: {
     id: 110744,
@@ -724,6 +747,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'choice',
+    manaCost: 1000,
   },
   TWILIGHT_CORRUPTION_DISCIPLINE_TALENT: {
     id: 373065,
@@ -834,6 +858,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   PRAYER_OF_HEALING_HOLY_TALENT: {
     id: 596,
@@ -843,6 +868,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2500,
   },
   HOLY_WORD_SERENITY_HOLY_TALENT: {
     id: 2050,
@@ -852,6 +878,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   HOLY_FIRE_HOLY_TALENT: {
     id: 14914,
@@ -861,6 +888,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'tiered',
+    manaCost: 500,
   },
   HOLY_WORD_SANCTIFY_HOLY_TALENT: {
     id: 34861,
@@ -870,6 +898,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   HOLY_WORD_CHASTISE_HOLY_TALENT: {
     id: 88625,
@@ -879,6 +908,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1000,
   },
   SPIRIT_OF_REDEMPTION_HOLY_TALENT: {
     id: 20711,
@@ -915,6 +945,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 0,
   },
   AFTERLIFE_HOLY_TALENT: {
     id: 196707,
@@ -942,6 +973,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   HALO_HOLY_TALENT: {
     id: 120517,
@@ -951,6 +983,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1000,
   },
   DIVINE_STAR_HOLY_TALENT: {
     id: 110744,
@@ -960,6 +993,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1000,
   },
   BINDING_HEAL_HOLY_TALENT: {
     id: 32546,
@@ -969,6 +1003,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   SURGE_OF_LIGHT_HOLY_TALENT: {
     id: 109186,
@@ -1014,6 +1049,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 1000,
   },
   HOLY_CONDUCTOR_HOLY_TALENT: {
     id: 372350,
@@ -1032,6 +1068,7 @@ const talents = createTalentList({
     reqPoints: 8,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 2000,
   },
   LIGHT_OF_THE_NAARU_HOLY_TALENT: {
     id: 196985,
@@ -1077,6 +1114,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'choice',
+    manaCost: 3000,
   },
   BURNING_VEHEMENCE_HOLY_TALENT: {
     id: 372307,
@@ -1158,6 +1196,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 1500,
   },
   DIVINE_WORD_HOLY_TALENT: {
     id: 372760,
@@ -1176,6 +1215,7 @@ const talents = createTalentList({
     reqPoints: 20,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 500,
   },
 
   //Shadow
@@ -1205,6 +1245,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    insanityCost: 5000,
   },
   MIND_SEAR_SHADOW_TALENT: {
     id: 48045,
@@ -1214,6 +1255,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'single',
+    manaCost: 0,
   },
   DEATH_AND_MADNESS_SHADOW_TALENT: {
     id: 321291,
@@ -1250,6 +1292,7 @@ const talents = createTalentList({
     reqPoints: 0,
     spellType: 'active',
     talentType: 'choice',
+    insanityCost: 3000,
   },
   MISERY_SHADOW_TALENT: {
     id: 238558,

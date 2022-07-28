@@ -12,4 +12,3 @@ export { TALENTS_MONK } from './monk';
 export { TALENTS_DRUID } from './druid';
 export { TALENTS_DEMON_HUNTER } from './demonhunter';
 export { TALENTS_EVOKER } from './evoker';
-  
