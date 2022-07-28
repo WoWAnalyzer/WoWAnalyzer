@@ -61,6 +61,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 7, 27), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),
   change(date(2022, 7, 26), 'Updated translations and corrected some translation values in various places', Putro),
   change(date(2022, 7, 22), 'Show Death Knight Runeforge enchants on character overview.', Vetyst),
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),
