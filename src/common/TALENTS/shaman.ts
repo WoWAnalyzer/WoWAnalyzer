@@ -560,6 +560,15 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'choice',
   },
+  IMPROVED_PURIFY_SPIRIT_TALENT: {
+    id: 383016,
+    name: 'Improved Purify Spirit',
+    icon: 'ability_shaman_cleansespirit',
+    maxRanks: 1,
+    reqPoints: 0,
+    spellType: 'passive',
+    talentType: 'single',
+  },
 
   //Elemental
   EARTH_SHOCK_ELEMENTAL_TALENT: {
