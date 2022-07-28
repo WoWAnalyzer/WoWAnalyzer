@@ -62,6 +62,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 28), 'Add capability of auto-generating talents for Dragonflight based on gamedata', Putro),
   change(date(2022, 8, 25), "Added support for querying cooldown status at any point in the fight", Sref),
   change(date(2022, 8, 23), "Fixed a bug where the timeline's cooldown tooltips weren't showing properly", Sref),
   change(date(2022, 8, 22), "Overhauled cooldown tracker, fixed a bug in the cooldown interactions between CDR and haste changes, and added preliminary support for cooldown rate changes", Sref),
