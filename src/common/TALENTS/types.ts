@@ -1,7 +1,7 @@
 import Spell from '../SPELLS/Spell';
 
 export interface Talent extends Spell {
-  maxRank: number;
+  maxRanks: number;
   reqPoints?: number;
 }
 

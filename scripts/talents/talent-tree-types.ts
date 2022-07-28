@@ -1,5 +1,47 @@
+export enum ResourceTypes {
+  Mana,
+  Rage,
+  Focus,
+  Energy,
+  ComboPoints,
+  Runes,
+  RunicPower,
+  SoulShards,
+  LunarPower,
+  HolyPower,
+  AlternatePower,
+  Maelstrom,
+  Chi,
+  Insanity,
+  ArcaneCharges,
+  Fury,
+  Pain,
+  Essence,
+}
+
+type ResourceCostType = Uncapitalize<`${keyof typeof ResourceTypes}Cost`>;
+
+type GenericTalentInterface = {
+  [key in ResourceCostType]?: number;
+} & {
+  id: number;
+  name: string;
+  icon: string;
+  maxRanks: number;
+  reqPoints?: number;
+  talentType?: ClassNodeType;
+  spellType?: EntryType;
+};
+
+export interface ITalentObjectByClass {
+  [className: string]: {
+    Shared: Record<string, GenericTalentInterface>;
+    [specName: string]: Record<string, GenericTalentInterface>;
+  };
+}
+
 export interface ITalentTree {
-  className?: string;
+  className: string;
   classId: number;
   specName: string;
   specId: number;
@@ -25,7 +67,7 @@ interface TalentEntry {
   id: number;
   maxRanks: number;
   type: EntryType;
-  name: string;
+  name?: string;
   spellId?: number;
   icon: string;
 }
