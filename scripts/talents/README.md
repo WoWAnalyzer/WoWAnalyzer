@@ -11,5 +11,5 @@ $ ts-node .\scripts\talents\generate-talents.ts
 To watch the file continously:
 
 ```shell script
-$ npx nodemon .\scripts\talents\generate-talents.ts --ext '.ts' --watch scripts
+$ npx nodemon .\scripts\talents\generate-talents.ts --ext '.ts' --watch scripts/talents
 ```
