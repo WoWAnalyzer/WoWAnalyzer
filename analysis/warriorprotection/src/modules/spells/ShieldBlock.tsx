@@ -1,10 +1,11 @@
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 
 const debug = false;
@@ -234,10 +235,16 @@ class ShieldBlock extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SHIELD_BLOCK.id}>
-          Bad Defensive Casts: {totalCasts - defensiveCasts}
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.SHIELD_BLOCK.id} /> Bad Defensive Casts
+            </>
+          }
+        >
+          {totalCasts - defensiveCasts} ({formatPercentage(1 - defensiveCasts / totalCasts)}%)
           <br />
-        </BoringSpellValueText>
+        </BoringValueText>
       </Statistic>
     );
   }
