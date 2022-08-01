@@ -114,13 +114,10 @@ class Downpour extends Analyzer {
   }
 
   subStatistic() {
-    const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.DOWNPOUR_TALENT.id);
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.DOWNPOUR_TALENT.id} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.healing + feeding),
-        )} %`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
   }

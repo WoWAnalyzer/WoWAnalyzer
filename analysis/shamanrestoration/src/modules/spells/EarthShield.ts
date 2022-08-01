@@ -50,10 +50,6 @@ class EarthShield extends EarthShieldCore {
       style: ThresholdStyle.BOOLEAN,
     };
   }
-
-  getFeeding() {
-    return this.cooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);
-  }
 }
 
 export default EarthShield;

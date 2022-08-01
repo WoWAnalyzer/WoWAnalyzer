@@ -280,21 +280,16 @@ class UnleashLife extends Analyzer {
   }
 
   subStatistic() {
-    const feeding = this.cooldownThroughputTracker.getIndirectHealing(
-      SPELLS.UNLEASH_LIFE_TALENT.id,
-    );
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} />}
         value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(
-            this.healing + this.totalBuffedHealing + feeding,
-          ),
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.totalBuffedHealing),
         )} %`}
         valueTooltip={
           <Trans id="shaman.restoration.unleashLife.statistic.tooltip">
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))}%
-            from Unleash Life and{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from
+            Unleash Life and{' '}
             {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalBuffedHealing))}%
             from the healing buff.
           </Trans>
