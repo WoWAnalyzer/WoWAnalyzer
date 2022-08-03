@@ -31,9 +31,9 @@ const spells = {
     name: 'Ice Block',
     icon: 'spell_frost_frost',
   },
-  SPELL_STEAL: {
+  SPELLSTEAL: {
     id: 30449,
-    name: 'Spell Steal',
+    name: 'Spellsteal',
     icon: 'spell_arcane_arcane02',
   },
   INVISIBILITY: {
