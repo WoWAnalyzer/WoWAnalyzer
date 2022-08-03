@@ -37,11 +37,19 @@ $bad-perf-color: #ac1f39;
   }
 }
 
-.pass-mark {
+.perfect-mark {
+  color: $perfect-perf-color;
+}
+
+.good-mark {
   color: $good-perf-color;
 }
 
-.fail-mark {
+.ok-mark {
+  color: $ok-perf-color;
+}
+
+.bad-mark {
   color: $bad-perf-color;
 }
 

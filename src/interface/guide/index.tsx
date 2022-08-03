@@ -219,12 +219,14 @@ export function PassFailBar({ pass, total }: { pass: number; total: number }) {
   );
 }
 
+export const PerfectMark = () => <i className="glyphicon glyphicon-ok-circle perfect-mark" />;
+export const GoodMark = () => <i className="glyphicon glyphicon-ok good-mark" />;
+export const OkMark = () => <i className="glyphicon glyphicon-asterisk ok-mark" />;
+export const BadMark = () => <i className="glyphicon glyphicon-remove bad-mark" />;
+
+/** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */
 export const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
-  pass ? (
-    <i className="glyphicon glyphicon-ok pass-mark" />
-  ) : (
-    <i className="glyphicon glyphicon-remove fail-mark" />
-  );
+  pass ? <GoodMark /> : <BadMark />;
 
 /**
  * A slightly more complex form of the Checklist's success meters that allows for more than two outcomes.

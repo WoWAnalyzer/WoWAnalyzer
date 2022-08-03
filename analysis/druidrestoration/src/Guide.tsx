@@ -14,6 +14,7 @@ import InformationIcon from 'interface/icons/Information';
 import { Info } from 'parser/core/metric';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
+import * as React from 'react';
 
 import CombatLogParser from './CombatLogParser';
 
@@ -467,7 +468,7 @@ function CooldownBreakdownSubsection({
 
             const detailItems: CooldownExpandableItem[] = [
               {
-                label: <>Total Healing</>,
+                label: 'Total Healing',
                 result: (
                   <>
                     <strong>{formatNumber(castTotalHealing)}</strong>
@@ -475,7 +476,7 @@ function CooldownBreakdownSubsection({
                 ),
               },
               {
-                label: <>Flourish Proc</>,
+                label: 'Flourish Proc',
                 result: (
                   <>
                     <strong>{proccedFlourish ? 'Yes' : 'No'}</strong>
@@ -601,7 +602,7 @@ function CooldownBreakdownSubsection({
           is a longer, lower-impact cooldown. It should be planned around periods of high sustained
           healing.
           <br />
-          EXPANDABLE PER-CAST BREAKDOWN GOES HERE
+          EXPANDABLE PER-CAST BREAKDOWN COMING SOON
           <p />
         </>
       )}
@@ -615,7 +616,7 @@ function CooldownBreakdownSubsection({
         ramp. Watch your positioning when you cast - you want to be able to channel full duration
         without moving.
         <br />
-        EXPANDABLE PER-CAST BREAKDOWN GOES HERE
+        EXPANDABLE PER-CAST BREAKDOWN COMING SOON
         <p />
       </>
       <>
@@ -625,7 +626,7 @@ function CooldownBreakdownSubsection({
         is best used during your ramp, or any time when you expect to spam cast. Typically it should
         be used as soon as its available.
         <br />
-        EXPANDABLE PER-CAST BREAKDOWN GOES HERE
+        EXPANDABLE PER-CAST BREAKDOWN COMING SOON
         <p />
       </>
     </SubSection>
@@ -703,7 +704,7 @@ function CooldownExpandable({
 }
 
 interface CooldownExpandableItem {
-  label: JSX.Element;
-  result: JSX.Element;
-  details?: JSX.Element;
+  label: React.ReactNode;
+  result: React.ReactNode;
+  details?: React.ReactNode;
 }
