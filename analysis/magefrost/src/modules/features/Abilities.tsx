@@ -327,7 +327,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SPELL_STEAL.id,
+        spell: SPELLS.SPELLSTEAL.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
