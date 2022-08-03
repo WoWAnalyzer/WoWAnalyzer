@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
@@ -42,6 +42,7 @@ class Flourish extends Analyzer {
 
   extensionAttributions: Attribution[] = [];
   rateAttributions: MutableAmount[] = [];
+  rampTrackers: FlourishTracker[] = [];
   lastCastTimestamp?: number;
   hardcastCount: number = 0;
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
@@ -125,10 +126,23 @@ class Flourish extends Analyzer {
       this.currentRateAttribution = { amount: 0 };
       this.rateAttributions.push(this.currentRateAttribution);
       this.extensionAttributions.push(extensionAttribution);
+
+      const rejuvsOnCast =
+        this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
+        this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
+      const wgsOnCast = this.hotTracker.getHotCount(SPELLS.WILD_GROWTH.id);
+      const clipped = event.type === EventType.RefreshBuff;
+      this.rampTrackers.push({
+        timestamp: event.timestamp,
+        extensionAttribution,
+        rateAttribution: this.currentRateAttribution,
+        wgsOnCast,
+        rejuvsOnCast,
+        clipped,
+      });
     }
 
     let foundWg = false;
-
     Object.keys(this.hotTracker.hots).forEach((playerIdString) => {
       const playerId = Number(playerIdString);
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
@@ -240,6 +254,22 @@ class Flourish extends Analyzer {
       </Statistic>
     );
   }
+}
+
+/** A tracker Flourish cast checklist stuff */
+interface FlourishTracker {
+  /** Cast's timestamp */
+  timestamp: number;
+  /** The attribution object for all healing caused by the HoT extension */
+  extensionAttribution: Attribution;
+  /** The attribution object for all healing caused by the HoT rate increase */
+  rateAttribution: MutableAmount;
+  /** The number of Wild Growths out at the moment this Convoke is cast */
+  wgsOnCast: number;
+  /** The number of Rejuvs out at the moment this Convoke is cast */
+  rejuvsOnCast: number;
+  /** True iff this cast clipped an existing Flourish buff */
+  clipped: boolean;
 }
 
 export type MutableAmount = {

@@ -4,7 +4,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -16,6 +16,7 @@ import { ConvokeSpirits } from '@wowanalyzer/druid';
 
 import { isFromHardcast } from '../../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
+import { MutableAmount } from '../../talents/Flourish';
 
 const CONVOKED_HOTS = [
   SPELLS.REJUVENATION,
@@ -26,6 +27,8 @@ const CONVOKED_HOTS = [
 const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH];
 
 const NATURES_SWIFTNESS_BOOST = 1;
+
+const RECENT_FLOURISH_DURATION = 8_000;
 
 /**
  * Resto's extension to the Convoke the Spirits display. Includes healing attribution.
@@ -44,12 +47,10 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   hotTracker!: HotTrackerRestoDruid;
 
-  convokeAttributions: Attribution[] = [];
-  convokeFlourishRateAttributions: Array<{ amount: number }> = [];
-
-  /** Nature's Swiftness boosts convoked Regrowths but does not consume the buff.
-   * This attributor specifically tracks the healing due to this. */
-  convokeNaturesSwiftnessAttributions: Attribution[] = [];
+  /** Mapping from convoke cast number to a tracker for that cast - note that index zero will always be empty */
+  restoConvokeTracker: RestoConvokeCast[] = [];
+  /** Timestamp of the last Flourish cast (or null if there wasn't one) */
+  lastFlourishTimestamp?: number;
 
   constructor(options: Options) {
     super(options);
@@ -67,7 +68,14 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       Events.heal.by(SELECTED_PLAYER).spell(CONVOKED_DIRECT_HEALS),
       this.onRestoDirectHeal,
     );
-    // Flourish is tracked from the Flourish module, which calls into this one to update the attribution
+    this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT) &&
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+        this.onFlourishCast,
+      );
+
+    // Flourish healing is tracked from the Flourish module, which calls into this one to update
+    // the attribution. The cast tracker is just for overlap detection.
   }
 
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -103,49 +111,66 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   onConvoke(event: ApplyBuffEvent) {
     super.onConvoke(event);
-    this.convokeAttributions[this.cast] = HotTracker.getNewAttribution('Convoke #' + this.cast);
-    this.convokeFlourishRateAttributions[this.cast] = { amount: 0 };
-    this.convokeNaturesSwiftnessAttributions[this.cast] = HotTracker.getNewAttribution(
-      "Nature's Swiftness Convoke #" + this.cast,
-    );
+
+    const totalAttribution = HotTracker.getNewAttribution('Convoke #' + this.cast);
+    const flourishRateAttribution = { amount: 0 };
+    const nsAttribution = HotTracker.getNewAttribution("Nature's Swiftness Convoke #" + this.cast);
+    const rejuvsOnCast =
+      this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
+      this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
+    const wgsOnCast = this.hotTracker.getHotCount(SPELLS.WILD_GROWTH.id);
+    const recentlyFlourished =
+      this.lastFlourishTimestamp !== undefined &&
+      event.timestamp - this.lastFlourishTimestamp < RECENT_FLOURISH_DURATION;
+
+    this.restoConvokeTracker[this.cast] = {
+      totalAttribution,
+      flourishRateAttribution,
+      nsAttribution,
+      rejuvsOnCast,
+      wgsOnCast,
+      recentlyFlourished,
+    };
+  }
+
+  onFlourishCast(event: CastEvent) {
+    this.lastFlourishTimestamp = event.timestamp;
   }
 
   get currentConvokeAttribution(): Attribution {
-    return this.convokeAttributions[this.cast];
+    return this.restoConvokeTracker[this.cast].totalAttribution;
   }
 
   get currentConvokeRateAttribution() {
-    return this.convokeFlourishRateAttributions[this.cast];
+    return this.restoConvokeTracker[this.cast].flourishRateAttribution;
   }
 
   get currentNsConvokeAttribution(): Attribution {
-    return this.convokeNaturesSwiftnessAttributions[this.cast];
+    return this.restoConvokeTracker[this.cast].nsAttribution;
   }
 
   get totalHealing(): number {
-    const attributorHealing = this.convokeAttributions.reduce((sum, att) => att.healing + sum, 0);
-    const flourishRateHealing = this.convokeFlourishRateAttributions.reduce(
-      (sum, att) => att.amount + sum,
+    return this.restoConvokeTracker.reduce(
+      (sum, cast) => sum + cast.totalAttribution.healing + cast.flourishRateAttribution.amount,
       0,
     );
-    return attributorHealing + flourishRateHealing;
   }
 
   get convokeCount(): number {
     // attributions start indexed from 1
-    return this.convokeAttributions.length - 1;
+    return this.restoConvokeTracker.length - 1;
   }
 
   get totalNsConvokeHealing(): number {
-    return this.convokeNaturesSwiftnessAttributions.reduce((sum, att) => att.healing + sum, 0);
+    return this.restoConvokeTracker.reduce((sum, cast) => sum + cast.nsAttribution.healing, 0);
   }
 
   get nsBoostedConvokeRegrowthCount(): number {
-    return this.convokeNaturesSwiftnessAttributions.reduce((sum, att) => att.procs + sum, 0);
+    return this.restoConvokeTracker.reduce((sum, cast) => sum + cast.nsAttribution.procs, 0);
   }
 
   get nsBoostedConvokeCount(): number {
-    return this.convokeNaturesSwiftnessAttributions.filter((att) => att.healing !== 0).length;
+    return this.restoConvokeTracker.filter((cast) => cast.nsAttribution.healing !== 0).length;
   }
 
   statistic() {
@@ -206,8 +231,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                     <td>{convokeCast.form}</td>
                     <td>
                       {formatNumber(
-                        this.convokeAttributions[index].healing +
-                          this.convokeFlourishRateAttributions[index].amount,
+                        this.restoConvokeTracker[index].totalAttribution.healing +
+                          this.restoConvokeTracker[index].flourishRateAttribution.amount,
                       )}
                     </td>
                     <td>
@@ -231,6 +256,24 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       </Statistic>
     );
   }
+}
+
+/** A tracker for resto specific things that happen in a single Convoke cast */
+interface RestoConvokeCast {
+  /** The attribution object for all healing this Convoke cast causes */
+  totalAttribution: Attribution;
+  /** A special tracker specifically for the rate-increase healing due to a Flourish
+   * procced by this Convoke cast */
+  flourishRateAttribution: MutableAmount;
+  /** Nature's Swiftness boosts convoked Regrowths but does not consume the buff.
+   * This attributor specifically tracks the healing due to this. */
+  nsAttribution: Attribution;
+  /** The number of Wild Growths out at the moment this Convoke is cast */
+  wgsOnCast: number;
+  /** The number of Rejuvs out at the moment this Convoke is cast */
+  rejuvsOnCast: number;
+  /** True iff the player flourished recently (you shouldn't do this, always Convoke first) */
+  recentlyFlourished: boolean;
 }
 
 export default ConvokeSpiritsResto;

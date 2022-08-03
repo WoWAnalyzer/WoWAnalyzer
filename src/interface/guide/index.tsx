@@ -219,6 +219,13 @@ export function PassFailBar({ pass, total }: { pass: number; total: number }) {
   );
 }
 
+export const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
+  pass ? (
+    <i className="glyphicon glyphicon-ok pass-mark" />
+  ) : (
+    <i className="glyphicon glyphicon-remove fail-mark" />
+  );
+
 /**
  * A slightly more complex form of the Checklist's success meters that allows for more than two outcomes.
  * Not all result types need be included, depending on the bar's context.
