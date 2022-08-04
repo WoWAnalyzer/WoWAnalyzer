@@ -97,6 +97,11 @@ interface Config {
   timeline?: {
     separateCastBars: number[][];
   };
+  /**
+   * Indicates if the new Guide or old Checklist should be the default starting tab.
+   * If omitted, Checklist will be the default.
+   */
+  guideDefault?: boolean;
 
   // Don't change values for props below this line;
   /**
