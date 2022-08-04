@@ -33,6 +33,7 @@ import RestoDruidHealingEfficiencyDetails from './modules/features/RestoDruidHea
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
 import Swiftmend from './modules/features/Swiftmend';
+import Tranquility from './modules/features/Tranquility';
 import WildGrowth from './modules/features/WildGrowth';
 import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
     hotCountGraph: HotCountGraph,
+    tranquility: Tranquility,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,

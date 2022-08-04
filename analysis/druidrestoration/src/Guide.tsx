@@ -1,7 +1,7 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { ControlledExpandable, SpellLink, Tooltip } from 'interface';
+import { ControlledExpandable, SpellIcon, SpellLink, Tooltip } from 'interface';
 import {
   GradiatedPerformanceBar,
   GuideProps,
@@ -17,6 +17,8 @@ import { useState } from 'react';
 import * as React from 'react';
 
 import CombatLogParser from './CombatLogParser';
+import { GREED_INNERVATE, SMART_INNERVATE } from './modules/features/Innervate';
+import { MAX_TRANQ_TICKS } from './modules/features/Tranquility';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -388,12 +390,11 @@ function CooldownBreakdownSubsection({
           <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Its short cooldown and random nature mean
           its best used as it becomes available. Lightly ramping for a Convoke is still worthwhile
           in case it procs Flourish.
-          <br />
+          <p />
           {modules.convokeSpirits.convokeTracker.map((cast, ix) => {
             const restoCast = modules.convokeSpirits.restoConvokeTracker[ix];
             const castTotalHealing =
               restoCast.totalAttribution.healing + restoCast.flourishRateAttribution.amount;
-            const proccedFlourish = Boolean(cast.spellIdToCasts[SPELLS.FLOURISH_TALENT.id]);
             const checklistItems: CooldownExpandableItem[] = [];
             checklistItems.push({
               label: (
@@ -466,33 +467,14 @@ function CooldownBreakdownSubsection({
                 result: <PassFailCheckmark pass={cast.form === 'Tree of Life'} />,
               });
 
-            const detailItems: CooldownExpandableItem[] = [
-              {
-                label: 'Total Healing',
-                result: (
-                  <>
-                    <strong>{formatNumber(castTotalHealing)}</strong>
-                  </>
-                ),
-              },
-              {
-                label: 'Flourish Proc',
-                result: (
-                  <>
-                    <strong>{proccedFlourish ? 'Yes' : 'No'}</strong>
-                  </>
-                ),
-              },
-            ];
-
             return (
               <CooldownExpandable
                 info={info}
                 timestamp={cast.timestamp}
                 spellId={SPELLS.CONVOKE_SPIRITS.id}
                 magnitude={castTotalHealing}
+                magnitudeLabel="healing"
                 checklistItems={checklistItems}
-                detailItems={detailItems}
                 key={ix}
               />
             );
@@ -516,7 +498,7 @@ function CooldownBreakdownSubsection({
               the hardcast.
             </>
           )}
-          <br />
+          <p />
           {modules.flourish.rampTrackers.map((cast, ix) => {
             const castTotalHealing =
               cast.extensionAttribution.healing + cast.rateAttribution.amount;
@@ -568,25 +550,14 @@ function CooldownBreakdownSubsection({
                 result: <PassFailCheckmark pass={!cast.clipped} />,
               });
 
-            const detailItems: CooldownExpandableItem[] = [
-              {
-                label: <>Total Healing</>,
-                result: (
-                  <>
-                    <strong>{formatNumber(castTotalHealing)}</strong>
-                  </>
-                ),
-              },
-            ];
-
             return (
               <CooldownExpandable
                 info={info}
                 timestamp={cast.timestamp}
                 spellId={SPELLS.FLOURISH_TALENT.id}
                 magnitude={castTotalHealing}
+                magnitudeLabel="healing"
                 checklistItems={checklistItems}
-                detailItems={detailItems}
                 key={ix}
               />
             );
@@ -602,7 +573,7 @@ function CooldownBreakdownSubsection({
           is a longer, lower-impact cooldown. It should be planned around periods of high sustained
           healing.
           <br />
-          EXPANDABLE PER-CAST BREAKDOWN COMING SOON
+          <strong>EXPANDABLE PER-CAST BREAKDOWN COMING SOON!</strong>
           <p />
         </>
       )}
@@ -615,8 +586,80 @@ function CooldownBreakdownSubsection({
         majority of Tranquility's healing is direct and not from the HoT. Do NOT use the HoT to
         ramp. Watch your positioning when you cast - you want to be able to channel full duration
         without moving.
-        <br />
-        EXPANDABLE PER-CAST BREAKDOWN COMING SOON
+        <p />
+        {modules.tranquility.tranqCasts.map((cast, ix) => {
+          const checklistItems: CooldownExpandableItem[] = [];
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
+            details: <>({cast.wgsOnCast} HoTs active)</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.REJUVENATION} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
+            details: <>({cast.rejuvsOnCast} HoTs active)</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                Channeled full duration{' '}
+                <Tooltip
+                  hoverable
+                  content={
+                    <>
+                      Every tick of Tranquility is very powerful - plan ahead so you're in a
+                      position to channel it for its full duration, and be careful not to clip ticks
+                      at the end.
+                    </>
+                  }
+                >
+                  <span>
+                    <InformationIcon />
+                  </span>
+                </Tooltip>
+              </>
+            ),
+            result: <PassFailCheckmark pass={cast.channeledTicks === MAX_TRANQ_TICKS} />,
+            details: (
+              <>
+                ({cast.channeledTicks} / {MAX_TRANQ_TICKS} ticks)
+              </>
+            ),
+          });
+
+          const detailItems: CooldownExpandableItem[] = [];
+          detailItems.push({
+            label: 'Direct Healing',
+            result: '',
+            details: <>{formatNumber(cast.directHealing)}</>,
+          });
+          detailItems.push({
+            label: 'Periodic Healing',
+            result: '',
+            details: <>{formatNumber(cast.periodicHealing)}</>,
+          });
+
+          return (
+            <CooldownExpandable
+              info={info}
+              timestamp={cast.timestamp}
+              spellId={SPELLS.TRANQUILITY_CAST.id}
+              magnitude={cast.directHealing + cast.periodicHealing}
+              magnitudeLabel="healing"
+              checklistItems={checklistItems}
+              detailItems={detailItems}
+              key={ix}
+            />
+          );
+        })}
         <p />
       </>
       <>
@@ -624,9 +667,72 @@ function CooldownBreakdownSubsection({
           <SpellLink id={SPELLS.INNERVATE.id} />
         </strong>{' '}
         is best used during your ramp, or any time when you expect to spam cast. Typically it should
-        be used as soon as its available.
-        <br />
-        EXPANDABLE PER-CAST BREAKDOWN COMING SOON
+        be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
+        it's one of your most expensive spells.
+        <p />
+        {modules.innervate.castTrackers.map((cast, ix) => {
+          const isSelfCast = cast.targetId === undefined;
+          const targetName = cast.targetId === undefined ? 'SELF' : 'ALLY'; // TODO we can't get at combatants here so can't get name - fix?
+          const metThresholdMana = isSelfCast
+            ? cast.manaSaved >= GREED_INNERVATE
+            : cast.manaSaved >= SMART_INNERVATE;
+          const castWildGrowth =
+            cast.casts.filter((c) => c.ability.guid === SPELLS.WILD_GROWTH.id).length > 0;
+
+          const checklistItems: CooldownExpandableItem[] = [];
+          checklistItems.push({
+            label: 'Chain-cast expensive spells',
+            result: <PassFailCheckmark pass={metThresholdMana} />,
+            details: (
+              <>
+                {isSelfCast
+                  ? `(for a self-cast, save at least ${GREED_INNERVATE} mana)`
+                  : `(for an ally-cast, save at least ${SMART_INNERVATE} mana)`}
+              </>
+            ),
+          });
+          checklistItems.push({
+            label: (
+              <>
+                Cast <SpellLink id={SPELLS.WILD_GROWTH.id} />
+              </>
+            ),
+            result: <PassFailCheckmark pass={castWildGrowth} />,
+          });
+
+          const detailItems: CooldownExpandableItem[] = [];
+          detailItems.push({
+            label: 'Used on',
+            result: '',
+            details: <>{targetName}</>,
+          });
+          detailItems.push({
+            label: 'Casts during Innervate',
+            result: '',
+            details: (
+              <>
+                {cast.casts.map((c, iix) => (
+                  <>
+                    <SpellIcon id={c.ability.guid} key={iix} />{' '}
+                  </>
+                ))}
+              </>
+            ),
+          });
+
+          return (
+            <CooldownExpandable
+              info={info}
+              timestamp={cast.timestamp}
+              spellId={SPELLS.INNERVATE.id}
+              magnitude={cast.manaSaved}
+              magnitudeLabel="mana saved"
+              checklistItems={checklistItems}
+              detailItems={detailItems}
+              key={ix}
+            />
+          );
+        })}
         <p />
       </>
     </SubSection>
@@ -638,6 +744,7 @@ function CooldownExpandable({
   timestamp,
   spellId,
   magnitude,
+  magnitudeLabel,
   checklistItems,
   detailItems,
 }: {
@@ -645,6 +752,7 @@ function CooldownExpandable({
   timestamp: number;
   spellId: number;
   magnitude?: number;
+  magnitudeLabel?: React.ReactNode;
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
 }): JSX.Element {
@@ -654,7 +762,13 @@ function CooldownExpandable({
       header={
         <SectionHeader>
           @ {formatDuration(timestamp - info.fightStart)} &mdash; <SpellLink id={spellId} />
-          {magnitude !== undefined && <> ({formatNumber(magnitude)})</>}
+          {magnitude !== undefined && (
+            <>
+              {' '}
+              ({formatNumber(magnitude)}
+              {magnitudeLabel && <> {magnitudeLabel}</>})
+            </>
+          )}
         </SectionHeader>
       }
       element="section"

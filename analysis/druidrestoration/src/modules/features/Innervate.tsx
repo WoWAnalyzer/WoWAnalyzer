@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -11,14 +12,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const GREED_INNERVATE = 9000;
-const SMART_INNERVATE = GREED_INNERVATE / 2;
+export const GREED_INNERVATE = 9000;
+export const SMART_INNERVATE = GREED_INNERVATE / 2;
 
 class Innervate extends Analyzer {
   casts = 0;
   castsOnYourself = 0;
   manaSaved = 0;
   reduction = 0;
+
+  castTrackers: InnervateCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -42,9 +45,18 @@ class Innervate extends Analyzer {
 
     //okay what did we actually do in innervate
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      if (!CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) && this.castTrackers.length > 0) {
+        // we want to at least keep track of all abilites during the innervate, not just ones that cost mana
+        this.castTrackers[this.castTrackers.length - 1].casts.push(event);
+      }
+
       //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
       if (Object.keys(manaEvent).length !== 0) {
-        this.manaSaved += manaEvent[0] * this.reduction;
+        const manaSavedFromThisCast = manaEvent[0] * this.reduction;
+        this.manaSaved += manaSavedFromThisCast;
+        if (this.castTrackers.length > 0) {
+          this.castTrackers[this.castTrackers.length - 1].manaSaved += manaSavedFromThisCast;
+        }
       }
     }
   }
@@ -52,9 +64,19 @@ class Innervate extends Analyzer {
   handleInnervateCasts(event: CastEvent) {
     this.reduction = 0.5;
     this.casts += 1;
+
+    const castTracker: InnervateCast = {
+      timestamp: event.timestamp,
+      casts: [],
+      manaSaved: 0,
+    };
+    this.castTrackers.push(castTracker);
+
     if (event.targetID === event.sourceID) {
       this.castsOnYourself += 1;
       this.reduction = 1;
+    } else {
+      castTracker.targetId = event.targetID;
     }
   }
 
@@ -160,4 +182,16 @@ class Innervate extends Analyzer {
     );
   }
 }
+
+interface InnervateCast {
+  /** Timestamp of the start of the Tranquility channel */
+  timestamp: number;
+  /** The spells the player cast during Innervate, in order */
+  casts: CastEvent[];
+  /** The mana saved by the player */
+  manaSaved: number;
+  /** ID of the player this Innervate was cast on, or undefined for a self cast */
+  targetId?: number;
+}
+
 export default Innervate;

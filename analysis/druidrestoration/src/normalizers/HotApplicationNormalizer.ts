@@ -44,6 +44,14 @@ const EVENT_ORDERS: EventOrder[] = [
     anyTarget: true,
     bufferMs: BUFFER_MS,
   },
+  {
+    beforeEventId: SPELLS.TRANQUILITY_CAST.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.TRANQUILITY_HEAL.id,
+    afterEventType: EventType.Heal,
+    anyTarget: true,
+    bufferMs: BUFFER_MS,
+  },
 ];
 
 /**
