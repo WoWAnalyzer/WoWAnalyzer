@@ -313,6 +313,11 @@ const spells = {
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
+  FURIOUS_GAZE: {
+    id: 343312,
+    name: 'Furious Gaze',
+    icon: 'spell_warlock_soulburn',
+  },
   FURY_OF_THE_ILLIDARI: {
     id: 201467,
     name: 'Fury of the Illidari',

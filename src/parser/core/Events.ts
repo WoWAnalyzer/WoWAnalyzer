@@ -42,6 +42,7 @@ export enum EventType {
   ExtraAttacks = 'extraattacks',
   OrbGenerated = 'orb-generated',
   Create = 'create',
+  Spellsteal = 'spellsteal',
 
   // Fabricated:
   Event = 'event', // everything
@@ -156,6 +157,7 @@ type MappedEventTypes = {
   [EventType.AuraBroken]: AuraBrokenEvent;
   [EventType.ExtraAttacks]: ExtraAttacksEvent;
   [EventType.Create]: CreateEvent;
+  [EventType.Spellsteal]: SpellstealEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -865,6 +867,18 @@ export interface CreateEvent extends Event<EventType.Create> {
   target: CastTarget;
 }
 
+export interface SpellstealEvent extends Event<EventType.Spellsteal> {
+  ability: Ability;
+  extraAbility: Ability;
+  fight: number;
+  isBuff: boolean;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>;
 
 export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
@@ -1248,6 +1262,9 @@ const Events = {
   },
   get create() {
     return new EventFilter(EventType.Create);
+  },
+  get spellsteal() {
+    return new EventFilter(EventType.Spellsteal);
   },
 };
 

@@ -221,13 +221,10 @@ class Wellspring extends Analyzer {
   }
 
   subStatistic() {
-    const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.WELLSPRING_HEAL.id);
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.WELLSPRING_TALENT.id} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.healing + feeding),
-        )} %`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
   }

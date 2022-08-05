@@ -134,6 +134,10 @@ class BigHitGraph extends Analyzer {
       (event: { unmitigatedAmount?: number }) => event.unmitigatedAmount || 0,
     );
 
+    if (umitigatedAmount.length === 0) {
+      return;
+    }
+
     const totalDamage = umitigatedAmount.reduce((a, b) => a + b);
 
     const length = this.damageEvents.length;
