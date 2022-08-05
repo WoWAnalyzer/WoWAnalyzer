@@ -137,8 +137,11 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.THE_FIRST_SIGIL.id,
       versatility: (_, item) => calculateSecondaryStatDefault(226, 1037, item.itemLevel),
     },
-
-    //endregion
+    [SPELLS.CACHE_OF_ACQUIRED_TREASURES_ACQUIRED_SWORD_BUFF.id]: {
+      itemId: ITEMS.CACHE_OF_ACQUIRED_TREASURES.id,
+      haste: (_, item) => calculateSecondaryStatDefault(226, 75, item.itemLevel),
+    },
+    // endregion
 
     // region Racials
     // Mag'har Orc

@@ -41,6 +41,7 @@ import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
 import FoodChecker from '../shadowlands/modules/items/FoodChecker';
 import HealthPotion from '../shadowlands/modules/items/HealthPotion';
 import Healthstone from '../shadowlands/modules/items/Healthstone';
+import CacheOfAcquiredTreasures from '../shadowlands/modules/items/raid/sepulcherofthefirstones/CacheOfAcquiredTreasures';
 import EarthbreakersImpact from '../shadowlands/modules/items/raid/sepulcherofthefirstones/EarthbreakersImpact';
 import TheFirstSigil from '../shadowlands/modules/items/raid/sepulcherofthefirstones/TheFirstSigil';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
@@ -240,6 +241,7 @@ class CombatLogParser {
     // Sepulcher of the First Ones
     earthbreakersImpact: EarthbreakersImpact,
     theFirstSigil: TheFirstSigil,
+    cacheOfAcquiredTreasures: CacheOfAcquiredTreasures,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
