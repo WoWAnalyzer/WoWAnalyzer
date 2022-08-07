@@ -19,6 +19,7 @@ import BloodSpatteredScale from 'parser/shadowlands/modules/items/dungeons/Blood
 import AscendedVigor from 'parser/shadowlands/modules/items/enchants/AscendedVigor';
 import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
+import Fated from 'parser/shadowlands/modules/raids/fated';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
@@ -92,7 +93,7 @@ import Fight from './Fight';
 import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
-import Buffs from './modules/Buffs';
+import Auras from './modules/Auras';
 import EventEmitter from './modules/EventEmitter';
 import SpellInfo from './modules/SpellInfo';
 import ParseResults from './ParseResults';
@@ -180,7 +181,7 @@ class CombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
-    buffs: Buffs,
+    buffs: Auras,
     abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
@@ -242,6 +243,9 @@ class CombatLogParser {
     earthbreakersImpact: EarthbreakersImpact,
     theFirstSigil: TheFirstSigil,
     cacheOfAcquiredTreasures: CacheOfAcquiredTreasures,
+
+    // Raid Buffs
+    fated: Fated,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};

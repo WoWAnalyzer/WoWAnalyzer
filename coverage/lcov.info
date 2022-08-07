@@ -16477,7 +16477,7 @@ BRF:4
 BRH:1
 end_of_record
 TN:
-SF:src/parser/core/modules/Buffs.js
+SF:src/parser/core/modules/Auras.js
 FN:25,(anonymous_0)
 FN:32,(anonymous_1)
 FN:33,(anonymous_2)

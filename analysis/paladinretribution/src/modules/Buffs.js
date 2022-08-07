@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import CoreBuffs from 'parser/core/modules/Buffs';
+import CoreAuras from 'parser/core/modules/Auras';
 
-class Buffs extends CoreBuffs {
+class Buffs extends CoreAuras {
   buffs() {
     const combatant = this.selectedCombatant;
     return [

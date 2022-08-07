@@ -4,13 +4,13 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
-import BuffsModule from 'parser/core/modules/Buffs';
+import AurasModule from 'parser/core/modules/Auras';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import './Buffs.scss';
+import './Auras.scss';
 
-class Buffs extends PureComponent {
+class Auras extends PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
@@ -22,7 +22,7 @@ class Buffs extends PureComponent {
       ).isRequired,
       toPlayer: PropTypes.func.isRequired,
     }).isRequired,
-    buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    auras: PropTypes.instanceOf(AurasModule).isRequired,
     style: PropTypes.object,
   };
 
@@ -45,7 +45,23 @@ class Buffs extends PureComponent {
       return false;
     }
     const spellId = event.ability.guid;
-    const buff = this.props.buffs.getBuff(spellId);
+    const buff = this.props.auras.getAura(spellId);
+    if (!buff || !buff.timelineHighlight) {
+      return false;
+    }
+
+    return true;
+  }
+
+  isApplicableDebuffEvent(event) {
+    const parser = this.props.parser;
+
+    if (!parser.toPlayer(event)) {
+      // Ignore pet/boss buffs
+      return false;
+    }
+    const spellId = event.ability.guid;
+    const buff = this.props.auras.getAura(spellId);
     if (!buff || !buff.timelineHighlight) {
       return false;
     }
@@ -57,18 +73,30 @@ class Buffs extends PureComponent {
     switch (event.type) {
       case EventType.ApplyBuff:
         if (this.isApplicableBuffEvent(event)) {
-          return this.renderApplyBuff(event);
+          return this.renderApplyAura(event);
         } else {
           return null;
         }
       case EventType.RemoveBuff:
         if (this.isApplicableBuffEvent(event)) {
-          return this.renderRemoveBuff(event);
+          return this.renderRemoveAura(event);
+        } else {
+          return null;
+        }
+      case EventType.ApplyDebuff:
+        if (this.isApplicableDebuffEvent(event)) {
+          return this.renderApplyAura(event);
+        } else {
+          return null;
+        }
+      case EventType.RemoveDebuff:
+        if (this.isApplicableDebuffEvent(event)) {
+          return this.renderRemoveAura(event);
         } else {
           return null;
         }
       case EventType.FightEnd:
-        return this.renderLeftOverBuffs(event);
+        return this.renderLeftOverAuras(event);
       default:
         return null;
     }
@@ -84,7 +112,7 @@ class Buffs extends PureComponent {
     }
     return level;
   }
-  renderApplyBuff(event) {
+  renderApplyAura(event) {
     const spellId = event.ability.guid;
 
     // Avoid overlapping icons
@@ -101,7 +129,7 @@ class Buffs extends PureComponent {
       children: <div className="time-indicator" />,
     });
   }
-  renderRemoveBuff(event) {
+  renderRemoveAura(event) {
     const applied = this._applied[event.ability.guid];
     if (!applied) {
       // This may occur for broken logs with missing events due to range/logger issues
@@ -127,7 +155,7 @@ class Buffs extends PureComponent {
         }
       >
         <div
-          className="buff hoist"
+          className="aura hoist"
           style={{
             left,
             width: ((event.timestamp - applied.timestamp) / 1000) * this.props.secondWidth,
@@ -138,13 +166,13 @@ class Buffs extends PureComponent {
       </Tooltip>
     );
   }
-  renderLeftOverBuffs(event) {
+  renderLeftOverAuras(event) {
     // We don't have a removebuff event for buffs that end *after* the fight, so instead we go through all remaining active buffs and manually trigger the removebuff render.
     const elems = [];
     Object.keys(this._applied).forEach((spellId) => {
       const applied = this._applied[spellId];
       elems.push(
-        this.renderRemoveBuff({
+        this.renderRemoveAura({
           ...applied,
           timestamp: event.timestamp,
         }),
@@ -173,20 +201,20 @@ class Buffs extends PureComponent {
   render() {
     const { parser, style } = this.props;
 
-    const buffs = parser.eventHistory.map(this.renderEvent);
+    const auras = parser.eventHistory.map(this.renderEvent);
 
     return (
       <div
-        className="buffs"
+        className="auras"
         style={{
           '--levels': this._maxLevel + 1,
           ...style,
         }}
       >
-        {buffs}
+        {auras}
       </div>
     );
   }
 }
 
-export default Buffs;
+export default Auras;

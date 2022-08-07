@@ -1,10 +1,10 @@
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import CoreBuffs from 'parser/core/modules/Buffs';
+import CoreAuras from 'parser/core/modules/Auras';
 
 import * as SPELLS from '@wowanalyzer/tbc-warrior/src/SPELLS';
 
-class Buffs extends CoreBuffs {
-  buffs() {
+class Buffs extends CoreAuras {
+  auras() {
     return [
       {
         spellId: SPELLS.SHIELD_BLOCK,

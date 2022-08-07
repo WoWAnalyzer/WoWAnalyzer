@@ -1,9 +1,9 @@
-import CoreBuffs from 'parser/core/modules/Buffs';
+import CoreAuras from 'parser/core/modules/Auras';
 
 import * as SPELLS from '@wowanalyzer/tbc-priest/src/SPELLS';
 
-class Buffs extends CoreBuffs {
-  buffs() {
+class Buffs extends CoreAuras {
+  auras() {
     return [
       {
         spellId: SPELLS.POWER_WORD_FORTITUDE,
