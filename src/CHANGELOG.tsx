@@ -61,6 +61,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 7), 'Add support for Fated Raid affixes.', ToppleTheNun),
   change(date(2022, 8, 7), 'Add support for tracking debuffs on timeline.', ToppleTheNun),
   change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),
   change(date(2022, 8, 4), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),

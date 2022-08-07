@@ -149,7 +149,10 @@ class StatTracker extends Analyzer {
     [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 125 },
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
     [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
+    // endregion
 
+    // Region Fated Raids
+    [SPELLS.FATED_INFUSION_RECONFIGURATION_EMITTER]: { mastery: 10, avoidance: 9 },
     // endregion
   };
 
@@ -181,6 +184,9 @@ class StatTracker extends Analyzer {
 
     // Highmountain Tauren 1% Buff
     [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
+
+    // Fated Raid Buff
+    [SPELLS.FATED_INFUSION_RECONFIGURATION_EMITTER.id]: { crit: 1.1, versatility: 1.1 },
   };
 
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
