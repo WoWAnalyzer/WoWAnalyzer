@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { GradiatedPerformanceBar, SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -180,6 +181,45 @@ class Rejuvenation extends Analyzer {
       SPELLS.REJUVENATION_GERMINATION.id,
     ]);
     return totalRejuvHealing / this.totalRejuvsCasts;
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  get guideSubsection(): JSX.Element {
+    const goodRejuvs = {
+      count: this.goodRejuvs,
+      label: 'Good Rejuvenations',
+    };
+    const highOverhealRejuvs = {
+      count: this.highOverhealCasts,
+      label: 'High-overheal Rejuvenations',
+    };
+    const clippedRejuvs = {
+      count: this.earlyRefreshments,
+      label: 'Clipped duration Rejuvenations',
+    };
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.REJUVENATION.id} />
+          </b>{' '}
+          is your primary filler spell and will almost always be your most cast spell. It can be
+          used on injured raiders or even pre-cast on full health raiders if you know big damage is
+          coming soon. Do not spam it unmotivated - you'll run yourself out of mana. You also
+          shouldn't cast it on targets that already have a high duration Rejuvenation, as you will
+          clip duration. Note that some high-overheal Rejuvs are unavoidable due to heal sniping,
+          but if a large proportion of them are, you might be casting too much.
+        </p>
+        <strong>Rejuvenation cast breakdown</strong>
+        <small>
+          {' '}
+          - Green is a good cast, Yellow is a cast with very high overheal, and Red is an early
+          refresh that clipped duration. Mouseover for more details.
+        </small>
+        <br />
+        <GradiatedPerformanceBar good={goodRejuvs} ok={highOverhealRejuvs} bad={clippedRejuvs} />
+      </SubSection>
+    );
   }
 
   get timeLostThreshold() {

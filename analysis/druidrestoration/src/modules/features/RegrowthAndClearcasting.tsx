@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { SubSection } from 'interface/guide';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import CrossIcon from 'interface/icons/Cross';
 import HealthIcon from 'interface/icons/Health';
@@ -235,8 +236,10 @@ class RegrowthAndClearcasting extends Analyzer {
     );
   }
 
-  get guideTimeline() {
-    const values = this.castRegrowthLog.map((rgCast) => {
+  /** Guide subsection describing the proper usage of Regrowth */
+  get guideSubsection(): JSX.Element {
+    const hasAbundance = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT);
+    const castPerfBoxes = this.castRegrowthLog.map((rgCast) => {
       let message = '';
       if (rgCast.reason === 'innervate') {
         message = 'Free due to Innervate';
@@ -256,7 +259,36 @@ class RegrowthAndClearcasting extends Analyzer {
         tooltip: `@ ${this.owner.formatTimestamp(rgCast.timestamp)} - ${message}`,
       };
     });
-    return <PerformanceBoxRow values={values} />;
+
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.REGROWTH.id} />
+          </b>{' '}
+          is for urgent spot healing. The HoT it applies is very weak, meaning Regrowth is only
+          efficient when its direct portion is effective. Exceptions are when Regrowth is free due
+          to <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> /{' '}
+          <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
+          {hasAbundance && (
+            <>
+              or cheap due to <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />. Even with{' '}
+              <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> you still shouldn't cast Regrowth during
+              your ramp. Wait until after you <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> or{' '}
+              <SpellLink id={SPELLS.FLOURISH_TALENT.id} />, then you can fill with high-stack
+              Regrowth casts.
+            </>
+          )}
+        </p>
+        <strong>Regrowth casts</strong>
+        <small>
+          {' '}
+          - Green is a good cast, Red is a bad cast (at full mana cost on a high health target).
+          Mouseover boxes for details.
+        </small>
+        <PerformanceBoxRow values={castPerfBoxes} />
+      </SubSection>
+    );
   }
 
   suggestions(when: When) {
