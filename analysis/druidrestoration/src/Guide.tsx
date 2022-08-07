@@ -59,7 +59,7 @@ function RejuvenationSubsection({ modules, events, info }: GuideProps<typeof Com
     label: 'Clipped duration Rejuvenations',
   };
   return (
-    <SubSection title="">
+    <SubSection>
       <p>
         <b>
           <SpellLink id={SPELLS.REJUVENATION.id} />
@@ -110,7 +110,7 @@ function WildGrowthSubsection({ modules, events, info }: GuideProps<typeof Comba
 function RegrowthSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const hasAbundance = info.combatant.hasTalent(SPELLS.ABUNDANCE_TALENT);
   return (
-    <SubSection title="">
+    <SubSection>
       <p>
         <b>
           <SpellLink id={SPELLS.REGROWTH.id} />
@@ -142,7 +142,7 @@ function RegrowthSubsection({ modules, events, info }: GuideProps<typeof CombatL
 
 function LifebloomSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="">
+    <SubSection>
       <p>
         <b>
           <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />
@@ -181,7 +181,7 @@ function LifebloomSubsection({ modules, events, info }: GuideProps<typeof Combat
 
 function EfflorescenceSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="">
+    <SubSection>
       <p>
         <b>
           <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} />
@@ -218,7 +218,7 @@ function SwiftmendSubsection({ modules, events, info }: GuideProps<typeof Combat
   chartDescription += ' Mouseover for more details.';
 
   return (
-    <SubSection title="">
+    <SubSection>
       <p>
         <b>
           <SpellLink id={SPELLS.SWIFTMEND.id} />
@@ -289,7 +289,7 @@ function SwiftmendSubsection({ modules, events, info }: GuideProps<typeof Combat
 
 function CenarionWardSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="">
+    <SubSection>
       <p>
         <b>
           <SpellLink id={SPELLS.CENARION_WARD_TALENT.id} />
@@ -332,7 +332,7 @@ function CooldownsSection({ modules, events, info }: GuideProps<typeof CombatLog
 
 function HotGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="">
+    <SubSection>
       <strong>HoT Graph</strong> - this graph shows how many Rejuvenation and Wild Growths you had
       active over the course of the encounter, with rule lines showing when you activated your
       healing cooldowns. Did you have a Wild Growth out before every cooldown? Did you ramp
@@ -344,7 +344,7 @@ function HotGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
 
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="">
+    <SubSection>
       <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
@@ -400,7 +400,7 @@ function CooldownBreakdownSubsection({
   info,
 }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="">
+    <SubSection>
       <strong>Spell Breakdowns</strong>
       <p />
       {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (

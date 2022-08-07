@@ -186,9 +186,9 @@ export const SubSection = ({
   children,
   title,
   style,
-}: React.PropsWithChildren<{ title: string; style?: React.CSSProperties }>) => (
+}: React.PropsWithChildren<{ title?: string; style?: React.CSSProperties }>) => (
   <section className="subsection">
-    <header>{title}</header>
+    <header>{title || ''}</header>
     <div style={style}>{children}</div>
   </section>
 );

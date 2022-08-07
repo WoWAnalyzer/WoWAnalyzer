@@ -21,23 +21,23 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import Mastery from '../core/Mastery';
 
 const debug = false;
 
 const OVERHEAL_THRESHOLD = 0.75;
 
-/*
- * This module tracks early refreshments of rejuvenation.
- * TODO: Extend/refactor this module to include other HoTs/Spells as well such as lifebloom/efflorescence
- */
-class PrematureRejuvenations extends Analyzer {
+/** Tracks stuff about Rejuvenation usage */
+class Rejuvenation extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
+    mastery: Mastery,
     combatants: Combatants,
     hotTracker: HotTrackerRestoDruid,
   };
 
   protected healingDone!: HealingDone;
+  protected mastery!: Mastery;
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerRestoDruid;
 
@@ -174,6 +174,14 @@ class PrematureRejuvenations extends Analyzer {
     return this.totalRejuvsCasts - this.earlyRefreshments - this.highOverhealCasts;
   }
 
+  get avgRejuvHealing() {
+    const totalRejuvHealing = this.mastery.getMultiMasteryHealing([
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
+    ]);
+    return totalRejuvHealing / this.totalRejuvsCasts;
+  }
+
   get timeLostThreshold() {
     return {
       actual: this.timeLostInSecondsPerMinute,
@@ -238,4 +246,4 @@ class PrematureRejuvenations extends Analyzer {
   }
 }
 
-export default PrematureRejuvenations;
+export default Rejuvenation;
