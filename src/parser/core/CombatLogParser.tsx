@@ -93,6 +93,7 @@ import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
+import Debuffs from './modules/Debuffs';
 import EventEmitter from './modules/EventEmitter';
 import SpellInfo from './modules/SpellInfo';
 import ParseResults from './ParseResults';
@@ -181,6 +182,7 @@ class CombatLogParser {
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Buffs,
+    debuffs: Debuffs,
     abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,

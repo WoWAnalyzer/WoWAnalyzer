@@ -8,6 +8,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { EventType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';
+import DebuffsModule from 'parser/core/modules/Debuffs';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
@@ -17,12 +18,14 @@ import './Timeline.scss';
 import Buffs from './Buffs';
 import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
+import Debuffs from './Debuffs';
 import TimeIndicators from './TimeIndicators';
 
 class Timeline extends PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    debuffs: PropTypes.instanceOf(DebuffsModule).isRequired,
     movement: PropTypes.arrayOf(
       PropTypes.shape({
         start: PropTypes.number,
@@ -165,7 +168,7 @@ class Timeline extends PureComponent {
   }
 
   render() {
-    const { parser, abilities, buffs, movement } = this.props;
+    const { parser, abilities, debuffs, buffs, movement } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -204,6 +207,12 @@ class Timeline extends PureComponent {
               secondWidth={this.secondWidth}
               parser={parser}
               buffs={buffs}
+            />
+            <Debuffs
+              start={this.start}
+              secondWidth={this.secondWidth}
+              parser={parser}
+              debuffs={debuffs}
             />
             <TimeIndicators
               seconds={this.seconds}

@@ -18,7 +18,6 @@ type BuffsOptions = Options & {
   haste: Haste;
 };
 
-// TODO: Make a separate but similar Debuffs module
 /**
  * @property {Haste} haste
  * @property {Abilities} abilities
