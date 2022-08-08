@@ -127,11 +127,11 @@ class StatTracker extends Analyzer {
     // region Trinkets
     [SPELLS.BLOOD_WALTZ_HASTE_BUFF.id]: {
       itemId: ITEMS.MACABRE_SHEET_MUSIC.id,
-      haste: (_, item) => calculateSecondaryStatDefault(213, 95, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(278, 123, item.itemLevel),
     },
     [SPELLS.OLD_WARRIORS_SOUL_HASTE.id]: {
       itemId: ITEMS.OLD_WARRIORS_SOUL.id,
-      haste: (_, item) => calculateSecondaryStatDefault(246, 43, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(246, 38, item.itemLevel),
     },
     [SPELLS.THE_FIRST_SIGIL.id]: {
       itemId: ITEMS.THE_FIRST_SIGIL.id,
