@@ -112,8 +112,8 @@ class Lifebloom extends Analyzer {
     const summedTotalLifebloomUptime = Object.values(this.combatants.players).reduce(
       (uptime, player) =>
         uptime +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id),
+        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, this.selectedCombatant.id) +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id, this.selectedCombatant.id),
       0,
     );
     return summedTotalLifebloomUptime - this.selfLifebloomUptime;
