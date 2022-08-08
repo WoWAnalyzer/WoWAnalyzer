@@ -28,6 +28,7 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
+<<<<<<< HEAD
 import Spell, { Enchant } from './Spell';
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
 import TALENTS_DEMON_HUNTER from './talents/demonhunter';
@@ -41,24 +42,13 @@ import TALENTS_ROGUE from './talents/rogue';
 import TALENTS_SHAMAN from './talents/shaman';
 import TALENTS_WARLOCK from './talents/warlock';
 import TALENTS_WARRIOR from './talents/warrior';
+=======
+import Spell from './Spell';
+>>>>>>> aa095153ca (Remove common/SPELLS/talents folder since the new one exists in common/TALENTS)
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
 const ABILITIES = {
-  // Talents are auto generated
-  ...TALENTS_DEATH_KNIGHT,
-  ...TALENTS_DEMON_HUNTER,
-  ...TALENTS_DRUID,
-  ...TALENTS_HUNTER,
-  ...TALENTS_MAGE,
-  ...TALENTS_MONK,
-  ...TALENTS_PALADIN,
-  ...TALENTS_PRIEST,
-  ...TALENTS_ROGUE,
-  ...TALENTS_SHAMAN,
-  ...TALENTS_WARLOCK,
-  ...TALENTS_WARRIOR,
-  // Talents can be overwritten with custom spell objects
   ...OTHERS,
   ...ENCOUNTER,
   ...RACIALS,
