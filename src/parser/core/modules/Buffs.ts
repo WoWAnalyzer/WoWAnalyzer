@@ -28,7 +28,6 @@ class Buffs extends Module {
     abilities: Abilities,
     haste: Haste,
   };
-  static BUFF_CLASS = Buff;
 
   protected abilities!: Abilities;
   protected haste!: Haste;
@@ -70,7 +69,7 @@ class Buffs extends Module {
 
   loadBuffs(buffs: SpellbookBuff[]) {
     this.activeBuffs = buffs
-      .map((options) => new Buffs.BUFF_CLASS(options))
+      .map((options) => new Buff(options))
       .filter((ability) => ability.enabled);
   }
 
@@ -79,7 +78,7 @@ class Buffs extends Module {
    * @param {object} options An object with all the properties and their values that gets passed to the Buff class.
    */
   add(options: SpellbookBuff) {
-    const buff = new Buffs.BUFF_CLASS(options);
+    const buff = new Buff(options);
     this.activeBuffs.push(buff);
   }
 
