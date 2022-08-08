@@ -1,16 +1,11 @@
-import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { ControlledExpandable, SpellIcon, SpellLink, Tooltip } from 'interface';
-import { GuideProps, PassFailCheckmark, Section, SectionHeader, SubSection } from 'interface/guide';
-import InformationIcon from 'interface/icons/Information';
-import { Info } from 'parser/core/metric';
+import { ControlledExpandable, SpellLink } from 'interface';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
-import { GREED_INNERVATE, SMART_INNERVATE } from './modules/features/Innervate';
-import { MAX_TRANQ_TICKS } from './modules/features/Tranquility';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -141,396 +136,31 @@ function CooldownBreakdownSubsection({
     <SubSection>
       <strong>Spell Breakdowns</strong>
       <p />
-      {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-        <>
-          <strong>
-            <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
-          </strong>{' '}
-          is a powerful but somewhat random burst of healing with a decent chance of proccing{' '}
-          <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Its short cooldown and random nature mean
-          its best used as it becomes available. Lightly ramping for a Convoke is still worthwhile
-          in case it procs Flourish.
-          <p />
-          {modules.convokeSpirits.convokeTracker.map((cast, ix) => {
-            const restoCast = modules.convokeSpirits.restoConvokeTracker[ix];
-            const castTotalHealing =
-              restoCast.totalAttribution.healing + restoCast.flourishRateAttribution.amount;
-            const checklistItems: CooldownExpandableItem[] = [];
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
-                </>
-              ),
-              result: <PassFailCheckmark pass={restoCast.wgsOnCast > 0} />,
-              details: <>({restoCast.wgsOnCast} HoTs active)</>,
-            });
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink id={SPELLS.REJUVENATION} /> ramp
-                </>
-              ),
-              result: <PassFailCheckmark pass={restoCast.rejuvsOnCast > 0} />,
-              details: <>({restoCast.rejuvsOnCast} HoTs active)</>,
-            });
-            info.combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) &&
-              checklistItems.push({
-                label: (
-                  <>
-                    Avoid <SpellLink id={SPELLS.FLOURISH_TALENT} /> clip{' '}
-                    <Tooltip
-                      hoverable
-                      content={
-                        <>
-                          When casting <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and{' '}
-                          <SpellLink id={SPELLS.FLOURISH_TALENT} /> together, the Convoke should
-                          ALWAYS go first. This is both because the Convoke could proc Flourish and
-                          cause you to clip your hardcast's buff, and also because Convoke produces
-                          a lot of HoTs which Flourish could extend. If you got an{' '}
-                          <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
-                          cast Flourish before this Convoke.
-                        </>
-                      }
-                    >
-                      <span>
-                        <InformationIcon />
-                      </span>
-                    </Tooltip>
-                  </>
-                ),
-                result: <PassFailCheckmark pass={!restoCast.recentlyFlourished} />,
-              });
-            info.combatant.has4Piece() &&
-              checklistItems.push({
-                label: (
-                  <>
-                    Sync with <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />{' '}
-                    <Tooltip
-                      hoverable
-                      content={
-                        <>
-                          <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
-                          's power is greatly increased when in Tree of Life form. With the 4 piece
-                          set bonus <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />,
-                          you can reasonably get a proc about once every minute, so it is
-                          recommended to sync your procs with Convoke.
-                        </>
-                      }
-                    >
-                      <span>
-                        <InformationIcon />
-                      </span>
-                    </Tooltip>
-                  </>
-                ),
-                result: <PassFailCheckmark pass={cast.form === 'Tree of Life'} />,
-              });
-
-            return (
-              <CooldownExpandable
-                info={info}
-                timestamp={cast.timestamp}
-                spellId={SPELLS.CONVOKE_SPIRITS.id}
-                magnitude={castTotalHealing}
-                magnitudeLabel="healing"
-                checklistItems={checklistItems}
-                key={ix}
-              />
-            );
-          })}
-          <p />
-        </>
-      )}
-      {info.combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && (
-        <>
-          <strong>
-            <SpellLink id={SPELLS.FLOURISH_TALENT.id} />
-          </strong>{' '}
-          requires a ramp more than any of your other cooldowns, as its power is based almost
-          entirely in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild
-          Growth a few seconds before you're ready to Flourish.{' '}
-          {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-            <>
-              When pairing this with <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, the Convoke
-              should ALWAYS be cast first. This is because the Convoke will produce many HoTs which
-              can be extended, but also because it could proc a Flourish thus allowing you to save
-              the hardcast.
-            </>
-          )}
-          <p />
-          {modules.flourish.rampTrackers.map((cast, ix) => {
-            const castTotalHealing =
-              cast.extensionAttribution.healing + cast.rateAttribution.amount;
-
-            const checklistItems: CooldownExpandableItem[] = [];
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
-                </>
-              ),
-              result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
-              details: <>({cast.wgsOnCast} HoTs active)</>,
-            });
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink id={SPELLS.REJUVENATION} /> ramp
-                </>
-              ),
-              result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
-              details: <>({cast.rejuvsOnCast} HoTs active)</>,
-            });
-            info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-              checklistItems.push({
-                label: (
-                  <>
-                    Don't clip existing <SpellLink id={SPELLS.FLOURISH_TALENT} />{' '}
-                    <Tooltip
-                      hoverable
-                      content={
-                        <>
-                          <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can proc{' '}
-                          <SpellLink id={SPELLS.FLOURISH_TALENT} />. After Convoking, always check
-                          to see if you get a proc before Flourishing. If you got a proc, you need
-                          to wait before Flourishing so you don't overwrite the buff and lose a lot
-                          of duration. If you got an{' '}
-                          <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
-                          overwrote an existing Flourish.
-                        </>
-                      }
-                    >
-                      <span>
-                        <InformationIcon />
-                      </span>
-                    </Tooltip>
-                  </>
-                ),
-                result: <PassFailCheckmark pass={!cast.clipped} />,
-              });
-
-            return (
-              <CooldownExpandable
-                info={info}
-                timestamp={cast.timestamp}
-                spellId={SPELLS.FLOURISH_TALENT.id}
-                magnitude={castTotalHealing}
-                magnitudeLabel="healing"
-                checklistItems={checklistItems}
-                key={ix}
-              />
-            );
-          })}
-          <p />
-        </>
-      )}
-      {info.combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
-        <>
-          <strong>
-            <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />
-          </strong>{' '}
-          is a longer, lower-impact cooldown. It should be planned around periods of high sustained
-          healing.
-          <br />
-          <strong>EXPANDABLE PER-CAST BREAKDOWN COMING SOON!</strong>
-          <p />
-        </>
-      )}
-      <>
-        <strong>
-          <SpellLink id={SPELLS.TRANQUILITY_CAST.id} />
-        </strong>{' '}
-        is the most independent of your cooldowns, and the one most likely to be assigned explicitly
-        by your raid leader. It should typically be planned for a specific mechanic. The vast
-        majority of Tranquility's healing is direct and not from the HoT. Do NOT use the HoT to
-        ramp. Watch your positioning when you cast - you want to be able to channel full duration
-        without moving.
-        <p />
-        {modules.tranquility.tranqCasts.map((cast, ix) => {
-          const checklistItems: CooldownExpandableItem[] = [];
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
-              </>
-            ),
-            result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
-            details: <>({cast.wgsOnCast} HoTs active)</>,
-          });
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink id={SPELLS.REJUVENATION} /> ramp
-              </>
-            ),
-            result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
-            details: <>({cast.rejuvsOnCast} HoTs active)</>,
-          });
-          checklistItems.push({
-            label: (
-              <>
-                Channeled full duration{' '}
-                <Tooltip
-                  hoverable
-                  content={
-                    <>
-                      Every tick of Tranquility is very powerful - plan ahead so you're in a
-                      position to channel it for its full duration, and be careful not to clip ticks
-                      at the end.
-                    </>
-                  }
-                >
-                  <span>
-                    <InformationIcon />
-                  </span>
-                </Tooltip>
-              </>
-            ),
-            result: <PassFailCheckmark pass={cast.channeledTicks === MAX_TRANQ_TICKS} />,
-            details: (
-              <>
-                ({cast.channeledTicks} / {MAX_TRANQ_TICKS} ticks)
-              </>
-            ),
-          });
-
-          const detailItems: CooldownExpandableItem[] = [];
-          detailItems.push({
-            label: 'Direct Healing',
-            result: '',
-            details: <>{formatNumber(cast.directHealing)}</>,
-          });
-          detailItems.push({
-            label: 'Periodic Healing',
-            result: '',
-            details: <>{formatNumber(cast.periodicHealing)}</>,
-          });
-
-          return (
-            <CooldownExpandable
-              info={info}
-              timestamp={cast.timestamp}
-              spellId={SPELLS.TRANQUILITY_CAST.id}
-              magnitude={cast.directHealing + cast.periodicHealing}
-              magnitudeLabel="healing"
-              checklistItems={checklistItems}
-              detailItems={detailItems}
-              key={ix}
-            />
-          );
-        })}
-        <p />
-      </>
-      <>
-        <strong>
-          <SpellLink id={SPELLS.INNERVATE.id} />
-        </strong>{' '}
-        is best used during your ramp, or any time when you expect to spam cast. Typically it should
-        be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
-        it's one of your most expensive spells.
-        <p />
-        {modules.innervate.castTrackers.map((cast, ix) => {
-          const isSelfCast = cast.targetId === undefined;
-          const targetName = cast.targetId === undefined ? 'SELF' : 'ALLY'; // TODO we can't get at combatants here so can't get name - fix?
-          const metThresholdMana = isSelfCast
-            ? cast.manaSaved >= GREED_INNERVATE
-            : cast.manaSaved >= SMART_INNERVATE;
-          const castWildGrowth =
-            cast.casts.filter((c) => c.ability.guid === SPELLS.WILD_GROWTH.id).length > 0;
-
-          const checklistItems: CooldownExpandableItem[] = [];
-          checklistItems.push({
-            label: 'Chain-cast expensive spells',
-            result: <PassFailCheckmark pass={metThresholdMana} />,
-            details: (
-              <>
-                {isSelfCast
-                  ? `(for a self-cast, save at least ${GREED_INNERVATE} mana)`
-                  : `(for an ally-cast, save at least ${SMART_INNERVATE} mana)`}
-              </>
-            ),
-          });
-          checklistItems.push({
-            label: (
-              <>
-                Cast <SpellLink id={SPELLS.WILD_GROWTH.id} />
-              </>
-            ),
-            result: <PassFailCheckmark pass={castWildGrowth} />,
-          });
-
-          const detailItems: CooldownExpandableItem[] = [];
-          detailItems.push({
-            label: 'Used on',
-            result: '',
-            details: <>{targetName}</>,
-          });
-          detailItems.push({
-            label: 'Casts during Innervate',
-            result: '',
-            details: (
-              <>
-                {cast.casts.map((c, iix) => (
-                  <>
-                    <SpellIcon id={c.ability.guid} key={iix} />{' '}
-                  </>
-                ))}
-              </>
-            ),
-          });
-
-          return (
-            <CooldownExpandable
-              info={info}
-              timestamp={cast.timestamp}
-              spellId={SPELLS.INNERVATE.id}
-              magnitude={cast.manaSaved}
-              magnitudeLabel="mana saved"
-              checklistItems={checklistItems}
-              detailItems={detailItems}
-              key={ix}
-            />
-          );
-        })}
-        <p />
-      </>
+      {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+        modules.convokeSpirits.guideCastBreakdown}
+      {info.combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && modules.flourish.guideCastBreakdown}
+      {info.combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) &&
+        modules.treeOfLife.guideCastBreakdown}
+      {modules.tranquility.guideCastBreakdown}
+      {modules.innervate.guideCastBreakdown}
     </SubSection>
   );
 }
 
-function CooldownExpandable({
-  info,
-  timestamp,
-  spellId,
-  magnitude,
-  magnitudeLabel,
+// TODO replace this with a properly styled and better implemented version in core modules
+export function CooldownExpandable({
+  header,
   checklistItems,
   detailItems,
 }: {
-  info: Info;
-  timestamp: number;
-  spellId: number;
-  magnitude?: number;
-  magnitudeLabel?: React.ReactNode;
+  header: React.ReactNode;
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
 }): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <ControlledExpandable
-      header={
-        <SectionHeader>
-          @ {formatDuration(timestamp - info.fightStart)} &mdash; <SpellLink id={spellId} />
-          {magnitude !== undefined && (
-            <>
-              {' '}
-              ({formatNumber(magnitude)}
-              {magnitudeLabel && <> {magnitudeLabel}</>})
-            </>
-          )}
-        </SectionHeader>
-      }
+      header={header}
       element="section"
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
@@ -577,7 +207,7 @@ function CooldownExpandable({
   );
 }
 
-interface CooldownExpandableItem {
+export interface CooldownExpandableItem {
   label: React.ReactNode;
   result: React.ReactNode;
   details?: React.ReactNode;

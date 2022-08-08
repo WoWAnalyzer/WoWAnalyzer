@@ -1,7 +1,9 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
+import { PassFailCheckmark } from 'interface/guide';
+import InformationIcon from 'interface/icons/Information';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -14,6 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
 
+import { CooldownExpandable, CooldownExpandableItem } from '../../../Guide';
 import { isFromHardcast } from '../../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
 import { MutableAmount } from '../../talents/Flourish';
@@ -171,6 +174,109 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   get nsBoostedConvokeCount(): number {
     return this.restoConvokeTracker.filter((cast) => cast.nsAttribution.healing !== 0).length;
+  }
+
+  /** Guide fragment showing a breakdown of each Convoke cast */
+  get guideCastBreakdown() {
+    return (
+      <>
+        <strong>
+          <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
+        </strong>{' '}
+        is a powerful but somewhat random burst of healing with a decent chance of proccing{' '}
+        <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Its short cooldown and random nature mean its
+        best used as it becomes available. Lightly ramping for a Convoke is still worthwhile in case
+        it procs Flourish.
+        <p />
+        {this.convokeTracker.map((cast, ix) => {
+          const restoCast = this.restoConvokeTracker[ix];
+          const castTotalHealing =
+            restoCast.totalAttribution.healing + restoCast.flourishRateAttribution.amount;
+
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={SPELLS.CONVOKE_SPIRITS} /> ({formatNumber(castTotalHealing)} healing)
+            </>
+          );
+
+          const checklistItems: CooldownExpandableItem[] = [];
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={restoCast.wgsOnCast > 0} />,
+            details: <>({restoCast.wgsOnCast} HoTs active)</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.REJUVENATION} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={restoCast.rejuvsOnCast > 0} />,
+            details: <>({restoCast.rejuvsOnCast} HoTs active)</>,
+          });
+          this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id) &&
+            checklistItems.push({
+              label: (
+                <>
+                  Avoid <SpellLink id={SPELLS.FLOURISH_TALENT} /> clip{' '}
+                  <Tooltip
+                    hoverable
+                    content={
+                      <>
+                        When casting <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and{' '}
+                        <SpellLink id={SPELLS.FLOURISH_TALENT} /> together, the Convoke should
+                        ALWAYS go first. This is both because the Convoke could proc Flourish and
+                        cause you to clip your hardcast's buff, and also because Convoke produces a
+                        lot of HoTs which Flourish could extend. If you got an{' '}
+                        <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
+                        cast Flourish before this Convoke.
+                      </>
+                    }
+                  >
+                    <span>
+                      <InformationIcon />
+                    </span>
+                  </Tooltip>
+                </>
+              ),
+              result: <PassFailCheckmark pass={!restoCast.recentlyFlourished} />,
+            });
+          this.selectedCombatant.has4Piece() &&
+            checklistItems.push({
+              label: (
+                <>
+                  Sync with <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />{' '}
+                  <Tooltip
+                    hoverable
+                    content={
+                      <>
+                        <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
+                        's power is greatly increased when in Tree of Life form. With the 4 piece
+                        set bonus <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />, you
+                        can reasonably get a proc about once every minute, so it is recommended to
+                        sync your procs with Convoke.
+                      </>
+                    }
+                  >
+                    <span>
+                      <InformationIcon />
+                    </span>
+                  </Tooltip>
+                </>
+              ),
+              result: <PassFailCheckmark pass={cast.form === 'Tree of Life'} />,
+            });
+
+          return <CooldownExpandable header={header} checklistItems={checklistItems} key={ix} />;
+        })}
+        <p />
+      </>
+    );
   }
 
   statistic() {

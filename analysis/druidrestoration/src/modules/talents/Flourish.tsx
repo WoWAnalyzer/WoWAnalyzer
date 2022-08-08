@@ -2,7 +2,9 @@ import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
+import { PassFailCheckmark } from 'interface/guide';
+import InformationIcon from 'interface/icons/Information';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -16,6 +18,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { FLOURISH_INCREASED_RATE } from '../../constants';
+import { CooldownExpandable, CooldownExpandableItem } from '../../Guide';
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from '../shadowlands/covenants/ConvokeSpiritsResto';
@@ -157,6 +160,89 @@ class Flourish extends Analyzer {
     if (foundWg) {
       this.wgsExtended += 1;
     }
+  }
+
+  /** Guide fragment showing a breakdown of each Flourish cast */
+  get guideCastBreakdown() {
+    return (
+      <>
+        <strong>
+          <SpellLink id={SPELLS.FLOURISH_TALENT.id} />
+        </strong>{' '}
+        requires a ramp more than any of your other cooldowns, as its power is based almost entirely
+        in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild Growth a few
+        seconds before you're ready to Flourish.{' '}
+        {this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <>
+            When pairing this with <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, the Convoke should
+            ALWAYS be cast first. This is because the Convoke will produce many HoTs which can be
+            extended, but also because it could proc a Flourish thus allowing you to save the
+            hardcast.
+          </>
+        )}
+        <p />
+        {this.rampTrackers.map((cast, ix) => {
+          const castTotalHealing = cast.extensionAttribution.healing + cast.rateAttribution.amount;
+
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={SPELLS.FLOURISH_TALENT} /> ({formatNumber(castTotalHealing)} healing)
+            </>
+          );
+
+          const checklistItems: CooldownExpandableItem[] = [];
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
+            details: <>({cast.wgsOnCast} HoTs active)</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.REJUVENATION} /> ramp
+              </>
+            ),
+            result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
+            details: <>({cast.rejuvsOnCast} HoTs active)</>,
+          });
+          this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+            checklistItems.push({
+              label: (
+                <>
+                  Don't clip existing <SpellLink id={SPELLS.FLOURISH_TALENT} />{' '}
+                  <Tooltip
+                    hoverable
+                    content={
+                      <>
+                        <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can proc{' '}
+                        <SpellLink id={SPELLS.FLOURISH_TALENT} />. After Convoking, always check to
+                        see if you get a proc before Flourishing. If you got a proc, you need to
+                        wait before Flourishing so you don't overwrite the buff and lose a lot of
+                        duration. If you got an{' '}
+                        <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
+                        overwrote an existing Flourish.
+                      </>
+                    }
+                  >
+                    <span>
+                      <InformationIcon />
+                    </span>
+                  </Tooltip>
+                </>
+              ),
+              result: <PassFailCheckmark pass={!cast.clipped} />,
+            });
+
+          return <CooldownExpandable header={header} checklistItems={checklistItems} key={ix} />;
+        })}
+        <p />
+      </>
+    );
   }
 
   suggestions(when: When) {

@@ -216,6 +216,23 @@ class TreeOfLife extends Analyzer {
     );
   }
 
+  // TODO implement (what do we need?)
+  /** Guide fragment showing a breakdown of each Incarnation: Tree of Life cast */
+  get guideCastBreakdown() {
+    return (
+      <>
+        <strong>
+          <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />
+        </strong>{' '}
+        is a longer, lower-impact cooldown. It should be planned around periods of high sustained
+        healing.
+        <br />
+        <strong>EXPANDABLE PER-CAST BREAKDOWN COMING SOON!</strong>
+        <p />
+      </>
+    );
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

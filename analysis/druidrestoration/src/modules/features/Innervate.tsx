@@ -3,6 +3,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { PassFailCheckmark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -11,6 +12,8 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+
+import { CooldownExpandable, CooldownExpandableItem } from '../../Guide';
 
 export const GREED_INNERVATE = 9000;
 export const SMART_INNERVATE = GREED_INNERVATE / 2;
@@ -122,6 +125,87 @@ class Innervate extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
+  }
+
+  get guideCastBreakdown() {
+    return (
+      <>
+        <strong>
+          <SpellLink id={SPELLS.INNERVATE.id} />
+        </strong>{' '}
+        is best used during your ramp, or any time when you expect to spam cast. Typically it should
+        be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
+        it's one of your most expensive spells.
+        <p />
+        {this.castTrackers.map((cast, ix) => {
+          const isSelfCast = cast.targetId === undefined;
+          const targetName = cast.targetId === undefined ? 'SELF' : 'ALLY';
+          const metThresholdMana = isSelfCast
+            ? cast.manaSaved >= GREED_INNERVATE
+            : cast.manaSaved >= SMART_INNERVATE;
+          const castWildGrowth =
+            cast.casts.filter((c) => c.ability.guid === SPELLS.WILD_GROWTH.id).length > 0;
+
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={SPELLS.INNERVATE} /> ({formatNumber(cast.manaSaved)} mana saved)
+            </>
+          );
+
+          const checklistItems: CooldownExpandableItem[] = [];
+          checklistItems.push({
+            label: 'Chain-cast expensive spells',
+            result: <PassFailCheckmark pass={metThresholdMana} />,
+            details: (
+              <>
+                {isSelfCast
+                  ? `(for a self-cast, save at least ${GREED_INNERVATE} mana)`
+                  : `(for an ally-cast, save at least ${SMART_INNERVATE} mana)`}
+              </>
+            ),
+          });
+          checklistItems.push({
+            label: (
+              <>
+                Cast <SpellLink id={SPELLS.WILD_GROWTH.id} />
+              </>
+            ),
+            result: <PassFailCheckmark pass={castWildGrowth} />,
+          });
+
+          const detailItems: CooldownExpandableItem[] = [];
+          detailItems.push({
+            label: 'Used on',
+            result: '',
+            details: <>{targetName}</>,
+          });
+          detailItems.push({
+            label: 'Casts during Innervate',
+            result: '',
+            details: (
+              <>
+                {cast.casts.map((c, iix) => (
+                  <>
+                    <SpellIcon id={c.ability.guid} key={iix} />{' '}
+                  </>
+                ))}
+              </>
+            ),
+          });
+
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              detailItems={detailItems}
+              key={ix}
+            />
+          );
+        })}
+        <p />
+      </>
+    );
   }
 
   suggestions(when: When) {
