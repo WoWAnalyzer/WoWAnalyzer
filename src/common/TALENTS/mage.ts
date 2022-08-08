@@ -1339,6 +1339,15 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
+  DEEP_SHATTER_FROST_TALENT: {
+    id: 378749,
+    name: 'Deep Shatter',
+    icon: 'inv_misc_frostemblem_01',
+    maxRanks: 2,
+    reqPoints: 8,
+    spellType: 'passive',
+    talentType: 'single',
+  },
   PERPETUAL_WINTER_FROST_TALENT: {
     id: 378198,
     name: 'Perpetual Winter',
