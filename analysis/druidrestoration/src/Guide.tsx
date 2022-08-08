@@ -16,7 +16,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.regrowthAndClearcasting.guideSubsection}
         {modules.lifebloom.guideSubsection}
         {modules.efflorescence.guideSubsection}
-        {modules.swiftmend.guideSubsection}
+        <SubSection>
+          {modules.swiftmend.guideFragment}
+          {modules.soulOfTheForest.guideFragment}
+        </SubSection>
         {info.combatant.hasTalent(SPELLS.CENARION_WARD_TALENT) && (
           <CenarionWardSubsection modules={modules} events={events} info={info} />
         )}
