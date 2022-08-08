@@ -898,8 +898,8 @@ export interface Item {
   setID?: number;
 
   /**
-   * Added when parsing gear to combatant if item is part of a set.
-   * Contains all equiped items ids that belong to the set.
+   * Added while parsing gear of the combatant if item is part of a set.
+   * Contains all equiped items ids that have the same @setID
    * Used for wowhead tooltip.
    */
   setItemIDs?: number[];
