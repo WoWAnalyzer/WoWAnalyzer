@@ -2,10 +2,11 @@ import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
+import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+
+import { StandardChecks } from '@wowanalyzer/mage';
 
 const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,
@@ -17,65 +18,37 @@ const COMBUSTION_PRE_CASTS = [
 
 class CombustionPreCastDelay extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    standardChecks: StandardChecks,
   };
-  protected abilityTracker!: AbilityTracker;
+  protected standardChecks!: StandardChecks;
 
-  castStartedTimestamp = 0;
-  combustionTimestamp = 0;
-  totalCastDelay = 0;
-  combustionCasts: number[] = [];
+  // prettier-ignore
+  preCastDelay = () => {
+    const combustCasts = this.standardChecks.getEvents(true, EventType.Cast, SPELLS.COMBUSTION);
+    const combustionCasts: number[] = [];
 
-  constructor(options: Options) {
-    super(options);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
-      this.onCombustion,
-    );
-    this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(COMBUSTION_PRE_CASTS),
-      this.onPreCastStarted,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(COMBUSTION_PRE_CASTS),
-      this.onPreCastFinished,
-    );
+    combustCasts.forEach(cast => {
+      const preCastBegin = this.standardChecks.getEvents(true, EventType.BeginCast, COMBUSTION_PRE_CASTS, 1, cast.timestamp)[0]
+      if (preCastBegin && preCastBegin.castEvent) {
+        const castDelay = preCastBegin.castEvent.timestamp > cast.timestamp ? preCastBegin.castEvent.timestamp - cast.timestamp : 0
+        combustionCasts[cast.timestamp] = castDelay
+      }
+    })
+    return combustionCasts;
   }
 
-  onCombustion(event: ApplyBuffEvent) {
-    this.combustionTimestamp = event.timestamp;
-  }
+  get totalDelay() {
+    const casts = this.preCastDelay();
 
-  onPreCastStarted(event: BeginCastEvent) {
-    this.castStartedTimestamp = event.timestamp;
-    if (this.combustionTimestamp !== 0) {
-      const castDelay = event.timestamp - this.combustionTimestamp;
-      this.totalCastDelay += castDelay;
-      this.combustionCasts[this.combustionTimestamp] = castDelay;
-      this.castStartedTimestamp = 0;
-      this.combustionTimestamp = 0;
-    }
-  }
-
-  onPreCastFinished(event: CastEvent) {
-    if (this.combustionTimestamp === 0) {
-      this.castStartedTimestamp = 0;
-      return;
-    }
-    const castDelay = event.timestamp - this.combustionTimestamp;
-    this.totalCastDelay += castDelay;
-    this.combustionCasts[this.combustionTimestamp] = castDelay;
-    this.castStartedTimestamp = 0;
-    this.combustionTimestamp = 0;
-  }
-
-  get averageCastDelay() {
-    return this.totalCastDelay / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts / 1000;
+    let total = 0;
+    casts.forEach((cast) => (total += cast));
+    return total;
   }
 
   get combustionCastDelayThresholds() {
     return {
-      actual: this.averageCastDelay,
+      actual:
+        this.totalDelay / this.standardChecks.countEvents(EventType.Cast, SPELLS.COMBUSTION) / 1000,
       isGreaterThan: {
         minor: 0.7,
         average: 1,
@@ -89,9 +62,9 @@ class CombustionPreCastDelay extends Analyzer {
     when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with{' '}
-          {formatNumber(this.averageCastDelay)} seconds left on your pre-cast ability (The spell you
-          were casting when you used <SpellLink id={SPELLS.COMBUSTION.id} />
+          On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with {formatNumber(actual)}{' '}
+          seconds left on your pre-cast ability (The spell you were casting when you used{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} />
           ). In order to maximize the number of casts you can get in during{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} />, it is recommended that you are activating{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} /> closer to the end of your pre-cast (preferably
