@@ -11,8 +11,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
-import Photosynthesis from '../talents/Photosynthesis';
-
 const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL];
 const LB_COLOR = '#00bb44';
 const DTL_COLOR = '#dd5500';
@@ -20,12 +18,9 @@ const DTL_COLOR = '#dd5500';
 class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    photosynthesis: Photosynthesis,
   };
 
   protected combatants!: Combatants;
-  // TODO move the LB uptime target stats from Photo to here, and instead make Photo depend on this
-  protected photosynthesis!: Photosynthesis;
 
   /** true iff player has Dark Titan's Lesson legendary equipped */
   hasDTL = false;
@@ -76,14 +71,17 @@ class Lifebloom extends Analyzer {
     this.activeLifeblooms -= 1;
   }
 
+  /** The time at least one lifebloom was active */
   get oneLifebloomUptime() {
     return this._getTotalUptime(this.lifebloomUptimes);
   }
 
+  /** The percent of the encounter at least one lifebloom was active */
   get oneLifebloomUptimePercent() {
     return this.oneLifebloomUptime / this.owner.fightDuration;
   }
 
+  /** The time at two lifeblooms were active */
   get twoLifebloomUptime() {
     return this._getTotalUptime(this.dtlUptimes);
   }
@@ -93,6 +91,32 @@ class Lifebloom extends Analyzer {
       (acc, ut) => acc + (ut.end === undefined ? this.owner.currentTimestamp : ut.end) - ut.start,
       0,
     );
+  }
+
+  /** The time a lifebloom was active on the selected player */
+  get selfLifebloomUptime(): number {
+    return (
+      this.selectedCombatant.getBuffUptime(
+        SPELLS.LIFEBLOOM_HOT_HEAL.id,
+        this.selectedCombatant.id,
+      ) +
+      this.selectedCombatant.getBuffUptime(
+        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+        this.selectedCombatant.id,
+      )
+    );
+  }
+
+  /** The time a lifebloom was active on someone other than the selected player */
+  get othersLifebloomUptime(): number {
+    const summedTotalLifebloomUptime = Object.values(this.combatants.players).reduce(
+      (uptime, player) =>
+        uptime +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id),
+      0,
+    );
+    return summedTotalLifebloomUptime - this.selfLifebloomUptime;
   }
 
   // TODO suggestion for two lifebloom uptime with DTL
@@ -121,21 +145,11 @@ class Lifebloom extends Analyzer {
             <br />
             Total Uptime on{' '}
             <strong>
-              Self:{' '}
-              {formatPercentage(
-                this.photosynthesis.selfLifebloomUptime / this.owner.fightDuration,
-                1,
-              )}
-              %
+              Self: {formatPercentage(this.selfLifebloomUptime / this.owner.fightDuration, 1)}%
             </strong>{' '}
             / on{' '}
             <strong>
-              Others:{' '}
-              {formatPercentage(
-                this.photosynthesis.othersLifebloomUptime / this.owner.fightDuration,
-                1,
-              )}
-              %
+              Others: {formatPercentage(this.othersLifebloomUptime / this.owner.fightDuration, 1)}%
             </strong>
           </p>
         )}
