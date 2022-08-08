@@ -993,9 +993,9 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
-  AUDACITY_NYI_OUTLAW_TALENT: {
+  AUDACITY_OUTLAW_TALENT: {
     id: 381845,
-    name: 'Audacity [NYI]',
+    name: 'Audacity',
     icon: 'ability_rogue_ambush',
     maxRanks: 1,
     reqPoints: 8,
@@ -1029,9 +1029,9 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
-  DANCING_STEEL_NYI_OUTLAW_TALENT: {
+  DANCING_STEEL_OUTLAW_TALENT: {
     id: 272026,
-    name: 'Dancing Steel [NYI]',
+    name: 'Dancing Steel',
     icon: 'ability_warrior_punishingblow',
     maxRanks: 1,
     reqPoints: 8,
@@ -1131,18 +1131,18 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
-  TAKE_EM_BY_SURPRISE_NYI_OUTLAW_TALENT: {
+  TAKE_EM_BY_SURPRISE_OUTLAW_TALENT: {
     id: 382742,
-    name: "Take 'em by Surprise [NYI]",
+    name: "Take 'em by Surprise",
     icon: 'ability_stealth',
     maxRanks: 2,
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'single',
   },
-  DISPATCHER_NYI_OUTLAW_TALENT: {
+  DISPATCHER_OUTLAW_TALENT: {
     id: 381990,
-    name: 'Dispatcher [NYI]',
+    name: 'Dispatcher',
     icon: 'ability_rogue_waylay',
     maxRanks: 2,
     reqPoints: 20,
@@ -1158,9 +1158,9 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
-  HIDDEN_OPPORTUNITY_NYI_OUTLAW_TALENT: {
+  HIDDEN_OPPORTUNITY_OUTLAW_TALENT: {
     id: 383281,
-    name: 'Hidden Opportunity [NYI]',
+    name: 'Hidden Opportunity',
     icon: 'ability_rogue_ambush',
     maxRanks: 1,
     reqPoints: 20,
@@ -1177,9 +1177,9 @@ const talents = createTalentList({
     talentType: 'single',
   },
   GREENSKINS_WICKERS_OUTLAW_TALENT: {
-    id: 340573,
+    id: 386823,
     name: "Greenskin's Wickers",
-    icon: 'inv_firearm_2h_rifle_pvppandarias1_c_01',
+    icon: 'ability_creature_cursed_04',
     maxRanks: 1,
     reqPoints: 20,
     spellType: 'passive',
@@ -1424,9 +1424,9 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
-  SHADOWED_FINISHERS_NYI_SUBTLETY_TALENT: {
+  SHADOWED_FINISHERS_SUBTLETY_TALENT: {
     id: 382511,
-    name: 'Shadowed Finishers [NYI]',
+    name: 'Shadowed Finishers',
     icon: 'ability_rogue_eviscerate',
     maxRanks: 2,
     reqPoints: 8,
@@ -1452,27 +1452,27 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'single',
   },
-  WITHOUT_A_TRACE_NYI_SUBTLETY_TALENT: {
+  WITHOUT_A_TRACE_SUBTLETY_TALENT: {
     id: 382513,
-    name: 'Without a Trace [NYI]',
+    name: 'Without a Trace',
     icon: 'ability_vanish',
     maxRanks: 1,
     reqPoints: 8,
     spellType: 'passive',
     talentType: 'single',
   },
-  FADE_TO_NOTHING_NYI_SUBTLETY_TALENT: {
+  FADE_TO_NOTHING_SUBTLETY_TALENT: {
     id: 382514,
-    name: 'Fade to Nothing [NYI]',
+    name: 'Fade to Nothing',
     icon: 'ability_warlock_everlastingaffliction',
     maxRanks: 1,
     reqPoints: 8,
     spellType: 'passive',
     talentType: 'single',
   },
-  CLOAKED_IN_SHADOWS_NYI_SUBTLETY_TALENT: {
+  CLOAKED_IN_SHADOWS_SUBTLETY_TALENT: {
     id: 382515,
-    name: 'Cloaked in Shadows [NYI]',
+    name: 'Cloaked in Shadows',
     icon: 'inv_helm_cloth_shadowmoonclan_b_01',
     maxRanks: 1,
     reqPoints: 8,
@@ -1534,27 +1534,27 @@ const talents = createTalentList({
     spellType: 'active',
     talentType: 'single',
   },
-  INVIGORATING_SHADOWDUST_NYI_SUBTLETY_TALENT: {
+  INVIGORATING_SHADOWDUST_SUBTLETY_TALENT: {
     id: 382523,
-    name: 'Invigorating Shadowdust [NYI]',
+    name: 'Invigorating Shadowdust',
     icon: 'ability_vanish',
     maxRanks: 2,
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'single',
   },
-  LINGERING_SHADOW_NYI_SUBTLETY_TALENT: {
+  LINGERING_SHADOW_SUBTLETY_TALENT: {
     id: 382524,
-    name: 'Lingering Shadow [NYI]',
+    name: 'Lingering Shadow',
     icon: 'spell_fire_twilightnova',
     maxRanks: 2,
     reqPoints: 20,
     spellType: 'passive',
     talentType: 'single',
   },
-  FINALITY_NYI_SUBTLETY_TALENT: {
+  FINALITY_SUBTLETY_TALENT: {
     id: 382525,
-    name: 'Finality [NYI]',
+    name: 'Finality',
     icon: 'ability_rogue_eviscerate',
     maxRanks: 2,
     reqPoints: 20,
