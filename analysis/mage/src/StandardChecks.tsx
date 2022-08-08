@@ -41,10 +41,9 @@ class StandardChecks extends Analyzer {
     const beginCast = this.getEvents(
       true,
       EventType.BeginCast,
+      SPELLS[cast.ability.guid],
       1,
       cast.timestamp,
-      undefined,
-      SPELLS[cast.ability.guid],
     )[0];
     return cast.timestamp - beginCast.timestamp > 50;
   }
@@ -65,7 +64,7 @@ class StandardChecks extends Analyzer {
    * @returns the event for the precast spell, or undefined if none was found.
    */
   getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]) {
-    return this.getEvents(true, EventType.Cast, 1, event.timestamp, 250, preCastSpell)[0];
+    return this.getEvents(true, EventType.Cast, preCastSpell, 1, event.timestamp, 250)[0];
   }
 
   /**
@@ -96,7 +95,7 @@ class StandardChecks extends Analyzer {
    * @returns the number of events found
    */
   countEvents(eventType: EventType, spell: SpellInfo) {
-    const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
+    const events = this.getEvents(true, eventType, spell);
     return events.length;
   }
 
@@ -127,7 +126,7 @@ class StandardChecks extends Analyzer {
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
   ): Array<MappedEvent<ET>> {
-    const events = this.getEvents(true, eventType, undefined, undefined, undefined, spell);
+    const events = this.getEvents(true, eventType, spell);
     const filteredEvents = events.filter((e) =>
       buffActive
         ? this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1)
@@ -142,23 +141,16 @@ class StandardChecks extends Analyzer {
    * @returns an array of remove buff events that had expired
    */
   getExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo | SpellInfo[]) {
-    const events = this.getEvents(
-      true,
-      EventType.RemoveBuff,
-      undefined,
-      undefined,
-      undefined,
-      buff,
-    );
+    const events = this.getEvents(true, EventType.RemoveBuff, buff);
 
     const filteredEvents = events.filter((e) => {
       const castEvent = this.getEvents(
         true,
         EventType.Cast,
+        spenderSpell,
         1,
         e.timestamp + 1,
         250,
-        spenderSpell,
       )[0];
       return !castEvent;
     });
@@ -207,19 +199,19 @@ class StandardChecks extends Analyzer {
   /**
    * @param searchBackwards specify whether you want to search for events forwards or backwards from a particular timestamp (true for backwards, false for forwards. Default is backwards).
    * @param eventType the event type to get (i.e. 'cast', 'begincast', EventType.Cast, EventType.BeginCast). Use EventType.Event for all events.
+   * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
    * @param count the number of events to get. Leave undefined for no limit.
    * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
    * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
-   * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
    * @returns an array of events that meet the provided criteria
    */
   getEvents<ET extends EventType>(
     searchBackwards: boolean = true,
     eventType: ET,
+    spell?: SpellInfo | SpellInfo[],
     count?: number,
     startTimestamp: number = this.owner.fight.end_time,
     duration?: number,
-    spell?: SpellInfo | SpellInfo[],
     includePets: boolean = false,
   ): Array<MappedEvent<ET>> {
     const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;

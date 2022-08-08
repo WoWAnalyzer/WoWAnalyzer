@@ -178,7 +178,7 @@ class EventHistory extends Module {
 
     let history = this.owner.eventHistory.filter((event) => filter(event));
     if (count && count < history.length) {
-      history = history.slice(-count);
+      history = history.slice(count);
     }
     return history as E[];
   }

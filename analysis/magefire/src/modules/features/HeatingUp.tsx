@@ -69,6 +69,7 @@ class HeatingUp extends Analyzer {
       const lastEvent = this.standardChecks.getEvents(
         true,
         EventType.BeginCast,
+        undefined,
         1,
         cast.timestamp,
         1000,
