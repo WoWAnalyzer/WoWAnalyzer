@@ -896,6 +896,13 @@ export interface Item {
   temporaryEnchant?: number;
   gems?: Gem[];
   setID?: number;
+
+  /**
+   * Added when parsing gear to combatant if item is part of a set.
+   * Contains all equiped items ids that belong to the set.
+   * Used for wowhead tooltip.
+   */
+  setItemIDs?: number[];
 }
 
 export interface Gem {
