@@ -524,7 +524,9 @@ class CombatLogParser {
     // Executed when module initialization is complete
   }
   _moduleCache = new Map();
-  getOptionalModule<T extends Module>(type: { new (options: Options): T }): T | undefined {
+  getOptionalModule<T extends Module, O extends Options>(type: {
+    new (options: O): T;
+  }): T | undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
     if (cacheEntry !== undefined) {
@@ -535,7 +537,7 @@ class CombatLogParser {
     this._moduleCache.set(type, module);
     return module as T;
   }
-  getModule<T extends Module>(type: { new (options: Options): T }): T {
+  getModule<T extends Module, O extends Options>(type: { new (options: O): T }): T {
     const module = this.getOptionalModule(type);
     if (module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
