@@ -8,7 +8,6 @@ const talents: SpellList = {
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
     manaCost: 275,
-    maelstromCost: 90,
   },
   SPIRIT_WOLF_TALENT: { id: 260878, name: 'Spirit Wolf', icon: 'spell_hunter_lonewolf' },
   EARTH_SHIELD_TALENT: {

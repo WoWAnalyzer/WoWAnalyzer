@@ -129,7 +129,7 @@ const talents: SpellList = {
     id: 342049,
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
-    focusCost: 40,
+    focusCost: 20,
   },
 
   //Beast Mastery
