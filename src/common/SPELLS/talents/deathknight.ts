@@ -115,7 +115,7 @@ const talents: SpellList = {
     runesCost: 1,
   },
   PERMAFROST_TALENT: { id: 207200, name: 'Permafrost', icon: 'achievement_zone_frostfire' },
-  GATHERING_STORM_TALENT: { id: 194912, name: 'Gathering Storm', icon: 'spell_frost_ice_shards' },
+  GATHERING_STORM_TALENT: { id: 194912, name: 'Gathering Storm', icon: 'spell_frost_iceshards' },
   HYPOTHERMIC_PRESENCE_TALENT: {
     id: 321995,
     name: 'Hypothermic Presence',

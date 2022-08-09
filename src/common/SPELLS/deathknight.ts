@@ -231,7 +231,7 @@ const spells = {
   GATHERING_STORM_TALENT_BUFF: {
     id: 211805,
     name: 'Gathering Storm',
-    icon: 'spell_frost_ice_shards',
+    icon: 'spell_frost_iceshards',
   },
   BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
     id: 155166,

@@ -88,7 +88,7 @@ const talents: SpellList = {
   EBONBOLT_TALENT: { id: 257537, name: 'Ebonbolt', icon: 'artifactability_frostmage_ebonbolt' },
   FRIGID_WINDS_TALENT: { id: 235224, name: 'Frigid Winds', icon: 'ability_mage_deepfreeze' },
   FREEZING_RAIN_TALENT: { id: 270233, name: 'Freezing Rain', icon: 'spell_frost_frozenorb' },
-  SPLITTING_ICE_TALENT: { id: 56377, name: 'Splitting Ice', icon: 'spell_frost_ice_shards' },
+  SPLITTING_ICE_TALENT: { id: 56377, name: 'Splitting Ice', icon: 'spell_frost_iceshards' },
   COMET_STORM_TALENT: {
     id: 153595,
     name: 'Comet Storm',
