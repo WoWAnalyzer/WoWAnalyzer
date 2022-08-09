@@ -47,12 +47,12 @@ const talents: SpellList = {
   //Level 45: Inner Peace || Spring Blossoms || Overgrowth
   //Level 50: Photosynthesis || Germination || Flourish
   ABUNDANCE_TALENT: { id: 207383, name: 'Abundance', icon: 'ability_druid_empoweredrejuvination' },
-  NOURISH_TALENT: { id: 50464, name: 'Nourish', icon: 'ability_druid_nourish', manaCost: 9000 },
+  NOURISH_TALENT: { id: 50464, name: 'Nourish', icon: 'ability_druid_nourish', manaCost: 1800 },
   CENARION_WARD_TALENT: {
     id: 102351,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
-    manaCost: 4600,
+    manaCost: 920,
   },
   CULTIVATION_TALENT: { id: 200390, name: 'Cultivation', icon: 'spell_nature_healingtouch' },
   INCARNATION_TREE_OF_LIFE_TALENT: {
@@ -66,7 +66,7 @@ const talents: SpellList = {
     id: 203651,
     name: 'Overgrowth',
     icon: 'ability_druid_overgrowth',
-    manaCost: 15000,
+    manaCost: 1200,
   },
   PHOTOSYNTHESIS_TALENT: { id: 274902, name: 'Photosynthesis', icon: 'spell_lifegivingseed' },
   GERMINATION_TALENT: { id: 155675, name: 'Germination', icon: 'spell_druid_germination' },
@@ -157,7 +157,7 @@ const talents: SpellList = {
   //Level 30: Feral Affinity || Guardian Affinity || Restoration Affinity
   //Level 35: Mighty Bash || Mass Entanglement || Heart of the Wild
   //Level 40: Soul of the Forest || Starlord || Incarnation: Chosen of Elune
-  //Level 45: Stellar Drift || Twin Moons || Stellar Flare
+  //Level 45: Twin Moons || Stellar Drift || Stellar Flare
   //Level 50: Solstice || Fury of Elune || New Moon
   NATURES_BALANCE_TALENT: {
     id: 202430,
@@ -171,8 +171,8 @@ const talents: SpellList = {
     icon: 'ability_druid_forceofnature',
   },
   STARLORD_TALENT: { id: 202345, name: 'Starlord', icon: 'spell_shaman_measuredinsight' },
-  STELLAR_DRIFT_TALENT: { id: 202354, name: 'Stellar Drift', icon: 'ability_druid_starfall' },
   TWIN_MOONS_TALENT: { id: 279620, name: 'Twin Moons', icon: 'spell_nature_starfall' },
+  STELLAR_DRIFT_TALENT: { id: 202354, name: 'Stellar Drift', icon: 'ability_druid_starfall' },
   STELLAR_FLARE_TALENT: { id: 202347, name: 'Stellar Flare', icon: 'ability_druid_stellarflare' },
   SOLSTICE_TALENT: {
     id: 343647,
