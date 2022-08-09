@@ -106,7 +106,7 @@ class InscrutableQuantumDevice extends Analyzer {
     }
 
     // https://wowhead.com/spell=330366/inscrutable-quantum-device?ilvl=262
-    const secondaryStat = calculateSecondaryStatDefault(262, 850, this.item.itemLevel);
+    const secondaryStat = calculateSecondaryStatDefault(262, 638, this.item.itemLevel);
 
     // Add all the buffs to the statTracker so that other modules know them
     options.statTracker.add(SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT, {
