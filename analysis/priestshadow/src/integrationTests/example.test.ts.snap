@@ -34,7 +34,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          1.23 %
+          1.19 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "98.76859133327429%",
+                  "width": "98.81088977470861%",
                 }
               }
             >
@@ -376,7 +376,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "79.90954430262384%",
+                      "width": "80.01067195660909%",
                     }
                   }
                 />
@@ -391,7 +391,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              79.91%
+              80.01%
             </td>
             <td
               style={
@@ -563,7 +563,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.8489897507073%",
+                      "width": "89.24401457321305%",
                     }
                   }
                 />
@@ -578,7 +578,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              88.85%
+              89.24%
             </td>
             <td
               style={
@@ -4283,7 +4283,7 @@ Array [
   Object {
     "details": null,
     "icon": undefined,
-    "importance": "regular",
+    "importance": "minor",
     "issue": <React.Fragment>
       <Trans
         components={
@@ -6540,7 +6540,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.0297565055475%",
+                  "width": "81.1042150462033%",
                 }
               }
             />
@@ -6750,7 +6750,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  79.91%
+                  80.01%
                    
                    
                 </div>
@@ -6770,9 +6770,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "66.29878252773744%",
+                        "width": "66.67107523101653%",
                       }
                     }
                   />
@@ -6969,7 +6969,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  88.85%
+                  89.24%
                    
                    
                 </div>
@@ -7753,7 +7753,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  1.23%
+                  1.19%
                    
                    
                 </div>

@@ -36,6 +36,9 @@ class TooltipProviderWowhead extends Base {
       if (details.bonusIDs && details.bonusIDs.length > 0) {
         queryString.push(`bonus=${details.bonusIDs.join(':')}`);
       }
+      if (details.setItemIDs && details.setItemIDs.length > 0) {
+        queryString.push(`pcs=${details.setItemIDs.join(':')}`);
+      }
       return queryString.join('&');
     }
   }
