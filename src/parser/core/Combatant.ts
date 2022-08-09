@@ -48,6 +48,7 @@ class Combatant extends Entity {
   get specId() {
     return this._combatantInfo.specID;
   }
+
   get player() {
     return this._combatantInfo.player;
   }
@@ -272,7 +273,23 @@ class Combatant extends Entity {
   _gearItemsBySlotId: { [key: number]: Item } = {};
 
   _parseGear(gear: Item[]) {
+    const equipedSets: number[][] = [];
+
+    gear
+      .filter((item) => item.setID !== undefined)
+      .forEach((item) => {
+        if (equipedSets[item.setID || 0] === undefined) {
+          equipedSets[item.setID || 0] = [];
+        }
+
+        equipedSets[item.setID || 0].push(item.id);
+      });
+
     gear.forEach((item, index) => {
+      if (item.setID !== undefined && equipedSets[item.setID] !== undefined) {
+        item.setItemIDs = equipedSets[item.setID];
+      }
+
       this._gearItemsBySlotId[index] = item;
     });
   }
@@ -500,6 +517,7 @@ class Combatant extends Entity {
     }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
   }
+
   // endregion
 
   _parsePrepullBuffs(buffs: Buff[]) {
