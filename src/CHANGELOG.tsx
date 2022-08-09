@@ -61,6 +61,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 9), <>Tracking stats for all versions of <ItemLink id={ITEMS.UNBOUND_CHANGELING.id}/>.</>, Vetyst),
   change(date(2022, 8, 8), 'Apply season 4 trinket nerfs.', Vetyst),
   change(date(2022, 8, 8), 'Display equiped set pieces on tooltip.', Vetyst),
   change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),

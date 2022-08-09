@@ -141,6 +141,29 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.CACHE_OF_ACQUIRED_TREASURES.id,
       haste: (_, item) => calculateSecondaryStatDefault(226, 75, item.itemLevel),
     },
+
+    [SPELLS.UNBOUND_CHANGELING_ALL_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6915,
+      crit: (_, item) => calculateSecondaryStatDefault(158, 75, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(158, 75, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(158, 75, item.itemLevel),
+    },
+    [SPELLS.UNBOUND_CHANGELING_CRIT_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6916,
+      crit: (_, item) => calculateSecondaryStatDefault(158, 180, item.itemLevel),
+    },
+    [SPELLS.UNBOUND_CHANGELING_HASTE_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6917,
+      haste: (_, item) => calculateSecondaryStatDefault(158, 180, item.itemLevel),
+    },
+    [SPELLS.UNBOUND_CHANGELING_MASTERY_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6918,
+      mastery: (_, item) => calculateSecondaryStatDefault(158, 180, item.itemLevel),
+    },
     // endregion
 
     // region Racials
