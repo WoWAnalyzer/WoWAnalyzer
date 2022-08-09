@@ -61,6 +61,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 8), 'Display equiped set pieces on tooltip.', Vetyst),
   change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),
   change(date(2022, 8, 4), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),
   change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={SPELLS.SPELLSTEAL.id} />.</>, Vetyst),
