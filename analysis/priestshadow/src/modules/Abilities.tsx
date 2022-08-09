@@ -25,15 +25,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIND_BLAST.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) =>
-          combatant.hasBuff(SPELLS.DARK_THOUGHT_BUFF.id) ? 0.1 : 7.5 / (1 + haste),
+        cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
-        charges:
-          1 +
-          (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1 : 0) +
-          (combatant.hasBuff(SPELLS.DARK_THOUGHT_BUFF.id) ? 1 : 0),
+        charges: 1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,

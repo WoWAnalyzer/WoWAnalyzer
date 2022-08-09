@@ -1,17 +1,20 @@
 import { t } from '@lingui/macro';
 import Module, { Options } from 'parser/core/Module';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
 import AbilityTracker from '../../shared/modules/AbilityTracker';
-import { AnyEvent } from '../Events';
+import { AnyEvent, EventType } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
 
 class Abilities extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    eventEmitter: EventEmitter,
     haste: Haste,
   };
   abilityTracker!: AbilityTracker;
+  eventEmitter!: EventEmitter;
   haste!: Haste;
 
   // TODO - Enum?
@@ -75,10 +78,12 @@ class Abilities extends Module {
 
   abilities: Ability[] = [];
   activeAbilities: Ability[] = [];
+
   constructor(args: Options) {
     super(args);
     this.loadSpellbook(this.spellbook());
   }
+
   loadSpellbook(spellbook: SpellbookAbility[]) {
     // Abilities subtypes may want to construct a particular subtype of Ability
     const abilityClass = (this.constructor as typeof Abilities).ABILITY_CLASS;
@@ -117,6 +122,18 @@ class Abilities extends Module {
     return ability;
   }
 
+  getAbilityIndex(spellId: number) {
+    const index = this.activeAbilities.findIndex((ability) => {
+      if (ability.spell instanceof Array) {
+        return ability.spell.includes(spellId);
+      } else {
+        return ability.spell === spellId;
+      }
+    });
+
+    return index;
+  }
+
   /**
    * Returns the expected cooldown (in milliseconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
@@ -133,6 +150,61 @@ class Abilities extends Module {
   getMaxCharges(spellId: number) {
     const ability = this.getAbility(spellId);
     return ability ? ability.charges || 1 : undefined;
+  }
+
+  protected updateMaxCharges(spellId: number, maxCharges: number) {
+    const abilityIndex = this.getAbilityIndex(spellId);
+
+    if (abilityIndex === -1) {
+      return;
+    }
+
+    // The amount of charges should never drop below 1.
+    if (maxCharges < 1) {
+      maxCharges = 1;
+    }
+
+    this.activeAbilities[abilityIndex].charges = maxCharges;
+  }
+
+  increaseMaxCharges(event: AnyEvent, spellId: number, increaseBy: number = 1) {
+    const currentCharges = this.getMaxCharges(spellId);
+
+    if (currentCharges === undefined) {
+      return;
+    }
+
+    this.updateMaxCharges(spellId, currentCharges + increaseBy);
+
+    this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.MaxChargesIncreased,
+        timestamp: event.timestamp,
+        spellId: spellId,
+        by: increaseBy,
+      },
+      event,
+    );
+  }
+
+  decreaseMaxCharges(event: AnyEvent, spellId: number, decreaseBy: number = 1) {
+    const currentCharges = this.getMaxCharges(spellId);
+
+    if (currentCharges === undefined) {
+      return;
+    }
+
+    this.updateMaxCharges(spellId, currentCharges - decreaseBy);
+
+    this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.MaxChargesDecreased,
+        timestamp: event.timestamp,
+        spellId: spellId,
+        by: decreaseBy,
+      },
+      event,
+    );
   }
 
   /**

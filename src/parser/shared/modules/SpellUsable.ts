@@ -7,6 +7,7 @@ import Events, {
   ChangeHasteEvent,
   EventType,
   FilterCooldownInfoEvent,
+  MaxChargesDecreased,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -28,6 +29,7 @@ type CooldownInfo = {
   totalReductionTime: number;
   cooldownTriggerEvent: AnyEvent;
 };
+
 /**
  * @property {EventEmitter} eventEmitter
  * @property {Abilities} abilities
@@ -59,6 +61,7 @@ class SpellUsable extends Analyzer {
     this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.ChangeHaste, this.onChangehaste);
     this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.MaxChargesDescreased, this.onMaxChargesDecreased);
   }
 
   /**
@@ -561,6 +564,17 @@ class SpellUsable extends Analyzer {
       debug && this.log('Clearing', spellName(spellId), spellId, 'due to fightend');
       this.endCooldown(Number(spellId), false, expectedEnd);
     });
+  }
+
+  /**
+   * Correct the chargesOnCooldown after removing a maxCharge from the spellbook.
+   */
+  onMaxChargesDecreased(event: MaxChargesDecreased) {
+    const canSpellId = this._getCanonicalId(event.spellId);
+
+    if (this.isOnCooldown(canSpellId)) {
+      this._currentCooldowns[canSpellId].chargesOnCooldown -= event.by;
+    }
   }
 
   _calculateNewCooldownDuration(progress: number, newDuration: number) {
