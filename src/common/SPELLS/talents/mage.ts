@@ -20,7 +20,7 @@ const talents: SpellList = {
   RING_OF_FROST_TALENT: {
     id: 113724,
     name: 'Ring of Frost',
-    icon: 'spell_frost_ring_of_frost',
+    icon: 'spell_frost_ring-of-frost',
     manaCost: 4000,
   },
   OVERPOWERED_TALENT: { id: 155147, name: 'Overpowered', icon: 'spell_mage_overpowered' },

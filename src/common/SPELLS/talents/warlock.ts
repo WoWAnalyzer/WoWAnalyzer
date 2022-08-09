@@ -70,7 +70,6 @@ const talents: SpellList = {
     icon: 'inv_argusfelstalkermount',
     soulShardsCost: 1,
   },
-  SOUL_CONDUIT_TALENT: { id: 215941, name: 'Soul Conduit', icon: 'spell_shadow_soulleech_2' },
   INNER_DEMONS_TALENT: { id: 267216, name: 'Inner Demons', icon: 'ability_warlock_eradication' },
   GRIMOIRE_FELGUARD_TALENT: {
     id: 111898,

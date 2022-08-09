@@ -111,7 +111,7 @@ const talents: SpellList = {
   UNFURLING_DARKNESS_TALENT: {
     id: 341273,
     name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow_mend',
+    icon: 'spell_priest_shadow-mend',
   },
   SANLAYN_TALENT: { id: 199855, name: "San'layn", icon: 'achievement_boss_lanathel' },
   INTANGIBILITY_TALENT: { id: 288733, name: 'Intangibility', icon: 'spell_shadow_dispersion' },
@@ -134,7 +134,7 @@ const talents: SpellList = {
   SHADOW_CRASH_TALENT: { id: 205385, name: 'Shadow Crash', icon: 'spell_shadow_shadowfury' },
   DAMNATION_TALENT: { id: 341374, name: 'Damnation', icon: 'ability_warlock_eradication' },
   VOID_TORRENT_TALENT: { id: 263165, name: 'Void Torrent', icon: 'spell_priest_voidsear' },
-  ANCIENT_MADNESS_TALENT: { id: 341240, name: 'Ancient Madness', icon: 'spell_priest_void_flay' },
+  ANCIENT_MADNESS_TALENT: { id: 341240, name: 'Ancient Madness', icon: 'spell_priest_void-flay' },
   HUNGERING_VOID_TALENT: {
     id: 345218,
     name: 'Hungering Void',

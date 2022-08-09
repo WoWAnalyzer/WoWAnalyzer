@@ -20,13 +20,13 @@ class BindingHeal extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_HEALS_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEAL_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEALS_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEAL_TALENT),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEALS_TALENT),
       this.onHeal,
     );
   }
@@ -92,7 +92,7 @@ class BindingHeal extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={SPELLS.BINDING_HEAL_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.BINDING_HEALS_TALENT.id}>
           <ItemHealingDone amount={this.bindingHealHealing} />
         </BoringSpellValueText>
       </Statistic>
