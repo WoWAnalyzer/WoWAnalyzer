@@ -1257,9 +1257,9 @@ const talents = createTalentList({
     spellType: 'active',
     talentType: 'single',
   },
-  FROSTBITE_FROST_TALENT: {
+  ICEBOUND_FROST_TALENT: {
     id: 378756,
-    name: 'Frostbite',
+    name: 'Icebound',
     icon: 'spell_frost_frostarmor',
     maxRanks: 1,
     reqPoints: 0,
