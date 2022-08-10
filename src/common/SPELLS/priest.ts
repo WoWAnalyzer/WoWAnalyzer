@@ -497,6 +497,13 @@ const spells = {
     icon: 'ability_priest_ascension',
   },
 
+  // Talents
+  BINDING_HEALS_TALENT_HEAL: {
+    id: 368276,
+    name: 'Binding Heals',
+    icon: 'spell_holy_blindingheal',
+  },
+
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,
