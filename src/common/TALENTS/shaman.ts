@@ -983,9 +983,9 @@ const talents = createTalentList({
     spellType: 'passive',
     talentType: 'choice',
   },
-  HEAT_WAVE_NYI_ELEMENTAL_TALENT: {
+  HEAT_WAVE_ELEMENTAL_TALENT: {
     id: 386474,
-    name: 'Heat Wave [NYI]',
+    name: 'Heat Wave',
     icon: 'ability_rhyolith_magmaflow_wave',
     maxRanks: 1,
     reqPoints: 20,
