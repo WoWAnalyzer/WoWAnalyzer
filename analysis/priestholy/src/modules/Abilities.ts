@@ -196,9 +196,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BINDING_HEAL_TALENT.id,
+        spell: SPELLS.BINDING_HEALS_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BINDING_HEALS_TALENT.id),
         gcd: {
           base: 1500,
         },
