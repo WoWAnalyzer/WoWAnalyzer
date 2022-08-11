@@ -28,7 +28,7 @@ class Voidform extends Analyzer {
   }
 
   enterVoidform(event: ApplyBuffEvent) {
-    this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id);
+    this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
 
     if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
       this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, true);
@@ -36,7 +36,7 @@ class Voidform extends Analyzer {
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    this.abilities.decreaseMaxCharges(event, SPELLS.MIND_BLAST.id);
+    this.abilities.decreaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
   }
 }
 

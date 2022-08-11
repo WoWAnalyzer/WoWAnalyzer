@@ -167,7 +167,7 @@ class Abilities extends Module {
     this.activeAbilities[abilityIndex].charges = maxCharges;
   }
 
-  increaseMaxCharges(event: AnyEvent, spellId: number, increaseBy: number = 1) {
+  increaseMaxCharges(event: AnyEvent, spellId: number, increaseBy: number) {
     const currentCharges = this.getMaxCharges(spellId);
 
     if (currentCharges === undefined) {
@@ -187,7 +187,7 @@ class Abilities extends Module {
     );
   }
 
-  decreaseMaxCharges(event: AnyEvent, spellId: number, decreaseBy: number = 1) {
+  decreaseMaxCharges(event: AnyEvent, spellId: number, decreaseBy: number) {
     const currentCharges = this.getMaxCharges(spellId);
 
     if (currentCharges === undefined) {

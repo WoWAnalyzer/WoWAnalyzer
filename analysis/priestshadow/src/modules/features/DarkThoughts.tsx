@@ -40,13 +40,13 @@ class DarkThoughts extends Analyzer {
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
-    this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id);
+    this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
 
     this.procsGained += 1; // Add a proc to the counter
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    this.abilities.decreaseMaxCharges(event, SPELLS.MIND_BLAST.id);
+    this.abilities.decreaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
 
     if (
       this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))
