@@ -212,7 +212,11 @@ const spells = {
   },
 
   // Talents
-
+  CHI_BURST_TALENT_DAMAGE: {
+    id: 148135,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
   CHI_WAVE_TALENT_DAMAGE: {
     id: 132467,
     name: 'Chi Wave',
