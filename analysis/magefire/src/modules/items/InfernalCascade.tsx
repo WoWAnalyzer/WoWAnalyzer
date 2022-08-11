@@ -141,8 +141,9 @@ class InfernalCascade extends Analyzer {
       1,
       undefined,
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
-    )[0].timestamp;
-    this.totalCombustionDuration += event.timestamp - lastCombustStart;
+    );
+    this.totalCombustionDuration +=
+      event.timestamp - (lastCombustStart[0]?.timestamp ?? this.owner.fight.start_time);
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {

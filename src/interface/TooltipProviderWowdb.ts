@@ -23,6 +23,9 @@ class TooltipProviderWowdb extends Base {
       if (details.bonusIDs && details.bonusIDs.length > 0) {
         queryString.push(`bonusIDs=${details.bonusIDs.join(',')}`);
       }
+      if (details.setItemIDs && details.setItemIDs.length > 0) {
+        queryString.push(`setPieces=${details.setItemIDs.join(',')}`);
+      }
       return `${base}?${queryString.join('&')}`;
     }
   }

@@ -27,7 +27,7 @@ class HolyWordSerenity extends HolyWordBase {
           FLASH_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => FLASH_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
-      [SPELLS.BINDING_HEAL_TALENT.id]: {
+      [SPELLS.BINDING_HEALS_TALENT.id]: {
         baseReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () =>
           BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

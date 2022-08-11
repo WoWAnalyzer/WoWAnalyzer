@@ -8,7 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const REDUCTION_MS = 1500;
+const REDUCTION_MS = 1000;
 const COMBUST_REDUCTION_SPELLS = [
   SPELLS.FIREBALL,
   SPELLS.PYROBLAST,

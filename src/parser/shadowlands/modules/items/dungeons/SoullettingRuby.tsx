@@ -32,8 +32,8 @@ const dynamicRatio = 2.464831 as const;
 // Get the total maximum crit rating from a sample item
 // https://wowhead.com/item=178809/soulletting-ruby?ilvl=223
 const sample = {
-  ilvl: 223,
-  criticalStrike: 875,
+  ilvl: 236,
+  criticalStrike: 701,
 } as const;
 
 const calculateCritRating = (ilvl: number) => {

@@ -13,7 +13,7 @@ const items: ItemList = {
   UNBOUND_CHANGELING: {
     id: 178708,
     name: 'Unbound Changeling',
-    icon: 'inv_misc_questionmark',
+    icon: 'inv_pet_spectralporcupinered',
   },
   //endregion
   MISTCALLER_OCARINA: {
