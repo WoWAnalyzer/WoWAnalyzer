@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Juko8, Abelito75, Talby, Hursti, nullDozzer, kate } from 'CONTRIBUTORS';
+import { Juko8, Abelito75, Talby, Hursti, nullDozzer, kate, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 8, 11), <>Resolved error analyzing the spec.</>, Vetyst),
   change(date(2022, 6, 18), <>Added a Mark of the Crane stack graph.</>, Abelito75),
   change(date(2022, 5, 10), <>Added a drill-down link from the "Wasted Chi" statistics to the Chi tab</>, nullDozzer),
   change(date(2022, 5, 10), <>Correct tracking of chi cost reduction during <SpellLink id={SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id}/></>, nullDozzer),
