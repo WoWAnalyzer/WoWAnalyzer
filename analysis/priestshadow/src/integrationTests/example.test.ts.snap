@@ -358,7 +358,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               38
-              /48
+              /43
                casts
             </td>
             <td
@@ -376,7 +376,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "80.01067195660909%",
+                      "width": "80.48559772591133%",
                     }
                   }
                 />
@@ -391,7 +391,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              80.01%
+              80.49%
             </td>
             <td
               style={
@@ -4307,7 +4307,7 @@ Array [
         values={
           Object {
             "0": 38,
-            "1": 48,
+            "1": 43,
             "2": "80",
           }
         }
@@ -6540,7 +6540,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.1042150462033%",
+                  "width": "81.73681617091391%",
                 }
               }
             />
@@ -6750,7 +6750,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  80.01%
+                  80.49%
                    
                    
                 </div>
@@ -6772,7 +6772,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "66.67107523101653%",
+                        "width": "69.83408085456956%",
                       }
                     }
                   />
