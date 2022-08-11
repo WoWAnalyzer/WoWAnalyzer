@@ -251,11 +251,6 @@ const spells = {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  SHADOW_EMBRACE: {
-    id: 32388,
-    name: 'Shadow Embrace',
-    icon: 'spell_shadow_shadowembrace',
-  },
   MALEFIC_RAPTURE: {
     id: 324536,
     name: 'Malefic Rapture',

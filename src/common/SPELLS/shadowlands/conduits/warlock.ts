@@ -1,9 +1,9 @@
 const conduits = {
   //Affliction
-  COLD_EMBRACE: {
+  WITHERING_BOLT: {
     id: 339576,
-    name: 'Cold Embrace',
-    icon: 'spell_shadow_burningspirit',
+    name: 'Withering Bolt',
+    icon: 'spell_shadow_shadowbolt',
   },
   CORRUPTING_LEER: {
     id: 339455,
@@ -113,14 +113,14 @@ const conduits = {
     name: 'Catastrophic Origin',
     icon: 'spell_animarevendreth_orb',
   },
-  PROLONGED_DECIMATION: {
+  FATAL_DECIMATION: {
     id: 340268,
-    name: 'Prolonged Decimation',
+    name: 'Fatal Decimation',
     icon: 'spell_animamaldraxxus_wave',
   },
-  EXHUMED_SOUL: {
+  SOUL_EATER: {
     id: 340348,
-    name: 'Exhumed Soul',
+    name: 'Soul Eater',
     icon: 'ability_ardenweald_warlock',
   },
 } as const;

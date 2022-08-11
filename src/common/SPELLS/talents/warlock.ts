@@ -154,7 +154,7 @@ const talents: SpellList = {
   //Level 30: Demon Skin || Burning Rush || Dark Pact
   //Level 35: Sow the Seeds || Phantom Singularity || Vile Taint
   //Level 40: Darkfury || Mortal Coil || Howl of Terror
-  //Level 45: Dark Caller || Haunt || Grimoire of Sacrifice
+  //Level 45: Shadow Embrace || Haunt || Grimoire of Sacrifice
   //Level 50: Soul Conduit || Creeping Death || Dark Soul: Misery
   NIGHTFALL_TALENT: { id: 108558, name: 'Nightfall', icon: 'spell_shadow_twilight' },
   INEVITABLE_DEMISE_TALENT: {
@@ -190,7 +190,11 @@ const talents: SpellList = {
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
     soulShardsCost: 1,
   },
-  DARK_CALLER_TALENT: { id: 334183, name: 'Dark Caller', icon: 'warlock_summon__beholder' },
+  SHADOW_EMBRACE_TALENT: {
+    id: 32388,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
+  },
   HAUNT_TALENT: { id: 48181, name: 'Haunt', icon: 'ability_warlock_haunt', manaCost: 1000 },
   CREEPING_DEATH_TALENT: { id: 264000, name: 'Creeping Death', icon: 'ability_creature_cursed_03' },
   DARK_SOUL_MISERY_TALENT: {
