@@ -61,6 +61,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 9), <>Add the ability to change max charges of a spell such as <SpellLink id={SPELLS.MIND_BLAST.id}/> combined with <SpellLink id={SPELLS.VOIDFORM.id}/> and <SpellLink id={SPELLS.DARK_THOUGHTS.id} />.</>, Vetyst),
   change(date(2022, 8, 9), <>Regenerated talents for season 4.</>, Vetyst),
   change(date(2022, 8, 9), <>Tracking stats for all versions of <ItemLink id={ITEMS.UNBOUND_CHANGELING.id}/>.</>, Vetyst),
   change(date(2022, 8, 8), 'Apply season 4 trinket nerfs.', Vetyst),

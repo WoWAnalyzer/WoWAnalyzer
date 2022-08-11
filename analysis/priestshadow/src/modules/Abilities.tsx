@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        charges: combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 2 : 1,
+        charges: 1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,

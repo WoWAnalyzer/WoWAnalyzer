@@ -62,6 +62,8 @@ export enum EventType {
   RefreshCooldown = 'refreshcooldown',
   EndCooldown = 'endcooldown',
   RestoreCharge = 'restorecharge',
+  MaxChargesIncreased = 'maxchargesincreased',
+  MaxChargesDecreased = 'maxchargesdecreased',
   Health = 'health',
   Adds = 'adds',
   Dispel = 'dispel',
@@ -166,6 +168,8 @@ type MappedEventTypes = {
   [EventType.BeginChannel]: BeginChannelEvent;
   [EventType.EndChannel]: EndChannelEvent;
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
+  [EventType.MaxChargesIncreased]: MaxChargesIncreased;
+  [EventType.MaxChargesDecreased]: MaxChargesDecreased;
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
@@ -802,6 +806,16 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
   __fabricated: true;
 }
 
+export interface MaxChargesIncreased extends Event<EventType.MaxChargesIncreased> {
+  spellId: number;
+  by: number;
+}
+
+export interface MaxChargesDecreased extends Event<EventType.MaxChargesIncreased> {
+  spellId: number;
+  by: number;
+}
+
 export interface Stats {
   agility: number;
   armor: number;
@@ -1236,6 +1250,12 @@ const Events = {
   },
   get UpdateSpellUsable() {
     return new EventFilter(EventType.UpdateSpellUsable);
+  },
+  get MaxChargesIncreased() {
+    return new EventFilter(EventType.MaxChargesIncreased);
+  },
+  get MaxChargesDescreased() {
+    return new EventFilter(EventType.MaxChargesDecreased);
   },
   get BeginChannel() {
     return new EventFilter(EventType.BeginChannel);
