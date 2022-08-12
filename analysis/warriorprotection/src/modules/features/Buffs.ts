@@ -4,7 +4,7 @@ import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
   //TODO: Get shrike to fill this out since I'm lazy
-  buffs() {
+  auras() {
     //const combatant = this.selectedCombatant;
 
     // This should include ALL buffs that can be applied by your spec.

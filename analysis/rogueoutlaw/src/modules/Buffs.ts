@@ -3,7 +3,7 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
-  buffs() {
+  auras() {
     // This should include ALL buffs that can be applied by your spec.
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [

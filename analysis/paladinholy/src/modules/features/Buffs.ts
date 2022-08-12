@@ -3,7 +3,7 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
-  buffs() {
+  auras() {
     const combatant = this.selectedCombatant;
 
     // This should include ALL buffs that can be applied by your spec.
