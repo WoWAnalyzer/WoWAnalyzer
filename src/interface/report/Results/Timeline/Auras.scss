@@ -1,4 +1,4 @@
-.spell-timeline .buffs {
+.spell-timeline .auras {
   width: 100%;
   border-radius: 10px;
   position: relative;
@@ -43,7 +43,7 @@
     background: #f8b700;
   }
   //noinspection CssOverwrittenProperties
-  .buff {
+  .aura {
     border-top-right-radius: 5px;
     background: hsla(41, 10%, 68%, 0.2);
     box-shadow: 0 0 3px #000;

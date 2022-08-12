@@ -6,7 +6,7 @@ import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

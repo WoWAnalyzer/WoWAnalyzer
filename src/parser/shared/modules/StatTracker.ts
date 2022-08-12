@@ -172,7 +172,6 @@ class StatTracker extends Analyzer {
     [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 125 },
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
     [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
-
     // endregion
   };
 

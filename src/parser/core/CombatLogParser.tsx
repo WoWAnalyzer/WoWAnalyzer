@@ -92,7 +92,7 @@ import Fight from './Fight';
 import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
-import Buffs from './modules/Buffs';
+import Auras from './modules/Auras';
 import EventEmitter from './modules/EventEmitter';
 import SpellInfo from './modules/SpellInfo';
 import ParseResults from './ParseResults';
@@ -180,7 +180,7 @@ class CombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
-    buffs: Buffs,
+    buffs: Auras,
     abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
