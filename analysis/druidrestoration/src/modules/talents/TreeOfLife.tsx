@@ -23,8 +23,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
 import HotTrackerRestoDruid from '../../modules/core/hottracking/HotTrackerRestoDruid';
+import Rejuvenation from '../../modules/features/Rejuvenation';
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
-import Rejuvenation from '../core/Rejuvenation';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
@@ -213,6 +213,23 @@ class TreeOfLife extends Analyzer {
       accumulator.rejuvBoostHealing +
       accumulator.extraWgsAttribution.healing +
       this._getManaSavedHealing(accumulator)
+    );
+  }
+
+  // TODO implement (what do we need?)
+  /** Guide fragment showing a breakdown of each Incarnation: Tree of Life cast */
+  get guideCastBreakdown() {
+    return (
+      <>
+        <strong>
+          <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />
+        </strong>{' '}
+        is a longer, lower-impact cooldown. It should be planned around periods of high sustained
+        healing.
+        <br />
+        <strong>EXPANDABLE PER-CAST BREAKDOWN COMING SOON!</strong>
+        <p />
+      </>
     );
   }
 

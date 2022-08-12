@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
+import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -183,14 +184,35 @@ class WildGrowth extends Analyzer {
     };
   }
 
-  get guideTimeline() {
-    const values = this.castWgHitsLog.map((wgCast) => ({
+  /** Guide subsection describing the proper usage of Wild Growth */
+  get guideSubsection(): JSX.Element {
+    const castPerfBoxes = this.castWgHitsLog.map((wgCast) => ({
       value: wgCast.effectiveHits >= 3,
       tooltip: `@ ${this.owner.formatTimestamp(wgCast.timestamp)} - Hits: ${
         wgCast.hits
       }, Effective: ${wgCast.effectiveHits}`,
     }));
-    return <PerformanceBoxRow values={values} />;
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.WILD_GROWTH.id} />
+          </b>{' '}
+          is your best healing spell when multiple raiders are injured. It quickly heals a lot of
+          damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least
+          3 injured targets. Remember that only allies within 30 yds of the primary target can be
+          hit - don't cast this on an isolated player!
+        </p>
+        <strong>Wild Growth casts</strong>
+        <small>
+          {' '}
+          - Green is a good cast, Red was effective on fewer than three targets. A hit is considered
+          "ineffective" if over the first 3 seconds it did more than 50% overhealing. Mouseover
+          boxes for details.
+        </small>
+        <PerformanceBoxRow values={castPerfBoxes} />
+      </SubSection>
+    );
   }
 
   suggestions(when: When) {

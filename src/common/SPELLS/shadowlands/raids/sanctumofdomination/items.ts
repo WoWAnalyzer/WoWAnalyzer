@@ -16,6 +16,12 @@ export default {
   //Guardian of the First Ones
 
   //Fatescribe Roh-Kalo
+  INTRUSIVE_FORESIGHT: {
+    // heal and 'fake cast' from Carved Ivory Keepsake trinket
+    id: 355985,
+    name: 'Intrusive Foresight',
+    icon: 'spell_arcane_teleportoribos',
+  },
 
   //Kel'Thuzad
 

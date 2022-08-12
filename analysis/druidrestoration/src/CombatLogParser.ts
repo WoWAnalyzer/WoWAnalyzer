@@ -15,7 +15,6 @@ import Abilities from './modules/Abilities';
 import HotAttributor from './modules/core/hottracking/HotAttributor';
 import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from './modules/core/Mastery';
-import Rejuvenation from './modules/core/Rejuvenation';
 import SpellManaCost from './modules/core/SpellManaCost';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
@@ -27,12 +26,13 @@ import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import Lifebloom from './modules/features/Lifebloom';
 import LifebloomAndEffloUptime from './modules/features/LifebloomAndEffloUptime';
-import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import RegrowthAndClearcasting from './modules/features/RegrowthAndClearcasting';
+import Rejuvenation from './modules/features/Rejuvenation';
 import RestoDruidHealingEfficiencyDetails from './modules/features/RestoDruidHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
 import Swiftmend from './modules/features/Swiftmend';
+import Tranquility from './modules/features/Tranquility';
 import WildGrowth from './modules/features/WildGrowth';
 import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
 import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
@@ -61,6 +61,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
+import SwiftmendNormalizer from './normalizers/SwiftmendNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -73,9 +74,9 @@ class CombatLogParser extends CoreCombatLogParser {
     hotCastLinkNormalizer: CastLinkNormalizer,
     soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
+    swiftmendNormazlier: SwiftmendNormalizer,
 
     // Core
-    rejuvenation: Rejuvenation,
     mastery: Mastery,
     spellManaCost: SpellManaCost,
     activeDruidForm: ActiveDruidForm,
@@ -105,10 +106,11 @@ class CombatLogParser extends CoreCombatLogParser {
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     ironbark: Ironbark,
-    prematureRejuvenations: PrematureRejuvenations,
+    prematureRejuvenations: Rejuvenation,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
     hotCountGraph: HotCountGraph,
+    tranquility: Tranquility,
 
     // Talents
     soulOfTheForest: SoulOfTheForest,
