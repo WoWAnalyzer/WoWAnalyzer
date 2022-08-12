@@ -2,11 +2,8 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class CancelledCasts extends CoreCancelledCasts {
-  statisticOrder = STATISTIC_ORDER.CORE(8);
-
   get suggestionThresholds() {
     return {
       actual: this.castsCancelled / this.totalCasts,

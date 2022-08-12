@@ -29,7 +29,6 @@ class SoulShardDetails extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 
   suggestions(when) {
     const shardsWasted = this.soulShardTracker.wasted;

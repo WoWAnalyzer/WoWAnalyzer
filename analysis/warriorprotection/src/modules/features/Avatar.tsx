@@ -15,7 +15,6 @@ const AVATAR_DAMAGE_INCREASE = 0.2;
 
 class Avatar extends Analyzer {
   bonusDmg = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   constructor(options: Options) {
     super(options);

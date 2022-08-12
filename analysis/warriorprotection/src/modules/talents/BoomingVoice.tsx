@@ -24,7 +24,6 @@ class BoomingVoice extends Analyzer {
   bonusDmg = 0;
   maxRage = 100;
   nextCastWasted = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
   protected enemies!: Enemies;
 
   constructor(options: Options) {

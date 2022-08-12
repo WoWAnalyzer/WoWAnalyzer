@@ -11,7 +11,6 @@ class Overload extends Analyzer {
   };
 
   spells = [];
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(...args) {
     super(...args);
@@ -81,6 +80,7 @@ class Overload extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={
           <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
