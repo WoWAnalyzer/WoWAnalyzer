@@ -25,7 +25,6 @@ class StellarDrift extends Analyzer {
 
   bonusDamage = 0;
   countStarfallCasts = 0;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(options: Options) {
     super(options);
