@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import {
   ElysianDecree,
   FelDefender,
+  FodderToTheFlame,
   GrowingInferno,
   RepeatDecree,
   SinfulBrand,
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
     elysianDecree: ElysianDecree,
+    fodderToTheFlame: FodderToTheFlame,
 
     // Conduits
     felDefender: FelDefender,

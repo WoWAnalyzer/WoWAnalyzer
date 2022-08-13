@@ -17,7 +17,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
-  change(date(2022, 8, 12), <>Add support for <SpellLink id={SPELLS.FODDER_TO_THE_FLAME_DAMAGE} />.</>, ToppleTheNun),
+  change(date(2022, 8, 12), <>Add support for <SpellLink id={SPELLS.FODDER_TO_THE_FLAME_DAMAGE.id} />.</>, ToppleTheNun),
   change(date(2022, 7, 24), <>Correct <SpellLink id={SPELLS.SINFUL_BRAND.id} /> cooldown.</>, ToppleTheNun),
   change(date(2022, 4, 7), <>Added several conduits and updated <SpellLink id={SPELLS.AGONIZING_FLAMES_TALENT.id} /> implementation.</>, xepheris),
   change(date(2022, 4, 7), <>Added Average <SpellLink id={SPELLS.BLIND_FAITH_BUFF.id} /> versatility buff stat tracking.</>, xepheris),
