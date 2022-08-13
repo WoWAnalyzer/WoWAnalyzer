@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
@@ -35,7 +36,7 @@ class RuneDetails extends Analyzer {
         y: {
           field: 'y',
           type: 'quantitative',
-          title: '# of Runes',
+          title: t({ id: 'deathknight.shared.runeDetails.numberOfRunes', message: '# of Runes' }),
           axis: {
             grid: false,
             tickMinStep: 1,
@@ -45,7 +46,7 @@ class RuneDetails extends Analyzer {
     };
 
     return {
-      title: 'Rune usage',
+      title: t({ id: 'deathknight.shared.runeDetails.title', message: 'Rune usage' }),
       url: 'rune-usage',
       render: () => (
         <Panel>

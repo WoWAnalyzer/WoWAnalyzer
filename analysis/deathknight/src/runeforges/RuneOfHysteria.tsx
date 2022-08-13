@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -91,39 +91,53 @@ class RuneOfHysteria extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <span>
+        <Trans id="deathknight.shared.runeOfHysteria.suggestion.suggestion">
           Avoid being Runic Power capped at all times, you wasted{' '}
           {this.runicPowerWastedDuringHysteria} PR of {SPELLS.RUNE_OF_HYSTERIA.name} by being RP
           capped.
-        </span>,
+        </Trans>,
       )
         .icon(SPELLS.RUNE_OF_HYSTERIA.icon)
         .actual(
-          t({
-            id: 'deathknight.suggestions.hysteria.efficiency',
-            message: `You wasted ${formatPercentage(actual)}% of RP from ${
-              SPELLS.RUNE_OF_HYSTERIA.name
-            } by being RP capped.`,
-          }),
+          <Trans id="deathknight.shared.runeOfHysteria.suggestion.actual">
+            You wasted {formatPercentage(actual)}% of RP from {SPELLS.RUNE_OF_HYSTERIA.name} by
+            being RP capped
+          </Trans>,
         )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          <Trans id="deathknight.shared.runeOfHysteria.suggestion.recommended">
+            {formatPercentage(recommended)}% is recommended
+          </Trans>,
+        ),
     );
   }
 
   statistic() {
     let gainedSpell: React.ReactNode = <></>;
     let wastedSpell: React.ReactNode = <></>;
+    let runicPowerWastedDuringHysteriaText: React.ReactNode = <></>;
 
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       gainedSpell = (
-        <>
+        <Trans id="deathknight.shared.runeOfHysteria.statistic.gainedSpell">
           , resulting in {this.gainedDeathStrikes} additional {SPELLS.DEATH_STRIKE.name}
-        </>
+        </Trans>
       );
       wastedSpell = (
-        <>
+        <Trans id="deathknight.shared.runeOfHysteria.statistic.wastedSpell">
           , losing out on {this.wastedDeathStrikes} {SPELLS.DEATH_STRIKE.name}
-        </>
+        </Trans>
+      );
+    }
+
+    // Lingui doesn't fare well with nested Trans, maybe even in combination with conditionals
+    if (this.runicPowerGainedByHysteria > 1) {
+      runicPowerWastedDuringHysteriaText = (
+        <Trans id="deathknight.shared.runeOfHysteria.statistic.tooltip.rpWasted">
+          You wasted {this.runicPowerWastedDuringHysteria} RP (
+          {formatPercentage(this.wastedPercentage)} %) from Hysteria by being RP capped
+          {wastedSpell}.
+        </Trans>
       );
     }
 
@@ -132,24 +146,18 @@ class RuneOfHysteria extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.shared.runeOfHysteria.statistic.tooltip">
             You gained {Math.floor(this.runicPowerGainedByHysteria)} RP by using{' '}
             {SPELLS.RUNE_OF_HYSTERIA.name}
             {gainedSpell}.<br />
-            {this.runicPowerWastedDuringHysteria > 1 && (
-              <>
-                You wasted {this.runicPowerWastedDuringHysteria} RP (
-                {formatPercentage(this.wastedPercentage)} %) from Hysteria by being RP capped
-                {wastedSpell}.
-              </>
-            )}
-          </>
+            {runicPowerWastedDuringHysteriaText}
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.RUNE_OF_HYSTERIA.id}>
-          <>
+          <Trans id="deathknight.shared.runeOfHysteria.statistic.text">
             {Math.floor(this.runicPowerGainedByHysteria)} <small>RP gained</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

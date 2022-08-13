@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -38,134 +39,126 @@ class RuneBreakdown extends ResourceBreakdown {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Ability</th>
+              <th>
+                <Trans id="deathknight.shared.runeBreakdown.ability">Ability</Trans>
+              </th>
               <th colSpan="2">
-                <TooltipElement content="Runes generated from passive regeneration and abilities that accelerate it are estimates.">
-                  {resourceName} generated
+                <TooltipElement
+                  content={t({
+                    id: 'deathknight.shared.runeBreakdown.generatedHeaderTooltip',
+                    message:
+                      'Runes generated from passive regeneration and abilities that accelerate it are estimates.',
+                  })}
+                >
+                  <Trans id="deathknight.shared.runeBreakdown.generatedHeader">
+                    {resourceName} generated
+                  </Trans>
                 </TooltipElement>
               </th>
               <th colSpan="2">
-                <TooltipElement content="This is the amount of resources that were generated while you were already at cap.">
-                  {resourceName} wasted
+                <TooltipElement
+                  content={t({
+                    id: 'deathknight.shared.runeBreakdown.wastedHeaderTooltip',
+                    message:
+                      'This is the amount of resources that were generated while you were already at cap.',
+                  })}
+                >
+                  <Trans id="deathknight.shared.runeBreakdown.wastedHeader">
+                    {resourceName} wasted
+                  </Trans>
                 </TooltipElement>
               </th>
             </tr>
           </thead>
           <tbody>
-            {generated &&
-              generated
-                .filter((ability) => ability.abilityId === SPELLS.RUNE_1.id)
-                .map((ability) => (
-                  <tr key={ability.abilityId}>
-                    <td style={{ width: '30%' }}>
-                      <SpellIcon id={ability.abilityId} noLink /> Passive Rune regeneration
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <TooltipElement
-                        content={`${formatPercentage(ability.generated / totalGenerated)} %`}
-                      >
-                        {ability.generated}
-                      </TooltipElement>
-                    </td>
-                    <td style={{ width: '40%' }}>
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
-                      />
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <TooltipElement
-                        content={`${formatPercentage(ability.wasted / totalWasted)} %`}
-                      >
-                        {ability.wasted}
-                      </TooltipElement>
-                    </td>
-                    <td style={{ width: '30%' }}>
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
-                      />
-                    </td>
-                  </tr>
-                ))}
-            {generated &&
-              generated
-                .filter((ability) => ability.abilityId !== SPELLS.RUNE_1.id)
-                .map((ability) => (
-                  <tr key={ability.abilityId}>
-                    <td style={{ width: '30%' }}>
-                      <SpellLink id={ability.abilityId} />
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <TooltipElement
-                        content={`${formatPercentage(ability.generated / totalGenerated)} %`}
-                      >
-                        {ability.generated}
-                      </TooltipElement>
-                    </td>
-                    <td style={{ width: '40%' }}>
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
-                      />
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <TooltipElement
-                        content={`${formatPercentage(ability.wasted / totalWasted)} %`}
-                      >
-                        {ability.wasted}
-                      </TooltipElement>
-                    </td>
-                    <td style={{ width: '30%' }}>
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
-                      />
-                    </td>
-                  </tr>
-                ))}
+            {generated?.map((ability) => (
+              <tr key={ability.abilityId}>
+                <td style={{ width: '30%' }}>
+                  {ability.abilityId === SPELLS.RUNE_1.id && (
+                    <>
+                      <SpellIcon id={ability.abilityId} noLink />
+                      <Trans id="deathknight.shared.runeBreakdown.passive">
+                        Passive Rune regeneration
+                      </Trans>
+                    </>
+                  )}
+                  {ability.abilityId !== SPELLS.RUNE_1.id && <SpellLink id={ability.abilityId} />}
+                </td>
+                <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                  <TooltipElement
+                    content={`${formatPercentage(ability.generated / totalGenerated)} %`}
+                  >
+                    {ability.generated}
+                  </TooltipElement>
+                </td>
+                <td style={{ width: '40%' }}>
+                  <div
+                    className="performance-bar"
+                    style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
+                  />
+                </td>
+                <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                  <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>
+                    {ability.wasted}
+                  </TooltipElement>
+                </td>
+                <td style={{ width: '30%' }}>
+                  <div
+                    className="performance-bar"
+                    style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
+                  />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         {showSpenders && (
           <table className="data-table">
             <thead>
               <tr>
-                <th>Ability</th>
-                <th colSpan="2">{resourceName} spent</th>
-                <th colSpan="2">Casts</th>
+                <th>
+                  <Trans id="deathknight.shared.runeBreakdown.ability">Ability</Trans>
+                </th>
+                <th colSpan="2">
+                  <Trans id="deathknight.shared.runeBreakdown.spenders.resourceSpent">
+                    {resourceName} spent
+                  </Trans>
+                </th>
+                <th colSpan="2">
+                  <Trans id="deathknight.shared.runeBreakdown.spenders.casts">Casts</Trans>
+                </th>
               </tr>
             </thead>
             <tbody>
-              {spent &&
-                spent.map((ability) => (
-                  <tr key={ability.abilityId}>
-                    <td style={{ width: '30%' }}>
-                      <SpellLink id={ability.abilityId} />
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>
-                        {ability.spent}
-                      </TooltipElement>
-                    </td>
-                    <td style={{ width: '40%' }}>
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                      />
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <TooltipElement content={`${formatPercentage(ability.casts / totalCasts)} %`}>
-                        {ability.casts}
-                      </TooltipElement>
-                    </td>
-                    <td style={{ width: '30%' }}>
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${(ability.casts / totalCasts) * 100}%` }}
-                      />
-                    </td>
-                  </tr>
-                ))}
+              {spent?.map((ability) => (
+                <tr key={ability.abilityId}>
+                  <td style={{ width: '30%' }}>
+                    <SpellLink id={ability.abilityId} />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                    <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>
+                      {ability.spent}
+                    </TooltipElement>
+                  </td>
+                  <td style={{ width: '40%' }}>
+                    <div
+                      className="performance-bar"
+                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                    />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
+                    <TooltipElement content={`${formatPercentage(ability.casts / totalCasts)} %`}>
+                      {ability.casts}
+                    </TooltipElement>
+                  </td>
+                  <td style={{ width: '30%' }}>
+                    <div
+                      className="performance-bar"
+                      style={{ width: `${(ability.casts / totalCasts) * 100}%` }}
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         )}

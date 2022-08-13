@@ -4548,11 +4548,20 @@ exports[`Unholy Death Knight integration test: example log RuneOfTheFallenCrusad
         <div
           className="value"
         >
-          9.23
-           % 
-          <small>
-            average Strength
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.shared.runeOfTheFallenCrusader.statistic"
+            message="{0} % <0>average Strength</0>"
+            values={
+              Object {
+                "0": "9.23",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4619,7 +4628,7 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
             12.72 %
           </div>
           <small>
-            Runes overcapped
+            {"id":"deathknight.shared.runeTracker.statistic.value","message":"Runes overcapped"}
           </small>
         </div>
       </div>
@@ -5054,16 +5063,37 @@ Array [
     "details": null,
     "icon": "ability_revendreth_deathknight",
     "importance": "minor",
-    "issue": <span>
-      Avoid being Runic Power capped at all times, you wasted 
-      21
-       RP by being RP capped.
-    </span>,
+    "issue": <Trans
+      id="deathknight.shared.covenants.swarmingMist.suggestion"
+      message="Avoid being Runic Power capped at all times, you wasted {0} RP by being RP capped."
+      values={
+        Object {
+          "0": 21,
+        }
+      }
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.suggestions.swarmingmist.efficiency","message":"You wasted {0}% of RP from {1} by being RP capped.","values":{"0":"15.33","1":"Swarming Mist"}}
+      <Trans
+        id="deathknight.shared.covenants.swarmingMist.suggestion.actual"
+        message="You wasted {0}% of RP from {1} by being RP capped."
+        values={
+          Object {
+            "0": "15.33",
+            "1": "Swarming Mist",
+          }
+        }
+      />
        (
-      0.00% is recommended
+      <Trans
+        id="deathknight.shared.covenants.swarmingMist.suggestion.recommended"
+        message="<{0}% is recommended"
+        values={
+          Object {
+            "0": "0.00",
+          }
+        }
+      />
       )
     </React.Fragment>,
   },
