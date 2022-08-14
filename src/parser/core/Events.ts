@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import { PhaseConfig } from 'game/raids';
+import PhaseConfig from 'parser/core/PhaseConfig';
 import * as React from 'react';
 
 import EventFilter from './EventFilter';
