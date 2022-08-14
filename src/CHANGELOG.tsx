@@ -54,13 +54,15 @@ import {
   Tialyss,
   Lucky0604,
   ToppleTheNun,
-  Vetyst
+  Vetyst,
+  Chizu
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 14), 'Updated core Death Knight modules to Typescript', Chizu),
   change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
   change(date(2022, 8, 14), 'Add spell and item data for missing Sanctum of Domination items.', ToppleTheNun),
   change(date(2022, 8, 12), 'Update patch information in order to warn that a report is from an earlier patch.', Vetyst),

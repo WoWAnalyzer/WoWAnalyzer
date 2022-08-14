@@ -4,17 +4,11 @@ import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import PropTypes from 'prop-types';
 
 //Need to extend this class to change how passive rune regeneration is displayed.
 //The only new lines are 44, 49-54 and 78.
 class RuneBreakdown extends ResourceBreakdown {
-  static propTypes = {
-    tracker: PropTypes.object.isRequired,
-    showSpenders: PropTypes.bool,
-  };
-
-  render() {
+  render(): JSX.Element {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
     const generated = this.prepareGenerated(tracker.buildersObj);
@@ -39,12 +33,12 @@ class RuneBreakdown extends ResourceBreakdown {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2">
+              <th colSpan={2}>
                 <TooltipElement content="Runes generated from passive regeneration and abilities that accelerate it are estimates.">
                   {resourceName} generated
                 </TooltipElement>
               </th>
-              <th colSpan="2">
+              <th colSpan={2}>
                 <TooltipElement content="This is the amount of resources that were generated while you were already at cap.">
                   {resourceName} wasted
                 </TooltipElement>
@@ -131,8 +125,8 @@ class RuneBreakdown extends ResourceBreakdown {
             <thead>
               <tr>
                 <th>Ability</th>
-                <th colSpan="2">{resourceName} spent</th>
-                <th colSpan="2">Casts</th>
+                <th colSpan={2}>{resourceName} spent</th>
+                <th colSpan={2}>Casts</th>
               </tr>
             </thead>
             <tbody>

@@ -2,9 +2,17 @@ import { t } from '@lingui/macro';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  RemoveBuffEvent,
+  ResourceChangeEvent,
+  UpdateSpellUsableEvent,
+} from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -36,19 +44,20 @@ class RuneTracker extends ResourceTracker {
     abilities: Abilities,
   };
 
-  runesReady = []; //{x, y} points of {time, runeCount} for the chart
+  protected spellUsable!: SpellUsable;
+  protected castEfficiency!: CastEfficiency;
+  protected abilities!: Abilities;
+
+  runesReady: Array<{ x: number; y: number }> = []; //{x, y} points of {time, runeCount} for the chart
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
   _fightend = false; //fightend, avoid wierd graph by not adding later runes
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
-    this._runesReadySum = [MAX_RUNES + 1];
-    for (let i = 0; i <= MAX_RUNES; i += 1) {
-      this._runesReadySum[i] = 0;
-    }
+    this._runesReadySum = Array.from({ length: MAX_RUNES + 1 }, (_) => 0);
     this.addEventListener(Events.fightend, this.onFightend);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION),
@@ -71,7 +80,7 @@ class RuneTracker extends ResourceTracker {
     this.addPassiveRuneRegeneration();
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (!event.classResources || event.prepull) {
       return;
     }
@@ -98,7 +107,7 @@ class RuneTracker extends ResourceTracker {
       });
   }
 
-  onEnergize(event) {
+  onEnergize(event: ResourceChangeEvent) {
     //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
     super.onEnergize(event);
     if (event.resourceChangeType !== this.resource.id) {
@@ -110,7 +119,7 @@ class RuneTracker extends ResourceTracker {
     }
   }
 
-  onApplybuff(event) {
+  onApplybuff(event: ApplyBuffEvent) {
     //decrease cooldown when a buff that increases rune regeneration rate is applied.
     const increase = RUNE_REGEN_BUFFS[event.ability.guid];
     if (increase) {
@@ -121,7 +130,7 @@ class RuneTracker extends ResourceTracker {
     }
   }
 
-  onRemovebuff(event) {
+  onRemovebuff(event: RemoveBuffEvent) {
     //increase cooldown when a buff that increases rune regeneration rate fades.
     const increase = RUNE_REGEN_BUFFS[event.ability.guid];
     if (increase) {
@@ -132,7 +141,7 @@ class RuneTracker extends ResourceTracker {
     }
   }
 
-  onUpdateSpellUsable(event) {
+  onUpdateSpellUsable(event: UpdateSpellUsableEvent) {
     //track when a rune comes off cooldown
     let change = 0;
     if (event.trigger === EventType.EndCooldown || event.trigger === EventType.RestoreCharge) {
@@ -184,11 +193,11 @@ class RuneTracker extends ResourceTracker {
     this.buildersObj[SPELLS.RUNE_1.id].wasted += Math.round(passiveRunesWasted);
   }
 
-  addPassiveAccelerator(spellId, gained, wasted, increase) {
+  addPassiveAccelerator(spellId: number, gained: number, wasted: number, increase: number): number {
     //used to add passive rune gain accelerators like Runic Corruption
     //use uptime to get approximate contribution to passive regeneration
     const uptime = this.selectedCombatant.getBuffUptime(spellId) / this.owner.fightDuration;
-    if (!(uptime > 0)) {
+    if (uptime <= 0) {
       return 0;
     }
     this.initBuilderAbility(spellId);
@@ -200,7 +209,7 @@ class RuneTracker extends ResourceTracker {
     return contribution;
   }
 
-  changeCooldown(spellId, multiplier) {
+  changeCooldown(spellId: number, multiplier: number) {
     //increases or decreases rune cooldown
     if (!this.spellUsable.isOnCooldown(spellId)) {
       return;
@@ -220,15 +229,15 @@ class RuneTracker extends ResourceTracker {
       runeId,
       this.spellUsable.cooldownTriggerEvent(runeId),
     );
-    this.spellUsable.reduceCooldown(runeId, expectedCooldown);
+    this.spellUsable.reduceCooldown(runeId, expectedCooldown || 0);
   }
 
-  startCooldown(event) {
+  startCooldown(event: CastEvent) {
     const runeId = this.shortestCooldown;
     this.spellUsable.beginCooldown(runeId, event);
   }
 
-  get shortestCooldown() {
+  get shortestCooldown(): number {
     const runeOneCooldown = this.getCooldown(SPELLS.RUNE_1.id) || 0;
     const runeTwoCooldown = this.getCooldown(SPELLS.RUNE_2.id) || 0;
     const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
@@ -241,7 +250,7 @@ class RuneTracker extends ResourceTracker {
     }
   }
 
-  get longestCooldown() {
+  get longestCooldown(): number {
     const runeOneCooldown = this.getCooldown(SPELLS.RUNE_1.id) || 0;
     const runeTwoCooldown = this.getCooldown(SPELLS.RUNE_2.id) || 0;
     const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
@@ -254,7 +263,7 @@ class RuneTracker extends ResourceTracker {
     }
   }
 
-  get runesAvailable() {
+  get runesAvailable(): number {
     let chargesAvailable = 0;
     RUNE_IDS.forEach((spell) => {
       chargesAvailable += this.spellUsable.chargesAvailable(spell.id);
@@ -262,7 +271,7 @@ class RuneTracker extends ResourceTracker {
     return chargesAvailable;
   }
 
-  getCooldown(spellId) {
+  getCooldown(spellId: number) {
     if (!this.spellUsable.isOnCooldown(spellId)) {
       return null;
     }
@@ -272,16 +281,14 @@ class RuneTracker extends ResourceTracker {
       spellId,
       this.spellUsable.cooldownTriggerEvent(spellId),
     );
-    return (chargesOnCooldown - 1) * fullChargeCooldown + cooldownRemaining;
+    return (chargesOnCooldown - 1) * fullChargeCooldown! + cooldownRemaining;
   }
 
   get runeEfficiency() {
-    const runeCastEfficiencies = [];
-    RUNE_IDS.forEach((spell) => {
-      runeCastEfficiencies.push(
-        this.castEfficiency.getCastEfficiencyForSpellId(spell.id).efficiency,
-      );
-    });
+    const runeCastEfficiencies = RUNE_IDS.map(
+      ({ id }: { id: number }) => this.castEfficiency.getCastEfficiencyForSpellId(id)!.efficiency!,
+    );
+
     return (
       runeCastEfficiencies.reduce((accumulator, currentValue) => accumulator + currentValue) /
       runeCastEfficiencies.length
@@ -301,18 +308,14 @@ class RuneTracker extends ResourceTracker {
   }
 
   get timeSpentAtRuneCount() {
-    const timeSpentAtRune = [];
-    this._runesReadySum.forEach((time) => {
-      timeSpentAtRune.push(time / this.owner.fightDuration);
-    });
-    return timeSpentAtRune;
+    return this._runesReadySum.map((time) => time / this.owner.fightDuration);
   }
 
-  timeFromStart(timestamp) {
+  timeFromStart(timestamp: number) {
     return (timestamp - this.owner.fight.start_time) / 1000;
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: 1 - this.runeEfficiency,
       isGreaterThan: {
@@ -320,11 +323,11 @@ class RuneTracker extends ResourceTracker {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholdsEfficiency() {
+  get suggestionThresholdsEfficiency(): NumberThreshold {
     return {
       actual: this.runeEfficiency,
       isLessThan: {
@@ -332,11 +335,11 @@ class RuneTracker extends ResourceTracker {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -382,8 +385,8 @@ class RuneTracker extends ResourceTracker {
               {
                 //split into good and bad number of runes available
                 this._runesReadySum
-                  .filter((value, index) => index < badThreshold)
-                  .map((value, index) => (
+                  .filter((_value, index) => index < badThreshold)
+                  .map((_value, index) => (
                     <tr key={index}>
                       <th>{index}</th>
                       <td>{formatDuration(this._runesReadySum[index])}</td>
@@ -392,8 +395,8 @@ class RuneTracker extends ResourceTracker {
                   ))
               }
               {this._runesReadySum
-                .filter((value, index) => index >= badThreshold)
-                .map((value, index) => (
+                .filter((_value, index) => index >= badThreshold)
+                .map((_value, index) => (
                   <tr key={index + badThreshold}>
                     <th style={{ color: 'red' }}>{index + badThreshold}</th>
                     <td>{formatDuration(this._runesReadySum[index + badThreshold])}</td>
