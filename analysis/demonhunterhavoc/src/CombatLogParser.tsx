@@ -5,6 +5,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import {
   ElysianDecree,
   FelDefender,
+  FodderToTheFlame,
   GrowingInferno,
   RepeatDecree,
   SinfulBrand,
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
     elysianDecree: ElysianDecree,
+    fodderToTheFlame: FodderToTheFlame,
 
     //Conduits
     growingInferno: GrowingInferno,
