@@ -3285,13 +3285,23 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Maelstrom
-               generated
+              <trans
+                id="shared.resourceBreakdown.generatedHeader"
+                message="{resourceName} generated"
+                values={
+                  Object {
+                    "resourceName": "Maelstrom",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
@@ -3303,8 +3313,15 @@ Array [
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Maelstrom
-                 wasted
+                <trans
+                  id="shared.resourceBreakdown.wastedHeader"
+                  message="{resourceName} wasted"
+                  values={
+                    Object {
+                      "resourceName": "Maelstrom",
+                    }
+                  }
+                />
               </dfn>
             </th>
           </tr>
@@ -3314,7 +3331,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -4101,18 +4121,31 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Maelstrom
-               spent
+              <trans
+                id="shared.resourceBreakdown.spentHeader"
+                message="{resourceName} spent"
+                values={
+                  Object {
+                    "resourceName": "Maelstrom",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
             >
-              Casts
+              <trans
+                id="shared.resourceBreakdown.castsHeader"
+                message="Casts"
+              />
             </th>
           </tr>
         </thead>
@@ -4121,7 +4154,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -9886,13 +9922,23 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Maelstrom
-               generated
+              <trans
+                id="shared.resourceBreakdown.generatedHeader"
+                message="{resourceName} generated"
+                values={
+                  Object {
+                    "resourceName": "Maelstrom",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
@@ -9904,8 +9950,15 @@ Array [
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Maelstrom
-                 wasted
+                <trans
+                  id="shared.resourceBreakdown.wastedHeader"
+                  message="{resourceName} wasted"
+                  values={
+                    Object {
+                      "resourceName": "Maelstrom",
+                    }
+                  }
+                />
               </dfn>
             </th>
           </tr>
@@ -9915,7 +9968,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -10514,18 +10570,31 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Maelstrom
-               spent
+              <trans
+                id="shared.resourceBreakdown.spentHeader"
+                message="{resourceName} spent"
+                values={
+                  Object {
+                    "resourceName": "Maelstrom",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
             >
-              Casts
+              <trans
+                id="shared.resourceBreakdown.castsHeader"
+                message="Casts"
+              />
             </th>
           </tr>
         </thead>
@@ -10534,7 +10603,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={

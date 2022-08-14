@@ -40,7 +40,7 @@ class RuneBreakdown extends ResourceBreakdown {
           <thead>
             <tr>
               <th>
-                <Trans id="deathknight.shared.runeBreakdown.ability">Ability</Trans>
+                <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
               </th>
               <th colSpan="2">
                 <TooltipElement
@@ -50,7 +50,7 @@ class RuneBreakdown extends ResourceBreakdown {
                       'Runes generated from passive regeneration and abilities that accelerate it are estimates.',
                   })}
                 >
-                  <Trans id="deathknight.shared.runeBreakdown.generatedHeader">
+                  <Trans id="shared.resourceBreakdown.generatedHeader">
                     {resourceName} generated
                   </Trans>
                 </TooltipElement>
@@ -58,14 +58,12 @@ class RuneBreakdown extends ResourceBreakdown {
               <th colSpan="2">
                 <TooltipElement
                   content={t({
-                    id: 'deathknight.shared.runeBreakdown.wastedHeaderTooltip',
+                    id: 'shared.resourceBreakdown.wastedHeader.tooltip',
                     message:
                       'This is the amount of resources that were generated while you were already at cap.',
                   })}
                 >
-                  <Trans id="deathknight.shared.runeBreakdown.wastedHeader">
-                    {resourceName} wasted
-                  </Trans>
+                  <Trans id="shared.resourceBreakdown.wastedHeader">{resourceName} wasted</Trans>
                 </TooltipElement>
               </th>
             </tr>
@@ -76,7 +74,7 @@ class RuneBreakdown extends ResourceBreakdown {
                 <td style={{ width: '30%' }}>
                   {ability.abilityId === SPELLS.RUNE_1.id && (
                     <>
-                      <SpellIcon id={ability.abilityId} noLink />
+                      <SpellIcon id={ability.abilityId} noLink />{' '}
                       <Trans id="deathknight.shared.runeBreakdown.passive">
                         Passive Rune regeneration
                       </Trans>
@@ -117,15 +115,13 @@ class RuneBreakdown extends ResourceBreakdown {
             <thead>
               <tr>
                 <th>
-                  <Trans id="deathknight.shared.runeBreakdown.ability">Ability</Trans>
+                  <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
                 </th>
                 <th colSpan="2">
-                  <Trans id="deathknight.shared.runeBreakdown.spenders.resourceSpent">
-                    {resourceName} spent
-                  </Trans>
+                  <Trans id="shared.resourceBreakdown.spentHeader">{resourceName} spent</Trans>
                 </th>
                 <th colSpan="2">
-                  <Trans id="deathknight.shared.runeBreakdown.spenders.casts">Casts</Trans>
+                  <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
                 </th>
               </tr>
             </thead>
