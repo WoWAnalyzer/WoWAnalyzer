@@ -324,15 +324,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FODDER_TO_THE_FLAME.id,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.THE_HUNT.id,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
