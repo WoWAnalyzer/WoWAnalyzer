@@ -1,3 +1,4 @@
+import Spell from 'common/SPELLS/Spell';
 import TooltipProvider from 'interface/TooltipProvider';
 import { convertToSpellID } from 'parser/core/ConversionLib';
 import { CSSProperties } from 'react';
@@ -7,7 +8,7 @@ import SpellIcon from './SpellIcon';
 import useSpellInfo from './useSpellInfo';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
-  id: number;
+  id: number | Spell;
   children?: React.ReactNode;
   icon?: boolean;
   iconStyle?: CSSProperties;

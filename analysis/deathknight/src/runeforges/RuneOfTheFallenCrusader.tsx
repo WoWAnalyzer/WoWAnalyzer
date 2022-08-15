@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { Enchant } from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,7 +17,9 @@ class RuneOfTheFallenCrusader extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_THE_FALLEN_CRUSADER);
+    const active = this.selectedCombatant.hasWeaponEnchant(
+      SPELLS.RUNE_OF_THE_FALLEN_CRUSADER as Enchant,
+    );
     this.active = active;
     if (!active) {
       return;

@@ -38,8 +38,6 @@ const ItemLink = (props: Props) => {
     quality = props.quality;
   } else if (props.details) {
     quality = Math.max(props.details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, props.details.quality);
-  } else {
-    quality = ITEMS[id] ? ITEMS[id].quality : 0;
   }
 
   return (

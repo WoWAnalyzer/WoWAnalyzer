@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { Enchant } from 'common/SPELLS/Spell';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -25,7 +26,7 @@ class RuneOfHysteria extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_HYSTERIA);
+    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_HYSTERIA as Enchant);
     this.active = active;
     if (!active) {
       return;

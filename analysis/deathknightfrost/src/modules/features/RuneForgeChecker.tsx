@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { Enchant } from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -12,7 +13,7 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
     // Hysteria & FC need no suggestions for blood
     this.runeForges = [
       {
-        forge: SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE,
+        forge: SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE as Enchant,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
@@ -24,7 +25,7 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         ),
       },
       {
-        forge: SPELLS.RUNE_OF_SANGUINATION,
+        forge: SPELLS.RUNE_OF_SANGUINATION as Enchant,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
@@ -35,7 +36,7 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         ),
       },
       {
-        forge: SPELLS.RUNE_OF_APOCALYPSE,
+        forge: SPELLS.RUNE_OF_APOCALYPSE as Enchant,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
@@ -46,7 +47,7 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         ),
       },
       {
-        forge: SPELLS.RUNE_OF_UNENDING_THIRST,
+        forge: SPELLS.RUNE_OF_UNENDING_THIRST as Enchant,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
@@ -57,7 +58,7 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         ),
       },
       {
-        forge: SPELLS.RUNE_OF_SPELLWARDING,
+        forge: SPELLS.RUNE_OF_SPELLWARDING as Enchant,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>

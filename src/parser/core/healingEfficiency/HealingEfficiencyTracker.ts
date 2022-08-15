@@ -52,7 +52,7 @@ class HealingEfficiencyTracker extends Analyzer {
 
   getSpellStats(spellId: number, healingSpellIds: number[] | null = null) {
     let spellInfo: SpellInfoDetails = {
-      spell: SPELLS.maybeGet(spellId),
+      spell: SPELLS.maybeGet(spellId)!,
       casts: 0,
       healingHits: 0,
       healingDone: 0,

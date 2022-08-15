@@ -73,7 +73,7 @@ class Abundance extends Analyzer {
       this.stacks.reduce(function (a, b) {
         return a + b;
       }, 0) / this.stacks.length || 0;
-    const avgManaSaings = SPELLS.REGROWTH.manaCost * avgManaSavingsPercent;
+    const avgManaSaings = SPELLS.REGROWTH.manaCost! * avgManaSavingsPercent;
 
     // TODO translate these values into healing/throughput.
     return (

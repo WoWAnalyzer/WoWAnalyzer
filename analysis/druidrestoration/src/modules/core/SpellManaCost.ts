@@ -36,7 +36,7 @@ class SpellManaCost extends CoreSpellManaCost {
         0,
         event.sourceID,
       ) &&
-      (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION)
+      (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id)
     ) {
       cost = cost - cost * TOL_REJUVENATION_REDUCTION;
     }

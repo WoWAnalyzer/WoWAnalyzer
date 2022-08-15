@@ -9,7 +9,9 @@ import { PureComponent, ReactNode } from 'react';
 
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
-const TOTAL_SPECS = SPECS.count;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore - see comment in src/common/indexById.ts
+const TOTAL_SPECS: number = SPECS.count;
 export const UNAVAILABLE = -1;
 
 interface Props {

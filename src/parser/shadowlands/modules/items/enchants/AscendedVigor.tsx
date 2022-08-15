@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import ITEMS from 'common/ITEMS';
+import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -24,7 +25,9 @@ class AscendedVigor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasWeaponEnchant(ITEMS.ENCHANT_WEAPON_ASCENDED_VIGOR);
+    this.active = this.selectedCombatant.hasWeaponEnchant(
+      ITEMS.ENCHANT_WEAPON_ASCENDED_VIGOR as Enchant,
+    );
 
     if (!this.active) {
       return;

@@ -73,7 +73,7 @@ class ThePenitentOne extends Analyzer {
   }
 
   statistic() {
-    const manaSaved = this.tpoPenances * SPELLS.PENANCE.manaCost;
+    const manaSaved = this.tpoPenances * SPELLS.PENANCE.manaCost!;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

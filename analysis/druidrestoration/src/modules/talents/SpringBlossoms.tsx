@@ -15,13 +15,13 @@ import Mastery from '../core/Mastery';
 class SpringBlossoms extends Analyzer {
   get directPercent() {
     return this.owner.getPercentageOfTotalHealingDone(
-      this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id),
+      this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id.toString()),
     );
   }
 
   get masteryPercent() {
     return this.owner.getPercentageOfTotalHealingDone(
-      this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id),
+      this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id.toString()),
     );
   }
 
@@ -30,11 +30,11 @@ class SpringBlossoms extends Analyzer {
   }
 
   get directHealing() {
-    return this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id);
+    return this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id.toString());
   }
 
   get masteryHealing() {
-    return this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id);
+    return this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id.toString());
   }
 
   get totalHealing() {

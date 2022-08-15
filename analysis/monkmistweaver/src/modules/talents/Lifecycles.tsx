@@ -66,8 +66,8 @@ class Lifecycles extends Analyzer {
       this.castsNonRedViv += 1;
       return;
     }
-    this.manaSaved += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-    this.manaSavedViv += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    this.manaSaved += SPELLS.VIVIFY.manaCost! * LIFECYCLES_MANA_PERC_REDUCTION;
+    this.manaSavedViv += SPELLS.VIVIFY.manaCost! * LIFECYCLES_MANA_PERC_REDUCTION;
     this.castsRedViv += 1;
     debug && console.log('Viv Reduced');
   }
@@ -87,7 +87,7 @@ class Lifecycles extends Analyzer {
       event.timestamp,
     )?.stacks;
     if (!chijiStacksAtEnvCast) {
-      this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost);
+      this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost!);
       return;
     }
     //check for free cast from chiji
@@ -96,7 +96,7 @@ class Lifecycles extends Analyzer {
     }
     //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
     const modifiedManaCost =
-      SPELLS.ENVELOPING_MIST.manaCost - CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast;
+      SPELLS.ENVELOPING_MIST.manaCost! - CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast;
     this.calculateEnvManaSaved(modifiedManaCost);
   }
 

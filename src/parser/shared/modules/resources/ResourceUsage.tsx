@@ -26,7 +26,7 @@ class ResourceUsage extends Analyzer {
    * [SPELLS.RAPTOR_STRIKE_AOTE.id]: SPELLS.RAPTOR_STRIKE,
    */
   static spellsThatShouldShowAsOtherSpells: {
-    [spellID: number]: { id: number; name: string; abilityIcon: string; type: number };
+    [spellID: number]: Spell;
   } = {};
   //endregion
 

@@ -80,13 +80,13 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
     }
     if (
       event.ability.guid === SPELLS.BLACKOUT_KICK.id &&
-      this.selectedCombatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF, null, 500)
+      this.selectedCombatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, null, 500)
     ) {
       return;
     }
     if (
       event.ability.guid === SPELLS.SPINNING_CRANE_KICK.id &&
-      this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHI_JI_BUFF, null, 500)
+      this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHI_JI_BUFF.id, null, 500)
     ) {
       return;
     }
