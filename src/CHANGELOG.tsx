@@ -62,6 +62,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 16), 'Rewrote spells and items to typescript', Chizu),
   change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
   change(date(2022, 8, 14), 'Add spell and item data for missing Sanctum of Domination items.', ToppleTheNun),
   change(date(2022, 8, 13), 'Updated translations of core DK modules', Chizu),
