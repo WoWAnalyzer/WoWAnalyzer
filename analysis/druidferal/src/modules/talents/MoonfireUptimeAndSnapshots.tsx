@@ -13,6 +13,7 @@ import Snapshots, { SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots';
 
 class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
+    ...Snapshots.dependencies,
     enemies: Enemies,
   };
 
