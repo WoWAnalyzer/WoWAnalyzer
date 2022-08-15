@@ -38,5 +38,5 @@ export interface Enchant extends Spell {
 }
 
 export interface SpellList<T extends Spell = Spell> {
-  [key: string]: T;
+  [key: string | number]: T;
 }

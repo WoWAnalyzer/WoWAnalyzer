@@ -1,3 +1,5 @@
+import { SpellList } from 'common/SPELLS/Spell';
+
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -13,7 +15,7 @@ import SHARED from './shared';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const covenants = {
+const covenants: SpellList = {
   ...DEATH_KNIGHT,
   ...DEMON_HUNTER,
   ...DRUID,

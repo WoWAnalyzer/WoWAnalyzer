@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { SpellList } from './Spell';
+
+const spells: SpellList = {
   // Blood Elf
   ARCANE_TORRENT_MANA1: {
     id: 155145,

@@ -1,3 +1,4 @@
+import { SpellList } from '../Spell';
 import Conduits from './conduits';
 import Covenants from './covenants';
 import Crafted from './crafted';
@@ -10,7 +11,7 @@ import Potions from './potions';
 import Raids from './raids';
 import Soulbinds from './soulbinds';
 
-export default {
+const spells: SpellList = {
   ...Conduits,
   ...Crafted,
   ...Dungeons,
@@ -23,3 +24,5 @@ export default {
   ...Oils,
   ...Others,
 } as const;
+
+export default spells;

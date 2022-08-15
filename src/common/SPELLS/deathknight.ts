@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import Spell, { Enchant, SpellList } from './Spell';
+
+const spells: SpellList = {
   // Blood:
 
   //Summons
@@ -640,7 +642,7 @@ const spells = {
   },
 };
 
-const runeforges = {
+const runeforges: SpellList<Enchant> = {
   RUNE_OF_THE_FALLEN_CRUSADER: {
     id: 53344,
     name: 'Rune of the Fallen Crusader',
@@ -698,7 +700,13 @@ const runeforges = {
   },
 } as const;
 
-export default {
+const joined: SpellList<Spell | Enchant> = {
   ...spells,
   ...runeforges,
 } as const;
+
+export default joined;
+// export default {
+//   ...spells,
+//   ...runeforges,
+// } as const;

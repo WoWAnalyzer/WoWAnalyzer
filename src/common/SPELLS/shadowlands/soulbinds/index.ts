@@ -1,3 +1,5 @@
+import { SpellList } from 'common/SPELLS/Spell';
+
 import BONESMITH_HEIRMIR from './bonesmithheirmir';
 import DREAMWEAVER from './dreamweaver';
 import EMENI from './emeni';
@@ -12,7 +14,7 @@ import PELAGOS from './pelagos';
 import PLAGUE_DEVISER_MARILETH from './plaguedevisermarileth';
 import THEOTAR_THE_MAD_DUKE from './theotarthemadduke';
 
-const soulbinds = {
+const soulbinds: SpellList = {
   ...BONESMITH_HEIRMIR,
   ...DREAMWEAVER,
   ...EMENI,
