@@ -29,6 +29,16 @@ const covenants = {
     name: 'Decimating Bolt',
     icon: 'ability_maldraxxus_warlock',
   },
+  DECIMATING_BOLT_HIT: {
+    id: 327059,
+    name: 'Decimating Bolt',
+    icon: 'ability_maldraxxus_warlock',
+  },
+  DECIMATING_BOLT_BUFF: {
+    id: 325299,
+    name: 'Decimating Bolt',
+    icon: 'ability_maldraxxus_warlock',
+  },
 
   //Night Fae
   SOUL_ROT: {
