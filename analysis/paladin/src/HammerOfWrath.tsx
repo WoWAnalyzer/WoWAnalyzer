@@ -30,8 +30,6 @@ class HammerofWrath extends ExecuteHelper {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
-    console.log(`characterProfile.spec: ${this.owner.characterProfile.spec}`);
-
     //FIXME added reduction from legendary when we can get that info
     (options.abilities as Abilities).add({
       spell: SPELLS.HAMMER_OF_WRATH.id,
