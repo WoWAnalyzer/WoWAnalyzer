@@ -166,12 +166,14 @@ const spells = {
 
   // Spells / Buffs
   TRANQUILITY_CAST: {
+    // this ID is the initial cast and the 'channel buff'
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
     manaCost: 1840,
   },
   TRANQUILITY_HEAL: {
+    // this ID is the direct heal, the HoT heal, the HoT buff, and the 'tick cast'
     id: 157982,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',

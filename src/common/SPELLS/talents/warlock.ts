@@ -190,11 +190,7 @@ const talents: SpellList = {
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
     soulShardsCost: 1,
   },
-  SHADOW_EMBRACE_TALENT: {
-    id: 32388,
-    name: 'Shadow Embrace',
-    icon: 'spell_shadow_shadowembrace',
-  },
+  SHADOW_EMBRACE_TALENT: { id: 32388, name: 'Shadow Embrace', icon: 'spell_shadow_shadowembrace' },
   HAUNT_TALENT: { id: 48181, name: 'Haunt', icon: 'ability_warlock_haunt', manaCost: 1000 },
   CREEPING_DEATH_TALENT: { id: 264000, name: 'Creeping Death', icon: 'ability_creature_cursed_03' },
   DARK_SOUL_MISERY_TALENT: {

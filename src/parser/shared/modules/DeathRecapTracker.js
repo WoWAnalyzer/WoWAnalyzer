@@ -4,7 +4,7 @@ import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -47,7 +47,7 @@ class DeathRecapTracker extends Analyzer {
         id: e.spell.id,
       });
     });
-    this.buffsModule.activeBuffs.forEach((buff) => {
+    this.buffsModule.activeAuras.forEach((buff) => {
       if (buff.spellId instanceof Array) {
         buff.spellId.forEach((spellId) => {
           this.buffs.push({

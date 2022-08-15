@@ -44,11 +44,6 @@ class ResourceUsage extends Analyzer {
     '#8b8dec',
     '#00ec62',
   ];
-
-  /**
-   * If you want to change where this module is shown, change this static.
-   */
-  static statisticOrder = STATISTIC_ORDER.CORE(12);
   //endregion
 
   listOfSpellsUsed: { [key: string]: { casts: number; resourceUsed: number } } = {};
@@ -80,10 +75,6 @@ class ResourceUsage extends Analyzer {
 
   get spellsThatShouldShowAsOtherSpells() {
     return this.ctor.spellsThatShouldShowAsOtherSpells;
-  }
-
-  get resourceUsageStatisticOrder() {
-    return this.ctor.statisticOrder;
   }
 
   onCast(event: CastEvent) {
@@ -154,7 +145,7 @@ class ResourceUsage extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={this.resourceUsageStatisticOrder}>
+      <Statistic position={STATISTIC_ORDER.CORE(12)}>
         <div className="pad">
           <label>
             <ResourceLink id={this.resourceTypeID} /> usage

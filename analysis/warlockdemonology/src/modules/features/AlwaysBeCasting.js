@@ -18,7 +18,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     };
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  position = STATISTIC_ORDER.CORE(1);
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>

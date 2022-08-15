@@ -6,7 +6,7 @@ import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
 import StatTracker from 'parser/shared/modules/StatTracker';

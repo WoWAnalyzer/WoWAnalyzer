@@ -138,7 +138,7 @@ export default {
   },
 
   // Talents
-  [SPELLS.BINDING_HEAL_TALENT.id]: {
+  [SPELLS.BINDING_HEALS_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

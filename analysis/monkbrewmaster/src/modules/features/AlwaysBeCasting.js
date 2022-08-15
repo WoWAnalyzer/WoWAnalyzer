@@ -4,7 +4,7 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  position = STATISTIC_ORDER.CORE(10);
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

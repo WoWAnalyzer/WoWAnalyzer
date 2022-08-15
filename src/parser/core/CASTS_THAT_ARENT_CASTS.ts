@@ -69,6 +69,7 @@ const spells: number[] = [
   //endregion
 
   //region trinket
+  SPELLS.CARVED_IVORY_KEEPSAKE.id,
   SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
   //endregion
 

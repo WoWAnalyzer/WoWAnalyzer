@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import { PhaseConfig } from 'game/raids';
+import PhaseConfig from 'parser/core/PhaseConfig';
 import * as React from 'react';
 
 import EventFilter from './EventFilter';
@@ -62,6 +62,8 @@ export enum EventType {
   RefreshCooldown = 'refreshcooldown',
   EndCooldown = 'endcooldown',
   RestoreCharge = 'restorecharge',
+  MaxChargesIncreased = 'maxchargesincreased',
+  MaxChargesDecreased = 'maxchargesdecreased',
   Health = 'health',
   Adds = 'adds',
   Dispel = 'dispel',
@@ -166,6 +168,8 @@ type MappedEventTypes = {
   [EventType.BeginChannel]: BeginChannelEvent;
   [EventType.EndChannel]: EndChannelEvent;
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
+  [EventType.MaxChargesIncreased]: MaxChargesIncreased;
+  [EventType.MaxChargesDecreased]: MaxChargesDecreased;
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
@@ -802,6 +806,16 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
   __fabricated: true;
 }
 
+export interface MaxChargesIncreased extends Event<EventType.MaxChargesIncreased> {
+  spellId: number;
+  by: number;
+}
+
+export interface MaxChargesDecreased extends Event<EventType.MaxChargesIncreased> {
+  spellId: number;
+  by: number;
+}
+
 export interface Stats {
   agility: number;
   armor: number;
@@ -896,6 +910,13 @@ export interface Item {
   temporaryEnchant?: number;
   gems?: Gem[];
   setID?: number;
+
+  /**
+   * Added while parsing gear of the combatant if item is part of a set.
+   * Contains all equiped items ids that have the same @setID
+   * Used for wowhead tooltip.
+   */
+  setItemIDs?: number[];
 }
 
 export interface Gem {
@@ -1229,6 +1250,12 @@ const Events = {
   },
   get UpdateSpellUsable() {
     return new EventFilter(EventType.UpdateSpellUsable);
+  },
+  get MaxChargesIncreased() {
+    return new EventFilter(EventType.MaxChargesIncreased);
+  },
+  get MaxChargesDescreased() {
+    return new EventFilter(EventType.MaxChargesDecreased);
   },
   get BeginChannel() {
     return new EventFilter(EventType.BeginChannel);

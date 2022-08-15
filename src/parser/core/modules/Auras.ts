@@ -5,7 +5,7 @@ import Ability from 'parser/core/modules/Ability';
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from './Abilities';
-import Buff, { SpellbookBuff } from './Buff';
+import Aura, { SpellbookAura } from './Aura';
 
 function isAbilityWithBuffSpellId(
   ability: Ability,
@@ -13,17 +13,16 @@ function isAbilityWithBuffSpellId(
   return ability.buffSpellId !== null && ability.buffSpellId !== 0;
 }
 
-type BuffsOptions = Options & {
+type AuraOptions = Options & {
   abilities: Abilities;
   haste: Haste;
 };
 
-// TODO: Make a separate but similar Debuffs module
 /**
  * @property {Haste} haste
  * @property {Abilities} abilities
  */
-class Buffs extends Module {
+class Auras extends Module {
   static dependencies = {
     abilities: Abilities,
     haste: Haste,
@@ -32,21 +31,21 @@ class Buffs extends Module {
   protected abilities!: Abilities;
   protected haste!: Haste;
 
-  activeBuffs: Buff[] = [];
-  constructor(options: BuffsOptions) {
+  activeAuras: Aura[] = [];
+  constructor(options: AuraOptions) {
     super(options);
     // passing options is necessary due to how module dependencies work
     // see https://github.com/Microsoft/TypeScript/issues/6110 for more info
-    this.loadBuffs(this.buffs(options));
+    this.loadAuras(this.auras(options));
   }
 
   /**
    * This will be called *once* during initialization. This isn't nearly as well worked out as the Abilities modules and was in fact extremely rushed. So I have no clue if you should include all buffs here, or just important ones. We'll figure it out later.
    * @returns {object[]}
    */
-  buffs(options: BuffsOptions): SpellbookBuff[] {
+  auras(options: AuraOptions): SpellbookAura[] {
     // This list will NOT be recomputed during the fight. If a cooldown changes based on something like Haste or a Buff you need to put it in a function.
-    // While you can put checks for talents/traits outside of the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
+    // While you can put checks for talents/traits outside the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
     // I think anyway, this might all change lul.
     return [
       // Convert the legacy buffSpellId prop
@@ -67,9 +66,9 @@ class Buffs extends Module {
     ];
   }
 
-  loadBuffs(buffs: SpellbookBuff[]) {
-    this.activeBuffs = buffs
-      .map((options) => new Buff(options))
+  loadAuras(buffs: SpellbookAura[]) {
+    this.activeAuras = buffs
+      .map((options) => new Aura(options))
       .filter((ability) => ability.enabled);
   }
 
@@ -77,23 +76,23 @@ class Buffs extends Module {
    * Add a buff to the list of active buffs.
    * @param {object} options An object with all the properties and their values that gets passed to the Buff class.
    */
-  add(options: SpellbookBuff) {
-    const buff = new Buff(options);
-    this.activeBuffs.push(buff);
+  add(options: SpellbookAura) {
+    const buff = new Aura(options);
+    this.activeAuras.push(buff);
   }
 
   /**
    * Returns the first ACTIVE buff with the given spellId (or undefined if there is no such buff)
    */
-  getBuff(spellId: number) {
-    return this.activeBuffs.find((buff) => {
-      if (buff.spellId instanceof Array) {
-        return buff.spellId.includes(spellId);
+  getAura(spellId: number) {
+    return this.activeAuras.find((aura) => {
+      if (aura.spellId instanceof Array) {
+        return aura.spellId.includes(spellId);
       } else {
-        return buff.spellId === spellId;
+        return aura.spellId === spellId;
       }
     });
   }
 }
 
-export default Buffs;
+export default Auras;

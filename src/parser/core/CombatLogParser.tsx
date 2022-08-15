@@ -92,7 +92,7 @@ import Fight from './Fight';
 import { Info } from './metric';
 import Module, { Options } from './Module';
 import Abilities from './modules/Abilities';
-import Buffs from './modules/Buffs';
+import Auras from './modules/Auras';
 import EventEmitter from './modules/EventEmitter';
 import SpellInfo from './modules/SpellInfo';
 import ParseResults from './ParseResults';
@@ -180,7 +180,7 @@ class CombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
-    buffs: Buffs,
+    buffs: Auras,
     abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
@@ -664,25 +664,15 @@ class CombatLogParser {
             if (module instanceof Analyzer) {
               const analyzer = module as Analyzer;
               if (analyzer.statistic) {
-                let basePosition = index;
-                if (analyzer.statisticOrder !== undefined) {
-                  basePosition = analyzer.statisticOrder;
-                  console.warn(
-                    'DEPRECATED',
-                    "Setting the position of a statistic via a module's `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d",
-                    module,
-                  );
-                }
-
                 // TODO - confirm removing i18n doesn't actually change anything here
                 const statistic = analyzer.statistic();
                 if (statistic) {
                   if (Array.isArray(statistic)) {
                     statistic.forEach((statistic, statisticIndex) => {
-                      addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+                      addStatistic(statistic, index, `${key}-statistic-${statisticIndex}`);
                     });
                   } else {
-                    addStatistic(statistic, basePosition, `${key}-statistic`);
+                    addStatistic(statistic, index, `${key}-statistic`);
                   }
                 }
               }

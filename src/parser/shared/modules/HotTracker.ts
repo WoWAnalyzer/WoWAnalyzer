@@ -350,6 +350,17 @@ abstract class HotTracker extends Analyzer {
   // TODO any utility in adding apply / remove hooks? Does HotTracker have more information about
   //      these that would be useful to consumers?
 
+  /**
+   * Gets how many of a specific HoT are currently active.
+   *
+   * @param spellId the ID of the HoT to count
+   */
+  public getHotCount(spellId: number): number {
+    return Object.values(this.hots).flatMap((trackerBySpell) =>
+      Object.values(trackerBySpell).filter((tracker) => tracker.spellId === spellId),
+    ).length;
+  }
+
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // PROTECTED METHOD - Must be overridden by spec's implementation of HotTracker
   //

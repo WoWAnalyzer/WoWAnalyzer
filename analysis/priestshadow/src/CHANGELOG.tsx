@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 
 export default [
+  change(date(2022, 8, 9), <>Implemented <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> and <SpellLink id={SPELLS.VOIDFORM.id} /> max charge changes.</>, Hana),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
   change(date(2021, 10, 21), <>Updated <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> to TypeScript.</>, Adoraci),
   change(date(2021, 10, 19), <>Fixed <SpellLink id={SPELLS.DISSONANT_ECHOES.id} />, <SpellLink id={SPELLS.DARK_THOUGHTS.id} />, and <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> proc usage calculation.</>, Adoraci),

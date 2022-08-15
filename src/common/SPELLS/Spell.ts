@@ -21,6 +21,8 @@ export default interface Spell {
   holyPowerCost?: number;
   //Priest
   insanityCost?: number;
+  // Shaman
+  maelstromCost?: number;
   //Warlock
   soulShardsCost?: number;
   //Warrior

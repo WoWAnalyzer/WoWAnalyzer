@@ -23,6 +23,7 @@ import DarkThoughts from './modules/features/DarkThoughts';
 import DotUptimes from './modules/features/DotUptimes';
 import SkippableCasts from './modules/features/SkippableCasts';
 import VoidBoltUsage from './modules/features/VoidBoltUsage';
+import Voidform from './modules/features/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
@@ -66,6 +67,7 @@ class CombatLogParser extends MainCombatLogParser {
     skippableCasts: SkippableCasts,
     darkThoughts: DarkThoughts,
     voidBoltUsage: VoidBoltUsage,
+    voidform: Voidform,
 
     // spells:
     shadowfiend: Shadowfiend,

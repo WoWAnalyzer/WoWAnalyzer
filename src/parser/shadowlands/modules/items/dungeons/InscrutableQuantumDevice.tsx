@@ -5,7 +5,7 @@ import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
@@ -106,7 +106,7 @@ class InscrutableQuantumDevice extends Analyzer {
     }
 
     // https://wowhead.com/spell=330366/inscrutable-quantum-device?ilvl=262
-    const secondaryStat = calculateSecondaryStatDefault(262, 850, this.item.itemLevel);
+    const secondaryStat = calculateSecondaryStatDefault(262, 638, this.item.itemLevel);
 
     // Add all the buffs to the statTracker so that other modules know them
     options.statTracker.add(SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT, {

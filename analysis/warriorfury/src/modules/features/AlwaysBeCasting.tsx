@@ -7,7 +7,7 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  position = STATISTIC_ORDER.CORE(1);
 
   get downtimeSuggestionThresholds() {
     return {

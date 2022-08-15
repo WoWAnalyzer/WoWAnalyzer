@@ -16,7 +16,6 @@ class RageDetails extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
   };
-  statisticOrder = STATISTIC_ORDER.CORE(3);
   protected rageTracker!: RageTracker;
 
   get wastedPercent() {
