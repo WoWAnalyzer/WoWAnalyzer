@@ -158,7 +158,7 @@ class SwarmingMist extends Analyzer {
     );
   }
 
-  statistic(): JSX.Element {
+  statistic() {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}

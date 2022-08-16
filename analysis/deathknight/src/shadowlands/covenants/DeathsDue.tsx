@@ -133,7 +133,7 @@ class DeathsDue extends Analyzer {
     return this.stacksGained / this.casts; //most useful for Frost/Unholy
   }
 
-  get buffSpellLinks(): JSX.Element {
+  get buffSpellLinks() {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       return (
         <Trans id="deathknight.shared.covenants.deathsDue.buffSpellLinks.blood">
@@ -237,7 +237,7 @@ class DeathsDue extends Analyzer {
         ),
     );
   }
-  statistic(): JSX.Element {
+  statistic() {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}

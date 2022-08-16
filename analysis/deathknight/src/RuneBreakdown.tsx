@@ -9,7 +9,7 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 //Need to extend this class to change how passive rune regeneration is displayed.
 //The only new lines are 44, 49-54 and 78.
 class RuneBreakdown extends ResourceBreakdown {
-  render(): JSX.Element {
+  render() {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
     const generated = this.prepareGenerated(tracker.buildersObj);
