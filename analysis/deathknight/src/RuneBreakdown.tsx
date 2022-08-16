@@ -5,16 +5,10 @@ import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import PropTypes from 'prop-types';
 
 //Need to extend this class to change how passive rune regeneration is displayed.
 //The only new lines are 44, 49-54 and 78.
 class RuneBreakdown extends ResourceBreakdown {
-  static propTypes = {
-    tracker: PropTypes.object.isRequired,
-    showSpenders: PropTypes.bool,
-  };
-
   render() {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
@@ -42,7 +36,7 @@ class RuneBreakdown extends ResourceBreakdown {
               <th>
                 <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
               </th>
-              <th colSpan="2">
+              <th colSpan={2}>
                 <TooltipElement
                   content={t({
                     id: 'deathknight.shared.runeBreakdown.generatedHeaderTooltip',
@@ -55,7 +49,7 @@ class RuneBreakdown extends ResourceBreakdown {
                   </Trans>
                 </TooltipElement>
               </th>
-              <th colSpan="2">
+              <th colSpan={2}>
                 <TooltipElement
                   content={t({
                     id: 'shared.resourceBreakdown.wastedHeader.tooltip',
@@ -117,10 +111,10 @@ class RuneBreakdown extends ResourceBreakdown {
                 <th>
                   <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
                 </th>
-                <th colSpan="2">
+                <th colSpan={2}>
                   <Trans id="shared.resourceBreakdown.spentHeader">{resourceName} spent</Trans>
                 </th>
-                <th colSpan="2">
+                <th colSpan={2}>
                   <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
                 </th>
               </tr>

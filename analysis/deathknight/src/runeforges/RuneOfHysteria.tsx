@@ -5,7 +5,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -75,7 +75,7 @@ class RuneOfHysteria extends Analyzer {
     return this.potentiallyGainedDeathStrikes - this.gainedDeathStrikes;
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedPercentage,
       isGreaterThan: {
