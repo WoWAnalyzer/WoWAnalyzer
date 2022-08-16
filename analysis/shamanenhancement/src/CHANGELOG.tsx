@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2021, 8, 16), <>Implement an initial version of the Single Target APL checker.</>, Vetyst),
   change(date(2022, 7, 22), <>Properly reduce the cooldown of <SpellLink id={SPELLS.CHAIN_HARVEST.id} /> combined with <SpellLink id={SPELLS.ELEMENTAL_CONDUIT.id}/> legendary effect.</>, Vetyst),
   change(date(2022, 7, 22), <>Separate Stormstrike and Windstrike cooldowns.</>, Vetyst),
   change(date(2022, 7, 22), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT} /> procs.</>, Vetyst),
