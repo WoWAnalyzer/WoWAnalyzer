@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   ELABORATE_PLANNING_TALENT: { id: 193640, name: 'Elaborate Planning', icon: 'inv_misc_map08' },
   NIGHTSTALKER_TALENT: { id: 14062, name: 'Nightstalker', icon: 'ability_stealth' },
@@ -170,5 +172,6 @@ const talents: SpellList = {
     energyCost: 35,
     comboPointsCost: 1,
   },
-};
+});
+
 export default talents;

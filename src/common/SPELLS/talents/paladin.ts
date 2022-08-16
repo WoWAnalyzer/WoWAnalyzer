@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   LIGHTS_HAMMER_TALENT: {
     id: 114158,
@@ -212,5 +214,6 @@ const talents: SpellList = {
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
   },
-};
+});
+
 export default talents;

@@ -1,8 +1,6 @@
-import { SpellList } from 'common/SPELLS/Spell';
-
 import ITEMS from './items';
 
-const itemSpells: SpellList = {
+const itemSpells = {
   ...ITEMS,
 } as const;
 

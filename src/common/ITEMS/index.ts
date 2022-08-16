@@ -1,6 +1,6 @@
-import { ItemList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-import indexById from '../indexById';
+import indexById, { asIndexableList } from '../indexById';
 import safeMerge from '../safeMerge';
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
@@ -17,7 +17,7 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const ITEMS: ItemList = {
+const ITEMS = asIndexableList<Item>()({
   //Class items
   ...safeMerge(
     DEATH_KNIGHT,
@@ -35,6 +35,6 @@ const ITEMS: ItemList = {
   ),
   //Any non class-specific items
   ...safeMerge(OTHERS, SHADOWLANDS),
-};
+});
 
-export default indexById(ITEMS);
+export default indexById<Item>()(ITEMS);

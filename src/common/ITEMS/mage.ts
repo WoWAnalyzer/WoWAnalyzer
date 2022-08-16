@@ -1,6 +1,4 @@
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Arcane
   //endregion
   //region Fire
@@ -9,5 +7,5 @@ const items: ItemList = {
   //endregion
   //region Shared
   //endregion
-};
+} as const;
 export default items;

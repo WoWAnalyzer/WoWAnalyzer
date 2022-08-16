@@ -297,16 +297,18 @@ Object.keys(talents).forEach((classId) => {
   fs.writeFileSync(
     `${TALENTS_DIRECTORY}/${className.toLowerCase().replace(' ', '')}.ts`,
     `// Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
+import Spell from '../Spell';
 
-const talents: SpellList = {
+const talents = asIndexableList<Spell>()(
 ${Object.keys(spellList)
   .map(
     (spec) => `\n  //${spec}${visualizeTalentTree(talentTrees, spec)}
 ${printTalents(spellList, spec)}`,
   )
   .join('\n')}
-};
+});
+
 export default talents;`,
   );
 });

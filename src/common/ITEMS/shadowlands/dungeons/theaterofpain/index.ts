@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region An Affront of Challengers
   VIAL_OF_SPECTRAL_ESSENCE: {
     id: 178810,
@@ -39,5 +37,5 @@ const items: ItemList = {
     icon: 'inv_misc_book_01',
   },
   //endregion
-};
+} as const;
 export default items;

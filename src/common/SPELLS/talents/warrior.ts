@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   DOUBLE_TIME_TALENT: { id: 103827, name: 'Double Time', icon: 'inv_misc_horn_04' },
   IMPENDING_VICTORY_TALENT: {
@@ -147,5 +149,6 @@ const talents: SpellList = {
     icon: 'ability_warrior_improveddisciplines',
   },
   MASSACRE_TALENT_FURY: { id: 206315, name: 'Massacre', icon: 'inv_sword_48' },
-};
+});
+
 export default talents;

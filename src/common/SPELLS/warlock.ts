@@ -4,9 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from './Spell';
+import { asIndexableList } from 'common/indexById';
 
-const spells: SpellList = {
+import Spell from './Spell';
+
+const spells = asIndexableList<Spell>()({
   // -------------
   // Shared spells
   // -------------
@@ -717,6 +719,6 @@ const spells: SpellList = {
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
   },
-} as const;
+});
 
 export default spells;

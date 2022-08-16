@@ -1,6 +1,4 @@
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   // Group by boss (with comments)
 
   //region The Tarragrue
@@ -133,6 +131,6 @@ const items: ItemList = {
     icon: 'ability_warrior_warcry',
   },
   //endregion
-};
+} as const;
 
 export default items;

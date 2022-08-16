@@ -4,9 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import Spell, { Enchant, SpellList } from './Spell';
+import { asIndexableList } from 'common/indexById';
 
-const spells: SpellList = {
+import Spell, { Enchant } from './Spell';
+
+const spells = asIndexableList<Spell>()({
   // Blood:
 
   //Summons
@@ -640,9 +642,9 @@ const spells: SpellList = {
     name: 'Runic Power',
     icon: 'inv_sword_62',
   },
-};
+});
 
-const runeforges: SpellList<Enchant> = {
+const runeforges = asIndexableList<Enchant>()({
   RUNE_OF_THE_FALLEN_CRUSADER: {
     id: 53344,
     name: 'Rune of the Fallen Crusader',
@@ -698,15 +700,11 @@ const runeforges: SpellList<Enchant> = {
     icon: 'spell_fire_twilightfireward',
     effectId: 6242,
   },
-} as const;
+});
 
-const joined: SpellList<Spell | Enchant> = {
+const joined = {
   ...spells,
   ...runeforges,
 } as const;
 
 export default joined;
-// export default {
-//   ...spells,
-//   ...runeforges,
-// } as const;

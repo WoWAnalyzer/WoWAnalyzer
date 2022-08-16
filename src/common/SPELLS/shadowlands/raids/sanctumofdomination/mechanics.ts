@@ -55,4 +55,4 @@ export default {
     name: 'Banshee Wail',
     icon: 'spell_shadow_soulleech_3',
   },
-};
+} as const;

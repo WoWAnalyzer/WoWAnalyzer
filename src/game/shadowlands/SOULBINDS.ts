@@ -1,10 +1,7 @@
-import indexById from 'common/indexById';
+import indexById, { asIndexableList } from 'common/indexById';
 import { Soulbind } from 'parser/core/Events';
 
-const SOULBINDS: {
-  [key: string]: Soulbind;
-  [id: number]: Soulbind;
-} = {
+const SOULBINDS = asIndexableList<Soulbind>()({
   NIYA: {
     name: 'Niya',
     id: 1,
@@ -89,5 +86,6 @@ const SOULBINDS: {
     garrisonTalentTreeId: 365,
     capstoneTraitID: 352188,
   },
-};
-export default indexById(SOULBINDS);
+});
+
+export default indexById<Soulbind>()(SOULBINDS);

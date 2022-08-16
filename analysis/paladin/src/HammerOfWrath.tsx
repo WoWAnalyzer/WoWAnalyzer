@@ -41,7 +41,7 @@ class HammerofWrath extends ExecuteHelper {
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency:
-          this.owner.characterProfile.spec === SPECS.HOLY_PALADIN.specName ? 0.65 : 0.85,
+          this.owner.characterProfile?.spec === SPECS.HOLY_PALADIN.specName ? 0.65 : 0.85,
         maxCasts: () => this.maxCasts,
       },
     });

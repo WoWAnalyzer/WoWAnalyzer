@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import indexById from 'common/indexById';
+import indexById, { asIndexableList } from 'common/indexById';
 
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
@@ -23,10 +23,7 @@ export interface Spec {
   };
 }
 
-const SPECS: {
-  [key: string]: Spec;
-  [id: number]: Spec;
-} = {
+const SPECS = asIndexableList<Spec>()({
   ARCANE_MAGE: {
     id: 62,
     index: 0,
@@ -747,7 +744,7 @@ const SPECS: {
       spec: 2,
     },
   },
-};
+});
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
   SPECS.BLOOD_DEATH_KNIGHT,
@@ -803,4 +800,5 @@ export const WARRIOR_SPECS: Spec[] = [
   SPECS.FURY_WARRIOR,
 ];
 
-export default indexById(SPECS);
+export const specsCount = Object.keys(SPECS).length;
+export default indexById<Spec>()(SPECS);

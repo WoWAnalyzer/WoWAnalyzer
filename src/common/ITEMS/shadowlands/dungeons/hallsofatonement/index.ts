@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Halkias, the Sin-Stained Goliath
   //endregion
   //region Echelon
@@ -27,5 +25,5 @@ const items: ItemList = {
   //endregion
   //region Lord Chamberlain
   //endregion
-};
+} as const;
 export default items;

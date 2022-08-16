@@ -97,4 +97,4 @@ export default {
     icon: 'ability_domination_rune08',
   },
   //endregion
-};
+} as const;

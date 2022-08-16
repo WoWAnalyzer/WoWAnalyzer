@@ -60,4 +60,4 @@ export default {
     name: 'Indignation',
     icon: 'spell_animarevendreth_nova',
   },
-};
+} as const;

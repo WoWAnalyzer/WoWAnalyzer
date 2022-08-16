@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Shriekwing
   SKULKERS_WING: {
     id: 184016,
@@ -118,5 +116,5 @@ const items: ItemList = {
     icon: 'inv_trinket_revendreth_01_dark',
   },
   //endregion
-};
+} as const;
 export default items;

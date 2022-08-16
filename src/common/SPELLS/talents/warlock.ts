@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   DEMON_SKIN_TALENT: { id: 219272, name: 'Demon Skin', icon: 'spell_shadow_felarmour' },
   BURNING_RUSH_TALENT: {
@@ -199,5 +201,6 @@ const talents: SpellList = {
     icon: 'spell_warlock_soulburn',
     manaCost: 500,
   },
-};
+});
+
 export default talents;

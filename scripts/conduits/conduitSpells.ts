@@ -1381,4 +1381,4 @@ export default {
     name: 'Adaptive Armor Fragment',
     icon: 'inv_belt_plate_ardenweald_d_01',
   },
-};
+} as const;

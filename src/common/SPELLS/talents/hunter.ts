@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   TRAILBLAZER_TALENT: { id: 199921, name: 'Trailblazer', icon: 'ability_hunter_aspectmastery' },
   NATURAL_MENDING_TALENT: {
@@ -181,5 +183,6 @@ const talents: SpellList = {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
-};
+});
+
 export default talents;

@@ -1,4 +1,6 @@
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
+
+import Spell from '../Spell';
 import Conduits from './conduits';
 import Covenants from './covenants';
 import Crafted from './crafted';
@@ -11,7 +13,7 @@ import Potions from './potions';
 import Raids from './raids';
 import Soulbinds from './soulbinds';
 
-const spells: SpellList = {
+const spells = asIndexableList<Spell>()({
   ...Conduits,
   ...Crafted,
   ...Dungeons,
@@ -23,6 +25,6 @@ const spells: SpellList = {
   ...Potions,
   ...Oils,
   ...Others,
-} as const;
+});
 
 export default spells;

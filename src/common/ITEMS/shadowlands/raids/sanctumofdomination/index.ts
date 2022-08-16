@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region The Tarragrue
   TOME_OF_MONSTROUS_CONSTRUCTIONS: {
     id: 186422,
@@ -123,5 +121,5 @@ const items: ItemList = {
     icon: 'ability_warrior_warcry',
   },
   //endregion
-};
+} as const;
 export default items;

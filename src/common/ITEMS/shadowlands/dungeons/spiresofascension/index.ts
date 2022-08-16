@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Kin-tara
 
   //endregion
@@ -41,5 +39,5 @@ const items: ItemList = {
     icon: 'inv_polearm_2h_bastionarchon_d_01',
   },
   //endregion
-};
+} as const;
 export default items;

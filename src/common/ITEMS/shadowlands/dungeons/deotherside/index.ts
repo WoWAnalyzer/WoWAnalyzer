@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   BLOOD_SPATTERED_SCALE: {
     id: 179331,
     name: 'Blood-Spattered Scale',
@@ -34,5 +32,5 @@ const items: ItemList = {
     name: 'Shadowgrasp Totem',
     icon: 'inv_alchemy_83_alchemiststone02',
   },
-};
+} as const;
 export default items;

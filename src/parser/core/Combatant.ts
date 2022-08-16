@@ -1,6 +1,6 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import { LegendarySpell } from 'common/SPELLS/Spell';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -527,7 +527,7 @@ class Combatant extends Entity {
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach((buff) => {
-      const spell = SPELLS.maybeGet(buff.ability);
+      const spell = maybeGetSpell(buff.ability);
 
       this.applyBuff({
         type: EventType.ApplyBuff,

@@ -1,6 +1,4 @@
-import { ItemList } from 'common/ITEMS/Item';
-
-const potions: ItemList = {
+const potions = {
   SPIRITUAL_HEALING_POTION: {
     id: 171267,
     name: 'Spiritual Healing Potion',
@@ -111,5 +109,5 @@ const potions: ItemList = {
     name: 'Cosmic Healing Potion',
     icon: 'inv_alchemy_70_red',
   },
-};
+} as const;
 export default potions;

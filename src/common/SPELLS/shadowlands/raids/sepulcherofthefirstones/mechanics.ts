@@ -11,4 +11,4 @@ export default {
   //Lords of Dread
   //Rygelon
   //The Jailer
-};
+} as const;

@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   ELEMENTAL_BLAST_TALENT: {
     id: 117014,
@@ -243,5 +245,6 @@ const talents: SpellList = {
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
   },
-};
+});
+
 export default talents;

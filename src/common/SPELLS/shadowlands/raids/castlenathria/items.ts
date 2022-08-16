@@ -30,4 +30,4 @@ export default {
   //Stoneborne Generals
 
   //Sire Denathrius
-};
+} as const;

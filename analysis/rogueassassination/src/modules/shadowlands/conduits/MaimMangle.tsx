@@ -55,7 +55,7 @@ class MaimMangle extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spellId={SPELLS.MAIM_MAGNLE.id} rank={this.conduitRank}>
+        <ConduitSpellText spellId={SPELLS.MAIM_MANGLE.id} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>
       </Statistic>

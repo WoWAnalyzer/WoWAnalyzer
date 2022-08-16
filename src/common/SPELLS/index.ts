@@ -28,7 +28,7 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
-import Spell, { SpellList } from './Spell';
+import Spell from './Spell';
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
 import TALENTS_DEMON_HUNTER from './talents/demonhunter';
 import TALENTS_DRUID from './talents/druid';
@@ -44,7 +44,7 @@ import TALENTS_WARRIOR from './talents/warrior';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const ABILITIES: SpellList = {
+const ABILITIES = {
   // Talents are auto generated
   ...TALENTS_DEATH_KNIGHT,
   ...TALENTS_DEMON_HUNTER,
@@ -77,18 +77,18 @@ const ABILITIES: SpellList = {
   ...SHADOWLANDS,
 } as const;
 
-type SpellCollection = SpellList & {
-  maybeGet: (key: string | number | undefined) => Spell | undefined;
-};
+// type SpellCollection = SpellList & {
+//   maybeGet: (key: string | number | undefined) => Spell | undefined;
+// };
 // If you remove this indexById you can see what spells are undefined.
 // But you'll get a lot of other errors.
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-const InternalSpellTable = indexById(ABILITIES) as SpellCollection;
+const InternalSpellTable = indexById<Spell>()(ABILITIES);
 // assignment is used here to avoid potential performance pitfalls when
 // compiling the spread operator on large objects.
-InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);
+// InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);
 
 const SPELLS = new Proxy(InternalSpellTable, {
   get(target, prop, receiver) {
@@ -115,6 +115,8 @@ const SPELLS = new Proxy(InternalSpellTable, {
 });
 
 export default SPELLS;
+export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
+  key ? InternalSpellTable[key as any] : undefined;
 
 export const registerSpell = (id: number, name: string, icon: string) => {
   if (InternalSpellTable[id]) {

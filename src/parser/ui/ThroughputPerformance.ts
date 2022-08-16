@@ -1,6 +1,6 @@
 import fetchWcl from 'common/fetchWclApi';
 import { WCLRanking, WCLRankingsResponse } from 'common/WCL_TYPES';
-import SPECS from 'game/SPECS';
+import { specsCount as TOTAL_SPECS } from 'game/SPECS';
 import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
 import calculateMedian from 'parser/shared/modules/features/Checklist/helpers/calculateMedian';
@@ -9,9 +9,6 @@ import { PureComponent, ReactNode } from 'react';
 
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore - see comment in src/common/indexById.ts
-const TOTAL_SPECS: number = SPECS.count;
 export const UNAVAILABLE = -1;
 
 interface Props {

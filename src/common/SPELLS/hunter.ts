@@ -4,9 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from './Spell';
+import { asIndexableList } from 'common/indexById';
 
-const spells: SpellList = {
+import Spell from './Spell';
+
+const spells = asIndexableList<Spell>()({
   //region Beast Mastery
   ASPECT_OF_THE_WILD: {
     id: 193530,
@@ -736,6 +738,6 @@ const spells: SpellList = {
     icon: 'ability_druid_cower',
   },
   //endregion
-} as const;
+});
 
 export default spells;

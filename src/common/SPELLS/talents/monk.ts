@@ -1,7 +1,9 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { asIndexableList } from 'common/indexById';
 
-const talents: SpellList = {
+import Spell from '../Spell';
+
+const talents = asIndexableList<Spell>()({
   //Shared
   EYE_OF_THE_TIGER_TALENT: {
     id: 196607,
@@ -133,5 +135,6 @@ const talents: SpellList = {
   HIGH_TOLERANCE_TALENT: { id: 196737, name: 'High Tolerance', icon: 'monk_ability_avertharm' },
   CELESTIAL_FLAMES_TALENT: { id: 325177, name: 'Celestial Flames', icon: 'inv_misc_volatilefire' },
   BLACKOUT_COMBO_TALENT: { id: 196736, name: 'Blackout Combo', icon: 'ability_monk_blackoutkick' },
-};
+});
+
 export default talents;

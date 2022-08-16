@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Ingra Maloch
   UNBOUND_CHANGELING: {
     id: 178708,
@@ -25,5 +23,5 @@ const items: ItemList = {
   //endregion
   //region Tred'ova
   //endregion
-};
+} as const;
 export default items;

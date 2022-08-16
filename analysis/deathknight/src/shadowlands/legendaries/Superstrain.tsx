@@ -69,7 +69,7 @@ class Superstrain extends Analyzer {
       );
     }
 
-    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGH) {
+    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGHT) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE),
         this._onVirulentPlagueDamage,
@@ -148,7 +148,7 @@ class Superstrain extends Analyzer {
       return SPELLS.DEATH_COIL.name;
     }
 
-    return SPELLS.FROST_STRIKE.name;
+    return SPELLS.FROST_STRIKE_CAST.name;
   }
 
   statistic() {

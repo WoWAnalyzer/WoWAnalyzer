@@ -1,6 +1,4 @@
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Balance
   //endregion
   //region Feral
@@ -11,5 +9,5 @@ const items: ItemList = {
   //endregion
   //region Shared
   //endregion
-};
+} as const;
 export default items;

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -317,7 +317,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return SPELLS.maybeGet(this.primarySpell)?.name;
+    return maybeGetSpell(this.primarySpell)?.name;
   }
   set name(value) {
     this._name = value;

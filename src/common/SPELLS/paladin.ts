@@ -4,9 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from './Spell';
+import { asIndexableList } from 'common/indexById';
 
-const spells: SpellList = {
+import Spell from './Spell';
+
+const spells = asIndexableList<Spell>()({
   // Paladin:
   CRUSADER_STRIKE: {
     id: 35395,
@@ -601,6 +603,6 @@ const spells: SpellList = {
     name: 'Glorious Purpose',
     icon: 'spell_holy_holyprotection',
   },
-} as const;
+});
 
 export default spells;

@@ -5,9 +5,7 @@
  *   icon: string,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   SINFUL_GLADIATORS_BADGE_OF_FEROCITY: {
     id: 175921,
     name: "Sinful Gladiator's Badge of Ferocity",
@@ -38,5 +36,5 @@ const items: ItemList = {
     name: "Sinful Gladiator's Sigil of Adaptation",
     icon: 'sha_ability_rogue_sturdyrecuperate',
   },
-};
+} as const;
 export default items;

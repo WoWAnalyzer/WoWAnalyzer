@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
-
-const items: ItemList = {
+const items = {
   //region Blightbone
   //endregion
   //region Amarth, The Reanimator
@@ -37,5 +35,5 @@ const items: ItemList = {
     icon: 'inv_enchanting_70_chaosshard',
   },
   //endregion
-};
+} as const;
 export default items;

@@ -4,9 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from './Spell';
+import { asIndexableList } from 'common/indexById';
 
-const spells: SpellList = {
+import Spell from './Spell';
+
+const spells = asIndexableList<Spell>()({
   // Shared
   HOLY_NOVA: {
     id: 132157,
@@ -697,6 +699,6 @@ const spells: SpellList = {
     name: 'Spirit Shell',
     icon: 'ability_shaman_astralshift.jpg',
   },
-} as const;
+});
 
 export default spells;
