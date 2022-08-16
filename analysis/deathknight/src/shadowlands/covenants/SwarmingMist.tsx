@@ -6,7 +6,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -107,7 +107,7 @@ class SwarmingMist extends Analyzer {
     return FROST_STRIKE_RP;
   }
 
-  get rpSpenderName() {
+  get rpSpenderName(): string {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       return SPELLS.DEATH_STRIKE.name;
     }
@@ -123,7 +123,7 @@ class SwarmingMist extends Analyzer {
     return this.rpWasted / this.rpGained;
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: this.rpWastePercentage,
       isGreaterThan: {

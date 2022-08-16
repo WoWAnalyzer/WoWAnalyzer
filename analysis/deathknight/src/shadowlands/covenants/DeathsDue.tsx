@@ -4,8 +4,16 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  FightEndEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Events, { EventType } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,7 +24,7 @@ const GROUND_EFFECT_DURATION = 10000;
 
 class DeathsDue extends Analyzer {
   //for stack trackers
-  stacks = [];
+  stacks: number[][] = [];
   lastStack = 0;
   lastStackUpdate = this.owner.fight.start_time;
 
@@ -28,8 +36,8 @@ class DeathsDue extends Analyzer {
 
   strPerStack = 0.02; // 2% str buff per stack, overridden in constructor if legendary
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     const active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     this.active = active;
     if (!active) {
@@ -66,7 +74,7 @@ class DeathsDue extends Analyzer {
     this.addEventListener(Events.fightend, this.handleWindow);
   }
 
-  handleStacks(event) {
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | FightEndEvent) {
     this.stacks[this.lastStack].push(event.timestamp - this.lastStackUpdate);
     if (event.type === EventType.FightEnd) {
       return;
@@ -76,7 +84,7 @@ class DeathsDue extends Analyzer {
     this.lastStack = currentStacks(event);
   }
 
-  handleWindow(event) {
+  handleWindow(event: CastEvent | FightEndEvent) {
     //if you do not get full DD window due to fight ending, remove the previous window from the counter and don't worry about preparing next
     if (this.groundEffectEnd > this.owner.fight.end_time) {
       this.casts -= 1;
@@ -86,11 +94,13 @@ class DeathsDue extends Analyzer {
     //calculate previous cast
     if (this.casts !== 0) {
       //don't calculate previous window if this is the first cast
-      let stackGain = this.selectedCombatant.getBuffStacks(
+      const stackGain = this.selectedCombatant.getBuffStacks(
         SPELLS.DEATHS_DUE_BUFF.id,
         this.groundEffectEnd,
       );
-      this.wastedCasts += stackGain === 0;
+      if (stackGain === 0) {
+        this.wastedCasts += 1;
+      }
       this.stacksGained += stackGain;
     }
 
@@ -103,8 +113,8 @@ class DeathsDue extends Analyzer {
 
   get averageStacks() {
     let avgStacks = 0;
-    this.stacks.forEach((elem, index) => {
-      avgStacks += (elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
+    this.stacks.forEach((durations, index) => {
+      avgStacks += (durations.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
     });
     return avgStacks;
   }
@@ -157,7 +167,7 @@ class DeathsDue extends Analyzer {
     );
   }
 
-  get uptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -165,11 +175,11 @@ class DeathsDue extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get wastedCastsSuggestionThresholds() {
+  get wastedCastsSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedCasts / this.casts,
       isGreaterThan: {
@@ -177,11 +187,11 @@ class DeathsDue extends Analyzer {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(

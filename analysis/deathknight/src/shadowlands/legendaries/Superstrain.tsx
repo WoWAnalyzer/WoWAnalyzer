@@ -139,7 +139,7 @@ class Superstrain extends Analyzer {
     );
   }
 
-  get rpSpenderName() {
+  get rpSpenderName(): string {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       return SPELLS.DEATH_STRIKE.name;
     }
