@@ -38,14 +38,14 @@ interface Config {
    */
   patchCompatibility:
     | null
-    | '8.0.1'
-    | '8.1'
-    | '8.1.5'
-    | '8.2.5'
-    | '8.3'
     | '9.0.1'
     | '9.0.2'
     | '9.0.5'
+    | '9.1.0'
+    | '9.1.5'
+    | '9.2.0'
+    | '9.2.5'
+    | '9.2.7'
     | string;
   /**
    * Whether support for the spec is only partial and some important elements
