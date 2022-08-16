@@ -87,7 +87,7 @@ class Frostscythe extends Analyzer {
         .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
         .actual(
           t({
-            id: 'deathknight.forst.frostScythe.efficiency',
+            id: 'deathknight.frost.frostScythe.efficiency',
             message: `${formatPercentage(actual)}% Frostscythe efficiency`,
           }),
         )

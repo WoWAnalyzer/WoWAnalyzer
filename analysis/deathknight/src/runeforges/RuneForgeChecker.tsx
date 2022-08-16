@@ -16,7 +16,7 @@ class RuneForgeChecker extends Analyzer {
 
   get activeSuggestion() {
     return this.runeForges.find(
-      (runeForge, index) =>
+      (runeForge) =>
         this.selectedCombatant.hasWeaponEnchant(runeForge.forge) && runeForge.suggestion,
     );
   }
