@@ -1,6 +1,8 @@
+import { t } from '@lingui/macro';
 import { Panel } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { ParseResultsTab } from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
 import RuneBreakdown from './RuneBreakdown';
@@ -11,10 +13,12 @@ class RuneDetails extends Analyzer {
     runeTracker: RuneTracker,
   };
 
-  tab() {
+  protected runeTracker!: RuneTracker;
+
+  tab(): ParseResultsTab {
     const data = this.runeTracker.runesReady;
 
-    const spec = {
+    const spec: VisualizationSpec = {
       data: {
         name: 'runes',
       },
@@ -35,7 +39,7 @@ class RuneDetails extends Analyzer {
         y: {
           field: 'y',
           type: 'quantitative',
-          title: '# of Runes',
+          title: t({ id: 'deathknight.shared.runeDetails.numberOfRunes', message: '# of Runes' }),
           axis: {
             grid: false,
             tickMinStep: 1,
@@ -45,7 +49,7 @@ class RuneDetails extends Analyzer {
     };
 
     return {
-      title: 'Rune usage',
+      title: t({ id: 'deathknight.shared.runeDetails.title', message: 'Rune usage' }),
       url: 'rune-usage',
       render: () => (
         <Panel>
