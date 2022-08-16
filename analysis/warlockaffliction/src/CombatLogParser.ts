@@ -12,6 +12,7 @@ import {
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import DecimatingBolt from './modules/covenants/DecimatingBolt';
 import ScouringTitheUptime from './modules/covenants/ScouringTithe';
+import SoulRot from './modules/covenants/SoulRot';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     scouringTithe: ScouringTitheUptime,
     decimatingBolt: DecimatingBolt,
+    soulRot: SoulRot,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

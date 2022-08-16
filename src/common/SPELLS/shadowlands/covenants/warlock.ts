@@ -46,5 +46,10 @@ const covenants = {
     name: 'Soul Rot',
     icon: 'ability_ardenweald_warlock',
   },
+  SOUL_ROT_BUFF: {
+    id: 331623,
+    name: 'Soul Rot',
+    icon: 'ability_ardenweald_warlock',
+  },
 } as const;
 export default covenants;
