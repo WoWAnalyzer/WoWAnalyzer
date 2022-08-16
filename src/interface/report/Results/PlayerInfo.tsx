@@ -1,15 +1,15 @@
 import { RETAIL_EXPANSION } from 'game/Expansion';
 import getAverageItemLevel from 'game/getAverageItemLevel';
-import PlayerInfoConduits from 'interface/report/Results/PlayerInfoConduits';
-import PlayerInfoSoulbinds from 'interface/report/Results/PlayerInfoSoulbinds';
 import Combatant from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
 
 import './PlayerInfo.scss';
 import PlayerGearHeader from './PlayerGearHeader';
+import PlayerInfoConduits from './PlayerInfoConduits';
 import PlayerInfoEnchants from './PlayerInfoEnchants';
 import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
+import PlayerInfoSoulbinds from './PlayerInfoSoulbinds';
 import PlayerInfoTalents from './PlayerInfoTalents';
 
 function _parseTalents(talents: TalentsType[]): number[] {
@@ -60,11 +60,13 @@ const PlayerInfo = ({ combatant }: Props) => {
         </div>
       </div>
       <div className="player-details">
-        <div className="player-details-talents">
-          {isRetail && <PlayerInfoTalents talents={talents} />}
-        </div>
-        {isRetail && <PlayerInfoConduits conduits={conduits} />}
-        {isRetail && <PlayerInfoSoulbinds soulbinds={soulbinds} />}
+        {isRetail && (
+          <>
+            <PlayerInfoTalents talents={talents} />
+            <PlayerInfoConduits conduits={conduits} />
+            <PlayerInfoSoulbinds soulbinds={soulbinds} />
+          </>
+        )}
       </div>
     </div>
   );
