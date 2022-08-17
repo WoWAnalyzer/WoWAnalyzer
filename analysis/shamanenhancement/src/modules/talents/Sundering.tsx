@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -97,6 +98,11 @@ class Sundering extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <Trans id="shaman.enhancement.sundering.statistic.tooltip">
+            {this.misses} out of {this.casts} did not hit an enemy.
+          </Trans>
+        }
         size="flexible"
       >
         <BoringSpellValueText spellId={SPELLS.SUNDERING_TALENT.id}>
@@ -114,13 +120,19 @@ class Sundering extends Analyzer {
     return this.missedCasts.length;
   }
 
+  /**
+   * There isn't a proper way to define this since a Sundering cast is only valuable as a filler.
+   * Missing it is a shame but not a major thing to work on.
+   */
   get missesThreshold() {
     return {
-      actual: this.misses,
+      actual: this.misses / this.casts,
       isGreaterThan: {
-        major: 0,
+        major: 0.5,
+        average: 0.33,
+        minor: 0.1,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -135,12 +147,12 @@ class Sundering extends Analyzer {
         .icon(SPELLS.SUNDERING_TALENT.icon)
         .actual(
           <Trans id="shaman.enhancement.suggestions.sundering.actual">
-            You missed {actual} cast(s)
+            You missed {formatPercentage(actual)}% of cast(s)
           </Trans>,
         )
         .recommended(
           <Trans id="shaman.enhancement.suggestions.sundering.recommended">
-            {recommended} is recommended
+            less than {formatPercentage(recommended)} is recommended
           </Trans>,
         ),
     );
