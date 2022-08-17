@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { Enchant } from 'common/SPELLS/Spell';
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { BoolThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import * as React from 'react';
 
 export interface RuneForgeCheckItem {
@@ -21,7 +21,7 @@ class RuneForgeChecker extends Analyzer {
     );
   }
 
-  get showSuggestion() {
+  get showSuggestion(): BoolThreshold {
     return {
       actual: Boolean(this.activeSuggestion),
       isEqual: true,

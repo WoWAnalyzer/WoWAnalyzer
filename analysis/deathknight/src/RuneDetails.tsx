@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro';
 import { Panel } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { ParseResultsTab } from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
 import RuneBreakdown from './RuneBreakdown';
@@ -12,10 +13,12 @@ class RuneDetails extends Analyzer {
     runeTracker: RuneTracker,
   };
 
-  tab() {
+  protected runeTracker!: RuneTracker;
+
+  tab(): ParseResultsTab {
     const data = this.runeTracker.runesReady;
 
-    const spec = {
+    const spec: VisualizationSpec = {
       data: {
         name: 'runes',
       },
