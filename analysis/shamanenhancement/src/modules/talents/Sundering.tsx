@@ -117,10 +117,8 @@ class Sundering extends Analyzer {
   get missesThreshold() {
     return {
       actual: this.misses,
-      recommended: 0,
       isGreaterThanOrEqual: {
         major: 1,
-        minor: 0.01,
       },
       style: ThresholdStyle.NUMBER,
     };
