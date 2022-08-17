@@ -100,7 +100,7 @@ class Sundering extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <Trans id="shaman.enhancement.sundering.statistic.tooltip">
-            {this.misses} out of {this.casts} did not hit an enemy.
+            {this.misses} out of {this.casts} casts did not hit an enemy.
           </Trans>
         }
         size="flexible"

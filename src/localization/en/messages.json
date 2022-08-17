@@ -824,7 +824,7 @@
   "shaman.enhancement.suggestions.sundering.recommended": "less than {0} is recommended",
   "shaman.enhancement.suggestions.sundering.suggest": "Consider the amount of enemies in the direction you're facing when casting <0/> to avoid missing it.",
   "shaman.enhancement.sundering.inefficientCastReason": "Sundering did not hit any targets.",
-  "shaman.enhancement.sundering.statistic.tooltip": "{0} out of {1} did not hit an enemy.",
+  "shaman.enhancement.sundering.statistic.tooltip": "{0} out of {1} casts did not hit an enemy.",
   "shaman.restoration.abilities.buffedByTidalWave": "Tidal Waved {0}",
   "shaman.restoration.apt.statistic.label": "Ancestral Protection Totem",
   "shaman.restoration.apt.statistic.label.failure": "No Results",
