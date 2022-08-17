@@ -821,7 +821,7 @@
   "shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered": "{0}% of Stormkeeper Lightning Bolts empowered with Surge",
   "shaman.enhancement.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "shaman.enhancement.suggestions.sundering.actual": "You missed {actual} cast(s)",
-  "shaman.enhancement.suggestions.sundering.recommended": "0 is recommended",
+  "shaman.enhancement.suggestions.sundering.recommended": "{recommended} is recommended",
   "shaman.enhancement.suggestions.sundering.suggest": "Consider the amount of enemies in the direction you're facing when casting <0/> to avoid missing it.",
   "shaman.enhancement.sundering.inefficientCastReason": "Sundering did not hit any targets.",
   "shaman.restoration.abilities.buffedByTidalWave": "Tidal Waved {0}",

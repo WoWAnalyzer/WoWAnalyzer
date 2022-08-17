@@ -117,8 +117,8 @@ class Sundering extends Analyzer {
   get missesThreshold() {
     return {
       actual: this.misses,
-      isGreaterThanOrEqual: {
-        major: 1,
+      isGreaterThan: {
+        major: 0,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -139,7 +139,9 @@ class Sundering extends Analyzer {
           </Trans>,
         )
         .recommended(
-          <Trans id="shaman.enhancement.suggestions.sundering.recommended">0 is recommended</Trans>,
+          <Trans id="shaman.enhancement.suggestions.sundering.recommended">
+            {recommended} is recommended
+          </Trans>,
         ),
     );
   }
