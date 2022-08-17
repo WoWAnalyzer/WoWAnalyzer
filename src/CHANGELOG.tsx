@@ -62,7 +62,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2022, 8, 16), 'Set analyzer version to 9.2.7', Vetyst),
+  change(date(2022, 8, 17), <>Bumped version to indicate 9.2.5 is supported.</>, Vetyst),
   change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
   change(date(2022, 8, 14), 'Add spell and item data for missing Sanctum of Domination items.', ToppleTheNun),
   change(date(2022, 8, 13), 'Updated translations of core DK modules', Chizu),
