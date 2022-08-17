@@ -821,6 +821,7 @@
   "shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered": "{0}% Молний под Хранителем бурь усилено Приливом мощи",
   "shaman.enhancement.suggestions.alwaysBeCasting.downtime": "{0}% простоев",
   "shaman.enhancement.suggestions.sundering.actual": "",
+  "shaman.enhancement.suggestions.sundering.recommended": "",
   "shaman.enhancement.suggestions.sundering.suggest": "",
   "shaman.enhancement.sundering.inefficientCastReason": "",
   "shaman.restoration.abilities.buffedByTidalWave": "Баффов от Приливных волн {0}",

@@ -137,6 +137,9 @@ class Sundering extends Analyzer {
           <Trans id="shaman.enhancement.suggestions.sundering.actual">
             You missed {actual} cast(s)
           </Trans>,
+        )
+        .recommended(
+          <Trans id="shaman.enhancement.suggestions.sundering.recommended">0 is recommended</Trans>,
         ),
     );
   }
