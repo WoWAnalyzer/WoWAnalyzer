@@ -62,6 +62,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 18), "Updated lint-staged to newest version", Putro),
   change(date(2022, 8, 17), <>Bumped version to indicate 9.2.5 is supported.</>, Vetyst),
   change(date(2022, 8, 14), 'Updated core Death Knight modules to Typescript', Chizu),
   change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
