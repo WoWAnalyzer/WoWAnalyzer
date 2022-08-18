@@ -680,7 +680,7 @@ const talents = createTalentList({
   FLASHPOINT_DESTRUCTION_TALENT: {
     id: 387259,
     name: 'Flashpoint',
-    icon: 'ability_evoker_firebreath',
+    icon: 'spell_fire_moltenblood',
     maxRanks: 2,
     reqPoints: 8,
     spellType: 'passive',
