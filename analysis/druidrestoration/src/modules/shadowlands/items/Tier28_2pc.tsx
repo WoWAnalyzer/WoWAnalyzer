@@ -34,11 +34,11 @@ class Tier28_2pc extends Analyzer {
   }
 
   get directHealing() {
-    return this.mastery.getDirectHealing(SPELLS.RENEWING_BLOOM.id.toString());
+    return this.mastery.getDirectHealing(SPELLS.RENEWING_BLOOM.id);
   }
 
   get masteryHealing() {
-    return this.mastery.getMasteryHealing(SPELLS.RENEWING_BLOOM.id.toString());
+    return this.mastery.getMasteryHealing(SPELLS.RENEWING_BLOOM.id);
   }
 
   get totalHealing() {

@@ -196,7 +196,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.CONVOKE_SPIRITS} /> ({formatNumber(castTotalHealing)} healing)
+              <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> ({formatNumber(castTotalHealing)}{' '}
+              healing)
             </>
           );
 
@@ -204,7 +205,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
+                <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={restoCast.wgsOnCast > 0} />,
@@ -213,7 +214,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.REJUVENATION} /> ramp
+                <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={restoCast.rejuvsOnCast > 0} />,
@@ -223,13 +224,13 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             checklistItems.push({
               label: (
                 <>
-                  Avoid <SpellLink id={SPELLS.FLOURISH_TALENT} /> clip{' '}
+                  Avoid <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> clip{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         When casting <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and{' '}
-                        <SpellLink id={SPELLS.FLOURISH_TALENT} /> together, the Convoke should
+                        <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> together, the Convoke should
                         ALWAYS go first. This is both because the Convoke could proc Flourish and
                         cause you to clip your hardcast's buff, and also because Convoke produces a
                         lot of HoTs which Flourish could extend. If you got an{' '}

@@ -26,11 +26,11 @@ class Cultivation extends Analyzer {
   }
 
   get directHealing() {
-    return this.mastery.getDirectHealing(SPELLS.CULTIVATION.id.toString());
+    return this.mastery.getDirectHealing(SPELLS.CULTIVATION.id);
   }
 
   get masteryHealing() {
-    return this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id.toString());
+    return this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id);
   }
 
   get totalHealing() {

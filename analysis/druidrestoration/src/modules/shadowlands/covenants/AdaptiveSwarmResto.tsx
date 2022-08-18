@@ -29,7 +29,7 @@ class AdaptiveSwarmResto extends AdaptiveSwarm {
   }
 
   get masteryHealing() {
-    return this.mastery.getMasteryHealing(SPELLS.ADAPTIVE_SWARM_HEAL.id.toString());
+    return this.mastery.getMasteryHealing(SPELLS.ADAPTIVE_SWARM_HEAL.id);
   }
 
   /** The actual total healing for Resto must also include the mastery attribution */

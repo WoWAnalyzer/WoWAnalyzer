@@ -688,7 +688,7 @@ export interface HealerSpellInfo {
 }
 
 export interface ListOfHealerSpellInfo {
-  [key: string]: HealerSpellInfo;
+  [key: number]: HealerSpellInfo;
 }
 
 export interface StatMessage {

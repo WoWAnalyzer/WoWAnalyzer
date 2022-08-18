@@ -46,7 +46,7 @@ class Mastery extends Analyzer {
     // inits spellAttributions with an entry for each HoT that works with Mastery
     Object.entries(DRUID_HEAL_INFO).forEach(([guid, buff]: [string, HealerSpellInfo]) => {
       if (buff.masteryStack) {
-        this.spellAttributions[guid] = new MasterySpellAttribution();
+        this.spellAttributions[Number(guid)] = new MasterySpellAttribution();
       }
     });
 
@@ -82,9 +82,7 @@ class Mastery extends Analyzer {
       // tally benefits for spells
       hotsOn
         .filter((hotOn) => hotOn !== spellId) // don't double count
-        .forEach((hotOn) =>
-          this._tallyMasteryBenefit(hotOn.toString(), spellId.toString(), decomposedHeal.oneStack),
-        );
+        .forEach((hotOn) => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
 
       // tally benefits for ratings buffs
       this.selectedCombatant
@@ -131,7 +129,7 @@ class Mastery extends Analyzer {
    * Should be same as number in WCL and includes own mastery stack.
    * @param healId the spell ID of the HoT
    */
-  getDirectHealing(healId: string): number {
+  getDirectHealing(healId: number): number {
     return this.spellAttributions[healId].direct;
   }
 
@@ -144,7 +142,7 @@ class Mastery extends Analyzer {
    * of this HoT on the same target.
    * @param healId the spell ID of the HoT
    */
-  getMasteryHealing(healId: string) {
+  getMasteryHealing(healId: number) {
     return this.spellAttributions[healId].totalMastery;
   }
 
@@ -167,7 +165,7 @@ class Mastery extends Analyzer {
    * Gets the spell attribution object for a HoT with the given ID.
    * @param healId the HoT's ID
    */
-  getHealingDetails(healId: string) {
+  getHealingDetails(healId: number) {
     return this.spellAttributions[healId];
   }
 
@@ -175,7 +173,7 @@ class Mastery extends Analyzer {
    * Gets the buff attribution object for a mastery buff with the given ID.
    * @param buffId the buff ID
    */
-  getBuffBenefit(buffId: string): MasteryBuffAttribution | undefined {
+  getBuffBenefit(buffId: number): MasteryBuffAttribution | undefined {
     return this.buffAttributions[buffId];
   }
 
@@ -218,7 +216,7 @@ class Mastery extends Analyzer {
    * @param healId the ID of the heal being boosted
    * @param amount the amount of the boost
    */
-  _tallyMasteryBenefit(hotId: string, healId: string, amount: number): void {
+  _tallyMasteryBenefit(hotId: number, healId: number, amount: number): void {
     const hotMastery = this.spellAttributions[hotId].mastery;
     if (hotMastery[healId]) {
       hotMastery[healId] += amount;
@@ -282,14 +280,14 @@ class Mastery extends Analyzer {
 /**
  * A mapping from spell guid to the MasteryAttribution for that spell
  */
-export type MasteryAttributionsBySpell = { [key: string]: MasterySpellAttribution };
+export type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
 
 /**
  * A HoT's mastery attribution.
  */
 export class MasterySpellAttribution {
   direct: number; // the direct healing from the HoT, should be same as entry in WCL. Includes benefit from own stack of Mastery.
-  mastery: { [key: string]: number }; // a mapping from spell ID to how much this HoT boosted it via Mastery.
+  mastery: { [key: number]: number }; // a mapping from spell ID to how much this HoT boosted it via Mastery.
 
   constructor() {
     this.direct = 0;
@@ -308,7 +306,7 @@ export class MasterySpellAttribution {
 /**
  * A mapping from buff guid to the attribution amount for that buff
  */
-export type MasteryAttributionsByBuff = { [key: string]: MasteryBuffAttribution };
+export type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
 
 /**
  * A Buff's mastery attribution.

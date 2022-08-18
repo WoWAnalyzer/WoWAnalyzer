@@ -31,7 +31,7 @@ class GroveInvigorationResto extends Analyzer {
   }
 
   get totalHealing() {
-    const buffAtt = this.mastery.getBuffBenefit(SPELLS.REDIRECTED_ANIMA.id.toString());
+    const buffAtt = this.mastery.getBuffBenefit(SPELLS.REDIRECTED_ANIMA.id);
     return buffAtt === undefined ? 0 : buffAtt.attributable;
   }
 
@@ -43,7 +43,7 @@ class GroveInvigorationResto extends Analyzer {
   }
 
   get avgRatingGain() {
-    const buffAtt = this.mastery.getBuffBenefit(SPELLS.REDIRECTED_ANIMA.id.toString());
+    const buffAtt = this.mastery.getBuffBenefit(SPELLS.REDIRECTED_ANIMA.id);
     return buffAtt === undefined ? 0 : this.avgStacks * buffAtt.buffAmount;
   }
 

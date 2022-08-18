@@ -7,7 +7,7 @@ import { SpellLink } from 'interface';
 export default [
   change(date(2022, 7, 22), <>Properly reduce the cooldown of <SpellLink id={SPELLS.CHAIN_HARVEST.id} /> combined with <SpellLink id={SPELLS.ELEMENTAL_CONDUIT.id}/> legendary effect.</>, Vetyst),
   change(date(2022, 7, 22), <>Separate Stormstrike and Windstrike cooldowns.</>, Vetyst),
-  change(date(2022, 7, 22), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT} /> procs.</>, Vetyst),
+  change(date(2022, 7, 22), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT.id} /> procs.</>, Vetyst),
   change(date(2022, 7, 22), <>Show covenant abilities on offensive cooldowns checklist.</>, Vetyst),
   change(date(2022, 7, 22), <>Add suggestion for the <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing T28 4 set.</>, Vetyst),
   change(date(2022, 7, 22), <>Remove <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} />  as suggested offensive cooldown.</>, Vetyst),

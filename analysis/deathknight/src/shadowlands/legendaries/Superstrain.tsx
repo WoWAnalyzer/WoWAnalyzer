@@ -34,7 +34,9 @@ class Superstrain extends Analyzer {
     }
 
     if (
-      [SPECS.BLOOD_DEATH_KNIGHT, SPECS.UNHOLY_DEATH_KNIGHT].includes(this.selectedCombatant.spec!)
+      [SPECS.BLOOD_DEATH_KNIGHT.id, SPECS.UNHOLY_DEATH_KNIGHT.id].includes(
+        this.selectedCombatant.specId,
+      )
     ) {
       this.addEventListener(Events.resourcechange, this._onFrostFeverEnergize);
     }

@@ -22,8 +22,8 @@ class CenarionWard extends Analyzer {
   }
 
   statistic() {
-    const directHealing = this.mastery.getDirectHealing(SPELLS.CENARION_WARD_HEAL.id.toString());
-    const masteryHealing = this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id.toString());
+    const directHealing = this.mastery.getDirectHealing(SPELLS.CENARION_WARD_HEAL.id);
+    const masteryHealing = this.mastery.getMasteryHealing(SPELLS.CENARION_WARD_HEAL.id);
     const totalHealing = directHealing + masteryHealing;
 
     return (

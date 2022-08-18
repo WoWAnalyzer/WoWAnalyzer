@@ -84,7 +84,8 @@ class Tranquility extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.TRANQUILITY_CAST} /> ({formatNumber(castTotalHealing)} healing)
+              <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> ({formatNumber(castTotalHealing)}{' '}
+              healing)
             </>
           );
 
@@ -92,7 +93,7 @@ class Tranquility extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
+                <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
@@ -101,7 +102,7 @@ class Tranquility extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.REJUVENATION} /> ramp
+                <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
