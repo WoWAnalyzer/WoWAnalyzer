@@ -62,9 +62,9 @@ async function generateTalents() {
           icon: talentSpell.icon,
           //additional DF tree information
           maxRanks: talentSpell.maxRanks,
-          reqPoints: classTalent.reqPoints ?? 0,
-          spellType: talentSpell.type,
-          talentType: classTalent.type,
+          //reqPoints: classTalent.reqPoints ?? 0,
+          //spellType: talentSpell.type,
+          //talentType: classTalent.type,
         };
         const entryInSpellPowerTable = spellpower.find(
           (e) => parseInt(e.SpellID) === talentSpell.spellId,
@@ -94,9 +94,9 @@ async function generateTalents() {
           icon: talentSpell.icon,
           //additional DF tree information
           maxRanks: talentSpell.maxRanks,
-          reqPoints: specTalent.reqPoints ?? 0,
-          spellType: talentSpell.type,
-          talentType: specTalent.type,
+          //reqPoints: specTalent.reqPoints ?? 0,
+          //spellType: talentSpell.type,
+          //talentType: specTalent.type,
         };
         const entryInSpellPowerTable = spellpower.find(
           (e) => parseInt(e.SpellID) === talentSpell.spellId,
