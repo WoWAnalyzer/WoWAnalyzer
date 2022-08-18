@@ -1212,9 +1212,9 @@ const talents = createTalentList({
     talentType: 'single',
     manaCost: 1500,
   },
-  BARRIER_OF_FAITH_NYI_HOLY_TALENT: {
+  BARRIER_OF_FAITH_HOLY_TALENT: {
     id: 148039,
-    name: 'Barrier of Faith (NYI)',
+    name: 'Barrier of Faith',
     icon: 'ability_paladin_blessedmending',
     maxRanks: 1,
     reqPoints: 20,
