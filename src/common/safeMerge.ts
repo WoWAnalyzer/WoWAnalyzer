@@ -11,7 +11,7 @@ const merge = <T extends Array<Record<string, unknown>>>(
   if (process.env.NODE_ENV === 'development') {
     const obj: Record<string, unknown> = {};
     objects.forEach((arg) => {
-      (Object.keys(obj) as Array<keyof typeof arg>).forEach((key) => {
+      (Object.keys(arg) as Array<keyof typeof arg>).forEach((key) => {
         if (obj[key]) {
           throw new Error('This key already exists:' + key);
         }
