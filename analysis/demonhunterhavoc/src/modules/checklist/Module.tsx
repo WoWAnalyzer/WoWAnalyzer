@@ -21,6 +21,7 @@ import Component from './Component';
 
 class Checklist extends BaseModule {
   static dependencies = {
+    ...BaseModule.dependencies,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,

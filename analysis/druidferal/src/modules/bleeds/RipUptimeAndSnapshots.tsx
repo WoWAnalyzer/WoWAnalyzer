@@ -21,6 +21,7 @@ import Snapshots, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
+    ...Snapshots.dependencies,
     enemies: Enemies,
   };
 

@@ -16,6 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 class TranquilizingShot extends DispelTracker {
   static dependencies = {
+    ...DispelTracker.dependencies,
     abilities: Abilities,
   };
 

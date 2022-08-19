@@ -3,6 +3,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
+import { apl, check as aplCheck } from '../apl/AplCheck';
 import WindfuryTotem from '../core/WindfuryTotem';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
@@ -10,6 +11,7 @@ import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
+    ...BaseChecklist.dependencies,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
@@ -26,8 +28,11 @@ class Checklist extends BaseChecklist {
   //protected hailstorm!: Hailstorm;
 
   render() {
+    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
+        apl={apl}
+        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

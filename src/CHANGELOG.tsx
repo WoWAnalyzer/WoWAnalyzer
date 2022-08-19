@@ -63,7 +63,10 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2022, 8, 19), <>Convert Abilities.SPELL_CATEGORIES to SPELL_CATEGORY enum.</>, Vetyst),
+  change(date(2022, 8, 18), 'Resolve calculating the average item level if no gear is equipped.', Vetyst),
   change(date(2022, 8, 17), <>Bumped version to indicate 9.2.5 is supported.</>, Vetyst),
+  change(date(2022, 8, 15), 'Added eslint rule that requires spreading parent module dependencies', Chizu),
+  change(date(2022, 8, 14), 'Add soulbinds to character page.', ToppleTheNun),
   change(date(2022, 8, 14), 'Updated core Death Knight modules to Typescript', Chizu),
   change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
   change(date(2022, 8, 14), 'Add spell and item data for missing Sanctum of Domination items.', ToppleTheNun),

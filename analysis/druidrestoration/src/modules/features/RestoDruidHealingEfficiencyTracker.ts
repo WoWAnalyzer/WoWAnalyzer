@@ -15,6 +15,7 @@ import Swiftmend from '../features/Swiftmend';
 
 class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
+    ...HealingEfficiencyTracker.dependencies,
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
