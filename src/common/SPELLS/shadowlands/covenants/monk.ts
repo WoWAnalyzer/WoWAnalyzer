@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   //heal 311123
   //buff and cast 310454
@@ -129,5 +131,5 @@ const covenants = {
   },
 
   //endregion
-} as const;
+});
 export default covenants;

@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //Arcane
   ARCANE_PRODIGY: {
     id: 336873,
@@ -148,5 +150,5 @@ const conduits = {
     name: 'Discipline of the Grove',
     icon: 'achievement_bg_wineos',
   },
-} as const;
+});
 export default conduits;

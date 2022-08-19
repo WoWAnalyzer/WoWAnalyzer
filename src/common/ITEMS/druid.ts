@@ -1,4 +1,6 @@
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region Balance
   //endregion
   //region Feral
@@ -9,5 +11,5 @@ const items = {
   //endregion
   //region Shared
   //endregion
-} as const;
+});
 export default items;

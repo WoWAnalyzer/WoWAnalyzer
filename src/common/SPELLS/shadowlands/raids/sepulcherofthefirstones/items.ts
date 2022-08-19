@@ -1,4 +1,6 @@
-export default {
+import { spellIndexableList } from '../../../Spell';
+
+const items = spellIndexableList({
   // Group by boss (with comments)
   //region Vigilant Guardian
   //endregion
@@ -97,4 +99,6 @@ export default {
     icon: 'ability_domination_rune08',
   },
   //endregion
-} as const;
+});
+
+export default items;

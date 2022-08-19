@@ -5,7 +5,9 @@
  *   icon: string,
  * },
  */
-const gems = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const gems = itemIndexableList({
   LEVIATHANS_EYE_OF_INTELLECT: {
     // BFA gem but people still use it
     id: 168638,
@@ -32,5 +34,6 @@ const gems = {
     name: 'Versatile Jewel Cluster',
     icon: 'inv_jewelcrafting_90_rarecut_blue',
   },
-} as const;
+});
+
 export default gems;

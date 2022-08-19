@@ -5,20 +5,14 @@ interface BaseIndexableObj {
 
 const typedKeys = <T>(obj: T) => Object.keys(obj) as Array<keyof typeof obj>;
 
-interface NameIndexed<T> {
-  [name: string]: T;
-}
+type RestrictedTable<T, E> = {
+  [Key in keyof E]: E[Key] extends T ? E[Key] : never;
+};
 
-// For ease of use we may want to be able to both access items by code names for completion/compile time checking (e.g. `ABILITIES.AURA_OF_MERCY_TALENT`) and by spell id for runtime evaluation (e.g. `ABILITIES[183415]`)
-const indexById = <Idx extends BaseIndexableObj>() => <T extends NameIndexed<Idx>>(
-  arg: T,
-): {
-  [key in keyof typeof arg | number]: Idx;
-} => {
-  const indexedByNameAndId: {
-    [key in keyof typeof arg | number]: Idx;
-  } = { ...arg };
-  // const count = Object.keys(obj).length;
+const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<ValueT, any>>(
+  arg: Map,
+): RestrictedTable<ValueT, Map> & Record<number, ValueT> => {
+  const indexedByNameAndId: RestrictedTable<ValueT, Map> & Record<number, ValueT> = { ...arg };
   typedKeys(arg).forEach((key) => {
     const value = arg[key];
 
@@ -36,8 +30,8 @@ const indexById = <Idx extends BaseIndexableObj>() => <T extends NameIndexed<Idx
   return indexedByNameAndId;
 };
 
-export const asIndexableList = <Idx extends BaseIndexableObj>() => <T extends NameIndexed<Idx>>(
-  arg: T,
-) => arg;
+export const asIndexableList = <T extends BaseIndexableObj>() => <E>(
+  value: RestrictedTable<T, E>,
+): RestrictedTable<T, E> => value;
 
 export default indexById;

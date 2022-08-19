@@ -1,2 +1,4 @@
-const soulbindPowers = {} as const;
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({});
 export default soulbindPowers;

@@ -1,4 +1,6 @@
-const spells = {
+import { spellIndexableList } from '../Spell';
+
+const spells = spellIndexableList({
   SPIRITUAL_HEALING_POTION: {
     id: 307192,
     name: 'Spiritual Healing Potion',
@@ -109,5 +111,5 @@ const spells = {
     name: 'Cosmic Healing Potion',
     icon: 'inv_alchemy_70_red',
   },
-} as const;
+});
 export default spells;

@@ -6,7 +6,9 @@
  *   quality: number,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region An Affront of Challengers
   VIAL_OF_SPECTRAL_ESSENCE: {
     id: 178810,
@@ -37,5 +39,5 @@ const items = {
     icon: 'inv_misc_book_01',
   },
   //endregion
-} as const;
+});
 export default items;

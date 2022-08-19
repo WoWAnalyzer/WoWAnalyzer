@@ -1,4 +1,6 @@
-const enchants = {
+import { enchantIndexableList } from 'common/ITEMS/Item';
+
+const enchants = enchantIndexableList({
   ENCHANT_WEAPON_ASCENDED_VIGOR: {
     id: 172365,
     name: 'Enchant Weapon - Ascended Vigor',
@@ -243,6 +245,6 @@ const enchants = {
     icon: 'spell_fire_flametounge',
     effectId: 5401,
   },
-} as const;
+});
 
 export default enchants;

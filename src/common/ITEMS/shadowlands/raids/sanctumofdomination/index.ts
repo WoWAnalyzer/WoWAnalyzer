@@ -6,7 +6,9 @@
  *   quality: number,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region The Tarragrue
   TOME_OF_MONSTROUS_CONSTRUCTIONS: {
     id: 186422,
@@ -121,5 +123,5 @@ const items = {
     icon: 'ability_warrior_warcry',
   },
   //endregion
-} as const;
+});
 export default items;

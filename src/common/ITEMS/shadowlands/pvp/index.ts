@@ -5,7 +5,9 @@
  *   icon: string,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   SINFUL_GLADIATORS_BADGE_OF_FEROCITY: {
     id: 175921,
     name: "Sinful Gladiator's Badge of Ferocity",
@@ -36,5 +38,5 @@ const items = {
     name: "Sinful Gladiator's Sigil of Adaptation",
     icon: 'sha_ability_rogue_sturdyrecuperate',
   },
-} as const;
+});
 export default items;

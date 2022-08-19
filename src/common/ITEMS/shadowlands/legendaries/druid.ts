@@ -1,4 +1,6 @@
-const legendaries = {
+import { itemIndexableList } from '../../Item';
+
+const legendaries = itemIndexableList({
   //region Balance
   //endregion
   //region Feral
@@ -9,5 +11,5 @@ const legendaries = {
   //endregion
   //region Shared
   //endregion
-} as const;
+});
 export default legendaries;

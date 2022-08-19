@@ -28,7 +28,7 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
-import Spell from './Spell';
+import Spell, { Enchant } from './Spell';
 import TALENTS_DEATH_KNIGHT from './talents/deathknight';
 import TALENTS_DEMON_HUNTER from './talents/demonhunter';
 import TALENTS_DRUID from './talents/druid';
@@ -85,7 +85,7 @@ const ABILITIES = {
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-const InternalSpellTable = indexById<Spell>()(ABILITIES);
+const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);
 // assignment is used here to avoid potential performance pitfalls when
 // compiling the spread operator on large objects.
 // InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);

@@ -6,7 +6,9 @@
  *   quality: number,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region Ingra Maloch
   UNBOUND_CHANGELING: {
     id: 178708,
@@ -23,5 +25,5 @@ const items = {
   //endregion
   //region Tred'ova
   //endregion
-} as const;
+});
 export default items;

@@ -1,4 +1,6 @@
-const potions = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const potions = itemIndexableList({
   SPIRITUAL_HEALING_POTION: {
     id: 171267,
     name: 'Spiritual Healing Potion',
@@ -109,5 +111,6 @@ const potions = {
     name: 'Cosmic Healing Potion',
     icon: 'inv_alchemy_70_red',
   },
-} as const;
+});
+
 export default potions;

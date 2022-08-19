@@ -36,7 +36,7 @@ const COVENANTS = asIndexableList<Covenant>()({
   },
 });
 
-export default indexById<Covenant>()(COVENANTS);
+export default indexById<Covenant, typeof COVENANTS>(COVENANTS);
 
 export function getCovenantById(id: number): Covenant | undefined {
   switch (id) {

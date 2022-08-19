@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //region Kyrian
 
   //endregion
@@ -59,5 +61,5 @@ const conduits = {
     name: 'Swirling Currents',
     icon: 'spell_holy_serendipity',
   },
-} as const;
+});
 export default conduits;

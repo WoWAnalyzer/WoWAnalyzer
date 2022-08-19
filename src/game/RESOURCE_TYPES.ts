@@ -132,7 +132,7 @@ const RESOURCE_TYPES = asIndexableList<Resource>()({
   },
 });
 
-export default indexById<Resource>()(RESOURCE_TYPES);
+export default indexById<Resource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
 
 export function getResource(classResources: ClassResources[] | undefined, type: number) {
   if (!classResources) {

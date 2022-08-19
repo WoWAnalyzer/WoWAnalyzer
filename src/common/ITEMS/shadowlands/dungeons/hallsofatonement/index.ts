@@ -6,7 +6,9 @@
  *   quality: number,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region Halkias, the Sin-Stained Goliath
   //endregion
   //region Echelon
@@ -25,5 +27,5 @@ const items = {
   //endregion
   //region Lord Chamberlain
   //endregion
-} as const;
+});
 export default items;

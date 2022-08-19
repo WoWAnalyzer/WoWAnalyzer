@@ -1,4 +1,6 @@
-const items = {
+import { spellIndexableList } from '../../../Spell';
+
+const items = spellIndexableList({
   // Group by boss (with comments)
 
   //region The Tarragrue
@@ -131,6 +133,6 @@ const items = {
     icon: 'ability_warrior_warcry',
   },
   //endregion
-} as const;
+});
 
 export default items;

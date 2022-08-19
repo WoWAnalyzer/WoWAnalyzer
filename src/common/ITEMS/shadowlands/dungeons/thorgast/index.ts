@@ -6,5 +6,7 @@
  *   quality: number,
  * },
  */
-const items = {} as const;
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({});
 export default items;
