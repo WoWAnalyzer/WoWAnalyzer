@@ -66,9 +66,9 @@ export function getSpellCategoryName(category: SPELL_CATEGORY) {
         id: 'core.abilities.spellCategories.consumable',
         message: `Consumable`,
       });
+    default: // Should never happen
+      return 'Unknown Spell Category';
   }
-
-  return 'Unknown Spell Category';
 }
 
 export default SPELL_CATEGORY;
