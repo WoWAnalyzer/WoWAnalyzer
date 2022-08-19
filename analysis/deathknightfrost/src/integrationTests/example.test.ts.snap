@@ -4533,11 +4533,20 @@ exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusade
         <div
           className="value"
         >
-          8.70
-           % 
-          <small>
-            average Strength
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.shared.runeOfTheFallenCrusader.statistic"
+            message="{0} % <0>average Strength</0>"
+            values={
+              Object {
+                "0": "8.70",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4604,7 +4613,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
             33.55 %
           </div>
           <small>
-            Runes overcapped
+            {"id":"deathknight.shared.runeTracker.statistic.value","message":"Runes overcapped"}
           </small>
         </div>
       </div>
@@ -4655,16 +4664,36 @@ Array [
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
     "importance": "major",
-    "issue": <React.Fragment>
-      You overcapped 
-      33.55
-      % of your runes. Try to always have at least 3 runes on cooldown.
-    </React.Fragment>,
+    "issue": <Trans
+      id="deathknight.shared.runeTracker.suggestion.suggestion"
+      message="You overcapped {0}% of your runes. Try to always have at least 3 runes on cooldown."
+      values={
+        Object {
+          "0": "33.55",
+        }
+      }
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"33.55"}}
+      <Trans
+        id="deathknight.shared.runeTracker.suggestion.actual"
+        message="{0}% runes overcapped"
+        values={
+          Object {
+            "0": "33.55",
+          }
+        }
+      />
        (
-      &lt;10.00% is recommended
+      <Trans
+        id="deathknight.shared.runeTracker.suggestion.recommended"
+        message="<{0}% is recommended"
+        values={
+          Object {
+            "0": "10.00",
+          }
+        }
+      />
       )
     </React.Fragment>,
   },

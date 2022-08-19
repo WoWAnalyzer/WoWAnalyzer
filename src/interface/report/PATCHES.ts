@@ -65,7 +65,7 @@ const PATCHES: Patch[] = [
     name: '9.2.7',
     timestamp: 1660600800000, // GMT: Monday, 15 August 2022 22:00:00
     urlPrefix: '',
-    isCurrent: false,
+    isCurrent: true,
   },
 ];
 

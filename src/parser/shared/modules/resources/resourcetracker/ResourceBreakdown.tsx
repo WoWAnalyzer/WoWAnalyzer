@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -60,18 +61,32 @@ class ResourceBreakdown extends Component<Props> {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Ability</th>
-              <th colSpan={2}>{resourceName} generated</th>
+              <th>
+                <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+              </th>
               <th colSpan={2}>
-                <TooltipElement content="This is the amount of resources that were generated while you were already at cap.">
-                  {resourceName} wasted
+                <Trans id="shared.resourceBreakdown.generatedHeader">
+                  {resourceName} generated
+                </Trans>
+              </th>
+              <th colSpan={2}>
+                <TooltipElement
+                  content={t({
+                    id: 'shared.resourceBreakdown.wastedHeader.tooltip',
+                    message:
+                      'This is the amount of resources that were generated while you were already at cap.',
+                  })}
+                >
+                  <Trans id="shared.resourceBreakdown.wastedHeader">{resourceName} wasted</Trans>
                 </TooltipElement>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr className="poor">
-              <td>Total</td>
+              <td>
+                <Trans id="shared.resourceBreakdown.total">Total</Trans>
+              </td>
               <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
               <td></td>
               <td style={numberColumnStyle}>{tracker.wasted}</td>
@@ -115,14 +130,22 @@ class ResourceBreakdown extends Component<Props> {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Ability</th>
-                <th colSpan={2}>{resourceName} spent</th>
-                <th colSpan={2}>Casts</th>
+                <th>
+                  <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+                </th>
+                <th colSpan={2}>
+                  <Trans id="shared.resourceBreakdown.spentHeader">{resourceName} spent</Trans>
+                </th>
+                <th colSpan={2}>
+                  <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr className="poor">
-                <td>Total</td>
+                <td>
+                  <Trans id="shared.resourceBreakdown.total">Total</Trans>
+                </td>
                 <td style={numberColumnStyle}>{tracker.spent.toFixed(0)}</td>
                 <td></td>
                 <td style={numberColumnStyle}>{tracker.spendersCasts}</td>

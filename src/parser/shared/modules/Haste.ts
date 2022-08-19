@@ -90,6 +90,10 @@ class Haste extends Analyzer {
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
     //endregion
+
+    //region Shaman
+    [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
+    //endregion
   };
 
   get changehaste() {

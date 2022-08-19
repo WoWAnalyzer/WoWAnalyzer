@@ -3799,13 +3799,23 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Holy Power
-               generated
+              <trans
+                id="shared.resourceBreakdown.generatedHeader"
+                message="{resourceName} generated"
+                values={
+                  Object {
+                    "resourceName": "Holy Power",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
@@ -3817,8 +3827,15 @@ Array [
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Holy Power
-                 wasted
+                <trans
+                  id="shared.resourceBreakdown.wastedHeader"
+                  message="{resourceName} wasted"
+                  values={
+                    Object {
+                      "resourceName": "Holy Power",
+                    }
+                  }
+                />
               </dfn>
             </th>
           </tr>
@@ -3828,7 +3845,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -4145,18 +4165,31 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Holy Power
-               spent
+              <trans
+                id="shared.resourceBreakdown.spentHeader"
+                message="{resourceName} spent"
+                values={
+                  Object {
+                    "resourceName": "Holy Power",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
             >
-              Casts
+              <trans
+                id="shared.resourceBreakdown.castsHeader"
+                message="Casts"
+              />
             </th>
           </tr>
         </thead>
@@ -4165,7 +4198,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
