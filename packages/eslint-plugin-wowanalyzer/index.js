@@ -1,4 +1,4 @@
-export const rules = {
+exports.rules = {
   /** @type {import('eslint').Rule.RuleModule} */
   'module-spread-parent-dependencies': {
     meta: {
