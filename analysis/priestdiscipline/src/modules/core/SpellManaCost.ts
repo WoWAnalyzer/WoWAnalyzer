@@ -26,7 +26,7 @@ class SpellManaCost extends CoreSpellManaCost {
       ) {
         this.lastPenanceStartTimestamp = event.timestamp;
         // if (event.isInitialPenanceCast) {
-        hardcodedCost = SPELLS.PENANCE.manaCost!;
+        hardcodedCost = SPELLS.PENANCE.manaCost;
       } else {
         // This is a second or later bolt from Penance, it doesn't cost mana.
         hardcodedCost = 0;

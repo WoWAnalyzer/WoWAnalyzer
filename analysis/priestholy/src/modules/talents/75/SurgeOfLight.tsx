@@ -38,7 +38,7 @@ class SurgeOfLight extends Analyzer {
   }
 
   get solManaSaved() {
-    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost!;
+    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost;
   }
 
   onChangeBuffStack(event: ChangeBuffStackEvent) {

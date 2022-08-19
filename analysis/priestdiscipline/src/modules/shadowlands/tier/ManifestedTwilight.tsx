@@ -52,7 +52,7 @@ class ManifestedTwilight extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.MANIFESTED_TWILIGHT_BUFF_2P.id)) {
       this.twoPieceShadowMends += 1;
       this.shadowMendCasts.push({ cast: event });
-      this.manaSaved += SPELLS.SHADOW_MEND.manaCost!;
+      this.manaSaved += SPELLS.SHADOW_MEND.manaCost;
     }
   }
 
