@@ -22,7 +22,7 @@ export const apl = build([
   },
   {
     spell: SPELLS.FLAME_SHOCK,
-    condition: and(debuffMissing(SPELLS.FLAME_SHOCK)),
+    condition: debuffMissing(SPELLS.FLAME_SHOCK),
   },
   {
     spell: SPELLS.FROST_SHOCK,
