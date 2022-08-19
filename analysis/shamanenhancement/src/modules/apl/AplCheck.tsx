@@ -3,7 +3,6 @@ import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import {
-  buffMissing,
   buffPresent,
   buffStacks,
   debuffMissing,
@@ -38,10 +37,7 @@ export const apl = build([
     spell: SPELLS.LIGHTNING_BOLT,
     condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10 }),
   },
-  {
-    spell: SPELLS.STORMSTRIKE_CAST,
-    condition: buffMissing(SPELLS.HOT_HAND_BUFF),
-  },
+  SPELLS.STORMSTRIKE_CAST,
   SPELLS.LAVA_LASH,
   SPELLS.SUNDERING_TALENT,
   {
