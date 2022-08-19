@@ -25,8 +25,8 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   name?: string;
   /**
-   * REQUIRED The name of the category to place this spell in, you should
-   * usually use the SPELL_CATEGORY enum for these values.
+   * REQUIRED The category of a spell eg Rotational or Defensive.
+   * Use {@link SPELL_CATEGORY} for the value.
    */
   category: SPELL_CATEGORY;
   /**
@@ -179,10 +179,12 @@ class Ability {
      */
     name: PropTypes.string,
     /**
-     * REQUIRED The name of the category to place this spell in, you should
-     * usually use the SPELL_CATEGORIES enum for these values.
+     * REQUIRED The category of a spell eg Rotational or Defensive.
+     * Use {@link SPELL_CATEGORY} for the value.
      */
-    category: PropTypes.string.isRequired,
+    category: PropTypes.oneOf(
+      Object.values(SPELL_CATEGORY).filter((category) => typeof category === 'number'),
+    ).isRequired,
     /**
      * The cooldown of a spell at the time of the cast, this can be a function
      * for more complicated calls or even to check for buffs. Parameters
