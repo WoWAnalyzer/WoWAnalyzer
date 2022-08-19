@@ -297,10 +297,9 @@ Object.keys(talents).forEach((classId) => {
   fs.writeFileSync(
     `${TALENTS_DIRECTORY}/${className.toLowerCase().replace(' ', '')}.ts`,
     `// Generated file, changes will be overwritten!
-import { asIndexableList } from 'common/indexById';
-import Spell from '../Spell';
+import Spell, { spellIndexableList } from '../Spell';
 
-const talents = asIndexableList<Spell>()(
+const talents = spellIndexableList(
 ${Object.keys(spellList)
   .map(
     (spec) => `\n  //${spec}${visualizeTalentTree(talentTrees, spec)}

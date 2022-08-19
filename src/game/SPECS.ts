@@ -23,7 +23,9 @@ export interface Spec {
   };
 }
 
-const SPECS = asIndexableList<Spec>()({
+const specIndexableList = asIndexableList<Spec>();
+
+const SPECS = specIndexableList({
   ARCANE_MAGE: {
     id: 62,
     index: 0,
@@ -801,4 +803,4 @@ export const WARRIOR_SPECS: Spec[] = [
 ];
 
 export const specsCount = Object.keys(SPECS).length;
-export default indexById<Spec>()(SPECS);
+export default indexById<Spec, typeof SPECS>(SPECS);

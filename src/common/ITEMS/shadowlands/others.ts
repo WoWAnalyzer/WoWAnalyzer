@@ -1,4 +1,6 @@
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   ETERNAL_CAULDRON: {
     id: 171281,
     name: 'Eternal Cauldron',
@@ -24,5 +26,5 @@ const items = {
     name: "Instructor's Divine Bell",
     icon: 'inv_misc_bell_01',
   },
-} as const;
+});
 export default items;

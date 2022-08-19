@@ -1,9 +1,7 @@
 // Generated file, changes will be overwritten!
-import { asIndexableList } from 'common/indexById';
+import { spellIndexableList } from '../Spell';
 
-import Spell from '../Spell';
-
-const talents = asIndexableList<Spell>()({
+const talents = spellIndexableList({
   //Shared
   DEATHS_REACH_TALENT: { id: 276079, name: "Death's Reach", icon: 'spell_deathknight_strangulate' },
   ASPHYXIATE_TALENT: { id: 108194, name: 'Asphyxiate', icon: 'ability_deathknight_asphixiate' },

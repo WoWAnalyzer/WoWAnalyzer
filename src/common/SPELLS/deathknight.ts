@@ -4,11 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { asIndexableList } from 'common/indexById';
+import { enchantIndexableList, spellIndexableList } from './Spell';
 
-import Spell, { Enchant } from './Spell';
-
-const spells = asIndexableList<Spell>()({
+const spells = spellIndexableList({
   // Blood:
 
   //Summons
@@ -644,7 +642,7 @@ const spells = asIndexableList<Spell>()({
   },
 });
 
-const runeforges = asIndexableList<Enchant>()({
+const runeforges = enchantIndexableList({
   RUNE_OF_THE_FALLEN_CRUSADER: {
     id: 53344,
     name: 'Rune of the Fallen Crusader',

@@ -1,9 +1,7 @@
 // Generated file, changes will be overwritten!
-import { asIndexableList } from 'common/indexById';
+import { spellIndexableList } from '../Spell';
 
-import Spell from '../Spell';
-
-const talents = asIndexableList<Spell>()({
+const talents = spellIndexableList({
   //Shared
   DEMON_SKIN_TALENT: { id: 219272, name: 'Demon Skin', icon: 'spell_shadow_felarmour' },
   BURNING_RUSH_TALENT: {

@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   // Potency
   // Generic
   PIERCING_VERDICT: {
@@ -112,5 +114,5 @@ const conduits = {
     name: 'Fueled by Violence',
     icon: 'ability_demonhunter_bloodlet',
   },
-} as const;
+});
 export default conduits;

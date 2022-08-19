@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   COMBAT_MEDITATION_TRIGGER: {
     id: 328917,
     name: 'Combat Meditation',
@@ -39,5 +41,5 @@ const soulbindPowers = {
     name: 'Let Go of the Past',
     icon: 'ability_hunter_readiness',
   },
-} as const;
+});
 export default soulbindPowers;

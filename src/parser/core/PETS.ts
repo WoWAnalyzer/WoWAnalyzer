@@ -68,4 +68,4 @@ const PETS = asIndexableList<Pet>()({
   },
 });
 
-export default indexById<Pet>()(PETS);
+export default indexById<Pet, typeof PETS>(PETS);

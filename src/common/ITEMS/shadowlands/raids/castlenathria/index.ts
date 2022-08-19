@@ -6,7 +6,9 @@
  *   quality: number,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region Shriekwing
   SKULKERS_WING: {
     id: 184016,
@@ -116,5 +118,5 @@ const items = {
     icon: 'inv_trinket_revendreth_01_dark',
   },
   //endregion
-} as const;
+});
 export default items;

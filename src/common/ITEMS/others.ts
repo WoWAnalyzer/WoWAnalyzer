@@ -1,4 +1,6 @@
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //fallback icon for encounter stats
   UNKNOWN_TRINKET: {
     id: 0,
@@ -16,6 +18,6 @@ const items = {
     name: "The Deceiver's Blood Pact",
     icon: 'inv_boots_chain_07',
   },
-} as const;
+});
 
 export default items;

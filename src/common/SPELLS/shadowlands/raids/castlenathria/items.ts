@@ -1,4 +1,6 @@
-export default {
+import { spellIndexableList } from '../../../Spell';
+
+export default spellIndexableList({
   // Group by boss (with comments)
 
   //Shriekwing
@@ -30,4 +32,4 @@ export default {
   //Stoneborne Generals
 
   //Sire Denathrius
-} as const;
+});

@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   KINDRED_SPIRITS: {
     id: 326434,
@@ -117,5 +119,5 @@ const covenants = {
   },
 
   //endregion
-} as const;
+});
 export default covenants;

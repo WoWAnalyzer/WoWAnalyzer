@@ -1,4 +1,6 @@
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region Holy
   //endregion
   //region Protection
@@ -7,5 +9,5 @@ const items = {
   //endregion
   //region Shared
   //endregion
-} as const;
+});
 export default items;

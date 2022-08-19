@@ -4,11 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { asIndexableList } from 'common/indexById';
+import { spellIndexableList } from './Spell';
 
-import Spell from './Spell';
-
-const spells = asIndexableList<Spell>()({
+const spells = spellIndexableList({
   // -------------
   // Shared spells
   // -------------

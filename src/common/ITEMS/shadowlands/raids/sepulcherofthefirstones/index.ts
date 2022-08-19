@@ -6,7 +6,9 @@
  *   quality: number,
  * },
  */
-const items = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   //region Vigilant Guardian
   //endregion
   //region Skolex, the Insatiable Ravener
@@ -49,5 +51,5 @@ const items = {
     icon: 'ability_domination_rune13',
   },
   //endregion
-} as const;
+});
 export default items;

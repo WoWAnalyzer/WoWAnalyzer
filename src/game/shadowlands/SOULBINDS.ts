@@ -88,4 +88,4 @@ const SOULBINDS = asIndexableList<Soulbind>()({
   },
 });
 
-export default indexById<Soulbind>()(SOULBINDS);
+export default indexById<Soulbind, typeof SOULBINDS>(SOULBINDS);
