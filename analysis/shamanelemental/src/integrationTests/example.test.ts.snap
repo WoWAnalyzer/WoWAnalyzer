@@ -34,7 +34,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log AlwaysBeCast
         <div
           className="value"
         >
-          5.32 %
+          5.56 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log AlwaysBeCast
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "94.67741974607759%",
+                  "width": "94.43544043094043%",
                 }
               }
             >
@@ -122,7 +122,7 @@ Array [
     </React.Fragment>,
     "spell": undefined,
     "stat": <React.Fragment>
-      5.32% downtime
+      5.56% downtime
        (
       &lt;5.00% is recommended
       )
@@ -5205,7 +5205,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "72.28951938609589%",
+                  "width": "70.2750415875791%",
                 }
               }
             />
@@ -5360,7 +5360,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                   }
                 >
                    
-                  5.32%
+                  5.56%
                    
                    
                 </div>
@@ -5382,7 +5382,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log matches the 
                       Object {
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "44.57903877219178%",
+                        "width": "40.550083175158186%",
                       }
                     }
                   />
@@ -6873,7 +6873,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log AlwaysBeCasting
         <div
           className="value"
         >
-          5.77 %
+          6.26 %
         </div>
         <div
           style={
@@ -6892,7 +6892,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log AlwaysBeCasting
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "94.23373274380654%",
+                  "width": "93.73674135612828%",
                 }
               }
             >
@@ -6961,7 +6961,7 @@ Array [
     </React.Fragment>,
     "spell": undefined,
     "stat": <React.Fragment>
-      5.77% downtime
+      6.26% downtime
        (
       &lt;5.00% is recommended
       )
@@ -11659,7 +11659,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "64.13507742863807%",
+                  "width": "61.48941593024285%",
                 }
               }
             />
@@ -11814,7 +11814,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                   }
                 >
                    
-                  5.77%
+                  6.26%
                    
                    
                 </div>
@@ -11834,9 +11834,9 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log matches the che
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "37.19165018437892%",
+                        "width": "31.900327187588513%",
                       }
                     }
                   />
