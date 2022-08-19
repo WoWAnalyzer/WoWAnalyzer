@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 8, 15), <>Bump version to 9.2.5 but still marked as partial.</>, Vetyst),
+  change(date(2022, 8, 15), <>Bump version to 9.2.7 but still marked as partial.</>, Vetyst),
   change(date(2022, 8, 15), <>Track haste gained from <SpellLink id={SPELLS.ELEMENTAL_BLAST.id} />.</>, Vetyst),
   change(date(2022, 7, 22), <>Properly reduce the cooldown of <SpellLink id={SPELLS.CHAIN_HARVEST.id} /> combined with <SpellLink id={SPELLS.ELEMENTAL_CONDUIT.id}/> legendary effect.</>, Vetyst),
   change(date(2022, 7, 22), <>Separate Stormstrike and Windstrike cooldowns.</>, Vetyst),
