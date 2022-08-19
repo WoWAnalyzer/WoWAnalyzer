@@ -118,6 +118,9 @@ class PlayerLoader extends React.PureComponent<Props, State> {
         fight.start_time,
         fight.end_time,
       )) as CombatantInfoEvent[];
+
+      let combatantsWithGear = 0;
+
       combatants.forEach((combatant) => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error(
@@ -154,10 +157,15 @@ class PlayerLoader extends React.PureComponent<Props, State> {
               break;
           }
         }
+
         // Gear may be null for broken combatants
-        this.ilvl += combatant.gear ? getAverageItemLevel(combatant.gear) : 0;
+        const combatantILvl = combatant.gear ? getAverageItemLevel(combatant.gear) : 0;
+        if (combatantILvl !== 0) {
+          combatantsWithGear += 1;
+          this.ilvl += combatantILvl;
+        }
       });
-      this.ilvl /= combatants.length;
+      this.ilvl /= combatantsWithGear;
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
