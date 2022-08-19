@@ -48,10 +48,7 @@ export const apl = build([
     condition: and(hasTalent(SPELLS.HOT_HAND_TALENT), buffMissing(SPELLS.HOT_HAND_BUFF)),
   },
   SPELLS.LAVA_LASH,
-  {
-    spell: SPELLS.SUNDERING_TALENT,
-    condition: and(hasTalent(SPELLS.SUNDERING_TALENT)),
-  },
+  SPELLS.SUNDERING_TALENT,
   {
     spell: SPELLS.LIGHTNING_BOLT,
     condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
