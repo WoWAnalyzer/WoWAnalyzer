@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Vonn, Vetyst],
   expansion: Expansion.Shadowlands,
-  patchCompatibility: '9.2.5',
+  patchCompatibility: '9.2.7',
   isPartial: true,
   description: (
     <>
