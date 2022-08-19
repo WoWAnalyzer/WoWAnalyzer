@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 8, 16), <>Implement an initial version of the Single Target APL checker.</>, Vetyst),
   change(date(2022, 8, 15), <>Bump version to 9.2.7 but still marked as partial.</>, Vetyst),
   change(date(2022, 8, 15), <>Track haste gained from <SpellLink id={SPELLS.ELEMENTAL_BLAST.id} />.</>, Vetyst),
   change(date(2022, 8, 17), <>Track bad/missed <SpellLink id={SPELLS.SUNDERING_TALENT.id} /> casts.</>, Vetyst),

@@ -15,6 +15,7 @@ import {
 
 import Abilities from './modules/Abilities';
 // Features
+import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import ChainLightning from './modules/core/ChainLightning';
@@ -107,6 +108,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Tier
     tier28TwoSet: Tier28TwoSet,
     tier28FourSet: Tier28FourSet,
+
+    // Apl
+    aplCheck: AplCheck,
   };
 }
 

@@ -2,13 +2,18 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 
-const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: any) => {
+const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
+  const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       isMaxCasts
@@ -96,6 +101,19 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         <Requirement name={<> <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> uptime</>} thresholds={thresholds.lightningShieldUptime} />
         TODO: ADD LASHING FLAMES UPTIME IF TALENTED
       </Rule> */}
+
+      <AplRule
+        {...props}
+        name="Single Target APL checker (beta)"
+        cooldowns={[
+          SPELLS.FERAL_SPIRIT,
+          SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+          SPELLS.VESPER_TOTEM,
+          SPELLS.PRIMORDIAL_WAVE_CAST,
+          SPELLS.FAE_TRANSFUSION,
+          SPELLS.CHAIN_HARVEST,
+        ]}
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
