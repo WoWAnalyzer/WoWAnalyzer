@@ -70,9 +70,6 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SUNDERING_TALENT.id} />
-        )}
       </Rule>
       <Rule
         name="Keep your Windfury Totem active"
