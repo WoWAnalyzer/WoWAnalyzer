@@ -24,6 +24,7 @@ import {
 
 class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
   static dependencies = {
+    ...WeaponsOfOrder.dependencies,
     abilities: Abilities,
     spellUsable: SpellUsable,
   };

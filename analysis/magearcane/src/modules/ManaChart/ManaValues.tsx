@@ -8,6 +8,7 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 
 class ArcaneManaValues extends ManaValues {
   static dependencies = {
+    ...ManaValues.dependencies,
     deathTracker: DeathTracker,
   };
   protected deathTracker!: DeathTracker;

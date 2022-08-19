@@ -33,6 +33,7 @@ class PrePullCooldowns extends EventsNormalizer {
    * spellbook with static values.
    */
   static dependencies = {
+    ...EventsNormalizer.dependencies,
     abilities: Abilities,
     buffs: Buffs,
     applyBuff: ApplyBuff, // we need fabricated events for untracked prepull applied buffs
