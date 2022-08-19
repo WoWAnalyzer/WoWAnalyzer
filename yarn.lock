@@ -6412,11 +6412,6 @@ eslint-plugin-jsx-a11y@6.x, eslint-plugin-jsx-a11y@^6.5.1:
     language-tags "^1.0.5"
     minimatch "^3.0.4"
 
-eslint-plugin-local@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-local/-/eslint-plugin-local-1.0.0.tgz#f0c07011c95fec42bfb4d909debb6ea035f3b2a4"
-  integrity sha512-bcwcQnKL/Iw5Vi/F2lG1he5oKD2OGjhsLmrcctkWrWq5TujgiaYb0cj3pZgr3XI54inNVnneOFdAx1daLoYLJQ==
-
 eslint-plugin-no-only-tests@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-no-only-tests/-/eslint-plugin-no-only-tests-2.6.0.tgz#19f6c9620bda02b9b9221b436c5f070e42628d76"
@@ -6473,6 +6468,9 @@ eslint-plugin-testing-library@^5.0.1:
   integrity sha512-0j355vJpJCE/2g+aayIgJRUB6jBVqpD5ztMLGcadR1PgrgGPnPxN1HJuOAsAAwiMo27GwRnpJB8KOQzyNuNZrw==
   dependencies:
     "@typescript-eslint/utils" "^5.10.2"
+
+"eslint-plugin-wowanalyzer@file:./packages/eslint-plugin-wowanalyzer":
+  version "0.0.0"
 
 eslint-plugin-you-dont-need-lodash-underscore@^6.10.0:
   version "6.12.0"

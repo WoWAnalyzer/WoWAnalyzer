@@ -112,7 +112,7 @@
     "decompress": "^4.2.0",
     "dotenv": "^6.2.0",
     "enzyme": "^3.10.0",
-    "eslint-plugin-local": "^1.0.0",
+    "eslint-plugin-wowanalyzer": "file:./packages/eslint-plugin-wowanalyzer",
     "husky": "^4.3.0",
     "jest-canvas-mock": "^2.3.0",
     "jest-enzyme": "^7.1.2",
