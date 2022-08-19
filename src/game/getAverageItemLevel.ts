@@ -9,8 +9,9 @@ export default function getAverageItemLevel(gear: Item[]) {
   const filteredGear = gear.filter(
     (item: Item, slotId: number) => !EXCLUDED_ITEM_SLOTS.includes(slotId) && item.id !== 0,
   );
-  return (
-    filteredGear.reduce((total: number, item: Item) => total + item.itemLevel, 0) /
-    filteredGear.length
-  );
+
+  return filteredGear.length === 0
+    ? 0
+    : filteredGear.reduce((total: number, item: Item) => total + item.itemLevel, 0) /
+        filteredGear.length;
 }

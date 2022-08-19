@@ -14,7 +14,7 @@ const PlayerInfoTalents = ({ talents }: Props) => {
   const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
-    <>
+    <div className="player-details-talents">
       <h3>
         <Trans id="common.talents">Talents</Trans>
       </h3>
@@ -50,7 +50,7 @@ const PlayerInfoTalents = ({ talents }: Props) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
