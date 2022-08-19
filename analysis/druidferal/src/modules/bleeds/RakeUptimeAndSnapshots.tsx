@@ -16,6 +16,7 @@ const MAX_RAKE_PROWL_DOWNGRADE_TIME = 2000;
 
 class RakeUptimeAndSnapshots extends Snapshots {
   static dependencies = {
+    ...Snapshots.dependencies,
     enemies: Enemies,
   };
 

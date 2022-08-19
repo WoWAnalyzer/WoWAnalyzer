@@ -11,8 +11,8 @@ const PRIMAL_FURY_WINDOW = 50; //ms
 
 class ComboPointTracker extends ResourceTracker {
   static dependencies = {
-    convokeSpiritsFeral: ConvokeSpiritsFeral,
     ...ResourceTracker.dependencies,
+    convokeSpiritsFeral: ConvokeSpiritsFeral,
   };
 
   convokeSpiritsFeral!: ConvokeSpiritsFeral;

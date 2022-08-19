@@ -40,6 +40,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
   }
 
   static dependencies = {
+    ...EarlyDotRefreshesCore.dependencies,
     enemies: Enemies,
     abilityTracker: AbilityTracker,
     executeRange: ExecuteRangeTracker,

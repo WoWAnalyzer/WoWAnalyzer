@@ -7,6 +7,7 @@ import Panel from 'parser/ui/Panel';
 
 class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
   static dependencies = {
+    ...HealingEfficiencyDetails.dependencies,
     healingEfficiencyTracker: HealingEfficiencyTracker,
   };
 

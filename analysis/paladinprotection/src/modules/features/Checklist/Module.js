@@ -17,6 +17,7 @@ import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
+    ...BaseChecklist.dependencies,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     abilities: Abilities,

@@ -10,6 +10,7 @@ import CastsInStealthBase from './CastsInStealthBase';
 
 class CastsInStealth extends CastsInStealthBase {
   static dependencies = {
+    ...CastsInStealthBase.dependencies,
     damageTracker: DamageTracker,
     stealthDamageTracker: StealthDamageTracker,
   };

@@ -13,6 +13,7 @@ const CONVOKE_WITH_FLOURISH_SPEC_NAME = 'Convoke w/ Flourish';
 
 class HotCountGraph extends BuffCountGraph {
   static dependencies = {
+    ...BuffCountGraph.dependencies,
     convokeSpirits: ConvokeSpiritsResto,
   };
   convokeSpirits!: ConvokeSpiritsResto;

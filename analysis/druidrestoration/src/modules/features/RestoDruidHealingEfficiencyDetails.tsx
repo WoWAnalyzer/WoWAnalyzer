@@ -8,6 +8,7 @@ import Panel from 'parser/ui/Panel';
 
 class RestoDruidHealingEfficiencyDetails extends HealingEfficiencyDetails {
   static dependencies = {
+    ...HealingEfficiencyDetails.dependencies,
     healingEfficiencyTracker: HealingEfficiencyTracker,
   };
 
