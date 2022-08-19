@@ -8,6 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -146,7 +147,7 @@ class BoonOfTheAscended extends Analyzer {
           };
     (options.abilities as Abilities).add({
       spell: SPELLS.BOON_OF_THE_ASCENDED.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 180,
       enabled: true,
       gcd: {
@@ -156,7 +157,7 @@ class BoonOfTheAscended extends Analyzer {
     });
     (options.abilities as Abilities).add({
       spell: SPELLS.ASCENDED_BLAST.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       enabled: true,
       gcd: {
         base: 1000,
@@ -164,7 +165,7 @@ class BoonOfTheAscended extends Analyzer {
     });
     (options.abilities as Abilities).add({
       spell: SPELLS.ASCENDED_NOVA.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       enabled: true,
       gcd: {
         base: 1000,
@@ -172,7 +173,7 @@ class BoonOfTheAscended extends Analyzer {
     });
     (options.abilities as Abilities).add({
       spell: SPELLS.ASCENDED_ERUPTION.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       enabled: true,
       gcd: {
         base: 0,

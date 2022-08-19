@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -10,7 +11,7 @@ class Abilities extends CoreAbilities {
       // Rotational
       {
         spell: SPELLS.MORTAL_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
@@ -22,7 +23,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.OVERPOWER.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         charges: 1 + (combatant.hasTalent(SPELLS.DREADNAUGHT_TALENT.id) ? 1 : 0),
         gcd: {
@@ -36,14 +37,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SLAM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.REND_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -51,7 +52,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COLOSSUS_SMASH.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -64,7 +65,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SKULLSPLITTER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 21 / (1 + haste),
         gcd: {
           base: 1500,
@@ -73,7 +74,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.EXECUTE.id, SPELLS.EXECUTE_GLYPHED.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -81,7 +82,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.CONDEMN.id, SPELLS.CONDEMN_MASSACRE.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -90,7 +91,7 @@ class Abilities extends CoreAbilities {
       // Rotational AOE
       {
         spell: SPELLS.WARBREAKER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -103,7 +104,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CLEAVE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste) => 9 / (1 + haste),
         gcd: {
           base: 1500,
@@ -116,7 +117,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SWEEPING_STRIKES.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
           base: 750,
@@ -125,14 +126,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WHIRLWIND.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.BLADESTORM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -146,7 +147,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAVAGER_TALENT_ARMS.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -159,7 +160,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ANCIENT_AFTERSHOCK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown:
           90 -
           (this.selectedCombatant.hasConduitBySpellID(SPELLS.DESTRUCTIVE_REVERBERATIONS.id)
@@ -176,7 +177,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPEAR_OF_BASTION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -190,7 +191,7 @@ class Abilities extends CoreAbilities {
       // Others
       {
         spell: SPELLS.VICTORY_RUSH.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -198,7 +199,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IMPENDING_VICTORY_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -208,7 +209,7 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.AVATAR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
         castEfficiency: {
@@ -219,7 +220,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEADLY_CALM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: null,
         castEfficiency: {
@@ -231,7 +232,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CONQUERORS_BANNER.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -245,7 +246,7 @@ class Abilities extends CoreAbilities {
       // Defensive
       {
         spell: SPELLS.DEFENSIVE_STANCE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 6,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id),
@@ -253,7 +254,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIE_BY_THE_SWORD.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: null,
         castEfficiency: {
@@ -264,7 +265,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPELL_REFLECTION.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 25,
         gcd: null,
         castEfficiency: {
@@ -275,13 +276,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IGNORE_PAIN.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.IGNORE_PAIN.id,
         gcd: null,
       },
       {
         spell: SPELLS.RALLYING_CRY.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -298,7 +299,7 @@ class Abilities extends CoreAbilities {
       // Utility
       {
         spell: SPELLS.CHARGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
         charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
         gcd: null, // Off gcd since 8.1
@@ -311,7 +312,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEROIC_LEAP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
         cooldown: 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
         gcd: null,
@@ -324,7 +325,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORM_BOLT_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -339,20 +340,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PUMMEL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: null,
       },
       {
         spell: SPELLS.BERSERKER_RAGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: null,
         buffSpellId: SPELLS.BERSERKER_RAGE.id,
       },
       {
         spell: SPELLS.HEROIC_THROW.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 6,
         gcd: {
           base: 1500,
@@ -360,7 +361,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INTIMIDATING_SHOUT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -368,14 +369,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HAMSTRING.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.BATTLE_SHOUT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
           base: 1500,
@@ -383,7 +384,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TAUNT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: null,
       },

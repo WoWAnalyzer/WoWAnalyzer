@@ -12,6 +12,7 @@ import Events, {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -77,7 +78,7 @@ class Mindgames extends Analyzer {
           };
     (options.abilities as Abilities).add({
       spell: SPELLS.MINDGAMES.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 45,
       enabled: true,
       gcd: {

@@ -5,6 +5,7 @@ import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -35,7 +36,7 @@ class FallenOrder extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.FALLEN_ORDER_CAST.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 180,
       gcd:
         this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },

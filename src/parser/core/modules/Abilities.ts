@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import Module, { Options } from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
@@ -17,53 +16,6 @@ class Abilities extends Module {
   eventEmitter!: EventEmitter;
   haste!: Haste;
 
-  // TODO - Enum?
-  static SPELL_CATEGORIES = {
-    ROTATIONAL: t({
-      id: 'core.abilities.spellCategories.rotational',
-      message: `Rotational Spell`,
-    }),
-    ROTATIONAL_AOE: t({
-      id: 'core.abilities.spellCategories.rotationalAoe',
-      message: `Spell (AOE)`,
-    }),
-    ITEMS: t({
-      id: 'core.abilities.spellCategories.items',
-      message: `Item`,
-    }),
-    COOLDOWNS: t({
-      id: 'core.abilities.spellCategories.cooldowns',
-      message: `Cooldown`,
-    }),
-    DEFENSIVE: t({
-      id: 'core.abilities.spellCategories.defensive',
-      message: `Defensive Cooldown`,
-    }),
-    SEMI_DEFENSIVE: t({
-      id: 'core.abilities.spellCategories.semiDefensive',
-      message: `Offensive & Defensive Cooldown`,
-    }),
-    OTHERS: t({
-      id: 'core.abilities.spellCategories.others',
-      message: `Spell`,
-    }),
-    UTILITY: t({
-      id: 'core.abilities.spellCategories.utility',
-      message: `Utility`,
-    }),
-    HEALER_DAMAGING_SPELL: t({
-      id: 'core.abilities.spellCategories.healerDamagingSpell',
-      message: `Damaging Spell`,
-    }),
-    CONSUMABLE: t({
-      id: 'core.abilities.spellCategories.consumable',
-      message: `Consumable`,
-    }),
-    HIDDEN: t({
-      id: 'core.abilities.spellCategories.hidden',
-      message: `Hidden`,
-    }),
-  };
   static ABILITY_CLASS = Ability;
 
   /**
@@ -88,6 +40,7 @@ class Abilities extends Module {
     // Abilities subtypes may want to construct a particular subtype of Ability
     const abilityClass = (this.constructor as typeof Abilities).ABILITY_CLASS;
     this.abilities = spellbook.map((options) => new abilityClass(this, options));
+    console.log(this.abilities);
     this.activeAbilities = this.abilities.filter((ability) => ability.enabled);
   }
 

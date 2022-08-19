@@ -6,6 +6,7 @@ import { ItemIcon, ItemLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -71,7 +72,7 @@ class ShadowgraspTotem extends Analyzer {
     // Add cast as an ability to show effective usage and cooldown in timeline
     options.abilities.add({
       spell: SUMMON_SPELL.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       cooldown: DEFAULT_COOLDOWN_SECONDS,
       gcd: null,
       castEfficiency: {
