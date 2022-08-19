@@ -55,10 +55,7 @@ export const apl = build([
   },
   SPELLS.FROST_SHOCK,
   SPELLS.CRASH_LIGHTNING,
-  {
-    spell: SPELLS.ICE_STRIKE_TALENT,
-    condition: hasTalent(SPELLS.ICE_STRIKE_TALENT),
-  },
+  SPELLS.ICE_STRIKE_TALENT,
   {
     spell: SPELLS.FIRE_NOVA_TALENT,
     condition: and(hasTalent(SPELLS.FIRE_NOVA_TALENT), debuffPresent(SPELLS.FLAME_SHOCK)),
