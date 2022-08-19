@@ -37,7 +37,7 @@ export const apl = build([
   },
   {
     spell: SPELLS.ELEMENTAL_BLAST_TALENT,
-    condition: and(buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 })),
+    condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
   },
   {
     spell: SPELLS.LIGHTNING_BOLT,
