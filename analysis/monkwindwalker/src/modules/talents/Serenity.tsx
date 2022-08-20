@@ -70,15 +70,11 @@ class Serenity extends Analyzer {
   }
 
   onSerenityStart() {
-    MOD_RATE_ABILITIES.forEach((id) => {
-      this.spellUsable.applyCooldownRateChange(id, MOD_RATE);
-    });
+    this.spellUsable.applyCooldownRateChange(MOD_RATE_ABILITIES, MOD_RATE);
   }
 
   onSerenityEnd() {
-    MOD_RATE_ABILITIES.forEach((id) => {
-      this.spellUsable.removeCooldownRateChange(id, MOD_RATE);
-    });
+    this.spellUsable.removeCooldownRateChange(MOD_RATE_ABILITIES, MOD_RATE);
   }
 
   onAffectedDamage(event: DamageEvent) {
