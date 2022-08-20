@@ -57,11 +57,11 @@ class SpellUsable extends Analyzer {
 
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
-  _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
+  private _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
   /** A global multiplier for the cooldown rate, also known as the 'modRate' */
-  _globalModRate: number = 1;
+  private _globalModRate: number = 1;
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
-  _spellModRates: { [spellId: number]: number } = {};
+  private _spellModRates: { [spellId: number]: number } = {};
 
   constructor(options: Options) {
     super(options);
@@ -77,7 +77,8 @@ class SpellUsable extends Analyzer {
 
   /////////////////////////////////////////////////////////////////////////////
   // PUBLIC QUERIES -
-  // Methods other analyzers can use to query the state of a cooldown
+  // Methods other analyzers can use to query the state of a cooldown.
+  // These are read-only and do not change state.
   //
 
   /**
@@ -86,7 +87,7 @@ class SpellUsable extends Analyzer {
    * available and on cooldown at the same time.
    * @param spellId the spell's ID
    */
-  isAvailable(spellId: number): boolean {
+  public isAvailable(spellId: number): boolean {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(spellId)];
     if (!cdInfo) {
       return true; // spell isn't on cooldown, therefore it is available
@@ -100,7 +101,7 @@ class SpellUsable extends Analyzer {
    * available and on cooldown at the same time.
    * @param spellId the spell's ID
    */
-  isOnCooldown(spellId: number): boolean {
+  public isOnCooldown(spellId: number): boolean {
     // a cooldown info exists iff the spell is on cooldown
     return Boolean(this._currentCooldowns[this._getCanonicalId(spellId)]);
   }
@@ -110,7 +111,7 @@ class SpellUsable extends Analyzer {
    * For an available spell without charges, this will always be one.
    * @param spellId the spell's ID
    */
-  chargesAvailable(spellId: number): number {
+  public chargesAvailable(spellId: number): number {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(spellId)];
     if (!cdInfo) {
       return this.abilities.getMaxCharges(this._getCanonicalId(spellId)) || 1;
@@ -123,7 +124,7 @@ class SpellUsable extends Analyzer {
    * For an available spell without charges, this will always be zero.
    * @param spellId the spell's ID
    */
-  chargesOnCooldown(spellId: number): number {
+  public chargesOnCooldown(spellId: number): number {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(spellId)];
     if (!cdInfo) {
       return 0;
@@ -138,7 +139,7 @@ class SpellUsable extends Analyzer {
    * For spells without a cooldown, this will always be zero.
    * @param spellId the spell's ID
    */
-  fullCooldownDuration(spellId: number): number {
+  public fullCooldownDuration(spellId: number): number {
     return this._getExpectedCooldown(this._getCanonicalId(spellId));
   }
 
@@ -149,14 +150,18 @@ class SpellUsable extends Analyzer {
    * @param timestamp the timestamp to check from (if different from current timestamp)
    * @return time remaining on the cooldown, in milliseconds
    */
-  cooldownRemaining(spellId: number, timestamp: number = this.owner.currentTimestamp): number {
+  public cooldownRemaining(
+    spellId: number,
+    timestamp: number = this.owner.currentTimestamp,
+  ): number {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(spellId)];
     return !cdInfo ? 0 : cdInfo.expectedEnd - timestamp;
   }
 
   /////////////////////////////////////////////////////////////////////////////
   // PUBLIC COOLDOWN MANIPULATION -
-  // Methods other analyzers can use to change cooldown state in order to implement effects
+  // Methods other analyzers can use to implement cooldown effects.
+  // These methods do change state!
   //
 
   /**
@@ -167,7 +172,7 @@ class SpellUsable extends Analyzer {
    *     (typically a CastEvent)
    * @param spellId the spell's ID, if it is different from the triggeringEvent's ID.
    */
-  beginCooldown(
+  public beginCooldown(
     triggeringEvent: AbilityEvent<any>,
     spellId: number = triggeringEvent.ability.guid,
   ) {
@@ -243,8 +248,8 @@ class SpellUsable extends Analyzer {
 
   /**
    * End the spell's cooldown (or for a spell with charges, restores one charge).
-   * This is automaticall called by this module when a spell's cooldown ends naturally,
-   * this function should only be called to handle 'reset cooldown' or 'restore charge' effects.
+   * This is automatically called by this module when a spell's cooldown ends naturally.
+   * This function should only be called externally to handle 'reset cooldown' or 'restore charge' effects.
    *
    * @param {number} spellId the spell's ID.
    * @param {number} timestamp the timestamp on which the cooldown ended,
@@ -258,7 +263,7 @@ class SpellUsable extends Analyzer {
    *     This field is only relevant for spells with more than one charge.
    *     Most 'restore charge' effects restore only one charge, hence the default to false.
    */
-  endCooldown(
+  public endCooldown(
     spellId: number,
     timestamp: number = this.owner.currentTimestamp,
     resetCooldown: boolean = false,
@@ -319,7 +324,7 @@ class SpellUsable extends Analyzer {
    *     For example, if a spell's cooldown is reduced by 10 seconds, but the spell only has
    *     7 seconds left on the cooldown, '7 seconds' is the effective reduction.
    */
-  reduceCooldown(
+  public reduceCooldown(
     spellId: number,
     reductionMs: number,
     timestamp: number = this.owner.currentTimestamp,
@@ -394,7 +399,7 @@ class SpellUsable extends Analyzer {
    * @param {number} timestamp the timestamp on which the cooldown rate change was applied,
    *     if different from currentTimestamp.
    */
-  applyCooldownRateChange(
+  public applyCooldownRateChange(
     spellId: number | number[] | 'ALL',
     rateMultiplier: number,
     timestamp: number = this.owner.currentTimestamp,
@@ -444,7 +449,7 @@ class SpellUsable extends Analyzer {
    * {@link applyCooldownRateChange} with an inverted rateMultiplier.
    * Intended to make it easier to handle cooldown rate changes that are added and removed by a buff.
    */
-  removeCooldownRateChange(
+  public removeCooldownRateChange(
     spellId: number | number[] | 'ALL',
     rateMultiplier: number,
     timestamp: number = this.owner.currentTimestamp,
@@ -458,7 +463,7 @@ class SpellUsable extends Analyzer {
   //
 
   /** On every event, we need to check if an existing tracked cooldown has expired */
-  onEvent(event: AnyEvent) {
+  protected onEvent(event: AnyEvent) {
     // TODO handle FilterCooldownInfo?
     const currentTimestamp = event.timestamp;
 
@@ -470,13 +475,13 @@ class SpellUsable extends Analyzer {
   }
 
   /** On every cast, we need to start the spell's cooldown if it has one */
-  onCast(event: CastEvent) {
+  protected onCast(event: CastEvent) {
     this.beginCooldown(event);
   }
 
   /** On every change in haste, we need to check each active cooldown to see if the
    *  remaining time needs to be adjusted (if the cooldown scales with haste) */
-  onChangeHaste(event: ChangeHasteEvent) {
+  protected onChangeHaste(event: ChangeHasteEvent) {
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
       const orignalDuration = cdInfo.expectedDuration;
       const newDuration = this._getExpectedCooldown(Number(spellId));
@@ -489,7 +494,7 @@ class SpellUsable extends Analyzer {
   }
 
   /** Update cooldown info for changed number of max charges */
-  onMaxChargesIncreased(event: MaxChargesIncreasedEvent) {
+  protected onMaxChargesIncreased(event: MaxChargesIncreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
       cdInfo.maxCharges += event.by;
@@ -497,7 +502,7 @@ class SpellUsable extends Analyzer {
   }
 
   /** Update cooldown info for changed number of max charges */
-  onMaxChargesDecreased(event: MaxChargesDecreasedEvent) {
+  protected onMaxChargesDecreased(event: MaxChargesDecreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
       cdInfo.maxCharges -= event.by;
@@ -508,10 +513,10 @@ class SpellUsable extends Analyzer {
   }
 
   /** On fight end, close out each cooldown at its expected end time TODO who actually needs this? */
-  onFightEnd(event: FightEndEvent) {
+  protected onFightEnd(event: FightEndEvent) {
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
-      // TODO this only restores on charge for each, do I need to repeat until all charges gone?
-      this.endCooldown(Number(spellId), cdInfo.expectedEnd, true, false);
+      // does an end cooldown rather than restore charge ... FIXME will this matter?
+      this.endCooldown(Number(spellId), cdInfo.expectedEnd, true, true);
     });
   }
 
@@ -525,7 +530,7 @@ class SpellUsable extends Analyzer {
    * Some abilities have multiple IDs associated with the same spell / cooldown -
    * this will return the first ability from the list of abilities sharing the cooldown.
    */
-  _getCanonicalId(spellId: number): number {
+  private _getCanonicalId(spellId: number): number {
     const ability = this.abilities.getAbility(spellId);
     return ability ? ability.primarySpell : spellId;
   }
@@ -533,14 +538,14 @@ class SpellUsable extends Analyzer {
   /**
    * Gets a spell's current cooldown rate or 'modRate'.
    */
-  _getSpellModRate(canonicalSpellId: number): number {
+  private _getSpellModRate(canonicalSpellId: number): number {
     return this._globalModRate * (this._spellModRates[canonicalSpellId] || 1);
   }
 
   /**
    * Gets a spell's expected cooldown at the current time, including modRate.
    */
-  _getExpectedCooldown(canonicalSpellId: number): number {
+  private _getExpectedCooldown(canonicalSpellId: number): number {
     const cdInfo = this._currentCooldowns[canonicalSpellId];
     if (cdInfo) {
       // cdInfo always kept up to date
@@ -558,7 +563,7 @@ class SpellUsable extends Analyzer {
    * Updates cdInfo's expectedDuration and expectedEnd fields to account for a change in
    * the cooldown's rate. This calculation is the same for modRate and haste changes.
    */
-  _handleChangeRate(cdInfo: CooldownInfo, timestamp: number, changeRate: number) {
+  private _handleChangeRate(cdInfo: CooldownInfo, timestamp: number, changeRate: number) {
     // assumes expectedEnd is still after timestamp!
     const timeLeft = cdInfo.expectedEnd - timestamp;
     const percentageLeft = timeLeft / cdInfo.expectedDuration;
@@ -578,7 +583,7 @@ class SpellUsable extends Analyzer {
    * @param timestamp the timestamp to reset starting from
    * @param carryoverCdr any CDR to 'carry over' from the previous cooldown, in milliseconds.
    */
-  _resetCooldown(
+  private _resetCooldown(
     canonicalSpellId: number,
     cdInfo: CooldownInfo,
     timestamp: number,
@@ -605,7 +610,7 @@ class SpellUsable extends Analyzer {
    * @param {CooldownInfo} info the cooldown info object pertaining to this spell
    *     (after the appropriate updates have been calculated)
    */
-  _fabricateUpdateSpellUsableEvent(
+  private _fabricateUpdateSpellUsableEvent(
     updateType: UpdateSpellUsableType,
     spellId: number,
     timestamp: number,
