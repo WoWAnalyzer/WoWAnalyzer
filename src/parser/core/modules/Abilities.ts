@@ -143,14 +143,9 @@ class Abilities extends Module {
   /**
    * Returns the expected cooldown (in milliseconds) of the given ability or ID at the current timestamp (or undefined if there is no such spellInfo)
    */
-  getExpectedCooldownDuration(
-    abilityOrSpellId: number | Ability,
-    cooldownTriggerEvent?: AnyEvent,
-  ): number | undefined {
+  getExpectedCooldownDuration(abilityOrSpellId: number | Ability): number | undefined {
     const ability = this._getFromSelfOrId(abilityOrSpellId);
-    return ability
-      ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000)
-      : undefined;
+    return ability ? Math.round(ability.getCooldown(this.haste.current) * 1000) : undefined;
   }
 
   /**

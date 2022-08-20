@@ -82,7 +82,6 @@ class GrandCrusader extends Analyzer {
       // isn't too far off
       const ecd: number | undefined = this.abilities.getExpectedCooldownDuration(
         SPELLS.JUDGMENT_CAST_PROTECTION.id,
-        this._lastResetSource,
       );
       if (ecd !== undefined) {
         spellUsable.reduceCooldown(

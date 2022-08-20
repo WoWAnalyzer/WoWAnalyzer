@@ -180,7 +180,7 @@ class SpellUsable extends Analyzer {
         return; // no registered ability for this - assume no cooldown
       }
 
-      const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(ability);
+      const expectedCooldownDuration = this._getExpectedCooldown(cdSpellId);
       if (!expectedCooldownDuration) {
         return; // this ability doesn't have a cooldown
       }
@@ -539,7 +539,6 @@ class SpellUsable extends Analyzer {
 
   /**
    * Gets a spell's expected cooldown at the current time, including modRate.
-   *  If info cannot be found or if spell doesn't have a cooldown, zero will be returned.
    */
   _getExpectedCooldown(canonicalSpellId: number): number {
     const cdInfo = this._currentCooldowns[canonicalSpellId];

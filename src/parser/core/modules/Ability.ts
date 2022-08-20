@@ -6,7 +6,6 @@ import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
 
 export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
@@ -34,9 +33,8 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * for cooldowns that scale with haste, and can also branch based on combatantinfo.
    * @param haste the player's haste at the time of spell cast, as a proportion of
    *   normal casting speed (20% haste will be passed as 1.20).
-   * @param trigger TODO what the hell is this and what is it for?
    */
-  cooldown?: ((haste: number, trigger?: AnyEvent) => number) | number;
+  cooldown?: ((haste: number) => number) | number;
   /**
    * NYI, do not use
    */
@@ -337,13 +335,13 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner?.haste.current || 0);
   }
-  getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
+  getCooldown(haste: number) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
     }
     if (typeof this._cooldown === 'function') {
-      return this._cooldown.call(null, haste, cooldownTriggerEvent);
+      return this._cooldown.call(null, haste);
     }
 
     return this._cooldown;
