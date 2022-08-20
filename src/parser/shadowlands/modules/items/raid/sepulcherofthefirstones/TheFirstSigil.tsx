@@ -4,6 +4,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -57,7 +58,7 @@ class TheFirstSigil extends Analyzer {
     // Add the main cast as an ability so that we can track cooldown and usage in timeline
     options.abilities.add({
       spell: SPELLS.THE_FIRST_SIGIL.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       cooldown: COOLDOWN_SECONDS,
       gcd: null,
       castEfficiency: {

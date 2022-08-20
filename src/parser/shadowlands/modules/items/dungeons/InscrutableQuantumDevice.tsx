@@ -6,6 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import Events, { ApplyBuffEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
@@ -132,7 +133,7 @@ class InscrutableQuantumDevice extends Analyzer {
     // Add the main cast as an ability so that we can track cooldown and usage in timeline
     options.abilities.add({
       spell: IQD_CAST.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       cooldown: COOLDOWN_SECONDS,
       gcd: null,
       castEfficiency: {

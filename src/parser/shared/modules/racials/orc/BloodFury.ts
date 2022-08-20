@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 /**
  * @property {Abilities} abilities
@@ -35,7 +36,7 @@ class BloodFury extends Analyzer {
         SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL.id,
         SPELLS.BLOOD_FURY_SPELL.id,
       ],
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 120,
       gcd: null,
       timelineSortIndex: 35,

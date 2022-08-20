@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 const FEL_CELERITY_REDUCTION_SEC = {
   1: 48,
@@ -27,7 +28,7 @@ class Abilities extends CoreAbilities {
       // Rotational spells
       {
         spell: SPELLS.CALL_DREADSTALKERS.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -39,21 +40,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HAND_OF_GULDAN_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DEMONBOLT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CORRUPTION_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -61,7 +62,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOUL_STRIKE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 10,
         enabled: combatant.hasTalent(SPELLS.SOUL_STRIKE_TALENT.id),
         gcd: {
@@ -74,7 +75,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SUMMON_VILEFIEND_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id),
         gcd: {
@@ -87,7 +88,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DOOM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -96,7 +97,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHADOW_BOLT_DEMO.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -104,13 +105,13 @@ class Abilities extends CoreAbilities {
       // TODO: figure which spell triggers this now
       // {
       //   spell: SPELLS.FELSTORM.id,
-      //   category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      //   category: SPELL_CATEGORY.ROTATIONAL,
       //   cooldown: 45,
       //   gcd: null,
       // },
       {
         spell: SPELLS.BILESCOURGE_BOMBERS_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.BILESCOURGE_BOMBERS_TALENT.id),
         gcd: {
@@ -123,7 +124,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IMPLOSION_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -132,7 +133,7 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -144,7 +145,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.NETHER_PORTAL_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id),
         gcd: {
@@ -158,7 +159,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POWER_SIPHON_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id),
         gcd: {
@@ -171,7 +172,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id),
         gcd: {
@@ -186,7 +187,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEMONIC_STRENGTH_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.DEMONIC_STRENGTH_TALENT.id),
         gcd: {
@@ -202,7 +203,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.UNENDING_RESOLVE.id,
         buffSpellId: SPELLS.UNENDING_RESOLVE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: null,
         castEfficiency: {
@@ -215,7 +216,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DARK_PACT_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
         gcd: null,
@@ -232,7 +233,7 @@ class Abilities extends CoreAbilities {
       // Utility
       {
         spell: SPELLS.BURNING_RUSH_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
         gcd: {
           base: 1500,
@@ -241,14 +242,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DRAIN_LIFE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.MORTAL_COIL_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),
         gcd: {
@@ -257,7 +258,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEMONIC_CIRCLE_SUMMON.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -268,7 +269,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEMONIC_CIRCLE_TELEPORT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -279,14 +280,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOULSTONE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DEMONIC_GATEWAY_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
         gcd: {
           base: 1500,
@@ -294,21 +295,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BANISH.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CREATE_HEALTHSTONE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CREATE_SOULWELL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -316,49 +317,49 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SUBJUGATE_DEMON.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.EYE_OF_KILROGG.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FEAR_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CURSE_OF_TONGUES.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CURSE_OF_WEAKNESS.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CURSE_OF_EXHAUSTION.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.HEALTH_FUNNEL_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -371,14 +372,14 @@ class Abilities extends CoreAbilities {
           SPELLS.SUMMON_FELHUNTER.id,
           SPELLS.SUMMON_FELGUARD.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.SHADOWFURY.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -386,7 +387,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FEL_DOMINATION.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id)
           ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)]
           : 180,
@@ -396,14 +397,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.UNENDING_BREATH.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.HOWL_OF_TERROR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(SPELLS.HOWL_OF_TERROR_TALENT.id),
         cooldown: 40,
         gcd: {

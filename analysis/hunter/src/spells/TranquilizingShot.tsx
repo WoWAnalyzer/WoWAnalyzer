@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import DispelTracker from 'parser/shared/modules/DispelTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -30,7 +31,7 @@ class TranquilizingShot extends DispelTracker {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.TRANQUILIZING_SHOT.id,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      category: SPELL_CATEGORY.UTILITY,
       cooldown: 10,
       gcd: {
         static: 1000,

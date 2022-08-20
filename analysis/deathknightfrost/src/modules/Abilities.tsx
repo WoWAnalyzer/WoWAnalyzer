@@ -3,6 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -12,7 +13,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PILLAR_OF_FROST.id,
         buffSpellId: SPELLS.PILLAR_OF_FROST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 60,
         castEfficiency: {
@@ -25,7 +26,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EMPOWER_RUNE_WEAPON.id,
         buffSpellId: SPELLS.EMPOWER_RUNE_WEAPON.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
         castEfficiency: {
@@ -43,7 +44,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HORN_OF_WINTER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -57,7 +58,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id,
         buffSpellId: SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
@@ -71,7 +72,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FROSTWYRMS_FURY.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -90,21 +91,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id),
       },
       {
         spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
       },
       // ROTATIONAL
       {
         spell: SPELLS.OBLITERATE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -112,7 +113,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REMORSELESS_WINTER.id,
         buffSpellId: SPELLS.REMORSELESS_WINTER.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -124,21 +125,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HOWLING_BLAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FROST_STRIKE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FROSTSCYTHE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -146,7 +147,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GLACIAL_ADVANCE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
@@ -155,7 +156,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SACRIFICIAL_PACT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -166,7 +167,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 60,
         isDefensive: true,
@@ -174,14 +175,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICEBOUND_FORTITUDE.id,
         buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 180,
         isDefensive: true,
       },
       {
         spell: SPELLS.DEATH_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
         },
@@ -190,7 +191,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_PACT_TALENT.id,
         buffSpellId: SPELLS.DEATH_PACT_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 120,
         isDefensive: true,
@@ -199,7 +200,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_ZONE.id,
         buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 120,
         isDefensive: true,
@@ -207,7 +208,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LICHBORNE.id,
         buffSpellId: SPELLS.LICHBORNE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 120,
         isDefensive: true,
@@ -215,7 +216,7 @@ class Abilities extends CoreAbilities {
       // UTILITY
       {
         spell: SPELLS.DEATH_GRIP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 500,
         },
@@ -224,27 +225,27 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAINS_OF_ICE.id,
         category: combatant.hasTalent(SPELLS.COLD_HEART_TALENT.id)
-          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-          : Abilities.SPELL_CATEGORIES.UTILITY,
+          ? SPELL_CATEGORY.ROTATIONAL
+          : SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DEATHS_ADVANCE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 45,
       },
       {
         spell: SPELLS.DARK_COMMAND.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 8,
       },
       {
         spell: SPELLS.RAISE_ALLY.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -252,20 +253,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MIND_FREEZE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 15,
       },
       {
         spell: SPELLS.PATH_OF_FROST.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ASPHYXIATE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -273,14 +274,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CONTROL_UNDEAD.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.BLINDING_SLEET_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -289,7 +290,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WRAITH_WALK_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -298,7 +299,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -307,7 +308,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_COIL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -315,28 +316,28 @@ class Abilities extends CoreAbilities {
       // RUNES
       {
         spell: SPELLS.RUNE_1.id,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
 
       {
         spell: SPELLS.RUNE_2.id,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
 
       {
         spell: SPELLS.RUNE_3.id,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       // covenants
       {
         spell: SPELLS.SWARMING_MIST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -349,7 +350,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -358,7 +359,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ABOMINATION_LIMB.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -371,13 +372,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLESHCRAFT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -390,7 +391,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATHS_DUE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -403,7 +404,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOULSHAPE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,

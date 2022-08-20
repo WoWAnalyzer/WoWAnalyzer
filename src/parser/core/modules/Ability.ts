@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import PropTypes from 'prop-types';
 import * as React from 'react';
@@ -24,10 +25,10 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   name?: string;
   /**
-   * REQUIRED The name of the category to place this spell in, you should
-   * usually use the SPELL_CATEGORIES enum for these values.
+   * REQUIRED The category of a spell eg Rotational or Defensive.
+   * Use {@link SPELL_CATEGORY} for the value.
    */
-  category: string;
+  category: SPELL_CATEGORY;
   /**
    * The cooldown of a spell at the time of the cast, this can be a function
    * for more complicated calls or even to check for buffs. Parameters
@@ -178,10 +179,12 @@ class Ability {
      */
     name: PropTypes.string,
     /**
-     * REQUIRED The name of the category to place this spell in, you should
-     * usually use the SPELL_CATEGORIES enum for these values.
+     * REQUIRED The category of a spell eg Rotational or Defensive.
+     * Use {@link SPELL_CATEGORY} for the value.
      */
-    category: PropTypes.string.isRequired,
+    category: PropTypes.oneOf(
+      Object.values(SPELL_CATEGORY).filter((category) => typeof category === 'number'),
+    ).isRequired,
     /**
      * The cooldown of a spell at the time of the cast, this can be a function
      * for more complicated calls or even to check for buffs. Parameters

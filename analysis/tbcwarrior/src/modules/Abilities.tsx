@@ -1,5 +1,6 @@
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { Build } from '../CONFIG';
 import lowRankSpells from '../lowRankSpells';
@@ -11,10 +12,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.DEVASTATE,
-        category:
-          build === Build.DEFAULT
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build === Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -27,10 +25,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.REVENGE,
-        category:
-          build === Build.DEFAULT
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build === Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -44,7 +39,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIELD_BLOCK,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -57,10 +52,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIELD_SLAM,
-        category:
-          build === Build.DEFAULT
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build === Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -74,10 +66,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.MORTAL_STRIKE, ...lowRankSpells[SPELLS.MORTAL_STRIKE]],
-        category:
-          build === Build.ARMS
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build === Build.ARMS ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -91,7 +80,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.BLOODTHIRST, ...lowRankSpells[SPELLS.BLOODTHIRST]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -105,10 +94,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.RAMPAGE, ...lowRankSpells[SPELLS.RAMPAGE]],
-        category:
-          build === Build.FURY
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build === Build.FURY ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -122,10 +108,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WHIRLWIND,
-        category:
-          build !== Build.DEFAULT
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build !== Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -139,10 +122,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SLAM, ...lowRankSpells[SPELLS.SLAM]],
-        category:
-          build === Build.ARMS
-            ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-            : Abilities.SPELL_CATEGORIES.OTHERS,
+        category: build === Build.ARMS ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
           minimum: 1000,
@@ -152,81 +132,81 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.HEROIC_STRIKE, ...lowRankSpells[SPELLS.HEROIC_STRIKE]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1500, // haste interaction not accounted for
         },
       },
       {
         spell: [SPELLS.CLEAVE, ...lowRankSpells[SPELLS.CLEAVE]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1500, // haste interaction not accounted for
         },
       },
       {
         spell: [SPELLS.EXECUTE, ...lowRankSpells[SPELLS.EXECUTE]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1500, // haste interaction not accounted for
         },
       },
       {
         spell: SPELLS.SHIELD_WALL,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 1800,
         gcd: null,
       },
       {
         spell: SPELLS.LAST_STAND,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 480,
         gcd: null,
       },
       {
         spell: SPELLS.RECKLESSNESS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 1800 - (build === Build.ARMS ? 420 : 0),
         gcd: null,
       },
       {
         spell: SPELLS.DEATH_WISH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
         enabled: build === Build.ARMS || build === Build.DEATHWISH_FURY ? true : false,
       },
       {
         spell: SPELLS.SWEEPING_STRIKES,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: null,
         enabled: build === Build.FURY || build === Build.DEATHWISH_FURY ? true : false,
       },
       {
         spell: [SPELLS.BATTLE_SHOUT, ...lowRankSpells[SPELLS.BATTLE_SHOUT]],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
         spell: SPELLS.COMMANDING_SHOUT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
         spell: SPELLS.DEMORALIZING_SHOUT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
         spell: SPELLS.THUNDER_CLAP,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 4,
         gcd: {
           static: 1500,

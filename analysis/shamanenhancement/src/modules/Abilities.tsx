@@ -3,6 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { ESSENTIAL_EXTRACTION_EFFECT_BY_RANK } from '../constants';
 
@@ -12,7 +13,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -33,7 +34,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 90 : 120,
         gcd: {
           base: 1500,
@@ -44,7 +45,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EARTH_ELEMENTAL.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 300,
         gcd: {
           base: 1500,
@@ -55,7 +56,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EARTHEN_SPIKE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id),
         cooldown: 20,
         gcd: {
@@ -67,14 +68,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAIN_LIGHTNING.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ELEMENTAL_BLAST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
         cooldown: 12,
         gcd: {
@@ -87,13 +88,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WIND_SHEAR.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         cooldown: 12,
         gcd: undefined,
       },
       {
         spell: SPELLS.FLAME_SHOCK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
@@ -101,7 +102,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FROST_SHOCK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
@@ -109,7 +110,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORMSTRIKE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
@@ -127,7 +128,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WINDSTRIKE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 2.5 / (1 + haste),
         gcd: {
           base: 1500,
@@ -145,7 +146,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LAVA_LASH.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -153,7 +154,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CRASH_LIGHTNING.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -161,14 +162,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHTNING_BOLT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -182,7 +183,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FERAL_LUNGE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -190,7 +191,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WINDFURY_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
         },
@@ -201,20 +202,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPIRIT_WALK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: undefined,
       },
       {
         spell: SPELLS.GHOST_WOLF.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CAPACITOR_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -222,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EARTHBIND_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -230,7 +231,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TREMOR_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -238,7 +239,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WIND_RUSH_TOTEM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WIND_RUSH_TOTEM_TALENT),
         gcd: {
           base: 1500,
@@ -247,14 +248,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PURGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.HEX.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -262,7 +263,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CLEANSE_SPIRIT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
           base: 1500,
@@ -272,12 +273,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASTRAL_SHIFT.id,
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
       },
       {
         spell: SPELLS.SUNDERING_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -286,7 +287,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FIRE_NOVA_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -295,7 +296,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ICE_STRIKE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -304,7 +305,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHTNING_SHIELD.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -315,18 +316,18 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.REINCARNATION.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: undefined,
       },
       {
         spell: [SPELLS.BLOODLUST.id, SPELLS.HEROISM.id],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: undefined,
         isUndetectable: true,
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           static: 1000,
         },
@@ -335,7 +336,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAIN_HEAL.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -345,11 +346,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: SPELLS.FAE_TRANSFUSION.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown:
           120 +
           ESSENTIAL_EXTRACTION_EFFECT_BY_RANK[
@@ -362,7 +363,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PRIMORDIAL_WAVE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -375,7 +376,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAIN_HARVEST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -384,7 +385,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VESPER_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,

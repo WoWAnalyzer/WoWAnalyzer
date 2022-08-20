@@ -4,6 +4,7 @@ import Combatant from 'parser/core/Combatant';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
@@ -16,7 +17,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.CONVOKE_SPIRITS.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasLegendary(SPELLS.CELESTIAL_SPIRITS) ? 60 : 120,
         gcd: {
           base: druidGcd,
@@ -30,7 +31,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOULSHAPE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: druidGcd,
         },
@@ -38,7 +39,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAVENOUS_FRENZY.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
@@ -50,7 +51,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: druidGcd,
         },
@@ -58,7 +59,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ADAPTIVE_SWARM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 25,
         gcd: {
           base: druidGcd,
@@ -68,7 +69,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLESHCRAFT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: druidGcd,
         },
@@ -81,7 +82,7 @@ class Abilities extends CoreAbilities {
           SPELLS.HEART_OF_THE_WILD_GUARDIAN_AFFINITY.id,
           SPELLS.HEART_OF_THE_WILD_RESTO_AFFINITY.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 300,
         gcd: {
           base: druidGcd,
@@ -98,7 +99,7 @@ class Abilities extends CoreAbilities {
           SPELLS.STAMPEDING_ROAR_CAT.id,
           SPELLS.STAMPEDING_ROAR_BEAR.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: {
           base: druidGcd,
