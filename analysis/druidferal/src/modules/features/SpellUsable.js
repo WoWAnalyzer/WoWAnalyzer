@@ -101,15 +101,13 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId, cooldownTriggerEvent) {
+  beginCooldown(triggerEvent, spellId) {
     if (SPELLS.TIGERS_FURY.id === spellId && this.hasPredator && this.isOnCooldown(spellId)) {
-      const resetTime = this.possibleRecentKill
-        ? this.possibleRecentKill
-        : cooldownTriggerEvent.timestamp;
+      const resetTime = this.possibleRecentKill ? this.possibleRecentKill : triggerEvent.timestamp;
       this.earlyCastsOfTigersFury += 1;
       this.endCooldown(spellId, false, resetTime);
     }
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(triggerEvent, spellId);
   }
 }
 

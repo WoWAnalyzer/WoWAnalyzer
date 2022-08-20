@@ -42,7 +42,7 @@ class BladeRush extends Analyzer {
       const cooldownReduction = cpCost * 1000 + extraCDR;
       const newChargeCDR = cooldownRemaining - cooldownReduction;
       if (newChargeCDR < 0) {
-        this.spellUsable.endCooldown(SPELLS.BLADE_RUSH_TALENT.id, false, event.timestamp);
+        this.spellUsable.endCooldown(SPELLS.BLADE_RUSH_TALENT.id);
       } else {
         this.spellUsable.reduceCooldown(
           SPELLS.BLADE_RUSH_TALENT.id,

@@ -95,7 +95,7 @@ class FlayedShot extends Analyzer {
   onProc(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.totalProcs += 1;
     if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
-      this.spellUsable.endCooldown(this.activeKillShotSpell.id, false, event.timestamp);
+      this.spellUsable.endCooldown(this.activeKillShotSpell.id, event.timestamp);
       this.resets += 1;
     } else {
       this.offCDProcs += 1;

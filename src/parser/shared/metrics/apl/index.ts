@@ -5,6 +5,7 @@ import {
   UpdateSpellUsableEvent,
   CastEvent,
   BeginChannelEvent,
+  UpdateSpellUsableType,
 } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
@@ -224,7 +225,7 @@ const aplCheck = (apl: Apl) =>
         if (
           a.type === EventType.Cast &&
           b.type === EventType.UpdateSpellUsable &&
-          b.trigger === EventType.EndCooldown
+          b.updateType === UpdateSpellUsableType.EndCooldown
         ) {
           return 1;
         } else {

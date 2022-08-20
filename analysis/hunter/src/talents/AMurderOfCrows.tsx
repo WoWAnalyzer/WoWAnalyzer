@@ -77,7 +77,7 @@ class AMurderOfCrows extends Analyzer {
       event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER_100
     ) {
       // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
-      this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, false, event.timestamp);
+      this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
       this.maxCasts += 1;
       this.resets += 1;
       debug && this.log('Crows was reset');
@@ -93,7 +93,7 @@ class AMurderOfCrows extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event);
+      this.spellUsable.beginCooldown(event, SPELLS.A_MURDER_OF_CROWS_TALENT.id);
       this.applicationTimestamp = this.owner.fight.start_time;
     }
     //This accounts for the travel time of crows, since the first damage marks the time where the crows debuff is applied

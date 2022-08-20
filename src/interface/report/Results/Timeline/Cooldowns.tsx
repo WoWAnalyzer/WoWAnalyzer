@@ -32,7 +32,7 @@ class Cooldowns extends PureComponent<Props> {
     return (
       <Lane
         key={spellId}
-        spellId={spellId}
+        // spellId={spellId}
         fightStartTimestamp={this.props.start}
         fightEndTimestamp={this.props.end}
         secondWidth={this.props.secondWidth}

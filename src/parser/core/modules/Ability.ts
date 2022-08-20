@@ -29,9 +29,12 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   category: string;
   /**
-   * The cooldown of a spell at the time of the cast, this can be a function
-   * for more complicated calls or even to check for buffs. Parameters
-   * provided: `hastePercentage`, `selectedCombatant`
+   * The cooldown of a spell at the time of the cast. Unlike most other durations in WoWA,
+   * this is in *seconds, NOT milliseconds*. This can be the direct number, or it can be a function
+   * for cooldowns that scale with haste, and can also branch based on combatantinfo.
+   * @param haste the player's haste at the time of spell cast, as a proportion of
+   *   normal casting speed (20% haste will be passed as 1.20).
+   * @param trigger TODO what the hell is this and what is it for?
    */
   cooldown?: ((haste: number, trigger?: AnyEvent) => number) | number;
   /**
@@ -304,7 +307,7 @@ class Ability {
 
   spell!: SpellbookAbility['spell'];
   primaryOverride: number | undefined;
-  get primarySpell() {
+  get primarySpell(): number {
     if (this.spell instanceof Array) {
       return this.spell[this.primaryOverride || 0];
     } else {

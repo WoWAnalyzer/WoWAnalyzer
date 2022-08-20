@@ -2,6 +2,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import { TrackedBuffEvent } from 'parser/core/Entity';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -26,7 +27,7 @@ class ThermalVoid extends Analyzer {
 
     let totalIncrease = 0;
     let totalDuration = 0; // We could use getBuffUptime but we are doing the math anyway
-    const castRows = hist.map((buff: any, idx: any) => {
+    const castRows = hist.map((buff: TrackedBuffEvent, idx: number) => {
       const end = buff.end || this.owner.currentTimestamp;
       const castTime = buff.start - this.owner.fight.start_time;
       const duration = end - buff.start;

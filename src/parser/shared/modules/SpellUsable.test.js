@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { EventType } from 'parser/core/Events';
+import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
@@ -215,7 +215,7 @@ describe('core/Modules/SpellUsable', () => {
         start: 0,
         expectedDuration: 7500,
         totalReductionTime: 0,
-        trigger: EventType.BeginCooldown,
+        updateType: UpdateSpellUsableType.BeginCooldown,
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
@@ -256,7 +256,7 @@ describe('core/Modules/SpellUsable', () => {
           end: 0,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: EventType.EndCooldown,
+          updateType: UpdateSpellUsableType.EndCooldown,
           isOnCooldown: false,
           isAvailable: true,
           chargesAvailable: 1,
@@ -290,7 +290,7 @@ describe('core/Modules/SpellUsable', () => {
           start: 0,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: EventType.BeginCooldown,
+          updateType: UpdateSpellUsableType.BeginCooldown,
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
@@ -331,7 +331,7 @@ describe('core/Modules/SpellUsable', () => {
         start: 0,
         expectedDuration: 7500,
         totalReductionTime: 0,
-        trigger: EventType.AddCooldownCharge,
+        updateType: UpdateSpellUsableType.UseCharge,
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
@@ -373,7 +373,7 @@ describe('core/Modules/SpellUsable', () => {
         end: 7500,
         expectedDuration: 7500,
         totalReductionTime: 0,
-        trigger: EventType.EndCooldown,
+        updateType: UpdateSpellUsableType.EndCooldown,
         isOnCooldown: false,
         isAvailable: true,
         chargesAvailable: 1,
@@ -417,7 +417,7 @@ describe('core/Modules/SpellUsable', () => {
           start: 0,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: EventType.RestoreCharge,
+          updateType: UpdateSpellUsableType.RestoreCharge,
           isOnCooldown: true,
           isAvailable: true,
           chargesAvailable: 1,
@@ -439,6 +439,7 @@ describe('core/Modules/SpellUsable', () => {
         });
       }
       {
+        // TODO remove once behavior is matched
         const call = eventEmitter.fabricateEvent.mock.calls[1];
         expect(call[0]).toEqual({
           type: EventType.UpdateSpellUsable,
@@ -451,7 +452,7 @@ describe('core/Modules/SpellUsable', () => {
           start: 7500,
           expectedDuration: 7500,
           totalReductionTime: 0,
-          trigger: EventType.RefreshCooldown,
+          updateType: EventType.RefreshCooldown,
           isOnCooldown: true,
           isAvailable: true,
           chargesAvailable: 1,

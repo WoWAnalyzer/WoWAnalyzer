@@ -1,7 +1,7 @@
 import DragScroll from 'interface/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { EventType } from 'parser/core/Events';
+import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AurasModule from 'parser/core/modules/Auras';
 import PropTypes from 'prop-types';
@@ -103,11 +103,14 @@ class Timeline extends PureComponent {
     return true;
   }
   isApplicableUpdateSpellUsableEvent(event) {
-    if (event.trigger !== EventType.EndCooldown && event.trigger !== EventType.RestoreCharge) {
+    if (
+      event.updateType !== UpdateSpellUsableType.EndCooldown &&
+      event.updateType !== UpdateSpellUsableType.RestoreCharge
+    ) {
       // begincooldown is unnecessary since endcooldown includes the start time
       return false;
     }
-    if (event.trigger === EventType.RestoreCharge && event.timestamp < this.start) {
+    if (event.updateType === UpdateSpellUsableType.RestoreCharge && event.timestamp < this.start) {
       //ignore restore charge events if they happen before the phase
       return false;
     }

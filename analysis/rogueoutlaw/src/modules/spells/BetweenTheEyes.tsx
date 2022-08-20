@@ -3,7 +3,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
+import Events, { UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -33,8 +33,8 @@ class BetweenTheEyes extends Analyzer {
   }
 
   onBetweenTheEyesUsable(event: UpdateSpellUsableEvent) {
-    switch (event.trigger) {
-      case EventType.BeginCooldown: {
+    switch (event.updateType) {
+      case UpdateSpellUsableType.BeginCooldown: {
         if (!this.isFirstCast) {
           this.totalTimeOffCD += event.timestamp - this.timestampFromCD;
         } else {
@@ -43,7 +43,7 @@ class BetweenTheEyes extends Analyzer {
         break;
       }
 
-      case EventType.EndCooldown: {
+      case UpdateSpellUsableType.EndCooldown: {
         this.timestampFromCD = event.timestamp;
         break;
       }
