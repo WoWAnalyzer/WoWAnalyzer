@@ -7,8 +7,8 @@ import Events, {
   ChangeHasteEvent,
   EventType,
   FightEndEvent,
-  MaxChargesDecreased,
-  MaxChargesIncreased,
+  MaxChargesDecreasedEvent,
+  MaxChargesIncreasedEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
@@ -458,7 +458,7 @@ class SpellUsable extends Analyzer {
   }
 
   /** Update cooldown info for changed number of max charges */
-  onMaxChargesIncreased(event: MaxChargesIncreased) {
+  onMaxChargesIncreased(event: MaxChargesIncreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
       cdInfo.maxCharges += event.by;
@@ -466,7 +466,7 @@ class SpellUsable extends Analyzer {
   }
 
   /** Update cooldown info for changed number of max charges */
-  onMaxChargesDecreased(event: MaxChargesDecreased) {
+  onMaxChargesDecreased(event: MaxChargesDecreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
       cdInfo.maxCharges -= event.by;

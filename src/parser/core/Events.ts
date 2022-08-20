@@ -163,8 +163,8 @@ type MappedEventTypes = {
   [EventType.BeginChannel]: BeginChannelEvent;
   [EventType.EndChannel]: EndChannelEvent;
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
-  [EventType.MaxChargesIncreased]: MaxChargesIncreased;
-  [EventType.MaxChargesDecreased]: MaxChargesDecreased;
+  [EventType.MaxChargesIncreased]: MaxChargesIncreasedEvent;
+  [EventType.MaxChargesDecreased]: MaxChargesDecreasedEvent;
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
@@ -838,16 +838,22 @@ export enum UpdateSpellUsableType {
   RestoreCharge = 'RestoreCharge',
 }
 
-// TODO rename to MaxChargesIncreasedEvent
-export interface MaxChargesIncreased extends Event<EventType.MaxChargesIncreased> {
+export interface MaxChargesIncreasedEvent extends Event<EventType.MaxChargesIncreased> {
+  /** The ID of the spell that's changing FIXME ability event instead? */
   spellId: number;
+  /** The number of charges we're increasing by */
   by: number;
+
+  __fabricated: true;
 }
 
-// TODO rename to MaxChargesDecreasedEvent
-export interface MaxChargesDecreased extends Event<EventType.MaxChargesDecreased> {
+export interface MaxChargesDecreasedEvent extends Event<EventType.MaxChargesDecreased> {
+  /** The ID of the spell that's changing FIXME ability event instead? */
   spellId: number;
+  /** The number of charges we're decreasing by */
   by: number;
+
+  __fabricated: true;
 }
 
 export interface Stats {
