@@ -36,6 +36,11 @@ class Bloodworms extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.BLOODWORM), this.onSummon);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
     this.addEventListener(

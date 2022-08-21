@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -18,6 +18,7 @@ class WillOfTheNecropolis extends Analyzer {
   spellDamageId = 0;
   goodAbsorbCount = 0;
   nextEvent = false;
+  lastMaxHP = 0;
 
   constructor(options: Options) {
     super(options);
@@ -31,6 +32,7 @@ class WillOfTheNecropolis extends Analyzer {
       Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT),
       this.onAbsorbed,
     );
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealReceived);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
@@ -42,17 +44,21 @@ class WillOfTheNecropolis extends Analyzer {
     this.nextEvent = true;
   }
 
+  onHealReceived(event: HealEvent) {
+    this.lastMaxHP = event.maxHitPoints || this.lastMaxHP;
+  }
+
   onDamageTaken(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== this.spellDamageId || this.nextEvent === false) {
       return;
     }
     this.nextEvent = false;
-    if (!event.maxHitPoints) {
+    if (!event.maxHitPoints && !this.lastMaxHP) {
       return;
     }
-    const playerHealth = event.maxHitPoints;
-    const absorbToHealthPercent = this.currentWotnAbsorbed / playerHealth;
+    this.lastMaxHP = event.maxHitPoints || this.lastMaxHP;
+    const absorbToHealthPercent = this.currentWotnAbsorbed / this.lastMaxHP;
     if (absorbToHealthPercent > MINIMUM_ABSORB_THRESHOLD) {
       this.goodAbsorbCount += 1;
     }
