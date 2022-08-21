@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { GradiatedPerformanceBar, SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -21,23 +22,23 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import Mastery from '../core/Mastery';
 
 const debug = false;
 
 const OVERHEAL_THRESHOLD = 0.75;
 
-/*
- * This module tracks early refreshments of rejuvenation.
- * TODO: Extend/refactor this module to include other HoTs/Spells as well such as lifebloom/efflorescence
- */
-class PrematureRejuvenations extends Analyzer {
+/** Tracks stuff about Rejuvenation usage */
+class Rejuvenation extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
+    mastery: Mastery,
     combatants: Combatants,
     hotTracker: HotTrackerRestoDruid,
   };
 
   protected healingDone!: HealingDone;
+  protected mastery!: Mastery;
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerRestoDruid;
 
@@ -174,6 +175,53 @@ class PrematureRejuvenations extends Analyzer {
     return this.totalRejuvsCasts - this.earlyRefreshments - this.highOverhealCasts;
   }
 
+  get avgRejuvHealing() {
+    const totalRejuvHealing = this.mastery.getMultiMasteryHealing([
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
+    ]);
+    return totalRejuvHealing / this.totalRejuvsCasts;
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  get guideSubsection(): JSX.Element {
+    const goodRejuvs = {
+      count: this.goodRejuvs,
+      label: 'Good Rejuvenations',
+    };
+    const highOverhealRejuvs = {
+      count: this.highOverhealCasts,
+      label: 'High-overheal Rejuvenations',
+    };
+    const clippedRejuvs = {
+      count: this.earlyRefreshments,
+      label: 'Clipped duration Rejuvenations',
+    };
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.REJUVENATION.id} />
+          </b>{' '}
+          is your primary filler spell and will almost always be your most cast spell. It can be
+          used on injured raiders or even pre-cast on full health raiders if you know big damage is
+          coming soon. Do not spam it unmotivated - you'll run yourself out of mana. You also
+          shouldn't cast it on targets that already have a high duration Rejuvenation, as you will
+          clip duration. Note that some high-overheal Rejuvs are unavoidable due to heal sniping,
+          but if a large proportion of them are, you might be casting too much.
+        </p>
+        <strong>Rejuvenation cast breakdown</strong>
+        <small>
+          {' '}
+          - Green is a good cast, Yellow is a cast with very high overheal, and Red is an early
+          refresh that clipped duration. Mouseover for more details.
+        </small>
+        <br />
+        <GradiatedPerformanceBar good={goodRejuvs} ok={highOverhealRejuvs} bad={clippedRejuvs} />
+      </SubSection>
+    );
+  }
+
   get timeLostThreshold() {
     return {
       actual: this.timeLostInSecondsPerMinute,
@@ -238,4 +286,4 @@ class PrematureRejuvenations extends Analyzer {
   }
 }
 
-export default PrematureRejuvenations;
+export default Rejuvenation;

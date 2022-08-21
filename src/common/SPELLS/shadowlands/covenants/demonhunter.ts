@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   ELYSIAN_DECREE: {
     id: 327839,
@@ -29,7 +31,12 @@ const covenants = {
 
   //region Necrolord
   FODDER_TO_THE_FLAME: {
-    id: 329554,
+    id: 350570,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+  },
+  FODDER_TO_THE_FLAME_DAMAGE: {
+    id: 350631,
     name: 'Fodder to the Flame',
     icon: 'ability_maldraxxus_demonhunter',
   },
@@ -66,5 +73,5 @@ const covenants = {
     icon: 'ability_revendreth_demonhunter',
   },
   //endregion
-} as const;
+});
 export default covenants;

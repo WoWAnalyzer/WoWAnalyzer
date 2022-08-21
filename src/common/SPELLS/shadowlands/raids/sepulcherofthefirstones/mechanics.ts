@@ -1,4 +1,6 @@
-export default {
+import { spellIndexableList } from '../../../Spell';
+
+export default spellIndexableList({
   // Group by boss (with comments)
   //Vigilant Guardian
   //Skolex, the Insatiable Ravener
@@ -11,4 +13,4 @@ export default {
   //Lords of Dread
   //Rygelon
   //The Jailer
-};
+});

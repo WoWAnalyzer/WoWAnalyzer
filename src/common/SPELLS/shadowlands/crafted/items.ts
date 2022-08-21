@@ -1,5 +1,7 @@
 // Spells such as on use casts or buffs triggered by items from any crafted trinket
-const craftedItemSpells = {
+import { spellIndexableList } from '../../Spell';
+
+const craftedItemSpells = spellIndexableList({
   /** Darkmoon Deck: Voracity */
   ACE_OF_VORACITY: {
     id: 311483,
@@ -56,6 +58,6 @@ const craftedItemSpells = {
     name: 'Voracious Lethargy',
     icon: 'inv_inscription_darkmooncard_voracity',
   },
-} as const;
+});
 
 export default craftedItemSpells;

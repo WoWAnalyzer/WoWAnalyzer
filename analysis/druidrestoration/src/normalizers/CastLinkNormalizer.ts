@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  AbilityEvent,
   AnyEvent,
   ApplyBuffEvent,
   CastEvent,
@@ -13,11 +14,13 @@ import {
 import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 65;
+const TRANQ_CHANNEL_BUFFER_MS = 10_000;
 
 export const APPLIED_HEAL = 'AppliedHeal';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_OVERGROWTH = 'FromOvergrowth';
 export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
+export const CAUSED_TICK = 'CausedTick';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -118,6 +121,16 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    linkRelation: CAUSED_TICK,
+    linkingEventId: SPELLS.TRANQUILITY_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.TRANQUILITY_HEAL.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: TRANQ_CHANNEL_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -137,7 +150,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
+export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
@@ -151,6 +164,10 @@ export function getHeals(event: CastEvent): AnyEvent[] {
 
 export function isFromExpiringLifebloom(event: HealEvent): boolean {
   return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
+}
+
+export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
+  return GetRelatedEvents(event, CAUSED_TICK);
 }
 
 export default CastLinkNormalizer;

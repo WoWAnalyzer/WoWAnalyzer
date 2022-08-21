@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -10,7 +11,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.FISTS_OF_FURY_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 24 / (1 + haste),
         gcd: {
           static: 1000,
@@ -24,7 +25,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RISING_SUN_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 10 / (1 + haste),
         gcd: {
           static: 1000,
@@ -35,7 +36,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 24 / (1 + haste),
         gcd: {
           static: 1000,
@@ -50,7 +51,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           static: 1000,
@@ -62,21 +63,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLACKOUT_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.TIGER_PALM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.EXPEL_HARM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           static: 500,
@@ -87,7 +88,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHI_WAVE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           base: 1000,
@@ -101,14 +102,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPINNING_CRANE_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.CHI_BURST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1000,
@@ -121,7 +122,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           static: 1000,
@@ -132,7 +133,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TOUCH_OF_KARMA_CAST.id,
         buffSpellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        category: SPELL_CATEGORY.SEMI_DEFENSIVE,
         cooldown: 90,
         gcd: null,
         castEfficiency: {
@@ -144,7 +145,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SERENITY_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
@@ -155,7 +156,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
@@ -167,7 +168,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1000,
@@ -180,7 +181,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ENERGIZING_ELIXIR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
@@ -188,7 +189,7 @@ class Abilities extends CoreAbilities {
       // Utility
       {
         spell: SPELLS.RING_OF_PEACE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
           minimum: 750,
@@ -196,28 +197,28 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LEG_SWEEP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.PARALYSIS.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.DISABLE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.ROLL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
         gcd: null,
         charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
@@ -225,7 +226,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHI_TORPEDO_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: null,
         charges: 2,
@@ -233,7 +234,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLYING_SERPENT_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 25,
         gcd: {
           static: 1000,
@@ -241,7 +242,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TIGERS_LUST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           static: 1000,
@@ -250,14 +251,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TRANSCENDENCE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
         },
       },
       {
         spell: SPELLS.TRANSCENDENCE_TRANSFER.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
           base: 1000,
@@ -266,7 +267,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VIVIFY.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
           minimum: 750,
@@ -274,7 +275,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DETOX_ENERGY.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
           minimum: 750,
@@ -282,17 +283,17 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPEAR_HAND_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
       {
         spell: SPELLS.PROVOKE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
           minimum: 750,
@@ -300,21 +301,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
       // Defensives
       {
         spell: SPELLS.FORTIFYING_BREW.id,
         buffSpellId: SPELLS.FORTIFYING_BREW.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,
       },
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
@@ -322,7 +323,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DAMPEN_HARM_TALENT.id,
         buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),

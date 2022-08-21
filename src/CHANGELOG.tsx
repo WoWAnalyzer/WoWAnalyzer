@@ -54,13 +54,27 @@ import {
   Tialyss,
   Lucky0604,
   ToppleTheNun,
-  Vetyst
+  Vetyst,
+  Chizu
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 19), <>Convert Abilities.SPELL_CATEGORIES to SPELL_CATEGORY enum.</>, Vetyst),
+  change(date(2022, 8, 18), "Updated lint-staged to newest version", Putro),
+  change(date(2022, 8, 18), 'Resolve calculating the average item level if no gear is equipped.', Vetyst),
+  change(date(2022, 8, 17), <>Bumped version to indicate 9.2.5 is supported.</>, Vetyst),
+  change(date(2022, 8, 16), 'Rewrote spells and items to typescript', Chizu),
+  change(date(2022, 8, 15), 'Added eslint rule that requires spreading parent module dependencies', Chizu),
+  change(date(2022, 8, 14), 'Add soulbinds to character page.', ToppleTheNun),
+  change(date(2022, 8, 14), 'Updated core Death Knight modules to Typescript', Chizu),
+  change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
+  change(date(2022, 8, 14), 'Add spell and item data for missing Sanctum of Domination items.', ToppleTheNun),
+  change(date(2022, 8, 13), 'Updated translations of core DK modules', Chizu),
+  change(date(2022, 8, 12), 'Update patch information in order to warn that a report is from an earlier patch.', Vetyst),
+  change(date(2022, 8, 12), 'Remove deprecated statisticOrder property on all Analyzers.', Vetyst),
   change(date(2022, 8, 9), 'Add support for tracking debuffs on timeline.', ToppleTheNun),
   change(date(2022, 8, 9), <>Add the ability to change max charges of a spell such as <SpellLink id={SPELLS.MIND_BLAST.id}/> combined with <SpellLink id={SPELLS.VOIDFORM.id}/> and <SpellLink id={SPELLS.DARK_THOUGHTS.id} />.</>, Vetyst),
   change(date(2022, 8, 9), <>Regenerated talents for season 4.</>, Vetyst),

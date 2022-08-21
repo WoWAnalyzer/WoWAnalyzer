@@ -1,4 +1,6 @@
-const oils = {
+import { spellIndexableList } from '../Spell';
+
+const oils = spellIndexableList({
   SHADOWCORE_OIL: {
     id: 320798,
     name: 'Shadowcore Oil',
@@ -9,6 +11,6 @@ const oils = {
     name: 'Shadowcore Oil Blast',
     icon: 'inv_misc_potionseta',
   },
-} as const;
+});
 
 export default oils;

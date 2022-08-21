@@ -20,6 +20,7 @@ const DAMAGE_BONUS = 0.5;
 
 class Nightstalker extends StealthCasts {
   static dependencies = {
+    ...StealthCasts.dependencies,
     garroteSnapshot: GarroteSnapshot,
     ruptureSnapshot: RuptureSnapshot,
   };

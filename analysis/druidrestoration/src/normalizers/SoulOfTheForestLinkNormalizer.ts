@@ -6,6 +6,7 @@ import {
   ApplyBuffEvent,
   EventType,
   GetRelatedEvents,
+  HasAbility,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -97,6 +98,11 @@ class SoulOfTheForestLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
+}
+
+export function getSotfBuffs(event: RemoveBuffEvent): Array<AbilityEvent<any>> {
+  const buffedHeals = GetRelatedEvents(event, SOTF_BUFFS_HEAL);
+  return buffedHeals.filter((e): e is AbilityEvent<any> => HasAbility(e));
 }
 
 export function buffedBySotf(

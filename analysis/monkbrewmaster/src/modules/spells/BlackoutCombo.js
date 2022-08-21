@@ -32,7 +32,6 @@ class BlackoutCombo extends Analyzer {
   blackoutComboBuffs = 0;
   lastBlackoutComboCast = 0;
   spellsBOCWasUsedOn = {};
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(...args) {
     super(...args);

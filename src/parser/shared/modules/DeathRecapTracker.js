@@ -5,6 +5,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -37,8 +38,8 @@ class DeathRecapTracker extends Analyzer {
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
     this.cooldowns = this.abilities.activeAbilities.filter(
       (ability) =>
-        ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE ||
-        ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE ||
+        ability.category === SPELL_CATEGORY.DEFENSIVE ||
+        ability.category === SPELL_CATEGORY.SEMI_DEFENSIVE ||
         ability.isDefensive,
     );
     // Add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS

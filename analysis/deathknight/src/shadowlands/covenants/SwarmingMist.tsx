@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -6,7 +6,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -107,7 +107,7 @@ class SwarmingMist extends Analyzer {
     return FROST_STRIKE_RP;
   }
 
-  get rpSpenderName() {
+  get rpSpenderName(): string {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       return SPELLS.DEATH_STRIKE.name;
     }
@@ -123,7 +123,7 @@ class SwarmingMist extends Analyzer {
     return this.rpWasted / this.rpGained;
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: this.rpWastePercentage,
       isGreaterThan: {
@@ -138,21 +138,23 @@ class SwarmingMist extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <span>
+        <Trans id="deathknight.shared.covenants.swarmingMist.suggestion">
           Avoid being Runic Power capped at all times, you wasted {this.rpWasted} RP by being RP
           capped.
-        </span>,
+        </Trans>,
       )
         .icon(SPELLS.SWARMING_MIST_TICK.icon)
         .actual(
-          t({
-            id: 'deathknight.suggestions.swarmingmist.efficiency',
-            message: `You wasted ${formatPercentage(actual)}% of RP from ${
-              SPELLS.SWARMING_MIST.name
-            } by being RP capped.`,
-          }),
+          <Trans id="deathknight.shared.covenants.swarmingMist.suggestion.actual">
+            You wasted {formatPercentage(actual)}% of RP from {SPELLS.SWARMING_MIST.name} by being
+            RP capped.
+          </Trans>,
         )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          <Trans id="deathknight.shared.covenants.swarmingMist.suggestion.recommended">
+            &lt;{formatPercentage(recommended)}% is recommended
+          </Trans>,
+        ),
     );
   }
 
@@ -162,7 +164,7 @@ class SwarmingMist extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.shared.covenants.swarmingMist.tooltip">
             <strong>Runic Power Gained:</strong> {this.rpGained} RP gained ({this.rpWasted} wasted)
             <br />
             <strong>Estimated Damage from RP Gained:</strong> {formatNumber(this.rpBonusDamage)}{' '}
@@ -170,7 +172,7 @@ class SwarmingMist extends Analyzer {
             {formatNumber(this.rpSpenderAverageDamage)} damage)
             <br />
             <strong>Swarming Mist Damage:</strong> {formatNumber(this.swarmingMistDamage)} damage
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.SWARMING_MIST.id}>

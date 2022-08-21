@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -13,12 +14,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         timelineSortIndex: 3,
       },
       {
         spell: SPELLS.WHIRLWIND.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -29,7 +30,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 180,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         timelineSortIndex: 3,
       },
       {
@@ -38,7 +39,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         timelineSortIndex: 3,
       },
       {
@@ -47,7 +48,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         buffSpellId: SPELLS.REVENGE_FREE_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         timelineSortIndex: 3,
       },
       {
@@ -55,7 +56,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         buffSpellId: SPELLS.PUNISH_DEBUFF.id,
         cooldown: (haste) => 9 / (1 + haste),
         timelineSortIndex: 1,
@@ -65,7 +66,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 6 / (1 + haste)
+        category: SPELL_CATEGORY.ROTATIONAL, // 6 / (1 + haste)
         cooldown: (haste) => {
           if (
             combatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) &&
@@ -84,14 +85,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IGNORE_PAIN.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.IGNORE_PAIN.id,
         timelineSortIndex: 4,
       },
       {
         spell: SPELLS.SHIELD_BLOCK.id,
         buffSpellId: SPELLS.SHIELD_BLOCK_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) => 16 / (1 + haste),
         charges: 2,
         timelineSortIndex: 5,
@@ -99,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMORALIZING_SHOUT.id,
         buffSpellId: SPELLS.DEMORALIZING_SHOUT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
         },
@@ -109,20 +110,20 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LAST_STAND.id,
         buffSpellId: SPELLS.LAST_STAND.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(SPELLS.BOLSTER_TALENT.id) ? 180 - 60 : 180,
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.SHIELD_WALL.id,
         buffSpellId: SPELLS.SHIELD_WALL.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 240,
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.SPELL_REFLECTION.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 25,
       },
       {
@@ -130,7 +131,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 45 - 15 : 45,
       },
       {
@@ -138,33 +139,33 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
       },
       {
         spell: SPELLS.TAUNT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
       },
       {
         spell: SPELLS.BERSERKER_RAGE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         timelineSortIndex: 8,
       },
       {
         spell: SPELLS.PUMMEL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
       },
       {
         spell: SPELLS.VICTORY_RUSH.id,
         enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: SPELLS.STORM_BOLT_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -173,7 +174,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AVATAR_TALENT.id,
         buffSpellId: SPELLS.AVATAR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -183,7 +184,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IMPENDING_VICTORY_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -192,7 +193,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAVAGER_TALENT_PROTECTION.id,
         enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -206,7 +207,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DRAGON_ROAR_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -215,7 +216,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RALLYING_CRY.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -224,7 +225,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHARGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -234,7 +235,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.INTERVENE_CAST.id, SPELLS.INTERVENE_BUFF.id, SPELLS.INTERVENE_CHARGE.id],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -245,7 +246,7 @@ class Abilities extends CoreAbilities {
       // covenant magic
       {
         spell: SPELLS.CONQUERORS_BANNER.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },

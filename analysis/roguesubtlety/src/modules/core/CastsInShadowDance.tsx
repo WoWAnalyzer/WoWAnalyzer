@@ -17,6 +17,7 @@ class CastsInShadowDance extends CastsInStealthBase {
   BONUS_SUBTERFUGE_CASTS: number = 1;
 
   static dependencies = {
+    ...CastsInStealthBase.dependencies,
     damageTracker: DamageTracker,
     danceDamageTracker: DanceDamageTracker,
   };

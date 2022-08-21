@@ -67,6 +67,7 @@ class ElementalBlast extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
         label="Uptime"
@@ -88,7 +89,6 @@ class ElementalBlast extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default ElementalBlast;

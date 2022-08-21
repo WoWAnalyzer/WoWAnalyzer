@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //Affliction
   COLD_EMBRACE: {
     id: 339576,
@@ -123,5 +125,5 @@ const conduits = {
     name: 'Exhumed Soul',
     icon: 'ability_ardenweald_warlock',
   },
-} as const;
+});
 export default conduits;

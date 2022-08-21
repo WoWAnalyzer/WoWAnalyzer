@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   KYRIAN: {
     id: 321076,
     name: 'Kyrian',
@@ -19,5 +21,5 @@ const covenants = {
     id: 321078,
     icon: 'ui_sigil_necrolord',
   },
-} as const;
+});
 export default covenants;

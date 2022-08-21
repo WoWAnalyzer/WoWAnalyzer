@@ -4,6 +4,7 @@ import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const BASE_MASTERY_PERCENTAGE = 0.1;
@@ -37,7 +38,7 @@ class WeaponsOfOrder extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 120,
       // WoO is hasted for WW/BrM for whatever fucking reason
       gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { base: 1000 },

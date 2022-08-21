@@ -4,6 +4,7 @@ import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
 class HammerofWrath extends ExecuteHelper {
@@ -33,7 +34,7 @@ class HammerofWrath extends ExecuteHelper {
     //FIXME added reduction from legendary when we can get that info
     (options.abilities as Abilities).add({
       spell: SPELLS.HAMMER_OF_WRATH.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: (haste) => 7.5 / (1 + haste),
       gcd: {
         base: 1500,
@@ -41,7 +42,7 @@ class HammerofWrath extends ExecuteHelper {
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency:
-          this.owner.characterProfile?.spec === SPECS.HOLY_PALADIN ? 0.65 : 0.85,
+          this.owner.characterProfile?.spec === SPECS.HOLY_PALADIN.specName ? 0.65 : 0.85,
         maxCasts: () => this.maxCasts,
       },
     });

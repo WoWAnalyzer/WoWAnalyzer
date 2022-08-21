@@ -1,4 +1,6 @@
-const enchants = {
+import { spellIndexableList } from '../Spell';
+
+const enchants = spellIndexableList({
   ASCENDED_VIGOR: {
     id: 309622,
     name: 'Ascended Vigor',
@@ -174,6 +176,6 @@ const enchants = {
     name: 'Tenet of Versatility',
     icon: 'trade_engraving',
   },
-} as const;
+});
 
 export default enchants;

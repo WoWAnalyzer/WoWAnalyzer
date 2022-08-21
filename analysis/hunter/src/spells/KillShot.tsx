@@ -3,6 +3,7 @@ import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -40,7 +41,7 @@ class KillShot extends ExecuteHelper {
 
     (options.abilities as Abilities).add({
       spell: this.activeKillShotSpell.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       charges: this.selectedCombatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) ? 2 : 1,
       cooldown: 10,
       gcd: {

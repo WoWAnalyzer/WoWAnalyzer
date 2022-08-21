@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   VESPER_TOTEM: {
     id: 324386,
@@ -63,5 +65,5 @@ const covenants = {
     icon: 'ability_revendreth_shaman',
   },
   //endregion
-} as const;
+});
 export default covenants;

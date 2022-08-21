@@ -1,11 +1,19 @@
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  FightEndEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Events, { EventType } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,7 +24,7 @@ const GROUND_EFFECT_DURATION = 10000;
 
 class DeathsDue extends Analyzer {
   //for stack trackers
-  stacks = [];
+  stacks: number[][] = [];
   lastStack = 0;
   lastStackUpdate = this.owner.fight.start_time;
 
@@ -28,8 +36,8 @@ class DeathsDue extends Analyzer {
 
   strPerStack = 0.02; // 2% str buff per stack, overridden in constructor if legendary
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     const active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     this.active = active;
     if (!active) {
@@ -66,7 +74,7 @@ class DeathsDue extends Analyzer {
     this.addEventListener(Events.fightend, this.handleWindow);
   }
 
-  handleStacks(event) {
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | FightEndEvent) {
     this.stacks[this.lastStack].push(event.timestamp - this.lastStackUpdate);
     if (event.type === EventType.FightEnd) {
       return;
@@ -76,7 +84,7 @@ class DeathsDue extends Analyzer {
     this.lastStack = currentStacks(event);
   }
 
-  handleWindow(event) {
+  handleWindow(event: CastEvent | FightEndEvent) {
     //if you do not get full DD window due to fight ending, remove the previous window from the counter and don't worry about preparing next
     if (this.groundEffectEnd > this.owner.fight.end_time) {
       this.casts -= 1;
@@ -86,11 +94,13 @@ class DeathsDue extends Analyzer {
     //calculate previous cast
     if (this.casts !== 0) {
       //don't calculate previous window if this is the first cast
-      let stackGain = this.selectedCombatant.getBuffStacks(
+      const stackGain = this.selectedCombatant.getBuffStacks(
         SPELLS.DEATHS_DUE_BUFF.id,
         this.groundEffectEnd,
       );
-      this.wastedCasts += stackGain === 0;
+      if (stackGain === 0) {
+        this.wastedCasts += 1;
+      }
       this.stacksGained += stackGain;
     }
 
@@ -103,8 +113,8 @@ class DeathsDue extends Analyzer {
 
   get averageStacks() {
     let avgStacks = 0;
-    this.stacks.forEach((elem, index) => {
-      avgStacks += (elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
+    this.stacks.forEach((durations, index) => {
+      avgStacks += (durations.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
     });
     return avgStacks;
   }
@@ -126,38 +136,38 @@ class DeathsDue extends Analyzer {
   get buffSpellLinks() {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       return (
-        <>
+        <Trans id="deathknight.shared.covenants.deathsDue.buffSpellLinks.blood">
           for <SpellLink id={SPELLS.HEART_STRIKE.id} />
-        </>
+        </Trans>
       );
     }
 
     if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGHT) {
       return (
-        <>
+        <Trans id="deathknight.shared.covenants.deathsDue.buffSpellLinks.frost">
           for <SpellLink id={SPELLS.OBLITERATE_CAST.id} />
-        </>
+        </Trans>
       );
     }
 
     if (this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id)) {
       return (
-        <>
+        <Trans id="deathknight.shared.covenants.deathsDue.buffSpellLinks.clawingShadows">
           and up to four <SpellLink id={SPELLS.FESTERING_WOUND.id} /> for{' '}
-          <SpellLink id={SPELLS.CLAWING_SHADOWS.id} />
-        </>
+          <SpellLink id={SPELLS.CLAWING_SHADOWS_TALENT.id} />
+        </Trans>
       );
     }
 
     return (
-      <>
+      <Trans id="deathknight.shared.covenants.deathsDue.buffSpellLinks.default">
         and up to four <SpellLink id={SPELLS.FESTERING_WOUND.id} /> for{' '}
         <SpellLink id={SPELLS.SCOURGE_STRIKE.id} />
-      </>
+      </Trans>
     );
   }
 
-  get uptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -165,11 +175,11 @@ class DeathsDue extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get wastedCastsSuggestionThresholds() {
+  get wastedCastsSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedCasts / this.casts,
       isGreaterThan: {
@@ -177,48 +187,54 @@ class DeathsDue extends Analyzer {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <>
+          <Trans id="deathknight.shared.covenants.deathsDue.suggestion.blood.suggestion">
             Your Death's Due uptime can be improved. Try to keep it up at all times even if you have
             to hard-cast <SpellLink id={SPELLS.DEATHS_DUE.id} /> without a{' '}
             <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> proc.
-          </>,
+          </Trans>,
         )
           .icon(SPELLS.DEATHS_DUE.icon)
           .actual(
-            t({
-              id: 'deathknight.blood.suggestions.deathsDue.efficiency',
-              message: `${formatPercentage(actual)}% Death's Due uptime`,
-            }),
+            <Trans id="deathknight.shared.covenants.deathsDue.suggestion.blood.actual">
+              {formatPercentage(actual)}% Death's Due uptime
+            </Trans>,
           )
-          .recommended(`>${formatPercentage(recommended)}% is recommended`),
+          .recommended(
+            <Trans id="deathknight.shared.covenants.deathsDue.suggestion.blood.recommended">
+              &gt;{formatPercentage(recommended)}% is recommended
+            </Trans>,
+          ),
       );
     }
     when(this.wastedCastsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.shared.covenants.deathsDue.suggestion.default.suggestion">
           You had wasted <SpellLink id={SPELLS.DEATHS_DUE.id} /> casts without any strength gain.
           Consider pooling up to three runes {this.buffSpellLinks} casts before the Death's Due
           window.
           <br /> Additionally, try to cast <SpellLink id={SPELLS.DEATHS_DUE.id} /> when you expect
           minimal movement for the next ~10 seconds
-        </>,
+        </Trans>,
       )
         .icon(SPELLS.DEATHS_DUE.icon)
         .actual(
-          t({
-            id: 'deathknight.shared.suggestions.deathsDue.efficiency',
-            message: `${this.wastedCasts} out of ${this.casts} casts were wasted`,
-          }),
+          <Trans id="deathknight.shared.covenants.deathsDue.suggestion.default.actual">
+            {this.wastedCasts} out of {this.casts} casts were wasted
+          </Trans>,
         )
-        .recommended(`${recommended} recommended`),
+        .recommended(
+          <Trans id="deathknight.shared.covenants.deathsDue.suggestion.default.recommended">
+            {recommended} recommended
+          </Trans>,
+        ),
     );
   }
   statistic() {
@@ -227,18 +243,18 @@ class DeathsDue extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.shared.covenants.deathsDue.statistic.tooltip">
             <strong>Uptime: </strong> {formatPercentage(this.uptime)}% <br />
             <strong>Avg Stacks Throughout Encounter: </strong> {this.averageStacks.toFixed(1)}
             <br />
             <strong>Avg Stacks Per Cast: </strong> {this.avgStackPerCast.toFixed(1)}
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.DEATHS_DUE.id}>
-          <>
+          <Trans id="deathknight.shared.covenants.deathsDue.statistic.value">
             {formatPercentage(this.averageStrength)} % <small>Average Strength</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

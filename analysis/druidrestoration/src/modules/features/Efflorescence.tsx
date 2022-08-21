@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
+import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
@@ -11,7 +12,7 @@ import UptimeStackBar from 'parser/ui/UptimeStackBar';
 const DURATION_MS = 30000;
 const TICK_MS = 2000;
 const EFFLO_TARGETS = 3;
-const EFFLO_COLOR = '#bb0044';
+const EFFLO_COLOR = '#881144';
 const EFFLO_BG_COLOR = '#cca7a7';
 
 class Efflorescence extends Analyzer {
@@ -108,6 +109,23 @@ class Efflorescence extends Analyzer {
 
   get uptimePercent() {
     return this.uptime / this.owner.fightDuration;
+  }
+
+  /** Guide subsection describing the proper usage of Efflorescence */
+  get guideSubsection(): JSX.Element {
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} />
+          </b>{' '}
+          is extremely mana efficient if you're good about placing it where raiders are standing.
+          Under the boss is usually a safe bet. While it's acceptable to let it drop during heavy
+          movement, you should otherwise aim to keep it active at all times.
+        </p>
+        {this.subStatistic()}
+      </SubSection>
+    );
   }
 
   get suggestionThresholds() {

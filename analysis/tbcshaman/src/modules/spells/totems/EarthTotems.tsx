@@ -6,6 +6,7 @@ import BaseTotem from './BaseTotem';
 
 export default class EarthTotems extends BaseTotem {
   static dependencies = {
+    ...BaseTotem.dependencies,
     totemTracker: TotemTracker,
   };
 

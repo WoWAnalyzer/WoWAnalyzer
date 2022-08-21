@@ -1,5 +1,4 @@
-import safeMerge from 'common/safeMerge';
-
+import safeMerge from '../../../../safeMerge';
 import ITEMS from './items';
 import MECHANICS from './mechanics';
 

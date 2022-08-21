@@ -38,14 +38,14 @@ interface Config {
    */
   patchCompatibility:
     | null
-    | '8.0.1'
-    | '8.1'
-    | '8.1.5'
-    | '8.2.5'
-    | '8.3'
     | '9.0.1'
     | '9.0.2'
     | '9.0.5'
+    | '9.1.0'
+    | '9.1.5'
+    | '9.2.0'
+    | '9.2.5'
+    | '9.2.7'
     | string;
   /**
    * Whether support for the spec is only partial and some important elements
@@ -97,6 +97,11 @@ interface Config {
   timeline?: {
     separateCastBars: number[][];
   };
+  /**
+   * Indicates if the new Guide or old Checklist should be the default starting tab.
+   * If omitted, Checklist will be the default.
+   */
+  guideDefault?: boolean;
 
   // Don't change values for props below this line;
   /**

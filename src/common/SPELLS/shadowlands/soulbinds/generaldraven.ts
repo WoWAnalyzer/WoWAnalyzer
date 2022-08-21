@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   SERVICE_IN_STONE: {
     id: 340159,
     name: 'Service In Stone',
@@ -54,5 +56,5 @@ const soulbindPowers = {
     name: 'Battlefield Presence',
     icon: 'achievement_bg_3flagcap_nodeaths',
   },
-} as const;
+});
 export default soulbindPowers;

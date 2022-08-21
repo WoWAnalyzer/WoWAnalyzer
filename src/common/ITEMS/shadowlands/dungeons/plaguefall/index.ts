@@ -6,9 +6,9 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Globgrog
   SLIMY_CONSUMPTIVE_ORGAN: {
     id: 178770,
@@ -32,5 +32,5 @@ const items: ItemList = {
     icon: 'inv_alchemy_elixir_03',
   },
   //endregion
-};
+});
 export default items;

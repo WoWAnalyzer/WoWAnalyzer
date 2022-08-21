@@ -1,27 +1,23 @@
 import { Trans } from '@lingui/macro';
-import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
-import Abilities from 'parser/core/modules/Abilities';
+import { SpellLink, TooltipElement } from 'interface';
+import SPELL_CATEGORY, { getSpellCategoryName } from 'parser/core/SPELL_CATEGORY';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 
 interface Props {
   abilities: AbilityCastEfficiency[];
-  categories: {
-    [key: string]: string;
-  };
 }
 
-const CastEfficiency = ({ categories, abilities }: Props) => (
+const CastEfficiency = ({ abilities }: Props) => (
   <div style={{ marginTop: -10, marginBottom: -10 }}>
     <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
-      {Object.keys(categories)
-        .filter((key) => abilities.some((item) => item.ability.category === categories[key])) // filters out categories without any abilities in it
-        .filter((key) => categories[key] !== Abilities.SPELL_CATEGORIES.HIDDEN) //filters out the hidden category
-        .map((key) => (
-          <tbody key={key}>
+      {Object.values(SPELL_CATEGORY)
+        .filter((category) => abilities.some((item) => item.ability.category === category)) // filters out categories without any abilities in it
+        .filter((category) => category !== SPELL_CATEGORY.HIDDEN) //filters out the hidden category
+        .map((category) => (
+          <tbody key={category}>
             <tr>
               <th>
-                <b>{categories[key]}</b>
+                <b>{getSpellCategoryName(category as SPELL_CATEGORY)}</b>
               </th>
               <th className="text-center">
                 <TooltipElement
@@ -63,7 +59,7 @@ const CastEfficiency = ({ categories, abilities }: Props) => (
               <th />
             </tr>
             {abilities
-              .filter((item) => item.ability.category === categories[key])
+              .filter((item) => item.ability.category === category)
               .map(({ ability, cpm, casts, maxCasts, efficiency, canBeImproved }) => {
                 const name = ability.castEfficiency.name || ability.name;
                 return (

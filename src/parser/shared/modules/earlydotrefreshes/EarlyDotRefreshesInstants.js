@@ -66,7 +66,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
 
   // Extend this for your spec and return the name of the buff that allowed you to move while casting at the time of the cast.
   couldCastWhileMoving(castEvent, endEvent) {
-    return false;
+    return '';
   }
 
   // Extend this for your spec and return an array with the names of the fillers available at the time of the cast.

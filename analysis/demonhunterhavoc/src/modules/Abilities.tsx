@@ -3,6 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import {
   FEL_DEFENDER_COOLDOWN_REDUCTION,
@@ -17,21 +18,21 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMONS_BITE.id,
         enabled: !combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CHAOS_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ANNIHILATION.id, //During meta chaos strike becomes this.
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -39,8 +40,8 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.BLADE_DANCE.id, SPELLS.DEATH_SWEEP.id],
         category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id)
-          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-          : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+          ? SPELL_CATEGORY.ROTATIONAL
+          : SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste) =>
           combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)
             ? 9 / (1 + haste)
@@ -69,7 +70,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FELBLADE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         // Felblade cooldown can be reset by Demon Bite. But it's CD reset is not any event, so can't track if it resets or not.
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
@@ -86,7 +87,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IMMOLATION_AURA.id,
         // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 30 / (1 + haste),
         gcd: {
           base: 1500,
@@ -101,7 +102,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ESSENCE_BREAK_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -120,7 +121,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 9 / (1 + haste),
         gcd: {
           base: 1500,
@@ -131,8 +132,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_RUSH_CAST.id, //Becomes a rotational ability with the Momentum talent
         category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id)
-          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-          : Abilities.SPELL_CATEGORIES.UTILITY,
+          ? SPELL_CATEGORY.ROTATIONAL
+          : SPELL_CATEGORY.UTILITY,
         charges: 2,
         cooldown: 10,
         gcd: {
@@ -151,8 +152,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VENGEFUL_RETREAT.id, //Becomes a rotational ability with the Momentum talent
         category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id)
-          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
-          : Abilities.SPELL_CATEGORIES.UTILITY,
+          ? SPELL_CATEGORY.ROTATIONAL
+          : SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? 20 : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
@@ -169,7 +170,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GLIDE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 1.5,
         gcd: null,
       },
@@ -178,7 +179,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_ERUPTION_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -186,7 +187,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAOS_NOVA.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
         gcd: {
           base: 1500,
@@ -194,13 +195,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DISRUPT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: null,
       },
       {
         spell: SPELLS.CONSUME_MAGIC.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
         gcd: {
           base: 1500,
@@ -208,13 +209,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TORMENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: null,
       },
       {
         spell: SPELLS.IMPRISON.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -222,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPECTRAL_SIGHT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -232,7 +233,7 @@ class Abilities extends CoreAbilities {
       // DPS Cooldowns
       {
         spell: SPELLS.EYE_BEAM.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -252,7 +253,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_BARRAGE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -266,7 +267,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GLAIVE_TEMPEST_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: (haste) => 20 / (1 + haste),
         gcd: {
           base: 1500,
@@ -287,7 +288,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SINFUL_BRAND.id,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasConduitBySpellID(SPELLS.INCREASED_SCRUTINY.id)
           ? 45 -
             INCREASED_SCRUTINY_SCALING[combatant.conduitRankBySpellID(SPELLS.INCREASED_SCRUTINY.id)]
@@ -307,7 +308,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -324,18 +325,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FODDER_TO_THE_FLAME.id,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.THE_HUNT.id,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -353,7 +345,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -362,13 +354,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLESHCRAFT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.SOULSHAPE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -378,7 +370,7 @@ class Abilities extends CoreAbilities {
       // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
         cooldown: 300,
         gcd: null, // Logs track the "landing" spell which is not on GCD
@@ -392,7 +384,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLUR.id,
         buffSpellId: SPELLS.BLUR.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id)
           ? 60 -
             FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]
@@ -401,7 +393,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DARKNESS.id,
         buffSpellId: SPELLS.DARKNESS.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -410,7 +402,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.NETHERWALK_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: {
           base: 1500,

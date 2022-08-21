@@ -7719,7 +7719,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "103.88798904603671%",
+                      "width": "103.55970410940604%",
                     }
                   }
                 />
@@ -7734,7 +7734,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              103.89%
+              103.56%
             </td>
             <td
               style={
@@ -12764,7 +12764,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  103.89%
+                  103.56%
                    
                    
                 </div>
