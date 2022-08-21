@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/shaman';
+import SPELLS from 'common/SPELLS';
 
 export const STORMSTRIKE_CAST_SPELLS = [SPELLS.STORMSTRIKE_CAST, SPELLS.WINDSTRIKE_CAST];
 

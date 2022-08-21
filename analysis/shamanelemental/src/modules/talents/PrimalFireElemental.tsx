@@ -66,7 +66,7 @@ class PrimalFireElemental extends Analyzer {
   }
 
   get unusedSpells() {
-    return Object.keys(this.usedCasts).filter((key) => !this.usedCasts[Number(key)]);
+    return Object.keys(this.usedCasts).filter((spellId) => !this.usedCasts[Number(spellId)]);
   }
 
   get unusedSpellsSuggestionTresholds() {
@@ -90,7 +90,9 @@ class PrimalFireElemental extends Analyzer {
   }
 
   suggestions(when: When) {
-    const unusedSpellsString = this.unusedSpells.map((x) => SPELLS[x].name).join(', ');
+    const unusedSpellsString = this.unusedSpells
+      .map((spellId) => SPELLS[Number(spellId)].name)
+      .join(', ');
     when(this.unusedSpellsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>

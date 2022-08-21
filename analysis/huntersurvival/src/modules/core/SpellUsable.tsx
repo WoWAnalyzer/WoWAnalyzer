@@ -15,10 +15,12 @@ class SpellUsable extends CoreSpellUsable {
   lastPotentialTriggerForBombReset: CastEvent | null = null;
   bombResets = 0;
 
+  raptorMongooseVariantsIds = RAPTOR_MONGOOSE_VARIANTS.map((spell) => spell.id);
+
   onCast(event: CastEvent) {
     const spell = event.ability;
     if (this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT)) {
-      if (RAPTOR_MONGOOSE_VARIANTS.includes(spell)) {
+      if (this.raptorMongooseVariantsIds.includes(spell.guid)) {
         this.lastPotentialTriggerForBombReset = event;
       } else if (spell.guid === SPELLS.WILDFIRE_BOMB.id) {
         this.lastPotentialTriggerForBombReset = null;

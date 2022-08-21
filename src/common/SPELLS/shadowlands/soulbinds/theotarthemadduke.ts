@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   SOOTHING_SHADE: {
     // FIXME Soothing Shade has 2 other spell IDs on wowhead, but I haven't seen them show up in a log yet.
     //   Leaving them un-added here so we'll get console logs if they do decide to show up
@@ -41,5 +43,5 @@ const soulbindPowers = {
     name: 'Wasteland Propriety',
     icon: 'inv_drink_23',
   },
-} as const;
+});
 export default soulbindPowers;

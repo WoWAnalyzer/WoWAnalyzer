@@ -34,7 +34,9 @@ class Superstrain extends Analyzer {
     }
 
     if (
-      [SPECS.BLOOD_DEATH_KNIGHT, SPECS.UNHOLY_DEATH_KNIGHT].includes(this.selectedCombatant.spec)
+      [SPECS.BLOOD_DEATH_KNIGHT.id, SPECS.UNHOLY_DEATH_KNIGHT.id].includes(
+        this.selectedCombatant.specId,
+      )
     ) {
       this.addEventListener(Events.resourcechange, this._onFrostFeverEnergize);
     }
@@ -69,7 +71,7 @@ class Superstrain extends Analyzer {
       );
     }
 
-    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGH) {
+    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGHT) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE),
         this._onVirulentPlagueDamage,
@@ -148,7 +150,7 @@ class Superstrain extends Analyzer {
       return SPELLS.DEATH_COIL.name;
     }
 
-    return SPELLS.FROST_STRIKE.name;
+    return SPELLS.FROST_STRIKE_CAST.name;
   }
 
   statistic() {

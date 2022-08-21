@@ -1,7 +1,7 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   TIGER_DASH_TALENT: { id: 252216, name: 'Tiger Dash', icon: 'ability_druid_dash_orange' },
   RENEWAL_TALENT: { id: 108238, name: 'Renewal', icon: 'spell_nature_natureblessing' },
@@ -233,5 +233,6 @@ const talents: SpellList = {
     name: 'Soul of the Forest',
     icon: 'ability_druid_manatree',
   },
-};
+});
+
 export default talents;

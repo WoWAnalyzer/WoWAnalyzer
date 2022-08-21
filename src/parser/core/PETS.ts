@@ -1,7 +1,13 @@
-import indexById from 'common/indexById';
+import indexById, { asIndexableList } from 'common/indexById';
+
+interface Pet {
+  id: number;
+  name: string;
+  baseDuration?: number;
+}
 
 // TODO: Refactor this away: you should make a spec specific PETS file in your spec folder
-const PETS = {
+const PETS = asIndexableList<Pet>()({
   // TODO: revise Warlock pets
   WILDIMP_ON_DREADSTALKER: {
     id: 99737,
@@ -60,6 +66,6 @@ const PETS = {
     id: 53006,
     name: 'Spirit Link Totem',
   },
-};
+});
 
-export default indexById(PETS);
+export default indexById<Pet, typeof PETS>(PETS);

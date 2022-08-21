@@ -1,5 +1,3 @@
-import { ItemList } from 'common/ITEMS/Item';
-
 /**
  * NAME: {
  *   id: number,
@@ -7,7 +5,9 @@ import { ItemList } from 'common/ITEMS/Item';
  *   icon: string,
  * },
  */
-const items: ItemList = {
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({
   VANTUS_RUNE_SEPULCHER: {
     id: 187805,
     name: 'Vantus Rune',
@@ -28,5 +28,5 @@ const items: ItemList = {
     name: 'Darkmoon Deck: Voracity',
     icon: 'inv_inscription_darkmooncard_voracity',
   },
-};
+});
 export default items;

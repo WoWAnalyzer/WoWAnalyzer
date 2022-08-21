@@ -15,7 +15,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const ITEM: Item = ITEMS.SHADOWGRASP_TOTEM;
 const SUMMON_SPELL: Spell = SPELLS.SHADOWGRASP_TOTEM_SUMMON;
 const DAMAGE_SPELL: Spell = SPELLS.SHADOWGRASP_TOTEM_DAMAGE;
 const HEAL_SPELL: Spell = SPELLS.SHADOWGRASP_TOTEM_HEAL;
@@ -63,9 +62,9 @@ class ShadowgraspTotem extends Analyzer {
   ) {
     super(options);
 
-    this.item = this.selectedCombatant.getItem(ITEM.id)!;
-    if (this.item == null) {
-      this.active = false;
+    this.item = this.selectedCombatant.getTrinket(ITEMS.SHADOWGRASP_TOTEM.id)!;
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.SHADOWGRASP_TOTEM.id);
+    if (!this.active) {
       return;
     }
 

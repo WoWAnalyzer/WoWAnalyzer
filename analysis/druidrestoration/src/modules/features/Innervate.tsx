@@ -149,7 +149,7 @@ class Innervate extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.INNERVATE} /> ({formatNumber(cast.manaSaved)} mana saved)
+              <SpellLink id={SPELLS.INNERVATE.id} /> ({formatNumber(cast.manaSaved)} mana saved)
             </>
           );
 

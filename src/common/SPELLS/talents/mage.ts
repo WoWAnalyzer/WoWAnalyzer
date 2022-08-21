@@ -1,7 +1,7 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel', manaCost: 1000 },
   INCANTERS_FLOW_TALENT: {
@@ -153,5 +153,6 @@ const talents: SpellList = {
     name: 'Enlightened',
     icon: 'ability_socererking_arcanefortification',
   },
-};
+});
+
 export default talents;

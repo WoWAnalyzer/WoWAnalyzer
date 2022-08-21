@@ -95,7 +95,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
     ) {
       return SPELLS.STELLAR_DRIFT.name;
     }
-    return false;
+    return '';
   }
 
   suggestions(when: When) {

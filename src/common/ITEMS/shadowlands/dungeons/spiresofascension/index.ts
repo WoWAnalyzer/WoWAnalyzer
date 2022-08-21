@@ -6,9 +6,9 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Kin-tara
 
   //endregion
@@ -41,5 +41,5 @@ const items: ItemList = {
     icon: 'inv_polearm_2h_bastionarchon_d_01',
   },
   //endregion
-};
+});
 export default items;

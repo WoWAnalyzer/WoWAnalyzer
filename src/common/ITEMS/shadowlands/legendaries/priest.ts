@@ -1,6 +1,6 @@
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from '../../Item';
 
-const legendaries: ItemList = {
+const legendaries = itemIndexableList({
   //region Discipline
   //endregion
   //region Holy
@@ -9,5 +9,5 @@ const legendaries: ItemList = {
   //endregion
   //region Shared
   //endregion
-};
+});
 export default legendaries;

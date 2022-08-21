@@ -65,12 +65,12 @@ class ManifestedTwilight extends Analyzer {
         this.shadowMendCasts[index].extendedByEvangPre2P = true;
       }
 
+      // `SPELLS.SHADOW_MEND.atonementDuration` doesn't exist anymore
+      // but Wowhead mentions Atonement being applied by Shadow Mend to be 15s
       if (
-        event.timestamp > shadowMend.cast.timestamp + SPELLS.SHADOW_MEND.atonementDuration &&
+        event.timestamp > shadowMend.cast.timestamp + SHADOW_MEND_ATONEMENT_DUR &&
         event.timestamp <
-          shadowMend.cast.timestamp +
-            SPELLS.SHADOW_MEND.atonementDuration +
-            MANIFESTED_TWILIGHT_BONUS_MS
+          shadowMend.cast.timestamp + SHADOW_MEND_ATONEMENT_DUR + MANIFESTED_TWILIGHT_BONUS_MS
       ) {
         this.shadowMendCasts[index].extendedByEvangIn2P = true;
       }

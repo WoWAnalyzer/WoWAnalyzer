@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   ELYSIAN_DECREE: {
     id: 327839,
@@ -71,5 +73,5 @@ const covenants = {
     icon: 'ability_revendreth_demonhunter',
   },
   //endregion
-} as const;
+});
 export default covenants;

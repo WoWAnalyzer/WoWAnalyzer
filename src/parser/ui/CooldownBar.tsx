@@ -36,7 +36,7 @@ export function CooldownBar({
     (a) => a.spell === spellId || (Array.isArray(a.spell) && a.spell.includes(spellId)),
   );
   const abilityCdMs = (ability ? ability.cooldown : 0) * 1000;
-  const abilityName = ability ? ability.name : 'Unknown Ability';
+  const abilityName = ability?.name || 'Unknown Ability';
   let lastAvailable = info.fightStart;
   const endCooldowns: UpdateSpellUsableEvent[] = events.filter(
     (event): event is UpdateSpellUsableEvent =>

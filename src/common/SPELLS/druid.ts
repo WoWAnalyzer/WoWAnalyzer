@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Shared
   HIBERNATE: {
     id: 2637,
@@ -943,6 +945,6 @@ const spells = {
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },
-} as const;
+});
 
 export default spells;

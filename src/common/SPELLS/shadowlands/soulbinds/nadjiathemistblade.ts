@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   EUPHORIA: {
     id: 331937,
     name: 'Euphoria',
@@ -39,5 +41,5 @@ const soulbindPowers = {
     name: 'Familiar Predicaments',
     icon: 'sha_ability_rogue_bloodyeye_nightmare',
   },
-} as const;
+});
 export default soulbindPowers;

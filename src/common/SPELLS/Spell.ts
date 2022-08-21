@@ -1,3 +1,5 @@
+import { asIndexableList } from '../indexById';
+
 export default interface Spell {
   id: number;
   name: string;
@@ -38,5 +40,8 @@ export interface Enchant extends Spell {
 }
 
 export interface SpellList<T extends Spell = Spell> {
-  [key: string]: T;
+  [key: string | number]: T;
 }
+
+export const spellIndexableList = asIndexableList<Spell>();
+export const enchantIndexableList = asIndexableList<Enchant>();

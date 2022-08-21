@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //region Covenants Conduits
   COURAGEOUS_ASCENSION: {
     //kyrian
@@ -198,5 +200,5 @@ const conduits = {
     icon: 'spell_deathknight_gnaw_ghoul',
   },
   //endregion
-} as const;
+});
 export default conduits;

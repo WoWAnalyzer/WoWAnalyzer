@@ -9,7 +9,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
+const damagingCasts = [SPELLS.EYE_OF_THE_STORM, SPELLS.WIND_GUST, SPELLS.CALL_LIGHTNING];
 const CALL_LIGHTNING_BUFF_DURATION = 15000;
 
 class PrimalStormElemental extends Analyzer {
@@ -45,7 +45,7 @@ class PrimalStormElemental extends Analyzer {
   }
 
   get unusedSpells() {
-    return Object.keys(this.usedCasts).filter((key) => !this.usedCasts[Number(key)]);
+    return Object.keys(this.usedCasts).filter((spellId) => !this.usedCasts[Number(spellId)]);
   }
 
   get unusedSpellsSuggestionTresholds() {
@@ -89,7 +89,9 @@ class PrimalStormElemental extends Analyzer {
   }
 
   suggestions(when: When) {
-    const unusedSpellsString = this.unusedSpells.map((x) => SPELLS[x].name).join(', ');
+    const unusedSpellsString = this.unusedSpells
+      .map((spellId) => SPELLS[Number(spellId)].name)
+      .join(', ');
 
     when(this.unusedSpellsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

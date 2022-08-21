@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //region Kyrian
   REVERBERATION: {
     id: 341264,
@@ -61,5 +63,5 @@ const conduits = {
     icon: 'ability_hunter_cobrashot',
   },
   //endregion
-} as const;
+});
 export default conduits;

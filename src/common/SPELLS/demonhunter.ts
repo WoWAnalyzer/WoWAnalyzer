@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Common Spells
   GLIDE: {
     id: 131347,
@@ -436,6 +438,6 @@ const spells = {
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-} as const;
+});
 
 export default spells;

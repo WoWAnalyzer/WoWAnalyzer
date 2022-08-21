@@ -1,4 +1,3 @@
-import { ItemList } from 'common/ITEMS/Item';
 import safeMerge from 'common/safeMerge';
 
 import Crafted from './crafted';
@@ -11,7 +10,7 @@ import Potions from './potions';
 import PVP from './pvp';
 import Raids from './raids';
 
-const items: ItemList = safeMerge(
+const items = safeMerge(
   Crafted,
   Dungeons,
   Enchants,
@@ -22,5 +21,6 @@ const items: ItemList = safeMerge(
   PVP,
   Raids,
 );
+
 export default items;
 export * from './tier';

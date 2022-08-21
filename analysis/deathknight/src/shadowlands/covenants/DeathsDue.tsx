@@ -154,7 +154,7 @@ class DeathsDue extends Analyzer {
       return (
         <Trans id="deathknight.shared.covenants.deathsDue.buffSpellLinks.clawingShadows">
           and up to four <SpellLink id={SPELLS.FESTERING_WOUND.id} /> for{' '}
-          <SpellLink id={SPELLS.CLAWING_SHADOWS.id} />
+          <SpellLink id={SPELLS.CLAWING_SHADOWS_TALENT.id} />
         </Trans>
       );
     }

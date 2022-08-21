@@ -1,3 +1,4 @@
+import { spellIndexableList } from '../../Spell';
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -11,7 +12,7 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const conduits = {
+const conduits = spellIndexableList({
   ...DEATH_KNIGHT,
   ...DEMON_HUNTER,
   ...DRUID,
@@ -24,5 +25,5 @@ const conduits = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
-} as const;
+});
 export default conduits;

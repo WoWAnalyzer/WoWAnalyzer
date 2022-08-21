@@ -1,3 +1,4 @@
+import { spellIndexableList } from '../../Spell';
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -13,7 +14,7 @@ import SHARED from './shared';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const covenants = {
+const covenants = spellIndexableList({
   ...DEATH_KNIGHT,
   ...DEMON_HUNTER,
   ...DRUID,
@@ -28,6 +29,6 @@ const covenants = {
   ...WARLOCK,
   ...WARRIOR,
   ...SHARED,
-} as const;
+});
 
 export default covenants;
