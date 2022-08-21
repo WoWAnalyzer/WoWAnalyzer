@@ -62,6 +62,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 21), "Overhauled cooldown tracker and added preliminary support for cooldown rate changes", Sref),
   change(date(2022, 8, 19), <>Convert Abilities.SPELL_CATEGORIES to SPELL_CATEGORY enum.</>, Vetyst),
   change(date(2022, 8, 18), "Updated lint-staged to newest version", Putro),
   change(date(2022, 8, 18), 'Resolve calculating the average item level if no gear is equipped.', Vetyst),
