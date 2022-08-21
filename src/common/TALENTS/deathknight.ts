@@ -15,7 +15,7 @@ const talents = createTalentList({
     name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
     maxRanks: 1,
-    runicpowerCost: 45,
+    runicPowerCost: 45,
   },
   RAISE_DEAD_TALENT: { id: 46585, name: 'Raise Dead', icon: 'inv_pet_ghoul', maxRanks: 1 },
   MIND_FREEZE_TALENT: {
@@ -23,7 +23,7 @@ const talents = createTalentList({
     name: 'Mind Freeze',
     icon: 'spell_deathknight_mindfreeze',
     maxRanks: 1,
-    runicpowerCost: 0,
+    runicPowerCost: 0,
   },
   ANTI_MAGIC_SHELL_TALENT: {
     id: 48707,
@@ -73,7 +73,7 @@ const talents = createTalentList({
     name: 'Sacrificial Pact',
     icon: 'spell_shadow_corpseexplode',
     maxRanks: 1,
-    runicpowerCost: 20,
+    runicPowerCost: 20,
   },
   CONTROL_UNDEAD_TALENT: {
     id: 111673,
@@ -475,7 +475,7 @@ const talents = createTalentList({
     name: 'Bonestorm',
     icon: 'achievement_boss_lordmarrowgar',
     maxRanks: 1,
-    runicpowerCost: 10,
+    runicPowerCost: 10,
   },
   EVERLASTING_BOND_BLOOD_TALENT: {
     id: 377668,
@@ -528,7 +528,7 @@ const talents = createTalentList({
     name: 'Epidemic',
     icon: 'spell_nature_nullifydisease',
     maxRanks: 1,
-    runicpowerCost: 30,
+    runicPowerCost: 30,
   },
   HARBINGER_OF_DOOM_UNHOLY_TALENT: {
     id: 276023,
@@ -697,7 +697,7 @@ const talents = createTalentList({
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
     maxRanks: 1,
-    runicpowerCost: 25,
+    runicPowerCost: 25,
   },
   OBLITERATE_FROST_TALENT: {
     id: 49020,
@@ -816,7 +816,7 @@ const talents = createTalentList({
     name: 'Chill Streak',
     icon: 'spell_frost_piercing_chill',
     maxRanks: 1,
-    runicpowerCost: 40,
+    runicPowerCost: 40,
   },
   MURDEROUS_EFFICIENCY_FROST_TALENT: {
     id: 207061,
@@ -865,7 +865,7 @@ const talents = createTalentList({
     name: 'Glacial Advance',
     icon: 'ability_hunter_glacialtrap',
     maxRanks: 1,
-    runicpowerCost: 30,
+    runicPowerCost: 30,
   },
   BONEGRINDER_FROST_TALENT: {
     id: 377098,
@@ -917,7 +917,7 @@ const talents = createTalentList({
     name: 'Breath of Sindragosa',
     icon: 'spell_deathknight_breathofsindragosa',
     maxRanks: 1,
-    runicpowerCost: 0,
+    runicPowerCost: 0,
   },
 });
 

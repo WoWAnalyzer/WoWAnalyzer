@@ -265,7 +265,7 @@ const talents = createTalentList({
     name: 'Seraphim',
     icon: 'ability_paladin_seraphim',
     maxRanks: 1,
-    holypowerCost: 3,
+    holyPowerCost: 3,
   },
   THE_MAD_PARAGON_TALENT: {
     id: 337594,
@@ -286,7 +286,7 @@ const talents = createTalentList({
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
     maxRanks: 1,
-    holypowerCost: 3,
+    holyPowerCost: 3,
   },
   ART_OF_WAR_RETRIBUTION_TALENT: {
     id: 267344,
@@ -504,7 +504,7 @@ const talents = createTalentList({
     name: "Justicar's Vengeance",
     icon: 'spell_holy_retributionaura',
     maxRanks: 1,
-    holypowerCost: 5,
+    holyPowerCost: 5,
   },
   RELENTLESS_INQUISITOR_RETRIBUTION_TALENT: {
     id: 383388,
@@ -530,7 +530,7 @@ const talents = createTalentList({
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
     maxRanks: 1,
-    holypowerCost: 3,
+    holyPowerCost: 3,
   },
   ASHES_TO_ASHES_RETRIBUTION_TALENT: {
     id: 383276,
@@ -607,7 +607,7 @@ const talents = createTalentList({
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 1,
-    holypowerCost: 3,
+    holyPowerCost: 3,
   },
   ILLUMINATION_HOLY_TALENT: {
     id: 387993,
