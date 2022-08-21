@@ -19,6 +19,6 @@ export interface Talent extends Spell {
   spellType?: EntryType;
 }
 
-type EnforceObjectType<T> = <V extends T>(v: V) => V;
+type EnforceObjectType<T> = (v: T) => T;
 
 export const createTalentList: EnforceObjectType<{ [key: string]: Talent }> = (v) => v;

@@ -29,6 +29,8 @@ export default interface Spell {
   soulShardsCost?: number;
   //Warrior
   rageCost?: number;
+  //Evoker
+  essenceCost?: number;
 }
 
 export interface LegendarySpell extends Spell {

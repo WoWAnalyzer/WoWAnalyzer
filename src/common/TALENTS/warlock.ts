@@ -205,7 +205,7 @@ const talents = createTalentList({
     name: 'Soulburn',
     icon: 'spell_warlock_soulburn',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   PACT_OF_THE_IMP_MOTHER_TALENT: {
     id: 387001,
@@ -263,7 +263,7 @@ const talents = createTalentList({
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
     maxRanks: 1,
-    soulshardsCost: 2,
+    soulShardsCost: 2,
   },
   CONFLAGRATE_DESTRUCTION_TALENT: {
     id: 17962,
@@ -290,7 +290,7 @@ const talents = createTalentList({
     name: 'Rain of Fire',
     icon: 'spell_shadow_rainoffire',
     maxRanks: 1,
-    soulshardsCost: 3,
+    soulShardsCost: 3,
   },
   BACKDRAFT_DESTRUCTION_TALENT: {
     id: 196406,
@@ -384,7 +384,7 @@ const talents = createTalentList({
     name: 'Shadowburn',
     icon: 'spell_shadow_scourgebuild',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   DECIMATION_DESTRUCTION_TALENT: {
     id: 387176,
@@ -539,7 +539,7 @@ const talents = createTalentList({
     name: 'Malefic Rapture',
     icon: 'ability_warlock_everlastingaffliction',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   UNSTABLE_AFFLICTION_AFFLICTION_TALENT: {
     id: 316099,
@@ -553,7 +553,7 @@ const talents = createTalentList({
     name: 'Seed of Corruption',
     icon: 'spell_shadow_seedofdestruction',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   NIGHTFALL_AFFLICTION_TALENT: {
     id: 108558,
@@ -622,7 +622,7 @@ const talents = createTalentList({
     name: 'Vile Taint',
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   PHANTOM_SINGULARITY_AFFLICTION_TALENT: {
     id: 205179,
@@ -660,7 +660,7 @@ const talents = createTalentList({
     name: 'Soul Swap',
     icon: 'ability_warlock_soulswap',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   HARVESTER_OF_SOULS_AFFLICTION_TALENT: {
     id: 201424,
@@ -685,7 +685,7 @@ const talents = createTalentList({
     name: 'Deathbolt',
     icon: 'spell_fire_twilightflamebolt',
     maxRanks: 1,
-    soulshardsCost: 3,
+    soulShardsCost: 3,
   },
   SOUL_ROT_AFFLICTION_TALENT: {
     id: 386997,
@@ -787,7 +787,7 @@ const talents = createTalentList({
     name: 'Call Dreadstalkers',
     icon: 'spell_warlock_calldreadstalkers',
     maxRanks: 1,
-    soulshardsCost: 2,
+    soulShardsCost: 2,
   },
   DEMONBOLT_DEMONOLOGY_TALENT: {
     id: 264178,
@@ -825,7 +825,7 @@ const talents = createTalentList({
     name: 'Summon Vilefiend',
     icon: 'inv_argusfelstalkermount',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   DEMONIC_STRENGTH_DEMONOLOGY_TALENT: {
     id: 267171,
@@ -838,7 +838,7 @@ const talents = createTalentList({
     name: 'Bilescourge Bombers',
     icon: 'ability_hunter_pet_bat',
     maxRanks: 1,
-    soulshardsCost: 2,
+    soulShardsCost: 2,
   },
   FROM_THE_SHADOWS_DEMONOLOGY_TALENT: {
     id: 267170,
@@ -900,7 +900,7 @@ const talents = createTalentList({
     name: 'Grimoire: Felguard',
     icon: 'spell_shadow_summonfelguard',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   BLOODBOUND_IMPS_DEMONOLOGY_TALENT: {
     id: 387349,
@@ -968,7 +968,7 @@ const talents = createTalentList({
     name: 'Nether Portal',
     icon: 'inv_netherportal',
     maxRanks: 1,
-    soulshardsCost: 1,
+    soulShardsCost: 1,
   },
   SUMMON_DEMONIC_TYRANT_DEMONOLOGY_TALENT: {
     id: 265187,
